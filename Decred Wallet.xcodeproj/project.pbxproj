@@ -1,0 +1,449 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DDA3E26E20292EF900C83D18 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA3E26D20292EF900C83D18 /* AppDelegate.swift */; };
+		DDA3E27020292EF900C83D18 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA3E26F20292EF900C83D18 /* ViewController.swift */; };
+		DDA3E27320292EF900C83D18 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDA3E27120292EF900C83D18 /* Main.storyboard */; };
+		DDA3E27520292EF900C83D18 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DDA3E27420292EF900C83D18 /* Assets.xcassets */; };
+		DDA3E27820292EF900C83D18 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDA3E27620292EF900C83D18 /* LaunchScreen.storyboard */; };
+		DDA3E28320292EF900C83D18 /* Decred_WalletTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA3E28220292EF900C83D18 /* Decred_WalletTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DDA3E27F20292EF900C83D18 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DDA3E26220292EF900C83D18 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DDA3E26920292EF900C83D18;
+			remoteInfo = "Decred Wallet";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		DDA3E26A20292EF900C83D18 /* Decred Wallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Decred Wallet.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DDA3E26D20292EF900C83D18 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DDA3E26F20292EF900C83D18 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		DDA3E27220292EF900C83D18 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DDA3E27420292EF900C83D18 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DDA3E27720292EF900C83D18 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		DDA3E27920292EF900C83D18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DDA3E27E20292EF900C83D18 /* Decred WalletTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Decred WalletTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DDA3E28220292EF900C83D18 /* Decred_WalletTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decred_WalletTests.swift; sourceTree = "<group>"; };
+		DDA3E28420292EF900C83D18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DDA3E26720292EF900C83D18 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DDA3E27B20292EF900C83D18 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DDA3E26120292EF900C83D18 = {
+			isa = PBXGroup;
+			children = (
+				DDA3E26C20292EF900C83D18 /* Decred Wallet */,
+				DDA3E28120292EF900C83D18 /* Decred WalletTests */,
+				DDA3E26B20292EF900C83D18 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DDA3E26B20292EF900C83D18 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DDA3E26A20292EF900C83D18 /* Decred Wallet.app */,
+				DDA3E27E20292EF900C83D18 /* Decred WalletTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DDA3E26C20292EF900C83D18 /* Decred Wallet */ = {
+			isa = PBXGroup;
+			children = (
+				DDA3E26D20292EF900C83D18 /* AppDelegate.swift */,
+				DDA3E26F20292EF900C83D18 /* ViewController.swift */,
+				DDA3E27120292EF900C83D18 /* Main.storyboard */,
+				DDA3E27420292EF900C83D18 /* Assets.xcassets */,
+				DDA3E27620292EF900C83D18 /* LaunchScreen.storyboard */,
+				DDA3E27920292EF900C83D18 /* Info.plist */,
+			);
+			path = "Decred Wallet";
+			sourceTree = "<group>";
+		};
+		DDA3E28120292EF900C83D18 /* Decred WalletTests */ = {
+			isa = PBXGroup;
+			children = (
+				DDA3E28220292EF900C83D18 /* Decred_WalletTests.swift */,
+				DDA3E28420292EF900C83D18 /* Info.plist */,
+			);
+			path = "Decred WalletTests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DDA3E26920292EF900C83D18 /* Decred Wallet */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DDA3E28720292EF900C83D18 /* Build configuration list for PBXNativeTarget "Decred Wallet" */;
+			buildPhases = (
+				DDA3E26620292EF900C83D18 /* Sources */,
+				DDA3E26720292EF900C83D18 /* Frameworks */,
+				DDA3E26820292EF900C83D18 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Decred Wallet";
+			productName = "Decred Wallet";
+			productReference = DDA3E26A20292EF900C83D18 /* Decred Wallet.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DDA3E27D20292EF900C83D18 /* Decred WalletTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DDA3E28A20292EF900C83D18 /* Build configuration list for PBXNativeTarget "Decred WalletTests" */;
+			buildPhases = (
+				DDA3E27A20292EF900C83D18 /* Sources */,
+				DDA3E27B20292EF900C83D18 /* Frameworks */,
+				DDA3E27C20292EF900C83D18 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DDA3E28020292EF900C83D18 /* PBXTargetDependency */,
+			);
+			name = "Decred WalletTests";
+			productName = "Decred WalletTests";
+			productReference = DDA3E27E20292EF900C83D18 /* Decred WalletTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DDA3E26220292EF900C83D18 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0910;
+				LastUpgradeCheck = 0910;
+				ORGANIZATIONNAME = Macsleven;
+				TargetAttributes = {
+					DDA3E26920292EF900C83D18 = {
+						CreatedOnToolsVersion = 9.1;
+						ProvisioningStyle = Automatic;
+					};
+					DDA3E27D20292EF900C83D18 = {
+						CreatedOnToolsVersion = 9.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = DDA3E26920292EF900C83D18;
+					};
+				};
+			};
+			buildConfigurationList = DDA3E26520292EF900C83D18 /* Build configuration list for PBXProject "Decred Wallet" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DDA3E26120292EF900C83D18;
+			productRefGroup = DDA3E26B20292EF900C83D18 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DDA3E26920292EF900C83D18 /* Decred Wallet */,
+				DDA3E27D20292EF900C83D18 /* Decred WalletTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DDA3E26820292EF900C83D18 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DDA3E27820292EF900C83D18 /* LaunchScreen.storyboard in Resources */,
+				DDA3E27520292EF900C83D18 /* Assets.xcassets in Resources */,
+				DDA3E27320292EF900C83D18 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DDA3E27C20292EF900C83D18 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DDA3E26620292EF900C83D18 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DDA3E27020292EF900C83D18 /* ViewController.swift in Sources */,
+				DDA3E26E20292EF900C83D18 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DDA3E27A20292EF900C83D18 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DDA3E28320292EF900C83D18 /* Decred_WalletTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DDA3E28020292EF900C83D18 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DDA3E26920292EF900C83D18 /* Decred Wallet */;
+			targetProxy = DDA3E27F20292EF900C83D18 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		DDA3E27120292EF900C83D18 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DDA3E27220292EF900C83D18 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		DDA3E27620292EF900C83D18 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DDA3E27720292EF900C83D18 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DDA3E28520292EF900C83D18 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		DDA3E28620292EF900C83D18 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DDA3E28820292EF900C83D18 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = LYZ95J7356;
+				INFOPLIST_FILE = "Decred Wallet/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.macsleven.Decred-Wallet";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DDA3E28920292EF900C83D18 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = LYZ95J7356;
+				INFOPLIST_FILE = "Decred Wallet/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.macsleven.Decred-Wallet";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		DDA3E28B20292EF900C83D18 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = LYZ95J7356;
+				INFOPLIST_FILE = "Decred WalletTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.macsleven.Decred-WalletTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Decred Wallet.app/Decred Wallet";
+			};
+			name = Debug;
+		};
+		DDA3E28C20292EF900C83D18 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = LYZ95J7356;
+				INFOPLIST_FILE = "Decred WalletTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.macsleven.Decred-WalletTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Decred Wallet.app/Decred Wallet";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DDA3E26520292EF900C83D18 /* Build configuration list for PBXProject "Decred Wallet" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DDA3E28520292EF900C83D18 /* Debug */,
+				DDA3E28620292EF900C83D18 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DDA3E28720292EF900C83D18 /* Build configuration list for PBXNativeTarget "Decred Wallet" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DDA3E28820292EF900C83D18 /* Debug */,
+				DDA3E28920292EF900C83D18 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DDA3E28A20292EF900C83D18 /* Build configuration list for PBXNativeTarget "Decred WalletTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DDA3E28B20292EF900C83D18 /* Debug */,
+				DDA3E28C20292EF900C83D18 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DDA3E26220292EF900C83D18 /* Project object */;
+}
