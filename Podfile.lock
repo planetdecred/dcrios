@@ -1,12 +1,21 @@
 PODS:
+  - Realm (3.3.2):
+    - Realm/Headers (= 3.3.2)
+  - Realm/Headers (3.3.2)
+  - RealmSwift (3.3.2):
+    - Realm (= 3.3.2)
   - SlideMenuControllerSwift (4.0.0)
 
 DEPENDENCIES:
+  - Realm
+  - RealmSwift
   - SlideMenuControllerSwift
 
 SPEC CHECKSUMS:
+  Realm: d927fbf66df5532cfafc08afb5f7e53ded37b894
+  RealmSwift: 4e903a494e05d866581d69ad6f7e7b879d446baf
   SlideMenuControllerSwift: 021d6318201c53d4d4d3710517d43d6c556c7dd0
 
-PODFILE CHECKSUM: 42b9794c98d628d87fb21db82ad6f2699a0970fc
+PODFILE CHECKSUM: a633127454ae478a6ebb71b5f6416b9552554da9
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.3.1
