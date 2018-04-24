@@ -8,6 +8,11 @@
 
 import Foundation
 
-class DcrRpc {
+protocol WalletServiceProtocol {
+    func generateSeed() -> String?
+    func createWallet(userame login:String, password passwd:String, seed:String, onSuccess:(()->Void)?, onFailure:((_ error:NSError?)->Void)?)
+}
+
+public enum DecredRpc {
     
 }

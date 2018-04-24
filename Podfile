@@ -5,8 +5,7 @@ target 'Decred Wallet' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
   pod 'SlideMenuControllerSwift'
-  pod 'Realm'
-  pod 'RealmSwift'
+
   # Pods for Decred Wallet
 
   target 'Decred WalletTests' do
@@ -14,4 +13,12 @@ target 'Decred Wallet' do
     # Pods for testing
   end
 
+end
+
+target 'DcrRPC' do
+  use_frameworks!
+  pod 'ProtocolBuffers-Swift'
+  pod 'Realm'
+  pod 'RealmSwift'
+  
 end

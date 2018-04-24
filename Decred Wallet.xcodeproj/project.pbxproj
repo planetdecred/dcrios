@@ -19,7 +19,11 @@
 		28F0CE902088B1AF003AC958 /* DcrRPC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28F0CE7B2088B1AF003AC958 /* DcrRPC.framework */; };
 		28F0CE912088B1AF003AC958 /* DcrRPC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 28F0CE7B2088B1AF003AC958 /* DcrRPC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		28F0CE9A2088B53C003AC958 /* DcrRpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F0CE992088B53C003AC958 /* DcrRpc.swift */; };
+		28F0CEA2208C8233003AC958 /* api.proto in Resources */ = {isa = PBXBuildFile; fileRef = 28F0CEA1208C8233003AC958 /* api.proto */; };
+		28FD1BD3208F6CC80051F58F /* Walletrpc.Api.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FD1BD2208F6CC80051F58F /* Walletrpc.Api.proto.swift */; };
+		6999E5EFCAA54915071DAC65 /* Pods_DcrRPC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70B954DDDF5D13651E512DC1 /* Pods_DcrRPC.framework */; };
 		6EB1CBCA57BCFDCAE235DE5F /* Pods_Decred_WalletTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64EE6CCD1962A2204F4B2A9D /* Pods_Decred_WalletTests.framework */; };
+		80C98A1D6007BF15CAAF94D9 /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD1BD0208F6C9A0051F58F /* Pods_Decred_Wallet.framework */; };
 		DD41975F202F99A90044F068 /* SubContentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD41975E202F99A90044F068 /* SubContentsViewController.swift */; };
 		DD419763202F9B570044F068 /* UITableViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD419762202F9B570044F068 /* UITableViewExtension.swift */; };
 		DD4C89D92038EC12003FEA0C /* DropMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4C89D82038CDBC003FEA0C /* DropMenuButton.swift */; };
@@ -111,9 +115,20 @@
 		28F0CE8A2088B1AF003AC958 /* DcrRPCTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DcrRPCTests.swift; sourceTree = "<group>"; };
 		28F0CE8C2088B1AF003AC958 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		28F0CE992088B53C003AC958 /* DcrRpc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DcrRpc.swift; sourceTree = "<group>"; };
+		28F0CEA1208C8233003AC958 /* api.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = api.proto; sourceTree = "<group>"; };
+		28FD1BC1208E659A0051F58F /* Pods_Decred_Wallet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Decred_Wallet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		28FD1BC3208E660C0051F58F /* ProtocolBuffers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ProtocolBuffers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		28FD1BC5208E667F0051F58F /* Pods_Decred_Wallet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Decred_Wallet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		28FD1BC7208E70350051F58F /* ProtocolBuffers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ProtocolBuffers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		28FD1BCA208F18C90051F58F /* Realm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Realm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		28FD1BCB208F18C90051F58F /* RealmSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		28FD1BD0208F6C9A0051F58F /* Pods_Decred_Wallet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Decred_Wallet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		28FD1BD2208F6CC80051F58F /* Walletrpc.Api.proto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Walletrpc.Api.proto.swift; path = gen/Walletrpc.Api.proto.swift; sourceTree = "<group>"; };
 		2C59C3E0BD7A56A91BB0B9B1 /* Pods-Decred Wallet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.debug.xcconfig"; sourceTree = "<group>"; };
 		31D8BF868913ED4E2A4B0577 /* Pods-Decred Wallet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.release.xcconfig"; path = "Pods/Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.release.xcconfig"; sourceTree = "<group>"; };
+		3B5BF9F3BAA568B55E7E4672 /* Pods-DcrRPC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DcrRPC.release.xcconfig"; path = "Pods/Target Support Files/Pods-DcrRPC/Pods-DcrRPC.release.xcconfig"; sourceTree = "<group>"; };
 		64EE6CCD1962A2204F4B2A9D /* Pods_Decred_WalletTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Decred_WalletTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		70B954DDDF5D13651E512DC1 /* Pods_DcrRPC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DcrRPC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1A97C56BC75512DA55A8A70 /* Pods-Decred WalletTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred WalletTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Decred WalletTests/Pods-Decred WalletTests.release.xcconfig"; sourceTree = "<group>"; };
 		DD41975E202F99A90044F068 /* SubContentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubContentsViewController.swift; sourceTree = "<group>"; };
 		DD419762202F9B570044F068 /* UITableViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewExtension.swift; sourceTree = "<group>"; };
@@ -150,6 +165,7 @@
 		DDB89426202F955F002F85EE /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		DDB89428202F95AC002F85EE /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		E75324D536F1BD91575D0609 /* Pods_Decred_Wallet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Decred_Wallet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB21C92FC45F22E7237100DC /* Pods-DcrRPC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DcrRPC.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DcrRPC/Pods-DcrRPC.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +173,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6999E5EFCAA54915071DAC65 /* Pods_DcrRPC.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -174,6 +191,7 @@
 			files = (
 				28F0CE902088B1AF003AC958 /* DcrRPC.framework in Frameworks */,
 				1E3D73D7EA02D2D2D3CD052C /* Pods_Decred_Wallet.framework in Frameworks */,
+				80C98A1D6007BF15CAAF94D9 /* Pods_Decred_Wallet.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -200,6 +218,8 @@
 		28F0CE7C2088B1AF003AC958 /* DcrRPC */ = {
 			isa = PBXGroup;
 			children = (
+				28FD1BD2208F6CC80051F58F /* Walletrpc.Api.proto.swift */,
+				28F0CEA1208C8233003AC958 /* api.proto */,
 				28F0CE7D2088B1AF003AC958 /* DcrRPC.h */,
 				28F0CE992088B53C003AC958 /* DcrRpc.swift */,
 				28F0CE7E2088B1AF003AC958 /* Info.plist */,
@@ -219,8 +239,16 @@
 		5300E0A95A9FA022A08F903E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				28FD1BD0208F6C9A0051F58F /* Pods_Decred_Wallet.framework */,
+				28FD1BCA208F18C90051F58F /* Realm.framework */,
+				28FD1BCB208F18C90051F58F /* RealmSwift.framework */,
+				28FD1BC7208E70350051F58F /* ProtocolBuffers.framework */,
+				28FD1BC5208E667F0051F58F /* Pods_Decred_Wallet.framework */,
+				28FD1BC3208E660C0051F58F /* ProtocolBuffers.framework */,
+				28FD1BC1208E659A0051F58F /* Pods_Decred_Wallet.framework */,
 				E75324D536F1BD91575D0609 /* Pods_Decred_Wallet.framework */,
 				64EE6CCD1962A2204F4B2A9D /* Pods_Decred_WalletTests.framework */,
+				70B954DDDF5D13651E512DC1 /* Pods_DcrRPC.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -338,6 +366,8 @@
 				31D8BF868913ED4E2A4B0577 /* Pods-Decred Wallet.release.xcconfig */,
 				109877DFD2DABA7636DA7B92 /* Pods-Decred WalletTests.debug.xcconfig */,
 				A1A97C56BC75512DA55A8A70 /* Pods-Decred WalletTests.release.xcconfig */,
+				FB21C92FC45F22E7237100DC /* Pods-DcrRPC.debug.xcconfig */,
+				3B5BF9F3BAA568B55E7E4672 /* Pods-DcrRPC.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -360,10 +390,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 28F0CE922088B1AF003AC958 /* Build configuration list for PBXNativeTarget "DcrRPC" */;
 			buildPhases = (
+				2DD86DFB1F0F22E155D4B8AB /* [CP] Check Pods Manifest.lock */,
 				28F0CE762088B1AF003AC958 /* Sources */,
 				28F0CE772088B1AF003AC958 /* Frameworks */,
 				28F0CE782088B1AF003AC958 /* Headers */,
 				28F0CE792088B1AF003AC958 /* Resources */,
+				765BD29868D93A7C811A9FBF /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -493,6 +525,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28F0CEA2208C8233003AC958 /* api.proto in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -540,6 +573,24 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		2DD86DFB1F0F22E155D4B8AB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DcrRPC-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		424862C24AFB403E92165137 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -555,6 +606,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Decred WalletTests/Pods-Decred WalletTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		765BD29868D93A7C811A9FBF /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DcrRPC/Pods-DcrRPC-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		88FE9A5EBEA8DA5D7D45387C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -562,15 +628,17 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SlideMenuControllerSwift/SlideMenuControllerSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/ProtocolBuffers-Swift/ProtocolBuffers.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/SlideMenuControllerSwift/SlideMenuControllerSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SlideMenuControllerSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProtocolBuffers.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SlideMenuControllerSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -635,6 +703,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28FD1BD3208F6CC80051F58F /* Walletrpc.Api.proto.swift in Sources */,
 				28F0CE9A2088B53C003AC958 /* DcrRpc.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -738,6 +807,7 @@
 /* Begin XCBuildConfiguration section */
 		28F0CE932088B1AF003AC958 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FB21C92FC45F22E7237100DC /* Pods-DcrRPC.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -765,6 +835,7 @@
 		};
 		28F0CE942088B1AF003AC958 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3B5BF9F3BAA568B55E7E4672 /* Pods-DcrRPC.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
