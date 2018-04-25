@@ -8,7 +8,7 @@
 
 import SlideMenuControllerSwift
 import CoreData
-
+import Mobilewallet
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // create viewController code...
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         AppContext.instance.storage = Storage()
-        
+        AppContext.instance.walletManager = MobilewalletLibWallet(NSHomeDirectory() + "/Documentation")
         let mainViewController = storyboard.instantiateViewController(withIdentifier: "OverviewViewController") as! OverviewViewController
         let leftViewController = storyboard.instantiateViewController(withIdentifier: "LeftViewController") as! LeftViewController
         let rightViewController = storyboard.instantiateViewController(withIdentifier: "RightViewController") as! RightViewController

@@ -79,7 +79,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create or recover your wallet and start managing your decred." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XFn-Mz-kMw">
-                                <rect key="frame" x="11.5" y="194" width="297.5" height="67"/>
+                                <rect key="frame" x="11" y="194" width="297.5" height="67"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="67" id="4KC-Zs-MRL"/>
                                 </constraints>
@@ -97,8 +97,7 @@
                                     <color key="titleColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="onCreateWallet:" destination="UPI-XT-xn1" eventType="touchUpInside" id="GpE-wd-MeN"/>
-                                    <segue destination="eoW-KE-o6O" kind="showDetail" action="showViewController:sender:" id="OFP-Nu-4sY"/>
+                                    <segue destination="eoW-KE-o6O" kind="show" id="zoL-IW-pnL"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="version" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RVq-jG-yeM">
@@ -112,9 +111,6 @@
                                 <state key="normal" title="RECOVER WALLET" backgroundImage="bg-button">
                                     <color key="titleColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
-                                <connections>
-                                    <action selector="onRecoverWallet:" destination="UPI-XT-xn1" eventType="touchUpInside" id="rq1-XW-5CS"/>
-                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.042801953852176666" green="0.11419142037630081" blue="0.24708577990531921" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -149,10 +145,10 @@
             </objects>
             <point key="canvasLocation" x="1725" y="-50"/>
         </scene>
-        <!--View Controller-->
+        <!--Generated Seed Display View Controller-->
         <scene sceneID="S9M-rX-2SB">
             <objects>
-                <viewController id="eoW-KE-o6O" sceneMemberID="viewController">
+                <viewController id="eoW-KE-o6O" customClass="GeneratedSeedDisplayViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ozH-zT-ShC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -246,15 +242,18 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="WZx-qh-N33"/>
                     </view>
+                    <connections>
+                        <outlet property="txSeed" destination="mgi-a2-ujI" id="9hs-eT-NrH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dlZ-Qo-sO5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2612" y="-435"/>
         </scene>
-        <!--View Controller-->
+        <!--Seed Checkup View Controller-->
         <scene sceneID="BMV-xg-Xae">
             <objects>
-                <viewController id="KO7-XW-r8q" sceneMemberID="viewController">
+                <viewController id="KO7-XW-r8q" customClass="SeedCheckupViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jXf-Lc-GiC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -268,7 +267,7 @@
                                 <color key="textColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter your seed..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1Xy-rp-N5U">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter your seed..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1Xy-rp-N5U" customClass="DropDownSearchField" customModule="Decred_Wallet" customModuleProvider="target">
                                 <rect key="frame" x="16" y="90" width="288" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="F9y-KS-w8e"/>
@@ -285,17 +284,16 @@
                                 </constraints>
                             </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="8nc-dQ-Nbw">
-                                <rect key="frame" x="16" y="176" width="288" height="58"/>
+                                <rect key="frame" x="16" y="223" width="288" height="58"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="58" id="XnN-aS-DKW"/>
                                 </constraints>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nQb-ir-Ekw">
-                                <rect key="frame" x="244" y="248" width="60" height="25"/>
+                                <rect key="frame" x="244" y="295" width="60" height="25"/>
                                 <color key="backgroundColor" red="0.180392161" green="0.35010853069999998" blue="0.85882353779999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="Fbe-mf-Ycg"/>
@@ -312,7 +310,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ICL-hd-KPs">
-                                <rect key="frame" x="176" y="248" width="60" height="25"/>
+                                <rect key="frame" x="176" y="295" width="60" height="25"/>
                                 <color key="backgroundColor" red="0.180392161" green="0.35010853069999998" blue="0.85882353779999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="5fB-cX-77N"/>
@@ -329,7 +327,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XKT-qv-i3N">
-                                <rect key="frame" x="108" y="248" width="60" height="25"/>
+                                <rect key="frame" x="108" y="295" width="60" height="25"/>
                                 <color key="backgroundColor" red="0.180392161" green="0.35010853069999998" blue="0.85882353779999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="AwT-Q6-Lom"/>
@@ -357,7 +355,7 @@
                             <constraint firstItem="JNm-Uw-RFL" firstAttribute="trailing" secondItem="Nzb-6d-udv" secondAttribute="trailing" constant="16" id="Nsa-rm-N74"/>
                             <constraint firstItem="nQb-ir-Ekw" firstAttribute="trailing" secondItem="8nc-dQ-Nbw" secondAttribute="trailing" id="OSj-ZK-ujk"/>
                             <constraint firstItem="itD-cA-c5L" firstAttribute="centerX" secondItem="JNm-Uw-RFL" secondAttribute="centerX" id="SW8-as-KlS"/>
-                            <constraint firstItem="8nc-dQ-Nbw" firstAttribute="top" secondItem="itD-cA-c5L" secondAttribute="bottom" constant="53" id="Tau-ue-dQF"/>
+                            <constraint firstItem="8nc-dQ-Nbw" firstAttribute="top" secondItem="itD-cA-c5L" secondAttribute="bottom" constant="100" id="Tau-ue-dQF"/>
                             <constraint firstItem="1Xy-rp-N5U" firstAttribute="leading" secondItem="JNm-Uw-RFL" secondAttribute="leading" constant="16" id="Uqb-72-ram"/>
                             <constraint firstItem="8nc-dQ-Nbw" firstAttribute="centerX" secondItem="JNm-Uw-RFL" secondAttribute="centerX" id="W3D-fs-CJ0"/>
                             <constraint firstItem="ICL-hd-KPs" firstAttribute="leading" secondItem="XKT-qv-i3N" secondAttribute="trailing" constant="8" id="XVs-by-Joc"/>
@@ -372,10 +370,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="JNm-Uw-RFL"/>
                     </view>
+                    <connections>
+                        <outlet property="tfSeedCheckWord" destination="1Xy-rp-N5U" id="7Gl-BU-SRa"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kfj-rg-8v3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3474" y="-435"/>
+            <point key="canvasLocation" x="3472.5" y="-435"/>
         </scene>
         <!--Left View Controller-->
         <scene sceneID="Nq8-8X-A5v">
@@ -717,13 +718,13 @@
                                                 <rect key="frame" x="0.0" y="53" width="304" height="26"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Estimate Size:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3A1-af-gM6">
-                                                        <rect key="frame" x="0.0" y="0.5" width="152" height="26"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="152" height="26"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 byte" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Az-wY-eol">
-                                                        <rect key="frame" x="152" y="0.5" width="152" height="26"/>
+                                                        <rect key="frame" x="152" y="0.0" width="152" height="26"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
