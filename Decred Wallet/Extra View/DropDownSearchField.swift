@@ -16,6 +16,8 @@ protocol DropDownResultsListProtocol : UITableViewDataSource, UITableViewDelegat
 
 protocol SearchDataSourceProtocol {
     var itemsToSearch:[String]?{get set}
+    var dropDownListPlaceholder: UIView? {get set}
+    func clean()
 }
 
 class DropDownListDataSource: NSObject,  DropDownResultsListProtocol {
@@ -30,6 +32,7 @@ class DropDownListDataSource: NSObject,  DropDownResultsListProtocol {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
         cell.textLabel?.text = items?[indexPath.row]
+        cell.textLabel?.isUserInteractionEnabled = true
         return cell
     }
     
@@ -38,9 +41,16 @@ class DropDownListDataSource: NSObject,  DropDownResultsListProtocol {
         let item = items?[index] ?? ""
         onSelect?(index, item)
     }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
 }
 
 class DropDownSearchField: UITextField, UITextFieldDelegate, SearchDataSourceProtocol {
+
+    
+    var dropDownListPlaceholder: UIView?
     var itemsToSearch: [String]?
     var dropDownTable: UITableView?
     var searchResult: DropDownResultsListProtocol?
@@ -49,21 +59,35 @@ class DropDownSearchField: UITextField, UITextFieldDelegate, SearchDataSourcePro
         super.init(coder: aDecoder)
         delegate = self
         searchResult = DropDownListDataSource()
+        searchResult?.cellIdentifier = "dropDownCell"
+        self.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         setupDropdownTable()
     }
     
     fileprivate func setupDropdownTable() {
-        dropDownTable = UITableView(frame: CGRect(x: 0, y: frame.size.height, width: frame.size.width, height: 50))
-        dropDownTable?.delegate = searchResult
+        dropDownTable = UITableView(frame: CGRect(x: frame.origin.x, y: frame.size.height + frame.origin.y, width: frame.size.width, height: 150), style: .plain)
+        dropDownTable?.register(UITableViewCell.self, forCellReuseIdentifier: (searchResult?.cellIdentifier)!)
         dropDownTable?.dataSource = searchResult
+        dropDownTable?.delegate = searchResult
         dropDownTable?.isHidden = true
-        self.addSubview(dropDownTable!)
+        dropDownTable?.allowsSelection = true
+        dropDownTable?.isUserInteractionEnabled = true
     }
     
-    func textFieldDidBeginEditing(_ textField: UITextField){
-        searchResult?.items = itemsToSearch?.filter({ return $0.hasPrefix(textField.text!) })
+    func clean() {
+        searchResult?.items = []
+        text = ""
+        dropDownTable?.isHidden = true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        dropDownListPlaceholder?.addSubview(dropDownTable!)
+    }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        searchResult?.items = itemsToSearch?.filter({ return ($0.hasPrefix(textField.text!) && (textField.text?.count)! > 3) })
+        dropDownTable?.frame.size.height = CGFloat((searchResult?.items?.count)!) * CGFloat(44.0);
         dropDownTable?.isHidden = (searchResult?.items?.count)! == 0
         dropDownTable?.reloadData()
     }
-    
 }

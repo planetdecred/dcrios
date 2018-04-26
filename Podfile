@@ -7,6 +7,7 @@ target 'Decred Wallet' do
   pod 'SlideMenuControllerSwift'
   pod 'Realm'
   pod 'RealmSwift'
+  pod 'MBProgressHUD'
   # Pods for Decred Wallet
 
   target 'Decred WalletTests' do

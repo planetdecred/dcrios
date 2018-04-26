@@ -12,6 +12,7 @@
 		28E5EB6B20908AC0002DCCB5 /* GeneratedSeedDisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E5EB6A20908AC0002DCCB5 /* GeneratedSeedDisplayViewController.swift */; };
 		28E5EB6D20908AE0002DCCB5 /* SeedCheckupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E5EB6C20908AE0002DCCB5 /* SeedCheckupViewController.swift */; };
 		28E5EB712090DAB3002DCCB5 /* DropDownSearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E5EB702090DAB3002DCCB5 /* DropDownSearchField.swift */; };
+		28E5EB7320924632002DCCB5 /* CreatePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E5EB7220924632002DCCB5 /* CreatePasswordViewController.swift */; };
 		28F0CE6F2087DC92003AC958 /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F0CE6E2087DC92003AC958 /* Entities.swift */; };
 		28F0CE712087DE24003AC958 /* StorageProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F0CE702087DE24003AC958 /* StorageProtocols.swift */; };
 		28F0CE7320888258003AC958 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F0CE7220888258003AC958 /* Utils.swift */; };
@@ -79,6 +80,7 @@
 		28E5EB6A20908AC0002DCCB5 /* GeneratedSeedDisplayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GeneratedSeedDisplayViewController.swift; path = "View Controller/GeneratedSeedDisplayViewController.swift"; sourceTree = "<group>"; };
 		28E5EB6C20908AE0002DCCB5 /* SeedCheckupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SeedCheckupViewController.swift; path = "View Controller/SeedCheckupViewController.swift"; sourceTree = "<group>"; };
 		28E5EB702090DAB3002DCCB5 /* DropDownSearchField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DropDownSearchField.swift; path = "Extra View/DropDownSearchField.swift"; sourceTree = "<group>"; };
+		28E5EB7220924632002DCCB5 /* CreatePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CreatePasswordViewController.swift; path = "View Controller/CreatePasswordViewController.swift"; sourceTree = "<group>"; };
 		28F0CE6E2087DC92003AC958 /* Entities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entities.swift; sourceTree = "<group>"; };
 		28F0CE702087DE24003AC958 /* StorageProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageProtocols.swift; sourceTree = "<group>"; };
 		28F0CE7220888258003AC958 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
@@ -262,6 +264,7 @@
 				DDA3E27120292EF900C83D18 /* Main.storyboard */,
 				28E5EB6A20908AC0002DCCB5 /* GeneratedSeedDisplayViewController.swift */,
 				28E5EB6C20908AE0002DCCB5 /* SeedCheckupViewController.swift */,
+				28E5EB7220924632002DCCB5 /* CreatePasswordViewController.swift */,
 				28E5EB702090DAB3002DCCB5 /* DropDownSearchField.swift */,
 				28F0CE7220888258003AC958 /* Utils.swift */,
 				DDA3E27420292EF900C83D18 /* Assets.xcassets */,
@@ -445,12 +448,14 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SlideMenuControllerSwift/SlideMenuControllerSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SlideMenuControllerSwift.framework",
@@ -533,6 +538,7 @@
 				DDB89429202F95AC002F85EE /* UIApplication.swift in Sources */,
 				DD4C89D92038EC12003FEA0C /* DropMenuButton.swift in Sources */,
 				DDB89419202F8F3E002F85EE /* UIIMage.swift in Sources */,
+				28E5EB7320924632002DCCB5 /* CreatePasswordViewController.swift in Sources */,
 				28E5EB6D20908AE0002DCCB5 /* SeedCheckupViewController.swift in Sources */,
 				DDB89417202F8EE2002F85EE /* UIImageView.swift in Sources */,
 				DD96B33F20293F110046F2DD /* LeftViewController.swift in Sources */,
