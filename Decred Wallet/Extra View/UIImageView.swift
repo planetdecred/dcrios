@@ -12,7 +12,7 @@ import UIKit
 
 extension UIImageView {
     
-    func setRandomDownloadImage(_ width: Int, height: Int) {
+   /* func setRandomDownloadImage(_ width: Int, height: Int) {
         if self.image != nil {
             self.alpha = 1
             return
@@ -45,7 +45,7 @@ extension UIImageView {
             }
         }
         task.resume()
-    }
+    }*/
     
     func clipParallaxEffect(_ baseImage: UIImage?, screenSize: CGSize, displayHeight: CGFloat) {
         if let baseImage = baseImage {

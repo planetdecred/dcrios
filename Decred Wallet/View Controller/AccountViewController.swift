@@ -27,5 +27,6 @@ class AccountViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.setNavigationBarItem()
+         self.navigationItem.title = "Account"
     }
 }

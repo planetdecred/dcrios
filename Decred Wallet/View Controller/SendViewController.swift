@@ -17,6 +17,7 @@ class SendViewController: UIViewController {
     @IBOutlet weak var walletAddress: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         accountDropdown.initMenu(["Item A", "Item B", "Item C"], actions: [({ () -> (Void) in
             print("Estou fazendo a ação A")
         }), ({ () -> (Void) in
@@ -29,6 +30,7 @@ class SendViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.setNavigationBarItem()
+         self.navigationItem.title = "Send"
     }
   
     @IBAction func accountDropdown(_ sender: Any) {

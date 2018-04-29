@@ -14,6 +14,12 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    fileprivate func walletSetupView(){
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let walletSetupController = storyboard.instantiateViewController(withIdentifier:"WalletSetupViewController") as! WalletSetupViewController
+        self.window?.rootViewController = walletSetupController
+        self.window?.makeKeyAndVisible()
+    }
     fileprivate func createMenuView() {
         
         // create viewController code...
@@ -30,18 +36,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         leftViewController.mainViewController = nvc
         
         let slideMenuController = ExSlideMenuController(mainViewController:nvc, leftMenuViewController: leftViewController, rightMenuViewController: rightViewController)
-        slideMenuController.automaticallyAdjustsScrollViewInsets = true
+   //     slideMenuController.automaticallyAdjustsScrollViewInsets = true
         slideMenuController.delegate = mainViewController
         self.window?.backgroundColor = UIColor(red: 236.0, green: 238.0, blue: 241.0, alpha: 1.0)
         self.window?.rootViewController = slideMenuController
         self.window?.makeKeyAndVisible()
+        UserDefaults.standard.set(true, forKey: "walletCreated")
+        UserDefaults.standard.synchronize()
     }
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-       self.createMenuView()
+        // Thread.sleep(forTimeInterval: 1.0)
+        if(UserDefaults.standard.bool(forKey: "walletCreated") == true){
+            self.createMenuView()
+        }
+        else{
+            self.walletSetupView()
+        }
+        
         return true
     }
+    
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
