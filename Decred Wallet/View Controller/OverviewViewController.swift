@@ -11,7 +11,7 @@ class OverviewViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var mainContens = ["2.000000 DCR", "3.000000 DCR", "21.340000 DCR", "1.000000 DCR", "12.000000 DCR", "1.000000 DCR", "12.30000 DCR","2.000000 DCR", "3.000000 DCR","2.000000 DCR", "3.000000 DCR"]
+    var mainContens = ["2.000000 DCR", "-3.000000 DCR", "21.340000 DCR", "-1.000000 DCR", "12.000000 DCR", "-1.000000 DCR", "12.30000 DCR","-2.000000 DCR", "3.000000 DCR","2.000000 DCR", "3.000000 DCR"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +25,7 @@ class OverviewViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.setNavigationBarItem()
+        self.navigationItem.title = "Overview"
     }
     
     override func didReceiveMemoryWarning() {
