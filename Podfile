@@ -8,6 +8,8 @@ target 'Decred Wallet' do
   pod 'Realm'
   pod 'RealmSwift'
   pod 'MBProgressHUD'
+  pod 'RxSwift'
+  pod 'RxCocoa'
   # Pods for Decred Wallet
 
   target 'Decred WalletTests' do
