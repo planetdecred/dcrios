@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1E3D73D7EA02D2D2D3CD052C /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E75324D536F1BD91575D0609 /* Pods_Decred_Wallet.framework */; };
 		6EB1CBCA57BCFDCAE235DE5F /* Pods_Decred_WalletTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64EE6CCD1962A2204F4B2A9D /* Pods_Decred_WalletTests.framework */; };
+		DD0C493E208A160900986C6B /* WalletSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C493D208A160900986C6B /* WalletSetupViewController.swift */; };
+		DD0C4940208A401A00986C6B /* saveSeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C493F208A401A00986C6B /* saveSeedViewController.swift */; };
 		DD41975F202F99A90044F068 /* SubContentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD41975E202F99A90044F068 /* SubContentsViewController.swift */; };
 		DD419763202F9B570044F068 /* UITableViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD419762202F9B570044F068 /* UITableViewExtension.swift */; };
 		DD4C89D92038EC12003FEA0C /* DropMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4C89D82038CDBC003FEA0C /* DropMenuButton.swift */; };
@@ -39,6 +41,8 @@
 		DDB89425202F948E002F85EE /* DataTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDB89424202F948E002F85EE /* DataTableViewCell.xib */; };
 		DDB89427202F955F002F85EE /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB89426202F955F002F85EE /* UIView.swift */; };
 		DDB89429202F95AC002F85EE /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB89428202F95AC002F85EE /* UIApplication.swift */; };
+		DDBC152C2095D2E900F68BA6 /* encryptWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBC152B2095D2E900F68BA6 /* encryptWalletViewController.swift */; };
+		DDBC15342095F4F700F68BA6 /* SubContentsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDBC15332095F4F700F68BA6 /* SubContentsViewController.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +61,8 @@
 		31D8BF868913ED4E2A4B0577 /* Pods-Decred Wallet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.release.xcconfig"; path = "Pods/Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.release.xcconfig"; sourceTree = "<group>"; };
 		64EE6CCD1962A2204F4B2A9D /* Pods_Decred_WalletTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Decred_WalletTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1A97C56BC75512DA55A8A70 /* Pods-Decred WalletTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred WalletTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Decred WalletTests/Pods-Decred WalletTests.release.xcconfig"; sourceTree = "<group>"; };
+		DD0C493D208A160900986C6B /* WalletSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSetupViewController.swift; sourceTree = "<group>"; };
+		DD0C493F208A401A00986C6B /* saveSeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = saveSeedViewController.swift; sourceTree = "<group>"; };
 		DD41975E202F99A90044F068 /* SubContentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubContentsViewController.swift; sourceTree = "<group>"; };
 		DD419762202F9B570044F068 /* UITableViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewExtension.swift; sourceTree = "<group>"; };
 		DD4C89D72038CABD003FEA0C /* keyPadButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = keyPadButton.swift; sourceTree = "<group>"; };
@@ -91,6 +97,8 @@
 		DDB89424202F948E002F85EE /* DataTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DataTableViewCell.xib; sourceTree = "<group>"; };
 		DDB89426202F955F002F85EE /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		DDB89428202F95AC002F85EE /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
+		DDBC152B2095D2E900F68BA6 /* encryptWalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = encryptWalletViewController.swift; sourceTree = "<group>"; };
+		DDBC15332095F4F700F68BA6 /* SubContentsViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SubContentsViewController.storyboard; path = ../../../../../.Trash/SubContentsViewController.storyboard; sourceTree = "<group>"; };
 		E75324D536F1BD91575D0609 /* Pods_Decred_Wallet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Decred_Wallet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -149,6 +157,9 @@
 				DD41975E202F99A90044F068 /* SubContentsViewController.swift */,
 				DDB89403202F7E01002F85EE /* SendViewController.swift */,
 				DDB89420202F93B3002F85EE /* OverviewViewController.swift */,
+				DD0C493D208A160900986C6B /* WalletSetupViewController.swift */,
+				DD0C493F208A401A00986C6B /* saveSeedViewController.swift */,
+				DDBC152B2095D2E900F68BA6 /* encryptWalletViewController.swift */,
 			);
 			path = "View Controller";
 			sourceTree = "<group>";
@@ -196,6 +207,7 @@
 		DDA3E26C20292EF900C83D18 /* Decred Wallet */ = {
 			isa = PBXGroup;
 			children = (
+				DDBC15332095F4F700F68BA6 /* SubContentsViewController.storyboard */,
 				DD4C89DB2038EE60003FEA0C /* view util */,
 				DDA3E26D20292EF900C83D18 /* AppDelegate.swift */,
 				DDA3E27120292EF900C83D18 /* Main.storyboard */,
@@ -323,6 +335,7 @@
 			files = (
 				DDB89425202F948E002F85EE /* DataTableViewCell.xib in Resources */,
 				DDA3E27820292EF900C83D18 /* LaunchScreen.storyboard in Resources */,
+				DDBC15342095F4F700F68BA6 /* SubContentsViewController.storyboard in Resources */,
 				DDA3E27520292EF900C83D18 /* Assets.xcassets in Resources */,
 				DDA3E27320292EF900C83D18 /* Main.storyboard in Resources */,
 				DDB89415202F8D11002F85EE /* ImageHeaderView.xib in Resources */,
@@ -447,6 +460,7 @@
 			files = (
 				DDB89409202F824A002F85EE /* ReceiveViewController.swift in Sources */,
 				DDB8941F202F937F002F85EE /* RightViewController.swift in Sources */,
+				DD0C493E208A160900986C6B /* WalletSetupViewController.swift in Sources */,
 				DDB8941B202F8F92002F85EE /* UIColor.swift in Sources */,
 				DDB89404202F7E01002F85EE /* SendViewController.swift in Sources */,
 				DDB89411202F8471002F85EE /* String.swift in Sources */,
@@ -460,11 +474,13 @@
 				DDB89419202F8F3E002F85EE /* UIIMage.swift in Sources */,
 				DDB89417202F8EE2002F85EE /* UIImageView.swift in Sources */,
 				DD96B33F20293F110046F2DD /* LeftViewController.swift in Sources */,
+				DD0C4940208A401A00986C6B /* saveSeedViewController.swift in Sources */,
 				DDA3E27020292EF900C83D18 /* ViewController.swift in Sources */,
 				DDB8940F202F83EA002F85EE /* BaseTableViewCell.swift in Sources */,
 				DD41975F202F99A90044F068 /* SubContentsViewController.swift in Sources */,
 				DDB89427202F955F002F85EE /* UIView.swift in Sources */,
 				DDB89423202F9432002F85EE /* DataTableViewCell.swift in Sources */,
+				DDBC152C2095D2E900F68BA6 /* encryptWalletViewController.swift in Sources */,
 				DDB89402202F771F002F85EE /* UIViewController.swift in Sources */,
 				DDA3E26E20292EF900C83D18 /* AppDelegate.swift in Sources */,
 				DDB8940D202F82E6002F85EE /* SettingsController.swift in Sources */,

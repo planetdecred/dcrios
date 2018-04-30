@@ -1,10 +1,8 @@
 //
 //  DataTableViewCell.swift
 //  Decred Wallet
-//
-//  Created by Suleiman Abubakar on 10/02/2018.
-//  Copyright © 2018 Macsleven. All rights reserved.
-//
+//  Copyright © 2018 The Decred developers.
+//  see LICENSE for details.
 
 import Foundation
 import UIKit
@@ -34,9 +32,15 @@ class DataTableViewCell : BaseTableViewCell {
     
     override func setData(_ data: Any?) {
         if let data = data as? DataTableViewCellData {
-            self.dataImage.setRandomDownloadImage(80, height: 80)
+            //self.dataImage.setRandomDownloadImage(80, height: 80)
             self.dataText.text = data.text
-            self.dataImage?.image = UIImage(named: "AppIcon")
+            
+            if(data.text.hasPrefix("-")){
+                self.dataImage?.image = UIImage(named: "debit")
+            }
+            else{
+                self.dataImage?.image = UIImage(named: "credit")
+            }
         }
     }
 }
