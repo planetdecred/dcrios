@@ -1,10 +1,8 @@
 //
 //  encryptWalletViewController.swift
 //  Decred Wallet
-//
-//  Created by Suleiman Abubakar on 05/04/2018.
-//  Copyright © 2018 Macsleven. All rights reserved.
-//
+//  Copyright © 2018 The Decred developers.
+//  see LICENSE for details.
 
 import Foundation
 import UIKit
