@@ -1,10 +1,8 @@
 //
 //  SettingsController.swift
 //  Decred Wallet
-//
-//  Created by Suleiman Abubakar on 10/02/2018.
-//  Copyright © 2018 Macsleven. All rights reserved.
-//
+//  Copyright © 2018 The Decred developers.
+//  see LICENSE for details.
 
 import Foundation
 import UIKit
@@ -22,6 +20,7 @@ class SettingsController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.removeNavigationBarItem()
+         
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {

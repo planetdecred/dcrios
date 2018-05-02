@@ -14,7 +14,7 @@ protocol DropDownResultsListProtocol : UITableViewDataSource, UITableViewDelegat
     var onSelect:((Int, String)->Void)? {get set}
 }
 
-protocol SearchDataSourceProtocol {
+protocol SearchDataSourceProtocol: class {
     var itemsToSearch:[String]?{get set}
     var dropDownListPlaceholder: UIView? {get set}
     func clean()

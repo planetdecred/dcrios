@@ -2,9 +2,8 @@
 //  ExSlideMenuController.swift
 //  Decred Wallet
 //
-//  Created by Suleiman Abubakar on 10/02/2018.
-//  Copyright © 2018 Macsleven. All rights reserved.
-//
+//  Copyright © 2018 The Decred developers.
+//  see LICENSE for details.
 
 import SlideMenuControllerSwift
 

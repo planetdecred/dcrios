@@ -1,10 +1,8 @@
 //
 //  BaseTableViewCell.swift
 //  Decred Wallet
-//
-//  Created by Suleiman Abubakar on 10/02/2018.
-//  Copyright © 2018 Macsleven. All rights reserved.
-//
+//  Copyright © 2018 The Decred developers.
+//  see LICENSE for details.
 
 import Foundation
 import UIKit
@@ -35,10 +33,24 @@ open class BaseTableViewCell : UITableViewCell {
     open func setData(_ data: Any?) {
         self.backgroundColor = UIColor(hex: "F1F8E9")
         //self.textLabel?.font = UIFont.boldSystemFont(ofSize: 18)
-       //self.textLabel?.textColor = UIColor(hex: "9E9E9E")
-        self.imageView?.image = UIImage(named: "AppIcon")
+       self.textLabel?.textColor = UIColor(hex: "000000")
         if let menuText = data as? String {
             self.textLabel?.text = menuText
+            if(menuText == "Overview"){
+                self.imageView?.image = UIImage(named: "overview")
+            }
+            else if(menuText == "Account"){
+                self.imageView?.image = UIImage(named: "account")
+            }
+            else if(menuText == "Send"){
+                self.imageView?.image = UIImage(named: "send")
+            }
+            else if(menuText == "Receive"){
+                self.imageView?.image = UIImage(named: "receive")
+            }
+            else if(menuText == "Settings"){
+                self.imageView?.image = UIImage(named: "settings")
+            }
         }
     }
     
