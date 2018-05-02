@@ -1,10 +1,8 @@
 //
 //  UIImageView.swift
 //  Decred Wallet
-//
-//  Created by Suleiman Abubakar on 10/02/2018.
-//  Copyright © 2018 Macsleven. All rights reserved.
-//
+//  Copyright © 2018 The Decred developers.
+//  see LICENSE for details.
 
 import Foundation
 import UIKit
@@ -12,7 +10,7 @@ import UIKit
 
 extension UIImageView {
     
-    func setRandomDownloadImage(_ width: Int, height: Int) {
+   /* func setRandomDownloadImage(_ width: Int, height: Int) {
         if self.image != nil {
             self.alpha = 1
             return
@@ -45,7 +43,7 @@ extension UIImageView {
             }
         }
         task.resume()
-    }
+    }*/
     
     func clipParallaxEffect(_ baseImage: UIImage?, screenSize: CGSize, displayHeight: CGFloat) {
         if let baseImage = baseImage {
