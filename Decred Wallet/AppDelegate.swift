@@ -41,8 +41,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.backgroundColor = UIColor(red: 236.0, green: 238.0, blue: 241.0, alpha: 1.0)
         self.window?.rootViewController = slideMenuController
         self.window?.makeKeyAndVisible()
-        UserDefaults.standard.set(true, forKey: "walletCreated")
-        UserDefaults.standard.synchronize()
     }
 
 
@@ -64,14 +62,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Thread.sleep(forTimeInterval: 1.0)
+        
+        if(isWalletCreated()){
+            self.createMenuView()
+        }else{
+            self.walletSetupView()
+        }
         AppContext.instance.storage = Storage()
         AppContext.instance.walletManager = MobilewalletNewLibWallet(NSHomeDirectory()+"/Documents")
         AppContext.instance.walletManager?.initLoader()
         
-        showAnimatedStartScreen()
-        
         return true
     }
+    
     
 
     func applicationWillResignActive(_ application: UIApplication) {
