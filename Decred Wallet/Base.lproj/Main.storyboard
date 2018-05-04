@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BLx-jo-l82">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -1470,6 +1470,48 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b9i-i7-gaa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="129" y="2926"/>
+        </scene>
+        <!--Waiter Screen View Controller-->
+        <scene sceneID="PGy-QW-K8H">
+            <objects>
+                <viewController id="BLx-jo-l82" customClass="WaiterScreenViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="EO2-Pa-A0e">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="decred_image" translatesAutoresizingMaskIntoConstraints="NO" id="pq4-Id-I0N">
+                                <rect key="frame" x="120" y="245" width="135" height="79"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="135" id="2Nn-0u-PjJ"/>
+                                    <constraint firstAttribute="height" constant="79" id="7sB-QF-fI5"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w3H-Un-Z5W">
+                                <rect key="frame" x="34" y="372" width="306" height="21"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                <color key="textColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="highlightedColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.042801953852176666" green="0.11419142037630081" blue="0.24708577990531921" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="pq4-Id-I0N" firstAttribute="top" secondItem="Vu3-b8-9c3" secondAttribute="top" constant="225" id="5lW-eQ-uSS"/>
+                            <constraint firstItem="Vu3-b8-9c3" firstAttribute="bottom" secondItem="w3H-Un-Z5W" secondAttribute="bottom" constant="274" id="Kdx-vi-xZJ"/>
+                            <constraint firstItem="w3H-Un-Z5W" firstAttribute="leading" secondItem="Vu3-b8-9c3" secondAttribute="leading" constant="34" id="YsA-XU-2pq"/>
+                            <constraint firstItem="pq4-Id-I0N" firstAttribute="centerX" secondItem="Vu3-b8-9c3" secondAttribute="centerX" id="rxW-p6-oqp"/>
+                            <constraint firstItem="Vu3-b8-9c3" firstAttribute="trailing" secondItem="w3H-Un-Z5W" secondAttribute="trailing" constant="35" id="sGP-Fh-IeW"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Vu3-b8-9c3"/>
+                    </view>
+                    <connections>
+                        <outlet property="label" destination="w3H-Un-Z5W" id="2PH-vS-iWb"/>
+                        <outlet property="logo" destination="pq4-Id-I0N" id="pqj-vn-oKb"/>
+                        <segue destination="BYZ-38-t0r" kind="show" id="VxR-Ap-ikj"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="abl-tj-8Do" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-854" y="-52"/>
         </scene>
     </scenes>
     <resources>
