@@ -43,7 +43,6 @@ class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITex
             progressHud?.show(animated: true)
             try AppContext.instance.walletManager?.createWallet(tfPassword.text, seedMnemonic: seedToVerify)
             progressHud?.hide(animated: true)
-            UserDefaults.standard.set(true, forKey: "walletCreated")
             navigationController?.dismiss(animated: true, completion: nil)
         } catch let error{
             showError(error: error)
