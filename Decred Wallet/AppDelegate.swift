@@ -45,7 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     fileprivate func populateFirstScreen() {
-        if(UserDefaults.standard.bool(forKey: "walletCreated") == true){
+        if(isWalletCreated()){
             self.createMenuView()
         }else{
             self.walletSetupView()
@@ -61,20 +61,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Thread.sleep(forTimeInterval: 1.0)
-        
-        if(isWalletCreated()){
-            self.createMenuView()
-        }else{
-            self.walletSetupView()
-        }
+        showAnimatedStartScreen()
         AppContext.instance.storage = Storage()
         AppContext.instance.walletManager = MobilewalletNewLibWallet(NSHomeDirectory()+"/Documents")
         AppContext.instance.walletManager?.initLoader()
         
         return true
     }
-    
     
 
     func applicationWillResignActive(_ application: UIApplication) {
