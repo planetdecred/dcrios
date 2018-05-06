@@ -13,7 +13,7 @@ class WaiterScreenViewController: UIViewController {
     
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var logo: UIImageView!
-    
+    var  groupAnimation: CAAnimationGroup?
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,7 +34,7 @@ class WaiterScreenViewController: UIViewController {
         
         startingTransform = CATransform3DTranslate(startingTransform, 0, -10, 0)
         transformAnimation.fromValue = NSValue(caTransform3D: startingTransform)
-        transformAnimation.toValue = NSValue(caTransform3D: CATransform3DIdentity)        
+        transformAnimation.toValue = NSValue(caTransform3D: CATransform3DIdentity)
 
         
         let jumpUpAnimation = CABasicAnimation(keyPath:"transform")
@@ -45,18 +45,16 @@ class WaiterScreenViewController: UIViewController {
         jumpUpAnimation.duration = 0.3
 
         
-        let groupAnimation = CAAnimationGroup()
-        groupAnimation.animations = [jumpUpAnimation, transformAnimation]
-        groupAnimation.repeatCount = Float.infinity
-        groupAnimation.duration = 1
-        //groupAnimation.beginTime = beginTime
-        //groupAnimation.timeOffset = 1
+        groupAnimation = CAAnimationGroup()
+        groupAnimation?.animations = [jumpUpAnimation, transformAnimation]
+        groupAnimation?.repeatCount = Float.infinity
+        groupAnimation?.duration = 1
         
-        logolayer.add(groupAnimation, forKey: "looping")
+        logolayer.add(groupAnimation!, forKey: "looping")
     }
     
     fileprivate func stopAnimate(){
-        
+        groupAnimation?.repeatCount = 0
     }
     
     
