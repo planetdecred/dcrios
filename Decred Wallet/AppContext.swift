@@ -2,8 +2,8 @@
 //  AppContext.swift
 //  Decred Wallet
 //
-//  Created by Philipp Maluta on 19.04.18.
-//  Copyright © 2018 Macsleven. All rights reserved.
+// Copyright (c) 2018, The Decred developers
+// See LICENSE for details.
 //
 
 import Foundation
