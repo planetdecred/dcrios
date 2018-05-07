@@ -7,10 +7,19 @@
 
 import UIKit
 
-class WaiterScreenViewController: UIViewController {
+protocol WaiterScreenProtocol {
+    func set(label:String)
+    func set(duration:Double)
+    func startAnimation()
+    func stopAnimation()
+    var onFinish:(()->Void)?{get set}
+}
 
-    var onFinish:(()->Void)?
+
+class WaiterScreenViewController: UIViewController, WaiterScreenProtocol {
     
+    var onFinish:(()->Void)?
+    var timer: Timer?
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var logo: UIImageView!
     var  groupAnimation: CAAnimationGroup?
@@ -20,42 +29,66 @@ class WaiterScreenViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        startAnimate()
+       startAnimation()
+       set(duration: 3)
     }
     
-    fileprivate func startAnimate(){
+    func set(label: String) {
+        self.label.text = label
+    }
+    
+    func set(duration: Double) {
+        timer = Timer.scheduledTimer(withTimeInterval: duration, repeats: false, block: {_ in
+            self.stopAnimation()
+        })
+    }
+    
+    func startAnimation() {
         let logolayer = logo.layer
-        let transformAnimation = CABasicAnimation(keyPath: "transform")
-        transformAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-        transformAnimation.duration = 0.5
-        
-        var startingTransform = CATransform3DMakeRotation(-CGFloat(Double.pi ), 0, 0, 1)
-        //startingTransform = CATransform3DScale(startingTransform, 0.25, 0.25, 1)
-        
-        startingTransform = CATransform3DTranslate(startingTransform, 0, -10, 0)
-        transformAnimation.fromValue = NSValue(caTransform3D: startingTransform)
-        transformAnimation.toValue = NSValue(caTransform3D: CATransform3DIdentity)
-
         
         let jumpUpAnimation = CABasicAnimation(keyPath:"transform")
-        let jumpUpTransform = CATransform3DMakeTranslation(0.0, -20.0, 0.0)
-        jumpUpAnimation.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseIn)
-        jumpUpAnimation.fromValue = NSValue(caTransform3D: jumpUpTransform)
-        jumpUpAnimation.toValue = NSValue(caTransform3D: CATransform3DIdentity)
+        let jumpUpTransform = CATransform3DMakeTranslation(0.0, -40.0, 0.0)
+        jumpUpAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+        jumpUpAnimation.fromValue = NSValue(caTransform3D: CATransform3DIdentity)
+        jumpUpAnimation.toValue = NSValue(caTransform3D: jumpUpTransform)
         jumpUpAnimation.duration = 0.3
-
+        jumpUpAnimation.beginTime = 0.0
+        
+        let semiRotateAnimation = CABasicAnimation(keyPath: "transform")
+        semiRotateAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+        semiRotateAnimation.duration = 0.3
+        semiRotateAnimation.beginTime = 0.3
+        let startingTransform = CATransform3DMakeRotation(-CGFloat(Double.pi ), 0, 0, 1)
+        semiRotateAnimation.fromValue = NSValue(caTransform3D: jumpUpTransform)
+        semiRotateAnimation.toValue = NSValue(caTransform3D: startingTransform)
+        
+        let semiRotateAnimation2 = CABasicAnimation(keyPath: "transform")
+        semiRotateAnimation2.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+        semiRotateAnimation2.duration = 0.3
+        semiRotateAnimation2.beginTime = 0.6
+        let endingTransform = CATransform3DMakeRotation(-CGFloat(Double.pi ) * 1.99, 0, 0, 1)
+        semiRotateAnimation2.fromValue = NSValue(caTransform3D: startingTransform)
+        semiRotateAnimation2.toValue = NSValue(caTransform3D: endingTransform)
+        
+        
+        let fallDownAnimation = CABasicAnimation(keyPath:"transform")
+        let fallDownTransform = CATransform3DMakeTranslation(0.0, 40.0, 0.0)
+        fallDownAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
+        fallDownAnimation.fromValue = NSValue(caTransform3D: endingTransform)
+        fallDownAnimation.toValue = NSValue(caTransform3D: fallDownTransform)
+        fallDownAnimation.duration = 0.2
+        fallDownAnimation.beginTime = 0.8
         
         groupAnimation = CAAnimationGroup()
-        groupAnimation?.animations = [jumpUpAnimation, transformAnimation]
+        groupAnimation?.animations = [jumpUpAnimation, semiRotateAnimation,semiRotateAnimation2, fallDownAnimation]
         groupAnimation?.repeatCount = Float.infinity
         groupAnimation?.duration = 1
         
         logolayer.add(groupAnimation!, forKey: "looping")
     }
     
-    fileprivate func stopAnimate(){
-        groupAnimation?.repeatCount = 0
+    func stopAnimation() {
+        logo.layer.removeAllAnimations()
+        onFinish!()
     }
-    
-    
 }
