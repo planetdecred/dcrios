@@ -41,22 +41,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.backgroundColor = UIColor(red: 236.0, green: 238.0, blue: 241.0, alpha: 1.0)
         self.window?.rootViewController = slideMenuController
         self.window?.makeKeyAndVisible()
-        UserDefaults.standard.set(true, forKey: "walletCreated")
-        UserDefaults.standard.synchronize()
     }
 
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Thread.sleep(forTimeInterval: 1.0)
-        AppContext.instance.storage = Storage()
-        AppContext.instance.walletManager = MobilewalletNewLibWallet(NSHomeDirectory()+"/Documents")
-        AppContext.instance.walletManager?.initLoader()
-        
-        if(UserDefaults.standard.bool(forKey: "walletCreated") == true){
+    fileprivate func populateFirstScreen() {
+        if(isWalletCreated()){
             self.createMenuView()
         }else{
             self.walletSetupView()
         }
+    }
+    
+    fileprivate func showAnimatedStartScreen(){
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let startScreenController = storyboard.instantiateViewController(withIdentifier:"WaiterScreenViewController") as! WaiterScreenViewController
+        startScreenController.onFinish = {self.populateFirstScreen()}
+        self.window?.rootViewController = startScreenController
+        self.window?.makeKeyAndVisible()
+    }
+    
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        showAnimatedStartScreen()
+        AppContext.instance.storage = Storage()
+        AppContext.instance.walletManager = MobilewalletNewLibWallet(NSHomeDirectory()+"/Documents")
+        AppContext.instance.walletManager?.initLoader()
         
         return true
     }

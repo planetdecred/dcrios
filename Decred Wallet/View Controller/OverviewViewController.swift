@@ -14,9 +14,6 @@ class OverviewViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.registerCellNib(DataTableViewCell.self)
-        if !(AppContext.instance.storage?.isWalletCreated())!{
-            performSegue(withIdentifier: "showNewWalletScreen", sender: nil)
-        }
     }
     
    
