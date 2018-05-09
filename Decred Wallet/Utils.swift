@@ -16,7 +16,8 @@ extension Notification.Name {
 func isWalletCreated() -> Bool{
         let fm = FileManager()
         do{
-            let result = try fm.contentsOfDirectory(atPath: NSHomeDirectory()+"/Documents").count > 0
+            let contents = try fm.contentsOfDirectory(atPath: NSHomeDirectory()+"/Documents/testnet2")
+            let result = contents.count > 0
             return result
         }catch{
             return false

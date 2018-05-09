@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BLx-jo-l82">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BLx-jo-l82">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -16,7 +16,7 @@
         <!--Right View Controller-->
         <scene sceneID="bvR-W9-qnC">
             <objects>
-                <viewController storyboardIdentifier="RightViewController" id="In8-Mc-X7I" customClass="RightViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RightViewController" id="In8-Mc-X7I" customClass="RightViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Uwi-SA-NOq"/>
                         <viewControllerLayoutGuide type="bottom" id="wFn-Mp-0fQ"/>
@@ -46,7 +46,7 @@
         <!--Seed Checkup View Controller-->
         <scene sceneID="BMV-xg-Xae">
             <objects>
-                <viewController id="KO7-XW-r8q" customClass="SeedCheckupViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="KO7-XW-r8q" customClass="SeedCheckupViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jXf-Lc-GiC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -60,7 +60,7 @@
                                 <color key="textColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter your seed..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1Xy-rp-N5U" customClass="DropDownSearchField" customModule="Decred_Wallet" customModuleProvider="target">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter your seed..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1Xy-rp-N5U" customClass="DropDownSearchField" customModule="DecredWallet" customModuleProvider="target">
                                 <rect key="frame" x="16" y="90" width="343" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="F9y-KS-w8e"/>
@@ -199,7 +199,7 @@
         <!--Create Password View Controller-->
         <scene sceneID="811-jf-liA">
             <objects>
-                <viewController id="tbw-An-0pb" customClass="CreatePasswordViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="tbw-An-0pb" customClass="CreatePasswordViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Zw3-u9-H2J">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -226,7 +226,7 @@
                                 </constraints>
                                 <color key="textColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="password"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="_placeholderLabel.textColor">
                                         <color key="value" red="0.98823529480000005" green="0.98823529480000005" blue="0.98823529480000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -240,7 +240,7 @@
                                 </constraints>
                                 <color key="textColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="password"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="_placeholderLabel.textColor">
                                         <color key="value" red="0.98823529480000005" green="0.98823529480000005" blue="0.98823529480000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -322,7 +322,7 @@
         <!--Left View Controller-->
         <scene sceneID="Nq8-8X-A5v">
             <objects>
-                <viewController storyboardIdentifier="LeftViewController" id="Mog-8S-rDV" customClass="LeftViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LeftViewController" id="Mog-8S-rDV" customClass="LeftViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ojD-hk-v0s"/>
                         <viewControllerLayoutGuide type="bottom" id="hXM-FI-ON0"/>
@@ -363,7 +363,7 @@
         <!--Overview View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="OverviewViewController" id="BYZ-38-t0r" customClass="OverviewViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="OverviewViewController" id="BYZ-38-t0r" customClass="OverviewViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -454,7 +454,7 @@
         <!--Account View Controller-->
         <scene sceneID="qDe-KX-ho1">
             <objects>
-                <viewController storyboardIdentifier="AccountViewController" id="I9w-x4-mAi" customClass="AccountViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AccountViewController" id="I9w-x4-mAi" customClass="AccountViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jtW-TN-dF4"/>
                         <viewControllerLayoutGuide type="bottom" id="2n0-fL-47k"/>
@@ -488,7 +488,7 @@
         <!--Generated Seed Display View Controller-->
         <scene sceneID="S9M-rX-2SB">
             <objects>
-                <viewController storyboardIdentifier="saveSeedView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="eoW-KE-o6O" customClass="GeneratedSeedDisplayViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="saveSeedView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="eoW-KE-o6O" customClass="GeneratedSeedDisplayViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ozH-zT-ShC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -598,9 +598,9 @@
                             <constraint firstItem="e3p-MZ-tXw" firstAttribute="top" secondItem="qYt-xo-S4a" secondAttribute="bottom" constant="3" id="7k2-0n-DL7"/>
                             <constraint firstItem="mgi-a2-ujI" firstAttribute="top" secondItem="T26-ed-GAn" secondAttribute="bottom" constant="-249" id="FTn-1X-mPS"/>
                             <constraint firstItem="BQ4-TL-G1r" firstAttribute="centerX" secondItem="WZx-qh-N33" secondAttribute="centerX" id="HBA-jq-KmW"/>
+                            <constraint firstItem="T26-ed-GAn" firstAttribute="leading" secondItem="wB1-BW-PiR" secondAttribute="trailing" constant="-1" id="IM9-df-UYW"/>
                             <constraint firstItem="T26-ed-GAn" firstAttribute="centerX" secondItem="WZx-qh-N33" secondAttribute="centerX" constant="40.5" id="Qei-d1-AhR"/>
                             <constraint firstItem="WZx-qh-N33" firstAttribute="trailing" secondItem="mgi-a2-ujI" secondAttribute="trailing" constant="15" id="Qxj-qL-1lk"/>
-                            <constraint firstItem="WZx-qh-N33" firstAttribute="trailing" secondItem="wB1-BW-PiR" secondAttribute="trailing" constant="277" id="Teq-Ld-FLb"/>
                             <constraint firstItem="T26-ed-GAn" firstAttribute="top" secondItem="e3p-MZ-tXw" secondAttribute="bottom" constant="196" id="UmK-Kp-1BI"/>
                             <constraint firstItem="BQ4-TL-G1r" firstAttribute="width" secondItem="ozH-zT-ShC" secondAttribute="width" multiplier="0.95" id="YoD-bs-k5I"/>
                             <constraint firstItem="e3p-MZ-tXw" firstAttribute="centerX" secondItem="WZx-qh-N33" secondAttribute="centerX" id="aIg-Fq-beY"/>
@@ -628,7 +628,7 @@
         <!--Encrypt Wallet View Controller-->
         <scene sceneID="85N-5e-iyu">
             <objects>
-                <viewController storyboardIdentifier="encryptWalletView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Kg5-By-Te1" customClass="encryptWalletViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="encryptWalletView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Kg5-By-Te1" customClass="encryptWalletViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sRE-HC-CxY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -898,7 +898,7 @@
         <!--Wallet Setup View Controller-->
         <scene sceneID="aY8-2g-Xut">
             <objects>
-                <viewController storyboardIdentifier="WalletSetupViewController" id="YlK-1c-GYb" customClass="WalletSetupViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WalletSetupViewController" id="YlK-1c-GYb" customClass="WalletSetupViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6gb-k6-hWB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -927,7 +927,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="faD-sH-f5s">
                                 <rect key="frame" x="56.5" y="296.5" width="262.5" height="118"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NTD-ta-9Vl" customClass="KeyPadButton" customModule="Decred_Wallet" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NTD-ta-9Vl" customClass="KeyPadButton" customModule="DecredWallet" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="262.5" height="50"/>
                                         <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -948,7 +948,7 @@
                                             <segue destination="eoW-KE-o6O" kind="show" id="n9H-1s-3KS"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZAj-R7-wDZ" customClass="KeyPadButton" customModule="Decred_Wallet" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZAj-R7-wDZ" customClass="KeyPadButton" customModule="DecredWallet" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="68" width="262.5" height="50"/>
                                         <color key="backgroundColor" red="1" green="0.49019607843137253" blue="0.28627450980392155" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -1006,7 +1006,7 @@
         <!--Send View Controller-->
         <scene sceneID="4cK-mI-MCG">
             <objects>
-                <viewController storyboardIdentifier="SendViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="TvI-C9-lSF" customClass="SendViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SendViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="TvI-C9-lSF" customClass="SendViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="qOh-Be-bJ9"/>
                         <viewControllerLayoutGuide type="bottom" id="yPA-d7-Ile"/>
@@ -1048,7 +1048,7 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IX2-ww-qGm" customClass="DropMenuButton" customModule="Decred_Wallet" customModuleProvider="target">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IX2-ww-qGm" customClass="DropMenuButton" customModule="DecredWallet" customModuleProvider="target">
                                                         <rect key="frame" x="49" y="0.0" width="200.5" height="46.5"/>
                                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                                         <state key="normal" title="default">
@@ -1166,13 +1166,13 @@
                                                 <rect key="frame" x="0.0" y="73.5" width="356" height="36.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Estimate Size:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3A1-af-gM6">
-                                                        <rect key="frame" x="0.0" y="0.5" width="178" height="36.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="178" height="36.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 byte" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Az-wY-eol">
-                                                        <rect key="frame" x="178" y="0.5" width="178" height="36.5"/>
+                                                        <rect key="frame" x="178" y="0.0" width="178" height="36.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -1202,7 +1202,7 @@
                                     <constraint firstItem="HCW-Pw-Xe2" firstAttribute="height" secondItem="p0W-Aw-31r" secondAttribute="height" multiplier="0.4" id="xgQ-6c-Jv7"/>
                                 </constraints>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ub0-Hy-wSO" customClass="KeyPadButton" customModule="Decred_Wallet" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ub0-Hy-wSO" customClass="KeyPadButton" customModule="DecredWallet" customModuleProvider="target">
                                 <rect key="frame" x="127.5" y="457" width="120" height="50"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -1248,7 +1248,7 @@
         <!--Receive View Controller-->
         <scene sceneID="adq-KJ-u5Z">
             <objects>
-                <viewController storyboardIdentifier="ReceiveViewController" id="pwN-Wv-Ioh" customClass="ReceiveViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ReceiveViewController" id="pwN-Wv-Ioh" customClass="ReceiveViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="QEC-CO-vAa"/>
                         <viewControllerLayoutGuide type="bottom" id="4w6-Ph-vE3"/>
@@ -1281,7 +1281,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fvx-Vc-1a6" customClass="DropMenuButton" customModule="Decred_Wallet" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fvx-Vc-1a6" customClass="DropMenuButton" customModule="DecredWallet" customModuleProvider="target">
                                         <rect key="frame" x="33" y="0.0" width="154.5" height="34"/>
                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                         <state key="normal" title="default">
@@ -1314,7 +1314,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pzd-he-fVa" customClass="KeyPadButton" customModule="Decred_Wallet" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pzd-he-fVa" customClass="KeyPadButton" customModule="DecredWallet" customModuleProvider="target">
                                 <rect key="frame" x="91.5" y="503.5" width="192" height="50"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -1364,7 +1364,7 @@
         <!--Settings Controller-->
         <scene sceneID="d7w-0k-xlq">
             <objects>
-                <viewController storyboardIdentifier="SettingsController" id="dnB-Mf-802" customClass="SettingsController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SettingsController" id="dnB-Mf-802" customClass="SettingsController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="P9h-CD-Kay"/>
                         <viewControllerLayoutGuide type="bottom" id="2A9-xu-LZI"/>
@@ -1476,7 +1476,7 @@
         <!--Waiter Screen View Controller-->
         <scene sceneID="PGy-QW-K8H">
             <objects>
-                <viewController storyboardIdentifier="WaiterScreenViewController" id="BLx-jo-l82" customClass="WaiterScreenViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WaiterScreenViewController" id="BLx-jo-l82" customClass="WaiterScreenViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EO2-Pa-A0e">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1498,8 +1498,8 @@
                         <color key="backgroundColor" red="0.042801953852176666" green="0.11419142037630081" blue="0.24708577990531921" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="pq4-Id-I0N" firstAttribute="top" secondItem="Vu3-b8-9c3" secondAttribute="top" constant="225" id="5lW-eQ-uSS"/>
-                            <constraint firstItem="Vu3-b8-9c3" firstAttribute="bottom" secondItem="w3H-Un-Z5W" secondAttribute="bottom" constant="274" id="Kdx-vi-xZJ"/>
                             <constraint firstItem="w3H-Un-Z5W" firstAttribute="leading" secondItem="Vu3-b8-9c3" secondAttribute="leading" constant="34" id="YsA-XU-2pq"/>
+                            <constraint firstItem="w3H-Un-Z5W" firstAttribute="top" secondItem="pq4-Id-I0N" secondAttribute="bottom" constant="48" id="r9y-qy-Nq6"/>
                             <constraint firstItem="pq4-Id-I0N" firstAttribute="centerX" secondItem="Vu3-b8-9c3" secondAttribute="centerX" id="rxW-p6-oqp"/>
                             <constraint firstItem="Vu3-b8-9c3" firstAttribute="trailing" secondItem="w3H-Un-Z5W" secondAttribute="trailing" constant="35" id="sGP-Fh-IeW"/>
                         </constraints>

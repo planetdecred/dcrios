@@ -49,6 +49,15 @@ class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITex
         }
     }
     
+    func showSuccess(){
+        let alert = UIAlertController(title: "Success!", message: "Wallet created", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
+            alert.dismiss(animated: true, completion: {self.navigationController?.popToRootViewController(animated: true)})
+        }
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: {self.progressHud?.hide(animated: false)})
+    }
+    
     func showError(error:Error){
         let alert = UIAlertController(title: "Warning", message: error.localizedDescription, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
