@@ -127,6 +127,4 @@ extension LeftViewController : UITableViewDataSource {
         }
         return UITableViewCell()
     }
-    
-    
 }

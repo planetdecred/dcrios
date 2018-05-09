@@ -16,6 +16,7 @@ class OverviewViewController: UIViewController {
         self.tableView.registerCellNib(DataTableViewCell.self)
     }
     
+   
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
     }
@@ -24,10 +25,6 @@ class OverviewViewController: UIViewController {
         super.viewWillAppear(animated)
         self.setNavigationBarItem()
         self.navigationItem.title = "Overview"
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
     }
     
 }
