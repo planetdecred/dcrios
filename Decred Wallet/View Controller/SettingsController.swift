@@ -9,7 +9,7 @@ import UIKit
 
 
 
-class SettingsController: UIViewController {
+class SettingsController: UITableViewController {
     
     weak var delegate: LeftMenuProtocol?
     
@@ -19,6 +19,7 @@ class SettingsController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationItem.title = "Settings"
         self.removeNavigationBarItem()
          
     }
@@ -36,7 +37,7 @@ class SettingsController: UIViewController {
         })
     }
     
-    @IBAction func didTouchToMain(_ sender: UIButton) {
+  /*  @IBAction func didTouchToMain(_ sender: UIButton) {
         delegate?.changeViewController(LeftMenu.overview)
-    }
+    }*/
 }
