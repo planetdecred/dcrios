@@ -8,12 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		1E3D73D7EA02D2D2D3CD052C /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E75324D536F1BD91575D0609 /* Pods_Decred_Wallet.framework */; };
-		2883CA6C2099C9680053D9BB /* StorageProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2883CA6A2099C9680053D9BB /* StorageProtocols.swift */; };
-		2883CA6D2099C9680053D9BB /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2883CA6B2099C9680053D9BB /* Entities.swift */; };
 		2883CA702099D40F0053D9BB /* DropDownSearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2883CA6F2099D40F0053D9BB /* DropDownSearchField.swift */; };
 		2883CA72209B52AE0053D9BB /* WaiterScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2883CA71209B52AE0053D9BB /* WaiterScreenViewController.swift */; };
 		2883CA74209B5BA40053D9BB /* Modals.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2883CA73209B5BA40053D9BB /* Modals.storyboard */; };
-		28E5EB69209082C3002DCCB5 /* Mobilewallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28E5EB68209082C3002DCCB5 /* Mobilewallet.framework */; };
+		28AB8CD320A48DB30037A509 /* Mobilewallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28AB8CD220A48DB30037A509 /* Mobilewallet.framework */; };
 		28E5EB6B20908AC0002DCCB5 /* GeneratedSeedDisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E5EB6A20908AC0002DCCB5 /* GeneratedSeedDisplayViewController.swift */; };
 		28E5EB6D20908AE0002DCCB5 /* SeedCheckupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E5EB6C20908AE0002DCCB5 /* SeedCheckupViewController.swift */; };
 		28E5EB7320924632002DCCB5 /* CreatePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E5EB7220924632002DCCB5 /* CreatePasswordViewController.swift */; };
@@ -81,11 +79,10 @@
 
 /* Begin PBXFileReference section */
 		109877DFD2DABA7636DA7B92 /* Pods-Decred WalletTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred WalletTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Decred WalletTests/Pods-Decred WalletTests.debug.xcconfig"; sourceTree = "<group>"; };
-		2883CA6A2099C9680053D9BB /* StorageProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageProtocols.swift; sourceTree = "<group>"; };
-		2883CA6B2099C9680053D9BB /* Entities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entities.swift; sourceTree = "<group>"; };
 		2883CA6F2099D40F0053D9BB /* DropDownSearchField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownSearchField.swift; sourceTree = "<group>"; };
 		2883CA71209B52AE0053D9BB /* WaiterScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaiterScreenViewController.swift; sourceTree = "<group>"; };
 		2883CA73209B5BA40053D9BB /* Modals.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Modals.storyboard; sourceTree = "<group>"; };
+		28AB8CD220A48DB30037A509 /* Mobilewallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mobilewallet.framework; path = mobilewallet/debug/Mobilewallet.framework; sourceTree = "<group>"; };
 		28E5EB68209082C3002DCCB5 /* Mobilewallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mobilewallet.framework; path = mobilewallet/Mobilewallet.framework; sourceTree = "<group>"; };
 		28E5EB6A20908AC0002DCCB5 /* GeneratedSeedDisplayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GeneratedSeedDisplayViewController.swift; path = "View Controller/GeneratedSeedDisplayViewController.swift"; sourceTree = "<group>"; };
 		28E5EB6C20908AE0002DCCB5 /* SeedCheckupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SeedCheckupViewController.swift; path = "View Controller/SeedCheckupViewController.swift"; sourceTree = "<group>"; };
@@ -149,7 +146,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				28E5EB69209082C3002DCCB5 /* Mobilewallet.framework in Frameworks */,
+				28AB8CD320A48DB30037A509 /* Mobilewallet.framework in Frameworks */,
 				1E3D73D7EA02D2D2D3CD052C /* Pods_Decred_Wallet.framework in Frameworks */,
 				B853136BC96255F028D8CB64 /* Pods_Decred_Wallet.framework in Frameworks */,
 			);
@@ -169,8 +166,6 @@
 		2883CA6E2099C9700053D9BB /* Storage */ = {
 			isa = PBXGroup;
 			children = (
-				2883CA6B2099C9680053D9BB /* Entities.swift */,
-				2883CA6A2099C9680053D9BB /* StorageProtocols.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -179,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				28E5EB68209082C3002DCCB5 /* Mobilewallet.framework */,
+				28AB8CD220A48DB30037A509 /* Mobilewallet.framework */,
 				28FD1BD0208F6C9A0051F58F /* Pods_Decred_Wallet.framework */,
 				28FD1BCA208F18C90051F58F /* Realm.framework */,
 				28FD1BCB208F18C90051F58F /* RealmSwift.framework */,
@@ -461,8 +457,6 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
-				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
-				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SlideMenuControllerSwift/SlideMenuControllerSwift.framework",
@@ -470,8 +464,6 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SlideMenuControllerSwift.framework",
@@ -545,7 +537,6 @@
 				DDB8941B202F8F92002F85EE /* UIColor.swift in Sources */,
 				28F0CE7320888258003AC958 /* Utils.swift in Sources */,
 				DDB89404202F7E01002F85EE /* SendViewController.swift in Sources */,
-				2883CA6D2099C9680053D9BB /* Entities.swift in Sources */,
 				DDB89411202F8471002F85EE /* String.swift in Sources */,
 				DD419763202F9B570044F068 /* UITableViewExtension.swift in Sources */,
 				DDB89413202F8635002F85EE /* ImageHeaderView.swift in Sources */,
@@ -574,7 +565,6 @@
 				DDA3E26E20292EF900C83D18 /* AppDelegate.swift in Sources */,
 				DDB8940D202F82E6002F85EE /* SettingsController.swift in Sources */,
 				DDB8940B202F82A3002F85EE /* AccountViewController.swift in Sources */,
-				2883CA6C2099C9680053D9BB /* StorageProtocols.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -734,6 +724,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/mobilewallet",
+					"$(PROJECT_DIR)/mobilewallet/debug",
 				);
 				INFOPLIST_FILE = "Decred Wallet/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -755,6 +746,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/mobilewallet",
+					"$(PROJECT_DIR)/mobilewallet/debug",
 				);
 				INFOPLIST_FILE = "Decred Wallet/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
