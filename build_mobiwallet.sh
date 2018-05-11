@@ -1,5 +1,6 @@
 #!/bin/bash
-mkdir mobilewallet/pkg
+git submodule init
+git submodule update --checkout
 cd mobilewallet/pkg
 mkdir bin
 export GOPATH=$(pwd)
