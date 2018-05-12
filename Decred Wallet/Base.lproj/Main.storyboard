@@ -1363,48 +1363,6 @@
             </objects>
             <point key="canvasLocation" x="127.5" y="1338.75"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="d7w-0k-xlq">
-            <objects>
-                <viewController storyboardIdentifier="SettingsController" id="dnB-Mf-802" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="P9h-CD-Kay"/>
-                        <viewControllerLayoutGuide type="bottom" id="2A9-xu-LZI"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="oal-zY-YFo">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="SettingsViewController" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JkU-sV-rei">
-                                <rect key="frame" x="40" y="100" width="240" height="93"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                <color key="textColor" red="0.61960784313725492" green="0.61960784313725492" blue="0.61960784313725492" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="16p-Vu-lJM">
-                                <rect key="frame" x="74.5" y="233" width="171" height="52"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <state key="normal" title="To MainViewController">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="didTouchToMain:" destination="dnB-Mf-802" eventType="touchUpInside" id="j5j-YU-q6R"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" red="0.68235294117647061" green="0.83529411764705885" blue="0.50588235294117645" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <viewLayoutGuide key="safeArea" id="9TW-cj-IWp"/>
-                    </view>
-                    <nil key="simulatedTopBarMetrics"/>
-                    <nil key="simulatedBottomBarMetrics"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="BqV-Y1-lxd" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="128" y="2206"/>
-        </scene>
         <!--Settings Controller-->
         <scene sceneID="E8C-IB-Uk6">
             <objects>
@@ -1624,6 +1582,9 @@
                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="doneAccessory" value="YES"/>
+                                                    </userDefinedRuntimeAttributes>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -1655,6 +1616,9 @@
                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="doneAccessory" value="YES"/>
+                                                    </userDefinedRuntimeAttributes>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -1830,7 +1794,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Crash" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pbL-eC-Nd9">
-                                                    <rect key="frame" x="16" y="0.0" width="343" height="43.5"/>
+                                                    <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -1852,6 +1816,20 @@
                     </tableView>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" translucent="NO" prompted="NO"/>
                     <splitViewDetailSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="build" destination="eMj-Ry-6VY" id="rkV-4Z-Hcx"/>
+                        <outlet property="connect_peer_ip" destination="Ri3-3D-ZVY" id="1w4-HY-lrY"/>
+                        <outlet property="debu_msg" destination="d2z-v0-J8z" id="2VG-Ty-HiQ"/>
+                        <outlet property="incoming_notification_switch" destination="rgi-fu-g0z" id="cji-in-bx5"/>
+                        <outlet property="network_mode" destination="eSv-EL-74K" id="G1h-gV-jsn"/>
+                        <outlet property="network_mode_subtitle" destination="Kbd-Mq-WpQ" id="3hd-Yy-R7Q"/>
+                        <outlet property="node_cell_view" destination="ALR-YU-A01" id="dMz-fM-TcN"/>
+                        <outlet property="server_ip" destination="xwj-C2-3tK" id="zWl-bi-uXP"/>
+                        <outlet property="server_viewCell" destination="Y85-zR-vrJ" id="DWv-nf-Y74"/>
+                        <outlet property="spend_uncon_fund" destination="UQm-nI-5Hn" id="EF9-wH-PWU"/>
+                        <outlet property="testnet_switch" destination="2Hx-1f-Fnz" id="dv1-Wy-ywp"/>
+                        <outlet property="version" destination="E5I-QX-JBY" id="1hb-iT-fVG"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9zL-3t-ck0" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="JjF-Qe-zu4">
@@ -1860,7 +1838,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="882.39999999999998" y="2203.4482758620693"/>
+            <point key="canvasLocation" x="127" y="2203"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="6nh-mZ-Xhx">
@@ -1875,7 +1853,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vl5-1Q-2jW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1674" y="2018"/>
+            <point key="canvasLocation" x="1580" y="2203"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="Yr0-rz-Tqi">
@@ -1907,10 +1885,10 @@
             </objects>
             <point key="canvasLocation" x="2220" y="3113"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Network Mode Table View Controller-->
         <scene sceneID="eRR-1R-0HC">
             <objects>
-                <tableViewController id="HwO-Ms-2bE" sceneMemberID="viewController">
+                <tableViewController id="HwO-Ms-2bE" customClass="NetworkModeTableViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="hE3-xS-Acx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1979,10 +1957,15 @@
                     </tableView>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <splitViewDetailSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="local_node" destination="f9e-qc-qCd" id="ha4-TX-5cv"/>
+                        <outlet property="remote_cell" destination="C7d-NP-9yD" id="9K2-hi-FcV"/>
+                        <outlet property="spv_cell" destination="pg6-Xp-q6K" id="SfT-G6-Mvg"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2vo-Ad-e4x" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1332" y="1490"/>
+            <point key="canvasLocation" x="1134" y="1585"/>
         </scene>
         <!--Table View Controller-->
         <scene sceneID="Ofo-e8-SXb">
