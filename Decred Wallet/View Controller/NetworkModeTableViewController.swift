@@ -12,7 +12,7 @@ class NetworkModeTableViewController: UITableViewController {
 
     @IBOutlet weak var spv_cell: UITableViewCell!
     @IBOutlet weak var local_node: UITableViewCell!
-    let network_value = UserDefaults.standard.integer(forKey: "network_mode")
+    let network_value = UserDefaults.standard.integer(forKey: "network_mode") 
     @IBOutlet weak var remote_cell: UITableViewCell!
     override func viewDidLoad() {
         super.viewDidLoad()
