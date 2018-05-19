@@ -30,15 +30,16 @@ class PeerSetTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     @objc func save() -> Void {
         // save here
-        if !(peer_ip.text?.isEmpty)!{
+        if !(peer_ip.text?.isEmpty)! && isValidIP(s: peer_ip.text!){
             UserDefaults.standard.set(peer_ip.text, forKey: "pref_peer_ip")
             UserDefaults.standard.synchronize()
             self.navigationController?.popViewController(animated: true)
         }
         else{
-            self.showMessage(title: "Invali input", userMessage: "please input a valid IP", buttonTitle: "ok")
+            self.showMessage(title: "Invalid input", userMessage: "please input a valid IP address", buttonTitle: "ok")
         }
         
         
@@ -54,6 +55,11 @@ class PeerSetTableViewController: UITableViewController {
         uiAlert.addAction(uiAction)
         
         self.present(uiAlert, animated: true, completion: nil)
+    }
+    func isValidIP(s: String) -> Bool {
+        let parts = s.components(separatedBy: ".")
+    let nums = parts.flatMap { Int($0) }
+    return parts.count == 4 && nums.count == 4 && nums.filter { $0 >= 0 && $0 < 256}.count == 4
     }
 
 }
