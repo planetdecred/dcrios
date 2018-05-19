@@ -34,7 +34,7 @@ class ServerSetTableViewController: UITableViewController {
     }
     @objc func save() -> Void {
         // save here
-        if !(server_ip.text?.isEmpty)!{
+        if !(server_ip.text?.isEmpty)! && isValidIP(s: server_ip.text!){
             UserDefaults.standard.set(server_ip.text, forKey: "pref_server_ip")
             UserDefaults.standard.synchronize()
             
@@ -59,4 +59,9 @@ class ServerSetTableViewController: UITableViewController {
         self.present(uiAlert, animated: true, completion: nil)
     }
 
+    func isValidIP(s: String) -> Bool {
+        let parts = s.components(separatedBy: ".")
+        let nums = parts.flatMap { Int($0) }
+        return parts.count == 4 && nums.count == 4 && nums.filter { $0 >= 0 && $0 < 256}.count == 4
+    }
 }
