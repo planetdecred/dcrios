@@ -61,11 +61,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-       /* showAnimatedStartScreen()
+        showAnimatedStartScreen()
         AppContext.instance.storage = Storage()
         AppContext.instance.walletManager = MobilewalletNewLibWallet(NSHomeDirectory()+"/Documents")
-        AppContext.instance.walletManager?.initLoader()*/
-        createMenuView()
+        AppContext.instance.walletManager?.initLoader()
         return true
     }
     
