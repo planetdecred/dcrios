@@ -10,6 +10,6 @@ import Foundation
 import Mobilewallet
 class AppContext {
     public static let instance = AppContext()
-    var storage: StorageProtocol?
+//    var storage: StorageProtocol?
     var walletManager: MobilewalletLibWallet?
 }
