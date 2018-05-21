@@ -6,7 +6,7 @@ mkdir bin
 unset GOROOT
 export GOPATH=$(pwd)
 export PATH=$PATH:$GOPATH/bin
-cd src/mobilewallet
+cd src/wallet
 dep ensure -v
 go get golang.org/x/mobile/cmd/gomobile
 gomobile init
