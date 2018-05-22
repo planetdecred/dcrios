@@ -44,7 +44,7 @@ class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITex
             try AppContext.instance.walletManager?.createWallet(tfPassword.text, seedMnemonic: seedToVerify)
             progressHud?.hide(animated: true)
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            appDelegate.populateFirstScreen()
+            appDelegate.populateFirstScreen() // Go to Main screen
             
             //self.showSuccess()
             //navigationController?.dismiss(animated: true, completion: nil)

@@ -79,7 +79,7 @@ class RecoverWalletViewController: UIViewController {
         
     }
     
-    
+    // Input views 
     func addAccessory() {
         
         let customView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 100))
