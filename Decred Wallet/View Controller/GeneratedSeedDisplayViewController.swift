@@ -28,9 +28,7 @@ class GeneratedSeedDisplayViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        
+
         let seed = try? AppContext.instance.walletManager?.generateSeed() as String!
         arrWords = (seed?.components(separatedBy: " "))!
         txSeed.text = seed ?? ""
@@ -48,6 +46,7 @@ class GeneratedSeedDisplayViewController: UIViewController {
         totalWidth = seedContainer.frame.size.width
     }
     
+    // Draw seed 
     func drawSeed() {
         for view in seedContainer.subviews{
             view.removeFromSuperview()
@@ -66,6 +65,7 @@ class GeneratedSeedDisplayViewController: UIViewController {
         }
     }
     
+    // Get location for new seed word
     func getLocation(stringSize: CGFloat) -> CGRect {
         let pos = xPostiion + stringSize
         let rect : CGRect
@@ -82,13 +82,7 @@ class GeneratedSeedDisplayViewController: UIViewController {
         
     }
     
-    // MARK: - Navigation
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        var vc = segue.destination as! SeedCheckupProtocol
-        vc.seedToVerify = txSeed.text
-    }
-    
+    // Get width for new word
     func getWidth(str: String) -> CGSize {
         let maxLabelSize = CGSize(width: 300, height: 30)
         let contentNSString = str as String
@@ -96,6 +90,15 @@ class GeneratedSeedDisplayViewController: UIViewController {
         print("\(expectedLabelSize)")
         return expectedLabelSize.size
     }
+    
+    // MARK: - Navigation
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        var vc = segue.destination as! SeedCheckupProtocol
+        vc.seedToVerify = txSeed.text
+    }
+    
+    
 
 }
 
