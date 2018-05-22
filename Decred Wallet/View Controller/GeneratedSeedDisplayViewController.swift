@@ -42,6 +42,8 @@ class GeneratedSeedDisplayViewController: UIViewController {
         self.drawSeed()
     }
     
+    // MARK: - Utility
+    
     func setUpUItraits() {
         totalWidth = seedContainer.frame.size.width
     }
@@ -79,6 +81,7 @@ class GeneratedSeedDisplayViewController: UIViewController {
         return rect
         
     }
+    
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
