@@ -44,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 
-    fileprivate func populateFirstScreen() {
+    func populateFirstScreen() {
         if(isWalletCreated()){
             self.createMenuView()
         }else{
