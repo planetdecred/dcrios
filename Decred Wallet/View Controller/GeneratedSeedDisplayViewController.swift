@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Mobilewallet
+import Wallet
 
 class GeneratedSeedDisplayViewController: UIViewController {
 
