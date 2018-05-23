@@ -49,7 +49,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         let goViewController = storyboard.instantiateViewController(withIdentifier: "ReceiveViewController") as! ReceiveViewController
         self.receiveViewController = UINavigationController(rootViewController: goViewController)
         
-        let settingsController = storyboard.instantiateViewController(withIdentifier: "SettingsController") as! SettingsController
+        let settingsController = storyboard.instantiateViewController(withIdentifier: "SettingsController2") as! SettingsController
         settingsController.delegate = self
         self.settingsViewController = UINavigationController(rootViewController: settingsController)
         
