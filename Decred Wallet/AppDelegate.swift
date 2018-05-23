@@ -65,7 +65,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AppContext.instance.storage = Storage()
         AppContext.instance.walletManager = MobilewalletNewLibWallet(NSHomeDirectory()+"/Documents")
         AppContext.instance.walletManager?.initLoader()
-        
         return true
     }
     
