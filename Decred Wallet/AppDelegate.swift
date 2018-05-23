@@ -6,7 +6,7 @@
 
 import SlideMenuControllerSwift
 import CoreData
-import Mobilewallet
+import Wallet
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -63,7 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         showAnimatedStartScreen()
         AppContext.instance.storage = Storage()
-        AppContext.instance.walletManager = MobilewalletNewLibWallet(NSHomeDirectory()+"/Documents")
+        AppContext.instance.walletManager = WalletNewLibWallet(NSHomeDirectory()+"/Documents")
         AppContext.instance.walletManager?.initLoader()
         return true
     }

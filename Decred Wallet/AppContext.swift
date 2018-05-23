@@ -7,9 +7,9 @@
 //
 
 import Foundation
-import Mobilewallet
+import Wallet
 class AppContext {
     public static let instance = AppContext()
     var storage: StorageProtocol?
-    var walletManager: MobilewalletLibWallet?
+    var walletManager: WalletLibWallet?
 }
