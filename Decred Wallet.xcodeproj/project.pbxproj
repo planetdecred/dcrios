@@ -23,6 +23,12 @@
 		B853136BC96255F028D8CB64 /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD1BD0208F6C9A0051F58F /* Pods_Decred_Wallet.framework */; };
 		DD0C493E208A160900986C6B /* WalletSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C493D208A160900986C6B /* WalletSetupViewController.swift */; };
 		DD0C4940208A401A00986C6B /* saveSeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C493F208A401A00986C6B /* saveSeedViewController.swift */; };
+		DD1D5C7C20AED828009789DD /* certificateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1D5C7B20AED824009789DD /* certificateViewController.swift */; };
+		DD1D5C7E20AEDB15009789DD /* WalletLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1D5C7D20AEDB15009789DD /* WalletLogViewController.swift */; };
+		DD1D5C8020AEDB2B009789DD /* NodeLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1D5C7F20AEDB2B009789DD /* NodeLogViewController.swift */; };
+		DD1D5C8220AEE90D009789DD /* ServerSetTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1D5C8120AEE90D009789DD /* ServerSetTableViewController.swift */; };
+		DD1D5C8420AEE9FF009789DD /* PeerSetTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1D5C8320AEE9FE009789DD /* PeerSetTableViewController.swift */; };
+		DD24AFA420A6ED70009EC84F /* NetworkModeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD24AFA320A6ED70009EC84F /* NetworkModeTableViewController.swift */; };
 		DD41975F202F99A90044F068 /* SubContentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD41975E202F99A90044F068 /* SubContentsViewController.swift */; };
 		DD419763202F9B570044F068 /* UITableViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD419762202F9B570044F068 /* UITableViewExtension.swift */; };
 		DD4C89D92038EC12003FEA0C /* DropMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4C89D82038CDBC003FEA0C /* DropMenuButton.swift */; };
@@ -80,6 +86,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0D62C8903A86653A1E2FF07A /* Pods_Decred_WalletTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Decred_WalletTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		109877DFD2DABA7636DA7B92 /* Pods-Decred WalletTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred WalletTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Decred WalletTests/Pods-Decred WalletTests.debug.xcconfig"; sourceTree = "<group>"; };
 		2883CA6A2099C9680053D9BB /* StorageProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageProtocols.swift; sourceTree = "<group>"; };
 		2883CA6B2099C9680053D9BB /* Entities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entities.swift; sourceTree = "<group>"; };
@@ -104,6 +111,12 @@
 		A1A97C56BC75512DA55A8A70 /* Pods-Decred WalletTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred WalletTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Decred WalletTests/Pods-Decred WalletTests.release.xcconfig"; sourceTree = "<group>"; };
 		DD0C493D208A160900986C6B /* WalletSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSetupViewController.swift; sourceTree = "<group>"; };
 		DD0C493F208A401A00986C6B /* saveSeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = saveSeedViewController.swift; sourceTree = "<group>"; };
+		DD1D5C7B20AED824009789DD /* certificateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = certificateViewController.swift; sourceTree = "<group>"; };
+		DD1D5C7D20AEDB15009789DD /* WalletLogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletLogViewController.swift; sourceTree = "<group>"; };
+		DD1D5C7F20AEDB2B009789DD /* NodeLogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeLogViewController.swift; sourceTree = "<group>"; };
+		DD1D5C8120AEE90D009789DD /* ServerSetTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSetTableViewController.swift; sourceTree = "<group>"; };
+		DD1D5C8320AEE9FE009789DD /* PeerSetTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeerSetTableViewController.swift; sourceTree = "<group>"; };
+		DD24AFA320A6ED70009EC84F /* NetworkModeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkModeTableViewController.swift; sourceTree = "<group>"; };
 		DD41975E202F99A90044F068 /* SubContentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubContentsViewController.swift; sourceTree = "<group>"; };
 		DD419762202F9B570044F068 /* UITableViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewExtension.swift; sourceTree = "<group>"; };
 		DD4C89D72038CABD003FEA0C /* keyPadButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = keyPadButton.swift; sourceTree = "<group>"; };
@@ -204,6 +217,7 @@
 		DD4C89DC2038EEEF003FEA0C /* View Controller */ = {
 			isa = PBXGroup;
 			children = (
+				DD24AFA320A6ED70009EC84F /* NetworkModeTableViewController.swift */,
 				2883CA71209B52AE0053D9BB /* WaiterScreenViewController.swift */,
 				DDB8941C202F9252002F85EE /* ExSlideMenuController.swift */,
 				DDB8941E202F937F002F85EE /* RightViewController.swift */,
@@ -219,6 +233,7 @@
 				DD0C493D208A160900986C6B /* WalletSetupViewController.swift */,
 				DD0C493F208A401A00986C6B /* saveSeedViewController.swift */,
 				DDBC152B2095D2E900F68BA6 /* encryptWalletViewController.swift */,
+				DD1D5C7B20AED824009789DD /* certificateViewController.swift */,
 			);
 			path = "View Controller";
 			sourceTree = "<group>";
@@ -271,6 +286,10 @@
 				DD4C89DB2038EE60003FEA0C /* view util */,
 				DDA3E26D20292EF900C83D18 /* AppDelegate.swift */,
 				DDA3E27120292EF900C83D18 /* Main.storyboard */,
+				DD1D5C8120AEE90D009789DD /* ServerSetTableViewController.swift */,
+				DD1D5C8320AEE9FE009789DD /* PeerSetTableViewController.swift */,
+				DD1D5C7D20AEDB15009789DD /* WalletLogViewController.swift */,
+				DD1D5C7F20AEDB2B009789DD /* NodeLogViewController.swift */,
 				28E5EB6A20908AC0002DCCB5 /* GeneratedSeedDisplayViewController.swift */,
 				28E5EB6C20908AE0002DCCB5 /* SeedCheckupViewController.swift */,
 				28E5EB7220924632002DCCB5 /* CreatePasswordViewController.swift */,
@@ -322,7 +341,6 @@
 				DDA3E26720292EF900C83D18 /* Frameworks */,
 				DDA3E26820292EF900C83D18 /* Resources */,
 				88FE9A5EBEA8DA5D7D45387C /* [CP] Embed Pods Frameworks */,
-				1E1CBDB90E550E4585480EFA /* [CP] Copy Pods Resources */,
 				28F0CE952088B1AF003AC958 /* Embed Frameworks */,
 			);
 			buildRules = (
@@ -342,8 +360,6 @@
 				DDA3E27A20292EF900C83D18 /* Sources */,
 				DDA3E27B20292EF900C83D18 /* Frameworks */,
 				DDA3E27C20292EF900C83D18 /* Resources */,
-				FF875009069212DFD2BB17E9 /* [CP] Embed Pods Frameworks */,
-				424862C24AFB403E92165137 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -419,36 +435,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1E1CBDB90E550E4585480EFA /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		424862C24AFB403E92165137 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Decred WalletTests/Pods-Decred WalletTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		88FE9A5EBEA8DA5D7D45387C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -513,21 +499,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FF875009069212DFD2BB17E9 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Decred WalletTests/Pods-Decred WalletTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -536,6 +507,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				DDB89409202F824A002F85EE /* ReceiveViewController.swift in Sources */,
+				DD1D5C8220AEE90D009789DD /* ServerSetTableViewController.swift in Sources */,
+				DD1D5C8420AEE9FF009789DD /* PeerSetTableViewController.swift in Sources */,
 				DDB8941F202F937F002F85EE /* RightViewController.swift in Sources */,
 				DD0C493E208A160900986C6B /* WalletSetupViewController.swift in Sources */,
 				DDB8941B202F8F92002F85EE /* UIColor.swift in Sources */,
@@ -545,17 +518,21 @@
 				DDB89411202F8471002F85EE /* String.swift in Sources */,
 				DD419763202F9B570044F068 /* UITableViewExtension.swift in Sources */,
 				DDB89413202F8635002F85EE /* ImageHeaderView.swift in Sources */,
+				DD1D5C7E20AEDB15009789DD /* WalletLogViewController.swift in Sources */,
 				DD4C89DA2038EC3F003FEA0C /* keyPadButton.swift in Sources */,
 				DDB8941D202F9252002F85EE /* ExSlideMenuController.swift in Sources */,
 				2883CA72209B52AE0053D9BB /* WaiterScreenViewController.swift in Sources */,
 				DDB89421202F93B3002F85EE /* OverviewViewController.swift in Sources */,
 				2883CA702099D40F0053D9BB /* DropDownSearchField.swift in Sources */,
 				DDB89429202F95AC002F85EE /* UIApplication.swift in Sources */,
+				DD24AFA420A6ED70009EC84F /* NetworkModeTableViewController.swift in Sources */,
 				DD4C89D92038EC12003FEA0C /* DropMenuButton.swift in Sources */,
 				DDB89419202F8F3E002F85EE /* UIIMage.swift in Sources */,
 				28E5EB7320924632002DCCB5 /* CreatePasswordViewController.swift in Sources */,
+				DD1D5C8020AEDB2B009789DD /* NodeLogViewController.swift in Sources */,
 				28E5EB6D20908AE0002DCCB5 /* SeedCheckupViewController.swift in Sources */,
 				DDB89417202F8EE2002F85EE /* UIImageView.swift in Sources */,
+				DD1D5C7C20AED828009789DD /* certificateViewController.swift in Sources */,
 				DD96B33F20293F110046F2DD /* LeftViewController.swift in Sources */,
 				DD0C4940208A401A00986C6B /* saveSeedViewController.swift in Sources */,
 				DDA3E27020292EF900C83D18 /* ViewController.swift in Sources */,
@@ -726,7 +703,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = KQ46EWSK84;
+				DEVELOPMENT_TEAM = LYZ95J7356;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -737,7 +714,7 @@
 				INFOPLIST_FILE = "Decred Wallet/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.ensoreus.Decred-Wallet";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.macsleven.Decred-Wallet";
 				PRODUCT_NAME = DecredWallet;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -751,7 +728,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = KQ46EWSK84;
+				DEVELOPMENT_TEAM = LYZ95J7356;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -762,7 +739,7 @@
 				INFOPLIST_FILE = "Decred Wallet/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.ensoreus.Decred-Wallet";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.macsleven.Decred-Wallet";
 				PRODUCT_NAME = DecredWallet;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
