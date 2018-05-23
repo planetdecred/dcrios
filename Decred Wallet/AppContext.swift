@@ -12,4 +12,5 @@ class AppContext {
     public static let instance = AppContext()
     var storage: StorageProtocol?
     var walletManager: MobilewalletLibWallet?
+    var addressManager: MobilewalletTransactionCredit?
 }
