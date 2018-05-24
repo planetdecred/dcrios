@@ -14,7 +14,6 @@
 @class WalletAccounts;
 @class WalletBalance;
 @class WalletConstructTxResponse;
-@class WalletGetTransactionResponseStruct;
 @class WalletLibWallet;
 @class WalletTransaction;
 @class WalletTransactionBlockListenerStruct;
@@ -129,15 +128,6 @@
 - (void)setTotalPreviousOutputAmount:(int64_t)v;
 - (NSData*)unsignedTransaction;
 - (void)setUnsignedTransaction:(NSData*)v;
-@end
-
-@interface WalletGetTransactionResponseStruct : NSObject <goSeqRefInterface, WalletGetTransactionsResponse> {
-}
-@property(strong, readonly) id _ref;
-
-- (instancetype)initWithRef:(id)ref;
-- (instancetype)init;
-- (void)onResult:(NSString*)json;
 @end
 
 @interface WalletLibWallet : NSObject <goSeqRefInterface> {
@@ -257,8 +247,6 @@
 - (void)onTransaction:(NSString*)transaction;
 - (void)onTransactionRefresh;
 @end
-
-FOUNDATION_EXPORT WalletGetTransactionResponseStruct* WalletCreateGetTransactionResponse(void);
 
 FOUNDATION_EXPORT WalletTransactionListenerStruct* WalletCreateTransactionListener(void);
 

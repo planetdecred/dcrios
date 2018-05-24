@@ -18,6 +18,7 @@
 		2883CA72209B52AE0053D9BB /* WaiterScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2883CA71209B52AE0053D9BB /* WaiterScreenViewController.swift */; };
 		2883CA74209B5BA40053D9BB /* Modals.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2883CA73209B5BA40053D9BB /* Modals.storyboard */; };
 		289807DE20BEE55A00C30338 /* DcrTransactionHistorySupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289807DD20BEE55A00C30338 /* DcrTransactionHistorySupport.swift */; };
+		28A68EFF20B462090090B346 /* Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28A68EFE20B462090090B346 /* Wallet.framework */; };
 		28E5EB6B20908AC0002DCCB5 /* GeneratedSeedDisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E5EB6A20908AC0002DCCB5 /* GeneratedSeedDisplayViewController.swift */; };
 		28E5EB6D20908AE0002DCCB5 /* SeedCheckupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E5EB6C20908AE0002DCCB5 /* SeedCheckupViewController.swift */; };
 		28E5EB7320924632002DCCB5 /* CreatePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E5EB7220924632002DCCB5 /* CreatePasswordViewController.swift */; };
@@ -32,9 +33,6 @@
 		95877FE920B70CBB00CE53D2 /* TransactionHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95877FE720B70CBB00CE53D2 /* TransactionHistoryViewController.swift */; };
 		95877FEC20B70D4B00CE53D2 /* TransactionHistoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95877FEA20B70D4B00CE53D2 /* TransactionHistoryTableViewCell.xib */; };
 		95877FED20B70D4B00CE53D2 /* TransactionHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95877FEB20B70D4B00CE53D2 /* TransactionHistoryTableViewCell.swift */; };
-		958B537220CA9E5500F6684C /* Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95AB6BDB20CA7DB900460281 /* Wallet.framework */; };
-		95BFA83220D156D900BAED71 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BFA83020D156D900BAED71 /* MenuCell.swift */; };
-		95BFA83320D156D900BAED71 /* MenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95BFA83120D156D900BAED71 /* MenuCell.xib */; };
 		B853136BC96255F028D8CB64 /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD1BD0208F6C9A0051F58F /* Pods_Decred_Wallet.framework */; };
 		DD0C493E208A160900986C6B /* WalletSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C493D208A160900986C6B /* WalletSetupViewController.swift */; };
 		DD0C4940208A401A00986C6B /* saveSeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C493F208A401A00986C6B /* saveSeedViewController.swift */; };
@@ -113,6 +111,7 @@
 		2883CA71209B52AE0053D9BB /* WaiterScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaiterScreenViewController.swift; sourceTree = "<group>"; };
 		2883CA73209B5BA40053D9BB /* Modals.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Modals.storyboard; sourceTree = "<group>"; };
 		289807DD20BEE55A00C30338 /* DcrTransactionHistorySupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DcrTransactionHistorySupport.swift; sourceTree = "<group>"; };
+		28A68EFE20B462090090B346 /* Wallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Wallet.framework; path = wallet/debug/Wallet.framework; sourceTree = "<group>"; };
 		28E5EB6A20908AC0002DCCB5 /* GeneratedSeedDisplayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GeneratedSeedDisplayViewController.swift; path = "View Controller/GeneratedSeedDisplayViewController.swift"; sourceTree = "<group>"; };
 		28E5EB6C20908AE0002DCCB5 /* SeedCheckupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SeedCheckupViewController.swift; path = "View Controller/SeedCheckupViewController.swift"; sourceTree = "<group>"; };
 		28E5EB7220924632002DCCB5 /* CreatePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CreatePasswordViewController.swift; path = "View Controller/CreatePasswordViewController.swift"; sourceTree = "<group>"; };
@@ -131,9 +130,6 @@
 		95877FE720B70CBB00CE53D2 /* TransactionHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionHistoryViewController.swift; sourceTree = "<group>"; };
 		95877FEA20B70D4B00CE53D2 /* TransactionHistoryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionHistoryTableViewCell.xib; sourceTree = "<group>"; };
 		95877FEB20B70D4B00CE53D2 /* TransactionHistoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionHistoryTableViewCell.swift; sourceTree = "<group>"; };
-		95AB6BDB20CA7DB900460281 /* Wallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Wallet.framework; path = wallet/debug/Wallet.framework; sourceTree = "<group>"; };
-		95BFA83020D156D900BAED71 /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
-		95BFA83120D156D900BAED71 /* MenuCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuCell.xib; sourceTree = "<group>"; };
 		A1A97C56BC75512DA55A8A70 /* Pods-Decred WalletTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred WalletTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Decred WalletTests/Pods-Decred WalletTests.release.xcconfig"; sourceTree = "<group>"; };
 		DD0C493D208A160900986C6B /* WalletSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSetupViewController.swift; sourceTree = "<group>"; };
 		DD0C493F208A401A00986C6B /* saveSeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = saveSeedViewController.swift; sourceTree = "<group>"; };
@@ -186,7 +182,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				958B537220CA9E5500F6684C /* Wallet.framework in Frameworks */,
+				28A68EFF20B462090090B346 /* Wallet.framework in Frameworks */,
 				1E3D73D7EA02D2D2D3CD052C /* Pods_Decred_Wallet.framework in Frameworks */,
 				B853136BC96255F028D8CB64 /* Pods_Decred_Wallet.framework in Frameworks */,
 			);
@@ -220,7 +216,7 @@
 		5300E0A95A9FA022A08F903E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				95AB6BDB20CA7DB900460281 /* Wallet.framework */,
+				28A68EFE20B462090090B346 /* Wallet.framework */,
 				28FD1BD0208F6C9A0051F58F /* Pods_Decred_Wallet.framework */,
 				28FD1BC5208E667F0051F58F /* Pods_Decred_Wallet.framework */,
 				28FD1BC1208E659A0051F58F /* Pods_Decred_Wallet.framework */,
@@ -247,8 +243,6 @@
 				DDB89418202F8F3E002F85EE /* UIIMage.swift */,
 				DDB8941A202F8F92002F85EE /* UIColor.swift */,
 				DD4C89D82038CDBC003FEA0C /* DropMenuButton.swift */,
-				958B537720CABB7C00F6684C /* iOSDevCenters+GIF.swift */,
-				958B537520CABB6E00F6684C /* loaderAnimation.gif */,
 			);
 			path = "view util";
 			sourceTree = "<group>";
@@ -288,8 +282,6 @@
 				95877FEA20B70D4B00CE53D2 /* TransactionHistoryTableViewCell.xib */,
 				DDB89422202F9432002F85EE /* DataTableViewCell.swift */,
 				DDB8940E202F83EA002F85EE /* BaseTableViewCell.swift */,
-				95BFA83020D156D900BAED71 /* MenuCell.swift */,
-				95BFA83120D156D900BAED71 /* MenuCell.xib */,
 			);
 			path = "Table View Cell ";
 			sourceTree = "<group>";
@@ -390,6 +382,7 @@
 				DDA3E26820292EF900C83D18 /* Resources */,
 				88FE9A5EBEA8DA5D7D45387C /* [CP] Embed Pods Frameworks */,
 				28F0CE952088B1AF003AC958 /* Embed Frameworks */,
+				1C01BF5629253FB5D5BA1BFA /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -408,6 +401,8 @@
 				DDA3E27A20292EF900C83D18 /* Sources */,
 				DDA3E27B20292EF900C83D18 /* Frameworks */,
 				DDA3E27C20292EF900C83D18 /* Resources */,
+				CD31934294CC1D8A101AAC4B /* [CP] Embed Pods Frameworks */,
+				1EAC0CA71423A7F89C5ED8BC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -466,11 +461,9 @@
 			files = (
 				DDB89425202F948E002F85EE /* DataTableViewCell.xib in Resources */,
 				DDA3E27820292EF900C83D18 /* LaunchScreen.storyboard in Resources */,
-				958B537620CABB6F00F6684C /* loaderAnimation.gif in Resources */,
 				956D14AE20BF035D00624D68 /* wordlist.txt in Resources */,
 				DDA3E27520292EF900C83D18 /* Assets.xcassets in Resources */,
 				957F0AFC20B80EA600D3E8A9 /* RecoverWalletViewController.xib in Resources */,
-				95BFA83320D156D900BAED71 /* MenuCell.xib in Resources */,
 				95877FE820B70CBB00CE53D2 /* TransactionHistoryViewController.xib in Resources */,
 				DDA3E27320292EF900C83D18 /* Main.storyboard in Resources */,
 				2883CA74209B5BA40053D9BB /* Modals.storyboard in Resources */,
@@ -489,6 +482,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		18E2B8DC6718CB21299854F8 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Decred WalletTests/Pods-Decred WalletTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		1C01BF5629253FB5D5BA1BFA /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -502,21 +510,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		338D1098C808660C037140A8 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Decred WalletTests/Pods-Decred WalletTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		88FE9A5EBEA8DA5D7D45387C /* [CP] Embed Pods Frameworks */ = {
@@ -537,6 +530,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B42A3DFD2D55CB62FDA68843 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CD31934294CC1D8A101AAC4B /* [CP] Embed Pods Frameworks */ = {
@@ -590,6 +598,21 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		F58EBCA21FDA9D02A7831506 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -602,7 +625,6 @@
 				DD1D5C8420AEE9FF009789DD /* PeerSetTableViewController.swift in Sources */,
 				DDB8941F202F937F002F85EE /* RightViewController.swift in Sources */,
 				DD0C493E208A160900986C6B /* WalletSetupViewController.swift in Sources */,
-				958B537820CABB7C00F6684C /* iOSDevCenters+GIF.swift in Sources */,
 				286E279D20B6E22400EE0B08 /* DcrObservers.swift in Sources */,
 				DDB8941B202F8F92002F85EE /* UIColor.swift in Sources */,
 				28F0CE7320888258003AC958 /* Utils.swift in Sources */,
@@ -648,7 +670,6 @@
 				DDA3E26E20292EF900C83D18 /* AppDelegate.swift in Sources */,
 				DDB8940D202F82E6002F85EE /* SettingsController.swift in Sources */,
 				DDB8940B202F82A3002F85EE /* AccountViewController.swift in Sources */,
-				95BFA83220D156D900BAED71 /* MenuCell.swift in Sources */,
 				286E279F20B6E22400EE0B08 /* DcrdSeedMnemonicSupport.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
