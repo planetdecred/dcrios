@@ -6,7 +6,7 @@
 
 import UIKit
 
-typealias CallBack = ((Int,String) -> Void)
+typealias CallBack = ((Int,String) -> Void) // callback function
 
 class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
 {
@@ -76,8 +76,6 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
 
         self.addTarget(self, action:#selector(DropMenuButton.showItems), for: .touchUpInside)
         
-        //table.registerNib(UINib(nibName: "CustomCell", bundle: nil), forCellReuseIdentifier: "cell")
-        
     }
     
     func initMenu(_ items: [String])
@@ -122,8 +120,6 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
         containerView.layer.shadowColor = UIColor.lightGray.cgColor
         
         self.addTarget(self, action:#selector(DropMenuButton.showItems), for: .touchUpInside)
-        
-        //table.registerNib(UINib(nibName: "CustomCell", bundle: nil), forCellReuseIdentifier: "cell")
         
     }
     
