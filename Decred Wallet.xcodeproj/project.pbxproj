@@ -401,8 +401,8 @@
 				DDA3E27A20292EF900C83D18 /* Sources */,
 				DDA3E27B20292EF900C83D18 /* Frameworks */,
 				DDA3E27C20292EF900C83D18 /* Resources */,
-				BA4918F0D01E03685AAD8945 /* [CP] Embed Pods Frameworks */,
-				5570CF4C6E049F2F212CFD06 /* [CP] Copy Pods Resources */,
+				CD31934294CC1D8A101AAC4B /* [CP] Embed Pods Frameworks */,
+				1EAC0CA71423A7F89C5ED8BC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -532,7 +532,22 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		BA4918F0D01E03685AAD8945 /* [CP] Embed Pods Frameworks */ = {
+		B42A3DFD2D55CB62FDA68843 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CD31934294CC1D8A101AAC4B /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
