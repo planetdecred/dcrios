@@ -56,6 +56,8 @@ class TransactionHistoryViewController: UIViewController {
 
 }
 
+   // MARK: - Table Delegates
+
 extension TransactionHistoryViewController : UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.mainContens.count
