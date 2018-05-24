@@ -32,6 +32,18 @@ class RecoverWalletViewController: UIViewController {
     
     // MARK: - Action Methods
     @IBAction func btnConfirmSeed(_ sender: Any) {
+        self.view.endEditing(true)
+        
+        let flag =  AppContext.instance.walletManager?.verifySeed(txSeedCheckCombined.text)
+        if(flag)! {
+            self.performSegue(withIdentifier: "encryptWallet", sender: self)
+        } else {
+            self.showError(error: "Seed was not verifed!")
+        }
+        
+    }
+    
+    func verifyWord() {
         if( tfSeedCheckWord.text!.length > 0 ) {
             let seed = NSMutableString(string: seedWords)
             seed.append(tfSeedCheckWord.text! + " ")
@@ -39,22 +51,12 @@ class RecoverWalletViewController: UIViewController {
             txSeedCheckCombined.text = seedWords
             tfSeedCheckWord.text = ""
         }
-        
     }
+    
     @IBAction func btnClearSeed(_ sender: Any) {
         tfSeedCheckWord.text = ""
     }
     
-    @IBAction func confirmAction(_ sender: Any) {
-        self.view.endEditing(true)
-
-        let flag =  AppContext.instance.walletManager?.verifySeed(txSeedCheckCombined.text)
-        if(flag)! {
-            self.performSegue(withIdentifier: "encryptWallet", sender: self)
-        } else {
-            self.showError(error: "Seed was not verifed!")
-        }
-    }
     
     // MARK: - Utility Methods
     func showError(error: String){
@@ -82,6 +84,7 @@ class RecoverWalletViewController: UIViewController {
     // Input views 
     func addAccessory() {
         
+        tfSeedCheckWord.delegate = self
         let customView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 100))
         customView.addSubview(txtInputView)
         customView.backgroundColor = UIColor.red
@@ -148,11 +151,10 @@ class RecoverWalletViewController: UIViewController {
                 txtFieldContainer.topAnchor, constant: 10)
             ])
     }
-    
-    
-    
-    
-    
+    func enableButton() {
+      btnConfirm.isEnabled = true
+      btnConfirm.alpha = 1.0
+    }
 }
 
 // MARK: - TextView Delegate Methods
@@ -170,3 +172,30 @@ extension RecoverWalletViewController : UITextViewDelegate {
         return true
     }
 }
+
+extension RecoverWalletViewController : UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.verifyWord()
+        let trimmedSeed = seedWords.trimmingCharacters(in: .whitespacesAndNewlines)
+        print(trimmedSeed.components(separatedBy: " "))
+        let wordCount = trimmedSeed.components(separatedBy: " ").count
+        if(wordCount == 33) {
+            self.enableButton()
+        } else {
+            btnConfirm.isEnabled = false
+            if(wordCount == 32) {
+                tfSeedCheckWord.resignFirstResponder()
+                textField.returnKeyType = UIReturnKeyType.done
+                tfSeedCheckWord.becomeFirstResponder()
+            } else {
+                textField.returnKeyType = UIReturnKeyType.continue
+            }
+        }
+            
+            
+        
+        return true
+    }
+    
+}
+
