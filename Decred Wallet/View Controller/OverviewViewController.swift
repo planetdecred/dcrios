@@ -6,21 +6,45 @@
 import SlideMenuControllerSwift
 import Wallet
 
+class TransactionsManager : TransactionBlockObserverProtocol, TransactionObserverProtocol{
+    func onBlockError(error: Error) {
+        print(error)
+    }
+    
+    var transactions: [String]?
+    
+    func populateTransaction(transaction: String) {
+        print(transaction)
+    }
+    
+    func refresh() {
+        transactions = [String]()
+        print("refresh")
+    }
+    
+    
+}
+
 class OverviewViewController: UIViewController {
+    //var transactions: [String]?
+    let transactions = TransactionsManager()
+    var transactionBlockObserver : TransactionsBlockObserver?
+    var transactionObserver : TransactionsObserver?
     
     @IBOutlet weak var tableView: UITableView!
-    let transactionBlockObserver = TransactionsBlockObserver(listener:self as! TransactionBlockObserverProtocol )
-    let transactionObserver = TransactionsObserver(listener:self as! TransactionObserverProtocol )
+
 
     var mainContens = ["2.000000 DCR", "-3.000000 DCR", "21.340000 DCR", "-1.000000 DCR", "12.000000 DCR", "-1.000000 DCR", "12.30000 DCR","-2.000000 DCR", "3.000000 DCR","2.000000 DCR", "3.000000 DCR"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.registerCellNib(DataTableViewCell.self)
-        self.transactions = [String]()
+        //self.transactions = [String]()
+        transactionBlockObserver = TransactionsBlockObserver(listener: transactions )
+        transactionObserver = TransactionsObserver(listener: transactions )
         if (AppContext.instance.decrdConnection?.connect())!{
-            transactionBlockObserver.subscribe()
-            transactionObserver.subscribe()
+            transactionBlockObserver?.subscribe()
+            transactionObserver?.subscribe()
         }
     }
     
@@ -36,7 +60,7 @@ class OverviewViewController: UIViewController {
     }
 
     func populateTransaction(transaction:String){
-        transactions?.append(transaction)
+        //transactions?.append(transaction)
         self.tableView.reloadData()
     }
     

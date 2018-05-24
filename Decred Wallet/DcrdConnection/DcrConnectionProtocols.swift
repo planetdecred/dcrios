@@ -27,6 +27,11 @@ extension DcrdConnectionProtocol{
     mutating func initiateWallet(){
         wallet = WalletNewLibWallet(NSHomeDirectory() + "/Documents")
         wallet?.initLoader()
+        do{
+            try wallet?.open()
+        } catch let error{
+            print(error)
+        }
     }
     
     func connect() -> Bool {
@@ -63,7 +68,6 @@ extension DcrdConnectionProtocol{
 protocol DecredBackendProtocol: DcrdConnectionProtocol, DcrdSeedMnemonicProtocol, DcrdCreateRestoreWalletProtocol {}
 
 class DcrdConnection : DecredBackendProtocol {
-    
     var transactionsObserver: TransactionsObserver?
     var wallet: WalletLibWallet?
 }
