@@ -17,7 +17,7 @@ class GeneratedSeedDisplayViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let seed = try? AppContext.instance.walletManager?.generateSeed()
+        let seed = try? AppContext.instance.decrdConnection?.generateSeed()
         txSeed.text = seed ?? ""
         vWarningLabel.layer.borderColor = UIColor(hex: "fd714a").cgColor
         vWarningIcon.layer.borderColor = UIColor(hex: "fd714a").cgColor
