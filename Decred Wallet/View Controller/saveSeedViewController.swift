@@ -14,8 +14,8 @@ class saveSeedViewController : UIViewController {
     //MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        warningCont.layer.borderColor = UIColor(hex: "fd714a").cgColor
-        warninicon.layer.borderColor = UIColor(hex: "fd714a").cgColor
+        warningCont.layer.borderColor = GlobalConstants.Colors.orangeColor.cgColor
+        warninicon.layer.borderColor = GlobalConstants.Colors.orangeColor.cgColor
     }
     
 

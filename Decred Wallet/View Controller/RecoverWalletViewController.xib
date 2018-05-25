@@ -12,11 +12,14 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RecoverWalletViewController" customModule="DecredWallet" customModuleProvider="target">
             <connections>
-                <outlet property="btnClear" destination="ryi-mF-bpq" id="ePG-5s-xS1"/>
+                <outlet property="btnClear" destination="fZX-Cx-Y81" id="ix8-AQ-LJl"/>
                 <outlet property="btnConfirm" destination="Q81-yK-y9F" id="vMk-oI-aGe"/>
+                <outlet property="btnDelete" destination="ryi-mF-bpq" id="nVv-8E-hnD"/>
                 <outlet property="tfSeedCheckWord" destination="8Jc-69-tz8" id="IlC-h3-eQe"/>
                 <outlet property="txSeedCheckCombined" destination="BNS-Zi-OIv" id="Nml-yl-dyI"/>
                 <outlet property="txtFieldContainer" destination="d1M-mD-jlK" id="KUi-0R-BzB"/>
+                <outlet property="txtInputView" destination="ht6-td-rIa" id="2R2-8d-IPJ"/>
+                <outlet property="view" destination="yFV-db-efr" id="PsF-Cr-ldH"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -61,7 +64,7 @@
                     </constraints>
                 </view>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="BNS-Zi-OIv">
-                    <rect key="frame" x="0.0" y="175" width="375" height="33"/>
+                    <rect key="frame" x="0.0" y="175" width="345" height="33"/>
                     <color key="backgroundColor" red="0.94901960780000005" green="0.95294117649999999" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="33" id="W6w-R0-lQZ"/>
@@ -72,6 +75,17 @@
                         <outlet property="delegate" destination="-1" id="NPo-7K-57v"/>
                     </connections>
                 </textView>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fZX-Cx-Y81">
+                    <rect key="frame" x="345" y="175" width="30" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="k4r-F3-QCd"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                    <state key="normal" title="X"/>
+                    <connections>
+                        <action selector="clearSeed:" destination="-1" eventType="touchUpInside" id="FpR-3a-hwn"/>
+                    </connections>
+                </button>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ht6-td-rIa">
                     <rect key="frame" x="0.0" y="451" width="375" height="100"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -96,7 +110,7 @@
                             <rect key="frame" x="8" y="8" width="118" height="37"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.180392161" green="0.35010853069999998" blue="0.85882353779999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <state key="normal" title="Clear">
+                            <state key="normal" title="Delete">
                                 <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <userDefinedRuntimeAttributes>
@@ -105,7 +119,7 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="btnClearSeed:" destination="-1" eventType="touchUpInside" id="MFl-FU-VT7"/>
+                                <action selector="deleteLastSeedWithSender:" destination="-1" eventType="touchUpInside" id="qV9-yZ-0xd"/>
                             </connections>
                         </button>
                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d1M-mD-jlK">
@@ -134,9 +148,11 @@
                 <constraint firstItem="bmv-wv-zou" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="w0n-yH-59G" secondAttribute="trailing" constant="295" id="32H-xo-pIH"/>
                 <constraint firstItem="HZ3-hY-f7B" firstAttribute="bottom" secondItem="bmv-wv-zou" secondAttribute="bottom" id="4AY-XX-ciV"/>
                 <constraint firstItem="HZ3-hY-f7B" firstAttribute="leading" secondItem="bmv-wv-zou" secondAttribute="leading" id="4M3-vY-vYf"/>
+                <constraint firstItem="fZX-Cx-Y81" firstAttribute="leading" secondItem="BNS-Zi-OIv" secondAttribute="trailing" id="7nK-Pd-cx3"/>
                 <constraint firstItem="HZ3-hY-f7B" firstAttribute="top" secondItem="w0n-yH-59G" secondAttribute="bottom" constant="20" id="ADH-bW-uS5"/>
                 <constraint firstItem="HZ3-hY-f7B" firstAttribute="trailing" secondItem="bmv-wv-zou" secondAttribute="trailing" id="ATm-ld-8s1"/>
-                <constraint firstItem="BNS-Zi-OIv" firstAttribute="trailing" secondItem="bmv-wv-zou" secondAttribute="trailing" id="Noq-1f-EM7"/>
+                <constraint firstItem="fZX-Cx-Y81" firstAttribute="trailing" secondItem="bmv-wv-zou" secondAttribute="trailing" id="DTR-Uf-6ZD"/>
+                <constraint firstItem="BNS-Zi-OIv" firstAttribute="trailing" secondItem="bmv-wv-zou" secondAttribute="trailing" constant="-30" id="Noq-1f-EM7"/>
                 <constraint firstItem="w0n-yH-59G" firstAttribute="leading" secondItem="bmv-wv-zou" secondAttribute="leading" constant="20" id="PV5-h8-7RT"/>
                 <constraint firstItem="HeX-ke-Ssc" firstAttribute="top" secondItem="aYP-uf-35H" secondAttribute="bottom" constant="22.5" id="VY2-nn-YaI"/>
                 <constraint firstItem="w0n-yH-59G" firstAttribute="top" secondItem="HeX-ke-Ssc" secondAttribute="bottom" constant="6" id="gB4-Mn-crl"/>
@@ -147,6 +163,7 @@
                 <constraint firstItem="BNS-Zi-OIv" firstAttribute="top" secondItem="w0n-yH-59G" secondAttribute="bottom" constant="37" id="sed-zm-QWb"/>
                 <constraint firstItem="bmv-wv-zou" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="aYP-uf-35H" secondAttribute="trailing" constant="295" id="vwe-Ai-uq2"/>
                 <constraint firstItem="HeX-ke-Ssc" firstAttribute="leading" secondItem="bmv-wv-zou" secondAttribute="leading" constant="20" id="yeh-Hh-lLK"/>
+                <constraint firstItem="fZX-Cx-Y81" firstAttribute="top" secondItem="w0n-yH-59G" secondAttribute="bottom" constant="37" id="zSn-jc-bsk"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="bmv-wv-zou"/>
         </view>

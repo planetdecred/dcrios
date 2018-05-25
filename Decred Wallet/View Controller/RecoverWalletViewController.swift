@@ -15,14 +15,22 @@ class RecoverWalletViewController: UIViewController {
     @IBOutlet weak var tfSeedCheckWord: UITextField!
     @IBOutlet weak var txtInputView: UIView!
     @IBOutlet weak var btnConfirm: UIButton!
+    @IBOutlet weak var btnDelete: UIButton!
     @IBOutlet weak var btnClear: UIButton!
     @IBOutlet weak var txtFieldContainer: UIView!
+
+    var arrSeed = Array<String>()
     var seedWords : String! = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.addAccessory()
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        txSeedCheckCombined.becomeFirstResponder()
     }
     
     override func didReceiveMemoryWarning() {
@@ -45,18 +53,33 @@ class RecoverWalletViewController: UIViewController {
     
     func verifyWord() {
         if( tfSeedCheckWord.text!.length > 0 ) {
-            let seed = NSMutableString(string: seedWords)
-            seed.append(tfSeedCheckWord.text! + " ")
-            seedWords = seed as String!
+            arrSeed.append(tfSeedCheckWord.text!)
+            seedWords = arrSeed.joined(separator: " ")
             txSeedCheckCombined.text = seedWords
             tfSeedCheckWord.text = ""
+            btnClear.isHidden = false
         }
     }
     
-    @IBAction func btnClearSeed(_ sender: Any) {
-        tfSeedCheckWord.text = ""
+    @IBAction func clearSeed(_ sender: Any) {
+        txSeedCheckCombined.text = ""
+        seedWords = ""
+        arrSeed.removeAll()
+        btnClear.isHidden = true
     }
     
+    @IBAction func deleteLastSeed(sender: UIButton)
+    {
+        
+        if(arrSeed.count > 0) {
+            arrSeed.removeLast()
+            seedWords = arrSeed.joined(separator: " ")
+            print(seedWords)
+            txSeedCheckCombined.text = seedWords
+        }
+        btnClear.isHidden = (arrSeed.count == 0)
+
+    }
     
     // MARK: - Utility Methods
     func showError(error: String){
@@ -94,7 +117,7 @@ class RecoverWalletViewController: UIViewController {
         customView.translatesAutoresizingMaskIntoConstraints = false
         txtFieldContainer.translatesAutoresizingMaskIntoConstraints = false
         btnConfirm.translatesAutoresizingMaskIntoConstraints = false
-        btnClear.translatesAutoresizingMaskIntoConstraints = false
+        btnDelete.translatesAutoresizingMaskIntoConstraints = false
         tfSeedCheckWord.translatesAutoresizingMaskIntoConstraints = false
         
         // Input view constraints
@@ -122,11 +145,11 @@ class RecoverWalletViewController: UIViewController {
         
         // Button clear constraints
         NSLayoutConstraint.activate([
-            btnClear.leadingAnchor.constraint(equalTo:
+            btnDelete.leadingAnchor.constraint(equalTo:
                 txtInputView.leadingAnchor, constant: 10),
-            btnClear.heightAnchor.constraint(equalToConstant: 35),
-            btnClear.widthAnchor.constraint(equalToConstant: 118),
-            btnClear.topAnchor.constraint(equalTo:
+            btnDelete.heightAnchor.constraint(equalToConstant: 35),
+            btnDelete.widthAnchor.constraint(equalToConstant: 118),
+            btnDelete.topAnchor.constraint(equalTo:
                 txtInputView.topAnchor, constant: 10)
             ])
         
@@ -176,14 +199,11 @@ extension RecoverWalletViewController : UITextViewDelegate {
 extension RecoverWalletViewController : UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.verifyWord()
-        let trimmedSeed = seedWords.trimmingCharacters(in: .whitespacesAndNewlines)
-        print(trimmedSeed.components(separatedBy: " "))
-        let wordCount = trimmedSeed.components(separatedBy: " ").count
-        if(wordCount == 33) {
+        if(arrSeed.count == 33) {
             self.enableButton()
         } else {
             btnConfirm.isEnabled = false
-            if(wordCount == 32) {
+            if(arrSeed.count == 32) {
                 tfSeedCheckWord.resignFirstResponder()
                 textField.returnKeyType = UIReturnKeyType.done
                 tfSeedCheckWord.becomeFirstResponder()
