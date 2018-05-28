@@ -40,8 +40,9 @@
                     </constraints>
                 </imageView>
                 <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LZb-hI-JcZ" customClass="DropMenuButton" customModule="DecredWallet" customModuleProvider="target">
-                    <rect key="frame" x="318" y="39" width="31" height="24"/>
+                    <rect key="frame" x="270" y="39" width="79" height="24"/>
                     <constraints>
+                        <constraint firstAttribute="width" constant="79" id="de2-Z0-6zu"/>
                         <constraint firstAttribute="height" constant="24" id="x7o-03-zTf"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
@@ -62,7 +63,6 @@
             <constraints>
                 <constraint firstItem="Tmy-DS-jlp" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="9Cn-7P-URB"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="rA7-jS-dhT" secondAttribute="trailing" constant="5" id="ENo-oK-8IU"/>
-                <constraint firstItem="LZb-hI-JcZ" firstAttribute="leading" relation="lessThanOrEqual" secondItem="wg8-gU-t3W" secondAttribute="trailing" constant="109" id="GUC-a4-NwR"/>
                 <constraint firstItem="Tmy-DS-jlp" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="L6H-r1-7HS"/>
                 <constraint firstItem="Tmy-DS-jlp" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Tpa-cy-I4w"/>
                 <constraint firstItem="rA7-jS-dhT" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="19" id="a1z-vY-gho"/>
