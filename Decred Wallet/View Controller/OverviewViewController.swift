@@ -26,7 +26,6 @@ class TransactionsManager : TransactionBlockObserverProtocol, TransactionObserve
 }
 
 class OverviewViewController: UIViewController {
-    //var transactions: [String]?
     let transactions = TransactionsManager()
     var transactionBlockObserver : TransactionsBlockObserver?
     var transactionObserver : TransactionsObserver?

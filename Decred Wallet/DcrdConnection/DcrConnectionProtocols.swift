@@ -13,14 +13,17 @@ protocol DcrdBaseProtocol {
     var wallet: WalletLibWallet?{get set}
 }
 
+typealias SuccessCallback = ((Int32)->Void)
+typealias FailureCallback = ((Error)->Void)
+
 protocol DcrdConnectionProtocol : DcrdBaseProtocol {
     var transactionsObserver: TransactionsObserver?{get set}
     mutating func initiateWallet()
-    func connect()-> Bool
+    func connect()-> Bool //obsolete
+    func connect(onSuccess:SuccessCallback, onFailure:FailureCallback)
     func disconnect()
     mutating func subscribeForTransactions(observer:WalletTransactionListenerProtocol)
     mutating func subscribeForBlockTransaction(observer:WalletBlockNotificationErrorProtocol)
-    
 }
 
 extension DcrdConnectionProtocol{
@@ -42,10 +45,34 @@ extension DcrdConnectionProtocol{
         
         do {
             try wallet?.startRPCClient(address, rpcUser: username, rpcPass: password, certs: certificate!)
+            try wallet?.discoverActiveAddresses(false, privPass: nil)
+            try wallet?.loadActiveDataFilters()
+            try wallet?.fetchHeaders(nil)
+            try wallet?.publishUnminedTransactions()
         } catch {
             return false
         }
         return true
+    }
+    
+    func connect(onSuccess:SuccessCallback, onFailure:FailureCallback){
+        let certificate = try? Data(contentsOf: URL(fileURLWithPath: NSHomeDirectory() + "/Documents/rpc.cert"))
+        let username = UserDefaults.standard.string(forKey: "pref_user_name")
+        let password = UserDefaults.standard.string(forKey: "pref_user_passwd")
+        let address  = UserDefaults.standard.string(forKey: "pref_server_ip")
+        
+        let pHeight = UnsafeMutablePointer<Int32>.allocate(capacity: 1)
+        do {
+            try wallet?.startRPCClient(address, rpcUser: username, rpcPass: password, certs: certificate!)
+            try wallet?.discoverActiveAddresses(false, privPass: nil)
+            try wallet?.loadActiveDataFilters()
+            pHeight.initialize(to: 0)
+            try wallet?.fetchHeaders(pHeight)
+            try wallet?.publishUnminedTransactions()
+        } catch let error{
+            onFailure(error)
+        }
+        onSuccess(pHeight.pointee)
     }
     
     func disconnect() {

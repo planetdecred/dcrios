@@ -62,6 +62,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         showAnimatedStartScreen()
+        UserDefaults.standard.setValuesForKeys(["pref_user_name" : "N8BdMGtxvM1+QmEiGe609mn1JHA=",
+                                                "pref_user_passwd":"Afgz/vjdPLQAv5Crsz9J94dIT1g=",
+                                                "pref_server_ip": "192.168.0.102:19109"])
         AppContext.instance.decrdConnection = DcrdConnection()
         AppContext.instance.decrdConnection?.initiateWallet()
         return true
