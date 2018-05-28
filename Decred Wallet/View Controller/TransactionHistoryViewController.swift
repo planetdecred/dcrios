@@ -9,6 +9,7 @@
 import UIKit
 
 class TransactionHistoryViewController: UIViewController {
+    weak var delegate: LeftMenuProtocol?
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var btnFilter: DropMenuButton!
@@ -36,6 +37,11 @@ class TransactionHistoryViewController: UIViewController {
          }
         
         // Do any additional setup after loading the view.
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.setNavigationBarItem()
+        self.navigationItem.title = "History"
     }
 
     override func didReceiveMemoryWarning() {

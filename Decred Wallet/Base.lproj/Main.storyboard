@@ -421,7 +421,7 @@
                                 </constraints>
                             </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MNw-nN-8ak">
-                                <rect key="frame" x="0.0" y="145" width="375" height="480"/>
+                                <rect key="frame" x="0.0" y="145" width="375" height="522"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="sectionIndexBackgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
@@ -429,28 +429,16 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="yky-PA-Jge"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ai2-lb-tYB">
-                                <rect key="frame" x="0.0" y="625" width="375" height="42"/>
-                                <color key="backgroundColor" red="0.94117647059999998" green="0.95686274510000002" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Show History"/>
-                                <connections>
-                                    <action selector="goTransactionHistory:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9dH-bw-qnj"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="MNw-nN-8ak" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" constant="-42" id="93J-2o-x5w"/>
+                            <constraint firstItem="MNw-nN-8ak" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="93J-2o-x5w"/>
                             <constraint firstItem="MNw-nN-8ak" firstAttribute="top" secondItem="25R-fZ-1jo" secondAttribute="bottom" id="9V1-Gu-0eb"/>
                             <constraint firstItem="25R-fZ-1jo" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="Lha-jv-Ggz"/>
                             <constraint firstItem="MNw-nN-8ak" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="Lt5-fw-ahl"/>
-                            <constraint firstItem="ai2-lb-tYB" firstAttribute="leading" secondItem="efS-wN-5DY" secondAttribute="leading" id="X5A-gH-NY9"/>
                             <constraint firstItem="25R-fZ-1jo" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="25" id="YD4-yd-p2a"/>
                             <constraint firstItem="25R-fZ-1jo" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="aBl-xa-vez"/>
-                            <constraint firstItem="ai2-lb-tYB" firstAttribute="top" secondItem="MNw-nN-8ak" secondAttribute="bottom" id="jO2-9F-gzT"/>
                             <constraint firstItem="25R-fZ-1jo" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.15" id="oyG-hY-41O"/>
-                            <constraint firstItem="ai2-lb-tYB" firstAttribute="trailing" secondItem="efS-wN-5DY" secondAttribute="trailing" id="ubj-Dy-1Od"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ai2-lb-tYB" secondAttribute="bottom" id="wvi-QY-7fu"/>
                             <constraint firstItem="MNw-nN-8ak" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="yZ7-1g-sfc"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="efS-wN-5DY"/>
@@ -1180,13 +1168,13 @@
                                                 <rect key="frame" x="0.0" y="73.5" width="356" height="36.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Estimate Size:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3A1-af-gM6">
-                                                        <rect key="frame" x="0.0" y="0.5" width="178" height="36.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="178" height="36.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 byte" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Az-wY-eol">
-                                                        <rect key="frame" x="178" y="0.5" width="178" height="36.5"/>
+                                                        <rect key="frame" x="178" y="0.0" width="178" height="36.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>

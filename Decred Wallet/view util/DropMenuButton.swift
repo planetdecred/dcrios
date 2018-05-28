@@ -133,7 +133,7 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
         
         tableFrameHeight = self.frame.height * CGFloat(items.count)
 
-        containerView.frame  = CGRect(x: auxPoint2.x, y: auxPoint2.y, width: self.frame.width, height:tableFrameHeight)
+        containerView.frame  = CGRect(x: auxPoint2.x, y: auxPoint2.y, width: 200, height:tableFrameHeight)
         table.frame = CGRect(x: 0, y: 0, width: self.frame.width, height:tableFrameHeight)
         table.rowHeight = self.frame.height
         table.separatorColor = UIColor.clear

@@ -51,6 +51,9 @@ open class BaseTableViewCell : UITableViewCell {
             else if(menuText == "Settings"){
                 self.imageView?.image = UIImage(named: "settings")
             }
+            else if(menuText == "History"){
+                self.imageView?.image = UIImage(named: "history")
+            }
         }
     }
     
