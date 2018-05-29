@@ -27,7 +27,7 @@ class TransactionsManager : TransactionBlockObserverProtocol, TransactionObserve
 }
 
 class OverviewViewController: UIViewController {
-    var transactionsObserver: TransactionsManager?
+    var liveTransactionObserver: TransactionsManager?
     var transactionBlockObserver : TransactionsBlockObserver?
     var transactionObserver : TransactionsObserver?
     
@@ -40,9 +40,9 @@ class OverviewViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.registerCellNib(DataTableViewCell.self)
-        transactionsObserver = TransactionsManager(externalTransactions: mainContens)
-        transactionBlockObserver = TransactionsBlockObserver(listener: transactionsObserver! )
-        transactionObserver = TransactionsObserver(listener: transactionsObserver! )
+        liveTransactionObserver = TransactionsManager(externalTransactions: mainContens)
+        transactionBlockObserver = TransactionsBlockObserver(listener: liveTransactionObserver! )
+        transactionObserver = TransactionsObserver(listener: liveTransactionObserver! )
         AppContext.instance.decrdConnection?.connect(onSuccess: { (height) in
             transactionBlockObserver?.subscribe()
             transactionObserver?.subscribe()
