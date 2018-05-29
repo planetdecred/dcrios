@@ -20,6 +20,9 @@ class AccountViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Example of acquaring account data
+        let account = AppContext.instance.decrdConnection?.getAccounts()?.Acc.first
+        total_amount_spending?.text = "\(account?.Balance?.dcrSpendable ?? 0) DCR"
     }
     
     override func viewWillAppear(_ animated: Bool) {
