@@ -7,6 +7,9 @@ import SlideMenuControllerSwift
 import Wallet
 
 class TransactionsManager : TransactionBlockObserverProtocol, TransactionObserverProtocol{
+    init(externalTransactions:[String]) {
+        transactions = externalTransactions
+    }
     func onBlockError(error: Error) {
         print(error)
     }
@@ -14,17 +17,17 @@ class TransactionsManager : TransactionBlockObserverProtocol, TransactionObserve
     var transactions: [String]?
     
     func populateTransaction(transaction: String) {
+        transactions?.append(transaction)
         print(transaction)
     }
     
     func refresh() {
-        transactions = [String]()
         print("refresh")
     }
 }
 
 class OverviewViewController: UIViewController {
-    let transactions = TransactionsManager()
+    var transactionsObserver: TransactionsManager?
     var transactionBlockObserver : TransactionsBlockObserver?
     var transactionObserver : TransactionsObserver?
     
@@ -37,15 +40,16 @@ class OverviewViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.registerCellNib(DataTableViewCell.self)
-        transactionBlockObserver = TransactionsBlockObserver(listener: transactions )
-        transactionObserver = TransactionsObserver(listener: transactions )
+        transactionsObserver = TransactionsManager(externalTransactions: mainContens)
+        transactionBlockObserver = TransactionsBlockObserver(listener: transactionsObserver! )
+        transactionObserver = TransactionsObserver(listener: transactionsObserver! )
         AppContext.instance.decrdConnection?.connect(onSuccess: { (height) in
             transactionBlockObserver?.subscribe()
             transactionObserver?.subscribe()
+            lbCurrentBalance.text = "\((AppContext.instance.decrdConnection?.getAccounts()?.Acc.first?.dcrTotalBalance)!) DCR"
         }, onFailure: { (error) in
             print(error)
         })
-        lbCurrentBalance.text = "\((AppContext.instance.decrdConnection?.getAccounts()?.Acc.first?.dcrTotalBalance)!) DCR"
     }
    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -56,19 +60,6 @@ class OverviewViewController: UIViewController {
         super.viewWillAppear(animated)
         self.setNavigationBarItem()
         self.navigationItem.title = "Overview"
-    }
-
-    func populateTransaction(transaction:String){
-        //transactions?.append(transaction)
-        self.tableView.reloadData()
-    }
-    
-    func refresh(){
-        self.tableView.reloadData()
-    }
-    
-    func onBlockError(error:Error){
-        print(error)
     }
 }
 
@@ -92,7 +83,7 @@ extension OverviewViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: DataTableViewCell.identifier) as! DataTableViewCell
-        let data = DataTableViewCellData(imageUrl: "dummy", text: mainContens[indexPath.row])
+        let data = DataTableViewCellData(imageUrl: "dummy", text: self.mainContens[indexPath.row])
         cell.setData(data)
         return cell
     }
