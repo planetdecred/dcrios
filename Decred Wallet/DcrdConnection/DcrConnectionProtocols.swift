@@ -38,21 +38,8 @@ extension DcrdConnectionProtocol{
     }
     
     func connect() -> Bool {
-        let certificate = try? Data(contentsOf: URL(fileURLWithPath: NSHomeDirectory() + "/Documents/rpc.cert"))
-        let username = UserDefaults.standard.string(forKey: "pref_user_name")
-        let password = UserDefaults.standard.string(forKey: "pref_user_passwd")
-        let address  = UserDefaults.standard.string(forKey: "pref_server_ip")
-        
-        do {
-            try wallet?.startRPCClient(address, rpcUser: username, rpcPass: password, certs: certificate!)
-            try wallet?.discoverActiveAddresses(false, privPass: nil)
-            try wallet?.loadActiveDataFilters()
-            try wallet?.fetchHeaders(nil)
-            try wallet?.publishUnminedTransactions()
-        } catch {
-            return false
-        }
-        return true
+        assert(true, "'connect()' method is obsolete. Use 'connect(onSuccess:SuccessCallback, onFailure:FailureCallback)' instead")
+        return false
     }
     
     func connect(onSuccess:SuccessCallback, onFailure:FailureCallback){
@@ -92,7 +79,7 @@ extension DcrdConnectionProtocol{
     }
 }
 
-protocol DecredBackendProtocol: DcrdConnectionProtocol, DcrdSeedMnemonicProtocol, DcrdCreateRestoreWalletProtocol {}
+protocol DecredBackendProtocol: DcrdConnectionProtocol, DcrdSeedMnemonicProtocol, DcrdCreateRestoreWalletProtocol, DcrAccountsManagementProtocol {}
 
 class DcrdConnection : DecredBackendProtocol {
     var transactionsObserver: TransactionsObserver?
