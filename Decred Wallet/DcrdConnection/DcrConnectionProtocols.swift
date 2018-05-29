@@ -58,6 +58,7 @@ extension DcrdConnectionProtocol{
             try wallet?.publishUnminedTransactions()
         } catch let error{
             onFailure(error)
+            return
         }
         onSuccess(pHeight.pointee)
     }
