@@ -48,6 +48,11 @@ class OverviewViewController: UIViewController {
         }
     }
     
+    @IBAction func goTransactionHistory(_ sender: Any) {
+        let trController = TransactionHistoryViewController(nibName: "TransactionHistoryViewController", bundle: nil) as TransactionHistoryViewController!
+        self.navigationController?.pushViewController(trController!, animated: true)
+
+    }
    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
