@@ -8,7 +8,7 @@
 
 import UIKit
 import MBProgressHUD
-import RxSwift
+
 
 
 class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITextFieldDelegate {
@@ -41,7 +41,7 @@ class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITex
     @IBAction func onEncrypt(_ sender: Any) {
         do{
             progressHud?.show(animated: true)
-            try AppContext.instance.walletManager?.createWallet(tfPassword.text, seedMnemonic: seedToVerify)
+            try AppContext.instance.decrdConnection?.createWallet(seed:seedToVerify!, passwd:tfPassword.text!)
             progressHud?.hide(animated: true)
             navigationController?.dismiss(animated: true, completion: nil)
         } catch let error{
