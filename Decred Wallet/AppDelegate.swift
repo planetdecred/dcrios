@@ -62,9 +62,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         showAnimatedStartScreen()
-        AppContext.instance.storage = Storage()
-        AppContext.instance.walletManager = WalletNewLibWallet(NSHomeDirectory()+"/Documents")
-        AppContext.instance.walletManager?.initLoader()
+        AppContext.instance.decrdConnection = DcrdConnection()
+        AppContext.instance.decrdConnection?.initiateWallet()
         return true
     }
     
