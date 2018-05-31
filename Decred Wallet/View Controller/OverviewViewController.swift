@@ -45,6 +45,11 @@ class OverviewViewController: UIViewController {
         if (AppContext.instance.decrdConnection?.connect())!{
             transactionBlockObserver?.subscribe()
             transactionObserver?.subscribe()
+            AppContext.instance.decrdConnection?.fetchTransactions(onGotTransaction: { (transaction) in
+                
+            }, onFailure: { (error) in
+                
+            })
         }
     }
     
