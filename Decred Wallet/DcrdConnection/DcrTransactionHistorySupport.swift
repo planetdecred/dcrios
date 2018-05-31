@@ -17,28 +17,43 @@ typealias GetTransactionsResponseCallback = ((JsonTransaction)->Void)
 typealias GetTransactionsResponseFailureCallback = ((Error)->Void)
 
 protocol WalletGetTransactionsResponseListenerProtocol {
-    func onResult(json:String)
+    var onSuccess:GetTransactionsResponseCallback? {get set}
+    var onFailure:GetTransactionsResponseFailureCallback? {get set}
 }
 
-extension WalletGetTransactionResponseStruct : WalletGetTransactionsResponseListenerProtocol{
-    func onResult(json:String){
-        print(json)
+class GetTransactionResponseListenerHelper:WalletGetTransactionsResponseListenerProtocol{
+    var onSuccess: GetTransactionsResponseCallback?
+    var onFailure: GetTransactionsResponseFailureCallback?
+    static let instance = GetTransactionResponseListenerHelper()
+}
+
+extension WalletGetTransactionResponseStruct {
+    func add(successCallback:@escaping GetTransactionsResponseCallback){
+        GetTransactionResponseListenerHelper.instance.onSuccess = successCallback
     }
-}
-
-fileprivate class TransactionsHistoryObserver:WalletGetTransactionsResponseListenerProtocol{
-    func onResult(json: String) {
-        
+    func add(failureCallback:@escaping GetTransactionsResponseFailureCallback){
+        GetTransactionResponseListenerHelper.instance.onFailure = failureCallback
+    }
+    func onResult(json:String) {
+        let transaction = try! JSONDecoder().decode(JsonTransaction.self, from:json.data(using: .utf8)!)
+        GetTransactionResponseListenerHelper.instance.onSuccess!(transaction)
     }
 }
 
 protocol DcrTransactionsHistoryProtocol: DcrdBaseProtocol {
     var mTransactionsObserver : WalletGetTransactionResponseStruct? {get set}
-    func fetchTransactions(onGotTransaction:GetTransactionsResponseCallback, onFailure:GetTransactionsResponseFailureCallback)
+    mutating func fetchTransactions(onGotTransaction:@escaping GetTransactionsResponseCallback, onFailure:@escaping GetTransactionsResponseFailureCallback)
 }
 
 extension DcrTransactionsHistoryProtocol {
-    func fetchTransactions(onGotTransaction:GetTransactionsResponseCallback, onFailure:GetTransactionsResponseFailureCallback){
-        try! wallet?.getTransactions(mTransactionsObserver!)
+    mutating func fetchTransactions(onGotTransaction:@escaping GetTransactionsResponseCallback, onFailure:@escaping GetTransactionsResponseFailureCallback){
+        mTransactionsObserver = WalletCreateGetTransactionResponse()
+        mTransactionsObserver?.add(successCallback:onGotTransaction)
+        mTransactionsObserver?.add(failureCallback:onFailure)
+        do{
+            try wallet?.getTransactions(mTransactionsObserver!)
+        }catch let error{
+            onFailure(error)
+        }
     }
 }

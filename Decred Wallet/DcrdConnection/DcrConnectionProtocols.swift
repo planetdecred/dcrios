@@ -65,9 +65,10 @@ extension DcrdConnectionProtocol{
     }
 }
 
-protocol DecredBackendProtocol: DcrdConnectionProtocol, DcrdSeedMnemonicProtocol, DcrdCreateRestoreWalletProtocol {}
+protocol DecredBackendProtocol: DcrdConnectionProtocol, DcrdSeedMnemonicProtocol, DcrdCreateRestoreWalletProtocol, DcrTransactionsHistoryProtocol {}
 
 class DcrdConnection : DecredBackendProtocol {
+    var mTransactionsObserver: WalletGetTransactionResponseStruct?
     var transactionsObserver: TransactionsObserver?
     var wallet: WalletLibWallet?
 }
