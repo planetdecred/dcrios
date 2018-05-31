@@ -19,6 +19,7 @@
 		28E5EB7320924632002DCCB5 /* CreatePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E5EB7220924632002DCCB5 /* CreatePasswordViewController.swift */; };
 		28F0CE7320888258003AC958 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F0CE7220888258003AC958 /* Utils.swift */; };
 		28F0CE7520888386003AC958 /* AppContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F0CE7420888386003AC958 /* AppContext.swift */; };
+		956D14AE20BF035D00624D68 /* wordlist.txt in Resources */ = {isa = PBXBuildFile; fileRef = 956D14AD20BF035C00624D68 /* wordlist.txt */; };
 		957F0AFB20B80EA600D3E8A9 /* RecoverWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957F0AF920B80EA600D3E8A9 /* RecoverWalletViewController.swift */; };
 		957F0AFC20B80EA600D3E8A9 /* RecoverWalletViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 957F0AFA20B80EA600D3E8A9 /* RecoverWalletViewController.xib */; };
 		957F0AFF20B82F3200D3E8A9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957F0AFE20B82F3200D3E8A9 /* Constants.swift */; };
@@ -110,6 +111,7 @@
 		2C59C3E0BD7A56A91BB0B9B1 /* Pods-Decred Wallet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.debug.xcconfig"; sourceTree = "<group>"; };
 		31D8BF868913ED4E2A4B0577 /* Pods-Decred Wallet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.release.xcconfig"; path = "Pods/Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.release.xcconfig"; sourceTree = "<group>"; };
 		37052056EEA77A707110F753 /* Pods_Decred_WalletTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Decred_WalletTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		956D14AD20BF035C00624D68 /* wordlist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = wordlist.txt; sourceTree = "<group>"; };
 		957F0AF920B80EA600D3E8A9 /* RecoverWalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoverWalletViewController.swift; sourceTree = "<group>"; };
 		957F0AFA20B80EA600D3E8A9 /* RecoverWalletViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecoverWalletViewController.xib; sourceTree = "<group>"; };
 		957F0AFE20B82F3200D3E8A9 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 		957F0AFD20B82F0800D3E8A9 /* Constants */ = {
 			isa = PBXGroup;
 			children = (
+				956D14AD20BF035C00624D68 /* wordlist.txt */,
 				957F0AFE20B82F3200D3E8A9 /* Constants.swift */,
 			);
 			path = Constants;
@@ -437,6 +440,7 @@
 			files = (
 				DDB89425202F948E002F85EE /* DataTableViewCell.xib in Resources */,
 				DDA3E27820292EF900C83D18 /* LaunchScreen.storyboard in Resources */,
+				956D14AE20BF035D00624D68 /* wordlist.txt in Resources */,
 				DDA3E27520292EF900C83D18 /* Assets.xcassets in Resources */,
 				957F0AFC20B80EA600D3E8A9 /* RecoverWalletViewController.xib in Resources */,
 				DDA3E27320292EF900C83D18 /* Main.storyboard in Resources */,

@@ -12,7 +12,7 @@ import Wallet
 class RecoverWalletViewController: UIViewController {
     
     @IBOutlet weak var txSeedCheckCombined: UITextView!
-    @IBOutlet weak var tfSeedCheckWord: UITextField!
+    @IBOutlet weak var tfSeedCheckWord: DropDownSearchField!
     @IBOutlet weak var txtInputView: UIView!
     @IBOutlet weak var btnConfirm: UIButton!
     @IBOutlet weak var btnDelete: UIButton!
@@ -25,19 +25,39 @@ class RecoverWalletViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.addAccessory()
+        self.addSearchWords()
+        
         // Do any additional setup after loading the view.
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        txSeedCheckCombined.becomeFirstResponder()
+        tfSeedCheckWord.becomeFirstResponder()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    func addSearchWords() {
+        let bundle = Bundle.main
+        let path = bundle.path(forResource: "wordlist", ofType: "txt")
+        var list = [String]()
+        do {
     
+            let text2 = try String(contentsOf:URL(fileURLWithPath: path!))
+            list = text2.components(separatedBy: "\n")
+           
+            print(list)
+        }
+        catch {/* error handling here */}
+        tfSeedCheckWord.itemsToSearch = list
+        tfSeedCheckWord.dropDownListPlaceholder = view
+          tfSeedCheckWord.searchResult?.onSelect = {(index, item) in
+            self.verifyWord(word: item)
+            self.tfSeedCheckWord.clean()
+        }
+    }
     // MARK: - Action Methods
     @IBAction func btnConfirmSeed(_ sender: Any) {
         self.view.endEditing(true)
@@ -51,9 +71,9 @@ class RecoverWalletViewController: UIViewController {
         
     }
     
-    func verifyWord() {
-        if( tfSeedCheckWord.text!.length > 0 ) {
-            arrSeed.append(tfSeedCheckWord.text!)
+    func verifyWord(word : String) {
+        if( word.length > 0 ) {
+            arrSeed.append(word)
             seedWords = arrSeed.joined(separator: " ")
             txSeedCheckCombined.text = seedWords
             tfSeedCheckWord.text = ""
@@ -107,18 +127,17 @@ class RecoverWalletViewController: UIViewController {
     // Input views
     func addAccessory() {
         
-        tfSeedCheckWord.delegate = self
-        let customView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 100))
+       
+        let customView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 50))
         customView.addSubview(txtInputView)
         customView.backgroundColor = UIColor.red
-        txSeedCheckCombined.inputAccessoryView = customView
+        tfSeedCheckWord.inputAccessoryView = customView
         
         txtInputView.translatesAutoresizingMaskIntoConstraints = false
         customView.translatesAutoresizingMaskIntoConstraints = false
-        txtFieldContainer.translatesAutoresizingMaskIntoConstraints = false
         btnConfirm.translatesAutoresizingMaskIntoConstraints = false
         btnDelete.translatesAutoresizingMaskIntoConstraints = false
-        tfSeedCheckWord.translatesAutoresizingMaskIntoConstraints = false
+      
         
         // Input view constraints
         NSLayoutConstraint.activate([
@@ -132,16 +151,7 @@ class RecoverWalletViewController: UIViewController {
                 customView.bottomAnchor, constant: 0),
             ])
         
-        // Texfeild container constraints
-        NSLayoutConstraint.activate([
-            txtFieldContainer.leadingAnchor.constraint(equalTo:
-                txtInputView.leadingAnchor, constant: 0),
-            txtFieldContainer.heightAnchor.constraint(equalToConstant: 42),
-            txtFieldContainer.trailingAnchor.constraint(equalTo:
-                txtInputView.trailingAnchor, constant: 0),
-            txtFieldContainer.bottomAnchor.constraint(equalTo:
-                txtInputView.bottomAnchor, constant: 0)
-            ])
+
         
         // Button clear constraints
         NSLayoutConstraint.activate([
@@ -163,16 +173,7 @@ class RecoverWalletViewController: UIViewController {
                 txtInputView.topAnchor, constant: 10)
             ])
         
-        // Text field  constraints
-        NSLayoutConstraint.activate([
-            tfSeedCheckWord.leadingAnchor.constraint(equalTo:
-                txtFieldContainer.leadingAnchor, constant: 10),
-            tfSeedCheckWord.rightAnchor.constraint(equalTo:
-                txtFieldContainer.rightAnchor, constant: -10),
-            tfSeedCheckWord.heightAnchor.constraint(equalToConstant: 30),
-            tfSeedCheckWord.topAnchor.constraint(equalTo:
-                txtFieldContainer.topAnchor, constant: 10)
-            ])
+
     }
     func enableButton() {
         btnConfirm.isEnabled = true
@@ -180,43 +181,8 @@ class RecoverWalletViewController: UIViewController {
     }
 }
 
-// MARK: - TextView Delegate Methods
 
-extension RecoverWalletViewController : UITextViewDelegate {
-    
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        tfSeedCheckWord.becomeFirstResponder()
-    }
-    
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        return false
-    }
-    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-        return true
-    }
-}
 
-extension RecoverWalletViewController : UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.verifyWord()
-        if(arrSeed.count == 33) {
-            self.enableButton()
-        } else {
-            btnConfirm.isEnabled = false
-            if(arrSeed.count == 32) {
-                tfSeedCheckWord.resignFirstResponder()
-                textField.returnKeyType = UIReturnKeyType.done
-                tfSeedCheckWord.becomeFirstResponder()
-            } else {
-                textField.returnKeyType = UIReturnKeyType.continue
-            }
-        }
-        
-        
-        
-        return true
-    }
-    
-}
+
 
 
