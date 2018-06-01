@@ -21,7 +21,8 @@ class SeedCheckupViewController: UIViewController, SeedCheckupProtocol {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        tfSeedCheckWord.itemsToSearch = seedToVerify?.components(separatedBy: " ")
+        let arr = seedToVerify?.components(separatedBy: " ")
+        tfSeedCheckWord.itemsToSearch = arr
         tfSeedCheckWord.dropDownListPlaceholder = view
         tfSeedCheckWord.searchResult?.onSelect = {(index, item) in
             self.txSeedCheckCombined.text.append("\(item) ")

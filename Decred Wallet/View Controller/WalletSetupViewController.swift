@@ -20,6 +20,8 @@ class WalletSetupViewController : UIViewController {
         
     }
     @IBAction func btn_recover_wallet(_ sender: Any) {
+        let trController = RecoverWalletViewController(nibName: "RecoverWalletViewController", bundle: nil) as RecoverWalletViewController!
+        self.navigationController?.pushViewController(trController!, animated: true)
     }
     
 }
