@@ -31,9 +31,9 @@ open class BaseTableViewCell : UITableViewCell {
     }
     
     open func setData(_ data: Any?) {
-        self.backgroundColor = UIColor(hex: "F1F8E9")
+        self.backgroundColor = GlobalConstants.Colors.greenishGrey
         //self.textLabel?.font = UIFont.boldSystemFont(ofSize: 18)
-       self.textLabel?.textColor = UIColor(hex: "000000")
+       self.textLabel?.textColor = GlobalConstants.Colors.black
         if let menuText = data as? String {
             self.textLabel?.text = menuText
             if(menuText == "Overview"){
@@ -50,6 +50,9 @@ open class BaseTableViewCell : UITableViewCell {
             }
             else if(menuText == "Settings"){
                 self.imageView?.image = UIImage(named: "settings")
+            }
+            else if(menuText == "History"){
+                self.imageView?.image = UIImage(named: "history")
             }
         }
     }

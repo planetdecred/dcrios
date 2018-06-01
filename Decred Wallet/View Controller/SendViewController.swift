@@ -16,13 +16,9 @@ class SendViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        accountDropdown.initMenu(["Item A", "Item B", "Item C"], actions: [({ () -> (Void) in
+        accountDropdown.initMenu(["Item A", "Item B", "Item C"], actions: ({ (ind, val) -> (Void) in
             print("Estou fazendo a ação A")
-        }), ({ () -> (Void) in
-            print("Estou fazendo a ação B")
-        }), ({ () -> (Void) in
-            print("Estou fazendo a ação C")
-        })])
+        }))
     }
     
     override func viewWillAppear(_ animated: Bool) {
