@@ -44,9 +44,9 @@ class OverviewViewController: UIViewController {
         transactionBlockObserver = TransactionsBlockObserver(listener: liveTransactionObserver! )
         transactionObserver = TransactionsObserver(listener: liveTransactionObserver! )
         AppContext.instance.decrdConnection?.connect(onSuccess: { (height) in
-            transactionBlockObserver?.subscribe()
-            transactionObserver?.subscribe()
-            lbCurrentBalance.text = "\((AppContext.instance.decrdConnection?.getAccounts()?.Acc.first?.dcrTotalBalance)!) DCR"
+            self.transactionBlockObserver?.subscribe()
+            self.transactionObserver?.subscribe()
+            self.lbCurrentBalance.text = "\((AppContext.instance.decrdConnection?.getAccounts()?.Acc.first?.dcrTotalBalance)!) DCR"
         }, onFailure: { (error) in
             print(error)
         })
@@ -62,7 +62,6 @@ class OverviewViewController: UIViewController {
         self.navigationItem.title = "Overview"
     }
 }
-
 
 extension OverviewViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
