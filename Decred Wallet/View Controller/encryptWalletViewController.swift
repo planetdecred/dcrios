@@ -28,7 +28,7 @@ override func viewDidLoad() {
         
         let nvc: UINavigationController = UINavigationController(rootViewController: mainViewController)
         
-        UINavigationBar.appearance().tintColor = UIColor(hex: "689F38")
+        UINavigationBar.appearance().tintColor = GlobalConstants.Colors.navigationBarColor
         
         leftViewController.mainViewController = nvc
         
@@ -36,7 +36,7 @@ override func viewDidLoad() {
         //     slideMenuController.automaticallyAdjustsScrollViewInsets = true
         slideMenuController.delegate = mainViewController
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.window?.backgroundColor = UIColor(red: 236.0, green: 238.0, blue: 241.0, alpha: 1.0)
+        appDelegate.window?.backgroundColor = GlobalConstants.Colors.lightGrey
         appDelegate.window?.rootViewController = slideMenuController
         appDelegate.window?.makeKeyAndVisible()
         

@@ -8,7 +8,36 @@
 
 import Foundation
 
-protocol AccountsManagementProtocol {
-    func getAccounts()
-    func nextAccount(name:String, passwd:String) -> Bool
+protocol DcrAccountsManagementProtocol : DcrdBaseProtocol{
+    func getAccounts() -> GetAccountResponse?
+    func nextAccount(name:String, passwd:String, onSuccess:SuccessCallback, onFailure:FailureCallback) -> Bool
+    func getCurrentAddress(account: Int32) -> String
+}
+
+extension DcrAccountsManagementProtocol{
+    func getAccounts() -> GetAccountResponse?{
+        var account : GetAccountResponse?
+        do{
+            let strAccount = try wallet?.getAccounts(0)
+            account = try JSONDecoder().decode(GetAccountResponse.self, from: (strAccount?.data(using: .utf8))!)
+        } catch let error{
+            print(error)
+            return nil
+        }
+        return account
+    }
+    
+    func nextAccount(name:String, passwd:String, onSuccess:SuccessCallback, onFailure:FailureCallback) -> Bool{
+        return false
+    }
+    
+    func getCurrentAddress(account: Int32) -> String {
+        var result = ""
+        do{
+            result = (try wallet?.address(forAccount: account))!
+        }catch {
+            return ""
+        }
+        return result
+    }
 }
