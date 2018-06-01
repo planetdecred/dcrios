@@ -12,7 +12,9 @@ enum LeftMenu: Int {
     case account
     case send
     case receive
+    case history
     case settings
+
 }
 
 protocol LeftMenuProtocol : class {
@@ -22,12 +24,13 @@ protocol LeftMenuProtocol : class {
 class LeftViewController : UIViewController, LeftMenuProtocol {
     
     @IBOutlet weak var tableView: UITableView!
-    var menus = ["Overview", "Account", "Send", "Receive", "Settings"]
+    var menus = ["Overview", "Account", "Send", "Receive","History", "Settings"]
     var mainViewController: UIViewController!
     var swiftViewController: UIViewController!
     var sendViewController: UIViewController!
     var receiveViewController: UIViewController!
     var settingsViewController: UIViewController!
+    var historyViewController: UIViewController!
     var imageHeaderView: ImageHeaderView!
     
     required init?(coder aDecoder: NSCoder) {
@@ -52,6 +55,10 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         let settingsController = storyboard.instantiateViewController(withIdentifier: "SettingsController2") as! SettingsController
         settingsController.delegate = self
         self.settingsViewController = UINavigationController(rootViewController: settingsController)
+        
+        let trController = TransactionHistoryViewController(nibName: "TransactionHistoryViewController", bundle: nil) as TransactionHistoryViewController!
+        trController?.delegate = self
+        self.historyViewController = UINavigationController(rootViewController: trController!)
         
         self.tableView.registerCellClass(BaseTableViewCell.self)
         
@@ -81,6 +88,8 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
             self.slideMenuController()?.changeMainViewController(self.receiveViewController, close: true)
         case .settings:
             self.slideMenuController()?.changeMainViewController(self.settingsViewController, close: true)
+        case .history:
+            self.slideMenuController()?.changeMainViewController(self.historyViewController, close: true)
         }
     }
 }
@@ -89,7 +98,7 @@ extension LeftViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if let menu = LeftMenu(rawValue: indexPath.row) {
             switch menu {
-            case .overview, .account, .send, .receive, .settings:
+            case .overview, .account, .send, .receive, .history, .settings:
                 return BaseTableViewCell.height()
             }
         }
@@ -119,7 +128,7 @@ extension LeftViewController : UITableViewDataSource {
         
         if let menu = LeftMenu(rawValue: indexPath.row) {
             switch menu {
-            case .overview, .account, .send, .receive, .settings:
+            case .overview, .account, .send, .receive, .history, .settings:
                 let cell = BaseTableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: BaseTableViewCell.identifier)
                 cell.setData(menus[indexPath.row])
                 return cell

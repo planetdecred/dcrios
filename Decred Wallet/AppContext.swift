@@ -10,6 +10,5 @@ import Foundation
 import Wallet
 class AppContext {
     public static let instance = AppContext()
-    var storage: StorageProtocol?
-    var walletManager: WalletLibWallet?
+    var decrdConnection: DecredBackendProtocol?
 }
