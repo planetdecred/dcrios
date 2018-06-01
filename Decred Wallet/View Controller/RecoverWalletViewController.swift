@@ -62,7 +62,7 @@ class RecoverWalletViewController: UIViewController {
     @IBAction func btnConfirmSeed(_ sender: Any) {
         self.view.endEditing(true)
         
-        let flag =  AppContext.instance.walletManager?.verifySeed(txSeedCheckCombined.text)
+        let flag =  AppContext.instance.decrdConnection?.verifySeed(seed:txSeedCheckCombined.text)
         if(flag)! {
             self.performSegue(withIdentifier: "encryptWallet", sender: self)
         } else {
@@ -98,7 +98,6 @@ class RecoverWalletViewController: UIViewController {
             txSeedCheckCombined.text = seedWords
         }
         btnClear.isHidden = (arrSeed.count == 0)
-
     }
     
     // MARK: - Utility Methods
