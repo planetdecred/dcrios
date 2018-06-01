@@ -19,11 +19,12 @@ typealias FailureCallback = ((Error)->Void)
 protocol DcrdConnectionProtocol : DcrdBaseProtocol {
     var transactionsObserver: TransactionsObserver?{get set}
     mutating func initiateWallet()
-    func connect()-> Bool //obsolete
     func connect(onSuccess:SuccessCallback, onFailure:FailureCallback)
     func disconnect()
     mutating func subscribeForTransactions(observer:WalletTransactionListenerProtocol)
     mutating func subscribeForBlockTransaction(observer:WalletBlockNotificationErrorProtocol)
+    func applySettings(onSuccess:SuccessCallback, onFailure:FailureCallback)
+    func applySettings()
 }
 
 extension DcrdConnectionProtocol{
@@ -35,11 +36,6 @@ extension DcrdConnectionProtocol{
         } catch let error{
             print(error)
         }
-    }
-    
-    func connect() -> Bool {
-        assert(true, "'connect()' method is obsolete. Use 'connect(onSuccess:SuccessCallback, onFailure:FailureCallback)' instead")
-        return false
     }
     
     func connect(onSuccess:SuccessCallback, onFailure:FailureCallback){
@@ -78,6 +74,25 @@ extension DcrdConnectionProtocol{
             print(error)
         }
     }
+    func applySettings(onSuccess:SuccessCallback, onFailure:FailureCallback){
+        disconnect()
+        connect(onSuccess:onSuccess, onFailure:onFailure)
+    }
+    
+    func applySettings(){
+        disconnect()
+        do{
+            try wallet?.open()
+        } catch let error{
+            print(error)
+        }
+        connect(onSuccess:{(height) in
+            print("applied settings; reconnected")
+        }, onFailure: { (error) in
+            print(error)
+        })
+    }
+
 }
 
 protocol DecredBackendProtocol: DcrdConnectionProtocol, DcrdSeedMnemonicProtocol, DcrdCreateRestoreWalletProtocol, DcrAccountsManagementProtocol {}
