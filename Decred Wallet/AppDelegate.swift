@@ -31,14 +31,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let nvc: UINavigationController = UINavigationController(rootViewController: mainViewController)
         
-        UINavigationBar.appearance().tintColor = UIColor(hex: "689F38")
+        UINavigationBar.appearance().tintColor = GlobalConstants.Colors.navigationBarColor
         
         leftViewController.mainViewController = nvc
         
         let slideMenuController = ExSlideMenuController(mainViewController:nvc, leftMenuViewController: leftViewController, rightMenuViewController: rightViewController)
 
         slideMenuController.delegate = mainViewController
-        self.window?.backgroundColor = UIColor(red: 236.0, green: 238.0, blue: 241.0, alpha: 1.0)
+        self.window?.backgroundColor = GlobalConstants.Colors.lightGrey
         self.window?.rootViewController = slideMenuController
         self.window?.makeKeyAndVisible()
     }
@@ -62,6 +62,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         showAnimatedStartScreen()
+        UserDefaults.standard.setValuesForKeys(["pref_user_name" : "N8BdMGtxvM1+QmEiGe609mn1JHA=",
+                                                "pref_user_passwd":"Afgz/vjdPLQAv5Crsz9J94dIT1g=",
+                                                "pref_server_ip": "192.168.1.34:19109"])
         AppContext.instance.decrdConnection = DcrdConnection()
         AppContext.instance.decrdConnection?.initiateWallet()
         return true
