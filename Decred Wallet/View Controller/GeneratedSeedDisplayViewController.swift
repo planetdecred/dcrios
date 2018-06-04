@@ -28,7 +28,7 @@ class GeneratedSeedDisplayViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        seed = try? AppContext.instance.walletManager?.generateSeed() as String!
+        seed = try? AppContext.instance.decrdConnection?.generateSeed() as String!
         arrWords = (seed?.components(separatedBy: " "))!
 
         
