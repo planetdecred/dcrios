@@ -34,10 +34,11 @@ extension WalletGetTransactionResponseStruct {
     func add(failureCallback:@escaping GetTransactionsResponseFailureCallback){
         GetTransactionResponseListenerHelper.instance.onFailure = failureCallback
     }
-    func onResult(json:String) {
-        let transaction = try! JSONDecoder().decode(JsonTransaction.self, from:json.data(using: .utf8)!)
-        GetTransactionResponseListenerHelper.instance.onSuccess!(transaction)
-    }
+    
+//    @objc dynamic func onResult(json:String) {
+//        let transaction = try! JSONDecoder().decode(JsonTransaction.self, from:json.data(using: .utf8)!)
+//        GetTransactionResponseListenerHelper.instance.onSuccess!(transaction)
+//    }
 }
 
 protocol DcrTransactionsHistoryProtocol: DcrdBaseProtocol {
@@ -51,7 +52,8 @@ extension DcrTransactionsHistoryProtocol {
         mTransactionsObserver?.add(successCallback:onGotTransaction)
         mTransactionsObserver?.add(failureCallback:onFailure)
         do{
-            try wallet?.getTransactions(mTransactionsObserver!)
+           let res = try wallet?.getTransactions(mTransactionsObserver!)
+            print(res!)
         }catch let error{
             onFailure(error)
         }

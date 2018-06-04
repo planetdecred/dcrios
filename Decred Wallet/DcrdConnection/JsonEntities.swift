@@ -57,7 +57,7 @@ extension BalanceEntity{
 }
 
 struct AccountsEntity : Decodable{
-    var Number = 0
+    var Number : Int32 = 0
     var Name = "default"
     var Balance : BalanceEntity?
     var TotalBalance : Int64 = 0

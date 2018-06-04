@@ -35,7 +35,7 @@ class OverviewViewController: UIViewController {
     @IBOutlet weak var lbCurrentBalance: UILabel!
     
 
-    var mainContens = ["2.000000 DCR", "-3.000000 DCR", "21.340000 DCR", "-1.000000 DCR", "12.000000 DCR", "-1.000000 DCR", "12.30000 DCR","-2.000000 DCR", "3.000000 DCR","2.000000 DCR", "3.000000 DCR"]
+    var mainContens = ["4.000000 DCR", "-3.000000 DCR", "21.340000 DCR", "-1.000000 DCR", "12.000000 DCR", "-1.000000 DCR", "12.30000 DCR","-2.000000 DCR", "3.000000 DCR","2.000000 DCR", "3.000000 DCR"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,9 +46,14 @@ class OverviewViewController: UIViewController {
         AppContext.instance.decrdConnection?.connect(onSuccess: { (height) in
             transactionBlockObserver?.subscribe()
             transactionObserver?.subscribe()
+            let accounts = AppContext.instance.decrdConnection?.getAccounts()
+            let address = AppContext.instance.decrdConnection?.getCurrentAddress(account: (accounts?.Acc.first?.Number)!)
+            print("Address:\(address)")
             AppContext.instance.decrdConnection?.fetchTransactions(onGotTransaction: { (transaction) in
-                //display transactions  
+                // display transactions
+                print(transaction)
             }, onFailure: { (error) in
+                print(error)
                 // show error
             })
             lbCurrentBalance.text = "\((AppContext.instance.decrdConnection?.getAccounts()?.Acc.first?.dcrTotalBalance)!) DCR"
