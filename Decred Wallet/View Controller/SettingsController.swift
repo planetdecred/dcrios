@@ -126,6 +126,7 @@ class SettingsController: UITableViewController  {
         UserDefaults.standard.set(debu_msg.isOn, forKey: "pref_debug_switch")
     UserDefaults.standard.set(testnet_switch.isOn, forKey: "pref_use_testnet")
         UserDefaults.standard.synchronize()
+        AppContext.instance.decrdConnection?.applySettings()
         delegate?.changeViewController(LeftMenu.overview)
     }
 
