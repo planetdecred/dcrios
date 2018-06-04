@@ -46,6 +46,11 @@ class OverviewViewController: UIViewController {
         AppContext.instance.decrdConnection?.connect(onSuccess: { (height) in
             transactionBlockObserver?.subscribe()
             transactionObserver?.subscribe()
+            AppContext.instance.decrdConnection?.fetchTransactions(onGotTransaction: { (transaction) in
+                //display transactions  
+            }, onFailure: { (error) in
+                // show error
+            })
             lbCurrentBalance.text = "\((AppContext.instance.decrdConnection?.getAccounts()?.Acc.first?.dcrTotalBalance)!) DCR"
         }, onFailure: { (error) in
             print(error)

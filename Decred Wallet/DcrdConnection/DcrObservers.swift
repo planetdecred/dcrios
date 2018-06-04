@@ -45,12 +45,13 @@ struct ObserversListener:WalletTransactionBlockListenerProtocol{
 
 class TransactionsObserver {
     fileprivate var listener: TransactionObserverProtocol?
-    fileprivate let mTransactionListener = WalletCreateTransactionListener()
+    fileprivate let mUpcomingTransactionListener = WalletCreateTransactionListener()
+    fileprivate let mTransactionListener = WalletCreateGetTransactionResponse()
     init(listener:TransactionObserverProtocol) {
         self.listener = listener
     }
     func subscribe(){
-       AppContext.instance.decrdConnection?.subscribeForTransactions(observer: mTransactionListener!)
+       AppContext.instance.decrdConnection?.subscribeForTransactions(observer: mUpcomingTransactionListener!)
     }
 }
 
