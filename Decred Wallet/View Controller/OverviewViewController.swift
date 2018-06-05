@@ -51,7 +51,7 @@ class OverviewViewController: UIViewController {
             }, onFailure: { (error) in
                 // show error
             })
-            s.lbCurrentBalance.text = "\((AppContext.instance.decrdConnection?.getAccounts()?.Acc.first?.dcrTotalBalance)!) DCR"
+            self.lbCurrentBalance.text = "\((AppContext.instance.decrdConnection?.getAccounts()?.Acc.first?.dcrTotalBalance)!) DCR"
         }, onFailure: { (error) in
             print(error)
         })
