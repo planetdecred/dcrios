@@ -80,9 +80,9 @@ extension DcrdConnectionProtocol{
     }
 }
 
-protocol DecredBackendProtocol: DcrdConnectionProtocol, DcrdSeedMnemonicProtocol, DcrdCreateRestoreWalletProtocol, DcrAccountsManagementProtocol,  DcrTransactionsHistoryProtocol {}
+protocol DecredBackendProtocol: DcrTransactionsHistoryProtocol, DcrdConnectionProtocol, DcrdSeedMnemonicProtocol, DcrdCreateRestoreWalletProtocol, DcrAccountsManagementProtocol {}
 
-class DcrdConnection : DecredBackendProtocol {
+class DcrdConnection : DecredBackendProtocol  {
     var mTransactionsObserver: WalletGetTransactionResponseStruct?
     var transactionsObserver: TransactionsObserver?
     var wallet: WalletLibWallet?
