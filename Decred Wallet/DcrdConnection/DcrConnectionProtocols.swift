@@ -117,10 +117,11 @@ extension DcrSettingsSupportProtocol{
     }
 }
 
-protocol DecredBackendProtocol: DcrdSeedMnemonicProtocol, DcrdCreateRestoreWalletProtocol, DcrAccountsManagementProtocol, DcrSettingsSupportProtocol {}
+protocol DecredBackendProtocol: DcrTransactionsHistoryProtocol, DcrdSeedMnemonicProtocol, DcrdCreateRestoreWalletProtocol, DcrAccountsManagementProtocol, DcrSettingsSupportProtocol {}
 
 class DcrdConnection : DecredBackendProtocol {
     var settingsBackup: String = ""
+    var mTransactionsObserver: WalletGetTransactionResponseStruct?
     var transactionsObserver: TransactionsObserver?
     var wallet: WalletLibWallet?
     required init() {
