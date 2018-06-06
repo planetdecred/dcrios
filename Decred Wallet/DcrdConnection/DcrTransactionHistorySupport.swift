@@ -40,7 +40,7 @@ extension WalletGetTransactionResponseStruct {
 //        GetTransactionResponseListenerHelper.instance.onSuccess!(transaction)
 //    }
 }
-
+    
 protocol DcrTransactionsHistoryProtocol: DcrdBaseProtocol {
     var mTransactionsObserver : WalletGetTransactionResponseStruct? {get set}
     mutating func fetchTransactions(onGotTransaction:@escaping GetTransactionsResponseCallback, onFailure:@escaping GetTransactionsResponseFailureCallback)
@@ -48,6 +48,7 @@ protocol DcrTransactionsHistoryProtocol: DcrdBaseProtocol {
 
 extension DcrTransactionsHistoryProtocol {
     mutating func fetchTransactions(onGotTransaction:@escaping GetTransactionsResponseCallback, onFailure:@escaping GetTransactionsResponseFailureCallback){
+        
         mTransactionsObserver = WalletCreateGetTransactionResponse()
         mTransactionsObserver?.add(successCallback:onGotTransaction)
         mTransactionsObserver?.add(failureCallback:onFailure)

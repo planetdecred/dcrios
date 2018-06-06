@@ -86,7 +86,9 @@ class DcrdConnection : DecredBackendProtocol {
     var mTransactionsObserver: WalletGetTransactionResponseStruct?
     var transactionsObserver: TransactionsObserver?
     var wallet: WalletLibWallet?
-    
+    class func load(){
+        
+    }
 }
 
 
