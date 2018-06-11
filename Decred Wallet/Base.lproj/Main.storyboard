@@ -1229,13 +1229,13 @@
                                                 <rect key="frame" x="0.0" y="73.5" width="356" height="36.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Estimate Size:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3A1-af-gM6">
-                                                        <rect key="frame" x="0.0" y="0.5" width="178" height="36.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="178" height="36.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 byte" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Az-wY-eol">
-                                                        <rect key="frame" x="178" y="0.5" width="178" height="36.5"/>
+                                                        <rect key="frame" x="178" y="0.0" width="178" height="36.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -2283,14 +2283,28 @@
                                 <color key="textColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="highlightedColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Je2-ms-0XC">
+                                <rect key="frame" x="108" y="245.5" width="159" height="176"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="159" id="bGI-5D-ynY"/>
+                                    <constraint firstAttribute="height" constant="176" id="f2D-PU-Woy"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="ZUl-m5-HFt" appends="YES" id="EvI-uL-ERk"/>
+                                </connections>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.042801953852176666" green="0.11419142037630081" blue="0.24708577990531921" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="Je2-ms-0XC" firstAttribute="centerX" secondItem="EO2-Pa-A0e" secondAttribute="centerX" id="2aF-5Y-wjv"/>
                             <constraint firstItem="pq4-Id-I0N" firstAttribute="top" secondItem="Vu3-b8-9c3" secondAttribute="top" constant="225" id="5lW-eQ-uSS"/>
                             <constraint firstItem="w3H-Un-Z5W" firstAttribute="leading" secondItem="Vu3-b8-9c3" secondAttribute="leading" constant="34" id="YsA-XU-2pq"/>
                             <constraint firstItem="w3H-Un-Z5W" firstAttribute="top" secondItem="pq4-Id-I0N" secondAttribute="bottom" constant="8" id="r9y-qy-Nq6"/>
                             <constraint firstItem="pq4-Id-I0N" firstAttribute="centerX" secondItem="Vu3-b8-9c3" secondAttribute="centerX" id="rxW-p6-oqp"/>
                             <constraint firstItem="Vu3-b8-9c3" firstAttribute="trailing" secondItem="w3H-Un-Z5W" secondAttribute="trailing" constant="35" id="sGP-Fh-IeW"/>
+                            <constraint firstItem="Je2-ms-0XC" firstAttribute="centerY" secondItem="EO2-Pa-A0e" secondAttribute="centerY" id="t8u-gX-lJn"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Vu3-b8-9c3"/>
                     </view>
@@ -2301,6 +2315,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="abl-tj-8Do" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer numberOfTapsRequired="2" id="ZUl-m5-HFt">
+                    <connections>
+                        <action selector="goToSeetings:" destination="BLx-jo-l82" id="USm-5h-K0b"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-855.20000000000005" y="-52.623688155922046"/>
         </scene>
