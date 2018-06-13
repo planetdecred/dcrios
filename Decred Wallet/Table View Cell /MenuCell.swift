@@ -62,7 +62,7 @@ open class MenuCell : UITableViewCell {
     
     override open func setHighlighted(_ highlighted: Bool, animated: Bool) {
         if highlighted {
-            self.alpha = 0.4
+            self.alpha = 0.7
         } else {
             self.alpha = 1.0
         }
