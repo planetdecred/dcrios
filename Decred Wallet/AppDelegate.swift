@@ -36,6 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         leftViewController.mainViewController = nvc
         
         let slideMenuController = ExSlideMenuController(mainViewController:nvc, leftMenuViewController: leftViewController, rightMenuViewController: rightViewController)
+        slideMenuController.changeLeftViewWidth((self.window?.frame.size.width)! - (self.window?.frame.size.width)!/6)
 
         slideMenuController.delegate = mainViewController
         self.window?.backgroundColor = GlobalConstants.Colors.lightGrey
