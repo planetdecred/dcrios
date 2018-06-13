@@ -43,19 +43,11 @@ class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITex
             progressHud?.show(animated: true)
             try AppContext.instance.decrdConnection?.createWallet(seed:seedToVerify!, passwd:tfPassword.text!)
             progressHud?.hide(animated: true)
-            navigationController?.dismiss(animated: true, completion: nil)
+            createMainWindow()
+            //navigationController?.dismiss(animated: true, completion: nil)
         } catch let error{
             showError(error: error)
         }
-    }
-    
-    func showSuccess(){
-        let alert = UIAlertController(title: "Success!", message: "Wallet created", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
-            alert.dismiss(animated: true, completion: {self.navigationController?.popToRootViewController(animated: true)})
-        }
-        alert.addAction(okAction)
-        present(alert, animated: true, completion: {self.progressHud?.hide(animated: false)})
     }
     
     func showError(error:Error){

@@ -20,33 +20,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.rootViewController = nv
         self.window?.makeKeyAndVisible()
     }
-    
-    fileprivate func createMenuView() {
-        
-        // create viewController code...
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let mainViewController = storyboard.instantiateViewController(withIdentifier: "OverviewViewController") as! OverviewViewController
-        let leftViewController = storyboard.instantiateViewController(withIdentifier: "LeftViewController") as! LeftViewController
-        let rightViewController = storyboard.instantiateViewController(withIdentifier: "RightViewController") as! RightViewController
-        
-        let nvc: UINavigationController = UINavigationController(rootViewController: mainViewController)
-        
-        UINavigationBar.appearance().tintColor = GlobalConstants.Colors.navigationBarColor
-        
-        leftViewController.mainViewController = nvc
-        
-        let slideMenuController = ExSlideMenuController(mainViewController:nvc, leftMenuViewController: leftViewController, rightMenuViewController: rightViewController)
-
-        slideMenuController.delegate = mainViewController
-        self.window?.backgroundColor = GlobalConstants.Colors.lightGrey
-        self.window?.rootViewController = slideMenuController
-        self.window?.makeKeyAndVisible()
-    }
-
 
     fileprivate func populateFirstScreen() {
         if(isWalletCreated()){
-            self.createMenuView()
+            createMainWindow()
         }else{
             self.walletSetupView()
         }
