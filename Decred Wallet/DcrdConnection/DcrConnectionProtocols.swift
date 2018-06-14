@@ -19,7 +19,6 @@ typealias FailureCallback = ((Error)->Void)
 protocol DcrdConnectionProtocol : DcrdBaseProtocol {
     var transactionsObserver: TransactionsObserver?{get set}
     mutating func initiateWallet()
-    func connect()-> Bool //obsolete
     func connect(onSuccess:SuccessCallback, onFailure:FailureCallback)
     func disconnect()
     mutating func subscribeForTransactions(observer:WalletTransactionListenerProtocol)
@@ -36,12 +35,7 @@ extension DcrdConnectionProtocol{
             print(error)
         }
     }
-    
-    func connect() -> Bool {
-        assert(true, "'connect()' method is obsolete. Use 'connect(onSuccess:SuccessCallback, onFailure:FailureCallback)' instead")
-        return false
-    }
-    
+
     func connect(onSuccess:SuccessCallback, onFailure:FailureCallback){
         let certificate = try? Data(contentsOf: URL(fileURLWithPath: NSHomeDirectory() + "/Documents/rpc.cert"))
         let username = UserDefaults.standard.string(forKey: "pref_user_name")
@@ -80,15 +74,16 @@ extension DcrdConnectionProtocol{
     }
 }
 
-protocol DecredBackendProtocol: DcrdConnectionProtocol, DcrdSeedMnemonicProtocol, DcrdCreateRestoreWalletProtocol, DcrAccountsManagementProtocol,  DcrTransactionsHistoryProtocol {}
+protocol DecredBackendProtocol: DcrdConnectionProtocol,
+                                DcrdSeedMnemonicProtocol,
+                                DcrdCreateRestoreWalletProtocol,
+                                DcrAccountsManagementProtocol,
+                                DcrTransactionsHistoryProtocol {}
 
 class DcrdConnection : DecredBackendProtocol {
-    var mTransactionsObserver: WalletGetTransactionResponseStruct?
     var transactionsObserver: TransactionsObserver?
+    var mTransactionsObserveHub: GetTransactionObserveHub?
     var wallet: WalletLibWallet?
-    class func load(){
-        
-    }
 }
 
 

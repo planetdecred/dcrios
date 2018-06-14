@@ -8,19 +8,83 @@
 
 #import "ObserverProxy.h"
 
-@implementation WalletGetTransactionResponseStruct (ObserverProxy)
-+ (void) swizzle {
-    Class thisClass = self;
-    SEL onResultSEL = @selector(onResult:);
-    Method onResultMethod = class_getInstanceMethod(thisClass, onResultSEL);
-    
-    SEL onJsonResultSEL = @selector(onJsonResult:);
-    Method onJsonResultMethod = class_getInstanceMethod(thisClass, onJsonResultSEL);
-    method_exchangeImplementations(onJsonResultMethod, onResultMethod);
+@implementation GetTransactionObserveHub
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.transactionNotificationsSubscribers = [NSMutableArray arrayWithCapacity:1];
+    }
+    return self;
 }
 
-- (void) onJsonResult:(NSString *)json{
-    NSLog(@"Swizzled: %@\n", json);
+- (void) subscribeForNotifications:(id<WalletGetTransactionsResponse>)observer{
+    [self.transactionNotificationsSubscribers addObject:observer];
 }
+
+- (void) unsubscribeForNotifications:(id<WalletGetTransactionsResponse>)observer{
+    [self.transactionNotificationsSubscribers removeObject:observer];
+}
+
+- (void)onResult:(NSString *)json {
+    for (id<WalletGetTransactionsResponse> observer in self.transactionNotificationsSubscribers) {
+        [observer onResult:json];
+    }
+}
+
 @end
 
+@implementation TransactionBlockNotificationObserveHub
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.transactionBlockNotificationsSubscribers = [NSMutableArray arrayWithCapacity:1];
+    }
+    return self;
+}
+- (void) subscribeForNotifications:(id<WalletBlockNotificationError>)observer{
+    [self.transactionBlockNotificationsSubscribers addObject:observer];
+}
+- (void) unsubscribeForNotifications:(id<WalletBlockNotificationError>)observer{
+    [self.transactionBlockNotificationsSubscribers removeObject:observer];
+}
+- (void)onBlockNotificationError:(NSError *)err {
+    for (id<WalletBlockNotificationError> observer in self.transactionBlockNotificationsSubscribers) {
+        [observer onBlockNotificationError:err];
+    }
+}
+
+@end
+
+@implementation TransactionNotificationsObserveHub
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.transactionNotificationsSubscribers = [NSMutableArray arrayWithCapacity:1];
+    }
+    return self;
+}
+
+- (void) subscribeForNotifications:(id<WalletTransactionListener>)observer{
+    [self.transactionNotificationsSubscribers addObject:observer];
+}
+
+- (void) unsubscribeForNotifications:(id<WalletTransactionListener>)observer{
+    [self.transactionNotificationsSubscribers removeObject:observer];
+}
+
+- (void)onTransaction:(NSString *)transaction {
+    for (id<WalletTransactionListener> observer in self.transactionNotificationsSubscribers) {
+        [observer onTransaction:transaction];
+    }
+}
+
+- (void)onTransactionRefresh {
+    for (id<WalletTransactionListener> observer in self.transactionNotificationsSubscribers) {
+        [observer onTransactionRefresh];
+    }
+}
+
+@end

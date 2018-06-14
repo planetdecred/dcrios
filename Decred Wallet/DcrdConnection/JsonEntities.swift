@@ -83,3 +83,39 @@ struct GetAccountResponse : Decodable {
     var CurrentBlockHash = ""
     var CurrentBlockHeight = 0
 }
+
+struct GetTransactionResponse : Decodable {
+    var Transactions:[Transaction]?
+    var ErrorOccured: Bool = false
+    var ErrorMessage = ""
+}
+
+struct Transaction : Decodable {
+    var Hash = ""
+    var Transaction = 0
+    var Fee = 0
+    var Timestamp:UInt64 = 0
+    var `Type` = "REGULAR"
+    var Amount: Int64 = 0
+    var Status = ""
+    var Height = 0
+    var Debits:[Debit]?
+    var Credits:[Credit]?
+}
+
+struct Credit : Decodable{
+    var Index: Int64 = 0
+    var Account: Int64 = 0
+    var Internal: Bool = false
+    var Amount: Int64 = 0
+    var Address = ""
+}
+
+struct Debit : Decodable{
+    var Index: Int64 = 0
+    var Account: Int64 = 0
+    var Internal: Bool = false
+    var Amount: Int64 = 0
+    var Address = ""
+}
+

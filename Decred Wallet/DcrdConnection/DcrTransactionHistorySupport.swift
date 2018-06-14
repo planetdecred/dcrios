@@ -20,43 +20,22 @@ protocol WalletGetTransactionsResponseListenerProtocol {
     var onSuccess:GetTransactionsResponseCallback? {get set}
     var onFailure:GetTransactionsResponseFailureCallback? {get set}
 }
-
-class GetTransactionResponseListenerHelper:WalletGetTransactionsResponseListenerProtocol{
-    var onSuccess: GetTransactionsResponseCallback?
-    var onFailure: GetTransactionsResponseFailureCallback?
-    static let instance = GetTransactionResponseListenerHelper()
-}
-
-extension WalletGetTransactionResponseStruct {
-    func add(successCallback:@escaping GetTransactionsResponseCallback){
-        GetTransactionResponseListenerHelper.instance.onSuccess = successCallback
-    }
-    func add(failureCallback:@escaping GetTransactionsResponseFailureCallback){
-        GetTransactionResponseListenerHelper.instance.onFailure = failureCallback
-    }
-    
-//    @objc dynamic func onResult(json:String) {
-//        let transaction = try! JSONDecoder().decode(JsonTransaction.self, from:json.data(using: .utf8)!)
-//        GetTransactionResponseListenerHelper.instance.onSuccess!(transaction)
-//    }
-}
     
 protocol DcrTransactionsHistoryProtocol: DcrdBaseProtocol {
-    var mTransactionsObserver : WalletGetTransactionResponseStruct? {get set}
-    mutating func fetchTransactions(onGotTransaction:@escaping GetTransactionsResponseCallback, onFailure:@escaping GetTransactionsResponseFailureCallback)
+    var mTransactionsObserveHub: GetTransactionObserveHub?{get set}
+    mutating func fetchTransactions()
 }
 
 extension DcrTransactionsHistoryProtocol {
-    mutating func fetchTransactions(onGotTransaction:@escaping GetTransactionsResponseCallback, onFailure:@escaping GetTransactionsResponseFailureCallback){
-        
-        mTransactionsObserver = WalletCreateGetTransactionResponse()
-        mTransactionsObserver?.add(successCallback:onGotTransaction)
-        mTransactionsObserver?.add(failureCallback:onFailure)
+    mutating func addObserver(notificationObserver:WalletGetTransactionsResponseProtocol){
+       mTransactionsObserveHub?.subscribe(forNotifications: notificationObserver)
+    }
+    mutating func fetchTransactions(){
         do{
-           let res = try wallet?.getTransactions(mTransactionsObserver!)
-            print(res!)
+            mTransactionsObserveHub = GetTransactionObserveHub()
+            _ = try wallet?.getTransactions(mTransactionsObserveHub as! WalletGetTransactionsResponseProtocol)
         }catch let error{
-            onFailure(error)
+            print("Fetch transactions error: %@", error.localizedDescription)
         }
     }
 }

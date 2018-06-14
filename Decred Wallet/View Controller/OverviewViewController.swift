@@ -3,59 +3,27 @@
 //  Decred Wallet
 //  Copyright © 2018 The Decred developers.
 //  see LICENSE for details.
+
 import SlideMenuControllerSwift
 import Wallet
 
-class TransactionsManager : TransactionBlockObserverProtocol, TransactionObserverProtocol{
-    init(externalTransactions:[String]) {
-        transactions = externalTransactions
-    }
-    func onBlockError(error: Error) {
-        print(error)
-    }
-    
-    var transactions: [String]?
-    
-    func populateTransaction(transaction: String) {
-        transactions?.append(transaction)
-        print(transaction)
-    }
-    
-    func refresh() {
-        print("refresh")
-    }
-}
-
-class OverviewViewController: UIViewController {
-    var liveTransactionObserver: TransactionsManager?
-    var transactionBlockObserver : TransactionsBlockObserver?
-    var transactionObserver : TransactionsObserver?
+class OverviewViewController: UIViewController, WalletGetTransactionsResponseProtocol {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var lbCurrentBalance: UILabel!
     
-
     var mainContens = ["4.000000 DCR", "-3.000000 DCR", "21.340000 DCR", "-1.000000 DCR", "12.000000 DCR", "-1.000000 DCR", "12.30000 DCR","-2.000000 DCR", "3.000000 DCR","2.000000 DCR", "3.000000 DCR"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.registerCellNib(DataTableViewCell.self)
-        liveTransactionObserver = TransactionsManager(externalTransactions: mainContens)
-        transactionBlockObserver = TransactionsBlockObserver(listener: liveTransactionObserver! )
-        transactionObserver = TransactionsObserver(listener: liveTransactionObserver! )
+        
         AppContext.instance.decrdConnection?.connect(onSuccess: { (height) in
-            transactionBlockObserver?.subscribe()
-            transactionObserver?.subscribe()
             let accounts = AppContext.instance.decrdConnection?.getAccounts()
             let address = AppContext.instance.decrdConnection?.getCurrentAddress(account: (accounts?.Acc.first?.Number)!)
             print("Address:\(address)")
-            AppContext.instance.decrdConnection?.fetchTransactions(onGotTransaction: { (transaction) in
-                // display transactions
-                print(transaction)
-            }, onFailure: { (error) in
-                print(error)
-                // show error
-            })
+            AppContext.instance.decrdConnection?.addObserver(notificationObserver: self)
+            AppContext.instance.decrdConnection?.fetchTransactions()
             lbCurrentBalance.text = "\((AppContext.instance.decrdConnection?.getAccounts()?.Acc.first?.dcrTotalBalance)!) DCR"
         }, onFailure: { (error) in
             print(error)
@@ -70,6 +38,12 @@ class OverviewViewController: UIViewController {
         super.viewWillAppear(animated)
         self.setNavigationBarItem()
         self.navigationItem.title = "Overview"
+    }
+    
+    func onResult(_ json: String!) {
+        print(json);
+        //let transaction = try! JSONDecoder().decode(GetTransactionResponse.self, from:json.data(using: .utf8))
+        //mainContens.append(<#T##newElement: String##String#>)
     }
 }
 
