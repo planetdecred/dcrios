@@ -41,9 +41,23 @@ class OverviewViewController: UIViewController, WalletGetTransactionsResponsePro
     }
     
     func onResult(_ json: String!) {
-        print(json);
-        //let transaction = try! JSONDecoder().decode(GetTransactionResponse.self, from:json.data(using: .utf8))
-        //mainContens.append(<#T##newElement: String##String#>)
+        mainContens = [String]()
+        do{
+            let transactions = try JSONDecoder().decode(GetTransactionResponse.self, from:json.data(using: .utf8)!)
+            for transactionPack in transactions.Transactions!{
+                for creditTransaction in transactionPack.Credits!{
+                    mainContens.append("\(creditTransaction.dcrAmount) DCR")
+                }
+                for debitTransaction in transactionPack.Debits!{
+                    mainContens.append("-\(debitTransaction.dcrAmount) DCR")
+                }
+            }
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }catch let error{
+            print(error)
+        }
     }
 }
 

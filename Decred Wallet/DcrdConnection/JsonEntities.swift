@@ -86,13 +86,13 @@ struct GetAccountResponse : Decodable {
 
 struct GetTransactionResponse : Decodable {
     var Transactions:[Transaction]?
-    var ErrorOccured: Bool = false
+    var ErrorOccurred = false
     var ErrorMessage = ""
 }
 
 struct Transaction : Decodable {
     var Hash = ""
-    var Transaction = 0
+    var Transaction: String?
     var Fee = 0
     var Timestamp:UInt64 = 0
     var `Type` = "REGULAR"
@@ -110,6 +110,14 @@ struct Credit : Decodable{
     var Amount: Int64 = 0
     var Address = ""
 }
+extension Credit {
+    var dcrAmount : Int64 {
+        get {
+            return Amount / 100000000
+        }
+    }
+}
+
 
 struct Debit : Decodable{
     var Index: Int64 = 0
@@ -119,3 +127,10 @@ struct Debit : Decodable{
     var Address = ""
 }
 
+extension Debit {
+    var dcrAmount : Int64 {
+        get {
+            return Amount / 100000000
+        }
+    }
+}

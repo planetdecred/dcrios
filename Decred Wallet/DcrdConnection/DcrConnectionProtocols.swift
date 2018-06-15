@@ -82,7 +82,7 @@ protocol DecredBackendProtocol: DcrdConnectionProtocol,
 
 class DcrdConnection : DecredBackendProtocol {
     var transactionsObserver: TransactionsObserver?
-    var mTransactionsObserveHub: GetTransactionObserveHub?
+    var mTransactionsObserveHub : GetTransactionObserveHub? = GetTransactionObserveHub()
     var wallet: WalletLibWallet?
 }
 
