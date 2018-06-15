@@ -7,33 +7,36 @@
 import Foundation
 import UIKit
 
-class AccountViewController: UIViewController {
-    //Mark Properties
+class AccountViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    //MARK:- Properties
     
-    @IBOutlet weak var total_amount_spending:UILabel?
-    @IBOutlet weak var account_name: UILabel!
-    @IBOutlet weak var address: UILabel!
+    @IBOutlet weak var tableAccountData: UITableView!
     
-    @IBAction func amount(_ sender: Any) {
-    }
-    @IBAction func address(_ sender: UITextField) {
-    }
-    @IBAction func AccountDropdown(_ sender: Any) {
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Example of acquaring account data
-        let account = AppContext.instance.decrdConnection?.getAccounts()?.Acc.first
-        total_amount_spending?.text = "\(account?.Balance?.dcrSpendable ?? 0) DCR"
-        account_name.text = account?.Name
-        let accountNum : Int32 = Int32((account?.Number)!)
-        address.text = AppContext.instance.decrdConnection?.getCurrentAddress(account: accountNum)
         
+        tableAccountData
+            .registerNib("AccountDataCell")
+            .autoResizeCell(estimatedHeight: 100)
+            .reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.setNavigationBarItem()
         self.navigationItem.title = "Account"
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "AccountDataCell") as! AccountDataCell
+        return cell
     }
 }

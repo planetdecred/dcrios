@@ -551,56 +551,18 @@
                             <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="GL6-aQ-vB8">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="I9w-x4-mAi" id="Cob-nj-yiS"/>
+                                    <outlet property="delegate" destination="I9w-x4-mAi" id="yHX-xi-jn2"/>
+                                </connections>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g6Y-HW-jLn">
-                                <rect key="frame" x="200" y="120" width="100" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Spendable Total:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5JB-WH-UTg">
-                                <rect key="frame" x="10" y="120" width="128" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Account name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OUl-vn-0bB">
-                                <rect key="frame" x="10" y="140" width="115" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7zK-qg-AdF">
-                                <rect key="frame" x="200" y="140" width="100" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ic6-H0-Yff">
-                                <rect key="frame" x="10" y="160" width="63" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zkw-vA-DlF">
-                                <rect key="frame" x="100" y="160" width="260" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.89411764705882357" green="0.9137254901960784" blue="0.9137254901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="GL6-aQ-vB8" firstAttribute="top" secondItem="jtW-TN-dF4" secondAttribute="bottom" id="Y5P-bk-A3S"/>
-                            <constraint firstItem="nZh-5T-H4I" firstAttribute="trailing" secondItem="GL6-aQ-vB8" secondAttribute="trailing" id="rgT-KX-GEL"/>
-                            <constraint firstItem="2n0-fL-47k" firstAttribute="top" secondItem="GL6-aQ-vB8" secondAttribute="bottom" id="tku-CT-vVe"/>
-                            <constraint firstItem="GL6-aQ-vB8" firstAttribute="leading" secondItem="nZh-5T-H4I" secondAttribute="leading" id="ziU-Xg-Mjj"/>
+                            <constraint firstItem="GL6-aQ-vB8" firstAttribute="trailing" secondItem="nZh-5T-H4I" secondAttribute="trailing" id="24w-di-DNw"/>
+                            <constraint firstItem="2n0-fL-47k" firstAttribute="top" secondItem="GL6-aQ-vB8" secondAttribute="bottom" id="9fF-dZ-YTp"/>
+                            <constraint firstItem="GL6-aQ-vB8" firstAttribute="leading" secondItem="nZh-5T-H4I" secondAttribute="leading" id="cyU-Fl-9Yl"/>
+                            <constraint firstItem="GL6-aQ-vB8" firstAttribute="top" secondItem="jtW-TN-dF4" secondAttribute="bottom" id="pg4-XE-dTJ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="nZh-5T-H4I"/>
                     </view>
@@ -608,14 +570,12 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="account_name" destination="7zK-qg-AdF" id="ivt-4J-IQk"/>
-                        <outlet property="address" destination="zkw-vA-DlF" id="Uin-kR-Nh0"/>
-                        <outlet property="total_amount_spending" destination="g6Y-HW-jLn" id="rmf-U1-Lb9"/>
+                        <outlet property="tableAccountData" destination="GL6-aQ-vB8" id="Lbc-aF-aKQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0gN-ZX-EvU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="128.80000000000001" y="3687.7061469265368"/>
+            <point key="canvasLocation" x="250" y="3662"/>
         </scene>
         <!--Generated Seed Display View Controller-->
         <scene sceneID="S9M-rX-2SB">

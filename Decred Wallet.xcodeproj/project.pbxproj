@@ -35,6 +35,8 @@
 		958B537220CA9E5500F6684C /* Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95AB6BDB20CA7DB900460281 /* Wallet.framework */; };
 		95BFA83220D156D900BAED71 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BFA83020D156D900BAED71 /* MenuCell.swift */; };
 		95BFA83320D156D900BAED71 /* MenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95BFA83120D156D900BAED71 /* MenuCell.xib */; };
+		95CC024020D3DAFF00DA73AF /* AccountDataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CC023E20D3DAFF00DA73AF /* AccountDataCell.swift */; };
+		95CC024120D3DAFF00DA73AF /* AccountDataCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95CC023F20D3DAFF00DA73AF /* AccountDataCell.xib */; };
 		B853136BC96255F028D8CB64 /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD1BD0208F6C9A0051F58F /* Pods_Decred_Wallet.framework */; };
 		DD0C493E208A160900986C6B /* WalletSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C493D208A160900986C6B /* WalletSetupViewController.swift */; };
 		DD0C4940208A401A00986C6B /* saveSeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C493F208A401A00986C6B /* saveSeedViewController.swift */; };
@@ -134,6 +136,8 @@
 		95AB6BDB20CA7DB900460281 /* Wallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Wallet.framework; path = wallet/debug/Wallet.framework; sourceTree = "<group>"; };
 		95BFA83020D156D900BAED71 /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
 		95BFA83120D156D900BAED71 /* MenuCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuCell.xib; sourceTree = "<group>"; };
+		95CC023E20D3DAFF00DA73AF /* AccountDataCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDataCell.swift; sourceTree = "<group>"; };
+		95CC023F20D3DAFF00DA73AF /* AccountDataCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountDataCell.xib; sourceTree = "<group>"; };
 		A1A97C56BC75512DA55A8A70 /* Pods-Decred WalletTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred WalletTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Decred WalletTests/Pods-Decred WalletTests.release.xcconfig"; sourceTree = "<group>"; };
 		DD0C493D208A160900986C6B /* WalletSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSetupViewController.swift; sourceTree = "<group>"; };
 		DD0C493F208A401A00986C6B /* saveSeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = saveSeedViewController.swift; sourceTree = "<group>"; };
@@ -282,6 +286,8 @@
 		DD4C89DD2038EF86003FEA0C /* Table View Cell  */ = {
 			isa = PBXGroup;
 			children = (
+				95CC023E20D3DAFF00DA73AF /* AccountDataCell.swift */,
+				95CC023F20D3DAFF00DA73AF /* AccountDataCell.xib */,
 				95877FEB20B70D4B00CE53D2 /* TransactionHistoryTableViewCell.swift */,
 				95877FEA20B70D4B00CE53D2 /* TransactionHistoryTableViewCell.xib */,
 				DDB89422202F9432002F85EE /* DataTableViewCell.swift */,
@@ -473,6 +479,7 @@
 				2883CA74209B5BA40053D9BB /* Modals.storyboard in Resources */,
 				DDB89415202F8D11002F85EE /* ImageHeaderView.xib in Resources */,
 				95877FEC20B70D4B00CE53D2 /* TransactionHistoryTableViewCell.xib in Resources */,
+				95CC024120D3DAFF00DA73AF /* AccountDataCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -585,6 +592,7 @@
 				DD1D5C7C20AED828009789DD /* certificateViewController.swift in Sources */,
 				DD96B33F20293F110046F2DD /* LeftViewController.swift in Sources */,
 				DD0C4940208A401A00986C6B /* saveSeedViewController.swift in Sources */,
+				95CC024020D3DAFF00DA73AF /* AccountDataCell.swift in Sources */,
 				DDA3E27020292EF900C83D18 /* ViewController.swift in Sources */,
 				DDB8940F202F83EA002F85EE /* BaseTableViewCell.swift in Sources */,
 				2870338B20BC5E7D00BFD0B8 /* JsonEntities.swift in Sources */,
