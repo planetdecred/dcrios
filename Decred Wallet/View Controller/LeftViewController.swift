@@ -32,6 +32,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
     var settingsViewController: UIViewController!
     var historyViewController: UIViewController!
     var imageHeaderView: ImageHeaderView!
+    var selectedIndex: Int!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -39,7 +40,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.selectedIndex = 0
         self.tableView.separatorColor = GlobalConstants.Colors.separaterGrey
         
         let storyboard =  UIStoryboard(name: "Main", bundle: nil)
@@ -60,7 +61,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         trController?.delegate = self
         self.historyViewController = UINavigationController(rootViewController: trController!)
         
-        self.tableView.registerCellClass(BaseTableViewCell.self)
+        self.tableView.registerCellClass(MenuCell.self)
         
         self.imageHeaderView = ImageHeaderView.loadNib()
         self.view.addSubview(self.imageHeaderView)
@@ -99,7 +100,7 @@ extension LeftViewController : UITableViewDelegate {
         if let menu = LeftMenu(rawValue: indexPath.row) {
             switch menu {
             case .overview, .account, .send, .receive, .history, .settings:
-                return BaseTableViewCell.height()
+                return MenuCell.height()
             }
         }
         return 0
@@ -107,6 +108,8 @@ extension LeftViewController : UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let menu = LeftMenu(rawValue: indexPath.row) {
+            self.selectedIndex = indexPath.row
+            self.tableView.reloadData()
             self.changeViewController(menu)
         }
     }
@@ -129,8 +132,21 @@ extension LeftViewController : UITableViewDataSource {
         if let menu = LeftMenu(rawValue: indexPath.row) {
             switch menu {
             case .overview, .account, .send, .receive, .history, .settings:
-                let cell = BaseTableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: BaseTableViewCell.identifier)
+                
+                
+                tableView.register(UINib(nibName: MenuCell.identifier, bundle: nil), forCellReuseIdentifier: MenuCell.identifier)
+                let cell = self.tableView.dequeueReusableCell(withIdentifier: "MenuCell") as! MenuCell
+
                 cell.setData(menus[indexPath.row])
+                
+                if(self.selectedIndex == indexPath.row) {
+                    cell.backView.backgroundColor = UIColor.white
+                    cell.lblMenu.textColor = UIColor.black
+                } else {
+                    cell.backView.backgroundColor = GlobalConstants.Colors.menuCell
+                    cell.lblMenu.textColor = GlobalConstants.Colors.menuTitle
+                }
+                cell.selectedView.isHidden = (self.selectedIndex == indexPath.row) ? false : true
                 return cell
             }
         }
