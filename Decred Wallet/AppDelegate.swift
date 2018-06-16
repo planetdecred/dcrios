@@ -44,6 +44,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
     }
 
+    fileprivate func gotoSetting() {
+        let vcSetting =  GlobalConstants.ConstantStoryboardMain.getControllerInstance(identifier: "SettingsController2", storyBoard: GlobalConstants.ConstantStoryboardMain.IDENTIFIER_STORYBOARD_MAIN) as! SettingsController
+         vcSetting.isFromLoader = true
+        
+         self.navigation?.pushViewController(vcSetting, animated: true)
+    }
 
     fileprivate func gotoSetting() {
         let vcSetting =  GlobalConstants.ConstantStoryboardMain.getControllerInstance(identifier: "SettingsController2", storyBoard: GlobalConstants.ConstantStoryboardMain.IDENTIFIER_STORYBOARD_MAIN) as! SettingsController
