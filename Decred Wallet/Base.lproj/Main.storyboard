@@ -334,26 +334,108 @@
                         <viewControllerLayoutGuide type="top" id="ojD-hk-v0s"/>
                         <viewControllerLayoutGuide type="bottom" id="hXM-FI-ON0"/>
                     </layoutGuides>
-                    <view key="view" alpha="0.90000000000000002" contentMode="scaleToFill" id="REJ-n5-19V">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <view key="view" contentMode="scaleToFill" id="REJ-n5-19V">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="tZ8-EX-Dgz">
-                                <rect key="frame" x="0.0" y="160" width="320" height="408"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="sectionIndexBackgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="tZ8-EX-Dgz">
+                                <rect key="frame" x="0.0" y="160" width="375" height="423"/>
+                                <color key="backgroundColor" red="0.94509803921568625" green="0.95294117647058818" blue="0.95686274509803915" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="dataSource" destination="Mog-8S-rDV" id="H0W-OR-4JG"/>
                                     <outlet property="delegate" destination="Mog-8S-rDV" id="9co-7s-CEv"/>
                                 </connections>
                             </tableView>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wP1-7n-prK">
+                                <rect key="frame" x="0.0" y="581" width="375" height="86"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dps-jd-BY4">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connected" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hMO-Fb-VRL">
+                                                <rect key="frame" x="8" y="4" width="359" height="21"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.1647058824" green="0.83921568629999999" blue="0.66235173759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="hMO-Fb-VRL" firstAttribute="top" secondItem="Dps-jd-BY4" secondAttribute="top" constant="4" id="2S9-lI-c2N"/>
+                                            <constraint firstAttribute="trailing" secondItem="hMO-Fb-VRL" secondAttribute="trailing" constant="8" id="KjN-Mz-hpV"/>
+                                            <constraint firstItem="hMO-Fb-VRL" firstAttribute="leading" secondItem="Dps-jd-BY4" secondAttribute="leading" constant="8" id="d1c-NU-D5Q"/>
+                                            <constraint firstAttribute="height" constant="30" id="yZf-od-Rxc"/>
+                                            <constraint firstAttribute="bottom" secondItem="hMO-Fb-VRL" secondAttribute="bottom" constant="5" id="zP6-YP-QGY"/>
+                                        </constraints>
+                                    </view>
+                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" image="history" translatesAutoresizingMaskIntoConstraints="NO" id="bNJ-00-YxE">
+                                        <rect key="frame" x="15" y="38" width="36" height="36"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sr0-kB-HFg">
+                                        <rect key="frame" x="331" y="38" width="36" height="36"/>
+                                        <state key="normal" image="history"/>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gwj-Dp-b4g">
+                                        <rect key="frame" x="69" y="48.5" width="245" height="16.5"/>
+                                        <attributedString key="attributedText">
+                                            <fragment content="Rescanning">
+                                                <attributes>
+                                                    <color key="NSColor" red="0.38391202688217163" green="0.78485053777694702" blue="0.92151027917861938" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <font key="NSFont" size="14" name=".SFNSText"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment content=" ">
+                                                <attributes>
+                                                    <color key="NSColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <font key="NSFont" size="14" name=".SFNSText"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment content="220057/228008">
+                                                <attributes>
+                                                    <color key="NSColor" red="0.15686274509803921" green="0.73333333333333328" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <font key="NSFont" size="14" name=".SFNSText"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment content="(95%)">
+                                                <attributes>
+                                                    <color key="NSColor" red="0.41246882081031799" green="0.82731425762176514" blue="0.95917481184005737" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <font key="NSFont" size="14" name=".SFNSText"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.042801953849999998" green="0.11419142039999999" blue="0.2470857799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="Gwj-Dp-b4g" firstAttribute="leading" secondItem="bNJ-00-YxE" secondAttribute="trailing" constant="18" id="1Db-eg-7pS"/>
+                                    <constraint firstAttribute="trailing" secondItem="sr0-kB-HFg" secondAttribute="trailing" constant="8" id="31A-Se-c7w"/>
+                                    <constraint firstItem="bNJ-00-YxE" firstAttribute="top" secondItem="Dps-jd-BY4" secondAttribute="bottom" constant="8" id="F76-C9-NwB"/>
+                                    <constraint firstItem="bNJ-00-YxE" firstAttribute="leading" secondItem="wP1-7n-prK" secondAttribute="leading" constant="15" id="PcA-3u-qVs"/>
+                                    <constraint firstItem="Dps-jd-BY4" firstAttribute="top" secondItem="wP1-7n-prK" secondAttribute="top" id="QZJ-hn-Zog"/>
+                                    <constraint firstItem="sr0-kB-HFg" firstAttribute="centerY" secondItem="bNJ-00-YxE" secondAttribute="centerY" id="ZSP-ql-C8Q"/>
+                                    <constraint firstItem="Gwj-Dp-b4g" firstAttribute="centerY" secondItem="bNJ-00-YxE" secondAttribute="centerY" id="bkm-5e-lgA"/>
+                                    <constraint firstAttribute="trailing" secondItem="Dps-jd-BY4" secondAttribute="trailing" id="jWs-BF-YfY"/>
+                                    <constraint firstItem="Dps-jd-BY4" firstAttribute="leading" secondItem="wP1-7n-prK" secondAttribute="leading" id="nCn-fx-egw"/>
+                                    <constraint firstItem="sr0-kB-HFg" firstAttribute="leading" secondItem="Gwj-Dp-b4g" secondAttribute="trailing" constant="17" id="oHm-Yb-can"/>
+                                </constraints>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.94509803921568625" green="0.97254901960784312" blue="0.9137254901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="hXM-FI-ON0" firstAttribute="top" secondItem="tZ8-EX-Dgz" secondAttribute="bottom" id="JJj-IC-vli"/>
+                            <constraint firstItem="hXM-FI-ON0" firstAttribute="top" secondItem="tZ8-EX-Dgz" secondAttribute="bottom" constant="84" id="JJj-IC-vli"/>
+                            <constraint firstItem="wP1-7n-prK" firstAttribute="top" secondItem="tZ8-EX-Dgz" secondAttribute="bottom" constant="-2" id="JaX-Mq-7YE"/>
                             <constraint firstItem="tZ8-EX-Dgz" firstAttribute="top" secondItem="REJ-n5-19V" secondAttribute="top" constant="160" id="K0e-FY-E01"/>
+                            <constraint firstItem="wP1-7n-prK" firstAttribute="leading" secondItem="tWm-u4-mem" secondAttribute="leading" id="Xfh-nN-vpR"/>
+                            <constraint firstItem="hXM-FI-ON0" firstAttribute="top" secondItem="wP1-7n-prK" secondAttribute="bottom" id="dOm-Iy-CkC"/>
                             <constraint firstAttribute="trailing" secondItem="tZ8-EX-Dgz" secondAttribute="trailing" id="g5C-cu-sdP"/>
                             <constraint firstItem="tZ8-EX-Dgz" firstAttribute="leading" secondItem="REJ-n5-19V" secondAttribute="leading" id="pzK-e6-Yy4"/>
+                            <constraint firstItem="wP1-7n-prK" firstAttribute="trailing" secondItem="tWm-u4-mem" secondAttribute="trailing" id="qJU-Wq-NRZ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="tWm-u4-mem"/>
                     </view>
@@ -365,7 +447,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JrB-Wy-sfE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="121" y="-708"/>
+            <point key="canvasLocation" x="183" y="-716"/>
         </scene>
         <!--Overview View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -2799,6 +2881,7 @@
         <image name="account" width="36" height="36"/>
         <image name="arrow" width="24" height="24"/>
         <image name="decred_image" width="125" height="94"/>
+        <image name="history" width="36" height="36"/>
         <image name="ic_menu_black_24dp" width="24" height="24"/>
         <image name="warning" width="18" height="18"/>
     </resources>
