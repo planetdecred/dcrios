@@ -12,6 +12,7 @@ import Wallet
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var navigation : UINavigationController?
     fileprivate func walletSetupView(){
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let walletSetupController = storyboard.instantiateViewController(withIdentifier:"WalletSetupViewController") as! WalletSetupViewController
@@ -43,6 +44,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.makeKeyAndVisible()
     }
 
+    fileprivate func gotoSetting() {
+        let vcSetting =  GlobalConstants.ConstantStoryboardMain.getControllerInstance(identifier: "SettingsController2", storyBoard: GlobalConstants.ConstantStoryboardMain.IDENTIFIER_STORYBOARD_MAIN) as! SettingsController
+         vcSetting.isFromLoader = true
+        
+         self.navigation?.pushViewController(vcSetting, animated: true)
+    }
 
     fileprivate func populateFirstScreen() {
         if(isWalletCreated()){
@@ -55,8 +62,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     fileprivate func showAnimatedStartScreen(){
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let startScreenController = storyboard.instantiateViewController(withIdentifier:"WaiterScreenViewController") as! WaiterScreenViewController
+        
         startScreenController.onFinish = {self.populateFirstScreen()}
-        self.window?.rootViewController = startScreenController
+        startScreenController.onTapAnimation = {self.gotoSetting()}
+        self.navigation = UINavigationController(rootViewController: startScreenController)
+        UINavigationBar.appearance().tintColor = GlobalConstants.Colors.navigationBarColor
+        self.navigation?.navigationBar.isHidden = true
+        self.window?.rootViewController = self.navigation
         self.window?.makeKeyAndVisible()
     }
     

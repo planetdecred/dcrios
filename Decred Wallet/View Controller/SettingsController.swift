@@ -32,6 +32,9 @@ class SettingsController: UITableViewController  {
     @IBOutlet weak var testnet_switch: UISwitch!
     @IBOutlet weak var spend_uncon_fund: UISwitch!
     @IBOutlet weak var incoming_notification_switch: UISwitch!
+    
+    var isFromLoader = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
        loadDate()
@@ -39,7 +42,7 @@ class SettingsController: UITableViewController  {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-    
+        self.navigationController?.navigationBar.isHidden = false
         self.navigationController?.navigationBar.tintColor = UIColor.blue
         self.navigationItem.title = "Settings"
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
@@ -85,7 +88,12 @@ class SettingsController: UITableViewController  {
          
     }
     @objc func cancel() -> Void {
-        delegate?.changeViewController(LeftMenu.overview)
+        if self.isFromLoader == true {
+                self.navigationController?.navigationBar.isHidden = true
+            self.navigationController?.popViewController(animated: true)
+        } else {
+            delegate?.changeViewController(LeftMenu.overview)
+        }
     }
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
@@ -127,7 +135,13 @@ class SettingsController: UITableViewController  {
     UserDefaults.standard.set(testnet_switch.isOn, forKey: "pref_use_testnet")
         UserDefaults.standard.synchronize()
         AppContext.instance.decrdConnection?.applySettings()
-        delegate?.changeViewController(LeftMenu.overview)
+        if self.isFromLoader == true {
+            self.navigationController?.navigationBar.isHidden = true
+            self.navigationController?.popViewController(animated: true)
+        } else {
+          delegate?.changeViewController(LeftMenu.overview)
+        }
+        
     }
 
     
