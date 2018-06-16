@@ -247,6 +247,8 @@
 				DDB89418202F8F3E002F85EE /* UIIMage.swift */,
 				DDB8941A202F8F92002F85EE /* UIColor.swift */,
 				DD4C89D82038CDBC003FEA0C /* DropMenuButton.swift */,
+				958B537720CABB7C00F6684C /* iOSDevCenters+GIF.swift */,
+				958B537520CABB6E00F6684C /* loaderAnimation.gif */,
 			);
 			path = "view util";
 			sourceTree = "<group>";
@@ -464,6 +466,7 @@
 			files = (
 				DDB89425202F948E002F85EE /* DataTableViewCell.xib in Resources */,
 				DDA3E27820292EF900C83D18 /* LaunchScreen.storyboard in Resources */,
+				958B537620CABB6F00F6684C /* loaderAnimation.gif in Resources */,
 				956D14AE20BF035D00624D68 /* wordlist.txt in Resources */,
 				DDA3E27520292EF900C83D18 /* Assets.xcassets in Resources */,
 				957F0AFC20B80EA600D3E8A9 /* RecoverWalletViewController.xib in Resources */,
@@ -486,6 +489,36 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1C01BF5629253FB5D5BA1BFA /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		338D1098C808660C037140A8 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Decred WalletTests/Pods-Decred WalletTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		88FE9A5EBEA8DA5D7D45387C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -504,6 +537,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CD31934294CC1D8A101AAC4B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Decred WalletTests/Pods-Decred WalletTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D1C1F21C20254B5EAD1242CA /* [CP] Check Pods Manifest.lock */ = {
@@ -554,6 +602,7 @@
 				DD1D5C8420AEE9FF009789DD /* PeerSetTableViewController.swift in Sources */,
 				DDB8941F202F937F002F85EE /* RightViewController.swift in Sources */,
 				DD0C493E208A160900986C6B /* WalletSetupViewController.swift in Sources */,
+				958B537820CABB7C00F6684C /* iOSDevCenters+GIF.swift in Sources */,
 				286E279D20B6E22400EE0B08 /* DcrObservers.swift in Sources */,
 				DDB8941B202F8F92002F85EE /* UIColor.swift in Sources */,
 				28F0CE7320888258003AC958 /* Utils.swift in Sources */,
