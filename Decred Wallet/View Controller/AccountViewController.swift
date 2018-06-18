@@ -9,7 +9,6 @@ import UIKit
 class AccountViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     // MARK: - Properties
-
     private lazy var myBalances: [AccountsData] = {
         let ac1 = AccountsData(
             color: #colorLiteral(red: 0.1807299256, green: 0.8454471231, blue: 0.6397696137, alpha: 1),
@@ -102,7 +101,7 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
     }
 
     func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
-        return 450.0
+        return 550.0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt _: IndexPath) -> UITableViewCell {
