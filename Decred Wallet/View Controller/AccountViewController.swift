@@ -81,11 +81,13 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
         headerView.title = data.title
         headerView.totalBalance = data.totalBalance
         headerView.spendableBalance = data.spendableBalance
+        headerView.headerIndex = section
 
-        headerView.exapndOrCollapse = { [weak self] in
+        headerView.exapndOrCollapse = { [weak self] index in
             guard let strongSelf = self else { return }
 
-            strongSelf.myBalances[section].isExpanded.toggle()
+            strongSelf.myBalances[index].isExpanded.toggle()
+            debugPrint("expanded = \(strongSelf.myBalances[index].isExpanded)")
             strongSelf.tableAccountData.reloadData()
         }
 

@@ -11,7 +11,9 @@ class AccountsHeaderView: UIView {
     @IBOutlet private weak var labelSpendableBalance: UILabel!
     @IBOutlet private weak var viewHighLight: UIView!
     
-    var exapndOrCollapse: (() -> Void)?
+    var headerIndex: Int = 0
+    
+    var exapndOrCollapse: ((Int) -> Void)?
     
     var totalBalance: Double = 0.0 {
         willSet {
@@ -20,7 +22,7 @@ class AccountsHeaderView: UIView {
     }
     
     @IBAction func expnandOrCollapseAction(_ sender: UIButton) {
-        exapndOrCollapse?()
+        exapndOrCollapse?(headerIndex)
     }
     
     var spendableBalance: Double = 0.0 {
