@@ -92,16 +92,16 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
         return headerView
     }
 
-    func tableView(_: UITableView, heightForHeaderInSection _: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 72.0
     }
 
-    func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return myBalances[section].isExpanded ? 1 : 0
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return (myBalances[section].isExpanded == true) ? 1 : 0
     }
 
-    func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
-        return 550.0
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 540.0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt _: IndexPath) -> UITableViewCell {
