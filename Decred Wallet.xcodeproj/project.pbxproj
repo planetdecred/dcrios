@@ -37,6 +37,7 @@
 		95BFA83320D156D900BAED71 /* MenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95BFA83120D156D900BAED71 /* MenuCell.xib */; };
 		95CC024020D3DAFF00DA73AF /* AccountDataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CC023E20D3DAFF00DA73AF /* AccountDataCell.swift */; };
 		95CC024120D3DAFF00DA73AF /* AccountDataCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95CC023F20D3DAFF00DA73AF /* AccountDataCell.xib */; };
+		95CC024420D3F15800DA73AF /* AccountsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CC024320D3F15800DA73AF /* AccountsData.swift */; };
 		B853136BC96255F028D8CB64 /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD1BD0208F6C9A0051F58F /* Pods_Decred_Wallet.framework */; };
 		DD0C493E208A160900986C6B /* WalletSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C493D208A160900986C6B /* WalletSetupViewController.swift */; };
 		DD0C4940208A401A00986C6B /* saveSeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C493F208A401A00986C6B /* saveSeedViewController.swift */; };
@@ -138,6 +139,7 @@
 		95BFA83120D156D900BAED71 /* MenuCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuCell.xib; sourceTree = "<group>"; };
 		95CC023E20D3DAFF00DA73AF /* AccountDataCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDataCell.swift; sourceTree = "<group>"; };
 		95CC023F20D3DAFF00DA73AF /* AccountDataCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountDataCell.xib; sourceTree = "<group>"; };
+		95CC024320D3F15800DA73AF /* AccountsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsData.swift; sourceTree = "<group>"; };
 		A1A97C56BC75512DA55A8A70 /* Pods-Decred WalletTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred WalletTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Decred WalletTests/Pods-Decred WalletTests.release.xcconfig"; sourceTree = "<group>"; };
 		DD0C493D208A160900986C6B /* WalletSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSetupViewController.swift; sourceTree = "<group>"; };
 		DD0C493F208A401A00986C6B /* saveSeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = saveSeedViewController.swift; sourceTree = "<group>"; };
@@ -243,6 +245,14 @@
 			path = Constants;
 			sourceTree = "<group>";
 		};
+		95CC024220D3F14800DA73AF /* Accounts */ = {
+			isa = PBXGroup;
+			children = (
+				95CC024320D3F15800DA73AF /* AccountsData.swift */,
+			);
+			path = Accounts;
+			sourceTree = "<group>";
+		};
 		DD4C89DB2038EE60003FEA0C /* view util */ = {
 			isa = PBXGroup;
 			children = (
@@ -333,6 +343,7 @@
 		DDA3E26C20292EF900C83D18 /* Decred Wallet */ = {
 			isa = PBXGroup;
 			children = (
+				95CC024220D3F14800DA73AF /* Accounts */,
 				957F0AFD20B82F0800D3E8A9 /* Constants */,
 				286E279620B6E22300EE0B08 /* DcrdConnection */,
 				DD4C89DB2038EE60003FEA0C /* view util */,
@@ -599,6 +610,7 @@
 				DD41975F202F99A90044F068 /* SubContentsViewController.swift in Sources */,
 				DDB89427202F955F002F85EE /* UIView.swift in Sources */,
 				28E5EB6B20908AC0002DCCB5 /* GeneratedSeedDisplayViewController.swift in Sources */,
+				95CC024420D3F15800DA73AF /* AccountsData.swift in Sources */,
 				95877FED20B70D4B00CE53D2 /* TransactionHistoryTableViewCell.swift in Sources */,
 				28F0CE7520888386003AC958 /* AppContext.swift in Sources */,
 				DDB89423202F9432002F85EE /* DataTableViewCell.swift in Sources */,

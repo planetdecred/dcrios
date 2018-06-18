@@ -30,15 +30,6 @@ public extension UITableView {
         let nib = UINib(nibName: identifier, bundle: nil)
         self.register(nib, forHeaderFooterViewReuseIdentifier: identifier)
     }
-    
-    // Register a XIB file with UITableView. XIB file name is used as reuse identifier so keep in mind to use the file name as reuse identifier.
-    ///
-    /// - Parameter nibName: Name of the XIB file
-    @discardableResult public func registerNib(_ nibName: String) -> UITableView {
-        let cellNib = UINib(nibName: nibName, bundle: nil)
-        register(cellNib, forCellReuseIdentifier: nibName)
-        return self
-    }
 
     /// Hides extra rows created by UIKit with no data to display.
     @discardableResult public func hideEmptyAndExtraRows() -> UITableView {
