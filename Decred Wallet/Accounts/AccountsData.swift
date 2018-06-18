@@ -10,4 +10,5 @@ struct AccountsData {
     let spendableBalance: Double
     let title: String
     let totalBalance: Double
+    var isExpanded: Bool = false
 }
