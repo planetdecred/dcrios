@@ -8,17 +8,28 @@
 
 import Foundation
 import Wallet
-    
+
 protocol DcrTransactionsHistoryProtocol: DcrdBaseProtocol {
     var mTransactionsObserveHub: GetTransactionObserveHub?{get set}
-    mutating func addObserver(notificationObserver:WalletGetTransactionsResponseProtocol)
+    var mTransactionUpdatesHub: TransactionNotificationsObserveHub?{get set}
+    var mTransactionBlockErrorHub: TransactionBlockNotificationObserveHub?{get set}
+    mutating func addObserver(transactionsHistoryObserver:WalletGetTransactionsResponseProtocol)
+    mutating func addObserver(forUpdateNotifications: WalletTransactionListenerProtocol)
+    mutating func addObserver(forBlockError:WalletBlockNotificationErrorProtocol)
     mutating func fetchTransactions()
 }
 
 extension DcrTransactionsHistoryProtocol {
-    mutating func addObserver(notificationObserver:WalletGetTransactionsResponseProtocol){
-       mTransactionsObserveHub?.subscribe(forNotifications: notificationObserver)
+    mutating func addObserver(transactionsHistoryObserver:WalletGetTransactionsResponseProtocol){
+       mTransactionsObserveHub?.subscribe(forNotifications: transactionsHistoryObserver)
     }
+    mutating func addObserver(forUpdateNotifications: WalletTransactionListenerProtocol){
+        mTransactionUpdatesHub?.subscribe(forUpdateNotifications: forUpdateNotifications)
+    }
+    mutating func addObserver(forBlockError:WalletBlockNotificationErrorProtocol){
+        mTransactionBlockErrorHub?.subscribe(forBlockNotifications: forBlockError)
+    }
+
     mutating func fetchTransactions(){
         do{
             _ = try wallet?.getTransactions(mTransactionsObserveHub)

@@ -43,10 +43,10 @@
     }
     return self;
 }
-- (void) subscribeForNotifications:(id<WalletBlockNotificationError>)observer{
+- (void) subscribeForBlockNotifications:(id<WalletBlockNotificationError>)observer{
     [self.transactionBlockNotificationsSubscribers addObject:observer];
 }
-- (void) unsubscribeForNotifications:(id<WalletBlockNotificationError>)observer{
+- (void) unsubscribeForBlockNotifications:(id<WalletBlockNotificationError>)observer{
     [self.transactionBlockNotificationsSubscribers removeObject:observer];
 }
 - (void)onBlockNotificationError:(NSError *)err {
@@ -67,11 +67,11 @@
     return self;
 }
 
-- (void) subscribeForNotifications:(id<WalletTransactionListener>)observer{
+- (void) subscribeForUpdateNotifications:(id<WalletTransactionListener>)observer{
     [self.transactionNotificationsSubscribers addObject:observer];
 }
 
-- (void) unsubscribeForNotifications:(id<WalletTransactionListener>)observer{
+- (void) unsubscribeForUpdateNotifications:(id<WalletTransactionListener>)observer{
     [self.transactionNotificationsSubscribers removeObject:observer];
 }
 

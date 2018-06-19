@@ -7,7 +7,7 @@
 import SlideMenuControllerSwift
 import Wallet
 
-class OverviewViewController: UIViewController, WalletGetTransactionsResponseProtocol {
+class OverviewViewController: UIViewController, WalletGetTransactionsResponseProtocol, WalletTransactionListenerProtocol, WalletBlockNotificationErrorProtocol {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var lbCurrentBalance: UILabel!
@@ -19,10 +19,12 @@ class OverviewViewController: UIViewController, WalletGetTransactionsResponsePro
         self.tableView.registerCellNib(DataTableViewCell.self)
         
         AppContext.instance.decrdConnection?.connect(onSuccess: { (height) in
-            let accounts = AppContext.instance.decrdConnection?.getAccounts()
-            let address = AppContext.instance.decrdConnection?.getCurrentAddress(account: (accounts?.Acc.first?.Number)!)
-            print("Address:\(address)")
-            AppContext.instance.decrdConnection?.addObserver(notificationObserver: self)
+            //let accounts = AppContext.instance.decrdConnection?.getAccounts()
+            //let address = AppContext.instance.decrdConnection?.getCurrentAddress(account: (accounts?.Acc.first?.Number)!)
+            //print("Address:\(address)")
+            AppContext.instance.decrdConnection?.addObserver(transactionsHistoryObserver: self)
+            AppContext.instance.decrdConnection?.addObserver(forBlockError: self)
+            AppContext.instance.decrdConnection?.addObserver(forUpdateNotifications: self)
             AppContext.instance.decrdConnection?.fetchTransactions()
             lbCurrentBalance.text = "\((AppContext.instance.decrdConnection?.getAccounts()?.Acc.first?.dcrTotalBalance)!) DCR"
         }, onFailure: { (error) in
@@ -58,6 +60,24 @@ class OverviewViewController: UIViewController, WalletGetTransactionsResponsePro
         }catch let error{
             print(error)
         }
+    }
+    
+    func onBlockNotificationError(_ err: Error!) {
+        
+    }
+    
+    func onTransaction(_ transaction: String!) {
+        let transactions = try! JSONDecoder().decode(Transaction.self, from:transaction.data(using: .utf8)!)
+        for creditTransaction in transactions.Credits!{
+            self.mainContens.append("\(creditTransaction.dcrAmount) DCR")
+        }
+        for debitTransaction in transactions.Debits!{
+            self.mainContens.append("-\(debitTransaction.dcrAmount) DCR")
+        }
+    }
+    
+    func onTransactionRefresh() {
+        self.tableView.reloadData()
     }
 }
 

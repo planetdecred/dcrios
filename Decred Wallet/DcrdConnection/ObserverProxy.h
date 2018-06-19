@@ -11,30 +11,18 @@
 
 
 @class TransactionResponse;
-
-//@protocol WalletBlockNotificationError <NSObject>
-//- (void)onBlockNotificationError:(NSError*)err;
-//@end
-//
-//@protocol WalletGetTransactionsResponse <NSObject>
-//- (void)onResult:(NSString*)json;
-//@end
-//
-//@protocol WalletTransactionListener <NSObject>
-//- (void)onTransaction:(NSString*)transaction;
-//- (void)onTransactionRefresh;
-//@end
+@class Transaction;
 
 @protocol TransactionNotificationsObserverProtocol
 @property (nonatomic, strong) NSMutableArray<WalletTransactionListener>* transactionNotificationsSubscribers;
-- (void) subscribeForNotifications:(id<WalletTransactionListener>)observer;
-- (void) unsubscribeForNotifications:(id<WalletTransactionListener>)observer;
+- (void) subscribeForUpdateNotifications:(id<WalletTransactionListener>)observer;
+- (void) unsubscribeForUpdateNotifications:(id<WalletTransactionListener>)observer;
 @end
 
 @protocol TransactionBlockNotificationObserverProtocol
 @property (nonatomic, strong) NSMutableArray<WalletBlockNotificationError>* transactionBlockNotificationsSubscribers;
-- (void) subscribeForNotifications:(id<WalletBlockNotificationError>)observer;
-- (void) unsubscribeForNotifications:(id<WalletBlockNotificationError>)observer;
+- (void) subscribeForBlockNotifications:(id<WalletBlockNotificationError>)observer;
+- (void) unsubscribeForBlockNotifications:(id<WalletBlockNotificationError>)observer;
 @end
 
 @protocol GetTransactionObserverProtocol
@@ -51,12 +39,12 @@
 
 @interface TransactionBlockNotificationObserveHub : NSObject <WalletBlockNotificationError>
 @property (nonatomic, strong) NSMutableArray<WalletBlockNotificationError>* transactionBlockNotificationsSubscribers;
-- (void) subscribeForNotifications:(id<WalletBlockNotificationError>)observer;
-- (void) unsubscribeForNotifications:(id<WalletBlockNotificationError>)observer;
+- (void) subscribeForBlockNotifications:(id<WalletBlockNotificationError>)observer;
+- (void) unsubscribeForBlockNotifications:(id<WalletBlockNotificationError>)observer;
 @end
 
 @interface TransactionNotificationsObserveHub : NSObject <WalletTransactionListener, TransactionNotificationsObserverProtocol>
 @property (nonatomic, strong) NSMutableArray<WalletTransactionListener>* transactionNotificationsSubscribers;
-- (void) subscribeForNotifications:(id<WalletTransactionListener>)observer;
-- (void) unsubscribeForNotifications:(id<WalletTransactionListener>)observer;
+- (void) subscribeForUpdateNotifications:(id<WalletTransactionListener>)observer;
+- (void) unsubscribeForUpdateNotifications:(id<WalletTransactionListener>)observer;
 @end

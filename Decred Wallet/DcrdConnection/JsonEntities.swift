@@ -110,6 +110,7 @@ struct Credit : Decodable{
     var Amount: Int64 = 0
     var Address = ""
 }
+
 extension Credit {
     var dcrAmount : Int64 {
         get {
@@ -117,7 +118,6 @@ extension Credit {
         }
     }
 }
-
 
 struct Debit : Decodable{
     var Index: Int64 = 0
@@ -134,3 +134,17 @@ extension Debit {
         }
     }
 }
+
+extension GetTransactionResponse{
+    var transactionsTimeline : [Transaction] {
+        let timeline = Transactions?.sorted(by: { (transaction1, transaction2) -> Bool in
+            return transaction1.Timestamp > transaction2.Timestamp
+        })
+        return timeline!
+    }
+    func transaction(by hash:String) -> Transaction?{
+        return Transactions?.filter({$0.Hash == hash}).first
+    }
+}
+
+

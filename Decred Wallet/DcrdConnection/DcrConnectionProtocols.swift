@@ -81,6 +81,8 @@ protocol DecredBackendProtocol: DcrdConnectionProtocol,
                                 DcrTransactionsHistoryProtocol {}
 
 class DcrdConnection : DecredBackendProtocol {
+    var mTransactionUpdatesHub: TransactionNotificationsObserveHub? = TransactionNotificationsObserveHub()
+    var mTransactionBlockErrorHub: TransactionBlockNotificationObserveHub? = TransactionBlockNotificationObserveHub()
     var transactionsObserver: TransactionsObserver?
     var mTransactionsObserveHub : GetTransactionObserveHub? = GetTransactionObserveHub()
     var wallet: WalletLibWallet?
