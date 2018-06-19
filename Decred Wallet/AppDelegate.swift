@@ -11,8 +11,7 @@ import Wallet
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
-    var navigation : UINavigationController?
-    fileprivate func walletSetupView(){
+    fileprivate func walletSetupView() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let walletSetupController = storyboard.instantiateViewController(withIdentifier: "WalletSetupViewController") as! WalletSetupViewController
         let nv = UINavigationController(rootViewController: walletSetupController)
@@ -20,7 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = nv
         window?.makeKeyAndVisible()
     }
-
 
     fileprivate func createMenuView() {
         // create viewController code...
@@ -44,16 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
     }
 
-
-    fileprivate func gotoSetting() {
-        let vcSetting =  GlobalConstants.ConstantStoryboardMain.getControllerInstance(identifier: "SettingsController2", storyBoard: GlobalConstants.ConstantStoryboardMain.IDENTIFIER_STORYBOARD_MAIN) as! SettingsController
-         vcSetting.isFromLoader = true
-        
-         self.navigation?.pushViewController(vcSetting, animated: true)
-    }
-
     fileprivate func populateFirstScreen() {
-
         if isWalletCreated() {
             createMenuView()
         } else {
@@ -63,15 +52,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     fileprivate func showAnimatedStartScreen() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let startScreenController = storyboard.instantiateViewController(withIdentifier:"WaiterScreenViewController") as! WaiterScreenViewController
-        
-        startScreenController.onFinish = {self.populateFirstScreen()}
-        startScreenController.onTapAnimation = {self.gotoSetting()}
-        self.navigation = UINavigationController(rootViewController: startScreenController)
-        UINavigationBar.appearance().tintColor = GlobalConstants.Colors.navigationBarColor
-        self.navigation?.navigationBar.isHidden = true
-        self.window?.rootViewController = self.navigation
-        self.window?.makeKeyAndVisible()
+        let startScreenController = storyboard.instantiateViewController(withIdentifier: "WaiterScreenViewController") as! WaiterScreenViewController
+        startScreenController.onFinish = { self.populateFirstScreen() }
+        window?.rootViewController = startScreenController
+        window?.makeKeyAndVisible()
     }
 
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
