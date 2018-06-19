@@ -27,6 +27,7 @@ class OverviewViewController: UIViewController, WalletGetTransactionsResponsePro
             AppContext.instance.decrdConnection?.addObserver(forUpdateNotifications: self)
             AppContext.instance.decrdConnection?.fetchTransactions()
             lbCurrentBalance.text = "\((AppContext.instance.decrdConnection?.getAccounts()?.Acc.first?.dcrTotalBalance)!) DCR"
+            self.lbCurrentBalance.text = "\((AppContext.instance.decrdConnection?.getAccounts()?.Acc.first?.dcrTotalBalance)!) DCR"
         }, onFailure: { (error) in
             print(error)
         })
@@ -80,7 +81,6 @@ class OverviewViewController: UIViewController, WalletGetTransactionsResponsePro
         self.tableView.reloadData()
     }
 }
-
 
 extension OverviewViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

@@ -6,7 +6,7 @@
 // See LICENSE for details.
 //
 
-import Foundation
+import UIKit
 
 extension Notification.Name {
     static let NeedAuth =   Notification.Name("NeedAuthorize")
@@ -22,6 +22,27 @@ func isWalletCreated() -> Bool{
         }catch{
             return false
     }
+}
+
+func createMainWindow(){
+    // create viewController code...
+    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    let mainViewController = storyboard.instantiateViewController(withIdentifier: "OverviewViewController") as! OverviewViewController
+    let leftViewController = storyboard.instantiateViewController(withIdentifier: "LeftViewController") as! LeftViewController
+    let rightViewController = storyboard.instantiateViewController(withIdentifier: "RightViewController") as! RightViewController
+    
+    let nvc: UINavigationController = UINavigationController(rootViewController: mainViewController)
+    
+    UINavigationBar.appearance().tintColor = GlobalConstants.Colors.navigationBarColor
+    
+    leftViewController.mainViewController = nvc
+    
+    let slideMenuController = ExSlideMenuController(mainViewController:nvc, leftMenuViewController: leftViewController, rightMenuViewController: rightViewController)
+    
+    slideMenuController.delegate = mainViewController
+    UIApplication.shared.keyWindow?.backgroundColor = GlobalConstants.Colors.lightGrey
+    UIApplication.shared.keyWindow?.rootViewController = slideMenuController
+    UIApplication.shared.keyWindow?.makeKeyAndVisible()
 }
 
 
