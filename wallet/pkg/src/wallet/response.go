@@ -1,4 +1,4 @@
-package mobilewallet
+package wallet
 
 type ConstructTxResponse struct {
 	EstimatedSignedSize       int32

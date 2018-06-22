@@ -1,4 +1,4 @@
-package mobilewallet
+package wallet
 
 import (
 	"bytes"

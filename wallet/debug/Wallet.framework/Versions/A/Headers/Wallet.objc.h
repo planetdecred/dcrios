@@ -14,13 +14,13 @@
 @class WalletAccounts;
 @class WalletBalance;
 @class WalletConstructTxResponse;
-@class WalletGetTransactionResponseStruct;
+@class WalletDecodedInput;
+@class WalletDecodedOutput;
+@class WalletDecodedTransaction;
 @class WalletLibWallet;
 @class WalletTransaction;
-@class WalletTransactionBlockListenerStruct;
 @class WalletTransactionCredit;
 @class WalletTransactionDebit;
-@class WalletTransactionListenerStruct;
 @protocol WalletBlockNotificationError;
 @class WalletBlockNotificationError;
 @protocol WalletBlockScanResponse;
@@ -46,7 +46,7 @@
 
 @protocol WalletTransactionListener <NSObject>
 - (void)onTransaction:(NSString*)transaction;
-- (void)onTransactionRefresh;
+- (void)onTransactionConfirmed:(NSString*)hash height:(int32_t)height;
 @end
 
 @interface WalletAccount : NSObject <goSeqRefInterface> {
@@ -131,13 +131,62 @@
 - (void)setUnsignedTransaction:(NSData*)v;
 @end
 
-@interface WalletGetTransactionResponseStruct : NSObject <goSeqRefInterface, WalletGetTransactionsResponse> {
+@interface WalletDecodedInput : NSObject <goSeqRefInterface> {
 }
 @property(strong, readonly) id _ref;
 
 - (instancetype)initWithRef:(id)ref;
 - (instancetype)init;
-- (void)onResult:(NSString*)json;
+- (NSString*)previousTransactionHash;
+- (void)setPreviousTransactionHash:(NSString*)v;
+- (int32_t)previousTransactionIndex;
+- (void)setPreviousTransactionIndex:(int32_t)v;
+- (int32_t)sequence;
+- (void)setSequence:(int32_t)v;
+- (int64_t)amountIn;
+- (void)setAmountIn:(int64_t)v;
+- (int32_t)blockHeight;
+- (void)setBlockHeight:(int32_t)v;
+- (int32_t)blockIndex;
+- (void)setBlockIndex:(int32_t)v;
+@end
+
+@interface WalletDecodedOutput : NSObject <goSeqRefInterface> {
+}
+@property(strong, readonly) id _ref;
+
+- (instancetype)initWithRef:(id)ref;
+- (instancetype)init;
+- (int32_t)index;
+- (void)setIndex:(int32_t)v;
+- (int64_t)value;
+- (void)setValue:(int64_t)v;
+- (int32_t)version;
+- (void)setVersion:(int32_t)v;
+// skipped field DecodedOutput.Addresses with unsupported type: []string
+
+@end
+
+@interface WalletDecodedTransaction : NSObject <goSeqRefInterface> {
+}
+@property(strong, readonly) id _ref;
+
+- (instancetype)initWithRef:(id)ref;
+- (instancetype)init;
+- (NSString*)hash;
+- (void)setHash:(NSString*)v;
+- (NSString*)type;
+- (void)setType:(NSString*)v;
+- (int32_t)version;
+- (void)setVersion:(int32_t)v;
+- (int32_t)lockTime;
+- (void)setLockTime:(int32_t)v;
+- (int32_t)expiry;
+- (void)setExpiry:(int32_t)v;
+// skipped field DecodedTransaction.Inputs with unsupported type: []wallet.DecodedInput
+
+// skipped field DecodedTransaction.Outputs with unsupported type: []wallet.DecodedOutput
+
 @end
 
 @interface WalletLibWallet : NSObject <goSeqRefInterface> {
@@ -149,11 +198,13 @@
 - (NSString*)addressForAccount:(int32_t)account error:(NSError**)error;
 - (NSString*)callJSONRPC:(NSString*)method args:(NSString*)args address:(NSString*)address username:(NSString*)username password:(NSString*)password caCert:(NSString*)caCert error:(NSError**)error;
 - (BOOL)closeWallet:(NSError**)error;
-- (WalletConstructTxResponse*)constructTransaction:(NSString*)destAddr amount:(int64_t)amount srcAccount:(int32_t)srcAccount requiredConfirmations:(int32_t)requiredConfirmations error:(NSError**)error;
+- (WalletConstructTxResponse*)constructTransaction:(NSString*)destAddr amount:(int64_t)amount srcAccount:(int32_t)srcAccount requiredConfirmations:(int32_t)requiredConfirmations sendAll:(BOOL)sendAll error:(NSError**)error;
 - (BOOL)createWallet:(NSString*)passphrase seedMnemonic:(NSString*)seedMnemonic error:(NSError**)error;
+- (NSString*)decodeTransaction:(NSData*)txHash error:(NSError**)error;
 - (BOOL)discoverActiveAddresses:(BOOL)discoverAccounts privPass:(NSData*)privPass error:(NSError**)error;
 - (BOOL)fetchHeaders:(int32_t*)ret0_ error:(NSError**)error;
 - (NSString*)generateSeed:(NSError**)error;
+- (NSString*)getAccountByAddress:(NSString*)address;
 - (NSString*)getAccountName:(int32_t)account;
 - (NSString*)getAccounts:(int32_t)requiredConfirmations error:(NSError**)error;
 - (int32_t)getBestBlock;
@@ -161,6 +212,7 @@
 - (BOOL)getTransactions:(id<WalletGetTransactionsResponse>)response error:(NSError**)error;
 - (void)initLoader;
 - (BOOL)isAddressMine:(NSString*)address;
+- (BOOL)isAddressValid:(NSString*)address;
 - (BOOL)isNetBackendNil;
 - (BOOL)loadActiveDataFilters:(NSError**)error;
 - (BOOL)nextAccount:(NSString*)accountName privPass:(NSData*)privPass;
@@ -199,19 +251,12 @@
 - (void)setStatus:(NSString*)v;
 - (int32_t)height;
 - (void)setHeight:(int32_t)v;
+- (int32_t)direction;
+- (void)setDirection:(int32_t)v;
 // skipped field Transaction.Debits with unsupported type: *[]wallet.TransactionDebit
 
 // skipped field Transaction.Credits with unsupported type: *[]wallet.TransactionCredit
 
-@end
-
-@interface WalletTransactionBlockListenerStruct : NSObject <goSeqRefInterface, WalletBlockNotificationError> {
-}
-@property(strong, readonly) id _ref;
-
-- (instancetype)initWithRef:(id)ref;
-- (instancetype)init;
-- (void)onBlockNotificationError:(NSError*)err;
 @end
 
 @interface WalletTransactionCredit : NSObject <goSeqRefInterface> {
@@ -247,22 +292,6 @@
 - (NSString*)accountName;
 - (void)setAccountName:(NSString*)v;
 @end
-
-@interface WalletTransactionListenerStruct : NSObject <goSeqRefInterface, WalletTransactionListener> {
-}
-@property(strong, readonly) id _ref;
-
-- (instancetype)initWithRef:(id)ref;
-- (instancetype)init;
-- (void)onTransaction:(NSString*)transaction;
-- (void)onTransactionRefresh;
-@end
-
-FOUNDATION_EXPORT WalletGetTransactionResponseStruct* WalletCreateGetTransactionResponse(void);
-
-FOUNDATION_EXPORT WalletTransactionListenerStruct* WalletCreateTransactionListener(void);
-
-FOUNDATION_EXPORT WalletTransactionBlockListenerStruct* WalletCreateTransactionsBlockListener(void);
 
 FOUNDATION_EXPORT WalletLibWallet* WalletNewLibWallet(NSString* homeDir);
 
@@ -308,7 +337,7 @@ FOUNDATION_EXPORT NSString* WalletNormalizeAddress(NSString* addr, NSString* def
 
 - (instancetype)initWithRef:(id)ref;
 - (void)onTransaction:(NSString*)transaction;
-- (void)onTransactionRefresh;
+- (void)onTransactionConfirmed:(NSString*)hash height:(int32_t)height;
 @end
 
 #endif
