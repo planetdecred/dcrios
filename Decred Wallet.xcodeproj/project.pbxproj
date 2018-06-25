@@ -23,7 +23,9 @@
 		28E5EB7320924632002DCCB5 /* CreatePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E5EB7220924632002DCCB5 /* CreatePasswordViewController.swift */; };
 		28F0CE7320888258003AC958 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F0CE7220888258003AC958 /* Utils.swift */; };
 		28F0CE7520888386003AC958 /* AppContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F0CE7420888386003AC958 /* AppContext.swift */; };
-		3EB6C14F6AC65C5A12FF7799 /* Pods_Decred_WalletTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B9A72EE31B6B9E2FD3CAA5 /* Pods_Decred_WalletTests.framework */; };
+
+		28F3B7FA20C8356400D2E0D3 /* ObserverProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 28F3B7F920C8356400D2E0D3 /* ObserverProxy.m */; };
+		8B3D0E3D23B1530A4386BF70 /* Pods_Decred_WalletTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90D70AB3B6A12D58F510F54C /* Pods_Decred_WalletTests.framework */; };
 		95404EBA20E113AC00B34327 /* DataTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95404EB920E113AC00B34327 /* DataTableViewCell.xib */; };
 		95404EBE20E113D700B34327 /* AccountsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95404EBC20E113D700B34327 /* AccountsHeaderView.swift */; };
 		95404EBF20E113D700B34327 /* AccountsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95404EBD20E113D700B34327 /* AccountsHeaderView.xib */; };
@@ -125,11 +127,15 @@
 		28E5EB7220924632002DCCB5 /* CreatePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CreatePasswordViewController.swift; path = "View Controller/CreatePasswordViewController.swift"; sourceTree = "<group>"; };
 		28F0CE7220888258003AC958 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		28F0CE7420888386003AC958 /* AppContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContext.swift; sourceTree = "<group>"; };
+		28F3B7F420C5889900D2E0D3 /* Decred Wallet-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Decred Wallet-Bridging-Header.h"; sourceTree = "<group>"; };
+		28F3B7F520C5889900D2E0D3 /* ObserverProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObserverProxy.h; sourceTree = "<group>"; };
+		28F3B7F920C8356400D2E0D3 /* ObserverProxy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObserverProxy.m; sourceTree = "<group>"; };
 		28FD1BC1208E659A0051F58F /* Pods_Decred_Wallet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Decred_Wallet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		28FD1BC5208E667F0051F58F /* Pods_Decred_Wallet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Decred_Wallet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		28FD1BD0208F6C9A0051F58F /* Pods_Decred_Wallet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Decred_Wallet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C59C3E0BD7A56A91BB0B9B1 /* Pods-Decred Wallet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.debug.xcconfig"; sourceTree = "<group>"; };
 		31D8BF868913ED4E2A4B0577 /* Pods-Decred Wallet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.release.xcconfig"; path = "Pods/Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.release.xcconfig"; sourceTree = "<group>"; };
+		90D70AB3B6A12D58F510F54C /* Pods_Decred_WalletTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Decred_WalletTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		95404EB920E113AC00B34327 /* DataTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DataTableViewCell.xib; sourceTree = "<group>"; };
 		95404EBC20E113D700B34327 /* AccountsHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsHeaderView.swift; sourceTree = "<group>"; };
 		95404EBD20E113D700B34327 /* AccountsHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountsHeaderView.xib; sourceTree = "<group>"; };
@@ -210,7 +216,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3EB6C14F6AC65C5A12FF7799 /* Pods_Decred_WalletTests.framework in Frameworks */,
+				8B3D0E3D23B1530A4386BF70 /* Pods_Decred_WalletTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,6 +233,9 @@
 				286E279A20B6E22300EE0B08 /* DcrdSeedMnemonicSupport.swift */,
 				286E279B20B6E22300EE0B08 /* DcrdAccountsSupport.swift */,
 				289807DD20BEE55A00C30338 /* DcrTransactionHistorySupport.swift */,
+				28F3B7F520C5889900D2E0D3 /* ObserverProxy.h */,
+				28F3B7F920C8356400D2E0D3 /* ObserverProxy.m */,
+				28F3B7F420C5889900D2E0D3 /* Decred Wallet-Bridging-Header.h */,
 			);
 			path = DcrdConnection;
 			sourceTree = "<group>";
@@ -239,7 +248,7 @@
 				28FD1BC5208E667F0051F58F /* Pods_Decred_Wallet.framework */,
 				28FD1BC1208E659A0051F58F /* Pods_Decred_Wallet.framework */,
 				E75324D536F1BD91575D0609 /* Pods_Decred_Wallet.framework */,
-				00B9A72EE31B6B9E2FD3CAA5 /* Pods_Decred_WalletTests.framework */,
+				90D70AB3B6A12D58F510F54C /* Pods_Decred_WalletTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -424,6 +433,7 @@
 				DDA3E26820292EF900C83D18 /* Resources */,
 				88FE9A5EBEA8DA5D7D45387C /* [CP] Embed Pods Frameworks */,
 				28F0CE952088B1AF003AC958 /* Embed Frameworks */,
+				4B281AFD84368FF9388DB3D8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -442,6 +452,8 @@
 				DDA3E27A20292EF900C83D18 /* Sources */,
 				DDA3E27B20292EF900C83D18 /* Frameworks */,
 				DDA3E27C20292EF900C83D18 /* Resources */,
+				2D8B56FD5B86797EACB7BB25 /* [CP] Embed Pods Frameworks */,
+				47C368EF8F22E817C012F251 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -465,6 +477,7 @@
 				TargetAttributes = {
 					DDA3E26920292EF900C83D18 = {
 						CreatedOnToolsVersion = 9.1;
+						LastSwiftMigration = 0940;
 						ProvisioningStyle = Automatic;
 					};
 					DDA3E27D20292EF900C83D18 = {
@@ -525,6 +538,51 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		2D8B56FD5B86797EACB7BB25 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Decred WalletTests/Pods-Decred WalletTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		47C368EF8F22E817C012F251 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Decred WalletTests/Pods-Decred WalletTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4B281AFD84368FF9388DB3D8 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		88FE9A5EBEA8DA5D7D45387C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -604,6 +662,7 @@
 				286E279C20B6E22400EE0B08 /* DcrdWalletCreationSupport.swift in Sources */,
 				286E27A020B6E22400EE0B08 /* DcrdAccountsSupport.swift in Sources */,
 				28E5EB6D20908AE0002DCCB5 /* SeedCheckupViewController.swift in Sources */,
+				28F3B7FA20C8356400D2E0D3 /* ObserverProxy.m in Sources */,
 				DDB89417202F8EE2002F85EE /* UIImageView.swift in Sources */,
 				DD1D5C7C20AED828009789DD /* certificateViewController.swift in Sources */,
 				DD96B33F20293F110046F2DD /* LeftViewController.swift in Sources */,
@@ -780,6 +839,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LYZ95J7356;
 				ENABLE_BITCODE = NO;
@@ -794,6 +854,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.macsleven.Decred-Wallet";
 				PRODUCT_NAME = DecredWallet;
+				SWIFT_OBJC_BRIDGING_HEADER = "Decred Wallet/DcrdConnection/Decred Wallet-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -805,6 +867,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LYZ95J7356;
 				ENABLE_BITCODE = NO;
@@ -819,6 +882,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.macsleven.Decred-Wallet";
 				PRODUCT_NAME = DecredWallet;
+				SWIFT_OBJC_BRIDGING_HEADER = "Decred Wallet/DcrdConnection/Decred Wallet-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
