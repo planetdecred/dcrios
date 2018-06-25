@@ -27,6 +27,7 @@
 		95404EBA20E113AC00B34327 /* DataTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95404EB920E113AC00B34327 /* DataTableViewCell.xib */; };
 		95404EBE20E113D700B34327 /* AccountsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95404EBC20E113D700B34327 /* AccountsHeaderView.swift */; };
 		95404EBF20E113D700B34327 /* AccountsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95404EBD20E113D700B34327 /* AccountsHeaderView.xib */; };
+		95404EC420E1260400B34327 /* ConfirmToSendFundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95404EC320E1260400B34327 /* ConfirmToSendFundViewController.swift */; };
 		956D14AE20BF035D00624D68 /* wordlist.txt in Resources */ = {isa = PBXBuildFile; fileRef = 956D14AD20BF035C00624D68 /* wordlist.txt */; };
 		957F0AFB20B80EA600D3E8A9 /* RecoverWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957F0AF920B80EA600D3E8A9 /* RecoverWalletViewController.swift */; };
 		957F0AFC20B80EA600D3E8A9 /* RecoverWalletViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 957F0AFA20B80EA600D3E8A9 /* RecoverWalletViewController.xib */; };
@@ -133,6 +134,7 @@
 		95404EB920E113AC00B34327 /* DataTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DataTableViewCell.xib; sourceTree = "<group>"; };
 		95404EBC20E113D700B34327 /* AccountsHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsHeaderView.swift; sourceTree = "<group>"; };
 		95404EBD20E113D700B34327 /* AccountsHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountsHeaderView.xib; sourceTree = "<group>"; };
+		95404EC320E1260400B34327 /* ConfirmToSendFundViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmToSendFundViewController.swift; sourceTree = "<group>"; };
 		956D14AD20BF035C00624D68 /* wordlist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = wordlist.txt; sourceTree = "<group>"; };
 		957F0AF920B80EA600D3E8A9 /* RecoverWalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoverWalletViewController.swift; sourceTree = "<group>"; };
 		957F0AFA20B80EA600D3E8A9 /* RecoverWalletViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecoverWalletViewController.xib; sourceTree = "<group>"; };
@@ -253,6 +255,14 @@
 			path = AccountsHeaderView;
 			sourceTree = "<group>";
 		};
+		95404EC020E1156A00B34327 /* ConfirmToSendFundController */ = {
+			isa = PBXGroup;
+			children = (
+				95404EC320E1260400B34327 /* ConfirmToSendFundViewController.swift */,
+			);
+			path = ConfirmToSendFundController;
+			sourceTree = "<group>";
+		};
 		957F0AFD20B82F0800D3E8A9 /* Constants */ = {
 			isa = PBXGroup;
 			children = (
@@ -331,6 +341,7 @@
 		DD4C89DE2038F2DA003FEA0C /* Extra View */ = {
 			isa = PBXGroup;
 			children = (
+				95404EC020E1156A00B34327 /* ConfirmToSendFundController */,
 				95404EBB20E113D700B34327 /* AccountsHeaderView */,
 				2883CA6F2099D40F0053D9BB /* DropDownSearchField.swift */,
 				DDB89412202F8635002F85EE /* ImageHeaderView.swift */,
@@ -602,6 +613,7 @@
 				28E5EB7320924632002DCCB5 /* CreatePasswordViewController.swift in Sources */,
 				DD1D5C8020AEDB2B009789DD /* NodeLogViewController.swift in Sources */,
 				286E279C20B6E22400EE0B08 /* DcrdWalletCreationSupport.swift in Sources */,
+				95404EC420E1260400B34327 /* ConfirmToSendFundViewController.swift in Sources */,
 				286E27A020B6E22400EE0B08 /* DcrdAccountsSupport.swift in Sources */,
 				28E5EB6D20908AE0002DCCB5 /* SeedCheckupViewController.swift in Sources */,
 				DDB89417202F8EE2002F85EE /* UIImageView.swift in Sources */,

@@ -66,4 +66,12 @@ class SendViewController: UIViewController {
     
     @IBAction func accountDropdown(_ sender: Any) {
     }
+    
+    @IBAction private func sendFund(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let confirmSendFundViewController = storyboard.instantiateViewController(withIdentifier: "ConfirmToSendFundViewController") as! ConfirmToSendFundViewController
+        confirmSendFundViewController.modalTransitionStyle = .crossDissolve
+        confirmSendFundViewController.modalPresentationStyle = .currentContext
+        self.present(confirmSendFundViewController, animated: true, completion: nil)
+    }
 }
