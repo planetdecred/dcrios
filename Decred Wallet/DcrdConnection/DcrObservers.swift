@@ -31,7 +31,7 @@ extension WalletTransactionBlockListenerStruct: WalletTransactionBlockListenerPr
         set { ObserversListener.instance.onBlockTransactionError = newValue }
     }
     
-    func onBlockError(error: Error) {
+    @objc dynamic func onBlockError(error: Error) {
         self.onBlockTransactionError?(error)
     }
 }

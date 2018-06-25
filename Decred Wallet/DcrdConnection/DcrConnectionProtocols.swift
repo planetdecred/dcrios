@@ -19,8 +19,7 @@ typealias FailureCallback = ((Error)->Void)
 protocol DcrdConnectionProtocol : DcrdBaseProtocol {
     var transactionsObserver: TransactionsObserver?{get set}
     mutating func initiateWallet()
-    func openWallet()
-    func connect(onSuccess:SuccessCallback?, onFailure:FailureCallback?)
+    func connect(onSuccess:SuccessCallback, onFailure:FailureCallback)
     func disconnect()
     mutating func subscribeForTransactions(observer:WalletTransactionListenerProtocol)
     mutating func subscribeForBlockTransaction(observer:WalletBlockNotificationErrorProtocol)
@@ -40,8 +39,8 @@ extension DcrdConnectionProtocol{
             print(error)
         }
     }
-    
-    func connect(onSuccess:SuccessCallback?, onFailure:FailureCallback?){
+
+    func connect(onSuccess:SuccessCallback, onFailure:FailureCallback){
         let certificate = try? Data(contentsOf: URL(fileURLWithPath: NSHomeDirectory() + "/Documents/rpc.cert"))
         let username = UserDefaults.standard.string(forKey: "pref_user_name")
         let password = UserDefaults.standard.string(forKey: "pref_user_passwd")
@@ -58,12 +57,12 @@ extension DcrdConnectionProtocol{
             try wallet?.publishUnminedTransactions()
         } catch let error{
             if onFailure != nil{
-                onFailure!(error)
+                onFailure(error)
             }
             return
         }
         if onSuccess != nil {
-            onSuccess!(pHeight.pointee)
+            onSuccess(pHeight.pointee)
         }
     }
     
@@ -95,7 +94,7 @@ extension DcrSettingsSupportProtocol{
     func applySettings(onSuccess:SuccessCallback?, onFailure:FailureCallback?){
         disconnect()
         openWallet()
-        connect(onSuccess:onSuccess, onFailure:onFailure)
+        connect(onSuccess:onSuccess!, onFailure:onFailure!)
     }
     
     mutating func saveSettings(){
@@ -111,18 +110,26 @@ extension DcrSettingsSupportProtocol{
         if isSettingsChanged(){
             disconnect()
             openWallet()
-            connect(onSuccess:nil, onFailure: nil)
+            connect(onSuccess:{_ in }, onFailure: {_ in })
             saveSettings()
         }
     }
 }
 
-protocol DecredBackendProtocol: DcrTransactionsHistoryProtocol, DcrdSeedMnemonicProtocol, DcrdCreateRestoreWalletProtocol, DcrAccountsManagementProtocol, DcrSettingsSupportProtocol {}
-
+protocol DecredBackendProtocol: DcrdConnectionProtocol,
+                                DcrdSeedMnemonicProtocol,
+                                DcrdCreateRestoreWalletProtocol,
+                                DcrAccountsManagementProtocol,
+                                DcrTransactionsHistoryProtocol,
+                                DcrSettingsSupportProtocol{}
+  
 class DcrdConnection : DecredBackendProtocol {
     var settingsBackup: String = ""
     var mTransactionsObserver: WalletGetTransactionResponseStruct?
+    var mTransactionUpdatesHub: TransactionNotificationsObserveHub? = TransactionNotificationsObserveHub()
+    var mTransactionBlockErrorHub: TransactionBlockNotificationObserveHub? = TransactionBlockNotificationObserveHub()
     var transactionsObserver: TransactionsObserver?
+    var mTransactionsObserveHub : GetTransactionObserveHub? = GetTransactionObserveHub()
     var wallet: WalletLibWallet?
     required init() {
         settingsBackup = UserDefaults.standard.dictionaryRepresentation().description
