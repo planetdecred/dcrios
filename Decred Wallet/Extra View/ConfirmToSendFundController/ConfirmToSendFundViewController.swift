@@ -5,7 +5,12 @@
 import UIKit
 
 class ConfirmToSendFundViewController: UIViewController {
-    @IBOutlet weak var labelTitle: UILabel!
+    @IBOutlet private weak var labelTitle: UILabel!
+    var amount: Double = 0.0 {
+        willSet (newValue) {
+            labelTitle?.text = "Sending \(newValue) DCR"
+        }
+    }
     
     var confirm: (()->Void)?
     var cancel: (()->Void)?
@@ -14,6 +19,7 @@ class ConfirmToSendFundViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        labelTitle?.text = "Sending \(amount) DCR"
     }
 
     override func didReceiveMemoryWarning() {
@@ -22,10 +28,12 @@ class ConfirmToSendFundViewController: UIViewController {
     }
     
     @IBAction private func cancelAction(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
         self.cancel?()
     }
     
     @IBAction private func confirmAction(_ sender: UIButton) {
         self.confirm?()
+        dismiss(animated: true, completion: nil)
     }
 }
