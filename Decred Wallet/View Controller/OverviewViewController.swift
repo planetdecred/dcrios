@@ -44,14 +44,13 @@ class OverviewViewController: UIViewController {
         transactionBlockObserver = TransactionsBlockObserver(listener: liveTransactionObserver! )
         transactionObserver = TransactionsObserver(listener: liveTransactionObserver! )
         AppContext.instance.decrdConnection?.connect(onSuccess: { (height) in
-            self.transactionBlockObserver?.subscribe()
-            self.transactionObserver?.subscribe()
+
             self.lbCurrentBalance.text = "\((AppContext.instance.decrdConnection?.getAccounts()?.Acc.first?.dcrTotalBalance)!) DCR"
-            AppContext.instance.decrdConnection?.fetchTransactions(onGotTransaction: { (transaction) in
-                //display transactions  
-            }, onFailure: { (error) in
-                // show error
-            })
+//            AppContext.instance.decrdConnection?.fetchTransactions(onGotTransaction: { (transaction) in
+//                //display transactions  
+//            }, onFailure: { (error) in
+//                // show error
+//            })
             self.lbCurrentBalance.text = "\((AppContext.instance.decrdConnection?.getAccounts()?.Acc.first?.dcrTotalBalance)!) DCR"
         }, onFailure: { (error) in
             print(error)

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1E3D73D7EA02D2D2D3CD052C /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E75324D536F1BD91575D0609 /* Pods_Decred_Wallet.framework */; };
+		2860BED420E101BD002E32CF /* Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95AB6BDB20CA7DB900460281 /* Wallet.framework */; };
 		2867D86020DBE75300946760 /* DcrTransactionTraffic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2867D85F20DBE75300946760 /* DcrTransactionTraffic.swift */; };
 		286E279C20B6E22400EE0B08 /* DcrdWalletCreationSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286E279720B6E22300EE0B08 /* DcrdWalletCreationSupport.swift */; };
 		286E279D20B6E22400EE0B08 /* DcrObservers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286E279820B6E22300EE0B08 /* DcrObservers.swift */; };
@@ -35,7 +36,6 @@
 		95877FED20B70D4B00CE53D2 /* TransactionHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95877FEB20B70D4B00CE53D2 /* TransactionHistoryTableViewCell.swift */; };
 		9589905F20D7A055001C4D28 /* AccountsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9589905E20D7A055001C4D28 /* AccountsHeaderView.xib */; };
 		9589906120D7A126001C4D28 /* AccountsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9589906020D7A126001C4D28 /* AccountsHeaderView.swift */; };
-		958B537220CA9E5500F6684C /* Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95AB6BDB20CA7DB900460281 /* Wallet.framework */; };
 		95BFA83220D156D900BAED71 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BFA83020D156D900BAED71 /* MenuCell.swift */; };
 		95BFA83320D156D900BAED71 /* MenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95BFA83120D156D900BAED71 /* MenuCell.xib */; };
 		95CC024020D3DAFF00DA73AF /* AccountDataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CC023E20D3DAFF00DA73AF /* AccountDataCell.swift */; };
@@ -198,7 +198,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				958B537220CA9E5500F6684C /* Wallet.framework in Frameworks */,
+				2860BED420E101BD002E32CF /* Wallet.framework in Frameworks */,
 				1E3D73D7EA02D2D2D3CD052C /* Pods_Decred_Wallet.framework in Frameworks */,
 				B853136BC96255F028D8CB64 /* Pods_Decred_Wallet.framework in Frameworks */,
 			);

@@ -13,6 +13,8 @@ struct JsonTransaction : Decodable{
     
 }
 
+class WalletGetTransactionResponseStruct{}
+
 typealias GetTransactionsResponseCallback = ((JsonTransaction)->Void)
 typealias GetTransactionsResponseFailureCallback = ((Error)->Void)
 
@@ -41,17 +43,17 @@ extension WalletGetTransactionResponseStruct {
 }
 
 protocol DcrTransactionsHistoryProtocol: DcrdBaseProtocol {
-    var mTransactionsObserver : WalletGetTransactionResponseStruct? {get set}
+    var mTransactionsObserver : WalletGetTransactionsResponseProtocol? {get set}
     mutating func fetchTransactions(onGotTransaction:@escaping GetTransactionsResponseCallback, onFailure:@escaping GetTransactionsResponseFailureCallback)
 }
 
 extension DcrTransactionsHistoryProtocol {
     mutating func fetchTransactions(onGotTransaction:@escaping GetTransactionsResponseCallback, onFailure:@escaping GetTransactionsResponseFailureCallback){
-        mTransactionsObserver = WalletCreateGetTransactionResponse()
-        mTransactionsObserver?.add(successCallback:onGotTransaction)
-        mTransactionsObserver?.add(failureCallback:onFailure)
+        mTransactionsObserver = WalletGetTransactionsResponse()
+//        mTransactionsObserver?.add(successCallback:onGotTransaction)
+//        mTransactionsObserver?.add(failureCallback:onFailure)
         do{
-            try wallet?.getTransactions(mTransactionsObserver!)
+            try wallet?.getTransactions(mTransactionsObserver! as! WalletGetTransactionsResponseProtocol)
         }catch let error{
             onFailure(error)
         }

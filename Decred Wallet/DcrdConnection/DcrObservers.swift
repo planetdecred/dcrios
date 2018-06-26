@@ -25,16 +25,16 @@ protocol WalletTransactionBlockListenerProtocol {
     var onBlockTransactionError:((Error)->Void)?{get set}
 }
 
-extension WalletTransactionBlockListenerStruct: WalletTransactionBlockListenerProtocol {
-    var onBlockTransactionError: ((Error)->Void)? {
-        get { return ObserversListener.instance.onBlockTransactionError }
-        set { ObserversListener.instance.onBlockTransactionError = newValue }
-    }
-    
-    func onBlockError(error: Error) {
-        self.onBlockTransactionError?(error)
-    }
-}
+//extension WalletTransactionBlockListenerStruct: WalletTransactionBlockListenerProtocol {
+//    var onBlockTransactionError: ((Error)->Void)? {
+//        get { return ObserversListener.instance.onBlockTransactionError }
+//        set { ObserversListener.instance.onBlockTransactionError = newValue }
+//    }
+//    
+//    func onBlockError(error: Error) {
+//        self.onBlockTransactionError?(error)
+//    }
+//}
 
 // MARK: - Observers
 
@@ -45,26 +45,26 @@ struct ObserversListener:WalletTransactionBlockListenerProtocol{
 
 class TransactionsObserver {
     fileprivate var listener: TransactionObserverProtocol?
-    fileprivate let mUpcomingTransactionListener = WalletCreateTransactionListener()
-    fileprivate let mTransactionListener = WalletCreateGetTransactionResponse()
+    fileprivate let mUpcomingTransactionListener = WalletTransactionListener()
+    fileprivate let mTransactionListener = WalletGetTransactionsResponse()
     init(listener:TransactionObserverProtocol) {
         self.listener = listener
     }
     func subscribe(){
-       AppContext.instance.decrdConnection?.subscribeForTransactions(observer: mUpcomingTransactionListener!)
+        AppContext.instance.decrdConnection?.subscribeForTransactions(observer: mUpcomingTransactionListener)
     }
 }
 
 class TransactionsBlockObserver {
     fileprivate var listener:TransactionBlockObserverProtocol?
-    fileprivate var mbBlockNotofication = WalletCreateTransactionsBlockListener()
+    //fileprivate var mbBlockNotofication = WalletCreateTransactionsBlockListener()
     init(listener: TransactionBlockObserverProtocol) {
         self.listener = listener
-        self.mbBlockNotofication?.onBlockTransactionError = {(error) in
-            self.listener?.onBlockError(error: error)
-        }
+//        self.mbBlockNotofication?.onBlockTransactionError = {(error) in
+//            self.listener?.onBlockError(error: error)
+//        }
     }
     func subscribe(){
-        AppContext.instance.decrdConnection?.subscribeForBlockTransaction(observer: mbBlockNotofication!)
+        //AppContext.instance.decrdConnection?.subscribeForBlockTransaction(observer: mbBlockNotofication!)
     }
 }
