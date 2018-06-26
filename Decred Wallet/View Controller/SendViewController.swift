@@ -73,12 +73,12 @@ class SendViewController: UIViewController {
         confirmSendFundViewController.modalTransitionStyle = .crossDissolve
         confirmSendFundViewController.modalPresentationStyle = .overCurrentContext
         confirmSendFundViewController.amount = 25.869
-        
+
         confirmSendFundViewController.confirm = { [weak self] in
             guard let `self` = self else { return }
             debugPrint(self)
         }
-        
+
         self.present(confirmSendFundViewController, animated: true, completion: nil)
     }
 }
