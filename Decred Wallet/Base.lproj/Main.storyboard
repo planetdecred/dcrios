@@ -1272,13 +1272,13 @@
                                                 <rect key="frame" x="0.0" y="73.5" width="356" height="36.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Estimate Size:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3A1-af-gM6">
-                                                        <rect key="frame" x="0.0" y="0.0" width="178" height="36.5"/>
+                                                        <rect key="frame" x="0.0" y="0.5" width="178" height="36.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 byte" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Az-wY-eol">
-                                                        <rect key="frame" x="178" y="0.0" width="178" height="36.5"/>
+                                                        <rect key="frame" x="178" y="0.5" width="178" height="36.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -1323,6 +1323,9 @@
                                         <real key="value" value="6"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="sendFund:" destination="TvI-C9-lSF" eventType="touchUpInside" id="Pk0-i1-rfX"/>
+                                </connections>
                             </button>
                         </subviews>
                         <constraints>
@@ -2003,6 +2006,94 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jal-RI-UMi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3471" y="2791"/>
+        </scene>
+        <!--Confirm To Send Fund View Controller-->
+        <scene sceneID="T1Z-xm-Luy">
+            <objects>
+                <viewController storyboardIdentifier="ConfirmToSendFundViewController" id="wsz-Ml-THI" customClass="ConfirmToSendFundViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" id="nvU-Z6-GeI">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w3o-Gu-357">
+                                <rect key="frame" x="25" y="239" width="325" height="190"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="U45-07-Jed">
+                                        <rect key="frame" x="15" y="15" width="295.5" height="61"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Sending 25.80 DCR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hKD-mF-CbF">
+                                                <rect key="frame" x="0.0" y="0.0" width="295.5" height="23"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="19"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Please confirm to send funds" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dPx-ZI-D15">
+                                                <rect key="frame" x="0.0" y="38" width="295.5" height="23"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <color key="textColor" red="0.37254901959999998" green="0.44705882349999998" blue="0.52549019610000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="yex-C5-JsD">
+                                        <rect key="frame" x="150.5" y="136" width="160" height="30"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="esC-HX-JeL">
+                                                <rect key="frame" x="0.0" y="0.0" width="70" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                                <state key="normal" title="CANCEL">
+                                                    <color key="titleColor" red="0.99215686270000003" green="0.44705882349999998" blue="0.29803921570000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="cancelAction:" destination="wsz-Ml-THI" eventType="touchUpInside" id="Dhn-1l-GUo"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VJ1-wB-z4e">
+                                                <rect key="frame" x="90" y="0.0" width="70" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                                <state key="normal" title="CONFIRM">
+                                                    <color key="titleColor" red="0.25490196079999999" green="0.74901960779999999" blue="0.32549019610000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="confirmAction:" destination="wsz-Ml-THI" eventType="touchUpInside" id="k1I-6c-PF2"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="mhO-le-7DW" firstAttribute="trailing" secondItem="U45-07-Jed" secondAttribute="trailing" constant="15" id="1Hs-EY-HG0"/>
+                                    <constraint firstAttribute="height" constant="190" id="1OS-cL-KPY"/>
+                                    <constraint firstItem="yex-C5-JsD" firstAttribute="top" secondItem="U45-07-Jed" secondAttribute="bottom" constant="60" id="2hz-uR-Yxe"/>
+                                    <constraint firstItem="mhO-le-7DW" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="yex-C5-JsD" secondAttribute="bottom" constant="20" id="DRs-uN-7Zn"/>
+                                    <constraint firstItem="U45-07-Jed" firstAttribute="leading" secondItem="mhO-le-7DW" secondAttribute="leading" constant="15" id="Ysc-TW-h76"/>
+                                    <constraint firstItem="yex-C5-JsD" firstAttribute="trailing" secondItem="U45-07-Jed" secondAttribute="trailing" id="aIk-EC-wUd"/>
+                                    <constraint firstItem="U45-07-Jed" firstAttribute="top" secondItem="mhO-le-7DW" secondAttribute="top" constant="15" id="iTd-D3-H6V"/>
+                                </constraints>
+                                <viewLayoutGuide key="safeArea" id="mhO-le-7DW"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.34999999999999998" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="w3o-Gu-357" firstAttribute="leading" secondItem="C3s-cf-vji" secondAttribute="leading" constant="25" id="ETB-eg-8ba"/>
+                            <constraint firstItem="w3o-Gu-357" firstAttribute="centerX" secondItem="nvU-Z6-GeI" secondAttribute="centerX" id="Qbc-Mm-6tA"/>
+                            <constraint firstItem="w3o-Gu-357" firstAttribute="centerY" secondItem="nvU-Z6-GeI" secondAttribute="centerY" id="oIC-4W-lUf"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="C3s-cf-vji"/>
+                    </view>
+                    <connections>
+                        <outlet property="labelTitle" destination="hKD-mF-CbF" id="8Xj-r0-I9p"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TSf-MD-WVZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2601" y="2059"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="p05-hP-egF">
