@@ -4,8 +4,11 @@
 
 import UIKit
 
-class TransactiontOutputDetailsTableViewCell: UITableViewCell {
-
+class TransactiontOutputDetailsCell: UITableViewCell {
+    @IBOutlet private weak var viewContainer: UIView!
+    
+    var expandOrCollapse: (() -> Void)?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -16,4 +19,11 @@ class TransactiontOutputDetailsTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    
+    @IBAction func hideOrExpandAction(_ sender: UIButton) {
+        self.viewContainer.isHidden.toggle()
+        expandOrCollapse?()
+    }
+    
 }
