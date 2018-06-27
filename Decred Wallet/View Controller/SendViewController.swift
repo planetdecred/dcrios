@@ -7,7 +7,7 @@
 import UIKit
 
 class SendViewController: UIViewController {
-    
+
     @IBOutlet weak var accountDropdown: DropMenuButton!
     @IBOutlet weak var totalAmountSending: UILabel!
     @IBOutlet weak var estimateFee: UILabel!
@@ -15,24 +15,24 @@ class SendViewController: UIViewController {
     @IBOutlet weak var walletAddress: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.accountDropdown.backgroundColor = UIColor.clear
         accountDropdown.initMenu(["My Wallet [153.0055 DCR]", "My Wallet2 [153.0055 DCR]", "My Wallet3 [153.0055 DCR]"], actions: ({ (ind, val) -> (Void) in
-            
+
             self.accountDropdown.setAttributedTitle(self.getAttributedString(str: val), for: UIControlState.normal)
-           
+
             self.accountDropdown.backgroundColor = UIColor(red: 173.0/255.0, green: 231.0/255.0, blue: 249.0/255.0, alpha: 1.0)
         }))
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.setNavigationBarItem()
          self.navigationItem.title = "Send"
     }
-  
+
     func getAttributedString(str: String) -> NSAttributedString {
-        
+
         let stt = str as NSString!
         let atrStr = NSMutableAttributedString(string: stt! as String)
         let dotRange = stt?.range(of: "[")
@@ -45,7 +45,7 @@ class SendViewController: UIViewController {
                                 range: NSRange(
                                     location:0,
                                     length:(dotRange?.location)!))
-            
+
             atrStr.addAttribute(NSAttributedStringKey.font,
                                 value: UIFont(
                                     name: "Helvetica",
@@ -53,21 +53,25 @@ class SendViewController: UIViewController {
                                 range: NSRange(
                                     location:(dotRange?.location)!,
                                     length:(str.length - (dotRange?.location)!)))
-            
+
             atrStr.addAttribute(NSAttributedStringKey.foregroundColor,
                                 value: UIColor.darkGray,
                                 range: NSRange(
                                     location:0,
                                     length:str.length))
-            
+
         }
         return atrStr
     }
-    
+
     @IBAction func accountDropdown(_ sender: Any) {
     }
     
     @IBAction private func sendFund(_ sender: Any) {
+        transactionSucceeded()
+    }
+    
+    private func confirmSend() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let confirmSendFundViewController = storyboard.instantiateViewController(withIdentifier: "ConfirmToSendFundViewController") as! ConfirmToSendFundViewController
         confirmSendFundViewController.modalTransitionStyle = .crossDissolve
@@ -79,6 +83,33 @@ class SendViewController: UIViewController {
             debugPrint(self)
         }
         
-        self.present(confirmSendFundViewController, animated: true, completion: nil)
+        present(confirmSendFundViewController, animated: true, completion: nil)
+    }
+    
+    private func transactionSucceeded() {
+        let storyboard = UIStoryboard(
+            name: "SendCompletedViewController",
+            bundle: nil
+        )
+        
+        let sendCompletedVC = storyboard.instantiateViewController(withIdentifier: "SendCompletedViewController") as! SendCompletedViewController
+        sendCompletedVC.modalTransitionStyle = .crossDissolve
+        sendCompletedVC.modalPresentationStyle = .overCurrentContext
+        sendCompletedVC.transactionHash = "00000001d4c5fb6c9b…225c4e33"
+        
+        sendCompletedVC.openDetails = { [weak self] in
+            guard let `self` = self else { return }
+            debugPrint(self)
+            
+            let storyboard = UIStoryboard(
+                name: "TransactionFullDetailsViewController",
+                bundle: nil
+            )
+            
+           let txnDetails = storyboard.instantiateViewController(withIdentifier: "TransactionFullDetailsViewController") as! TransactionFullDetailsViewController
+            self.navigationController?.pushViewController(txnDetails, animated: true)
+        }
+        
+        self.present(sendCompletedVC, animated: true, completion: nil)
     }
 }
