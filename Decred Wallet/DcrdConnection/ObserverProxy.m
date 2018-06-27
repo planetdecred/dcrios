@@ -81,9 +81,9 @@
     }
 }
 
-- (void)onTransactionRefresh {
+- (void)onTransactionConfirmed:(NSString*)hash height:(int32_t)height; {
     for (id<WalletTransactionListener> observer in self.transactionNotificationsSubscribers) {
-        [observer onTransactionRefresh];
+        [observer onTransactionConfirmed:hash height:height];
     }
 }
 

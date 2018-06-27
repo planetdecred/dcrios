@@ -25,18 +25,6 @@ protocol WalletTransactionBlockListenerProtocol {
     var onBlockTransactionError:((Error)->Void)?{get set}
 }
 
-
-extension WalletTransactionBlockListenerStruct: WalletTransactionBlockListenerProtocol {
-    var onBlockTransactionError: ((Error)->Void)? {
-        get { return ObserversListener.instance.onBlockTransactionError }
-        set { ObserversListener.instance.onBlockTransactionError = newValue }
-    }
-    
-    @objc dynamic func onBlockError(error: Error) {
-        self.onBlockTransactionError?(error)
-    }
-}
-
 // MARK: - Observers
 
 struct ObserversListener:WalletTransactionBlockListenerProtocol{

@@ -8,6 +8,8 @@ import SlideMenuControllerSwift
 import Wallet
 
 class OverviewViewController: UIViewController, WalletGetTransactionsResponseProtocol, WalletTransactionListenerProtocol, WalletBlockNotificationErrorProtocol {
+
+    
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var lbCurrentBalance: UILabel!
@@ -67,6 +69,9 @@ class OverviewViewController: UIViewController, WalletGetTransactionsResponsePro
         
     }
     
+    func onTransactionConfirmed(_ hash: String!, height: Int32) {
+        
+    }
     func onTransaction(_ transaction: String!) {
         let transactions = try! JSONDecoder().decode(Transaction.self, from:transaction.data(using: .utf8)!)
         for creditTransaction in transactions.Credits!{
