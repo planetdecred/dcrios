@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Gia-AO-cm1">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Transaction Full Details View Controller-->
+        <scene sceneID="DpT-Dg-OV6">
+            <objects>
+                <viewController storyboardIdentifier="TransactionFullDetailsViewController" id="Gia-AO-cm1" customClass="TransactionFullDetailsViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jVq-pq-hff">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dx6-nC-hdi">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="dx6-nC-hdi" firstAttribute="leading" secondItem="Jia-se-qbj" secondAttribute="leading" id="CSr-m8-nbn"/>
+                            <constraint firstItem="Jia-se-qbj" firstAttribute="bottom" secondItem="dx6-nC-hdi" secondAttribute="bottom" id="Y4W-wK-Ien"/>
+                            <constraint firstItem="dx6-nC-hdi" firstAttribute="top" secondItem="Jia-se-qbj" secondAttribute="top" id="h0o-BZ-gG0"/>
+                            <constraint firstItem="Jia-se-qbj" firstAttribute="trailing" secondItem="dx6-nC-hdi" secondAttribute="trailing" id="nm0-X6-iQL"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Jia-se-qbj"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableTransactionDetails" destination="dx6-nC-hdi" id="Lf9-c4-Per"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IlY-vi-Dxo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-42" y="-204"/>
+        </scene>
+    </scenes>
+</document>
