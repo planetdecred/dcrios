@@ -11,6 +11,10 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        tableTransactionDetails
+            .hideEmptyAndExtraRows()
+            .autoResizeCell(estimatedHeight: 60.0)
     }
 
     override func didReceiveMemoryWarning() {
