@@ -12,3 +12,9 @@ struct AccountsData {
     let totalBalance: Double
     var isExpanded: Bool = false
 }
+
+struct TransactionDetails {
+    let title: String
+    let value: String
+    let textColor: UIColor
+}
