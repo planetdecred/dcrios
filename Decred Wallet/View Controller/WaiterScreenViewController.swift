@@ -18,7 +18,9 @@ protocol WaiterScreenProtocol {
 
 class WaiterScreenViewController: UIViewController, WaiterScreenProtocol {
     var onTapAnimation: (() -> Void)?
-    
+//    private lazy var doubleTap: UITapGestureRecognizer = {
+//        let tap: UITapGestureRecognizer = UITapGestureRecognizer.init(target: <#T##Any?#>, action: <#T##Selector?#>)
+//    }()
     
     var onFinish:(()->Void)?
     var timer: Timer?
@@ -27,12 +29,10 @@ class WaiterScreenViewController: UIViewController, WaiterScreenProtocol {
     var  groupAnimation: CAAnimationGroup?
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
-   
-       // logo.image  =   UIImage.gifImageWithName("loaderAnimation")
+       logo.image = UIImage.gifImageWithName("loaderAnimation")
        set(duration: 4)
     }
     
@@ -48,12 +48,11 @@ class WaiterScreenViewController: UIViewController, WaiterScreenProtocol {
     
     @IBAction func goToSeetings(_ sender: Any) {
         timer?.invalidate()
-        onTapAnimation!()
+        onTapAnimation?()
     }
-    
     
     func stopAnimation() {
         logo.image = nil
-        onFinish!()
+        onFinish?()
     }
 }

@@ -57,7 +57,7 @@ extension BalanceEntity{
 }
 
 struct AccountsEntity : Decodable{
-    var Number = 0
+    var Number : Int32 = 0
     var Name = "default"
     var Balance : BalanceEntity?
     var TotalBalance : Int64 = 0
@@ -83,3 +83,68 @@ struct GetAccountResponse : Decodable {
     var CurrentBlockHash = ""
     var CurrentBlockHeight = 0
 }
+
+struct GetTransactionResponse : Decodable {
+    var Transactions:[Transaction]?
+    var ErrorOccurred = false
+    var ErrorMessage = ""
+}
+
+struct Transaction : Decodable {
+    var Hash = ""
+    var Transaction: String?
+    var Fee = 0
+    var Timestamp:UInt64 = 0
+    var `Type` = "REGULAR"
+    var Amount: Int64 = 0
+    var Status = ""
+    var Height = 0
+    var Debits:[Debit]?
+    var Credits:[Credit]?
+}
+
+struct Credit : Decodable{
+    var Index: Int64 = 0
+    var Account: Int64 = 0
+    var Internal: Bool = false
+    var Amount: Int64 = 0
+    var Address = ""
+}
+
+extension Credit {
+    var dcrAmount : Int64 {
+        get {
+            return Amount / 100000000
+        }
+    }
+}
+
+struct Debit : Decodable{
+    var Index: Int64 = 0
+    var Account: Int64 = 0
+    var Internal: Bool = false
+    var Amount: Int64 = 0
+    var Address = ""
+}
+
+extension Debit {
+    var dcrAmount : Int64 {
+        get {
+            return Amount / 100000000
+        }
+    }
+}
+
+extension GetTransactionResponse{
+    var transactionsTimeline : [Transaction] {
+        let timeline = Transactions?.sorted(by: { (transaction1, transaction2) -> Bool in
+            return transaction1.Timestamp > transaction2.Timestamp
+        })
+        return timeline!
+    }
+    func transaction(by hash:String) -> Transaction?{
+        return Transactions?.filter({$0.Hash == hash}).first
+    }
+}
+
+

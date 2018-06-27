@@ -1,4 +1,3 @@
-//
 //  AppDelegate.swift
 //  Decred Wallet
 //  Copyright © 2018 The Decred developers.
@@ -11,6 +10,8 @@ import Wallet
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
+    var navigation : UINavigationController?
+    
     fileprivate func walletSetupView() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let walletSetupController = storyboard.instantiateViewController(withIdentifier: "WalletSetupViewController") as! WalletSetupViewController
@@ -52,24 +53,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     fileprivate func showAnimatedStartScreen() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let startScreenController = storyboard.instantiateViewController(withIdentifier: "WaiterScreenViewController") as! WaiterScreenViewController
-        startScreenController.onFinish = { self.populateFirstScreen() }
-        window?.rootViewController = startScreenController
-        window?.makeKeyAndVisible()
+        let startScreenController = storyboard.instantiateViewController(withIdentifier:"WaiterScreenViewController") as! WaiterScreenViewController
+        
+        startScreenController.onFinish = {self.populateFirstScreen()}
+        startScreenController.onTapAnimation = {self.gotoSetting()}
+        self.navigation = UINavigationController(rootViewController: startScreenController)
+        UINavigationBar.appearance().tintColor = GlobalConstants.Colors.navigationBarColor
+        self.navigation?.navigationBar.isHidden = true
+        self.window?.rootViewController = self.navigation
+        self.window?.makeKeyAndVisible()
     }
 
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         showAnimatedStartScreen()
-        UserDefaults.standard.setValuesForKeys([
-            "pref_user_name": "N8BdMGtxvM1+QmEiGe609mn1JHA=",
-            "pref_user_passwd": "Afgz/vjdPLQAv5Crsz9J94dIT1g=",
-            "pref_server_ip": "192.168.0.102:19109",
-        ])
+        UserDefaults.standard.setValuesForKeys(["pref_user_name" : "N8BdMGtxvM1+QmEiGe609mn1JHA=",
+                                                "pref_user_passwd":"Afgz/vjdPLQAv5Crsz9J94dIT1g=",
+                                                "pref_server_ip": "192.168.0.102:19109"])
         AppContext.instance.decrdConnection = DcrdConnection()
         AppContext.instance.decrdConnection?.initiateWallet()
         return true
     }
 
+    fileprivate func gotoSetting() {
+        let vcSetting = GlobalConstants.ConstantStoryboardMain.getControllerInstance(identifier: "SettingsController2", storyBoard: GlobalConstants.ConstantStoryboardMain.IDENTIFIER_STORYBOARD_MAIN) as! SettingsController
+        vcSetting.isFromLoader = true
+        
+        self.navigation?.pushViewController(vcSetting, animated: true)
+    }
+    
     func applicationWillResignActive(_: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
