@@ -8,8 +8,6 @@ import SlideMenuControllerSwift
 import Wallet
 
 class OverviewViewController: UIViewController, WalletGetTransactionsResponseProtocol, WalletTransactionListenerProtocol, WalletBlockNotificationErrorProtocol {
-
-    
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var lbCurrentBalance: UILabel!
@@ -21,9 +19,9 @@ class OverviewViewController: UIViewController, WalletGetTransactionsResponsePro
         self.tableView.registerCellNib(DataTableViewCell.self)
         
         AppContext.instance.decrdConnection?.connect(onSuccess: { (height) in
-            //let accounts = AppContext.instance.decrdConnection?.getAccounts()
-            //let address = AppContext.instance.decrdConnection?.getCurrentAddress(account: (accounts?.Acc.first?.Number)!)
-            //print("Address:\(address)")
+            let accounts = AppContext.instance.decrdConnection?.getAccounts()
+            let address = AppContext.instance.decrdConnection?.getCurrentAddress(account: (accounts?.Acc.first?.Number)!)
+            print("Address:\(address ?? "")")
             AppContext.instance.decrdConnection?.addObserver(transactionsHistoryObserver: self)
             AppContext.instance.decrdConnection?.addObserver(forBlockError: self)
             AppContext.instance.decrdConnection?.addObserver(forUpdateNotifications: self)
@@ -70,8 +68,9 @@ class OverviewViewController: UIViewController, WalletGetTransactionsResponsePro
     }
     
     func onTransactionConfirmed(_ hash: String!, height: Int32) {
-        
+
     }
+    
     func onTransaction(_ transaction: String!) {
         let transactions = try! JSONDecoder().decode(Transaction.self, from:transaction.data(using: .utf8)!)
         for creditTransaction in transactions.Credits!{
@@ -80,10 +79,9 @@ class OverviewViewController: UIViewController, WalletGetTransactionsResponsePro
         for debitTransaction in transactions.Debits!{
             self.mainContens.append("-\(debitTransaction.dcrAmount) DCR")
         }
-    }
-    
-    func onTransactionRefresh() {
-        self.tableView.reloadData()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
 }
 

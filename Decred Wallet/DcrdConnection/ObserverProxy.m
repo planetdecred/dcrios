@@ -69,6 +69,7 @@
 
 - (void) subscribeForUpdateNotifications:(id<WalletTransactionListener>)observer{
     [self.transactionNotificationsSubscribers addObject:observer];
+    
 }
 
 - (void) unsubscribeForUpdateNotifications:(id<WalletTransactionListener>)observer{

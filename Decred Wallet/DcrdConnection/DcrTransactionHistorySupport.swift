@@ -25,9 +25,11 @@ extension DcrTransactionsHistoryProtocol {
     }
     mutating func addObserver(forUpdateNotifications: WalletTransactionListenerProtocol){
         mTransactionUpdatesHub?.subscribe(forUpdateNotifications: forUpdateNotifications)
+        wallet?.transactionNotification( mTransactionUpdatesHub)
     }
     mutating func addObserver(forBlockError:WalletBlockNotificationErrorProtocol){
         mTransactionBlockErrorHub?.subscribe(forBlockNotifications: forBlockError)
+        try? wallet?.subscribe(toBlockNotifications: mTransactionBlockErrorHub)
     }
 
     mutating func fetchTransactions(){
