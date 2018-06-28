@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1E3D73D7EA02D2D2D3CD052C /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E75324D536F1BD91575D0609 /* Pods_Decred_Wallet.framework */; };
+		286471BD20E527DD0067128B /* DcrTransactionTraffic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286471BC20E527DD0067128B /* DcrTransactionTraffic.swift */; };
 		286E279C20B6E22400EE0B08 /* DcrdWalletCreationSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286E279720B6E22300EE0B08 /* DcrdWalletCreationSupport.swift */; };
 		286E279D20B6E22400EE0B08 /* DcrObservers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286E279820B6E22300EE0B08 /* DcrObservers.swift */; };
 		286E279E20B6E22400EE0B08 /* DcrConnectionProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286E279920B6E22300EE0B08 /* DcrConnectionProtocols.swift */; };
@@ -111,6 +112,7 @@
 
 /* Begin PBXFileReference section */
 		109877DFD2DABA7636DA7B92 /* Pods-Decred WalletTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred WalletTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Decred WalletTests/Pods-Decred WalletTests.debug.xcconfig"; sourceTree = "<group>"; };
+		286471BC20E527DD0067128B /* DcrTransactionTraffic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DcrTransactionTraffic.swift; sourceTree = "<group>"; };
 		286E279720B6E22300EE0B08 /* DcrdWalletCreationSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DcrdWalletCreationSupport.swift; sourceTree = "<group>"; };
 		286E279820B6E22300EE0B08 /* DcrObservers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DcrObservers.swift; sourceTree = "<group>"; };
 		286E279920B6E22300EE0B08 /* DcrConnectionProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DcrConnectionProtocols.swift; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 		286E279620B6E22300EE0B08 /* DcrdConnection */ = {
 			isa = PBXGroup;
 			children = (
+				286471BC20E527DD0067128B /* DcrTransactionTraffic.swift */,
 				286E279720B6E22300EE0B08 /* DcrdWalletCreationSupport.swift */,
 				286E279820B6E22300EE0B08 /* DcrObservers.swift */,
 				286E279920B6E22300EE0B08 /* DcrConnectionProtocols.swift */,
@@ -699,6 +702,7 @@
 				95CC024020D3DAFF00DA73AF /* AccountDataCell.swift in Sources */,
 				DDA3E27020292EF900C83D18 /* ViewController.swift in Sources */,
 				DDB8940F202F83EA002F85EE /* BaseTableViewCell.swift in Sources */,
+				286471BD20E527DD0067128B /* DcrTransactionTraffic.swift in Sources */,
 				2870338B20BC5E7D00BFD0B8 /* JsonEntities.swift in Sources */,
 				DD41975F202F99A90044F068 /* SubContentsViewController.swift in Sources */,
 				DDB89427202F955F002F85EE /* UIView.swift in Sources */,
