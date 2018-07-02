@@ -6,6 +6,10 @@
 import Foundation
 import UIKit
 
+protocol  AccountDetailsCellProtocol{
+    func setup(account:AccountsEntity)
+}
+
 extension AccountsData{
     init(entity:AccountsEntity, color: UIColor){
         self.color = color
@@ -35,8 +39,6 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        acquireAccountData()
-        
         tableAccountData
             .hideEmptyAndExtraRows()
             .registerCellNib(AccountDataCell.self)
@@ -46,10 +48,6 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
         super.viewWillAppear(animated)
         setNavigationBarItem()
         navigationItem.title = "Account"
-    }
-    
-    func acquireAccountData(){
-        
     }
 
     func numberOfSections(in _: UITableView) -> Int {
@@ -89,9 +87,10 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
         return 540.0
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt _: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "AccountDataCell") as! AccountDataCell
-
-        return cell
+    func tableView(_ tableView: UITableView, cellForRowAt rowIndex: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "AccountDataCell") as! AccountDetailsCellProtocol
+        let accounts = AppContext.instance.decrdConnection?.getAccounts()
+        cell.setup(account:(accounts?.Acc[rowIndex.row])!)
+        return cell as! UITableViewCell
     }
 }
