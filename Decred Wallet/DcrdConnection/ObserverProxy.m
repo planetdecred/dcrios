@@ -69,6 +69,7 @@
 
 - (void) subscribeForUpdateNotifications:(id<WalletTransactionListener>)observer{
     [self.transactionNotificationsSubscribers addObject:observer];
+    
 }
 
 - (void) unsubscribeForUpdateNotifications:(id<WalletTransactionListener>)observer{
@@ -81,9 +82,9 @@
     }
 }
 
-- (void)onTransactionRefresh {
+- (void)onTransactionConfirmed:(NSString*)hash height:(int32_t)height; {
     for (id<WalletTransactionListener> observer in self.transactionNotificationsSubscribers) {
-        [observer onTransactionRefresh];
+        [observer onTransactionConfirmed:hash height:height];
     }
 }
 

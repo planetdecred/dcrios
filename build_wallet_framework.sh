@@ -1,5 +1,5 @@
 #!/bin/bash
-git submodule init
+#git submodule init
 #!git submodule update --checkout
 cd wallet/pkg
 mkdir bin
