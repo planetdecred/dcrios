@@ -25,9 +25,7 @@ class OverviewViewController: UIViewController, WalletGetTransactionsResponsePro
             AppContext.instance.decrdConnection?.addObserver(transactionsHistoryObserver: self)
             AppContext.instance.decrdConnection?.addObserver(forBlockError: self)
             AppContext.instance.decrdConnection?.addObserver(forUpdateNotifications: self)
-            AppContext.instance.decrdConnection?.fetchTransactions()
-
-            self.lbCurrentBalance.text = "\((AppContext.instance.decrdConnection?.getAccounts()?.Acc.first?.dcrTotalBalance)!) DCR"
+            updateCurrentBalance()
         }, onFailure: { (error) in
             print(error)
         })
@@ -41,6 +39,11 @@ class OverviewViewController: UIViewController, WalletGetTransactionsResponsePro
         super.viewWillAppear(animated)
         self.setNavigationBarItem()
         self.navigationItem.title = "Overview"
+    }
+    
+    func updateCurrentBalance(){
+        AppContext.instance.decrdConnection?.fetchTransactions()
+        self.lbCurrentBalance.text = "\((AppContext.instance.decrdConnection?.getAccounts()?.Acc.first?.dcrTotalBalance)!) DCR"
     }
     
     func onResult(_ json: String!) {
@@ -81,6 +84,7 @@ class OverviewViewController: UIViewController, WalletGetTransactionsResponsePro
         }
         DispatchQueue.main.async {
             self.tableView.reloadData()
+            self.updateCurrentBalance()
         }
     }
 }
