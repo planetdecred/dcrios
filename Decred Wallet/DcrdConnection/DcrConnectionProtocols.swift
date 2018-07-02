@@ -124,8 +124,9 @@ protocol DecredBackendProtocol: DcrdConnectionProtocol,
                                 DcrSettingsSupportProtocol{}
   
 class DcrdConnection : DecredBackendProtocol {
+    var mTransactionsObserver: WalletGetTransactionsResponseProtocol?
     var settingsBackup: String = ""
-    var mTransactionsObserver: WalletGetTransactionResponseStruct?
+
     var mTransactionUpdatesHub: TransactionNotificationsObserveHub? = TransactionNotificationsObserveHub()
     var mTransactionBlockErrorHub: TransactionBlockNotificationObserveHub? = TransactionBlockNotificationObserveHub()
     var transactionsObserver: TransactionsObserver?
