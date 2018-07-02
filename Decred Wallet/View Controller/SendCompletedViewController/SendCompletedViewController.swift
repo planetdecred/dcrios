@@ -23,8 +23,9 @@ class SendCompletedViewController: UIViewController {
     }
     
     @IBAction func openAction(_ sender: UIButton) {
-        openDetails?()
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: false) { [weak self] in
+            self?.openDetails?()
+        }
     }
     
     @IBAction func closeAction(_ sender: UIButton) {
