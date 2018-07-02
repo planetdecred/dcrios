@@ -66,19 +66,51 @@ class SendViewController: UIViewController {
 
     @IBAction func accountDropdown(_ sender: Any) {
     }
-
+    
     @IBAction private func sendFund(_ sender: Any) {
+        // transactionSucceeded()
+        confirmSend()
+    }
+    
+    private func confirmSend() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let confirmSendFundViewController = storyboard.instantiateViewController(withIdentifier: "ConfirmToSendFundViewController") as! ConfirmToSendFundViewController
         confirmSendFundViewController.modalTransitionStyle = .crossDissolve
         confirmSendFundViewController.modalPresentationStyle = .overCurrentContext
         confirmSendFundViewController.amount = 25.869
-
+        
         confirmSendFundViewController.confirm = { [weak self] in
             guard let `self` = self else { return }
             debugPrint(self)
         }
-
-        self.present(confirmSendFundViewController, animated: true, completion: nil)
+        
+        present(confirmSendFundViewController, animated: true, completion: nil)
+    }
+    
+    private func transactionSucceeded() {
+        let storyboard = UIStoryboard(
+            name: "SendCompletedViewController",
+            bundle: nil
+        )
+        
+        let sendCompletedVC = storyboard.instantiateViewController(withIdentifier: "SendCompletedViewController") as! SendCompletedViewController
+        sendCompletedVC.modalTransitionStyle = .crossDissolve
+        sendCompletedVC.modalPresentationStyle = .overCurrentContext
+        sendCompletedVC.transactionHash = "00000001d4c5fb6c9b…225c4e33"
+        
+        sendCompletedVC.openDetails = { [weak self] in
+            guard let `self` = self else { return }
+            debugPrint(self)
+            
+            let storyboard = UIStoryboard(
+                name: "TransactionFullDetailsViewController",
+                bundle: nil
+            )
+            
+           let txnDetails = storyboard.instantiateViewController(withIdentifier: "TransactionFullDetailsViewController") as! TransactionFullDetailsViewController
+            self.navigationController?.pushViewController(txnDetails, animated: true)
+        }
+        
+        self.present(sendCompletedVC, animated: true, completion: nil)
     }
 }

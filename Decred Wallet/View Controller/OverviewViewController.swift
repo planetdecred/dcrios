@@ -11,12 +11,16 @@ class OverviewViewController: UIViewController, WalletGetTransactionsResponsePro
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var lbCurrentBalance: UILabel!
+    @IBOutlet var viewTableHeader: UIView!
+    @IBOutlet var viewTableFooter: UIView!
     
     var mainContens = ["4.000000 DCR", "-3.000000 DCR", "21.340000 DCR", "-1.000000 DCR", "12.000000 DCR", "-1.000000 DCR", "12.30000 DCR","-2.000000 DCR", "3.000000 DCR","2.000000 DCR", "3.000000 DCR"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.registerCellNib(DataTableViewCell.self)
+        self.tableView.tableHeaderView = viewTableHeader
+        self.tableView.tableFooterView = viewTableFooter
         
         AppContext.instance.decrdConnection?.connect(onSuccess: { (height) in
             //let accounts = AppContext.instance.decrdConnection?.getAccounts()
