@@ -115,8 +115,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UserDefaults.standard.synchronize()
     }
     
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        debugPrint(error.localizedDescription)
+    }
+ 
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         // TODO: Handle push notification here
-        // FIXME: fix this issue
+        debugPrint("Got this info :: \(userInfo)")
     }
 }
