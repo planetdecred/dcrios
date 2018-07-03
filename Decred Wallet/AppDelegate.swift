@@ -104,12 +104,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
-    // MARK: Push notification
+    // MARK:- Push notification
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let tokenParts = deviceToken.map { data -> String in
             return String(format: "%02.2hhx", data)
         }
         
         let deviceId = tokenParts.joined()
+        UserDefaults.standard.set(deviceId, forKey: GlobalConstants.PreferenceKeys.deviceToken)
+        UserDefaults.standard.synchronize()
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        // TODO: Handle push notification here
+        // FIXME: fix this issue
     }
 }

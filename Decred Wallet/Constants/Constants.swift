@@ -41,4 +41,8 @@ struct GlobalConstants {
         
     }
     
+    struct PreferenceKeys {
+        static var deviceToken: String { return "device_token" }
+    }
+    
 }
