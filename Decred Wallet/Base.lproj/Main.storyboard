@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -1490,6 +1491,10 @@
                     </view>
                     <connections>
                         <outlet property="accountDropdown" destination="J3G-NR-1Iq" id="K92-3S-dTb"/>
+                        <outlet property="estimateFee" destination="EYP-dy-3rP" id="yTf-go-LYX"/>
+                        <outlet property="estimateSize" destination="Lh6-W4-7bE" id="bvA-lg-AYD"/>
+                        <outlet property="tfAmountValue" destination="LV4-0v-JkB" id="tsZ-3T-ZQW"/>
+                        <outlet property="totalAmountSending" destination="h3w-yu-1hS" id="0ji-jr-YUp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F75-w2-WNn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1505,11 +1510,11 @@
                         <viewControllerLayoutGuide type="bottom" id="4w6-Ph-vE3"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="IWZ-ke-U66">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="input or scan Address to recei money into the account" textAlignment="center" lineBreakMode="characterWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iXW-Px-8lO">
-                                <rect key="frame" x="32" y="122.5" width="311" height="34"/>
+                                <rect key="frame" x="32" y="100.5" width="256" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="D4k-ad-SWr"/>
                                 </constraints>
@@ -1518,13 +1523,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Receive Fund" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bpw-2z-j9u">
-                                <rect key="frame" x="133" y="94" width="109" height="21.5"/>
+                                <rect key="frame" x="105.5" y="72" width="109" height="21.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Ww-qc-2o9">
-                                <rect key="frame" x="80" y="163.5" width="187.5" height="34"/>
+                                <rect key="frame" x="80" y="141.5" width="160" height="34"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NGJ-UJ-dIK">
                                         <rect key="frame" x="0.0" y="0.0" width="33" height="34"/>
@@ -1533,7 +1538,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fvx-Vc-1a6" customClass="DropMenuButton" customModule="DecredWallet" customModuleProvider="target">
-                                        <rect key="frame" x="33" y="0.0" width="154.5" height="34"/>
+                                        <rect key="frame" x="33" y="0.0" width="127" height="34"/>
                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                         <state key="normal" title="default">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1550,20 +1555,20 @@
                                 </subviews>
                             </stackView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="P2Q-l4-CRY">
-                                <rect key="frame" x="60" y="205.5" width="255" height="256"/>
+                                <rect key="frame" x="60" y="183.5" width="200" height="201"/>
                                 <color key="backgroundColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="P2Q-l4-CRY" secondAttribute="height" multiplier="201:202" id="xBo-7J-v4W"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wallet Address" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2qM-47-p9s">
-                                <rect key="frame" x="122.5" y="471.5" width="130" height="24"/>
+                                <rect key="frame" x="95" y="394.5" width="130" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pzd-he-fVa" customClass="KeyPadButton" customModule="DecredWallet" customModuleProvider="target">
-                                <rect key="frame" x="91.5" y="503.5" width="192" height="50"/>
+                                <rect key="frame" x="91.5" y="426.5" width="137" height="50"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="wRe-RB-geo"/>

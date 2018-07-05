@@ -13,9 +13,13 @@ class SendViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var estimateFee: UILabel!
     @IBOutlet weak var estimateSize: UILabel!
     @IBOutlet weak var walletAddress: UITextField!
+    
+    @IBOutlet weak var tfAmountValue: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        tfAmountValue.addDoneButton()
+        
         self.accountDropdown.backgroundColor = UIColor.clear
         accountDropdown.initMenu(["My Wallet [153.0055 DCR]", "My Wallet2 [153.0055 DCR]", "My Wallet3 [153.0055 DCR]"], actions: ({ (ind, val) -> (Void) in
 
@@ -117,5 +121,10 @@ class SendViewController: UIViewController, UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        self.view.endEditing(true)
     }
 }
