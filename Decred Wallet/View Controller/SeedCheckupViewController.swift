@@ -29,6 +29,7 @@ class SeedCheckupViewController: UIViewController, SeedCheckupProtocol {
             self.tfSeedCheckWord.clean()
             self.btnConfirm.isEnabled = (self.txSeedCheckCombined.text == "\(self.seedToVerify ?? "") ")
         }
+        tfSeedCheckWord.addDoneButton()
     }
 
     @IBAction func onDelete(_ sender: Any) {
@@ -45,6 +46,8 @@ class SeedCheckupViewController: UIViewController, SeedCheckupProtocol {
         var vc = segue.destination as! SeedCheckupProtocol
         vc.seedToVerify = seedToVerify
     }
-    
-
+   
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
 }

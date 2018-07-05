@@ -40,6 +40,7 @@
 		95473E7120E3A4C20023F50A /* TransactiontOutputDetailsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95473E7020E3A4C00023F50A /* TransactiontOutputDetailsCell.xib */; };
 		95473E7420E3A6420023F50A /* TransactionDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95473E7220E3A6420023F50A /* TransactionDetailCell.swift */; };
 		95473E7520E3A6420023F50A /* TransactionDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95473E7320E3A6420023F50A /* TransactionDetailCell.xib */; };
+		9559289720ECCBBB00612256 /* TextFieldDoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9559289620ECCBBB00612256 /* TextFieldDoneButton.swift */; };
 		956D14AE20BF035D00624D68 /* wordlist.txt in Resources */ = {isa = PBXBuildFile; fileRef = 956D14AD20BF035C00624D68 /* wordlist.txt */; };
 		957F0AFB20B80EA600D3E8A9 /* RecoverWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957F0AF920B80EA600D3E8A9 /* RecoverWalletViewController.swift */; };
 		957F0AFC20B80EA600D3E8A9 /* RecoverWalletViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 957F0AFA20B80EA600D3E8A9 /* RecoverWalletViewController.xib */; };
@@ -161,6 +162,7 @@
 		95473E7020E3A4C00023F50A /* TransactiontOutputDetailsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactiontOutputDetailsCell.xib; sourceTree = "<group>"; };
 		95473E7220E3A6420023F50A /* TransactionDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailCell.swift; sourceTree = "<group>"; };
 		95473E7320E3A6420023F50A /* TransactionDetailCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionDetailCell.xib; sourceTree = "<group>"; };
+		9559289620ECCBBB00612256 /* TextFieldDoneButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldDoneButton.swift; sourceTree = "<group>"; };
 		956D14AD20BF035C00624D68 /* wordlist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = wordlist.txt; sourceTree = "<group>"; };
 		957F0AF920B80EA600D3E8A9 /* RecoverWalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoverWalletViewController.swift; sourceTree = "<group>"; };
 		957F0AFA20B80EA600D3E8A9 /* RecoverWalletViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecoverWalletViewController.xib; sourceTree = "<group>"; };
@@ -408,6 +410,7 @@
 			children = (
 				95404EBB20E113D700B34327 /* AccountsHeaderView */,
 				2883CA6F2099D40F0053D9BB /* DropDownSearchField.swift */,
+				9559289620ECCBBB00612256 /* TextFieldDoneButton.swift */,
 				DDB89412202F8635002F85EE /* ImageHeaderView.swift */,
 				DDB89416202F8EE2002F85EE /* UIImageView.swift */,
 				DDB89426202F955F002F85EE /* UIView.swift */,
@@ -779,6 +782,7 @@
 				DDA3E26E20292EF900C83D18 /* AppDelegate.swift in Sources */,
 				DDB8940D202F82E6002F85EE /* SettingsController.swift in Sources */,
 				DDB8940B202F82A3002F85EE /* AccountViewController.swift in Sources */,
+				9559289720ECCBBB00612256 /* TextFieldDoneButton.swift in Sources */,
 				95BFA83220D156D900BAED71 /* MenuCell.swift in Sources */,
 				286E279F20B6E22400EE0B08 /* DcrdSeedMnemonicSupport.swift in Sources */,
 				95473E6420E393C00023F50A /* TransactionFullDetailsViewController.swift in Sources */,
@@ -938,7 +942,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = LYZ95J7356;
+				DEVELOPMENT_TEAM = CW6QM3K6LP;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -966,7 +970,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = LYZ95J7356;
+				DEVELOPMENT_TEAM = CW6QM3K6LP;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

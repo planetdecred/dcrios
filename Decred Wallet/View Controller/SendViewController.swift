@@ -6,7 +6,7 @@
 
 import UIKit
 
-class SendViewController: UIViewController {
+class SendViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var accountDropdown: DropMenuButton!
     @IBOutlet weak var totalAmountSending: UILabel!
@@ -81,7 +81,6 @@ class SendViewController: UIViewController {
         
         confirmSendFundViewController.confirm = { [weak self] in
             guard let `self` = self else { return }
-            debugPrint(self)
         }
         
         present(confirmSendFundViewController, animated: true, completion: nil)
@@ -100,7 +99,6 @@ class SendViewController: UIViewController {
         
         sendCompletedVC.openDetails = { [weak self] in
             guard let `self` = self else { return }
-            debugPrint(self)
             
             let storyboard = UIStoryboard(
                 name: "TransactionFullDetailsViewController",
@@ -112,5 +110,12 @@ class SendViewController: UIViewController {
         }
         
         self.present(sendCompletedVC, animated: true, completion: nil)
+    }
+    
+    // MARK: - TextFieldDelegate
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

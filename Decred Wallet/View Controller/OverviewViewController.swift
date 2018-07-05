@@ -8,7 +8,9 @@ import SlideMenuControllerSwift
 import Wallet
 
 class OverviewViewController: UIViewController, WalletGetTransactionsResponseProtocol, WalletTransactionListenerProtocol, WalletBlockNotificationErrorProtocol {
-    
+    func onTransactionRefresh() {
+        
+    }
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var lbCurrentBalance: UILabel!
     @IBOutlet var viewTableHeader: UIView!
