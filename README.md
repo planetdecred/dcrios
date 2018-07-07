@@ -14,6 +14,7 @@ IOS 10.3 or above.
 4. [Gomobile](https://github.com/golang/go/wiki/Mobile#tools) (correctly init'd with gomobile init)
 
 Run the following commands
+
     git clone https://github.com/raedahgroup/dcrios.git
     cd dcrios
     ./build_wallet_framework.sh
