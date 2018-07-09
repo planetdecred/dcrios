@@ -4,7 +4,7 @@
 
 import UIKit
 
-class AccountDataCell: UITableViewCell {
+class AccountDataCell: UITableViewCell, AccountDetailsCellProtocol {
     @IBOutlet private weak var containerStackView: UIStackView!
     
     // MARK:- Details
@@ -27,5 +27,15 @@ class AccountDataCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    func setup(account: AccountsEntity) {
+        labelImmatureRewardValue.text = "\(account.Balance?.dcrImmatureReward ?? 0)"
+        labelLockedByTicketsValue.text = "\(account.Balance?.dcrLockedByTickets ?? 0)"
+        labelVotingAuthorityValue.text = "\(account.Balance?.dcrVotingAuthority ?? 0)"
+        labelImmatureStakeGenerationValue.text = "\(account.Balance?.dcrImmatureStakeGeneration ?? 0)"
+        labelAccountNoValue.text = "\(account.Number)"
+        //labelHDPathValue.text = "\(account.Balance)"
+        labelKeysValue.text = "\(account.ExternalKeyCount) External, \(account.InternalKeyCount) Internal, \(account.ImportedKeyCount) Imported"
     }
 }
