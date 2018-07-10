@@ -7,6 +7,7 @@ import UIKit
 class UISwitch_Theme: UISwitch {
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.subscribeToThemeUpdates()
     }
 
     deinit {

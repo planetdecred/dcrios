@@ -12,7 +12,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var navigation : UINavigationController?
     
-    var theme: Theme = .dark
+    var theme: Theme = .dark {
+        didSet {
+            NotificationCenter.default.post(
+                name: NSNotification.Name.appSkinDidChange,
+                object: nil
+            )
+        }
+    }
     
     fileprivate func walletSetupView() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -99,6 +106,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        theme = theme.toggle
     }
 
     func applicationWillTerminate(_: UIApplication) {

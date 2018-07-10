@@ -7,7 +7,8 @@ import UIKit
 class UIView_Theme: UIView {
     override func awakeFromNib() {
         super.awakeFromNib()
-        backgroundColor = AppDelegate.shared.theme.backgroundColor
+        backgroundColor = AppDelegate.shared.theme.backgroundColor        
+        subscribeToThemeUpdates()
     }
 
     deinit {

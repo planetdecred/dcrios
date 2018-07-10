@@ -1,4 +1,3 @@
-//
 //  BaseTableViewCell.swift
 //  Decred Wallet
 //  Copyright © 2018 The Decred developers.

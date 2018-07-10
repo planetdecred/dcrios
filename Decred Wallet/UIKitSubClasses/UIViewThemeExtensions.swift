@@ -7,13 +7,15 @@ extension UIView {
     @objc func changeSkin() {
         backgroundColor = AppDelegate.shared.theme.backgroundColor
     }
-
+    
     func subscribeToThemeUpdates() {
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(changeSkin),
-            name: Notification.Name.appSkinDidChange,
-            object: nil
+        NotificationCenter
+            .default
+            .addObserver(
+                self,
+                selector: #selector(self.changeSkin),
+                name: NSNotification.Name.appSkinDidChange,
+                object: nil
         )
     }
 }

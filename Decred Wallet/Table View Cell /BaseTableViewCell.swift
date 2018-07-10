@@ -21,6 +21,7 @@ open class BaseTableViewCell : UITableViewCell_Theme {
     }
     
     open override func awakeFromNib() {
+        super.awakeFromNib()
     }
     
     open func setup() {

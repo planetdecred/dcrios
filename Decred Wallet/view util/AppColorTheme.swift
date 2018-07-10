@@ -31,6 +31,10 @@ private extension Theme {
 }
 
 extension Theme {
+    var toggle: Theme {
+        return self == .dark ? .light : .dark
+    }
+    
     var backgroundColor: UIColor {
         return self == .dark ? darkColors.backgroundColor : lightColors.backgroundColor
     }

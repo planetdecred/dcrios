@@ -8,6 +8,7 @@ class UITextField_Theme: UITextField {
     override func awakeFromNib() {
         super.awakeFromNib()
         backgroundColor = AppDelegate.shared.theme.backgroundColor
+        
     }
 
     deinit {
