@@ -7,6 +7,10 @@ import UIKit
 class UITextField_Theme: UITextField {
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.backgroundColor = AppDelegate.shared.theme.backgroundColor
+        backgroundColor = AppDelegate.shared.theme.backgroundColor
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 }

@@ -8,8 +8,9 @@ class UILabel_Theme: UILabel {
     override func awakeFromNib() {
         super.awakeFromNib()
         backgroundColor = AppDelegate.shared.theme.backgroundColor
+        subscribeToThemeUpdates()
     }
-    
+
     deinit {
         NotificationCenter.default.removeObserver(self)
     }

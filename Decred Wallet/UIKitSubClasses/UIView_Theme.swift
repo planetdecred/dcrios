@@ -9,7 +9,7 @@ class UIView_Theme: UIView {
         super.awakeFromNib()
         backgroundColor = AppDelegate.shared.theme.backgroundColor
     }
-    
+
     deinit {
         NotificationCenter.default.removeObserver(self)
     }

@@ -30,6 +30,9 @@
 		95057ED820F4D58A00788F93 /* UISwitch_Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95057ED720F4D58A00788F93 /* UISwitch_Theme.swift */; };
 		95057EDA20F4D5BF00788F93 /* UIButton_Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95057ED920F4D5BF00788F93 /* UIButton_Theme.swift */; };
 		95057EDC20F4E53F00788F93 /* UITextField_Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95057EDB20F4E53F00788F93 /* UITextField_Theme.swift */; };
+		95057EDE20F4EB9200788F93 /* Notification.Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95057EDD20F4EB9200788F93 /* Notification.Name.swift */; };
+		95057EE020F4EE0400788F93 /* UIViewThemeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95057EDF20F4EE0400788F93 /* UIViewThemeExtensions.swift */; };
+		95057EE220F4EEED00788F93 /* UITableViewCell_Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95057EE120F4EEED00788F93 /* UITableViewCell_Theme.swift */; };
 		952C932720E2174B00A60E43 /* ConfirmToSendFundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952C932620E2174B00A60E43 /* ConfirmToSendFundViewController.swift */; };
 		952C932A20E247FE00A60E43 /* SendCompletedViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 952C932920E247FE00A60E43 /* SendCompletedViewController.storyboard */; };
 		952C932C20E2481500A60E43 /* SendCompletedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952C932B20E2481500A60E43 /* SendCompletedViewController.swift */; };
@@ -159,6 +162,9 @@
 		95057ED720F4D58A00788F93 /* UISwitch_Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISwitch_Theme.swift; sourceTree = "<group>"; };
 		95057ED920F4D5BF00788F93 /* UIButton_Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton_Theme.swift; sourceTree = "<group>"; };
 		95057EDB20F4E53F00788F93 /* UITextField_Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextField_Theme.swift; sourceTree = "<group>"; };
+		95057EDD20F4EB9200788F93 /* Notification.Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.Name.swift; sourceTree = "<group>"; };
+		95057EDF20F4EE0400788F93 /* UIViewThemeExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewThemeExtensions.swift; sourceTree = "<group>"; };
+		95057EE120F4EEED00788F93 /* UITableViewCell_Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCell_Theme.swift; sourceTree = "<group>"; };
 		952C932620E2174B00A60E43 /* ConfirmToSendFundViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmToSendFundViewController.swift; sourceTree = "<group>"; };
 		952C932920E247FE00A60E43 /* SendCompletedViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SendCompletedViewController.storyboard; sourceTree = "<group>"; };
 		952C932B20E2481500A60E43 /* SendCompletedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendCompletedViewController.swift; sourceTree = "<group>"; };
@@ -345,12 +351,15 @@
 			isa = PBXGroup;
 			children = (
 				9560559120EFAA41001CA614 /* UIView_Theme.swift */,
+				95057EDF20F4EE0400788F93 /* UIViewThemeExtensions.swift */,
 				95057EDB20F4E53F00788F93 /* UITextField_Theme.swift */,
 				95057ED520F4D46E00788F93 /* UITextView_Theme.swift */,
 				95057ED720F4D58A00788F93 /* UISwitch_Theme.swift */,
 				95057ED920F4D5BF00788F93 /* UIButton_Theme.swift */,
 				9560559320EFAFCF001CA614 /* UITableView_Theme.swift */,
+				95057EE120F4EEED00788F93 /* UITableViewCell_Theme.swift */,
 				9560559520EFBF7D001CA614 /* UILabel_Theme.swift */,
+				95057EDD20F4EB9200788F93 /* Notification.Name.swift */,
 			);
 			name = UIKitSubClasses;
 			path = "Decred Wallet/UIKitSubClasses";
@@ -703,6 +712,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95057EE020F4EE0400788F93 /* UIViewThemeExtensions.swift in Sources */,
 				9560559220EFAA41001CA614 /* UIView_Theme.swift in Sources */,
 				DDB89409202F824A002F85EE /* ReceiveViewController.swift in Sources */,
 				DD1D5C8220AEE90D009789DD /* ServerSetTableViewController.swift in Sources */,
@@ -712,6 +722,7 @@
 				286E279D20B6E22400EE0B08 /* DcrObservers.swift in Sources */,
 				DDB8941B202F8F92002F85EE /* UIColor.swift in Sources */,
 				95404EBE20E113D700B34327 /* AccountsHeaderView.swift in Sources */,
+				95057EDE20F4EB9200788F93 /* Notification.Name.swift in Sources */,
 				95473E7420E3A6420023F50A /* TransactionDetailCell.swift in Sources */,
 				28F0CE7320888258003AC958 /* Utils.swift in Sources */,
 				DDB89404202F7E01002F85EE /* SendViewController.swift in Sources */,
@@ -765,6 +776,7 @@
 				95473E6A20E39E3C0023F50A /* TransactiontInputDetails.swift in Sources */,
 				95CC024420D3F15800DA73AF /* AccountsData.swift in Sources */,
 				95877FED20B70D4B00CE53D2 /* TransactionHistoryTableViewCell.swift in Sources */,
+				95057EE220F4EEED00788F93 /* UITableViewCell_Theme.swift in Sources */,
 				28F0CE7520888386003AC958 /* AppContext.swift in Sources */,
 				DDB89423202F9432002F85EE /* DataTableViewCell.swift in Sources */,
 				DDBC152C2095D2E900F68BA6 /* encryptWalletViewController.swift in Sources */,
