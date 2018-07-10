@@ -7,7 +7,7 @@
 import Foundation
 import UIKit
 
-open class BaseTableViewCell : UITableViewCell {
+open class BaseTableViewCell : UITableViewCell_Theme {
     class var identifier: String { return String.className(self) }
     
     public required init?(coder aDecoder: NSCoder) {

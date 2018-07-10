@@ -22,7 +22,7 @@
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="1.5" translatesAutoresizingMaskIntoConstraints="NO" id="x3z-we-xl8">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="995.5"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BFl-OA-HNW">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BFl-OA-HNW" customClass="UIView_Theme" customModule="DecredWallet" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="428" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Details" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5o5-dy-nkN">
@@ -41,7 +41,7 @@
                                     <constraint firstItem="5o5-dy-nkN" firstAttribute="centerY" secondItem="BFl-OA-HNW" secondAttribute="centerY" id="wg1-IX-QUI"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uEe-Oc-ytp">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uEe-Oc-ytp" customClass="UIView_Theme" customModule="DecredWallet" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="51.5" width="428" height="100"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Immature Rewards" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gau-4s-dvi">
@@ -68,7 +68,7 @@
                                     <constraint firstItem="7At-AS-vHt" firstAttribute="centerY" secondItem="uEe-Oc-ytp" secondAttribute="centerY" id="fBX-D9-dKc"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HQm-ou-Lnw">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HQm-ou-Lnw" customClass="UIView_Theme" customModule="DecredWallet" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="153" width="428" height="100"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Locked by tickets" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cma-Lq-TmH">
@@ -95,7 +95,7 @@
                                     <constraint firstItem="cma-Lq-TmH" firstAttribute="centerY" secondItem="4sf-cX-FHj" secondAttribute="centerY" id="rhS-1P-898"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZbX-3a-pD5">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZbX-3a-pD5" customClass="UIView_Theme" customModule="DecredWallet" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="254.5" width="428" height="100"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Voting Auhtority" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CM6-wF-4p7">
@@ -122,7 +122,7 @@
                                     <constraint firstItem="CM6-wF-4p7" firstAttribute="centerY" secondItem="fsB-Tb-OtA" secondAttribute="centerY" id="rLe-gn-Cqx"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dEK-Lb-uAr">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dEK-Lb-uAr" customClass="UIView_Theme" customModule="DecredWallet" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="356" width="428" height="100"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Immature Stake Generation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2e4-oK-zwZ">
@@ -149,7 +149,7 @@
                                     <constraint firstItem="2e4-oK-zwZ" firstAttribute="leading" secondItem="dEK-Lb-uAr" secondAttribute="leading" constant="13" id="rei-rm-417"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nuM-F1-JsP">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nuM-F1-JsP" customClass="UIView_Theme" customModule="DecredWallet" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="457.5" width="428" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Properties" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UDk-ZR-kRY">
@@ -167,7 +167,7 @@
                                     <constraint firstAttribute="trailing" secondItem="UDk-ZR-kRY" secondAttribute="trailing" constant="20" id="wVR-BP-caI"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yTC-ne-EKA">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yTC-ne-EKA" customClass="UIView_Theme" customModule="DecredWallet" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="509" width="428" height="100"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c5p-Di-GTI">
@@ -194,7 +194,7 @@
                                     <constraint firstItem="c5p-Di-GTI" firstAttribute="centerY" secondItem="P5V-EW-4kC" secondAttribute="centerY" id="ToN-nZ-aWc"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bPe-fR-dOo">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bPe-fR-dOo" customClass="UIView_Theme" customModule="DecredWallet" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="610.5" width="428" height="100"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HD Path" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iNZ-PX-dyd">
@@ -221,7 +221,7 @@
                                     <constraint firstItem="iNZ-PX-dyd" firstAttribute="centerY" secondItem="xys-o1-lj8" secondAttribute="centerY" id="nj3-Mm-1Ki"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r5f-ba-Is7">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r5f-ba-Is7" customClass="UIView_Theme" customModule="DecredWallet" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="712" width="428" height="100"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Keys" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C6g-uY-FAM">
@@ -251,7 +251,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="ZBh-P7-Sq1">
                                 <rect key="frame" x="0.0" y="813.5" width="428" height="182"/>
                                 <subviews>
-                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bf1-q3-JNV">
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bf1-q3-JNV" customClass="UIView_Theme" customModule="DecredWallet" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="428" height="40"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wallet Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xdz-Em-Exf">
@@ -269,7 +269,7 @@
                                             <constraint firstItem="xdz-Em-Exf" firstAttribute="centerY" secondItem="Bf1-q3-JNV" secondAttribute="centerY" id="uWP-RI-3cM"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="asn-Re-j0f">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="asn-Re-j0f" customClass="UIView_Theme" customModule="DecredWallet" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="40" width="428" height="66"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hide This Wallet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EQg-zn-PAe">
@@ -301,7 +301,7 @@
                                             <constraint firstItem="cK4-wr-Yg4" firstAttribute="top" secondItem="EQg-zn-PAe" secondAttribute="bottom" id="uXg-Nf-vTB"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q05-nd-HLC">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q05-nd-HLC" customClass="UIView_Theme" customModule="DecredWallet" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="106" width="428" height="76"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Default Wallet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R7y-ew-Pi8">

@@ -38,8 +38,10 @@ class TransactionHistoryTableViewCell: BaseTableViewCell {
     @IBOutlet weak var txtDate: UILabel!
     @IBOutlet weak var txtTrStatus: UILabel!
 
-    
     override func awakeFromNib() {
+        super.awakeFromNib()
+        backgroundColor = AppDelegate.shared.theme.backgroundColor
+        contentView.backgroundColor = AppDelegate.shared.theme.backgroundColor
     }
     
     override class func height() -> CGFloat {

@@ -140,10 +140,10 @@ extension LeftViewController : UITableViewDataSource {
                 cell.setData(menus[indexPath.row])
                 
                 if(self.selectedIndex == indexPath.row) {
-                    cell.backView.backgroundColor = UIColor.white
+                    // cell.backView.backgroundColor = UIColor.white
                     cell.lblMenu.textColor = UIColor.black
                 } else {
-                    cell.backView.backgroundColor = GlobalConstants.Colors.menuCell
+                    // cell.backView.backgroundColor = GlobalConstants.Colors.menuCell
                     cell.lblMenu.textColor = GlobalConstants.Colors.menuTitle
                 }
                 cell.selectedView.isHidden = (self.selectedIndex == indexPath.row) ? false : true

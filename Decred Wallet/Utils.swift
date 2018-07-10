@@ -45,17 +45,4 @@ func createMainWindow(){
     UIApplication.shared.keyWindow?.makeKeyAndVisible()
 }
 
-func saveCertificate(secretKey: String) {
-    do {
-        let filePath = NSHomeDirectory() + "/Documents/rpc.cert"
-        let filePathURL = URL.init(fileURLWithPath: filePath)
-        try secretKey.write(to: filePathURL, atomically: true, encoding: String.Encoding.utf8)
-    } catch {
-        debugPrint("Could not create certificate file")
-    }
-}
 
-func loadCertificate() throws ->  String {
-    let filePath = NSHomeDirectory() + "/Documents/rpc.cert"
-    return try String.init(contentsOfFile: filePath)
-}

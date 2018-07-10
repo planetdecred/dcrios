@@ -25,7 +25,7 @@
                             <constraint firstAttribute="height" constant="29" id="M5W-en-jgk"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="249.6090" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nYk-f2-jH2">
+                    <label opaque="NO"  customClass="UILabel_Theme" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="249.6090" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nYk-f2-jH2">
                         <rect key="frame" x="57" y="15.5" width="75.5" height="29"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="29" id="1q9-Ib-1zD"/>
@@ -34,7 +34,7 @@
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirmed" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lce-DF-4i7">
+                    <label opaque="NO"  customClass="UILabel_Theme" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirmed" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lce-DF-4i7">
                         <rect key="frame" x="303" y="8" width="64" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="3yc-3x-91u"/>
@@ -43,7 +43,7 @@
                         <color key="textColor" red="0.23529411764705882" green="0.51143809081428571" blue="0.72343421743697478" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mar 23, 2018 10:30 pm" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ojr-wA-e0N">
+                    <label opaque="NO"  customClass="UILabel_Theme" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mar 23, 2018 10:30 pm" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ojr-wA-e0N">
                         <rect key="frame" x="227.5" y="30" width="139.5" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="i7r-v0-xvn"/>
@@ -52,7 +52,7 @@
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ePd-6b-3q9">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ePd-6b-3q9" customClass="UIView_Theme" customModule="DecredWallet" customModuleProvider="target">
                         <rect key="frame" x="5" y="58.5" width="365" height="1"/>
                         <color key="backgroundColor" white="0.78898809527142844" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -84,7 +84,7 @@
                 <outlet property="txtDate" destination="Ojr-wA-e0N" id="mUQ-Qk-GFp"/>
                 <outlet property="txtTrStatus" destination="Lce-DF-4i7" id="dEb-sv-3ef"/>
             </connections>
-            <point key="canvasLocation" x="557.5" y="8.5"/>
+            <point key="canvasLocation" x="382" y="-51"/>
         </tableViewCell>
     </objects>
     <resources>

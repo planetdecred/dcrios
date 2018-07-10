@@ -15,7 +15,7 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactiontOutputDetailsCell" rowHeight="303" id="KGk-i7-Jjw" customClass="TransactiontOutputDetailsCell" customModule="DecredWallet" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="303"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM" customClass="UIView_Theme" customModule="DecredWallet" customModuleProvider="target">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="302.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
@@ -32,8 +32,8 @@
                                     <action selector="hideOrExpandAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="R2l-eQ-ckI"/>
                                 </connections>
                             </button>
-                            <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v9E-Zp-tzI">
-                                <rect key="frame" x="0.0" y="-10" width="300" height="30"/>
+                            <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v9E-Zp-tzI" customClass="UIView_Theme" customModule="DecredWallet" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="-20" width="300" height="30"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" ambiguous="YES" text="20.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PIx-6f-Sw3">
                                         <rect key="frame" x="0.0" y="10" width="300" height="52.5"/>

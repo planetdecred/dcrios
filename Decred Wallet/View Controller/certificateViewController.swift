@@ -17,8 +17,6 @@ class certificateViewController: UIViewController {
         self.navigationItem.title = "Certificate"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
         // Do any additional setup after loading the view.
-        
-        loadCert()
     }
 
     override func didReceiveMemoryWarning() {
@@ -27,18 +25,15 @@ class certificateViewController: UIViewController {
     }
     @objc func save() -> Void {
        // save here
-        guard certificate.text.length > 0 else { return }
-        
-        saveCertificate(secretKey: self.certificate.text)
         self.navigationController?.popViewController(animated: true)
+        
     }
     @objc func cancel() -> Void {
         self.navigationController?.popViewController(animated: true)
     }
     
     func loadCert(){
-        guard let cerContent = try? loadCertificate() else { return }
-        self.certificate.text = cerContent
+        
     }
     
 

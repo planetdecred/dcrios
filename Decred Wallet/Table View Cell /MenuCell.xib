@@ -26,7 +26,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gEi-Dy-yHm">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gEi-Dy-yHm" customClass="UIView_Theme" customModule="DecredWallet" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <color key="backgroundColor" red="0.94509803920000002" green="0.95294117649999999" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -51,7 +51,6 @@
                         </constraints>
                     </view>
                 </subviews>
-                <color key="backgroundColor" red="0.94509803921568625" green="0.95294117647058818" blue="0.94901960784313721" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="beQ-gl-OQd" secondAttribute="bottom" id="22m-Zg-WXH"/>
                     <constraint firstItem="gEi-Dy-yHm" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="5ND-NC-nBd"/>
@@ -76,6 +75,7 @@
                 <outlet property="menuImage" destination="bIe-GN-mEy" id="Taz-nX-Nbw"/>
                 <outlet property="selectedView" destination="beQ-gl-OQd" id="pAM-QY-ngy"/>
             </connections>
+            <point key="canvasLocation" x="-57" y="-94"/>
         </tableViewCell>
     </objects>
 </document>

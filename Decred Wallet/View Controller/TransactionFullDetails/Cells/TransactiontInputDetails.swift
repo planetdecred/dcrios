@@ -4,14 +4,13 @@
 
 import UIKit
 
-class TransactiontInputDetails: UITableViewCell {
+class TransactiontInputDetails: UITableViewCell_Theme {
     @IBOutlet weak var viewCotainer: UIView!
     
     var expandOrCollapse: (() -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

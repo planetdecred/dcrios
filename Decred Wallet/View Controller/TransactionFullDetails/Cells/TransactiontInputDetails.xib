@@ -15,7 +15,7 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactiontInputDetails" rowHeight="268" id="KGk-i7-Jjw" customClass="TransactiontInputDetails" customModule="DecredWallet" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="268"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM" customClass="UIView_Theme" customModule="DecredWallet" customModuleProvider="target">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="267.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
@@ -32,8 +32,8 @@
                                     <action selector="hideOrExpandAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="w46-vw-AIv"/>
                                 </connections>
                             </button>
-                            <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fvo-Gc-5cm">
-                                <rect key="frame" x="0.0" y="0.0" width="300" height="16"/>
+                            <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fvo-Gc-5cm" customClass="UIView_Theme" customModule="DecredWallet" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="-8" width="300" height="16"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="274.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Ts-cp-znf">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="41"/>

@@ -7,12 +7,12 @@
 import Foundation
 import UIKit
 
-open class MenuCell : UITableViewCell {
+open class MenuCell : UITableViewCell_Theme {
     class var identifier: String { return String.className(self) }
     @IBOutlet weak var menuImage: UIImageView!
     @IBOutlet weak var lblMenu: UILabel!
     @IBOutlet weak var selectedView: UIView!
-    @IBOutlet weak var backView: UIView!
+    @IBOutlet weak var backView: UIView_Theme!
     
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -25,6 +25,9 @@ open class MenuCell : UITableViewCell {
     }
     
     open override func awakeFromNib() {
+        super.awakeFromNib()
+        backgroundColor = AppDelegate.shared.theme.backgroundColor
+        contentView.backgroundColor = AppDelegate.shared.theme.backgroundColor
     }
     
     open func setup() {

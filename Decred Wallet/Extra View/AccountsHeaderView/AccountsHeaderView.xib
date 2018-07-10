@@ -19,7 +19,7 @@
                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="5HR-QN-iia">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="72"/>
                     <subviews>
-                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ipD-e1-fPk">
+                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ipD-e1-fPk" customClass="UIView_Theme" customModule="DecredWallet" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="187.5" height="72"/>
                             <subviews>
                                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OcH-Ts-2f1">
@@ -46,7 +46,7 @@
                                 <constraint firstAttribute="bottom" secondItem="OcH-Ts-2f1" secondAttribute="bottom" id="yYL-km-gEI"/>
                             </constraints>
                         </view>
-                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Fl-P6-MXy">
+                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Fl-P6-MXy" customClass="UIView_Theme" customModule="DecredWallet" customModuleProvider="target">
                             <rect key="frame" x="187.5" y="0.0" width="187.5" height="72"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5,000.00 DCR" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="32h-wD-gkx">

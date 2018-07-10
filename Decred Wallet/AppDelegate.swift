@@ -12,6 +12,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var navigation : UINavigationController?
     
+    var theme: Theme = .dark
+    
     fileprivate func walletSetupView() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let walletSetupController = storyboard.instantiateViewController(withIdentifier: "WalletSetupViewController") as! WalletSetupViewController
@@ -101,5 +103,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+}
+
+extension AppDelegate {
+    class var shared: AppDelegate {
+        return UIApplication.shared.delegate as! AppDelegate
     }
 }

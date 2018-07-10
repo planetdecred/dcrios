@@ -68,8 +68,8 @@ class SendViewController: UIViewController {
     }
     
     @IBAction private func sendFund(_ sender: Any) {
-        // transactionSucceeded()
-        confirmSend()
+         transactionSucceeded()
+        // confirmSend()
     }
     
     private func confirmSend() {

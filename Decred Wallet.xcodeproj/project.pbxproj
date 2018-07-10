@@ -40,6 +40,10 @@
 		95473E7120E3A4C20023F50A /* TransactiontOutputDetailsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95473E7020E3A4C00023F50A /* TransactiontOutputDetailsCell.xib */; };
 		95473E7420E3A6420023F50A /* TransactionDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95473E7220E3A6420023F50A /* TransactionDetailCell.swift */; };
 		95473E7520E3A6420023F50A /* TransactionDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95473E7320E3A6420023F50A /* TransactionDetailCell.xib */; };
+		9560558F20EFA8B2001CA614 /* AppColorTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9560558E20EFA8B2001CA614 /* AppColorTheme.swift */; };
+		9560559220EFAA41001CA614 /* UIView_Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9560559120EFAA41001CA614 /* UIView_Theme.swift */; };
+		9560559420EFAFCF001CA614 /* UITableView_Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9560559320EFAFCF001CA614 /* UITableView_Theme.swift */; };
+		9560559620EFBF7D001CA614 /* UILabel_Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9560559520EFBF7D001CA614 /* UILabel_Theme.swift */; };
 		956D14AE20BF035D00624D68 /* wordlist.txt in Resources */ = {isa = PBXBuildFile; fileRef = 956D14AD20BF035C00624D68 /* wordlist.txt */; };
 		957F0AFB20B80EA600D3E8A9 /* RecoverWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957F0AF920B80EA600D3E8A9 /* RecoverWalletViewController.swift */; };
 		957F0AFC20B80EA600D3E8A9 /* RecoverWalletViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 957F0AFA20B80EA600D3E8A9 /* RecoverWalletViewController.xib */; };
@@ -161,6 +165,10 @@
 		95473E7020E3A4C00023F50A /* TransactiontOutputDetailsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactiontOutputDetailsCell.xib; sourceTree = "<group>"; };
 		95473E7220E3A6420023F50A /* TransactionDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailCell.swift; sourceTree = "<group>"; };
 		95473E7320E3A6420023F50A /* TransactionDetailCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionDetailCell.xib; sourceTree = "<group>"; };
+		9560558E20EFA8B2001CA614 /* AppColorTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppColorTheme.swift; sourceTree = "<group>"; };
+		9560559120EFAA41001CA614 /* UIView_Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView_Theme.swift; sourceTree = "<group>"; };
+		9560559320EFAFCF001CA614 /* UITableView_Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableView_Theme.swift; sourceTree = "<group>"; };
+		9560559520EFBF7D001CA614 /* UILabel_Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel_Theme.swift; sourceTree = "<group>"; };
 		956D14AD20BF035C00624D68 /* wordlist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = wordlist.txt; sourceTree = "<group>"; };
 		957F0AF920B80EA600D3E8A9 /* RecoverWalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoverWalletViewController.swift; sourceTree = "<group>"; };
 		957F0AFA20B80EA600D3E8A9 /* RecoverWalletViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecoverWalletViewController.xib; sourceTree = "<group>"; };
@@ -325,6 +333,17 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		9560559020EFAA0B001CA614 /* UIKitSubClasses */ = {
+			isa = PBXGroup;
+			children = (
+				9560559120EFAA41001CA614 /* UIView_Theme.swift */,
+				9560559320EFAFCF001CA614 /* UITableView_Theme.swift */,
+				9560559520EFBF7D001CA614 /* UILabel_Theme.swift */,
+			);
+			name = UIKitSubClasses;
+			path = "Decred Wallet/UIKitSubClasses";
+			sourceTree = "<group>";
+		};
 		957F0AFD20B82F0800D3E8A9 /* Constants */ = {
 			isa = PBXGroup;
 			children = (
@@ -345,6 +364,7 @@
 		DD4C89DB2038EE60003FEA0C /* view util */ = {
 			isa = PBXGroup;
 			children = (
+				9560558E20EFA8B2001CA614 /* AppColorTheme.swift */,
 				95B80F3020DCCCF2004D5613 /* iOSDevCenters+GIF.swift */,
 				95B80F2F20DCCCF2004D5613 /* loaderAnimation.gif */,
 				DD4C89D72038CABD003FEA0C /* keyPadButton.swift */,
@@ -419,6 +439,7 @@
 		DDA3E26120292EF900C83D18 = {
 			isa = PBXGroup;
 			children = (
+				9560559020EFAA0B001CA614 /* UIKitSubClasses */,
 				DDA3E26C20292EF900C83D18 /* Decred Wallet */,
 				DDA3E28120292EF900C83D18 /* Decred WalletTests */,
 				DDA3E26B20292EF900C83D18 /* Products */,
@@ -670,6 +691,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9560559220EFAA41001CA614 /* UIView_Theme.swift in Sources */,
 				DDB89409202F824A002F85EE /* ReceiveViewController.swift in Sources */,
 				DD1D5C8220AEE90D009789DD /* ServerSetTableViewController.swift in Sources */,
 				DD1D5C8420AEE9FF009789DD /* PeerSetTableViewController.swift in Sources */,
@@ -688,6 +710,7 @@
 				95877FE920B70CBB00CE53D2 /* TransactionHistoryViewController.swift in Sources */,
 				DD1D5C7E20AEDB15009789DD /* WalletLogViewController.swift in Sources */,
 				DD4C89DA2038EC3F003FEA0C /* keyPadButton.swift in Sources */,
+				9560559420EFAFCF001CA614 /* UITableView_Theme.swift in Sources */,
 				DDB8941D202F9252002F85EE /* ExSlideMenuController.swift in Sources */,
 				95B80F3220DCCCF2004D5613 /* iOSDevCenters+GIF.swift in Sources */,
 				2883CA72209B52AE0053D9BB /* WaiterScreenViewController.swift in Sources */,
@@ -704,11 +727,13 @@
 				952C932720E2174B00A60E43 /* ConfirmToSendFundViewController.swift in Sources */,
 				28E5EB7320924632002DCCB5 /* CreatePasswordViewController.swift in Sources */,
 				DD1D5C8020AEDB2B009789DD /* NodeLogViewController.swift in Sources */,
+				9560558F20EFA8B2001CA614 /* AppColorTheme.swift in Sources */,
 				286E279C20B6E22400EE0B08 /* DcrdWalletCreationSupport.swift in Sources */,
 				952C932C20E2481500A60E43 /* SendCompletedViewController.swift in Sources */,
 				286E27A020B6E22400EE0B08 /* DcrdAccountsSupport.swift in Sources */,
 				28E5EB6D20908AE0002DCCB5 /* SeedCheckupViewController.swift in Sources */,
 				28F3B7FA20C8356400D2E0D3 /* ObserverProxy.m in Sources */,
+				9560559620EFBF7D001CA614 /* UILabel_Theme.swift in Sources */,
 				DDB89417202F8EE2002F85EE /* UIImageView.swift in Sources */,
 				DD1D5C7C20AED828009789DD /* certificateViewController.swift in Sources */,
 				DD96B33F20293F110046F2DD /* LeftViewController.swift in Sources */,

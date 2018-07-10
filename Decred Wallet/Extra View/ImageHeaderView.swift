@@ -7,7 +7,7 @@
 import Foundation
 import UIKit
 
-class ImageHeaderView : UIView {
+class ImageHeaderView : UIView_Theme {
     
     @IBOutlet weak var profileImage : UIImageView!
     
