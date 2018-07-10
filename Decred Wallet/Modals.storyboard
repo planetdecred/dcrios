@@ -13,7 +13,7 @@
         <!--Waiter Screen View Controller-->
         <scene sceneID="sHq-fT-BdS">
             <objects>
-                <viewController id="TLf-D8-fNB" customClass="WaiterScreenViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="TLf-D8-fNB" customClass="WaiterScreenViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GKI-oX-6FE">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -25,7 +25,7 @@
                                     <constraint firstAttribute="height" constant="79" id="mUS-T6-6H0"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zm3-j8-cpC">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zm3-j8-cpC" customClass="UILabel_Theme" customModule="DecredWallet" customModuleProvider="target">
                                 <rect key="frame" x="34" y="372" width="306" height="21"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                 <color key="textColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>

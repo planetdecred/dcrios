@@ -7,8 +7,7 @@ import UIKit
 class UILabel_Theme: UILabel {
     override func awakeFromNib() {
         super.awakeFromNib()
-             self.textColor = AppDelegate.shared.theme.textColor
-        self.backgroundColor = UIColor.orange
+        backgroundColor = AppDelegate.shared.theme.backgroundColor
     }
     
     deinit {
