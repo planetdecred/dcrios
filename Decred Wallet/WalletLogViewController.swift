@@ -14,7 +14,9 @@ class WalletLogViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Wallet Log"
-        load(log: "testnet2")
+        let testnetOn = UserDefaults.standard.bool(forKey: "pref_use_testnet")
+        let logsType = testnetOn ? "testnet2" : "mainnet"
+        load(log: logsType)
     }
     
     fileprivate func load(log:String){
