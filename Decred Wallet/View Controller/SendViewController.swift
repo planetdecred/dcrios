@@ -13,14 +13,21 @@ class SendViewController: UIViewController {
     @IBOutlet weak var estimateFee: UILabel!
     @IBOutlet weak var estimateSize: UILabel!
     @IBOutlet weak var walletAddress: UITextField!
+    @IBOutlet weak var destinationAddress: UILabel!
+    
+    var selectedAccount : AccountsEntity?
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.accountDropdown.backgroundColor = UIColor.clear
-        accountDropdown.initMenu(["My Wallet [153.0055 DCR]", "My Wallet2 [153.0055 DCR]", "My Wallet3 [153.0055 DCR]"], actions: ({ (ind, val) -> (Void) in
+        let accounts = AppContext.instance.decrdConnection?.getAccounts()
+        let accountsDisplay = accounts?.Acc.map {
+            return "\($0.Name) [\($0.dcrTotalBalance) DCR]"
+        }
+        accountDropdown.initMenu(accountsDisplay!, actions: ({ (ind, val) -> (Void) in
 
             self.accountDropdown.setAttributedTitle(self.getAttributedString(str: val), for: UIControlState.normal)
-
+            self.selectedAccount = accounts?.Acc[ind]
             self.accountDropdown.backgroundColor = UIColor(red: 173.0/255.0, green: 231.0/255.0, blue: 249.0/255.0, alpha: 1.0)
         }))
     }
@@ -30,7 +37,11 @@ class SendViewController: UIViewController {
         self.setNavigationBarItem()
          self.navigationItem.title = "Send"
     }
-
+    
+    @IBAction func onPasteAddress(_ sender: Any) {
+        
+    }
+    
     func getAttributedString(str: String) -> NSAttributedString {
 
         let stt = str as NSString!
