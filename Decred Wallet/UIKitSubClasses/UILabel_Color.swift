@@ -11,7 +11,7 @@ class UILabel_DimColor: UILabel {
     }
     
     override func changeSkin() {
-        
+        super.changeSkin()
     }
     
     deinit {
@@ -19,6 +19,7 @@ class UILabel_DimColor: UILabel {
     }
 }
 
+// MARK:-
 class UILabel_DefaultTextColor: UILabel {
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,7 +27,7 @@ class UILabel_DefaultTextColor: UILabel {
     }
     
     override func changeSkin() {
-        
+        super.changeSkin()
     }
     
     deinit {
@@ -34,6 +35,7 @@ class UILabel_DefaultTextColor: UILabel {
     }
 }
 
+// MARK:-
 class UILabel_GreenColor: UILabel {
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -41,7 +43,7 @@ class UILabel_GreenColor: UILabel {
     }
     
     override func changeSkin() {
-        
+        super.changeSkin()
     }
     
     deinit {
@@ -49,6 +51,7 @@ class UILabel_GreenColor: UILabel {
     }
 }
 
+// MARK:-
 class UILabel_BlueColor: UILabel {
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -56,7 +59,7 @@ class UILabel_BlueColor: UILabel {
     }
     
     override func changeSkin() {
-        
+        super.changeSkin()
     }
     
     deinit {
@@ -64,6 +67,7 @@ class UILabel_BlueColor: UILabel {
     }
 }
 
+// MARK:-
 class UILabel_AccountDetails: UILabel {
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -71,7 +75,7 @@ class UILabel_AccountDetails: UILabel {
     }
     
     override func changeSkin() {
-        
+        super.changeSkin()
     }
     
     deinit {
@@ -79,6 +83,7 @@ class UILabel_AccountDetails: UILabel {
     }
 }
 
+// MARK:-
 class UILabel_WhiteColor: UILabel {
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -86,7 +91,7 @@ class UILabel_WhiteColor: UILabel {
     }
     
     override func changeSkin() {
-        
+        super.changeSkin()
     }
     
     deinit {
