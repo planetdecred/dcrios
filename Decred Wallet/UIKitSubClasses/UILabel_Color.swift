@@ -8,10 +8,12 @@ class UILabel_DimColor: UILabel {
     override func awakeFromNib() {
         super.awakeFromNib()
         subscribeToThemeUpdates()
+        changeSkin()
     }
     
     override func changeSkin() {
         super.changeSkin()
+        textColor = AppDelegate.shared.theme.dimTextColor
     }
     
     deinit {
@@ -24,10 +26,12 @@ class UILabel_DefaultTextColor: UILabel {
     override func awakeFromNib() {
         super.awakeFromNib()
         subscribeToThemeUpdates()
+        changeSkin()
     }
     
     override func changeSkin() {
         super.changeSkin()
+        textColor = AppDelegate.shared.theme.defaultTextColor
     }
     
     deinit {
@@ -40,10 +44,12 @@ class UILabel_GreenColor: UILabel {
     override func awakeFromNib() {
         super.awakeFromNib()
         subscribeToThemeUpdates()
+        changeSkin()
     }
     
     override func changeSkin() {
         super.changeSkin()
+        textColor = AppDelegate.shared.theme.greenTextColor
     }
     
     deinit {
@@ -56,10 +62,12 @@ class UILabel_BlueColor: UILabel {
     override func awakeFromNib() {
         super.awakeFromNib()
         subscribeToThemeUpdates()
+        changeSkin()
     }
     
     override func changeSkin() {
         super.changeSkin()
+        textColor = AppDelegate.shared.theme.blueTextColor
     }
     
     deinit {
@@ -72,10 +80,12 @@ class UILabel_AccountDetails: UILabel {
     override func awakeFromNib() {
         super.awakeFromNib()
         subscribeToThemeUpdates()
+        changeSkin()
     }
     
     override func changeSkin() {
         super.changeSkin()
+        textColor = AppDelegate.shared.theme.accountDetailsTextColor
     }
     
     deinit {
@@ -88,6 +98,7 @@ class UILabel_WhiteColor: UILabel {
     override func awakeFromNib() {
         super.awakeFromNib()
         subscribeToThemeUpdates()
+        changeSkin()
     }
     
     override func changeSkin() {

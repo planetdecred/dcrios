@@ -180,22 +180,20 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         
-        let itemLabel = UILabel(frame: CGRect(x: 10, y: 0, width: self.frame.width-10, height: self.frame.height))
+        let itemLabel = UILabel_DefaultTextColor(frame: CGRect(x: 10, y: 0, width: self.frame.width-10, height: self.frame.height))
         itemLabel.textAlignment = NSTextAlignment.left
         itemLabel.text = items[(indexPath as NSIndexPath).row]
         itemLabel.font = UIFont (name: "Helvetica Neue", size: 10)
-        itemLabel.textColor = UIColor.darkGray
+        itemLabel.changeSkin()
         
-        let bgColorView = UIView()
+        let bgColorView = UIView_Theme()
         bgColorView.backgroundColor = UIColor.lightGray
         
-        let cell = UITableViewCell(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height))
-        cell.backgroundColor = UIColor.white
-        cell.selectedBackgroundView = bgColorView
+        let cell = UITableViewCell_Theme(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height))
+
         cell.separatorInset = UIEdgeInsetsMake(0, self.frame.width, 0, self.frame.width)
-    
+
         cell.addSubview(itemLabel)
-        
         
         return cell
     }
