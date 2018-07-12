@@ -5,7 +5,7 @@ import UIKit
 
 extension UIView {
     @objc func changeSkin() {
-        backgroundColor = AppDelegate.shared.theme.backgroundColor
+//        backgroundColor = AppDelegate.shared.theme.backgroundColor
     }
     
     func subscribeToThemeUpdates() {

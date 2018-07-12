@@ -8,7 +8,7 @@ open class UITableViewCell_Theme: UITableViewCell {
 
     open override func awakeFromNib() {
         super.awakeFromNib()
-        backgroundColor = AppDelegate.shared.theme.backgroundColor
+//        backgroundColor = AppDelegate.shared.theme.backgroundColor
         contentView.backgroundColor = AppDelegate.shared.theme.backgroundColor
         subscribeToThemeUpdates()
     }

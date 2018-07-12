@@ -25,7 +25,7 @@ class DataTableViewCell : BaseTableViewCell {
     override func awakeFromNib() {
         self.dataText?.font = UIFont.systemFont(ofSize: 16)
         
-        backgroundColor = AppDelegate.shared.theme.backgroundColor
+//        backgroundColor = AppDelegate.shared.theme.backgroundColor
         contentView.backgroundColor = AppDelegate.shared.theme.backgroundColor
     }
     

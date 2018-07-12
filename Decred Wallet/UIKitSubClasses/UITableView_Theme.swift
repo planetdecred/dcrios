@@ -7,7 +7,7 @@ import UIKit
 class UITableView_Theme: UITableView {
     override func awakeFromNib() {
         super.awakeFromNib()
-        backgroundColor = AppDelegate.shared.theme.backgroundColor
+//        backgroundColor = AppDelegate.shared.theme.backgroundColor
         subscribeToThemeUpdates()
     }
 
