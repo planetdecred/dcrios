@@ -1251,7 +1251,7 @@
                                             <action selector="onPasteAddress:" destination="6Rd-Rq-h1D" eventType="touchUpInside" id="b0L-xv-be8"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Djsnfkjnaksntafkdhgdkhgkahdgluhdg" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HLv-jj-ydo">
+                                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HLv-jj-ydo">
                                         <rect key="frame" x="0.0" y="20" width="289" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="ZBi-YA-SZn"/>
@@ -1481,6 +1481,9 @@
                     <connections>
                         <outlet property="accountDropdown" destination="J3G-NR-1Iq" id="K92-3S-dTb"/>
                         <outlet property="destinationAddress" destination="HLv-jj-ydo" id="ieI-4k-JKZ"/>
+                        <outlet property="estimateFee" destination="EYP-dy-3rP" id="7wd-bd-snD"/>
+                        <outlet property="estimateSize" destination="Lh6-W4-7bE" id="Q9Y-in-3eG"/>
+                        <outlet property="tfAmount" destination="LV4-0v-JkB" id="7Wm-vk-E6h"/>
                         <outlet property="totalAmountSending" destination="h3w-yu-1hS" id="avH-vS-Ou4"/>
                     </connections>
                 </viewController>

@@ -14,6 +14,7 @@ class SendViewController: UIViewController {
     @IBOutlet weak var estimateSize: UILabel!
     @IBOutlet weak var walletAddress: UITextField!
     @IBOutlet weak var destinationAddress: UILabel!
+    @IBOutlet weak var tfAmount: UITextField!
     
     var selectedAccount : AccountsEntity?
     override func viewDidLoad() {
@@ -44,7 +45,7 @@ class SendViewController: UIViewController {
     
     func getAttributedString(str: String) -> NSAttributedString {
 
-        let stt = str as NSString!
+        let stt = str as NSString?
         let atrStr = NSMutableAttributedString(string: stt! as String)
         let dotRange = stt?.range(of: "[")
         //print("Index = \(dotRange?.location)")
@@ -74,13 +75,12 @@ class SendViewController: UIViewController {
         }
         return atrStr
     }
-
-    @IBAction func accountDropdown(_ sender: Any) {
-    }
-    
+   
     @IBAction private func sendFund(_ sender: Any) {
-        // transactionSucceeded()
-        confirmSend()
+        //transactionSucceeded()
+        if validate(){
+            confirmSend()
+        }
     }
     
     private func confirmSend() {
@@ -88,7 +88,7 @@ class SendViewController: UIViewController {
         let confirmSendFundViewController = storyboard.instantiateViewController(withIdentifier: "ConfirmToSendFundViewController") as! ConfirmToSendFundViewController
         confirmSendFundViewController.modalTransitionStyle = .crossDissolve
         confirmSendFundViewController.modalPresentationStyle = .overCurrentContext
-        confirmSendFundViewController.amount = 25.869
+        confirmSendFundViewController.amount = Double((totalAmountSending?.text)!)!
         
         confirmSendFundViewController.confirm = { [weak self] in
             guard let `self` = self else { return }
@@ -123,5 +123,54 @@ class SendViewController: UIViewController {
         }
         
         self.present(sendCompletedVC, animated: true, completion: nil)
+    }
+    
+    private func validate() -> Bool{
+        if !validateWallet(){
+            showAlertForInvalidWallet()
+            return false
+        }
+        if !validateDestinationAddress(){
+            showAlertForInvalidDestinationAddress()
+            return false
+        }
+        if !validateAmount(){
+            showAlertInvalidAmount()
+            return false
+        }
+        return true
+    }
+    
+    private func validateDestinationAddress() -> Bool{
+        return (destinationAddress.text?.count ?? 0) > 8
+    }
+    
+    private func validateAmount() -> Bool{
+        return (totalAmountSending.text?.count ?? 0) > 0
+    }
+    
+    private func validateWallet() -> Bool{
+        return selectedAccount != nil
+    }
+    
+    private func showAlertForInvalidDestinationAddress(){
+        showAlert(message: "Please paste a correct destination address")
+    }
+    
+    private func showAlertForInvalidWallet(){
+        showAlert(message: "Please select your source wallet")
+    }
+    
+    private func showAlertInvalidAmount(){
+        showAlert(message: "Please input amount of DCR to send")
+    }
+    
+    private func showAlert(message:String?){
+        let alert = UIAlertController(title: "Warning", message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
+            alert.dismiss(animated: true, completion: nil)
+        }
+        alert.addAction(okAction)
+        self.present(alert, animated: true, completion: nil)
     }
 }
