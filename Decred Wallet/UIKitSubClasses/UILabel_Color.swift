@@ -9,6 +9,7 @@ class UILabel_DimColor: UILabel {
         super.awakeFromNib()
         subscribeToThemeUpdates()
         changeSkin()
+        textColor = AppDelegate.shared.theme.dimTextColor
     }
 
     override func changeSkin() {
@@ -108,6 +109,7 @@ class UILabel_WhiteColor: UILabel {
 
     override func changeSkin() {
         super.changeSkin()
+        textColor = AppDelegate.shared.theme.white
     }
 
     deinit {
