@@ -19,6 +19,12 @@ open class UITableViewCell_Theme: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    open override func prepareForReuse() {
+        super.prepareForReuse()
+        backgroundColor = AppDelegate.shared.theme.backgroundColor
+        contentView.backgroundColor = AppDelegate.shared.theme.backgroundColor
+    }
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }

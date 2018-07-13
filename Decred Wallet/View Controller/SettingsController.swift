@@ -14,14 +14,14 @@ class SettingsController: UITableViewController  {
     weak var delegate: LeftMenuProtocol?
     @IBOutlet weak var peer_cell: UIView!
     
-    @IBOutlet weak var connectPeer_cell: UITableViewCell!
-    @IBOutlet weak var server_cell: UITableViewCell!
-    @IBOutlet weak var certificate_cell: UITableViewCell!
+    @IBOutlet weak var connectPeer_cell: UITableViewCell_Theme!
+    @IBOutlet weak var server_cell: UITableViewCell_Theme!
+    @IBOutlet weak var certificate_cell: UITableViewCell_Theme!
     @IBOutlet weak var serverAdd_label: UILabel!
     @IBOutlet weak var connect_ip_label: UILabel!
     @IBOutlet weak var certificat_label: UILabel!
     @IBOutlet weak var network_mode_subtitle: UILabel!
-    @IBOutlet weak var network_mode: UITableViewCell!
+    @IBOutlet weak var network_mode: UITableViewCell_Theme!
   
     @IBOutlet weak var connect_peer_ip: UILabel!
     @IBOutlet weak var build: UILabel!

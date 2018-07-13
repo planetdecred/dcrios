@@ -20,10 +20,10 @@ private extension Theme {
     }
 
     struct DarkTheme {
-        let backgroundColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+        let backgroundColor = #colorLiteral(red: 0.1647058824, green: 0.1647058824, blue: 0.1882352941, alpha: 1)
         let textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         let dimTextColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
-        let navigationBarColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+        let navigationBarColor = #colorLiteral(red: 0.1647058824, green: 0.1647058824, blue: 0.1882352941, alpha: 1)
         let defaultTextColor =  #colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1)
         let greenTextColor = #colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1)
         let blueTextColor = #colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1)

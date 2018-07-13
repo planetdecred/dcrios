@@ -69,7 +69,7 @@ class SendViewController: UIViewController {
     
     @IBAction private func sendFund(_ sender: Any) {
          transactionSucceeded()
-        // confirmSend()
+         // confirmSend()
     }
     
     private func confirmSend() {
