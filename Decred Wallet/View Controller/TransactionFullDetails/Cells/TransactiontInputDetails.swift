@@ -4,7 +4,7 @@
 
 import UIKit
 
-class TransactiontInputDetails: UITableViewCell_Theme {
+class TransactiontInputDetails: UITableViewCellTheme {
     @IBOutlet weak var viewCotainer: UIView!
     
     var expandOrCollapse: (() -> Void)?

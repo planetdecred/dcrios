@@ -6,12 +6,12 @@
 import Foundation
 import UIKit
 
-open class MenuCell: UITableViewCell_Theme {
+open class MenuCell: UITableViewCellTheme {
     class var identifier: String { return String.className(self) }
     @IBOutlet var menuImage: UIImageView!
-    @IBOutlet var lblMenu: UILabel_DefaultTextColor!
+    @IBOutlet var lblMenu: UILabelDefaultTextColor!
     @IBOutlet var selectedView: UIView!
-    @IBOutlet var backView: UIView_Theme!
+    @IBOutlet var backView: UIViewTheme!
 
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

@@ -4,7 +4,7 @@
 
 import UIKit
 
-class UILabel_DimColor: UILabel {
+class UILabelDimColor: UILabel {
     override func awakeFromNib() {
         super.awakeFromNib()
         subscribeToThemeUpdates()
@@ -24,7 +24,7 @@ class UILabel_DimColor: UILabel {
 
 // MARK: -
 
-class UILabel_DefaultTextColor: UILabel {
+class UILabelDefaultTextColor: UILabel {
     override func awakeFromNib() {
         super.awakeFromNib()
         subscribeToThemeUpdates()
@@ -43,7 +43,7 @@ class UILabel_DefaultTextColor: UILabel {
 
 // MARK: -
 
-class UILabel_GreenColor: UILabel {
+class UILabelGreenColor: UILabel {
     override func awakeFromNib() {
         super.awakeFromNib()
         subscribeToThemeUpdates()
@@ -62,7 +62,7 @@ class UILabel_GreenColor: UILabel {
 
 // MARK: -
 
-class UILabel_BlueColor: UILabel {
+class UILabelBlueColor: UILabel {
     override func awakeFromNib() {
         super.awakeFromNib()
         subscribeToThemeUpdates()
@@ -81,7 +81,7 @@ class UILabel_BlueColor: UILabel {
 
 // MARK: -
 
-class UILabel_AccountDetails: UILabel {
+class UILabelAccountDetails: UILabel {
     override func awakeFromNib() {
         super.awakeFromNib()
         subscribeToThemeUpdates()
@@ -100,7 +100,7 @@ class UILabel_AccountDetails: UILabel {
 
 // MARK: -
 
-class UILabel_WhiteColor: UILabel {
+class UILabelWhiteColor: UILabel {
     override func awakeFromNib() {
         super.awakeFromNib()
         subscribeToThemeUpdates()

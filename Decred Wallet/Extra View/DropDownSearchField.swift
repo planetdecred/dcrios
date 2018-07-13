@@ -30,7 +30,7 @@ class DropDownListDataSource: NSObject,  DropDownResultsListProtocol {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! UITableViewCell_Theme
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! UITableViewCellTheme
         cell.textLabel?.text = items?[indexPath.row]
         cell.contentView.backgroundColor = AppDelegate.shared.theme.backgroundColor
         cell.backgroundColor = AppDelegate.shared.theme.backgroundColor
@@ -68,7 +68,7 @@ class DropDownSearchField: UITextField, UITextFieldDelegate, SearchDataSourcePro
     
     fileprivate func setupDropdownTable() {
         dropDownTable = UITableView(frame: CGRect(x: frame.origin.x, y: frame.size.height + frame.origin.y, width: frame.size.width, height: 150), style: .plain)
-        dropDownTable?.register(UITableViewCell_Theme.self, forCellReuseIdentifier: (searchResult?.cellIdentifier)!)
+        dropDownTable?.register(UITableViewCellTheme.self, forCellReuseIdentifier: (searchResult?.cellIdentifier)!)
         dropDownTable?.dataSource = searchResult
         dropDownTable?.delegate = searchResult
         dropDownTable?.isHidden = true

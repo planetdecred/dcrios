@@ -4,7 +4,7 @@
 
 import UIKit
 
-class AccountsHeaderView: UIView_Theme {
+class AccountsHeaderView: UIViewTheme {
     
     @IBOutlet private weak var labelTitle: UILabel!
     @IBOutlet private weak var labelTotalBalance: UILabel!

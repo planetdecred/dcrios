@@ -4,7 +4,7 @@
 
 import UIKit
 
-class TransactionDetailCell: UITableViewCell_Theme {
+class TransactionDetailCell: UITableViewCellTheme {
     @IBOutlet private weak var labelTitle: UILabel!
     @IBOutlet private weak var labelValue: UILabel!
     var txnDetails: TransactionDetails? {

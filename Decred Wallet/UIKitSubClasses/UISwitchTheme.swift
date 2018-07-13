@@ -1,13 +1,12 @@
-///  UIView_Theme.swift
+//  UISwitch_Theme.swift
 //  Decred Wallet
 //  Copyright © 2018 The Decred developers. All rights reserved.
 
 import UIKit
 
-class UIView_Theme: UIView {
+class UISwitchTheme: UISwitch {
     override func awakeFromNib() {
         super.awakeFromNib()
-        backgroundColor = AppDelegate.shared.theme.backgroundColor
         subscribeToThemeUpdates()
     }
 

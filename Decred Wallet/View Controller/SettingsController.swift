@@ -10,19 +10,19 @@ class SettingsController: UITableViewController {
     weak var delegate: LeftMenuProtocol?
     @IBOutlet var peer_cell: UIView!
 
-    @IBOutlet var connectPeer_cell: UITableViewCell_Theme!
-    @IBOutlet var server_cell: UITableViewCell_Theme!
-    @IBOutlet var certificate_cell: UITableViewCell_Theme!
-    @IBOutlet var serverAdd_label: UILabel_DefaultTextColor!
-    @IBOutlet var connect_ip_label: UILabel_DefaultTextColor!
-    @IBOutlet var certificat_label: UILabel_DefaultTextColor!
+    @IBOutlet var connectPeer_cell: UITableViewCellTheme!
+    @IBOutlet var server_cell: UITableViewCellTheme!
+    @IBOutlet var certificate_cell: UITableViewCellTheme!
+    @IBOutlet var serverAdd_label: UILabelDefaultTextColor!
+    @IBOutlet var connect_ip_label: UILabelDefaultTextColor!
+    @IBOutlet var certificat_label: UILabelDefaultTextColor!
     @IBOutlet var network_mode_subtitle: UILabel!
-    @IBOutlet var network_mode: UITableViewCell_Theme!
+    @IBOutlet var network_mode: UITableViewCellTheme!
 
-    @IBOutlet var connect_peer_ip: UILabel_DefaultTextColor!
-    @IBOutlet var build: UILabel_DefaultTextColor!
-    @IBOutlet var version: UILabel_DefaultTextColor!
-    @IBOutlet var server_ip: UILabel_DefaultTextColor!
+    @IBOutlet var connect_peer_ip: UILabelDefaultTextColor!
+    @IBOutlet var build: UILabelDefaultTextColor!
+    @IBOutlet var version: UILabelDefaultTextColor!
+    @IBOutlet var server_ip: UILabelDefaultTextColor!
 
     @IBOutlet var debu_msg: UISwitch!
     @IBOutlet var testnet_switch: UISwitch!

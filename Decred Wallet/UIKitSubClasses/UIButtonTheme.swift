@@ -4,7 +4,7 @@
 
 import UIKit
 
-class UIButton_Theme: UIButton {
+class UIButtonTheme: UIButton {
     override func awakeFromNib() {
         super.awakeFromNib()
         subscribeToThemeUpdates()

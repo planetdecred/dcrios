@@ -4,8 +4,8 @@
 
 import UIKit
 
-class TransactiontOutputDetailsCell: UITableViewCell_Theme {
-    @IBOutlet private weak var viewContainer: UIView_Theme!
+class TransactiontOutputDetailsCell: UITableViewCellTheme {
+    @IBOutlet private weak var viewContainer: UIViewTheme!
     
     var expandOrCollapse: (() -> Void)?
     

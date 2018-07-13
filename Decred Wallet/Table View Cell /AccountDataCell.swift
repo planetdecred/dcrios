@@ -4,7 +4,7 @@
 
 import UIKit
 
-class AccountDataCell: UITableViewCell_Theme {
+class AccountDataCell: UITableViewCellTheme {
     @IBOutlet private weak var containerStackView: UIStackView!
     
     // MARK:- Details

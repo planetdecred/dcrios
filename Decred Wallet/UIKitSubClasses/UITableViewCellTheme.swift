@@ -4,7 +4,7 @@
 
 import UIKit
 
-open class UITableViewCell_Theme: UITableViewCell {
+open class UITableViewCellTheme: UITableViewCell {
     open override func awakeFromNib() {
         super.awakeFromNib()
         backgroundColor = AppDelegate.shared.theme.backgroundColor

@@ -4,7 +4,7 @@
 
 import UIKit
 
-class UITextField_Theme: UITextField {
+class UITextFieldTheme: UITextField {
     override func awakeFromNib() {
         super.awakeFromNib()
         backgroundColor = AppDelegate.shared.theme.backgroundColor

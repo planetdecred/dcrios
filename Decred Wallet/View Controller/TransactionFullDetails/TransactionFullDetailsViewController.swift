@@ -77,7 +77,7 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView: UIView_Theme = .init(frame: CGRect.zero)        
+        let headerView: UIViewTheme = .init(frame: CGRect.zero)        
         headerView.frame.size.height = 30.0
         
         return (section == 0 ? self.detailsHeader : headerView)
