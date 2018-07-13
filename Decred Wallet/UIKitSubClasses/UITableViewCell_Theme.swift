@@ -5,26 +5,31 @@
 import UIKit
 
 open class UITableViewCell_Theme: UITableViewCell {
-
     open override func awakeFromNib() {
         super.awakeFromNib()
         backgroundColor = AppDelegate.shared.theme.backgroundColor
         contentView.backgroundColor = AppDelegate.shared.theme.backgroundColor
         subscribeToThemeUpdates()
     }
-    
-    override open func  setSelected(_ selected: Bool, animated: Bool) {
+
+    open override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
     
+    override func changeSkin() {
+        super.changeSkin()
+        backgroundColor = AppDelegate.shared.theme.backgroundColor
+        contentView.backgroundColor = AppDelegate.shared.theme.backgroundColor
+    }
+
     open override func prepareForReuse() {
         super.prepareForReuse()
         backgroundColor = AppDelegate.shared.theme.backgroundColor
         contentView.backgroundColor = AppDelegate.shared.theme.backgroundColor
     }
-    
+
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
