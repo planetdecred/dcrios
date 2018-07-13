@@ -1,9 +1,8 @@
 //
 //  WalletLogViewController.swift
 //  Decred Wallet
-//
-//  Created by Suleiman Abubakar on 18/05/2018.
-//  Copyright © 2018 The Decred developers. All rights reserved.
+//  Copyright © 2018 The Decred developers.
+//  see LICENSE for details.
 //
 
 import UIKit
@@ -11,30 +10,20 @@ import UIKit
 class WalletLogViewController: UIViewController {
 
     @IBOutlet weak var logTextView: UITextView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Wallet Log"
-        // Do any additional setup after loading the view.
+        let testnetOn = UserDefaults.standard.bool(forKey: "pref_use_testnet")
+        let logsType = testnetOn ? "testnet2" : "mainnet"
+        load(log: logsType)
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    fileprivate func load(log:String){
+        let logPath = NSHomeDirectory()+"/Documents/logs/\(log)/dcrwallet.log"
+        let logContent = try? String(contentsOf: URL(fileURLWithPath: logPath))
+        let aLogs = logContent?.split(separator: "\n")
+        let cutOffLogFlow = aLogs?.suffix(from: (aLogs?.count)! - 500)
+        logTextView.text = cutOffLogFlow?.joined(separator: ";\n")
     }
-    
-    func loadLog(){
-        
-    }
-    
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
-
 }
