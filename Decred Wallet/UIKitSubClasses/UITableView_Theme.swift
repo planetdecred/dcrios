@@ -10,6 +10,11 @@ class UITableView_Theme: UITableView {
         backgroundColor = AppDelegate.shared.theme.backgroundColor
         subscribeToThemeUpdates()
     }
+    
+    override func changeSkin() {
+        super.changeSkin()
+        reloadData()
+    }
 
     deinit {
         NotificationCenter.default.removeObserver(self)
