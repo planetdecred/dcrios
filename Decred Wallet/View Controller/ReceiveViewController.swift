@@ -23,8 +23,9 @@ class ReceiveViewController: UIViewController {
                 accNames,
                 actions: { _, val in
                     debugPrint(val)
-                    if let selected = acc.filter({ $0.Name == val }).first {
-                        debugPrint(selected)
+                    if let selectedAccount = acc.filter({ $0.Name == val }).first {                        
+                        let address = AppContext.instance.decrdConnection?.getCurrentAddress(account: selectedAccount.Number)
+                        debugPrint(address)
                     }
             })
         }
