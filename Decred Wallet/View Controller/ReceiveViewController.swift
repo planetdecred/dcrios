@@ -7,7 +7,8 @@ import Foundation
 import UIKit
 
 class ReceiveViewController: UIViewController {
-    @IBOutlet var accountDropdown: DropMenuButton!
+    @IBOutlet private var accountDropdown: DropMenuButton!
+    @IBOutlet private var imgWalletAddrQRCode: UIImageView!
 
     // MARK: - View Life Cycle
 
@@ -21,11 +22,15 @@ class ReceiveViewController: UIViewController {
 
             accountDropdown.initMenu(
                 accNames,
-                actions: { _, val in
-                    debugPrint(val)
-                    if let selectedAccount = acc.filter({ $0.Name == val }).first {                        
+                actions: { [weak self] _, val in
+                    guard let this = self else { return }
+                    if let selectedAccount = acc.filter({ $0.Name == val }).first {
                         let address = AppContext.instance.decrdConnection?.getCurrentAddress(account: selectedAccount.Number)
-                        debugPrint(address)
+                        // debugPrint(address)
+                        this.imgWalletAddrQRCode.image = AppContext.instance.decrdConnection?.generateQRCodeFor(
+                            with: address ?? "",
+                            forImageViewFrame: this.imgWalletAddrQRCode.frame
+                        )
                     }
             })
         }
