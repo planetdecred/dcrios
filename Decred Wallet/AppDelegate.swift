@@ -5,6 +5,7 @@
 
 import CoreData
 import SlideMenuControllerSwift
+import IQKeyboardManager
 import Wallet
 
 @UIApplicationMain
@@ -71,6 +72,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                 "pref_server_ip": "192.168.0.100:19109"])
         AppContext.instance.decrdConnection = DcrdConnection()
         AppContext.instance.decrdConnection?.initiateWallet()
+        
+        IQKeyboardManager.shared().isEnabled = true
+        
         return true
     }
 

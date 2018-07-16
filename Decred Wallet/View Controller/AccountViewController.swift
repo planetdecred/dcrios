@@ -68,7 +68,6 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
             guard let strongSelf = self else { return }
 
             strongSelf.myBalances[index].isExpanded.toggle()
-            debugPrint("expanded = \(strongSelf.myBalances[index].isExpanded)")
             strongSelf.tableAccountData.reloadData()
         }
 

@@ -6,16 +6,20 @@
 
 import UIKit
 
-class SendViewController: UIViewController {
+class SendViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var accountDropdown: DropMenuButton!
     @IBOutlet weak var totalAmountSending: UILabel!
     @IBOutlet weak var estimateFee: UILabel!
     @IBOutlet weak var estimateSize: UILabel!
     @IBOutlet weak var walletAddress: UITextField!
+    
+    @IBOutlet weak var tfAmountValue: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        tfAmountValue.addDoneButton()
+        
         self.accountDropdown.backgroundColor = UIColor.clear
         accountDropdown.initMenu(["My Wallet [153.0055 DCR]", "My Wallet2 [153.0055 DCR]", "My Wallet3 [153.0055 DCR]"], actions: ({ (ind, val) -> (Void) in
 
@@ -81,7 +85,6 @@ class SendViewController: UIViewController {
         
         confirmSendFundViewController.confirm = { [weak self] in
             guard let `self` = self else { return }
-            debugPrint(self)
         }
         
         present(confirmSendFundViewController, animated: true, completion: nil)
@@ -100,7 +103,6 @@ class SendViewController: UIViewController {
         
         sendCompletedVC.openDetails = { [weak self] in
             guard let `self` = self else { return }
-            debugPrint(self)
             
             let storyboard = UIStoryboard(
                 name: "TransactionFullDetailsViewController",
@@ -112,5 +114,18 @@ class SendViewController: UIViewController {
         }
         
         self.present(sendCompletedVC, animated: true, completion: nil)
+    }
+    
+    // MARK: - TextFieldDelegate
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        self.view.endEditing(true)
+
     }
 }

@@ -56,6 +56,7 @@
 		95CC024020D3DAFF00DA73AF /* AccountDataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CC023E20D3DAFF00DA73AF /* AccountDataCell.swift */; };
 		95CC024120D3DAFF00DA73AF /* AccountDataCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95CC023F20D3DAFF00DA73AF /* AccountDataCell.xib */; };
 		95CC024420D3F15800DA73AF /* AccountsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CC024320D3F15800DA73AF /* AccountsData.swift */; };
+		95E1C96E20FCD43E00D7F3EE /* TextFieldDoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E1C96D20FCD43E00D7F3EE /* TextFieldDoneButton.swift */; };
 		B853136BC96255F028D8CB64 /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD1BD0208F6C9A0051F58F /* Pods_Decred_Wallet.framework */; };
 		DD0C493E208A160900986C6B /* WalletSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C493D208A160900986C6B /* WalletSetupViewController.swift */; };
 		DD0C4940208A401A00986C6B /* saveSeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C493F208A401A00986C6B /* saveSeedViewController.swift */; };
@@ -177,6 +178,7 @@
 		95CC023E20D3DAFF00DA73AF /* AccountDataCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDataCell.swift; sourceTree = "<group>"; };
 		95CC023F20D3DAFF00DA73AF /* AccountDataCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountDataCell.xib; sourceTree = "<group>"; };
 		95CC024320D3F15800DA73AF /* AccountsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsData.swift; sourceTree = "<group>"; };
+		95E1C96D20FCD43E00D7F3EE /* TextFieldDoneButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldDoneButton.swift; sourceTree = "<group>"; };
 		A1A97C56BC75512DA55A8A70 /* Pods-Decred WalletTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred WalletTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Decred WalletTests/Pods-Decred WalletTests.release.xcconfig"; sourceTree = "<group>"; };
 		DD0C493D208A160900986C6B /* WalletSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSetupViewController.swift; sourceTree = "<group>"; };
 		DD0C493F208A401A00986C6B /* saveSeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = saveSeedViewController.swift; sourceTree = "<group>"; };
@@ -408,6 +410,7 @@
 			children = (
 				95404EBB20E113D700B34327 /* AccountsHeaderView */,
 				2883CA6F2099D40F0053D9BB /* DropDownSearchField.swift */,
+				95E1C96D20FCD43E00D7F3EE /* TextFieldDoneButton.swift */,
 				DDB89412202F8635002F85EE /* ImageHeaderView.swift */,
 				DDB89416202F8EE2002F85EE /* UIImageView.swift */,
 				DDB89426202F955F002F85EE /* UIView.swift */,
@@ -632,11 +635,13 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SlideMenuControllerSwift/SlideMenuControllerSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManager.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SlideMenuControllerSwift.framework",
 			);
@@ -731,6 +736,7 @@
 				DDA3E26E20292EF900C83D18 /* AppDelegate.swift in Sources */,
 				DDB8940D202F82E6002F85EE /* SettingsController.swift in Sources */,
 				DDB8940B202F82A3002F85EE /* AccountViewController.swift in Sources */,
+				95E1C96E20FCD43E00D7F3EE /* TextFieldDoneButton.swift in Sources */,
 				95BFA83220D156D900BAED71 /* MenuCell.swift in Sources */,
 				286E279F20B6E22400EE0B08 /* DcrdSeedMnemonicSupport.swift in Sources */,
 				95473E6420E393C00023F50A /* TransactionFullDetailsViewController.swift in Sources */,
@@ -890,7 +896,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = LYZ95J7356;
+				DEVELOPMENT_TEAM = CW6QM3K6LP;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -918,7 +924,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = LYZ95J7356;
+				DEVELOPMENT_TEAM = CW6QM3K6LP;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
