@@ -6,6 +6,7 @@ target 'Decred Wallet' do
   use_frameworks!
   pod 'SlideMenuControllerSwift'
   pod 'MBProgressHUD'
+  pod 'IQKeyboardManager'
   # Pods for Decred Wallet
 
   target 'Decred WalletTests' do

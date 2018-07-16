@@ -9,8 +9,6 @@
 import UIKit
 import MBProgressHUD
 
-
-
 class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITextFieldDelegate {
     var seedToVerify: String?
     var progressHud: MBProgressHUD?
@@ -32,6 +30,11 @@ class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITex
     
     @objc func textFieldDidChange(_ textField: UITextField) {
         validatePassword()
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
     func validatePassword(){
