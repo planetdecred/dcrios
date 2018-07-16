@@ -67,7 +67,7 @@
     return self;
 }
 
-- (void) subscribeForUpdateNotifications:(id<WalletTransactionListener>)observer{
+- (void) subscribeForUpdateNotifications:(id<WalletTransactionListener>)observera{
     [self.transactionNotificationsSubscribers addObject:observer];
     
 }

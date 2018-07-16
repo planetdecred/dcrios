@@ -6,58 +6,39 @@
 import Foundation
 import UIKit
 
+protocol  AccountDetailsCellProtocol{
+    func setup(account:AccountsEntity)
+}
+
+extension AccountsData{
+    init(entity:AccountsEntity, color: UIColor){
+        self.color = color
+        self.spendableBalance = Double((entity.Balance?.dcrSpendable)!)
+        self.totalBalance = Double((entity.Balance?.dcrTotal)!)
+        self.title = entity.Name
+        self.isExpanded = false
+    }
+}
+
 class AccountViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     // MARK: - Properties
     private lazy var myBalances: [AccountsData] = {
-        let ac1 = AccountsData(
-            color: #colorLiteral(red: 0.1807299256, green: 0.8454471231, blue: 0.6397696137, alpha: 1),
-            spendableBalance: 153.80078,
-            title: "My Wallet",
-            totalBalance: 258.58087,
-            isExpanded: false
-        )
-
-        let ac2 = AccountsData(
-            color: #colorLiteral(red: 0.1593483388, green: 0.4376987219, blue: 1, alpha: 1),
-            spendableBalance: 102.14870,
-            title: "ASICs Mining",
-            totalBalance: 105.22705,
-            isExpanded: false
-        )
-
-        let ac3 = AccountsData(
-            color: #colorLiteral(red: 0.992682755, green: 0.4418484569, blue: 0.2896475494, alpha: 1),
-            spendableBalance: 200.0,
-            title: "Savings",
-            totalBalance: 5000.0,
-            isExpanded: false
-        )
-
-        let ac4 = AccountsData(
-            color: #colorLiteral(red: 0.9992011189, green: 0.7829756141, blue: 0.3022021651, alpha: 1),
-            spendableBalance: 200.0,
-            title: "Imported",
-            totalBalance: 1000.0,
-            isExpanded: false
-        )
-
-        let ac5 = AccountsData(
-            color: #colorLiteral(red: 0.7991421819, green: 0.7997539639, blue: 0.7992369533, alpha: 1),
-            spendableBalance: 200.0,
-            title: "Mining (Hidden)",
-            totalBalance: 1000.0,
-            isExpanded: false
-        )
-
-        return [ac1, ac2, ac3, ac4, ac5]
+        let accounts = AppContext.instance.decrdConnection?.getAccounts()
+        let colors = [#colorLiteral(red: 0.1807299256, green: 0.8454471231, blue: 0.6397696137, alpha: 1),#colorLiteral(red: 0.1593483388, green: 0.4376987219, blue: 1, alpha: 1),#colorLiteral(red: 0.992682755, green: 0.4418484569, blue: 0.2896475494, alpha: 1),#colorLiteral(red: 0.9992011189, green: 0.7829756141, blue: 0.3022021651, alpha: 1),#colorLiteral(red: 0.7991421819, green: 0.7997539639, blue: 0.7992369533, alpha: 1)]
+        var colorCount = -1
+        return accounts!.Acc.map({
+            colorCount += 1
+            return AccountsData(entity: $0, color: colors[colorCount])
+        })
+        
     }()
 
     @IBOutlet var tableAccountData: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         tableAccountData
             .hideEmptyAndExtraRows()
             .registerCellNib(AccountDataCell.self)
@@ -105,9 +86,10 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
         return 540.0
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt _: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "AccountDataCell") as! AccountDataCell
-
-        return cell
+    func tableView(_ tableView: UITableView, cellForRowAt rowIndex: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "AccountDataCell") as! AccountDetailsCellProtocol
+        let accounts = AppContext.instance.decrdConnection?.getAccounts()
+        cell.setup(account:(accounts?.Acc[rowIndex.row])!)
+        return cell as! UITableViewCell
     }
 }
