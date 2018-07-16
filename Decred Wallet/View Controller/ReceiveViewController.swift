@@ -10,30 +10,14 @@ class ReceiveViewController: UIViewController {
     @IBOutlet private var accountDropdown: DropMenuButton!
     @IBOutlet private var imgWalletAddrQRCode: UIImageView!
 
+    private var selectedAccount = ""
+    
     // MARK: - View Life Cycle
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
         accountDropdown.backgroundColor = UIColor.clear
-
-        if let acc = AppContext.instance.decrdConnection?.getAccounts()?.Acc {
-            let accNames: [String] = acc.map({ $0.Name })
-
-            accountDropdown.initMenu(
-                accNames,
-                actions: { [weak self] _, val in
-                    guard let this = self else { return }
-                    if let selectedAccount = acc.filter({ $0.Name == val }).first {
-                        let address = AppContext.instance.decrdConnection?.getCurrentAddress(account: selectedAccount.Number)
-                        // debugPrint(address)
-                        this.imgWalletAddrQRCode.image = AppContext.instance.decrdConnection?.generateQRCodeFor(
-                            with: address ?? "",
-                            forImageViewFrame: this.imgWalletAddrQRCode.frame
-                        )
-                    }
-            })
-        }
+        generateQRCode()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -44,5 +28,29 @@ class ReceiveViewController: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    @IBAction private func generateNewAddress() {
+        generateQRCode()
+    }
+    
+    private func generateQRCode() {
+        if let acc = AppContext.instance.decrdConnection?.getAccounts()?.Acc {
+            let accNames: [String] = acc.map({ $0.Name })
+            
+            accountDropdown.initMenu(
+                accNames,
+                actions: { [weak self] _, val in
+                    guard let this = self else { return }
+                    this.selectedAccount = val
+                    if let selectedAccount = acc.filter({ $0.Name == this.selectedAccount }).first {
+                        let address = AppContext.instance.decrdConnection?.getCurrentAddress(account: selectedAccount.Number)
+                        this.imgWalletAddrQRCode.image = AppContext.instance.decrdConnection?.generateQRCodeFor(
+                            with: address ?? "",
+                            forImageViewFrame: this.imgWalletAddrQRCode.frame
+                        )
+                    }
+            })
+        }
     }
 }
