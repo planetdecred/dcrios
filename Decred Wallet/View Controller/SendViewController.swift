@@ -36,7 +36,9 @@ class SendViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.setNavigationBarItem()
-         self.navigationItem.title = "Send"
+        self.navigationItem.title = "Send"
+        let isValidAddressInClipboard = validate(address:UIPasteboard.general.string!)
+        if isValidAddressInClipboard {destinationAddress.text = UIPasteboard.general.string ?? ""}
     }
     
     @IBAction func onPasteAddress(_ sender: Any) {
@@ -88,10 +90,11 @@ class SendViewController: UIViewController {
         let confirmSendFundViewController = storyboard.instantiateViewController(withIdentifier: "ConfirmToSendFundViewController") as! ConfirmToSendFundViewController
         confirmSendFundViewController.modalTransitionStyle = .crossDissolve
         confirmSendFundViewController.modalPresentationStyle = .overCurrentContext
-        confirmSendFundViewController.amount = Double((totalAmountSending?.text)!)!
+        confirmSendFundViewController.amount = Double((tfAmount?.text)!)!
         
         confirmSendFundViewController.confirm = { [weak self] in
             guard let `self` = self else { return }
+            //AppContext.instance.decrdConnection?.pr
             debugPrint(self)
         }
         
@@ -172,5 +175,9 @@ class SendViewController: UIViewController {
         }
         alert.addAction(okAction)
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    private func validate(address:String) -> Bool{
+        return (AppContext.instance.decrdConnection?.wallet?.isAddressValid(address)) ?? false
     }
 }
