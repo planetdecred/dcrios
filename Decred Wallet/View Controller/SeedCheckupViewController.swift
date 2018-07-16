@@ -32,6 +32,7 @@ class SeedCheckupViewController: UIViewController, SeedCheckupProtocol {
             self.tfSeedCheckWord.clean()
             self.btnConfirm.isEnabled = (self.txSeedCheckCombined.text == "\(self.seedToVerify ?? "") ")
         }
+        tfSeedCheckWord.addDoneButton()
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -51,6 +52,11 @@ class SeedCheckupViewController: UIViewController, SeedCheckupProtocol {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         var vc = segue.destination as! SeedCheckupProtocol
         vc.seedToVerify = seedToVerify
+    }
+   
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+         super.touchesBegan(touches, with: event)
+        self.view.endEditing(true)
     }
     
     // Input views
