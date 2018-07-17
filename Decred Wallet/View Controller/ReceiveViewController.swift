@@ -38,6 +38,14 @@ class ReceiveViewController: UIViewController {
         if let acc = AppContext.instance.decrdConnection?.getAccounts()?.Acc {
             let accNames: [String] = acc.map({ $0.Name })
             
+            if let firstWalletAddress = accNames.first {
+                accountDropdown.setTitle(firstWalletAddress, for: .normal)
+                imgWalletAddrQRCode.image = AppContext.instance.decrdConnection?.generateQRCodeFor(
+                    with: firstWalletAddress,
+                    forImageViewFrame: imgWalletAddrQRCode.frame
+                )
+            }
+            
             accountDropdown.initMenu(
                 accNames,
                 actions: { [weak self] _, val in
