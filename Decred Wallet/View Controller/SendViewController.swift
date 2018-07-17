@@ -6,7 +6,7 @@
 
 import UIKit
 
-class SendViewController: UIViewController {
+class SendViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var accountDropdown: DropMenuButton!
     @IBOutlet weak var totalAmountSending: UILabel!
@@ -17,6 +17,8 @@ class SendViewController: UIViewController {
     @IBOutlet weak var tfAmount: UITextField!
     
     var selectedAccount : AccountsEntity?
+    var preparedTransaction: WalletConstructTxResponse?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -25,8 +27,8 @@ class SendViewController: UIViewController {
         let accountsDisplay = accounts?.Acc.map {
             return "\($0.Name) [\($0.dcrTotalBalance) DCR]"
         }
+        tfAmount.delegate = self
         accountDropdown.initMenu(accountsDisplay!, actions: ({ (ind, val) -> (Void) in
-
             self.accountDropdown.setAttributedTitle(self.getAttributedString(str: val), for: UIControlState.normal)
             self.selectedAccount = accounts?.Acc[ind]
             self.accountDropdown.backgroundColor = UIColor(red: 173.0/255.0, green: 231.0/255.0, blue: 249.0/255.0, alpha: 1.0)
@@ -45,8 +47,17 @@ class SendViewController: UIViewController {
         
     }
     
+    func textFieldShouldEndEditing(_ textField:UITextField) -> Bool{
+        prepareTransaction()
+        return true
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        prepareTransaction()
+        return true
+    }
+    
     func getAttributedString(str: String) -> NSAttributedString {
-
         let stt = str as NSString?
         let atrStr = NSMutableAttributedString(string: stt! as String)
         let dotRange = stt?.range(of: "[")
@@ -79,22 +90,37 @@ class SendViewController: UIViewController {
     }
    
     @IBAction private func sendFund(_ sender: Any) {
-        //transactionSucceeded()
         if validate(){
             confirmSend()
         }
     }
     
+    private func prepareTransaction(){
+        let amountToSend = Double((tfAmount.text)!)!
+        do{
+             preparedTransaction = try AppContext.instance.decrdConnection?.prepareTransaction(from: (self.selectedAccount?.Number)!, to: self.destinationAddress.text!, amount: amountToSend)
+            estimateSize.text = "\( preparedTransaction?.estimatedSignedSize() ?? 0)"
+            estimateFee.text = "\(Double(( preparedTransaction?.estimatedSignedSize())!) / 0.001 / 1e8)"
+        } catch let error{
+            self.showAlert(message: error.localizedDescription)
+        }
+    }
+    
     private func confirmSend() {
+        let amountToSend = Double((tfAmount?.text)!)!
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let confirmSendFundViewController = storyboard.instantiateViewController(withIdentifier: "ConfirmToSendFundViewController") as! ConfirmToSendFundViewController
         confirmSendFundViewController.modalTransitionStyle = .crossDissolve
         confirmSendFundViewController.modalPresentationStyle = .overCurrentContext
-        confirmSendFundViewController.amount = Double((tfAmount?.text)!)!
+        confirmSendFundViewController.amount = amountToSend
         
         confirmSendFundViewController.confirm = { [weak self] in
             guard let `self` = self else { return }
-            //AppContext.instance.decrdConnection?.pr
+            do{
+                let signedTransaction = try AppContext.instance.decrdConnection?.signTransaction(transaction: self.preparedTransaction!, password: <#T##Data#>)
+            } catch let error{
+                self.showAlert(message: error.localizedDescription)
+            }
             debugPrint(self)
         }
         
