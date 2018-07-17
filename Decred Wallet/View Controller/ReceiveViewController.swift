@@ -64,8 +64,7 @@ class ReceiveViewController: UIViewController {
                     this.selectedAccount = val
                     if let selectedAccount = acc.filter({ $0.Name == val }).first {
                         let address = AppContext.instance.decrdConnection?.getCurrentAddress(account: selectedAccount.Number)
-                        dump(selectedAccount)
-                        dump(address)
+                        this.accountDropdown.setTitle(val, for: .normal)
                         this.imgWalletAddrQRCode.image = AppContext.instance.decrdConnection?.generateQRCodeFor(
                             with: address ?? "",
                             forImageViewFrame: this.imgWalletAddrQRCode.frame
