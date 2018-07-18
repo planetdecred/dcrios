@@ -18,6 +18,7 @@ class SendViewController: UIViewController, UITextFieldDelegate {
     
     var selectedAccount : AccountsEntity?
     var preparedTransaction: WalletConstructTxResponse?
+    var password : String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,18 +92,60 @@ class SendViewController: UIViewController, UITextFieldDelegate {
    
     @IBAction private func sendFund(_ sender: Any) {
         if validate(){
-            confirmSend()
+            askPassword()
         }
+    }
+    
+    private func askPassword(){
+        let alert = UIAlertController(title: "Security", message: "Please enter password of your wallet", preferredStyle: .alert)
+        alert.addTextField { (textField) in
+            textField.placeholder = "password"
+            textField.isSecureTextEntry = true
+//            NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: textField, queue: NSOperationQueue.mainQueue()) { (notification) in
+//                loginAction.enabled = textField.text != ""
+//            }
+        }
+        
+
+//        let tfPasswd = UITextField(frame: CGRect(x: 10, y: 15, width: 200, height: 30))
+//        alert.view.addSubview(tfPasswd)
+        let okAction = UIAlertAction(title: "Proceed", style: .default) { (action) in
+            let tfPasswd = alert.textFields![0] as UITextField
+             self.password = tfPasswd.text!
+            alert.dismiss(animated: false, completion:nil)
+            self.confirmSend()
+        }
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
     }
     
     private func prepareTransaction(){
         let amountToSend = Double((tfAmount.text)!)!
         do{
              preparedTransaction = try AppContext.instance.decrdConnection?.prepareTransaction(from: (self.selectedAccount?.Number)!, to: self.destinationAddress.text!, amount: amountToSend)
-            estimateSize.text = "\( preparedTransaction?.estimatedSignedSize() ?? 0)"
-            estimateFee.text = "\(Double(( preparedTransaction?.estimatedSignedSize())!) / 0.001 / 1e8)"
+            estimateSize.text = "\( preparedTransaction?.estimatedSignedSize() ?? 0) Bytes"
+            estimateFee.text = "\(Double(( preparedTransaction?.estimatedSignedSize())!) / 0.001 / 1e8) DCR"
+            totalAmountSending.text = "\(preparedTransaction?.totalOutputAmount() ?? 0) DCR"
         } catch let error{
             self.showAlert(message: error.localizedDescription)
+        }
+    }
+    
+    private func signTransaction(){
+        do{
+            let signedTransaction = try AppContext.instance.decrdConnection?.signTransaction(transaction: self.preparedTransaction!, password: (password?.data(using:.utf8))!)
+            publish(transaction: signedTransaction)
+        } catch let error{
+            self.showAlert(message: error.localizedDescription)
+        }
+    }
+    
+    private func publish(transaction:Data?){
+        do{
+            let result = try AppContext.instance.decrdConnection?.publish(transaction: transaction!)
+            print(String(data:result!, encoding:.utf8))
+        } catch let error{
+            showAlert(message: error.localizedDescription)
         }
     }
     
@@ -116,11 +159,7 @@ class SendViewController: UIViewController, UITextFieldDelegate {
         
         confirmSendFundViewController.confirm = { [weak self] in
             guard let `self` = self else { return }
-            do{
-                let signedTransaction = try AppContext.instance.decrdConnection?.signTransaction(transaction: self.preparedTransaction!, password: <#T##Data#>)
-            } catch let error{
-                self.showAlert(message: error.localizedDescription)
-            }
+            self.signTransaction()
             debugPrint(self)
         }
         
