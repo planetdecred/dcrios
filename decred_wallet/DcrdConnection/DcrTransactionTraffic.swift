@@ -10,14 +10,17 @@ import Foundation
 import Wallet
 
 protocol DcrSendTransactionProtocol: DcrdBaseProtocol{
-    func prepareTransaction(from account:Int32, to address:String, amount:Int64, shouldBeConfirmed:Bool)
-    func signTransaction(transaction: WalletConstructTxResponse, password:Data) -> Data?
-    func publish(transaction:Data)  -> Data?
+    func prepareTransaction(from account:Int32, to address:String, amount:Double) throws -> WalletConstructTxResponse?
+    func signTransaction(transaction: WalletConstructTxResponse, password:Data) throws -> Data?
+    func publish(transaction:Data) throws -> Data?
 }
 
 extension DcrSendTransactionProtocol{
-    func prepareTransaction(from account:Int32, to address:String, amount:Int64, shouldBeConfirmed:Bool, sandAll:Bool) throws {
-        try wallet?.constructTransaction(address, amount: amount, srcAccount: account, requiredConfirmations:Int32(NSNumber(booleanLiteral: shouldBeConfirmed)), sendAll: sandAll)
+    func prepareTransaction(from account:Int32, to address:String, amount:Double) throws -> WalletConstructTxResponse? {
+        let isShouldBeConfirmed = UserDefaults.standard.bool(forKey: "pref_transaction_always_confirm")
+        let isSendAll = UserDefaults.standard.bool(forKey:"pref_transaction_sendall")
+        
+        return try wallet?.constructTransaction(address, amount: Int64(amount), srcAccount: account, requiredConfirmations:Int32(truncating: NSNumber(booleanLiteral: isShouldBeConfirmed)), sendAll: isSendAll)
     }
     func signTransaction(transaction: WalletConstructTxResponse, password:Data) throws -> Data?  {
         return try wallet?.signTransaction(transaction.unsignedTransaction(), privPass: password)

@@ -121,7 +121,8 @@ protocol DecredBackendProtocol: DcrdConnectionProtocol,
                                 DcrdCreateRestoreWalletProtocol,
                                 DcrAccountsManagementProtocol,
                                 DcrTransactionsHistoryProtocol,
-                                DcrSettingsSupportProtocol{}
+                                DcrSettingsSupportProtocol,
+                                DcrSendTransactionProtocol{}
   
 class DcrdConnection : DecredBackendProtocol {
     var mTransactionsObserver: WalletGetTransactionsResponseProtocol?

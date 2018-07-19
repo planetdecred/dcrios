@@ -13,18 +13,26 @@ class SendViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var estimateFee: UILabel!
     @IBOutlet weak var estimateSize: UILabel!
     @IBOutlet weak var walletAddress: UITextField!
+    @IBOutlet weak var destinationAddress: UILabel!
+    @IBOutlet weak var tfAmount: UITextField!
     
-    @IBOutlet weak var tfAmountValue: UITextField!
+    var selectedAccount : AccountsEntity?
+    var preparedTransaction: WalletConstructTxResponse?
+    var password : String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tfAmountValue.addDoneButton()
         
         self.accountDropdown.backgroundColor = UIColor.clear
-        accountDropdown.initMenu(["My Wallet [153.0055 DCR]", "My Wallet2 [153.0055 DCR]", "My Wallet3 [153.0055 DCR]"], actions: ({ (ind, val) -> (Void) in
-
+        let accounts = AppContext.instance.decrdConnection?.getAccounts()
+        let accountsDisplay = accounts?.Acc.map {
+            return "\($0.Name) [\($0.dcrTotalBalance) DCR]"
+        }
+        tfAmount.delegate = self
+        accountDropdown.initMenu(accountsDisplay!, actions: ({ (ind, val) -> (Void) in
             self.accountDropdown.setAttributedTitle(self.getAttributedString(str: val), for: UIControlState.normal)
-
+            self.selectedAccount = accounts?.Acc[ind]
             self.accountDropdown.backgroundColor = UIColor(red: 173.0/255.0, green: 231.0/255.0, blue: 249.0/255.0, alpha: 1.0)
         }))
     }
@@ -32,12 +40,27 @@ class SendViewController: UIViewController, UITextFieldDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.setNavigationBarItem()
-         self.navigationItem.title = "Send"
+        self.navigationItem.title = "Send"
+        let isValidAddressInClipboard = validate(address:UIPasteboard.general.string!)
+        if isValidAddressInClipboard {destinationAddress.text = UIPasteboard.general.string ?? ""}
     }
-
+    
+    @IBAction func onPasteAddress(_ sender: Any) {
+        
+    }
+    
+    func textFieldShouldEndEditing(_ textField:UITextField) -> Bool{
+        prepareTransaction()
+        return true
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        prepareTransaction()
+        return true
+    }
+    
     func getAttributedString(str: String) -> NSAttributedString {
-
-        let stt = str as NSString!
+        let stt = str as NSString?
         let atrStr = NSMutableAttributedString(string: stt! as String)
         let dotRange = stt?.range(of: "[")
         //print("Index = \(dotRange?.location)")
@@ -67,24 +90,78 @@ class SendViewController: UIViewController, UITextFieldDelegate {
         }
         return atrStr
     }
-
-    @IBAction func accountDropdown(_ sender: Any) {
+   
+    @IBAction private func sendFund(_ sender: Any) {
+        if validate(){
+            askPassword()
+        }
     }
     
-    @IBAction private func sendFund(_ sender: Any) {
-        // transactionSucceeded()
-        confirmSend()
+    private func askPassword(){
+        let alert = UIAlertController(title: "Security", message: "Please enter password of your wallet", preferredStyle: .alert)
+        alert.addTextField { (textField) in
+            textField.placeholder = "password"
+            textField.isSecureTextEntry = true
+//            NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: textField, queue: NSOperationQueue.mainQueue()) { (notification) in
+//                loginAction.enabled = textField.text != ""
+//            }
+        }
+        
+
+//        let tfPasswd = UITextField(frame: CGRect(x: 10, y: 15, width: 200, height: 30))
+//        alert.view.addSubview(tfPasswd)
+        let okAction = UIAlertAction(title: "Proceed", style: .default) { (action) in
+            let tfPasswd = alert.textFields![0] as UITextField
+             self.password = tfPasswd.text!
+            alert.dismiss(animated: false, completion:nil)
+            self.confirmSend()
+        }
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func prepareTransaction(){
+        let amountToSend = Double((tfAmount.text)!)!
+        do{
+             preparedTransaction = try AppContext.instance.decrdConnection?.prepareTransaction(from: (self.selectedAccount?.Number)!, to: self.destinationAddress.text!, amount: amountToSend)
+            estimateSize.text = "\( preparedTransaction?.estimatedSignedSize() ?? 0) Bytes"
+            estimateFee.text = "\(Double(( preparedTransaction?.estimatedSignedSize())!) / 0.001 / 1e8) DCR"
+            totalAmountSending.text = "\(preparedTransaction?.totalOutputAmount() ?? 0) DCR"
+        } catch let error{
+            self.showAlert(message: error.localizedDescription)
+        }
+    }
+    
+    private func signTransaction(){
+        do{
+            let signedTransaction = try AppContext.instance.decrdConnection?.signTransaction(transaction: self.preparedTransaction!, password: (password?.data(using:.utf8))!)
+            publish(transaction: signedTransaction)
+        } catch let error{
+            self.showAlert(message: error.localizedDescription)
+        }
+    }
+    
+    private func publish(transaction:Data?){
+        do{
+            let result = try AppContext.instance.decrdConnection?.publish(transaction: transaction!)
+            print(String(data:result!, encoding:.utf8))
+        } catch let error{
+            showAlert(message: error.localizedDescription)
+        }
     }
     
     private func confirmSend() {
+        let amountToSend = Double((tfAmount?.text)!)!
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let confirmSendFundViewController = storyboard.instantiateViewController(withIdentifier: "ConfirmToSendFundViewController") as! ConfirmToSendFundViewController
         confirmSendFundViewController.modalTransitionStyle = .crossDissolve
         confirmSendFundViewController.modalPresentationStyle = .overCurrentContext
-        confirmSendFundViewController.amount = 25.869
+        confirmSendFundViewController.amount = amountToSend
         
         confirmSendFundViewController.confirm = { [weak self] in
             guard let `self` = self else { return }
+            self.signTransaction()
+            debugPrint(self)
         }
         
         present(confirmSendFundViewController, animated: true, completion: nil)
@@ -127,5 +204,57 @@ class SendViewController: UIViewController, UITextFieldDelegate {
         super.touchesBegan(touches, with: event)
         self.view.endEditing(true)
 
+
+    private func validate() -> Bool{
+        if !validateWallet(){
+            showAlertForInvalidWallet()
+            return false
+        }
+        if !validateDestinationAddress(){
+            showAlertForInvalidDestinationAddress()
+            return false
+        }
+        if !validateAmount(){
+            showAlertInvalidAmount()
+            return false
+        }
+        return true
+    }
+    
+    private func validateDestinationAddress() -> Bool{
+        return (destinationAddress.text?.count ?? 0) > 8
+    }
+    
+    private func validateAmount() -> Bool{
+        return (totalAmountSending.text?.count ?? 0) > 0
+    }
+    
+    private func validateWallet() -> Bool{
+        return selectedAccount != nil
+    }
+    
+    private func showAlertForInvalidDestinationAddress(){
+        showAlert(message: "Please paste a correct destination address")
+    }
+    
+    private func showAlertForInvalidWallet(){
+        showAlert(message: "Please select your source wallet")
+    }
+    
+    private func showAlertInvalidAmount(){
+        showAlert(message: "Please input amount of DCR to send")
+    }
+    
+    private func showAlert(message:String?){
+        let alert = UIAlertController(title: "Warning", message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
+            alert.dismiss(animated: true, completion: nil)
+        }
+        alert.addAction(okAction)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    private func validate(address:String) -> Bool{
+        return (AppContext.instance.decrdConnection?.wallet?.isAddressValid(address)) ?? false
     }
 }
