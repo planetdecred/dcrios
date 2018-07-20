@@ -15,6 +15,7 @@ class SendViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var walletAddress: UITextField!
     @IBOutlet weak var destinationAddress: UILabel!
     @IBOutlet weak var tfAmount: UITextField!
+    @IBOutlet weak var tfAmountValue: UITextField!
     
     var selectedAccount : AccountsEntity?
     var preparedTransaction: WalletConstructTxResponse?
@@ -22,7 +23,7 @@ class SendViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tfAmountValue.addDoneButton()
+        //tfAmountValue.addDoneButton()
         
         self.accountDropdown.backgroundColor = UIColor.clear
         let accounts = AppContext.instance.decrdConnection?.getAccounts()
@@ -53,12 +54,7 @@ class SendViewController: UIViewController, UITextFieldDelegate {
         prepareTransaction()
         return true
     }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        prepareTransaction()
-        return true
-    }
-    
+
     func getAttributedString(str: String) -> NSAttributedString {
         let stt = str as NSString?
         let atrStr = NSMutableAttributedString(string: stt! as String)
@@ -102,14 +98,7 @@ class SendViewController: UIViewController, UITextFieldDelegate {
         alert.addTextField { (textField) in
             textField.placeholder = "password"
             textField.isSecureTextEntry = true
-//            NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: textField, queue: NSOperationQueue.mainQueue()) { (notification) in
-//                loginAction.enabled = textField.text != ""
-//            }
         }
-        
-
-//        let tfPasswd = UITextField(frame: CGRect(x: 10, y: 15, width: 200, height: 30))
-//        alert.view.addSubview(tfPasswd)
         let okAction = UIAlertAction(title: "Proceed", style: .default) { (action) in
             let tfPasswd = alert.textFields![0] as UITextField
              self.password = tfPasswd.text!
@@ -196,6 +185,7 @@ class SendViewController: UIViewController, UITextFieldDelegate {
     // MARK: - TextFieldDelegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        prepareTransaction()
         textField.resignFirstResponder()
         return true
     }
@@ -203,7 +193,7 @@ class SendViewController: UIViewController, UITextFieldDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         self.view.endEditing(true)
-
+    }
 
     private func validate() -> Bool{
         if !validateWallet(){
