@@ -24,18 +24,9 @@ class SendViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         //tfAmountValue.addDoneButton()
-        
         self.accountDropdown.backgroundColor = UIColor.clear
-        let accounts = AppContext.instance.decrdConnection?.getAccounts()
-        let accountsDisplay = accounts?.Acc.map {
-            return "\($0.Name) [\($0.dcrTotalBalance) DCR]"
-        }
         tfAmount.delegate = self
-        accountDropdown.initMenu(accountsDisplay!, actions: ({ (ind, val) -> (Void) in
-            self.accountDropdown.setAttributedTitle(self.getAttributedString(str: val), for: UIControlState.normal)
-            self.selectedAccount = accounts?.Acc[ind]
-            self.accountDropdown.backgroundColor = UIColor(red: 173.0/255.0, green: 231.0/255.0, blue: 249.0/255.0, alpha: 1.0)
-        }))
+        updateBalance()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -46,12 +37,14 @@ class SendViewController: UIViewController, UITextFieldDelegate {
         if isValidAddressInClipboard {destinationAddress.text = UIPasteboard.general.string ?? ""}
     }
     
-    @IBAction func onPasteAddress(_ sender: Any) {
-        
+    @IBAction func onSendAll(_ sender: Any) {
+        self.tfAmount.text = "\(selectedAccount?.Balance?.dcrSpendable ?? 0)"
+        self.tfAmount.isEnabled = false
+        prepareTransaction(sendAll:true)
     }
     
     func textFieldShouldEndEditing(_ textField:UITextField) -> Bool{
-        prepareTransaction()
+        prepareTransaction(sendAll:false)
         return true
     }
 
@@ -59,7 +52,6 @@ class SendViewController: UIViewController, UITextFieldDelegate {
         let stt = str as NSString?
         let atrStr = NSMutableAttributedString(string: stt! as String)
         let dotRange = stt?.range(of: "[")
-        //print("Index = \(dotRange?.location)")
         if(str.length > 0) {
             atrStr.addAttribute(NSAttributedStringKey.font,
                                 value: UIFont(
@@ -89,6 +81,7 @@ class SendViewController: UIViewController, UITextFieldDelegate {
    
     @IBAction private func sendFund(_ sender: Any) {
         if validate(){
+            prepareTransaction(sendAll:false)
             askPassword()
         }
     }
@@ -109,10 +102,10 @@ class SendViewController: UIViewController, UITextFieldDelegate {
         present(alert, animated: true, completion: nil)
     }
     
-    private func prepareTransaction(){
+    private func prepareTransaction(sendAll:Bool?){
         let amountToSend = Double((tfAmount.text)!)!
         do{
-             preparedTransaction = try AppContext.instance.decrdConnection?.prepareTransaction(from: (self.selectedAccount?.Number)!, to: self.destinationAddress.text!, amount: amountToSend)
+            preparedTransaction = try AppContext.instance.decrdConnection?.prepareTransaction(from: (self.selectedAccount?.Number)!, to: self.destinationAddress.text!, amount: amountToSend, isSendAll: sendAll ?? false)
             estimateSize.text = "\( preparedTransaction?.estimatedSignedSize() ?? 0) Bytes"
             estimateFee.text = "\(Double(( preparedTransaction?.estimatedSignedSize())!) / 0.001 / 1e8) DCR"
             totalAmountSending.text = "\(preparedTransaction?.totalOutputAmount() ?? 0) DCR"
@@ -134,8 +127,11 @@ class SendViewController: UIViewController, UITextFieldDelegate {
         do{
             let result = try AppContext.instance.decrdConnection?.publish(transaction: transaction!)
             print(String(data:result!, encoding:.utf8))
+            transactionSucceeded()
         } catch let error{
-            showAlert(message: error.localizedDescription)
+            DispatchQueue.main.async {
+                self.showAlert(message: error.localizedDescription)
+            }
         }
     }
     
@@ -149,8 +145,10 @@ class SendViewController: UIViewController, UITextFieldDelegate {
         
         confirmSendFundViewController.confirm = { [weak self] in
             guard let `self` = self else { return }
-            self.signTransaction()
-            debugPrint(self)
+            DispatchQueue.main.async {
+                self.signTransaction()
+            }
+            //debugPrint(self)
         }
         
         present(confirmSendFundViewController, animated: true, completion: nil)
@@ -185,7 +183,7 @@ class SendViewController: UIViewController, UITextFieldDelegate {
     // MARK: - TextFieldDelegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        prepareTransaction()
+        prepareTransaction(sendAll:false)
         textField.resignFirstResponder()
         return true
     }
@@ -195,6 +193,19 @@ class SendViewController: UIViewController, UITextFieldDelegate {
         self.view.endEditing(true)
     }
 
+    private func updateBalance(){
+        let accounts = AppContext.instance.decrdConnection?.getAccounts()
+        let accountsDisplay = accounts?.Acc.map {
+            return "\($0.Name) [\($0.dcrTotalBalance) DCR]"
+        }
+        accountDropdown.initMenu(accountsDisplay!, actions: ({ (ind, val) -> (Void) in
+            self.accountDropdown.setAttributedTitle(self.getAttributedString(str: val), for: UIControlState.normal)
+            self.selectedAccount = accounts?.Acc[ind]
+            self.accountDropdown.backgroundColor = UIColor(red: 173.0/255.0, green: 231.0/255.0, blue: 249.0/255.0, alpha: 1.0)
+        }))
+    }
+    
+    //MARK: - Validation
     private func validate() -> Bool{
         if !validateWallet(){
             showAlertForInvalidWallet()
