@@ -194,6 +194,7 @@ class SendViewController: UIViewController, UITextFieldDelegate {
     }
 
     private func updateBalance(){
+        AppContext.instance.decrdConnection?.rescan()
         let accounts = AppContext.instance.decrdConnection?.getAccounts()
         let accountsDisplay = accounts?.Acc.map {
             return "\($0.Name) [\($0.dcrTotalBalance) DCR]"

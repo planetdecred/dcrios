@@ -16,6 +16,7 @@ protocol DcrSendTransactionProtocol: DcrdBaseProtocol{
 }
 
 extension DcrSendTransactionProtocol{
+    
     func prepareTransaction(from account:Int32, to address:String, amount:Double, isSendAll: Bool?) throws -> WalletConstructTxResponse? {
         let isShouldBeConfirmed = 2 //UserDefaults.standard.integer(forKey: "pref_transaction_always_confirm")
         

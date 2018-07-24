@@ -132,6 +132,7 @@ class DcrdConnection : DecredBackendProtocol {
     var mTransactionBlockErrorHub: TransactionBlockNotificationObserveHub? = TransactionBlockNotificationObserveHub()
     var transactionsObserver: TransactionsObserver?
     var mTransactionsObserveHub : GetTransactionObserveHub? = GetTransactionObserveHub()
+    var mBlockRescanObserverHub : BlockScanObserverHub? = BlockScanObserverHub()
     var wallet: WalletLibWallet?
     required init() {
         settingsBackup = UserDefaults.standard.dictionaryRepresentation().description

@@ -12,6 +12,9 @@ protocol DcrAccountsManagementProtocol : DcrdBaseProtocol{
     func getAccounts() -> GetAccountResponse?
     func nextAccount(name:String, passwd:String, onSuccess:SuccessCallback, onFailure:FailureCallback) -> Bool
     func getCurrentAddress(account: Int32) -> String
+    func rescan()
+    var mBlockRescanObserverHub: BlockScanObserverHub?{get set}
+    mutating func addObserver(blockScanObserver:WalletBlockScanResponseProtocol)
 }
 
 extension DcrAccountsManagementProtocol{
@@ -39,5 +42,13 @@ extension DcrAccountsManagementProtocol{
             return ""
         }
         return result
+    }
+    
+    func addObserver(blockScanObserver:WalletBlockScanResponseProtocol){
+        mBlockRescanObserverHub?.subscribe(forBlockScanNotifications: blockScanObserver)
+    }
+    
+    func rescan(){
+        wallet?.rescan(0, response: mBlockRescanObserverHub)
     }
 }
