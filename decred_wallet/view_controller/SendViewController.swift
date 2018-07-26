@@ -196,8 +196,9 @@ class SendViewController: UIViewController, UITextFieldDelegate {
     private func updateBalance(){
         AppContext.instance.decrdConnection?.rescan()
         let accounts = AppContext.instance.decrdConnection?.getAccounts()
-        let accountsDisplay = accounts?.Acc.map {
-            return "\($0.Name) [\($0.dcrTotalBalance) DCR]"
+        let accountsDisplay = accounts?.Acc.map {(acc)-> String in
+            let spendable = AppContext.instance.decrdConnection?.spendable(account: acc)
+            return "\(acc.Name) [\(spendable!) DCR]"
         }
         accountDropdown.initMenu(accountsDisplay!, actions: ({ (ind, val) -> (Void) in
             self.accountDropdown.setAttributedTitle(self.getAttributedString(str: val), for: UIControlState.normal)
