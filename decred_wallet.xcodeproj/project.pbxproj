@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1E3D73D7EA02D2D2D3CD052C /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E75324D536F1BD91575D0609 /* Pods_Decred_Wallet.framework */; };
 		286471BD20E527DD0067128B /* DcrTransactionTraffic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286471BC20E527DD0067128B /* DcrTransactionTraffic.swift */; };
+		286DA549210B0C7A00734259 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286DA548210B0C7A00734259 /* Data.swift */; };
 		286E279C20B6E22400EE0B08 /* DcrdWalletCreationSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286E279720B6E22300EE0B08 /* DcrdWalletCreationSupport.swift */; };
 		286E279D20B6E22400EE0B08 /* DcrObservers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286E279820B6E22300EE0B08 /* DcrObservers.swift */; };
 		286E279E20B6E22400EE0B08 /* DcrConnectionProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286E279920B6E22300EE0B08 /* DcrConnectionProtocols.swift */; };
@@ -124,6 +125,7 @@
 /* Begin PBXFileReference section */
 		109877DFD2DABA7636DA7B92 /* Pods-Decred WalletTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred WalletTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Decred WalletTests/Pods-Decred WalletTests.debug.xcconfig"; sourceTree = "<group>"; };
 		286471BC20E527DD0067128B /* DcrTransactionTraffic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DcrTransactionTraffic.swift; sourceTree = "<group>"; };
+		286DA548210B0C7A00734259 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		286E279720B6E22300EE0B08 /* DcrdWalletCreationSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DcrdWalletCreationSupport.swift; sourceTree = "<group>"; };
 		286E279820B6E22300EE0B08 /* DcrObservers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DcrObservers.swift; sourceTree = "<group>"; };
 		286E279920B6E22300EE0B08 /* DcrConnectionProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DcrConnectionProtocols.swift; sourceTree = "<group>"; };
@@ -370,6 +372,7 @@
 				DDB89418202F8F3E002F85EE /* UIIMage.swift */,
 				DDB8941A202F8F92002F85EE /* UIColor.swift */,
 				DD4C89D82038CDBC003FEA0C /* DropMenuButton.swift */,
+				286DA548210B0C7A00734259 /* Data.swift */,
 			);
 			path = view_util;
 			sourceTree = "<group>";
@@ -760,6 +763,7 @@
 				DDB89419202F8F3E002F85EE /* UIIMage.swift in Sources */,
 				28EB91BB20FCFDA1007A0906 /* SeedCheckupViewController.swift in Sources */,
 				957F0AFF20B82F3200D3E8A9 /* Constants.swift in Sources */,
+				286DA549210B0C7A00734259 /* Data.swift in Sources */,
 				952C932720E2174B00A60E43 /* ConfirmToSendFundViewController.swift in Sources */,
 				DD1D5C8020AEDB2B009789DD /* NodeLogViewController.swift in Sources */,
 				286E279C20B6E22400EE0B08 /* DcrdWalletCreationSupport.swift in Sources */,

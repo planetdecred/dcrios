@@ -26,7 +26,6 @@ class SendViewController: UIViewController, UITextFieldDelegate {
         //tfAmountValue.addDoneButton()
         self.accountDropdown.backgroundColor = UIColor.clear
         tfAmount.delegate = self
-        updateBalance()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -35,6 +34,7 @@ class SendViewController: UIViewController, UITextFieldDelegate {
         self.navigationItem.title = "Send"
         let isValidAddressInClipboard = validate(address:UIPasteboard.general.string!)
         if isValidAddressInClipboard {destinationAddress.text = UIPasteboard.general.string ?? ""}
+        updateBalance()
     }
     
     @IBAction func onSendAll(_ sender: Any) {
@@ -126,8 +126,8 @@ class SendViewController: UIViewController, UITextFieldDelegate {
     private func publish(transaction:Data?){
         do{
             let result = try AppContext.instance.decrdConnection?.publish(transaction: transaction!)
-            print(String(data:result!, encoding:.utf8))
-            transactionSucceeded()
+            //print(String(format: "%hh", result as! CVarArg))
+            transactionSucceeded(hash:result?.hexEncodedString())
         } catch let error{
             DispatchQueue.main.async {
                 self.showAlert(message: error.localizedDescription)
@@ -148,13 +148,12 @@ class SendViewController: UIViewController, UITextFieldDelegate {
             DispatchQueue.main.async {
                 self.signTransaction()
             }
-            //debugPrint(self)
         }
         
         present(confirmSendFundViewController, animated: true, completion: nil)
     }
     
-    private func transactionSucceeded() {
+    private func transactionSucceeded(hash:String?) {
         let storyboard = UIStoryboard(
             name: "SendCompletedViewController",
             bundle: nil
@@ -163,7 +162,7 @@ class SendViewController: UIViewController, UITextFieldDelegate {
         let sendCompletedVC = storyboard.instantiateViewController(withIdentifier: "SendCompletedViewController") as! SendCompletedViewController
         sendCompletedVC.modalTransitionStyle = .crossDissolve
         sendCompletedVC.modalPresentationStyle = .overCurrentContext
-        sendCompletedVC.transactionHash = "00000001d4c5fb6c9b…225c4e33"
+        sendCompletedVC.transactionHash = hash
         
         sendCompletedVC.openDetails = { [weak self] in
             guard let `self` = self else { return }
@@ -174,6 +173,7 @@ class SendViewController: UIViewController, UITextFieldDelegate {
             )
             
            let txnDetails = storyboard.instantiateViewController(withIdentifier: "TransactionFullDetailsViewController") as! TransactionFullDetailsViewController
+            txnDetails.transactionHash = hash
             self.navigationController?.pushViewController(txnDetails, animated: true)
         }
         
