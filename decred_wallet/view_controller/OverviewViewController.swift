@@ -7,10 +7,9 @@
 import SlideMenuControllerSwift
 import Wallet
 
-class OverviewViewController: UIViewController, WalletGetTransactionsResponseProtocol, WalletTransactionListenerProtocol, WalletBlockNotificationErrorProtocol {
-    func onTransactionRefresh() {
-        
-    }
+class OverviewViewController: UIViewController, WalletGetTransactionsResponseProtocol, WalletTransactionListenerProtocol, WalletBlockNotificationErrorProtocol,
+WalletBlockScanResponseProtocol {
+
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var lbCurrentBalance: UILabel!
     @IBOutlet var viewTableHeader: UIView!
@@ -31,6 +30,7 @@ class OverviewViewController: UIViewController, WalletGetTransactionsResponsePro
             AppContext.instance.decrdConnection?.addObserver(transactionsHistoryObserver: self)
             AppContext.instance.decrdConnection?.addObserver(forBlockError: self)
             AppContext.instance.decrdConnection?.addObserver(forUpdateNotifications: self)
+            AppContext.instance.decrdConnection?.addObserver(blockScanObserver: self)
             updateCurrentBalance()
         }, onFailure: { (error) in
             print(error)
@@ -46,6 +46,11 @@ class OverviewViewController: UIViewController, WalletGetTransactionsResponsePro
         self.setNavigationBarItem()
         self.navigationItem.title = "Overview"
     }
+    
+    @IBAction func onRescan(_ sender: Any) {
+        AppContext.instance.decrdConnection?.rescan()
+    }
+    
     
     func updateCurrentBalance(){
         AppContext.instance.decrdConnection?.fetchTransactions()
@@ -78,6 +83,22 @@ class OverviewViewController: UIViewController, WalletGetTransactionsResponsePro
     
     func onTransactionConfirmed(_ hash: String!, height: Int32) {
 
+    }
+    
+    func onEnd(_ height: Int32, cancelled: Bool) {
+        updateCurrentBalance()
+    }
+    
+    func onError(_ code: Int32, message: String!) {
+        
+    }
+    
+    func onScan(_ rescannedThrough: Int32) -> Bool {
+        return true
+    }
+    
+    func onTransactionRefresh() {
+        
     }
     
     func onTransaction(_ transaction: String!) {
