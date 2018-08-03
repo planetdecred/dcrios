@@ -506,7 +506,9 @@
 				DDA3E26820292EF900C83D18 /* Resources */,
 				88FE9A5EBEA8DA5D7D45387C /* [CP] Embed Pods Frameworks */,
 				28F0CE952088B1AF003AC958 /* Embed Frameworks */,
+
 				340DC60603C379429F5D76F5 /* [CP] Copy Pods Resources */,
+
 			);
 			buildRules = (
 			);
@@ -527,6 +529,7 @@
 				DDA3E27C20292EF900C83D18 /* Resources */,
 				07D26471AF0E0FE8C03ACAAF /* [CP] Embed Pods Frameworks */,
 				BE82D1A173DE882104A5F90D /* [CP] Copy Pods Resources */,
+
 			);
 			buildRules = (
 			);
@@ -631,6 +634,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Decred WalletTests/Pods-Decred WalletTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+
 		2912517399E7E37550748749 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -664,6 +668,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+
 		88FE9A5EBEA8DA5D7D45387C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -673,12 +678,14 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/QRCodeReader.swift/QRCodeReader.framework",
 				"${BUILT_PRODUCTS_DIR}/SlideMenuControllerSwift/SlideMenuControllerSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManager.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QRCodeReader.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SlideMenuControllerSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -701,6 +708,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Decred WalletTests/Pods-Decred WalletTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+
 		D1C1F21C20254B5EAD1242CA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
