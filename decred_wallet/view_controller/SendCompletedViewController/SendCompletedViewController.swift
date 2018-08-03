@@ -16,11 +16,6 @@ class SendCompletedViewController: UIViewController {
         // Do any additional setup after loading the view.
         labelTransactionHash.text = transactionHash
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     @IBAction func openAction(_ sender: UIButton) {
         dismiss(animated: false) { [weak self] in

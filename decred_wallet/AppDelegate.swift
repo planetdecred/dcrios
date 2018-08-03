@@ -69,7 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         showAnimatedStartScreen()
         UserDefaults.standard.setValuesForKeys(["pref_user_name" : "N8BdMGtxvM1+QmEiGe609mn1JHA=",
                                                 "pref_user_passwd":"Afgz/vjdPLQAv5Crsz9J94dIT1g=",
-                                                "pref_server_ip": "192.168.0.100:19109"])
+                                                "pref_server_ip": "192.168.0.105:19109"])
         AppContext.instance.decrdConnection = DcrdConnection()
         AppContext.instance.decrdConnection?.initiateWallet()
         

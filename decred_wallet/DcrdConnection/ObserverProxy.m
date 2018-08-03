@@ -87,5 +87,43 @@
         [observer onTransactionConfirmed:hash height:height];
     }
 }
+@end
+
+@implementation BlockScanObserverHub
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.blockScanNotificationsSubscribers = [NSMutableArray arrayWithCapacity:1];
+    }
+    return self;
+}
+
+- (void) subscribeForBlockScanNotifications:(id<WalletBlockScanResponse>)observer{
+    [self.blockScanNotificationsSubscribers addObject:observer];
+}
+
+- (void) unsubscribeForBlockScanNotifications:(id<WalletBlockScanResponse>)observer{
+    [self.blockScanNotificationsSubscribers removeObject:observer];
+}
+
+- (void)onEnd:(int32_t)height cancelled:(BOOL)cancelled{
+    for (id<WalletBlockScanResponse> observer in self.blockScanNotificationsSubscribers) {
+        [observer onEnd:height cancelled:cancelled];
+    }
+}
+- (void)onError:(int32_t)code message:(NSString*)message{
+    for (id<WalletBlockScanResponse> observer in self.blockScanNotificationsSubscribers) {
+        [observer onError:code message:message];
+    }
+}
+- (BOOL)onScan:(int32_t)rescannedThrough{
+    for (id<WalletBlockScanResponse> observer in self.blockScanNotificationsSubscribers) {
+        [observer onScan:rescannedThrough];
+    }
+    return true;
+}
 
 @end
+
+

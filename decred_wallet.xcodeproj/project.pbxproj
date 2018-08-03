@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1E3D73D7EA02D2D2D3CD052C /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E75324D536F1BD91575D0609 /* Pods_Decred_Wallet.framework */; };
 		286471BD20E527DD0067128B /* DcrTransactionTraffic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286471BC20E527DD0067128B /* DcrTransactionTraffic.swift */; };
+		286DA549210B0C7A00734259 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286DA548210B0C7A00734259 /* Data.swift */; };
 		286E279C20B6E22400EE0B08 /* DcrdWalletCreationSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286E279720B6E22300EE0B08 /* DcrdWalletCreationSupport.swift */; };
 		286E279D20B6E22400EE0B08 /* DcrObservers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286E279820B6E22300EE0B08 /* DcrObservers.swift */; };
 		286E279E20B6E22400EE0B08 /* DcrConnectionProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286E279920B6E22300EE0B08 /* DcrConnectionProtocols.swift */; };
@@ -124,6 +125,7 @@
 /* Begin PBXFileReference section */
 		109877DFD2DABA7636DA7B92 /* Pods-Decred WalletTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred WalletTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Decred WalletTests/Pods-Decred WalletTests.debug.xcconfig"; sourceTree = "<group>"; };
 		286471BC20E527DD0067128B /* DcrTransactionTraffic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DcrTransactionTraffic.swift; sourceTree = "<group>"; };
+		286DA548210B0C7A00734259 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		286E279720B6E22300EE0B08 /* DcrdWalletCreationSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DcrdWalletCreationSupport.swift; sourceTree = "<group>"; };
 		286E279820B6E22300EE0B08 /* DcrObservers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DcrObservers.swift; sourceTree = "<group>"; };
 		286E279920B6E22300EE0B08 /* DcrConnectionProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DcrConnectionProtocols.swift; sourceTree = "<group>"; };
@@ -370,6 +372,7 @@
 				DDB89418202F8F3E002F85EE /* UIIMage.swift */,
 				DDB8941A202F8F92002F85EE /* UIColor.swift */,
 				DD4C89D82038CDBC003FEA0C /* DropMenuButton.swift */,
+				286DA548210B0C7A00734259 /* Data.swift */,
 			);
 			path = view_util;
 			sourceTree = "<group>";
@@ -503,7 +506,9 @@
 				DDA3E26820292EF900C83D18 /* Resources */,
 				88FE9A5EBEA8DA5D7D45387C /* [CP] Embed Pods Frameworks */,
 				28F0CE952088B1AF003AC958 /* Embed Frameworks */,
-				80541BBF86DDD6549F93E42D /* [CP] Copy Pods Resources */,
+
+				340DC60603C379429F5D76F5 /* [CP] Copy Pods Resources */,
+
 			);
 			buildRules = (
 			);
@@ -522,8 +527,9 @@
 				DDA3E27A20292EF900C83D18 /* Sources */,
 				DDA3E27B20292EF900C83D18 /* Frameworks */,
 				DDA3E27C20292EF900C83D18 /* Resources */,
-				ACC628793F72BF4E3F81B0BE /* [CP] Embed Pods Frameworks */,
-				377EE9B5356E9F2B2B84A61E /* [CP] Copy Pods Resources */,
+				07D26471AF0E0FE8C03ACAAF /* [CP] Embed Pods Frameworks */,
+				BE82D1A173DE882104A5F90D /* [CP] Copy Pods Resources */,
+
 			);
 			buildRules = (
 			);
@@ -613,6 +619,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		07D26471AF0E0FE8C03ACAAF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Decred WalletTests/Pods-Decred WalletTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+
 		2912517399E7E37550748749 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -631,22 +653,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		377EE9B5356E9F2B2B84A61E /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Decred WalletTests/Pods-Decred WalletTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		80541BBF86DDD6549F93E42D /* [CP] Copy Pods Resources */ = {
+		340DC60603C379429F5D76F5 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -661,6 +668,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+
 		88FE9A5EBEA8DA5D7D45387C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -670,12 +678,14 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/QRCodeReader.swift/QRCodeReader.framework",
 				"${BUILT_PRODUCTS_DIR}/SlideMenuControllerSwift/SlideMenuControllerSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManager.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QRCodeReader.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SlideMenuControllerSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -683,21 +693,22 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		ACC628793F72BF4E3F81B0BE /* [CP] Embed Pods Frameworks */ = {
+		BE82D1A173DE882104A5F90D /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "[CP] Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Decred WalletTests/Pods-Decred WalletTests-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Decred WalletTests/Pods-Decred WalletTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+
 		D1C1F21C20254B5EAD1242CA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -760,6 +771,7 @@
 				DDB89419202F8F3E002F85EE /* UIIMage.swift in Sources */,
 				28EB91BB20FCFDA1007A0906 /* SeedCheckupViewController.swift in Sources */,
 				957F0AFF20B82F3200D3E8A9 /* Constants.swift in Sources */,
+				286DA549210B0C7A00734259 /* Data.swift in Sources */,
 				952C932720E2174B00A60E43 /* ConfirmToSendFundViewController.swift in Sources */,
 				DD1D5C8020AEDB2B009789DD /* NodeLogViewController.swift in Sources */,
 				286E279C20B6E22400EE0B08 /* DcrdWalletCreationSupport.swift in Sources */,

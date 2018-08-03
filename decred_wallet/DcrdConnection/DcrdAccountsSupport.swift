@@ -14,7 +14,13 @@ protocol DcrAccountsManagementProtocol : DcrdBaseProtocol{
     func getAccounts() -> GetAccountResponse?
     func nextAccount(name:String, passwd:String, onSuccess:SuccessCallback, onFailure:FailureCallback) -> Bool
     func getCurrentAddress(account: Int32) -> String
+
     func generateQRCodeFor(with addres: String, forImageViewFrame: CGRect) -> UIImage?
+
+    func rescan()
+    var mBlockRescanObserverHub: BlockScanObserverHub?{get set}
+    mutating func addObserver(blockScanObserver:WalletBlockScanResponseProtocol)
+    func spendable(account:AccountsEntity) -> Double
 }
 
 extension DcrAccountsManagementProtocol{
@@ -87,6 +93,25 @@ extension DcrAccountsManagementProtocol{
         }
         
         return nil
+    func addObserver(blockScanObserver:WalletBlockScanResponseProtocol){
+        mBlockRescanObserverHub?.subscribe(forBlockScanNotifications: blockScanObserver)
+    }
+    
+    func rescan(){
+        wallet?.rescan(0, response: mBlockRescanObserverHub)
+    }
+    
+    func spendable(account:AccountsEntity) -> Double{
+        let bRequireConfirm = UserDefaults.standard.bool(forKey: "pref_spend_fund_switch")
+        let iRequireConfirm = (bRequireConfirm ?? false) ? Int32(0) : Int32(2)
+        let int64Pointer = UnsafeMutablePointer<Int64>.allocate(capacity: 64)
+        do {
+            try wallet?.spendable(forAccount: account.Number, requiredConfirmations: iRequireConfirm, ret0_: int64Pointer)
+        } catch let error{
+            print(error)
+            return 0.0
+        }
+        return Double(int64Pointer.move() /  100000000)
     }
 }
 

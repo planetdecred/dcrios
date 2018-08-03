@@ -94,6 +94,7 @@ struct Transaction : Decodable {
     var Hash = ""
     var Transaction: String?
     var Fee = 0
+    var Direction = 0
     var Timestamp:UInt64 = 0
     var `Type` = "REGULAR"
     var Amount: Int64 = 0
@@ -121,16 +122,16 @@ extension Credit {
 
 struct Debit : Decodable{
     var Index: Int64 = 0
-    var Account: Int64 = 0
-    var Internal: Bool = false
-    var Amount: Int64 = 0
-    var Address = ""
+    var PreviousAccount: Int64 = 0
+    var PreviousAmount: Int64 = 0
+    var AccountName = ""
+   // var Address = ""
 }
 
 extension Debit {
     var dcrAmount : Int64 {
         get {
-            return Amount / 100000000
+            return PreviousAmount / 100000000
         }
     }
 }

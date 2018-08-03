@@ -48,3 +48,9 @@
 - (void) subscribeForUpdateNotifications:(id<WalletTransactionListener>)observer;
 - (void) unsubscribeForUpdateNotifications:(id<WalletTransactionListener>)observer;
 @end
+
+@interface BlockScanObserverHub : NSObject <WalletBlockScanResponse>
+@property (nonatomic, strong) NSMutableArray<WalletBlockScanResponse>* blockScanNotificationsSubscribers;
+- (void) subscribeForBlockScanNotifications:(id<WalletBlockScanResponse>)observer;
+- (void) unsubscribeForBlockScanNotifications:(id<WalletBlockScanResponse>)observer;
+@end
