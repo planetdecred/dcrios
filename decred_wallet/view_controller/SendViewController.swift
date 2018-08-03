@@ -5,9 +5,10 @@
 //  see LICENSE for details.
 
 import UIKit
+import QRCodeReader
 
-class SendViewController: UIViewController, UITextFieldDelegate {
-
+class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderViewControllerDelegate {
+    
     @IBOutlet weak var accountDropdown: DropMenuButton!
     @IBOutlet weak var totalAmountSending: UILabel!
     @IBOutlet weak var estimateFee: UILabel!
@@ -17,9 +18,19 @@ class SendViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var tfAmount: UITextField!
     @IBOutlet weak var tfAmountValue: UITextField!
     
+    private lazy var readerVC: QRCodeReaderViewController = {
+        let builder = QRCodeReaderViewControllerBuilder {
+            $0.reader = QRCodeReader(metadataObjectTypes: [.qr], captureDevicePosition: .back)
+        }
+        
+        return QRCodeReaderViewController(builder: builder)
+    }()
+
+
     var selectedAccount : AccountsEntity?
     var preparedTransaction: WalletConstructTxResponse?
     var password : String?
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -153,7 +164,31 @@ class SendViewController: UIViewController, UITextFieldDelegate {
         present(confirmSendFundViewController, animated: true, completion: nil)
     }
     
+    @IBAction private func scanQRCodeAction(_ sender: UIButton) {
+        // Retrieve the QRCode content
+        // By using the delegate pattern
+        readerVC.delegate = self
+        
+        // Or by using the closure pattern
+        readerVC.completionBlock = { (result: QRCodeReaderResult?) in
+            print(result)
+        }
+        
+        // Presents the readerVC as modal form sheet
+        readerVC.modalPresentationStyle = .formSheet
+        present(readerVC, animated: true, completion: nil)
+    }
+    
+    func reader(_ reader: QRCodeReaderViewController, didScanResult result: QRCodeReaderResult) {
+        reader.dismiss(animated: true, completion: nil)
+    }
+    
+    func readerDidCancel(_ reader: QRCodeReaderViewController) {
+        reader.dismiss(animated: true, completion: nil)
+    }
+    
     private func transactionSucceeded(hash:String?) {
+
         let storyboard = UIStoryboard(
             name: "SendCompletedViewController",
             bundle: nil
