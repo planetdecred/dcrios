@@ -92,8 +92,7 @@ class GeneratedSeedDisplayViewController: UIViewController {
         let expectedLabelSize = contentNSString.boundingRect(with: maxLabelSize, options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font: self.font], context: nil)
         print("\(expectedLabelSize)")
         return expectedLabelSize.size
-
-
+        
         vWarningLabel.layer.borderColor = UIColor(hex: "fd714a").cgColor
         vWarningIcon.layer.borderColor = UIColor(hex: "fd714a").cgColor
 

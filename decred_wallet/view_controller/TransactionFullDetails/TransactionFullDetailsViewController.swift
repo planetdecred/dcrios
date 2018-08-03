@@ -3,12 +3,16 @@
 //  Copyright © 2018 The Decred developers. All rights reserved.
 
 import UIKit
+import MBProgressHUD
 
-class TransactionFullDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    @IBOutlet private weak var tableTransactionDetails: UITableView!    
-    @IBOutlet var detailsHeader: UIView!
+class TransactionFullDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, WalletGetTransactionsResponseProtocol {
     
-    let details: [TransactionDetails] = [
+    @IBOutlet private weak var tableTransactionDetails: UITableView!    
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet var detailsHeader: UIView!
+    var transactionHash: String?
+    let hud = MBProgressHUD(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+    var details: [TransactionDetails] = [
         TransactionDetails(
             title: "Status",
             value: "45 Confirmations",
@@ -43,7 +47,9 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        AppContext.instance.decrdConnection?.addObserver(transactionsHistoryObserver: self)
+        self.view.addSubview(hud)
         
         tableTransactionDetails
             .hideEmptyAndExtraRows()
@@ -52,11 +58,12 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         
         tableTransactionDetails.registerCellNib(TransactionDetailCell.self)
         tableTransactionDetails.registerCellNib(TransactiontOutputDetailsCell.self)
+        
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewWillAppear(_ animated: Bool) {
+        hud.show(animated: true)
+        AppContext.instance.decrdConnection?.fetchTransactions()
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -111,5 +118,67 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         default:
             return UITableViewCell()
         }
+    }
+    
+    func onResult(_ json: String!) {
+        do{
+            let transactions = try JSONDecoder().decode(GetTransactionResponse.self, from:json.data(using: .utf8)!)
+            let lastTransaction = transactions.Transactions?.filter({(transaction) in
+                print("HASH: "+transaction.Hash + " == " + self.transactionHash!)
+                return transaction.Hash == self.transactionHash
+            }).first
+            
+            DispatchQueue.main.async {
+                if let lastTransaction = lastTransaction{
+                    self.wrap(transaction: lastTransaction)
+                }
+                self.hud.hide(animated: true)
+                self.tableView.reloadData()
+            }
+        }catch let error{
+            print(error)
+        }
+    }
+    
+    fileprivate func wrap(transaction:Transaction?){
+        details = [
+            TransactionDetails(
+                title: "Status",
+                value: "\(transaction?.Status ?? "0") Confirmations",
+                textColor: #colorLiteral(red: 0.2549019608, green: 0.7490196078, blue: 0.3254901961, alpha: 1)
+            ),
+            TransactionDetails(
+                title: "Confirmation",
+                value: "\(transaction?.Height ?? 0)",
+                textColor: #colorLiteral(red: 0.3803921569, green: 0.4509803922, blue: 0.5254901961, alpha: 1)
+            ),
+            TransactionDetails(
+                title: "Type",
+                value: "\(transaction?.Type ?? "Unknown" )",
+                textColor: #colorLiteral(red: 0.3803921569, green: 0.4509803922, blue: 0.5254901961, alpha: 1)
+            ),
+            TransactionDetails(
+                title: "Date",
+                value: format(timestamp: transaction?.Timestamp),
+                textColor: #colorLiteral(red: 0.3803921569, green: 0.4509803922, blue: 0.5254901961, alpha: 1)
+            ),
+            TransactionDetails(
+                title: "Fee",
+                value: "\(Double((transaction?.Fee)!) / 1e8) DCR",
+                textColor: #colorLiteral(red: 0.3803921569, green: 0.4509803922, blue: 0.5254901961, alpha: 1)
+            ),
+            TransactionDetails(
+                title: "Hash",
+                value: transactionHash!,
+                textColor: #colorLiteral(red: 0.1607843137, green: 0.4392156863, blue: 1, alpha: 1)
+            )
+        ]
+    }
+    
+    fileprivate func format(timestamp:UInt64?) -> String{
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM dd, yyyy / hh:mm:ss pp"
+        let date = Date(timeIntervalSince1970: Double(timestamp!))
+        return formatter.string(from: date)
     }
 }
