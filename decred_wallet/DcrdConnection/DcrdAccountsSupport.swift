@@ -7,11 +7,16 @@
 //
 
 import Foundation
+import UIKit
+import CoreImage
 
 protocol DcrAccountsManagementProtocol : DcrdBaseProtocol{
     func getAccounts() -> GetAccountResponse?
     func nextAccount(name:String, passwd:String, onSuccess:SuccessCallback, onFailure:FailureCallback) -> Bool
     func getCurrentAddress(account: Int32) -> String
+
+    func generateQRCodeFor(with addres: String, forImageViewFrame: CGRect) -> UIImage?
+
     func rescan()
     var mBlockRescanObserverHub: BlockScanObserverHub?{get set}
     mutating func addObserver(blockScanObserver:WalletBlockScanResponseProtocol)
@@ -45,6 +50,49 @@ extension DcrAccountsManagementProtocol{
         return result
     }
     
+    func generateQRCodeFor(with addres: String, forImageViewFrame: CGRect) -> UIImage? {
+        guard let addrData = addres.data(using: String.Encoding.utf8) else {
+            return nil
+        }
+        
+        // Color code and background
+        guard let colorFilter = CIFilter(name: "CIFalseColor") else { return nil }
+        
+        let filter = CIFilter(name: "CIQRCodeGenerator")
+        
+        filter?.setValue(addrData, forKey: "inputMessage")
+        
+        /// Foreground color of the output
+        let color = CIColor(red: 26/255, green: 29/255, blue: 47/255)
+        
+        /// Background color of the output
+        let backgroundColor = CIColor.clear
+        
+        colorFilter.setDefaults()
+        colorFilter.setValue(filter!.outputImage, forKey: "inputImage")
+        colorFilter.setValue(color, forKey: "inputColor0")
+        colorFilter.setValue(backgroundColor, forKey: "inputColor1")
+        
+        if let imgQR = colorFilter.outputImage {
+            var tempFrame: CGRect? = forImageViewFrame
+            
+            if tempFrame == nil {
+                tempFrame = CGRect(x: 0, y: 0, width: 100, height: 100)
+            }
+            
+            guard let frame = tempFrame else { return nil }
+            
+            let smallerSide = frame.size.width < frame.size.height ? frame.size.width : frame.size.height
+            
+            let scale = smallerSide/imgQR.extent.size.width
+            let transformedImage = imgQR.transformed(by: CGAffineTransform(scaleX: scale, y: scale))
+            
+            let imageQRCode = UIImage(ciImage: transformedImage)
+            
+            return imageQRCode
+        }
+        
+        return nil
     func addObserver(blockScanObserver:WalletBlockScanResponseProtocol){
         mBlockRescanObserverHub?.subscribe(forBlockScanNotifications: blockScanObserver)
     }
@@ -66,3 +114,4 @@ extension DcrAccountsManagementProtocol{
         return Double(int64Pointer.move() /  100000000)
     }
 }
+

@@ -1734,6 +1734,9 @@
                                         <real key="value" value="6"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="generateNewAddress" destination="pwN-Wv-Ioh" eventType="touchUpInside" id="yUQ-O1-gjg"/>
+                                </connections>
                             </button>
                         </subviews>
                         <constraints>
@@ -1761,6 +1764,10 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="accountDropdown" destination="fvx-Vc-1a6" id="GlO-JJ-21g"/>
+                        <outlet property="imgWalletAddrQRCode" destination="P2Q-l4-CRY" id="2cl-JZ-uxS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R0Q-i3-kfU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
