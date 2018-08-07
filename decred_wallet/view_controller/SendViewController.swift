@@ -43,8 +43,8 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
         super.viewWillAppear(animated)
         self.setNavigationBarItem()
         self.navigationItem.title = "Send"
-        let isValidAddressInClipboard = validate(address:UIPasteboard.general.string!)
-        if isValidAddressInClipboard {destinationAddress.text = UIPasteboard.general.string ?? ""}
+       // let isValidAddressInClipboard = validate(address:UIPasteboard.general.string!)
+       // if isValidAddressInClipboard {destinationAddress.text = UIPasteboard.general.string ?? ""}
         updateBalance()
     }
     
@@ -116,7 +116,7 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
     private func prepareTransaction(sendAll:Bool?){
         let amountToSend = Double((tfAmount.text)!)!
         do{
-            preparedTransaction = try AppContext.instance.decrdConnection?.prepareTransaction(from: (self.selectedAccount?.Number)!, to: self.destinationAddress.text!, amount: amountToSend, isSendAll: sendAll ?? false)
+            preparedTransaction = try AppContext.instance.decrdConnection?.prepareTransaction(from: (self.selectedAccount?.Number)!, to: self.walletAddress.text!, amount: amountToSend, isSendAll: sendAll ?? false)
             estimateSize.text = "\( preparedTransaction?.estimatedSignedSize() ?? 0) Bytes"
             estimateFee.text = "\(Double(( preparedTransaction?.estimatedSignedSize())!) / 0.001 / 1e8) DCR"
             totalAmountSending.text = "\(preparedTransaction?.totalOutputAmount() ?? 0) DCR"
@@ -260,7 +260,7 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
     }
     
     private func validateDestinationAddress() -> Bool{
-        return (destinationAddress.text?.count ?? 0) > 8
+        return (walletAddress.text?.count ?? 0) > 25
     }
     
     private func validateAmount() -> Bool{

@@ -9,7 +9,11 @@ import UIKit
 class ReceiveViewController: UIViewController {
     @IBOutlet private var accountDropdown: DropMenuButton!
     @IBOutlet private var imgWalletAddrQRCode: UIImageView!
-
+    @IBOutlet weak var walletAddress: UILabel!
+    var firstTrial = true
+    var starttime: Int64 = 0
+    var myacc: AccountsEntity!
+    
     private var selectedAccount = ""
     
     // MARK: - View Life Cycle
@@ -19,6 +23,9 @@ class ReceiveViewController: UIViewController {
         accountDropdown.backgroundColor = UIColor.clear
         showFirstWalletAddressAndQRCode()
         populateWalletDropdownMenu()
+        starttime = Int64(NSDate().timeIntervalSince1970)
+        print(starttime)
+        print(starttime * 1000)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -32,29 +39,25 @@ class ReceiveViewController: UIViewController {
     }
     
     @IBAction private func generateNewAddress() {
-        imgWalletAddrQRCode.image = AppContext.instance.decrdConnection?.generateQRCodeFor(
-            with: selectedAccount,
-            forImageViewFrame: imgWalletAddrQRCode.frame
-        )
+        self.getAddress(accountNumber: (self.myacc.Number))
     }
     
     private func showFirstWalletAddressAndQRCode() {
         if let acc = AppContext.instance.decrdConnection?.getAccounts()?.Acc {
             let accNames: [String] = acc.map({ $0.Name })
+            self.myacc = acc.first
             
             if let firstWalletAddress = accNames.first {
                 selectedAccount = firstWalletAddress
                 accountDropdown.setTitle(selectedAccount, for: .normal)
-                imgWalletAddrQRCode.image = AppContext.instance.decrdConnection?.generateQRCodeFor(
-                    with: selectedAccount,
-                    forImageViewFrame: imgWalletAddrQRCode.frame
-                )
+                self.getAddress(accountNumber: (self.myacc.Number))
             }
         }
     }
     
     private func populateWalletDropdownMenu() {
         if let acc = AppContext.instance.decrdConnection?.getAccounts()?.Acc {
+            
             let accNames: [String] = acc.map({ $0.Name })
             
             accountDropdown.initMenu(
@@ -62,15 +65,24 @@ class ReceiveViewController: UIViewController {
                 actions: { [weak self] index, val in
                     guard let this = self else { return }
                     this.selectedAccount = val
-                    if let selectedAccount = acc.filter({ $0.Name == val }).first {
-                        let address = AppContext.instance.decrdConnection?.getCurrentAddress(account: selectedAccount.Number)
-                        this.accountDropdown.setTitle(val, for: .normal)
-                        this.imgWalletAddrQRCode.image = AppContext.instance.decrdConnection?.generateQRCodeFor(
-                            with: address ?? "",
-                            forImageViewFrame: this.imgWalletAddrQRCode.frame
-                        )
+                    if acc.filter({ $0.Name == val }).first != nil {
+                        self?.myacc = acc.map({ $0 }).first
+                        self?.getAddress(accountNumber:(self?.myacc.Number)!)
                     }
             })
         }
+    }
+    
+    private func getAddress(accountNumber : Int32){
+        let receiveAddress = try?AppContext.instance.decrdConnection?.wallet?.address(forAccount: Int32(accountNumber))
+        print("got address in  ".appending(String(Int64(NSDate().timeIntervalSince1970) - starttime)))
+       // UserDefaults.standard.setValue(receiveAddress!, forKey: "KEY_RECENT_ADDRESS")
+        self.walletAddress.text = receiveAddress!
+        self.imgWalletAddrQRCode.image = AppContext.instance.decrdConnection?.generateQRCodeFor(
+            with: receiveAddress!!,
+            forImageViewFrame: imgWalletAddrQRCode.frame)
+         print("generate QR  in  ".appending(String(Int64(NSDate().timeIntervalSince1970) - starttime)))
+        print("generated address for account ".appending(String(accountNumber)))
+      
     }
 }

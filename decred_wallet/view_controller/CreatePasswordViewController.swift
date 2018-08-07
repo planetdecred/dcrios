@@ -8,6 +8,7 @@
 
 import UIKit
 import MBProgressHUD
+import Wallet
 
 class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITextFieldDelegate {
     var seedToVerify: String?
@@ -42,14 +43,32 @@ class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITex
     }
     
     @IBAction func onEncrypt(_ sender: Any) {
+        self.progressHud?.show(animated: true)
+        self.progressHud?.label.text = "creating wallet..."
+        let seed = self.seedToVerify!
+        let pass = self.tfPassword!.text
+        DispatchQueue.global(qos: .userInitiated).async{
         do{
-            progressHud?.show(animated: true)
-            try AppContext.instance.decrdConnection?.createWallet(seed:seedToVerify!, passwd:tfPassword.text!)
-            progressHud?.hide(animated: true)
-            createMainWindow()
+            
+           //
+            try
+                AppContext.instance.decrdConnection?.createWallet(seed:seed, passwd:pass!)
+                AppContext.instance.decrdConnection?.connect(onSuccess: { (height) in
+                    DispatchQueue.main.async {
+                        self.progressHud?.hide(animated: true)
+                        createMainWindow()
+                    }
+        }, onFailure: { (error) in
+            print(error)
+                }, progressHud: self.progressHud!)
+           // progressHud?.hide(animated: true)
+            
             //navigationController?.dismiss(animated: true, completion: nil)
-        } catch let error{
-            showError(error: error)
+
+        }
+            catch let error{
+                self.showError(error: error)
+        }
         }
     }
     
@@ -61,4 +80,5 @@ class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITex
         alert.addAction(okAction)
         present(alert, animated: true, completion: {self.progressHud?.hide(animated: false)})
     }
+    
 }
