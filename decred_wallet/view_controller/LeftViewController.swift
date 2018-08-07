@@ -6,6 +6,7 @@
 
 import Foundation
 import UIKit
+import MBProgressHUD
 
 enum LeftMenu: Int {
     case overview = 0
@@ -23,6 +24,13 @@ protocol LeftMenuProtocol : class {
 
 class LeftViewController : UIViewController, LeftMenuProtocol {
     
+
+    var progressHud = MBProgressHUD()
+    var scanning = false
+    @IBOutlet weak var connectionStatus: UILabel!
+    @IBOutlet weak var rescanHeight: UILabel!
+    @IBOutlet weak var bestblock: UILabel!
+    @IBOutlet weak var chainStatus: UILabel!
     @IBOutlet weak var tableView: UITableView!
     var menus = ["Overview", "Account", "Send", "Receive","History", "Settings"]
     var mainViewController: UIViewController!
@@ -57,7 +65,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         settingsController.delegate = self
         self.settingsViewController = UINavigationController(rootViewController: settingsController)
         
-        let trController = TransactionHistoryViewController(nibName: "TransactionHistoryViewController", bundle: nil) as TransactionHistoryViewController!
+        let trController = TransactionHistoryViewController(nibName: "TransactionHistoryViewController", bundle: nil) as TransactionHistoryViewController?
         trController?.delegate = self
         self.historyViewController = UINavigationController(rootViewController: trController!)
         
@@ -65,10 +73,75 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         
         self.imageHeaderView = ImageHeaderView.loadNib()
         self.view.addSubview(self.imageHeaderView)
+        if ((AppContext.instance.decrdConnection?.wallet?.isNetBackendNil())!){
+           
+            DispatchQueue.main.async {
+                self.connectionStatus.text = "connected to RPC"
+                
+            }
+            AppContext.instance.decrdConnection?.rescan()
+            
+            
+        }else{
+            self.connectionStatus.text = "Connecting to RPC server"
+           // self.conectToRpc()
+        }
+        
+        
+        
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)// 1
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
+                let bestblck = AppContext.instance.decrdConnection?.wallet?.getBestBlock()
+                let bestblocktemp : Int64 = Int64(Int(bestblck!))
+                if(self.scanning){
+                    self.bestblock.text = String(bestblck!)
+                    return
+                }
+                let  lastblocktime = AppContext.instance.decrdConnection?.wallet?.getBestBlockTimeStamp()
+                let currentTime = NSDate().timeIntervalSince1970
+                let estimatedBlocks = ((Int64(currentTime) - (lastblocktime)!) / 120) + bestblocktemp
+                if(estimatedBlocks > bestblocktemp){
+                    self.bestblock.text = String(bestblocktemp).appending(" of ").appending(String(estimatedBlocks))
+                    self.chainStatus.text = ""
+                    
+                }
+                else{
+                    self.bestblock.text = String(bestblocktemp)
+                    self.chainStatus.text = self.calculateTime(millis: Int64(NSDate().timeIntervalSince1970) - lastblocktime!)
+                }
+            }
+        
+        
+        
+    }
+    
+    func calculateTime(millis: Int64)-> String{
+        var millis2 = millis
+        if(millis2 > 59){
+            millis2 /= 60
+            if (millis2 > 59){
+                millis2 /= 60
+                if(millis2 > 23){
+                    millis2 /= 24
+                    //days
+                    return String(millis2).appending("d ago")
+                }
+                //hour
+                return String(millis2).appending("h ago")
+            }
+            //minute
+            return String(millis2).appending("m ago")
+        }
+        //seconds
+        return String(millis2).appending("s ago")
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+       
     }
     
     override func viewDidLayoutSubviews() {
@@ -151,5 +224,24 @@ extension LeftViewController : UITableViewDataSource {
             }
         }
         return UITableViewCell()
+    }
+    func conectToRpc(){
+        
+        DispatchQueue.global(qos: .userInitiated).async{
+            do{
+                
+                //
+                    AppContext.instance.decrdConnection?.connect(onSuccess: { (height) in
+                }, onFailure: { (error) in
+                    print(error)
+                }, progressHud: self.progressHud)
+                // progressHud?.hide(animated: true)
+                
+                //navigationController?.dismiss(animated: true, completion: nil)
+            }
+            catch _{
+               // self.showError(error: error)
+            }
+        }
     }
 }

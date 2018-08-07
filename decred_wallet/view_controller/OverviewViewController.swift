@@ -6,6 +6,7 @@
 
 import SlideMenuControllerSwift
 import Wallet
+import MBProgressHUD
 
 class OverviewViewController: UIViewController, WalletGetTransactionsResponseProtocol, WalletTransactionListenerProtocol, WalletBlockNotificationErrorProtocol,
 WalletBlockScanResponseProtocol {
@@ -14,6 +15,7 @@ WalletBlockScanResponseProtocol {
     @IBOutlet weak var lbCurrentBalance: UILabel!
     @IBOutlet var viewTableHeader: UIView!
     @IBOutlet var viewTableFooter: UIView!
+    var progressHud = MBProgressHUD()
     
     var mainContens = ["4.000000 DCR", "-3.000000 DCR", "21.340000 DCR", "-1.000000 DCR", "12.000000 DCR", "-1.000000 DCR", "12.30000 DCR","-2.000000 DCR", "3.000000 DCR","2.000000 DCR", "3.000000 DCR"]
     
@@ -23,7 +25,11 @@ WalletBlockScanResponseProtocol {
         self.tableView.tableHeaderView = viewTableHeader
         self.tableView.tableFooterView = viewTableFooter
         
-        AppContext.instance.decrdConnection?.connect(onSuccess: { (height) in
+        if ((AppContext.instance.decrdConnection?.wallet?.isNetBackendNil())!){
+            DispatchQueue.main.async {
+                 print("connected to dcrd")
+            }
+           
             let accounts = AppContext.instance.decrdConnection?.getAccounts()
             let address = AppContext.instance.decrdConnection?.getCurrentAddress(account: (accounts?.Acc.first?.Number)!)
             print("Address:\(address ?? "")")
@@ -31,11 +37,32 @@ WalletBlockScanResponseProtocol {
             AppContext.instance.decrdConnection?.addObserver(forBlockError: self)
             AppContext.instance.decrdConnection?.addObserver(forUpdateNotifications: self)
             AppContext.instance.decrdConnection?.addObserver(blockScanObserver: self)
-            updateCurrentBalance()
-        }, onFailure: { (error) in
-            print(error)
-        })
+            //self.updateCurrentBalance()
+            
+            // AppContext.instance.decrdConnection?.rescan()
+            
+        }else{
+            DispatchQueue.main.async {
+                print("not connected")
+            }
+            
+            AppContext.instance.decrdConnection?.connect(onSuccess: { (height) in
+                let accounts = AppContext.instance.decrdConnection?.getAccounts()
+                let address = AppContext.instance.decrdConnection?.getCurrentAddress(account: (accounts?.Acc.first?.Number)!)
+                print("Address:\(address ?? "")")
+                AppContext.instance.decrdConnection?.addObserver(transactionsHistoryObserver: self)
+                AppContext.instance.decrdConnection?.addObserver(forBlockError: self)
+                AppContext.instance.decrdConnection?.addObserver(forUpdateNotifications: self)
+                AppContext.instance.decrdConnection?.addObserver(blockScanObserver: self)
+                updateCurrentBalance()
+            }, onFailure: { (error) in
+                print(error)
+            }, progressHud: .init())
+            // self.conectToRpc()
+        }
     }
+        
+        
    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
@@ -45,16 +72,22 @@ WalletBlockScanResponseProtocol {
         super.viewWillAppear(animated)
         self.setNavigationBarItem()
         self.navigationItem.title = "Overview"
+        self.updateCurrentBalance()
     }
     
     @IBAction func onRescan(_ sender: Any) {
-        AppContext.instance.decrdConnection?.rescan()
+        print("rescaning")
+        AppContext.instance.decrdConnection?.rescan(rescanHeight:  0)
     }
     
     
     func updateCurrentBalance(){
         AppContext.instance.decrdConnection?.fetchTransactions()
-        self.lbCurrentBalance.text = "\((AppContext.instance.decrdConnection?.getAccounts()?.Acc.first?.dcrTotalBalance)!) DCR"
+        DispatchQueue.main.async {
+            print("updating balance")
+            self.lbCurrentBalance.text = "\((AppContext.instance.decrdConnection?.getAccounts()?.Acc.first?.dcrTotalBalance)!) DCR"
+        }
+        
     }
     
     func onResult(_ json: String!) {

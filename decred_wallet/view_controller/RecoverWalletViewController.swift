@@ -26,6 +26,13 @@ class RecoverWalletViewController: UIViewController {
         super.viewDidLoad()
         self.addAccessory()
         self.addSearchWords()
+        tfSeedCheckWord.searchResult?.onSelect = { [weak self] _, item in
+            guard let this = self else { return }
+            this.txSeedCheckCombined.text.append("\(item) ")
+            this.tfSeedCheckWord.clean()
+            let count = this.txSeedCheckCombined!.text!.components(separatedBy: " ").count
+            this.btnConfirm.isEnabled = count >= 25
+        }
         
         // Do any additional setup after loading the view.
     }
@@ -64,7 +71,10 @@ class RecoverWalletViewController: UIViewController {
         
         let flag =  AppContext.instance.decrdConnection?.verifySeed(seed:txSeedCheckCombined.text)
         if(flag)! {
-            self.performSegue(withIdentifier: "encryptWallet", sender: self)
+            let sb = UIStoryboard.init(name: "Main", bundle: nil)
+            let vc = sb.instantiateViewController(withIdentifier: "encryptWallet") as! CreatePasswordViewController
+            vc.seedToVerify = txSeedCheckCombined.text
+            self.navigationController?.pushViewController(vc, animated: true)
         } else {
             self.showError(error: "Seed was not verifed!")
         }

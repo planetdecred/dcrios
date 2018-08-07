@@ -8,10 +8,13 @@
 
 import Foundation
 import Wallet
+import MBProgressHUD
 
 protocol DcrdBaseProtocol {
     var wallet: WalletLibWallet?{get set}
 }
+
+typealias progressHUD = MBProgressHUD?
 
 typealias SuccessCallback = ((Int32)->Void)
 typealias FailureCallback = ((Error)->Void)
@@ -19,7 +22,7 @@ typealias FailureCallback = ((Error)->Void)
 protocol DcrdConnectionProtocol : DcrdBaseProtocol {
     var transactionsObserver: TransactionsObserver?{get set}
     mutating func initiateWallet()
-    func connect(onSuccess:SuccessCallback, onFailure:FailureCallback)
+    func connect(onSuccess:SuccessCallback, onFailure:FailureCallback,progressHud: MBProgressHUD)
     func disconnect()
     mutating func subscribeForTransactions(observer:WalletTransactionListenerProtocol)
     mutating func subscribeForBlockTransaction(observer:WalletBlockNotificationErrorProtocol)
@@ -40,7 +43,7 @@ extension DcrdConnectionProtocol{
         }
     }
 
-    func connect(onSuccess:SuccessCallback, onFailure:FailureCallback){
+    func connect(onSuccess:SuccessCallback, onFailure:FailureCallback,progressHud: MBProgressHUD){
         let certificate = try? Data(contentsOf: URL(fileURLWithPath: NSHomeDirectory() + "/Documents/rpc.cert"))
         let username = UserDefaults.standard.string(forKey: "pref_user_name")
         let password = UserDefaults.standard.string(forKey: "pref_user_passwd")
@@ -48,13 +51,31 @@ extension DcrdConnectionProtocol{
         guard certificate != nil else { return }
         
         let pHeight = UnsafeMutablePointer<Int32>.allocate(capacity: 1)
+        DispatchQueue.main.async {
+            progressHud.label.text = "connecting to dcrd..."
+            //progressHud.show(animated: true)
+        }
+        
         do {
             try wallet?.startRPCClient(address, rpcUser: username, rpcPass: password, certs: certificate!)
+            DispatchQueue.main.async {
+                progressHud.label.text = "Discovering Addresses..."
+                //progressHud.show(animated: true)
+            }
             try wallet?.discoverActiveAddresses(false, privPass: nil)
-            try wallet?.loadActiveDataFilters()
+            DispatchQueue.main.async {
+                progressHud.label.text = "fetching Headers..."
+                //progressHud.show(animated: true)
+            }
             pHeight.initialize(to: 0)
             try wallet?.fetchHeaders(pHeight)
-            try wallet?.publishUnminedTransactions()
+            try wallet?.loadActiveDataFilters()
+            DispatchQueue.main.async {
+                progressHud.hide(animated: true)
+             
+            }
+           
+         //   try wallet?.publishUnminedTransactions()
         } catch let error{
             if onFailure != nil{
                 onFailure(error)
@@ -91,10 +112,10 @@ protocol DcrSettingsSupportProtocol:DcrdConnectionProtocol {
 }
 
 extension DcrSettingsSupportProtocol{
-    func applySettings(onSuccess:SuccessCallback?, onFailure:FailureCallback?){
+    func applySettings(onSuccess:SuccessCallback?, onFailure:FailureCallback?,progressHud: MBProgressHUD?){
         disconnect()
         openWallet()
-        connect(onSuccess:onSuccess!, onFailure:onFailure!)
+        connect(onSuccess:onSuccess!, onFailure:onFailure!, progressHud: progressHud!)
     }
     
     mutating func saveSettings(){
@@ -110,7 +131,7 @@ extension DcrSettingsSupportProtocol{
         if isSettingsChanged(){
             disconnect()
             openWallet()
-            connect(onSuccess:{_ in }, onFailure: {_ in })
+            connect(onSuccess:{_ in }, onFailure: {_ in }, progressHud: .init()  )
             saveSettings()
         }
     }
@@ -125,6 +146,17 @@ protocol DecredBackendProtocol: DcrdConnectionProtocol,
                                 DcrSendTransactionProtocol{}
   
 class DcrdConnection : DecredBackendProtocol {
+    func rescan() {
+    }
+    
+    
+    
+    func applySettings(onSuccess: SuccessCallback?, onFailure: FailureCallback?) {
+        
+    }
+    
+    
+    
     var mTransactionsObserver: WalletGetTransactionsResponseProtocol?
     var settingsBackup: String = ""
 
