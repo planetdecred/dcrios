@@ -93,11 +93,12 @@ extension DcrAccountsManagementProtocol{
         }
         
         return nil
+    }
     func addObserver(blockScanObserver:WalletBlockScanResponseProtocol){
         mBlockRescanObserverHub?.subscribe(forBlockScanNotifications: blockScanObserver)
     }
     
-    func rescan(){
+    func rescan(rescanHeight: Int){
         wallet?.rescan(0, response: mBlockRescanObserverHub)
     }
     
