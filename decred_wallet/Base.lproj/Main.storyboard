@@ -685,10 +685,10 @@
                                 <color key="backgroundColor" red="0.94901960780000005" green="0.95294117649999999" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="wky-Bg-I5V">
-                                <rect key="frame" x="0.0" y="215" width="345" height="54"/>
+                                <rect key="frame" x="0.0" y="215" width="345" height="100"/>
                                 <color key="backgroundColor" red="0.94901960780000005" green="0.95294117649999999" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="54" id="Jkl-K6-tQc"/>
+                                    <constraint firstAttribute="height" constant="100" id="Jkl-K6-tQc"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -706,7 +706,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jDA-Mt-iXT">
-                                <rect key="frame" x="5" y="268" width="365" height="1"/>
+                                <rect key="frame" x="5" y="315" width="365" height="1"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="tzg-Jo-wjB"/>
@@ -768,7 +768,6 @@
                             <constraint firstItem="cmc-wH-rfr" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="AJH-Xh-9pv" secondAttribute="trailing" constant="295" id="51K-Oq-zMj"/>
                             <constraint firstItem="cmc-wH-rfr" firstAttribute="trailing" secondItem="SFO-BG-Md2" secondAttribute="trailing" constant="8" id="68b-Bc-8de"/>
                             <constraint firstItem="AJH-Xh-9pv" firstAttribute="leading" secondItem="cmc-wH-rfr" secondAttribute="leading" constant="20" id="6WU-pX-ZVD"/>
-                            <constraint firstItem="jDA-Mt-iXT" firstAttribute="top" secondItem="LKD-C2-WvG" secondAttribute="bottom" constant="15" id="CAT-kQ-bad"/>
                             <constraint firstItem="cmc-wH-rfr" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="qhY-9i-KrY" secondAttribute="trailing" constant="295" id="E31-fu-iJL"/>
                             <constraint firstItem="wYr-4C-ijj" firstAttribute="bottom" secondItem="cmc-wH-rfr" secondAttribute="bottom" id="NKh-CB-ovZ"/>
                             <constraint firstItem="qhY-9i-KrY" firstAttribute="top" secondItem="AJH-Xh-9pv" secondAttribute="bottom" constant="6" id="Pgw-7U-Nm6"/>
@@ -784,6 +783,7 @@
                             <constraint firstItem="AJH-Xh-9pv" firstAttribute="top" secondItem="04d-vo-wwx" secondAttribute="bottom" constant="22.5" id="lMb-dJ-Z1C"/>
                             <constraint firstItem="wYr-4C-ijj" firstAttribute="leading" secondItem="cmc-wH-rfr" secondAttribute="leading" id="ncm-AN-930"/>
                             <constraint firstAttribute="trailing" secondItem="jDA-Mt-iXT" secondAttribute="trailing" constant="5" id="pAX-NJ-lrD"/>
+                            <constraint firstItem="jDA-Mt-iXT" firstAttribute="top" secondItem="wky-Bg-I5V" secondAttribute="bottom" id="pqz-1X-E2D"/>
                             <constraint firstItem="cmc-wH-rfr" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="04d-vo-wwx" secondAttribute="trailing" constant="295" id="rUT-YB-kD9"/>
                             <constraint firstItem="04d-vo-wwx" firstAttribute="top" secondItem="cmc-wH-rfr" secondAttribute="top" constant="26" id="tXL-mu-8Da"/>
                             <constraint firstItem="wYr-4C-ijj" firstAttribute="trailing" secondItem="cmc-wH-rfr" secondAttribute="trailing" id="u1I-Wf-glq"/>
