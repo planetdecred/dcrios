@@ -32,7 +32,6 @@ class SeedCheckupViewController: UIViewController, SeedCheckupProtocol {
             self.tfSeedCheckWord.clean()
             self.btnConfirm.isEnabled = (self.txSeedCheckCombined.text == "\(self.seedToVerify ?? "") ")
         }
-        tfSeedCheckWord.addDoneButton()
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
