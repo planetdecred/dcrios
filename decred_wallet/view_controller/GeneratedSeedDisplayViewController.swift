@@ -36,14 +36,13 @@ class GeneratedSeedDisplayViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.isNavigationBarHidden = false
+        navigationController?.isNavigationBarHidden = false
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.navigationController?.isNavigationBarHidden = true
+        navigationController?.isNavigationBarHidden = true
     }
-    
     
     // MARK: - Utility
     
@@ -71,11 +70,13 @@ class GeneratedSeedDisplayViewController: UIViewController {
         }
         
         outerStackView.frame = seedContainer.frame
+        outerStackView.frame.size.width = 0.9 * seedContainer.frame.size.width
+        outerStackView.center = seedContainer.center
         
-//        outerStackView.topAnchor.constraint(equalTo: seedContainer.topAnchor, constant: 0).isActive = true
-//        outerStackView.bottomAnchor.constraint(equalTo: seedContainer.bottomAnchor, constant: 0).isActive = true
-//        outerStackView.leadingAnchor.constraint(equalTo: seedContainer.leadingAnchor, constant: 30).isActive = true
-//        outerStackView.trailingAnchor.constraint(equalTo: seedContainer.trailingAnchor, constant: 30).isActive = true
+        // outerStackView.topAnchor.constraint(equalTo: seedContainer.topAnchor, constant: 0).isActive = true
+        // outerStackView.bottomAnchor.constraint(equalTo: seedContainer.bottomAnchor, constant: 0).isActive = true
+        // outerStackView.leadingAnchor.constraint(equalTo: seedContainer.leadingAnchor, constant: 30).isActive = true
+        // outerStackView.trailingAnchor.constraint(equalTo: seedContainer.trailingAnchor, constant: 30).isActive = true
     }
     
     // MARK: - Navigation
