@@ -59,38 +59,13 @@ class GeneratedSeedDisplayViewController: UIViewController {
             seedWordLabels[count].text = "\(count + 1) .\(arrWords[count])"
         }
         
-//        outerStackView.topAnchor.constraint(equalTo: seedContainer.topAnchor)
-//        outerStackView.bottomAnchor.constraint(equalTo: seedContainer.bottomAnchor)
-//        outerStackView.leadingAnchor.constraint(equalTo: seedContainer.leadingAnchor)
-//        outerStackView.trailingAnchor.constraint(equalTo: seedContainer.trailingAnchor)
-        
-        view.setNeedsLayout()
+//        outerStackView.topAnchor.constraint(equalTo: seedContainer.topAnchor).isActive = true
+//        outerStackView.bottomAnchor.constraint(equalTo: seedContainer.bottomAnchor).isActive = true
+//        outerStackView.leadingAnchor.constraint(equalTo: seedContainer.leadingAnchor).isActive = true
+//        outerStackView.trailingAnchor.constraint(equalTo: seedContainer.trailingAnchor).isActive = true
     }
     
-    // Get location for new seed word
-    func getLocation(stringSize: CGFloat) -> CGRect {
-        let pos = xPostiion! + stringSize
-        let rect: CGRect
-        if pos < totalWidth! {
-            rect = CGRect(origin: CGPoint(x: xPostiion!, y: yPosition!), size: CGSize(width: stringSize, height: 21))
-            xPostiion = xPostiion! + stringSize + 5
-        } else {
-            xPostiion = 20.0
-            yPosition = yPosition! + 26
-            rect = CGRect(origin: CGPoint(x: xPostiion!, y: yPosition!), size: CGSize(width: stringSize, height: 21))
-            xPostiion = xPostiion! + stringSize + 5
-        }
-        return rect
-    }
     
-    // Get width for new word
-    func getWidth(str: String) -> CGSize {
-        let maxLabelSize = CGSize(width: 300, height: 30)
-        let contentNSString = str as String
-        let expectedLabelSize = contentNSString.boundingRect(with: maxLabelSize, options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font: self.font], context: nil)
-        print("\(expectedLabelSize)")
-        return expectedLabelSize.size
-    }
     
     // MARK: - Navigation
     
