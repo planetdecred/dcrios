@@ -51,11 +51,9 @@
 		95473E7520E3A6420023F50A /* TransactionDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95473E7320E3A6420023F50A /* TransactionDetailCell.xib */; };
 		956D14AE20BF035D00624D68 /* wordlist.txt in Resources */ = {isa = PBXBuildFile; fileRef = 956D14AD20BF035C00624D68 /* wordlist.txt */; };
 		957F0AFB20B80EA600D3E8A9 /* RecoverWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957F0AF920B80EA600D3E8A9 /* RecoverWalletViewController.swift */; };
-		957F0AFC20B80EA600D3E8A9 /* RecoverWalletViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 957F0AFA20B80EA600D3E8A9 /* RecoverWalletViewController.xib */; };
 		957F0AFF20B82F3200D3E8A9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957F0AFE20B82F3200D3E8A9 /* Constants.swift */; };
 		95877FE820B70CBB00CE53D2 /* TransactionHistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95877FE620B70CBB00CE53D2 /* TransactionHistoryViewController.xib */; };
 		95877FE920B70CBB00CE53D2 /* TransactionHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95877FE720B70CBB00CE53D2 /* TransactionHistoryViewController.swift */; };
-		958B537220CA9E5500F6684C /* Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95AB6BDB20CA7DB900460281 /* Wallet.framework */; };
 		95B80F3120DCCCF2004D5613 /* loaderAnimation.gif in Resources */ = {isa = PBXBuildFile; fileRef = 95B80F2F20DCCCF2004D5613 /* loaderAnimation.gif */; };
 		95B80F3220DCCCF2004D5613 /* iOSDevCenters+GIF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B80F3020DCCCF2004D5613 /* iOSDevCenters+GIF.swift */; };
 		95CC024420D3F15800DA73AF /* AccountsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CC024320D3F15800DA73AF /* AccountsData.swift */; };
@@ -97,6 +95,7 @@
 		DDB89427202F955F002F85EE /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB89426202F955F002F85EE /* UIView.swift */; };
 		DDB89429202F95AC002F85EE /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB89428202F95AC002F85EE /* UIApplication.swift */; };
 		DDBC152C2095D2E900F68BA6 /* encryptWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBC152B2095D2E900F68BA6 /* encryptWalletViewController.swift */; };
+		DDFFF691211E07A100616A4C /* Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDFFF690211E07A000616A4C /* Wallet.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -174,11 +173,9 @@
 		95473E7320E3A6420023F50A /* TransactionDetailCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionDetailCell.xib; sourceTree = "<group>"; };
 		956D14AD20BF035C00624D68 /* wordlist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = wordlist.txt; sourceTree = "<group>"; };
 		957F0AF920B80EA600D3E8A9 /* RecoverWalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoverWalletViewController.swift; sourceTree = "<group>"; };
-		957F0AFA20B80EA600D3E8A9 /* RecoverWalletViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecoverWalletViewController.xib; sourceTree = "<group>"; };
 		957F0AFE20B82F3200D3E8A9 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		95877FE620B70CBB00CE53D2 /* TransactionHistoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionHistoryViewController.xib; sourceTree = "<group>"; };
 		95877FE720B70CBB00CE53D2 /* TransactionHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionHistoryViewController.swift; sourceTree = "<group>"; };
-		95AB6BDB20CA7DB900460281 /* Wallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Wallet.framework; path = wallet/debug/Wallet.framework; sourceTree = "<group>"; };
 		95B80F2F20DCCCF2004D5613 /* loaderAnimation.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loaderAnimation.gif; sourceTree = "<group>"; };
 		95B80F3020DCCCF2004D5613 /* iOSDevCenters+GIF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "iOSDevCenters+GIF.swift"; sourceTree = "<group>"; };
 		95CC024320D3F15800DA73AF /* AccountsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsData.swift; sourceTree = "<group>"; };
@@ -224,6 +221,7 @@
 		DDB89426202F955F002F85EE /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		DDB89428202F95AC002F85EE /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		DDBC152B2095D2E900F68BA6 /* encryptWalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = encryptWalletViewController.swift; sourceTree = "<group>"; };
+		DDFFF690211E07A000616A4C /* Wallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Wallet.framework; sourceTree = "<group>"; };
 		E75324D536F1BD91575D0609 /* Pods_Decred_Wallet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Decred_Wallet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -232,7 +230,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				958B537220CA9E5500F6684C /* Wallet.framework in Frameworks */,
+				DDFFF691211E07A100616A4C /* Wallet.framework in Frameworks */,
 				1E3D73D7EA02D2D2D3CD052C /* Pods_Decred_Wallet.framework in Frameworks */,
 				B853136BC96255F028D8CB64 /* Pods_Decred_Wallet.framework in Frameworks */,
 			);
@@ -286,7 +284,7 @@
 		5300E0A95A9FA022A08F903E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				95AB6BDB20CA7DB900460281 /* Wallet.framework */,
+				DDFFF690211E07A000616A4C /* Wallet.framework */,
 				28FD1BD0208F6C9A0051F58F /* Pods_Decred_Wallet.framework */,
 				28FD1BC5208E667F0051F58F /* Pods_Decred_Wallet.framework */,
 				28FD1BC1208E659A0051F58F /* Pods_Decred_Wallet.framework */,
@@ -403,7 +401,6 @@
 				DDBC152B2095D2E900F68BA6 /* encryptWalletViewController.swift */,
 				DD1D5C7B20AED824009789DD /* certificateViewController.swift */,
 				957F0AF920B80EA600D3E8A9 /* RecoverWalletViewController.swift */,
-				957F0AFA20B80EA600D3E8A9 /* RecoverWalletViewController.xib */,
 			);
 			path = view_controller;
 			sourceTree = "<group>";
@@ -587,7 +584,6 @@
 				956D14AE20BF035D00624D68 /* wordlist.txt in Resources */,
 				28EB91CB20FCFDBE007A0906 /* AccountDataCell.xib in Resources */,
 				DDA3E27520292EF900C83D18 /* Assets.xcassets in Resources */,
-				957F0AFC20B80EA600D3E8A9 /* RecoverWalletViewController.xib in Resources */,
 				95473E6620E393E50023F50A /* TransactionFullDetailsViewController.storyboard in Resources */,
 				95473E7520E3A6420023F50A /* TransactionDetailCell.xib in Resources */,
 				95473E6B20E39E3C0023F50A /* TransactiontInputDetails.xib in Resources */,
@@ -914,6 +910,7 @@
 					"$(PROJECT_DIR)/mobilewallet",
 					"$(PROJECT_DIR)/mobiwallet",
 					"$(PROJECT_DIR)/wallet/debug",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = decred_wallet/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
@@ -944,6 +941,7 @@
 					"$(PROJECT_DIR)/mobilewallet",
 					"$(PROJECT_DIR)/mobiwallet",
 					"$(PROJECT_DIR)/wallet/debug",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = decred_wallet/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
