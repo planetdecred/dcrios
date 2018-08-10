@@ -37,7 +37,9 @@ WalletBlockScanResponseProtocol {
             AppContext.instance.decrdConnection?.addObserver(forBlockError: self)
             AppContext.instance.decrdConnection?.addObserver(forUpdateNotifications: self)
             AppContext.instance.decrdConnection?.addObserver(blockScanObserver: self)
-            //self.updateCurrentBalance()
+            
+            self.updateCurrentBalance()
+        
             
             // AppContext.instance.decrdConnection?.rescan()
             
@@ -54,7 +56,7 @@ WalletBlockScanResponseProtocol {
                 AppContext.instance.decrdConnection?.addObserver(forBlockError: self)
                 AppContext.instance.decrdConnection?.addObserver(forUpdateNotifications: self)
                 AppContext.instance.decrdConnection?.addObserver(blockScanObserver: self)
-                updateCurrentBalance()
+                self.updateCurrentBalance()
             }, onFailure: { (error) in
                 print(error)
             }, progressHud: .init())
@@ -115,7 +117,7 @@ WalletBlockScanResponseProtocol {
     }
     
     func onTransactionConfirmed(_ hash: String!, height: Int32) {
-
+        onResult(hash)
     }
     
     func onEnd(_ height: Int32, cancelled: Bool) {

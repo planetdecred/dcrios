@@ -23,7 +23,7 @@ class SeedCheckupViewController: UIViewController, SeedCheckupProtocol {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        addAccessory()
+        //addAccessory()
         let arr = seedToVerify?.components(separatedBy: " ")
         tfSeedCheckWord.itemsToSearch = arr
         tfSeedCheckWord.dropDownListPlaceholder = view

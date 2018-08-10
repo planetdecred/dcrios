@@ -62,7 +62,11 @@ extension DcrdConnectionProtocol{
                 progressHud.label.text = "Discovering Addresses..."
                 //progressHud.show(animated: true)
             }
-            try wallet?.discoverActiveAddresses(false, privPass: nil)
+            let myNSString = "qr" as NSString
+            
+            //Convert NSString to NSData
+            let myNSData = myNSString.data(using: String.Encoding.utf8.rawValue)!
+            try wallet?.discoverActiveAddresses(true, privPass: myNSData)
             DispatchQueue.main.async {
                 progressHud.label.text = "fetching Headers..."
                 //progressHud.show(animated: true)
@@ -77,6 +81,10 @@ extension DcrdConnectionProtocol{
            
          //   try wallet?.publishUnminedTransactions()
         } catch let error{
+            DispatchQueue.main.async {
+                progressHud.hide(animated: true)
+                
+            }
             if onFailure != nil{
                 onFailure(error)
             }

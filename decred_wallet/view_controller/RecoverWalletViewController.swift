@@ -1,4 +1,3 @@
-//
 //  RecoverWalletViewController.swift
 //  Decred Wallet
 //
