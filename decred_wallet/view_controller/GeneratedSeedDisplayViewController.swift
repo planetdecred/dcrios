@@ -17,7 +17,7 @@ class GeneratedSeedDisplayViewController: UIViewController {
     @IBOutlet var seedContainer: UIView!
     
     var seed: String! = ""
-    var arrWords: Array<String> = []
+    var arrWords = Array<String>()
     var yPosition: CGFloat?
     var xPostiion: CGFloat?
     var totalWidth: CGFloat?
@@ -33,6 +33,17 @@ class GeneratedSeedDisplayViewController: UIViewController {
         
         drawSeed()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = false
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.isNavigationBarHidden = true
+    }
+    
     
     // MARK: - Utility
     
@@ -56,16 +67,16 @@ class GeneratedSeedDisplayViewController: UIViewController {
         seedContainer.addSubview(outerStackView)
         
         for count in 0 ..< arrWords.count {
-            seedWordLabels[count].text = "\(count + 1) .\(arrWords[count])"
+            seedWordLabels[count].text = "\(count + 1). \(arrWords[count])"
         }
         
-//        outerStackView.topAnchor.constraint(equalTo: seedContainer.topAnchor).isActive = true
-//        outerStackView.bottomAnchor.constraint(equalTo: seedContainer.bottomAnchor).isActive = true
-//        outerStackView.leadingAnchor.constraint(equalTo: seedContainer.leadingAnchor).isActive = true
-//        outerStackView.trailingAnchor.constraint(equalTo: seedContainer.trailingAnchor).isActive = true
+        outerStackView.frame = seedContainer.frame
+        
+//        outerStackView.topAnchor.constraint(equalTo: seedContainer.topAnchor, constant: 0).isActive = true
+//        outerStackView.bottomAnchor.constraint(equalTo: seedContainer.bottomAnchor, constant: 0).isActive = true
+//        outerStackView.leadingAnchor.constraint(equalTo: seedContainer.leadingAnchor, constant: 30).isActive = true
+//        outerStackView.trailingAnchor.constraint(equalTo: seedContainer.trailingAnchor, constant: 30).isActive = true
     }
-    
-    
     
     // MARK: - Navigation
     
