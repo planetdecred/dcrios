@@ -32,6 +32,8 @@ class GeneratedSeedDisplayViewController: UIViewController {
         arrWords = (seed?.components(separatedBy: " "))!
         
         drawSeed()
+        
+        backButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
