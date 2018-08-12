@@ -31,9 +31,9 @@ protocol DcrdConnectionProtocol : DcrdBaseProtocol {
 
 extension DcrdConnectionProtocol{
     mutating func initiateWallet(){
-        wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents")
+        wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/")
         wallet?.initLoader()
-        openWallet()
+        //openWallet()
     }
     
     func openWallet (){
@@ -146,7 +146,6 @@ extension DcrSettingsSupportProtocol{
 
 protocol DecredBackendProtocol: DcrdConnectionProtocol,
                                 DcrdSeedMnemonicProtocol,
-                                DcrdCreateRestoreWalletProtocol,
                                 DcrAccountsManagementProtocol,
                                 DcrTransactionsHistoryProtocol,
                                 DcrSettingsSupportProtocol,

@@ -25,7 +25,7 @@ MobilewalletBlockScanResponseProtocol {
         self.tableView.tableHeaderView = viewTableHeader
         self.tableView.tableFooterView = viewTableFooter
         
-        if ((AppContext.instance.decrdConnection?.wallet?.isNetBackendNil())!){
+         /*if ((AppContext.instance.decrdConnection?.wallet?.isNetBackendNil())!){
             DispatchQueue.main.async {
                  print("connected to dcrd")
             }
@@ -48,7 +48,7 @@ MobilewalletBlockScanResponseProtocol {
                 print("not connected")
             }
             
-            AppContext.instance.decrdConnection?.connect(onSuccess: { (height) in
+           AppContext.instance.decrdConnection?.connect(onSuccess: { (height) in
                 let accounts = AppContext.instance.decrdConnection?.getAccounts()
                 let address = AppContext.instance.decrdConnection?.getCurrentAddress(account: (accounts?.Acc.first?.Number)!)
                 print("Address:\(address ?? "")")
@@ -61,7 +61,7 @@ MobilewalletBlockScanResponseProtocol {
                 print(error)
             }, progressHud: .init())
             // self.conectToRpc()
-        }
+        }*/
     }
         
         
