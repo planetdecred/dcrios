@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import Wallet
+import Mobilewallet
 class AppContext {
     public static let instance = AppContext()
     var decrdConnection: DecredBackendProtocol?

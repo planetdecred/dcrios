@@ -28,7 +28,7 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
 
 
     var selectedAccount : AccountsEntity?
-    var preparedTransaction: WalletConstructTxResponse?
+    var preparedTransaction: MobilewalletConstructTxResponse?
     var password : String?
 
     

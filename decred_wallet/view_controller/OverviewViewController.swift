@@ -5,11 +5,11 @@
 //  see LICENSE for details.
 
 import SlideMenuControllerSwift
-import Wallet
+import Mobilewallet
 import MBProgressHUD
 
-class OverviewViewController: UIViewController, WalletGetTransactionsResponseProtocol, WalletTransactionListenerProtocol, WalletBlockNotificationErrorProtocol,
-WalletBlockScanResponseProtocol {
+class OverviewViewController: UIViewController, MobilewalletGetTransactionsResponseProtocol, MobilewalletTransactionListenerProtocol, MobilewalletBlockNotificationErrorProtocol,
+MobilewalletBlockScanResponseProtocol {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var lbCurrentBalance: UILabel!

@@ -7,11 +7,12 @@
 //
 
 import Foundation
-import Wallet
+import Mobilewallet
 import MBProgressHUD
 
 protocol DcrdBaseProtocol {
-    var wallet: WalletLibWallet?{get set}
+
+    var wallet: MobilewalletLibWallet?{get set}
 }
 
 typealias progressHUD = MBProgressHUD?
@@ -24,13 +25,13 @@ protocol DcrdConnectionProtocol : DcrdBaseProtocol {
     mutating func initiateWallet()
     func connect(onSuccess:SuccessCallback, onFailure:FailureCallback,progressHud: MBProgressHUD)
     func disconnect()
-    mutating func subscribeForTransactions(observer:WalletTransactionListenerProtocol)
-    mutating func subscribeForBlockTransaction(observer:WalletBlockNotificationErrorProtocol)
+    mutating func subscribeForTransactions(observer:MobilewalletTransactionListenerProtocol)
+    mutating func subscribeForBlockTransaction(observer:MobilewalletBlockNotificationErrorProtocol)
 }
 
 extension DcrdConnectionProtocol{
     mutating func initiateWallet(){
-        wallet = WalletNewLibWallet(NSHomeDirectory() + "/Documents")
+        wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents")
         wallet?.initLoader()
         openWallet()
     }
@@ -62,11 +63,9 @@ extension DcrdConnectionProtocol{
                 progressHud.label.text = "Discovering Addresses..."
                 //progressHud.show(animated: true)
             }
-            let myNSString = "qr" as NSString
             
             //Convert NSString to NSData
-            let myNSData = myNSString.data(using: String.Encoding.utf8.rawValue)!
-            try wallet?.discoverActiveAddresses(true, privPass: myNSData)
+            try wallet?.discoverActiveAddresses()
             DispatchQueue.main.async {
                 progressHud.label.text = "fetching Headers..."
                 //progressHud.show(animated: true)
@@ -99,11 +98,11 @@ extension DcrdConnectionProtocol{
         wallet?.shutdown()
     }
     
-    mutating func subscribeForTransactions(observer: WalletTransactionListenerProtocol) {
+    mutating func subscribeForTransactions(observer: MobilewalletTransactionListenerProtocol) {
         wallet?.transactionNotification(observer)
     }
     
-    mutating func subscribeForBlockTransaction(observer:WalletBlockNotificationErrorProtocol){
+    mutating func subscribeForBlockTransaction(observer:MobilewalletBlockNotificationErrorProtocol){
         do{
             try wallet?.subscribe(toBlockNotifications: observer )
         } catch let error{
@@ -165,7 +164,7 @@ class DcrdConnection : DecredBackendProtocol {
     
     
     
-    var mTransactionsObserver: WalletGetTransactionsResponseProtocol?
+    var mTransactionsObserver: MobilewalletGetTransactionsResponseProtocol?
     var settingsBackup: String = ""
 
     var mTransactionUpdatesHub: TransactionNotificationsObserveHub? = TransactionNotificationsObserveHub()
@@ -173,7 +172,7 @@ class DcrdConnection : DecredBackendProtocol {
     var transactionsObserver: TransactionsObserver?
     var mTransactionsObserveHub : GetTransactionObserveHub? = GetTransactionObserveHub()
     var mBlockRescanObserverHub : BlockScanObserverHub? = BlockScanObserverHub()
-    var wallet: WalletLibWallet?
+    var wallet: MobilewalletLibWallet?
     required init() {
         settingsBackup = UserDefaults.standard.dictionaryRepresentation().description
     }

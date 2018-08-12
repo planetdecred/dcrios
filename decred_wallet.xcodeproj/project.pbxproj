@@ -95,7 +95,7 @@
 		DDB89427202F955F002F85EE /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB89426202F955F002F85EE /* UIView.swift */; };
 		DDB89429202F95AC002F85EE /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB89428202F95AC002F85EE /* UIApplication.swift */; };
 		DDBC152C2095D2E900F68BA6 /* encryptWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBC152B2095D2E900F68BA6 /* encryptWalletViewController.swift */; };
-		DDFFF691211E07A100616A4C /* Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDFFF690211E07A000616A4C /* Wallet.framework */; };
+		DDF39BAD211F0DD300B443BE /* Mobilewallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDF39BAC211F0DD300B443BE /* Mobilewallet.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -221,7 +221,7 @@
 		DDB89426202F955F002F85EE /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		DDB89428202F95AC002F85EE /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		DDBC152B2095D2E900F68BA6 /* encryptWalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = encryptWalletViewController.swift; sourceTree = "<group>"; };
-		DDFFF690211E07A000616A4C /* Wallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Wallet.framework; sourceTree = "<group>"; };
+		DDF39BAC211F0DD300B443BE /* Mobilewallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mobilewallet.framework; sourceTree = "<group>"; };
 		E75324D536F1BD91575D0609 /* Pods_Decred_Wallet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Decred_Wallet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -230,8 +230,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DDFFF691211E07A100616A4C /* Wallet.framework in Frameworks */,
 				1E3D73D7EA02D2D2D3CD052C /* Pods_Decred_Wallet.framework in Frameworks */,
+				DDF39BAD211F0DD300B443BE /* Mobilewallet.framework in Frameworks */,
 				B853136BC96255F028D8CB64 /* Pods_Decred_Wallet.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -284,7 +284,7 @@
 		5300E0A95A9FA022A08F903E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DDFFF690211E07A000616A4C /* Wallet.framework */,
+				DDF39BAC211F0DD300B443BE /* Mobilewallet.framework */,
 				28FD1BD0208F6C9A0051F58F /* Pods_Decred_Wallet.framework */,
 				28FD1BC5208E667F0051F58F /* Pods_Decred_Wallet.framework */,
 				28FD1BC1208E659A0051F58F /* Pods_Decred_Wallet.framework */,

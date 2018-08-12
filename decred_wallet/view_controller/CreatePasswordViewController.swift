@@ -8,7 +8,7 @@
 
 import UIKit
 import MBProgressHUD
-import Wallet
+import Mobilewallet
 
 class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITextFieldDelegate {
     var seedToVerify: String?
@@ -53,20 +53,17 @@ class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITex
            //
             try
                 AppContext.instance.decrdConnection?.createWallet(seed:seed, passwd:pass!)
-                AppContext.instance.decrdConnection?.connect(onSuccess: { (height) in
-                    DispatchQueue.main.async {
-                        self.progressHud?.hide(animated: true)
-                        createMainWindow()
-                    }
-        }, onFailure: { (error) in
-            print(error)
-                }, progressHud: self.progressHud!)
+            DispatchQueue.main.async {
+                self.progressHud?.hide(animated: true)
+                createMainWindow()
+            }
            // progressHud?.hide(animated: true)
             
             //navigationController?.dismiss(animated: true, completion: nil)
 
         }
             catch let error{
+               self.progressHud?.hide(animated: true)
                 self.showError(error: error)
         }
         }

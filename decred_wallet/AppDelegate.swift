@@ -6,7 +6,7 @@
 import CoreData
 import SlideMenuControllerSwift
 import IQKeyboardManager
-import Wallet
+import Mobilewallet
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
