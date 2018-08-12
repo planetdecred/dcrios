@@ -16,13 +16,13 @@ protocol DcrdSeedMnemonicProtocol : DcrdBaseProtocol {
 extension DcrdSeedMnemonicProtocol{
     func  generateSeed() -> String{
         do{
-            return  (try wallet?.generateSeed())!
+            return  (try AppContext.instance.decrdConnection?.wallet!.generateSeed())!
         } catch {
             return ""
         }
     }
     
     func verifySeed(seed:String) -> Bool{
-        return (wallet?.verifySeed(seed))!
+        return (AppContext.instance.decrdConnection?.wallet!.verifySeed(seed))!
     }
 }

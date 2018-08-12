@@ -7,11 +7,12 @@
 //
 
 import Foundation
-import Wallet
+import Mobilewallet
 import MBProgressHUD
 
 protocol DcrdBaseProtocol {
-    var wallet: WalletLibWallet?{get set}
+
+    var wallet: MobilewalletLibWallet?{get set}
 }
 
 typealias progressHUD = MBProgressHUD?
@@ -24,15 +25,15 @@ protocol DcrdConnectionProtocol : DcrdBaseProtocol {
     mutating func initiateWallet()
     func connect(onSuccess:SuccessCallback, onFailure:FailureCallback,progressHud: MBProgressHUD)
     func disconnect()
-    mutating func subscribeForTransactions(observer:WalletTransactionListenerProtocol)
-    mutating func subscribeForBlockTransaction(observer:WalletBlockNotificationErrorProtocol)
+    mutating func subscribeForTransactions(observer:MobilewalletTransactionListenerProtocol)
+    mutating func subscribeForBlockTransaction(observer:MobilewalletBlockNotificationErrorProtocol)
 }
 
 extension DcrdConnectionProtocol{
     mutating func initiateWallet(){
-        wallet = WalletNewLibWallet(NSHomeDirectory() + "/Documents")
+        wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/")
         wallet?.initLoader()
-        openWallet()
+        //openWallet()
     }
     
     func openWallet (){
@@ -62,7 +63,9 @@ extension DcrdConnectionProtocol{
                 progressHud.label.text = "Discovering Addresses..."
                 //progressHud.show(animated: true)
             }
-            try wallet?.discoverActiveAddresses(false, privPass: nil)
+            
+            //Convert NSString to NSData
+            try wallet?.discoverActiveAddresses()
             DispatchQueue.main.async {
                 progressHud.label.text = "fetching Headers..."
                 //progressHud.show(animated: true)
@@ -77,6 +80,10 @@ extension DcrdConnectionProtocol{
            
          //   try wallet?.publishUnminedTransactions()
         } catch let error{
+            DispatchQueue.main.async {
+                progressHud.hide(animated: true)
+                
+            }
             if onFailure != nil{
                 onFailure(error)
             }
@@ -91,11 +98,11 @@ extension DcrdConnectionProtocol{
         wallet?.shutdown()
     }
     
-    mutating func subscribeForTransactions(observer: WalletTransactionListenerProtocol) {
+    mutating func subscribeForTransactions(observer: MobilewalletTransactionListenerProtocol) {
         wallet?.transactionNotification(observer)
     }
     
-    mutating func subscribeForBlockTransaction(observer:WalletBlockNotificationErrorProtocol){
+    mutating func subscribeForBlockTransaction(observer:MobilewalletBlockNotificationErrorProtocol){
         do{
             try wallet?.subscribe(toBlockNotifications: observer )
         } catch let error{
@@ -139,7 +146,6 @@ extension DcrSettingsSupportProtocol{
 
 protocol DecredBackendProtocol: DcrdConnectionProtocol,
                                 DcrdSeedMnemonicProtocol,
-                                DcrdCreateRestoreWalletProtocol,
                                 DcrAccountsManagementProtocol,
                                 DcrTransactionsHistoryProtocol,
                                 DcrSettingsSupportProtocol,
@@ -157,7 +163,7 @@ class DcrdConnection : DecredBackendProtocol {
     
     
     
-    var mTransactionsObserver: WalletGetTransactionsResponseProtocol?
+    var mTransactionsObserver: MobilewalletGetTransactionsResponseProtocol?
     var settingsBackup: String = ""
 
     var mTransactionUpdatesHub: TransactionNotificationsObserveHub? = TransactionNotificationsObserveHub()
@@ -165,7 +171,7 @@ class DcrdConnection : DecredBackendProtocol {
     var transactionsObserver: TransactionsObserver?
     var mTransactionsObserveHub : GetTransactionObserveHub? = GetTransactionObserveHub()
     var mBlockRescanObserverHub : BlockScanObserverHub? = BlockScanObserverHub()
-    var wallet: WalletLibWallet?
+    var wallet: MobilewalletLibWallet?
     required init() {
         settingsBackup = UserDefaults.standard.dictionaryRepresentation().description
     }

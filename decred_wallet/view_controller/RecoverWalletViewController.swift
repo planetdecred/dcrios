@@ -1,4 +1,3 @@
-//
 //  RecoverWalletViewController.swift
 //  Decred Wallet
 //
@@ -7,7 +6,7 @@
 //
 
 import UIKit
-import Wallet
+import Mobilewallet
 
 class RecoverWalletViewController: UIViewController {
     @IBOutlet var txSeedCheckCombined: UITextView!

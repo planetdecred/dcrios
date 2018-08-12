@@ -8,7 +8,8 @@
 
 import UIKit
 import MBProgressHUD
-import Wallet
+import IQKeyboardManager
+import Mobilewallet
 
 class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITextFieldDelegate {
     var seedToVerify: String?
@@ -19,6 +20,7 @@ class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITex
     
     override func viewDidLoad() {
         super.viewDidLoad()
+         //IQKeyboardManager.shared().isEnabled = false
         progressHud = MBProgressHUD(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
         view.addSubview(progressHud!)
         tfPassword.delegate = self
@@ -43,32 +45,22 @@ class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITex
     }
     
     @IBAction func onEncrypt(_ sender: Any) {
-        self.progressHud?.show(animated: true)
-        self.progressHud?.label.text = "creating wallet..."
+        //self.progressHud?.show(animated: true)
+       // self.progressHud?.label.text = "creating wallet..."
+        print("creating")
         let seed = self.seedToVerify!
         let pass = self.tfPassword!.text
         DispatchQueue.global(qos: .userInitiated).async{
-        do{
+            do{
+                let wallet = AppContext.instance.decrdConnection?.wallet
+                try wallet?.createWallet(pass, seedMnemonic: seed)
+                print("done")
+            }catch let error{
+                print("wallet error")
+                    print(error)
+                
+            }
             
-           //
-            try
-                AppContext.instance.decrdConnection?.createWallet(seed:seed, passwd:pass!)
-                AppContext.instance.decrdConnection?.connect(onSuccess: { (height) in
-                    DispatchQueue.main.async {
-                        self.progressHud?.hide(animated: true)
-                        createMainWindow()
-                    }
-        }, onFailure: { (error) in
-            print(error)
-                }, progressHud: self.progressHud!)
-           // progressHud?.hide(animated: true)
-            
-            //navigationController?.dismiss(animated: true, completion: nil)
-
-        }
-            catch let error{
-                self.showError(error: error)
-        }
         }
     }
     
