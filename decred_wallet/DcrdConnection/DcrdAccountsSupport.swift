@@ -19,7 +19,7 @@ protocol DcrAccountsManagementProtocol : DcrdBaseProtocol{
 
     func rescan()
     var mBlockRescanObserverHub: BlockScanObserverHub?{get set}
-    mutating func addObserver(blockScanObserver:WalletBlockScanResponseProtocol)
+    mutating func addObserver(blockScanObserver:MobilewalletBlockScanResponseProtocol)
     func spendable(account:AccountsEntity) -> Double
 }
 
@@ -94,7 +94,7 @@ extension DcrAccountsManagementProtocol{
         
         return nil
     }
-    func addObserver(blockScanObserver:WalletBlockScanResponseProtocol){
+    func addObserver(blockScanObserver:MobilewalletBlockScanResponseProtocol){
         mBlockRescanObserverHub?.subscribe(forBlockScanNotifications: blockScanObserver)
     }
     

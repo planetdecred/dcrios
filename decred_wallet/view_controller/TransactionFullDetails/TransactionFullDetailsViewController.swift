@@ -5,7 +5,7 @@
 import UIKit
 import MBProgressHUD
 
-class TransactionFullDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, WalletGetTransactionsResponseProtocol {
+class TransactionFullDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, MobilewalletGetTransactionsResponseProtocol {
     
     @IBOutlet private weak var tableTransactionDetails: UITableView!    
     @IBOutlet weak var tableView: UITableView!

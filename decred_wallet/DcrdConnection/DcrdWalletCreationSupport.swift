@@ -7,18 +7,16 @@
 //
 
 import Foundation
+import  Mobilewallet
+/*protocol DcrdCreateRestoreWalletProtocol {
+   // func createWallet()
+}*/
 
-protocol DcrdCreateRestoreWalletProtocol: DcrdBaseProtocol {
-    func createWallet(seed:String, passwd:String) throws
-    func openWallet() -> Bool
-}
-
-extension DcrdCreateRestoreWalletProtocol{
-    func createWallet(seed:String, passwd:String) throws {
-        try wallet?.createWallet(passwd, seedMnemonic: seed)
+/*extension DcrdCreateRestoreWalletProtocol{
+    func createWallet() {
     }
     
-    func openWallet() -> Bool{
+   /* func openWallet() -> Bool{
         var result = false
         do{
             result = ((try wallet?.open()) != nil)
@@ -26,5 +24,5 @@ extension DcrdCreateRestoreWalletProtocol{
             print(error)
         }
         return result
-    }
-}
+    }*/
+}*/

@@ -5,11 +5,11 @@
 //  see LICENSE for details.
 
 import SlideMenuControllerSwift
-import Wallet
+import Mobilewallet
 import MBProgressHUD
 
-class OverviewViewController: UIViewController, WalletGetTransactionsResponseProtocol, WalletTransactionListenerProtocol, WalletBlockNotificationErrorProtocol,
-WalletBlockScanResponseProtocol {
+class OverviewViewController: UIViewController, MobilewalletGetTransactionsResponseProtocol, MobilewalletTransactionListenerProtocol, MobilewalletBlockNotificationErrorProtocol,
+MobilewalletBlockScanResponseProtocol {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var lbCurrentBalance: UILabel!
@@ -25,7 +25,7 @@ WalletBlockScanResponseProtocol {
         self.tableView.tableHeaderView = viewTableHeader
         self.tableView.tableFooterView = viewTableFooter
         
-        if ((AppContext.instance.decrdConnection?.wallet?.isNetBackendNil())!){
+         /*if ((AppContext.instance.decrdConnection?.wallet?.isNetBackendNil())!){
             DispatchQueue.main.async {
                  print("connected to dcrd")
             }
@@ -37,7 +37,9 @@ WalletBlockScanResponseProtocol {
             AppContext.instance.decrdConnection?.addObserver(forBlockError: self)
             AppContext.instance.decrdConnection?.addObserver(forUpdateNotifications: self)
             AppContext.instance.decrdConnection?.addObserver(blockScanObserver: self)
-            //self.updateCurrentBalance()
+            
+            self.updateCurrentBalance()
+        
             
             // AppContext.instance.decrdConnection?.rescan()
             
@@ -46,7 +48,7 @@ WalletBlockScanResponseProtocol {
                 print("not connected")
             }
             
-            AppContext.instance.decrdConnection?.connect(onSuccess: { (height) in
+           AppContext.instance.decrdConnection?.connect(onSuccess: { (height) in
                 let accounts = AppContext.instance.decrdConnection?.getAccounts()
                 let address = AppContext.instance.decrdConnection?.getCurrentAddress(account: (accounts?.Acc.first?.Number)!)
                 print("Address:\(address ?? "")")
@@ -54,12 +56,12 @@ WalletBlockScanResponseProtocol {
                 AppContext.instance.decrdConnection?.addObserver(forBlockError: self)
                 AppContext.instance.decrdConnection?.addObserver(forUpdateNotifications: self)
                 AppContext.instance.decrdConnection?.addObserver(blockScanObserver: self)
-                updateCurrentBalance()
+                self.updateCurrentBalance()
             }, onFailure: { (error) in
                 print(error)
             }, progressHud: .init())
             // self.conectToRpc()
-        }
+        }*/
     }
         
         
@@ -115,7 +117,7 @@ WalletBlockScanResponseProtocol {
     }
     
     func onTransactionConfirmed(_ hash: String!, height: Int32) {
-
+        onResult(hash)
     }
     
     func onEnd(_ height: Int32, cancelled: Bool) {

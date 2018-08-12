@@ -6,7 +6,7 @@
 import CoreData
 import SlideMenuControllerSwift
 import IQKeyboardManager
-import Wallet
+import Mobilewallet
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -71,7 +71,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                 "pref_user_passwd":"dcrwallet",
                                                 "pref_server_ip": "192.168.43.68"])
         AppContext.instance.decrdConnection = DcrdConnection()
-        AppContext.instance.decrdConnection?.initiateWallet()
+        AppContext.instance.decrdConnection?.wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/")
+        AppContext.instance.decrdConnection?.wallet?.initLoader()
         
         IQKeyboardManager.shared().isEnabled = true
         

@@ -15,9 +15,9 @@ override func viewDidLoad() {
     UserDefaults.standard.synchronize()
     }
     @IBAction func openwallet(_ sender: Any) {
-        createMenuView()
+       // createMenuView()
     }
-    fileprivate func createMenuView() {
+  /*  fileprivate func createMenuView() {
         
         // create viewController code...
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -43,5 +43,5 @@ override func viewDidLoad() {
         self.dismiss(animated: true, completion: nil)
         UserDefaults.standard.set(true, forKey: "walletCreated")
         UserDefaults.standard.synchronize()
-    }
+    }*/
 }
