@@ -107,3 +107,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 }
+
+extension AppDelegate {
+   class var shared: AppDelegate {
+        return UIApplication.shared.delegate as! AppDelegate
+    }
+}

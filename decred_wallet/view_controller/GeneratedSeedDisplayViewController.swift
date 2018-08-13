@@ -31,7 +31,9 @@ class GeneratedSeedDisplayViewController: UIViewController {
         seed = AppContext.instance.decrdConnection?.generateSeed() as String?
         arrWords = (seed?.components(separatedBy: " "))!
         
-        drawSeed()
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1) { [weak self] in
+            self?.drawSeed()
+        }
         
         backButton()
     }
@@ -72,13 +74,11 @@ class GeneratedSeedDisplayViewController: UIViewController {
         }
         
         outerStackView.frame = seedContainer.frame
-        outerStackView.frame.size.width = 0.9 * seedContainer.frame.size.width
+        let windowSize = AppDelegate.shared.window?.frame.size ?? CGSize.zero
+        outerStackView.frame.size.width = 0.9 * min(windowSize.width, windowSize.height)
         outerStackView.center = seedContainer.center
-        
-        // outerStackView.topAnchor.constraint(equalTo: seedContainer.topAnchor, constant: 0).isActive = true
-        // outerStackView.bottomAnchor.constraint(equalTo: seedContainer.bottomAnchor, constant: 0).isActive = true
-        // outerStackView.leadingAnchor.constraint(equalTo: seedContainer.leadingAnchor, constant: 30).isActive = true
-        // outerStackView.trailingAnchor.constraint(equalTo: seedContainer.trailingAnchor, constant: 30).isActive = true
+        outerStackView.center.x = self.view.center.x
+        seedContainer.setNeedsLayout()
     }
     
     // MARK: - Navigation

@@ -505,7 +505,7 @@
         <!--Setting up your wallet-->
         <scene sceneID="S9M-rX-2SB">
             <objects>
-                <viewController storyboardIdentifier="saveSeedView" title="Setting up your wallet" useStoryboardIdentifierAsRestorationIdentifier="YES" id="eoW-KE-o6O" customClass="GeneratedSeedDisplayViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="saveSeedView" title="Setting up your wallet" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="eoW-KE-o6O" customClass="GeneratedSeedDisplayViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ozH-zT-ShC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -517,17 +517,17 @@
                                 <color key="textColor" red="0.34901960784313724" green="0.42745098039215684" blue="0.50588235294117645" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OEN-2p-5ZC">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OEN-2p-5ZC">
                                 <rect key="frame" x="0.0" y="108.5" width="375" height="345.5"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fcL-1d-Y58">
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fcL-1d-Y58">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="344"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="fcL-1d-Y58" firstAttribute="top" secondItem="OEN-2p-5ZC" secondAttribute="top" id="6IB-X6-RVF"/>
-                                    <constraint firstItem="fcL-1d-Y58" firstAttribute="centerY" secondItem="OEN-2p-5ZC" secondAttribute="centerY" placeholder="YES" id="IhF-B1-GqM"/>
+                                    <constraint firstItem="fcL-1d-Y58" firstAttribute="centerY" secondItem="OEN-2p-5ZC" secondAttribute="centerY" id="EwX-zm-kp4"/>
                                     <constraint firstAttribute="trailing" secondItem="fcL-1d-Y58" secondAttribute="trailing" id="Vzu-wN-mjE"/>
                                     <constraint firstItem="fcL-1d-Y58" firstAttribute="leading" secondItem="OEN-2p-5ZC" secondAttribute="leading" id="emB-VY-XBO"/>
                                     <constraint firstItem="fcL-1d-Y58" firstAttribute="centerX" secondItem="OEN-2p-5ZC" secondAttribute="centerX" id="kEG-IY-fcg"/>
