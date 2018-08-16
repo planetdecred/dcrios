@@ -207,7 +207,7 @@
 @property(strong, readonly) id _ref;
 
 - (instancetype)initWithRef:(id)ref;
-- (instancetype)init:(NSString*)homeDir;
+- (instancetype)init:(NSString*)homeDir dbDriver:(NSString*)dbDriver;
 - (NSString*)addressForAccount:(int32_t)account error:(NSError**)error;
 - (NSString*)callJSONRPC:(NSString*)method args:(NSString*)args address:(NSString*)address username:(NSString*)username password:(NSString*)password caCert:(NSString*)caCert error:(NSError**)error;
 - (BOOL)closeWallet:(NSError**)error;
@@ -329,7 +329,7 @@ FOUNDATION_EXPORT const long MobilewalletProcessTypeFetchHeaders;
 FOUNDATION_EXPORT const long MobilewalletProcessTypeRescan;
 FOUNDATION_EXPORT const long MobilewalletProcessTypeUnknown;
 
-FOUNDATION_EXPORT MobilewalletLibWallet* MobilewalletNewLibWallet(NSString* homeDir);
+FOUNDATION_EXPORT MobilewalletLibWallet* MobilewalletNewLibWallet(NSString* homeDir, NSString* dbDriver);
 
 FOUNDATION_EXPORT NSString* MobilewalletNormalizeAddress(NSString* addr, NSString* defaultPort, NSError** error);
 

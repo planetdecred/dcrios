@@ -45,8 +45,8 @@ class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITex
     }
     
     @IBAction func onEncrypt(_ sender: Any) {
-        //self.progressHud?.show(animated: true)
-       // self.progressHud?.label.text = "creating wallet..."
+        self.progressHud?.show(animated: true)
+        self.progressHud?.label.text = "creating wallet..."
         print("creating")
         let seed = self.seedToVerify!
         let pass = self.tfPassword!.text
@@ -54,8 +54,15 @@ class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITex
             do{
                 let wallet = AppContext.instance.decrdConnection?.wallet
                 try wallet?.createWallet(pass, seedMnemonic: seed)
+                DispatchQueue.main.async {
+                    self.progressHud?.hide(animated: true)
+                    UserDefaults.standard.set(pass, forKey: "password")
+                    createMainWindow()
+                }
                 print("done")
             }catch let error{
+                self.progressHud?.hide(animated: true)
+                self.showError(error: error)
                 print("wallet error")
                     print(error)
                 

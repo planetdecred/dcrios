@@ -19,10 +19,13 @@ class RecoverWalletViewController: UIViewController {
     
     var arrSeed = Array<String>()
     var seedWords: String! = ""
+    let seedtmp = "miser stupendous backward inception slowdown Capricorn uncut visitor slowdown caravan blockade hemisphere repay article necklace hazardous cobra inferno python suspicious minnow Norwegian chairlift backwater surmount impetus cement stupendous snowslide sympathy fallout embezzle afflict"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         addAccessory()
+        self.btnConfirm.isEnabled = true
+        txSeedCheckCombined!.text  = seedtmp
         addSearchWords()
         tfSeedCheckWord.searchResult?.onSelect = { [weak self] _, item in
             guard let this = self else { return }
@@ -72,6 +75,7 @@ class RecoverWalletViewController: UIViewController {
             let sb = UIStoryboard(name: "Main", bundle: nil)
             let vc = sb.instantiateViewController(withIdentifier: "encryptWallet") as! CreatePasswordViewController
             vc.seedToVerify = txSeedCheckCombined.text
+            UserDefaults.standard.set(txSeedCheckCombined.text, forKey: "passphrase")
             navigationController?.pushViewController(vc, animated: true)
         } else {
             showError(error: "Seed was not verifed!")

@@ -15,13 +15,8 @@ extension Notification.Name {
 
 func isWalletCreated() -> Bool{
         let fm = FileManager()
-        do{
-            let contents = try fm.contentsOfDirectory(atPath: NSHomeDirectory()+"/Documents/testnet3/")
-            let result = contents.count > 0
+          let result = fm.fileExists(atPath: NSHomeDirectory()+"/Documents/dcrwallet/testnet3/wallet.db")
             return result
-        }catch{
-            return false
-    }
 }
 
 func createMainWindow(){
@@ -54,7 +49,16 @@ func saveCertificate(secretKey: String) {
         debugPrint("Could not create certificate file")
     }
 }
-
+func getPeerAddress(appInstance:UserDefaults)-> String{
+    let ip = appInstance.string(forKey: "pref_peer_ip")
+    if(ip?.elementsEqual("0.0.0.0"))!{
+        return ""
+    }
+    else{
+        return (ip?.appending(":19108"))!
+    }
+    
+}
 func loadCertificate() throws ->  String {
     let filePath = NSHomeDirectory() + "/Documents/rpc.cert"
     return try String.init(contentsOfFile: filePath)

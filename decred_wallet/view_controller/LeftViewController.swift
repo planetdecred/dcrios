@@ -34,7 +34,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
     @IBOutlet weak var tableView: UITableView!
     var menus = ["Overview", "Account", "Send", "Receive","History", "Settings"]
     var mainViewController: UIViewController!
-    var swiftViewController: UIViewController!
+    var accountViewController: UIViewController!
     var sendViewController: UIViewController!
     var receiveViewController: UIViewController!
     var settingsViewController: UIViewController!
@@ -52,8 +52,8 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         self.tableView.separatorColor = GlobalConstants.Colors.separaterGrey
         
         let storyboard =  UIStoryboard(name: "Main", bundle: nil)
-        let swiftViewController = storyboard.instantiateViewController(withIdentifier: "AccountViewController") as! AccountViewController
-        self.swiftViewController = UINavigationController(rootViewController: swiftViewController)
+        let accountViewController = storyboard.instantiateViewController(withIdentifier: "AccountViewController") as! AccountViewController
+        self.accountViewController = UINavigationController(rootViewController: accountViewController)
         
         let sendViewController = storyboard.instantiateViewController(withIdentifier: "SendViewController") as! SendViewController
         self.sendViewController = UINavigationController(rootViewController: sendViewController)
@@ -73,7 +73,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         
         self.imageHeaderView = ImageHeaderView.loadNib()
         self.view.addSubview(self.imageHeaderView)
-        if ((AppContext.instance.decrdConnection?.wallet?.isNetBackendNil())!){
+       /* if ((AppContext.instance.decrdConnection?.wallet?.isNetBackendNil())!){
            
             DispatchQueue.main.async {
                 self.connectionStatus.text = "connected to RPC"
@@ -85,37 +85,38 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         }else{
             self.connectionStatus.text = "Connecting to RPC server"
            // self.conectToRpc()
-        }
+        }*/
         
         
         
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)// 1
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
-                let bestblck = AppContext.instance.decrdConnection?.wallet?.getBestBlock()
-                let bestblocktemp : Int64 = Int64(Int(bestblck!))
-                if(self.scanning){
-                    self.bestblock.text = String(bestblck!)
-                    return
-                }
-                let  lastblocktime = AppContext.instance.decrdConnection?.wallet?.getBestBlockTimeStamp()
-                let currentTime = NSDate().timeIntervalSince1970
-                let estimatedBlocks = ((Int64(currentTime) - (lastblocktime)!) / 120) + bestblocktemp
-                if(estimatedBlocks > bestblocktemp){
-                    self.bestblock.text = String(bestblocktemp).appending(" of ").appending(String(estimatedBlocks))
-                    self.chainStatus.text = ""
-                    
-                }
-                else{
-                    self.bestblock.text = String(bestblocktemp)
-                    self.chainStatus.text = self.calculateTime(millis: Int64(NSDate().timeIntervalSince1970) - lastblocktime!)
-                }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)// 1
+        print("am running")
+           self.loop()
+    }
+    func loop(){
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
+            let bestblck = AppContext.instance.decrdConnection?.wallet?.getBestBlock()
+            let bestblocktemp : Int64 = Int64(Int(bestblck!))
+            if(self.scanning){
+                self.bestblock.text = String(bestblck!)
+                return
             }
-        
-        
-        
+            let  lastblocktime = AppContext.instance.decrdConnection?.wallet?.getBestBlockTimeStamp()
+            let currentTime = NSDate().timeIntervalSince1970
+            let estimatedBlocks = ((Int64(currentTime) - (lastblocktime)!) / 120) + bestblocktemp
+            if(estimatedBlocks > bestblocktemp){
+                self.bestblock.text = String(bestblocktemp).appending(" of ").appending(String(estimatedBlocks))
+                self.chainStatus.text = ""
+                
+            }
+            else{
+                self.bestblock.text = String(bestblocktemp)
+                self.chainStatus.text = self.calculateTime(millis: Int64(NSDate().timeIntervalSince1970) - lastblocktime!)
+            }
+        }
+
     }
     
     func calculateTime(millis: Int64)-> String{
@@ -139,11 +140,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         return String(millis2).appending("s ago")
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-       
-    }
-    
+   
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.imageHeaderView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 160)
@@ -155,7 +152,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         case .overview:
             self.slideMenuController()?.changeMainViewController(self.mainViewController, close: true)
         case .account:
-            self.slideMenuController()?.changeMainViewController(self.swiftViewController, close: true)
+            self.slideMenuController()?.changeMainViewController(self.accountViewController, close: true)
         case .send:
             self.slideMenuController()?.changeMainViewController(self.sendViewController, close: true)
         case .receive:

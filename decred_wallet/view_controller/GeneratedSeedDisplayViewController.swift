@@ -85,6 +85,7 @@ class GeneratedSeedDisplayViewController: UIViewController {
         
     }
     
+    
     // Get width for new word
     func getWidth(str: String) -> CGSize {
         let maxLabelSize = CGSize(width: 300, height: 30)

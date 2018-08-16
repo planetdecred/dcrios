@@ -31,14 +31,14 @@ protocol DcrdConnectionProtocol : DcrdBaseProtocol {
 
 extension DcrdConnectionProtocol{
     mutating func initiateWallet(){
-        wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/")
-        wallet?.initLoader()
+        AppContext.instance.decrdConnection?.wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/", "badgerdb")
+        AppContext.instance.decrdConnection?.wallet?.initLoader()
         //openWallet()
     }
     
     func openWallet (){
         do{
-            try wallet?.open()
+            try AppContext.instance.decrdConnection?.wallet?.open()
         } catch let error{
             print(error)
         }
@@ -95,16 +95,16 @@ extension DcrdConnectionProtocol{
     }
     
     func disconnect() {
-        wallet?.shutdown()
+        AppContext.instance.decrdConnection?.wallet?.shutdown()
     }
     
     mutating func subscribeForTransactions(observer: MobilewalletTransactionListenerProtocol) {
-        wallet?.transactionNotification(observer)
+        AppContext.instance.decrdConnection?.wallet?.transactionNotification(observer)
     }
     
     mutating func subscribeForBlockTransaction(observer:MobilewalletBlockNotificationErrorProtocol){
         do{
-            try wallet?.subscribe(toBlockNotifications: observer )
+            try AppContext.instance.decrdConnection?.wallet?.subscribe(toBlockNotifications: observer )
         } catch let error{
             print(error)
         }
@@ -120,9 +120,9 @@ protocol DcrSettingsSupportProtocol:DcrdConnectionProtocol {
 
 extension DcrSettingsSupportProtocol{
     func applySettings(onSuccess:SuccessCallback?, onFailure:FailureCallback?,progressHud: MBProgressHUD?){
-        disconnect()
-        openWallet()
-        connect(onSuccess:onSuccess!, onFailure:onFailure!, progressHud: progressHud!)
+        //disconnect()
+       // openWallet()
+       // connect(onSuccess:onSuccess!, onFailure:onFailure!, progressHud: progressHud!)
     }
     
     mutating func saveSettings(){
@@ -136,9 +136,9 @@ extension DcrSettingsSupportProtocol{
     
     mutating func applySettings(){
         if isSettingsChanged(){
-            disconnect()
-            openWallet()
-            connect(onSuccess:{_ in }, onFailure: {_ in }, progressHud: .init()  )
+           // disconnect()
+           // openWallet()
+            //connect(onSuccess:{_ in }, onFailure: {_ in }, progressHud: .init()  )
             saveSettings()
         }
     }

@@ -12,6 +12,7 @@ struct DataTableViewCellData {
     init(imageUrl: String, text: String) {
         self.imageUrl = imageUrl
         self.text = text
+        
     }
     var imageUrl: String
     var text: String

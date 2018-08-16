@@ -24,6 +24,7 @@ open class BaseTableViewCell : UITableViewCell {
     }
     
     open func setup() {
+        self.setData(self)
     }
     
     open class func height() -> CGFloat {
