@@ -123,7 +123,7 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
     func onResult(_ json: String!) {
         do{
             let transactions = try JSONDecoder().decode(GetTransactionResponse.self, from:json.data(using: .utf8)!)
-            let lastTransaction = transactions.Transactions?.filter({(transaction) in
+            let lastTransaction = transactions.Transactions.filter({(transaction) in
                 print("HASH: "+transaction.Hash + " == " + self.transactionHash!)
                 return transaction.Hash == self.transactionHash
             }).first

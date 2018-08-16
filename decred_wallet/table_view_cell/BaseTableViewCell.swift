@@ -35,6 +35,7 @@ open class BaseTableViewCell : UITableViewCell {
         self.backgroundColor = GlobalConstants.Colors.greenishGrey
         //self.textLabel?.font = UIFont.boldSystemFont(ofSize: 18)
        self.textLabel?.textColor = GlobalConstants.Colors.black
+    
         if let menuText = data as? String {
             self.textLabel?.text = menuText
             if(menuText == "Overview"){

@@ -72,6 +72,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                 "pref_user_passwd":"dcrwallet",
                                                 "pref_server_ip": "192.168.43.68",
                                                 "pref_peer_ip":"0.0.0.0"])
+        UserDefaults.standard.set(true, forKey: "pref_use_testnet")
         AppContext.instance.decrdConnection = DcrdConnection()
         AppContext.instance.decrdConnection?.wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/", "badgerdb")
         AppContext.instance.decrdConnection?.wallet?.initLoader()
