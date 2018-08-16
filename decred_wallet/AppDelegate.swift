@@ -46,6 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     fileprivate func populateFirstScreen() {
         if isWalletCreated() {
+            AppContext.instance.decrdConnection?.openWallet()
             createMenuView()
         } else {
             walletSetupView()
@@ -69,9 +70,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         showAnimatedStartScreen()
         UserDefaults.standard.setValuesForKeys(["pref_user_name" : "dcrwallet",
                                                 "pref_user_passwd":"dcrwallet",
-                                                "pref_server_ip": "192.168.43.68"])
+                                                "pref_server_ip": "192.168.43.68",
+                                                "pref_peer_ip":"0.0.0.0"])
         AppContext.instance.decrdConnection = DcrdConnection()
-        AppContext.instance.decrdConnection?.wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/")
+        AppContext.instance.decrdConnection?.wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/", "badgerdb")
         AppContext.instance.decrdConnection?.wallet?.initLoader()
         
         IQKeyboardManager.shared().isEnabled = true

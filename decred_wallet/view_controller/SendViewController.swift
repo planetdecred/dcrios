@@ -168,11 +168,23 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
         // Retrieve the QRCode content
         // By using the delegate pattern
         readerVC.delegate = self
+        var address = ""
         
         // Or by using the closure pattern
         readerVC.completionBlock = { (result: QRCodeReaderResult?) in
-            print(result)
+            
+            print(result.unsafelyUnwrapped.value)
+             DispatchQueue.main.async {
+            if (result?.value.length)! > 0{
+                address = (result?.value)!
+                self.walletAddress?.text = result?.value
+            }
+            }
+            
+           
         }
+        
+        
         
         // Presents the readerVC as modal form sheet
         readerVC.modalPresentationStyle = .formSheet
