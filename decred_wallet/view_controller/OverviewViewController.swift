@@ -30,7 +30,7 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
            connectToDecredNetwork()
             print("adding observer")
             AppContext.instance.decrdConnection?.addObserver(transactionsHistoryObserver: self)
-            AppContext.instance.decrdConnection?.addObserver(blockScanObserver: self)
+           // AppContext.instance.decrdConnection?.addObserver(blockScanObserver: self)
         
        
     }
@@ -197,14 +197,17 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
         do{
             
             let transactions = try JSONDecoder().decode(Tresponse , from:json.data(using: .utf8)!)
-            if((transactions.Transactions?.count)! > 0){
+            if(transactions.ErrorMessage == "nil"){
+                return
+            }
+            if((transactions.Transactions.count) > 0){
                  self.mainContens.removeAll()
-            for transactionPack in transactions.Transactions!{
+                for transactionPack in transactions.Transactions{
                 
-                for creditTransaction in transactionPack.Credits!{
+                    for creditTransaction in transactionPack.Credits{
                     self.mainContens.append("\(creditTransaction.dcrAmount) DCR")
                 }
-                for debitTransaction in transactionPack.Debits!{
+                    for debitTransaction in transactionPack.Debits{
                     self.mainContens.append("-\(debitTransaction.dcrAmount) DCR")
                 }
             }
@@ -278,11 +281,11 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
     func onTransaction(_ transaction: String!) {
         print("new transaction")
         let transactions = try! JSONDecoder().decode(Transaction.self, from:transaction.data(using: .utf8)!)
-        for creditTransaction in transactions.Credits!{
+        for creditTransaction in transactions.Credits{
             self.mainContens.append("\(creditTransaction.dcrAmount) DCR")
             
         }
-        for debitTransaction in transactions.Debits!{
+        for debitTransaction in transactions.Debits{
             self.mainContens.append("-\(debitTransaction.dcrAmount) DCR")
         }
         DispatchQueue.main.async {
@@ -310,8 +313,11 @@ extension OverviewViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: DataTableViewCell.identifier) as! DataTableViewCell
+        if( indexPath.row < 7){
         let data = DataTableViewCellData(imageUrl: "dummy", text: self.mainContens[indexPath.row])
         cell.setData(data)
+        return cell
+        }
         return cell
     }
 }

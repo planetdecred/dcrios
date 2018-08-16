@@ -114,12 +114,15 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
     }
     
     private func prepareTransaction(sendAll:Bool?){
-        let amountToSend = Double((tfAmount.text)!)!
         do{
-            preparedTransaction = try AppContext.instance.decrdConnection?.prepareTransaction(from: (self.selectedAccount?.Number)!, to: self.walletAddress.text!, amount: amountToSend, isSendAll: sendAll ?? false)
-            estimateSize.text = "\( preparedTransaction?.estimatedSignedSize() ?? 0) Bytes"
-            estimateFee.text = "\(Double(( preparedTransaction?.estimatedSignedSize())!) / 0.001 / 1e8) DCR"
-            totalAmountSending.text = "\(preparedTransaction?.totalOutputAmount() ?? 0) DCR"
+             let amountToSend = Double((self.tfAmount.text)!)!
+            self.preparedTransaction = try AppContext.instance.decrdConnection?.prepareTransaction(from: (self.selectedAccount?.Number)!, to: self.walletAddress.text!, amount: amountToSend, isSendAll: sendAll ?? false)
+            DispatchQueue.main.async {
+             
+                self.estimateSize.text = "\( self.preparedTransaction?.estimatedSignedSize() ?? 0) Bytes"
+                self.estimateFee.text = "\(Double(( self.preparedTransaction?.estimatedSignedSize())!) / 0.001 / 1e8) DCR"
+                self.totalAmountSending.text = "\(self.preparedTransaction?.totalOutputAmount() ?? 0) DCR"
+            }
         } catch let error{
             self.showAlert(message: error.localizedDescription)
         }
@@ -230,6 +233,10 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
     // MARK: - TextFieldDelegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if !validateAmount(){
+            showAlertInvalidAmount()
+            return false
+        }
         prepareTransaction(sendAll:false)
         textField.resignFirstResponder()
         return true
@@ -241,7 +248,6 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
     }
 
     private func updateBalance(){
-        AppContext.instance.decrdConnection?.rescan()
         let accounts = AppContext.instance.decrdConnection?.getAccounts()
         let accountsDisplay = accounts?.Acc.map {(acc)-> String in
             let spendable = AppContext.instance.decrdConnection?.spendable(account: acc)
