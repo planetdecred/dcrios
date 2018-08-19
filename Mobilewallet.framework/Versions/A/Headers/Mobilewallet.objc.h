@@ -27,8 +27,6 @@
 @class MobilewalletBlockScanResponse;
 @protocol MobilewalletGetTransactionsResponse;
 @class MobilewalletGetTransactionsResponse;
-@protocol MobilewalletProcessListener;
-@class MobilewalletProcessListener;
 @protocol MobilewalletSpvSyncResponse;
 @class MobilewalletSpvSyncResponse;
 @protocol MobilewalletTransactionListener;
@@ -48,11 +46,13 @@
 - (void)onResult:(NSString*)json;
 @end
 
-@protocol MobilewalletProcessListener <NSObject>
-- (void)onProcessCallback:(long)processType state:(long)state params:(NSString*)params;
-@end
-
 @protocol MobilewalletSpvSyncResponse <NSObject>
+- (void)onDiscoveredAddresses:(BOOL)finished;
+- (void)onFetchMissingCFilters:(int32_t)fetchedCFiltersCount;
+- (void)onFetchedHeaders:(int32_t)fetchedHeadersCount lastHeaderTime:(int64_t)lastHeaderTime;
+- (void)onPeerConnected:(int32_t)peerCount;
+- (void)onPeerDisconnected:(int32_t)peerCount;
+- (void)onRescanProgress:(int32_t)rescannedThrough;
 - (void)onSyncError:(long)code err:(NSError*)err;
 - (void)onSynced:(BOOL)synced;
 @end
@@ -231,7 +231,6 @@
 - (void)lockWallet;
 - (BOOL)nextAccount:(NSString*)accountName privPass:(NSData*)privPass;
 - (BOOL)openWallet:(NSError**)error;
-- (void)processNotification:(id<MobilewalletProcessListener>)listener;
 - (NSData*)publishTransaction:(NSData*)signedTransaction error:(NSError**)error;
 - (BOOL)publishUnminedTransactions:(NSError**)error;
 - (void)rescan:(int32_t)startHeight response:(id<MobilewalletBlockScanResponse>)response;
@@ -319,16 +318,6 @@
 - (void)setAccountName:(NSString*)v;
 @end
 
-FOUNDATION_EXPORT const long MobilewalletProcessStateEnd;
-FOUNDATION_EXPORT const long MobilewalletProcessStateStart;
-FOUNDATION_EXPORT const long MobilewalletProcessStateUnknown;
-FOUNDATION_EXPORT const long MobilewalletProcessStateUpdate;
-FOUNDATION_EXPORT const long MobilewalletProcessTypeAddressDiscovery;
-FOUNDATION_EXPORT const long MobilewalletProcessTypeFetchCFilters;
-FOUNDATION_EXPORT const long MobilewalletProcessTypeFetchHeaders;
-FOUNDATION_EXPORT const long MobilewalletProcessTypeRescan;
-FOUNDATION_EXPORT const long MobilewalletProcessTypeUnknown;
-
 FOUNDATION_EXPORT MobilewalletLibWallet* MobilewalletNewLibWallet(NSString* homeDir, NSString* dbDriver);
 
 FOUNDATION_EXPORT NSString* MobilewalletNormalizeAddress(NSString* addr, NSString* defaultPort, NSError** error);
@@ -338,8 +327,6 @@ FOUNDATION_EXPORT NSString* MobilewalletNormalizeAddress(NSString* addr, NSStrin
 @class MobilewalletBlockScanResponse;
 
 @class MobilewalletGetTransactionsResponse;
-
-@class MobilewalletProcessListener;
 
 @class MobilewalletSpvSyncResponse;
 
@@ -371,19 +358,17 @@ FOUNDATION_EXPORT NSString* MobilewalletNormalizeAddress(NSString* addr, NSStrin
 - (void)onResult:(NSString*)json;
 @end
 
-@interface MobilewalletProcessListener : NSObject <goSeqRefInterface, MobilewalletProcessListener> {
-}
-@property(strong, readonly) id _ref;
-
-- (instancetype)initWithRef:(id)ref;
-- (void)onProcessCallback:(long)processType state:(long)state params:(NSString*)params;
-@end
-
 @interface MobilewalletSpvSyncResponse : NSObject <goSeqRefInterface, MobilewalletSpvSyncResponse> {
 }
 @property(strong, readonly) id _ref;
 
 - (instancetype)initWithRef:(id)ref;
+- (void)onDiscoveredAddresses:(BOOL)finished;
+- (void)onFetchMissingCFilters:(int32_t)fetchedCFiltersCount;
+- (void)onFetchedHeaders:(int32_t)fetchedHeadersCount lastHeaderTime:(int64_t)lastHeaderTime;
+- (void)onPeerConnected:(int32_t)peerCount;
+- (void)onPeerDisconnected:(int32_t)peerCount;
+- (void)onRescanProgress:(int32_t)rescannedThrough;
 /**
  * 	* Handled Error Codes
 	* -1 - Unexpected Error

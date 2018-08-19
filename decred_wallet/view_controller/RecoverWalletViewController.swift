@@ -19,7 +19,7 @@ class RecoverWalletViewController: UIViewController {
     
     var arrSeed = Array<String>()
     var seedWords: String! = ""
-    let seedtmp = "miser stupendous backward inception slowdown Capricorn uncut visitor slowdown caravan blockade hemisphere repay article necklace hazardous cobra inferno python suspicious minnow Norwegian chairlift backwater surmount impetus cement stupendous snowslide sympathy fallout embezzle afflict"
+    let seedtmp = "reform aftermath printer warranty gremlin paragraph beehive stethoscope regain disruptive regain Bradbury chisel October trouble forever Algol applicant island infancy physique paragraph woodlark hydraulic snapshot backwater ratchet surrender revenge customer retouch intention minnow"
     
     override func viewDidLoad() {
         super.viewDidLoad()

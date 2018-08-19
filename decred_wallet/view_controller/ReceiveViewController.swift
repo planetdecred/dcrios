@@ -42,6 +42,11 @@ class ReceiveViewController: UIViewController {
     @IBAction private func generateNewAddress() {
         self.getAddress(accountNumber: (self.myacc.Number))
     }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.dismiss(animated: true, completion: nil)
+        
+    }
     
     private func showFirstWalletAddressAndQRCode() {
         if let acc =  AppContext.instance.decrdConnection?.getAccounts()?.Acc {

@@ -40,6 +40,7 @@ class AccountsHeaderView: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        print("header view initializing")
         // Initialization code
     }
    

@@ -117,6 +117,8 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
         do{
              let amountToSend = Double((self.tfAmount.text)!)!
             self.preparedTransaction = try AppContext.instance.decrdConnection?.prepareTransaction(from: (self.selectedAccount?.Number)!, to: self.walletAddress.text!, amount: amountToSend, isSendAll: sendAll ?? false)
+            print("Account Number is")
+            print(self.selectedAccount?.Number)
             DispatchQueue.main.async {
              
                 self.estimateSize.text = "\( self.preparedTransaction?.estimatedSignedSize() ?? 0) Bytes"
@@ -148,6 +150,11 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
             }
         }
     }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+       // self.dismiss(animated: true, completion: nil)
+        
+    }
     
     private func confirmSend() {
         let amountToSend = Double((tfAmount?.text)!)!
@@ -171,27 +178,31 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
         // Retrieve the QRCode content
         // By using the delegate pattern
         readerVC.delegate = self
-        var address = ""
+
         
         // Or by using the closure pattern
         readerVC.completionBlock = { (result: QRCodeReaderResult?) in
-            
-            print(result.unsafelyUnwrapped.value)
+
              DispatchQueue.main.async {
-            if (result?.value.length)! > 0{
-                address = (result?.value)!
-                self.walletAddress?.text = result?.value
+                var address = result?.value
+                if address == nil{
+                    return
+                }
+                if (address?.length)! > 0{
+                    if(address?.starts(with: "decred:"))!{
+                    address = address?.replacingOccurrences(of: "decred:", with: "")
+                        if((address?.length)! > 25 && (address?.length)! < 37 ){
+                            if(address?.starts(with: "T"))!{
+                                 self.walletAddress?.text = address
+                            }
+                        }
+                    }
             }
-            }
-            
-           
         }
-        
-        
-        
+        }
         // Presents the readerVC as modal form sheet
-        readerVC.modalPresentationStyle = .formSheet
-        present(readerVC, animated: true, completion: nil)
+        self.readerVC.modalPresentationStyle = .formSheet
+        present(self.readerVC, animated: true, completion: nil)
     }
     
     func reader(_ reader: QRCodeReaderViewController, didScanResult result: QRCodeReaderResult) {

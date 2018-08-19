@@ -54,7 +54,6 @@
 		957F0AFF20B82F3200D3E8A9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957F0AFE20B82F3200D3E8A9 /* Constants.swift */; };
 		95877FE820B70CBB00CE53D2 /* TransactionHistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95877FE620B70CBB00CE53D2 /* TransactionHistoryViewController.xib */; };
 		95877FE920B70CBB00CE53D2 /* TransactionHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95877FE720B70CBB00CE53D2 /* TransactionHistoryViewController.swift */; };
-		95B80F3120DCCCF2004D5613 /* loaderAnimation.gif in Resources */ = {isa = PBXBuildFile; fileRef = 95B80F2F20DCCCF2004D5613 /* loaderAnimation.gif */; };
 		95B80F3220DCCCF2004D5613 /* iOSDevCenters+GIF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B80F3020DCCCF2004D5613 /* iOSDevCenters+GIF.swift */; };
 		95CC024420D3F15800DA73AF /* AccountsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CC024320D3F15800DA73AF /* AccountsData.swift */; };
 		95E1C96E20FCD43E00D7F3EE /* TextFieldDoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E1C96D20FCD43E00D7F3EE /* TextFieldDoneButton.swift */; };
@@ -71,8 +70,8 @@
 		DD419763202F9B570044F068 /* UITableViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD419762202F9B570044F068 /* UITableViewExtension.swift */; };
 		DD4C89D92038EC12003FEA0C /* DropMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4C89D82038CDBC003FEA0C /* DropMenuButton.swift */; };
 		DD4C89DA2038EC3F003FEA0C /* keyPadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4C89D72038CABD003FEA0C /* keyPadButton.swift */; };
+		DD77202C2127F90D00382BB2 /* Mobilewallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD77202B2127F90C00382BB2 /* Mobilewallet.framework */; };
 		DD96B33F20293F110046F2DD /* LeftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD96B33E20293F110046F2DD /* LeftViewController.swift */; };
-		DDA3A1B42124BD680071AC5A /* Mobilewallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDA3A1B32124BD660071AC5A /* Mobilewallet.framework */; };
 		DDA3E26E20292EF900C83D18 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA3E26D20292EF900C83D18 /* AppDelegate.swift */; };
 		DDA3E27020292EF900C83D18 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA3E26F20292EF900C83D18 /* ViewController.swift */; };
 		DDA3E27320292EF900C83D18 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDA3E27120292EF900C83D18 /* Main.storyboard */; };
@@ -95,7 +94,6 @@
 		DDB89421202F93B3002F85EE /* OverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB89420202F93B3002F85EE /* OverviewViewController.swift */; };
 		DDB89427202F955F002F85EE /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB89426202F955F002F85EE /* UIView.swift */; };
 		DDB89429202F95AC002F85EE /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB89428202F95AC002F85EE /* UIApplication.swift */; };
-		DDBC152C2095D2E900F68BA6 /* encryptWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBC152B2095D2E900F68BA6 /* encryptWalletViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -176,7 +174,6 @@
 		957F0AFE20B82F3200D3E8A9 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		95877FE620B70CBB00CE53D2 /* TransactionHistoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionHistoryViewController.xib; sourceTree = "<group>"; };
 		95877FE720B70CBB00CE53D2 /* TransactionHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionHistoryViewController.swift; sourceTree = "<group>"; };
-		95B80F2F20DCCCF2004D5613 /* loaderAnimation.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loaderAnimation.gif; sourceTree = "<group>"; };
 		95B80F3020DCCCF2004D5613 /* iOSDevCenters+GIF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "iOSDevCenters+GIF.swift"; sourceTree = "<group>"; };
 		95CC024320D3F15800DA73AF /* AccountsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsData.swift; sourceTree = "<group>"; };
 		95E1C96D20FCD43E00D7F3EE /* TextFieldDoneButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldDoneButton.swift; sourceTree = "<group>"; };
@@ -193,8 +190,8 @@
 		DD419762202F9B570044F068 /* UITableViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewExtension.swift; sourceTree = "<group>"; };
 		DD4C89D72038CABD003FEA0C /* keyPadButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = keyPadButton.swift; sourceTree = "<group>"; };
 		DD4C89D82038CDBC003FEA0C /* DropMenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropMenuButton.swift; sourceTree = "<group>"; };
+		DD77202B2127F90C00382BB2 /* Mobilewallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mobilewallet.framework; sourceTree = "<group>"; };
 		DD96B33E20293F110046F2DD /* LeftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftViewController.swift; sourceTree = "<group>"; };
-		DDA3A1B32124BD660071AC5A /* Mobilewallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mobilewallet.framework; sourceTree = "<group>"; };
 		DDA3E26A20292EF900C83D18 /* DecredWallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DecredWallet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDA3E26D20292EF900C83D18 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DDA3E26F20292EF900C83D18 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -221,7 +218,6 @@
 		DDB89420202F93B3002F85EE /* OverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewViewController.swift; sourceTree = "<group>"; };
 		DDB89426202F955F002F85EE /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		DDB89428202F95AC002F85EE /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
-		DDBC152B2095D2E900F68BA6 /* encryptWalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = encryptWalletViewController.swift; sourceTree = "<group>"; };
 		E75324D536F1BD91575D0609 /* Pods_Decred_Wallet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Decred_Wallet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -231,7 +227,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1E3D73D7EA02D2D2D3CD052C /* Pods_Decred_Wallet.framework in Frameworks */,
-				DDA3A1B42124BD680071AC5A /* Mobilewallet.framework in Frameworks */,
+				DD77202C2127F90D00382BB2 /* Mobilewallet.framework in Frameworks */,
 				B853136BC96255F028D8CB64 /* Pods_Decred_Wallet.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -284,7 +280,7 @@
 		5300E0A95A9FA022A08F903E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DDA3A1B32124BD660071AC5A /* Mobilewallet.framework */,
+				DD77202B2127F90C00382BB2 /* Mobilewallet.framework */,
 				28FD1BD0208F6C9A0051F58F /* Pods_Decred_Wallet.framework */,
 				28FD1BC5208E667F0051F58F /* Pods_Decred_Wallet.framework */,
 				28FD1BC1208E659A0051F58F /* Pods_Decred_Wallet.framework */,
@@ -364,7 +360,6 @@
 			isa = PBXGroup;
 			children = (
 				95B80F3020DCCCF2004D5613 /* iOSDevCenters+GIF.swift */,
-				95B80F2F20DCCCF2004D5613 /* loaderAnimation.gif */,
 				DD4C89D72038CABD003FEA0C /* keyPadButton.swift */,
 				DDB89410202F8471002F85EE /* String.swift */,
 				DDB89418202F8F3E002F85EE /* UIIMage.swift */,
@@ -398,7 +393,6 @@
 				DDB89420202F93B3002F85EE /* OverviewViewController.swift */,
 				DD0C493D208A160900986C6B /* WalletSetupViewController.swift */,
 				DD0C493F208A401A00986C6B /* saveSeedViewController.swift */,
-				DDBC152B2095D2E900F68BA6 /* encryptWalletViewController.swift */,
 				DD1D5C7B20AED824009789DD /* certificateViewController.swift */,
 				957F0AF920B80EA600D3E8A9 /* RecoverWalletViewController.swift */,
 			);
@@ -589,7 +583,6 @@
 				95473E6B20E39E3C0023F50A /* TransactiontInputDetails.xib in Resources */,
 				28EB91C920FCFDBE007A0906 /* TransactionHistoryTableViewCell.xib in Resources */,
 				95877FE820B70CBB00CE53D2 /* TransactionHistoryViewController.xib in Resources */,
-				95B80F3120DCCCF2004D5613 /* loaderAnimation.gif in Resources */,
 				DDA3E27320292EF900C83D18 /* Main.storyboard in Resources */,
 				95473E7120E3A4C20023F50A /* TransactiontOutputDetailsCell.xib in Resources */,
 				2883CA74209B5BA40053D9BB /* Modals.storyboard in Resources */,
@@ -733,7 +726,6 @@
 				95473E6A20E39E3C0023F50A /* TransactiontInputDetails.swift in Sources */,
 				95CC024420D3F15800DA73AF /* AccountsData.swift in Sources */,
 				28F0CE7520888386003AC958 /* AppContext.swift in Sources */,
-				DDBC152C2095D2E900F68BA6 /* encryptWalletViewController.swift in Sources */,
 				DDB89402202F771F002F85EE /* UIViewController.swift in Sources */,
 				DDA3E26E20292EF900C83D18 /* AppDelegate.swift in Sources */,
 				DDB8940D202F82E6002F85EE /* SettingsController.swift in Sources */,

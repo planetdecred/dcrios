@@ -48,22 +48,23 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        AppContext.instance.decrdConnection?.addObserver(transactionsHistoryObserver: self)
-        self.view.addSubview(hud)
+        //AppContext.instance.decrdConnection?.addObserver(transactionsHistoryObserver: self)
+       // self.view.addSubview(hud)
         
         tableTransactionDetails
             .hideEmptyAndExtraRows()
             .autoResizeCell(estimatedHeight: 60.0)
             .registerCellNib(TransactiontInputDetails.self)
         
-        tableTransactionDetails.registerCellNib(TransactionDetailCell.self)
-        tableTransactionDetails.registerCellNib(TransactiontOutputDetailsCell.self)
+     //   tableTransactionDetails.registerCellNib(TransactionDetailCell.self)
+        //tableTransactionDetails.registerCellNib(TransactiontOutputDetailsCell.self)
         
     }
+    
 
     override func viewWillAppear(_ animated: Bool) {
         hud.show(animated: true)
-        AppContext.instance.decrdConnection?.fetchTransactions()
+       // AppContext.instance.decrdConnection?.fetchTransactions()
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -138,6 +139,12 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         }catch let error{
             print(error)
         }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.dismiss(animated: true, completion: nil)
+        
     }
     
     fileprivate func wrap(transaction:Transaction?){

@@ -38,6 +38,11 @@ class TransactionHistoryViewController: UIViewController {
         self.setNavigationBarItem()
         self.navigationItem.title = "History"
     }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.dismiss(animated: true, completion: nil)
+        
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

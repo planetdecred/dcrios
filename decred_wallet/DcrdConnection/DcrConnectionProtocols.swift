@@ -31,7 +31,7 @@ protocol DcrdConnectionProtocol : DcrdBaseProtocol {
 
 extension DcrdConnectionProtocol{
     mutating func initiateWallet(){
-        AppContext.instance.decrdConnection?.wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/", "badgerdb")
+        AppContext.instance.decrdConnection?.wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/", "bdb")
         AppContext.instance.decrdConnection?.wallet?.initLoader()
         //openWallet()
     }

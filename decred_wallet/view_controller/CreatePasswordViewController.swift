@@ -18,6 +18,7 @@ class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITex
     @IBOutlet weak var tfVerifyPassword: UITextField!
     @IBOutlet weak var btnEncrypt: UIButton!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
          //IQKeyboardManager.shared().isEnabled = false
@@ -52,19 +53,30 @@ class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITex
         let pass = self.tfPassword!.text
         DispatchQueue.global(qos: .userInitiated).async{
             do{
-                let wallet = AppContext.instance.decrdConnection?.wallet
-                try wallet?.createWallet(pass, seedMnemonic: seed)
+                var wallet: MobilewalletLibWallet
+               var constant = AppContext.instance.decrdConnection
+                wallet = (constant?.wallet)!
+                if(wallet == nil){
+                    return
+                }
+                try wallet.createWallet(pass, seedMnemonic: seed)
                 DispatchQueue.main.async {
                     self.progressHud?.hide(animated: true)
                     UserDefaults.standard.set(pass, forKey: "password")
-                    createMainWindow()
+                    print("wallet created")
+                    self.dismiss(animated: true, completion: nil)
+                    return
+                    //createMainWindow()
                 }
                 print("done")
+                return
             }catch let error{
+                 DispatchQueue.main.async {
                 self.progressHud?.hide(animated: true)
                 self.showError(error: error)
                 print("wallet error")
                     print(error)
+                }
                 
             }
             
