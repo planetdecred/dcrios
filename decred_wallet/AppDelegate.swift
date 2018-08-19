@@ -5,7 +5,7 @@
 
 import CoreData
 import SlideMenuControllerSwift
-import IQKeyboardManager
+//import IQKeyboardManager
 import Mobilewallet
 
 @UIApplicationMain
@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let mainViewController = storyboard.instantiateViewController(withIdentifier: "OverviewViewController") as! OverviewViewController
         let leftViewController = storyboard.instantiateViewController(withIdentifier: "LeftViewController") as! LeftViewController
-        let rightViewController = storyboard.instantiateViewController(withIdentifier: "RightViewController") as! RightViewController
+      //  let rightViewController = storyboard.instantiateViewController(withIdentifier: "RightViewController") as! RightViewController
 
         let nvc: UINavigationController = UINavigationController(rootViewController: mainViewController)
 
@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         leftViewController.mainViewController = nvc
 
-        let slideMenuController = ExSlideMenuController(mainViewController: nvc, leftMenuViewController: leftViewController, rightMenuViewController: rightViewController)
+        let slideMenuController = ExSlideMenuController(mainViewController: nvc, leftMenuViewController: leftViewController)
         slideMenuController.changeLeftViewWidth((window?.frame.size.width)! - (window?.frame.size.width)! / 6)
 
         slideMenuController.delegate = mainViewController
@@ -46,9 +46,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     fileprivate func populateFirstScreen() {
         if isWalletCreated() {
+            AppContext.instance.decrdConnection = DcrdConnection()
+            AppContext.instance.decrdConnection?.wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/", "bdb")
+            AppContext.instance.decrdConnection?.wallet?.initLoader()
             AppContext.instance.decrdConnection?.openWallet()
             createMenuView()
         } else {
+            AppContext.instance.decrdConnection = DcrdConnection()
+            AppContext.instance.decrdConnection?.wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/", "bdb")
+            AppContext.instance.decrdConnection?.wallet?.initLoader()
             walletSetupView()
         }
     }
@@ -73,11 +79,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                 "pref_server_ip": "192.168.43.68",
                                                 "pref_peer_ip":"0.0.0.0"])
         UserDefaults.standard.set(true, forKey: "pref_use_testnet")
-        AppContext.instance.decrdConnection = DcrdConnection()
-        AppContext.instance.decrdConnection?.wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/", "badgerdb")
-        AppContext.instance.decrdConnection?.wallet?.initLoader()
         
-        IQKeyboardManager.shared().isEnabled = true
+        
+        
+       // IQKeyboardManager.shared().isEnabled = true
         
         return true
     }

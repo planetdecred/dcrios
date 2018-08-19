@@ -101,10 +101,19 @@ struct GetTransactionResponse : Codable {
     var ErrorOccurred: Bool
     var ErrorMessage : String
     init(from decoder: Decoder) throws {
-        let values  = try decoder.container(keyedBy: CodingKeys.self)
-        self.Transactions = try values.decodeIfPresent([Transaction].self, forKey: .Transactions) ?? [Transaction]()
-        self.ErrorOccurred = try values.decodeIfPresent(Bool.self, forKey: .ErrorOccurred) ?? false
-        self.ErrorMessage = (try values.decodeIfPresent(String.self, forKey: .ErrorMessage)) ?? ""
+        do{
+            let values  = try decoder.container(keyedBy: CodingKeys.self)
+            self.Transactions = try values.decodeIfPresent([Transaction].self, forKey: .Transactions) ?? [Transaction]()
+            self.ErrorOccurred = try values.decodeIfPresent(Bool.self, forKey: .ErrorOccurred) ?? false
+            self.ErrorMessage = (try values.decodeIfPresent(String.self, forKey: .ErrorMessage)) ?? ""
+        }
+        catch {
+                print(Error.self)
+            self.Transactions =  [Transaction]()
+            self.ErrorOccurred =  false
+            self.ErrorMessage =  ""
+            
+        }
         
     }
 }

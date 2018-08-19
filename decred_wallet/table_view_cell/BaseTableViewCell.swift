@@ -8,11 +8,13 @@ import Foundation
 import UIKit
 
 open class BaseTableViewCell : UITableViewCell {
-    class var identifier: String { return String.className(self) }
+    
+    class var identifier: String {
+        return String.className(self) }
     
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        setup()
+        
     }
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -35,6 +37,7 @@ open class BaseTableViewCell : UITableViewCell {
         self.backgroundColor = GlobalConstants.Colors.greenishGrey
         //self.textLabel?.font = UIFont.boldSystemFont(ofSize: 18)
        self.textLabel?.textColor = GlobalConstants.Colors.black
+        
     
         if let menuText = data as? String {
             self.textLabel?.text = menuText

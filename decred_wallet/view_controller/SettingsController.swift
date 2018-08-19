@@ -107,6 +107,11 @@ class SettingsController: UITableViewController  {
             }
         })
     }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.dismiss(animated: true, completion: nil)
+        
+    }
     func loadDate()-> Void{
         
         let network_value = UserDefaults.standard.integer(forKey: "network_mode")
