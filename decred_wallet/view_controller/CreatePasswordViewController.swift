@@ -8,7 +8,6 @@
 
 import UIKit
 import MBProgressHUD
-import IQKeyboardManager
 import Mobilewallet
 
 class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITextFieldDelegate {
