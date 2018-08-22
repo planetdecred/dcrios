@@ -9,10 +9,11 @@ class AccountsHeaderView: UIView {
     @IBOutlet private var labelTotalBalance: UILabel!
     @IBOutlet private var labelSpendableBalance: UILabel!
     @IBOutlet private var viewHighLight: UIView!
+    @IBOutlet var expandOrCollapseDetailsButton: UIButton!
     
     var headerIndex: Int = 0
     
-//    var exapndOrCollapse: ((Int) -> Void)?
+    // var exapndOrCollapse: ((Int) -> Void)?
     
     var totalBalance: Double = 0.0 {
         willSet {
@@ -25,7 +26,7 @@ class AccountsHeaderView: UIView {
     
     @IBAction func expnandOrCollapseAction(_ sender: UIButton) {
         DispatchQueue.main.async {
-//            self.exapndOrCollapse?(self.headerIndex)
+            // self.exapndOrCollapse?(self.headerIndex)
         }
     }
     

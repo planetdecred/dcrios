@@ -6,17 +6,15 @@
 import Foundation
 import UIKit
 
-protocol  AccountDetailsCellProtocol{
-    func setup(account:AccountsEntity)
+protocol AccountDetailsCellProtocol {
+    func setup(account: AccountsEntity)
 }
 
-
-
 class AccountViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-
     // MARK: - Properties
-    var myBalances:[AccountsData] = [AccountsData]()
-    var account :GetAccountResponse?
+
+    var myBalances: [AccountsData] = [AccountsData]()
+    var account: GetAccountResponse?
     var visible = false
 
     @IBOutlet var tableAccountData: UITableView!
@@ -28,42 +26,38 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
             .hideEmptyAndExtraRows()
             .registerCellNib(AccountDataCell.self)
     }
-    
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setNavigationBarItem()
         navigationItem.title = "Account"
-         print("account will appear")
-       // self.account = AppContext.instance.decrdConnection?.getAccounts()
+        print("account will appear")
+        // self.account = AppContext.instance.decrdConnection?.getAccounts()
     }
+
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        self.visible = false
-      // self.dismiss(animated: true, completion: nil)
-        
+        visible = false
+        // self.dismiss(animated: true, completion: nil)
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
         print("disposing mem")
     }
-    
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.visible = true
+        visible = true
         prepareData()
-       
     }
 
-    func prepareData(){
-        if !(self.isViewLoaded){
+    func prepareData() {
+        if !isViewLoaded {
             return
         }
-        if(visible == false)
-        {
+        if visible == false {
             return
         }
         DispatchQueue.global(qos: .background).async { [weak self] in
@@ -93,9 +87,8 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
 
-
     func numberOfSections(in _: UITableView) -> Int {
-         print("account returning number of section")
+        print("account returning number of section")
         return myBalances.count
     }
 
@@ -108,14 +101,13 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
         headerView.totalBalance = data.totalBalance
         headerView.spendableBalance = data.spendableBalance
         headerView.headerIndex = section
+        headerView.expandOrCollapseDetailsButton.tag = section
+        headerView.expandOrCollapseDetailsButton.addTarget(
+            self,
+            action: #selector(toggleExpandedState(_:)),
+            for: .touchUpInside
+        )
 
-//        headerView.exapndOrCollapse = { [weak self] index in
-//            guard let strongSelf = self else { return }
-//
-//            strongSelf.myBalances[index].isExpanded.toggle()
-//            strongSelf.tableAccountData.reloadData()
-//        }
-        
         print("account returning header view")
         return headerView
     }
@@ -135,7 +127,12 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt rowIndex: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AccountDataCell") as! AccountDetailsCellProtocol
         print("account creating cells")
-        cell.setup(account:(self.account!.Acc[rowIndex.row]))
+        cell.setup(account: (account!.Acc[rowIndex.row]))
         return cell as! UITableViewCell
+    }
+
+    @objc private func toggleExpandedState(_ sender: UIButton) {
+        myBalances[sender.tag].isExpanded.toggle()
+        tableAccountData.reloadData()
     }
 }
