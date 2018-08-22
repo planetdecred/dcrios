@@ -104,32 +104,32 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         }
         
     }
-    func loop(){
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
+    
+    func loop() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            guard let this = self else { return }
             let bestblck = AppContext.instance.decrdConnection?.wallet?.getBestBlock()
-            let bestblocktemp : Int64 = Int64(Int(bestblck!))
-            if(self.scanning == true){
-                self.chainStatus.text = ""
-                self.connectionStatus.text = "Not Synced"
-                self.bestblock.text = String(bestblck!)
+            let bestblocktemp: Int64 = Int64(Int(bestblck!))
+            if this.scanning == true {
+                this.chainStatus.text = ""
+                this.connectionStatus.text = "Not Synced"
+                this.bestblock.text = String(bestblck!)
                 return
             }
-            let  lastblocktime = AppContext.instance.decrdConnection?.wallet?.getBestBlockTimeStamp()
+            let lastblocktime = AppContext.instance.decrdConnection?.wallet?.getBestBlockTimeStamp()
             let currentTime = NSDate().timeIntervalSince1970
-            let estimatedBlocks = ((Int64(currentTime) - (lastblocktime)!) / 120) + bestblocktemp
-            if(estimatedBlocks > bestblocktemp){
-                self.bestblock.text = String(bestblocktemp).appending(" of ").appending(String(estimatedBlocks))
-                self.chainStatus.text = ""
-                self.connectionStatus.text = "Fetching Headers..."
-                
+            let estimatedBlocks = ((Int64(currentTime) - lastblocktime!) / 120) + bestblocktemp
+            if estimatedBlocks > bestblocktemp {
+                this.bestblock.text = String(bestblocktemp).appending(" of ").appending(String(estimatedBlocks))
+                this.chainStatus.text = ""
+                this.connectionStatus.text = "Fetching Headers..."
             }
-            else{
-                self.connectionStatus.text = "Rescanning in progress..."
-                self.bestblock.text = String(bestblocktemp)
-                self.chainStatus.text = self.calculateTime(millis: Int64(NSDate().timeIntervalSince1970) - lastblocktime!)
+            else {
+                this.connectionStatus.text = "Rescanning in progress..."
+                this.bestblock.text = String(bestblocktemp)
+                this.chainStatus.text = this.calculateTime(millis: Int64(NSDate().timeIntervalSince1970) - lastblocktime!)
             }
         }
-
     }
     
     func calculateTime(millis: Int64)-> String{

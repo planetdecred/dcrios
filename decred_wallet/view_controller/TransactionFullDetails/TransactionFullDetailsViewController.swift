@@ -129,12 +129,13 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
                 return transaction.Hash == self.transactionHash
             }).first
             
-            DispatchQueue.main.async {
-                if let lastTransaction = lastTransaction{
-                    self.wrap(transaction: lastTransaction)
+            DispatchQueue.main.async { [weak self] in
+                guard let this = self else { return }
+                if let lastTransaction = lastTransaction {
+                    this.wrap(transaction: lastTransaction)
                 }
-                self.hud.hide(animated: true)
-                self.tableView.reloadData()
+                this.hud.hide(animated: true)
+                this.tableView.reloadData()
             }
         }catch let error{
             print(error)

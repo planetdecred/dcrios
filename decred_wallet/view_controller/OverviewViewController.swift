@@ -126,9 +126,8 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
                 }
             }
         }
-        else{
-            DispatchQueue.global(qos: .background).async {
-                [weak self] in
+        else {
+            DispatchQueue.global(qos: .background).async { [weak self] in
                 guard let this = self else { return }
                 do {
                     try
@@ -191,11 +190,12 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
                 print("Publish Unmined Transactions")
                 try AppContext.instance.decrdConnection?.wallet?.publishUnminedTransactions()
                 print("connected to remote node")
-                DispatchQueue.global(qos: .background).async {
+                DispatchQueue.global(qos: .background).async { [weak self] in
+                    guard let this = self else { return }
                     let blockHeight = AppContext().decrdConnection?.wallet?.getBestBlock()
                     print("best block")
                     print(blockHeight as Any)
-                    AppContext().decrdConnection?.wallet?.rescan(0, response: self)
+                    AppContext().decrdConnection?.wallet?.rescan(0, response: this)
                     
                /* if(appInstance.integer(forKey: "rescan_height") < blockHeight!){
                     AppContext.init().decrdConnection?.wallet?.rescan(self.pHeight.pointee, response: self)
@@ -255,42 +255,40 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
         }
         else{
             print("on result running")
-            DispatchQueue.main.async {
-        do{
-            let trans = GetTransactionResponse.self
-            let transactions = try JSONDecoder().decode( trans , from:json.data(using: .utf8)!)
-            print("on result decoded")
-            if((transactions.Transactions.count) > 0){
-                  print("on result decoded")
-                if(transactions.Transactions.count > self.mainContens.count){
-                    print(transactions.Transactions.count)
-                    print("new transaction OnResult")
-                    print(self.mainContens.count)
-                    self.mainContens.removeAll()
-                    print("decoding")
-                    for transactionPack in transactions.Transactions{
-                        
-                        for creditTransaction in transactionPack.Credits{
-                            self.mainContens.append("\(creditTransaction.dcrAmount) DCR")
-                        }
-                        for debitTransaction in transactionPack.Debits{
-                            self.mainContens.append("-\(debitTransaction.dcrAmount) DCR")
+            DispatchQueue.main.async { [weak self] in
+                guard let this = self else { return }
+                do {
+                    let trans = GetTransactionResponse.self
+                    let transactions = try JSONDecoder().decode(trans, from: json.data(using: .utf8)!)
+                    print("on result decoded")
+                    if (transactions.Transactions.count) > 0 {
+                        print("on result decoded")
+                        if transactions.Transactions.count > this.mainContens.count {
+                            print(transactions.Transactions.count)
+                            print("new transaction OnResult")
+                            print(this.mainContens.count)
+                            this.mainContens.removeAll()
+                            print("decoding")
+                            for transactionPack in transactions.Transactions {
+                                for creditTransaction in transactionPack.Credits {
+                                    this.mainContens.append("\(creditTransaction.dcrAmount) DCR")
+                                }
+                                for debitTransaction in transactionPack.Debits {
+                                    this.mainContens.append("-\(debitTransaction.dcrAmount) DCR")
+                                }
+                            }
+                            this.mainContens.reverse()
+                            this.tableView.reloadData()
+                            this.updateCurrentBalance()
                         }
                     }
-                    self.mainContens.reverse()
-                    self.tableView.reloadData()
-                    self.updateCurrentBalance()
+                    
+                } catch let error {
+                    print("onresult error")
+                    print(error)
                 }
             }
-            
-        }catch let error{
-            print("onresult error")
-            print(error)
         }
-                
-            }
-        }
-     
     }
     func onSyncError(_ code: Int, err: Error!) {
         print("sync error")

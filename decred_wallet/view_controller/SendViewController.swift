@@ -144,10 +144,11 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
             self.preparedTransaction = try AppContext.instance.decrdConnection?.wallet?.constructTransaction(self.walletAddress.text!, amount: amountToSend, srcAccount: (self.selectedAccount?.Number)!, requiredConfirmations: isShouldBeConfirmed ? 0 : 2, sendAll: sendAll ?? false)
             print("Account Number is")
             print(self.selectedAccount?.Number as Any)
-            DispatchQueue.main.async {
-                self.estimateSize.text = "\(self.preparedTransaction?.estimatedSignedSize() ?? 0) Bytes"
-                self.estimateFee.text = "\(Double((self.preparedTransaction?.estimatedSignedSize())!) / 0.001 / 1e8) DCR"
-                self.totalAmountSending.text = "\(self.preparedTransaction?.totalOutputAmount() ?? 0) DCR"
+            DispatchQueue.main.async { [weak self] in
+                guard let this = self else { return }
+                this.estimateSize.text = "\(this.preparedTransaction?.estimatedSignedSize() ?? 0) Bytes"
+                this.estimateFee.text = "\(Double((this.preparedTransaction?.estimatedSignedSize())!) / 0.001 / 1e8) DCR"
+                this.totalAmountSending.text = "\(this.preparedTransaction?.totalOutputAmount() ?? 0) DCR"
             }
         } catch let error {
             self.showAlert(message: error.localizedDescription)
@@ -190,8 +191,9 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
         
         confirmSendFundViewController.confirm = { [weak self] in
             guard let `self` = self else { return }
-            DispatchQueue.main.async {
-                self.signTransaction(sendAll: sendAll)
+            DispatchQueue.main.async { [weak self] in
+                guard let this = self else { return }
+                this.signTransaction(sendAll: sendAll)
             }
         }
         
@@ -206,7 +208,8 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
         // Or by using the closure pattern
         self.readerVC.completionBlock = { (result: QRCodeReaderResult?) in
             
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
+                guard let this = self else { return }
                 var address = result?.value
                 if address == nil {
                     return
@@ -216,7 +219,7 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
                         address = address?.replacingOccurrences(of: "decred:", with: "")
                         if (address?.length)! > 25 && (address?.length)! < 37 {
                             if (address?.starts(with: "T"))! {
-                                self.walletAddress?.text = address
+                                this.walletAddress?.text = address
                             }
                         }
                     }
