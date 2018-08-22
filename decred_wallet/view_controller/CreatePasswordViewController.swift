@@ -27,6 +27,12 @@ class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITex
         tfPassword.delegate = self
         tfVerifyPassword.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+        AppContext.instance.decrdConnection?.wallet?.runGC()
+    }
+    
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         validatePassword()
@@ -64,9 +70,10 @@ class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITex
                     self.progressHud?.hide(animated: true)
                     UserDefaults.standard.set(pass, forKey: "password")
                     print("wallet created")
+                    createMainWindow()
                     self.dismiss(animated: true, completion: nil)
-                    return
-                    //createMainWindow()
+                  
+                    
                 }
                 print("done")
                 return

@@ -102,14 +102,17 @@ struct GetTransactionResponse : Codable {
     var ErrorMessage : String
     init(from decoder: Decoder) throws {
         do{
+            print("in decoding now ")
             let values  = try decoder.container(keyedBy: CodingKeys.self)
-            self.Transactions = try values.decodeIfPresent([Transaction].self, forKey: .Transactions) ?? [Transaction]()
-            self.ErrorOccurred = try values.decodeIfPresent(Bool.self, forKey: .ErrorOccurred) ?? false
+            self.Transactions = try values.decodeIfPresent([Transaction].self, forKey: .Transactions) ?? [Transaction.init(from: decoder)]
+            self.ErrorOccurred = try values.decodeIfPresent(Bool.self, forKey: .ErrorOccurred) ?? true
             self.ErrorMessage = (try values.decodeIfPresent(String.self, forKey: .ErrorMessage)) ?? ""
+            print("done my work decoding")
         }
         catch {
                 print(Error.self)
-            self.Transactions =  [Transaction]()
+            print("error decoding")
+            self.Transactions =  [try Transaction.init(from: decoder)]
             self.ErrorOccurred =  false
             self.ErrorMessage =  ""
             

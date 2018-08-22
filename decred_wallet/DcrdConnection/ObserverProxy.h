@@ -10,7 +10,7 @@
 #import <Mobilewallet/Mobilewallet.h>
 
 
-@class TransactionResponse;
+/*@class TransactionResponse;
 @class Transaction;
 
 @protocol TransactionNotificationsObserverProtocol
@@ -53,4 +53,4 @@
 @property (nonatomic, strong) NSMutableArray<MobilewalletBlockScanResponse>* blockScanNotificationsSubscribers;
 - (void) subscribeForBlockScanNotifications:(id<MobilewalletBlockScanResponse>)observer;
 - (void) unsubscribeForBlockScanNotifications:(id<MobilewalletBlockScanResponse>)observer;
-@end
+@end*/

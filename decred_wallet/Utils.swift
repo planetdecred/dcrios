@@ -24,7 +24,6 @@ func createMainWindow(){
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
     let mainViewController = storyboard.instantiateViewController(withIdentifier: "OverviewViewController") as! OverviewViewController
     let leftViewController = storyboard.instantiateViewController(withIdentifier: "LeftViewController") as! LeftViewController
-    let rightViewController = storyboard.instantiateViewController(withIdentifier: "RightViewController") as! RightViewController
     
     let nvc: UINavigationController = UINavigationController(rootViewController: mainViewController)
     
@@ -32,7 +31,7 @@ func createMainWindow(){
     
     leftViewController.mainViewController = nvc
     
-    let slideMenuController = ExSlideMenuController(mainViewController:nvc, leftMenuViewController: leftViewController, rightMenuViewController: rightViewController)
+    let slideMenuController = ExSlideMenuController(mainViewController:nvc, leftMenuViewController: leftViewController)
     
     slideMenuController.delegate = mainViewController
     UIApplication.shared.keyWindow?.backgroundColor = GlobalConstants.Colors.lightGrey
@@ -58,6 +57,62 @@ func getPeerAddress(appInstance:UserDefaults)-> String{
         return (ip?.appending(":19108"))!
     }
     
+}
+func generateQRCodeFor(with addres: String, forImageViewFrame: CGRect) -> UIImage? {
+    guard let addrData = addres.data(using: String.Encoding.utf8) else {
+        return nil
+    }
+    
+    // Color code and background
+    guard let colorFilter = CIFilter(name: "CIFalseColor") else { return nil }
+    
+    let filter = CIFilter(name: "CIQRCodeGenerator")
+    
+    filter?.setValue(addrData, forKey: "inputMessage")
+    
+    /// Foreground color of the output
+    let color = CIColor(red: 26/255, green: 29/255, blue: 47/255)
+    
+    /// Background color of the output
+    let backgroundColor = CIColor.clear
+    
+    colorFilter.setDefaults()
+    colorFilter.setValue(filter!.outputImage, forKey: "inputImage")
+    colorFilter.setValue(color, forKey: "inputColor0")
+    colorFilter.setValue(backgroundColor, forKey: "inputColor1")
+    
+    if let imgQR = colorFilter.outputImage {
+        var tempFrame: CGRect? = forImageViewFrame
+        
+        if tempFrame == nil {
+            tempFrame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        }
+        
+        guard let frame = tempFrame else { return nil }
+        
+        let smallerSide = frame.size.width < frame.size.height ? frame.size.width : frame.size.height
+        
+        let scale = smallerSide/imgQR.extent.size.width
+        let transformedImage = imgQR.transformed(by: CGAffineTransform(scaleX: scale, y: scale))
+        
+        let imageQRCode = UIImage(ciImage: transformedImage)
+        
+        return imageQRCode
+    }
+    
+    return nil
+}
+func spendable(account:AccountsEntity) -> Double{
+    let bRequireConfirm = UserDefaults.standard.bool(forKey: "pref_spend_fund_switch")
+    let iRequireConfirm = (bRequireConfirm ?? false) ? Int32(0) : Int32(2)
+    let int64Pointer = UnsafeMutablePointer<Int64>.allocate(capacity: 64)
+    do {
+        try  AppContext.instance.decrdConnection?.wallet?.spendable(forAccount: account.Number, requiredConfirmations: iRequireConfirm, ret0_: int64Pointer)
+    } catch let error{
+        print(error)
+        return 0.0
+    }
+    return Double(int64Pointer.move() /  100000000)
 }
 func loadCertificate() throws ->  String {
     let filePath = NSHomeDirectory() + "/Documents/rpc.cert"

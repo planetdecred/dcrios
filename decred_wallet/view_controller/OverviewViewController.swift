@@ -10,6 +10,10 @@ import MBProgressHUD
 
 class OverviewViewController: UIViewController, MobilewalletGetTransactionsResponseProtocol, MobilewalletTransactionListenerProtocol, MobilewalletBlockNotificationErrorProtocol,
 MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
+    func onBlockAttached(_ height: Int32) {
+        
+    }
+    
     func onDiscoveredAddresses(_ finished: Bool) {
         
     }
@@ -42,25 +46,33 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
     @IBOutlet var viewTableFooter: UIView!
     var progressHud = MBProgressHUD()
     var visible = false
+    var scanning = false
+    var synced = false
    
     
-        var mainContens = [String]()
+    var mainContens = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.registerCellNib(DataTableViewCell.self)
         self.tableView.tableHeaderView = viewTableHeader
         self.tableView.tableFooterView = viewTableFooter
-        
-        
+        UserDefaults.standard.set(false, forKey: "synced")
         updateCurrentBalance()
+        prepareRecent()
            connectToDecredNetwork()
             print("adding observer")
-            AppContext.instance.decrdConnection?.addObserver(transactionsHistoryObserver: self)
-            AppContext.instance.decrdConnection?.addObserver(blockScanObserver: self)
-        
+        AppContext.instance.decrdConnection?.wallet?.transactionNotification(self)
        
     }
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        print("low memory")
+        //AppContext.instance.decrdConnection?.wallet?.runGC()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    
         
         
    
@@ -81,12 +93,12 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         self.visible = false
-        self.dismiss(animated: true, completion: nil)
+       // self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func onRescan(_ sender: Any) {
         print("rescaning")
-        AppContext.instance.decrdConnection?.rescan(rescanHeight:0)
+        //AppContext.instance.decrdConnection?.rescan(rescanHeight:0)
         //AppContext.instance.decrdConnection?.rescan(rescanHeight:  UserDefaults.standard.integer(forKey: "rescan_height"))
     }
     
@@ -97,7 +109,7 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
         print(appInstance.string(forKey: "passphrase")!)
         let finalPassphrase = passphrase as NSString
         let finalPassphraseData = finalPassphrase .data(using: String.Encoding.utf8.rawValue)!
-
+        
         if(appInstance.integer(forKey: "network_mode") == 0){
             print("starting SPV")
             print("syncing")
@@ -201,35 +213,62 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
 
     
     func updateCurrentBalance(){
-        
+        var amount = "0"
+        var account :GetAccountResponse?
         DispatchQueue.global(qos: .background).async {
-            do{
-                  try
-    AppContext.instance.decrdConnection?.wallet?.getTransactions(self)
-        DispatchQueue.main.async {
-            self.lbCurrentBalance.text = "\((AppContext.instance.decrdConnection?.getAccounts()?.Acc.first?.dcrTotalBalance)!) DCR"
-        }
-            }catch{
-                print (error)
+                do{
+                    let strAccount = try AppContext.instance.decrdConnection?.wallet?.getAccounts(0)
+                     account = try JSONDecoder().decode(GetAccountResponse.self, from: (strAccount?.data(using: .utf8))!)
+                    amount =
+                    "\((account?.Acc.first?.dcrTotalBalance)!) DCR"
+                } catch let error{
+                    print(error)
+                }
+            DispatchQueue.main.async {
+                self.lbCurrentBalance.text = amount
+                
             }
             
         }
         
     }
     
+    func prepareRecent(){
+        self.mainContens.removeAll()
+        DispatchQueue.global(qos: .background).async {
+            do{
+                try
+                AppContext.instance.decrdConnection?.wallet?.getTransactions(self)
+                print("done getting transaction")
+            }catch let Error{
+                print(Error)
+            }
+            
+        }
+        
+    }
+    
+    
     func onResult(_ json: String!) {
-       // print("on result")
-       /*
+       print("on result")
         if(self.visible == false){
+            print("on result returning")
             return
         }
-            let Tresponse = GetTransactionResponse.self
-            
+        else{
+            print("on result running")
+            DispatchQueue.main.async {
         do{
-            
-            let transactions = try JSONDecoder().decode(Tresponse , from:json.data(using: .utf8)!)
+            let trans = GetTransactionResponse.self
+            let transactions = try JSONDecoder().decode( trans , from:json.data(using: .utf8)!)
+            print("on result decoded")
             if((transactions.Transactions.count) > 0){
+                  print("on result decoded")
                 if(transactions.Transactions.count > self.mainContens.count){
+                    print(transactions.Transactions.count)
+                    print("new transaction OnResult")
+                    print(self.mainContens.count)
+                    self.mainContens.removeAll()
                     print("decoding")
                     for transactionPack in transactions.Transactions{
                         
@@ -240,49 +279,9 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
                             self.mainContens.append("-\(debitTransaction.dcrAmount) DCR")
                         }
                     }
-                    if(self.visible == true){
-                        
-                        DispatchQueue.main.async {
-                            self.mainContens.reverse()
-                            
-                            self.tableView.reloadData()
-                        }
-                        
-                        self.updateCurrentBalance()
-                    }
-                    else{
-                        DispatchQueue.global(qos: .background).async {
-                            do{
-                                try
-                                    AppContext.instance.decrdConnection?.wallet?.getTransactions(self)
-                            }catch{
-                                print (error)
-                            }
-                            
-                        }
-                    }
-                }
-                else{
-                    DispatchQueue.global(qos: .background).async {
-                        do{
-                            try
-                                AppContext.instance.decrdConnection?.wallet?.getTransactions(self)
-                        }catch{
-                            print (error)
-                        }
-                        
-                    }
-                }
-            }
-            else{
-                DispatchQueue.global(qos: .background).async {
-                    do{
-                        try
-                            AppContext.instance.decrdConnection?.wallet?.getTransactions(self)
-                    }catch{
-                        print (error)
-                    }
-                    
+                    self.mainContens.reverse()
+                    self.tableView.reloadData()
+                    self.updateCurrentBalance()
                 }
             }
             
@@ -290,7 +289,10 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
             print("onresult error")
             print(error)
         }
-     */
+                
+            }
+        }
+     
     }
     func onSyncError(_ code: Int, err: Error!) {
         print("sync error")
@@ -298,13 +300,17 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
     }
     
     func onSynced(_ synced: Bool) {
-        
-         print("sync done")
+        self.synced = synced
+        UserDefaults.standard.set(false, forKey: "walletScanning")
+        UserDefaults.standard.set(synced, forKey: "synced")
         if(self.visible == false){
             return
         }
+        if(synced == true){
+            self.prepareRecent()
+            self.updateCurrentBalance()
+        }
         
-        // self.updateCurrentBalance()
         
     }
     
@@ -315,7 +321,8 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
     
     func onTransactionConfirmed(_ hash: String!, height: Int32) {
         print("incoming")
-        //onResult(hash)
+        updateCurrentBalance()
+   
         
     }
     
@@ -328,6 +335,7 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
     }
     
     func onScan(_ rescannedThrough: Int32) -> Bool {
+        UserDefaults.standard.set(true, forKey: "walletScanning")
         return true
     }
     
@@ -337,7 +345,8 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
     }
     
     func onTransaction(_ transaction: String!) {
-        print("new transaction")
+        print("New transaction for onTransaction")
+        self.updateCurrentBalance()
         /*let transactions = try! JSONDecoder().decode(Transaction.self, from:transaction.data(using: .utf8)!)
         for creditTransaction in transactions.Credits{
             self.mainContens.append("\(creditTransaction.dcrAmount) DCR")

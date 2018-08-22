@@ -58,6 +58,7 @@
 @end
 
 @protocol MobilewalletTransactionListener <NSObject>
+- (void)onBlockAttached:(int32_t)height;
 - (void)onTransaction:(NSString*)transaction;
 - (void)onTransactionConfirmed:(NSString*)hash height:(int32_t)height;
 @end
@@ -231,13 +232,13 @@
 - (void)lockWallet;
 - (BOOL)nextAccount:(NSString*)accountName privPass:(NSData*)privPass;
 - (BOOL)openWallet:(NSError**)error;
-- (NSData*)publishTransaction:(NSData*)signedTransaction error:(NSError**)error;
 - (BOOL)publishUnminedTransactions:(NSError**)error;
 - (void)rescan:(int32_t)startHeight response:(id<MobilewalletBlockScanResponse>)response;
 - (NSData*)rescanPoint;
+- (void)runGC;
+- (NSData*)sendTransaction:(NSData*)privPass destAddr:(NSString*)destAddr amount:(int64_t)amount srcAccount:(int32_t)srcAccount requiredConfs:(int32_t)requiredConfs sendAll:(BOOL)sendAll error:(NSError**)error;
 - (void)setLogLevel:(NSString*)loglevel;
 - (void)shutdown;
-- (NSData*)signTransaction:(NSData*)rawTransaction privPass:(NSData*)privPass error:(NSError**)error;
 - (BOOL)spendableForAccount:(int32_t)account requiredConfirmations:(int32_t)requiredConfirmations ret0_:(int64_t*)ret0_ error:(NSError**)error;
 - (BOOL)spvSync:(id<MobilewalletSpvSyncResponse>)syncResponse peerAddresses:(NSString*)peerAddresses discoverAccounts:(BOOL)discoverAccounts privatePassphrase:(NSData*)privatePassphrase error:(NSError**)error;
 - (BOOL)startRPCClient:(NSString*)rpcHost rpcUser:(NSString*)rpcUser rpcPass:(NSString*)rpcPass certs:(NSData*)certs error:(NSError**)error;
@@ -385,6 +386,7 @@ FOUNDATION_EXPORT NSString* MobilewalletNormalizeAddress(NSString* addr, NSStrin
 @property(strong, readonly) id _ref;
 
 - (instancetype)initWithRef:(id)ref;
+- (void)onBlockAttached:(int32_t)height;
 - (void)onTransaction:(NSString*)transaction;
 - (void)onTransactionConfirmed:(NSString*)hash height:(int32_t)height;
 @end

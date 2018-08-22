@@ -18,12 +18,12 @@ protocol DcrAccountsManagementProtocol : DcrdBaseProtocol{
     func generateQRCodeFor(with addres: String, forImageViewFrame: CGRect) -> UIImage?
 
     func rescan()
-    var mBlockRescanObserverHub: BlockScanObserverHub?{get set}
+   // var mBlockRescanObserverHub: BlockScanObserverHub?{get set}
     mutating func addObserver(blockScanObserver:MobilewalletBlockScanResponseProtocol)
     func spendable(account:AccountsEntity) -> Double
 }
 
-extension DcrAccountsManagementProtocol{
+/*extension DcrAccountsManagementProtocol{
     func getAccounts() -> GetAccountResponse?{
         var account : GetAccountResponse?
         do{
@@ -114,5 +114,5 @@ extension DcrAccountsManagementProtocol{
         }
         return Double(int64Pointer.move() /  100000000)
     }
-}
+}*/
 
