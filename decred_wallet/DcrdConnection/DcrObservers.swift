@@ -32,7 +32,7 @@ struct ObserversListener:WalletTransactionBlockListenerProtocol{
     static var instance = ObserversListener()
 }
 
-class TransactionsObserver {
+/*class TransactionsObserver {
     fileprivate var listener: TransactionObserverProtocol?
     fileprivate let mUpcomingTransactionListener = MobilewalletTransactionListener()
     fileprivate let mTransactionListener = MobilewalletGetTransactionsResponse()
@@ -42,7 +42,7 @@ class TransactionsObserver {
     func subscribe(){
         AppContext.instance.decrdConnection?.subscribeForTransactions(observer: mUpcomingTransactionListener)
     }
-}
+}*/
 
 class TransactionsBlockObserver {
     fileprivate var listener:TransactionBlockObserverProtocol?

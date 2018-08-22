@@ -21,28 +21,12 @@ typealias SuccessCallback = ((Int32)->Void)
 typealias FailureCallback = ((Error)->Void)
 
 protocol DcrdConnectionProtocol : DcrdBaseProtocol {
-    var transactionsObserver: TransactionsObserver?{get set}
-    mutating func initiateWallet()
-    func connect(onSuccess:SuccessCallback, onFailure:FailureCallback,progressHud: MBProgressHUD)
-    func disconnect()
-    mutating func subscribeForTransactions(observer:MobilewalletTransactionListenerProtocol)
-    mutating func subscribeForBlockTransaction(observer:MobilewalletBlockNotificationErrorProtocol)
+   // mutating func subscribeForTransactions(observer:MobilewalletTransactionListenerProtocol)
+   // mutating func subscribeForBlockTransaction(observer:MobilewalletBlockNotificationErrorProtocol)
 }
 
-extension DcrdConnectionProtocol{
-    mutating func initiateWallet(){
-        wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/")
-        wallet?.initLoader()
-        //openWallet()
-    }
+/*extension DcrdConnectionProtocol{
     
-    func openWallet (){
-        do{
-            try wallet?.open()
-        } catch let error{
-            print(error)
-        }
-    }
 
     func connect(onSuccess:SuccessCallback, onFailure:FailureCallback,progressHud: MBProgressHUD){
         let certificate = try? Data(contentsOf: URL(fileURLWithPath: NSHomeDirectory() + "/Documents/rpc.cert"))
@@ -95,21 +79,21 @@ extension DcrdConnectionProtocol{
     }
     
     func disconnect() {
-        wallet?.shutdown()
+        AppContext.instance.decrdConnection?.wallet?.shutdown()
     }
     
     mutating func subscribeForTransactions(observer: MobilewalletTransactionListenerProtocol) {
-        wallet?.transactionNotification(observer)
+        AppContext.instance.decrdConnection?.wallet?.transactionNotification(observer)
     }
     
     mutating func subscribeForBlockTransaction(observer:MobilewalletBlockNotificationErrorProtocol){
         do{
-            try wallet?.subscribe(toBlockNotifications: observer )
+            try AppContext.instance.decrdConnection?.wallet?.subscribe(toBlockNotifications: observer )
         } catch let error{
             print(error)
         }
     }
-}
+}*/
 
 protocol DcrSettingsSupportProtocol:DcrdConnectionProtocol {
     var settingsBackup: String {get set}
@@ -120,9 +104,9 @@ protocol DcrSettingsSupportProtocol:DcrdConnectionProtocol {
 
 extension DcrSettingsSupportProtocol{
     func applySettings(onSuccess:SuccessCallback?, onFailure:FailureCallback?,progressHud: MBProgressHUD?){
-        disconnect()
-        openWallet()
-        connect(onSuccess:onSuccess!, onFailure:onFailure!, progressHud: progressHud!)
+        //disconnect()
+       // openWallet()
+       // connect(onSuccess:onSuccess!, onFailure:onFailure!, progressHud: progressHud!)
     }
     
     mutating func saveSettings(){
@@ -136,41 +120,30 @@ extension DcrSettingsSupportProtocol{
     
     mutating func applySettings(){
         if isSettingsChanged(){
-            disconnect()
-            openWallet()
-            connect(onSuccess:{_ in }, onFailure: {_ in }, progressHud: .init()  )
+           // disconnect()
+           // openWallet()
+            //connect(onSuccess:{_ in }, onFailure: {_ in }, progressHud: .init()  )
             saveSettings()
         }
     }
 }
 
-protocol DecredBackendProtocol: DcrdConnectionProtocol,
-                                DcrdSeedMnemonicProtocol,
-                                DcrAccountsManagementProtocol,
-                                DcrTransactionsHistoryProtocol,
-                                DcrSettingsSupportProtocol,
-                                DcrSendTransactionProtocol{}
+protocol DecredBackendProtocol:
+                                DcrSettingsSupportProtocol
+                                {}
   
 class DcrdConnection : DecredBackendProtocol {
-    func rescan() {
-    }
-    
     
     
     func applySettings(onSuccess: SuccessCallback?, onFailure: FailureCallback?) {
         
     }
     
-    
-    
-    var mTransactionsObserver: MobilewalletGetTransactionsResponseProtocol?
+
     var settingsBackup: String = ""
 
-    var mTransactionUpdatesHub: TransactionNotificationsObserveHub? = TransactionNotificationsObserveHub()
-    var mTransactionBlockErrorHub: TransactionBlockNotificationObserveHub? = TransactionBlockNotificationObserveHub()
-    var transactionsObserver: TransactionsObserver?
-    var mTransactionsObserveHub : GetTransactionObserveHub? = GetTransactionObserveHub()
-    var mBlockRescanObserverHub : BlockScanObserverHub? = BlockScanObserverHub()
+   // var mTransactionBlockErrorHub: TransactionBlockNotificationObserveHub? = TransactionBlockNotificationObserveHub()
+  //  var mBlockRescanObserverHub : BlockScanObserverHub? = BlockScanObserverHub()
     var wallet: MobilewalletLibWallet?
     required init() {
         settingsBackup = UserDefaults.standard.dictionaryRepresentation().description

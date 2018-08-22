@@ -13,10 +13,10 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
     @IBOutlet weak var totalAmountSending: UILabel!
     @IBOutlet weak var estimateFee: UILabel!
     @IBOutlet weak var estimateSize: UILabel!
-    @IBOutlet weak var walletAddress: UITextField!
-    @IBOutlet weak var destinationAddress: UILabel!
+    @IBOutlet weak var walletAddress: UITextField! 
     @IBOutlet weak var tfAmount: UITextField!
-    @IBOutlet weak var tfAmountValue: UITextField!
+    @IBOutlet weak var sendAllBtn: UIButton!
+    
     
     private lazy var readerVC: QRCodeReaderViewController = {
         let builder = QRCodeReaderViewControllerBuilder {
@@ -30,12 +30,14 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
     var selectedAccount : AccountsEntity?
     var preparedTransaction: MobilewalletConstructTxResponse?
     var password : String?
+    var sendAllTX = false
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //tfAmountValue.addDoneButton()
         self.accountDropdown.backgroundColor = UIColor.clear
+        tfAmount.text = "0"
         tfAmount.delegate = self
     }
 
@@ -47,15 +49,33 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
        // if isValidAddressInClipboard {destinationAddress.text = UIPasteboard.general.string ?? ""}
         updateBalance()
     }
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+        AppContext.instance.decrdConnection?.wallet?.runGC()
+    }
     
     @IBAction func onSendAll(_ sender: Any) {
+        if(self.sendAllTX == false){
+            self.sendAllTX = false
+            self.tfAmount.isEnabled = true
+            self.sendAllBtn.setTitleColor(UIColor(hex: "#868BAA"), for: .normal)
+            
+        }
+        else{
+            self.sendAllTX = true
+             self.tfAmount.isEnabled = false
+            self.sendAllBtn.setTitleColor(UIColor(hex: "#007AFF"), for: .normal)
+            
+        }
         self.tfAmount.text = "\(selectedAccount?.Balance?.dcrSpendable ?? 0)"
-        self.tfAmount.isEnabled = false
-        prepareTransaction(sendAll:true)
+        prepareTransaction(sendAll:self.sendAllTX)
     }
     
     func textFieldShouldEndEditing(_ textField:UITextField) -> Bool{
-        prepareTransaction(sendAll:false)
+        if(self.tfAmount.text != nil){
+          prepareTransaction(sendAll:false)
+        }
         return true
     }
 
@@ -92,12 +112,12 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
    
     @IBAction private func sendFund(_ sender: Any) {
         if validate(){
-            prepareTransaction(sendAll:false)
-            askPassword()
+           // prepareTransaction(sendAll:false)
+            askPassword(sendAll: false)
         }
     }
     
-    private func askPassword(){
+    private func askPassword(sendAll:Bool){
         let alert = UIAlertController(title: "Security", message: "Please enter password of your wallet", preferredStyle: .alert)
         alert.addTextField { (textField) in
             textField.placeholder = "password"
@@ -107,34 +127,42 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
             let tfPasswd = alert.textFields![0] as UITextField
              self.password = tfPasswd.text!
             alert.dismiss(animated: false, completion:nil)
-            self.confirmSend()
+            self.confirmSend(sendAll: sendAll)
         }
         alert.addAction(okAction)
         present(alert, animated: true, completion: nil)
     }
     
     private func prepareTransaction(sendAll:Bool?){
-        let amountToSend = Double((tfAmount.text)!)!
         do{
-            preparedTransaction = try AppContext.instance.decrdConnection?.prepareTransaction(from: (self.selectedAccount?.Number)!, to: self.walletAddress.text!, amount: amountToSend, isSendAll: sendAll ?? false)
-            estimateSize.text = "\( preparedTransaction?.estimatedSignedSize() ?? 0) Bytes"
-            estimateFee.text = "\(Double(( preparedTransaction?.estimatedSignedSize())!) / 0.001 / 1e8) DCR"
-            totalAmountSending.text = "\(preparedTransaction?.totalOutputAmount() ?? 0) DCR"
+          
+            let isShouldBeConfirmed = UserDefaults.standard.bool(forKey: "pref_spend_fund_switch")
+             let amountToSend = Int64((self.tfAmount.text)!)!
+            self.preparedTransaction = try AppContext.instance.decrdConnection?.wallet?.constructTransaction(self.walletAddress.text!, amount: amountToSend, srcAccount: (self.selectedAccount?.Number)!, requiredConfirmations: isShouldBeConfirmed ? 0 : 2, sendAll: sendAll ?? false)
+            print("Account Number is")
+            print(self.selectedAccount?.Number as Any)
+            DispatchQueue.main.async {
+             
+                self.estimateSize.text = "\( self.preparedTransaction?.estimatedSignedSize() ?? 0) Bytes"
+                self.estimateFee.text = "\(Double(( self.preparedTransaction?.estimatedSignedSize())!) / 0.001 / 1e8) DCR"
+                self.totalAmountSending.text = "\(self.preparedTransaction?.totalOutputAmount() ?? 0) DCR"
+            }
         } catch let error{
             self.showAlert(message: error.localizedDescription)
         }
     }
     
-    private func signTransaction(){
+    private func signTransaction(sendAll:Bool?){
         do{
-            let signedTransaction = try AppContext.instance.decrdConnection?.signTransaction(transaction: self.preparedTransaction!, password: (password?.data(using:.utf8))!)
-            publish(transaction: signedTransaction)
+            let isShouldBeConfirmed = UserDefaults.standard.bool(forKey: "pref_spend_fund_switch")
+            let result = try AppContext.instance.decrdConnection?.wallet?.sendTransaction((password?.data(using:.utf8))!, destAddr: self.walletAddress.text!, amount: Int64((self.tfAmount.text)!)!, srcAccount: (self.selectedAccount?.Number)!, requiredConfs: isShouldBeConfirmed ? 0 : 2, sendAll: sendAll ?? false)
+            transactionSucceeded(hash:result?.hexEncodedString())
         } catch let error{
             self.showAlert(message: error.localizedDescription)
         }
     }
     
-    private func publish(transaction:Data?){
+   /* private func publish(transaction:Data?){
         do{
             let result = try AppContext.instance.decrdConnection?.publish(transaction: transaction!)
             //print(String(format: "%hh", result as! CVarArg))
@@ -144,9 +172,14 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
                 self.showAlert(message: error.localizedDescription)
             }
         }
+    }*/
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+       // self.dismiss(animated: true, completion: nil)
+        
     }
     
-    private func confirmSend() {
+    private func confirmSend(sendAll:Bool) {
         let amountToSend = Double((tfAmount?.text)!)!
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let confirmSendFundViewController = storyboard.instantiateViewController(withIdentifier: "ConfirmToSendFundViewController") as! ConfirmToSendFundViewController
@@ -157,7 +190,7 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
         confirmSendFundViewController.confirm = { [weak self] in
             guard let `self` = self else { return }
             DispatchQueue.main.async {
-                self.signTransaction()
+                self.signTransaction(sendAll: sendAll)
             }
         }
         
@@ -168,15 +201,31 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
         // Retrieve the QRCode content
         // By using the delegate pattern
         readerVC.delegate = self
+
         
         // Or by using the closure pattern
         readerVC.completionBlock = { (result: QRCodeReaderResult?) in
-            print(result)
+
+             DispatchQueue.main.async {
+                var address = result?.value
+                if address == nil{
+                    return
+                }
+                if (address?.length)! > 0{
+                    if(address?.starts(with: "decred:"))!{
+                    address = address?.replacingOccurrences(of: "decred:", with: "")
+                        if((address?.length)! > 25 && (address?.length)! < 37 ){
+                            if(address?.starts(with: "T"))!{
+                                 self.walletAddress?.text = address
+                            }
+                        }
+                    }
+            }
         }
-        
+        }
         // Presents the readerVC as modal form sheet
-        readerVC.modalPresentationStyle = .formSheet
-        present(readerVC, animated: true, completion: nil)
+        self.readerVC.modalPresentationStyle = .formSheet
+        present(self.readerVC, animated: true, completion: nil)
     }
     
     func reader(_ reader: QRCodeReaderViewController, didScanResult result: QRCodeReaderResult) {
@@ -218,6 +267,10 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
     // MARK: - TextFieldDelegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if !validateAmount(){
+            showAlertInvalidAmount()
+            return false
+        }
         prepareTransaction(sendAll:false)
         textField.resignFirstResponder()
         return true
@@ -229,15 +282,22 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
     }
 
     private func updateBalance(){
-        AppContext.instance.decrdConnection?.rescan()
-        let accounts = AppContext.instance.decrdConnection?.getAccounts()
-        let accountsDisplay = accounts?.Acc.map {(acc)-> String in
-            let spendable = AppContext.instance.decrdConnection?.spendable(account: acc)
-            return "\(acc.Name) [\(spendable!) DCR]"
+        var accounts = [String]()
+        var account : GetAccountResponse?
+        do{
+            let strAccount = try AppContext.instance.decrdConnection?.wallet?.getAccounts(0)
+            account = try JSONDecoder().decode(GetAccountResponse.self, from: (strAccount?.data(using: .utf8))!)
+        } catch let error{
+            print(error)
+           
         }
-        accountDropdown.initMenu(accountsDisplay!, actions: ({ (ind, val) -> (Void) in
+        accounts = (account?.Acc.map {(acc)-> String in
+            let tspendable = spendable(account: acc)
+            return "\(acc.Name) [\(tspendable) DCR]"
+            })!
+        accountDropdown.initMenu(accounts, actions: ({ (ind, val) -> (Void) in
             self.accountDropdown.setAttributedTitle(self.getAttributedString(str: val), for: UIControlState.normal)
-            self.selectedAccount = accounts?.Acc[ind]
+            self.selectedAccount = account?.Acc[ind]
             self.accountDropdown.backgroundColor = UIColor(red: 173.0/255.0, green: 231.0/255.0, blue: 249.0/255.0, alpha: 1.0)
         }))
     }

@@ -48,22 +48,23 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        AppContext.instance.decrdConnection?.addObserver(transactionsHistoryObserver: self)
-        self.view.addSubview(hud)
+        //AppContext.instance.decrdConnection?.addObserver(transactionsHistoryObserver: self)
+       // self.view.addSubview(hud)
         
         tableTransactionDetails
             .hideEmptyAndExtraRows()
             .autoResizeCell(estimatedHeight: 60.0)
             .registerCellNib(TransactiontInputDetails.self)
         
-        tableTransactionDetails.registerCellNib(TransactionDetailCell.self)
-        tableTransactionDetails.registerCellNib(TransactiontOutputDetailsCell.self)
+     //   tableTransactionDetails.registerCellNib(TransactionDetailCell.self)
+        //tableTransactionDetails.registerCellNib(TransactiontOutputDetailsCell.self)
         
     }
+    
 
     override func viewWillAppear(_ animated: Bool) {
         hud.show(animated: true)
-        AppContext.instance.decrdConnection?.fetchTransactions()
+       // AppContext.instance.decrdConnection?.fetchTransactions()
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -123,7 +124,7 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
     func onResult(_ json: String!) {
         do{
             let transactions = try JSONDecoder().decode(GetTransactionResponse.self, from:json.data(using: .utf8)!)
-            let lastTransaction = transactions.Transactions?.filter({(transaction) in
+            let lastTransaction = transactions.Transactions.filter({(transaction) in
                 print("HASH: "+transaction.Hash + " == " + self.transactionHash!)
                 return transaction.Hash == self.transactionHash
             }).first
@@ -138,6 +139,12 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         }catch let error{
             print(error)
         }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.dismiss(animated: true, completion: nil)
+        
     }
     
     fileprivate func wrap(transaction:Transaction?){
