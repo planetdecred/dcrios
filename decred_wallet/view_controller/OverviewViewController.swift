@@ -9,60 +9,70 @@ import Mobilewallet
 import MBProgressHUD
 
 class OverviewViewController: UIViewController, MobilewalletGetTransactionsResponseProtocol, MobilewalletTransactionListenerProtocol, MobilewalletBlockNotificationErrorProtocol,
-MobilewalletBlockScanResponseProtocol {
-
+MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
+    func onBlockAttached(_ height: Int32) {
+        
+    }
+    
+    func onDiscoveredAddresses(_ finished: Bool) {
+        
+    }
+    
+    func onFetchMissingCFilters(_ fetchedCFiltersCount: Int32) {
+        
+    }
+    
+    func onFetchedHeaders(_ fetchedHeadersCount: Int32, lastHeaderTime: Int64) {
+        
+    }
+    
+    func onPeerConnected(_ peerCount: Int32) {
+        
+    }
+    
+    func onPeerDisconnected(_ peerCount: Int32) {
+        
+    }
+    
+    func onRescanProgress(_ rescannedThrough: Int32) {
+        
+    }
+    
+    
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var lbCurrentBalance: UILabel!
     @IBOutlet var viewTableHeader: UIView!
     @IBOutlet var viewTableFooter: UIView!
     var progressHud = MBProgressHUD()
+    var visible = false
+    var scanning = false
+    var synced = false
+   
     
-    var mainContens = ["4.000000 DCR", "-3.000000 DCR", "21.340000 DCR", "-1.000000 DCR", "12.000000 DCR", "-1.000000 DCR", "12.30000 DCR","-2.000000 DCR", "3.000000 DCR","2.000000 DCR", "3.000000 DCR"]
+    var mainContens = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.registerCellNib(DataTableViewCell.self)
         self.tableView.tableHeaderView = viewTableHeader
         self.tableView.tableFooterView = viewTableFooter
-        
-         /*if ((AppContext.instance.decrdConnection?.wallet?.isNetBackendNil())!){
-            DispatchQueue.main.async {
-                 print("connected to dcrd")
-            }
-           
-            let accounts = AppContext.instance.decrdConnection?.getAccounts()
-            let address = AppContext.instance.decrdConnection?.getCurrentAddress(account: (accounts?.Acc.first?.Number)!)
-            print("Address:\(address ?? "")")
-            AppContext.instance.decrdConnection?.addObserver(transactionsHistoryObserver: self)
-            AppContext.instance.decrdConnection?.addObserver(forBlockError: self)
-            AppContext.instance.decrdConnection?.addObserver(forUpdateNotifications: self)
-            AppContext.instance.decrdConnection?.addObserver(blockScanObserver: self)
-            
-            self.updateCurrentBalance()
-        
-            
-            // AppContext.instance.decrdConnection?.rescan()
-            
-        }else{
-            DispatchQueue.main.async {
-                print("not connected")
-            }
-            
-           AppContext.instance.decrdConnection?.connect(onSuccess: { (height) in
-                let accounts = AppContext.instance.decrdConnection?.getAccounts()
-                let address = AppContext.instance.decrdConnection?.getCurrentAddress(account: (accounts?.Acc.first?.Number)!)
-                print("Address:\(address ?? "")")
-                AppContext.instance.decrdConnection?.addObserver(transactionsHistoryObserver: self)
-                AppContext.instance.decrdConnection?.addObserver(forBlockError: self)
-                AppContext.instance.decrdConnection?.addObserver(forUpdateNotifications: self)
-                AppContext.instance.decrdConnection?.addObserver(blockScanObserver: self)
-                self.updateCurrentBalance()
-            }, onFailure: { (error) in
-                print(error)
-            }, progressHud: .init())
-            // self.conectToRpc()
-        }*/
+        UserDefaults.standard.set(false, forKey: "synced")
+        updateCurrentBalance()
+        prepareRecent()
+           connectToDecredNetwork()
+            print("adding observer")
+        AppContext.instance.decrdConnection?.wallet?.transactionNotification(self)
+       
     }
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        print("low memory")
+        //AppContext.instance.decrdConnection?.wallet?.runGC()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    
         
         
    
@@ -74,54 +84,250 @@ MobilewalletBlockScanResponseProtocol {
         super.viewWillAppear(animated)
         self.setNavigationBarItem()
         self.navigationItem.title = "Overview"
-        self.updateCurrentBalance()
+
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.visible = true
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.visible = false
+       // self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func onRescan(_ sender: Any) {
         print("rescaning")
-        AppContext.instance.decrdConnection?.rescan(rescanHeight:  0)
+        //AppContext.instance.decrdConnection?.rescan(rescanHeight:0)
+        //AppContext.instance.decrdConnection?.rescan(rescanHeight:  UserDefaults.standard.integer(forKey: "rescan_height"))
     }
     
-    
-    func updateCurrentBalance(){
-        AppContext.instance.decrdConnection?.fetchTransactions()
-        DispatchQueue.main.async {
-            print("updating balance")
-            self.lbCurrentBalance.text = "\((AppContext.instance.decrdConnection?.getAccounts()?.Acc.first?.dcrTotalBalance)!) DCR"
-        }
+    func connectToDecredNetwork(){
+        let appInstance = UserDefaults.standard
+        var passphrase = ""
+        passphrase = appInstance.string(forKey: "password")!
+        print(appInstance.string(forKey: "passphrase")!)
+        let finalPassphrase = passphrase as NSString
+        let finalPassphraseData = finalPassphrase .data(using: String.Encoding.utf8.rawValue)!
         
+        if(appInstance.integer(forKey: "network_mode") == 0){
+            print("starting SPV")
+            print("syncing")
+            DispatchQueue.global(qos: .background).async {
+                do{
+                    try
+                        AppContext.instance.decrdConnection?.wallet?.spvSync(self, peerAddresses: getPeerAddress(appInstance: appInstance), discoverAccounts: true, privatePassphrase: finalPassphraseData)
+                    print("done syncing")
+                    
+                }catch{
+                    print("there was an error")
+                    print(error)
+                }
+            }
+        }
+        else{
+            DispatchQueue.global(qos: .background).async {
+                do{
+                    try
+                        AppContext.instance.decrdConnection?.wallet?.unlock(finalPassphraseData)
+                }catch{
+                    print(error)
+                }
+                self.connectToRPCServer()
+               // self.updateCurrentBalance()
+            }
+        }
     }
     
-    func onResult(_ json: String!) {
-        mainContens = [String]()
-        do{
-            let transactions = try JSONDecoder().decode(GetTransactionResponse.self, from:json.data(using: .utf8)!)
-            for transactionPack in transactions.Transactions!{
-                for creditTransaction in transactionPack.Credits!{
-                    mainContens.append("\(creditTransaction.dcrAmount) DCR")
+    func connectToRPCServer(){
+        let appInstance = UserDefaults.standard
+        let certificate = try? Data(contentsOf: URL(fileURLWithPath: NSHomeDirectory() + "/Documents/rpc.cert"))
+        let username = UserDefaults.standard.string(forKey: "pref_user_name")
+        let password = UserDefaults.standard.string(forKey: "pref_user_passwd")
+        let address  = UserDefaults.standard.string(forKey: "pref_server_ip")
+        guard certificate != nil else {print("no certificate"); return }
+        let pHeight = UnsafeMutablePointer<Int32>.allocate(capacity: 1)
+        pHeight.pointee = -1
+        
+        
+        var i:Int = 0
+        
+        DispatchQueue.global(qos: .background).async {
+            
+            do{
+            while true{
+                do{
+                    i += 1
+                    print("connecting attempt".appending(String(i)))
+                    try
+                        AppContext.instance.decrdConnection?.wallet?.startRPCClient(address, rpcUser: username, rpcPass: password, certs: certificate)
+                    break
+                    
+                }catch{
+                    print("RPC Connection Failed:")
+                    print(error)
+                    
                 }
-                for debitTransaction in transactionPack.Debits!{
-                    mainContens.append("-\(debitTransaction.dcrAmount) DCR")
+                Thread.sleep(forTimeInterval: 2.5)}
+            print("Subscribe to block notification")
+                try
+            AppContext.instance.decrdConnection?.wallet?.subscribe(toBlockNotifications:self)
+                print("discovering Used Address")
+                try
+                AppContext.instance.decrdConnection?.wallet?.discoverActiveAddresses()
+                try
+                AppContext.instance.decrdConnection?.wallet?.loadActiveDataFilters()
+                print("fetching headers")
+                
+                try AppContext.instance.decrdConnection?.wallet?.fetchHeaders(pHeight)
+                 print("pointer at")
+                 print(pHeight.pointee)
+                if (pHeight.pointee != -1) {
+                    print(pHeight.pointee)
+                    appInstance.set(pHeight.pointee, forKey: "rescan_height")
                 }
+                print("Publish Unmined Transactions")
+                try AppContext.instance.decrdConnection?.wallet?.publishUnminedTransactions()
+                print("connected to remote node")
+                DispatchQueue.global(qos: .background).async {
+                let blockHeight =  AppContext.init().decrdConnection?.wallet?.getBestBlock()
+                print("best block")
+                print(blockHeight as Any)
+                AppContext.init().decrdConnection?.wallet?.rescan(0, response: self)
+                    
+               /* if(appInstance.integer(forKey: "rescan_height") < blockHeight!){
+                    AppContext.init().decrdConnection?.wallet?.rescan(self.pHeight.pointee, response: self)
+                    print("done")
+                    
+                }*/
+                }
+               // rescanBlocks();
+               // startBlockUpdate();
+                
             }
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        }catch let error{
+        catch{
             print(error)
         }
     }
+    }
+
     
-    func onBlockNotificationError(_ err: Error!) {
+    func updateCurrentBalance(){
+        var amount = "0"
+        var account :GetAccountResponse?
+        DispatchQueue.global(qos: .background).async {
+                do{
+                    let strAccount = try AppContext.instance.decrdConnection?.wallet?.getAccounts(0)
+                     account = try JSONDecoder().decode(GetAccountResponse.self, from: (strAccount?.data(using: .utf8))!)
+                    amount =
+                    "\((account?.Acc.first?.dcrTotalBalance)!) DCR"
+                } catch let error{
+                    print(error)
+                }
+            DispatchQueue.main.async {
+                self.lbCurrentBalance.text = amount
+                
+            }
+            
+        }
         
     }
     
+    func prepareRecent(){
+        self.mainContens.removeAll()
+        DispatchQueue.global(qos: .background).async {
+            do{
+                try
+                AppContext.instance.decrdConnection?.wallet?.getTransactions(self)
+                print("done getting transaction")
+            }catch let Error{
+                print(Error)
+            }
+            
+        }
+        
+    }
+    
+    
+    func onResult(_ json: String!) {
+       print("on result")
+        if(self.visible == false){
+            print("on result returning")
+            return
+        }
+        else{
+            print("on result running")
+            DispatchQueue.main.async {
+        do{
+            let trans = GetTransactionResponse.self
+            let transactions = try JSONDecoder().decode( trans , from:json.data(using: .utf8)!)
+            print("on result decoded")
+            if((transactions.Transactions.count) > 0){
+                  print("on result decoded")
+                if(transactions.Transactions.count > self.mainContens.count){
+                    print(transactions.Transactions.count)
+                    print("new transaction OnResult")
+                    print(self.mainContens.count)
+                    self.mainContens.removeAll()
+                    print("decoding")
+                    for transactionPack in transactions.Transactions{
+                        
+                        for creditTransaction in transactionPack.Credits{
+                            self.mainContens.append("\(creditTransaction.dcrAmount) DCR")
+                        }
+                        for debitTransaction in transactionPack.Debits{
+                            self.mainContens.append("-\(debitTransaction.dcrAmount) DCR")
+                        }
+                    }
+                    self.mainContens.reverse()
+                    self.tableView.reloadData()
+                    self.updateCurrentBalance()
+                }
+            }
+            
+        }catch let error{
+            print("onresult error")
+            print(error)
+        }
+                
+            }
+        }
+     
+    }
+    func onSyncError(_ code: Int, err: Error!) {
+        print("sync error")
+        print(err)
+    }
+    
+    func onSynced(_ synced: Bool) {
+        self.synced = synced
+        UserDefaults.standard.set(false, forKey: "walletScanning")
+        UserDefaults.standard.set(synced, forKey: "synced")
+        if(self.visible == false){
+            return
+        }
+        if(synced == true){
+            self.prepareRecent()
+            self.updateCurrentBalance()
+        }
+        
+        
+    }
+    
+    func onBlockNotificationError(_ err: Error!) {
+        print("Block notify error")
+        print(err)
+    }
+    
     func onTransactionConfirmed(_ hash: String!, height: Int32) {
-        onResult(hash)
+        print("incoming")
+        updateCurrentBalance()
+   
+        
     }
     
     func onEnd(_ height: Int32, cancelled: Bool) {
-        updateCurrentBalance()
+    
     }
     
     func onError(_ code: Int32, message: String!) {
@@ -129,25 +335,29 @@ MobilewalletBlockScanResponseProtocol {
     }
     
     func onScan(_ rescannedThrough: Int32) -> Bool {
+        UserDefaults.standard.set(true, forKey: "walletScanning")
         return true
     }
     
     func onTransactionRefresh() {
+        print("refresh")
         
     }
     
     func onTransaction(_ transaction: String!) {
-        let transactions = try! JSONDecoder().decode(Transaction.self, from:transaction.data(using: .utf8)!)
-        for creditTransaction in transactions.Credits!{
+        print("New transaction for onTransaction")
+        self.updateCurrentBalance()
+        /*let transactions = try! JSONDecoder().decode(Transaction.self, from:transaction.data(using: .utf8)!)
+        for creditTransaction in transactions.Credits{
             self.mainContens.append("\(creditTransaction.dcrAmount) DCR")
+            
         }
-        for debitTransaction in transactions.Debits!{
+        for debitTransaction in transactions.Debits{
             self.mainContens.append("-\(debitTransaction.dcrAmount) DCR")
         }
         DispatchQueue.main.async {
             self.tableView.reloadData()
-            self.updateCurrentBalance()
-        }
+        }*/
     }
 }
 
@@ -157,29 +367,32 @@ extension OverviewViewController : UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let storyboard = UIStoryboard(name: "SubContentsViewController", bundle: nil)
+       /* let storyboard = UIStoryboard(name: "SubContentsViewController", bundle: nil)
         let subContentsVC = storyboard.instantiateViewController(withIdentifier: "SubContentsViewController") as! SubContentsViewController
-        self.navigationController?.pushViewController(subContentsVC, animated: true)
+        self.navigationController?.pushViewController(subContentsVC, animated: true)*/
     }
 }
 
 extension OverviewViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.mainContens.count
+        return min(self.mainContens.count, 4)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: DataTableViewCell.identifier) as! DataTableViewCell
-        let data = DataTableViewCellData(imageUrl: "dummy", text: self.mainContens[indexPath.row])
+        print("about to crash")
+        let data = DataTableViewCellData(text: self.mainContens[indexPath.row] )
+        print("pass")
         cell.setData(data)
         return cell
     }
 }
 
 extension OverviewViewController : SlideMenuControllerDelegate {
-    
+   
     func leftWillOpen() {
         print("SlideMenuControllerDelegate: leftWillOpen")
+        
     }
     
     func leftDidOpen() {

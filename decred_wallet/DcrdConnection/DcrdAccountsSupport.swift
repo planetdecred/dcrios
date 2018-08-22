@@ -18,16 +18,16 @@ protocol DcrAccountsManagementProtocol : DcrdBaseProtocol{
     func generateQRCodeFor(with addres: String, forImageViewFrame: CGRect) -> UIImage?
 
     func rescan()
-    var mBlockRescanObserverHub: BlockScanObserverHub?{get set}
+   // var mBlockRescanObserverHub: BlockScanObserverHub?{get set}
     mutating func addObserver(blockScanObserver:MobilewalletBlockScanResponseProtocol)
     func spendable(account:AccountsEntity) -> Double
 }
 
-extension DcrAccountsManagementProtocol{
+/*extension DcrAccountsManagementProtocol{
     func getAccounts() -> GetAccountResponse?{
         var account : GetAccountResponse?
         do{
-            let strAccount = try wallet?.getAccounts(0)
+            let strAccount = try AppContext.instance.decrdConnection?.wallet?.getAccounts(0)
             account = try JSONDecoder().decode(GetAccountResponse.self, from: (strAccount?.data(using: .utf8))!)
         } catch let error{
             print(error)
@@ -43,7 +43,7 @@ extension DcrAccountsManagementProtocol{
     func getCurrentAddress(account: Int32) -> String {
         var result = ""
         do{
-            result = (try wallet?.address(forAccount: account))!
+            result = (try AppContext.instance.decrdConnection?.wallet?.address(forAccount: account))!
         }catch {
             return ""
         }
@@ -99,7 +99,7 @@ extension DcrAccountsManagementProtocol{
     }
     
     func rescan(rescanHeight: Int){
-        wallet?.rescan(0, response: mBlockRescanObserverHub)
+        AppContext.instance.decrdConnection?.wallet?.rescan(0, response: mBlockRescanObserverHub)
     }
     
     func spendable(account:AccountsEntity) -> Double{
@@ -107,12 +107,12 @@ extension DcrAccountsManagementProtocol{
         let iRequireConfirm = (bRequireConfirm ?? false) ? Int32(0) : Int32(2)
         let int64Pointer = UnsafeMutablePointer<Int64>.allocate(capacity: 64)
         do {
-            try wallet?.spendable(forAccount: account.Number, requiredConfirmations: iRequireConfirm, ret0_: int64Pointer)
+            try  AppContext.instance.decrdConnection?.wallet?.spendable(forAccount: account.Number, requiredConfirmations: iRequireConfirm, ret0_: int64Pointer)
         } catch let error{
             print(error)
             return 0.0
         }
         return Double(int64Pointer.move() /  100000000)
     }
-}
+}*/
 

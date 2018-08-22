@@ -28,8 +28,14 @@ class GeneratedSeedDisplayViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        seed = AppContext.instance.decrdConnection?.generateSeed() as String?
-        arrWords = (seed?.components(separatedBy: " "))!
+        var seed = ""
+        do{
+            try
+                seed =  (AppContext.instance.decrdConnection?.wallet!.generateSeed())!
+        } catch {
+           seed = ""
+        }
+        arrWords = (seed.components(separatedBy: " "))
         vWarningLabel.layer.borderColor = GlobalConstants.Colors.orangeColor.cgColor
         vWarningIcon.layer.borderColor = GlobalConstants.Colors.orangeColor.cgColor
         vWarningLabel.superview?.layer.borderColor = GlobalConstants.Colors.orangeColor.cgColor
@@ -84,6 +90,7 @@ class GeneratedSeedDisplayViewController: UIViewController {
         return rect
         
     }
+    
     
     // Get width for new word
     func getWidth(str: String) -> CGSize {

@@ -8,7 +8,6 @@
 
 import UIKit
 import MBProgressHUD
-import IQKeyboardManager
 import Mobilewallet
 
 class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITextFieldDelegate {
@@ -18,6 +17,7 @@ class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITex
     @IBOutlet weak var tfVerifyPassword: UITextField!
     @IBOutlet weak var btnEncrypt: UIButton!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
          //IQKeyboardManager.shared().isEnabled = false
@@ -26,6 +26,12 @@ class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITex
         tfPassword.delegate = self
         tfVerifyPassword.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+        AppContext.instance.decrdConnection?.wallet?.runGC()
+    }
+    
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         validatePassword()
@@ -45,19 +51,38 @@ class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITex
     }
     
     @IBAction func onEncrypt(_ sender: Any) {
-        //self.progressHud?.show(animated: true)
-       // self.progressHud?.label.text = "creating wallet..."
+        self.progressHud?.show(animated: true)
+        self.progressHud?.label.text = "creating wallet..."
         print("creating")
         let seed = self.seedToVerify!
         let pass = self.tfPassword!.text
         DispatchQueue.global(qos: .userInitiated).async{
             do{
-                let wallet = AppContext.instance.decrdConnection?.wallet
-                try wallet?.createWallet(pass, seedMnemonic: seed)
+                var wallet: MobilewalletLibWallet
+               var constant = AppContext.instance.decrdConnection
+                wallet = (constant?.wallet)!
+                if(wallet == nil){
+                    return
+                }
+                try wallet.createWallet(pass, seedMnemonic: seed)
+                DispatchQueue.main.async {
+                    self.progressHud?.hide(animated: true)
+                    UserDefaults.standard.set(pass, forKey: "password")
+                    print("wallet created")
+                    createMainWindow()
+                    self.dismiss(animated: true, completion: nil)
+                  
+                    
+                }
                 print("done")
+                return
             }catch let error{
+                 DispatchQueue.main.async {
+                self.progressHud?.hide(animated: true)
+                self.showError(error: error)
                 print("wallet error")
                     print(error)
+                }
                 
             }
             

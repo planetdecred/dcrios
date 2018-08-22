@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol DcrdSeedMnemonicProtocol : DcrdBaseProtocol {
+/*protocol DcrdSeedMnemonicProtocol : DcrdBaseProtocol {
     func  generateSeed() -> String
     func verifySeed(seed:String) -> Bool
 }
@@ -25,4 +25,4 @@ extension DcrdSeedMnemonicProtocol{
     func verifySeed(seed:String) -> Bool{
         return (AppContext.instance.decrdConnection?.wallet!.verifySeed(seed))!
     }
-}
+}*/

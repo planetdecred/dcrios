@@ -8,7 +8,7 @@
 
 #import "ObserverProxy.h"
 
-@implementation GetTransactionObserveHub
+/*@implementation GetTransactionObserveHub
 - (instancetype)init
 {
     self = [super init];
@@ -124,6 +124,6 @@
     return true;
 }
 
-@end
+@end*/
 
 

@@ -27,10 +27,12 @@ class SeedCheckupViewController: UIViewController, SeedCheckupProtocol {
         let arr = seedToVerify?.components(separatedBy: " ")
         tfSeedCheckWord.itemsToSearch = arr
         tfSeedCheckWord.dropDownListPlaceholder = view
+        self.btnConfirm.isEnabled = true
         tfSeedCheckWord.searchResult?.onSelect = {(index, item) in
             self.txSeedCheckCombined.text.append("\(item) ")
             self.tfSeedCheckWord.clean()
-            self.btnConfirm.isEnabled = (self.txSeedCheckCombined.text == "\(self.seedToVerify ?? "") ")
+            
+           // self.btnConfirm.isEnabled = (self.txSeedCheckCombined.text == "\(self.seedToVerify ?? "") ")
         }
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -51,6 +53,7 @@ class SeedCheckupViewController: UIViewController, SeedCheckupProtocol {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         var vc = segue.destination as! SeedCheckupProtocol
         vc.seedToVerify = seedToVerify
+        UserDefaults.standard.set(seedToVerify, forKey: "passphrase")
     }
    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
