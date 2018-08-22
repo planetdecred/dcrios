@@ -70,7 +70,7 @@ class RecoverWalletViewController: UIViewController {
     @IBAction func btnConfirmSeed(_ sender: Any) {
         view.endEditing(true)
         
-        let flag = AppContext.instance.decrdConnection?.verifySeed(seed: txSeedCheckCombined.text)
+        let flag = AppContext.instance.decrdConnection?.wallet?.verifySeed(txSeedCheckCombined.text) 
         if flag! {
             let sb = UIStoryboard(name: "Main", bundle: nil)
             let vc = sb.instantiateViewController(withIdentifier: "encryptWallet") as! CreatePasswordViewController

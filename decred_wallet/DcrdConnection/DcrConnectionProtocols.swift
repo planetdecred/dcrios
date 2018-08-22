@@ -21,28 +21,12 @@ typealias SuccessCallback = ((Int32)->Void)
 typealias FailureCallback = ((Error)->Void)
 
 protocol DcrdConnectionProtocol : DcrdBaseProtocol {
-    var transactionsObserver: TransactionsObserver?{get set}
-    mutating func initiateWallet()
-    func connect(onSuccess:SuccessCallback, onFailure:FailureCallback,progressHud: MBProgressHUD)
-    func disconnect()
-    mutating func subscribeForTransactions(observer:MobilewalletTransactionListenerProtocol)
-    mutating func subscribeForBlockTransaction(observer:MobilewalletBlockNotificationErrorProtocol)
+   // mutating func subscribeForTransactions(observer:MobilewalletTransactionListenerProtocol)
+   // mutating func subscribeForBlockTransaction(observer:MobilewalletBlockNotificationErrorProtocol)
 }
 
-extension DcrdConnectionProtocol{
-    mutating func initiateWallet(){
-        AppContext.instance.decrdConnection?.wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/", "bdb")
-        AppContext.instance.decrdConnection?.wallet?.initLoader()
-        //openWallet()
-    }
+/*extension DcrdConnectionProtocol{
     
-    func openWallet (){
-        do{
-            try AppContext.instance.decrdConnection?.wallet?.open()
-        } catch let error{
-            print(error)
-        }
-    }
 
     func connect(onSuccess:SuccessCallback, onFailure:FailureCallback,progressHud: MBProgressHUD){
         let certificate = try? Data(contentsOf: URL(fileURLWithPath: NSHomeDirectory() + "/Documents/rpc.cert"))
@@ -109,7 +93,7 @@ extension DcrdConnectionProtocol{
             print(error)
         }
     }
-}
+}*/
 
 protocol DcrSettingsSupportProtocol:DcrdConnectionProtocol {
     var settingsBackup: String {get set}
@@ -144,33 +128,22 @@ extension DcrSettingsSupportProtocol{
     }
 }
 
-protocol DecredBackendProtocol: DcrdConnectionProtocol,
-                                DcrdSeedMnemonicProtocol,
-                                DcrAccountsManagementProtocol,
-                                DcrTransactionsHistoryProtocol,
-                                DcrSettingsSupportProtocol,
-                                DcrSendTransactionProtocol{}
+protocol DecredBackendProtocol:
+                                DcrSettingsSupportProtocol
+                                {}
   
 class DcrdConnection : DecredBackendProtocol {
-    func rescan() {
-    }
-    
     
     
     func applySettings(onSuccess: SuccessCallback?, onFailure: FailureCallback?) {
         
     }
     
-    
-    
-    var mTransactionsObserver: MobilewalletGetTransactionsResponseProtocol?
+
     var settingsBackup: String = ""
 
-    var mTransactionUpdatesHub: TransactionNotificationsObserveHub? = TransactionNotificationsObserveHub()
-    var mTransactionBlockErrorHub: TransactionBlockNotificationObserveHub? = TransactionBlockNotificationObserveHub()
-    var transactionsObserver: TransactionsObserver?
-    var mTransactionsObserveHub : GetTransactionObserveHub? = GetTransactionObserveHub()
-    var mBlockRescanObserverHub : BlockScanObserverHub? = BlockScanObserverHub()
+   // var mTransactionBlockErrorHub: TransactionBlockNotificationObserveHub? = TransactionBlockNotificationObserveHub()
+  //  var mBlockRescanObserverHub : BlockScanObserverHub? = BlockScanObserverHub()
     var wallet: MobilewalletLibWallet?
     required init() {
         settingsBackup = UserDefaults.standard.dictionaryRepresentation().description

@@ -5,7 +5,6 @@
 
 import CoreData
 import SlideMenuControllerSwift
-//import IQKeyboardManager
 import Mobilewallet
 
 @UIApplicationMain
@@ -49,7 +48,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             AppContext.instance.decrdConnection = DcrdConnection()
             AppContext.instance.decrdConnection?.wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/", "bdb")
             AppContext.instance.decrdConnection?.wallet?.initLoader()
-            AppContext.instance.decrdConnection?.openWallet()
+
+            do{
+            ((try AppContext.instance.decrdConnection?.wallet?.open()))
+            } catch let error{
+                print(error)
+            }
+           
             createMenuView()
         } else {
             AppContext.instance.decrdConnection = DcrdConnection()
@@ -82,7 +87,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         
-       // IQKeyboardManager.shared().isEnabled = true
+    
         
         return true
     }
