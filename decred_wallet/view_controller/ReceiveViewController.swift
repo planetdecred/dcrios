@@ -102,12 +102,14 @@ class ReceiveViewController: UIViewController {
         let receiveAddress = try?AppContext.instance.decrdConnection?.wallet?.address(forAccount: Int32(accountNumber))
         print("got address in  ".appending(String(Int64(NSDate().timeIntervalSince1970) - starttime)))
        // UserDefaults.standard.setValue(receiveAddress!, forKey: "KEY_RECENT_ADDRESS")
-        DispatchQueue.main.async {
-            self.walletAddress.text = receiveAddress!
-            self.imgWalletAddrQRCode.image = generateQRCodeFor(
+        DispatchQueue.main.async { [weak self] in
+            guard let this = self else { return }
+            
+            this.walletAddress.text = receiveAddress!
+            this.imgWalletAddrQRCode.image = generateQRCodeFor(
                 with: receiveAddress!!,
-                forImageViewFrame: self.imgWalletAddrQRCode.frame)
-            print("generate QR  in  ".appending(String(Int64(NSDate().timeIntervalSince1970) - self.starttime)))
+                forImageViewFrame: this.imgWalletAddrQRCode.frame)
+            print("generate QR  in  ".appending(String(Int64(NSDate().timeIntervalSince1970) - this.starttime)))
             print("generated address for account ".appending(String(accountNumber)))
             print(receiveAddress!!)
         }
