@@ -6,12 +6,13 @@ import Foundation
 import UIKit
 
 struct AccountsData {
-    let color: UIColor
+    let color: UIColor?
     let spendableBalance: Double
     let title: String
     let totalBalance: Double
     var isExpanded: Bool = false
-    init(entity:AccountsEntity, color: UIColor){
+
+    init(entity: AccountsEntity, color: UIColor?) {
         self.color = color
         self.spendableBalance = Double((entity.Balance?.dcrSpendable)!)
         self.totalBalance = Double((entity.Balance?.dcrTotal)!)
