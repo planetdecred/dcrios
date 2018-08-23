@@ -4,14 +4,14 @@
 //  see LICENSE for details.
 
 import CoreData
-import SlideMenuControllerSwift
 import Mobilewallet
+import SlideMenuControllerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
-    var navigation : UINavigationController?
-    
+    var navigation: UINavigationController?
+
     fileprivate func walletSetupView() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let walletSetupController = storyboard.instantiateViewController(withIdentifier: "WalletSetupViewController") as! WalletSetupViewController
@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let mainViewController = storyboard.instantiateViewController(withIdentifier: "OverviewViewController") as! OverviewViewController
         let leftViewController = storyboard.instantiateViewController(withIdentifier: "LeftViewController") as! LeftViewController
-      //  let rightViewController = storyboard.instantiateViewController(withIdentifier: "RightViewController") as! RightViewController
+        //  let rightViewController = storyboard.instantiateViewController(withIdentifier: "RightViewController") as! RightViewController
 
         let nvc: UINavigationController = UINavigationController(rootViewController: mainViewController)
 
@@ -49,27 +49,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             AppContext.instance.decrdConnection?.wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/", "bdb")
             AppContext.instance.decrdConnection?.wallet?.initLoader()
 
-            do{
-            ((try AppContext.instance.decrdConnection?.wallet?.open()))
-            } catch let error{
+            do {
+                ((try AppContext.instance.decrdConnection?.wallet?.open()))
+            } catch let error {
                 print(error)
             }
-           
+
             createMenuView()
         } else {
             AppContext.instance.decrdConnection = DcrdConnection()
             AppContext.instance.decrdConnection?.wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/", "bdb")
             AppContext.instance.decrdConnection?.wallet?.initLoader()
-            walletSetupView()
+            self.walletSetupView()
         }
     }
 
     fileprivate func showAnimatedStartScreen() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let startScreenController = storyboard.instantiateViewController(withIdentifier:"WaiterScreenViewController") as! WaiterScreenViewController
-        
-        startScreenController.onFinish = {self.populateFirstScreen()}
-        startScreenController.onTapAnimation = {self.gotoSetting()}
+        let startScreenController = storyboard.instantiateViewController(withIdentifier: "WaiterScreenViewController") as! WaiterScreenViewController
+
+        startScreenController.onFinish = { [weak self] in
+            guard let this = self else { return }
+            this.populateFirstScreen()
+        }
+
+        startScreenController.onTapAnimation = { [weak self] in
+            guard let this = self else { return }
+            this.gotoSetting()
+        }
+
         self.navigation = UINavigationController(rootViewController: startScreenController)
         UINavigationBar.appearance().tintColor = GlobalConstants.Colors.navigationBarColor
         self.navigation?.navigationBar.isHidden = true
@@ -78,27 +86,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        showAnimatedStartScreen()
-        UserDefaults.standard.setValuesForKeys(["pref_user_name" : "dcrwallet",
-                                                "pref_user_passwd":"dcrwallet",
+        self.showAnimatedStartScreen()
+        UserDefaults.standard.setValuesForKeys(["pref_user_name": "dcrwallet",
+                                                "pref_user_passwd": "dcrwallet",
                                                 "pref_server_ip": "192.168.43.68",
-                                                "pref_peer_ip":"0.0.0.0"])
+                                                "pref_peer_ip": "0.0.0.0"])
         UserDefaults.standard.set(true, forKey: "pref_use_testnet")
-        
-        
-        
-    
-        
+
         return true
     }
 
     fileprivate func gotoSetting() {
         let vcSetting = GlobalConstants.ConstantStoryboardMain.getControllerInstance(identifier: "SettingsController2", storyBoard: GlobalConstants.ConstantStoryboardMain.IDENTIFIER_STORYBOARD_MAIN) as! SettingsController
         vcSetting.isFromLoader = true
-        
+
         self.navigation?.pushViewController(vcSetting, animated: true)
     }
-    
+
     func applicationWillResignActive(_: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.

@@ -24,5 +24,5 @@ struct AccountsData {
 struct TransactionDetails {
     let title: String
     let value: String
-    let textColor: UIColor
+    let textColor: UIColor?
 }
