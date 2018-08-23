@@ -9,47 +9,47 @@
 import Foundation
 
 struct BalanceEntity : Decodable{
-    var Total: Int64  = 0
-    var Spendable: Int64 = 0
-    var ImmatureReward: Int64 = 0
-    var ImmatureStakeGeneration: Int64 = 0
-    var LockedByTickets: Int64 = 0
-    var VotingAuthority: Int64 = 0
-    var UnConfirmed: Int64 = 0
+    var Total: Double = 0
+    var Spendable: Double = 0
+    var ImmatureReward: Double = 0
+    var ImmatureStakeGeneration: Double = 0
+    var LockedByTickets: Double = 0
+    var VotingAuthority: Double = 0
+    var UnConfirmed: Double = 0
 }
 
 extension BalanceEntity{
-    var dcrTotal : Int64{
+    var dcrTotal : Double{
         get{
             return Total / 100000000
         }
     }
-    var dcrSpendable: Int64 {
+    var dcrSpendable: Double {
         get{
             return Spendable / 100000000
         }
     }
-    var dcrImmatureReward: Int64 {
+    var dcrImmatureReward: Double {
         get{
             return ImmatureReward / 100000000
         }
     }
-    var dcrImmatureStakeGeneration: Int64 {
+    var dcrImmatureStakeGeneration: Double {
         get{
             return ImmatureStakeGeneration / 100000000
         }
     }
-    var dcrLockedByTickets: Int64 {
+    var dcrLockedByTickets: Double {
         get{
             return LockedByTickets / 100000000
         }
     }
-    var dcrVotingAuthority: Int64 {
+    var dcrVotingAuthority: Double {
         get{
             return VotingAuthority / 100000000
         }
     }
-    var dcrUnConfirmed: Int64 {
+    var dcrUnConfirmed: Double {
         get{
             return UnConfirmed / 100000000
         }
@@ -60,14 +60,14 @@ struct AccountsEntity : Decodable{
     var Number : Int32 = 0
     var Name = "default"
     var Balance : BalanceEntity?
-    var TotalBalance : Int64 = 0
+    var TotalBalance : Double = 0.0
     var ExternalKeyCount = 20
     var InternalKeyCount = 20
     var ImportedKeyCount = 0
 }
 
 extension AccountsEntity {
-    var dcrTotalBalance : Int64 {
+    var dcrTotalBalance : Double {
         get {
             return TotalBalance / 100000000
         }
@@ -124,11 +124,11 @@ struct GetTransactionResponse : Codable {
 struct Transaction : Codable {
     var Hash: String
     var Transaction: String?
-    var Fee :Int
+    var Fee :Double
     var Direction: Int
     var Timestamp:UInt64
     var `Type` :String
-    var Amount: Int64
+    var Amount: Double
     var Status : String
     var Height: Int
     var Debits:[Debit]
@@ -137,11 +137,11 @@ struct Transaction : Codable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         self.Hash = try values.decodeIfPresent(String.self, forKey: .Hash) ?? ""
         self.Transaction = try values.decodeIfPresent(String.self, forKey: .Transaction) ?? ""
-        self.Fee = try values.decodeIfPresent(Int.self, forKey: .Fee) ?? 0
+        self.Fee = try values.decodeIfPresent(Double.self, forKey: .Fee) ?? 0.0
         self.Direction = try values.decodeIfPresent(Int.self, forKey: .Direction) ?? 0
         self.Timestamp = try values.decodeIfPresent(UInt64.self, forKey: .Timestamp) ?? 0
         self.Type = try values.decodeIfPresent(String.self, forKey: .Type) ?? "REGULAR"
-        self.Amount = (try values.decodeIfPresent(Int64.self, forKey: .Amount) ?? 0)
+        self.Amount = (try values.decodeIfPresent(Double.self, forKey: .Amount) ?? 0.0)
         self.Status = try values.decodeIfPresent(String.self, forKey: .Status) ?? ""
         self.Height = try values.decodeIfPresent(Int.self, forKey: .Height) ?? 0
         self.Debits = try values.decodeIfPresent([Debit].self, forKey: .Debits) ?? [Debit]()
@@ -155,14 +155,14 @@ struct Credit : Codable{
     var Index: Int64
     var Account: Int64
     var Internal: Bool
-    var Amount: Int64
+    var Amount: Double
     var Address :String
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         self.Index = (try values.decodeIfPresent(Int64.self, forKey: .Index) ?? 0)
          self.Account = try values.decodeIfPresent(Int64.self, forKey: .Account) ?? 0
          self.Internal = try values.decodeIfPresent(Bool.self, forKey: .Internal) ?? false
-         self.Amount = try values.decodeIfPresent(Int64.self, forKey: .Amount) ?? 0
+         self.Amount = try values.decodeIfPresent(Double.self, forKey: .Amount) ?? 0.0
          self.Address = try values.decodeIfPresent(String.self, forKey: .Address) ?? ""
     }
     
@@ -170,7 +170,7 @@ struct Credit : Codable{
 }
 
 extension Credit {
-    var dcrAmount : Int64 {
+    var dcrAmount : Double {
         get {
             return Amount / 100000000
         }
@@ -179,15 +179,15 @@ extension Credit {
 
 struct Debit : Codable{
     var Index: Int64 = 0
-    var PreviousAccount: Int64 = 0
-    var PreviousAmount: Int64 = 0
+    var PreviousAccount: Double = 0.0
+    var PreviousAmount: Double = 0.0
     var AccountName = ""
     
    // var Address = ""
 }
 
 extension Debit {
-    var dcrAmount : Int64 {
+    var dcrAmount : Double {
         get {
             return PreviousAmount / 100000000
         }
