@@ -113,28 +113,30 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
         if(appInstance.integer(forKey: "network_mode") == 0){
             print("starting SPV")
             print("syncing")
-            DispatchQueue.global(qos: .background).async {
-                do{
+            DispatchQueue.global(qos: .background).async { [weak self] in
+                guard let _ = self else { return }
+                do {
                     try
                         AppContext.instance.decrdConnection?.wallet?.spvSync(self, peerAddresses: getPeerAddress(appInstance: appInstance), discoverAccounts: true, privatePassphrase: finalPassphraseData)
                     print("done syncing")
                     
-                }catch{
+                } catch {
                     print("there was an error")
                     print(error)
                 }
             }
         }
-        else{
-            DispatchQueue.global(qos: .background).async {
-                do{
+        else {
+            DispatchQueue.global(qos: .background).async { [weak self] in
+                guard let this = self else { return }
+                do {
                     try
                         AppContext.instance.decrdConnection?.wallet?.unlock(finalPassphraseData)
-                }catch{
+                } catch {
                     print(error)
                 }
-                self.connectToRPCServer()
-               // self.updateCurrentBalance()
+                this.connectToRPCServer()
+                // self.updateCurrentBalance()
             }
         }
     }
@@ -149,103 +151,99 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
         let pHeight = UnsafeMutablePointer<Int32>.allocate(capacity: 1)
         pHeight.pointee = -1
         
-        
         var i:Int = 0
         
-        DispatchQueue.global(qos: .background).async {
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            guard let _ = self else { return }
             
-            do{
-            while true{
-                do{
-                    i += 1
-                    print("connecting attempt".appending(String(i)))
-                    try
-                        AppContext.instance.decrdConnection?.wallet?.startRPCClient(address, rpcUser: username, rpcPass: password, certs: certificate)
-                    break
-                    
-                }catch{
-                    print("RPC Connection Failed:")
-                    print(error)
-                    
-                }
-                Thread.sleep(forTimeInterval: 2.5)}
-            print("Subscribe to block notification")
+            do {
+                while true {
+                    do {
+                        i += 1
+                        print("connecting attempt".appending(String(i)))
+                        try
+                            AppContext.instance.decrdConnection?.wallet?.startRPCClient(address, rpcUser: username, rpcPass: password, certs: certificate)
+                        break
+                        
+                    } catch {
+                        print("RPC Connection Failed:")
+                        print(error)
+                    }
+                    Thread.sleep(forTimeInterval: 2.5) }
+                print("Subscribe to block notification")
                 try
-            AppContext.instance.decrdConnection?.wallet?.subscribe(toBlockNotifications:self)
+                    AppContext.instance.decrdConnection?.wallet?.subscribe(toBlockNotifications: self)
                 print("discovering Used Address")
                 try
-                AppContext.instance.decrdConnection?.wallet?.discoverActiveAddresses()
+                    AppContext.instance.decrdConnection?.wallet?.discoverActiveAddresses()
                 try
-                AppContext.instance.decrdConnection?.wallet?.loadActiveDataFilters()
+                    AppContext.instance.decrdConnection?.wallet?.loadActiveDataFilters()
                 print("fetching headers")
                 
                 try AppContext.instance.decrdConnection?.wallet?.fetchHeaders(pHeight)
-                 print("pointer at")
-                 print(pHeight.pointee)
-                if (pHeight.pointee != -1) {
+                print("pointer at")
+                print(pHeight.pointee)
+                if pHeight.pointee != -1 {
                     print(pHeight.pointee)
                     appInstance.set(pHeight.pointee, forKey: "rescan_height")
                 }
                 print("Publish Unmined Transactions")
                 try AppContext.instance.decrdConnection?.wallet?.publishUnminedTransactions()
                 print("connected to remote node")
-                DispatchQueue.global(qos: .background).async {
-                let blockHeight =  AppContext.init().decrdConnection?.wallet?.getBestBlock()
-                print("best block")
-                print(blockHeight as Any)
-                AppContext.init().decrdConnection?.wallet?.rescan(0, response: self)
+                DispatchQueue.global(qos: .background).async { [weak self] in
+                    guard let this = self else { return }
+                    let blockHeight = AppContext().decrdConnection?.wallet?.getBestBlock()
+                    print("best block")
+                    print(blockHeight as Any)
+                    AppContext().decrdConnection?.wallet?.rescan(0, response: this)
                     
                /* if(appInstance.integer(forKey: "rescan_height") < blockHeight!){
                     AppContext.init().decrdConnection?.wallet?.rescan(self.pHeight.pointee, response: self)
                     print("done")
-                    
+                     
                 }*/
                 }
-               // rescanBlocks();
-               // startBlockUpdate();
-                
+                // rescanBlocks();
+                // startBlockUpdate();
+            } catch {
+                print(error)
             }
-        catch{
-            print(error)
         }
-    }
     }
 
     
     func updateCurrentBalance(){
         var amount = "0"
         var account :GetAccountResponse?
-        DispatchQueue.global(qos: .background).async {
-                do{
-                    let strAccount = try AppContext.instance.decrdConnection?.wallet?.getAccounts(0)
-                     account = try JSONDecoder().decode(GetAccountResponse.self, from: (strAccount?.data(using: .utf8))!)
-                    amount =
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            guard let this = self else { return }
+            do {
+                let strAccount = try AppContext.instance.decrdConnection?.wallet?.getAccounts(0)
+                account = try JSONDecoder().decode(GetAccountResponse.self, from: (strAccount?.data(using: .utf8))!)
+                amount =
                     "\((account?.Acc.first?.dcrTotalBalance)!) DCR"
-                } catch let error{
-                    print(error)
-                }
-            DispatchQueue.main.async {
-                self.lbCurrentBalance.text = amount
-                
+            } catch let error {
+                print(error)
             }
-            
+            DispatchQueue.main.async {
+                this.lbCurrentBalance.text = amount
+            }
         }
         
     }
     
     func prepareRecent(){
         self.mainContens.removeAll()
-        DispatchQueue.global(qos: .background).async {
-            do{
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            guard let this = self else { return }
+            do {
                 try
-                AppContext.instance.decrdConnection?.wallet?.getTransactions(self)
+                    AppContext.instance.decrdConnection?.wallet?.getTransactions(this)
                 print("done getting transaction")
-            }catch let Error{
+            } catch let Error {
                 print(Error)
             }
-            
         }
-        
     }
     
     
@@ -257,42 +255,40 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
         }
         else{
             print("on result running")
-            DispatchQueue.main.async {
-        do{
-            let trans = GetTransactionResponse.self
-            let transactions = try JSONDecoder().decode( trans , from:json.data(using: .utf8)!)
-            print("on result decoded")
-            if((transactions.Transactions.count) > 0){
-                  print("on result decoded")
-                if(transactions.Transactions.count > self.mainContens.count){
-                    print(transactions.Transactions.count)
-                    print("new transaction OnResult")
-                    print(self.mainContens.count)
-                    self.mainContens.removeAll()
-                    print("decoding")
-                    for transactionPack in transactions.Transactions{
-                        
-                        for creditTransaction in transactionPack.Credits{
-                            self.mainContens.append("\(creditTransaction.dcrAmount) DCR")
-                        }
-                        for debitTransaction in transactionPack.Debits{
-                            self.mainContens.append("-\(debitTransaction.dcrAmount) DCR")
+            DispatchQueue.main.async { [weak self] in
+                guard let this = self else { return }
+                do {
+                    let trans = GetTransactionResponse.self
+                    let transactions = try JSONDecoder().decode(trans, from: json.data(using: .utf8)!)
+                    print("on result decoded")
+                    if (transactions.Transactions.count) > 0 {
+                        print("on result decoded")
+                        if transactions.Transactions.count > this.mainContens.count {
+                            print(transactions.Transactions.count)
+                            print("new transaction OnResult")
+                            print(this.mainContens.count)
+                            this.mainContens.removeAll()
+                            print("decoding")
+                            for transactionPack in transactions.Transactions {
+                                for creditTransaction in transactionPack.Credits {
+                                    this.mainContens.append("\(creditTransaction.dcrAmount) DCR")
+                                }
+                                for debitTransaction in transactionPack.Debits {
+                                    this.mainContens.append("-\(debitTransaction.dcrAmount) DCR")
+                                }
+                            }
+                            this.mainContens.reverse()
+                            this.tableView.reloadData()
+                            this.updateCurrentBalance()
                         }
                     }
-                    self.mainContens.reverse()
-                    self.tableView.reloadData()
-                    self.updateCurrentBalance()
+                    
+                } catch let error {
+                    print("onresult error")
+                    print(error)
                 }
             }
-            
-        }catch let error{
-            print("onresult error")
-            print(error)
         }
-                
-            }
-        }
-     
     }
     func onSyncError(_ code: Int, err: Error!) {
         print("sync error")

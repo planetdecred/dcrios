@@ -5,35 +5,36 @@
 import UIKit
 
 class AccountsHeaderView: UIView {
-    
-    @IBOutlet private weak var labelTitle: UILabel!
-    @IBOutlet private weak var labelTotalBalance: UILabel!
-    @IBOutlet private weak var labelSpendableBalance: UILabel!
-    @IBOutlet private weak var viewHighLight: UIView!
+    @IBOutlet private var labelTitle: UILabel!
+    @IBOutlet private var labelTotalBalance: UILabel!
+    @IBOutlet private var labelSpendableBalance: UILabel!
+    @IBOutlet private var viewHighLight: UIView!
+    @IBOutlet var expandOrCollapseDetailsButton: UIButton!
     
     var headerIndex: Int = 0
     
-    var exapndOrCollapse: ((Int) -> Void)?
+    // var exapndOrCollapse: ((Int) -> Void)?
     
     var totalBalance: Double = 0.0 {
         willSet {
-            DispatchQueue.main.async {
-                self.labelTotalBalance.text = "\(newValue)"
+            DispatchQueue.main.async { [weak self] in
+                guard let this = self else { return }
+                this.labelTotalBalance.text = "\(newValue)"
             }
-            
         }
     }
     
     @IBAction func expnandOrCollapseAction(_ sender: UIButton) {
         DispatchQueue.main.async {
-            self.exapndOrCollapse?(self.headerIndex)
+            // self.exapndOrCollapse?(self.headerIndex)
         }
     }
     
     var spendableBalance: Double = 0.0 {
         willSet {
-            DispatchQueue.main.async {
-            self.labelSpendableBalance.text = "\(newValue)"
+            DispatchQueue.main.async { [weak self] in
+                guard let this = self else { return }
+                this.labelSpendableBalance.text = "\(newValue)"
             }
         }
     }
@@ -43,7 +44,7 @@ class AccountsHeaderView: UIView {
         print("header view initializing")
         // Initialization code
     }
-   
+    
     var hightLithColor: UIColor? {
         get {
             return viewHighLight.backgroundColor
@@ -60,10 +61,10 @@ class AccountsHeaderView: UIView {
         }
         
         set {
-            DispatchQueue.main.async {
-            self.labelTitle.text = newValue
+            DispatchQueue.main.async { [weak self] in
+                guard let this = self else { return }
+                this.labelTitle.text = newValue
             }
         }
     }
-
 }

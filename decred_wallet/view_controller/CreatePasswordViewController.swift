@@ -56,36 +56,34 @@ class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITex
         print("creating")
         let seed = self.seedToVerify!
         let pass = self.tfPassword!.text
-        DispatchQueue.global(qos: .userInitiated).async{
-            do{
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let this = self else { return }
+            
+            do {
                 var wallet: MobilewalletLibWallet
-               var constant = AppContext.instance.decrdConnection
+                var constant = AppContext.instance.decrdConnection
                 wallet = (constant?.wallet)!
-                if(wallet == nil){
+                if wallet == nil {
                     return
                 }
                 try wallet.createWallet(pass, seedMnemonic: seed)
                 DispatchQueue.main.async {
-                    self.progressHud?.hide(animated: true)
+                    this.progressHud?.hide(animated: true)
                     UserDefaults.standard.set(pass, forKey: "password")
                     print("wallet created")
                     createMainWindow()
-                    self.dismiss(animated: true, completion: nil)
-                  
-                    
+                    this.dismiss(animated: true, completion: nil)
                 }
                 print("done")
                 return
-            }catch let error{
-                 DispatchQueue.main.async {
-                self.progressHud?.hide(animated: true)
-                self.showError(error: error)
-                print("wallet error")
+            } catch let error {
+                DispatchQueue.main.async {
+                    this.progressHud?.hide(animated: true)
+                    this.showError(error: error)
+                    print("wallet error")
                     print(error)
                 }
-                
             }
-            
         }
     }
     
