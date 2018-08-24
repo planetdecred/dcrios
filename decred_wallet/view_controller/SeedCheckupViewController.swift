@@ -9,39 +9,37 @@
 import UIKit
 
 protocol SeedCheckupProtocol {
-    var seedToVerify: String?{get set}
+    var seedToVerify: String? { get set }
 }
 
 class SeedCheckupViewController: UIViewController, SeedCheckupProtocol {
     var seedToVerify: String?
     
-    @IBOutlet weak var txtInputView: UIView!
-    @IBOutlet weak var btnConfirm: UIButton!
-    @IBOutlet weak var txSeedCheckCombined: UITextView!
-    @IBOutlet weak var tfSeedCheckWord: DropDownSearchField!
-    @IBOutlet weak var btnDelete: UIButton!
+    @IBOutlet var txtInputView: UIView!
+    @IBOutlet var btnConfirm: UIButton!
+    @IBOutlet var txSeedCheckCombined: UITextView!
+    @IBOutlet var tfSeedCheckWord: DropDownSearchField!
+    @IBOutlet var btnDelete: UIButton!
     override func viewDidLoad() {
-        
         super.viewDidLoad()
-        //addAccessory()
+        // addAccessory()
         let arr = seedToVerify?.components(separatedBy: " ")
         tfSeedCheckWord.itemsToSearch = arr
         tfSeedCheckWord.dropDownListPlaceholder = view
         self.btnConfirm.isEnabled = true
-        tfSeedCheckWord.searchResult?.onSelect = {(index, item) in
+        tfSeedCheckWord.searchResult?.onSelect = { _, item in
             self.txSeedCheckCombined.text.append("\(item) ")
             self.tfSeedCheckWord.clean()
             
-           // self.btnConfirm.isEnabled = (self.txSeedCheckCombined.text == "\(self.seedToVerify ?? "") ")
+            // self.btnConfirm.isEnabled = (self.txSeedCheckCombined.text == "\(self.seedToVerify ?? "") ")
         }
-        
-        txSeedCheckCombined.addDoneButton()
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        tfSeedCheckWord.becomeFirstResponder()
+        self.tfSeedCheckWord.becomeFirstResponder()
     }
-
+    
     @IBAction func onDelete(_ sender: Any) {
         self.txSeedCheckCombined.text = ""
     }
@@ -51,22 +49,20 @@ class SeedCheckupViewController: UIViewController, SeedCheckupProtocol {
     }
     
     // MARK: - Navigation
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         var vc = segue.destination as! SeedCheckupProtocol
         vc.seedToVerify = seedToVerify
         UserDefaults.standard.set(seedToVerify, forKey: "passphrase")
     }
-   
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-         super.touchesBegan(touches, with: event)
+        super.touchesBegan(touches, with: event)
         self.view.endEditing(true)
     }
     
     // Input views
     func addAccessory() {
-        
-        
         let customView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 50))
         customView.addSubview(txtInputView)
         customView.backgroundColor = UIColor.red
@@ -77,7 +73,6 @@ class SeedCheckupViewController: UIViewController, SeedCheckupProtocol {
         btnConfirm.translatesAutoresizingMaskIntoConstraints = false
         btnDelete.translatesAutoresizingMaskIntoConstraints = false
         
-        
         // Input view constraints
         NSLayoutConstraint.activate([
             txtInputView.leadingAnchor.constraint(equalTo:
@@ -87,10 +82,8 @@ class SeedCheckupViewController: UIViewController, SeedCheckupProtocol {
             txtInputView.trailingAnchor.constraint(equalTo:
                 customView.trailingAnchor, constant: 0),
             txtInputView.bottomAnchor.constraint(equalTo:
-                customView.bottomAnchor, constant: 0),
-            ])
-        
-        
+                customView.bottomAnchor, constant: 0)
+        ])
         
         // Button clear constraints
         NSLayoutConstraint.activate([
@@ -100,7 +93,7 @@ class SeedCheckupViewController: UIViewController, SeedCheckupProtocol {
             btnDelete.widthAnchor.constraint(equalToConstant: 118),
             btnDelete.topAnchor.constraint(equalTo:
                 txtInputView.topAnchor, constant: 10)
-            ])
+        ])
         
         // Button confirm constraints
         NSLayoutConstraint.activate([
@@ -110,14 +103,11 @@ class SeedCheckupViewController: UIViewController, SeedCheckupProtocol {
             btnConfirm.widthAnchor.constraint(equalToConstant: 118),
             btnConfirm.topAnchor.constraint(equalTo:
                 txtInputView.topAnchor, constant: 10)
-            ])
-        
-        
-    }
-    func enableButton() {
-        btnConfirm.isEnabled = true
-        btnConfirm.alpha = 1.0
+        ])
     }
     
-
+    func enableButton() {
+        self.btnConfirm.isEnabled = true
+        self.btnConfirm.alpha = 1.0
+    }
 }

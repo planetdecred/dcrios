@@ -5,16 +5,12 @@
 import UIKit
 import MBProgressHUD
 
-<<<<<<< HEAD
-class TransactionFullDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, MobilewalletGetTransactionsResponseProtocol {
-=======
 class TransactionFullDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
->>>>>>> Transaction_Passing_update
-    @IBOutlet private weak var tableTransactionDetails: UITableView!    
+    @IBOutlet private weak var tableTransactionDetails: UITableView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet var detailsHeader: UIView!
-     @IBOutlet weak var amount: UILabel!
+    @IBOutlet weak var amount: UILabel!
     var transactionHash: String?
     var account : String?
     
@@ -24,37 +20,37 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         TransactionDetails(
             title: "Status",
             value: "45 Confirmations",
-//            textColor: #colorLiteral(red: 0.2549019608, green: 0.7490196078, blue: 0.3254901961, alpha: 1)
+            //            textColor: #colorLiteral(red: 0.2549019608, green: 0.7490196078, blue: 0.3254901961, alpha: 1)
             textColor: nil
         ),
         TransactionDetails(
             title: "Confirmation",
             value: "644",
-//            textColor: #colorLiteral(red: 0.3803921569, green: 0.4509803922, blue: 0.5254901961, alpha: 1)
+            //            textColor: #colorLiteral(red: 0.3803921569, green: 0.4509803922, blue: 0.5254901961, alpha: 1)
             textColor: nil
         ),
         TransactionDetails(
             title: "Type",
             value: "Regular",
-//            textColor: #colorLiteral(red: 0.3803921569, green: 0.4509803922, blue: 0.5254901961, alpha: 1)
+            //            textColor: #colorLiteral(red: 0.3803921569, green: 0.4509803922, blue: 0.5254901961, alpha: 1)
             textColor: nil
         ),
         TransactionDetails(
             title: "Date",
             value: "Mar 27, 2018 / 10:28:35 pm",
-//            textColor: #colorLiteral(red: 0.3803921569, green: 0.4509803922, blue: 0.5254901961, alpha: 1)
+            //            textColor: #colorLiteral(red: 0.3803921569, green: 0.4509803922, blue: 0.5254901961, alpha: 1)
             textColor: nil
         ),
         TransactionDetails(
             title: "Fee",
             value: "0.000253 DCR",
-//            textColor: #colorLiteral(red: 0.3803921569, green: 0.4509803922, blue: 0.5254901961, alpha: 1)
+            //            textColor: #colorLiteral(red: 0.3803921569, green: 0.4509803922, blue: 0.5254901961, alpha: 1)
             textColor: nil
         ),
         TransactionDetails(
             title: "Hash",
             value: "000000000000001a8befe3271f3c293e5af4365f1db5a664e8496ca3f6dc74d5",
-//            textColor: #colorLiteral(red: 0.1607843137, green: 0.4392156863, blue: 1, alpha: 1)
+            //            textColor: #colorLiteral(red: 0.1607843137, green: 0.4392156863, blue: 1, alpha: 1)
             textColor: nil
         )
     ]
@@ -65,29 +61,24 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         super.viewDidLoad()
         
         //AppContext.instance.decrdConnection?.addObserver(transactionsHistoryObserver: self)
-       // self.view.addSubview(hud)
+        // self.view.addSubview(hud)
         
         tableTransactionDetails
             .hideEmptyAndExtraRows()
             .autoResizeCell(estimatedHeight: 60.0)
             .registerCellNib(TransactiontInputDetails.self)
         
-<<<<<<< HEAD
-     //   tableTransactionDetails.registerCellNib(TransactionDetailCell.self)
-     //   tableTransactionDetails.registerCellNib(TransactiontOutputDetailsCell.self)
-=======
         tableTransactionDetails.registerCellNib(TransactionDetailCell.self)
         tableTransactionDetails.registerCellNib(TransactiontOutputDetailsCell.self)
         tableTransactionDetails.registerCellNib(TransactiontInputDetails.self)
->>>>>>> Transaction_Passing_update
         
     }
     
-
+    
     override func viewWillAppear(_ animated: Bool) {
         hud.show(animated: true)
         wrap(transaction: self.transaction)
-       // AppContext.instance.decrdConnection?.fetchTransactions()
+        // AppContext.instance.decrdConnection?.fetchTransactions()
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -103,7 +94,7 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         if section == 0 {
             return 40.0
         }
-       
+        
         return 25.0
     }
     
@@ -114,7 +105,7 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         
         return (section == 0 ? self.detailsHeader : headerView)
     }
-   
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
@@ -145,26 +136,26 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         }
     }
     
- /*   func onResult(_ json: String!) {
-        do{
-            let transactions = try JSONDecoder().decode(GetTransactionResponse.self, from:json.data(using: .utf8)!)
-            let lastTransaction = transactions.Transactions.filter({(transaction) in
-                print("HASH: "+transaction.Hash + " == " + self.transactionHash!)
-                return transaction.Hash == self.transactionHash
-            }).first
-            
-            DispatchQueue.main.async { [weak self] in
-                guard let this = self else { return }
-                if let lastTransaction = lastTransaction {
-                    this.wrap(transaction: lastTransaction)
-                }
-                this.hud.hide(animated: true)
-                this.tableView.reloadData()
-            }
-        }catch let error{
-            print(error)
-        }
-    }*/
+    /*   func onResult(_ json: String!) {
+     do{
+     let transactions = try JSONDecoder().decode(GetTransactionResponse.self, from:json.data(using: .utf8)!)
+     let lastTransaction = transactions.Transactions.filter({(transaction) in
+     print("HASH: "+transaction.Hash + " == " + self.transactionHash!)
+     return transaction.Hash == self.transactionHash
+     }).first
+     
+     DispatchQueue.main.async { [weak self] in
+     guard let this = self else { return }
+     if let lastTransaction = lastTransaction {
+     this.wrap(transaction: lastTransaction)
+     }
+     this.hud.hide(animated: true)
+     this.tableView.reloadData()
+     }
+     }catch let error{
+     print(error)
+     }
+     }*/
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -177,41 +168,41 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
             TransactionDetails(
                 title: "Status",
                 value: "\(transaction?.Status ?? "0") Confirmed",
-//                textColor: #colorLiteral(red: 0.2549019608, green: 0.7490196078, blue: 0.3254901961, alpha: 1)
+                //                textColor: #colorLiteral(red: 0.2549019608, green: 0.7490196078, blue: 0.3254901961, alpha: 1)
                 textColor: nil
             ),
             TransactionDetails(
                 title: "Confirmation",
                 value: "\(transaction?.Height ?? 0)",
-//                textColor: #colorLiteral(red: 0.3803921569, green: 0.4509803922, blue: 0.5254901961, alpha: 1)
+                //                textColor: #colorLiteral(red: 0.3803921569, green: 0.4509803922, blue: 0.5254901961, alpha: 1)
                 textColor: nil
             ),
             TransactionDetails(
                 title: "Type",
                 value: "\(transaction?.Type ?? "Unknown" )",
-//                textColor: #colorLiteral(red: 0.3803921569, green: 0.4509803922, blue: 0.5254901961, alpha: 1)
+                //                textColor: #colorLiteral(red: 0.3803921569, green: 0.4509803922, blue: 0.5254901961, alpha: 1)
                 textColor: nil
             ),
             TransactionDetails(
                 title: "Date",
                 value: format(timestamp: transaction?.Timestamp),
-//                textColor: #colorLiteral(red: 0.3803921569, green: 0.4509803922, blue: 0.5254901961, alpha: 1)
+                //                textColor: #colorLiteral(red: 0.3803921569, green: 0.4509803922, blue: 0.5254901961, alpha: 1)
                 textColor: nil
             ),
             TransactionDetails(
                 title: "Fee",
-                value: "\(Double((transaction?.Fee)!) / 1e8) DCR",
-//                textColor: #colorLiteral(red: 0.3803921569, green: 0.4509803922, blue: 0.5254901961, alpha: 1)
+                value: "\(Double((transaction?.Fee ?? 0)) / 1e8) DCR",
+                //                textColor: #colorLiteral(red: 0.3803921569, green: 0.4509803922, blue: 0.5254901961, alpha: 1)
                 textColor: nil
             ),
             TransactionDetails(
                 title: "Hash",
                 value: (transaction?.Hash)!,
-//                textColor: #colorLiteral(red: 0.1607843137, green: 0.4392156863, blue: 1, alpha: 1)
+                //                textColor: #colorLiteral(red: 0.1607843137, green: 0.4392156863, blue: 1, alpha: 1)
                 textColor: nil
             )
         ]
-        self.amount.text = "\(Double((transaction?.Amount)!) / 1e8) DCR"
+        self.amount.text = "\(Double((transaction?.Amount ?? 0)) / 1e8) DCR"
     }
     
     fileprivate func format(timestamp:UInt64?) -> String{
@@ -221,3 +212,4 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         return formatter.string(from: date)
     }
 }
+
