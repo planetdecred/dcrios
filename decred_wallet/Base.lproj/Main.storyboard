@@ -336,7 +336,7 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0 DCR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1eV-5Y-Yd4">
                                                 <rect key="frame" x="18" y="47.5" width="68" height="21.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                                <color key="textColor" red="0.047058823529411764" green="0.11764705882352941" blue="0.24313725490196078" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mis-Af-MKz">
@@ -345,35 +345,15 @@
                                                 <color key="textColor" red="0.047058823530000002" green="0.1176470588" blue="0.24313725489999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F2K-94-5lm">
-                                                <rect key="frame" x="196" y="18" width="88" height="36"/>
-                                                <color key="backgroundColor" red="0.16078431372549018" green="0.4392156862745098" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="88" id="D62-iA-8gO"/>
-                                                    <constraint firstAttribute="height" constant="36" id="cKd-Mc-p1Y"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
-                                                <state key="normal" title="RESCAN"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                        <integer key="value" value="3"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="onRescan:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KpI-ah-GmG"/>
-                                                </connections>
-                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="Mis-Af-MKz" firstAttribute="bottom" secondItem="1eV-5Y-Yd4" secondAttribute="bottom" id="07f-sb-U5h"/>
                                             <constraint firstItem="Mis-Af-MKz" firstAttribute="leading" secondItem="1eV-5Y-Yd4" secondAttribute="trailing" id="CtM-wb-HvA"/>
-                                            <constraint firstItem="F2K-94-5lm" firstAttribute="centerY" secondItem="sIe-h8-LqI" secondAttribute="centerY" id="EV5-dR-M4K"/>
                                             <constraint firstItem="1eV-5Y-Yd4" firstAttribute="top" secondItem="TLK-yr-Lfn" secondAttribute="bottom" constant="8" id="EcR-sT-oUM"/>
                                             <constraint firstItem="TLK-yr-Lfn" firstAttribute="leading" secondItem="sIe-h8-LqI" secondAttribute="leading" constant="18" id="J1Z-vV-Gdi"/>
                                             <constraint firstItem="1eV-5Y-Yd4" firstAttribute="leading" secondItem="TLK-yr-Lfn" secondAttribute="leading" id="KtE-F6-1dj"/>
                                             <constraint firstItem="TLK-yr-Lfn" firstAttribute="top" secondItem="sIe-h8-LqI" secondAttribute="top" constant="18" id="Yz8-sU-a9X"/>
-                                            <constraint firstAttribute="trailing" secondItem="F2K-94-5lm" secondAttribute="trailing" constant="36" id="r3h-KR-2XE"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -1976,26 +1956,26 @@
         <scene sceneID="6nh-mZ-Xhx">
             <objects>
                 <viewController id="fV9-F9-h7o" customClass="certificateViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="w7z-7i-27N">
+                    <view key="view" contentMode="scaleToFill" id="w7z-7i-27N">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Cu9-M6-uYC">
-                                <rect key="frame" x="16" y="122" width="288" height="0.0"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Cu9-M6-uYC">
+                                <rect key="frame" x="16" y="85" width="288" height="0.0"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Certificate :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bPN-YR-Qki">
-                                <rect key="frame" x="16" y="64" width="288" height="43"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Certificate :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bPN-YR-Qki">
+                                <rect key="frame" x="16" y="64" width="288" height="6"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="43" id="V3p-Zc-NhA"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Copy the remote server certificate and past it contents in the field above" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Y9-cM-yL2">
-                                <rect key="frame" x="16" y="130" width="288" height="6"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copy the remote server certificate and past it contents in the field above" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Y9-cM-yL2">
+                                <rect key="frame" x="16" y="93" width="288" height="43"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="43" id="aa1-PD-AwX"/>
