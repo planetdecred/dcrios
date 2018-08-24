@@ -117,8 +117,8 @@ class SettingsController: UITableViewController  {
         let network_value = UserDefaults.standard.integer(forKey: "network_mode")
         version?.text = UserDefaults.standard.string(forKey: "app_version") ?? "1.0"
         build?.text = UserDefaults.standard.string(forKey: "build_version") ?? "1.0"
-        debu_msg?.setOn((UserDefaults.standard.bool(forKey: "pref_debug_switch") ), animated: true)
-        spend_uncon_fund?.setOn(UserDefaults.standard.bool(forKey: "pref_spend_fund_switch"), animated: true)
+        debu_msg?.setOn((UserDefaults.standard.bool(forKey: "pref_debug_switch") ), animated: false)
+        spend_uncon_fund?.setOn(UserDefaults.standard.bool(forKey: "pref_spend_fund_switch"), animated: false)
         connect_peer_ip?.text = UserDefaults.standard.string(forKey: "pref_peer_ip") ?? "0.0.0.0"
         server_ip?.text = UserDefaults.standard.string(forKey: "pref_server_ip") ?? "0.0.0.0"
         incoming_notification_switch?.setOn(UserDefaults.standard.bool(forKey: "pref_notification_switch"), animated: true)

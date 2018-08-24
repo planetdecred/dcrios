@@ -5,11 +5,19 @@
 import UIKit
 import MBProgressHUD
 
+<<<<<<< HEAD
 class TransactionFullDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, MobilewalletGetTransactionsResponseProtocol {
+=======
+class TransactionFullDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+>>>>>>> Transaction_Passing_update
     @IBOutlet private weak var tableTransactionDetails: UITableView!    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet var detailsHeader: UIView!
+     @IBOutlet weak var amount: UILabel!
     var transactionHash: String?
+    var account : String?
+    
     let hud = MBProgressHUD(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
     
     var details: [TransactionDetails] = [
@@ -50,6 +58,8 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
             textColor: nil
         )
     ]
+    var transaction: Transaction!
+    var txstatus: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,14 +72,21 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
             .autoResizeCell(estimatedHeight: 60.0)
             .registerCellNib(TransactiontInputDetails.self)
         
+<<<<<<< HEAD
      //   tableTransactionDetails.registerCellNib(TransactionDetailCell.self)
      //   tableTransactionDetails.registerCellNib(TransactiontOutputDetailsCell.self)
+=======
+        tableTransactionDetails.registerCellNib(TransactionDetailCell.self)
+        tableTransactionDetails.registerCellNib(TransactiontOutputDetailsCell.self)
+        tableTransactionDetails.registerCellNib(TransactiontInputDetails.self)
+>>>>>>> Transaction_Passing_update
         
     }
     
 
     override func viewWillAppear(_ animated: Bool) {
         hud.show(animated: true)
+        wrap(transaction: self.transaction)
        // AppContext.instance.decrdConnection?.fetchTransactions()
     }
     
@@ -97,6 +114,7 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         
         return (section == 0 ? self.detailsHeader : headerView)
     }
+   
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
@@ -127,7 +145,7 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         }
     }
     
-    func onResult(_ json: String!) {
+ /*   func onResult(_ json: String!) {
         do{
             let transactions = try JSONDecoder().decode(GetTransactionResponse.self, from:json.data(using: .utf8)!)
             let lastTransaction = transactions.Transactions.filter({(transaction) in
@@ -146,7 +164,7 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         }catch let error{
             print(error)
         }
-    }
+    }*/
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -158,7 +176,7 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         details = [
             TransactionDetails(
                 title: "Status",
-                value: "\(transaction?.Status ?? "0") Confirmations",
+                value: "\(transaction?.Status ?? "0") Confirmed",
 //                textColor: #colorLiteral(red: 0.2549019608, green: 0.7490196078, blue: 0.3254901961, alpha: 1)
                 textColor: nil
             ),
@@ -188,11 +206,12 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
             ),
             TransactionDetails(
                 title: "Hash",
-                value: transactionHash!,
+                value: (transaction?.Hash)!,
 //                textColor: #colorLiteral(red: 0.1607843137, green: 0.4392156863, blue: 1, alpha: 1)
                 textColor: nil
             )
         ]
+        self.amount.text = "\(Double((transaction?.Amount)!) / 1e8) DCR"
     }
     
     fileprivate func format(timestamp:UInt64?) -> String{
