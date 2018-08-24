@@ -18,17 +18,15 @@ import UIKit
 
 struct TransactionTableViewCellData {
     
-    init(data: Dictionary<String, String>) {
-        self.trStatus = data["status"]!
-        self.trType = data["type"]!
-        self.trAmount = data["amount"]!
-        self.trDate = data["date"]!
+    init(data: Transaction) {
+        self.trans = data
         
     }
-    var trStatus: String
+     var trans: Transaction
+    /*var trStatus: String
     var trType: String
     var trAmount: String
-    var trDate: String
+    var trDate: String*/
 }
 
 class TransactionHistoryTableViewCell: BaseTableViewCell {
@@ -49,22 +47,54 @@ class TransactionHistoryTableViewCell: BaseTableViewCell {
     override func setData(_ data: Any?) {
         if let data = data as? TransactionTableViewCellData {
             
-            self.txtAmount.attributedText = self.getAttributedString(str: data.trAmount)
-            self.txtDate.text = data.trDate
-            self.txtTrStatus.text = data.trStatus
+            let confirmation =  AppContext.instance.decrdConnection?.wallet?.getBestBlock()
+            let confirm2 = (confirmation)! - Int32(data.trans.Height)
+            print("am in here")
+            if(confirm2 == -1){
+                self.txtTrStatus.textColor = UIColor(hex:"#3d659c")
+                self.txtTrStatus.text = "Pending"
+            }
+            else{
+                if(UserDefaults.standard.bool(forKey: "pref_spend_fund_switch") || confirm2 > 1){
+                    
+                    self.txtTrStatus.textColor = UIColor(hex:"#55bb97")
+                    self.txtTrStatus.text = "Confirmed"
+                }
+                else{
+                    self.txtTrStatus.textColor = UIColor(hex:"#3d659c")
+                    self.txtTrStatus.text = "Pending"
+                }
+            }
+            let Date2 = NSDate.init(timeIntervalSince1970: TimeInterval(data.trans.Timestamp) )
+            let dateformater = DateFormatter()
+            dateformater.dateFormat = "yyyy-MM-dd hh:mm"
+            dateformater.string(from: Date2 as Date)
+            self.txtDate.text = dateformater.string(from: Date2 as Date)
             
-            if(data.trType == "Debit"){
+            if(data.trans.Direction == 0){
+                self.txtAmount.attributedText = getAttributedString(str: "-".appending(Decimal(data.trans.Amount / 100000000.00).description))
+                print("deduction")
+                print(data.trans.Amount)
+                let num = Decimal(data.trans.Amount) / 100000000
+                print(Double(num.description)!)
                 self.trImage?.image = UIImage(named: "debit")
             }
-            else{
+            else if(data.trans.Direction == 1){
+                self.txtAmount.attributedText = getAttributedString(str: Decimal(data.trans.Amount / 100000000.00).description)
                 self.trImage?.image = UIImage(named: "credit")
+                print(data.trans.Amount)
+                let num = Decimal(data.trans.Amount) / 100000000
+                print(Double(num.description)!)
             }
-            
-            if(data.trStatus == "Confirmed"){
-                self.txtTrStatus?.textColor = UIColor(red: 102.0/255.0, green: 187.0/255.0, blue: 171.0/255.0, alpha: 1.0)
+            else if(data.trans.Direction == 2){
+                self.txtAmount.attributedText = getAttributedString(str: (data.trans.Amount / 100000000.00).description)
+                self.trImage?.image = UIImage(named: "account")
+                print(data.trans.Amount)
+                let num = Decimal(data.trans.Amount) / 100000000
+                print(Double(num.description)!)
             }
-            else{
-                self.txtTrStatus?.textColor = UIColor(red: 60.0/255.0, green: 130.0/255.0, blue: 184.0/255.0, alpha: 1.0)
+            if(data.trans.Type == "vote"){
+                self.txtAmount.text = "Vote"
             }
         }
     }
@@ -75,30 +105,7 @@ class TransactionHistoryTableViewCell: BaseTableViewCell {
         
         // Configure the view for the selected state
     }
-    func getAttributedString(str: String) -> NSAttributedString {
-        
-        let stt = str as NSString!
-        let atrStr = NSMutableAttributedString(string: stt! as String)
-        let dotRange = stt?.range(of: ".")
-        //print("Index = \(dotRange?.location)")
-        if(str.length > ((dotRange?.location)!+2)) {
-            atrStr.addAttribute(NSAttributedStringKey.font,
-                                         value: UIFont(
-                                            name: "AmericanTypewriter",
-                                            size: 11.0)!,
-                                         range: NSRange(
-                                            location:(dotRange?.location)!+3,
-                                            length:(stt?.length)!-1 - ((dotRange?.location)!+2)))
-            
-            atrStr.addAttribute(NSAttributedStringKey.foregroundColor,
-                                value: UIColor.lightGray,
-                                range: NSRange(
-                                    location:(dotRange?.location)!+3,
-                                    length:((stt?.length)!-1) - ((dotRange?.location)!+2)))
-            
-        }
-        return atrStr
-    }
+    
     
 }
 

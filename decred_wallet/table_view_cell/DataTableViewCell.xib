@@ -29,20 +29,20 @@
                         <rect key="frame" x="194" y="-3" width="130" height="81"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yJZ-Jw-X76">
-                                <rect key="frame" x="6" y="60" width="93" height="19"/>
+                                <rect key="frame" x="6" y="58" width="93" height="19"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="19" id="Yi3-hX-x8c"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="confirmed" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c1T-Mh-IIo">
-                                <rect key="frame" x="9" y="31" width="78" height="19"/>
+                                <rect key="frame" x="11.5" y="31" width="75.5" height="19"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="19" id="YGR-AS-qHf"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <color key="textColor" red="0.4261411726474762" green="0.71480363607406616" blue="0.32268553972244263" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -57,9 +57,9 @@
                         <color key="backgroundColor" red="0.92156862745098034" green="0.93725490196078431" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="yJZ-Jw-X76" firstAttribute="leading" secondItem="kgG-PH-sxi" secondAttribute="leading" constant="6" id="4CI-Hh-JAf"/>
-                            <constraint firstItem="yJZ-Jw-X76" firstAttribute="top" secondItem="c1T-Mh-IIo" secondAttribute="bottom" constant="10" id="Eho-yu-NVp"/>
+                            <constraint firstItem="yJZ-Jw-X76" firstAttribute="top" secondItem="c1T-Mh-IIo" secondAttribute="bottom" constant="8" id="Eho-yu-NVp"/>
                             <constraint firstItem="ACR-tp-aNy" firstAttribute="top" secondItem="c1T-Mh-IIo" secondAttribute="top" constant="-3" id="MKy-yT-Nvh"/>
-                            <constraint firstAttribute="bottom" secondItem="yJZ-Jw-X76" secondAttribute="bottom" constant="2" id="bUD-Xw-Y9G"/>
+                            <constraint firstAttribute="bottom" secondItem="yJZ-Jw-X76" secondAttribute="bottom" constant="4" id="bUD-Xw-Y9G"/>
                             <constraint firstItem="ACR-tp-aNy" firstAttribute="leading" secondItem="c1T-Mh-IIo" secondAttribute="trailing" constant="8" id="fkO-b7-TyF"/>
                             <constraint firstItem="yJZ-Jw-X76" firstAttribute="centerX" secondItem="kgG-PH-sxi" secondAttribute="centerX" constant="-12.5" id="h0T-5I-X5u"/>
                             <constraint firstItem="yJZ-Jw-X76" firstAttribute="trailing" secondItem="c1T-Mh-IIo" secondAttribute="trailing" constant="12" id="onx-jy-R9R"/>
@@ -93,6 +93,8 @@
             <connections>
                 <outlet property="dataImage" destination="ppM-43-tik" id="xdO-QO-GUo"/>
                 <outlet property="dataText" destination="I30-9I-EnW" id="vsj-dK-z9n"/>
+                <outlet property="dateT" destination="yJZ-Jw-X76" id="cLL-Us-eQX"/>
+                <outlet property="status" destination="c1T-Mh-IIo" id="wAD-Na-DJb"/>
             </connections>
             <point key="canvasLocation" x="249" y="183"/>
         </tableViewCell>

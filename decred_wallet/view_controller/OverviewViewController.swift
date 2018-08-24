@@ -50,16 +50,26 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
     var synced = false
    
     
-    var mainContens = [String]()
+    var mainContens = [Transaction]()
+    var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action:
+            #selector(OverviewViewController.handleRefresh(_:)),
+                                 for: UIControlEvents.valueChanged)
+        refreshControl.tintColor = UIColor.lightGray
+        
+        return refreshControl
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.registerCellNib(DataTableViewCell.self)
         self.tableView.tableHeaderView = viewTableHeader
         self.tableView.tableFooterView = viewTableFooter
-        UserDefaults.standard.set(false, forKey: "synced")
-        updateCurrentBalance()
-        prepareRecent()
+        
+        self.tableView.addSubview(self.refreshControl)
+        
+        
            connectToDecredNetwork()
             print("adding observer")
         AppContext.instance.decrdConnection?.wallet?.transactionNotification(self)
@@ -89,6 +99,11 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
     override func viewDidAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.visible = true
+        if(UserDefaults.standard.bool(forKey: "synced") == true){
+            updateCurrentBalance()
+            prepareRecent()
+        }
+        
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -226,11 +241,12 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
                 print(error)
             }
             DispatchQueue.main.async {
-                this.lbCurrentBalance.text = amount
+                self?.lbCurrentBalance.attributedText = getAttributedString(str: amount)
             }
         }
         
     }
+    
     
     func prepareRecent(){
         self.mainContens.removeAll()
@@ -244,6 +260,12 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
                 print(Error)
             }
         }
+    }
+    
+    
+   @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        self.prepareRecent()
+        refreshControl.endRefreshing()
     }
     
     
@@ -270,12 +292,13 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
                             this.mainContens.removeAll()
                             print("decoding")
                             for transactionPack in transactions.Transactions {
-                                for creditTransaction in transactionPack.Credits {
+                                self?.mainContens.append(transactionPack)
+                               /* for creditTransaction in transactionPack.Credits {
                                     this.mainContens.append("\(creditTransaction.dcrAmount) DCR")
                                 }
                                 for debitTransaction in transactionPack.Debits {
                                     this.mainContens.append("-\(debitTransaction.dcrAmount) DCR")
-                                }
+                                }*/
                             }
                             this.mainContens.reverse()
                             this.tableView.reloadData()
@@ -342,18 +365,20 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
     
     func onTransaction(_ transaction: String!) {
         print("New transaction for onTransaction")
-        self.updateCurrentBalance()
-        /*let transactions = try! JSONDecoder().decode(Transaction.self, from:transaction.data(using: .utf8)!)
-        for creditTransaction in transactions.Credits{
-            self.mainContens.append("\(creditTransaction.dcrAmount) DCR")
+        
+        let transactions = try! JSONDecoder().decode(Transaction.self, from:transaction.data(using: .utf8)!)
+        self.mainContens.append(transactions)
+     /*   for creditTransaction in transactions.Credits{
+            
             
         }
         for debitTransaction in transactions.Debits{
             self.mainContens.append("-\(debitTransaction.dcrAmount) DCR")
-        }
+        }*/
         DispatchQueue.main.async {
             self.tableView.reloadData()
-        }*/
+        }
+        self.updateCurrentBalance()
     }
 }
 
@@ -363,21 +388,23 @@ extension OverviewViewController : UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       /* let storyboard = UIStoryboard(name: "SubContentsViewController", bundle: nil)
-        let subContentsVC = storyboard.instantiateViewController(withIdentifier: "SubContentsViewController") as! SubContentsViewController
-        self.navigationController?.pushViewController(subContentsVC, animated: true)*/
+        let storyboard = UIStoryboard(name: "TransactionFullDetailsViewController", bundle: nil)
+        let subContentsVC = storyboard.instantiateViewController(withIdentifier: "TransactionFullDetailsViewController") as! TransactionFullDetailsViewController
+        subContentsVC.transaction = self.mainContens[indexPath.row]
+        
+        self.navigationController?.pushViewController(subContentsVC, animated: true)
     }
 }
 
 extension OverviewViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return min(self.mainContens.count, 99)
+        return min(self.mainContens.count, 4)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: DataTableViewCell.identifier) as! DataTableViewCell
         print("about to crash")
-        let data = DataTableViewCellData(text: self.mainContens[indexPath.row] )
+        let data = DataTableViewCellData(trans: self.mainContens[indexPath.row])
         print("pass")
         cell.setData(data)
         return cell

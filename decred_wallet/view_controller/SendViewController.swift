@@ -67,10 +67,11 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
     }
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        if self.tfAmount.text != nil {
+        if self.tfAmount.text != nil && self.tfAmount.text != ""  && self.walletAddress.text != nil && self.walletAddress.text != ""{
             self.prepareTransaction(sendAll: false)
+            return true
         }
-        return true
+        return false
     }
     
     func getAttributedString(str: String) -> NSAttributedString {
@@ -140,8 +141,8 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
     private func prepareTransaction(sendAll: Bool?) {
         do {
             let isShouldBeConfirmed = UserDefaults.standard.bool(forKey: "pref_spend_fund_switch")
-            let amountToSend = Int64((self.tfAmount.text)!)!
-            self.preparedTransaction = try AppContext.instance.decrdConnection?.wallet?.constructTransaction(self.walletAddress.text!, amount: amountToSend, srcAccount: (self.selectedAccount?.Number)!, requiredConfirmations: isShouldBeConfirmed ? 0 : 2, sendAll: sendAll ?? false)
+            let amountToSend = Double((self.tfAmount.text)!)!
+            self.preparedTransaction = try AppContext.instance.decrdConnection?.wallet?.constructTransaction(self.walletAddress.text!, amount: Int64(amountToSend), srcAccount: (self.selectedAccount?.Number)!, requiredConfirmations: isShouldBeConfirmed ? 0 : 2, sendAll: sendAll ?? false)
             print("Account Number is")
             print(self.selectedAccount?.Number as Any)
             DispatchQueue.main.async { [weak self] in
@@ -156,12 +157,23 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
     }
     
     private func signTransaction(sendAll: Bool?) {
+        let password = (self.password?.data(using: .utf8))!
+        let walletAddress = self.walletAddress.text!
+        let amount = Int64((self.tfAmount.text)!)! * 100000000
+        let account = (self.selectedAccount?.Number)!
+        DispatchQueue.global(qos: .userInitiated).async {
         do {
             let isShouldBeConfirmed = UserDefaults.standard.bool(forKey: "pref_spend_fund_switch")
-            let result = try AppContext.instance.decrdConnection?.wallet?.sendTransaction((password?.data(using: .utf8))!, destAddr: self.walletAddress.text!, amount: Int64((self.tfAmount.text)!)!, srcAccount: (self.selectedAccount?.Number)!, requiredConfs: isShouldBeConfirmed ? 0 : 2, sendAll: sendAll ?? false)
-            transactionSucceeded(hash: result?.hexEncodedString())
+            let result = try AppContext.instance.decrdConnection?.wallet?.sendTransaction(password, destAddr: walletAddress, amount: amount , srcAccount: account , requiredConfs: isShouldBeConfirmed ? 0 : 2, sendAll: sendAll ?? false)
+            DispatchQueue.main.async {
+                self.transactionSucceeded(hash: result?.hexEncodedString())
+            }
+            
         } catch let error {
+            DispatchQueue.main.async {
             self.showAlert(message: error.localizedDescription)
+            }
+        }
         }
     }
     

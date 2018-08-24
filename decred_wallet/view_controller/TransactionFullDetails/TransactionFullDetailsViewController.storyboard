@@ -13,7 +13,7 @@
         <!--Transaction Full Details View Controller-->
         <scene sceneID="DpT-Dg-OV6">
             <objects>
-                <viewController storyboardIdentifier="TransactionFullDetailsViewController" id="Gia-AO-cm1" customClass="TransactionFullDetailsViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TransactionFullDetailsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Gia-AO-cm1" customClass="TransactionFullDetailsViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jVq-pq-hff">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -38,6 +38,7 @@
                         <viewLayoutGuide key="safeArea" id="Jia-se-qbj"/>
                     </view>
                     <connections>
+                        <outlet property="amount" destination="I0P-ya-PoI" id="XOh-SQ-Xpg"/>
                         <outlet property="detailsHeader" destination="9Ha-a1-zJH" id="Yu4-gV-Li4"/>
                         <outlet property="tableTransactionDetails" destination="dx6-nC-hdi" id="Lf9-c4-Per"/>
                         <outlet property="tableView" destination="dx6-nC-hdi" id="gOC-Y9-JtM"/>
@@ -57,10 +58,10 @@
                                     <color key="textColor" red="0.047058823530000002" green="0.1176470588" blue="0.24313725489999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-249.920055 DCR" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I0P-ya-PoI">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.00 DCR" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I0P-ya-PoI">
                                     <rect key="frame" x="112" y="0.0" width="112" height="128"/>
                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
-                                    <color key="textColor" red="0.99215686270000003" green="0.4431372549" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
