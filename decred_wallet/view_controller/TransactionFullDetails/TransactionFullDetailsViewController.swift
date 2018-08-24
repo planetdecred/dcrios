@@ -6,42 +6,48 @@ import UIKit
 import MBProgressHUD
 
 class TransactionFullDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, MobilewalletGetTransactionsResponseProtocol {
-    
     @IBOutlet private weak var tableTransactionDetails: UITableView!    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet var detailsHeader: UIView!
     var transactionHash: String?
     let hud = MBProgressHUD(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+    
     var details: [TransactionDetails] = [
         TransactionDetails(
             title: "Status",
             value: "45 Confirmations",
-            textColor: #colorLiteral(red: 0.2549019608, green: 0.7490196078, blue: 0.3254901961, alpha: 1)
+//            textColor: #colorLiteral(red: 0.2549019608, green: 0.7490196078, blue: 0.3254901961, alpha: 1)
+            textColor: nil
         ),
         TransactionDetails(
             title: "Confirmation",
             value: "644",
-            textColor: #colorLiteral(red: 0.3803921569, green: 0.4509803922, blue: 0.5254901961, alpha: 1)
+//            textColor: #colorLiteral(red: 0.3803921569, green: 0.4509803922, blue: 0.5254901961, alpha: 1)
+            textColor: nil
         ),
         TransactionDetails(
             title: "Type",
             value: "Regular",
-            textColor: #colorLiteral(red: 0.3803921569, green: 0.4509803922, blue: 0.5254901961, alpha: 1)
+//            textColor: #colorLiteral(red: 0.3803921569, green: 0.4509803922, blue: 0.5254901961, alpha: 1)
+            textColor: nil
         ),
         TransactionDetails(
             title: "Date",
             value: "Mar 27, 2018 / 10:28:35 pm",
-            textColor: #colorLiteral(red: 0.3803921569, green: 0.4509803922, blue: 0.5254901961, alpha: 1)
+//            textColor: #colorLiteral(red: 0.3803921569, green: 0.4509803922, blue: 0.5254901961, alpha: 1)
+            textColor: nil
         ),
         TransactionDetails(
             title: "Fee",
             value: "0.000253 DCR",
-            textColor: #colorLiteral(red: 0.3803921569, green: 0.4509803922, blue: 0.5254901961, alpha: 1)
+//            textColor: #colorLiteral(red: 0.3803921569, green: 0.4509803922, blue: 0.5254901961, alpha: 1)
+            textColor: nil
         ),
         TransactionDetails(
             title: "Hash",
             value: "000000000000001a8befe3271f3c293e5af4365f1db5a664e8496ca3f6dc74d5",
-            textColor: #colorLiteral(red: 0.1607843137, green: 0.4392156863, blue: 1, alpha: 1)
+//            textColor: #colorLiteral(red: 0.1607843137, green: 0.4392156863, blue: 1, alpha: 1)
+            textColor: nil
         )
     ]
     
@@ -57,7 +63,7 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
             .registerCellNib(TransactiontInputDetails.self)
         
      //   tableTransactionDetails.registerCellNib(TransactionDetailCell.self)
-        //tableTransactionDetails.registerCellNib(TransactiontOutputDetailsCell.self)
+     //   tableTransactionDetails.registerCellNib(TransactiontOutputDetailsCell.self)
         
     }
     
