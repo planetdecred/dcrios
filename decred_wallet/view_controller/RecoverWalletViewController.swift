@@ -26,6 +26,7 @@ class RecoverWalletViewController: UIViewController {
         addAccessory()
         self.btnConfirm.isEnabled = true
         txSeedCheckCombined!.text  = seedtmp
+        txSeedCheckCombined.addDoneButton()
         addSearchWords()
         tfSeedCheckWord.searchResult?.onSelect = { [weak self] _, item in
             guard let this = self else { return }

@@ -27,7 +27,7 @@ class WalletLogViewController: UIViewController {
         if (aLogs?.count)! > 500{
             cutOffLogFlow = aLogs?.suffix(from: (aLogs?.count)! - 500)
         }
-        
+        logTextView.addDoneButton()
         logTextView.text = cutOffLogFlow?.joined(separator: ";\n")
     }
 }

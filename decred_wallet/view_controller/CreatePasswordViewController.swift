@@ -25,6 +25,10 @@ class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITex
         view.addSubview(progressHud!)
         tfPassword.delegate = self
         tfVerifyPassword.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        
+        [tfPassword, tfVerifyPassword].forEach {
+            $0?.addDoneButton()
+        }
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

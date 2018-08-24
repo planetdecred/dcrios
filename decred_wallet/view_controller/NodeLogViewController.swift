@@ -15,6 +15,8 @@ class NodeLogViewController: UIViewController {
         super.viewDidLoad()
         self.navigationItem.title = "Node Log"
         // Do any additional setup after loading the view.
+        
+        logTextView.addDoneButton()
     }
     
     override func didReceiveMemoryWarning() {

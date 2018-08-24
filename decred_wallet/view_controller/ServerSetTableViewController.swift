@@ -20,7 +20,7 @@ class ServerSetTableViewController: UITableViewController {
         self.navigationItem.title = "Server Address"
         // Do any additional setup after loading the view.
         server_ip?.text = UserDefaults.standard.string(forKey: "pref_server_ip") ?? "0.0.0.0"
-
+        server_ip.addDoneButton()
     }
     
     override func viewDidAppear(_ animated: Bool) {

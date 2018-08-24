@@ -35,6 +35,9 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
         self.accountDropdown.backgroundColor = UIColor.clear
         self.tfAmount.text = "0"
         self.tfAmount.delegate = self
+        
+        walletAddress.addDoneButton()
+        tfAmount.addDoneButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -60,7 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             AppContext.instance.decrdConnection = DcrdConnection()
             AppContext.instance.decrdConnection?.wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/", "bdb")
             AppContext.instance.decrdConnection?.wallet?.initLoader()
-            self.walletSetupView()
+            walletSetupView()
         }
     }
 

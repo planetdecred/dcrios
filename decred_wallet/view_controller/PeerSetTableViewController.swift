@@ -20,6 +20,8 @@ class PeerSetTableViewController: UITableViewController {
         self.navigationItem.title = "Connect to peer"
         // Do any additional setup after loading the view.
         peer_ip?.text = UserDefaults.standard.string(forKey: "pref_peer_ip") ?? "0.0.0.0"
+        
+            peer_ip.addDoneButton()
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
