@@ -108,7 +108,6 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
             for: .touchUpInside
         )
 
-        print("account returning header view")
         return headerView
     }
 

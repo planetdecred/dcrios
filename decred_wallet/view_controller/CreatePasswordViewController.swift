@@ -41,6 +41,10 @@ class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITex
         validatePassword()
     }
     
+    @IBAction func backAction(_ sender: UIButton) {
+        navigationController?.popViewController(animated: true)
+    }
+    
     @objc func textFieldDidChange(_ textField: UITextField) {
         validatePassword()
     }

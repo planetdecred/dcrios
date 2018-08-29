@@ -44,6 +44,10 @@ class SeedCheckupViewController: UIViewController, SeedCheckupProtocol {
         self.txSeedCheckCombined.text = ""
     }
     
+    @IBAction func backAction(_ sender: UIButton) {
+        navigationController?.popViewController(animated: true)
+    }
+    
     @IBAction func onClear(_ sender: Any) {
         self.tfSeedCheckWord.clean()
     }

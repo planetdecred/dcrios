@@ -6,18 +6,17 @@
 // See LICENSE for details.
 //
 
-import UIKit
 import Mobilewallet
+import UIKit
 
 class GeneratedSeedDisplayViewController: UIViewController {
-
-    @IBOutlet weak var vWarningIcon: UIView!
-    @IBOutlet weak var vWarningLabel: UILabel!
-
-    var seed : String! = ""
+    @IBOutlet var vWarningIcon: UIView!
+    @IBOutlet var vWarningLabel: UILabel!
     
-    @IBOutlet weak var seedContainer: UIView!
-    var arrWords : Array<String> = []
+    var seed: String! = ""
+    
+    @IBOutlet var seedContainer: UIView!
+    var arrWords: Array<String> = []
     var yPosition: CGFloat?
     var xPostiion: CGFloat?
     var totalWidth: CGFloat?
@@ -28,44 +27,44 @@ class GeneratedSeedDisplayViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        var seed = ""
-        do{
+        
+        do {
             try
-                seed =  (AppContext.instance.decrdConnection?.wallet!.generateSeed())!
+                seed = (AppContext.instance.decrdConnection?.wallet!.generateSeed())!
         } catch {
-           seed = ""
+            seed = ""
         }
         arrWords = (seed.components(separatedBy: " "))
         vWarningLabel.layer.borderColor = GlobalConstants.Colors.orangeColor.cgColor
         vWarningIcon.layer.borderColor = GlobalConstants.Colors.orangeColor.cgColor
         vWarningLabel.superview?.layer.borderColor = GlobalConstants.Colors.orangeColor.cgColor
-
-        self.drawSeed()
+        
+        drawSeed()
     }
     
     // MARK: - Utility
     
     func setUpUItraits() {
-        self.totalWidth = seedContainer.frame.size.width
-        self.yPosition = 20.0
-        self.xPostiion = 20.0
-        self.widthOffset = 0.0
-        self.heightOffset = 0.0
-        self.calcultaedHeight = 21.0
+        totalWidth = seedContainer.frame.size.width
+        yPosition = 20.0
+        xPostiion = 20.0
+        widthOffset = 0.0
+        heightOffset = 0.0
+        calcultaedHeight = 21.0
     }
     
     // Draw seed
     func drawSeed() {
-        for view in seedContainer.subviews{
+        for view in seedContainer.subviews {
             view.removeFromSuperview()
         }
-        self.setUpUItraits()
+        setUpUItraits()
         for word in arrWords {
-            let wordSize = self.getWidth(str: " " + word + " ")
-            let rect = self.getLocation(stringSize: wordSize.width)
+            let wordSize = getWidth(str: " " + word + " ")
+            let rect = getLocation(stringSize: wordSize.width)
             let lbl = UILabel(frame: rect)
             lbl.backgroundColor = GlobalConstants.Colors.lightBlue
-            lbl.font = self.font
+            lbl.font = font
             lbl.clipsToBounds = true
             lbl.layer.cornerRadius = 3
             lbl.textAlignment = NSTextAlignment.center
@@ -77,8 +76,8 @@ class GeneratedSeedDisplayViewController: UIViewController {
     // Get location for new seed word
     func getLocation(stringSize: CGFloat) -> CGRect {
         let pos = xPostiion! + stringSize
-        let rect : CGRect
-        if( pos < totalWidth! ) {
+        let rect: CGRect
+        if pos < totalWidth! {
             rect = CGRect(origin: CGPoint(x: xPostiion!, y: yPosition!), size: CGSize(width: stringSize, height: 21))
             xPostiion = xPostiion! + stringSize + 5
         } else {
@@ -88,9 +87,7 @@ class GeneratedSeedDisplayViewController: UIViewController {
             xPostiion = xPostiion! + stringSize + 5
         }
         return rect
-        
     }
-    
     
     // Get width for new word
     func getWidth(str: String) -> CGSize {
@@ -102,14 +99,12 @@ class GeneratedSeedDisplayViewController: UIViewController {
         
         vWarningLabel.layer.borderColor = UIColor(hex: "fd714a").cgColor
         vWarningIcon.layer.borderColor = UIColor(hex: "fd714a").cgColor
-
     }
     
     // MARK: - Navigation
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         var vc = segue.destination as! SeedCheckupProtocol
         vc.seedToVerify = seed
     }
-
 }
