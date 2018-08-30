@@ -16,6 +16,7 @@ class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITex
     @IBOutlet weak var tfPassword: UITextField!
     @IBOutlet weak var tfVerifyPassword: UITextField!
     @IBOutlet weak var btnEncrypt: UIButton!
+    var constant = DcrdConnection()
     
     
     override func viewDidLoad() {
@@ -61,7 +62,7 @@ class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITex
             
             do {
                 var wallet: MobilewalletLibWallet
-                var constant = AppContext.instance.decrdConnection
+                let constant = AppContext.instance.decrdConnection
                 wallet = (constant?.wallet)!
                 if wallet == nil {
                     return

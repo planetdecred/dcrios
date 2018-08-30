@@ -8,6 +8,7 @@ import UIKit
 
 protocol AccountDetailsCellProtocol {
     func setup(account: AccountsEntity)
+    
 }
 
 class AccountViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
@@ -16,6 +17,7 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
     var myBalances: [AccountsData] = [AccountsData]()
     var account: GetAccountResponse?
     var visible = false
+    private var constant: DcrdConnection?
 
     @IBOutlet var tableAccountData: UITableView!
 
@@ -30,6 +32,7 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setNavigationBarItem()
+        constant = AppContext.instance.decrdConnection as? DcrdConnection
         navigationItem.title = "Account"
         print("account will appear")
         // self.account = AppContext.instance.decrdConnection?.getAccounts()
@@ -38,6 +41,7 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         visible = false
+        self.constant = nil
         // self.dismiss(animated: true, completion: nil)
     }
 
@@ -65,7 +69,7 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
             this.account?.Acc.removeAll()
             this.myBalances.removeAll()
             do {
-                let strAccount = try AppContext.instance.decrdConnection?.wallet?.getAccounts(0)
+                let strAccount = try self?.constant?.wallet?.getAccounts(0)
                 this.account = try JSONDecoder().decode(GetAccountResponse.self, from: (strAccount?.data(using: .utf8))!)
                 this.myBalances = {
                     // let colors = [#colorLiteral(red: 0.1807299256, green: 0.8454471231, blue: 0.6397696137, alpha: 1), #colorLiteral(red: 0.1593483388, green: 0.4376987219, blue: 1, alpha: 1), #colorLiteral(red: 0.992682755, green: 0.4418484569, blue: 0.2896475494, alpha: 1), #colorLiteral(red: 0.9992011189, green: 0.7829756141, blue: 0.3022021651, alpha: 1), #colorLiteral(red: 0.7991421819, green: 0.7997539639, blue: 0.7992369533, alpha: 1)]
@@ -128,6 +132,7 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
         let cell = tableView.dequeueReusableCell(withIdentifier: "AccountDataCell") as! AccountDetailsCellProtocol
         print("account creating cells")
         cell.setup(account: (account!.Acc[rowIndex.row]))
+       
         return cell as! UITableViewCell
     }
 

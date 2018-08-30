@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -313,6 +313,9 @@
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pQl-43-ryM">
                                                 <rect key="frame" x="371" y="22.5" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="setDefault:" destination="KGk-i7-Jjw" eventType="valueChanged" id="J8L-7Q-wcV"/>
+                                                </connections>
                                             </switch>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y6i-EG-Jvu">
                                                 <rect key="frame" x="13" y="29" width="206.5" height="29"/>
@@ -350,6 +353,7 @@ outgoing and incoming transactions.</string>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="containerStackView" destination="x3z-we-xl8" id="z0t-FV-2Rf"/>
+                <outlet property="defaultAccount" destination="pQl-43-ryM" id="4RH-5P-ABj"/>
                 <outlet property="labelAccountNoValue" destination="P5V-EW-4kC" id="jYz-th-zz6"/>
                 <outlet property="labelHDPathValue" destination="xys-o1-lj8" id="QIE-zE-pi7"/>
                 <outlet property="labelImmatureRewardValue" destination="7At-AS-vHt" id="j02-Aw-orE"/>

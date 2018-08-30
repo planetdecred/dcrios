@@ -37,6 +37,7 @@ class DataTableViewCell : BaseTableViewCell {
             //self.dataImage.setRandomDownloadImage(80, height: 80)
             let confirmation =  AppContext.instance.decrdConnection?.wallet?.getBestBlock()
             let confirm2 = (confirmation)! - Int32(data.trans.Height)
+            
             print("am in here")
             print(self.count += 1)
             if(confirm2 == -1){

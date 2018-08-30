@@ -129,26 +129,6 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         }
     }
     
- /*   func onResult(_ json: String!) {
-        do{
-            let transactions = try JSONDecoder().decode(GetTransactionResponse.self, from:json.data(using: .utf8)!)
-            let lastTransaction = transactions.Transactions.filter({(transaction) in
-                print("HASH: "+transaction.Hash + " == " + self.transactionHash!)
-                return transaction.Hash == self.transactionHash
-            }).first
-            
-            DispatchQueue.main.async { [weak self] in
-                guard let this = self else { return }
-                if let lastTransaction = lastTransaction {
-                    this.wrap(transaction: lastTransaction)
-                }
-                this.hud.hide(animated: true)
-                this.tableView.reloadData()
-            }
-        }catch let error{
-            print(error)
-        }
-    }*/
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)

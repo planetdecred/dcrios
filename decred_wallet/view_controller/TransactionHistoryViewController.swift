@@ -143,7 +143,19 @@ extension TransactionHistoryViewController: UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60.0
+        return TransactionHistoryTableViewCell.height()
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let storyboard = UIStoryboard(name: "TransactionFullDetailsViewController", bundle: nil)
+        let subContentsVC = storyboard.instantiateViewController(withIdentifier: "TransactionFullDetailsViewController") as! TransactionFullDetailsViewController
+        print("index is")
+        print(indexPath.row)
+        if self.mainContens.count == 0{
+            print("error")
+            return
+        }
+        subContentsVC.transaction = self.mainContens[indexPath.row]
+        self.navigationController?.pushViewController(subContentsVC, animated: true)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

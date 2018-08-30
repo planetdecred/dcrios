@@ -27,6 +27,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
 
     var progressHud = MBProgressHUD()
     var scanning = false
+    @IBOutlet weak var blockInfo: UILabel!
     @IBOutlet weak var connectionStatus: UILabel!
     @IBOutlet weak var rescanHeight: UILabel!
     @IBOutlet weak var bestblock: UILabel!
@@ -96,6 +97,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         print("am running")
         self.scanning = UserDefaults.standard.bool(forKey: "walletScanning")
         let sync = UserDefaults.standard.bool(forKey: "synced")
+        
         if(sync == true){
              self.loop()
         }
@@ -106,27 +108,32 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
     }
     
     func loop() {
+        var constant = AppContext.instance.decrdConnection
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
             guard let this = self else { return }
-            let bestblck = AppContext.instance.decrdConnection?.wallet?.getBestBlock()
+            let bestblck = constant?.wallet?.getBestBlock()
             let bestblocktemp: Int64 = Int64(Int(bestblck!))
             if this.scanning == true {
                 this.chainStatus.text = ""
+                this.blockInfo.text = ""
                 this.connectionStatus.text = "Not Synced"
                 this.bestblock.text = String(bestblck!)
                 return
             }
-            let lastblocktime = AppContext.instance.decrdConnection?.wallet?.getBestBlockTimeStamp()
+            let lastblocktime = constant?.wallet?.getBestBlockTimeStamp()
             let currentTime = NSDate().timeIntervalSince1970
             let estimatedBlocks = ((Int64(currentTime) - lastblocktime!) / 120) + bestblocktemp
             if estimatedBlocks > bestblocktemp {
                 this.bestblock.text = String(bestblocktemp).appending(" of ").appending(String(estimatedBlocks))
                 this.chainStatus.text = ""
+                this.blockInfo.text = "Fetched"
+
                 this.connectionStatus.text = "Fetching Headers..."
             }
             else {
                 this.connectionStatus.text = "Rescanning in progress..."
                 this.bestblock.text = String(bestblocktemp)
+                this.blockInfo.text = "Latest Block"
                 this.chainStatus.text = this.calculateTime(millis: Int64(NSDate().timeIntervalSince1970) - lastblocktime!)
             }
         }
