@@ -25,9 +25,10 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
     }()
     
     var selectedAccount: AccountsEntity?
-    var preparedTransaction: MobilewalletConstructTxResponse?
+    var preparedTransaction: MobilewalletUnsignedTransaction?
     var password: String?
     var sendAllTX = false
+    private var constatnt: DcrdConnection?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +42,7 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
         super.viewWillAppear(animated)
         self.setNavigationBarItem()
         self.navigationItem.title = "Send"
+        constatnt = AppContext.instance.decrdConnection as? DcrdConnection
         // let isValidAddressInClipboard = validate(address:UIPasteboard.general.string!)
         // if isValidAddressInClipboard {destinationAddress.text = UIPasteboard.general.string ?? ""}
         self.updateBalance()
@@ -67,11 +69,14 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
     }
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        if self.tfAmount.text != nil && self.tfAmount.text != ""  && self.walletAddress.text != nil && self.walletAddress.text != ""{
+        if self.tfAmount.text != nil && self.tfAmount.text != ""  && self.walletAddress.text != nil && self.validateDestinationAddress(){
             self.prepareTransaction(sendAll: false)
             return true
         }
-        return false
+        if textField == self.tfAmount{
+            self.tfAmount.text = ""
+        }
+        return true
     }
     
     func getAttributedString(str: String) -> NSAttributedString {
@@ -190,6 +195,7 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
     }*/
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        self.constatnt = nil
         // self.dismiss(animated: true, completion: nil)
     }
     
@@ -313,6 +319,7 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
             this.accountDropdown.setAttributedTitle(this.getAttributedString(str: val), for: UIControlState.normal)
             this.selectedAccount = account?.Acc[ind]
             this.accountDropdown.backgroundColor = UIColor(red: 173.0 / 255.0, green: 231.0 / 255.0, blue: 249.0 / 255.0, alpha: 1.0)
+            this.accountDropdown.setTitle("test", for: .normal)
         }
     }
     

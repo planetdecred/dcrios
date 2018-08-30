@@ -19,7 +19,8 @@ class AccountsHeaderView: UIView {
         willSet {
             DispatchQueue.main.async { [weak self] in
                 guard let this = self else { return }
-                this.labelTotalBalance.text = "\(newValue)"
+                this.labelTotalBalance.attributedText = getAttributedString(str: "\(newValue)")
+                //this.labelTotalBalance.text = "\(newValue)".appending("DCR")
             }
         }
     }
@@ -34,7 +35,8 @@ class AccountsHeaderView: UIView {
         willSet {
             DispatchQueue.main.async { [weak self] in
                 guard let this = self else { return }
-                this.labelSpendableBalance.text = "\(newValue)"
+                
+                this.labelSpendableBalance.text = "\(newValue)".appending("DCR")
             }
         }
     }

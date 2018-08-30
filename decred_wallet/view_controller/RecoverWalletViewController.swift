@@ -20,12 +20,15 @@ class RecoverWalletViewController: UIViewController {
     var arrSeed = Array<String>()
     var seedWords: String! = ""
     let seedtmp = "reform aftermath printer warranty gremlin paragraph beehive stethoscope regain disruptive regain Bradbury chisel October trouble forever Algol applicant island infancy physique paragraph woodlark hydraulic snapshot backwater ratchet surrender revenge customer retouch intention minnow"
+    var recognizer:UIGestureRecognizer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         addAccessory()
         self.btnConfirm.isEnabled = true
-        txSeedCheckCombined!.text  = seedtmp
+        txSeedCheckCombined!.text  = ""
+        recognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressHappened))
+        self.btnConfirm.addGestureRecognizer(recognizer!)
         addSearchWords()
         tfSeedCheckWord.searchResult?.onSelect = { [weak self] _, item in
             guard let this = self else { return }
@@ -35,16 +38,41 @@ class RecoverWalletViewController: UIViewController {
             this.btnConfirm.isEnabled = count >= 25
             this.arrSeed.append(item)
         }
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         tfSeedCheckWord.becomeFirstResponder()
+        count = 0
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    var count = 0
+    @objc func longPressHappened(){
+        view.endEditing(true)
+        print("button pressed long tap")
+        count = count + 1
+        if count == 1{
+            self.btnConfirm.isEnabled = false
+            var constant = AppContext.instance.decrdConnection
+            let flag = constant?.wallet?.verifySeed(seedtmp)
+            if flag! {
+                let sb = UIStoryboard(name: "Main", bundle: nil)
+                let vc = sb.instantiateViewController(withIdentifier: "encryptWallet") as! CreatePasswordViewController
+                vc.seedToVerify = seedtmp
+                UserDefaults.standard.set(seedtmp, forKey: "passphrase")
+                navigationController?.pushViewController(vc, animated: true)
+
+                return
+            } else {
+                showError(error: "Seed was not verifed!")
+            }
+        }
+        
     }
     
     func addSearchWords() {
@@ -69,19 +97,25 @@ class RecoverWalletViewController: UIViewController {
     
     @IBAction func btnConfirmSeed(_ sender: Any) {
         view.endEditing(true)
-        
-        let flag = AppContext.instance.decrdConnection?.wallet?.verifySeed(txSeedCheckCombined.text) 
+        print("button pressed tap")
+        var constant = AppContext.instance.decrdConnection
+        let flag = constant?.wallet?.verifySeed(txSeedCheckCombined.text) 
         if flag! {
+            print("true")
             let sb = UIStoryboard(name: "Main", bundle: nil)
             let vc = sb.instantiateViewController(withIdentifier: "encryptWallet") as! CreatePasswordViewController
             vc.seedToVerify = txSeedCheckCombined.text
             UserDefaults.standard.set(txSeedCheckCombined.text, forKey: "passphrase")
             navigationController?.pushViewController(vc, animated: true)
         } else {
+            print("false")
             showError(error: "Seed was not verifed!")
         }
     }
     
+    @IBAction func testConfirm(_ sender: Any) {
+       
+    }
     func verifyWord(word: String) {
         if word.length > 0 {
             arrSeed.append(word)
