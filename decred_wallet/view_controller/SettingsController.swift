@@ -115,7 +115,7 @@ class SettingsController: UITableViewController  {
     func loadDate()-> Void{
         
         let network_value = UserDefaults.standard.integer(forKey: "network_mode")
-        version?.text = UserDefaults.standard.string(forKey: "app_version") ?? "1.0"
+        version?.text = UserDefaults.standard.string(forKey: "app_version") ?? "alpha test"
         var compileDate:Date{
             let bundleName = Bundle.main.infoDictionary!["CFBundleName"] as? String ?? "Info.plist"
             if let infoPath = Bundle.main.path(forResource: bundleName, ofType: nil),
