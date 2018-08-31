@@ -111,5 +111,8 @@ class GeneratedSeedDisplayViewController: UIViewController {
         var vc = segue.destination as! SeedCheckupProtocol
         vc.seedToVerify = self.seed
     }
-
+    
+    @IBAction func backAction(_ sender: UIButton) {
+        navigationController?.popViewController(animated: true)
+    }
 }
