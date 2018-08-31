@@ -48,6 +48,10 @@ class SeedCheckupViewController: UIViewController, SeedCheckupProtocol {
         self.tfSeedCheckWord.clean()
     }
     
+    @IBAction func backAction(_ sender: UIButton) {
+        navigationController?.popViewController(animated: true)
+    }
+    
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

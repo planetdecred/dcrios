@@ -314,9 +314,34 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
             let tspendable = spendable(account: acc)
             return "\(acc.Name) [\(tspendable) DCR]"
         })!
-        accountDropdown.initMenu(accounts) { [weak self] ind, val in
+        
+        let defaultNumber = UserDefaults.standard.integer(forKey: "wallet_default")
+        
+        if let defaultAccount = account?.Acc.filter({ $0.Number == defaultNumber }).first {
+            let tspendable = spendable(account: defaultAccount)
+            
+            accountDropdown.setAttributedTitle(
+                getAttributedString(str: "\(defaultAccount.Name) [\(tspendable) DCR]"),
+                for: UIControlState.normal
+            )
+            
+            selectedAccount = account?.Acc[0]
+            self.accountDropdown.backgroundColor = UIColor(
+                red: 173.0 / 255.0,
+                green: 231.0 / 255.0,
+                blue: 249.0 / 255.0,
+                alpha: 1.0
+            )
+        }
+        
+        self.accountDropdown.initMenu(accounts) { [weak self] ind, val in
             guard let this = self else { return }
-            this.accountDropdown.setAttributedTitle(this.getAttributedString(str: val), for: UIControlState.normal)
+            
+            this.accountDropdown.setAttributedTitle(
+                this.getAttributedString(str: val),
+                for: UIControlState.normal
+            )
+            
             this.selectedAccount = account?.Acc[ind]
             this.accountDropdown.backgroundColor = UIColor(red: 173.0 / 255.0, green: 231.0 / 255.0, blue: 249.0 / 255.0, alpha: 1.0)
             this.accountDropdown.setTitle("test", for: .normal)
