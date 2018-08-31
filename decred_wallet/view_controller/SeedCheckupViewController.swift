@@ -23,16 +23,16 @@ class SeedCheckupViewController: UIViewController, SeedCheckupProtocol {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        //addAccessory()
+        addAccessory()
         let arr = seedToVerify?.components(separatedBy: " ")
         tfSeedCheckWord.itemsToSearch = arr
         tfSeedCheckWord.dropDownListPlaceholder = view
-        self.btnConfirm.isEnabled = true
+        self.btnConfirm.isEnabled = false
         tfSeedCheckWord.searchResult?.onSelect = {(index, item) in
             self.txSeedCheckCombined.text.append("\(item) ")
             self.tfSeedCheckWord.clean()
             
-           // self.btnConfirm.isEnabled = (self.txSeedCheckCombined.text == "\(self.seedToVerify ?? "") ")
+            self.btnConfirm.isEnabled = (self.txSeedCheckCombined.text == "\(self.seedToVerify ?? "") ")
         }
     }
     override func viewDidAppear(_ animated: Bool) {
