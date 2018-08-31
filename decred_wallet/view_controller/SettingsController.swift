@@ -115,10 +115,20 @@ class SettingsController: UITableViewController  {
     func loadDate()-> Void{
         
         let network_value = UserDefaults.standard.integer(forKey: "network_mode")
-        version?.text = UserDefaults.standard.string(forKey: "app_version") ?? "1.0"
-        build?.text = UserDefaults.standard.string(forKey: "build_version") ?? "1.0"
-        debu_msg?.setOn((UserDefaults.standard.bool(forKey: "pref_debug_switch") ), animated: true)
-        spend_uncon_fund?.setOn(UserDefaults.standard.bool(forKey: "pref_spend_fund_switch"), animated: true)
+        version?.text = UserDefaults.standard.string(forKey: "app_version") ?? "alpha test"
+        var compileDate:Date{
+            let bundleName = Bundle.main.infoDictionary!["CFBundleName"] as? String ?? "Info.plist"
+            if let infoPath = Bundle.main.path(forResource: bundleName, ofType: nil),
+                let infoAttr = try? FileManager.default.attributesOfItem(atPath: infoPath),
+                let infoDate = infoAttr[FileAttributeKey.creationDate] as? Date
+            { return infoDate }
+            return Date()
+        }
+        let dateformater = DateFormatter()
+        dateformater.dateFormat = "yyyy-MM-dd"
+        build?.text = dateformater.string(from: compileDate as Date)
+        debu_msg?.setOn((UserDefaults.standard.bool(forKey: "pref_debug_switch") ), animated: false)
+        spend_uncon_fund?.setOn(UserDefaults.standard.bool(forKey: "pref_spend_fund_switch"), animated: false)
         connect_peer_ip?.text = UserDefaults.standard.string(forKey: "pref_peer_ip") ?? "0.0.0.0"
         server_ip?.text = UserDefaults.standard.string(forKey: "pref_server_ip") ?? "0.0.0.0"
         incoming_notification_switch?.setOn(UserDefaults.standard.bool(forKey: "pref_notification_switch"), animated: true)

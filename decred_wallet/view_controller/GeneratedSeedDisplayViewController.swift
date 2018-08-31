@@ -24,14 +24,14 @@ class GeneratedSeedDisplayViewController: UIViewController {
     var widthOffset: CGFloat?
     var heightOffset: CGFloat?
     var calcultaedHeight: CGFloat?
+    var constant = AppContext.instance.decrdConnection
     let font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.regular)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        var seed = ""
         do{
             try
-                seed =  (AppContext.instance.decrdConnection?.wallet!.generateSeed())!
+                self.seed =  (constant?.wallet!.generateSeed())
         } catch {
            seed = ""
         }
@@ -109,7 +109,7 @@ class GeneratedSeedDisplayViewController: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         var vc = segue.destination as! SeedCheckupProtocol
-        vc.seedToVerify = seed
+        vc.seedToVerify = self.seed
     }
 
 }

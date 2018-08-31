@@ -83,18 +83,6 @@ struct GetAccountResponse : Decodable {
     var CurrentBlockHash = ""
     var CurrentBlockHeight = 0
 }
-struct GroceryProduct: Codable {
-    var name: String
-    var points: Int
-    var description: String
-    
-    init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        self.name = try values.decode(String.self, forKey: .name)
-        self.points = try values.decodeIfPresent(Int.self, forKey: .points) ?? 0
-        self.description = try values.decodeIfPresent(String.self, forKey: .description) ?? ""
-    }
-}
 
 struct GetTransactionResponse : Codable {
     var Transactions:[Transaction]
