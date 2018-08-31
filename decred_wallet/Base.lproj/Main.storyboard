@@ -710,13 +710,11 @@
                                     <constraint firstAttribute="height" constant="1" id="tzg-Jo-wjB"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Nl-Qw-8Oa">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Nl-Qw-8Oa">
                                 <rect key="frame" x="0.0" y="451" width="375" height="57"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <button opaque="NO" alpha="0.60000002384185791" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vy1-DR-tb6">
-                                        <rect key="frame" x="255" y="8" width="112" height="37"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <button opaque="NO" alpha="0.60000002384185791" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vy1-DR-tb6">
+                                        <rect key="frame" x="249" y="10" width="118" height="37"/>
                                         <color key="backgroundColor" red="0.20392156859999999" green="0.61960784310000006" blue="0.2156862745" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" title="Confirm">
                                             <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -730,10 +728,13 @@
                                             <segue destination="tbw-An-0pb" kind="show" identifier="enc" id="rUa-aO-D34"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p3z-l4-FAO">
-                                        <rect key="frame" x="8" y="8" width="118" height="37"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p3z-l4-FAO">
+                                        <rect key="frame" x="8" y="10" width="118" height="37"/>
                                         <color key="backgroundColor" red="0.180392161" green="0.35010853069999998" blue="0.85882353779999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="37" id="oRi-S9-uN5"/>
+                                            <constraint firstAttribute="width" constant="118" id="yQ9-zh-O49"/>
+                                        </constraints>
                                         <state key="normal" title="Delete">
                                             <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
@@ -748,6 +749,15 @@
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.94901960780000005" green="0.95294117649999999" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="vy1-DR-tb6" firstAttribute="bottom" secondItem="p3z-l4-FAO" secondAttribute="bottom" id="0rP-cY-7mz"/>
+                                    <constraint firstAttribute="trailing" secondItem="vy1-DR-tb6" secondAttribute="trailing" constant="8" id="FQT-sU-BCl"/>
+                                    <constraint firstAttribute="height" constant="57" id="Iq9-dH-ksb"/>
+                                    <constraint firstItem="vy1-DR-tb6" firstAttribute="top" secondItem="p3z-l4-FAO" secondAttribute="top" id="U1f-Zo-gS0"/>
+                                    <constraint firstItem="vy1-DR-tb6" firstAttribute="width" secondItem="p3z-l4-FAO" secondAttribute="width" id="ZvP-JE-Muw"/>
+                                    <constraint firstItem="p3z-l4-FAO" firstAttribute="leading" secondItem="8Nl-Qw-8Oa" secondAttribute="leading" constant="8" id="dAy-9A-VPR"/>
+                                    <constraint firstItem="p3z-l4-FAO" firstAttribute="centerY" secondItem="8Nl-Qw-8Oa" secondAttribute="centerY" id="xBr-oH-mRU"/>
+                                </constraints>
                             </view>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter seed and confirm" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="SFO-BG-Md2" customClass="DropDownSearchField" customModule="DecredWallet" customModuleProvider="target">
                                 <rect key="frame" x="8" y="178" width="359" height="30"/>
@@ -776,7 +786,9 @@
                             <constraint firstItem="AJH-Xh-9pv" firstAttribute="leading" secondItem="cmc-wH-rfr" secondAttribute="leading" constant="20" id="6WU-pX-ZVD"/>
                             <constraint firstItem="Aq6-Ad-CXr" firstAttribute="centerY" secondItem="04d-vo-wwx" secondAttribute="centerY" id="7pB-Td-Y5Y"/>
                             <constraint firstItem="cmc-wH-rfr" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="qhY-9i-KrY" secondAttribute="trailing" constant="295" id="E31-fu-iJL"/>
+                            <constraint firstItem="8Nl-Qw-8Oa" firstAttribute="trailing" secondItem="cmc-wH-rfr" secondAttribute="trailing" id="JZ1-aR-LXu"/>
                             <constraint firstItem="wYr-4C-ijj" firstAttribute="bottom" secondItem="cmc-wH-rfr" secondAttribute="bottom" id="NKh-CB-ovZ"/>
+                            <constraint firstItem="cmc-wH-rfr" firstAttribute="bottom" secondItem="8Nl-Qw-8Oa" secondAttribute="bottom" constant="159" id="O0j-v7-2qJ"/>
                             <constraint firstItem="qhY-9i-KrY" firstAttribute="top" secondItem="AJH-Xh-9pv" secondAttribute="bottom" constant="6" id="Pgw-7U-Nm6"/>
                             <constraint firstItem="wYr-4C-ijj" firstAttribute="top" secondItem="qhY-9i-KrY" secondAttribute="bottom" constant="20" id="TPC-EY-Xpf"/>
                             <constraint firstItem="SFO-BG-Md2" firstAttribute="leading" secondItem="cmc-wH-rfr" secondAttribute="leading" constant="8" id="V0c-hK-Sak"/>
@@ -795,6 +807,7 @@
                             <constraint firstItem="04d-vo-wwx" firstAttribute="leading" secondItem="Aq6-Ad-CXr" secondAttribute="trailing" constant="8" id="pw0-Pv-i9t"/>
                             <constraint firstItem="04d-vo-wwx" firstAttribute="top" secondItem="cmc-wH-rfr" secondAttribute="top" constant="26" id="tXL-mu-8Da"/>
                             <constraint firstItem="wYr-4C-ijj" firstAttribute="trailing" secondItem="cmc-wH-rfr" secondAttribute="trailing" id="u1I-Wf-glq"/>
+                            <constraint firstItem="8Nl-Qw-8Oa" firstAttribute="leading" secondItem="cmc-wH-rfr" secondAttribute="leading" id="uTJ-cS-2nZ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="cmc-wH-rfr"/>
                     </view>
@@ -2108,12 +2121,11 @@
                                     <constraint firstAttribute="height" constant="1" id="F9a-bc-AKa"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QB3-2g-ECG">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QB3-2g-ECG">
                                 <rect key="frame" x="0.0" y="451" width="375" height="57"/>
                                 <subviews>
-                                    <button opaque="NO" alpha="0.60000002384185791" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ECX-E4-a1f">
-                                        <rect key="frame" x="255" y="8" width="112" height="37"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <button opaque="NO" alpha="0.60000002384185791" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ECX-E4-a1f">
+                                        <rect key="frame" x="249" y="10" width="118" height="37"/>
                                         <color key="backgroundColor" red="0.20392156859999999" green="0.61960784310000006" blue="0.2156862745" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" title="Confirm">
                                             <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2127,10 +2139,13 @@
                                             <action selector="btnConfirmSeed:" destination="Mld-b2-fb1" eventType="touchUpInside" id="uUT-mK-qcb"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UhJ-y8-9NW">
-                                        <rect key="frame" x="8" y="8" width="118" height="37"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UhJ-y8-9NW">
+                                        <rect key="frame" x="8" y="10" width="118" height="37"/>
                                         <color key="backgroundColor" red="0.180392161" green="0.35010853069999998" blue="0.85882353779999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="37" id="N0y-iE-Ygl"/>
+                                            <constraint firstAttribute="width" constant="118" id="YXg-ao-7YM"/>
+                                        </constraints>
                                         <state key="normal" title="Delete">
                                             <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
@@ -2145,6 +2160,15 @@
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.94901960780000005" green="0.95294117649999999" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="ECX-E4-a1f" firstAttribute="top" secondItem="UhJ-y8-9NW" secondAttribute="top" id="JZS-Jm-N27"/>
+                                    <constraint firstAttribute="trailing" secondItem="ECX-E4-a1f" secondAttribute="trailing" constant="8" id="MDS-DI-e0p"/>
+                                    <constraint firstAttribute="height" constant="57" id="TmM-Jf-KzF"/>
+                                    <constraint firstItem="UhJ-y8-9NW" firstAttribute="leading" secondItem="QB3-2g-ECG" secondAttribute="leading" constant="8" id="UE1-q7-mNv"/>
+                                    <constraint firstItem="ECX-E4-a1f" firstAttribute="bottom" secondItem="UhJ-y8-9NW" secondAttribute="bottom" id="dmR-pv-9vY"/>
+                                    <constraint firstItem="ECX-E4-a1f" firstAttribute="width" secondItem="UhJ-y8-9NW" secondAttribute="width" id="hxh-Na-H9X"/>
+                                    <constraint firstItem="UhJ-y8-9NW" firstAttribute="centerY" secondItem="QB3-2g-ECG" secondAttribute="centerY" id="ob0-Xt-o22"/>
+                                </constraints>
                             </view>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter seed and confirm" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="MSe-ac-foI" customClass="DropDownSearchField" customModule="DecredWallet" customModuleProvider="target">
                                 <rect key="frame" x="8" y="178" width="359" height="30"/>
@@ -2173,6 +2197,7 @@
                             <constraint firstAttribute="trailing" secondItem="eD1-ER-MNw" secondAttribute="trailing" constant="5" id="5hm-cN-ZPR"/>
                             <constraint firstItem="eD1-ER-MNw" firstAttribute="leading" secondItem="tEu-zJ-Wzv" secondAttribute="leading" constant="5" id="736-Hg-vRD"/>
                             <constraint firstItem="7q1-lp-vV4" firstAttribute="bottom" secondItem="ahQ-cJ-4SI" secondAttribute="bottom" id="A79-pR-OgU"/>
+                            <constraint firstItem="ahQ-cJ-4SI" firstAttribute="bottom" secondItem="QB3-2g-ECG" secondAttribute="bottom" constant="159" id="Azw-x9-N3y"/>
                             <constraint firstItem="7QG-Ag-iKm" firstAttribute="leading" secondItem="7Jb-sZ-H8m" secondAttribute="trailing" id="Eb0-12-gfO"/>
                             <constraint firstItem="7q1-lp-vV4" firstAttribute="top" secondItem="jtq-ef-LOa" secondAttribute="bottom" constant="20" id="Eu0-GX-Y8Q"/>
                             <constraint firstItem="zfH-B9-hXY" firstAttribute="top" secondItem="nTZ-zU-KOB" secondAttribute="bottom" constant="22.5" id="F2c-cz-Xpo"/>
