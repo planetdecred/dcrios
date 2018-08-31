@@ -51,6 +51,10 @@ class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITex
         btnEncrypt.isEnabled = (tfPassword.text == tfVerifyPassword.text) && !(tfPassword.text?.isEmpty)!
     }
     
+    @IBAction func backAction(_ sender: UIButton) {
+        navigationController?.popViewController(animated: true)
+    }
+    
     @IBAction func onEncrypt(_ sender: Any) {
         self.progressHud?.show(animated: true)
         self.progressHud?.label.text = "creating wallet..."
