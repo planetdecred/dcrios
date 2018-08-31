@@ -39,8 +39,11 @@ class GeneratedSeedDisplayViewController: UIViewController {
         vWarningLabel.layer.borderColor = GlobalConstants.Colors.orangeColor.cgColor
         vWarningIcon.layer.borderColor = GlobalConstants.Colors.orangeColor.cgColor
         vWarningLabel.superview?.layer.borderColor = GlobalConstants.Colors.orangeColor.cgColor
-
-        self.drawSeed()
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) { [weak self] in
+            guard let this = self else { return }
+            this.drawSeed()
+        }
     }
     
     // MARK: - Utility
@@ -111,5 +114,8 @@ class GeneratedSeedDisplayViewController: UIViewController {
         var vc = segue.destination as! SeedCheckupProtocol
         vc.seedToVerify = self.seed
     }
-
+    
+    @IBAction func backAction(_ sender: UIButton) {
+        navigationController?.popViewController(animated: true)
+    }
 }

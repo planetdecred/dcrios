@@ -95,6 +95,10 @@ class RecoverWalletViewController: UIViewController {
     
     // MARK: - Action Methods
     
+    @IBAction func backAction(_ sender: UIButton) {
+        navigationController?.popViewController(animated: true)
+    }
+    
     @IBAction func btnConfirmSeed(_ sender: Any) {
         view.endEditing(true)
         print("button pressed tap")
