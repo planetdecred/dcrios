@@ -47,10 +47,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if isWalletCreated() {
             AppContext.instance.decrdConnection = DcrdConnection()
             AppContext.instance.decrdConnection?.wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/", "bdb")
-            AppContext.instance.decrdConnection?.wallet?.initLoader()
+            let consatant = AppContext.instance.decrdConnection
+            consatant?.wallet?.initLoader()
 
             do {
-                ((try AppContext.instance.decrdConnection?.wallet?.open()))
+                ((try consatant?.wallet?.open()))
             } catch let error {
                 print(error)
             }
@@ -59,7 +60,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             AppContext.instance.decrdConnection = DcrdConnection()
             AppContext.instance.decrdConnection?.wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/", "bdb")
-            AppContext.instance.decrdConnection?.wallet?.initLoader()
+            let consatant = AppContext.instance.decrdConnection
+            consatant?.wallet?.initLoader()
             self.walletSetupView()
         }
     }
@@ -123,5 +125,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        if (AppContext.instance.decrdConnection?.wallet != nil){
+            UserDefaults.standard.set(false, forKey: "walletScanning")
+            UserDefaults.standard.set(false, forKey: "synced")
+            UserDefaults.standard.synchronize()
+            AppContext.instance.decrdConnection?.wallet?.shutdown()
+        }
+    }
+    func applicationDidReceiveMemoryWarning(_ application: UIApplication) {
+        var constant = AppContext.instance.decrdConnection
+         constant?.wallet?.runGC()
+        constant = nil
     }
 }

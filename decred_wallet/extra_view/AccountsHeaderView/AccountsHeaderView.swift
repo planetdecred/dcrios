@@ -17,27 +17,27 @@ class AccountsHeaderView: UIView {
     
     var totalBalance: Double = 0.0 {
         willSet {
-            DispatchQueue.main.async { [weak self] in
-                guard let this = self else { return }
-                this.labelTotalBalance.attributedText = getAttributedString(str: "\(newValue)")
+         //   DispatchQueue.main.async { [weak self] in
+               // guard let this = self else { return }
+               labelTotalBalance.attributedText = getAttributedString(str: "\(newValue)")
                 //this.labelTotalBalance.text = "\(newValue)".appending("DCR")
-            }
+           // }
         }
     }
     
     @IBAction func expnandOrCollapseAction(_ sender: UIButton) {
-        DispatchQueue.main.async {
+       // DispatchQueue.main.async {
             // self.exapndOrCollapse?(self.headerIndex)
-        }
+       // }
     }
     
     var spendableBalance: Double = 0.0 {
         willSet {
-            DispatchQueue.main.async { [weak self] in
-                guard let this = self else { return }
+            //DispatchQueue.main.async { [weak self] in
+              //  guard let this = self else { return }
                 
-                this.labelSpendableBalance.text = "\(newValue)".appending("DCR")
-            }
+               labelSpendableBalance.text = "\(newValue)".appending("DCR")
+           // }
         }
     }
     
@@ -63,10 +63,10 @@ class AccountsHeaderView: UIView {
         }
         
         set {
-            DispatchQueue.main.async { [weak self] in
-                guard let this = self else { return }
-                this.labelTitle.text = newValue
-            }
+           // DispatchQueue.main.async { [weak self] in
+              //  guard let this = self else { return }
+                labelTitle.text = newValue
+           // }
         }
     }
 }
