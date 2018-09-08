@@ -248,7 +248,9 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
                 amount =
                 "\((account.Acc.first?.dcrTotalBalance)!) DCR"
                 DispatchQueue.main.async {
+                    if(amount != nil){
                     self?.lbCurrentBalance.attributedText = getAttributedString(str: amount)
+                    }
                 }
             } catch let error {
                 print(error)
@@ -282,12 +284,12 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
     
     func onResult(_ json: String!) {
        print("on result")
-        let tjson = json
         if(self.visible == false){
             print("on result returning")
             return
         }
         else{
+            let tjson = json
             print("on result running")
             DispatchQueue.main.async { [weak self] in
                 guard let this = self else { return }
@@ -334,14 +336,17 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
     
     func onSynced(_ synced: Bool) {
         self.synced = synced
+        print("synced wallet")
         UserDefaults.standard.set(false, forKey: "walletScanning")
         UserDefaults.standard.set(synced, forKey: "synced")
         if(self.visible == false){
             return
         }
         if(synced == true){
-            self.prepareRecent()
-            self.updateCurrentBalance()
+            if(visible == true){
+                self.prepareRecent()
+                self.updateCurrentBalance()
+            }
         }
         
         
@@ -354,7 +359,10 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
     
     func onTransactionConfirmed(_ hash: String!, height: Int32) {
         print("incoming")
-        updateCurrentBalance()
+        if(visible == true){
+             updateCurrentBalance()
+        }
+       
    
         
     }
@@ -380,8 +388,9 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
     func onTransaction(_ transaction: String!) {
         print("New transaction for onTransaction")
         
-        let transactions = try! JSONDecoder().decode(Transaction.self, from:transaction.data(using: .utf8)!)
-        self.mainContens.append(transactions)
+        if(visible == false){
+            return
+        }
      /*   for creditTransaction in transactions.Credits{
             
             
@@ -389,10 +398,13 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
         for debitTransaction in transactions.Debits{
             self.mainContens.append("-\(debitTransaction.dcrAmount) DCR")
         }*/
+            let transactions = try! JSONDecoder().decode(Transaction.self, from:transaction.data(using: .utf8)!)
+            self.mainContens.append(transactions)
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
         self.updateCurrentBalance()
+        return
     }
 }
 

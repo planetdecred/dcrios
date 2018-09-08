@@ -42,6 +42,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
     var historyViewController: UIViewController!
     var imageHeaderView: ImageHeaderView!
     var selectedIndex: Int!
+    var storyboard2: UIStoryboard!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -53,23 +54,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         self.tableView.separatorColor = GlobalConstants.Colors.separaterGrey
        // self.rescanHeight.isHidden = true
         
-        let storyboard =  UIStoryboard(name: "Main", bundle: nil)
-        let accountViewController = storyboard.instantiateViewController(withIdentifier: "AccountViewController") as! AccountViewController
-        self.accountViewController = UINavigationController(rootViewController: accountViewController)
-        
-        let sendViewController = storyboard.instantiateViewController(withIdentifier: "SendViewController") as! SendViewController
-        self.sendViewController = UINavigationController(rootViewController: sendViewController)
-        
-        let goViewController = storyboard.instantiateViewController(withIdentifier: "ReceiveViewController") as! ReceiveViewController
-        self.receiveViewController = UINavigationController(rootViewController: goViewController)
-        
-        let settingsController = storyboard.instantiateViewController(withIdentifier: "SettingsController2") as! SettingsController
-        settingsController.delegate = self
-        self.settingsViewController = UINavigationController(rootViewController: settingsController)
-        
-        let trController = TransactionHistoryViewController(nibName: "TransactionHistoryViewController", bundle: nil) as TransactionHistoryViewController?
-        trController?.delegate = self
-        self.historyViewController = UINavigationController(rootViewController: trController!)
+         storyboard2 =  UIStoryboard(name: "Main", bundle: nil)
         
         self.tableView.registerCellClass(MenuCell.self)
         
@@ -172,14 +157,27 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         case .overview:
             self.slideMenuController()?.changeMainViewController(self.mainViewController, close: true)
         case .account:
+            let accountViewController = storyboard2?.instantiateViewController(withIdentifier: "AccountViewController") as! AccountViewController
+            self.accountViewController = UINavigationController(rootViewController: accountViewController)
+            
             self.slideMenuController()?.changeMainViewController(self.accountViewController, close: true)
         case .send:
+            let sendViewController = storyboard2?.instantiateViewController(withIdentifier: "SendViewController") as! SendViewController
+            self.sendViewController = UINavigationController(rootViewController: sendViewController)
             self.slideMenuController()?.changeMainViewController(self.sendViewController, close: true)
         case .receive:
+            let goViewController = storyboard2?.instantiateViewController(withIdentifier: "ReceiveViewController") as! ReceiveViewController
+            self.receiveViewController = UINavigationController(rootViewController: goViewController)
             self.slideMenuController()?.changeMainViewController(self.receiveViewController, close: true)
         case .settings:
+            let settingsController = storyboard2.instantiateViewController(withIdentifier: "SettingsController2") as! SettingsController
+            settingsController.delegate = self
+            self.settingsViewController = UINavigationController(rootViewController: settingsController)
             self.slideMenuController()?.changeMainViewController(self.settingsViewController, close: true)
         case .history:
+            let trController = TransactionHistoryViewController(nibName: "TransactionHistoryViewController", bundle: nil) as TransactionHistoryViewController?
+            trController?.delegate = self
+            self.historyViewController = UINavigationController(rootViewController: trController!)
             self.slideMenuController()?.changeMainViewController(self.historyViewController, close: true)
         }
     }
