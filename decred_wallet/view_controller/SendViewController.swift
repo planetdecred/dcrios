@@ -126,11 +126,14 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
     @IBAction private func sendFund(_ sender: Any) {
         if self.validate() {
             // prepareTransaction(sendAll:false)
+            DispatchQueue.main.async {
             self.askPassword(sendAll: false)
+            }
         }
     }
     
     private func askPassword(sendAll: Bool) {
+        
         let alert = UIAlertController(title: "Security", message: "Please enter password of your wallet", preferredStyle: .alert)
         alert.addTextField { textField in
             textField.placeholder = "password"
@@ -143,7 +146,9 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
             self.confirmSend(sendAll: sendAll)
         }
         alert.addAction(okAction)
-        present(alert, animated: true, completion: nil)
+       
+        self.present(alert, animated: true, completion: nil)
+        
     }
     
     private func prepareTransaction(sendAll: Bool?) {
@@ -195,9 +200,8 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
             }
             
         } catch let error {
-            DispatchQueue.main.async {
             self.showAlert(message: error.localizedDescription)
-            }
+         
         }
         }
         }
@@ -239,12 +243,14 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
                // self?.selectedAccount = nil
                 self?.preparedTransaction = nil
                 constant = nil
+                return
                 
                 
             }
         }
-        
-        present(confirmSendFundViewController, animated: true, completion: nil)
+        DispatchQueue.main.async {
+        self.present(confirmSendFundViewController, animated: true, completion: nil)
+        }
         
         return
     }
@@ -277,7 +283,9 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
         }
         // Presents the readerVC as modal form sheet
         self.readerVC.modalPresentationStyle = .formSheet
-        present(self.readerVC, animated: true, completion: nil)
+        DispatchQueue.main.async {
+        self.present(self.readerVC, animated: true, completion: nil)
+        }
     }
     
     func reader(_ reader: QRCodeReaderViewController, didScanResult result: QRCodeReaderResult) {
@@ -319,8 +327,9 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
             
            // self.navigationController?.pushViewController(txnDetails, animated: true)
         }
-        
+        DispatchQueue.main.async {
         self.present(sendCompletedVC, animated: true, completion: nil)
+        }
         
         print("sent transaction")
         self.dismiss(animated: true, completion: nil)
@@ -442,7 +451,9 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
             alert.dismiss(animated: true, completion: nil)
         }
         alert.addAction(okAction)
+        DispatchQueue.main.async {
         self.present(alert, animated: true, completion: nil)
+        }
     }
     
     private func validate(address: String) -> Bool {

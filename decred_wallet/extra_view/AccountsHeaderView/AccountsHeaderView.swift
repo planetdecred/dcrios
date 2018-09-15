@@ -17,11 +17,11 @@ class AccountsHeaderView: UIView {
     
     var totalBalance: Double = 0.0 {
         willSet {
-         //   DispatchQueue.main.async { [weak self] in
-               // guard let this = self else { return }
-               labelTotalBalance.attributedText = getAttributedString(str: "\(newValue)")
+            DispatchQueue.main.async { [weak self] in
+            
+                self?.labelTotalBalance.attributedText = getAttributedString(str: "\(newValue)")
                 //this.labelTotalBalance.text = "\(newValue)".appending("DCR")
-           // }
+            }
         }
     }
     
@@ -33,18 +33,16 @@ class AccountsHeaderView: UIView {
     
     var spendableBalance: Double = 0.0 {
         willSet {
-            //DispatchQueue.main.async { [weak self] in
-              //  guard let this = self else { return }
+            DispatchQueue.main.async {
                 
-               labelSpendableBalance.text = "\(newValue)".appending("DCR")
-           // }
+                self.labelSpendableBalance.text = "\(newValue)".appending("DCR")
+            }
         }
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        print("header view initializing")
-        // Initialization code
+            // Initialization code
     }
     
     var hightLithColor: UIColor? {
@@ -63,10 +61,9 @@ class AccountsHeaderView: UIView {
         }
         
         set {
-           // DispatchQueue.main.async { [weak self] in
-              //  guard let this = self else { return }
-                labelTitle.text = newValue
-           // }
+            DispatchQueue.main.async {
+                self.labelTitle.text = newValue
+            }
         }
     }
 }
