@@ -156,29 +156,74 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         switch menu {
         case .overview:
             self.slideMenuController()?.changeMainViewController(self.mainViewController, close: true)
+            if(self.accountViewController != nil){
+                self.accountViewController.dismiss(animated: true, completion: nil)
+                self.accountViewController = nil
+                
+            }
+            if(self.sendViewController != nil){
+                self.sendViewController.dismiss(animated: true, completion: nil)
+                self.sendViewController = nil
+            }
         case .account:
             let accountViewController = storyboard2?.instantiateViewController(withIdentifier: "AccountViewController") as! AccountViewController
             self.accountViewController = UINavigationController(rootViewController: accountViewController)
             
             self.slideMenuController()?.changeMainViewController(self.accountViewController, close: true)
+            if(self.sendViewController != nil){
+                    self.sendViewController.dismiss(animated: true, completion: nil)
+                    self.sendViewController = nil
+                }
         case .send:
             let sendViewController = storyboard2?.instantiateViewController(withIdentifier: "SendViewController") as! SendViewController
             self.sendViewController = UINavigationController(rootViewController: sendViewController)
             self.slideMenuController()?.changeMainViewController(self.sendViewController, close: true)
+            if(self.accountViewController != nil){
+                self.accountViewController.dismiss(animated: true, completion: nil)
+                self.accountViewController = nil
+            }
         case .receive:
             let goViewController = storyboard2?.instantiateViewController(withIdentifier: "ReceiveViewController") as! ReceiveViewController
             self.receiveViewController = UINavigationController(rootViewController: goViewController)
             self.slideMenuController()?.changeMainViewController(self.receiveViewController, close: true)
+            if(self.accountViewController != nil){
+                self.accountViewController.dismiss(animated: true, completion: nil)
+                self.accountViewController = nil
+                
+            }
+            if(self.sendViewController != nil){
+                self.sendViewController.dismiss(animated: true, completion: nil)
+                self.sendViewController = nil
+            }
         case .settings:
             let settingsController = storyboard2.instantiateViewController(withIdentifier: "SettingsController2") as! SettingsController
             settingsController.delegate = self
             self.settingsViewController = UINavigationController(rootViewController: settingsController)
             self.slideMenuController()?.changeMainViewController(self.settingsViewController, close: true)
+            if(self.accountViewController != nil){
+                self.accountViewController.dismiss(animated: true, completion: nil)
+                self.accountViewController = nil
+                
+            }
+            if(self.sendViewController != nil){
+                self.sendViewController.dismiss(animated: true, completion: nil)
+                self.sendViewController = nil
+            }
         case .history:
             let trController = TransactionHistoryViewController(nibName: "TransactionHistoryViewController", bundle: nil) as TransactionHistoryViewController?
             trController?.delegate = self
             self.historyViewController = UINavigationController(rootViewController: trController!)
             self.slideMenuController()?.changeMainViewController(self.historyViewController, close: true)
+            if(self.accountViewController != nil){
+                self.accountViewController.dismiss(animated: true, completion: nil)
+                self.accountViewController = nil
+                
+            }
+            if(self.sendViewController != nil){
+                self.sendViewController.dismiss(animated: true, completion: nil)
+                self.sendViewController = nil
+            }
+            
         }
     }
 }
