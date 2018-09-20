@@ -107,8 +107,8 @@ func spendable(account:AccountsEntity) -> Double{
     let iRequireConfirm = (bRequireConfirm ?? false) ? Int32(0) : Int32(2)
     let int64Pointer = UnsafeMutablePointer<Int64>.allocate(capacity: 64)    
     do {
-        let constant = AppContext.instance.decrdConnection
-        try  constant?.wallet?.spendable(forAccount: account.Number, requiredConfirmations: iRequireConfirm, ret0_: int64Pointer)
+        
+        try  SingleInstance.shared.wallet?.spendable(forAccount: account.Number, requiredConfirmations: iRequireConfirm, ret0_: int64Pointer)
     } catch let error{
         print(error)
         return 0.0

@@ -16,7 +16,6 @@ class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITex
     @IBOutlet weak var tfPassword: UITextField!
     @IBOutlet weak var tfVerifyPassword: UITextField!
     @IBOutlet weak var btnEncrypt: UIButton!
-    var constant = DcrdConnection()
     
     
     override func viewDidLoad() {
@@ -30,7 +29,7 @@ class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITex
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-        AppContext.instance.decrdConnection?.wallet?.runGC()
+        SingleInstance.shared.wallet?.runGC()
     }
     
     
@@ -65,13 +64,10 @@ class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITex
             guard let this = self else { return }
             
             do {
-                var wallet: MobilewalletLibWallet
-                let constant = AppContext.instance.decrdConnection
-                wallet = (constant?.wallet)!
-                if wallet == nil {
+                if SingleInstance.shared.wallet == nil {
                     return
                 }
-                try wallet.createWallet(pass, seedMnemonic: seed)
+                try SingleInstance.shared.wallet?.createWallet(pass, seedMnemonic: seed)
                 DispatchQueue.main.async {
                     this.progressHud?.hide(animated: true)
                     UserDefaults.standard.set(pass, forKey: "password")

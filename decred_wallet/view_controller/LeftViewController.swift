@@ -93,10 +93,9 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
     }
     
     func loop() {
-        var constant = AppContext.instance.decrdConnection
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
             guard let this = self else { return }
-            let bestblck = constant?.wallet?.getBestBlock()
+            let bestblck = SingleInstance.shared.wallet?.getBestBlock()
             let bestblocktemp: Int64 = Int64(Int(bestblck!))
             if this.scanning == true {
                 this.chainStatus.text = ""
@@ -105,7 +104,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
                 this.bestblock.text = String(bestblck!)
                 return
             }
-            let lastblocktime = constant?.wallet?.getBestBlockTimeStamp()
+            let lastblocktime = SingleInstance.shared.wallet?.getBestBlockTimeStamp()
             let currentTime = NSDate().timeIntervalSince1970
             let estimatedBlocks = ((Int64(currentTime) - lastblocktime!) / 120) + bestblocktemp
             if estimatedBlocks > bestblocktemp {

@@ -35,10 +35,8 @@ class DataTableViewCell : BaseTableViewCell {
     override func setData(_ data: Any?) {
         if let data = data as? DataTableViewCellData {
             //self.dataImage.setRandomDownloadImage(80, height: 80)
-            var const = AppContext.instance.decrdConnection
-            let confirmation =  const?.wallet?.getBestBlock()
+            let confirmation =  SingleInstance.shared.wallet?.getBestBlock()
             let confirm2 = (confirmation)! - Int32(data.trans.Height)
-            const = nil
             
             print("am in here")
             print(self.count += 1)
