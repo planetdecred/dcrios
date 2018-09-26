@@ -24,14 +24,13 @@ class GeneratedSeedDisplayViewController: UIViewController {
     var widthOffset: CGFloat?
     var heightOffset: CGFloat?
     var calcultaedHeight: CGFloat?
-    var constant = AppContext.instance.decrdConnection
     let font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.regular)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         do{
             try
-                self.seed =  (constant?.wallet!.generateSeed())
+                self.seed =  (SingleInstance.shared.wallet?.generateSeed())
         } catch {
            seed = ""
         }

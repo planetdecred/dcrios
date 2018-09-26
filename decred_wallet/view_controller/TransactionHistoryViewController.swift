@@ -71,7 +71,7 @@ class TransactionHistoryViewController: UIViewController,MobilewalletGetTransact
             guard let this = self else { return }
             do {
                 try
-                    AppContext.instance.decrdConnection?.wallet?.getTransactions(this)
+                    SingleInstance.shared.wallet?.getTransactions(this)
                 print("done getting transaction")
             } catch let Error {
                 print(Error)
