@@ -8,17 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		1E3D73D7EA02D2D2D3CD052C /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E75324D536F1BD91575D0609 /* Pods_Decred_Wallet.framework */; };
-		286471BD20E527DD0067128B /* DcrTransactionTraffic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286471BC20E527DD0067128B /* DcrTransactionTraffic.swift */; };
 		286DA549210B0C7A00734259 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286DA548210B0C7A00734259 /* Data.swift */; };
 		286E279D20B6E22400EE0B08 /* DcrObservers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286E279820B6E22300EE0B08 /* DcrObservers.swift */; };
-		286E279E20B6E22400EE0B08 /* DcrConnectionProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286E279920B6E22300EE0B08 /* DcrConnectionProtocols.swift */; };
-		286E279F20B6E22400EE0B08 /* DcrdSeedMnemonicSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286E279A20B6E22300EE0B08 /* DcrdSeedMnemonicSupport.swift */; };
-		286E27A020B6E22400EE0B08 /* DcrdAccountsSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286E279B20B6E22300EE0B08 /* DcrdAccountsSupport.swift */; };
 		2870338B20BC5E7D00BFD0B8 /* JsonEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2870338A20BC5E7D00BFD0B8 /* JsonEntities.swift */; };
 		2883CA702099D40F0053D9BB /* DropDownSearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2883CA6F2099D40F0053D9BB /* DropDownSearchField.swift */; };
 		2883CA72209B52AE0053D9BB /* WaiterScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2883CA71209B52AE0053D9BB /* WaiterScreenViewController.swift */; };
 		2883CA74209B5BA40053D9BB /* Modals.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2883CA73209B5BA40053D9BB /* Modals.storyboard */; };
-		289807DE20BEE55A00C30338 /* DcrTransactionHistorySupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289807DD20BEE55A00C30338 /* DcrTransactionHistorySupport.swift */; };
 		28EB91B820FCFD8F007A0906 /* GeneratedSeedDisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EB91B720FCFD8F007A0906 /* GeneratedSeedDisplayViewController.swift */; };
 		28EB91BB20FCFDA1007A0906 /* SeedCheckupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EB91B920FCFDA0007A0906 /* SeedCheckupViewController.swift */; };
 		28EB91BC20FCFDA1007A0906 /* CreatePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EB91BA20FCFDA1007A0906 /* CreatePasswordViewController.swift */; };
@@ -32,7 +27,6 @@
 		28EB91CE20FCFDBE007A0906 /* DataTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EB91C520FCFDBE007A0906 /* DataTableViewCell.swift */; };
 		28EB91CF20FCFDBE007A0906 /* MenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28EB91C620FCFDBE007A0906 /* MenuCell.xib */; };
 		28F0CE7320888258003AC958 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F0CE7220888258003AC958 /* Utils.swift */; };
-		28F0CE7520888386003AC958 /* AppContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F0CE7420888386003AC958 /* AppContext.swift */; };
 		28F3B7FA20C8356400D2E0D3 /* ObserverProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 28F3B7F920C8356400D2E0D3 /* ObserverProxy.m */; };
 		8B3D0E3D23B1530A4386BF70 /* Pods_Decred_WalletTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90D70AB3B6A12D58F510F54C /* Pods_Decred_WalletTests.framework */; };
 		952C932720E2174B00A60E43 /* ConfirmToSendFundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952C932620E2174B00A60E43 /* ConfirmToSendFundViewController.swift */; };
@@ -64,10 +58,10 @@
 		DD1D5C8220AEE90D009789DD /* ServerSetTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1D5C8120AEE90D009789DD /* ServerSetTableViewController.swift */; };
 		DD1D5C8420AEE9FF009789DD /* PeerSetTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1D5C8320AEE9FE009789DD /* PeerSetTableViewController.swift */; };
 		DD24AFA420A6ED70009EC84F /* NetworkModeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD24AFA320A6ED70009EC84F /* NetworkModeTableViewController.swift */; };
+		DD3A7E0E2152A7520009A0BE /* SingleInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3A7E0D2152A7520009A0BE /* SingleInstance.swift */; };
 		DD419763202F9B570044F068 /* UITableViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD419762202F9B570044F068 /* UITableViewExtension.swift */; };
 		DD4C89D92038EC12003FEA0C /* DropMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4C89D82038CDBC003FEA0C /* DropMenuButton.swift */; };
 		DD4C89DA2038EC3F003FEA0C /* keyPadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4C89D72038CABD003FEA0C /* keyPadButton.swift */; };
-		DD513F09213825FC00FA3270 /* Mobilewallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD513F08213825FC00FA3270 /* Mobilewallet.framework */; };
 		DD96B33F20293F110046F2DD /* LeftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD96B33E20293F110046F2DD /* LeftViewController.swift */; };
 		DDA3E26E20292EF900C83D18 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA3E26D20292EF900C83D18 /* AppDelegate.swift */; };
 		DDA3E27320292EF900C83D18 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDA3E27120292EF900C83D18 /* Main.storyboard */; };
@@ -89,6 +83,7 @@
 		DDB89421202F93B3002F85EE /* OverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB89420202F93B3002F85EE /* OverviewViewController.swift */; };
 		DDB89427202F955F002F85EE /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB89426202F955F002F85EE /* UIView.swift */; };
 		DDB89429202F95AC002F85EE /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB89428202F95AC002F85EE /* UIApplication.swift */; };
+		DDFAC47E2149056C008F8C2D /* Mobilewallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDFAC47D2149056C008F8C2D /* Mobilewallet.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -116,17 +111,12 @@
 
 /* Begin PBXFileReference section */
 		109877DFD2DABA7636DA7B92 /* Pods-Decred WalletTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred WalletTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Decred WalletTests/Pods-Decred WalletTests.debug.xcconfig"; sourceTree = "<group>"; };
-		286471BC20E527DD0067128B /* DcrTransactionTraffic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DcrTransactionTraffic.swift; sourceTree = "<group>"; };
 		286DA548210B0C7A00734259 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		286E279820B6E22300EE0B08 /* DcrObservers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DcrObservers.swift; sourceTree = "<group>"; };
-		286E279920B6E22300EE0B08 /* DcrConnectionProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DcrConnectionProtocols.swift; sourceTree = "<group>"; };
-		286E279A20B6E22300EE0B08 /* DcrdSeedMnemonicSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DcrdSeedMnemonicSupport.swift; sourceTree = "<group>"; };
-		286E279B20B6E22300EE0B08 /* DcrdAccountsSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DcrdAccountsSupport.swift; sourceTree = "<group>"; };
 		2870338A20BC5E7D00BFD0B8 /* JsonEntities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonEntities.swift; sourceTree = "<group>"; };
 		2883CA6F2099D40F0053D9BB /* DropDownSearchField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownSearchField.swift; sourceTree = "<group>"; };
 		2883CA71209B52AE0053D9BB /* WaiterScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaiterScreenViewController.swift; sourceTree = "<group>"; };
 		2883CA73209B5BA40053D9BB /* Modals.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Modals.storyboard; sourceTree = "<group>"; };
-		289807DD20BEE55A00C30338 /* DcrTransactionHistorySupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DcrTransactionHistorySupport.swift; sourceTree = "<group>"; };
 		28EB91B720FCFD8F007A0906 /* GeneratedSeedDisplayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratedSeedDisplayViewController.swift; sourceTree = "<group>"; };
 		28EB91B920FCFDA0007A0906 /* SeedCheckupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeedCheckupViewController.swift; sourceTree = "<group>"; };
 		28EB91BA20FCFDA1007A0906 /* CreatePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePasswordViewController.swift; sourceTree = "<group>"; };
@@ -140,7 +130,6 @@
 		28EB91C520FCFDBE007A0906 /* DataTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataTableViewCell.swift; sourceTree = "<group>"; };
 		28EB91C620FCFDBE007A0906 /* MenuCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuCell.xib; sourceTree = "<group>"; };
 		28F0CE7220888258003AC958 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		28F0CE7420888386003AC958 /* AppContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContext.swift; sourceTree = "<group>"; };
 		28F3B7F420C5889900D2E0D3 /* decred_wallet-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "decred_wallet-Bridging-Header.h"; sourceTree = "<group>"; };
 		28F3B7F520C5889900D2E0D3 /* ObserverProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObserverProxy.h; sourceTree = "<group>"; };
 		28F3B7F920C8356400D2E0D3 /* ObserverProxy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObserverProxy.m; sourceTree = "<group>"; };
@@ -179,10 +168,10 @@
 		DD1D5C8120AEE90D009789DD /* ServerSetTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSetTableViewController.swift; sourceTree = "<group>"; };
 		DD1D5C8320AEE9FE009789DD /* PeerSetTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeerSetTableViewController.swift; sourceTree = "<group>"; };
 		DD24AFA320A6ED70009EC84F /* NetworkModeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkModeTableViewController.swift; sourceTree = "<group>"; };
+		DD3A7E0D2152A7520009A0BE /* SingleInstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleInstance.swift; sourceTree = "<group>"; };
 		DD419762202F9B570044F068 /* UITableViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewExtension.swift; sourceTree = "<group>"; };
 		DD4C89D72038CABD003FEA0C /* keyPadButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = keyPadButton.swift; sourceTree = "<group>"; };
 		DD4C89D82038CDBC003FEA0C /* DropMenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropMenuButton.swift; sourceTree = "<group>"; };
-		DD513F08213825FC00FA3270 /* Mobilewallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mobilewallet.framework; sourceTree = "<group>"; };
 		DD96B33E20293F110046F2DD /* LeftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftViewController.swift; sourceTree = "<group>"; };
 		DDA3E26A20292EF900C83D18 /* DecredWallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DecredWallet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDA3E26D20292EF900C83D18 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -208,6 +197,7 @@
 		DDB89420202F93B3002F85EE /* OverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewViewController.swift; sourceTree = "<group>"; };
 		DDB89426202F955F002F85EE /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		DDB89428202F95AC002F85EE /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
+		DDFAC47D2149056C008F8C2D /* Mobilewallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mobilewallet.framework; sourceTree = "<group>"; };
 		E75324D536F1BD91575D0609 /* Pods_Decred_Wallet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Decred_Wallet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -217,7 +207,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1E3D73D7EA02D2D2D3CD052C /* Pods_Decred_Wallet.framework in Frameworks */,
-				DD513F09213825FC00FA3270 /* Mobilewallet.framework in Frameworks */,
+				DDFAC47E2149056C008F8C2D /* Mobilewallet.framework in Frameworks */,
 				B853136BC96255F028D8CB64 /* Pods_Decred_Wallet.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -236,13 +226,8 @@
 		286E279620B6E22300EE0B08 /* DcrdConnection */ = {
 			isa = PBXGroup;
 			children = (
-				286471BC20E527DD0067128B /* DcrTransactionTraffic.swift */,
 				286E279820B6E22300EE0B08 /* DcrObservers.swift */,
-				286E279920B6E22300EE0B08 /* DcrConnectionProtocols.swift */,
 				2870338A20BC5E7D00BFD0B8 /* JsonEntities.swift */,
-				286E279A20B6E22300EE0B08 /* DcrdSeedMnemonicSupport.swift */,
-				286E279B20B6E22300EE0B08 /* DcrdAccountsSupport.swift */,
-				289807DD20BEE55A00C30338 /* DcrTransactionHistorySupport.swift */,
 				28F3B7F520C5889900D2E0D3 /* ObserverProxy.h */,
 				28F3B7F920C8356400D2E0D3 /* ObserverProxy.m */,
 				28F3B7F420C5889900D2E0D3 /* decred_wallet-Bridging-Header.h */,
@@ -269,7 +254,7 @@
 		5300E0A95A9FA022A08F903E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DD513F08213825FC00FA3270 /* Mobilewallet.framework */,
+				DDFAC47D2149056C008F8C2D /* Mobilewallet.framework */,
 				28FD1BD0208F6C9A0051F58F /* Pods_Decred_Wallet.framework */,
 				28FD1BC5208E667F0051F58F /* Pods_Decred_Wallet.framework */,
 				28FD1BC1208E659A0051F58F /* Pods_Decred_Wallet.framework */,
@@ -443,8 +428,8 @@
 				DD4C89DE2038F2DA003FEA0C /* extra_view */,
 				DDB89414202F8D11002F85EE /* ImageHeaderView.xib */,
 				DDB89428202F95AC002F85EE /* UIApplication.swift */,
-				28F0CE7420888386003AC958 /* AppContext.swift */,
 				2883CA73209B5BA40053D9BB /* Modals.storyboard */,
+				DD3A7E0D2152A7520009A0BE /* SingleInstance.swift */,
 			);
 			path = decred_wallet;
 			sourceTree = "<group>";
@@ -666,7 +651,6 @@
 				28EB91CE20FCFDBE007A0906 /* DataTableViewCell.swift in Sources */,
 				DDB89404202F7E01002F85EE /* SendViewController.swift in Sources */,
 				DDB89411202F8471002F85EE /* String.swift in Sources */,
-				286E279E20B6E22400EE0B08 /* DcrConnectionProtocols.swift in Sources */,
 				DD419763202F9B570044F068 /* UITableViewExtension.swift in Sources */,
 				DDB89413202F8635002F85EE /* ImageHeaderView.swift in Sources */,
 				95877FE920B70CBB00CE53D2 /* TransactionHistoryViewController.swift in Sources */,
@@ -674,12 +658,12 @@
 				28EB91CA20FCFDBE007A0906 /* AccountDataCell.swift in Sources */,
 				DD4C89DA2038EC3F003FEA0C /* keyPadButton.swift in Sources */,
 				28EB91C820FCFDBE007A0906 /* BaseTableViewCell.swift in Sources */,
+				DD3A7E0E2152A7520009A0BE /* SingleInstance.swift in Sources */,
 				DDB8941D202F9252002F85EE /* ExSlideMenuController.swift in Sources */,
 				95B80F3220DCCCF2004D5613 /* iOSDevCenters+GIF.swift in Sources */,
 				2883CA72209B52AE0053D9BB /* WaiterScreenViewController.swift in Sources */,
 				DDB89421202F93B3002F85EE /* OverviewViewController.swift in Sources */,
 				2883CA702099D40F0053D9BB /* DropDownSearchField.swift in Sources */,
-				289807DE20BEE55A00C30338 /* DcrTransactionHistorySupport.swift in Sources */,
 				95473E6E20E39E7A0023F50A /* TransactiontOutputDetailsCell.swift in Sources */,
 				DDB89429202F95AC002F85EE /* UIApplication.swift in Sources */,
 				957F0AFB20B80EA600D3E8A9 /* RecoverWalletViewController.swift in Sources */,
@@ -692,24 +676,20 @@
 				952C932720E2174B00A60E43 /* ConfirmToSendFundViewController.swift in Sources */,
 				DD1D5C8020AEDB2B009789DD /* NodeLogViewController.swift in Sources */,
 				952C932C20E2481500A60E43 /* SendCompletedViewController.swift in Sources */,
-				286E27A020B6E22400EE0B08 /* DcrdAccountsSupport.swift in Sources */,
 				28F3B7FA20C8356400D2E0D3 /* ObserverProxy.m in Sources */,
 				DDB89417202F8EE2002F85EE /* UIImageView.swift in Sources */,
 				28EB91B820FCFD8F007A0906 /* GeneratedSeedDisplayViewController.swift in Sources */,
 				DD1D5C7C20AED828009789DD /* certificateViewController.swift in Sources */,
 				DD96B33F20293F110046F2DD /* LeftViewController.swift in Sources */,
-				286471BD20E527DD0067128B /* DcrTransactionTraffic.swift in Sources */,
 				2870338B20BC5E7D00BFD0B8 /* JsonEntities.swift in Sources */,
 				DDB89427202F955F002F85EE /* UIView.swift in Sources */,
 				95473E6A20E39E3C0023F50A /* TransactiontInputDetails.swift in Sources */,
 				95CC024420D3F15800DA73AF /* AccountsData.swift in Sources */,
-				28F0CE7520888386003AC958 /* AppContext.swift in Sources */,
 				DDB89402202F771F002F85EE /* UIViewController.swift in Sources */,
 				DDA3E26E20292EF900C83D18 /* AppDelegate.swift in Sources */,
 				DDB8940D202F82E6002F85EE /* SettingsController.swift in Sources */,
 				DDB8940B202F82A3002F85EE /* AccountViewController.swift in Sources */,
 				95E1C96E20FCD43E00D7F3EE /* TextFieldDoneButton.swift in Sources */,
-				286E279F20B6E22400EE0B08 /* DcrdSeedMnemonicSupport.swift in Sources */,
 				28EB91CD20FCFDBE007A0906 /* MenuCell.swift in Sources */,
 				95473E6420E393C00023F50A /* TransactionFullDetailsViewController.swift in Sources */,
 			);
