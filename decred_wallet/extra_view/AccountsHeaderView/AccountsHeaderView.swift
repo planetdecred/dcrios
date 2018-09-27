@@ -8,7 +8,6 @@ class AccountsHeaderView: UIView {
     @IBOutlet private var labelTitle: UILabel!
     @IBOutlet private var labelTotalBalance: UILabel!
     @IBOutlet private var labelSpendableBalance: UILabel!
-    @IBOutlet private var viewHighLight: UIView!
     @IBOutlet var expandOrCollapseDetailsButton: UIButton!
     
     var headerIndex: Int = 0
@@ -47,7 +46,7 @@ class AccountsHeaderView: UIView {
         // Initialization code
     }
     
-    var hightLithColor: UIColor? {
+   /* var hightLithColor: UIColor? {
         get {
             return viewHighLight.backgroundColor
         }
@@ -55,7 +54,7 @@ class AccountsHeaderView: UIView {
         set {
             viewHighLight.backgroundColor = newValue
         }
-    }
+    }*/
     
     var title: String? {
         get {

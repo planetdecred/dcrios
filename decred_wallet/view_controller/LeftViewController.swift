@@ -15,6 +15,7 @@ enum LeftMenu: Int {
     case receive
     case history
     case settings
+    case help
 
 }
 
@@ -33,7 +34,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
     @IBOutlet weak var bestblock: UILabel!
     @IBOutlet weak var chainStatus: UILabel!
     @IBOutlet weak var tableView: UITableView!
-    var menus = ["Overview", "Account", "Send", "Receive","History", "Settings"]
+    var menus = ["Overview", "Account", "Send", "Receive","History", "Settings","Help"]
     var mainViewController: UIViewController!
     var accountViewController: UIViewController!
     var sendViewController: UIViewController!
@@ -43,6 +44,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
     var imageHeaderView: ImageHeaderView!
     var selectedIndex: Int!
     
+    @IBOutlet weak var statusBackgroud: UIView!
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -127,10 +129,11 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
                 this.bestblock.text = String(bestblocktemp).appending(" of ").appending(String(estimatedBlocks))
                 this.chainStatus.text = ""
                 this.blockInfo.text = "Fetched"
-
+                this.statusBackgroud.backgroundColor = UIColor(hex: "#2DD8A3")
                 this.connectionStatus.text = "Fetching Headers..."
             }
             else {
+                this.statusBackgroud.backgroundColor = UIColor(hex: "#FFC84E")
                 this.connectionStatus.text = "Rescanning in progress..."
                 this.bestblock.text = String(bestblocktemp)
                 this.blockInfo.text = "Latest Block"
@@ -163,7 +166,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.imageHeaderView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 160)
+        self.imageHeaderView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 130)
         self.view.layoutIfNeeded()
     }
     
@@ -181,6 +184,8 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
             self.slideMenuController()?.changeMainViewController(self.settingsViewController, close: true)
         case .history:
             self.slideMenuController()?.changeMainViewController(self.historyViewController, close: true)
+        case .help: break
+            
         }
     }
 }
@@ -189,7 +194,7 @@ extension LeftViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if let menu = LeftMenu(rawValue: indexPath.row) {
             switch menu {
-            case .overview, .account, .send, .receive, .history, .settings:
+            case .overview, .account, .send, .receive, .history, .settings, .help:
                 return MenuCell.height()
             }
         }
@@ -221,7 +226,7 @@ extension LeftViewController : UITableViewDataSource {
         
         if let menu = LeftMenu(rawValue: indexPath.row) {
             switch menu {
-            case .overview, .account, .send, .receive, .history, .settings:
+            case .overview, .account, .send, .receive, .history, .settings, .help:
                 
                 
                 tableView.register(UINib(nibName: MenuCell.identifier, bundle: nil), forCellReuseIdentifier: MenuCell.identifier)
