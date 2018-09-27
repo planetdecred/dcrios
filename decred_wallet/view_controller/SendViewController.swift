@@ -16,6 +16,7 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
     @IBOutlet var tfAmount: UITextField!
     @IBOutlet var sendAllBtn: UIButton!
     
+    @IBOutlet weak var sendBtn: UIButton!
     private lazy var readerVC: QRCodeReaderViewController = {
         let builder = QRCodeReaderViewControllerBuilder {
             $0.reader = QRCodeReader(metadataObjectTypes: [.qr], captureDevicePosition: .back)
@@ -33,7 +34,7 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
     override func viewDidLoad() {
         super.viewDidLoad()
         //tfAmountValue.addDoneButton()
-        self.accountDropdown.backgroundColor = UIColor.clear
+        self.sendBtn.layer.cornerRadius = 5; self.accountDropdown.backgroundColor = UIColor.clear
         self.tfAmount.text = "0"
         self.tfAmount.delegate = self
     }
@@ -326,12 +327,12 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
             )
             
             selectedAccount = account?.Acc[0]
-            self.accountDropdown.backgroundColor = UIColor(
+           /* self.accountDropdown.backgroundColor = UIColor(
                 red: 173.0 / 255.0,
                 green: 231.0 / 255.0,
                 blue: 249.0 / 255.0,
                 alpha: 1.0
-            )
+            )*/
         }
         
         self.accountDropdown.initMenu(accounts) { [weak self] ind, val in
@@ -343,7 +344,7 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
             )
             
             this.selectedAccount = account?.Acc[ind]
-            this.accountDropdown.backgroundColor = UIColor(red: 173.0 / 255.0, green: 231.0 / 255.0, blue: 249.0 / 255.0, alpha: 1.0)
+           /* this.accountDropdown.backgroundColor = UIColor(red: 173.0 / 255.0, green: 231.0 / 255.0, blue: 249.0 / 255.0, alpha: 1.0)*/
             this.accountDropdown.setTitle("test", for: .normal)
         }
     }
