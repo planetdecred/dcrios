@@ -6,6 +6,7 @@
 
 import QRCodeReader
 import UIKit
+import Mobilewallet
 
 class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderViewControllerDelegate {
     weak var delegate: LeftMenuProtocol?
@@ -156,12 +157,12 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
         let amountToSend = Double((self.tfAmount.text)!)!
         let walletaddress = self.walletAddress.text!
         let acountN = (self.selectedAccount?.Number)!
-        var preparedTransaction: MobilewalletUnsignedTransaction?
+        //var preparedTransaction: MobilewalletUnsignedTransaction?
          DispatchQueue.global(qos: .userInitiated).async {
         do {
             let isShouldBeConfirmed = UserDefaults.standard.bool(forKey: "pref_spend_fund_switch")
             
-           preparedTransaction = try SingleInstance.shared.wallet?.constructTransaction(walletaddress, amount: Int64(amountToSend), srcAccount: acountN , requiredConfirmations: isShouldBeConfirmed ? 0 : 2, sendAll: sendAll ?? false)
+            let preparedTransaction = try SingleInstance.shared.wallet?.constructTransaction(walletaddress, amount: Int64(amountToSend), srcAccount: acountN , requiredConfirmations: isShouldBeConfirmed ? 0 : 2, sendAll: sendAll ?? false)
             print("Account Number is")
             print(acountN as Any)
             DispatchQueue.main.async { [weak self] in
