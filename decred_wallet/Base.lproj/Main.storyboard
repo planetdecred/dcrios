@@ -1485,14 +1485,8 @@
                                     <constraint firstAttribute="width" secondItem="P2Q-l4-CRY" secondAttribute="height" multiplier="201:202" id="xBo-7J-v4W"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wallet Address" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2qM-47-p9s">
-                                <rect key="frame" x="16" y="472" width="343" height="18"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pzd-he-fVa" customClass="KeyPadButton" customModule="DecredWallet" customModuleProvider="target">
-                                <rect key="frame" x="60" y="498" width="255" height="50"/>
+                                <rect key="frame" x="60" y="507" width="255" height="50"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="wRe-RB-geo"/>
@@ -1510,27 +1504,33 @@
                                     <action selector="generateNewAddress" destination="pwN-Wv-Ioh" eventType="touchUpInside" id="yUQ-O1-gjg"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oEX-fC-pey">
+                                <rect key="frame" x="19" y="469" width="337.5" height="30"/>
+                                <state key="normal" title="Wallet Address"/>
+                                <connections>
+                                    <action selector="tapCopy:" destination="pwN-Wv-Ioh" eventType="touchUpInside" id="JF5-6f-lBr"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="2qM-47-p9s" firstAttribute="centerX" secondItem="IWZ-ke-U66" secondAttribute="centerX" id="0lU-iI-rTs"/>
                             <constraint firstItem="P2Q-l4-CRY" firstAttribute="centerX" secondItem="Bpw-2z-j9u" secondAttribute="centerX" id="2CD-Lx-Skl"/>
                             <constraint firstItem="P2Q-l4-CRY" firstAttribute="leading" secondItem="1Ww-qc-2o9" secondAttribute="leading" constant="-20" id="6A0-2G-Iph"/>
                             <constraint firstItem="jg0-hE-iYI" firstAttribute="trailing" secondItem="Pzd-he-fVa" secondAttribute="trailing" constant="60" id="9W6-Yd-Pu6"/>
+                            <constraint firstItem="oEX-fC-pey" firstAttribute="centerX" secondItem="IWZ-ke-U66" secondAttribute="centerX" id="Dhl-uD-vwY"/>
                             <constraint firstItem="iXW-Px-8lO" firstAttribute="centerX" secondItem="Bpw-2z-j9u" secondAttribute="centerX" id="EQy-sJ-Zdq"/>
-                            <constraint firstItem="2qM-47-p9s" firstAttribute="leading" secondItem="jg0-hE-iYI" secondAttribute="leading" constant="16" id="FXR-WB-CHU"/>
                             <constraint firstItem="Pzd-he-fVa" firstAttribute="centerX" secondItem="IWZ-ke-U66" secondAttribute="centerX" id="Gf0-39-fNN"/>
                             <constraint firstItem="Pzd-he-fVa" firstAttribute="leading" secondItem="jg0-hE-iYI" secondAttribute="leading" constant="60" id="Iup-6r-L6G"/>
                             <constraint firstItem="1Ww-qc-2o9" firstAttribute="width" secondItem="IWZ-ke-U66" secondAttribute="width" multiplier="0.5" id="J6m-fk-O1F"/>
+                            <constraint firstItem="Pzd-he-fVa" firstAttribute="top" secondItem="oEX-fC-pey" secondAttribute="bottom" constant="8" id="RUu-k7-XYK"/>
                             <constraint firstItem="iXW-Px-8lO" firstAttribute="leading" secondItem="jg0-hE-iYI" secondAttribute="leading" constant="32" id="SIZ-PY-ZVQ"/>
                             <constraint firstItem="iXW-Px-8lO" firstAttribute="top" secondItem="Bpw-2z-j9u" secondAttribute="bottom" constant="7" id="YUJ-5j-tCJ"/>
-                            <constraint firstItem="Pzd-he-fVa" firstAttribute="top" secondItem="2qM-47-p9s" secondAttribute="bottom" constant="8" id="by7-f5-hfa"/>
                             <constraint firstItem="1Ww-qc-2o9" firstAttribute="top" secondItem="iXW-Px-8lO" secondAttribute="bottom" constant="7" id="e0h-5I-Jqc"/>
                             <constraint firstItem="P2Q-l4-CRY" firstAttribute="centerY" secondItem="IWZ-ke-U66" secondAttribute="centerY" id="hv7-zA-EXf"/>
-                            <constraint firstItem="jg0-hE-iYI" firstAttribute="trailing" secondItem="2qM-47-p9s" secondAttribute="trailing" constant="16" id="mcj-2U-T1x"/>
+                            <constraint firstItem="oEX-fC-pey" firstAttribute="top" secondItem="P2Q-l4-CRY" secondAttribute="bottom" constant="7.5" id="jGf-A4-hay"/>
+                            <constraint firstItem="oEX-fC-pey" firstAttribute="width" secondItem="IWZ-ke-U66" secondAttribute="width" multiplier="0.9" id="jqO-xo-bqX"/>
                             <constraint firstItem="P2Q-l4-CRY" firstAttribute="centerX" secondItem="IWZ-ke-U66" secondAttribute="centerX" id="mio-WR-mjI"/>
                             <constraint firstItem="P2Q-l4-CRY" firstAttribute="top" secondItem="1Ww-qc-2o9" secondAttribute="bottom" constant="8" symbolic="YES" id="oAw-nU-4oW"/>
                             <constraint firstItem="P2Q-l4-CRY" firstAttribute="leading" secondItem="jg0-hE-iYI" secondAttribute="leading" constant="60" id="sF7-qV-Jkc"/>
-                            <constraint firstItem="2qM-47-p9s" firstAttribute="top" secondItem="P2Q-l4-CRY" secondAttribute="bottom" constant="10" id="vu9-jV-nXG"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="jg0-hE-iYI"/>
                     </view>
@@ -1541,12 +1541,12 @@
                     <connections>
                         <outlet property="accountDropdown" destination="fvx-Vc-1a6" id="GlO-JJ-21g"/>
                         <outlet property="imgWalletAddrQRCode" destination="P2Q-l4-CRY" id="2cl-JZ-uxS"/>
-                        <outlet property="walletAddress" destination="2qM-47-p9s" id="WRw-pC-9Fh"/>
+                        <outlet property="walletAddress" destination="oEX-fC-pey" id="woy-t1-M5O"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R0Q-i3-kfU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="125.625" y="1337.5"/>
+            <point key="canvasLocation" x="125.59999999999999" y="1337.1814092953525"/>
         </scene>
         <!--Settings Controller-->
         <scene sceneID="E8C-IB-Uk6">
