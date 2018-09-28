@@ -19,9 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let nv = UINavigationController(rootViewController: walletSetupController)
         nv.isNavigationBarHidden = true
         window?.rootViewController = nv
-        DispatchQueue.main.async{
-            self.window?.makeKeyAndVisible()
-        }
+        window?.makeKeyAndVisible()
     }
 
     fileprivate func createMenuView() {
@@ -42,9 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         slideMenuController.delegate = mainViewController
         window?.backgroundColor = GlobalConstants.Colors.lightGrey
         window?.rootViewController = slideMenuController
-        DispatchQueue.main.async{
-            self.window?.makeKeyAndVisible()
-        }
+        window?.makeKeyAndVisible()
     }
 
     fileprivate func populateFirstScreen() {
@@ -56,16 +52,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             } catch let error {
                 print(error)
             }
-            DispatchQueue.global(qos: .default).async {
+           
                 self.createMenuView()
-            }
             
         } else {
             SingleInstance.shared.wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/", "bdb")
             SingleInstance.shared.wallet?.initLoader()
-           DispatchQueue.global(qos: .default).async {
+           
             self.walletSetupView()
-            }
 
         }
     }
