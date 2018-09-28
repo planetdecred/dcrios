@@ -71,28 +71,27 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
    
     
     var mainContens = [Transaction]()
-    var refreshControl: UIRefreshControl!
+    var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action:
+            #selector(OverviewViewController.handleRefresh(_:)),
+                                 for: UIControlEvents.valueChanged)
+        refreshControl.tintColor = UIColor.lightGray
+        
+        return refreshControl
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.registerCellNib(DataTableViewCell.self)
         self.tableView.tableHeaderView = viewTableHeader
         self.tableView.tableFooterView = viewTableFooter
-        refreshControl = {
-            let refreshControl = UIRefreshControl()
-            refreshControl.addTarget(self, action:
-                #selector(OverviewViewController.handleRefresh(_:)),
-                                     for: UIControlEvents.valueChanged)
-            refreshControl.tintColor = UIColor.lightGray
-            
-            return refreshControl
-        }()
+        
         self.tableView.addSubview(self.refreshControl)
         
         
            connectToDecredNetwork()
             print("adding observer")
-        
         SingleInstance.shared.wallet?.transactionNotification(self)
        
     }
