@@ -9,7 +9,7 @@ import UIKit
 class ReceiveViewController: UIViewController {
     @IBOutlet private var accountDropdown: DropMenuButton!
     @IBOutlet private var imgWalletAddrQRCode: UIImageView!
-    @IBOutlet var walletAddress: UILabel!
+    @IBOutlet var walletAddress: UIButton!
     var firstTrial = true
     var starttime: Int64 = 0
     var myacc: AccountsEntity!
@@ -70,6 +70,18 @@ class ReceiveViewController: UIViewController {
             print("no account")
         }
     }
+    @IBAction func tapCopy(_ sender: Any) {
+        DispatchQueue.main.async {
+            //Copy a string to the pasteboard.
+            UIPasteboard.general.string = self.walletAddress.currentTitle
+            
+            //Alert
+            let alertController = UIAlertController(title: "", message: "Wallet address copied", preferredStyle: UIAlertControllerStyle.alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+        }
+    }
+    
     
     private func populateWalletDropdownMenu() {
         self.account?.Acc.removeAll()
@@ -120,7 +132,7 @@ class ReceiveViewController: UIViewController {
         DispatchQueue.main.async { [weak self] in
             guard let this = self else { return }
             
-            this.walletAddress.text = receiveAddress!
+            this.walletAddress.setTitle(receiveAddress!, for: .normal)
             this.imgWalletAddrQRCode.image = generateQRCodeFor(
                 with: receiveAddress!!,
                 forImageViewFrame: this.imgWalletAddrQRCode.frame
