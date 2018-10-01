@@ -41,6 +41,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
     var receiveViewController: UIViewController!
     var settingsViewController: UIViewController!
     var historyViewController: UIViewController!
+    var helpViewController:  UIViewController!
     var imageHeaderView: ImageHeaderView!
     var selectedIndex: Int!
     
@@ -64,6 +65,8 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         
         let goViewController = storyboard.instantiateViewController(withIdentifier: "ReceiveViewController") as! ReceiveViewController
         self.receiveViewController = UINavigationController(rootViewController: goViewController)
+        self.helpViewController  = storyboard.instantiateViewController(withIdentifier: "HelpViewController") as! HelpViewController
+        self.helpViewController = UINavigationController(rootViewController: helpViewController)
         
         let settingsController = storyboard.instantiateViewController(withIdentifier: "SettingsController2") as! SettingsController
         settingsController.delegate = self
@@ -72,6 +75,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         let trController = TransactionHistoryViewController(nibName: "TransactionHistoryViewController", bundle: nil) as TransactionHistoryViewController?
         trController?.delegate = self
         self.historyViewController = UINavigationController(rootViewController: trController!)
+       
         
         self.tableView.registerCellClass(MenuCell.self)
         
@@ -184,7 +188,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
             self.slideMenuController()?.changeMainViewController(self.settingsViewController, close: true)
         case .history:
             self.slideMenuController()?.changeMainViewController(self.historyViewController, close: true)
-        case .help: break
+        case .help: self.slideMenuController()?.changeMainViewController(self.helpViewController, close: true)
             
         }
     }
