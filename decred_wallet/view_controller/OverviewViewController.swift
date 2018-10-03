@@ -11,15 +11,15 @@ import MBProgressHUD
 class OverviewViewController: UIViewController, MobilewalletGetTransactionsResponseProtocol, MobilewalletTransactionListenerProtocol, MobilewalletBlockNotificationErrorProtocol,
 MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
     func onFetchMissingCFilters(_ missingCFitlersStart: Int32, missingCFitlersEnd: Int32, finished: Bool) {
-     
+      
     }
     
     func onFetchedHeaders(_ fetchedHeadersCount: Int32, lastHeaderTime: Int64, finished: Bool) {
-      
+        
     }
     
     func onRescanProgress(_ rescannedThrough: Int32, finished: Bool) {
-      
+        
     }
     
     func onFetchMissingCFilters(_ missingCFitlersStart: Int32, missingCFitlersEnd: Int32) {
@@ -64,42 +64,42 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
     @IBOutlet weak var lbCurrentBalance: UILabel!
     @IBOutlet var viewTableHeader: UIView!
     @IBOutlet var viewTableFooter: UIView!
-    var progressHud = MBProgressHUD()
+    
     var visible = false
     var scanning = false
     var synced = false
-    var constant = AppContext.instance.decrdConnection
    
     
     var mainContens = [Transaction]()
-    var refreshControl: UIRefreshControl = {
-        let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action:
-            #selector(OverviewViewController.handleRefresh(_:)),
-                                 for: UIControlEvents.valueChanged)
-        refreshControl.tintColor = UIColor.lightGray
-        
-        return refreshControl
-    }()
+    var refreshControl: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.registerCellNib(DataTableViewCell.self)
         self.tableView.tableHeaderView = viewTableHeader
         self.tableView.tableFooterView = viewTableFooter
-        
+        refreshControl = {
+            let refreshControl = UIRefreshControl()
+            refreshControl.addTarget(self, action:
+                #selector(OverviewViewController.handleRefresh(_:)),
+                                     for: UIControlEvents.valueChanged)
+            refreshControl.tintColor = UIColor.lightGray
+            
+            return refreshControl
+        }()
         self.tableView.addSubview(self.refreshControl)
         
         
            connectToDecredNetwork()
             print("adding observer")
-        constant?.wallet?.transactionNotification(self)
+        
+        SingleInstance.shared.wallet?.transactionNotification(self)
        
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         print("low memory")
-        //AppContext.instance.decrdConnection?.wallet?.runGC()
+        
         // Dispose of any resources that can be recreated.
     }
     
@@ -154,7 +154,7 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
                 guard let _ = self else { return }
                 do {
                     try
-                        self?.constant?.wallet?.spvSync(self, peerAddresses: getPeerAddress(appInstance: appInstance), discoverAccounts: true, privatePassphrase: finalPassphraseData)
+                        SingleInstance.shared.wallet?.spvSync(self, peerAddresses: getPeerAddress(appInstance: appInstance), discoverAccounts: true, privatePassphrase: finalPassphraseData)
                     print("done syncing")
                     
                 } catch {
@@ -168,7 +168,7 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
                 guard let this = self else { return }
                 do {
                     try
-                        self?.constant?.wallet?.unlock(finalPassphraseData)
+                        SingleInstance.shared.wallet?.unlock(finalPassphraseData)
                 } catch {
                     print(error)
                 }
@@ -199,7 +199,7 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
                         i += 1
                         print("connecting attempt".appending(String(i)))
                         try
-                            AppContext.instance.decrdConnection?.wallet?.startRPCClient(address, rpcUser: username, rpcPass: password, certs: certificate)
+                            SingleInstance.shared.wallet?.startRPCClient(address, rpcUser: username, rpcPass: password, certs: certificate)
                         break
                         
                     } catch {
@@ -209,15 +209,15 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
                     Thread.sleep(forTimeInterval: 2.5) }
                 print("Subscribe to block notification")
                 try
-                    AppContext.instance.decrdConnection?.wallet?.subscribe(toBlockNotifications: self)
+                    SingleInstance.shared.wallet?.subscribe(toBlockNotifications: self)
                 print("discovering Used Address")
                 try
-                    AppContext.instance.decrdConnection?.wallet?.discoverActiveAddresses()
+                    SingleInstance.shared.wallet?.discoverActiveAddresses()
                 try
-                    AppContext.instance.decrdConnection?.wallet?.loadActiveDataFilters()
+                    SingleInstance.shared.wallet?.loadActiveDataFilters()
                 print("fetching headers")
                 
-                try AppContext.instance.decrdConnection?.wallet?.fetchHeaders(pHeight)
+                try SingleInstance.shared.wallet?.fetchHeaders(pHeight)
                 print("pointer at")
                 print(pHeight.pointee)
                 if pHeight.pointee != -1 {
@@ -225,14 +225,14 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
                     appInstance.set(pHeight.pointee, forKey: "rescan_height")
                 }
                 print("Publish Unmined Transactions")
-                try AppContext.instance.decrdConnection?.wallet?.publishUnminedTransactions()
+                try SingleInstance.shared.wallet?.publishUnminedTransactions()
                 print("connected to remote node")
                 DispatchQueue.global(qos: .background).async { [weak self] in
                     guard let this = self else { return }
-                    let blockHeight = AppContext().decrdConnection?.wallet?.getBestBlock()
+                    let blockHeight = SingleInstance.shared.wallet?.getBestBlock()
                     print("best block")
                     print(blockHeight as Any)
-                    AppContext().decrdConnection?.wallet?.rescan(0, response: this)
+                    SingleInstance.shared.wallet?.rescan(0, response: this)
                     
                /* if(appInstance.integer(forKey: "rescan_height") < blockHeight!){
                     AppContext.init().decrdConnection?.wallet?.rescan(self.pHeight.pointee, response: self)
@@ -255,12 +255,14 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
         DispatchQueue.global(qos: .background).async { [weak self] in
             guard self != nil else { return }
             do {
-                let strAccount = try self?.constant?.wallet?.getAccounts(0)
+                let strAccount = try SingleInstance.shared.wallet?.getAccounts(0)
                 account = try JSONDecoder().decode(GetAccountResponse.self, from: (strAccount?.data(using: .utf8))!)
                 amount =
                 "\((account.Acc.first?.dcrTotalBalance)!) DCR"
                 DispatchQueue.main.async {
+                    if(amount != nil){
                     self?.lbCurrentBalance.attributedText = getAttributedString(str: amount)
+                    }
                 }
             } catch let error {
                 print(error)
@@ -277,7 +279,7 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
             guard let this = self else { return }
             do {
                 try
-                    self?.constant?.wallet?.getTransactions(this)
+                    SingleInstance.shared.wallet?.getTransactions(this)
                 print("done getting transaction")
             } catch let Error {
                 print(Error)
@@ -294,12 +296,12 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
     
     func onResult(_ json: String!) {
        print("on result")
-        let tjson = json
         if(self.visible == false){
             print("on result returning")
             return
         }
         else{
+            let tjson = json
             print("on result running")
             DispatchQueue.main.async { [weak self] in
                 guard let this = self else { return }
@@ -346,14 +348,17 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
     
     func onSynced(_ synced: Bool) {
         self.synced = synced
+        print("synced wallet")
         UserDefaults.standard.set(false, forKey: "walletScanning")
         UserDefaults.standard.set(synced, forKey: "synced")
         if(self.visible == false){
             return
         }
         if(synced == true){
-            self.prepareRecent()
-            self.updateCurrentBalance()
+            if(visible == true){
+                self.prepareRecent()
+                self.updateCurrentBalance()
+            }
         }
         
         
@@ -366,7 +371,10 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
     
     func onTransactionConfirmed(_ hash: String!, height: Int32) {
         print("incoming")
-        updateCurrentBalance()
+        if(visible == true){
+             updateCurrentBalance()
+        }
+       
    
         
     }
@@ -392,8 +400,9 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
     func onTransaction(_ transaction: String!) {
         print("New transaction for onTransaction")
         
-        let transactions = try! JSONDecoder().decode(Transaction.self, from:transaction.data(using: .utf8)!)
-        self.mainContens.append(transactions)
+        if(visible == false){
+            return
+        }
      /*   for creditTransaction in transactions.Credits{
             
             
@@ -401,10 +410,13 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
         for debitTransaction in transactions.Debits{
             self.mainContens.append("-\(debitTransaction.dcrAmount) DCR")
         }*/
+            let transactions = try! JSONDecoder().decode(Transaction.self, from:transaction.data(using: .utf8)!)
+            self.mainContens.append(transactions)
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
         self.updateCurrentBalance()
+        return
     }
 }
 
@@ -435,10 +447,14 @@ extension OverviewViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: DataTableViewCell.identifier) as! DataTableViewCell
         print("about to crash")
-        let data = DataTableViewCellData(trans: self.mainContens[indexPath.row])
-        print("pass")
-        cell.setData(data)
+        if self.mainContens.count != 0{
+            let data = DataTableViewCellData(trans: self.mainContens[indexPath.row])
+            print("pass")
+            cell.setData(data)
+            return cell
+        }
         return cell
+        
     }
 }
 

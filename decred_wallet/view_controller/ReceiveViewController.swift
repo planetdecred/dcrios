@@ -51,10 +51,8 @@ class ReceiveViewController: UIViewController {
     private func showFirstWalletAddressAndQRCode() {
         self.account?.Acc.removeAll()
         do{
-            var constant = AppContext.instance.decrdConnection
-            let strAccount = try constant?.wallet?.getAccounts(0)
+            let strAccount = try SingleInstance.shared.wallet?.getAccounts(0)
             self.account = try JSONDecoder().decode(GetAccountResponse.self, from: (strAccount?.data(using: .utf8))!)
-            constant = nil
         } catch let error{
             print(error)
         }
@@ -76,10 +74,9 @@ class ReceiveViewController: UIViewController {
     private func populateWalletDropdownMenu() {
         self.account?.Acc.removeAll()
         do{
-            var constant = AppContext.instance.decrdConnection
-            let strAccount = try constant?.wallet?.getAccounts(0)
+            
+            let strAccount = try SingleInstance.shared.wallet?.getAccounts(0)
             self.account = try JSONDecoder().decode(GetAccountResponse.self, from: (strAccount?.data(using: .utf8))!)
-            constant = nil
         } catch let error{
             print(error)
         }
@@ -118,10 +115,8 @@ class ReceiveViewController: UIViewController {
     }
     
     private func getAddress(accountNumber : Int32){
-        var constant = AppContext.instance.decrdConnection
-        let receiveAddress = try?constant?.wallet?.address(forAccount: Int32(accountNumber))
+        let receiveAddress = try?SingleInstance.shared.wallet?.address(forAccount: Int32(accountNumber))
         print("got address in  ".appending(String(Int64(NSDate().timeIntervalSince1970) - starttime)))
-        constant = nil
        // UserDefaults.standard.setValue(receiveAddress!, forKey: "KEY_RECENT_ADDRESS")
         DispatchQueue.main.async { [weak self] in
             guard let this = self else { return }

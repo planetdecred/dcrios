@@ -11,6 +11,7 @@ import SlideMenuControllerSwift
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var navigation: UINavigationController?
+    fileprivate let loadThread = DispatchQueue.self
 
     fileprivate func walletSetupView() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -18,7 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let nv = UINavigationController(rootViewController: walletSetupController)
         nv.isNavigationBarHidden = true
         window?.rootViewController = nv
-        window?.makeKeyAndVisible()
+        DispatchQueue.main.async{
+            self.window?.makeKeyAndVisible()
+        }
     }
 
     fileprivate func createMenuView() {
@@ -26,7 +29,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let mainViewController = storyboard.instantiateViewController(withIdentifier: "OverviewViewController") as! OverviewViewController
         let leftViewController = storyboard.instantiateViewController(withIdentifier: "LeftViewController") as! LeftViewController
-        //  let rightViewController = storyboard.instantiateViewController(withIdentifier: "RightViewController") as! RightViewController
 
         let nvc: UINavigationController = UINavigationController(rootViewController: mainViewController)
 
@@ -40,27 +42,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         slideMenuController.delegate = mainViewController
         window?.backgroundColor = GlobalConstants.Colors.lightGrey
         window?.rootViewController = slideMenuController
-        window?.makeKeyAndVisible()
+        DispatchQueue.main.async{
+            self.window?.makeKeyAndVisible()
+        }
     }
 
     fileprivate func populateFirstScreen() {
         if isWalletCreated() {
-            AppContext.instance.decrdConnection = DcrdConnection()
-            AppContext.instance.decrdConnection?.wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/", "bdb")
-            AppContext.instance.decrdConnection?.wallet?.initLoader()
-
+            SingleInstance.shared.wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/", "bdb")
+            SingleInstance.shared.wallet?.initLoader()
             do {
-                ((try AppContext.instance.decrdConnection?.wallet?.open()))
+                ((try SingleInstance.shared.wallet?.open()))
             } catch let error {
                 print(error)
             }
-
-            createMenuView()
+            DispatchQueue.global(qos: .default).async {
+                self.createMenuView()
+            }
+            
         } else {
-            AppContext.instance.decrdConnection = DcrdConnection()
-            AppContext.instance.decrdConnection?.wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/", "bdb")
-            AppContext.instance.decrdConnection?.wallet?.initLoader()
+            SingleInstance.shared.wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/", "bdb")
+            SingleInstance.shared.wallet?.initLoader()
+           DispatchQueue.global(qos: .default).async {
             self.walletSetupView()
+            }
+
         }
     }
 
@@ -86,7 +92,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        self.showAnimatedStartScreen()
+        DispatchQueue.main.async {
+             self.showAnimatedStartScreen()
+        }
         UserDefaults.standard.setValuesForKeys(["pref_user_name": "dcrwallet",
                                                 "pref_user_passwd": "dcrwallet",
                                                 "pref_server_ip": "192.168.43.68",
@@ -123,5 +131,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        if (SingleInstance.shared.wallet != nil){
+            UserDefaults.standard.set(false, forKey: "walletScanning")
+            UserDefaults.standard.set(false, forKey: "synced")
+            UserDefaults.standard.synchronize()
+            SingleInstance.shared.wallet?.shutdown()
+        }
+    }
+    func applicationDidReceiveMemoryWarning(_ application: UIApplication) {
+        if(SingleInstance.shared.wallet != nil){
+            SingleInstance.shared.wallet?.shutdown()
+        }
     }
 }

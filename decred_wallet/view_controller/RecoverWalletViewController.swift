@@ -58,8 +58,7 @@ class RecoverWalletViewController: UIViewController {
         count = count + 1
         if count == 1{
             self.btnConfirm.isEnabled = false
-            var constant = AppContext.instance.decrdConnection
-            let flag = constant?.wallet?.verifySeed(seedtmp)
+            let flag = SingleInstance.shared.wallet?.verifySeed(seedtmp)
             if flag! {
                 let sb = UIStoryboard(name: "Main", bundle: nil)
                 let vc = sb.instantiateViewController(withIdentifier: "encryptWallet") as! CreatePasswordViewController
@@ -102,8 +101,7 @@ class RecoverWalletViewController: UIViewController {
     @IBAction func btnConfirmSeed(_ sender: Any) {
         view.endEditing(true)
         print("button pressed tap")
-        var constant = AppContext.instance.decrdConnection
-        let flag = constant?.wallet?.verifySeed(txSeedCheckCombined.text) 
+        let flag = SingleInstance.shared.wallet?.verifySeed(txSeedCheckCombined.text) 
         if flag! {
             print("true")
             let sb = UIStoryboard(name: "Main", bundle: nil)

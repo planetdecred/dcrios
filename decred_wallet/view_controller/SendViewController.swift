@@ -8,6 +8,7 @@ import QRCodeReader
 import UIKit
 
 class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderViewControllerDelegate {
+    weak var delegate: LeftMenuProtocol?
     @IBOutlet var accountDropdown: DropMenuButton!
     @IBOutlet var totalAmountSending: UILabel!
     @IBOutlet var estimateFee: UILabel!
@@ -26,10 +27,9 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
     }()
     
     var selectedAccount: AccountsEntity?
-    var preparedTransaction: MobilewalletUnsignedTransaction?
     var password: String?
     var sendAllTX = false
-    private var constatnt: DcrdConnection?
+  //  private var constatnt: DcrdConnection?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +43,7 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
         super.viewWillAppear(animated)
         self.setNavigationBarItem()
         self.navigationItem.title = "Send"
-        constatnt = AppContext.instance.decrdConnection as? DcrdConnection
+       // constatnt = AppContext.instance.decrdConnection as? DcrdConnection
         // let isValidAddressInClipboard = validate(address:UIPasteboard.general.string!)
         // if isValidAddressInClipboard {destinationAddress.text = UIPasteboard.general.string ?? ""}
         self.updateBalance()
@@ -52,7 +52,8 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-        AppContext.instance.decrdConnection?.wallet?.runGC()
+        SingleInstance.shared.wallet?.runGC()
+
     }
     
     @IBAction func onSendAll(_ sender: Any) {
@@ -120,15 +121,20 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
         }
         return atrStr
     }
+    let pass = "qr"
+
     
     @IBAction private func sendFund(_ sender: Any) {
         if self.validate() {
             // prepareTransaction(sendAll:false)
+            DispatchQueue.main.async {
             self.askPassword(sendAll: false)
+            }
         }
     }
     
     private func askPassword(sendAll: Bool) {
+        
         let alert = UIAlertController(title: "Security", message: "Please enter password of your wallet", preferredStyle: .alert)
         alert.addTextField { textField in
             textField.placeholder = "password"
@@ -141,63 +147,71 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
             self.confirmSend(sendAll: sendAll)
         }
         alert.addAction(okAction)
-        present(alert, animated: true, completion: nil)
+       
+        self.present(alert, animated: true, completion: nil)
+        
     }
     
     private func prepareTransaction(sendAll: Bool?) {
+        let amountToSend = Double((self.tfAmount.text)!)!
+        let walletaddress = self.walletAddress.text!
+        let acountN = (self.selectedAccount?.Number)!
+        var preparedTransaction: MobilewalletUnsignedTransaction?
+         DispatchQueue.global(qos: .userInitiated).async {
         do {
             let isShouldBeConfirmed = UserDefaults.standard.bool(forKey: "pref_spend_fund_switch")
-            let amountToSend = Double((self.tfAmount.text)!)!
-            self.preparedTransaction = try AppContext.instance.decrdConnection?.wallet?.constructTransaction(self.walletAddress.text!, amount: Int64(amountToSend), srcAccount: (self.selectedAccount?.Number)!, requiredConfirmations: isShouldBeConfirmed ? 0 : 2, sendAll: sendAll ?? false)
+            
+           preparedTransaction = try SingleInstance.shared.wallet?.constructTransaction(walletaddress, amount: Int64(amountToSend), srcAccount: acountN , requiredConfirmations: isShouldBeConfirmed ? 0 : 2, sendAll: sendAll ?? false)
             print("Account Number is")
-            print(self.selectedAccount?.Number as Any)
+            print(acountN as Any)
             DispatchQueue.main.async { [weak self] in
                 guard let this = self else { return }
-                this.estimateSize.text = "\(this.preparedTransaction?.estimatedSignedSize() ?? 0) Bytes"
-                this.estimateFee.text = "\(Double((this.preparedTransaction?.estimatedSignedSize())!) / 0.001 / 1e8) DCR"
-                this.totalAmountSending.text = "\(this.preparedTransaction?.totalOutputAmount() ?? 0) DCR"
+                this.estimateSize.text = "\(preparedTransaction?.estimatedSignedSize() ?? 0) Bytes"
+                this.estimateFee.text = "\(Double((preparedTransaction?.estimatedSignedSize())!) / 0.001 / 1e8) DCR"
+                this.totalAmountSending.text = "\(amountToSend) DCR"
+             
             }
         } catch let error {
             self.showAlert(message: error.localizedDescription)
+        }
         }
     }
     
     private func signTransaction(sendAll: Bool?) {
+        DispatchQueue.main.async {
         let password = (self.password?.data(using: .utf8))!
         let walletAddress = self.walletAddress.text!
-        let amount = Int64((self.tfAmount.text)!)! * 100000000
+        let amount = Double((self.tfAmount.text)!)! * 100000000
         let account = (self.selectedAccount?.Number)!
-        DispatchQueue.global(qos: .userInitiated).async {
+        DispatchQueue.global(qos: .userInitiated).async {[unowned self] in
         do {
             let isShouldBeConfirmed = UserDefaults.standard.bool(forKey: "pref_spend_fund_switch")
-            let result = try AppContext.instance.decrdConnection?.wallet?.sendTransaction(password, destAddr: walletAddress, amount: amount , srcAccount: account , requiredConfs: isShouldBeConfirmed ? 0 : 2, sendAll: sendAll ?? false)
+            let result = try SingleInstance.shared.wallet?.sendTransaction(password, destAddr: walletAddress, amount: Int64(amount) , srcAccount: account , requiredConfs: isShouldBeConfirmed ? 0 : 2, sendAll: sendAll ?? false)
+         
             DispatchQueue.main.async {
                 self.transactionSucceeded(hash: result?.hexEncodedString())
+                self.walletAddress.text = ""
+                self.tfAmount.text = ""
+                self.estimateFee.text = ""
+                self.estimateSize.text = ""
+               
+                return
+
             }
+            return
             
         } catch let error {
-            DispatchQueue.main.async {
             self.showAlert(message: error.localizedDescription)
-            }
+         
+        }
         }
         }
     }
     
-   /* private func publish(transaction:Data?){
-        do{
-            let result = try AppContext.instance.decrdConnection?.publish(transaction: transaction!)
-            //print(String(format: "%hh", result as! CVarArg))
-            transactionSucceeded(hash:result?.hexEncodedString())
-        } catch let error{
-            DispatchQueue.main.async {
-                self.showAlert(message: error.localizedDescription)
-            }
-        }
-    }*/
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        self.constatnt = nil
-        // self.dismiss(animated: true, completion: nil)
+        
+      //   self.dismiss(animated: true, completion: nil)
     }
     
     private func confirmSend(sendAll: Bool) {
@@ -210,13 +224,21 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
         
         confirmSendFundViewController.confirm = { [weak self] in
             guard let `self` = self else { return }
-            DispatchQueue.main.async { [weak self] in
+            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
                 guard let this = self else { return }
+                SingleInstance.shared.wallet?.runGC()
                 this.signTransaction(sendAll: sendAll)
+               // self?.selectedAccount = nil
+                return
+                
+                
             }
         }
+        DispatchQueue.main.async {
+        self.present(confirmSendFundViewController, animated: true, completion: nil)
+        }
         
-        present(confirmSendFundViewController, animated: true, completion: nil)
+        return
     }
     
     @IBAction private func scanQRCodeAction(_ sender: UIButton) {
@@ -247,7 +269,9 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
         }
         // Presents the readerVC as modal form sheet
         self.readerVC.modalPresentationStyle = .formSheet
-        present(self.readerVC, animated: true, completion: nil)
+        DispatchQueue.main.async {
+        self.present(self.readerVC, animated: true, completion: nil)
+        }
     }
     
     func reader(_ reader: QRCodeReaderViewController, didScanResult result: QRCodeReaderResult) {
@@ -259,6 +283,7 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
     }
     
     private func transactionSucceeded(hash: String?) {
+        let hashe = hash
         let storyboard = UIStoryboard(
             name: "SendCompletedViewController",
             bundle: nil
@@ -267,7 +292,7 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
         let sendCompletedVC = storyboard.instantiateViewController(withIdentifier: "SendCompletedViewController") as! SendCompletedViewController
         sendCompletedVC.modalTransitionStyle = .crossDissolve
         sendCompletedVC.modalPresentationStyle = .overCurrentContext
-        sendCompletedVC.transactionHash = hash
+        sendCompletedVC.transactionHash = hashe
         
         sendCompletedVC.openDetails = { [weak self] in
             guard let `self` = self else { return }
@@ -278,11 +303,20 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
             )
             
             let txnDetails = storyboard.instantiateViewController(withIdentifier: "TransactionFullDetailsViewController") as! TransactionFullDetailsViewController
-            txnDetails.transactionHash = hash
-            self.navigationController?.pushViewController(txnDetails, animated: true)
-        }
+            txnDetails.transactionHash = hashe
+            self.delegate?.changeViewController(LeftMenu.overview)
+            
+            
         
+            
+           // self.navigationController?.pushViewController(txnDetails, animated: true)
+        }
+       
         self.present(sendCompletedVC, animated: true, completion: nil)
+        
+        print("sent transaction")
+        self.dismiss(animated: true, completion: nil)
+        return
     }
     
     // MARK: - TextFieldDelegate
@@ -301,13 +335,14 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
         super.touchesBegan(touches, with: event)
         self.view.endEditing(true)
     }
-    
+
     private func updateBalance() {
         var accounts = [String]()
         var account: GetAccountResponse?
         do {
-            let strAccount = try AppContext.instance.decrdConnection?.wallet?.getAccounts(0)
+            let strAccount = try SingleInstance.shared.wallet?.getAccounts(0)
             account = try JSONDecoder().decode(GetAccountResponse.self, from: (strAccount?.data(using: .utf8))!)
+           
         } catch let error {
             print(error)
         }
@@ -344,8 +379,8 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
             )
             
             this.selectedAccount = account?.Acc[ind]
-           /* this.accountDropdown.backgroundColor = UIColor(red: 173.0 / 255.0, green: 231.0 / 255.0, blue: 249.0 / 255.0, alpha: 1.0)*/
-            this.accountDropdown.setTitle("test", for: .normal)
+         this.accountDropdown.setTitle("default", for: .normal)
+
         }
     }
     
@@ -397,10 +432,14 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
             alert.dismiss(animated: true, completion: nil)
         }
         alert.addAction(okAction)
+        DispatchQueue.main.async {
         self.present(alert, animated: true, completion: nil)
+        }
     }
     
     private func validate(address: String) -> Bool {
-        return (AppContext.instance.decrdConnection?.wallet?.isAddressValid(address)) ?? false
+        
+        let tmp = (SingleInstance.shared.wallet?.isAddressValid(address)) ?? false
+        return tmp
     }
 }

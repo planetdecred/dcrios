@@ -1328,6 +1328,15 @@
                                         </constraints>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="taw-qf-Fhn">
+
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="6Rd-Rq-h1D" id="dhm-aQ-Rj4"/>
+                                        </connections>
+                                    </textField>
+                                    <view alpha="0.40000000596046448" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="taw-qf-Fhn">
                                         <rect key="frame" x="0.0" y="52" width="343" height="1"/>
                                         <color key="backgroundColor" red="0.13725490196078433" green="0.12156862745098039" blue="0.12549019607843137" alpha="0.25345141267123289" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
