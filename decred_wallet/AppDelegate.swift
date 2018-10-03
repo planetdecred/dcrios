@@ -146,3 +146,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 }
+
+extension AppDelegate {
+   class var shared: AppDelegate {
+        return UIApplication.shared.delegate as! AppDelegate
+    }
+}
