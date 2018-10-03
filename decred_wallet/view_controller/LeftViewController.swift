@@ -15,6 +15,7 @@ enum LeftMenu: Int {
     case receive
     case history
     case settings
+    case help
 
 }
 
@@ -27,21 +28,25 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
 
     var progressHud = MBProgressHUD()
     var scanning = false
+    @IBOutlet weak var blockInfo: UILabel!
     @IBOutlet weak var connectionStatus: UILabel!
     @IBOutlet weak var rescanHeight: UILabel!
     @IBOutlet weak var bestblock: UILabel!
     @IBOutlet weak var chainStatus: UILabel!
     @IBOutlet weak var tableView: UITableView!
-    var menus = ["Overview", "Account", "Send", "Receive","History", "Settings"]
+    var menus = ["Overview", "Account", "Send", "Receive","History", "Settings","Help"]
     var mainViewController: UIViewController!
-    var swiftViewController: UIViewController!
+    var accountViewController: UIViewController!
     var sendViewController: UIViewController!
     var receiveViewController: UIViewController!
     var settingsViewController: UIViewController!
     var historyViewController: UIViewController!
+    var helpViewController:  UIViewController!
     var imageHeaderView: ImageHeaderView!
     var selectedIndex: Int!
+    var storyboard2: UIStoryboard!
     
+    @IBOutlet weak var statusBackgroud: UIView!
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -50,30 +55,12 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         super.viewDidLoad()
         self.selectedIndex = 0
         self.tableView.separatorColor = GlobalConstants.Colors.separaterGrey
-        
-        let storyboard =  UIStoryboard(name: "Main", bundle: nil)
-        let swiftViewController = storyboard.instantiateViewController(withIdentifier: "AccountViewController") as! AccountViewController
-        self.swiftViewController = UINavigationController(rootViewController: swiftViewController)
-        
-        let sendViewController = storyboard.instantiateViewController(withIdentifier: "SendViewController") as! SendViewController
-        self.sendViewController = UINavigationController(rootViewController: sendViewController)
-        
-        let goViewController = storyboard.instantiateViewController(withIdentifier: "ReceiveViewController") as! ReceiveViewController
-        self.receiveViewController = UINavigationController(rootViewController: goViewController)
-        
-        let settingsController = storyboard.instantiateViewController(withIdentifier: "SettingsController2") as! SettingsController
-        settingsController.delegate = self
-        self.settingsViewController = UINavigationController(rootViewController: settingsController)
-        
-        let trController = TransactionHistoryViewController(nibName: "TransactionHistoryViewController", bundle: nil) as TransactionHistoryViewController?
-        trController?.delegate = self
-        self.historyViewController = UINavigationController(rootViewController: trController!)
-        
-        self.tableView.registerCellClass(MenuCell.self)
-        
+       // self.rescanHeight.isHidden = true 
+         storyboard2 =  UIStoryboard(name: "Main", bundle: nil)  
+        self.tableView.registerCellClass(MenuCell.self)     
         self.imageHeaderView = ImageHeaderView.loadNib()
         self.view.addSubview(self.imageHeaderView)
-        if ((AppContext.instance.decrdConnection?.wallet?.isNetBackendNil())!){
+       /* if ((AppContext.instance.decrdConnection?.wallet?.isNetBackendNil())!){
            
             DispatchQueue.main.async {
                 self.connectionStatus.text = "connected to RPC"
@@ -85,37 +72,56 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         }else{
             self.connectionStatus.text = "Connecting to RPC server"
            // self.conectToRpc()
-        }
+        }*/
         
         
         
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)// 1
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
-                let bestblck = AppContext.instance.decrdConnection?.wallet?.getBestBlock()
-                let bestblocktemp : Int64 = Int64(Int(bestblck!))
-                if(self.scanning){
-                    self.bestblock.text = String(bestblck!)
-                    return
-                }
-                let  lastblocktime = AppContext.instance.decrdConnection?.wallet?.getBestBlockTimeStamp()
-                let currentTime = NSDate().timeIntervalSince1970
-                let estimatedBlocks = ((Int64(currentTime) - (lastblocktime)!) / 120) + bestblocktemp
-                if(estimatedBlocks > bestblocktemp){
-                    self.bestblock.text = String(bestblocktemp).appending(" of ").appending(String(estimatedBlocks))
-                    self.chainStatus.text = ""
-                    
-                }
-                else{
-                    self.bestblock.text = String(bestblocktemp)
-                    self.chainStatus.text = self.calculateTime(millis: Int64(NSDate().timeIntervalSince1970) - lastblocktime!)
-                }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)// 1
+        print("am running")
+        self.scanning = UserDefaults.standard.bool(forKey: "walletScanning")
+        let sync = UserDefaults.standard.bool(forKey: "synced")
+        
+        if(sync == true){
+             self.loop()
+        }
+        else{
+            self.connectionStatus.text = "Not Synced"
+        }
+        
+    }
+    
+    func loop() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            guard let this = self else { return }
+            let bestblck = SingleInstance.shared.wallet?.getBestBlock()
+            let bestblocktemp: Int64 = Int64(Int(bestblck!))
+            if this.scanning == true {
+                this.chainStatus.text = ""
+                this.blockInfo.text = ""
+                this.connectionStatus.text = "Not Synced"
+                this.bestblock.text = String(bestblck!)
+                return
             }
-        
-        
-        
+            let lastblocktime = SingleInstance.shared.wallet?.getBestBlockTimeStamp()
+            let currentTime = NSDate().timeIntervalSince1970
+            let estimatedBlocks = ((Int64(currentTime) - lastblocktime!) / 120) + bestblocktemp
+            if estimatedBlocks > bestblocktemp {
+                this.bestblock.text = String(bestblocktemp).appending(" of ").appending(String(estimatedBlocks))
+                this.chainStatus.text = ""
+                this.blockInfo.text = "Fetched"
+                this.statusBackgroud.backgroundColor = UIColor(hex: "#2DD8A3")
+                this.connectionStatus.text = "Fetching Headers..."
+            }
+            else {
+                this.statusBackgroud.backgroundColor = UIColor(hex: "#FFC84E")
+                this.connectionStatus.text = "Rescanning in progress..."
+                this.bestblock.text = String(bestblocktemp)
+                this.blockInfo.text = "Latest Block"
+                this.chainStatus.text = this.calculateTime(millis: Int64(NSDate().timeIntervalSince1970) - lastblocktime!)
+            }
+        }
     }
     
     func calculateTime(millis: Int64)-> String{
@@ -139,31 +145,100 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         return String(millis2).appending("s ago")
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-       
-    }
-    
+   
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.imageHeaderView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 160)
+        self.imageHeaderView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 130)
         self.view.layoutIfNeeded()
     }
     
     func changeViewController(_ menu: LeftMenu) {
+         DispatchQueue.main.async{
         switch menu {
         case .overview:
             self.slideMenuController()?.changeMainViewController(self.mainViewController, close: true)
+            if(self.accountViewController != nil){
+                self.accountViewController.dismiss(animated: true, completion: nil)
+                self.accountViewController = nil
+                
+            }
+            if(self.sendViewController != nil){
+                self.sendViewController.dismiss(animated: true, completion: nil)
+                self.sendViewController = nil
+            }
         case .account:
-            self.slideMenuController()?.changeMainViewController(self.swiftViewController, close: true)
+            let accountViewController = self.storyboard2?.instantiateViewController(withIdentifier: "AccountViewController") as! AccountViewController
+            self.accountViewController = UINavigationController(rootViewController: accountViewController)
+            
+            self.slideMenuController()?.changeMainViewController(self.accountViewController, close: true)
+            if(self.sendViewController != nil){
+                    self.sendViewController.dismiss(animated: true, completion: nil)
+                    self.sendViewController = nil
+                }
         case .send:
+            let sendViewController = self.storyboard2?.instantiateViewController(withIdentifier: "SendViewController") as! SendViewController
+            self.sendViewController = UINavigationController(rootViewController: sendViewController)
             self.slideMenuController()?.changeMainViewController(self.sendViewController, close: true)
+            if(self.accountViewController != nil){
+                self.accountViewController.dismiss(animated: true, completion: nil)
+                self.accountViewController = nil
+            }
         case .receive:
+            let goViewController = self.storyboard2?.instantiateViewController(withIdentifier: "ReceiveViewController") as! ReceiveViewController
+            self.receiveViewController = UINavigationController(rootViewController: goViewController)
             self.slideMenuController()?.changeMainViewController(self.receiveViewController, close: true)
+            if(self.accountViewController != nil){
+                self.accountViewController.dismiss(animated: true, completion: nil)
+                self.accountViewController = nil
+                
+            }
+            if(self.sendViewController != nil){
+                self.sendViewController.dismiss(animated: true, completion: nil)
+                self.sendViewController = nil
+            }
         case .settings:
+            let settingsController = self.storyboard2.instantiateViewController(withIdentifier: "SettingsController2") as! SettingsController
+            settingsController.delegate = self
+            self.settingsViewController = UINavigationController(rootViewController: settingsController)
             self.slideMenuController()?.changeMainViewController(self.settingsViewController, close: true)
+            if(self.accountViewController != nil){
+                self.accountViewController.dismiss(animated: true, completion: nil)
+                self.accountViewController = nil
+                
+            }
+            if(self.sendViewController != nil){
+                self.sendViewController.dismiss(animated: true, completion: nil)
+                self.sendViewController = nil
+            }
         case .history:
+            let trController = TransactionHistoryViewController(nibName: "TransactionHistoryViewController", bundle: nil) as TransactionHistoryViewController?
+            trController?.delegate = self
+            self.historyViewController = UINavigationController(rootViewController: trController!)
             self.slideMenuController()?.changeMainViewController(self.historyViewController, close: true)
+            if(self.accountViewController != nil){
+                self.accountViewController.dismiss(animated: true, completion: nil)
+                self.accountViewController = nil
+                
+            }
+            if(self.sendViewController != nil){
+                self.sendViewController.dismiss(animated: true, completion: nil)
+                self.sendViewController = nil
+            }
+          case .help:
+          let helpViewController  = storyboard2.instantiateViewController(withIdentifier: "HelpViewController") as! HelpViewController
+          self.helpViewController = UINavigationController(rootViewController: helpViewController)
+          self.slideMenuController()?.changeMainViewController(self.helpViewController, close: true)
+          if(self.accountViewController != nil){
+                self.accountViewController.dismiss(animated: true, completion: nil)
+                self.accountViewController = nil
+                
+            }
+            if(self.sendViewController != nil){
+                self.sendViewController.dismiss(animated: true, completion: nil)
+                self.sendViewController = nil
+            }
+            
+        }
         }
     }
 }
@@ -172,7 +247,7 @@ extension LeftViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if let menu = LeftMenu(rawValue: indexPath.row) {
             switch menu {
-            case .overview, .account, .send, .receive, .history, .settings:
+            case .overview, .account, .send, .receive, .history, .settings, .help:
                 return MenuCell.height()
             }
         }
@@ -204,7 +279,7 @@ extension LeftViewController : UITableViewDataSource {
         
         if let menu = LeftMenu(rawValue: indexPath.row) {
             switch menu {
-            case .overview, .account, .send, .receive, .history, .settings:
+            case .overview, .account, .send, .receive, .history, .settings, .help:
                 
                 
                 tableView.register(UINib(nibName: MenuCell.identifier, bundle: nil), forCellReuseIdentifier: MenuCell.identifier)
@@ -224,24 +299,5 @@ extension LeftViewController : UITableViewDataSource {
             }
         }
         return UITableViewCell()
-    }
-    func conectToRpc(){
-        
-        DispatchQueue.global(qos: .userInitiated).async{
-            do{
-                
-                //
-                    AppContext.instance.decrdConnection?.connect(onSuccess: { (height) in
-                }, onFailure: { (error) in
-                    print(error)
-                }, progressHud: self.progressHud)
-                // progressHud?.hide(animated: true)
-                
-                //navigationController?.dismiss(animated: true, completion: nil)
-            }
-            catch _{
-               // self.showError(error: error)
-            }
-        }
     }
 }

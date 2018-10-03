@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Wallet
+import Mobilewallet
 
 class GeneratedSeedDisplayViewController: UIViewController {
     @IBOutlet var vWarningLabel: UILabel!
@@ -28,11 +28,17 @@ class GeneratedSeedDisplayViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        seed = AppContext.instance.decrdConnection?.generateSeed() as String?
-        arrWords = (seed?.components(separatedBy: " "))!
+        do{
+            try
+                self.seed =  (SingleInstance.shared.wallet?.generateSeed())
+        } catch {
+           seed = ""
+        }
+        arrWords = (seed.components(separatedBy: " "))
         
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1) { [weak self] in
-            self?.drawSeed()
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) { [weak self] in
+            guard let this = self else { return }
+            this.drawSeed()
         }
         
         backButton()
@@ -63,10 +69,8 @@ class GeneratedSeedDisplayViewController: UIViewController {
     func drawSeed() {
         for view in seedContainer.subviews {
             view.removeFromSuperview()
-        }
-        
-        setUpUItraits()
-        
+        }       
+        setUpUItraits()        
         seedContainer.addSubview(outerStackView)
         
         for count in 0 ..< arrWords.count {
@@ -85,6 +89,10 @@ class GeneratedSeedDisplayViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         var vc = segue.destination as! SeedCheckupProtocol
-        vc.seedToVerify = seed
+        vc.seedToVerify = self.seed
+    }
+    
+    @IBAction func backAction(_ sender: UIButton) {
+        navigationController?.popViewController(animated: true)
     }
 }

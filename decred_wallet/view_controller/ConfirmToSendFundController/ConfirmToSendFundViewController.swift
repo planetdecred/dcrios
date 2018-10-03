@@ -26,6 +26,11 @@ class ConfirmToSendFundViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.dismiss(animated: true, completion: nil)
+        
+    }
     
     @IBAction private func cancelAction(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)

@@ -9,7 +9,7 @@ import UIKit
 extension UIViewController {
     func setNavigationBarItem() {
         self.addLeftBarButtonWithImage(UIImage(named: "ic_menu_black_24dp")!)
-        self.addRightBarButtonWithImage(UIImage(named: "ic_notifications_black_24dp")!)
+       // self.addRightBarButtonWithImage(UIImage(named: "ic_notifications_black_24dp")!)
         self.navigationController?.navigationBar.tintColor = UIColor.black
         self.slideMenuController()?.removeLeftGestures()
         self.slideMenuController()?.removeRightGestures()
@@ -19,7 +19,7 @@ extension UIViewController {
     
     func removeNavigationBarItem() {
         self.navigationItem.leftBarButtonItem = nil
-        self.navigationItem.rightBarButtonItem = nil
+       // self.navigationItem.rightBarButtonItem = nil
         self.slideMenuController()?.removeLeftGestures()
         self.slideMenuController()?.removeRightGestures()
     }

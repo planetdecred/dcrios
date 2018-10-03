@@ -5,12 +5,15 @@
 import UIKit
 import MBProgressHUD
 
-class TransactionFullDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, WalletGetTransactionsResponseProtocol {
+class TransactionFullDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet private weak var tableTransactionDetails: UITableView!    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet var detailsHeader: UIView!
+     @IBOutlet weak var amount: UILabel!
     var transactionHash: String?
+    var account : String?
+    
     let hud = MBProgressHUD(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
     var details: [TransactionDetails] = [
         TransactionDetails(
@@ -44,12 +47,13 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
             textColor: #colorLiteral(red: 0.1607843137, green: 0.4392156863, blue: 1, alpha: 1)
         )
     ]
+    var transaction: Transaction!
+    var txstatus: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        AppContext.instance.decrdConnection?.addObserver(transactionsHistoryObserver: self)
-        self.view.addSubview(hud)
+       // self.view.addSubview(hud)
         
         tableTransactionDetails
             .hideEmptyAndExtraRows()
@@ -58,12 +62,15 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         
         tableTransactionDetails.registerCellNib(TransactionDetailCell.self)
         tableTransactionDetails.registerCellNib(TransactiontOutputDetailsCell.self)
+        tableTransactionDetails.registerCellNib(TransactiontInputDetails.self)
         
     }
+    
 
     override func viewWillAppear(_ animated: Bool) {
         hud.show(animated: true)
-        AppContext.instance.decrdConnection?.fetchTransactions()
+        wrap(transaction: self.transaction)
+     
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -90,6 +97,7 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         
         return (section == 0 ? self.detailsHeader : headerView)
     }
+   
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
@@ -120,59 +128,53 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         }
     }
     
-    func onResult(_ json: String!) {
-        do{
-            let transactions = try JSONDecoder().decode(GetTransactionResponse.self, from:json.data(using: .utf8)!)
-            let lastTransaction = transactions.Transactions?.filter({(transaction) in
-                print("HASH: "+transaction.Hash + " == " + self.transactionHash!)
-                return transaction.Hash == self.transactionHash
-            }).first
-            
-            DispatchQueue.main.async {
-                if let lastTransaction = lastTransaction{
-                    self.wrap(transaction: lastTransaction)
-                }
-                self.hud.hide(animated: true)
-                self.tableView.reloadData()
-            }
-        }catch let error{
-            print(error)
-        }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.dismiss(animated: true, completion: nil)
+        
     }
     
     fileprivate func wrap(transaction:Transaction?){
         details = [
             TransactionDetails(
                 title: "Status",
-                value: "\(transaction?.Status ?? "0") Confirmations",
-                textColor: #colorLiteral(red: 0.2549019608, green: 0.7490196078, blue: 0.3254901961, alpha: 1)
+                value: "\(transaction?.Status ?? "0") Confirmed",
+//                textColor: #colorLiteral(red: 0.2549019608, green: 0.7490196078, blue: 0.3254901961, alpha: 1)
+                textColor: nil
             ),
             TransactionDetails(
                 title: "Confirmation",
                 value: "\(transaction?.Height ?? 0)",
-                textColor: #colorLiteral(red: 0.3803921569, green: 0.4509803922, blue: 0.5254901961, alpha: 1)
+//                textColor: #colorLiteral(red: 0.3803921569, green: 0.4509803922, blue: 0.5254901961, alpha: 1)
+                textColor: nil
             ),
             TransactionDetails(
                 title: "Type",
                 value: "\(transaction?.Type ?? "Unknown" )",
-                textColor: #colorLiteral(red: 0.3803921569, green: 0.4509803922, blue: 0.5254901961, alpha: 1)
+//                textColor: #colorLiteral(red: 0.3803921569, green: 0.4509803922, blue: 0.5254901961, alpha: 1)
+                textColor: nil
             ),
             TransactionDetails(
                 title: "Date",
                 value: format(timestamp: transaction?.Timestamp),
-                textColor: #colorLiteral(red: 0.3803921569, green: 0.4509803922, blue: 0.5254901961, alpha: 1)
+//                textColor: #colorLiteral(red: 0.3803921569, green: 0.4509803922, blue: 0.5254901961, alpha: 1)
+                textColor: nil
             ),
             TransactionDetails(
                 title: "Fee",
                 value: "\(Double((transaction?.Fee)!) / 1e8) DCR",
-                textColor: #colorLiteral(red: 0.3803921569, green: 0.4509803922, blue: 0.5254901961, alpha: 1)
+//                textColor: #colorLiteral(red: 0.3803921569, green: 0.4509803922, blue: 0.5254901961, alpha: 1)
+                textColor: nil
             ),
             TransactionDetails(
                 title: "Hash",
-                value: transactionHash!,
-                textColor: #colorLiteral(red: 0.1607843137, green: 0.4392156863, blue: 1, alpha: 1)
+                value: (transaction?.Hash)!,
+//                textColor: #colorLiteral(red: 0.1607843137, green: 0.4392156863, blue: 1, alpha: 1)
+                textColor: nil
             )
         ]
+        self.amount.text = "\(Double((transaction?.Amount)!) / 1e8) DCR"
     }
     
     fileprivate func format(timestamp:UInt64?) -> String{

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import Wallet
+import Mobilewallet
 
 // MARK: - endpoint listener protocols
 protocol TransactionObserverProtocol {
@@ -32,17 +32,17 @@ struct ObserversListener:WalletTransactionBlockListenerProtocol{
     static var instance = ObserversListener()
 }
 
-class TransactionsObserver {
+/*class TransactionsObserver {
     fileprivate var listener: TransactionObserverProtocol?
-    fileprivate let mUpcomingTransactionListener = WalletTransactionListener()
-    fileprivate let mTransactionListener = WalletGetTransactionsResponse()
+    fileprivate let mUpcomingTransactionListener = MobilewalletTransactionListener()
+    fileprivate let mTransactionListener = MobilewalletGetTransactionsResponse()
     init(listener:TransactionObserverProtocol) {
         self.listener = listener
     }
     func subscribe(){
         AppContext.instance.decrdConnection?.subscribeForTransactions(observer: mUpcomingTransactionListener)
     }
-}
+}*/
 
 class TransactionsBlockObserver {
     fileprivate var listener:TransactionBlockObserverProtocol?

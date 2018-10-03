@@ -5,38 +5,46 @@
 import UIKit
 
 class AccountsHeaderView: UIView {
-    
-    @IBOutlet private weak var labelTitle: UILabel!
-    @IBOutlet private weak var labelTotalBalance: UILabel!
-    @IBOutlet private weak var labelSpendableBalance: UILabel!
-    @IBOutlet private weak var viewHighLight: UIView!
+    @IBOutlet private var labelTitle: UILabel!
+    @IBOutlet private var labelTotalBalance: UILabel!
+    @IBOutlet private var labelSpendableBalance: UILabel!
+    @IBOutlet var expandOrCollapseDetailsButton: UIButton!
     
     var headerIndex: Int = 0
     
-    var exapndOrCollapse: ((Int) -> Void)?
+    // var exapndOrCollapse: ((Int) -> Void)?
     
     var totalBalance: Double = 0.0 {
         willSet {
-            self.labelTotalBalance.text = "\(newValue)"
+            DispatchQueue.main.async { [weak self] in
+            
+                self?.labelTotalBalance.attributedText = getAttributedString(str: "\(newValue)")
+                //this.labelTotalBalance.text = "\(newValue)".appending("DCR")
+            }
         }
     }
     
     @IBAction func expnandOrCollapseAction(_ sender: UIButton) {
-        exapndOrCollapse?(headerIndex)
+       // DispatchQueue.main.async {
+            // self.exapndOrCollapse?(self.headerIndex)
+       // }
     }
     
     var spendableBalance: Double = 0.0 {
         willSet {
-            self.labelSpendableBalance.text = "\(newValue)"
+            DispatchQueue.main.async {
+                
+                self.labelSpendableBalance.text = "\(newValue)".appending("DCR")
+            }
         }
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+            // Initialization code
     }
-   
-    var hightLithColor: UIColor? {
+    
+   /* var hightLithColor: UIColor? {
         get {
             return viewHighLight.backgroundColor
         }
@@ -44,7 +52,7 @@ class AccountsHeaderView: UIView {
         set {
             viewHighLight.backgroundColor = newValue
         }
-    }
+    }*/
     
     var title: String? {
         get {
@@ -52,8 +60,9 @@ class AccountsHeaderView: UIView {
         }
         
         set {
-            labelTitle.text = newValue
+            DispatchQueue.main.async {
+                self.labelTitle.text = newValue
+            }
         }
     }
-
 }

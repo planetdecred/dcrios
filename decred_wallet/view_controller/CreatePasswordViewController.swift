@@ -8,7 +8,7 @@
 
 import UIKit
 import MBProgressHUD
-import Wallet
+import Mobilewallet
 
 class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITextFieldDelegate {
     var seedToVerify: String?
@@ -17,13 +17,21 @@ class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITex
     @IBOutlet weak var tfVerifyPassword: UITextField!
     @IBOutlet weak var btnEncrypt: UIButton!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+         //IQKeyboardManager.shared().isEnabled = false
         progressHud = MBProgressHUD(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
         view.addSubview(progressHud!)
         tfPassword.delegate = self
         tfVerifyPassword.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+        SingleInstance.shared.wallet?.runGC()
+    }
+    
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         validatePassword()
@@ -42,33 +50,41 @@ class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITex
         btnEncrypt.isEnabled = (tfPassword.text == tfVerifyPassword.text) && !(tfPassword.text?.isEmpty)!
     }
     
+    @IBAction func backAction(_ sender: UIButton) {
+        navigationController?.popViewController(animated: true)
+    }
+    
     @IBAction func onEncrypt(_ sender: Any) {
         self.progressHud?.show(animated: true)
         self.progressHud?.label.text = "creating wallet..."
+        print("creating")
         let seed = self.seedToVerify!
         let pass = self.tfPassword!.text
-        DispatchQueue.global(qos: .userInitiated).async{
-        do{
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let this = self else { return }
             
-           //
-            try
-                AppContext.instance.decrdConnection?.createWallet(seed:seed, passwd:pass!)
-                AppContext.instance.decrdConnection?.connect(onSuccess: { (height) in
-                    DispatchQueue.main.async {
-                        self.progressHud?.hide(animated: true)
-                        createMainWindow()
-                    }
-        }, onFailure: { (error) in
-            print(error)
-                }, progressHud: self.progressHud!)
-           // progressHud?.hide(animated: true)
-            
-            //navigationController?.dismiss(animated: true, completion: nil)
-
-        }
-            catch let error{
-                self.showError(error: error)
-        }
+            do {
+                if SingleInstance.shared.wallet == nil {
+                    return
+                }
+                try SingleInstance.shared.wallet?.createWallet(pass, seedMnemonic: seed)
+                DispatchQueue.main.async {
+                    this.progressHud?.hide(animated: true)
+                    UserDefaults.standard.set(pass, forKey: "password")
+                    print("wallet created")
+                    createMainWindow()
+                    this.dismiss(animated: true, completion: nil)
+                }
+                print("done")
+                return
+            } catch let error {
+                DispatchQueue.main.async {
+                    this.progressHud?.hide(animated: true)
+                    this.showError(error: error)
+                    print("wallet error")
+                    print(error)
+                }
+            }
         }
     }
     

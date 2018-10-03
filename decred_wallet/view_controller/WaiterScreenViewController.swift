@@ -32,7 +32,7 @@ class WaiterScreenViewController: UIViewController, WaiterScreenProtocol {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-       logo.image = UIImage.gifImageWithName("loaderAnimation")
+       //logo.image = UIImage.gifImageWithName("decred_logo")
        set(duration: 4)
     }
     
@@ -44,6 +44,11 @@ class WaiterScreenViewController: UIViewController, WaiterScreenProtocol {
         timer = Timer.scheduledTimer(withTimeInterval: duration, repeats: false, block: {_ in
             self.stopAnimation()
         })
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.dismiss(animated: true, completion: nil)
+        
     }
     
     @IBAction func goToSeetings(_ sender: Any) {
