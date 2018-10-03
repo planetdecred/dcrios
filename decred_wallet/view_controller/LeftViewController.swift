@@ -225,7 +225,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
                 self.sendViewController = nil
             }
           case .help:
-          let helpViewController  = storyboard2.instantiateViewController(withIdentifier: "HelpViewController") as! HelpViewController
+            let helpViewController  = self.storyboard2.instantiateViewController(withIdentifier: "HelpViewController") as! HelpViewController
           self.helpViewController = UINavigationController(rootViewController: helpViewController)
           self.slideMenuController()?.changeMainViewController(self.helpViewController, close: true)
           if(self.accountViewController != nil){
