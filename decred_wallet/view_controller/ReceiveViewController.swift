@@ -70,6 +70,7 @@ class ReceiveViewController: UIViewController {
             print("no account")
         }
     }
+
     @IBAction func tapCopy(_ sender: Any) {
         DispatchQueue.main.async {
             //Copy a string to the pasteboard.
@@ -81,7 +82,6 @@ class ReceiveViewController: UIViewController {
             self.present(alertController, animated: true, completion: nil)
         }
     }
-    
     
     private func populateWalletDropdownMenu() {
         self.account?.Acc.removeAll()
