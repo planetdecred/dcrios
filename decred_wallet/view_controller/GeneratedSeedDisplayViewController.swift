@@ -10,14 +10,14 @@ import UIKit
 import Mobilewallet
 
 class GeneratedSeedDisplayViewController: UIViewController {
-
-    @IBOutlet weak var vWarningIcon: UIView!
-    @IBOutlet weak var vWarningLabel: UILabel!
-
-    var seed : String! = ""
+    @IBOutlet var vWarningLabel: UILabel!
+    @IBOutlet private var seedWordLabels: [UILabel]!
     
-    @IBOutlet weak var seedContainer: UIView!
-    var arrWords : Array<String> = []
+    @IBOutlet private var outerStackView: UIStackView!
+    @IBOutlet var seedContainer: UIView!
+    
+    var seed: String! = ""
+    var arrWords = Array<String>()
     var yPosition: CGFloat?
     var xPostiion: CGFloat?
     var totalWidth: CGFloat?
@@ -35,80 +35,58 @@ class GeneratedSeedDisplayViewController: UIViewController {
            seed = ""
         }
         arrWords = (seed.components(separatedBy: " "))
-        vWarningLabel.layer.borderColor = GlobalConstants.Colors.orangeColor.cgColor
-        vWarningIcon.layer.borderColor = GlobalConstants.Colors.orangeColor.cgColor
-        vWarningLabel.superview?.layer.borderColor = GlobalConstants.Colors.orangeColor.cgColor
         
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) { [weak self] in
             guard let this = self else { return }
             this.drawSeed()
         }
+        
+        backButton()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = false
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.isNavigationBarHidden = true
     }
     
     // MARK: - Utility
     
     func setUpUItraits() {
-        self.totalWidth = seedContainer.frame.size.width
-        self.yPosition = 20.0
-        self.xPostiion = 20.0
-        self.widthOffset = 0.0
-        self.heightOffset = 0.0
-        self.calcultaedHeight = 21.0
+        totalWidth = seedContainer.frame.size.width
+        yPosition = 20.0
+        xPostiion = 20.0
+        widthOffset = 0.0
+        heightOffset = 0.0
+        calcultaedHeight = 21.0
     }
     
     // Draw seed
     func drawSeed() {
-        for view in seedContainer.subviews{
+        for view in seedContainer.subviews {
             view.removeFromSuperview()
-        }
-        self.setUpUItraits()
-        for word in arrWords {
-            let wordSize = self.getWidth(str: " " + word + " ")
-            let rect = self.getLocation(stringSize: wordSize.width)
-            let lbl = UILabel(frame: rect)
-            lbl.backgroundColor = GlobalConstants.Colors.lightBlue
-            lbl.font = self.font
-            lbl.clipsToBounds = true
-            lbl.layer.cornerRadius = 3
-            lbl.textAlignment = NSTextAlignment.center
-            lbl.text = word
-            seedContainer.addSubview(lbl)
-        }
-    }
-    
-    // Get location for new seed word
-    func getLocation(stringSize: CGFloat) -> CGRect {
-        let pos = xPostiion! + stringSize
-        let rect : CGRect
-        if( pos < totalWidth! ) {
-            rect = CGRect(origin: CGPoint(x: xPostiion!, y: yPosition!), size: CGSize(width: stringSize, height: 21))
-            xPostiion = xPostiion! + stringSize + 5
-        } else {
-            xPostiion = 20.0
-            yPosition = yPosition! + 26
-            rect = CGRect(origin: CGPoint(x: xPostiion!, y: yPosition!), size: CGSize(width: stringSize, height: 21))
-            xPostiion = xPostiion! + stringSize + 5
-        }
-        return rect
+        }       
+        setUpUItraits()        
+        seedContainer.addSubview(outerStackView)
         
-    }
-    
-    
-    // Get width for new word
-    func getWidth(str: String) -> CGSize {
-        let maxLabelSize = CGSize(width: 300, height: 30)
-        let contentNSString = str as String
-        let expectedLabelSize = contentNSString.boundingRect(with: maxLabelSize, options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font: self.font], context: nil)
-        print("\(expectedLabelSize)")
-        return expectedLabelSize.size
+        for count in 0 ..< arrWords.count {
+            seedWordLabels[count].text = "\(count + 1). \(arrWords[count])"
+        }
         
-        vWarningLabel.layer.borderColor = UIColor(hex: "fd714a").cgColor
-        vWarningIcon.layer.borderColor = UIColor(hex: "fd714a").cgColor
-
+        outerStackView.frame = seedContainer.frame
+        let windowSize = AppDelegate.shared.window?.frame.size ?? CGSize.zero
+        outerStackView.frame.size.width = 0.9 * min(windowSize.width, windowSize.height)
+        outerStackView.center = seedContainer.center
+        outerStackView.center.x = self.view.center.x
+        seedContainer.setNeedsLayout()
     }
     
     // MARK: - Navigation
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         var vc = segue.destination as! SeedCheckupProtocol
         vc.seedToVerify = self.seed
