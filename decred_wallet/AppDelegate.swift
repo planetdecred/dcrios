@@ -14,18 +14,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     fileprivate let loadThread = DispatchQueue.self
 
     fileprivate func walletSetupView() {
+         DispatchQueue.main.async{
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let walletSetupController = storyboard.instantiateViewController(withIdentifier: "WalletSetupViewController") as! WalletSetupViewController
         let nv = UINavigationController(rootViewController: walletSetupController)
         nv.isNavigationBarHidden = true
-        window?.rootViewController = nv
-        DispatchQueue.main.async{
+        self.window?.rootViewController = nv
+       
             self.window?.makeKeyAndVisible()
         }
     }
 
     fileprivate func createMenuView() {
         // create viewController code...
+         DispatchQueue.main.async{
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let mainViewController = storyboard.instantiateViewController(withIdentifier: "OverviewViewController") as! OverviewViewController
         let leftViewController = storyboard.instantiateViewController(withIdentifier: "LeftViewController") as! LeftViewController
@@ -37,12 +39,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         leftViewController.mainViewController = nvc
 
         let slideMenuController = ExSlideMenuController(mainViewController: nvc, leftMenuViewController: leftViewController)
-        slideMenuController.changeLeftViewWidth((window?.frame.size.width)! - (window?.frame.size.width)! / 6)
+            slideMenuController.changeLeftViewWidth((self.window?.frame.size.width)! - (self.window?.frame.size.width)! / 6)
 
         slideMenuController.delegate = mainViewController
-        window?.backgroundColor = GlobalConstants.Colors.lightGrey
-        window?.rootViewController = slideMenuController
-        DispatchQueue.main.async{
+            self.window?.backgroundColor = GlobalConstants.Colors.lightGrey
+            self.window?.rootViewController = slideMenuController
+       
             self.window?.makeKeyAndVisible()
         }
     }

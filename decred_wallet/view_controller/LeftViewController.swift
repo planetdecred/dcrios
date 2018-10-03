@@ -153,6 +153,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
     }
     
     func changeViewController(_ menu: LeftMenu) {
+         DispatchQueue.main.async{
         switch menu {
         case .overview:
             self.slideMenuController()?.changeMainViewController(self.mainViewController, close: true)
@@ -166,7 +167,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
                 self.sendViewController = nil
             }
         case .account:
-            let accountViewController = storyboard2?.instantiateViewController(withIdentifier: "AccountViewController") as! AccountViewController
+            let accountViewController = self.storyboard2?.instantiateViewController(withIdentifier: "AccountViewController") as! AccountViewController
             self.accountViewController = UINavigationController(rootViewController: accountViewController)
             
             self.slideMenuController()?.changeMainViewController(self.accountViewController, close: true)
@@ -175,7 +176,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
                     self.sendViewController = nil
                 }
         case .send:
-            let sendViewController = storyboard2?.instantiateViewController(withIdentifier: "SendViewController") as! SendViewController
+            let sendViewController = self.storyboard2?.instantiateViewController(withIdentifier: "SendViewController") as! SendViewController
             self.sendViewController = UINavigationController(rootViewController: sendViewController)
             self.slideMenuController()?.changeMainViewController(self.sendViewController, close: true)
             if(self.accountViewController != nil){
@@ -183,7 +184,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
                 self.accountViewController = nil
             }
         case .receive:
-            let goViewController = storyboard2?.instantiateViewController(withIdentifier: "ReceiveViewController") as! ReceiveViewController
+            let goViewController = self.storyboard2?.instantiateViewController(withIdentifier: "ReceiveViewController") as! ReceiveViewController
             self.receiveViewController = UINavigationController(rootViewController: goViewController)
             self.slideMenuController()?.changeMainViewController(self.receiveViewController, close: true)
             if(self.accountViewController != nil){
@@ -196,7 +197,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
                 self.sendViewController = nil
             }
         case .settings:
-            let settingsController = storyboard2.instantiateViewController(withIdentifier: "SettingsController2") as! SettingsController
+            let settingsController = self.storyboard2.instantiateViewController(withIdentifier: "SettingsController2") as! SettingsController
             settingsController.delegate = self
             self.settingsViewController = UINavigationController(rootViewController: settingsController)
             self.slideMenuController()?.changeMainViewController(self.settingsViewController, close: true)
@@ -237,6 +238,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
                 self.sendViewController = nil
             }
             
+        }
         }
     }
 }
