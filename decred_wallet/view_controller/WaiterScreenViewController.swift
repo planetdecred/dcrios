@@ -32,7 +32,7 @@ class WaiterScreenViewController: UIViewController, WaiterScreenProtocol {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-      // logo.image = UIImage.gifImageWithName("loaderAnimation")
+       //logo.image = UIImage.gifImageWithName("decred_logo")
        set(duration: 4)
     }
     
