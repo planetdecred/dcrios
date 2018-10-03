@@ -1,21 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="Helvetica.ttc">
-            <string>Helvetica-Bold</string>
-        </array>
-    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -28,7 +23,20 @@
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gEi-Dy-yHm">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <subviews>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="beQ-gl-OQd">
+                                <rect key="frame" x="0.0" y="0.0" width="6" height="43.5"/>
+                                <color key="backgroundColor" red="0.16470588235294117" green="0.83921568627450982" blue="0.66235173757002797" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="6" id="b9C-1b-Cc0"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" red="0.94509803920000002" green="0.95294117649999999" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="beQ-gl-OQd" secondAttribute="bottom" id="MNJ-YM-Bp0"/>
+                            <constraint firstItem="beQ-gl-OQd" firstAttribute="top" secondItem="gEi-Dy-yHm" secondAttribute="top" id="y0G-Us-O5h"/>
+                        </constraints>
                     </view>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bIe-GN-mEy">
                         <rect key="frame" x="18" y="9" width="26" height="26"/>
@@ -43,19 +51,12 @@
                         <color key="textColor" red="0.52549019610000003" green="0.5450980392" blue="0.62745098040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="beQ-gl-OQd">
-                        <rect key="frame" x="314" y="0.0" width="6" height="43.5"/>
-                        <color key="backgroundColor" red="0.16470588235294117" green="0.83921568627450982" blue="0.66235173757002797" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="6" id="b9C-1b-Cc0"/>
-                        </constraints>
-                    </view>
                 </subviews>
-                <color key="backgroundColor" red="0.94509803921568625" green="0.95294117647058818" blue="0.94901960784313721" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                <color key="backgroundColor" red="0.97647058823529409" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="beQ-gl-OQd" secondAttribute="bottom" id="22m-Zg-WXH"/>
                     <constraint firstItem="gEi-Dy-yHm" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="5ND-NC-nBd"/>
                     <constraint firstItem="bIe-GN-mEy" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="9" id="5cF-om-YQX"/>
+                    <constraint firstAttribute="trailing" secondItem="VRN-tO-V10" secondAttribute="trailing" constant="16" id="6Vk-6Z-8ee"/>
                     <constraint firstAttribute="bottom" secondItem="gEi-Dy-yHm" secondAttribute="bottom" id="FSB-2w-UUi"/>
                     <constraint firstItem="bIe-GN-mEy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="18" id="Ig7-XG-HWp"/>
                     <constraint firstItem="gEi-Dy-yHm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="MTH-Ys-sfB"/>
@@ -64,9 +65,7 @@
                     <constraint firstAttribute="bottom" secondItem="VRN-tO-V10" secondAttribute="bottom" id="ZDh-DW-DQT"/>
                     <constraint firstItem="VRN-tO-V10" firstAttribute="leading" secondItem="bIe-GN-mEy" secondAttribute="trailing" constant="35" id="dsm-Zt-MQm"/>
                     <constraint firstItem="VRN-tO-V10" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-11" id="ffU-O3-f3Q"/>
-                    <constraint firstItem="beQ-gl-OQd" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="kaB-IE-BLw"/>
-                    <constraint firstAttribute="trailing" secondItem="beQ-gl-OQd" secondAttribute="trailing" id="siy-Im-ae7"/>
-                    <constraint firstItem="beQ-gl-OQd" firstAttribute="leading" secondItem="VRN-tO-V10" secondAttribute="trailing" constant="10" id="x0r-Ry-Ovk"/>
+                    <constraint firstItem="bIe-GN-mEy" firstAttribute="leading" secondItem="beQ-gl-OQd" secondAttribute="trailing" constant="12" id="pIR-GO-uK1"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
