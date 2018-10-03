@@ -98,7 +98,6 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
         let headerView = AccountsHeaderView.loadNib()
         print("account inputing headerView data")
         let data = myBalances[section]
-        headerView.hightLithColor = data.color
         headerView.title = data.title
         headerView.totalBalance = data.totalBalance
         headerView.spendableBalance = data.spendableBalance

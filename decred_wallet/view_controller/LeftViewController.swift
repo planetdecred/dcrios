@@ -15,6 +15,7 @@ enum LeftMenu: Int {
     case receive
     case history
     case settings
+    case help
 
 }
 
@@ -33,17 +34,19 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
     @IBOutlet weak var bestblock: UILabel!
     @IBOutlet weak var chainStatus: UILabel!
     @IBOutlet weak var tableView: UITableView!
-    var menus = ["Overview", "Account", "Send", "Receive","History", "Settings"]
+    var menus = ["Overview", "Account", "Send", "Receive","History", "Settings","Help"]
     var mainViewController: UIViewController!
     var accountViewController: UIViewController!
     var sendViewController: UIViewController!
     var receiveViewController: UIViewController!
     var settingsViewController: UIViewController!
     var historyViewController: UIViewController!
+    var helpViewController:  UIViewController!
     var imageHeaderView: ImageHeaderView!
     var selectedIndex: Int!
     var storyboard2: UIStoryboard!
     
+    @IBOutlet weak var statusBackgroud: UIView!
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -52,12 +55,9 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         super.viewDidLoad()
         self.selectedIndex = 0
         self.tableView.separatorColor = GlobalConstants.Colors.separaterGrey
-       // self.rescanHeight.isHidden = true
-        
-         storyboard2 =  UIStoryboard(name: "Main", bundle: nil)
-        
-        self.tableView.registerCellClass(MenuCell.self)
-        
+       // self.rescanHeight.isHidden = true 
+         storyboard2 =  UIStoryboard(name: "Main", bundle: nil)  
+        self.tableView.registerCellClass(MenuCell.self)     
         self.imageHeaderView = ImageHeaderView.loadNib()
         self.view.addSubview(self.imageHeaderView)
        /* if ((AppContext.instance.decrdConnection?.wallet?.isNetBackendNil())!){
@@ -111,10 +111,11 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
                 this.bestblock.text = String(bestblocktemp).appending(" of ").appending(String(estimatedBlocks))
                 this.chainStatus.text = ""
                 this.blockInfo.text = "Fetched"
-
+                this.statusBackgroud.backgroundColor = UIColor(hex: "#2DD8A3")
                 this.connectionStatus.text = "Fetching Headers..."
             }
             else {
+                this.statusBackgroud.backgroundColor = UIColor(hex: "#FFC84E")
                 this.connectionStatus.text = "Rescanning in progress..."
                 this.bestblock.text = String(bestblocktemp)
                 this.blockInfo.text = "Latest Block"
@@ -147,7 +148,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.imageHeaderView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 160)
+        self.imageHeaderView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 130)
         self.view.layoutIfNeeded()
     }
     
@@ -222,6 +223,19 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
                 self.sendViewController.dismiss(animated: true, completion: nil)
                 self.sendViewController = nil
             }
+          case .help:
+          let helpViewController  = storyboard2.instantiateViewController(withIdentifier: "HelpViewController") as! HelpViewController
+          self.helpViewController = UINavigationController(rootViewController: helpViewController)
+          self.slideMenuController()?.changeMainViewController(self.helpViewController, close: true)
+          if(self.accountViewController != nil){
+                self.accountViewController.dismiss(animated: true, completion: nil)
+                self.accountViewController = nil
+                
+            }
+            if(self.sendViewController != nil){
+                self.sendViewController.dismiss(animated: true, completion: nil)
+                self.sendViewController = nil
+            }
             
         }
     }
@@ -231,7 +245,7 @@ extension LeftViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if let menu = LeftMenu(rawValue: indexPath.row) {
             switch menu {
-            case .overview, .account, .send, .receive, .history, .settings:
+            case .overview, .account, .send, .receive, .history, .settings, .help:
                 return MenuCell.height()
             }
         }
@@ -263,7 +277,7 @@ extension LeftViewController : UITableViewDataSource {
         
         if let menu = LeftMenu(rawValue: indexPath.row) {
             switch menu {
-            case .overview, .account, .send, .receive, .history, .settings:
+            case .overview, .account, .send, .receive, .history, .settings, .help:
                 
                 
                 tableView.register(UINib(nibName: MenuCell.identifier, bundle: nil), forCellReuseIdentifier: MenuCell.identifier)
