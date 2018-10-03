@@ -57,14 +57,17 @@ open class MenuCell : UITableViewCell {
             else if(menuText == "History"){
                 self.menuImage?.image = UIImage(named: "history")
             }
+            else if(menuText == "Help"){
+                self.menuImage?.image = UIImage(named: "help")
+            }
         }
     }
     
     override open func setHighlighted(_ highlighted: Bool, animated: Bool) {
         if highlighted {
-            self.alpha = 0.4
+            self.backgroundColor = UIColor(hex: "#FFFFFF")
         } else {
-            self.alpha = 1.0
+            self.backgroundColor = UIColor(hex: "#F9FAFA")
         }
     }
     

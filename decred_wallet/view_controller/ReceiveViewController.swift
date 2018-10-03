@@ -22,7 +22,7 @@ class ReceiveViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.accountDropdown.backgroundColor = UIColor.clear
+        self.accountDropdown.backgroundColor = UIColor.white
         self.showFirstWalletAddressAndQRCode()
         self.populateWalletDropdownMenu()
         self.starttime = Int64(NSDate().timeIntervalSince1970)
@@ -70,8 +70,7 @@ class ReceiveViewController: UIViewController {
             print("no account")
         }
     }
-  
-  
+
     @IBAction func tapCopy(_ sender: Any) {
         DispatchQueue.main.async {
             //Copy a string to the pasteboard.
@@ -103,13 +102,14 @@ class ReceiveViewController: UIViewController {
                 defaultAccount.Name,
                 for: UIControlState.normal
             )
+            self.accountDropdown.backgroundColor = UIColor.white
             
-            self.accountDropdown.backgroundColor = UIColor(
+            /*self.accountDropdown.backgroundColor = UIColor(
                 red: 173.0 / 255.0,
                 green: 231.0 / 255.0,
                 blue: 249.0 / 255.0,
                 alpha: 1.0
-            )
+            )*/
         }
         
         let accNames: [String] = (self.account?.Acc.map({ $0.Name }))!
