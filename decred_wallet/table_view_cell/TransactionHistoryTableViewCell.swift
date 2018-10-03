@@ -47,7 +47,7 @@ class TransactionHistoryTableViewCell: BaseTableViewCell {
     override func setData(_ data: Any?) {
         if let data = data as? TransactionTableViewCellData {
             
-            let confirmation =  AppContext.instance.decrdConnection?.wallet?.getBestBlock()
+            let confirmation =  SingleInstance.shared.wallet?.getBestBlock()
             let confirm2 = (confirmation)! - Int32(data.trans.Height)
             print("am in here")
             if(confirm2 == -1){

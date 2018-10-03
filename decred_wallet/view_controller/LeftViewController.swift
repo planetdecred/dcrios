@@ -44,6 +44,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
     var helpViewController:  UIViewController!
     var imageHeaderView: ImageHeaderView!
     var selectedIndex: Int!
+    var storyboard2: UIStoryboard!
     
     @IBOutlet weak var statusBackgroud: UIView!
     required init?(coder aDecoder: NSCoder) {
@@ -54,31 +55,9 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         super.viewDidLoad()
         self.selectedIndex = 0
         self.tableView.separatorColor = GlobalConstants.Colors.separaterGrey
-       // self.rescanHeight.isHidden = true
-        
-        let storyboard =  UIStoryboard(name: "Main", bundle: nil)
-        let accountViewController = storyboard.instantiateViewController(withIdentifier: "AccountViewController") as! AccountViewController
-        self.accountViewController = UINavigationController(rootViewController: accountViewController)
-        
-        let sendViewController = storyboard.instantiateViewController(withIdentifier: "SendViewController") as! SendViewController
-        self.sendViewController = UINavigationController(rootViewController: sendViewController)
-        
-        let goViewController = storyboard.instantiateViewController(withIdentifier: "ReceiveViewController") as! ReceiveViewController
-        self.receiveViewController = UINavigationController(rootViewController: goViewController)
-        self.helpViewController  = storyboard.instantiateViewController(withIdentifier: "HelpViewController") as! HelpViewController
-        self.helpViewController = UINavigationController(rootViewController: helpViewController)
-        
-        let settingsController = storyboard.instantiateViewController(withIdentifier: "SettingsController2") as! SettingsController
-        settingsController.delegate = self
-        self.settingsViewController = UINavigationController(rootViewController: settingsController)
-        
-        let trController = TransactionHistoryViewController(nibName: "TransactionHistoryViewController", bundle: nil) as TransactionHistoryViewController?
-        trController?.delegate = self
-        self.historyViewController = UINavigationController(rootViewController: trController!)
-       
-        
-        self.tableView.registerCellClass(MenuCell.self)
-        
+       // self.rescanHeight.isHidden = true 
+         storyboard2 =  UIStoryboard(name: "Main", bundle: nil)  
+        self.tableView.registerCellClass(MenuCell.self)     
         self.imageHeaderView = ImageHeaderView.loadNib()
         self.view.addSubview(self.imageHeaderView)
        /* if ((AppContext.instance.decrdConnection?.wallet?.isNetBackendNil())!){
@@ -114,10 +93,9 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
     }
     
     func loop() {
-        var constant = AppContext.instance.decrdConnection
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
             guard let this = self else { return }
-            let bestblck = constant?.wallet?.getBestBlock()
+            let bestblck = SingleInstance.shared.wallet?.getBestBlock()
             let bestblocktemp: Int64 = Int64(Int(bestblck!))
             if this.scanning == true {
                 this.chainStatus.text = ""
@@ -126,7 +104,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
                 this.bestblock.text = String(bestblck!)
                 return
             }
-            let lastblocktime = constant?.wallet?.getBestBlockTimeStamp()
+            let lastblocktime = SingleInstance.shared.wallet?.getBestBlockTimeStamp()
             let currentTime = NSDate().timeIntervalSince1970
             let estimatedBlocks = ((Int64(currentTime) - lastblocktime!) / 120) + bestblocktemp
             if estimatedBlocks > bestblocktemp {
@@ -178,17 +156,86 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         switch menu {
         case .overview:
             self.slideMenuController()?.changeMainViewController(self.mainViewController, close: true)
+            if(self.accountViewController != nil){
+                self.accountViewController.dismiss(animated: true, completion: nil)
+                self.accountViewController = nil
+                
+            }
+            if(self.sendViewController != nil){
+                self.sendViewController.dismiss(animated: true, completion: nil)
+                self.sendViewController = nil
+            }
         case .account:
+            let accountViewController = storyboard2?.instantiateViewController(withIdentifier: "AccountViewController") as! AccountViewController
+            self.accountViewController = UINavigationController(rootViewController: accountViewController)
+            
             self.slideMenuController()?.changeMainViewController(self.accountViewController, close: true)
+            if(self.sendViewController != nil){
+                    self.sendViewController.dismiss(animated: true, completion: nil)
+                    self.sendViewController = nil
+                }
         case .send:
+            let sendViewController = storyboard2?.instantiateViewController(withIdentifier: "SendViewController") as! SendViewController
+            self.sendViewController = UINavigationController(rootViewController: sendViewController)
             self.slideMenuController()?.changeMainViewController(self.sendViewController, close: true)
+            if(self.accountViewController != nil){
+                self.accountViewController.dismiss(animated: true, completion: nil)
+                self.accountViewController = nil
+            }
         case .receive:
+            let goViewController = storyboard2?.instantiateViewController(withIdentifier: "ReceiveViewController") as! ReceiveViewController
+            self.receiveViewController = UINavigationController(rootViewController: goViewController)
             self.slideMenuController()?.changeMainViewController(self.receiveViewController, close: true)
+            if(self.accountViewController != nil){
+                self.accountViewController.dismiss(animated: true, completion: nil)
+                self.accountViewController = nil
+                
+            }
+            if(self.sendViewController != nil){
+                self.sendViewController.dismiss(animated: true, completion: nil)
+                self.sendViewController = nil
+            }
         case .settings:
+            let settingsController = storyboard2.instantiateViewController(withIdentifier: "SettingsController2") as! SettingsController
+            settingsController.delegate = self
+            self.settingsViewController = UINavigationController(rootViewController: settingsController)
             self.slideMenuController()?.changeMainViewController(self.settingsViewController, close: true)
+            if(self.accountViewController != nil){
+                self.accountViewController.dismiss(animated: true, completion: nil)
+                self.accountViewController = nil
+                
+            }
+            if(self.sendViewController != nil){
+                self.sendViewController.dismiss(animated: true, completion: nil)
+                self.sendViewController = nil
+            }
         case .history:
+            let trController = TransactionHistoryViewController(nibName: "TransactionHistoryViewController", bundle: nil) as TransactionHistoryViewController?
+            trController?.delegate = self
+            self.historyViewController = UINavigationController(rootViewController: trController!)
             self.slideMenuController()?.changeMainViewController(self.historyViewController, close: true)
-        case .help: self.slideMenuController()?.changeMainViewController(self.helpViewController, close: true)
+            if(self.accountViewController != nil){
+                self.accountViewController.dismiss(animated: true, completion: nil)
+                self.accountViewController = nil
+                
+            }
+            if(self.sendViewController != nil){
+                self.sendViewController.dismiss(animated: true, completion: nil)
+                self.sendViewController = nil
+            }
+          case .help:
+          let helpViewController  = storyboard2.instantiateViewController(withIdentifier: "HelpViewController") as! HelpViewController
+          self.helpViewController = UINavigationController(rootViewController: helpViewController)
+          self.slideMenuController()?.changeMainViewController(self.helpViewController, close: true)
+          if(self.accountViewController != nil){
+                self.accountViewController.dismiss(animated: true, completion: nil)
+                self.accountViewController = nil
+                
+            }
+            if(self.sendViewController != nil){
+                self.sendViewController.dismiss(animated: true, completion: nil)
+                self.sendViewController = nil
+            }
             
         }
     }

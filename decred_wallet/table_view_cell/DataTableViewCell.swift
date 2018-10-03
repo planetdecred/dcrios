@@ -35,7 +35,7 @@ class DataTableViewCell : BaseTableViewCell {
     override func setData(_ data: Any?) {
         if let data = data as? DataTableViewCellData {
             //self.dataImage.setRandomDownloadImage(80, height: 80)
-            let confirmation =  AppContext.instance.decrdConnection?.wallet?.getBestBlock()
+            let confirmation =  SingleInstance.shared.wallet?.getBestBlock()
             let confirm2 = (confirmation)! - Int32(data.trans.Height)
             
             print("am in here")
@@ -43,6 +43,7 @@ class DataTableViewCell : BaseTableViewCell {
             if(confirm2 == -1){
                 self.status.textColor = UIColor(hex:"#3d659c")
                 self.status.text = "Pending"
+                print("pending")
             }
             else{
                 if(UserDefaults.standard.bool(forKey: "pref_spend_fund_switch") || confirm2 > 1){

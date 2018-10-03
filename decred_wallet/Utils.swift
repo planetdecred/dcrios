@@ -105,9 +105,10 @@ func generateQRCodeFor(with addres: String, forImageViewFrame: CGRect) -> UIImag
 func spendable(account:AccountsEntity) -> Double{
     let bRequireConfirm = UserDefaults.standard.bool(forKey: "pref_spend_fund_switch")
     let iRequireConfirm = (bRequireConfirm ?? false) ? Int32(0) : Int32(2)
-    let int64Pointer = UnsafeMutablePointer<Int64>.allocate(capacity: 64)
+    let int64Pointer = UnsafeMutablePointer<Int64>.allocate(capacity: 64)    
     do {
-        try  AppContext.instance.decrdConnection?.wallet?.spendable(forAccount: account.Number, requiredConfirmations: iRequireConfirm, ret0_: int64Pointer)
+        
+        try  SingleInstance.shared.wallet?.spendable(forAccount: account.Number, requiredConfirmations: iRequireConfirm, ret0_: int64Pointer)
     } catch let error{
         print(error)
         return 0.0

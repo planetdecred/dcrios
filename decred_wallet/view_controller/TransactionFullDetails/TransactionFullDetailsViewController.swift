@@ -53,7 +53,6 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //AppContext.instance.decrdConnection?.addObserver(transactionsHistoryObserver: self)
        // self.view.addSubview(hud)
         
         tableTransactionDetails
@@ -71,7 +70,7 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
     override func viewWillAppear(_ animated: Bool) {
         hud.show(animated: true)
         wrap(transaction: self.transaction)
-       // AppContext.instance.decrdConnection?.fetchTransactions()
+     
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
