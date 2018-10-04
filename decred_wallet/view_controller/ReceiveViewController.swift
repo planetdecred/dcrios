@@ -14,14 +14,21 @@ class ReceiveViewController: UIViewController {
     var starttime: Int64 = 0
     var myacc: AccountsEntity!
     var account: GetAccountResponse?
+    var tapGesture = UITapGestureRecognizer()
     
     private var selectedAccount = ""
     
     // MARK: - View Life Cycle
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        // TAP Gesture
+        tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.CopyImgAddress(_:)))
+        tapGesture.numberOfTapsRequired = 1
+        tapGesture.numberOfTouchesRequired = 1
+        imgWalletAddrQRCode.addGestureRecognizer(tapGesture)
+        imgWalletAddrQRCode.isUserInteractionEnabled = true
         self.accountDropdown.backgroundColor = UIColor.white
         self.showFirstWalletAddressAndQRCode()
         self.populateWalletDropdownMenu()
@@ -72,6 +79,13 @@ class ReceiveViewController: UIViewController {
     }
 
     @IBAction func tapCopy(_ sender: Any) {
+        self.copyAddress()
+    }
+    @IBAction func CopyImgAddress(_ sender: UITapGestureRecognizer) {
+        self.copyAddress()
+    }
+    
+    private func copyAddress(){
         DispatchQueue.main.async {
             //Copy a string to the pasteboard.
             UIPasteboard.general.string = self.walletAddress.currentTitle
