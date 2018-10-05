@@ -73,7 +73,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     fileprivate func showAnimatedStartScreen() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        populateFirstScreen()
+        /*let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let startScreenController = storyboard.instantiateViewController(withIdentifier: "WaiterScreenViewController") as! WaiterScreenViewController
 
         startScreenController.onFinish = { [weak self] in
@@ -90,7 +91,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().tintColor = GlobalConstants.Colors.navigationBarColor
         self.navigation?.navigationBar.isHidden = true
         self.window?.rootViewController = self.navigation
-        self.window?.makeKeyAndVisible()
+        self.window?.makeKeyAndVisible()*/
     }
 
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {

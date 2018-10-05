@@ -102,10 +102,6 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
         
         // Dispose of any resources that can be recreated.
     }
-    
-    
-        
-        
    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
@@ -360,8 +356,7 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
                 self.updateCurrentBalance()
             }
         }
-        
-        
+        print("afer synced wallet")
     }
     
     func onBlockNotificationError(_ err: Error!) {
@@ -374,9 +369,6 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
         if(visible == true){
              updateCurrentBalance()
         }
-       
-   
-        
     }
     
     func onEnd(_ height: Int32, cancelled: Bool) {
@@ -454,7 +446,6 @@ extension OverviewViewController : UITableViewDataSource {
             return cell
         }
         return cell
-        
     }
 }
 
