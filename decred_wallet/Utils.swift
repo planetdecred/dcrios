@@ -113,7 +113,9 @@ func spendable(account:AccountsEntity) -> Double{
         print(error)
         return 0.0
     }
-    return Double(int64Pointer.move() /  100000000)
+    let result = Double(int64Pointer.move() /  100000000)
+    int64Pointer.deallocate()
+    return result
 }
 func loadCertificate() throws ->  String {
     let filePath = NSHomeDirectory() + "/Documents/rpc.cert"
