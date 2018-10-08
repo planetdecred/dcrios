@@ -48,6 +48,7 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
         // let isValidAddressInClipboard = validate(address:UIPasteboard.general.string!)
         // if isValidAddressInClipboard {destinationAddress.text = UIPasteboard.general.string ?? ""}
         self.updateBalance()
+        SingleInstance.shared.wallet?.runGC()
     }
     
     override func didReceiveMemoryWarning() {
@@ -216,7 +217,7 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
     }
     
     private func confirmSend(sendAll: Bool) {
-        let amountToSend = Double((tfAmount?.text)!)!
+        let amountToSend = Double((tfAmount?.text)!) ?? 0.0
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let confirmSendFundViewController = storyboard.instantiateViewController(withIdentifier: "ConfirmToSendFundViewController") as! ConfirmToSendFundViewController
         confirmSendFundViewController.modalTransitionStyle = .crossDissolve
@@ -231,14 +232,9 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
                 this.signTransaction(sendAll: sendAll)
                // self?.selectedAccount = nil
                 return
-                
-                
             }
         }
-        //DispatchQueue.main.async {
         self.present(confirmSendFundViewController, animated: true, completion: nil)
-        //}
-        
         return
     }
     
