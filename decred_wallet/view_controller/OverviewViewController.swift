@@ -441,7 +441,7 @@ extension OverviewViewController : UITableViewDelegate {
 
 extension OverviewViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return min(self.mainContens.count, 4)
+        return min(self.mainContens.count, 6)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

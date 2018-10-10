@@ -146,7 +146,7 @@ func getAttributedString(str: String) -> NSAttributedString {
                                 length:(stt?.length)!-1 - ((dotRange?.location)!+2)))
         
         atrStr.addAttribute(NSAttributedStringKey.foregroundColor,
-                            value: UIColor.darkText,
+                            value: UIColor(hex: "#091440"),
                             range: NSRange(
                                 location:(dotRange?.location)!+3,
                                 length:((stt?.length)!-1) - ((dotRange?.location)!+2)))

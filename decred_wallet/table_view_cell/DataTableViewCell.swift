@@ -25,11 +25,10 @@ class DataTableViewCell : BaseTableViewCell {
     var count = 0
     
     override func awakeFromNib() {
-        self.dataText?.font = UIFont.systemFont(ofSize: 16)
-    }
+            }
     
     override class func height() -> CGFloat {
-        return 80
+        return 60
     }
     
     override func setData(_ data: Any?) {
@@ -48,17 +47,20 @@ class DataTableViewCell : BaseTableViewCell {
             else{
                 if(UserDefaults.standard.bool(forKey: "pref_spend_fund_switch") || confirm2 > 1){
                     
-                    self.status.textColor = UIColor(hex:"#55bb97")
+                    self.status.textColor = UIColor(hex:"#2DD8A3")
                     self.status.text = "Confirmed"
                 }
                 else{
-                    self.status.textColor = UIColor(hex:"#3d659c")
+                    self.status.textColor = UIColor(hex:"#2970FF")
                     self.status.text = "Pending"
                 }
             }
             let Date2 = NSDate.init(timeIntervalSince1970: TimeInterval(data.trans.Timestamp) )
             let dateformater = DateFormatter()
-            dateformater.dateFormat = "yyyy-MM-dd hh:mm"
+            dateformater.locale = Locale(identifier: "en_US_POSIX")
+            dateformater.dateFormat = "MMM dd, yyyy h:mm:ss a"
+            dateformater.amSymbol = "AM"
+            dateformater.pmSymbol = "PM"
             dateformater.string(from: Date2 as Date)
             self.dateT.text = dateformater.string(from: Date2 as Date)
             
