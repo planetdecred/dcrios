@@ -65,7 +65,7 @@ class DataTableViewCell : BaseTableViewCell {
             self.dateT.text = dateformater.string(from: Date2 as Date)
             
             if(data.trans.Direction == 0){
-                self.dataText.attributedText = getAttributedString(str: "-".appending(Decimal(data.trans.Amount / 100000000.00).description))
+                self.dataText.attributedText = getAttributedString(str: "-".appending(Decimal(data.trans.Amount / 100000000.00).description), siz: 12.0)
                 print("deduction")
                 print(data.trans.Amount)
                 let num = Decimal(data.trans.Amount) / 100000000
@@ -73,14 +73,14 @@ class DataTableViewCell : BaseTableViewCell {
                 self.dataImage?.image = UIImage(named: "debit")
             }
             else if(data.trans.Direction == 1){
-                 self.dataText.attributedText = getAttributedString(str: Decimal(data.trans.Amount / 100000000.00).description)
+                self.dataText.attributedText = getAttributedString(str: Decimal(data.trans.Amount / 100000000.00).description, siz: 12.0)
                 self.dataImage?.image = UIImage(named: "credit")
                  print(data.trans.Amount)
                 let num = Decimal(data.trans.Amount) / 100000000
                 print(Double(num.description)!)
             }
             else if(data.trans.Direction == 2){
-                self.dataText.attributedText = getAttributedString(str: (data.trans.Amount / 100000000.00).description)
+                self.dataText.attributedText = getAttributedString(str: (data.trans.Amount / 100000000.00).description, siz: 12.0)
                 self.dataImage?.image = UIImage(named: "account")
                  print(data.trans.Amount)
                 let num = Decimal(data.trans.Amount) / 100000000
