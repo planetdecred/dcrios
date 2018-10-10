@@ -258,10 +258,10 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
                 let strAccount = try SingleInstance.shared.wallet?.getAccounts(0)
                 account = try JSONDecoder().decode(GetAccountResponse.self, from: (strAccount?.data(using: .utf8))!)
                 amount =
-                "\((account.Acc.first?.dcrTotalBalance)!) DCR"
+                "\((account.Acc.first?.dcrTotalBalance)!)"
                 DispatchQueue.main.async {
                     if(amount != nil){
-                    self?.lbCurrentBalance.attributedText = getAttributedString(str: amount)
+                        self?.lbCurrentBalance.attributedText = getAttributedString(str: amount, siz: 15.0)
                     }
                 }
             } catch let error {
@@ -428,10 +428,8 @@ extension OverviewViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let storyboard = UIStoryboard(name: "TransactionFullDetailsViewController", bundle: nil)
         let subContentsVC = storyboard.instantiateViewController(withIdentifier: "TransactionFullDetailsViewController") as! TransactionFullDetailsViewController
-        print("index is")
         print(indexPath.row)
         if self.mainContens.count == 0{
-            print("error")
             return
         }
         subContentsVC.transaction = self.mainContens[indexPath.row]
@@ -441,15 +439,13 @@ extension OverviewViewController : UITableViewDelegate {
 
 extension OverviewViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return min(self.mainContens.count, 4)
+        return min(self.mainContens.count, 6)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: DataTableViewCell.identifier) as! DataTableViewCell
-        print("about to crash")
         if self.mainContens.count != 0{
             let data = DataTableViewCellData(trans: self.mainContens[indexPath.row])
-            print("pass")
             cell.setData(data)
             return cell
         }
