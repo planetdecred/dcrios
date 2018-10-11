@@ -64,6 +64,7 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
     @IBOutlet weak var lbCurrentBalance: UILabel!
     @IBOutlet var viewTableHeader: UIView!
     @IBOutlet var viewTableFooter: UIView!
+    @IBOutlet weak var activityIndicator: UIImageView!
     
     var visible = false
     var scanning = false
@@ -94,7 +95,7 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
             print("adding observer")
         
         SingleInstance.shared.wallet?.transactionNotification(self)
-       
+       showActivity()
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -104,7 +105,17 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
     }
     
     
-        
+    private func showActivity(){
+        lbCurrentBalance.isHidden = true
+        let image = UIImage.gifImageWithURL(Bundle.main.url(forResource: "progress bar-1s-200px", withExtension: "gif")?.absoluteString ?? "");
+        activityIndicator.image = image
+    }
+
+    private func hideActivityIndicator(){
+        activityIndicator.isHidden = true
+        lbCurrentBalance.isHidden = false
+    }
+
         
    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -260,7 +271,9 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
                 amount =
                 "\((account.Acc.first?.dcrTotalBalance)!) DCR"
                 DispatchQueue.main.async {
+                    self?.hideActivityIndicator()
                     if(amount != nil){
+                        
                     self?.lbCurrentBalance.attributedText = getAttributedString(str: amount)
                     }
                 }
