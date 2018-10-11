@@ -120,33 +120,35 @@ func loadCertificate() throws ->  String {
     return try String.init(contentsOfFile: filePath)
 }
 
-func getAttributedString(str: String) -> NSAttributedString {
+func getAttributedString(str: String, siz: CGFloat) -> NSAttributedString {
     var tmpString = str
     var Strr:NSString = ""
     if !tmpString.contains("."){
         Strr =  (str.appending(".00") as NSString)
         tmpString = str.appending(".00")
     }
-    let TmpDot = Strr.range(of: ".")
-    if(tmpString.length - TmpDot.location == 1){
+    let tmp2 = tmpString as NSString
+    let TmpDot = tmp2.range(of: ".")
+    if((tmpString.length - (TmpDot.location + 1)) == 1){
         tmpString = str.appending("0")
+       
     }
     
-    var stt = tmpString as NSString!
+    let stt = tmpString.appending(" DCR") as NSString?
     let atrStr = NSMutableAttributedString(string: stt! as String)
     let dotRange = stt?.range(of: ".")
     //print("Index = \(dotRange?.location)")
     if(tmpString.length > ((dotRange?.location)!+2)) {
         atrStr.addAttribute(NSAttributedStringKey.font,
                             value: UIFont(
-                                name: "AmericanTypewriter",
-                                size: 13.0)!,
+                                name: "Helvetica",
+                                size: siz)!,
                             range: NSRange(
                                 location:(dotRange?.location)!+3,
                                 length:(stt?.length)!-1 - ((dotRange?.location)!+2)))
-        
+       
         atrStr.addAttribute(NSAttributedStringKey.foregroundColor,
-                            value: UIColor.darkText,
+                            value: UIColor(hex: "#091440"),
                             range: NSRange(
                                 location:(dotRange?.location)!+3,
                                 length:((stt?.length)!-1) - ((dotRange?.location)!+2)))

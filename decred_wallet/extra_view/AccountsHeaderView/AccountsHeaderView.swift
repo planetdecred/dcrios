@@ -18,7 +18,7 @@ class AccountsHeaderView: UIView {
         willSet {
             DispatchQueue.main.async { [weak self] in
             
-                self?.labelTotalBalance.attributedText = getAttributedString(str: "\(newValue)")
+                self?.labelTotalBalance.attributedText = getAttributedString(str: "\(newValue)", siz: 13.0)
                 //this.labelTotalBalance.text = "\(newValue)".appending("DCR")
             }
         }
