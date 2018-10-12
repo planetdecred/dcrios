@@ -34,6 +34,7 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        SingleInstance.shared.wallet?.runGC()
         //tfAmountValue.addDoneButton()
         self.sendBtn.layer.cornerRadius = 5; self.accountDropdown.backgroundColor = UIColor.clear
         self.tfAmount.text = "0"
@@ -180,34 +181,28 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
     }
     
     private func signTransaction(sendAll: Bool?) {
-        //DispatchQueue.main.async {
-        let password = (self.password?.data(using: .utf8))!
-        let walletAddress = self.walletAddress.text!
-        let amount = Double((self.tfAmount.text)!)! * 100000000
-        let account = (self.selectedAccount?.Number)!
-        //DispatchQueue.global(qos: .userInitiated).async {[unowned self] in
-        do {
-            let isShouldBeConfirmed = UserDefaults.standard.bool(forKey: "pref_spend_fund_switch")
-            let result = try SingleInstance.shared.wallet?.sendTransaction(password, destAddr: walletAddress, amount: Int64(amount) , srcAccount: account , requiredConfs: isShouldBeConfirmed ? 0 : 2, sendAll: sendAll ?? false)
-         
-            //DispatchQueue.main.async {
+        DispatchQueue.main.async {
+            let password = (self.password?.data(using: .utf8))!
+            let walletAddress = self.walletAddress.text!
+            let amount = Double((self.tfAmount.text)!)! * 100000000
+            let account = (self.selectedAccount?.Number)!
+            do {
+                let isShouldBeConfirmed = UserDefaults.standard.bool(forKey: "pref_spend_fund_switch")
+                let result = try SingleInstance.shared.wallet?.sendTransaction(password, destAddr: walletAddress, amount: Int64(amount) , srcAccount: account , requiredConfs: isShouldBeConfirmed ? 0 : 2, sendAll: sendAll ?? false)
+                
                 self.transactionSucceeded(hash: result?.hexEncodedString())
                 self.walletAddress.text = ""
                 self.tfAmount.text = ""
                 self.estimateFee.text = ""
                 self.estimateSize.text = ""
-               
+                
                 return
-
-            //}
-            return
-            
-        } catch let error {
-            self.showAlert(message: error.localizedDescription)
-         
+                
+            } catch let error {
+                self.showAlert(message: error.localizedDescription)
+                
+            }
         }
-        //}
-        //}
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -228,9 +223,10 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
             guard let `self` = self else { return }
             DispatchQueue.global(qos: .userInitiated).async { [weak self] in
                 guard let this = self else { return }
-                SingleInstance.shared.wallet?.runGC()
+                
                 this.signTransaction(sendAll: sendAll)
                // self?.selectedAccount = nil
+                SingleInstance.shared.wallet?.runGC()
                 return
             }
         }
