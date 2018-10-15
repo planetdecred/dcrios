@@ -62,7 +62,6 @@
 		DD419763202F9B570044F068 /* UITableViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD419762202F9B570044F068 /* UITableViewExtension.swift */; };
 		DD4C89D92038EC12003FEA0C /* DropMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4C89D82038CDBC003FEA0C /* DropMenuButton.swift */; };
 		DD4C89DA2038EC3F003FEA0C /* keyPadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4C89D72038CABD003FEA0C /* keyPadButton.swift */; };
-		DD803EA2216BC0A9008C2610 /* Mobilewallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD803EA1216BC0A9008C2610 /* Mobilewallet.framework */; };
 		DD96B33F20293F110046F2DD /* LeftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD96B33E20293F110046F2DD /* LeftViewController.swift */; };
 		DDA3E26E20292EF900C83D18 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA3E26D20292EF900C83D18 /* AppDelegate.swift */; };
 		DDA3E27320292EF900C83D18 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDA3E27120292EF900C83D18 /* Main.storyboard */; };
@@ -84,6 +83,7 @@
 		DDB89421202F93B3002F85EE /* OverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB89420202F93B3002F85EE /* OverviewViewController.swift */; };
 		DDB89427202F955F002F85EE /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB89426202F955F002F85EE /* UIView.swift */; };
 		DDB89429202F95AC002F85EE /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB89428202F95AC002F85EE /* UIApplication.swift */; };
+		DDC75C462170CD3900FB922F /* Mobilewallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDC75C452170CD3900FB922F /* Mobilewallet.framework */; };
 		DDE90C8A2162CCB20031CED7 /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE90C892162CCB20031CED7 /* HelpViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -173,7 +173,6 @@
 		DD419762202F9B570044F068 /* UITableViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewExtension.swift; sourceTree = "<group>"; };
 		DD4C89D72038CABD003FEA0C /* keyPadButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = keyPadButton.swift; sourceTree = "<group>"; };
 		DD4C89D82038CDBC003FEA0C /* DropMenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropMenuButton.swift; sourceTree = "<group>"; };
-		DD803EA1216BC0A9008C2610 /* Mobilewallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mobilewallet.framework; sourceTree = "<group>"; };
 		DD96B33E20293F110046F2DD /* LeftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftViewController.swift; sourceTree = "<group>"; };
 		DDA3E26A20292EF900C83D18 /* DecredWallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DecredWallet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDA3E26D20292EF900C83D18 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -199,6 +198,7 @@
 		DDB89420202F93B3002F85EE /* OverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewViewController.swift; sourceTree = "<group>"; };
 		DDB89426202F955F002F85EE /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		DDB89428202F95AC002F85EE /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
+		DDC75C452170CD3900FB922F /* Mobilewallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mobilewallet.framework; sourceTree = "<group>"; };
 		DDE90C892162CCB20031CED7 /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		E75324D536F1BD91575D0609 /* Pods_Decred_Wallet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Decred_Wallet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -209,7 +209,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1E3D73D7EA02D2D2D3CD052C /* Pods_Decred_Wallet.framework in Frameworks */,
-				DD803EA2216BC0A9008C2610 /* Mobilewallet.framework in Frameworks */,
+				DDC75C462170CD3900FB922F /* Mobilewallet.framework in Frameworks */,
 				B853136BC96255F028D8CB64 /* Pods_Decred_Wallet.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -256,7 +256,7 @@
 		5300E0A95A9FA022A08F903E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DD803EA1216BC0A9008C2610 /* Mobilewallet.framework */,
+				DDC75C452170CD3900FB922F /* Mobilewallet.framework */,
 				28FD1BD0208F6C9A0051F58F /* Pods_Decred_Wallet.framework */,
 				28FD1BC5208E667F0051F58F /* Pods_Decred_Wallet.framework */,
 				28FD1BC1208E659A0051F58F /* Pods_Decred_Wallet.framework */,
