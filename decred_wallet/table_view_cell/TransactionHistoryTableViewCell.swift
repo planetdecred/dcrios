@@ -41,7 +41,7 @@ class TransactionHistoryTableViewCell: BaseTableViewCell {
     }
     
     override class func height() -> CGFloat {
-        return 80
+        return 60
     }
     
     override func setData(_ data: Any?) {
@@ -57,7 +57,7 @@ class TransactionHistoryTableViewCell: BaseTableViewCell {
             else{
                 if(UserDefaults.standard.bool(forKey: "pref_spend_fund_switch") || confirm2 > 1){
                     
-                    self.txtTrStatus.textColor = UIColor(hex:"#55bb97")
+                    self.txtTrStatus.textColor = UIColor(hex:"#2DD8A3")
                     self.txtTrStatus.text = "Confirmed"
                 }
                 else{
@@ -67,7 +67,10 @@ class TransactionHistoryTableViewCell: BaseTableViewCell {
             }
             let Date2 = NSDate.init(timeIntervalSince1970: TimeInterval(data.trans.Timestamp) )
             let dateformater = DateFormatter()
-            dateformater.dateFormat = "yyyy-MM-dd hh:mm"
+            dateformater.locale = Locale(identifier: "en_US_POSIX")
+            dateformater.dateFormat = "MMM dd, yyyy h:mm:ss a"
+            dateformater.amSymbol = "AM"
+            dateformater.pmSymbol = "PM"
             dateformater.string(from: Date2 as Date)
             self.txtDate.text = dateformater.string(from: Date2 as Date)
             
