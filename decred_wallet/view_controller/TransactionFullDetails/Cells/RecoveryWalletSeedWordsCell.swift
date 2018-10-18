@@ -15,12 +15,19 @@ class RecoveryWalletSeedWordsCell: UITableViewCell, UITextFieldDelegate {
      var seed:[String]?
     var wordNum:Int = 0
     var onNext:(()->Void)?
+    var onEditingText:((UITextField)->Void)?
+    
     func setup(wordNum:Int, word: String?, seed:[String]){
         tfSeedWord.delegate = self
         lbWordNum.text = "Word #\(wordNum + 1)"
         tfSeedWord.text = word ?? ""
         self.seed = seed
         self.wordNum = wordNum
+        tfSeedWord.autocorrectionType = .no
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        onEditingText?(textField)
     }
     
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason){

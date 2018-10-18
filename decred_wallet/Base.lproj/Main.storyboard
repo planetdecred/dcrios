@@ -3221,7 +3221,7 @@
                             <viewLayoutGuide key="safeArea" id="1C0-sL-ncj"/>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="seedWordCell" rowHeight="36" id="Urh-a8-TU1" customClass="RecoveryWalletSeedWordsCell" customModule="DecredWallet" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="seedWordCell" rowHeight="36" id="Urh-a8-TU1" customClass="RecoveryWalletSeedWordsCell" customModule="DecredWallet" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="128" width="320" height="36"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Urh-a8-TU1" id="Q4l-eL-cma">
@@ -3269,8 +3269,17 @@
                             <outlet property="delegate" destination="jtS-ck-Bnz" id="Dj8-wv-H0O"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="svSuggestions" destination="aBj-TU-Ann" id="yZb-gg-GJW"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nQG-wl-T2Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <stackView opaque="NO" contentMode="scaleToFill" spacing="10" id="aBj-TU-Ann">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="33"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.92941176469999998" green="0.93725490199999995" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <viewLayoutGuide key="safeArea" id="taJ-7z-FNh"/>
+                </stackView>
             </objects>
             <point key="canvasLocation" x="2557.5" y="842.95774647887322"/>
         </scene>
