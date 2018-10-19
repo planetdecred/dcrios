@@ -9,6 +9,7 @@ import UIKit
 class ReceiveViewController: UIViewController {
     @IBOutlet private var accountDropdown: DropMenuButton!
     @IBOutlet private var imgWalletAddrQRCode: UIImageView!
+    @IBOutlet weak var generateButton: UIButton!
     @IBOutlet var walletAddress: UIButton!
     var firstTrial = true
     var starttime: Int64 = 0
@@ -29,6 +30,7 @@ class ReceiveViewController: UIViewController {
         tapGesture.numberOfTouchesRequired = 1
         imgWalletAddrQRCode.addGestureRecognizer(tapGesture)
         imgWalletAddrQRCode.isUserInteractionEnabled = true
+        self.generateButton.layer.cornerRadius = 6
         self.accountDropdown.backgroundColor = UIColor.white
         self.showFirstWalletAddressAndQRCode()
         self.populateWalletDropdownMenu()

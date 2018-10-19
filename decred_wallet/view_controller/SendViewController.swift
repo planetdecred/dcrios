@@ -7,6 +7,7 @@
 import QRCodeReader
 import UIKit
 import Mobilewallet
+import SafariServices
 
 class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderViewControllerDelegate {
     weak var delegate: LeftMenuProtocol?
@@ -69,17 +70,6 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
         }
         self.tfAmount.text = "\(self.selectedAccount?.Balance?.dcrSpendable ?? 0)"
         self.prepareTransaction(sendAll: self.sendAllTX)
-    }
-    
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        if self.tfAmount.text != nil && self.tfAmount.text != ""  && self.walletAddress.text != nil && self.validateDestinationAddress(){
-            self.prepareTransaction(sendAll: false)
-            return true
-        }
-        if textField == self.tfAmount{
-            self.tfAmount.text = ""
-        }
-        return true
     }
     
     func getAttributedString(str: String) -> NSAttributedString {
@@ -173,7 +163,7 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
              
             }
         } catch let error {
-            self.showAlert(message: error.localizedDescription)
+            self.showAlert(message: error.localizedDescription, titles: "Error")
         }
         }
     }
@@ -192,9 +182,10 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
             DispatchQueue.main.async {
                 self.transactionSucceeded(hash: result?.hexEncodedString())
                 self.walletAddress.text = ""
-                self.tfAmount.text = ""
+                self.tfAmount.text = "0"
                 self.estimateFee.text = ""
                 self.estimateSize.text = ""
+                self.totalAmountSending.text = ""
                
                 return
 
@@ -202,7 +193,7 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
             return
             
         } catch let error {
-            self.showAlert(message: error.localizedDescription)
+            self.showAlert(message: error.localizedDescription, titles: "Error")
          
         }
         }
@@ -256,15 +247,32 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
                 if address == nil {
                     return
                 }
+                print("address is")
+                print(address as Any)
+                let lenght = min((address?.length)!,40)
+                let errorText = address?.prefix(lenght)
+                let message = "This is not a decred wallet address.\n".appending((errorText)!)
                 if (address?.length)! > 0 {
                     if (address?.starts(with: "decred:"))! {
                         address = address?.replacingOccurrences(of: "decred:", with: "")
-                        if (address?.length)! > 25 && (address?.length)! < 37 {
-                            if (address?.starts(with: "T"))! {
-                                this.walletAddress?.text = address
+                    }
+                    if (address?.length)! > 25 && (address?.length)! < 37 {
+                        if (address?.starts(with: "T"))! {
+                            this.walletAddress?.text = address
+                        }
+                        else{
+                            self?.showAlert(message: message, titles: "Info")
+                            print("address does not start with a T")
                             }
                         }
+                        else{
+                       self?.showAlert(message: message, titles: "Info")
+                            print("invalid address lenght")
+                        }
                     }
+                else{
+                    
+                    self?.showAlert(message: message, titles: "Info")
                 }
             }
         }
@@ -282,6 +290,15 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
     func readerDidCancel(_ reader: QRCodeReaderViewController) {
         reader.dismiss(animated: true, completion: nil)
     }
+    func openLink(urlString: String) {
+        
+        if let url = URL(string: urlString) {
+            let viewController = SFSafariViewController(url: url, entersReaderIfAvailable: true)
+            viewController.delegate = self as? SFSafariViewControllerDelegate
+            
+            self.present(viewController, animated: true)
+        }
+    }
     
     private func transactionSucceeded(hash: String?) {
         let hashe = hash
@@ -297,20 +314,7 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
         
         sendCompletedVC.openDetails = { [weak self] in
             guard let `self` = self else { return }
-            
-            let storyboard = UIStoryboard(
-                name: "TransactionFullDetailsViewController",
-                bundle: nil
-            )
-            
-            let txnDetails = storyboard.instantiateViewController(withIdentifier: "TransactionFullDetailsViewController") as! TransactionFullDetailsViewController
-            txnDetails.transactionHash = hashe
-            self.delegate?.changeViewController(LeftMenu.overview)
-            
-            
-        
-            
-           // self.navigationController?.pushViewController(txnDetails, animated: true)
+            self.openLink(urlString: "https://testnet.dcrdata.org/tx/" + hashe! )
         }
        
         self.present(sendCompletedVC, animated: true, completion: nil)
@@ -329,6 +333,28 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
         }
         self.prepareTransaction(sendAll: false)
         textField.resignFirstResponder()
+        return true
+    }
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        if self.tfAmount.text != nil && self.tfAmount.text != "" && self.tfAmount.text != "0" && self.walletAddress.text != nil && self.validateDestinationAddress(){
+            
+            self.prepareTransaction(sendAll: false)
+            return true
+            
+        }
+        if textField == self.tfAmount{
+            self.tfAmount.text = "0"
+            self.estimateFee.text = ""
+            self.estimateSize.text = ""
+            self.totalAmountSending.text = ""
+            
+        }
+        return true
+    }
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == self.tfAmount{
+            return string.rangeOfCharacter(from: CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")) == nil
+        }
         return true
     }
     
@@ -363,12 +389,6 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
             )
             
             selectedAccount = account?.Acc[0]
-           /* self.accountDropdown.backgroundColor = UIColor(
-                red: 173.0 / 255.0,
-                green: 231.0 / 255.0,
-                blue: 249.0 / 255.0,
-                alpha: 1.0
-            )*/
         }
         
         self.accountDropdown.initMenu(accounts) { [weak self] ind, val in
@@ -416,19 +436,19 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
     }
     
     private func showAlertForInvalidDestinationAddress() {
-        self.showAlert(message: "Please paste a correct destination address")
+        self.showAlert(message: "Please paste a correct destination address.", titles: "Warning")
     }
     
     private func showAlertForInvalidWallet() {
-        self.showAlert(message: "Please select your source wallet")
+        self.showAlert(message: "Please select your source wallet.", titles: "Warning")
     }
     
     private func showAlertInvalidAmount() {
-        self.showAlert(message: "Please input amount of DCR to send")
+        self.showAlert(message: "Please input amount of DCR to send.", titles: "Warning")
     }
     
-    private func showAlert(message: String?) {
-        let alert = UIAlertController(title: "Warning", message: message, preferredStyle: .alert)
+    private func showAlert(message: String? , titles: String?) {
+        let alert = UIAlertController(title: titles, message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default) { _ in
             alert.dismiss(animated: true, completion: nil)
         }
