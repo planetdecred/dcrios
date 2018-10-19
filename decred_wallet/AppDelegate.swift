@@ -142,7 +142,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     func applicationDidReceiveMemoryWarning(_ application: UIApplication) {
         if(SingleInstance.shared.wallet != nil){
-            SingleInstance.shared.wallet?.shutdown()
+            SingleInstance.shared.wallet?.runGC()
         }
     }
 }

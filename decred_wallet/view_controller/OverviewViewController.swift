@@ -351,6 +351,7 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
         print("synced wallet")
         UserDefaults.standard.set(false, forKey: "walletScanning")
         UserDefaults.standard.set(synced, forKey: "synced")
+        UserDefaults.standard.synchronize()
         if(self.visible == false){
             return
         }
