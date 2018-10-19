@@ -16,6 +16,7 @@ class RecoveryWalletSeedWordsCell: UITableViewCell, UITextFieldDelegate {
     var wordNum:Int = 0
     var onNext:(()->Void)?
     var onEditingText:((UITextField)->Void)?
+    var onFoundSeedWord:(([String])->Void)?
     
     func setup(wordNum:Int, word: String?, seed:[String]){
         tfSeedWord.delegate = self
@@ -28,6 +29,12 @@ class RecoveryWalletSeedWordsCell: UITableViewCell, UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         onEditingText?(textField)
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let suggestions = seed?.filter({ return ($0.lowercased().hasPrefix(textField.text!.lowercased())/* && (textField.text?.count)! > 2*/) })
+        onFoundSeedWord?(suggestions!)
+        return true
     }
     
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason){

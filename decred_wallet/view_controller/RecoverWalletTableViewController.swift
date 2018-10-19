@@ -9,7 +9,7 @@
 import UIKit
 
 class RecoverWalletTableViewController: UITableViewController {
-    @IBOutlet var svSuggestions: UIStackView!
+    var svSuggestions: UIToolbar?
     
     var arrSeed = Array<String>()
     var seedWords: [String?] = []
@@ -41,10 +41,7 @@ class RecoverWalletTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let labels = resetSuggestions()
-        suggestionLabel1 = labels.0
-        suggestionLabel2 = labels.1
-        suggestionLabel3 = labels.2
+        resetSuggestions()
         seedtmp = loadSeedWordsList()
     }
 
@@ -74,30 +71,31 @@ class RecoverWalletTableViewController: UITableViewController {
         }
         cell?.onEditingText = {(textField:UITextField) in
             self.currentTextField = textField
+            self.svSuggestions?.autoresizingMask = .flexibleHeight
             self.currentTextField?.inputAccessoryView = self.svSuggestions
+        }
+        cell?.onFoundSeedWord = {(seedSuggestions:[String]) in
+            self.suggestions = seedSuggestions
         }
         return cell!
     }
    
-    private func resetSuggestions() -> (UILabel, UILabel, UILabel){
-        let labelWidth = svSuggestions.frame.size.width / 3
-        let suggestionLabel1 = UILabel(frame: CGRect(x: 0, y: 0, width: labelWidth, height: 30))
-        let suggestionLabel2 = UILabel(frame: CGRect(x: 0, y: 0, width: labelWidth, height: 30))
-        let suggestionLabel3 = UILabel(frame: CGRect(x: 0, y: 0, width: labelWidth, height: 30))
-        svSuggestions.addArrangedSubview(suggestionLabel1)
-        svSuggestions.addArrangedSubview(suggestionLabel2)
-        svSuggestions.addArrangedSubview(suggestionLabel3)
-        let tap1 = UITapGestureRecognizer(target: self, action: #selector(pickSuggestion1))
-        let tap2 = UITapGestureRecognizer(target: self, action: #selector(pickSuggestion2))
-        let tap3 = UITapGestureRecognizer(target: self, action: #selector(pickSuggestion3))
-        suggestionLabel1.addGestureRecognizer(tap1)
-        suggestionLabel2.addGestureRecognizer(tap2)
-        suggestionLabel3.addGestureRecognizer(tap3)
-        suggestionLabel1.isUserInteractionEnabled = true
-        suggestionLabel2.isUserInteractionEnabled = true
-        suggestionLabel3.isUserInteractionEnabled = true
+    private func resetSuggestions(){
+        let labelWidth = self.view.frame.size.width / 3
+        svSuggestions = UIToolbar()
+        suggestionLabel1 = UILabel(frame: CGRect(x: 0, y: 0, width: labelWidth, height: 30))
+        suggestionLabel2 = UILabel(frame: CGRect(x: 0, y: 0, width: labelWidth, height: 30))
+        suggestionLabel3 = UILabel(frame: CGRect(x: 0, y: 0, width: labelWidth, height: 30))
         
-        return (suggestionLabel1, suggestionLabel2, suggestionLabel3)
+        let suggestion1 = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(self.pickSuggestion1))
+        let suggestion2 = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(self.pickSuggestion2))
+        let suggestion3 = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(self.pickSuggestion3))
+        
+        suggestion1.customView?.addSubview(suggestionLabel1!)
+        suggestion2.customView?.addSubview(suggestionLabel2!)
+        suggestion3.customView?.addSubview(suggestionLabel3!)
+        
+        svSuggestions!.items = [suggestion1, suggestion2, suggestion3]
     }
     
     @objc func pickSuggestion1(){
