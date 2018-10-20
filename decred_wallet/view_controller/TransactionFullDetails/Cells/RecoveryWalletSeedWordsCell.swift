@@ -32,7 +32,9 @@ class RecoveryWalletSeedWordsCell: UITableViewCell, UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let suggestions = seed?.filter({ return ($0.lowercased().hasPrefix(textField.text!.lowercased())/* && (textField.text?.count)! > 2*/) })
+        let suggestions = seed?.filter({
+            return ($0.lowercased().hasPrefix(textField.text!.lowercased())/* && (textField.text?.count)! > 2*/)
+        })
         onFoundSeedWord?(suggestions!)
         return true
     }
