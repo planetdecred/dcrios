@@ -12,10 +12,10 @@ class RecoveryWalletSeedWordsCell: UITableViewCell, UITextFieldDelegate {
     
     @IBOutlet weak var lbWordNum: UILabel!
     @IBOutlet weak var tfSeedWord: UITextField!
-     var seed:[String]?
+    var seed:[String]?
     var wordNum:Int = 0
-    var onNext:(()->Void)?
-    var onEditingText:((UITextField)->Void)?
+    var onNext:((Int)->Void)?
+    var onEditingText:((Int, UITextField)->Void)?
     var onFoundSeedWord:(([String])->Void)?
     
     func setup(wordNum:Int, word: String?, seed:[String]){
@@ -28,20 +28,27 @@ class RecoveryWalletSeedWordsCell: UITableViewCell, UITextFieldDelegate {
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        onEditingText?(textField)
+        onEditingText?(wordNum, textField)
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let suggestions = seed?.filter({
-            return ($0.lowercased().hasPrefix(textField.text!.lowercased())/* && (textField.text?.count)! > 2*/)
+            return ($0.lowercased().hasPrefix((textField.text! + string).lowercased()) && (textField.text?.count)! >= 1)
         })
         onFoundSeedWord?(suggestions!)
         return true
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason){
-        if reason == .committed && textField.text == seed?[wordNum] ?? "" {
-            onNext?()
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if isMatchesAnyWordInList(entereText: textField.text) {
+            onNext?(wordNum)
         }
+        return true
+    }
+    
+    private func isMatchesAnyWordInList(entereText:String?) -> Bool{
+        return seed?.filter({
+            return ($0.lowercased().hasPrefix(entereText!.lowercased()) && (entereText?.count)! >= 1)
+        }).count ?? 0 > 0
     }
 }
