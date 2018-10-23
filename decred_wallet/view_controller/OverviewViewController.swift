@@ -260,9 +260,7 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
                 amount =
                 "\((account.Acc.first?.dcrTotalBalance)!)"
                 DispatchQueue.main.async {
-                    if(amount != nil){
                         self?.lbCurrentBalance.attributedText = getAttributedString(str: amount, siz: 15.0)
-                    }
                 }
             } catch let error {
                 print(error)
