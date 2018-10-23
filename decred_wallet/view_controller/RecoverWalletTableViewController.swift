@@ -72,6 +72,10 @@ class RecoverWalletTableViewController: UITableViewController {
         }
         
         cell?.onNext = {(wordNum: Int) in
+            if (wordNum + 1) == self.textFields.count{
+                self.checkupSeed()
+                return
+            }
             let textField = self.textFields[wordNum + 1]
             textField?.isEnabled = true
             textField?.becomeFirstResponder()
@@ -82,6 +86,7 @@ class RecoverWalletTableViewController: UITableViewController {
             }
 
             self.currentTextField = textField
+            
         }
         
         cell?.onEditingText = {(wordNum:Int, textField:UITextField) in
@@ -123,6 +128,14 @@ class RecoverWalletTableViewController: UITableViewController {
         svSuggestions!.items = [suggestion1, suggestion2, suggestion3]
     }
     
+    private func checkupSeed(){
+        let seed = seedWords.reduce("", { x, y in  x + " " + y!})
+        let flag = SingleInstance.shared.wallet?.verifySeed(seed)
+        if flag! {
+            self.performSegue(withIdentifier: "confirmSeedSegue", sender: nil)
+        }
+    }
+    
     @objc func pickSuggestion1(){
         if suggestions.count > 0 {
             currentTextField?.text = suggestions[0]
@@ -152,4 +165,7 @@ class RecoverWalletTableViewController: UITableViewController {
         let seedWords = try? String(contentsOfFile: seedWordsPath ?? "")
         return seedWords?.split{$0 == "\n"}.map(String.init) ?? []
     }
+    
+    
+    
 }
