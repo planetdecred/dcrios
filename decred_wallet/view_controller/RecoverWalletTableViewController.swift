@@ -108,7 +108,12 @@ class RecoverWalletTableViewController: UITableViewController {
         suggestionLabel1 = UILabel(frame: CGRect(x: 0, y: 0, width: labelWidth, height: 30))
         suggestionLabel2 = UILabel(frame: CGRect(x: 0, y: 0, width: labelWidth, height: 30))
         suggestionLabel3 = UILabel(frame: CGRect(x: 0, y: 0, width: labelWidth, height: 30))
-        
+        suggestionLabel1?.textColor = #colorLiteral(red: 0.4196078431, green: 0.737254902, blue: 1, alpha: 1)
+        suggestionLabel2?.textColor = #colorLiteral(red: 0.4196078431, green: 0.737254902, blue: 1, alpha: 1)
+        suggestionLabel3?.textColor = #colorLiteral(red: 0.4196078431, green: 0.737254902, blue: 1, alpha: 1)
+        suggestionLabel1?.font = UIFont(name: "Source Sans Pro", size: 16.0)
+        suggestionLabel2?.font = UIFont(name: "Source Sans Pro", size: 16.0)
+        suggestionLabel3?.font = UIFont(name: "Source Sans Pro", size: 16.0)
         let suggestion1 = UIBarButtonItem(title: "label1", style: .plain, target: self, action: #selector(self.pickSuggestion1))
         let suggestion2 = UIBarButtonItem(title: "label2", style: .plain, target: self, action: #selector(self.pickSuggestion2))
         let suggestion3 = UIBarButtonItem(title: "label3", style: .plain, target: self, action: #selector(self.pickSuggestion3))
