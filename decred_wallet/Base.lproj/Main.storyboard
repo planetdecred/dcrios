@@ -3022,15 +3022,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="decred_logo" translatesAutoresizingMaskIntoConstraints="NO" id="pq4-Id-I0N">
-                                <rect key="frame" x="92.5" y="245" width="120" height="110"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="120" id="2Nn-0u-PjJ"/>
-                                    <constraint firstAttribute="height" constant="110" id="7sB-QF-fI5"/>
-                                </constraints>
-                            </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="sk7-eV-H7q">
-                                <rect key="frame" x="16" y="363" width="288" height="32.5"/>
+                                <rect key="frame" x="16" y="268.5" width="288" height="32.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="de" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Jd-yO-2Pa">
                                         <rect key="frame" x="0.0" y="0.0" width="132" height="32.5"/>
@@ -3052,18 +3045,21 @@
                                 </constraints>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w3H-Un-Z5W">
-                                <rect key="frame" x="34" y="413" width="251" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                <rect key="frame" x="34" y="318" width="251" height="19.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                                 <color key="textColor" red="0.043137254899999998" green="0.1137254902" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="highlightedColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
                             </label>
+                            <webView opaque="NO" contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ha1-4c-onR">
+                                <rect key="frame" x="110" y="170" width="100" height="90"/>
+                                <color key="backgroundColor" red="0.95294117649999999" green="0.96078431369999995" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </webView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Je2-ms-0XC">
-                                <rect key="frame" x="80.5" y="196" width="159" height="176"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="110" y="170" width="100" height="90"/>
                                 <gestureRecognizers/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="159" id="bGI-5D-ynY"/>
-                                    <constraint firstAttribute="height" constant="176" id="f2D-PU-Woy"/>
+                                    <constraint firstAttribute="width" constant="100" id="bGI-5D-ynY"/>
+                                    <constraint firstAttribute="height" constant="90" id="f2D-PU-Woy"/>
                                 </constraints>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="ZUl-m5-HFt" appends="YES" id="EvI-uL-ERk"/>
@@ -3073,21 +3069,25 @@
                         <color key="backgroundColor" red="0.95294117649999999" green="0.96078431369999995" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Je2-ms-0XC" firstAttribute="centerX" secondItem="EO2-Pa-A0e" secondAttribute="centerX" id="2aF-5Y-wjv"/>
-                            <constraint firstItem="pq4-Id-I0N" firstAttribute="top" secondItem="Vu3-b8-9c3" secondAttribute="top" constant="225" id="5lW-eQ-uSS"/>
-                            <constraint firstItem="sk7-eV-H7q" firstAttribute="top" secondItem="pq4-Id-I0N" secondAttribute="bottom" constant="8" id="Pzz-Ju-KDh"/>
+                            <constraint firstItem="sk7-eV-H7q" firstAttribute="top" secondItem="Je2-ms-0XC" secondAttribute="bottom" constant="8.5" id="3lF-wp-R9v"/>
+                            <constraint firstItem="ha1-4c-onR" firstAttribute="centerY" secondItem="Je2-ms-0XC" secondAttribute="centerY" id="6uL-fB-0kh"/>
+                            <constraint firstItem="w3H-Un-Z5W" firstAttribute="centerX" secondItem="EO2-Pa-A0e" secondAttribute="centerX" id="8Qd-OH-T47"/>
+                            <constraint firstItem="ha1-4c-onR" firstAttribute="centerX" secondItem="Je2-ms-0XC" secondAttribute="centerX" id="AxZ-Z2-dAc"/>
                             <constraint firstItem="w3H-Un-Z5W" firstAttribute="top" secondItem="sk7-eV-H7q" secondAttribute="bottom" constant="17.5" id="UPP-1S-Ufu"/>
                             <constraint firstItem="sk7-eV-H7q" firstAttribute="centerX" secondItem="EO2-Pa-A0e" secondAttribute="centerX" id="XDH-3F-PLa"/>
                             <constraint firstItem="w3H-Un-Z5W" firstAttribute="leading" secondItem="Vu3-b8-9c3" secondAttribute="leading" constant="34" id="YsA-XU-2pq"/>
                             <constraint firstItem="sk7-eV-H7q" firstAttribute="width" secondItem="EO2-Pa-A0e" secondAttribute="width" multiplier="0.9" id="d5T-0a-pGX"/>
-                            <constraint firstItem="pq4-Id-I0N" firstAttribute="centerX" secondItem="Vu3-b8-9c3" secondAttribute="centerX" constant="-7.5" id="rxW-p6-oqp"/>
+                            <constraint firstItem="ha1-4c-onR" firstAttribute="width" secondItem="Je2-ms-0XC" secondAttribute="width" id="hzl-tF-RBG"/>
+                            <constraint firstItem="sk7-eV-H7q" firstAttribute="centerY" secondItem="EO2-Pa-A0e" secondAttribute="centerY" id="nfg-lV-glG"/>
+                            <constraint firstItem="ha1-4c-onR" firstAttribute="height" secondItem="Je2-ms-0XC" secondAttribute="height" id="o6Z-Xa-4ch"/>
                             <constraint firstItem="Vu3-b8-9c3" firstAttribute="trailing" secondItem="w3H-Un-Z5W" secondAttribute="trailing" constant="35" id="sGP-Fh-IeW"/>
-                            <constraint firstItem="Je2-ms-0XC" firstAttribute="centerY" secondItem="EO2-Pa-A0e" secondAttribute="centerY" id="t8u-gX-lJn"/>
+                            <constraint firstItem="Je2-ms-0XC" firstAttribute="centerY" secondItem="EO2-Pa-A0e" secondAttribute="centerY" constant="-69" id="t8u-gX-lJn"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Vu3-b8-9c3"/>
                     </view>
                     <connections>
+                        <outlet property="girload" destination="ha1-4c-onR" id="aCh-j5-c4V"/>
                         <outlet property="label" destination="w3H-Un-Z5W" id="2PH-vS-iWb"/>
-                        <outlet property="logo" destination="pq4-Id-I0N" id="pqj-vn-oKb"/>
                         <segue destination="BYZ-38-t0r" kind="show" id="VxR-Ap-ikj"/>
                     </connections>
                 </viewController>
@@ -3098,7 +3098,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-855.20000000000005" y="-52.623688155922046"/>
+            <point key="canvasLocation" x="-856.875" y="-52.816901408450704"/>
         </scene>
         <!--Peer Set Table View Controller-->
         <scene sceneID="CDq-Z7-nHX">
