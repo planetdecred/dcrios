@@ -10,6 +10,11 @@ import UIKit
 
 class ConfirmSeedTableViewController: UITableViewController {
 
+    @IBOutlet var vKeyboardToolbar: UIView!
+    @IBOutlet var vKeyboardPanel: UIView!
+    
+    var tfSeed: UITextField?
+    
     var svSuggestions: UIToolbar?
     var seedWords: [String?] = []
     var suggestionLabel1 : UILabel?
@@ -48,6 +53,13 @@ class ConfirmSeedTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         resetSuggestions()
+        
+    }
+    
+    @IBAction func onConfirm(_ sender: Any) {
+    }
+    
+    @IBAction func onClear(_ sender: Any) {
     }
     
     // MARK: - Table view data source
@@ -104,6 +116,10 @@ class ConfirmSeedTableViewController: UITableViewController {
     private func resetSuggestions(){
         let labelWidth = self.view.frame.size.width / 3
         svSuggestions = UIToolbar()
+        svSuggestions?.bounds = CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: 120.0)
+        
+        let item = UIBarButtonItem(customView: vKeyboardPanel)
+        svSuggestions!.items = [item]
         suggestionLabel1 = UILabel(frame: CGRect(x: 0, y: 0, width: labelWidth, height: 30))
         suggestionLabel2 = UILabel(frame: CGRect(x: 0, y: 0, width: labelWidth, height: 30))
         suggestionLabel3 = UILabel(frame: CGRect(x: 0, y: 0, width: labelWidth, height: 30))
@@ -129,7 +145,7 @@ class ConfirmSeedTableViewController: UITableViewController {
         suggestionLabel2?.isUserInteractionEnabled = true
         suggestionLabel3?.isUserInteractionEnabled = true
         
-        svSuggestions!.items = [suggestion1, suggestion2, suggestion3]
+        //svSuggestions!.items = [suggestion1, suggestion2, suggestion3]
     }
     
     private func checkupSeed(){
