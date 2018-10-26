@@ -52,14 +52,40 @@ class ConfirmSeedTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        registerObserverForKeyboardNotification()
         resetSuggestions()
-        
+        setupInputTextField()
     }
     
     @IBAction func onConfirm(_ sender: Any) {
     }
     
     @IBAction func onClear(_ sender: Any) {
+    }
+    
+    
+    deinit {
+        unregisterObserverForKeyboardNotification()
+    }
+    
+    func registerObserverForKeyboardNotification(){
+        NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    func unregisterObserverForKeyboardNotification(){
+        NotificationCenter.default.removeObserver(self, name:NSNotification.Name.UIKeyboardWillShow, object:nil)
+        NotificationCenter.default.removeObserver(self, name:NSNotification.Name.UIKeyboardWillHide, object:nil)
+    }
+    
+    @objc func onKeyboardWillShow(_ notification: Notification){
+        let notificationInfo = notification.userInfo
+        let keyboardFrame = (notificationInfo?[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        tableView.contentOffset = CGPoint(x:0, y:keyboardFrame.height / 2)
+    }
+    
+    @objc func onKeyboardWillHide(_ notification: Notification){
+        tableView.contentOffset = CGPoint(x:0, y:0)
     }
     
     // MARK: - Table view data source
@@ -113,19 +139,25 @@ class ConfirmSeedTableViewController: UITableViewController {
         return cell!
     }
     
+    private func setupInputTextField(){
+        let superview = UIApplication.shared.keyWindow?.rootViewController?.view
+        vKeyboardPanel.frame = CGRect(x: 0.0, y: superview?.frame.size.height ?? 0.0 - vKeyboardPanel.frame.size.height, width: superview?.frame.size.width ?? 0.0, height: vKeyboardPanel.frame.size.height)
+        superview?.addSubview(vKeyboardPanel)
+    }
+    
     private func resetSuggestions(){
         let labelWidth = self.view.frame.size.width / 3
         svSuggestions = UIToolbar()
         svSuggestions?.bounds = CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: 120.0)
         
-        let item = UIBarButtonItem(customView: vKeyboardPanel)
-        svSuggestions!.items = [item]
+        //let item = UIBarButtonItem(customView: vKeyboardPanel)
+       // svSuggestions!.items = [item]
         suggestionLabel1 = UILabel(frame: CGRect(x: 0, y: 0, width: labelWidth, height: 30))
         suggestionLabel2 = UILabel(frame: CGRect(x: 0, y: 0, width: labelWidth, height: 30))
         suggestionLabel3 = UILabel(frame: CGRect(x: 0, y: 0, width: labelWidth, height: 30))
-        suggestionLabel1?.textColor = #colorLiteral(red: 0.4196078431, green: 0.737254902, blue: 1, alpha: 1)
-        suggestionLabel2?.textColor = #colorLiteral(red: 0.4196078431, green: 0.737254902, blue: 1, alpha: 1)
-        suggestionLabel3?.textColor = #colorLiteral(red: 0.4196078431, green: 0.737254902, blue: 1, alpha: 1)
+        suggestionLabel1?.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        suggestionLabel2?.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        suggestionLabel3?.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         suggestionLabel1?.font = UIFont(name: "Source Sans Pro", size: 16.0)
         suggestionLabel2?.font = UIFont(name: "Source Sans Pro", size: 16.0)
         suggestionLabel3?.font = UIFont(name: "Source Sans Pro", size: 16.0)
@@ -145,7 +177,7 @@ class ConfirmSeedTableViewController: UITableViewController {
         suggestionLabel2?.isUserInteractionEnabled = true
         suggestionLabel3?.isUserInteractionEnabled = true
         
-        //svSuggestions!.items = [suggestion1, suggestion2, suggestion3]
+        svSuggestions!.items = [suggestion1, suggestion2, suggestion3]
     }
     
     private func checkupSeed(){
@@ -160,7 +192,6 @@ class ConfirmSeedTableViewController: UITableViewController {
         if suggestions.count > 0 {
             currentTextField?.text = suggestions[0]
             suggestions = ["","",""]
-            nextTextField?.becomeFirstResponder()
         }
     }
     
@@ -168,7 +199,6 @@ class ConfirmSeedTableViewController: UITableViewController {
         if suggestions.count > 1 {
             currentTextField?.text = suggestions[1]
             suggestions = ["","",""]
-            nextTextField?.becomeFirstResponder()
         }
     }
     
@@ -176,7 +206,6 @@ class ConfirmSeedTableViewController: UITableViewController {
         if suggestions.count > 2 {
             currentTextField?.text = suggestions[2]
             suggestions = ["","",""]
-            nextTextField?.becomeFirstResponder()
         }
     }
     
