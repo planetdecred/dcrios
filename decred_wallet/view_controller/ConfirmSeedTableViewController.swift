@@ -8,12 +8,13 @@
 
 import UIKit
 
-class ConfirmSeedTableViewController: UITableViewController {
+class ConfirmSeedTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    @IBOutlet var vKeyboardToolbar: UIView!
-    @IBOutlet var vKeyboardPanel: UIView!
+    @IBOutlet var tableView: UITableView?
+    @IBOutlet weak var vSuggestionsPanel: UIView!
+    @IBOutlet var tfSeed: UITextField?
     
-    var tfSeed: UITextField?
+    @IBOutlet weak var alcVisibleTableHeight: NSLayoutConstraint!
     
     var svSuggestions: UIToolbar?
     var seedWords: [String?] = []
@@ -23,8 +24,8 @@ class ConfirmSeedTableViewController: UITableViewController {
     var suggestionWords: [String] = []
     var textFields: [UITextField?] = []
     var seedToVerify : [String] = []
-    var currentTextField : UITextField?
-    var nextTextField : UITextField?
+
+    var currentSeedIndex = 0
     
     var suggestions: [String]{
         set{
@@ -54,15 +55,33 @@ class ConfirmSeedTableViewController: UITableViewController {
         super.viewDidLoad()
         registerObserverForKeyboardNotification()
         resetSuggestions()
-        setupInputTextField()
+        tableView?.dataSource = self
+        hideSuggestions()
+        tfSeed?.delegate = self
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        tfSeed?.becomeFirstResponder()
     }
     
     @IBAction func onConfirm(_ sender: Any) {
+        checkupSeed()
     }
     
     @IBAction func onClear(_ sender: Any) {
+        seedWords = []
+        currentSeedIndex = 0
+        tableView?.reloadData()
     }
     
+    @IBAction func onCommitSeedWord(_ sender: Any) {
+        let word = tfSeed?.text
+        seedWords.append(word)
+        textFields[currentSeedIndex]?.text = word
+        currentSeedIndex += 1
+        tfSeed?.text = ""
+    }
     
     deinit {
         unregisterObserverForKeyboardNotification()
@@ -81,24 +100,25 @@ class ConfirmSeedTableViewController: UITableViewController {
     @objc func onKeyboardWillShow(_ notification: Notification){
         let notificationInfo = notification.userInfo
         let keyboardFrame = (notificationInfo?[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-        tableView.contentOffset = CGPoint(x:0, y:keyboardFrame.height / 2)
+        tableView?.contentOffset = CGPoint(x:0, y:keyboardFrame.height / 2)
+        adjustTableHeight(withKeyboard: keyboardFrame.size.height)
     }
     
     @objc func onKeyboardWillHide(_ notification: Notification){
-        tableView.contentOffset = CGPoint(x:0, y:0)
+        tableView?.contentOffset = CGPoint(x:0, y:0)
     }
     
     // MARK: - Table view data source
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 33
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "confirmSeedCell", for: indexPath) as? ConfirmSeedViewCell
         cell?.setup(wordNum: indexPath.row, word: seedWords.count <= indexPath.row ? "" : seedWords[indexPath.row] ?? "", seed: self.seedToVerify)
         cell?.tfSeedWord.isEnabled = (indexPath.row == 0 || textFields.count < indexPath.row )
@@ -108,50 +128,13 @@ class ConfirmSeedTableViewController: UITableViewController {
             textFields.append(cell?.tfSeedWord)
         }
         
-        cell?.onNext = {(wordNum: Int) in
-            if (wordNum + 1) == self.textFields.count{
-                self.checkupSeed()
-                return
-            }
-            let textField = self.textFields[wordNum + 1]
-            textField?.isEnabled = true
-            textField?.becomeFirstResponder()
-            if self.seedWords.count < wordNum {
-                self.seedWords[wordNum] = self.textFields[wordNum]?.text
-            }else{
-                self.seedWords.append(self.textFields[wordNum]?.text)
-            }
-            
-            self.currentTextField = textField
-            
-        }
-        
-        cell?.onEditingText = {(wordNum:Int, textField:UITextField) in
-            
-            self.currentTextField = self.textFields[wordNum]
-            self.svSuggestions?.autoresizingMask = .flexibleHeight
-            self.currentTextField?.inputAccessoryView = self.svSuggestions
-        }
-        
-        cell?.onFoundSeedWord = {(seedSuggestions:[String]) in
-            self.suggestions = seedSuggestions
-        }
         return cell!
-    }
-    
-    private func setupInputTextField(){
-        let superview = UIApplication.shared.keyWindow?.rootViewController?.view
-        vKeyboardPanel.frame = CGRect(x: 0.0, y: superview?.frame.size.height ?? 0.0 - vKeyboardPanel.frame.size.height, width: superview?.frame.size.width ?? 0.0, height: vKeyboardPanel.frame.size.height)
-        superview?.addSubview(vKeyboardPanel)
     }
     
     private func resetSuggestions(){
         let labelWidth = self.view.frame.size.width / 3
-        svSuggestions = UIToolbar()
-        svSuggestions?.bounds = CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: 120.0)
-        
-        //let item = UIBarButtonItem(customView: vKeyboardPanel)
-       // svSuggestions!.items = [item]
+        svSuggestions = UIToolbar(frame: CGRect(x:0.0, y:0.0, width:320.0, height:30.0))
+        svSuggestions?.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         suggestionLabel1 = UILabel(frame: CGRect(x: 0, y: 0, width: labelWidth, height: 30))
         suggestionLabel2 = UILabel(frame: CGRect(x: 0, y: 0, width: labelWidth, height: 30))
         suggestionLabel3 = UILabel(frame: CGRect(x: 0, y: 0, width: labelWidth, height: 30))
@@ -176,42 +159,81 @@ class ConfirmSeedTableViewController: UITableViewController {
         suggestionLabel1?.isUserInteractionEnabled = true
         suggestionLabel2?.isUserInteractionEnabled = true
         suggestionLabel3?.isUserInteractionEnabled = true
-        
         svSuggestions!.items = [suggestion1, suggestion2, suggestion3]
+        vSuggestionsPanel.addSubview(svSuggestions!)
     }
     
     private func checkupSeed(){
         let seed = seedWords.reduce("", { x, y in  x + " " + y!})
         let flag = SingleInstance.shared.wallet?.verifySeed(seed)
         if flag! {
-            self.performSegue(withIdentifier: "confirmSeedSegue", sender: nil)
+            self.performSegue(withIdentifier: "createPasswordSegue", sender: nil)
         }
     }
     
     @objc func pickSuggestion1(){
         if suggestions.count > 0 {
-            currentTextField?.text = suggestions[0]
+            tfSeed?.text = suggestions[0]
             suggestions = ["","",""]
+            hideSuggestions()
+
         }
     }
     
     @objc func pickSuggestion2(){
         if suggestions.count > 1 {
-            currentTextField?.text = suggestions[1]
+            tfSeed?.text = suggestions[1]
             suggestions = ["","",""]
+            hideSuggestions()
+
         }
     }
     
     @objc func pickSuggestion3(){
         if suggestions.count > 2 {
-            currentTextField?.text = suggestions[2]
+            tfSeed?.text = suggestions[2]
             suggestions = ["","",""]
+            hideSuggestions()
+
         }
     }
     
-    private func loadSeedWordsList() -> [String]{
-        let seedWordsPath = Bundle.main.path(forResource: "wordlist", ofType: "txt")
-        let seedWords = try? String(contentsOfFile: seedWordsPath ?? "")
-        return seedWords?.split{$0 == "\n"}.map(String.init) ?? []
+    private func adjustTableHeight(withKeyboard height:CGFloat){
+        let totalHeight = view.frame.size.height
+        alcVisibleTableHeight.constant = totalHeight - 100.0 - height
+        tableView?.scrollRectToVisible(CGRect(x: 0.0, y: 0.0, width: 100, height: 44), animated: false)
+    }
+    
+    private func showSuggestions(){
+        vSuggestionsPanel.isHidden = false
+    }
+    
+    private func hideSuggestions(){
+        vSuggestionsPanel.isHidden = true
+    }
+}
+
+extension ConfirmSeedTableViewController : UITextFieldDelegate{
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        self.suggestions = seedToVerify.filter({
+            return ($0.lowercased().hasPrefix((textField.text! + string).lowercased()) && (textField.text?.count)! >= 1)
+        })
+        if suggestions.count > 0 {
+            showSuggestions()
+        }else{
+            hideSuggestions()
+        }
+        return true
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        onCommitSeedWord(textField)
+        suggestions = []
+        hideSuggestions()
+        return true
     }
 }
