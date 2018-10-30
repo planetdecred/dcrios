@@ -73,6 +73,7 @@ class ConfirmSeedTableViewController: UIViewController, UITableViewDelegate, UIT
         seedWords = []
         currentSeedIndex = 0
         tableView?.reloadData()
+        tableView?.scrollToRow(at: IndexPath(row: currentSeedIndex, section: 0), at: .bottom, animated: true)
     }
     
     @IBAction func onCommitSeedWord(_ sender: Any) {
@@ -81,6 +82,10 @@ class ConfirmSeedTableViewController: UIViewController, UITableViewDelegate, UIT
         textFields[currentSeedIndex]?.text = word
         currentSeedIndex += 1
         tfSeed?.text = ""
+        tableView?.reloadData()
+        if currentSeedIndex < 33{
+            tableView?.scrollToRow(at: IndexPath(row: currentSeedIndex, section: 0), at: .bottom, animated: true)
+        }
     }
     
     deinit {
@@ -159,6 +164,9 @@ class ConfirmSeedTableViewController: UIViewController, UITableViewDelegate, UIT
         suggestionLabel1?.isUserInteractionEnabled = true
         suggestionLabel2?.isUserInteractionEnabled = true
         suggestionLabel3?.isUserInteractionEnabled = true
+        suggestionLabel1?.adjustsFontSizeToFitWidth = true
+        suggestionLabel2?.adjustsFontSizeToFitWidth = true
+        suggestionLabel3?.adjustsFontSizeToFitWidth = true
         svSuggestions!.items = [suggestion1, suggestion2, suggestion3]
         vSuggestionsPanel.addSubview(svSuggestions!)
     }
@@ -176,7 +184,6 @@ class ConfirmSeedTableViewController: UIViewController, UITableViewDelegate, UIT
             tfSeed?.text = suggestions[0]
             suggestions = ["","",""]
             hideSuggestions()
-
         }
     }
     
@@ -185,7 +192,6 @@ class ConfirmSeedTableViewController: UIViewController, UITableViewDelegate, UIT
             tfSeed?.text = suggestions[1]
             suggestions = ["","",""]
             hideSuggestions()
-
         }
     }
     
@@ -194,7 +200,6 @@ class ConfirmSeedTableViewController: UIViewController, UITableViewDelegate, UIT
             tfSeed?.text = suggestions[2]
             suggestions = ["","",""]
             hideSuggestions()
-
         }
     }
     
@@ -214,9 +219,6 @@ class ConfirmSeedTableViewController: UIViewController, UITableViewDelegate, UIT
 }
 
 extension ConfirmSeedTableViewController : UITextFieldDelegate{
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        
-    }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         self.suggestions = seedToVerify.filter({

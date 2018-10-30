@@ -985,7 +985,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Seed phrase verification..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="puM-fO-92y">
-                                            <rect key="frame" x="56" y="45" width="243" height="21"/>
+                                            <rect key="frame" x="58" y="45" width="241" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="750" constant="243" id="Mrs-O7-Q0M"/>
                                                 <constraint firstAttribute="height" constant="21" id="yy7-lw-aVj"/>
@@ -1005,7 +1005,7 @@
                                         <constraint firstItem="puM-fO-92y" firstAttribute="centerY" secondItem="UaP-fS-HLe" secondAttribute="centerY" id="lXQ-zY-LjI"/>
                                         <constraint firstItem="GxA-SQ-22f" firstAttribute="top" secondItem="puM-fO-92y" secondAttribute="bottom" constant="8" id="mjn-Qx-CYU"/>
                                         <constraint firstItem="UaP-fS-HLe" firstAttribute="top" secondItem="fwI-cN-t40" secondAttribute="top" priority="750" constant="2" id="pu8-n5-hwI"/>
-                                        <constraint firstItem="puM-fO-92y" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="UaP-fS-HLe" secondAttribute="trailing" constant="8" symbolic="YES" id="qjr-Gx-dLS"/>
+                                        <constraint firstItem="puM-fO-92y" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="UaP-fS-HLe" secondAttribute="trailing" constant="10" id="qjr-Gx-dLS"/>
                                     </constraints>
                                 </view>
                                 <prototypes>
@@ -1135,19 +1135,19 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sZ5-pw-lrf">
-                                        <rect key="frame" x="35" y="34" width="250" height="34"/>
+                                        <rect key="frame" x="20" y="34" width="300" height="34"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="250" id="Lka-mY-oRh"/>
                                             <constraint firstAttribute="height" constant="34" id="NfK-rl-8xS"/>
-                                            <constraint firstAttribute="width" constant="250" id="eeg-DU-zuu"/>
+                                            <constraint firstAttribute="width" constant="300" id="eeg-DU-zuu"/>
                                         </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" red="0.95294117647058818" green="0.96078431372549022" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="6UH-Zf-scZ" firstAttribute="leading" secondItem="5tg-NC-lyj" secondAttribute="leading" id="2Q0-QE-nfv"/>
-                                    <constraint firstItem="sZ5-pw-lrf" firstAttribute="leading" secondItem="5tg-NC-lyj" secondAttribute="leading" constant="35" id="2YS-8f-7Kb"/>
+                                    <constraint firstItem="sZ5-pw-lrf" firstAttribute="leading" secondItem="5tg-NC-lyj" secondAttribute="leading" constant="20" id="2YS-8f-7Kb"/>
                                     <constraint firstItem="eJc-qM-DJ8" firstAttribute="top" secondItem="r0g-Jf-rcB" secondAttribute="top" id="37h-iH-ASg"/>
                                     <constraint firstItem="6UH-Zf-scZ" firstAttribute="bottom" secondItem="5tg-NC-lyj" secondAttribute="bottom" id="JAP-SA-Vfw"/>
                                     <constraint firstItem="r0g-Jf-rcB" firstAttribute="top" secondItem="5tg-NC-lyj" secondAttribute="top" constant="8" id="Kd3-7Z-RvH"/>
