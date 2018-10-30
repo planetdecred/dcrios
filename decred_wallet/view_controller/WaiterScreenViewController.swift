@@ -29,11 +29,24 @@ class WaiterScreenViewController: UIViewController, WaiterScreenProtocol {
     var  groupAnimation: CAAnimationGroup?
     override func viewDidLoad() {
         super.viewDidLoad()
+        girload.backgroundColor = UIColor(hex: "#F3F5F6")
+        
+        
+        
+    }
+    @IBOutlet weak var girload: UIWebView!
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let url = Bundle.main.url(forResource: "splashLoader", withExtension: "gif")!
+        let data = try! Data(contentsOf: url)
+        girload.load(data, mimeType: "image/gif", textEncodingName: "UTF-8", baseURL: NSURL() as URL)
     }
     
     override func viewDidAppear(_ animated: Bool) {
-       //logo.image = UIImage.gifImageWithName("decred_logo")
-       set(duration: 4)
+        super.viewDidAppear(animated)
+        
+       set(duration: 5)
     }
     
     func set(label: String) {
@@ -57,7 +70,7 @@ class WaiterScreenViewController: UIViewController, WaiterScreenProtocol {
     }
     
     func stopAnimation() {
-        logo.image = nil
+       // logo.image = nil
         onFinish?()
     }
 }
