@@ -26,6 +26,7 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
         tableAccountData
             .hideEmptyAndExtraRows()
             .registerCellNib(AccountDataCell.self)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addAccount))
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -33,12 +34,16 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
         setNavigationBarItem()
         navigationItem.title = "Account"
         print("account will appear")
+        
+        self.navigationItem.rightBarButtonItem?.accessibilityElementsHidden = true
+        //self.navigationController?.navigationItem.rightBarButtonItem.
         // self.account = AppContext.instance.decrdConnection?.getAccounts()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         visible = false
+        self.navigationItem.rightBarButtonItem?.accessibilityElementsHidden = false
         
         // self.dismiss(animated: true, completion: nil)
     }
@@ -55,6 +60,9 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
         prepareData()
     }
 
+    @objc func addAccount(){
+        
+    }
     func prepareData() {
         if !isViewLoaded {
             return
