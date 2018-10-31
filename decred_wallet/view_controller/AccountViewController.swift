@@ -61,7 +61,11 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
     }
 
     @objc func addAccount(){
-        
+       let storyboard2 =  UIStoryboard(name: "Main", bundle: nil)
+        let switchView = storyboard2.instantiateViewController(withIdentifier: "addaccount")
+        DispatchQueue.main.async {
+        self.present(switchView, animated: true, completion: nil)
+        }
     }
     func prepareData() {
         if !isViewLoaded {
@@ -98,13 +102,11 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
     }
 
     func numberOfSections(in _: UITableView) -> Int {
-        print("account returning number of section")
         return myBalances.count
     }
 
     func tableView(_: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = AccountsHeaderView.loadNib()
-        print("account inputing headerView data")
         let data = myBalances[section]
         headerView.title = data.title
         headerView.totalBalance = data.totalBalance
@@ -117,7 +119,6 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
             for: .touchUpInside
         )
 
-        print("account returning header view")
         return headerView
     }
 
@@ -135,8 +136,8 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
 
     func tableView(_ tableView: UITableView, cellForRowAt rowIndex: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AccountDataCell") as! AccountDetailsCellProtocol
-        print("account creating cells")
-        cell.setup(account: (account!.Acc[rowIndex.row]))
+        let accTmp = account!.Acc[rowIndex.section]
+        cell.setup(account: (accTmp))
        
         return cell as! UITableViewCell
     }

@@ -110,9 +110,8 @@ class ReceiveViewController: UIViewController {
         }
         // let acc = self.account?.Acc
         
-        let defaultNumber = UserDefaults.standard.integer(forKey: "wallet_default")
         
-        if let defaultAccount = account?.Acc.filter({ $0.Number == defaultNumber }).first {
+        if let defaultAccount = account?.Acc.filter({ $0.isDefaultWallet}).first {
             
             accountDropdown.setTitle(
                 defaultAccount.Name,
