@@ -21,7 +21,7 @@ class TransactiontInputDetails: UITableViewCell {
     }
     
     @IBAction func hideOrExpandAction(_ sender: UIButton) {
-        self.viewCotainer.isHidden.toggle()
+        self.viewCotainer.isHidden = !self.viewCotainer.isHidden
         expandOrCollapse?()
     }
 }

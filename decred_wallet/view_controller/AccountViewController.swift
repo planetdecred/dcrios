@@ -134,7 +134,7 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
     }
 
     @objc private func toggleExpandedState(_ sender: UIButton) {
-        myBalances[sender.tag].isExpanded.toggle()
+        myBalances[sender.tag].isExpanded = !myBalances[sender.tag].isExpanded
         tableAccountData.reloadData()
     }
 }
