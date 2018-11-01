@@ -129,6 +129,11 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         }
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 5 {
+            print("HASH: \(transaction.Hash)")
+        }
+    }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
