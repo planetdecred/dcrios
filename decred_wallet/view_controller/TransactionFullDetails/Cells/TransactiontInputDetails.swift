@@ -8,6 +8,7 @@ class TransactiontInputDetails: UITableViewCell {
     @IBOutlet weak var viewCotainer: UIView!
     @IBOutlet weak var debitsStack: UIStackView!
     
+    @IBOutlet weak var alcDebitStackHeight: NSLayoutConstraint!
     var expandOrCollapse: (() -> Void)?
 
     func setup(with debits:[Debit]){
@@ -15,12 +16,7 @@ class TransactiontInputDetails: UITableViewCell {
         debits.forEach { (debit) in
             self.addSubrow(with: debit)
         }
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
+        alcDebitStackHeight.constant = CGFloat(45 * debits.count)
     }
     
     @IBAction func hideOrExpandAction(_ sender: UIButton) {

@@ -37,14 +37,17 @@
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="3Es-Mp-YOg">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="0.0"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" id="W2a-ZK-rtU"/>
+                                        </constraints>
                                     </stackView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="3Es-Mp-YOg" firstAttribute="width" secondItem="fvo-Gc-5cm" secondAttribute="width" id="eJ0-eN-BJJ"/>
                                     <constraint firstItem="3Es-Mp-YOg" firstAttribute="centerX" secondItem="fvo-Gc-5cm" secondAttribute="centerX" id="jjD-Hq-pdH"/>
-                                    <constraint firstItem="3Es-Mp-YOg" firstAttribute="height" secondItem="fvo-Gc-5cm" secondAttribute="height" id="kol-JD-56Q"/>
                                     <constraint firstItem="3Es-Mp-YOg" firstAttribute="centerY" secondItem="fvo-Gc-5cm" secondAttribute="centerY" id="rTs-Mn-k5T"/>
+                                    <constraint firstAttribute="height" secondItem="3Es-Mp-YOg" secondAttribute="height" id="zmP-KD-SuB"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -60,6 +63,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="alcDebitStackHeight" destination="W2a-ZK-rtU" id="iIa-sD-8GS"/>
                 <outlet property="debitsStack" destination="3Es-Mp-YOg" id="UeV-sI-qRZ"/>
                 <outlet property="viewCotainer" destination="fvo-Gc-5cm" id="FzK-Wt-EV2"/>
             </connections>
