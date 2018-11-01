@@ -38,12 +38,15 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="sIE-QO-mlf">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="0.0"/>
                                         <color key="backgroundColor" red="0.26274509800000001" green="0.69019607839999997" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" id="lpK-tg-NaK"/>
+                                        </constraints>
                                     </stackView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="sIE-QO-mlf" firstAttribute="width" secondItem="v9E-Zp-tzI" secondAttribute="width" id="EFU-xk-4hY"/>
-                                    <constraint firstItem="sIE-QO-mlf" firstAttribute="height" secondItem="v9E-Zp-tzI" secondAttribute="height" id="Ipa-Xd-9lt"/>
+                                    <constraint firstAttribute="height" secondItem="sIE-QO-mlf" secondAttribute="height" id="RaZ-Q7-A2d"/>
                                     <constraint firstItem="sIE-QO-mlf" firstAttribute="centerX" secondItem="v9E-Zp-tzI" secondAttribute="centerX" id="lFr-Wh-bs3"/>
                                     <constraint firstItem="sIE-QO-mlf" firstAttribute="centerY" secondItem="v9E-Zp-tzI" secondAttribute="centerY" id="lYM-N7-64e"/>
                                 </constraints>
@@ -61,6 +64,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="alcCreditStackHeight" destination="lpK-tg-NaK" id="QKF-SK-xRd"/>
                 <outlet property="creditsStack" destination="sIE-QO-mlf" id="FGR-bd-JgB"/>
                 <outlet property="viewContainer" destination="v9E-Zp-tzI" id="yn8-f6-bb0"/>
             </connections>
