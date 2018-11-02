@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -33,48 +33,22 @@
                                 </connections>
                             </button>
                             <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v9E-Zp-tzI">
-                                <rect key="frame" x="0.0" y="-10" width="300" height="30"/>
+                                <rect key="frame" x="0.0" y="302.5" width="300" height="0.0"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" ambiguous="YES" text="20.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PIx-6f-Sw3">
-                                        <rect key="frame" x="0.0" y="10" width="300" height="52.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                        <color key="textColor" red="0.047058823530000002" green="0.1176470588" blue="0.24313725489999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" ambiguous="YES" text="000000000000001a8befe3271f3c293e5af4365f1db5a664e8496ca3f6dc74d5" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sdd-IE-BfY">
-                                        <rect key="frame" x="0.0" y="62.5" width="300" height="29"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                        <color key="textColor" red="0.16078431372549018" green="0.4392156862745098" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" ambiguous="YES" text="20.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ja1-jS-cjl">
-                                        <rect key="frame" x="0.0" y="101.5" width="300" height="19.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                        <color key="textColor" red="0.047058823530000002" green="0.1176470588" blue="0.24313725489999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" ambiguous="YES" text="000000000000001a8befe3271f3c293e5af4365f1db5a664e8496ca3f6dc74d5" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CBw-qX-BM1">
-                                        <rect key="frame" x="0.0" y="121" width="300" height="29"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                        <color key="textColor" red="0.16078431369999999" green="0.43921568630000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="sIE-QO-mlf">
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="0.0"/>
+                                        <color key="backgroundColor" red="0.26274509800000001" green="0.69019607839999997" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" id="lpK-tg-NaK"/>
+                                        </constraints>
+                                    </stackView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="Ja1-jS-cjl" firstAttribute="leading" secondItem="sdd-IE-BfY" secondAttribute="leading" id="3q1-Ph-gxa"/>
-                                    <constraint firstItem="sdd-IE-BfY" firstAttribute="trailing" secondItem="PIx-6f-Sw3" secondAttribute="trailing" id="4kt-OD-DOb"/>
-                                    <constraint firstItem="PIx-6f-Sw3" firstAttribute="leading" secondItem="v9E-Zp-tzI" secondAttribute="leading" id="Bdc-DN-IuG"/>
-                                    <constraint firstItem="PIx-6f-Sw3" firstAttribute="top" secondItem="v9E-Zp-tzI" secondAttribute="top" constant="10" id="JFZ-TT-E9U"/>
-                                    <constraint firstItem="CBw-qX-BM1" firstAttribute="leading" secondItem="Ja1-jS-cjl" secondAttribute="leading" id="OnV-Ch-asx"/>
-                                    <constraint firstItem="Ja1-jS-cjl" firstAttribute="top" secondItem="sdd-IE-BfY" secondAttribute="bottom" constant="10" id="Sr4-AN-VTN"/>
-                                    <constraint firstAttribute="bottom" secondItem="CBw-qX-BM1" secondAttribute="bottom" constant="10" id="aqT-13-YHm"/>
-                                    <constraint firstItem="CBw-qX-BM1" firstAttribute="top" secondItem="Ja1-jS-cjl" secondAttribute="bottom" id="dku-iE-Ymm"/>
-                                    <constraint firstAttribute="trailing" secondItem="PIx-6f-Sw3" secondAttribute="trailing" id="gcm-oY-34U"/>
-                                    <constraint firstItem="sdd-IE-BfY" firstAttribute="leading" secondItem="PIx-6f-Sw3" secondAttribute="leading" id="iNp-4e-ref"/>
-                                    <constraint firstItem="CBw-qX-BM1" firstAttribute="trailing" secondItem="Ja1-jS-cjl" secondAttribute="trailing" id="ilP-nR-igd"/>
-                                    <constraint firstItem="sdd-IE-BfY" firstAttribute="top" secondItem="PIx-6f-Sw3" secondAttribute="bottom" id="jCr-gW-xac"/>
-                                    <constraint firstItem="Ja1-jS-cjl" firstAttribute="trailing" secondItem="sdd-IE-BfY" secondAttribute="trailing" id="sOy-gC-jGH"/>
+                                    <constraint firstItem="sIE-QO-mlf" firstAttribute="width" secondItem="v9E-Zp-tzI" secondAttribute="width" id="EFU-xk-4hY"/>
+                                    <constraint firstAttribute="height" secondItem="sIE-QO-mlf" secondAttribute="height" id="RaZ-Q7-A2d"/>
+                                    <constraint firstItem="sIE-QO-mlf" firstAttribute="centerX" secondItem="v9E-Zp-tzI" secondAttribute="centerX" id="lFr-Wh-bs3"/>
+                                    <constraint firstItem="sIE-QO-mlf" firstAttribute="centerY" secondItem="v9E-Zp-tzI" secondAttribute="centerY" id="lYM-N7-64e"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -90,6 +64,8 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="alcCreditStackHeight" destination="lpK-tg-NaK" id="QKF-SK-xRd"/>
+                <outlet property="creditsStack" destination="sIE-QO-mlf" id="FGR-bd-JgB"/>
                 <outlet property="viewContainer" destination="v9E-Zp-tzI" id="yn8-f6-bb0"/>
             </connections>
             <point key="canvasLocation" x="136" y="107"/>
