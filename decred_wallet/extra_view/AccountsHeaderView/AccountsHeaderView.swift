@@ -10,7 +10,9 @@ class AccountsHeaderView: UIView {
     @IBOutlet private var labelSpendableBalance: UILabel!
     @IBOutlet var expandOrCollapseDetailsButton: UIButton!
     
+    @IBOutlet weak var arrowDirection: UIButton!
     var headerIndex: Int = 0
+    var arrobool = false
     
     // var exapndOrCollapse: ((Int) -> Void)?
     
@@ -25,9 +27,7 @@ class AccountsHeaderView: UIView {
     }
     
     @IBAction func expnandOrCollapseAction(_ sender: UIButton) {
-       // DispatchQueue.main.async {
-            // self.exapndOrCollapse?(self.headerIndex)
-       // }
+    
     }
     
     var spendableBalance: Double = 0.0 {
