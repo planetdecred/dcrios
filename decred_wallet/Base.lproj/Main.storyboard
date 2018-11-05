@@ -1324,7 +1324,7 @@
                                 </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="faD-sH-f5s">
-                                <rect key="frame" x="12" y="333" width="524" height="246.5"/>
+                                <rect key="frame" x="12" y="275.5" width="524" height="246.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zlU-nV-PuO">
                                         <rect key="frame" x="0.0" y="0.0" width="246.5" height="246.5"/>
@@ -1423,6 +1423,7 @@
                             <constraint firstItem="faD-sH-f5s" firstAttribute="centerX" secondItem="tuE-v9-4Sd" secondAttribute="centerX" id="3eU-af-dbJ"/>
                             <constraint firstItem="Y1n-Tv-cBE" firstAttribute="leading" secondItem="UZz-wo-aN7" secondAttribute="leading" id="5sZ-hV-cWL"/>
                             <constraint firstItem="tuE-v9-4Sd" firstAttribute="trailing" secondItem="UZz-wo-aN7" secondAttribute="trailing" constant="16" id="9qS-8k-pqN"/>
+                            <constraint firstItem="faD-sH-f5s" firstAttribute="bottom" secondItem="avs-2g-8Rh" secondAttribute="top" constant="-25" id="B12-8X-eVn"/>
                             <constraint firstItem="avs-2g-8Rh" firstAttribute="trailing" secondItem="UZz-wo-aN7" secondAttribute="trailing" id="FnU-qz-OL4"/>
                             <constraint firstItem="avs-2g-8Rh" firstAttribute="leading" secondItem="UZz-wo-aN7" secondAttribute="leading" id="IxJ-KW-3Pt"/>
                             <constraint firstItem="faD-sH-f5s" firstAttribute="height" secondItem="6gb-k6-hWB" secondAttribute="width" multiplier="0.45" id="LWD-E3-twV"/>
@@ -1437,7 +1438,6 @@
                             <constraint firstItem="tuE-v9-4Sd" firstAttribute="trailing" secondItem="faD-sH-f5s" secondAttribute="trailing" constant="12" id="hXD-cY-rxh"/>
                             <constraint firstItem="vk4-75-w0m" firstAttribute="width" secondItem="6gb-k6-hWB" secondAttribute="width" multiplier="0.9" id="lJx-1j-ZlC"/>
                             <constraint firstItem="Y1n-Tv-cBE" firstAttribute="trailing" secondItem="UZz-wo-aN7" secondAttribute="trailing" id="oVv-5k-OQf"/>
-                            <constraint firstItem="faD-sH-f5s" firstAttribute="top" secondItem="UZz-wo-aN7" secondAttribute="bottom" constant="18" id="tGD-3Z-0Yg"/>
                             <constraint firstItem="faD-sH-f5s" firstAttribute="leading" secondItem="tuE-v9-4Sd" secondAttribute="leading" constant="12" id="uIk-Cs-CkY"/>
                             <constraint firstItem="MEy-74-rLe" firstAttribute="top" secondItem="tuE-v9-4Sd" secondAttribute="top" constant="63" id="ujd-Or-WEE"/>
                         </constraints>
