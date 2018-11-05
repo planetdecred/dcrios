@@ -103,11 +103,18 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
         headerView.spendableBalance = data.spendableBalance
         headerView.headerIndex = section
         headerView.expandOrCollapseDetailsButton.tag = section
+        headerView.arrobool = data.isExpanded
         headerView.expandOrCollapseDetailsButton.addTarget(
             self,
             action: #selector(toggleExpandedState(_:)),
             for: .touchUpInside
         )
+        if !(data.isExpanded){
+            headerView.arrowDirection.setImage(UIImage.init(named: "arrow"), for: .normal)
+        }
+        else{
+            headerView.arrowDirection.setImage(UIImage.init(named: "arrow-1"), for: .normal)
+        }
 
         print("account returning header view")
         return headerView
