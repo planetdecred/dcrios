@@ -50,7 +50,7 @@ func saveCertificate(secretKey: String) {
 }
 func getPeerAddress(appInstance:UserDefaults)-> String{
     let ip = appInstance.string(forKey: "pref_peer_ip")
-    if(ip?.elementsEqual("0.0.0.0"))!{
+    if(ip?.elementsEqual(""))!{
         return ""
     }
     else{
