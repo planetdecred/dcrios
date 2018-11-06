@@ -15,6 +15,7 @@
 		2883CA72209B52AE0053D9BB /* WaiterScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2883CA71209B52AE0053D9BB /* WaiterScreenViewController.swift */; };
 		2883CA74209B5BA40053D9BB /* Modals.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2883CA73209B5BA40053D9BB /* Modals.storyboard */; };
 		28B2BCCF2191A28A00024DE2 /* SecurityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B2BCCE2191A28A00024DE2 /* SecurityViewController.swift */; };
+		28B2BCD12191D53800024DE2 /* PasswordSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B2BCD02191D53800024DE2 /* PasswordSetupViewController.swift */; };
 		28EB91B820FCFD8F007A0906 /* GeneratedSeedDisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EB91B720FCFD8F007A0906 /* GeneratedSeedDisplayViewController.swift */; };
 		28EB91BB20FCFDA1007A0906 /* SeedCheckupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EB91B920FCFDA0007A0906 /* SeedCheckupViewController.swift */; };
 		28EB91BC20FCFDA1007A0906 /* CreatePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EB91BA20FCFDA1007A0906 /* CreatePasswordViewController.swift */; };
@@ -121,6 +122,7 @@
 		2883CA71209B52AE0053D9BB /* WaiterScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaiterScreenViewController.swift; sourceTree = "<group>"; };
 		2883CA73209B5BA40053D9BB /* Modals.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Modals.storyboard; sourceTree = "<group>"; };
 		28B2BCCE2191A28A00024DE2 /* SecurityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SecurityViewController.swift; path = view_controller/SecurityViewController.swift; sourceTree = "<group>"; };
+		28B2BCD02191D53800024DE2 /* PasswordSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PasswordSetupViewController.swift; path = view_controller/PasswordSetupViewController.swift; sourceTree = "<group>"; };
 		28EB91B720FCFD8F007A0906 /* GeneratedSeedDisplayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratedSeedDisplayViewController.swift; sourceTree = "<group>"; };
 		28EB91B920FCFDA0007A0906 /* SeedCheckupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeedCheckupViewController.swift; sourceTree = "<group>"; };
 		28EB91BA20FCFDA1007A0906 /* CreatePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePasswordViewController.swift; sourceTree = "<group>"; };
@@ -427,6 +429,7 @@
 				DD4C89DB2038EE60003FEA0C /* view_util */,
 				DDA3E26D20292EF900C83D18 /* AppDelegate.swift */,
 				DDA3E27120292EF900C83D18 /* Main.storyboard */,
+				28B2BCD02191D53800024DE2 /* PasswordSetupViewController.swift */,
 				28B2BCCE2191A28A00024DE2 /* SecurityViewController.swift */,
 				28F0CE7220888258003AC958 /* Utils.swift */,
 				28EB91BD20FCFDBE007A0906 /* table_view_cell */,
@@ -608,12 +611,14 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/PasswordStrength/PasswordStrength.framework",
 				"${BUILT_PRODUCTS_DIR}/QRCodeReader.swift/QRCodeReader.framework",
 				"${BUILT_PRODUCTS_DIR}/SlideMenuControllerSwift/SlideMenuControllerSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PasswordStrength.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QRCodeReader.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SlideMenuControllerSwift.framework",
 			);
@@ -648,6 +653,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DDB89409202F824A002F85EE /* ReceiveViewController.swift in Sources */,
+				28B2BCD12191D53800024DE2 /* PasswordSetupViewController.swift in Sources */,
 				DD1D5C8220AEE90D009789DD /* ServerSetTableViewController.swift in Sources */,
 				DD1D5C8420AEE9FF009789DD /* PeerSetTableViewController.swift in Sources */,
 				DD0C493E208A160900986C6B /* WalletSetupViewController.swift in Sources */,

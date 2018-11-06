@@ -7,6 +7,7 @@ target 'Decred Wallet' do
   pod 'SlideMenuControllerSwift'
   pod 'MBProgressHUD'
   pod 'QRCodeReader.swift'
+  pod "PasswordStrength"
   # Pods for Decred Wallet
 
   target 'Decred WalletTests' do
