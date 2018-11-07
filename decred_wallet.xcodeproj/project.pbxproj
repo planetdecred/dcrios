@@ -8,12 +8,26 @@
 
 /* Begin PBXBuildFile section */
 		1E3D73D7EA02D2D2D3CD052C /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E75324D536F1BD91575D0609 /* Pods_Decred_Wallet.framework */; };
+		2850E08B217612EE00171267 /* SourceSansPro-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2850E07F217612EE00171267 /* SourceSansPro-BlackItalic.ttf */; };
+		2850E08C217612EE00171267 /* SourceSansPro-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2850E080217612EE00171267 /* SourceSansPro-SemiBoldItalic.ttf */; };
+		2850E08D217612EE00171267 /* SourceSansPro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2850E081217612EE00171267 /* SourceSansPro-Regular.ttf */; };
+		2850E08E217612EE00171267 /* SourceSansPro-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2850E082217612EE00171267 /* SourceSansPro-Bold.ttf */; };
+		2850E08F217612EE00171267 /* SourceSansPro-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2850E083217612EE00171267 /* SourceSansPro-LightItalic.ttf */; };
+		2850E090217612EE00171267 /* SourceSansPro-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2850E084217612EE00171267 /* SourceSansPro-Light.ttf */; };
+		2850E091217612EE00171267 /* SourceSansPro-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2850E085217612EE00171267 /* SourceSansPro-Black.ttf */; };
+		2850E092217612EE00171267 /* SourceSansPro-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2850E086217612EE00171267 /* SourceSansPro-ExtraLight.ttf */; };
+		2850E093217612EE00171267 /* SourceSansPro-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2850E087217612EE00171267 /* SourceSansPro-BoldItalic.ttf */; };
+		2850E094217612EE00171267 /* SourceSansPro-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2850E088217612EE00171267 /* SourceSansPro-SemiBold.ttf */; };
+		2850E095217612EE00171267 /* SourceSansPro-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2850E089217612EE00171267 /* SourceSansPro-ExtraLightItalic.ttf */; };
+		2850E096217612EE00171267 /* SourceSansPro-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2850E08A217612EE00171267 /* SourceSansPro-Italic.ttf */; };
+		2850E098217614DC00171267 /* RecoverWalletTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2850E097217614DC00171267 /* RecoverWalletTableViewController.swift */; };
 		286DA549210B0C7A00734259 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286DA548210B0C7A00734259 /* Data.swift */; };
 		286E279D20B6E22400EE0B08 /* DcrObservers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286E279820B6E22300EE0B08 /* DcrObservers.swift */; };
 		2870338B20BC5E7D00BFD0B8 /* JsonEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2870338A20BC5E7D00BFD0B8 /* JsonEntities.swift */; };
 		2883CA702099D40F0053D9BB /* DropDownSearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2883CA6F2099D40F0053D9BB /* DropDownSearchField.swift */; };
 		2883CA72209B52AE0053D9BB /* WaiterScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2883CA71209B52AE0053D9BB /* WaiterScreenViewController.swift */; };
 		2883CA74209B5BA40053D9BB /* Modals.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2883CA73209B5BA40053D9BB /* Modals.storyboard */; };
+		28C22AFD21774FC200D3A108 /* RecoveryWalletSeedWordsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C22AFC21774FC200D3A108 /* RecoveryWalletSeedWordsCell.swift */; };
 		28EB91B820FCFD8F007A0906 /* GeneratedSeedDisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EB91B720FCFD8F007A0906 /* GeneratedSeedDisplayViewController.swift */; };
 		28EB91BB20FCFDA1007A0906 /* SeedCheckupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EB91B920FCFDA0007A0906 /* SeedCheckupViewController.swift */; };
 		28EB91BC20FCFDA1007A0906 /* CreatePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EB91BA20FCFDA1007A0906 /* CreatePasswordViewController.swift */; };
@@ -43,7 +57,6 @@
 		95473E7420E3A6420023F50A /* TransactionDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95473E7220E3A6420023F50A /* TransactionDetailCell.swift */; };
 		95473E7520E3A6420023F50A /* TransactionDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95473E7320E3A6420023F50A /* TransactionDetailCell.xib */; };
 		956D14AE20BF035D00624D68 /* wordlist.txt in Resources */ = {isa = PBXBuildFile; fileRef = 956D14AD20BF035C00624D68 /* wordlist.txt */; };
-		957F0AFB20B80EA600D3E8A9 /* RecoverWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957F0AF920B80EA600D3E8A9 /* RecoverWalletViewController.swift */; };
 		957F0AFF20B82F3200D3E8A9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957F0AFE20B82F3200D3E8A9 /* Constants.swift */; };
 		95877FE820B70CBB00CE53D2 /* TransactionHistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95877FE620B70CBB00CE53D2 /* TransactionHistoryViewController.xib */; };
 		95877FE920B70CBB00CE53D2 /* TransactionHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95877FE720B70CBB00CE53D2 /* TransactionHistoryViewController.swift */; };
@@ -113,12 +126,26 @@
 
 /* Begin PBXFileReference section */
 		109877DFD2DABA7636DA7B92 /* Pods-Decred WalletTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred WalletTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Decred WalletTests/Pods-Decred WalletTests.debug.xcconfig"; sourceTree = "<group>"; };
+		2850E07F217612EE00171267 /* SourceSansPro-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-BlackItalic.ttf"; sourceTree = "<group>"; };
+		2850E080217612EE00171267 /* SourceSansPro-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		2850E081217612EE00171267 /* SourceSansPro-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Regular.ttf"; sourceTree = "<group>"; };
+		2850E082217612EE00171267 /* SourceSansPro-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Bold.ttf"; sourceTree = "<group>"; };
+		2850E083217612EE00171267 /* SourceSansPro-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-LightItalic.ttf"; sourceTree = "<group>"; };
+		2850E084217612EE00171267 /* SourceSansPro-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Light.ttf"; sourceTree = "<group>"; };
+		2850E085217612EE00171267 /* SourceSansPro-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Black.ttf"; sourceTree = "<group>"; };
+		2850E086217612EE00171267 /* SourceSansPro-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-ExtraLight.ttf"; sourceTree = "<group>"; };
+		2850E087217612EE00171267 /* SourceSansPro-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-BoldItalic.ttf"; sourceTree = "<group>"; };
+		2850E088217612EE00171267 /* SourceSansPro-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-SemiBold.ttf"; sourceTree = "<group>"; };
+		2850E089217612EE00171267 /* SourceSansPro-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
+		2850E08A217612EE00171267 /* SourceSansPro-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Italic.ttf"; sourceTree = "<group>"; };
+		2850E097217614DC00171267 /* RecoverWalletTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoverWalletTableViewController.swift; sourceTree = "<group>"; };
 		286DA548210B0C7A00734259 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		286E279820B6E22300EE0B08 /* DcrObservers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DcrObservers.swift; sourceTree = "<group>"; };
 		2870338A20BC5E7D00BFD0B8 /* JsonEntities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonEntities.swift; sourceTree = "<group>"; };
 		2883CA6F2099D40F0053D9BB /* DropDownSearchField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownSearchField.swift; sourceTree = "<group>"; };
 		2883CA71209B52AE0053D9BB /* WaiterScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaiterScreenViewController.swift; sourceTree = "<group>"; };
 		2883CA73209B5BA40053D9BB /* Modals.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Modals.storyboard; sourceTree = "<group>"; };
+		28C22AFC21774FC200D3A108 /* RecoveryWalletSeedWordsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryWalletSeedWordsCell.swift; sourceTree = "<group>"; };
 		28EB91B720FCFD8F007A0906 /* GeneratedSeedDisplayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratedSeedDisplayViewController.swift; sourceTree = "<group>"; };
 		28EB91B920FCFDA0007A0906 /* SeedCheckupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeedCheckupViewController.swift; sourceTree = "<group>"; };
 		28EB91BA20FCFDA1007A0906 /* CreatePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePasswordViewController.swift; sourceTree = "<group>"; };
@@ -155,7 +182,6 @@
 		95473E7220E3A6420023F50A /* TransactionDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailCell.swift; sourceTree = "<group>"; };
 		95473E7320E3A6420023F50A /* TransactionDetailCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionDetailCell.xib; sourceTree = "<group>"; };
 		956D14AD20BF035C00624D68 /* wordlist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = wordlist.txt; sourceTree = "<group>"; };
-		957F0AF920B80EA600D3E8A9 /* RecoverWalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoverWalletViewController.swift; sourceTree = "<group>"; };
 		957F0AFE20B82F3200D3E8A9 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		95877FE620B70CBB00CE53D2 /* TransactionHistoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionHistoryViewController.xib; sourceTree = "<group>"; };
 		95877FE720B70CBB00CE53D2 /* TransactionHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionHistoryViewController.swift; sourceTree = "<group>"; };
@@ -227,6 +253,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2850E07D217612EE00171267 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				2850E07E217612EE00171267 /* Source_Sans_Pro */,
+			);
+			name = Fonts;
+			path = decred_wallet/Fonts;
+			sourceTree = "<group>";
+		};
+		2850E07E217612EE00171267 /* Source_Sans_Pro */ = {
+			isa = PBXGroup;
+			children = (
+				2850E07F217612EE00171267 /* SourceSansPro-BlackItalic.ttf */,
+				2850E080217612EE00171267 /* SourceSansPro-SemiBoldItalic.ttf */,
+				2850E081217612EE00171267 /* SourceSansPro-Regular.ttf */,
+				2850E082217612EE00171267 /* SourceSansPro-Bold.ttf */,
+				2850E083217612EE00171267 /* SourceSansPro-LightItalic.ttf */,
+				2850E084217612EE00171267 /* SourceSansPro-Light.ttf */,
+				2850E085217612EE00171267 /* SourceSansPro-Black.ttf */,
+				2850E086217612EE00171267 /* SourceSansPro-ExtraLight.ttf */,
+				2850E087217612EE00171267 /* SourceSansPro-BoldItalic.ttf */,
+				2850E088217612EE00171267 /* SourceSansPro-SemiBold.ttf */,
+				2850E089217612EE00171267 /* SourceSansPro-ExtraLightItalic.ttf */,
+				2850E08A217612EE00171267 /* SourceSansPro-Italic.ttf */,
+			);
+			path = Source_Sans_Pro;
+			sourceTree = "<group>";
+		};
 		286E279620B6E22300EE0B08 /* DcrdConnection */ = {
 			isa = PBXGroup;
 			children = (
@@ -307,6 +361,7 @@
 		95473E6720E39DE70023F50A /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				28C22AFC21774FC200D3A108 /* RecoveryWalletSeedWordsCell.swift */,
 				95473E6820E39E3C0023F50A /* TransactiontInputDetails.swift */,
 				95473E6920E39E3C0023F50A /* TransactiontInputDetails.xib */,
 				95473E6C20E39E7A0023F50A /* TransactiontOutputDetailsCell.swift */,
@@ -351,6 +406,7 @@
 		DD4C89DC2038EEEF003FEA0C /* view_controller */ = {
 			isa = PBXGroup;
 			children = (
+				2850E097217614DC00171267 /* RecoverWalletTableViewController.swift */,
 				DD1D5C7D20AEDB15009789DD /* WalletLogViewController.swift */,
 				DD1D5C7F20AEDB2B009789DD /* NodeLogViewController.swift */,
 				28EB91B920FCFDA0007A0906 /* SeedCheckupViewController.swift */,
@@ -375,7 +431,6 @@
 				DDB89420202F93B3002F85EE /* OverviewViewController.swift */,
 				DD0C493D208A160900986C6B /* WalletSetupViewController.swift */,
 				DD1D5C7B20AED824009789DD /* certificateViewController.swift */,
-				957F0AF920B80EA600D3E8A9 /* RecoverWalletViewController.swift */,
 				DDE90C892162CCB20031CED7 /* HelpViewController.swift */,
 			);
 			path = view_controller;
@@ -398,6 +453,7 @@
 		DDA3E26120292EF900C83D18 = {
 			isa = PBXGroup;
 			children = (
+				2850E07D217612EE00171267 /* Fonts */,
 				DDA3E26C20292EF900C83D18 /* decred_wallet */,
 				DDA3E28120292EF900C83D18 /* decred_wallet_tests */,
 				DDA3E26B20292EF900C83D18 /* Products */,
@@ -548,12 +604,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2850E092217612EE00171267 /* SourceSansPro-ExtraLight.ttf in Resources */,
+				2850E08C217612EE00171267 /* SourceSansPro-SemiBoldItalic.ttf in Resources */,
+				2850E08B217612EE00171267 /* SourceSansPro-BlackItalic.ttf in Resources */,
 				DDA3E27820292EF900C83D18 /* LaunchScreen.storyboard in Resources */,
 				28EB91CC20FCFDBE007A0906 /* DataTableViewCell.xib in Resources */,
+				2850E091217612EE00171267 /* SourceSansPro-Black.ttf in Resources */,
 				28EB91CF20FCFDBE007A0906 /* MenuCell.xib in Resources */,
+				2850E08E217612EE00171267 /* SourceSansPro-Bold.ttf in Resources */,
+				2850E095217612EE00171267 /* SourceSansPro-ExtraLightItalic.ttf in Resources */,
 				956D14AE20BF035D00624D68 /* wordlist.txt in Resources */,
+				2850E090217612EE00171267 /* SourceSansPro-Light.ttf in Resources */,
 				28EB91CB20FCFDBE007A0906 /* AccountDataCell.xib in Resources */,
 				DDA3E27520292EF900C83D18 /* Assets.xcassets in Resources */,
+				2850E094217612EE00171267 /* SourceSansPro-SemiBold.ttf in Resources */,
 				95473E6620E393E50023F50A /* TransactionFullDetailsViewController.storyboard in Resources */,
 				95473E7520E3A6420023F50A /* TransactionDetailCell.xib in Resources */,
 				DDFD8AF72181B5CB0018DE50 /* splashLoader.gif in Resources */,
@@ -562,10 +626,14 @@
 				95877FE820B70CBB00CE53D2 /* TransactionHistoryViewController.xib in Resources */,
 				DDA3E27320292EF900C83D18 /* Main.storyboard in Resources */,
 				95473E7120E3A4C20023F50A /* TransactiontOutputDetailsCell.xib in Resources */,
+				2850E08D217612EE00171267 /* SourceSansPro-Regular.ttf in Resources */,
+				2850E08F217612EE00171267 /* SourceSansPro-LightItalic.ttf in Resources */,
 				2883CA74209B5BA40053D9BB /* Modals.storyboard in Resources */,
+				2850E096217612EE00171267 /* SourceSansPro-Italic.ttf in Resources */,
 				DDB89415202F8D11002F85EE /* ImageHeaderView.xib in Resources */,
 				95404EBF20E113D700B34327 /* AccountsHeaderView.xib in Resources */,
 				952C932A20E247FE00A60E43 /* SendCompletedViewController.storyboard in Resources */,
+				2850E093217612EE00171267 /* SourceSansPro-BoldItalic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -658,6 +726,7 @@
 				28EB91CE20FCFDBE007A0906 /* DataTableViewCell.swift in Sources */,
 				DDB89404202F7E01002F85EE /* SendViewController.swift in Sources */,
 				DDB89411202F8471002F85EE /* String.swift in Sources */,
+				28C22AFD21774FC200D3A108 /* RecoveryWalletSeedWordsCell.swift in Sources */,
 				DD419763202F9B570044F068 /* UITableViewExtension.swift in Sources */,
 				DDB89413202F8635002F85EE /* ImageHeaderView.swift in Sources */,
 				95877FE920B70CBB00CE53D2 /* TransactionHistoryViewController.swift in Sources */,
@@ -673,7 +742,6 @@
 				2883CA702099D40F0053D9BB /* DropDownSearchField.swift in Sources */,
 				95473E6E20E39E7A0023F50A /* TransactiontOutputDetailsCell.swift in Sources */,
 				DDB89429202F95AC002F85EE /* UIApplication.swift in Sources */,
-				957F0AFB20B80EA600D3E8A9 /* RecoverWalletViewController.swift in Sources */,
 				DD24AFA420A6ED70009EC84F /* NetworkModeTableViewController.swift in Sources */,
 				DD4C89D92038EC12003FEA0C /* DropMenuButton.swift in Sources */,
 				DDB89419202F8F3E002F85EE /* UIIMage.swift in Sources */,
@@ -684,6 +752,7 @@
 				952C932720E2174B00A60E43 /* ConfirmToSendFundViewController.swift in Sources */,
 				DD1D5C8020AEDB2B009789DD /* NodeLogViewController.swift in Sources */,
 				952C932C20E2481500A60E43 /* SendCompletedViewController.swift in Sources */,
+				2850E098217614DC00171267 /* RecoverWalletTableViewController.swift in Sources */,
 				28F3B7FA20C8356400D2E0D3 /* ObserverProxy.m in Sources */,
 				DDB89417202F8EE2002F85EE /* UIImageView.swift in Sources */,
 				28EB91B820FCFD8F007A0906 /* GeneratedSeedDisplayViewController.swift in Sources */,
@@ -873,7 +942,7 @@
 				INFOPLIST_FILE = decred_wallet/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ensoreus.DecredWallet;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ensoreus.Decred-Wallet";
 				PRODUCT_NAME = DecredWallet;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -906,7 +975,7 @@
 				INFOPLIST_FILE = decred_wallet/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ensoreus.DecredWallet;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ensoreus.Decred-Wallet";
 				PRODUCT_NAME = DecredWallet;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
