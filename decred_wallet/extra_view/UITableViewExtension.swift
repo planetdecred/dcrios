@@ -65,14 +65,16 @@ public extension Bool {
     }
 }
 
+
 // MARK: - Methods
-//public extension Bool {
-//    
-//    /// SwifterSwift: Toggle value for bool.
+public extension Bool {
+    
+    /// SwifterSwift: Toggle value for bool.
 //    ///
 //    /// - Returns: inversed value of bool.
-//    @discardableResult public mutating func toggle() -> Bool {
-//        self = !self
-//        return self
-//    }
-//}
+    @discardableResult public mutating func toggle() -> Bool {
+        self = !self
+        return self
+    }
+}
+

@@ -99,8 +99,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         UserDefaults.standard.setValuesForKeys(["pref_user_name": "dcrwallet",
                                                 "pref_user_passwd": "dcrwallet",
-                                                "pref_server_ip": "192.168.43.68",
-                                                "pref_peer_ip": "0.0.0.0"])
+                                                "pref_server_ip": "",
+                                                "pref_peer_ip": ""])
         UserDefaults.standard.set(true, forKey: "pref_use_testnet")
 
         return true
