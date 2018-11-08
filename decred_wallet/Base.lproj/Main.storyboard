@@ -1021,7 +1021,7 @@
         <!--Item 2-->
         <scene sceneID="6dO-tg-mEN">
             <objects>
-                <viewController id="2RX-3t-cyE" sceneMemberID="viewController">
+                <viewController id="2RX-3t-cyE" customClass="PinSetupViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jJ5-rS-0ca">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="507"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1059,6 +1059,9 @@
                                                 <integer key="value" value="35"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="on2:" destination="2RX-3t-cyE" eventType="touchUpInside" id="TBX-i9-ifI"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qpH-nZ-cfj">
                                         <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
@@ -1076,6 +1079,9 @@
                                                 <integer key="value" value="35"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="on1:" destination="2RX-3t-cyE" eventType="touchUpInside" id="dgb-8T-31W"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oe2-zD-2MU">
                                         <rect key="frame" x="170" y="0.0" width="70" height="70"/>
@@ -1093,6 +1099,9 @@
                                                 <integer key="value" value="35"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="on3:" destination="2RX-3t-cyE" eventType="touchUpInside" id="aAk-mm-nZ5"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IpO-Yg-JQC">
                                         <rect key="frame" x="0.0" y="80" width="70" height="70"/>
@@ -1110,6 +1119,9 @@
                                                 <integer key="value" value="35"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="on4:" destination="2RX-3t-cyE" eventType="touchUpInside" id="Ge9-y2-Taq"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mST-B7-cBg">
                                         <rect key="frame" x="85" y="80" width="70" height="70"/>
@@ -1127,6 +1139,9 @@
                                                 <integer key="value" value="35"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="on5:" destination="2RX-3t-cyE" eventType="touchUpInside" id="iIY-4U-m5d"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ccM-jW-cPb">
                                         <rect key="frame" x="170" y="80" width="70" height="70"/>
@@ -1146,6 +1161,9 @@
                                                 <integer key="value" value="35"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="on6:" destination="2RX-3t-cyE" eventType="touchUpInside" id="Age-d4-fh6"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="geO-25-Uc5">
                                         <rect key="frame" x="170" y="160" width="70" height="70"/>
@@ -1164,6 +1182,9 @@
                                                 <integer key="value" value="35"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="on9:" destination="2RX-3t-cyE" eventType="touchUpInside" id="7oY-Nn-dm2"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jVG-MB-vB8">
                                         <rect key="frame" x="85" y="160" width="70" height="70"/>
@@ -1181,6 +1202,9 @@
                                                 <integer key="value" value="35"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="on8:" destination="2RX-3t-cyE" eventType="touchUpInside" id="xq0-qX-8CE"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5fu-RW-xN2">
                                         <rect key="frame" x="0.0" y="160" width="70" height="70"/>
@@ -1198,6 +1222,9 @@
                                                 <integer key="value" value="35"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="on7:" destination="2RX-3t-cyE" eventType="touchUpInside" id="rHl-pI-WoN"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xsO-Xg-s1c">
                                         <rect key="frame" x="85" y="243" width="70" height="70"/>
@@ -1216,6 +1243,9 @@
                                                 <integer key="value" value="35"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="on0:" destination="2RX-3t-cyE" eventType="touchUpInside" id="ILD-7o-vZc"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.92941176469999998" green="0.93725490199999995" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1E3D73D7EA02D2D2D3CD052C /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E75324D536F1BD91575D0609 /* Pods_Decred_Wallet.framework */; };
+		28048BE1219492AC003FE50E /* PinSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28048BE0219492AC003FE50E /* PinSetupViewController.swift */; };
+		28048BE421949346003FE50E /* PinInputController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28048BE321949346003FE50E /* PinInputController.swift */; };
 		286DA549210B0C7A00734259 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286DA548210B0C7A00734259 /* Data.swift */; };
 		286E279D20B6E22400EE0B08 /* DcrObservers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286E279820B6E22300EE0B08 /* DcrObservers.swift */; };
 		2870338B20BC5E7D00BFD0B8 /* JsonEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2870338A20BC5E7D00BFD0B8 /* JsonEntities.swift */; };
@@ -116,6 +118,8 @@
 
 /* Begin PBXFileReference section */
 		109877DFD2DABA7636DA7B92 /* Pods-Decred WalletTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred WalletTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Decred WalletTests/Pods-Decred WalletTests.debug.xcconfig"; sourceTree = "<group>"; };
+		28048BE0219492AC003FE50E /* PinSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinSetupViewController.swift; sourceTree = "<group>"; };
+		28048BE321949346003FE50E /* PinInputController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinInputController.swift; sourceTree = "<group>"; };
 		286DA548210B0C7A00734259 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		286E279820B6E22300EE0B08 /* DcrObservers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DcrObservers.swift; sourceTree = "<group>"; };
 		2870338A20BC5E7D00BFD0B8 /* JsonEntities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonEntities.swift; sourceTree = "<group>"; };
@@ -123,8 +127,8 @@
 		2883CA71209B52AE0053D9BB /* WaiterScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaiterScreenViewController.swift; sourceTree = "<group>"; };
 		2883CA73209B5BA40053D9BB /* Modals.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Modals.storyboard; sourceTree = "<group>"; };
 		289705BD219316FE0059478C /* PinMarksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PinMarksView.swift; path = /Users/fil/Development/iPhone/decred/dcrios/decred_wallet/extra_view/PinMarksView.swift; sourceTree = "<absolute>"; };
-		28B2BCCE2191A28A00024DE2 /* SecurityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SecurityViewController.swift; path = view_controller/SecurityViewController.swift; sourceTree = "<group>"; };
-		28B2BCD02191D53800024DE2 /* PasswordSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PasswordSetupViewController.swift; path = view_controller/PasswordSetupViewController.swift; sourceTree = "<group>"; };
+		28B2BCCE2191A28A00024DE2 /* SecurityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityViewController.swift; sourceTree = "<group>"; };
+		28B2BCD02191D53800024DE2 /* PasswordSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordSetupViewController.swift; sourceTree = "<group>"; };
 		28EB91B720FCFD8F007A0906 /* GeneratedSeedDisplayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratedSeedDisplayViewController.swift; sourceTree = "<group>"; };
 		28EB91B920FCFDA0007A0906 /* SeedCheckupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeedCheckupViewController.swift; sourceTree = "<group>"; };
 		28EB91BA20FCFDA1007A0906 /* CreatePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePasswordViewController.swift; sourceTree = "<group>"; };
@@ -233,6 +237,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		28048BE2219492F5003FE50E /* Security */ = {
+			isa = PBXGroup;
+			children = (
+				28B2BCD02191D53800024DE2 /* PasswordSetupViewController.swift */,
+				28B2BCCE2191A28A00024DE2 /* SecurityViewController.swift */,
+				28048BE0219492AC003FE50E /* PinSetupViewController.swift */,
+				28048BE321949346003FE50E /* PinInputController.swift */,
+			);
+			path = Security;
+			sourceTree = "<group>";
+		};
 		286E279620B6E22300EE0B08 /* DcrdConnection */ = {
 			isa = PBXGroup;
 			children = (
@@ -357,6 +372,7 @@
 		DD4C89DC2038EEEF003FEA0C /* view_controller */ = {
 			isa = PBXGroup;
 			children = (
+				28048BE2219492F5003FE50E /* Security */,
 				DD1D5C7D20AEDB15009789DD /* WalletLogViewController.swift */,
 				DD1D5C7F20AEDB2B009789DD /* NodeLogViewController.swift */,
 				28EB91B920FCFDA0007A0906 /* SeedCheckupViewController.swift */,
@@ -432,8 +448,6 @@
 				DD4C89DB2038EE60003FEA0C /* view_util */,
 				DDA3E26D20292EF900C83D18 /* AppDelegate.swift */,
 				DDA3E27120292EF900C83D18 /* Main.storyboard */,
-				28B2BCD02191D53800024DE2 /* PasswordSetupViewController.swift */,
-				28B2BCCE2191A28A00024DE2 /* SecurityViewController.swift */,
 				28F0CE7220888258003AC958 /* Utils.swift */,
 				28EB91BD20FCFDBE007A0906 /* table_view_cell */,
 				DDA3E27420292EF900C83D18 /* Assets.xcassets */,
@@ -662,6 +676,7 @@
 				DD0C493E208A160900986C6B /* WalletSetupViewController.swift in Sources */,
 				286E279D20B6E22400EE0B08 /* DcrObservers.swift in Sources */,
 				28B2BCCF2191A28A00024DE2 /* SecurityViewController.swift in Sources */,
+				28048BE421949346003FE50E /* PinInputController.swift in Sources */,
 				DDB8941B202F8F92002F85EE /* UIColor.swift in Sources */,
 				28EB91BC20FCFDA1007A0906 /* CreatePasswordViewController.swift in Sources */,
 				95404EBE20E113D700B34327 /* AccountsHeaderView.swift in Sources */,
@@ -673,6 +688,7 @@
 				DDB89411202F8471002F85EE /* String.swift in Sources */,
 				DD419763202F9B570044F068 /* UITableViewExtension.swift in Sources */,
 				DDB89413202F8635002F85EE /* ImageHeaderView.swift in Sources */,
+				28048BE1219492AC003FE50E /* PinSetupViewController.swift in Sources */,
 				95877FE920B70CBB00CE53D2 /* TransactionHistoryViewController.swift in Sources */,
 				DD1D5C7E20AEDB15009789DD /* WalletLogViewController.swift in Sources */,
 				28EB91CA20FCFDBE007A0906 /* AccountDataCell.swift in Sources */,
