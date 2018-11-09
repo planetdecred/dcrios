@@ -15,7 +15,7 @@ class PinMarksView: UIView {
     
     override init(frame: CGRect) {
         total = 5
-        entered = 1
+        entered = 0
         super.init(frame: frame)
     }
     
@@ -26,21 +26,22 @@ class PinMarksView: UIView {
     }
 
     override func draw(_ rect: CGRect) {
-        drawCells(in: rect, active: false)
-        if entered > 0 {
-            drawCells(in: rect, active: true)
-        }
+        update()
     }
     
-    func drawCells(in rect:CGRect, active:Bool){
+    func update() {
+        drawCells(in: frame)
+    }
+    
+    func drawCells(in rect:CGRect){
         let h = rect.size.height
         let w = rect.size.width / CGFloat(total) - space
         for i in 0...(total - 1) {
             let cellRect = CGRect(x: CGFloat(i) * w + space * CGFloat(i), y: 0, width: w, height: h)
             drawEmptyCell(rect: cellRect)
         }
-        
-        for i in 0...(entered) {
+        if entered == 0 {return}
+        for i in 0...(entered - 1) {
             let cellRect = CGRect(x: CGFloat(i) * w + space * CGFloat(i), y: 0, width: w, height: h)
             drawActiveCell(rect: cellRect)
         }

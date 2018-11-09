@@ -7,14 +7,26 @@
 
 
 import UIKit
+import PasswordStrength
 
 class PinSetupViewController: UIViewController {
-    let pinInputController = PinInputController()
-    var pin : String = ""
+    @IBOutlet weak var pinMarks: PinMarksView!
+    @IBOutlet weak var prgsPinStrength: UIProgressView!
+    let pinStrength = MEPasswordStrength()
+    let pinInputController = PinInputController(max: 5)
+    
+    var pin : String = ""{
+        didSet {
+            pinMarks.entered = pin.count
+            pinMarks.update()
+            prgsPinStrength.progressTintColor = pinStrength.strengthColor(forPassword: pin)
+            prgsPinStrength.progress = pinStrength.strength(forPassword: pin) as! Float
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
     }
     
     @IBAction func on1(_ sender: Any) {
@@ -57,14 +69,8 @@ class PinSetupViewController: UIViewController {
         pin = pinInputController.input(digit: 0)
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func onBackspace(_ sender: Any) {
+        pin = pinInputController.backspace()
     }
-    */
 
 }
