@@ -47,6 +47,7 @@ class RecoverWalletTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("am about to recover")
         resetSuggestions()
         seedtmp = loadSeedWordsList()
     }
