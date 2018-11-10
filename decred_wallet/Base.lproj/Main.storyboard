@@ -1041,7 +1041,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7hC-2G-6be">
-                                <rect key="frame" x="40" y="202" width="240" height="246"/>
+                                <rect key="frame" x="40" y="207" width="240" height="241"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BCw-cI-q8d">
                                         <rect key="frame" x="85" y="0.0" width="70" height="70"/>
@@ -1286,11 +1286,11 @@
                                     <constraint firstItem="jVG-MB-vB8" firstAttribute="centerX" secondItem="7hC-2G-6be" secondAttribute="centerX" id="z0f-c0-3Cf"/>
                                 </constraints>
                             </view>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="vRA-0U-8dN">
-                                <rect key="frame" x="85" y="166" width="150" height="5"/>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vRA-0U-8dN">
+                                <rect key="frame" x="85" y="166" width="150" height="10"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="c5y-Or-f8E"/>
-                                    <constraint firstAttribute="height" constant="5" id="u1O-T2-gLw"/>
+                                    <constraint firstAttribute="height" constant="10" id="u1O-T2-gLw"/>
                                 </constraints>
                             </progressView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PIN STRENGTH" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fNT-WV-EOD">
