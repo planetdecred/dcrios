@@ -7,20 +7,19 @@
 
 
 import UIKit
-import PasswordStrength
 
 class PinSetupViewController: UIViewController {
     @IBOutlet weak var pinMarks: PinMarksView!
     @IBOutlet weak var prgsPinStrength: UIProgressView!
-    let pinStrength = MEPasswordStrength()
+    let pinStrength = PinWeakness()
     let pinInputController = PinInputController(max: 5)
     
     var pin : String = ""{
         didSet {
             pinMarks.entered = pin.count
             pinMarks.update()
-            prgsPinStrength.progressTintColor = pinStrength.strengthColor(forPassword: pin)
-            prgsPinStrength.progress = pinStrength.strength(forPassword: pin) as! Float
+            prgsPinStrength.progressTintColor = pinStrength.strengthColor(forPin: pin)
+            prgsPinStrength.progress = pinStrength.strength(forPin: pin)
         }
     }
     
