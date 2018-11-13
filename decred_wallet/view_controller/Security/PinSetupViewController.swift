@@ -23,11 +23,6 @@ class PinSetupViewController: UIViewController {
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-    }
-    
     @IBAction func on1(_ sender: Any) {
         pin = pinInputController.input(digit: 1)
     }

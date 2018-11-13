@@ -14,12 +14,6 @@ class SecurityViewController: UIViewController {
     @IBOutlet weak var btnPin: UIButton!
     @IBOutlet weak var btnPassword: UIButton!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-    
     @IBAction func onPasswordTab(_ sender: Any) {
         pager?.selectedIndex = 0
         btnPassword.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)

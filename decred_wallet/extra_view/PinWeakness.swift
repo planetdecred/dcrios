@@ -14,6 +14,7 @@ class PinWeakness {
     let passstrength = PinAnalyzer()
     
     func strength(forPin:String) -> Float{
+        if forPin.length == 0 {return 0.0}
         let res = passstrength.analyze(pin: forPin)
         return res / 10.0
     }
@@ -24,8 +25,6 @@ class PinWeakness {
         let colorIndex = Int(pinStrength * 10.0 / 2.0)
         return colors[colorIndex]
     }
-    
-    
 }
 
 class PinAnalyzer {
