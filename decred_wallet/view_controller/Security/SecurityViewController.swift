@@ -8,7 +8,8 @@
 
 import UIKit
 
-class SecurityViewController: UIViewController {
+class SecurityViewController: UIViewController, SeedCheckupProtocol {
+    var seedToVerify: String?
     var pager: UITabBarController?
     
     @IBOutlet weak var btnPin: UIButton!
@@ -33,8 +34,10 @@ class SecurityViewController: UIViewController {
         if segue.identifier == "embedPager" {
             pager = segue.destination as? UITabBarController
             pager?.tabBar.isHidden = true
+            var seedChecked1 = pager?.viewControllers?.first as? SeedCheckupProtocol
+            var seedChecked2 = pager?.viewControllers?.last as? SeedCheckupProtocol
+            seedChecked1?.seedToVerify = seedToVerify
+            seedChecked2?.seedToVerify = seedToVerify
         }
     }
-    
-
 }

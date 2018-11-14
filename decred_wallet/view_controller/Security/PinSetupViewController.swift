@@ -7,12 +7,20 @@
 
 
 import UIKit
+import MBProgressHUD
+import Mobilewallet
 
-class PinSetupViewController: UIViewController {
+class PinSetupViewController: UIViewController, SeedCheckupProtocol {
+
     @IBOutlet weak var pinMarks: PinMarksView!
     @IBOutlet weak var prgsPinStrength: UIProgressView!
+    @IBOutlet weak var btnCommit: UIButton!
+    
+    
+    var progressHud : MBProgressHUD?
     let pinStrength = PinWeakness()
     let pinInputController = PinInputController(max: 5)
+    var seedToVerify: String?
     
     var pin : String = ""{
         didSet {
@@ -20,7 +28,17 @@ class PinSetupViewController: UIViewController {
             pinMarks.update()
             prgsPinStrength.progressTintColor = pinStrength.strengthColor(forPin: pin)
             prgsPinStrength.progress = pinStrength.strength(forPin: pin)
+            if pin.count == 5 {
+                self.btnCommit.isEnabled = true
+            }else{
+                self.btnCommit.isEnabled = false
+            }
         }
+    }
+    
+    override func viewDidLoad() {
+        progressHud = MBProgressHUD(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
+        view.addSubview(progressHud!)
     }
     
     @IBAction func on1(_ sender: Any) {
@@ -67,4 +85,46 @@ class PinSetupViewController: UIViewController {
         pin = pinInputController.backspace()
     }
 
+    @IBAction func onCommit(_ sender: Any) {
+        self.progressHud?.show(animated: true)
+        self.progressHud?.label.text = "creating wallet..."
+        print("creating")
+        let seed = self.seedToVerify!
+        let pass = self.pin
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let this = self else { return }
+            
+            do {
+                if SingleInstance.shared.wallet == nil {
+                    return
+                }
+                try SingleInstance.shared.wallet?.createWallet(pass, seedMnemonic: seed)
+                DispatchQueue.main.async {
+                    this.progressHud?.hide(animated: true)
+                    UserDefaults.standard.set(pass, forKey: "password")
+                    print("wallet created")
+                    createMainWindow()
+                    this.dismiss(animated: true, completion: nil)
+                }
+                print("done")
+                return
+            } catch let error {
+                DispatchQueue.main.async {
+                    this.progressHud?.hide(animated: true)
+                    this.showError(error: error)
+                    print("wallet error")
+                    print(error)
+                }
+            }
+        }
+    }
+    
+    func showError(error:Error){
+        let alert = UIAlertController(title: "Warning", message: error.localizedDescription, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
+            alert.dismiss(animated: true, completion: {self.navigationController?.popToRootViewController(animated: true)})
+        }
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: {self.progressHud?.hide(animated: false)})
+    }
 }

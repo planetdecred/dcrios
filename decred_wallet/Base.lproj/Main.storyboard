@@ -40,134 +40,6 @@
             </objects>
             <point key="canvasLocation" x="130" y="-1431"/>
         </scene>
-        <!--Create Password View Controller-->
-        <scene sceneID="811-jf-liA">
-            <objects>
-                <viewController storyboardIdentifier="encryptWallet" id="tbw-An-0pb" customClass="CreatePasswordViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Zw3-u9-H2J">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Setting up your wallet" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Bw-Rn-KUS">
-                                <rect key="frame" x="53" y="46" width="196" height="25.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                <color key="textColor" red="0.043137254899999998" green="0.1137254902" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create a private passphrase to encrypt your wallet" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ciM-ln-rNN">
-                                <rect key="frame" x="16" y="122.5" width="288" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="KkG-2S-gIp"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                <color key="textColor" red="0.34901960784313724" green="0.42745098039215684" blue="0.50588235294117645" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Passphrase" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ryn-xd-MOb">
-                                <rect key="frame" x="16" y="194.5" width="288" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="wJx-sv-JOQ"/>
-                                </constraints>
-                                <color key="textColor" red="0.043137254899999998" green="0.1137254902" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="password"/>
-                                <connections>
-                                    <outlet property="delegate" destination="tbw-An-0pb" id="N5Q-B0-DMi"/>
-                                </connections>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Verify passphrase" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="N2p-WU-eTZ">
-                                <rect key="frame" x="16" y="255.5" width="288" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="Fk8-VI-wYy"/>
-                                </constraints>
-                                <color key="textColor" red="0.043137254899999998" green="0.1137254902" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="password"/>
-                                <connections>
-                                    <outlet property="delegate" destination="tbw-An-0pb" id="Seo-SH-scs"/>
-                                </connections>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9as-Ev-jkq">
-                                <rect key="frame" x="84" y="317.5" width="158" height="36"/>
-                                <color key="backgroundColor" red="0.180392161" green="0.35010853069999998" blue="0.85882353779999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="36" id="3YR-NS-OUf"/>
-                                    <constraint firstAttribute="width" constant="158" id="8hY-QB-xwo"/>
-                                </constraints>
-                                <state key="normal" title="ENCRYPT WALLET">
-                                    <color key="titleColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <state key="disabled">
-                                    <color key="titleColor" cocoaTouchSystemColor="lightTextColor"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="5"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="onEncrypt:" destination="tbw-An-0pb" eventType="touchUpInside" id="SKb-nE-VAY"/>
-                                </connections>
-                            </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aZt-Ac-vHu">
-                                <rect key="frame" x="16" y="283.5" width="288" height="2"/>
-                                <color key="backgroundColor" red="0.83921568629999999" green="0.84705882349999995" blue="0.84705882349999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="2" id="xHK-H2-drL"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n3p-P9-3b9">
-                                <rect key="frame" x="16" y="222.5" width="288" height="2"/>
-                                <color key="backgroundColor" red="0.83921568629999999" green="0.84705882349999995" blue="0.84705882349999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="2" id="9pO-Bv-ElM"/>
-                                </constraints>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zos-iu-9hX">
-                                <rect key="frame" x="12" y="42.5" width="33" height="33"/>
-                                <state key="normal" image="left-arrow"/>
-                                <connections>
-                                    <action selector="backAction:" destination="eoW-KE-o6O" eventType="touchUpInside" id="pWH-yG-uTU"/>
-                                    <action selector="backAction:" destination="tbw-An-0pb" eventType="touchUpInside" id="wXE-Yj-9Qs"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" red="0.95294117649999999" green="0.96078431369999995" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="N2p-WU-eTZ" firstAttribute="leading" secondItem="1xW-eB-xbQ" secondAttribute="leading" constant="16" id="0tp-Ll-Ox0"/>
-                            <constraint firstItem="Ryn-xd-MOb" firstAttribute="leading" secondItem="1xW-eB-xbQ" secondAttribute="leading" constant="16" id="EEG-5a-xyp"/>
-                            <constraint firstItem="n3p-P9-3b9" firstAttribute="width" secondItem="Ryn-xd-MOb" secondAttribute="width" id="FC0-kL-8Ae"/>
-                            <constraint firstItem="aZt-Ac-vHu" firstAttribute="top" secondItem="N2p-WU-eTZ" secondAttribute="bottom" constant="-2" id="FWs-kF-XWY"/>
-                            <constraint firstItem="N2p-WU-eTZ" firstAttribute="top" secondItem="Ryn-xd-MOb" secondAttribute="bottom" constant="31" id="GM1-jh-UQF"/>
-                            <constraint firstItem="1xW-eB-xbQ" firstAttribute="trailing" secondItem="ciM-ln-rNN" secondAttribute="trailing" constant="16" id="Pox-kP-Dnn"/>
-                            <constraint firstItem="1Bw-Rn-KUS" firstAttribute="leading" secondItem="zos-iu-9hX" secondAttribute="trailing" constant="8" symbolic="YES" id="Q5x-PG-M3h"/>
-                            <constraint firstItem="1xW-eB-xbQ" firstAttribute="trailing" secondItem="N2p-WU-eTZ" secondAttribute="trailing" constant="16" id="SA3-R6-boJ"/>
-                            <constraint firstItem="1Bw-Rn-KUS" firstAttribute="top" secondItem="1xW-eB-xbQ" secondAttribute="top" constant="26" id="Uyt-QO-fBm"/>
-                            <constraint firstItem="9as-Ev-jkq" firstAttribute="top" secondItem="N2p-WU-eTZ" secondAttribute="bottom" constant="32" id="Xlo-rs-zyP"/>
-                            <constraint firstItem="zos-iu-9hX" firstAttribute="leading" secondItem="1xW-eB-xbQ" secondAttribute="leading" constant="12" id="Xm2-4K-Fco"/>
-                            <constraint firstItem="aZt-Ac-vHu" firstAttribute="centerX" secondItem="1xW-eB-xbQ" secondAttribute="centerX" id="bUp-Dd-jTd"/>
-                            <constraint firstItem="n3p-P9-3b9" firstAttribute="centerX" secondItem="1xW-eB-xbQ" secondAttribute="centerX" id="bWC-gh-oME"/>
-                            <constraint firstItem="1Bw-Rn-KUS" firstAttribute="centerY" secondItem="zos-iu-9hX" secondAttribute="centerY" id="gVk-dI-9pK"/>
-                            <constraint firstItem="9as-Ev-jkq" firstAttribute="centerX" secondItem="1xW-eB-xbQ" secondAttribute="centerX" constant="3" id="ha8-bQ-D1B"/>
-                            <constraint firstItem="ciM-ln-rNN" firstAttribute="top" secondItem="1Bw-Rn-KUS" secondAttribute="bottom" constant="51" id="hyr-ow-gxk"/>
-                            <constraint firstItem="Ryn-xd-MOb" firstAttribute="top" secondItem="ciM-ln-rNN" secondAttribute="bottom" constant="51" id="kiA-ye-8kH"/>
-                            <constraint firstItem="ciM-ln-rNN" firstAttribute="leading" secondItem="1xW-eB-xbQ" secondAttribute="leading" constant="16" id="o2S-Ws-Y1V"/>
-                            <constraint firstItem="1xW-eB-xbQ" firstAttribute="trailing" secondItem="Ryn-xd-MOb" secondAttribute="trailing" constant="16" id="p4c-Ml-jKj"/>
-                            <constraint firstItem="aZt-Ac-vHu" firstAttribute="width" secondItem="N2p-WU-eTZ" secondAttribute="width" id="ukx-Yz-FaN"/>
-                            <constraint firstItem="n3p-P9-3b9" firstAttribute="top" secondItem="Ryn-xd-MOb" secondAttribute="bottom" constant="-2" id="wNf-of-SJ2"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="1xW-eB-xbQ"/>
-                    </view>
-                    <connections>
-                        <outlet property="btnEncrypt" destination="9as-Ev-jkq" id="deR-vm-L93"/>
-                        <outlet property="tfPassword" destination="Ryn-xd-MOb" id="xVK-yE-SDP"/>
-                        <outlet property="tfVerifyPassword" destination="N2p-WU-eTZ" id="VF5-vm-yvC"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="7rA-l2-tDt" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4320" y="-435"/>
-        </scene>
         <!--Left View Controller-->
         <scene sceneID="Nq8-8X-A5v">
             <objects>
@@ -1016,7 +888,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ct3-Mx-Ixf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2558" y="775"/>
+            <point key="canvasLocation" x="4526" y="-423"/>
         </scene>
         <!--Item 2-->
         <scene sceneID="6dO-tg-mEN">
@@ -1248,7 +1120,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aLo-VU-Pca">
-                                        <rect key="frame" x="182" y="260" width="46" height="30"/>
+                                        <rect key="frame" x="12" y="260" width="46" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="46" id="dPw-SI-Mg9"/>
                                             <constraint firstAttribute="height" constant="30" id="ldO-Dv-1Xg"/>
@@ -1256,6 +1128,26 @@
                                         <state key="normal" image="backspace"/>
                                         <connections>
                                             <action selector="onBackspace:" destination="2RX-3t-cyE" eventType="touchUpInside" id="ly2-9Q-czc"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6jA-s0-6kT">
+                                        <rect key="frame" x="170" y="240" width="70" height="70"/>
+                                        <color key="backgroundColor" red="0.17662689089775085" green="0.84774124622344971" blue="0.63897907733917236" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="70" id="IOx-gY-Tfi"/>
+                                            <constraint firstAttribute="height" constant="70" id="Yjb-G0-7cD"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="dTB-v2-mp2"/>
+                                        </constraints>
+                                        <state key="normal" image="img-checkmark">
+                                            <color key="titleColor" red="0.28433507679999998" green="0.3355044425" blue="0.43102741239999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="35"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="onCommit:" destination="2RX-3t-cyE" eventType="touchUpInside" id="Snb-VQ-0Ml"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1267,12 +1159,14 @@
                                     <constraint firstItem="5fu-RW-xN2" firstAttribute="leading" secondItem="7hC-2G-6be" secondAttribute="leading" id="7Mc-cI-bTI"/>
                                     <constraint firstItem="mST-B7-cBg" firstAttribute="centerX" secondItem="7hC-2G-6be" secondAttribute="centerX" id="8d8-JJ-sIx"/>
                                     <constraint firstAttribute="trailing" secondItem="geO-25-Uc5" secondAttribute="trailing" id="BWl-Cb-eEf"/>
+                                    <constraint firstItem="6jA-s0-6kT" firstAttribute="centerY" secondItem="xsO-Xg-s1c" secondAttribute="centerY" id="Bax-FP-0AC"/>
                                     <constraint firstItem="IpO-Yg-JQC" firstAttribute="top" secondItem="qpH-nZ-cfj" secondAttribute="bottom" constant="10" id="CsO-4G-hbI"/>
+                                    <constraint firstItem="6jA-s0-6kT" firstAttribute="centerX" secondItem="geO-25-Uc5" secondAttribute="centerX" id="El1-Kc-rsG"/>
                                     <constraint firstItem="xsO-Xg-s1c" firstAttribute="centerX" secondItem="7hC-2G-6be" secondAttribute="centerX" id="FD7-d6-LJa"/>
                                     <constraint firstItem="ccM-jW-cPb" firstAttribute="firstBaseline" secondItem="mST-B7-cBg" secondAttribute="firstBaseline" id="M53-g0-kpg"/>
                                     <constraint firstItem="jVG-MB-vB8" firstAttribute="firstBaseline" secondItem="5fu-RW-xN2" secondAttribute="firstBaseline" id="Mtc-Uu-3f3"/>
                                     <constraint firstAttribute="trailing" secondItem="oe2-zD-2MU" secondAttribute="trailing" id="Qhg-ls-E4I"/>
-                                    <constraint firstItem="aLo-VU-Pca" firstAttribute="centerX" secondItem="geO-25-Uc5" secondAttribute="centerX" id="U14-L2-u86"/>
+                                    <constraint firstItem="aLo-VU-Pca" firstAttribute="centerX" secondItem="5fu-RW-xN2" secondAttribute="centerX" id="U14-L2-u86"/>
                                     <constraint firstItem="BCw-cI-q8d" firstAttribute="centerX" secondItem="7hC-2G-6be" secondAttribute="centerX" id="Xhw-0d-UCh"/>
                                     <constraint firstItem="mST-B7-cBg" firstAttribute="firstBaseline" secondItem="IpO-Yg-JQC" secondAttribute="firstBaseline" id="bQb-1S-79E"/>
                                     <constraint firstAttribute="trailing" secondItem="ccM-jW-cPb" secondAttribute="trailing" id="fBa-9U-zcg"/>
@@ -1304,6 +1198,7 @@
                         <constraints>
                             <constraint firstItem="geO-25-Uc5" firstAttribute="top" secondItem="ccM-jW-cPb" secondAttribute="bottom" constant="10" id="1bH-EU-Vnd"/>
                             <constraint firstItem="Erh-Y0-nwo" firstAttribute="top" secondItem="GJH-Uf-GCe" secondAttribute="bottom" constant="15" id="832-qd-BsR"/>
+                            <constraint firstItem="geO-25-Uc5" firstAttribute="top" secondItem="ccM-jW-cPb" secondAttribute="bottom" constant="10" id="9Y4-AY-E3D"/>
                             <constraint firstItem="geO-25-Uc5" firstAttribute="firstBaseline" secondItem="jVG-MB-vB8" secondAttribute="firstBaseline" id="Brc-Xv-btp"/>
                             <constraint firstItem="fNT-WV-EOD" firstAttribute="centerX" secondItem="VRi-91-TOo" secondAttribute="centerX" id="Nuf-OE-bcg"/>
                             <constraint firstItem="VRi-91-TOo" firstAttribute="bottom" secondItem="7hC-2G-6be" secondAttribute="bottom" constant="10" id="Qhu-1H-KjI"/>
@@ -1313,6 +1208,7 @@
                             <constraint firstItem="7hC-2G-6be" firstAttribute="centerX" secondItem="VRi-91-TOo" secondAttribute="centerX" id="cCf-eY-jzG"/>
                             <constraint firstItem="vRA-0U-8dN" firstAttribute="centerX" secondItem="VRi-91-TOo" secondAttribute="centerX" id="hBb-wS-sSE"/>
                             <constraint firstItem="GJH-Uf-GCe" firstAttribute="top" secondItem="VRi-91-TOo" secondAttribute="top" constant="15" id="ja6-ID-39r"/>
+                            <constraint firstItem="geO-25-Uc5" firstAttribute="firstBaseline" secondItem="jVG-MB-vB8" secondAttribute="firstBaseline" id="olG-fq-yUm"/>
                             <constraint firstItem="7hC-2G-6be" firstAttribute="top" secondItem="vRA-0U-8dN" secondAttribute="bottom" constant="31" id="ox6-AM-0t8"/>
                             <constraint firstItem="fNT-WV-EOD" firstAttribute="top" secondItem="Erh-Y0-nwo" secondAttribute="bottom" constant="8" id="svC-qf-EJz"/>
                             <constraint firstItem="7hC-2G-6be" firstAttribute="leading" secondItem="Erh-Y0-nwo" secondAttribute="leading" id="vtR-Wd-1Sz"/>
@@ -1321,13 +1217,14 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 2" id="p4K-qT-HqF"/>
                     <connections>
+                        <outlet property="btnCommit" destination="6jA-s0-6kT" id="cWj-sr-uOj"/>
                         <outlet property="pinMarks" destination="Erh-Y0-nwo" id="jUX-nd-F49"/>
                         <outlet property="prgsPinStrength" destination="vRA-0U-8dN" id="b3n-vD-jS0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N0y-bT-782" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4209.375" y="938.55633802816908"/>
+            <point key="canvasLocation" x="6270" y="-22"/>
         </scene>
         <!--password-->
         <scene sceneID="Irx-jK-9Fn">
@@ -1461,7 +1358,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="spj-Dn-tsR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4211.25" y="334.33098591549299"/>
+            <point key="canvasLocation" x="6270" y="-785"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="6XZ-Af-myO">
@@ -1480,7 +1377,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oZb-yt-fRH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3381" y="744"/>
+            <point key="canvasLocation" x="5408" y="-456"/>
         </scene>
         <!--Seed Checkup View Controller-->
         <scene sceneID="phV-U4-7h8">
@@ -1555,7 +1452,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <segue destination="tbw-An-0pb" kind="show" identifier="enc" id="rUa-aO-D34"/>
+                                            <segue destination="ciV-Nm-crU" kind="show" id="fIt-k5-uWW"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p3z-l4-FAO">
@@ -1604,7 +1501,6 @@
                                 <connections>
                                     <action selector="backAction:" destination="eoW-KE-o6O" eventType="touchUpInside" id="Orf-Vc-6dq"/>
                                     <action selector="backAction:" destination="E9n-Rj-cW0" eventType="touchUpInside" id="V66-HS-VE0"/>
-                                    <action selector="backAction:" destination="tbw-An-0pb" eventType="touchUpInside" id="oYQ-6D-Zyc"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1651,7 +1547,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0vd-fd-zf2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3470" y="-436"/>
+            <point key="canvasLocation" x="3471" y="-424"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tHd-Lb-uVT">
@@ -1882,7 +1778,7 @@
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="btn_create_wallet:" destination="YlK-1c-GYb" eventType="touchUpInside" id="ifi-4y-gue"/>
-                                                    <segue destination="ciV-Nm-crU" kind="show" id="m3H-yh-fK6"/>
+                                                    <segue destination="eoW-KE-o6O" kind="show" id="UcJ-je-ijB"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create a New Wallet" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fll-mn-qXq">
@@ -3119,7 +3015,6 @@
                                 <state key="normal" image="left-arrow"/>
                                 <connections>
                                     <action selector="backAction:" destination="eoW-KE-o6O" eventType="touchUpInside" id="cR4-n9-poy"/>
-                                    <action selector="backAction:" destination="tbw-An-0pb" eventType="touchUpInside" id="cg1-ax-8uF"/>
                                     <action selector="backAction:" destination="Mld-b2-fb1" eventType="touchUpInside" id="f3b-r8-TBr"/>
                                 </connections>
                             </button>
@@ -3738,6 +3633,7 @@
         <image name="create-wallet" width="55" height="55"/>
         <image name="decred_logo" width="153" height="120"/>
         <image name="helpIcon" width="100" height="134"/>
+        <image name="img-checkmark" width="42" height="44"/>
         <image name="left-arrow" width="33" height="33"/>
         <image name="qr_code_filled" width="33" height="33"/>
         <image name="recover-wallet" width="55" height="55"/>
