@@ -172,7 +172,8 @@ class ConfirmSeedTableViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     private func checkupSeed(){
-        let seed = seedWords.reduce("", { x, y in  x + " " + y!})
+        var seed = seedWords.reduce("", { x, y in  x + " " + y!})
+        //seed = seedToVerify.joined(separator: " ")
         let flag = SingleInstance.shared.wallet?.verifySeed(seed)
         if flag! {
             self.performSegue(withIdentifier: "createPasswordSegue", sender: nil)
