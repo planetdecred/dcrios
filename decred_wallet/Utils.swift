@@ -50,7 +50,7 @@ func saveCertificate(secretKey: String) {
 }
 func getPeerAddress(appInstance:UserDefaults)-> String{
     let ip = appInstance.string(forKey: "pref_peer_ip")
-    if(ip?.elementsEqual("0.0.0.0"))!{
+    if(ip?.elementsEqual(""))!{
         return ""
     }
     else{
@@ -102,9 +102,9 @@ func generateQRCodeFor(with addres: String, forImageViewFrame: CGRect) -> UIImag
     
     return nil
 }
-func spendable(account:AccountsEntity) -> Double{
+func spendable(account:AccountsEntity) -> Decimal{
     let bRequireConfirm = UserDefaults.standard.bool(forKey: "pref_spend_fund_switch")
-    let iRequireConfirm = (bRequireConfirm ?? false) ? Int32(0) : Int32(2)
+    let iRequireConfirm = (bRequireConfirm ) ? Int32(0) : Int32(2)
     let int64Pointer = UnsafeMutablePointer<Int64>.allocate(capacity: 64)    
     do {
         
@@ -113,7 +113,9 @@ func spendable(account:AccountsEntity) -> Double{
         print(error)
         return 0.0
     }
-    return Double(int64Pointer.move() /  100000000)
+    print("spendable =")
+    print(Decimal(int64Pointer.move()))
+    return Decimal(int64Pointer.move()) / 100000000.0
 }
 func loadCertificate() throws ->  String {
     let filePath = NSHomeDirectory() + "/Documents/rpc.cert"
@@ -150,8 +152,8 @@ func getAttributedString(str: String, siz: CGFloat) -> NSAttributedString {
         atrStr.addAttribute(NSAttributedStringKey.foregroundColor,
                             value: UIColor(hex: "#091440"),
                             range: NSRange(
-                                location:(dotRange?.location)!+3,
-                                length:((stt?.length)!-1) - ((dotRange?.location)!+2)))
+                                location:0,
+                                length:(stt?.length)!))
         
     }
     return atrStr

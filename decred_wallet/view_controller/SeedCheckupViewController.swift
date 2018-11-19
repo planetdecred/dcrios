@@ -20,6 +20,7 @@ class SeedCheckupViewController: UIViewController, SeedCheckupProtocol {
     @IBOutlet weak var txSeedCheckCombined: UITextView!
     @IBOutlet weak var tfSeedCheckWord: DropDownSearchField!
     @IBOutlet weak var btnDelete: UIButton!
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -35,6 +36,7 @@ class SeedCheckupViewController: UIViewController, SeedCheckupProtocol {
             self.btnConfirm.isEnabled = (self.txSeedCheckCombined.text == "\(self.seedToVerify ?? "") ")
         }
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         tfSeedCheckWord.becomeFirstResponder()

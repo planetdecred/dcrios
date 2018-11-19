@@ -46,14 +46,15 @@ class GeneratedSeedDisplayViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.isNavigationBarHidden = false
+        navigationController?.isNavigationBarHidden = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        navigationController?.isNavigationBarHidden = true
+        //navigationController?.isNavigationBarHidden = true
     }
     
+    @IBAction func unwind(_: UIStoryboardSegue){}
     // MARK: - Utility
     
     func setUpUItraits() {
@@ -88,8 +89,8 @@ class GeneratedSeedDisplayViewController: UIViewController {
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        var vc = segue.destination as! SeedCheckupProtocol
-        vc.seedToVerify = self.seed
+        var vc = segue.destination as! ConfirmSeedTableViewController
+        vc.seedToVerify = self.seed.split{$0 == " "}.map(String.init) ?? []
     }
     
     @IBAction func backAction(_ sender: UIButton) {
