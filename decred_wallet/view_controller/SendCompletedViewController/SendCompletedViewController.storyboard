@@ -27,7 +27,7 @@
                                 <rect key="frame" x="25" y="190.5" width="325" height="286"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Transaction successful" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Thv-T1-bpc">
-                                        <rect key="frame" x="15" y="94" width="295" height="24.5"/>
+                                        <rect key="frame" x="15" y="94" width="295" height="26.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="21"/>
                                         <color key="textColor" red="0.2274509804" green="0.84313725490000002" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -51,11 +51,11 @@
                                                     <constraint firstAttribute="width" constant="50" id="Vrg-9m-6PM"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                                                <state key="normal" title="CLOSE">
+                                                <state key="normal" title="VIEW">
                                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="closeAction:" destination="GTW-Y7-O2y" eventType="touchUpInside" id="nDS-kI-EnK"/>
+                                                    <action selector="openAction:" destination="GTW-Y7-O2y" eventType="touchUpInside" id="iI8-Rf-7CM"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Rg-FZ-lAZ">
@@ -65,11 +65,11 @@
                                                     <constraint firstAttribute="width" constant="39" id="L2Z-2j-5KT"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                                                <state key="normal" title="VIEW">
+                                                <state key="normal" title="OK">
                                                     <color key="titleColor" red="0.16078431372549018" green="0.4392156862745098" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="openAction:" destination="GTW-Y7-O2y" eventType="touchUpInside" id="7B8-XR-CC0"/>
+                                                    <action selector="closeAction:" destination="GTW-Y7-O2y" eventType="touchUpInside" id="XWH-Hp-Ijy"/>
                                                 </connections>
                                             </button>
                                         </subviews>
