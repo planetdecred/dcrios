@@ -15,7 +15,7 @@ class ConfirmSeedTableViewController: UIViewController, UITableViewDelegate, UIT
     @IBOutlet var tfSeed: UITextField?
     
     @IBOutlet weak var alcVisibleTableHeight: NSLayoutConstraint!
-    
+    var allWords: [String]?
     var svSuggestions: UIToolbar?
     var seedWords: [String?] = []
     var suggestionLabel1 : UILabel?
@@ -58,6 +58,7 @@ class ConfirmSeedTableViewController: UIViewController, UITableViewDelegate, UIT
         tableView?.dataSource = self
         hideSuggestions()
         tfSeed?.delegate = self
+        allWords = loadSeedWordsList()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -216,14 +217,32 @@ class ConfirmSeedTableViewController: UIViewController, UITableViewDelegate, UIT
     private func hideSuggestions(){
         vSuggestionsPanel.isHidden = true
     }
+    
+    private func loadSeedWordsList() -> [String]{
+        let seedWordsPath = Bundle.main.path(forResource: "wordlist", ofType: "txt")
+        let seedWords = try? String(contentsOfFile: seedWordsPath ?? "")
+        return seedWords?.split{$0 == "\n"}.map(String.init) ?? []
+    }
+    
 }
 
 extension ConfirmSeedTableViewController : UITextFieldDelegate{
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        self.suggestions = seedToVerify.filter({
-            return ($0.lowercased().hasPrefix((textField.text! + string).lowercased()) && (textField.text?.count)! >= 1)
-        })
+        var suggestionsWithFake: [String] = ["","",""]
+        let trueSeedIndex = Int.random(in: 0...2)
+        suggestionsWithFake[trueSeedIndex] = seedToVerify[currentSeedIndex]
+
+        let fakes = [allWords?[Int.random(in: 0...32)], allWords?[Int.random(in: 0...32)]]
+        var fakeIndex = 0
+        for i in 0...2 {
+            if i != trueSeedIndex {
+                suggestionsWithFake[i] = fakes[fakeIndex]!
+                fakeIndex += 1
+            }
+        }
+        
+        self.suggestions = suggestionsWithFake
         if suggestions.count > 0 {
             showSuggestions()
         }else{
