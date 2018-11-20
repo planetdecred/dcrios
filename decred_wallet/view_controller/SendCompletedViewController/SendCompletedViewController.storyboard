@@ -27,7 +27,7 @@
                                 <rect key="frame" x="25" y="190.5" width="325" height="286"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Transaction successful" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Thv-T1-bpc">
-                                        <rect key="frame" x="15" y="94" width="295" height="26.5"/>
+                                        <rect key="frame" x="15" y="102.5" width="295" height="26.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="21"/>
                                         <color key="textColor" red="0.2274509804" green="0.84313725490000002" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -90,7 +90,7 @@
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="257" id="tSr-1a-SWc"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
-                                        <color key="textColor" red="0.37254901960784315" green="0.44705882352941173" blue="0.52549019607843139" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.16078431369999999" green="0.43921568630000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -102,6 +102,7 @@
                                     <constraint firstAttribute="trailing" secondItem="Thv-T1-bpc" secondAttribute="trailing" constant="15" id="LnP-DE-MPM"/>
                                     <constraint firstItem="sQC-gJ-zKK" firstAttribute="leading" secondItem="6IZ-5R-wVW" secondAttribute="leading" id="PXd-He-aFE"/>
                                     <constraint firstItem="sQC-gJ-zKK" firstAttribute="bottom" secondItem="6IZ-5R-wVW" secondAttribute="bottom" id="cug-Re-Xo4"/>
+                                    <constraint firstItem="xXy-Ep-4oS" firstAttribute="top" secondItem="Thv-T1-bpc" secondAttribute="bottom" constant="15" id="gnq-Zu-88K"/>
                                     <constraint firstItem="6IZ-5R-wVW" firstAttribute="trailing" secondItem="xXy-Ep-4oS" secondAttribute="trailing" constant="39" id="iYU-FS-NkP"/>
                                     <constraint firstItem="Thv-T1-bpc" firstAttribute="centerX" secondItem="6IZ-5R-wVW" secondAttribute="centerX" id="ile-i5-zqh"/>
                                     <constraint firstItem="sQC-gJ-zKK" firstAttribute="trailing" secondItem="6IZ-5R-wVW" secondAttribute="trailing" id="jxY-n0-iaa"/>
@@ -116,8 +117,8 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img-success" translatesAutoresizingMaskIntoConstraints="NO" id="xGc-pg-mQw">
-                                <rect key="frame" x="157.5" y="212" width="60" height="60"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img-tx-sent" translatesAutoresizingMaskIntoConstraints="NO" id="xGc-pg-mQw">
+                                <rect key="frame" x="157.5" y="218" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="cF6-0H-ueo"/>
                                     <constraint firstAttribute="height" constant="60" id="mMx-YK-j5W"/>
@@ -127,10 +128,9 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="AUd-ii-yjw" firstAttribute="leading" secondItem="Oxy-7t-Djk" secondAttribute="leading" constant="25" id="75a-cQ-2qd"/>
-                            <constraint firstItem="Thv-T1-bpc" firstAttribute="top" secondItem="xGc-pg-mQw" secondAttribute="bottom" constant="12.5" id="HM9-Hn-8Tu"/>
+                            <constraint firstItem="Thv-T1-bpc" firstAttribute="top" secondItem="xGc-pg-mQw" secondAttribute="bottom" constant="15" id="HM9-Hn-8Tu"/>
                             <constraint firstItem="AUd-ii-yjw" firstAttribute="centerY" secondItem="5lw-Fx-AqU" secondAttribute="centerY" id="QEB-18-bgk"/>
                             <constraint firstItem="AUd-ii-yjw" firstAttribute="centerX" secondItem="5lw-Fx-AqU" secondAttribute="centerX" id="SVU-83-bnK"/>
-                            <constraint firstItem="AUd-ii-yjw" firstAttribute="top" secondItem="xGc-pg-mQw" secondAttribute="bottom" constant="-81.5" id="vof-Li-ope"/>
                             <constraint firstItem="xGc-pg-mQw" firstAttribute="centerX" secondItem="AUd-ii-yjw" secondAttribute="centerX" id="wgu-lP-uOe"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Oxy-7t-Djk"/>
@@ -146,6 +146,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="img-success" width="192" height="191"/>
+        <image name="img-tx-sent" width="125" height="125"/>
     </resources>
 </document>
