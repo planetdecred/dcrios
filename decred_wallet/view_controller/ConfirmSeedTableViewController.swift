@@ -223,7 +223,6 @@ class ConfirmSeedTableViewController: UIViewController, UITableViewDelegate, UIT
         let seedWords = try? String(contentsOfFile: seedWordsPath ?? "")
         return seedWords?.split{$0 == "\n"}.map(String.init) ?? []
     }
-    
 }
 
 extension ConfirmSeedTableViewController : UITextFieldDelegate{
@@ -243,6 +242,9 @@ extension ConfirmSeedTableViewController : UITextFieldDelegate{
         }
         
         self.suggestions = suggestionsWithFake
+        self.suggestions = seedToVerify.filter({
+            return ($0.lowercased().hasPrefix((textField.text! + string).lowercased()) && (textField.text?.count)! >= 1)
+        })
         if suggestions.count > 0 {
             showSuggestions()
         }else{
