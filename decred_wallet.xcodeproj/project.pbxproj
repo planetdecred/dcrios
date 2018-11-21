@@ -28,6 +28,7 @@
 		2883CA72209B52AE0053D9BB /* WaiterScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2883CA71209B52AE0053D9BB /* WaiterScreenViewController.swift */; };
 		2883CA74209B5BA40053D9BB /* Modals.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2883CA73209B5BA40053D9BB /* Modals.storyboard */; };
 		28A3BD52217F71FB009796B4 /* ConfirmSeedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A3BD51217F71FB009796B4 /* ConfirmSeedTableViewController.swift */; };
+		28AEFA2921A5B62E0095DACC /* SeedSuggestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AEFA2821A5B62E0095DACC /* SeedSuggestionsViewController.swift */; };
 		28C22AFD21774FC200D3A108 /* RecoveryWalletSeedWordsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C22AFC21774FC200D3A108 /* RecoveryWalletSeedWordsCell.swift */; };
 		28D36C7C2180ADF5000C6572 /* ConfirmSeedViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D36C7B2180ADF5000C6572 /* ConfirmSeedViewCell.swift */; };
 		28EB91B820FCFD8F007A0906 /* GeneratedSeedDisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EB91B720FCFD8F007A0906 /* GeneratedSeedDisplayViewController.swift */; };
@@ -148,6 +149,7 @@
 		2883CA71209B52AE0053D9BB /* WaiterScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaiterScreenViewController.swift; sourceTree = "<group>"; };
 		2883CA73209B5BA40053D9BB /* Modals.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Modals.storyboard; sourceTree = "<group>"; };
 		28A3BD51217F71FB009796B4 /* ConfirmSeedTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmSeedTableViewController.swift; sourceTree = "<group>"; };
+		28AEFA2821A5B62E0095DACC /* SeedSuggestionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedSuggestionsViewController.swift; sourceTree = "<group>"; };
 		28C22AFC21774FC200D3A108 /* RecoveryWalletSeedWordsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryWalletSeedWordsCell.swift; sourceTree = "<group>"; };
 		28D36C7B2180ADF5000C6572 /* ConfirmSeedViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmSeedViewCell.swift; sourceTree = "<group>"; };
 		28EB91B720FCFD8F007A0906 /* GeneratedSeedDisplayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratedSeedDisplayViewController.swift; sourceTree = "<group>"; };
@@ -411,6 +413,7 @@
 		DD4C89DC2038EEEF003FEA0C /* view_controller */ = {
 			isa = PBXGroup;
 			children = (
+				28AEFA2821A5B62E0095DACC /* SeedSuggestionsViewController.swift */,
 				28A3BD51217F71FB009796B4 /* ConfirmSeedTableViewController.swift */,
 				2850E097217614DC00171267 /* RecoverWalletTableViewController.swift */,
 				DD1D5C7D20AEDB15009789DD /* WalletLogViewController.swift */,
@@ -763,6 +766,7 @@
 				28F3B7FA20C8356400D2E0D3 /* ObserverProxy.m in Sources */,
 				DDB89417202F8EE2002F85EE /* UIImageView.swift in Sources */,
 				28EB91B820FCFD8F007A0906 /* GeneratedSeedDisplayViewController.swift in Sources */,
+				28AEFA2921A5B62E0095DACC /* SeedSuggestionsViewController.swift in Sources */,
 				DD1D5C7C20AED828009789DD /* certificateViewController.swift in Sources */,
 				DD96B33F20293F110046F2DD /* LeftViewController.swift in Sources */,
 				2870338B20BC5E7D00BFD0B8 /* JsonEntities.swift in Sources */,
@@ -938,7 +942,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = LYZ95J7356;
+				DEVELOPMENT_TEAM = KQ46EWSK84;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -950,7 +954,7 @@
 				INFOPLIST_FILE = decred_wallet/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.macsleven.DecredWallet;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ensoreus.DecredWallet;
 				PRODUCT_NAME = DecredWallet;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -971,7 +975,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = LYZ95J7356;
+				DEVELOPMENT_TEAM = KQ46EWSK84;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -983,7 +987,7 @@
 				INFOPLIST_FILE = decred_wallet/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.macsleven.DecredWallet;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ensoreus.DecredWallet;
 				PRODUCT_NAME = DecredWallet;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

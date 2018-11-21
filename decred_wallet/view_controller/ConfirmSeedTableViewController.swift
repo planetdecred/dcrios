@@ -11,8 +11,6 @@ import UIKit
 class ConfirmSeedTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet var tableView: UITableView?
-    @IBOutlet weak var vSuggestionsPanel: UIView!
-    @IBOutlet var tfSeed: UITextField?
     
     @IBOutlet weak var alcVisibleTableHeight: NSLayoutConstraint!
     var allWords: [String]?
@@ -57,13 +55,7 @@ class ConfirmSeedTableViewController: UIViewController, UITableViewDelegate, UIT
         resetSuggestions()
         tableView?.dataSource = self
         hideSuggestions()
-        tfSeed?.delegate = self
         allWords = loadSeedWordsList()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        tfSeed?.becomeFirstResponder()
     }
     
     @IBAction func onConfirm(_ sender: Any) {
@@ -78,11 +70,11 @@ class ConfirmSeedTableViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     @IBAction func onCommitSeedWord(_ sender: Any) {
-        let word = tfSeed?.text
-        seedWords.append(word)
-        textFields[currentSeedIndex]?.text = word
+        //let word = tfSeed?.text
+//        seedWords.append(word)
+//        textFields[currentSeedIndex]?.text = word
         currentSeedIndex += 1
-        tfSeed?.text = ""
+        //tfSeed?.text = ""
         tableView?.reloadData()
         if currentSeedIndex < 33{
             tableView?.scrollToRow(at: IndexPath(row: currentSeedIndex, section: 0), at: .bottom, animated: true)
@@ -138,38 +130,38 @@ class ConfirmSeedTableViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     private func resetSuggestions(){
-        let labelWidth = self.view.frame.size.width / 3
-        svSuggestions = UIToolbar(frame: CGRect(x:0.0, y:0.0, width:320.0, height:30.0))
-        svSuggestions?.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        suggestionLabel1 = UILabel(frame: CGRect(x: 0, y: 0, width: labelWidth, height: 30))
-        suggestionLabel2 = UILabel(frame: CGRect(x: 0, y: 0, width: labelWidth, height: 30))
-        suggestionLabel3 = UILabel(frame: CGRect(x: 0, y: 0, width: labelWidth, height: 30))
-        suggestionLabel1?.textColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
-        suggestionLabel2?.textColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
-        suggestionLabel3?.textColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
-        suggestionLabel1?.font = UIFont(name: "Source Sans Pro", size: 16.0)
-        suggestionLabel2?.font = UIFont(name: "Source Sans Pro", size: 16.0)
-        suggestionLabel3?.font = UIFont(name: "Source Sans Pro", size: 16.0)
-        let suggestion1 = UIBarButtonItem(title: "label1", style: .plain, target: self, action: #selector(self.pickSuggestion1))
-        let suggestion2 = UIBarButtonItem(title: "label2", style: .plain, target: self, action: #selector(self.pickSuggestion2))
-        let suggestion3 = UIBarButtonItem(title: "label3", style: .plain, target: self, action: #selector(self.pickSuggestion3))
-        suggestion1.customView = suggestionLabel1
-        suggestion2.customView = suggestionLabel2
-        suggestion3.customView = suggestionLabel3
-        let tap1 = UITapGestureRecognizer(target: self, action: #selector(pickSuggestion1))
-        let tap2 = UITapGestureRecognizer(target: self, action: #selector(pickSuggestion2))
-        let tap3 = UITapGestureRecognizer(target: self, action: #selector(pickSuggestion3))
-        suggestionLabel1?.addGestureRecognizer(tap1)
-        suggestionLabel2?.addGestureRecognizer(tap2)
-        suggestionLabel3?.addGestureRecognizer(tap3)
-        suggestionLabel1?.isUserInteractionEnabled = true
-        suggestionLabel2?.isUserInteractionEnabled = true
-        suggestionLabel3?.isUserInteractionEnabled = true
-        suggestionLabel1?.adjustsFontSizeToFitWidth = true
-        suggestionLabel2?.adjustsFontSizeToFitWidth = true
-        suggestionLabel3?.adjustsFontSizeToFitWidth = true
-        svSuggestions!.items = [suggestion1, suggestion2, suggestion3]
-        vSuggestionsPanel.addSubview(svSuggestions!)
+//        let labelWidth = self.view.frame.size.width / 3
+//        svSuggestions = UIToolbar(frame: CGRect(x:0.0, y:0.0, width:self.view.frame.size.width, height:40.0))
+//        svSuggestions?.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+//        suggestionLabel1 = UILabel(frame: CGRect(x: 0, y: 0, width: labelWidth, height: 40))
+//        suggestionLabel2 = UILabel(frame: CGRect(x: 0, y: 0, width: labelWidth, height: 40))
+//        suggestionLabel3 = UILabel(frame: CGRect(x: 0, y: 0, width: labelWidth, height: 40))
+//        suggestionLabel1?.textColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
+//        suggestionLabel2?.textColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
+//        suggestionLabel3?.textColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
+//        suggestionLabel1?.font = UIFont(name: "Source Sans Pro", size: 16.0)
+//        suggestionLabel2?.font = UIFont(name: "Source Sans Pro", size: 16.0)
+//        suggestionLabel3?.font = UIFont(name: "Source Sans Pro", size: 16.0)
+//        let suggestion1 = UIBarButtonItem(title: "label1", style: .plain, target: self, action: #selector(self.pickSuggestion1))
+//        let suggestion2 = UIBarButtonItem(title: "label2", style: .plain, target: self, action: #selector(self.pickSuggestion2))
+//        let suggestion3 = UIBarButtonItem(title: "label3", style: .plain, target: self, action: #selector(self.pickSuggestion3))
+//        suggestion1.customView = suggestionLabel1
+//        suggestion2.customView = suggestionLabel2
+//        suggestion3.customView = suggestionLabel3
+//        let tap1 = UITapGestureRecognizer(target: self, action: #selector(pickSuggestion1))
+//        let tap2 = UITapGestureRecognizer(target: self, action: #selector(pickSuggestion2))
+//        let tap3 = UITapGestureRecognizer(target: self, action: #selector(pickSuggestion3))
+//        suggestionLabel1?.addGestureRecognizer(tap1)
+//        suggestionLabel2?.addGestureRecognizer(tap2)
+//        suggestionLabel3?.addGestureRecognizer(tap3)
+//        suggestionLabel1?.isUserInteractionEnabled = true
+//        suggestionLabel2?.isUserInteractionEnabled = true
+//        suggestionLabel3?.isUserInteractionEnabled = true
+//        suggestionLabel1?.adjustsFontSizeToFitWidth = true
+//        suggestionLabel2?.adjustsFontSizeToFitWidth = true
+//        suggestionLabel3?.adjustsFontSizeToFitWidth = true
+//        svSuggestions!.items = [suggestion1, suggestion2, suggestion3]
+        //vSuggestionsPanel.addSubview(svSuggestions!)
     }
     
     private func checkupSeed(){
@@ -180,30 +172,30 @@ class ConfirmSeedTableViewController: UIViewController, UITableViewDelegate, UIT
         }
     }
     
-    @objc func pickSuggestion1(){
-        if suggestions.count > 0 {
-            tfSeed?.text = suggestions[0]
-            suggestions = ["","",""]
-            hideSuggestions()
-        }
-    }
-    
-    @objc func pickSuggestion2(){
-        if suggestions.count > 1 {
-            tfSeed?.text = suggestions[1]
-            suggestions = ["","",""]
-            hideSuggestions()
-        }
-    }
-    
-    @objc func pickSuggestion3(){
-        if suggestions.count > 2 {
-            tfSeed?.text = suggestions[2]
-            suggestions = ["","",""]
-            hideSuggestions()
-        }
-    }
-    
+//    @objc func pickSuggestion1(){
+//        if suggestions.count > 0 {
+//            tfSeed?.text = suggestions[0]
+//            suggestions = ["","",""]
+//            hideSuggestions()
+//        }
+//    }
+//
+//    @objc func pickSuggestion2(){
+//        if suggestions.count > 1 {
+//            tfSeed?.text = suggestions[1]
+//            suggestions = ["","",""]
+//            hideSuggestions()
+//        }
+//    }
+//
+//    @objc func pickSuggestion3(){
+//        if suggestions.count > 2 {
+//            tfSeed?.text = suggestions[2]
+//            suggestions = ["","",""]
+//            hideSuggestions()
+//        }
+//    }
+//
     private func adjustTableHeight(withKeyboard height:CGFloat){
         let totalHeight = view.frame.size.height
         alcVisibleTableHeight.constant = totalHeight - 100.0 - height
@@ -211,11 +203,11 @@ class ConfirmSeedTableViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     private func showSuggestions(){
-        vSuggestionsPanel.isHidden = false
+        //vSuggestionsPanel.isHidden = false
     }
     
     private func hideSuggestions(){
-        vSuggestionsPanel.isHidden = true
+        //vSuggestionsPanel.isHidden = true
     }
     
     private func loadSeedWordsList() -> [String]{
@@ -231,7 +223,6 @@ extension ConfirmSeedTableViewController : UITextFieldDelegate{
         var suggestionsWithFake: [String] = ["","",""]
         let trueSeedIndex = Int.random(in: 0...2)
         suggestionsWithFake[trueSeedIndex] = seedToVerify[currentSeedIndex]
-
         let fakes = [allWords?[Int.random(in: 0...32)], allWords?[Int.random(in: 0...32)]]
         var fakeIndex = 0
         for i in 0...2 {
@@ -242,9 +233,9 @@ extension ConfirmSeedTableViewController : UITextFieldDelegate{
         }
         
         self.suggestions = suggestionsWithFake
-        self.suggestions = seedToVerify.filter({
-            return ($0.lowercased().hasPrefix((textField.text! + string).lowercased()) && (textField.text?.count)! >= 1)
-        })
+//        self.suggestions = seedToVerify.filter({
+//            return ($0.lowercased().hasPrefix((textField.text! + string).lowercased()) && (textField.text?.count)! >= 1)
+//        })
         if suggestions.count > 0 {
             showSuggestions()
         }else{
