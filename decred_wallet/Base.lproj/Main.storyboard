@@ -1036,14 +1036,6 @@
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
-                                                    <connections>
-                                                        <segue destination="3V2-Cb-o9a" kind="popoverPresentation" identifier="showSuggestions" popoverAnchorView="OUE-8l-jZY" id="izp-3f-0q3">
-                                                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES"/>
-                                                            <popoverPassthroughViews>
-                                                                <textField reference="OUE-8l-jZY"/>
-                                                            </popoverPassthroughViews>
-                                                        </segue>
-                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <color key="backgroundColor" red="0.95294117647058818" green="0.96078431372549022" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
@@ -1061,6 +1053,9 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="delegate" destination="HgI-Rd-B4C" id="lKh-fd-tmN"/>
+                                </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kgg-lX-SjF">
                                 <rect key="frame" x="0.0" y="468" width="320" height="100"/>
@@ -1132,53 +1127,13 @@
                     <connections>
                         <outlet property="tableView" destination="6WN-Gc-22k" id="Yar-oU-I6e"/>
                         <segue destination="tbw-An-0pb" kind="show" identifier="createPasswordSegue" id="ofl-fS-Cxx"/>
+                        <segue destination="E7z-SL-FGb" kind="presentation" identifier="showSuggestionsPopover" modalPresentationStyle="overCurrentContext" id="0hO-eI-Xz7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eHh-tv-gO9" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Nv3-AZ-kyZ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3471" y="296"/>
-        </scene>
-        <!--Seed Suggestions View Controller-->
-        <scene sceneID="usF-Rj-6hy">
-            <objects>
-                <viewController storyboardIdentifier="SeedConfirmPopupSegue" useStoryboardIdentifierAsRestorationIdentifier="YES" id="3V2-Cb-o9a" customClass="SeedSuggestionsViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="32F-Bf-GbQ">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tabBar contentMode="scaleToFill" itemPositioning="fill" translatesAutoresizingMaskIntoConstraints="NO" id="Hel-OS-zy8">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <items>
-                                    <tabBarItem title="suggestion 1" id="6Dm-BT-KT7"/>
-                                    <tabBarItem title="suggestion 2" id="Y9v-YL-0IC"/>
-                                    <tabBarItem title="suggestion3" id="pLu-gp-AKO"/>
-                                </items>
-                            </tabBar>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="Hel-OS-zy8" firstAttribute="top" secondItem="uqO-Di-tHR" secondAttribute="top" id="Niu-Lh-yGq"/>
-                            <constraint firstItem="Hel-OS-zy8" firstAttribute="leading" secondItem="uqO-Di-tHR" secondAttribute="leading" id="OMu-Ih-yAJ"/>
-                            <constraint firstItem="Hel-OS-zy8" firstAttribute="trailing" secondItem="uqO-Di-tHR" secondAttribute="trailing" id="aSk-L2-VUh"/>
-                            <constraint firstItem="Hel-OS-zy8" firstAttribute="bottom" secondItem="uqO-Di-tHR" secondAttribute="bottom" id="rFe-n6-lND"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="uqO-Di-tHR"/>
-                    </view>
-                    <nil key="simulatedTopBarMetrics"/>
-                    <nil key="simulatedBottomBarMetrics"/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="50"/>
-                    <connections>
-                        <outlet property="suggestion1" destination="6Dm-BT-KT7" id="dyQ-vl-FEs"/>
-                        <outlet property="suggestion2" destination="Y9v-YL-0IC" id="Bgv-S3-TfO"/>
-                        <outlet property="suggestion3" destination="pLu-gp-AKO" id="8zg-PG-lmF"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xKi-os-meN" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4414" y="371"/>
         </scene>
         <!--Seed Checkup View Controller-->
         <scene sceneID="phV-U4-7h8">
@@ -3491,6 +3446,56 @@
                 <exit id="dnM-7L-LGv" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2323" y="814"/>
+        </scene>
+        <!--Seed Suggestions View Controller-->
+        <scene sceneID="OZE-n0-agV">
+            <objects>
+                <viewController storyboardIdentifier="SeedConfirmPopupSegue" modalTransitionStyle="crossDissolve" modalPresentationStyle="currentContext" useStoryboardIdentifierAsRestorationIdentifier="YES" id="E7z-SL-FGb" customClass="SeedSuggestionsViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="DZj-vb-oRU">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tabBar contentMode="scaleToFill" itemPositioning="fill" translatesAutoresizingMaskIntoConstraints="NO" id="oHI-IU-6oI">
+                                <rect key="frame" x="0.0" y="402" width="320" height="49"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="49" id="huR-ce-4bG"/>
+                                </constraints>
+                                <items>
+                                    <tabBarItem title="" id="g0x-Dj-YDt">
+                                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
+                                    </tabBarItem>
+                                    <tabBarItem title="" id="qfx-sf-GTw">
+                                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
+                                    </tabBarItem>
+                                    <tabBarItem title="" id="eEI-6I-qPf">
+                                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
+                                    </tabBarItem>
+                                </items>
+                                <connections>
+                                    <outlet property="delegate" destination="E7z-SL-FGb" id="ZG1-Hp-AcT"/>
+                                </connections>
+                            </tabBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="0.0049410182119205299" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="oHI-IU-6oI" firstAttribute="trailing" secondItem="bKI-oX-ftY" secondAttribute="trailing" id="1rZ-Vg-ok6"/>
+                            <constraint firstItem="bKI-oX-ftY" firstAttribute="bottom" secondItem="oHI-IU-6oI" secondAttribute="bottom" constant="117" id="mbT-Pp-47q"/>
+                            <constraint firstItem="oHI-IU-6oI" firstAttribute="leading" secondItem="bKI-oX-ftY" secondAttribute="leading" id="oOW-QK-IyR"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="bKI-oX-ftY"/>
+                    </view>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="suggestion1" destination="g0x-Dj-YDt" id="baj-wa-28T"/>
+                        <outlet property="suggestion2" destination="qfx-sf-GTw" id="ZuP-4W-wQu"/>
+                        <outlet property="suggestion3" destination="eEI-6I-qPf" id="fz5-02-39G"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pDv-4G-qk0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4301.25" y="295.77464788732397"/>
         </scene>
     </scenes>
     <resources>
