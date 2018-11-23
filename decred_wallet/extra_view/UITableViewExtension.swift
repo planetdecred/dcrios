@@ -64,4 +64,3 @@ public extension Bool {
         return !self
     }
 }
-
