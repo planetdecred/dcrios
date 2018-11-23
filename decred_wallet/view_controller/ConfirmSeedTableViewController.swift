@@ -132,8 +132,13 @@ class ConfirmSeedTableViewController: UIViewController, UITableViewDelegate, UIT
     private func prepareSuggestions(for row:Int) -> [String]{
         var suggestionsWithFake: [String] = ["","",""]
         let trueSeedIndex = Int.random(in: 0...2)
-        suggestionsWithFake[trueSeedIndex] = seedToVerify[currentSeedIndex]
-        let fakes = [allWords?[Int.random(in: 0...32)], allWords?[Int.random(in: 0...32)]]
+        let trueSeed = seedToVerify[currentSeedIndex]
+        suggestionsWithFake[trueSeedIndex] = trueSeed
+        let fakeWordsSet = allWords?.filter({
+                    return ($0.lowercased().hasPrefix((String(trueSeed.first!)).lowercased()))
+                })
+        
+        let fakes = [fakeWordsSet?[Int.random(in: 0...32)], fakeWordsSet?[Int.random(in: 0...32)]]
         var fakeIndex = 0
         for i in 0...2 {
             if i != trueSeedIndex {
