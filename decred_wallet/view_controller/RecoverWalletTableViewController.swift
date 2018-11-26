@@ -92,6 +92,12 @@ class RecoverWalletTableViewController: UITableViewController {
         return seedWords?.split{$0 == "\n"}.map(String.init) ?? []
     }
     
+    @IBAction func onClear(_ sender: Any) {
+        seedWords = []
+        tableView.reloadData()
+        tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showRecoverSeedSuggestionsSegue" {
             let popup = segue.destination as? RecoverWalletSeedSuggestionsViewController

@@ -3498,6 +3498,63 @@
                             </constraints>
                             <viewLayoutGuide key="safeArea" id="1C0-sL-ncj"/>
                         </view>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="Yhb-YO-2Wy">
+                            <rect key="frame" x="0.0" y="164" width="320" height="100"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kxh-rN-EuN">
+                                    <rect key="frame" x="202" y="28" width="102" height="42"/>
+                                    <color key="backgroundColor" red="0.16078431369999999" green="0.43921568630000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="102" id="akm-39-Ss7"/>
+                                        <constraint firstAttribute="height" constant="42" id="qFV-PO-4c6"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <state key="normal" title="CONFIRM">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="5"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="onConfirm:" destination="HgI-Rd-B4C" eventType="touchUpInside" id="IQH-Tq-pDG"/>
+                                        <segue destination="tbw-An-0pb" kind="show" id="0J3-za-syn"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SQn-ET-L5p">
+                                    <rect key="frame" x="16" y="28" width="102" height="42"/>
+                                    <color key="backgroundColor" red="0.76862745099999996" green="0.79607843140000001" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="42" id="OXb-4x-6eW"/>
+                                        <constraint firstAttribute="width" constant="102" id="klV-zg-agu"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <state key="normal" title="CLEAR">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="5"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="onClear:" destination="jtS-ck-Bnz" eventType="touchUpInside" id="23g-F1-8u2"/>
+                                        <action selector="onClear:" destination="HgI-Rd-B4C" eventType="touchUpInside" id="UQv-Z9-Xyq"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" red="0.95294117649999999" green="0.96078431369999995" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstItem="kxh-rN-EuN" firstAttribute="top" secondItem="SQn-ET-L5p" secondAttribute="top" id="H0L-Z6-oqq"/>
+                                <constraint firstItem="SQn-ET-L5p" firstAttribute="top" secondItem="061-Vd-w7t" secondAttribute="top" constant="8" id="LKP-no-Lz7"/>
+                                <constraint firstAttribute="height" constant="100" id="YF9-bh-A86"/>
+                                <constraint firstItem="061-Vd-w7t" firstAttribute="trailing" secondItem="kxh-rN-EuN" secondAttribute="trailing" constant="16" id="m6k-Ir-g8V"/>
+                                <constraint firstItem="SQn-ET-L5p" firstAttribute="leading" secondItem="061-Vd-w7t" secondAttribute="leading" constant="16" id="uNH-Bn-J07"/>
+                            </constraints>
+                            <viewLayoutGuide key="safeArea" id="061-Vd-w7t"/>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="seedWordCell" rowHeight="36" id="Urh-a8-TU1" customClass="RecoveryWalletSeedWordsCell" customModule="DecredWallet" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="128" width="320" height="36"/>
@@ -3548,7 +3605,6 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <segue destination="tbw-An-0pb" kind="show" identifier="createPasswordSegue" id="YbK-7u-hxt"/>
                         <segue destination="I0n-Rn-Eba" kind="presentation" identifier="showRecoverSeedSuggestionsSegue" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="0uB-M6-YrY"/>
                     </connections>
                 </tableViewController>
@@ -3617,6 +3673,6 @@
         <image name="sync" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="YbK-7u-hxt"/>
+        <segue reference="0J3-za-syn"/>
     </inferredMetricsTieBreakers>
 </document>
