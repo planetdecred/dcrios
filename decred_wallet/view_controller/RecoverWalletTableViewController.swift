@@ -21,33 +21,10 @@ class RecoverWalletTableViewController: UITableViewController {
     var currentTextField : UITextField?
     var nextTextField : UITextField?
     
-    var suggestions: [String]{
-        set{
-            if newValue.count > 0 {
-                suggestionLabel1?.text = newValue[0]
-            }else{
-                suggestionLabel1?.text = ""
-            }
-            if newValue.count > 1{
-                suggestionLabel2?.text = newValue[1]
-            }else{
-                suggestionLabel2?.text = ""
-            }
-            if newValue.count > 2{
-                suggestionLabel3?.text = newValue[2]
-            }else{
-                suggestionLabel3?.text = ""
-            }
-            suggestionWords = newValue
-        }
-        get{
-            return suggestionWords
-        }
-    }
+    var suggestions: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        resetSuggestions()
         seedtmp = loadSeedWordsList()
     }
     
@@ -86,51 +63,19 @@ class RecoverWalletTableViewController: UITableViewController {
             }
 
             self.currentTextField = textField
-            
         }
         
         cell?.onEditingText = {(wordNum:Int, textField:UITextField) in
-            
             self.currentTextField = self.textFields[wordNum]
-            self.svSuggestions?.autoresizingMask = .flexibleHeight
-            self.currentTextField?.inputAccessoryView = self.svSuggestions
         }
         
-        cell?.onFoundSeedWord = {(seedSuggestions:[String]) in
+        cell?.onFoundSeedWord = {(seedSuggestions:[String], textField: UITextField) in
             self.suggestions = seedSuggestions
+            if (seedSuggestions.count) > 0{
+                self.performSegue(withIdentifier: "showRecoverSeedSuggestionsSegue", sender: (textField, cell))
+            }
         }
         return cell!
-    }
-    
-    private func resetSuggestions(){
-        let labelWidth = self.view.frame.size.width / 3
-        svSuggestions = UIToolbar()
-        suggestionLabel1 = UILabel(frame: CGRect(x: 0, y: 0, width: labelWidth, height: 30))
-        suggestionLabel2 = UILabel(frame: CGRect(x: 0, y: 0, width: labelWidth, height: 30))
-        suggestionLabel3 = UILabel(frame: CGRect(x: 0, y: 0, width: labelWidth, height: 30))
-        suggestionLabel1?.textColor = #colorLiteral(red: 0.4196078431, green: 0.737254902, blue: 1, alpha: 1)
-        suggestionLabel2?.textColor = #colorLiteral(red: 0.4196078431, green: 0.737254902, blue: 1, alpha: 1)
-        suggestionLabel3?.textColor = #colorLiteral(red: 0.4196078431, green: 0.737254902, blue: 1, alpha: 1)
-        suggestionLabel1?.font = UIFont(name: "Source Sans Pro", size: 16.0)
-        suggestionLabel2?.font = UIFont(name: "Source Sans Pro", size: 16.0)
-        suggestionLabel3?.font = UIFont(name: "Source Sans Pro", size: 16.0)
-        let suggestion1 = UIBarButtonItem(title: "label1", style: .plain, target: self, action: #selector(self.pickSuggestion1))
-        let suggestion2 = UIBarButtonItem(title: "label2", style: .plain, target: self, action: #selector(self.pickSuggestion2))
-        let suggestion3 = UIBarButtonItem(title: "label3", style: .plain, target: self, action: #selector(self.pickSuggestion3))
-        suggestion1.customView = suggestionLabel1
-        suggestion2.customView = suggestionLabel2
-        suggestion3.customView = suggestionLabel3
-        let tap1 = UITapGestureRecognizer(target: self, action: #selector(pickSuggestion1))
-        let tap2 = UITapGestureRecognizer(target: self, action: #selector(pickSuggestion2))
-        let tap3 = UITapGestureRecognizer(target: self, action: #selector(pickSuggestion3))
-        suggestionLabel1?.addGestureRecognizer(tap1)
-        suggestionLabel2?.addGestureRecognizer(tap2)
-        suggestionLabel3?.addGestureRecognizer(tap3)
-        suggestionLabel1?.isUserInteractionEnabled = true
-        suggestionLabel2?.isUserInteractionEnabled = true
-        suggestionLabel3?.isUserInteractionEnabled = true
-        
-        svSuggestions!.items = [suggestion1, suggestion2, suggestion3]
     }
     
     private func checkupSeed(){
@@ -141,36 +86,25 @@ class RecoverWalletTableViewController: UITableViewController {
         }
     }
     
-    @objc func pickSuggestion1(){
-        if suggestions.count > 0 {
-            currentTextField?.text = suggestions[0]
-            suggestions = ["","",""]
-            nextTextField?.becomeFirstResponder()
-        }
-    }
-    
-    @objc func pickSuggestion2(){
-        if suggestions.count > 1 {
-            currentTextField?.text = suggestions[1]
-            suggestions = ["","",""]
-            nextTextField?.becomeFirstResponder()
-        }
-    }
-    
-    @objc func pickSuggestion3(){
-        if suggestions.count > 2 {
-            currentTextField?.text = suggestions[2]
-            suggestions = ["","",""]
-            nextTextField?.becomeFirstResponder()
-        }
-    }
-    
     private func loadSeedWordsList() -> [String]{
         let seedWordsPath = Bundle.main.path(forResource: "wordlist", ofType: "txt")
         let seedWords = try? String(contentsOfFile: seedWordsPath ?? "")
         return seedWords?.split{$0 == "\n"}.map(String.init) ?? []
     }
     
-    
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showRecoverSeedSuggestionsSegue" {
+            let popup = segue.destination as? RecoverWalletSeedSuggestionsViewController
+            let textfield = (sender as? (UITextField, RecoveryWalletSeedWordsCell))?.0
+            let cell = (sender as? (UITextField, RecoveryWalletSeedWordsCell))?.1
+            let cellIndex = self.tableView.indexPath(for: cell!)
+            popup?.onSuggestionPick = {(pickedSuggestion) in
+                textfield?.text = pickedSuggestion
+                popup?.dismiss(animated: false, completion: nil)
+            }
+            popup?.suggestions = self.suggestions
+            let cellFrame = self.tableView.rectForRow(at: cellIndex!)
+            popup?.popupVerticalPosition = Int(cellFrame.origin.y + cellFrame.size.height)
+        }
+    }
 }

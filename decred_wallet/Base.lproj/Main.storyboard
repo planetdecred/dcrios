@@ -3549,7 +3549,7 @@
                     </tableView>
                     <connections>
                         <segue destination="tbw-An-0pb" kind="show" identifier="createPasswordSegue" id="YbK-7u-hxt"/>
-                        <segue destination="I0n-Rn-Eba" kind="presentation" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="0uB-M6-YrY"/>
+                        <segue destination="I0n-Rn-Eba" kind="presentation" identifier="showRecoverSeedSuggestionsSegue" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="0uB-M6-YrY"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nQG-wl-T2Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3565,24 +3565,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tabBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5CU-rP-HgE">
-                                <rect key="frame" x="0.0" y="113" width="320" height="49"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5CU-rP-HgE">
+                                <rect key="frame" x="0.0" y="113" width="320" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="k7v-ph-jue"/>
+                                </constraints>
                                 <items>
                                     <tabBarItem id="CbA-1I-FpA">
-                                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
+                                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-10"/>
                                     </tabBarItem>
                                     <tabBarItem id="HYd-MF-TUD">
-                                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
+                                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-10"/>
                                     </tabBarItem>
                                     <tabBarItem title="" id="alK-QP-c0M">
-                                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
+                                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-10"/>
                                     </tabBarItem>
                                 </items>
                             </tabBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="5CU-rP-HgE" firstAttribute="leading" secondItem="fv4-aj-BSN" secondAttribute="leading" id="OoZ-fu-tCD"/>
+                            <constraint firstItem="5CU-rP-HgE" firstAttribute="top" secondItem="fv4-aj-BSN" secondAttribute="top" constant="93" id="fd1-ft-aon"/>
+                            <constraint firstItem="5CU-rP-HgE" firstAttribute="trailing" secondItem="fv4-aj-BSN" secondAttribute="trailing" id="jbH-QO-25f"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="fv4-aj-BSN"/>
                     </view>
                     <connections>
@@ -3590,6 +3597,7 @@
                         <outlet property="suggestion1" destination="CbA-1I-FpA" id="qP5-pY-xR8"/>
                         <outlet property="suggestion2" destination="HYd-MF-TUD" id="0iH-3A-XsP"/>
                         <outlet property="suggestion3" destination="alK-QP-c0M" id="g2h-8D-Gp3"/>
+                        <outlet property="verticalSpacing" destination="fd1-ft-aon" id="GRc-zx-TD7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g2F-m4-yY7" userLabel="First Responder" sceneMemberID="firstResponder"/>

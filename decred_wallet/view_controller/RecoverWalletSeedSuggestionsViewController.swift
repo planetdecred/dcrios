@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RecoverWalletSeedSuggestionsViewController: UIViewController {
+class RecoverWalletSeedSuggestionsViewController: UIViewController, UITabBarDelegate {
     var popupVerticalPosition : Int = 0
     var suggestions : [String] = []
     
@@ -15,9 +15,12 @@ class RecoverWalletSeedSuggestionsViewController: UIViewController {
     @IBOutlet weak var suggestion1: UITabBarItem!
     @IBOutlet weak var suggestion2: UITabBarItem!
     @IBOutlet weak var suggestion3: UITabBarItem!
+    @IBOutlet weak var verticalSpacing: NSLayoutConstraint!
+    var onSuggestionPick:((String)->Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        popupTabBar.delegate = self
         suggestion1.setTitleTextAttributes([
             .font: UIFont(name: "Source Sans Pro", size: 16)!,
             .foregroundColor: #colorLiteral(red: 0.4196078431, green: 0.737254902, blue: 1, alpha: 1)], for: .normal)
@@ -30,17 +33,20 @@ class RecoverWalletSeedSuggestionsViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        verticalSpacing.constant = CGFloat(popupVerticalPosition)
         
+        if suggestions.count > 0{
+            suggestion1.title = suggestions[0]
+        }
+        if suggestions.count > 1{
+            suggestion2.title = suggestions[1]
+        }
+        if suggestions.count > 2{
+            suggestion3.title = suggestions[2]
+        }
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        onSuggestionPick?(item.title!)
     }
-    */
-
 }
