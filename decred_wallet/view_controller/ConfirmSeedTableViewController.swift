@@ -71,7 +71,7 @@ class ConfirmSeedTableViewController: UIViewController, UITableViewDelegate, UIT
         currentSeedIndex += 1
         tableView?.reloadData()
         if currentSeedIndex < 33{
-            tableView?.scrollToRow(at: IndexPath(row: currentSeedIndex, section: 0), at: .bottom, animated: true)
+            //tableView?.scrollToRow(at: IndexPath(row: currentSeedIndex, section: 0), at: .bottom, animated: true)
         }
     }
     
@@ -137,8 +137,7 @@ class ConfirmSeedTableViewController: UIViewController, UITableViewDelegate, UIT
         let fakeWordsSet = allWords?.filter({
                     return ($0.lowercased().hasPrefix((String(trueSeed.first!)).lowercased()))
                 })
-        
-        let fakes = [fakeWordsSet?[Int.random(in: 0...32)], fakeWordsSet?[Int.random(in: 0...32)]]
+        let fakes = [fakeWordsSet?[Int.random(in: 0...(fakeWordsSet?.count)!-1)], fakeWordsSet?[Int.random(in: 0...(fakeWordsSet?.count)!-1)]]
         var fakeIndex = 0
         for i in 0...2 {
             if i != trueSeedIndex {

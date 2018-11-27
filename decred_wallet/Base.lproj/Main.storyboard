@@ -3456,20 +3456,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tabBar contentMode="scaleToFill" itemPositioning="fill" translatesAutoresizingMaskIntoConstraints="NO" id="oHI-IU-6oI">
-                                <rect key="frame" x="0.0" y="402" width="320" height="49"/>
+                                <rect key="frame" x="0.0" y="419" width="320" height="49"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="49" id="huR-ce-4bG"/>
                                 </constraints>
                                 <items>
                                     <tabBarItem title="" id="g0x-Dj-YDt">
-                                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
+                                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-10"/>
                                     </tabBarItem>
                                     <tabBarItem title="" id="qfx-sf-GTw">
-                                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
+                                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-10"/>
                                     </tabBarItem>
                                     <tabBarItem title="" id="eEI-6I-qPf">
-                                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
+                                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-10"/>
                                     </tabBarItem>
                                 </items>
                                 <connections>
@@ -3480,7 +3480,7 @@
                         <color key="backgroundColor" white="1" alpha="0.0049410182119205299" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="oHI-IU-6oI" firstAttribute="trailing" secondItem="bKI-oX-ftY" secondAttribute="trailing" id="1rZ-Vg-ok6"/>
-                            <constraint firstItem="bKI-oX-ftY" firstAttribute="bottom" secondItem="oHI-IU-6oI" secondAttribute="bottom" constant="117" id="mbT-Pp-47q"/>
+                            <constraint firstItem="bKI-oX-ftY" firstAttribute="bottom" secondItem="oHI-IU-6oI" secondAttribute="bottom" constant="100" id="mbT-Pp-47q"/>
                             <constraint firstItem="oHI-IU-6oI" firstAttribute="leading" secondItem="bKI-oX-ftY" secondAttribute="leading" id="oOW-QK-IyR"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="bKI-oX-ftY"/>
@@ -3501,12 +3501,10 @@
     <resources>
         <image name="account" width="80" height="80"/>
         <image name="arrow-1" width="48" height="48"/>
-        <image name="create-wallet" width="55" height="55"/>
         <image name="decred_logo" width="153" height="120"/>
         <image name="helpIcon" width="100" height="134"/>
         <image name="left-arrow" width="33" height="33"/>
         <image name="qr_code_filled" width="33" height="33"/>
-        <image name="recover-wallet" width="55" height="55"/>
         <image name="sync" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
