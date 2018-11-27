@@ -93,10 +93,13 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
         return seedWords?.split{$0 == "\n"}.map(String.init) ?? []
     }
     
+    @IBAction func onConfirm() {
+        checkupSeed()
+    }
+    
     @IBAction func onClear(_ sender: Any) {
         seedWords = []
         tableView.reloadData()
-        tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

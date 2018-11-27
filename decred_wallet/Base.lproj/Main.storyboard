@@ -171,7 +171,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7rA-l2-tDt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4320" y="-435"/>
+            <point key="canvasLocation" x="4727" y="-436"/>
         </scene>
         <!--Left View Controller-->
         <scene sceneID="Nq8-8X-A5v">
@@ -2999,7 +2999,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mJC-yu-dE5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3795" y="1568"/>
+            <point key="canvasLocation" x="4284" y="1055"/>
         </scene>
         <!--Server Set Table View Controller-->
         <scene sceneID="dWF-N1-sg0">
@@ -3570,8 +3570,8 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
+                                            <action selector="onConfirm" destination="Dk9-z5-XZ1" eventType="touchUpInside" id="cjU-jc-pep"/>
                                             <action selector="onConfirm:" destination="HgI-Rd-B4C" eventType="touchUpInside" id="IQH-Tq-pDG"/>
-                                            <segue destination="tbw-An-0pb" kind="show" id="0J3-za-syn"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SQn-ET-L5p">
@@ -3622,12 +3622,13 @@
                     <connections>
                         <outlet property="tableView" destination="XFc-Sh-dQq" id="zun-zO-xM8"/>
                         <segue destination="I0n-Rn-Eba" kind="presentation" identifier="showRecoverSeedSuggestionsSegue" id="SdS-ky-5q7"/>
+                        <segue destination="tbw-An-0pb" kind="show" identifier="confirmSeedSegue" id="Ij2-GM-hFz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ddq-hm-OZp" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="NW2-Xz-pLS" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2192" y="685"/>
+            <point key="canvasLocation" x="2205" y="746"/>
         </scene>
         <!--Recover Wallet Seed Suggestions View Controller-->
         <scene sceneID="5vU-FL-ur7">
@@ -3674,7 +3675,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g2F-m4-yY7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3291" y="1058"/>
+            <point key="canvasLocation" x="3469" y="1056"/>
         </scene>
     </scenes>
     <resources>
@@ -3689,6 +3690,6 @@
         <image name="sync" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="0J3-za-syn"/>
+        <segue reference="Ij2-GM-hFz"/>
     </inferredMetricsTieBreakers>
 </document>
