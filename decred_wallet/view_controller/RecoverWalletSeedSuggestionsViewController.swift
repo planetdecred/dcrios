@@ -18,6 +18,10 @@ class RecoverWalletSeedSuggestionsViewController: UIViewController, UITabBarDele
     @IBOutlet weak var verticalSpacing: NSLayoutConstraint!
     var onSuggestionPick:((String)->Void)?
     
+    @IBAction func onMisTap(_ sender: Any) {
+        dismiss(animated: false, completion: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         popupTabBar.delegate = self

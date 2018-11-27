@@ -21,7 +21,6 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
     var seedtmp : [String] = []
     var currentTextField : UITextField?
     var nextTextField : UITextField?
-    
     var suggestions: [String] = []
     
     override func viewDidLoad() {
@@ -42,10 +41,12 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "seedWordCell", for: indexPath) as? RecoveryWalletSeedWordsCell
         cell?.setup(wordNum: indexPath.row, word: seedWords.count <= indexPath.row ? "" : seedWords[indexPath.row] ?? "", seed: seedtmp)
-        cell?.tfSeedWord.isEnabled = (indexPath.row == 0 || textFields.count < indexPath.row )
-        if indexPath.row > textFields.count{
+        cell?.tfSeedWord.isEnabled = (indexPath.row == 0 || textFields.count < indexPath.row)
+        
+        
+        if indexPath.row > textFields.count {
             textFields[indexPath.row] = cell?.tfSeedWord
-        }else{
+        } else {
             textFields.append(cell?.tfSeedWord)
         }
         
@@ -62,7 +63,6 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
             }else{
                 self.seedWords.append(self.textFields[wordNum]?.text)
             }
-
             self.currentTextField = textField
         }
         

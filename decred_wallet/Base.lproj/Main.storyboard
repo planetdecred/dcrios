@@ -3658,12 +3658,16 @@
                             </tabBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="5CU-rP-HgE" firstAttribute="leading" secondItem="fv4-aj-BSN" secondAttribute="leading" id="OoZ-fu-tCD"/>
                             <constraint firstItem="5CU-rP-HgE" firstAttribute="top" secondItem="fv4-aj-BSN" secondAttribute="top" constant="93" id="fd1-ft-aon"/>
                             <constraint firstItem="5CU-rP-HgE" firstAttribute="trailing" secondItem="fv4-aj-BSN" secondAttribute="trailing" id="jbH-QO-25f"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fv4-aj-BSN"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="4ft-EO-bEw" appends="YES" id="gmd-sk-JD9"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="popupTabBar" destination="5CU-rP-HgE" id="lCn-ox-Mzf"/>
@@ -3674,6 +3678,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g2F-m4-yY7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="4ft-EO-bEw">
+                    <connections>
+                        <action selector="onMisTap:" destination="I0n-Rn-Eba" id="VQe-CP-SkZ"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="3469" y="1056"/>
         </scene>
