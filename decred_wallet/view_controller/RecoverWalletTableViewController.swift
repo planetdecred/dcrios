@@ -1,7 +1,6 @@
 //
 //  RecoverWalletTableViewController.swift
 //  Decred Wallet
-//
 // Copyright (c) 2018, The Decred developers
 // See LICENSE for details.
 //
@@ -10,12 +9,9 @@ import UIKit
 
 class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet var tableView : UITableView!
+    @IBOutlet var vDropDownPlaceholder: UIView!
     
-    var svSuggestions: UIToolbar?
     var seedWords: [String?] = []
-    var suggestionLabel1 : UILabel?
-    var suggestionLabel2 : UILabel?
-    var suggestionLabel3 : UILabel?
     var suggestionWords: [String] = []
     var textFields: [UITextField?] = []
     var seedtmp : [String] = []
@@ -42,42 +38,24 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
         let cell = tableView.dequeueReusableCell(withIdentifier: "seedWordCell", for: indexPath) as? RecoveryWalletSeedWordsCell
         cell?.setup(wordNum: indexPath.row, word: seedWords.count <= indexPath.row ? "" : seedWords[indexPath.row] ?? "", seed: seedtmp)
         cell?.tfSeedWord.isEnabled = (indexPath.row == 0 || textFields.count < indexPath.row)
-        
-        
+        cell?.tfSeedWord.dropDownListPlaceholder = vDropDownPlaceholder
+        let cellRect = cell?.frame
+        cell?.tfSeedWord.vertPosition = (cellRect?.origin.y)! + (cellRect?.size.height)!
         if indexPath.row > textFields.count {
             textFields[indexPath.row] = cell?.tfSeedWord
         } else {
             textFields.append(cell?.tfSeedWord)
         }
         
-        cell?.onNext = {(wordNum: Int) in
-            if (wordNum + 1) == self.textFields.count{
-                self.checkupSeed()
-                return
-            }
-            let textField = self.textFields[wordNum + 1]
-            textField?.isEnabled = true
-            textField?.becomeFirstResponder()
-            if self.seedWords.count < wordNum {
-                self.seedWords[wordNum] = self.textFields[wordNum]?.text
-            }else{
-                self.seedWords.append(self.textFields[wordNum]?.text)
-            }
-            self.currentTextField = textField
-        }
-        
-        cell?.onEditingText = {(wordNum:Int, textField:UITextField) in
-            self.currentTextField = self.textFields[wordNum]
-        }
-        
-        cell?.onFoundSeedWord = {(seedSuggestions:[String], textField: UITextField) in
-            self.suggestions = seedSuggestions
-            if (seedSuggestions.count) > 0{
-                self.performSegue(withIdentifier: "showRecoverSeedSuggestionsSegue", sender: (textField, cell))
-            }
+        cell?.onPickUpSeed = {(index, pickedSeedWord) in
+            cell?.tfSeedWord.text = pickedSeedWord
+            self.seedWords.append(pickedSeedWord)
+            cell?.tfSeedWord.clean()
+            self.vDropDownPlaceholder.removeFromSuperview()
         }
         return cell!
     }
+
     
     private func checkupSeed(){
         let seed = seedWords.reduce("", { x, y in  x + " " + y!})
@@ -100,21 +78,5 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
     @IBAction func onClear(_ sender: Any) {
         seedWords = []
         tableView.reloadData()
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showRecoverSeedSuggestionsSegue" {
-            let popup = segue.destination as? RecoverWalletSeedSuggestionsViewController
-            let textfield = (sender as? (UITextField, RecoveryWalletSeedWordsCell))?.0
-            let cell = (sender as? (UITextField, RecoveryWalletSeedWordsCell))?.1
-            let cellIndex = self.tableView.indexPath(for: cell!)
-            popup?.onSuggestionPick = {(pickedSuggestion) in
-                textfield?.text = pickedSuggestion
-                popup?.dismiss(animated: false, completion: nil)
-            }
-            popup?.suggestions = self.suggestions
-            let cellFrame = self.tableView.rectForRow(at: cellIndex!)
-            popup?.popupVerticalPosition = Int(cellFrame.origin.y + cellFrame.size.height)
-        }
     }
 }

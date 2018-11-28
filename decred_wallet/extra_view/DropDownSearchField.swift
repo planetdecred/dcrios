@@ -48,18 +48,28 @@ class DropDownListDataSource: NSObject,  DropDownResultsListProtocol {
 }
 
 class DropDownSearchField: UITextField, UITextFieldDelegate, SearchDataSourceProtocol {
-
     
     var dropDownListPlaceholder: UIView?
     var itemsToSearch: [String]?
-    var dropDownTable: UITableView?
+    private var dropDownTable: UITableView?
     var searchResult: DropDownResultsListProtocol?
+    var vertPosition: CGFloat = 0.0
+    
+    var onSelect:((Int, String)->Void)?{
+        get{
+            return searchResult?.onSelect
+        }
+        set{
+            searchResult?.onSelect = newValue
+        }
+    }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         delegate = self
         searchResult = DropDownListDataSource()
         searchResult?.cellIdentifier = "dropDownCell"
+        searchResult?.onSelect = self.onSelect
         self.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         setupDropdownTable()
     }
@@ -75,17 +85,18 @@ class DropDownSearchField: UITextField, UITextFieldDelegate, SearchDataSourcePro
     }
     
     func clean() {
+        dropDownListPlaceholder?.frame = CGRect(x: 0, y: 0, width: 1, height: 1)
         searchResult?.items = []
         text = ""
         dropDownTable?.isHidden = true
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        dropDownListPlaceholder?.frame = CGRect(x: 50, y: vertPosition, width: textField.bounds.size.width - 50, height: 40 * 5)
         dropDownListPlaceholder?.addSubview(dropDownTable!)
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
-        
         searchResult?.items = itemsToSearch?.filter({ return ($0.lowercased().hasPrefix(textField.text!.lowercased()) && (textField.text?.count)! > 2) })
         dropDownTable?.frame.size.height = CGFloat((searchResult?.items?.count)!) * CGFloat(44.0);
         dropDownTable?.isHidden = (searchResult?.items?.count)! == 0
