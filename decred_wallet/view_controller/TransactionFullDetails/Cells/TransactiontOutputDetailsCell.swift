@@ -22,7 +22,7 @@ class TransactiontOutputDetailsCell: UITableViewCell {
     
     
     @IBAction func hideOrExpandAction(_ sender: UIButton) {
-        self.viewContainer.isHidden.toggle()
+        self.viewContainer.isHidden.toggles()
         expandOrCollapse?()
     }
     

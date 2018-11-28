@@ -71,7 +71,7 @@ public extension Bool {
     /// SwifterSwift: Toggle value for bool.
     ///
     /// - Returns: inversed value of bool.
-    @discardableResult public mutating func toggle() -> Bool {
+    @discardableResult public mutating func toggles() -> Bool {
         self = !self
         return self
     }
