@@ -22,7 +22,6 @@
 		2850E094217612EE00171267 /* SourceSansPro-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2850E088217612EE00171267 /* SourceSansPro-SemiBold.ttf */; };
 		2850E095217612EE00171267 /* SourceSansPro-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2850E089217612EE00171267 /* SourceSansPro-ExtraLightItalic.ttf */; };
 		2850E096217612EE00171267 /* SourceSansPro-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2850E08A217612EE00171267 /* SourceSansPro-Italic.ttf */; };
-		2850E098217614DC00171267 /* RecoverWalletTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2850E097217614DC00171267 /* RecoverWalletTableViewController.swift */; };
 		286BCA5321AF46E300DC2BA7 /* SecurityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286BCA4F21AF46E300DC2BA7 /* SecurityViewController.swift */; };
 		286BCA5421AF46E300DC2BA7 /* PinInputController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286BCA5021AF46E300DC2BA7 /* PinInputController.swift */; };
 		286BCA5521AF46E300DC2BA7 /* PinSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286BCA5121AF46E300DC2BA7 /* PinSetupViewController.swift */; };
@@ -34,9 +33,8 @@
 		2883CA702099D40F0053D9BB /* DropDownSearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2883CA6F2099D40F0053D9BB /* DropDownSearchField.swift */; };
 		2883CA72209B52AE0053D9BB /* WaiterScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2883CA71209B52AE0053D9BB /* WaiterScreenViewController.swift */; };
 		2883CA74209B5BA40053D9BB /* Modals.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2883CA73209B5BA40053D9BB /* Modals.storyboard */; };
-		28A3BD52217F71FB009796B4 /* ConfirmSeedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A3BD51217F71FB009796B4 /* ConfirmSeedTableViewController.swift */; };
-		28C22AFD21774FC200D3A108 /* RecoveryWalletSeedWordsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C22AFC21774FC200D3A108 /* RecoveryWalletSeedWordsCell.swift */; };
 		28D36C7C2180ADF5000C6572 /* ConfirmSeedViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D36C7B2180ADF5000C6572 /* ConfirmSeedViewCell.swift */; };
+		28DEB0BB21B07D32009082F7 /* RecoverWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DEB0BA21B07D32009082F7 /* RecoverWalletViewController.swift */; };
 		28EB91B820FCFD8F007A0906 /* GeneratedSeedDisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EB91B720FCFD8F007A0906 /* GeneratedSeedDisplayViewController.swift */; };
 		28EB91BB20FCFDA1007A0906 /* SeedCheckupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EB91B920FCFDA0007A0906 /* SeedCheckupViewController.swift */; };
 		28EB91BC20FCFDA1007A0906 /* CreatePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EB91BA20FCFDA1007A0906 /* CreatePasswordViewController.swift */; };
@@ -72,6 +70,7 @@
 		95E1C96E20FCD43E00D7F3EE /* TextFieldDoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E1C96D20FCD43E00D7F3EE /* TextFieldDoneButton.swift */; };
 		B853136BC96255F028D8CB64 /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD1BD0208F6C9A0051F58F /* Pods_Decred_Wallet.framework */; };
 		D1FD8F744254451E087DFF62 /* libPods-Decred WalletTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F5E792FB5699DA8251C6AB5 /* libPods-Decred WalletTests.a */; };
+		DD0B356E218930B7000830C4 /* AddAcountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B356D218930B7000830C4 /* AddAcountViewController.swift */; };
 		DD0C493E208A160900986C6B /* WalletSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C493D208A160900986C6B /* WalletSetupViewController.swift */; };
 		DD15867721A803D40086DB44 /* Mobilewallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD15867621A803D40086DB44 /* Mobilewallet.framework */; };
 		DD1D5C7C20AED828009789DD /* certificateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1D5C7B20AED824009789DD /* certificateViewController.swift */; };
@@ -148,7 +147,6 @@
 		2850E088217612EE00171267 /* SourceSansPro-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-SemiBold.ttf"; sourceTree = "<group>"; };
 		2850E089217612EE00171267 /* SourceSansPro-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
 		2850E08A217612EE00171267 /* SourceSansPro-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Italic.ttf"; sourceTree = "<group>"; };
-		2850E097217614DC00171267 /* RecoverWalletTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoverWalletTableViewController.swift; sourceTree = "<group>"; };
 		286BCA4F21AF46E300DC2BA7 /* SecurityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecurityViewController.swift; sourceTree = "<group>"; };
 		286BCA5021AF46E300DC2BA7 /* PinInputController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinInputController.swift; sourceTree = "<group>"; };
 		286BCA5121AF46E300DC2BA7 /* PinSetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinSetupViewController.swift; sourceTree = "<group>"; };
@@ -160,9 +158,8 @@
 		2883CA6F2099D40F0053D9BB /* DropDownSearchField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownSearchField.swift; sourceTree = "<group>"; };
 		2883CA71209B52AE0053D9BB /* WaiterScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaiterScreenViewController.swift; sourceTree = "<group>"; };
 		2883CA73209B5BA40053D9BB /* Modals.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Modals.storyboard; sourceTree = "<group>"; };
-		28A3BD51217F71FB009796B4 /* ConfirmSeedTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmSeedTableViewController.swift; sourceTree = "<group>"; };
-		28C22AFC21774FC200D3A108 /* RecoveryWalletSeedWordsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryWalletSeedWordsCell.swift; sourceTree = "<group>"; };
 		28D36C7B2180ADF5000C6572 /* ConfirmSeedViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmSeedViewCell.swift; sourceTree = "<group>"; };
+		28DEB0BA21B07D32009082F7 /* RecoverWalletViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecoverWalletViewController.swift; path = decred_wallet/view_controller/RecoverWalletViewController.swift; sourceTree = SOURCE_ROOT; };
 		28EB91B720FCFD8F007A0906 /* GeneratedSeedDisplayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratedSeedDisplayViewController.swift; sourceTree = "<group>"; };
 		28EB91B920FCFDA0007A0906 /* SeedCheckupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeedCheckupViewController.swift; sourceTree = "<group>"; };
 		28EB91BA20FCFDA1007A0906 /* CreatePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePasswordViewController.swift; sourceTree = "<group>"; };
@@ -203,6 +200,7 @@
 		95CC024320D3F15800DA73AF /* AccountsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsData.swift; sourceTree = "<group>"; };
 		95E1C96D20FCD43E00D7F3EE /* TextFieldDoneButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldDoneButton.swift; sourceTree = "<group>"; };
 		A1A97C56BC75512DA55A8A70 /* Pods-Decred WalletTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred WalletTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Decred WalletTests/Pods-Decred WalletTests.release.xcconfig"; sourceTree = "<group>"; };
+		DD0B356D218930B7000830C4 /* AddAcountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddAcountViewController.swift; path = view_controller/AddAcountViewController.swift; sourceTree = "<group>"; };
 		DD0C493D208A160900986C6B /* WalletSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSetupViewController.swift; sourceTree = "<group>"; };
 		DD15867621A803D40086DB44 /* Mobilewallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mobilewallet.framework; sourceTree = "<group>"; };
 		DD1D5C7B20AED824009789DD /* certificateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = certificateViewController.swift; sourceTree = "<group>"; };
@@ -302,6 +300,7 @@
 		286BCA4E21AF46E300DC2BA7 /* Security */ = {
 			isa = PBXGroup;
 			children = (
+				28DEB0BA21B07D32009082F7 /* RecoverWalletViewController.swift */,
 				286BCA4F21AF46E300DC2BA7 /* SecurityViewController.swift */,
 				286BCA5021AF46E300DC2BA7 /* PinInputController.swift */,
 				286BCA5121AF46E300DC2BA7 /* PinSetupViewController.swift */,
@@ -391,7 +390,6 @@
 		95473E6720E39DE70023F50A /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				28C22AFC21774FC200D3A108 /* RecoveryWalletSeedWordsCell.swift */,
 				95473E6820E39E3C0023F50A /* TransactiontInputDetails.swift */,
 				95473E6920E39E3C0023F50A /* TransactiontInputDetails.xib */,
 				95473E6C20E39E7A0023F50A /* TransactiontOutputDetailsCell.swift */,
@@ -437,8 +435,6 @@
 			isa = PBXGroup;
 			children = (
 				286BCA4E21AF46E300DC2BA7 /* Security */,
-				28A3BD51217F71FB009796B4 /* ConfirmSeedTableViewController.swift */,
-				2850E097217614DC00171267 /* RecoverWalletTableViewController.swift */,
 				DD1D5C7D20AEDB15009789DD /* WalletLogViewController.swift */,
 				DD1D5C7F20AEDB2B009789DD /* NodeLogViewController.swift */,
 				28EB91B920FCFDA0007A0906 /* SeedCheckupViewController.swift */,
@@ -515,6 +511,7 @@
 				DD4C89DB2038EE60003FEA0C /* view_util */,
 				DDA3E26D20292EF900C83D18 /* AppDelegate.swift */,
 				DDA3E27120292EF900C83D18 /* Main.storyboard */,
+				DD0B356D218930B7000830C4 /* AddAcountViewController.swift */,
 				28F0CE7220888258003AC958 /* Utils.swift */,
 				28EB91BD20FCFDBE007A0906 /* table_view_cell */,
 				DDA3E27420292EF900C83D18 /* Assets.xcassets */,
@@ -766,9 +763,8 @@
 				28EB91CE20FCFDBE007A0906 /* DataTableViewCell.swift in Sources */,
 				DDB89404202F7E01002F85EE /* SendViewController.swift in Sources */,
 				DDB89411202F8471002F85EE /* String.swift in Sources */,
-				28A3BD52217F71FB009796B4 /* ConfirmSeedTableViewController.swift in Sources */,
-				28C22AFD21774FC200D3A108 /* RecoveryWalletSeedWordsCell.swift in Sources */,
 				DD419763202F9B570044F068 /* UITableViewExtension.swift in Sources */,
+				28DEB0BB21B07D32009082F7 /* RecoverWalletViewController.swift in Sources */,
 				DDB89413202F8635002F85EE /* ImageHeaderView.swift in Sources */,
 				28048BE1219492AC003FE50E /* (null) in Sources */,
 				95877FE920B70CBB00CE53D2 /* TransactionHistoryViewController.swift in Sources */,
@@ -800,7 +796,6 @@
 				DD1D5C8020AEDB2B009789DD /* NodeLogViewController.swift in Sources */,
 				952C932C20E2481500A60E43 /* SendCompletedViewController.swift in Sources */,
 				286BCA5521AF46E300DC2BA7 /* PinSetupViewController.swift in Sources */,
-				2850E098217614DC00171267 /* RecoverWalletTableViewController.swift in Sources */,
 				DDB89417202F8EE2002F85EE /* UIImageView.swift in Sources */,
 				28EB91B820FCFD8F007A0906 /* GeneratedSeedDisplayViewController.swift in Sources */,
 				DD1D5C7C20AED828009789DD /* certificateViewController.swift in Sources */,
@@ -810,6 +805,7 @@
 				95473E6A20E39E3C0023F50A /* TransactiontInputDetails.swift in Sources */,
 				95CC024420D3F15800DA73AF /* AccountsData.swift in Sources */,
 				DDB89402202F771F002F85EE /* UIViewController.swift in Sources */,
+				DD0B356E218930B7000830C4 /* AddAcountViewController.swift in Sources */,
 				DDA3E26E20292EF900C83D18 /* AppDelegate.swift in Sources */,
 				DDB8940D202F82E6002F85EE /* SettingsController.swift in Sources */,
 				DDB8940B202F82A3002F85EE /* AccountViewController.swift in Sources */,
@@ -978,7 +974,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = LYZ95J7356;
+				DEVELOPMENT_TEAM = KQ46EWSK84;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -990,7 +986,7 @@
 				INFOPLIST_FILE = decred_wallet/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.macsleven.Decred-Wallet";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ensoreus.DecredWallet;
 				PRODUCT_NAME = DecredWallet;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1011,7 +1007,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = LYZ95J7356;
+				DEVELOPMENT_TEAM = KQ46EWSK84;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1023,7 +1019,7 @@
 				INFOPLIST_FILE = decred_wallet/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.macsleven.Decred-Wallet";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ensoreus.DecredWallet;
 				PRODUCT_NAME = DecredWallet;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
