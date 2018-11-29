@@ -47,8 +47,8 @@ class SettingsController: UITableViewController  {
         self.navigationItem.title = "Settings"
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
-        connect_peer_ip?.text = UserDefaults.standard.string(forKey: "pref_peer_ip") ?? "0.0.0.0"
-        server_ip?.text = UserDefaults.standard.string(forKey: "pref_server_ip") ?? "0.0.0.0"
+        connect_peer_ip?.text = UserDefaults.standard.string(forKey: "pref_peer_ip") ?? ""
+        server_ip?.text = UserDefaults.standard.string(forKey: "pref_server_ip") ?? ""
         
         let network_value = UserDefaults.standard.integer(forKey: "network_mode")
         if (network_value == 0){
@@ -115,7 +115,7 @@ class SettingsController: UITableViewController  {
     func loadDate()-> Void{
         
         let network_value = UserDefaults.standard.integer(forKey: "network_mode")
-        version?.text = UserDefaults.standard.string(forKey: "app_version") ?? "alpha test"
+        version?.text = UserDefaults.standard.string(forKey: "app_version") ?? "Pre-release"
         var compileDate:Date{
             let bundleName = Bundle.main.infoDictionary!["CFBundleName"] as? String ?? "Info.plist"
             if let infoPath = Bundle.main.path(forResource: bundleName, ofType: nil),
@@ -129,8 +129,8 @@ class SettingsController: UITableViewController  {
         build?.text = dateformater.string(from: compileDate as Date)
         debu_msg?.setOn((UserDefaults.standard.bool(forKey: "pref_debug_switch") ), animated: false)
         spend_uncon_fund?.setOn(UserDefaults.standard.bool(forKey: "pref_spend_fund_switch"), animated: false)
-        connect_peer_ip?.text = UserDefaults.standard.string(forKey: "pref_peer_ip") ?? "0.0.0.0"
-        server_ip?.text = UserDefaults.standard.string(forKey: "pref_server_ip") ?? "0.0.0.0"
+        connect_peer_ip?.text = UserDefaults.standard.string(forKey: "pref_peer_ip") ?? ""
+        server_ip?.text = UserDefaults.standard.string(forKey: "pref_server_ip") ?? ""
         incoming_notification_switch?.setOn(UserDefaults.standard.bool(forKey: "pref_notification_switch"), animated: true)
         
         if (network_value == 0){
