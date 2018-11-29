@@ -8,12 +8,18 @@ class SendCompletedViewController: UIViewController {
     @IBOutlet private weak var labelTransactionHash: UILabel!
     var transactionHash: String?
     
+    @IBOutlet weak var vContent: UIView!
     var openDetails: (() -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        let layer = view.layer
+        
+        layer.frame = vContent.frame
+        layer.shadowColor = UIColor.gray.cgColor
+        layer.shadowRadius = 30
+        layer.shadowOpacity = 0.8
+        layer.shadowOffset = CGSize(width:0.0, height:40.0);
         labelTransactionHash.text = transactionHash
     }
     
