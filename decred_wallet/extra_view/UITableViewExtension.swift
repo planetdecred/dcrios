@@ -65,6 +65,7 @@ public extension Bool {
     }
 }
 
+
 // MARK: - Methods
 public extension Bool {
     

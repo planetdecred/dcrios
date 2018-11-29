@@ -54,6 +54,7 @@ class GeneratedSeedDisplayViewController: UIViewController {
         //navigationController?.isNavigationBarHidden = true
     }
     
+    @IBAction func unwind(_: UIStoryboardSegue){}
     // MARK: - Utility
     
     func setUpUItraits() {
