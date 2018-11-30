@@ -108,7 +108,6 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
         let appInstance = UserDefaults.standard
         var passphrase = ""
         passphrase = appInstance.string(forKey: "password")!
-        //print(appInstance.string(forKey: "passphrase")!)
         let finalPassphrase = passphrase as NSString
         let finalPassphraseData = finalPassphrase .data(using: String.Encoding.utf8.rawValue)!
         
