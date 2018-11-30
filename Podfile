@@ -7,11 +7,12 @@ target 'Decred Wallet' do
   pod 'SlideMenuControllerSwift'
   pod 'MBProgressHUD'
   pod 'QRCodeReader.swift'
-  # Pods for Decred Wallet
-
-  target 'Decred WalletTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
+  pod "PasswordStrength"
+  pod 'CryptoSwift'
 end
+
+target 'Decred WalletTests' do
+  inherit! :search_paths
+  # Pods for testing
+end
+
