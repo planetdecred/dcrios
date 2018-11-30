@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1E3D73D7EA02D2D2D3CD052C /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E75324D536F1BD91575D0609 /* Pods_Decred_Wallet.framework */; };
-		28664E5E216F740000AA01E2 /* progress bar-1s-200px.gif in Resources */ = {isa = PBXBuildFile; fileRef = 28664E5D216F740000AA01E2 /* progress bar-1s-200px.gif */; };
+		281D540521B150C800F68803 /* RecoverWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281D540421B150C800F68803 /* RecoverWalletViewController.swift */; };
 		2850E08B217612EE00171267 /* SourceSansPro-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2850E07F217612EE00171267 /* SourceSansPro-BlackItalic.ttf */; };
 		2850E08C217612EE00171267 /* SourceSansPro-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2850E080217612EE00171267 /* SourceSansPro-SemiBoldItalic.ttf */; };
 		2850E08D217612EE00171267 /* SourceSansPro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2850E081217612EE00171267 /* SourceSansPro-Regular.ttf */; };
@@ -21,6 +21,7 @@
 		2850E094217612EE00171267 /* SourceSansPro-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2850E088217612EE00171267 /* SourceSansPro-SemiBold.ttf */; };
 		2850E095217612EE00171267 /* SourceSansPro-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2850E089217612EE00171267 /* SourceSansPro-ExtraLightItalic.ttf */; };
 		2850E096217612EE00171267 /* SourceSansPro-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2850E08A217612EE00171267 /* SourceSansPro-Italic.ttf */; };
+		28664E5E216F740000AA01E2 /* progress bar-1s-200px.gif in Resources */ = {isa = PBXBuildFile; fileRef = 28664E5D216F740000AA01E2 /* progress bar-1s-200px.gif */; };
 		286DA549210B0C7A00734259 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286DA548210B0C7A00734259 /* Data.swift */; };
 		2870338B20BC5E7D00BFD0B8 /* JsonEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2870338A20BC5E7D00BFD0B8 /* JsonEntities.swift */; };
 		2883CA702099D40F0053D9BB /* DropDownSearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2883CA6F2099D40F0053D9BB /* DropDownSearchField.swift */; };
@@ -65,7 +66,6 @@
 		DD0B356E218930B7000830C4 /* AddAcountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B356D218930B7000830C4 /* AddAcountViewController.swift */; };
 		DD0C493E208A160900986C6B /* WalletSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C493D208A160900986C6B /* WalletSetupViewController.swift */; };
 		DD15867721A803D40086DB44 /* Mobilewallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD15867621A803D40086DB44 /* Mobilewallet.framework */; };
-		DD1A0C7721B0316500EA03B6 /* RecoverWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1A0C7621B0316500EA03B6 /* RecoverWalletViewController.swift */; };
 		DD1D5C7C20AED828009789DD /* certificateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1D5C7B20AED824009789DD /* certificateViewController.swift */; };
 		DD1D5C7E20AEDB15009789DD /* WalletLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1D5C7D20AEDB15009789DD /* WalletLogViewController.swift */; };
 		DD1D5C8020AEDB2B009789DD /* NodeLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1D5C7F20AEDB2B009789DD /* NodeLogViewController.swift */; };
@@ -128,7 +128,7 @@
 
 /* Begin PBXFileReference section */
 		109877DFD2DABA7636DA7B92 /* Pods-Decred WalletTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred WalletTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Decred WalletTests/Pods-Decred WalletTests.debug.xcconfig"; sourceTree = "<group>"; };
-		28664E5D216F740000AA01E2 /* progress bar-1s-200px.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "progress bar-1s-200px.gif"; path = "decred_wallet/Resources/progress bar-1s-200px.gif"; sourceTree = "<group>"; };
+		281D540421B150C800F68803 /* RecoverWalletViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecoverWalletViewController.swift; sourceTree = "<group>"; };
 		2850E07F217612EE00171267 /* SourceSansPro-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-BlackItalic.ttf"; sourceTree = "<group>"; };
 		2850E080217612EE00171267 /* SourceSansPro-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
 		2850E081217612EE00171267 /* SourceSansPro-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Regular.ttf"; sourceTree = "<group>"; };
@@ -141,6 +141,7 @@
 		2850E088217612EE00171267 /* SourceSansPro-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-SemiBold.ttf"; sourceTree = "<group>"; };
 		2850E089217612EE00171267 /* SourceSansPro-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
 		2850E08A217612EE00171267 /* SourceSansPro-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Italic.ttf"; sourceTree = "<group>"; };
+		28664E5D216F740000AA01E2 /* progress bar-1s-200px.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "progress bar-1s-200px.gif"; path = "decred_wallet/Resources/progress bar-1s-200px.gif"; sourceTree = "<group>"; };
 		286DA548210B0C7A00734259 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		2870338A20BC5E7D00BFD0B8 /* JsonEntities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonEntities.swift; sourceTree = "<group>"; };
 		2883CA6F2099D40F0053D9BB /* DropDownSearchField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownSearchField.swift; sourceTree = "<group>"; };
@@ -190,7 +191,6 @@
 		DD0B356D218930B7000830C4 /* AddAcountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddAcountViewController.swift; path = view_controller/AddAcountViewController.swift; sourceTree = "<group>"; };
 		DD0C493D208A160900986C6B /* WalletSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSetupViewController.swift; sourceTree = "<group>"; };
 		DD15867621A803D40086DB44 /* Mobilewallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mobilewallet.framework; sourceTree = "<group>"; };
-		DD1A0C7621B0316500EA03B6 /* RecoverWalletViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecoverWalletViewController.swift; path = ../../../../dcrios/decred_wallet/view_controller/RecoverWalletViewController.swift; sourceTree = "<group>"; };
 		DD1D5C7B20AED824009789DD /* certificateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = certificateViewController.swift; sourceTree = "<group>"; };
 		DD1D5C7D20AEDB15009789DD /* WalletLogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletLogViewController.swift; sourceTree = "<group>"; };
 		DD1D5C7F20AEDB2B009789DD /* NodeLogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeLogViewController.swift; sourceTree = "<group>"; };
@@ -410,7 +410,7 @@
 		DD4C89DC2038EEEF003FEA0C /* view_controller */ = {
 			isa = PBXGroup;
 			children = (
-				DD1A0C7621B0316500EA03B6 /* RecoverWalletViewController.swift */,
+				281D540421B150C800F68803 /* RecoverWalletViewController.swift */,
 				DD1D5C7D20AEDB15009789DD /* WalletLogViewController.swift */,
 				DD1D5C7F20AEDB2B009789DD /* NodeLogViewController.swift */,
 				28EB91B920FCFDA0007A0906 /* SeedCheckupViewController.swift */,
@@ -719,7 +719,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD1A0C7721B0316500EA03B6 /* RecoverWalletViewController.swift in Sources */,
+				281D540521B150C800F68803 /* RecoverWalletViewController.swift in Sources */,
 				DDB89409202F824A002F85EE /* ReceiveViewController.swift in Sources */,
 				DD1D5C8220AEE90D009789DD /* ServerSetTableViewController.swift in Sources */,
 				DD1D5C8420AEE9FF009789DD /* PeerSetTableViewController.swift in Sources */,
