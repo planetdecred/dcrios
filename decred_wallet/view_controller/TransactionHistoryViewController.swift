@@ -161,9 +161,12 @@ extension TransactionHistoryViewController: UITableViewDataSource, UITableViewDe
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         tableView.register(UINib(nibName: TransactionHistoryTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: TransactionHistoryTableViewCell.identifier)
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "TransactionHistoryTableViewCell") as! TransactionHistoryTableViewCell
-        
-        let data = TransactionTableViewCellData(data: mainContens[indexPath.row])
-        cell.setData(data)
+        if self.mainContens.count != 0{
+            let data = TransactionTableViewCellData(data: mainContens[indexPath.row])
+            cell.setData(data)
+            return cell
+        }
         return cell
+        
     }
 }
