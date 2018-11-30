@@ -58,7 +58,7 @@ class RecoverWalletViewController: UIViewController {
         count = count + 1
         if count == 1{
             self.btnConfirm.isEnabled = false
-            let flag = SingleInstance.shared.wallet?.verifySeed(seedtmp)
+            let flag = SingleInstance.shared.wallet?.verifySeed(txSeedCheckCombined.text)
             if flag! {
                 performSegue(withIdentifier: "createPassword", sender: nil)
                 return
@@ -135,6 +135,13 @@ class RecoverWalletViewController: UIViewController {
         btnClear.isHidden = (arrSeed.count == 0)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "createPassword"{
+            var seedcheck = segue.destination as? SeedCheckupProtocol
+            seedcheck?.seedToVerify = txSeedCheckCombined.text
+        }
+        
+    }
     // MARK: - Utility Methods
 
     func showError(error: String) {
