@@ -60,12 +60,7 @@ class RecoverWalletViewController: UIViewController {
             self.btnConfirm.isEnabled = false
             let flag = SingleInstance.shared.wallet?.verifySeed(seedtmp)
             if flag! {
-                let sb = UIStoryboard(name: "Main", bundle: nil)
-                let vc = sb.instantiateViewController(withIdentifier: "encryptWallet") as! CreatePasswordViewController
-                vc.seedToVerify = seedtmp
-                UserDefaults.standard.set(seedtmp, forKey: "passphrase")
-                navigationController?.pushViewController(vc, animated: true)
-
+                performSegue(withIdentifier: "createPassword", sender: nil)
                 return
             } else {
                 showError(error: "Seed was not verifed!")
@@ -104,11 +99,7 @@ class RecoverWalletViewController: UIViewController {
         let flag = SingleInstance.shared.wallet?.verifySeed(txSeedCheckCombined.text) 
         if flag! {
             print("true")
-            let sb = UIStoryboard(name: "Main", bundle: nil)
-            let vc = sb.instantiateViewController(withIdentifier: "encryptWallet") as! CreatePasswordViewController
-            vc.seedToVerify = txSeedCheckCombined.text
-            UserDefaults.standard.set(txSeedCheckCombined.text, forKey: "passphrase")
-            navigationController?.pushViewController(vc, animated: true)
+            performSegue(withIdentifier: "createPassword", sender: nil)
         } else {
             print("false")
             showError(error: "Seed was not verifed!")
@@ -155,12 +146,6 @@ class RecoverWalletViewController: UIViewController {
         present(alert, animated: true, completion: {})
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "encryptWallet" {
-            let vc = segue.destination as! CreatePasswordViewController
-            vc.seedToVerify = txSeedCheckCombined.text
-        } else {}
-    }
     
     // Input views
     func addAccessory() {
