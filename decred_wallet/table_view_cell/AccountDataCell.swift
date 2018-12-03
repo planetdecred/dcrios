@@ -18,7 +18,7 @@ class AccountDataCell: UITableViewCell, AccountDetailsCellProtocol {
     @IBOutlet private weak var labelHDPathValue: UILabel!
     @IBOutlet private weak var labelKeysValue: UILabel!
     @IBOutlet weak var defaultAccount: UISwitch!
-    private var accountNumber: Int32  = 0
+    private var accountTmp: AccountsEntity!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -32,12 +32,11 @@ class AccountDataCell: UITableViewCell, AccountDetailsCellProtocol {
     }
     
     @IBAction func setDefault(_ sender: Any) {
-        UserDefaults.standard.set(self.accountNumber, forKey: "wallet_default")
-        print("set default")
-        print(self.accountNumber)
+        self.accountTmp.makeDefault()
     }
    
     func setup(account: AccountsEntity) {
+        self.accountTmp = account
         labelImmatureRewardValue.text = "\(account.Balance?.dcrImmatureReward ?? 0)"
         labelLockedByTicketsValue.text = "\(account.Balance?.dcrLockedByTickets ?? 0)"
         labelVotingAuthorityValue.text = "\(account.Balance?.dcrVotingAuthority ?? 0)"
@@ -45,13 +44,15 @@ class AccountDataCell: UITableViewCell, AccountDetailsCellProtocol {
         labelAccountNoValue.text = "\(account.Number)"
         //labelHDPathValue.text = "\(account.Balance)"
         labelKeysValue.text = "\(account.ExternalKeyCount) External, \(account.InternalKeyCount) Internal, \(account.ImportedKeyCount) Imported"
-        self.accountNumber = account.Number
-        if( UserDefaults.standard.integer(forKey: "wallet_default") == account.Number){
-            print("set on")
-            defaultAccount.setOn(true, animated: true)
+          print(account.Number)
+        if( account.isDefaultWallet){
+           
+            defaultAccount.setOn(true, animated: false)
+            defaultAccount.isEnabled = false
         }
         else{
-            defaultAccount.setOn(false, animated: true)
+            defaultAccount.setOn(false, animated: false)
+            defaultAccount.isEnabled = true
         }
         
     }

@@ -31,7 +31,6 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
     var selectedAccount: AccountsEntity?
     var password: String?
     var sendAllTX = false
-  //  private var constatnt: DcrdConnection?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,9 +45,6 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
         super.viewWillAppear(animated)
         self.setNavigationBarItem()
         self.navigationItem.title = "Send"
-       // constatnt = AppContext.instance.decrdConnection as? DcrdConnection
-        // let isValidAddressInClipboard = validate(address:UIPasteboard.general.string!)
-        // if isValidAddressInClipboard {destinationAddress.text = UIPasteboard.general.string ?? ""}
         self.updateBalance()
     }
     
@@ -283,8 +279,8 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
        
         self.present(sendCompletedVC, animated: true, completion: nil)
         
-        print("sent transaction")
-        self.dismiss(animated: true, completion: nil)
+//        print("sent transaction")
+//        self.dismiss(animated: true, completion: nil)
         return
     }
     
@@ -364,7 +360,7 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
             )
             
             this.selectedAccount = account?.Acc[ind]
-         this.accountDropdown.setTitle("default", for: .normal)
+            this.accountDropdown.setTitle("default", for: .normal)
 
         }
     }

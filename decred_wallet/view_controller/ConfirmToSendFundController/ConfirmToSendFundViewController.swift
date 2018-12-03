@@ -7,6 +7,11 @@ import UIKit
 class ConfirmToSendFundViewController: UIViewController {
     @IBOutlet private weak var labelTitle: UILabel!
     @IBOutlet weak var lbMinorDigits: UILabel!
+    @IBOutlet weak var tfPassword: UITextField!
+    
+    @IBOutlet weak var vContent: UIView!
+    
+    
     var amount: Double = 0.0 {
         willSet (newValue) {
             labelTitle?.text = major(amount: newValue)
@@ -21,6 +26,12 @@ class ConfirmToSendFundViewController: UIViewController {
         super.viewDidLoad()
         labelTitle?.text = major(amount: amount)
         lbMinorDigits.text = minor(amount: amount)
+        let layer = view.layer
+        layer.frame = vContent.frame
+        layer.shadowColor = UIColor.gray.cgColor
+        layer.shadowRadius = 30
+        layer.shadowOpacity = 0.8
+        layer.shadowOffset = CGSize(width:0.0, height:40.0);
     }
 
     override func viewDidDisappear(_ animated: Bool) {

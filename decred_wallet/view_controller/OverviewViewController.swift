@@ -143,7 +143,7 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
         let appInstance = UserDefaults.standard
         var passphrase = ""
         passphrase = appInstance.string(forKey: "password")!
-        print(appInstance.string(forKey: "passphrase")!)
+       // print(appInstance.string(forKey: "passphrase")!)
         let finalPassphrase = passphrase as NSString
         let finalPassphraseData = finalPassphrase .data(using: String.Encoding.utf8.rawValue)!
         
@@ -301,22 +301,21 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
         else{
             let tjson = json
             print("on result running")
-            DispatchQueue.main.async { [weak self] in
-                guard let this = self else { return }
+            DispatchQueue.main.async {
                 do {
                     let trans = GetTransactionResponse.self
                     let transactions = try JSONDecoder().decode(trans, from: (tjson?.data(using: .utf8)!)!)
                     print("on result decoded")
                     if (transactions.Transactions.count) > 0 {
                         print("on result decoded")
-                        if transactions.Transactions.count > this.mainContens.count {
+                        if transactions.Transactions.count > self.mainContens.count {
                             print(transactions.Transactions.count)
                             print("new transaction OnResult")
-                            print(this.mainContens.count)
-                            this.mainContens.removeAll()
+                            print(self)
+                            self.mainContens.removeAll()
                             print("decoding")
                             for transactionPack in transactions.Transactions {
-                                self?.mainContens.append(transactionPack)
+                                self.mainContens.append(transactionPack)
                                /* for creditTransaction in transactionPack.Credits {
                                     this.mainContens.append("\(creditTransaction.dcrAmount) DCR")
                                 }
@@ -324,9 +323,9 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
                                     this.mainContens.append("-\(debitTransaction.dcrAmount) DCR")
                                 }*/
                             }
-                            this.mainContens.reverse()
-                            this.tableView.reloadData()
-                            this.updateCurrentBalance()
+                            self.mainContens.reverse()
+                            self.tableView.reloadData()
+                            self.updateCurrentBalance()
                         }
                     }
                     return

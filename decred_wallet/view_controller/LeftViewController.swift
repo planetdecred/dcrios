@@ -257,6 +257,9 @@ extension LeftViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let menu = LeftMenu(rawValue: indexPath.row) {
             self.selectedIndex = indexPath.row
+            if(self.selectedIndex == 5){
+                self.selectedIndex = 0
+            }
             self.tableView.reloadData()
             self.changeViewController(menu)
         }

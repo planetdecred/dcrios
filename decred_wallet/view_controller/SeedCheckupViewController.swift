@@ -1,17 +1,16 @@
-//
+
 //  SeedCheckupViewController.swift
 //  Decred Wallet
 //
 // Copyright (c) 2018, The Decred developers
 // See LICENSE for details.
 //
-
+import Foundation
 import UIKit
 
 protocol SeedCheckupProtocol {
     var seedToVerify: String?{get set}
 }
-
 class SeedCheckupViewController: UIViewController, SeedCheckupProtocol {
     var seedToVerify: String?
     
@@ -41,7 +40,7 @@ class SeedCheckupViewController: UIViewController, SeedCheckupProtocol {
         super.viewDidAppear(animated)
         tfSeedCheckWord.becomeFirstResponder()
     }
-
+    
     @IBAction func onDelete(_ sender: Any) {
         self.txSeedCheckCombined.text = ""
     }
@@ -55,15 +54,15 @@ class SeedCheckupViewController: UIViewController, SeedCheckupProtocol {
     }
     
     // MARK: - Navigation
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         var vc = segue.destination as! SeedCheckupProtocol
         vc.seedToVerify = seedToVerify
         UserDefaults.standard.set(seedToVerify, forKey: "passphrase")
     }
-   
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-         super.touchesBegan(touches, with: event)
+        super.touchesBegan(touches, with: event)
         self.view.endEditing(true)
     }
     
@@ -123,5 +122,9 @@ class SeedCheckupViewController: UIViewController, SeedCheckupProtocol {
         btnConfirm.alpha = 1.0
     }
     
-
+    
 }
+
+
+
+
