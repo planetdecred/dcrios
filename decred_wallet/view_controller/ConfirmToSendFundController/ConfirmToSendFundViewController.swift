@@ -19,7 +19,7 @@ class ConfirmToSendFundViewController: UIViewController {
         }
     }
     
-    var confirm: (()->Void)?
+    var confirm: ((String)->Void)?
     var cancel: (()->Void)?
 
     override func viewDidLoad() {
@@ -62,7 +62,7 @@ class ConfirmToSendFundViewController: UIViewController {
     }
     
     @IBAction private func confirmAction(_ sender: UIButton) {
-        self.confirm?()
+        self.confirm?(tfPassword.text ?? "")
         dismiss(animated: true, completion: nil)
     }
 }
