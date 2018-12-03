@@ -325,12 +325,6 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
                             print("decoding")
                             for transactionPack in transactions.Transactions {
                                 self.mainContens.append(transactionPack)
-                               /* for creditTransaction in transactionPack.Credits {
-                                    this.mainContens.append("\(creditTransaction.dcrAmount) DCR")
-                                }
-                                for debitTransaction in transactionPack.Debits {
-                                    this.mainContens.append("-\(debitTransaction.dcrAmount) DCR")
-                                }*/
                             }
                             self.mainContens.reverse()
                             self.tableView.reloadData()
