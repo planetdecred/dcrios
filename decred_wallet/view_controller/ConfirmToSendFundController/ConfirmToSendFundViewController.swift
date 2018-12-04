@@ -7,6 +7,9 @@ import UIKit
 class ConfirmToSendFundViewController: UIViewController {
     @IBOutlet private weak var labelTitle: UILabel!
     @IBOutlet weak var lbMinorDigits: UILabel!
+    @IBOutlet weak var tfPassword: UITextField!
+    @IBOutlet weak var vContent: UIView!
+    
     var amount: Double = 0.0 {
         willSet (newValue) {
             labelTitle?.text = major(amount: newValue)
@@ -26,7 +29,6 @@ class ConfirmToSendFundViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         self.dismiss(animated: true, completion: nil)
-        
     }
     
     private func major(amount:Double) -> String{
@@ -41,7 +43,6 @@ class ConfirmToSendFundViewController: UIViewController {
             return "000000"
         }else{
             return sAmount.substring(majorCount)
-            
         }
     }
     
