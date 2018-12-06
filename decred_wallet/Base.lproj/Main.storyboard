@@ -171,7 +171,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7rA-l2-tDt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4320" y="-435"/>
+            <point key="canvasLocation" x="4933" y="-436"/>
         </scene>
         <!--Left View Controller-->
         <scene sceneID="Nq8-8X-A5v">
@@ -625,7 +625,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="HgI-Rd-B4C" kind="show" identifier="confirmSeedSegue" id="Y8O-hZ-syo"/>
+                                    <segue destination="b83-s9-ggO" kind="show" id="qKU-Dd-1Gq"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jd5-nv-AjR">
@@ -1133,12 +1133,12 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eHh-tv-gO9" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Nv3-AZ-kyZ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3471" y="296"/>
+            <point key="canvasLocation" x="3469" y="-191"/>
         </scene>
-        <!--View Controller-->
+        <!--Button Confirm Seed View Controller-->
         <scene sceneID="6rh-hm-F7t">
             <objects>
-                <viewController id="b83-s9-ggO" sceneMemberID="viewController">
+                <viewController id="b83-s9-ggO" customClass="ButtonConfirmSeedViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DD4-bc-AGx">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1194,6 +1194,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
+                                            <action selector="onConfirm:" destination="b83-s9-ggO" eventType="touchUpInside" id="iUJ-pz-vbe"/>
                                             <action selector="onConfirm:" destination="HgI-Rd-B4C" eventType="touchUpInside" id="rRl-3T-gmo"/>
                                         </connections>
                                     </button>
@@ -1213,7 +1214,7 @@
                                 <rect key="frame" x="0.0" y="124" width="320" height="364"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="VeU-cz-MK7" customClass="SeedConfirmTableViewCell" customModule="DecredWallet" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="tripleSeedCell" id="VeU-cz-MK7" customClass="SeedConfirmTableViewCell" customModule="DecredWallet" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="320" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="VeU-cz-MK7" id="3AG-pt-N52">
@@ -1230,9 +1231,9 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O77-MM-NEn" customClass="ContouredButton" customModule="DecredWallet" customModuleProvider="target">
-                                                    <rect key="frame" x="5" y="39.5" width="85" height="30"/>
+                                                    <rect key="frame" x="20" y="44.5" width="85" height="25"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="XaG-dB-93d"/>
+                                                        <constraint firstAttribute="height" constant="25" id="XaG-dB-93d"/>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="85" id="xuG-ro-6ub"/>
                                                     </constraints>
                                                     <state key="normal" title="Button">
@@ -1245,13 +1246,20 @@
                                                         <userDefinedRuntimeAttribute type="number" keyPath="borderThick">
                                                             <real key="value" value="1"/>
                                                         </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="selectedStateColor">
+                                                            <color key="value" red="0.17662689089775085" green="0.84774124622344971" blue="0.63897907733917236" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="backgroundFillColor">
+                                                            <color key="value" red="0.92941176469999998" green="0.93725490199999995" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a0O-nA-mgr" customClass="ContouredButton" customModule="DecredWallet" customModuleProvider="target">
-                                                    <rect key="frame" x="230" y="39.5" width="85" height="30"/>
+                                                    <rect key="frame" x="215" y="44.5" width="85" height="25"/>
+                                                    <color key="backgroundColor" red="0.92941176469999998" green="0.93725490199999995" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="85" id="IIQ-pi-7Ba"/>
-                                                        <constraint firstAttribute="height" constant="30" id="dED-i2-A8q"/>
+                                                        <constraint firstAttribute="height" constant="25" id="dED-i2-A8q"/>
                                                     </constraints>
                                                     <state key="normal" title="Button">
                                                         <color key="titleColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -1263,12 +1271,18 @@
                                                         <userDefinedRuntimeAttribute type="number" keyPath="borderThick">
                                                             <real key="value" value="1"/>
                                                         </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="selectedStateColor">
+                                                            <color key="value" red="0.17662689089775085" green="0.84774124622344971" blue="0.63897907733917236" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="backgroundFillColor">
+                                                            <color key="value" red="0.92941176469999998" green="0.93725490199999995" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S7H-wK-sCE" customClass="ContouredButton" customModule="DecredWallet" customModuleProvider="target">
-                                                    <rect key="frame" x="117.5" y="39.5" width="85" height="30"/>
+                                                    <rect key="frame" x="117.5" y="44.5" width="85" height="25"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="e9n-rg-2fN"/>
+                                                        <constraint firstAttribute="height" constant="25" id="e9n-rg-2fN"/>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="85" id="j7g-6O-LKr"/>
                                                     </constraints>
                                                     <state key="normal" title="Button">
@@ -1281,6 +1295,12 @@
                                                         <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                                             <color key="value" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                                         </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="selectedStateColor">
+                                                            <color key="value" red="0.17662689089775085" green="0.84774124622344971" blue="0.63897907733917236" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="backgroundFillColor">
+                                                            <color key="value" red="0.92941176469999998" green="0.93725490199999995" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </button>
                                             </subviews>
@@ -1289,14 +1309,15 @@
                                                 <constraint firstAttribute="bottom" secondItem="a0O-nA-mgr" secondAttribute="bottom" constant="10" id="9Ki-N0-i3v"/>
                                                 <constraint firstAttribute="bottom" secondItem="O77-MM-NEn" secondAttribute="bottom" constant="10" id="9Ux-V1-egF"/>
                                                 <constraint firstItem="S7H-wK-sCE" firstAttribute="centerX" secondItem="3AG-pt-N52" secondAttribute="centerX" id="9ZP-mV-wlm"/>
-                                                <constraint firstItem="S7H-wK-sCE" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="O77-MM-NEn" secondAttribute="trailing" constant="10" id="BQl-IV-aJq"/>
-                                                <constraint firstItem="a0O-nA-mgr" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="S7H-wK-sCE" secondAttribute="trailing" constant="10" id="Bgc-vc-gA7"/>
-                                                <constraint firstItem="O77-MM-NEn" firstAttribute="leading" secondItem="3AG-pt-N52" secondAttribute="leading" constant="5" id="CBk-CA-MLD"/>
+                                                <constraint firstItem="S7H-wK-sCE" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="O77-MM-NEn" secondAttribute="trailing" constant="5" id="BQl-IV-aJq"/>
+                                                <constraint firstItem="a0O-nA-mgr" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="S7H-wK-sCE" secondAttribute="trailing" constant="5" id="Bgc-vc-gA7"/>
+                                                <constraint firstItem="O77-MM-NEn" firstAttribute="leading" secondItem="3AG-pt-N52" secondAttribute="leading" constant="20" id="CBk-CA-MLD"/>
                                                 <constraint firstItem="S7H-wK-sCE" firstAttribute="top" secondItem="O77-MM-NEn" secondAttribute="top" id="O8G-oD-ww0"/>
                                                 <constraint firstItem="fq8-jR-DSk" firstAttribute="top" secondItem="3AG-pt-N52" secondAttribute="topMargin" id="ZH7-ob-gGh"/>
-                                                <constraint firstAttribute="trailing" secondItem="a0O-nA-mgr" secondAttribute="trailing" constant="5" id="shT-Cb-oy2"/>
+                                                <constraint firstAttribute="trailing" secondItem="a0O-nA-mgr" secondAttribute="trailing" constant="20" id="shT-Cb-oy2"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.95294117649999999" green="0.96078431369999995" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <outlet property="btnSeed1" destination="O77-MM-NEn" id="NbU-to-aGL"/>
                                             <outlet property="btnSeed2" destination="S7H-wK-sCE" id="piz-Mp-F2D"/>
@@ -1305,6 +1326,10 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="b83-s9-ggO" id="Dlw-FX-MNM"/>
+                                    <outlet property="delegate" destination="b83-s9-ggO" id="TtW-q7-WbB"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" red="0.92941176469999998" green="0.93725490199999995" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -1326,55 +1351,135 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="VtT-Uw-scw"/>
                     </view>
+                    <connections>
+                        <outlet property="btnConfirm" destination="nnz-ce-Eae" id="NJ5-ny-rog"/>
+                        <segue destination="tbw-An-0pb" kind="show" identifier="createPasswordSegue" id="2Ry-bL-Lpc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p9m-bO-gZy" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <view contentMode="scaleToFill" id="ut4-We-WXj">
-                    <rect key="frame" x="0.0" y="0.0" width="314" height="70"/>
+                    <rect key="frame" x="0.0" y="0.0" width="314" height="100"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xc8-iA-bfp">
-                            <rect key="frame" x="0.0" y="0.0" width="314" height="2"/>
+                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xc8-iA-bfp">
+                            <rect key="frame" x="0.0" y="31" width="314" height="2"/>
                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="2" id="KaB-nV-meb"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yJ1-gR-TZu">
-                            <rect key="frame" x="0.0" y="68" width="314" height="2"/>
+                            <rect key="frame" x="0.0" y="98" width="314" height="2"/>
                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="2" id="s4r-x9-PnG"/>
                             </constraints>
                         </view>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fGJ-EC-feG">
-                            <rect key="frame" x="116" y="20" width="82" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Button"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="062-9n-PI0" customClass="ContouredButton" customModule="DecredWallet" customModuleProvider="target">
+                            <rect key="frame" x="223" y="50" width="85" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="30" id="xl7-il-kBg"/>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="85" id="zqN-l3-Y53"/>
+                            </constraints>
+                            <state key="normal" title="Button">
+                                <color key="titleColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                    <color key="value" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="borderThick">
+                                    <real key="value" value="1"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="selectedStateColor">
+                                    <color key="value" red="0.17662689089775085" green="0.84774124622344971" blue="0.63897907733917236" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="backgroundFillColor">
+                                    <color key="value" red="0.92941176469999998" green="0.93725490199999995" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dSC-pn-wJJ">
-                            <rect key="frame" x="224" y="20" width="82" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Button"/>
+                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AJ4-GQ-SqW" customClass="ContouredButton" customModule="DecredWallet" customModuleProvider="target">
+                            <rect key="frame" x="115" y="50" width="85" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="30" id="031-CT-cJP"/>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="85" id="87C-zS-JRh"/>
+                            </constraints>
+                            <state key="normal" title="Button">
+                                <color key="titleColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="borderThick">
+                                    <real key="value" value="1"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                    <color key="value" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="selectedStateColor">
+                                    <color key="value" red="0.17662689089775085" green="0.84774124622344971" blue="0.63897907733917236" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="backgroundFillColor">
+                                    <color key="value" red="0.92941176469999998" green="0.93725490199999995" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NGP-P2-WsE">
-                            <rect key="frame" x="7" y="20" width="82" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Button"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="94n-j8-pbd" customClass="ContouredButton" customModule="DecredWallet" customModuleProvider="target">
+                            <rect key="frame" x="7" y="50" width="85" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="30" id="CnC-ns-oBF"/>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="85" id="vlL-2S-jMv"/>
+                            </constraints>
+                            <state key="normal" title="Button">
+                                <color key="titleColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                    <color key="value" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="borderThick">
+                                    <real key="value" value="1"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="selectedStateColor">
+                                    <color key="value" red="0.17662689089775085" green="0.84774124622344971" blue="0.63897907733917236" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="backgroundFillColor">
+                                    <color key="value" red="0.92941176469999998" green="0.93725490199999995" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
                         </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Word #1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QnF-Xk-Zdt">
+                            <rect key="frame" x="131.5" y="2" width="51.5" height="21"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="21" id="Cuh-9D-tru"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="15"/>
+                            <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" red="0.92941176469999998" green="0.93725490199999995" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
+                        <constraint firstItem="0ia-Lk-lWY" firstAttribute="bottom" secondItem="94n-j8-pbd" secondAttribute="bottom" constant="20" id="89S-Fx-hr3"/>
+                        <constraint firstItem="QnF-Xk-Zdt" firstAttribute="centerX" secondItem="ut4-We-WXj" secondAttribute="centerX" id="A4C-ro-Czf"/>
                         <constraint firstItem="yJ1-gR-TZu" firstAttribute="trailing" secondItem="0ia-Lk-lWY" secondAttribute="trailing" id="AF5-83-VhB"/>
+                        <constraint firstItem="QnF-Xk-Zdt" firstAttribute="top" secondItem="0ia-Lk-lWY" secondAttribute="top" constant="2" id="Ctd-1V-xPN"/>
+                        <constraint firstItem="94n-j8-pbd" firstAttribute="leading" secondItem="0ia-Lk-lWY" secondAttribute="leading" constant="7" id="G5f-Uy-wGc"/>
+                        <constraint firstItem="0ia-Lk-lWY" firstAttribute="trailing" secondItem="062-9n-PI0" secondAttribute="trailing" constant="6" id="Nyu-j4-j7I"/>
                         <constraint firstItem="Xc8-iA-bfp" firstAttribute="trailing" secondItem="0ia-Lk-lWY" secondAttribute="trailing" id="R38-ug-Rrf"/>
+                        <constraint firstItem="Xc8-iA-bfp" firstAttribute="top" secondItem="QnF-Xk-Zdt" secondAttribute="bottom" constant="8" id="UvT-mJ-3Mk"/>
                         <constraint firstItem="yJ1-gR-TZu" firstAttribute="bottom" secondItem="0ia-Lk-lWY" secondAttribute="bottom" id="Uxe-zV-SWX"/>
+                        <constraint firstItem="AJ4-GQ-SqW" firstAttribute="top" secondItem="94n-j8-pbd" secondAttribute="top" id="VWi-tf-87p"/>
+                        <constraint firstItem="062-9n-PI0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="AJ4-GQ-SqW" secondAttribute="trailing" constant="10" id="aeP-Ri-ICz"/>
+                        <constraint firstItem="AJ4-GQ-SqW" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="94n-j8-pbd" secondAttribute="trailing" constant="10" id="cV0-4u-Rzp"/>
                         <constraint firstItem="yJ1-gR-TZu" firstAttribute="leading" secondItem="0ia-Lk-lWY" secondAttribute="leading" id="fsK-01-dfH"/>
                         <constraint firstItem="Xc8-iA-bfp" firstAttribute="top" secondItem="0ia-Lk-lWY" secondAttribute="top" id="gXz-Rn-88d"/>
                         <constraint firstItem="Xc8-iA-bfp" firstAttribute="leading" secondItem="0ia-Lk-lWY" secondAttribute="leading" id="tFA-Ue-8WA"/>
+                        <constraint firstItem="062-9n-PI0" firstAttribute="top" secondItem="AJ4-GQ-SqW" secondAttribute="top" id="wul-vc-cwd"/>
                     </constraints>
                     <viewLayoutGuide key="safeArea" id="0ia-Lk-lWY"/>
                 </view>
             </objects>
-            <point key="canvasLocation" x="4158.75" y="1158.8028169014085"/>
+            <point key="canvasLocation" x="3471" y="972"/>
         </scene>
         <!--Seed Checkup View Controller-->
         <scene sceneID="phV-U4-7h8">
@@ -3639,7 +3744,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Word#1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mBc-7g-2Qz">
-                                            <rect key="frame" x="16" y="7.5" width="48.5" height="18"/>
+                                            <rect key="frame" x="16" y="7.5" width="45" height="18"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="18" id="3mk-tB-N13"/>
                                             </constraints>
@@ -3648,7 +3753,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EFz-uM-LOu">
-                                            <rect key="frame" x="72.5" y="7" width="231.5" height="22"/>
+                                            <rect key="frame" x="69" y="7" width="235" height="22"/>
                                             <color key="backgroundColor" red="0.92941176470588238" green="0.93725490196078431" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="22" id="5v1-Mk-50J"/>
@@ -3736,7 +3841,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pDv-4G-qk0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4301.25" y="295.77464788732397"/>
+            <point key="canvasLocation" x="4931" y="307"/>
         </scene>
     </scenes>
     <resources>
@@ -3749,6 +3854,6 @@
         <image name="sync" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ofl-fS-Cxx"/>
+        <segue reference="2Ry-bL-Lpc"/>
     </inferredMetricsTieBreakers>
 </document>

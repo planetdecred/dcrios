@@ -7,6 +7,7 @@
 
 import UIKit
 
+//Obsolete
 class SeedSuggestionsViewController: UIViewController, UITabBarDelegate {
     
     var suggestions = ["","",""]

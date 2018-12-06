@@ -8,6 +8,7 @@
 
 import UIKit
 
+//Obsolete
 class ConfirmSeedTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet var tableView: UITableView?

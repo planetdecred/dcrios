@@ -89,8 +89,8 @@ class GeneratedSeedDisplayViewController: UIViewController {
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        var vc = segue.destination as! ConfirmSeedTableViewController
-        vc.seedToVerify = self.seed.split{$0 == " "}.map(String.init) ?? []
+        let vc = segue.destination as! ConfirmSeedTableViewController
+        vc.seedToVerify = self.seed.split{$0 == " "}.map(String.init)
     }
     
     @IBAction func backAction(_ sender: UIButton) {

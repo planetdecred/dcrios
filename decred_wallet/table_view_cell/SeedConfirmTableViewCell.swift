@@ -24,17 +24,22 @@ class SeedConfirmTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    func setup(num:Int, seedWords:[String]){
+    func setup(num:Int, seedWords:[String], selected: Int){
         btnSeed1.setTitle(seedWords[0], for: .normal)
         btnSeed2.setTitle(seedWords[1], for: .normal)
         btnSeed3.setTitle(seedWords[2], for: .normal)
+        
+        let buttons = [btnSeed1, btnSeed2, btnSeed3]
+        let _ = buttons.map({$0?.isSelected = false})
+        if selected >= 0 {
+            buttons[selected]?.isSelected = true
+        }
         seedWordNumber = num
         lbWordTitle.text = "Word #\(num)"
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
     }
 

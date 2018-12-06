@@ -10,6 +10,7 @@
 		1E3D73D7EA02D2D2D3CD052C /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E75324D536F1BD91575D0609 /* Pods_Decred_Wallet.framework */; };
 		28102DCD21B83E700052DC00 /* ContouredButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28102DCC21B83E700052DC00 /* ContouredButton.swift */; };
 		28102DCF21B83F8F0052DC00 /* SeedConfirmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28102DCE21B83F8F0052DC00 /* SeedConfirmTableViewCell.swift */; };
+		2827EE0A21B9675500832555 /* ButtonConfirmSeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2827EE0921B9675500832555 /* ButtonConfirmSeedViewController.swift */; };
 		2850E08B217612EE00171267 /* SourceSansPro-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2850E07F217612EE00171267 /* SourceSansPro-BlackItalic.ttf */; };
 		2850E08C217612EE00171267 /* SourceSansPro-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2850E080217612EE00171267 /* SourceSansPro-SemiBoldItalic.ttf */; };
 		2850E08D217612EE00171267 /* SourceSansPro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2850E081217612EE00171267 /* SourceSansPro-Regular.ttf */; };
@@ -133,6 +134,7 @@
 		109877DFD2DABA7636DA7B92 /* Pods-Decred WalletTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred WalletTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Decred WalletTests/Pods-Decred WalletTests.debug.xcconfig"; sourceTree = "<group>"; };
 		28102DCC21B83E700052DC00 /* ContouredButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContouredButton.swift; sourceTree = "<group>"; };
 		28102DCE21B83F8F0052DC00 /* SeedConfirmTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedConfirmTableViewCell.swift; sourceTree = "<group>"; };
+		2827EE0921B9675500832555 /* ButtonConfirmSeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonConfirmSeedViewController.swift; sourceTree = "<group>"; };
 		2850E07F217612EE00171267 /* SourceSansPro-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-BlackItalic.ttf"; sourceTree = "<group>"; };
 		2850E080217612EE00171267 /* SourceSansPro-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
 		2850E081217612EE00171267 /* SourceSansPro-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Regular.ttf"; sourceTree = "<group>"; };
@@ -418,6 +420,7 @@
 		DD4C89DC2038EEEF003FEA0C /* view_controller */ = {
 			isa = PBXGroup;
 			children = (
+				2827EE0921B9675500832555 /* ButtonConfirmSeedViewController.swift */,
 				28AEFA2821A5B62E0095DACC /* SeedSuggestionsViewController.swift */,
 				28A3BD51217F71FB009796B4 /* ConfirmSeedTableViewController.swift */,
 				2850E097217614DC00171267 /* RecoverWalletTableViewController.swift */,
@@ -736,6 +739,7 @@
 				95404EBE20E113D700B34327 /* AccountsHeaderView.swift in Sources */,
 				28EB91C720FCFDBE007A0906 /* TransactionHistoryTableViewCell.swift in Sources */,
 				95473E7420E3A6420023F50A /* TransactionDetailCell.swift in Sources */,
+				2827EE0A21B9675500832555 /* ButtonConfirmSeedViewController.swift in Sources */,
 				28F0CE7320888258003AC958 /* Utils.swift in Sources */,
 				DD976B0D21A5F929006E9410 /* ObserverProxy.m in Sources */,
 				28EB91CE20FCFDBE007A0906 /* DataTableViewCell.swift in Sources */,
