@@ -12,7 +12,9 @@ class ButtonConfirmSeedViewController: UIViewController, SeedCheckupProtocol {
     var seedToVerify: String?
     var selectedSeedWords:[Int] = []
     var allWords: [String] = []
+    
     @IBOutlet weak var btnConfirm: UIButton!
+    @IBOutlet var vActiveCellView: SeedCheckActiveCellView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,13 +25,9 @@ class ButtonConfirmSeedViewController: UIViewController, SeedCheckupProtocol {
         performSegue(withIdentifier: "createPasswordSegue", sender: nil)
     }
     
-    
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-
     }
  
     private func loadSeedWordsList() -> [String]{
@@ -44,6 +42,7 @@ extension ButtonConfirmSeedViewController: UITableViewDelegate{
 }
 
 extension ButtonConfirmSeedViewController: UITableViewDataSource{
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return 33
     }
@@ -81,6 +80,10 @@ extension ButtonConfirmSeedViewController: UITableViewDataSource{
     }
     
     private func pickSelected(row: Int) -> Int{
-        return 0
+        if selectedSeedWords.count > row {
+            return selectedSeedWords[row]
+        } else {
+            return -1
+        }
     }
 }

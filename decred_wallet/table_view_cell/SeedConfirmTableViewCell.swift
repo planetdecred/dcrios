@@ -17,7 +17,7 @@ class SeedConfirmTableViewCell: UITableViewCell {
     
     var seedWordNumber:Int = 0
     
-    var onPick:((String)->Void)?
+    var onPick:((Int, String)->Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -35,12 +35,12 @@ class SeedConfirmTableViewCell: UITableViewCell {
             buttons[selected]?.isSelected = true
         }
         seedWordNumber = num
-        lbWordTitle.text = "Word #\(num)"
+        lbWordTitle.text = "Word #\(num + 1)"
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        // Configure the view for the selected state
+        print("selected")
     }
 
 }
