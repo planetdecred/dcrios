@@ -8,8 +8,28 @@ import SlideMenuControllerSwift
 import Mobilewallet
 import MBProgressHUD
 
-class OverviewViewController: UIViewController, MobilewalletGetTransactionsResponseProtocol, MobilewalletTransactionListenerProtocol, MobilewalletBlockNotificationErrorProtocol,
+class OverviewViewController: UIViewController, MobilewalletGetTransactionsResponseProtocol, MobilewalletTransactionListenerProtocol, //MobilewalletBlockNotificationErrorProtocol,
 MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
+    func onFetchMissingCFilters(_ missingCFitlersStart: Int32, missingCFitlersEnd: Int32, state: String!) {
+        
+    }
+    
+    func onFetchedHeaders(_ fetchedHeadersCount: Int32, lastHeaderTime: Int64, state: String!) {
+       
+    }
+    
+    func onRescan(_ rescannedThrough: Int32, state: String!) {
+        
+    }
+    
+    func onError(_ err: String!) {
+        
+    }
+    
+    func onDiscoveredAddresses(_ state: String!) {
+        
+    }
+    
     func onFetchMissingCFilters(_ missingCFitlersStart: Int32, missingCFitlersEnd: Int32, finished: Bool) {
       
     }
@@ -153,8 +173,9 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
             DispatchQueue.global(qos: .background).async { [weak self] in
                 guard let _ = self else { return }
                 do {
+                    SingleInstance.shared.wallet?.add(self)
                     try
-                        SingleInstance.shared.wallet?.spvSync(self, peerAddresses: getPeerAddress(appInstance: appInstance), discoverAccounts: true, privatePassphrase: finalPassphraseData)
+            SingleInstance.shared.wallet?.spvSync(getPeerAddress(appInstance: appInstance))
                     print("done syncing")
                     
                 } catch {
@@ -179,7 +200,7 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
     }
     
     func connectToRPCServer(){
-        let appInstance = UserDefaults.standard
+    /*    let appInstance = UserDefaults.standard
         let certificate = try? Data(contentsOf: URL(fileURLWithPath: NSHomeDirectory() + "/Documents/rpc.cert"))
         let username = UserDefaults.standard.string(forKey: "pref_user_name")
         let password = UserDefaults.standard.string(forKey: "pref_user_passwd")
@@ -246,8 +267,8 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
                 print(error)
             }
         }
-    }
-
+         */
+}
     
     func updateCurrentBalance(){
         var amount = "0"

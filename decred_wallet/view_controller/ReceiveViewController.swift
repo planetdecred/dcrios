@@ -142,7 +142,7 @@ class ReceiveViewController: UIViewController {
     }
     
     private func getAddress(accountNumber : Int32){
-        let receiveAddress = try?SingleInstance.shared.wallet?.address(forAccount: Int32(accountNumber))
+        let receiveAddress = try?SingleInstance.shared.wallet?.currentAddress(Int32(accountNumber))
         print("got address in  ".appending(String(Int64(NSDate().timeIntervalSince1970) - starttime)))
        // UserDefaults.standard.setValue(receiveAddress!, forKey: "KEY_RECENT_ADDRESS")
         DispatchQueue.main.async { [weak self] in
