@@ -10,6 +10,7 @@ import MBProgressHUD
 
 class OverviewViewController: UIViewController, MobilewalletGetTransactionsResponseProtocol, MobilewalletTransactionListenerProtocol, //MobilewalletBlockNotificationErrorProtocol,
 MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
+     var peerCount = 0
     func onFetchMissingCFilters(_ missingCFitlersStart: Int32, missingCFitlersEnd: Int32, state: String!) {
         
     }
@@ -67,11 +68,19 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
     }
     
     func onPeerConnected(_ peerCount: Int32) {
-        
+        if(synced){
+        self.peerCount = Int(peerCount)
+        UserDefaults.standard.set(self.peerCount, forKey: "peercount")
+        UserDefaults.standard.synchronize()
+        }
     }
     
     func onPeerDisconnected(_ peerCount: Int32) {
-        
+        if(synced){
+        self.peerCount = Int(peerCount)
+        UserDefaults.standard.set(self.peerCount, forKey: "peercount")
+        UserDefaults.standard.synchronize()
+        }
     }
     
     func onRescanProgress(_ rescannedThrough: Int32) {
@@ -408,6 +417,7 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
     
     func onScan(_ rescannedThrough: Int32) -> Bool {
         UserDefaults.standard.set(true, forKey: "walletScanning")
+        UserDefaults.standard.synchronize()
         return true
     }
     
