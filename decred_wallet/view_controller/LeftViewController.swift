@@ -28,6 +28,9 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
 
     var progressHud = MBProgressHUD()
     var scanning = false
+    var seconds = 60
+    var timer = Timer()
+    var isTimerRunning = false
     @IBOutlet weak var blockInfo: UILabel!
     @IBOutlet weak var connectionStatus: UILabel!
     @IBOutlet weak var rescanHeight: UILabel!
@@ -84,16 +87,22 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         let sync = UserDefaults.standard.bool(forKey: "synced")
         
         if(sync == true){
-             self.loop()
+             self.runTimer()
         }
         else{
             self.connectionStatus.text = "Not Synced"
         }
         
     }
+    func runTimer() {
+        self.timer = Timer.scheduledTimer(timeInterval: 1, target: self,   selector: (#selector(self.updateTimer)), userInfo: nil, repeats: true)
+    }
+     @objc func updateTimer() {
+        self.loop()
+    }
     
     func loop() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now()) { [weak self] in
             guard let this = self else { return }
             let bestblck = SingleInstance.shared.wallet?.getBestBlock()
             let bestblocktemp: Int64 = Int64(Int(bestblck!))
