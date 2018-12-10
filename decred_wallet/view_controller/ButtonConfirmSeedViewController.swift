@@ -38,7 +38,18 @@ class ButtonConfirmSeedViewController: UIViewController, SeedCheckupProtocol {
 }
 
 extension ButtonConfirmSeedViewController: UITableViewDelegate{
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.beginUpdates()
+        tableView.endUpdates()
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let cell =  tableView.cellForRow(at: indexPath)
+        if cell?.isSelected ?? false{
+            return 100
+        }else{
+            return 80
+        }
+    }
 }
 
 extension ButtonConfirmSeedViewController: UITableViewDataSource{
