@@ -43,6 +43,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
     var settingsViewController: UIViewController!
     var historyViewController: UIViewController!
     var helpViewController:  UIViewController!
+    var securityMenuViewController:UIViewController!
     var imageHeaderView: ImageHeaderView!
     var selectedIndex: Int!
     var storyboard2: UIStoryboard!
@@ -240,9 +241,9 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
             }
             
         case .security:
-        let SecurityViewController = self.storyboard2?.instantiateViewController(withIdentifier: "SecurityViewController") as! ReceiveViewController
-        self.receiveViewController = UINavigationController(rootViewController: SecurityViewController)
-        self.slideMenuController()?.changeMainViewController(self.receiveViewController, close: true)
+        let SecurityViewController = self.storyboard2?.instantiateViewController(withIdentifier: "SecurityMenuViewController") as! SecurityMenuViewController
+        self.securityMenuViewController = UINavigationController(rootViewController: SecurityViewController)
+        self.slideMenuController()?.changeMainViewController(self.securityMenuViewController, close: true)
         if(self.accountViewController != nil){
             self.accountViewController.dismiss(animated: true, completion: nil)
             self.accountViewController = nil
