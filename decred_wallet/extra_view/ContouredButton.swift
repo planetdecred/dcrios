@@ -17,13 +17,16 @@ import UIKit
     @IBInspectable var disabledStrokeColor: UIColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
     override func draw(_ rect: CGRect) {
         let context = UIGraphicsGetCurrentContext()
-        let selectionDependentStrokeColor = isSelected ? selectedStateColor : borderColor
-        let stateDependentStrokeColor = isEnabled ? selectionDependentStrokeColor : disabledStrokeColor
         
-        context!.setStrokeColor((stateDependentStrokeColor ?? UIColor.black).cgColor)
-        context!.setLineWidth(borderThick)
-        context!.setFillColor(isSelected ? selectedStateColor.cgColor :backgroundFillColor.cgColor)
-        let path = UIBezierPath(roundedRect: rect.insetBy(dx: borderThick / 2, dy: borderThick / 2), cornerRadius: cornerRadius)
+        let stateDependentStrokeColor = isEnabled ? borderColor : disabledStrokeColor
+        let selectionDependentStrokeColor = isSelected ? selectedStateColor : stateDependentStrokeColor
+        
+        context!.setStrokeColor((selectionDependentStrokeColor ?? UIColor.black).cgColor)
+        let lineThick = isSelected ? borderThick + 1 : borderThick
+        let corner = isSelected ? cornerRadius + 1 : cornerRadius
+        context!.setLineWidth(lineThick)
+        context!.setFillColor(isSelected ? selectionDependentStrokeColor!.cgColor :backgroundFillColor.cgColor)
+        let path = UIBezierPath(roundedRect: rect.insetBy(dx: lineThick / 2, dy: lineThick / 2), cornerRadius: corner)
         context?.addPath(path.cgPath)
         context!.drawPath(using: CGPathDrawingMode.fillStroke)
     }

@@ -10,8 +10,9 @@ import UIKit
 
 class ButtonConfirmSeedViewController: UIViewController, SeedCheckupProtocol {
     var seedToVerify: String?
-    var selectedSeedWords:[Int] = []
+    var selectedSeedWords: [Int] = []
     var allWords: [String] = []
+    var enteredWords: [String] = []
     
     @IBOutlet weak var btnConfirm: UIButton!
     @IBOutlet var vActiveCellView: SeedCheckActiveCellView!
@@ -19,17 +20,40 @@ class ButtonConfirmSeedViewController: UIViewController, SeedCheckupProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         allWords = loadSeedWordsList()
+        for _ in 0...32 {
+            selectedSeedWords.append(-1)
+            enteredWords.append("")
+        }
+   
     }
     
     @IBAction func onConfirm(_ sender: Any) {
-        performSegue(withIdentifier: "createPasswordSegue", sender: nil)
+        let seed = enteredWords.joined(separator: " ")
+        let flag = SingleInstance.shared.wallet?.verifySeed(seed)
+        if flag! {
+            performSegue(withIdentifier: "createPasswordSegue", sender: nil)
+        } else {
+            showError(error: "Seed does not matches. Try again, please")
+        }
     }
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+        if segue.identifier == "createPasswordSegue" {
+            var securityvc = segue.destination as? SeedCheckupProtocol
+            securityvc?.seedToVerify = enteredWords.joined(separator: " ")
+        }
     }
  
+    private func showError(error:String){
+        let alert = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
+            alert.dismiss(animated: true, completion: {self.navigationController?.popToRootViewController(animated: true)})
+        }
+        alert.addAction(okAction)
+        present(alert, animated: true, completion:nil)
+    }
+    
     private func loadSeedWordsList() -> [String]{
         let seedWordsPath = Bundle.main.path(forResource: "wordlist", ofType: "txt")
         let seedWords = try? String(contentsOfFile: seedWordsPath ?? "")
@@ -43,12 +67,7 @@ extension ButtonConfirmSeedViewController: UITableViewDelegate{
         tableView.endUpdates()
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let cell =  tableView.cellForRow(at: indexPath)
-        if cell?.isSelected ?? false{
-            return 100
-        }else{
-            return 80
-        }
+        return 100
     }
 }
 
@@ -61,6 +80,13 @@ extension ButtonConfirmSeedViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         let cell = tableView.dequeueReusableCell(withIdentifier: "tripleSeedCell", for: indexPath) as? SeedConfirmTableViewCell
         cell?.setup(num: indexPath.row, seedWords: breakdownByThree(row: indexPath.row), selected:pickSelected(row: indexPath.row))
+        cell?.onPick = {(index, seedWord) in
+            self.selectedSeedWords[indexPath.row] = index
+            self.enteredWords[indexPath.row] = seedWord
+            if indexPath.row < 32{
+                tableView.selectRow(at: IndexPath(row: indexPath.row + 1, section: 0), animated: true, scrollPosition: .middle)
+            }
+        }
         return cell!
     }
 

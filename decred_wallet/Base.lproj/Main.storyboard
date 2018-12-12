@@ -1154,6 +1154,7 @@
                                     <action selector="backAction:" destination="E9n-Rj-cW0" eventType="touchUpInside" id="M4E-OE-77L"/>
                                     <action selector="backAction:" destination="tbw-An-0pb" eventType="touchUpInside" id="Qjk-qk-Z6c"/>
                                     <action selector="backAction:" destination="eoW-KE-o6O" eventType="touchUpInside" id="Xug-p1-kWP"/>
+                                    <segue destination="hKe-68-Syp" kind="unwind" unwindAction="backToMenu:" id="cbE-iv-ZeF"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please confirm your seed phrase by typing and selecting requested words accordingly." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HgZ-dA-uka">
@@ -1247,7 +1248,7 @@
                                                         <action selector="onSelectSeedWord:" destination="VeU-cz-MK7" eventType="touchUpInside" id="HYW-cs-OB9"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a0O-nA-mgr" customClass="ContouredButton" customModule="DecredWallet" customModuleProvider="target">
+                                                <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a0O-nA-mgr" customClass="ContouredButton" customModule="DecredWallet" customModuleProvider="target">
                                                     <rect key="frame" x="214" y="30" width="88" height="25"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" red="0.92941176469999998" green="0.93725490199999995" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -1274,7 +1275,7 @@
                                                         <action selector="onSelectSeedWord:" destination="VeU-cz-MK7" eventType="touchUpInside" id="rm7-Lu-wND"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S7H-wK-sCE" customClass="ContouredButton" customModule="DecredWallet" customModuleProvider="target">
+                                                <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S7H-wK-sCE" customClass="ContouredButton" customModule="DecredWallet" customModuleProvider="target">
                                                     <rect key="frame" x="116" y="30" width="88" height="25"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="15"/>
@@ -1362,6 +1363,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p9m-bO-gZy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="hKe-68-Syp" userLabel="Exit" sceneMemberID="exit"/>
                 <view contentMode="scaleToFill" id="ut4-We-WXj" customClass="SeedCheckActiveCellView" customModule="DecredWallet" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="314" height="100"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

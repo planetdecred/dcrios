@@ -21,6 +21,7 @@ class SeedConfirmTableViewCell: UITableViewCell {
     var seedWordNumber:Int = 0
     var onPick:((Int, String)->Void)?
     
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         setupCell(selected: false)
@@ -34,6 +35,7 @@ class SeedConfirmTableViewCell: UITableViewCell {
         
         let buttons = [btnSeed1, btnSeed2, btnSeed3]
         let _ = buttons.map({$0?.isSelected = false})
+        
         if selected >= 0 {
             buttons[selected]?.isSelected = true
         }
@@ -120,6 +122,7 @@ class SeedConfirmTableViewCell: UITableViewCell {
     @IBAction func onSelectSeedWord(_ sender: UIButton) {
         disableAllButtons()
         sender.isSelected = true
+        onPick?(sender.tag - 1, sender.titleLabel?.text ?? "")
     }
     
     
