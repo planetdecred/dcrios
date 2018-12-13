@@ -11,7 +11,7 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
     @IBOutlet var tableView : UITableView!
     @IBOutlet var vDropDownPlaceholder: UIView!
     
-    var seedWords: [String?] = []
+    var seedWords: [String] = []
     var suggestionWords: [String] = []
     var textFields: [UITextField?] = []
     var seedtmp : [String] = []
@@ -35,30 +35,22 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "seedWordCell", for: indexPath) as? RecoveryWalletSeedWordsCell
-        cell?.setup(wordNum: indexPath.row, word: seedWords.count <= indexPath.row ? "" : seedWords[indexPath.row] ?? "", seed: seedtmp)
-        cell?.tfSeedWord.isEnabled = (indexPath.row == 0 || textFields.count < indexPath.row)
-        cell?.tfSeedWord.dropDownListPlaceholder = vDropDownPlaceholder
-        let cellRect = cell?.frame
-        cell?.tfSeedWord.vertPosition = (cellRect?.origin.y)! + (cellRect?.size.height)!
-        if indexPath.row > textFields.count {
-            textFields[indexPath.row] = cell?.tfSeedWord
-        } else {
-            textFields.append(cell?.tfSeedWord)
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "tripleSeedCell", for: indexPath) as? RecoveryWalletSeedWordsCell
+        //cell?.setup(wordNum: indexPath.row, word: seedWords.count <= indexPath.row ? "" : seedWords[indexPath.row] ?? "", seed: seedtmp)
+        cell?.setup(num: indexPath.row, seedWords: seedWords, selected: -1)
         
-        cell?.onPickUpSeed = {(index, pickedSeedWord) in
-            cell?.tfSeedWord.text = pickedSeedWord
-            self.seedWords.append(pickedSeedWord)
-            cell?.tfSeedWord.clean()
-            self.vDropDownPlaceholder.removeFromSuperview()
-        }
+//        cell?.onPickUp = {(index, pickedSeedWord) in
+//            cell?.tfSeedWord.text = pickedSeedWord
+//            self.seedWords.append(pickedSeedWord)
+//            cell?.tfSeedWord.clean()
+//            self.vDropDownPlaceholder.removeFromSuperview()
+//        }
         return cell!
     }
 
     
     private func checkupSeed(){
-        let seed = seedWords.reduce("", { x, y in  x + " " + y!})
+        let seed = seedWords.reduce("", { x, y in  x + " " + y})
         let flag = SingleInstance.shared.wallet?.verifySeed(seed)
         if flag! {
             self.performSegue(withIdentifier: "confirmSeedSegue", sender: nil)
