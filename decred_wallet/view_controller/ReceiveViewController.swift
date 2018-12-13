@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class ReceiveViewController: UIViewController {
+class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDelegate {
     @IBOutlet private var accountDropdown: DropMenuButton!
     @IBOutlet private var imgWalletAddrQRCode: UIImageView!
     @IBOutlet weak var generateButton: UIButton!
@@ -43,6 +43,8 @@ class ReceiveViewController: UIViewController {
         super.viewWillAppear(animated)
         setNavigationBarItem()
         navigationItem.title = "Receive"
+        let shareBtn = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share))
+        self.navigationItem.rightBarButtonItems = [shareBtn]
     }
     
     override func didReceiveMemoryWarning() {
@@ -50,7 +52,8 @@ class ReceiveViewController: UIViewController {
     }
     
     @IBAction private func generateNewAddress() {
-        self.getAddress(accountNumber: (self.myacc.Number))
+        
+        self.getNextAddress(accountNumber: (self.myacc.Number))
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -140,11 +143,51 @@ class ReceiveViewController: UIViewController {
             }
         }
     }
+    @objc func share(){
+       self.shareImgOnTap()
+    }
+    @objc func getNext(){
+        self.getNextAddress(accountNumber: self.myacc.Number)
+    }
+    func shareImgOnTap(){
+       let imgcopy = self.walletAddress.currentTitle!
+        let activityController = UIActivityViewController(activityItems: [imgcopy], applicationActivities: nil)
+        activityController.completionWithItemsHandler = { (nil, completed, _, error)
+            in
+            if completed{
+                print("completed")
+            }
+            else{
+                print("completed")
+            }
+        }
+        present(activityController, animated: true){
+            print("presented")
+        }
+       
+    }
     
     private func getAddress(accountNumber : Int32){
         let receiveAddress = try?SingleInstance.shared.wallet?.currentAddress(Int32(accountNumber))
         print("got address in  ".appending(String(Int64(NSDate().timeIntervalSince1970) - starttime)))
        // UserDefaults.standard.setValue(receiveAddress!, forKey: "KEY_RECENT_ADDRESS")
+        DispatchQueue.main.async { [weak self] in
+            guard let this = self else { return }
+            
+            this.walletAddress.setTitle(receiveAddress!, for: .normal)
+            this.imgWalletAddrQRCode.image = generateQRCodeFor(
+                with: receiveAddress!!,
+                forImageViewFrame: this.imgWalletAddrQRCode.frame
+            )
+            print("generate QR  in  ".appending(String(Int64(NSDate().timeIntervalSince1970) - this.starttime)))
+            print("generated address for account ".appending(String(accountNumber)))
+            print(receiveAddress!!)
+        }
+    }
+   @objc private func getNextAddress(accountNumber : Int32){
+        let receiveAddress = try?SingleInstance.shared.wallet?.nextAddress(Int32(accountNumber))
+        print("got address in  ".appending(String(Int64(NSDate().timeIntervalSince1970) - starttime)))
+        // UserDefaults.standard.setValue(receiveAddress!, forKey: "KEY_RECENT_ADDRESS")
         DispatchQueue.main.async { [weak self] in
             guard let this = self else { return }
             
