@@ -81,11 +81,15 @@ extension ButtonConfirmSeedViewController: UITableViewDataSource{
         let cell = tableView.dequeueReusableCell(withIdentifier: "tripleSeedCell", for: indexPath) as? SeedConfirmTableViewCell
         cell?.setup(num: indexPath.row, seedWords: breakdownByThree(row: indexPath.row), selected:pickSelected(row: indexPath.row))
         cell?.onPick = {(index, seedWord) in
+            self.btnConfirm.isEnabled = self.enteredWords.reduce(true, { (res, input) -> Bool in
+                return res && input != ""
+            })
             self.selectedSeedWords[indexPath.row] = index
             self.enteredWords[indexPath.row] = seedWord
             if indexPath.row < 32{
                 tableView.selectRow(at: IndexPath(row: indexPath.row + 1, section: 0), animated: true, scrollPosition: .middle)
             }
+            
         }
         return cell!
     }

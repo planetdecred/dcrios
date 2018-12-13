@@ -86,7 +86,7 @@ class SeedConfirmTableViewCell: UITableViewCell {
                               height: 45)
         let rSelBtn3 = CGRect(x: fHorizCenter + 74,
                               y: 38,
-                              width: 87,
+                              width: 97,
                               height: 45)
         
         
@@ -124,6 +124,4 @@ class SeedConfirmTableViewCell: UITableViewCell {
         sender.isSelected = true
         onPick?(sender.tag - 1, sender.titleLabel?.text ?? "")
     }
-    
-    
 }
