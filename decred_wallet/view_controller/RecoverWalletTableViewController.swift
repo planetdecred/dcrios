@@ -19,6 +19,10 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
     var nextTextField : UITextField?
     var suggestions: [String] = []
     
+    var selectedSeedWords: [Int] = []
+    var allWords: [String] = []
+    var enteredWords: [String] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         seedtmp = loadSeedWordsList()
@@ -37,8 +41,19 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tripleSeedCell", for: indexPath) as? RecoveryWalletSeedWordsCell
         //cell?.setup(wordNum: indexPath.row, word: seedWords.count <= indexPath.row ? "" : seedWords[indexPath.row] ?? "", seed: seedtmp)
-        cell?.setup(num: indexPath.row, seedWords: seedWords, selected: -1)
+        cell?.setup(num: indexPath.row, seedWords: breakdownByThree(row: indexPath.row), selected: -1)
         
+        cell?.onPick = {(index, seedWord) in
+            
+            self.selectedSeedWords[indexPath.row] = index
+            self.enteredWords[indexPath.row] = seedWord
+            if indexPath.row < 32{
+                tableView.selectRow(at: IndexPath(row: indexPath.row + 1, section: 0), animated: true, scrollPosition: .middle)
+            }
+//            self.btnConfirm.isEnabled = self.enteredWords.reduce(true, { (res, input) -> Bool in
+//                return res && input != ""
+//            })
+        }
 //        cell?.onPickUp = {(index, pickedSeedWord) in
 //            cell?.tfSeedWord.text = pickedSeedWord
 //            self.seedWords.append(pickedSeedWord)
@@ -54,6 +69,37 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
         let flag = SingleInstance.shared.wallet?.verifySeed(seed)
         if flag! {
             self.performSegue(withIdentifier: "confirmSeedSegue", sender: nil)
+        }
+    }
+    
+    private func breakdownByThree(row:Int) -> [String]{
+        let seed = seedtmp//?.split{$0 == " "}.map(String.init)
+        
+        var suggestionsWithFake: [String] = ["","",""]
+        
+        let trueSeedIndex = Int.random(in: 0...2)
+        let trueSeed = seed[row]
+        suggestionsWithFake[trueSeedIndex] = trueSeed ?? "dummy"
+        let fakeWordsSet = allWords.filter({
+            return ($0.lowercased().hasPrefix((String(trueSeed!.first!)).lowercased()))
+        })
+        
+        let fakes = [fakeWordsSet[Int.random(in: 0...(fakeWordsSet.count) - 1)], fakeWordsSet[Int.random(in: 0...(fakeWordsSet.count)-1)]]
+        var fakeIndex = 0
+        for i in 0...2 {
+            if i != trueSeedIndex {
+                suggestionsWithFake[i] = fakes[fakeIndex]
+                fakeIndex += 1
+            }
+        }
+        return  suggestionsWithFake
+    }
+    
+    private func pickSelected(row: Int) -> Int{
+        if selectedSeedWords.count > row {
+            return selectedSeedWords[row]
+        } else {
+            return -1
         }
     }
     
