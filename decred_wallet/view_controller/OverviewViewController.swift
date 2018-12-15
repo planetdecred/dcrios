@@ -64,6 +64,7 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
     @IBOutlet weak var lbCurrentBalance: UILabel!
     @IBOutlet var viewTableHeader: UIView!
     @IBOutlet var viewTableFooter: UIView!
+    @IBOutlet weak var accountBalanceLoadingIndicator: UIActivityIndicatorView!
     
     var visible = false
     var scanning = false
@@ -78,6 +79,8 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
         self.tableView.registerCellNib(DataTableViewCell.self)
         self.tableView.tableHeaderView = viewTableHeader
         self.tableView.tableFooterView = viewTableFooter
+        lbCurrentBalance.isHidden=true
+        updateCurrentBalance()
         refreshControl = {
             let refreshControl = UIRefreshControl()
             refreshControl.addTarget(self, action:
@@ -260,6 +263,8 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
                 amount =
                 "\((account.Acc.first?.dcrTotalBalance)!)"
                 DispatchQueue.main.async {
+                        self?.accountBalanceLoadingIndicator.isHidden=true
+                        self?.lbCurrentBalance.isHidden=false
                         self?.lbCurrentBalance.attributedText = getAttributedString(str: amount, siz: 15.0)
                 }
             } catch let error {

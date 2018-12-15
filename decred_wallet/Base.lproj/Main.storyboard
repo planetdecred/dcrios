@@ -279,15 +279,24 @@
                                                 </constraints>
                                                 <viewLayoutGuide key="safeArea" id="ibK-CB-qdl"/>
                                             </view>
+                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="1fR-i9-YVi">
+                                                <rect key="frame" x="150" y="9" width="20" height="20"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="20" id="PKw-5O-VXi"/>
+                                                    <constraint firstAttribute="width" constant="20" id="TaN-il-4FW"/>
+                                                </constraints>
+                                            </activityIndicatorView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
+                                            <constraint firstItem="1fR-i9-YVi" firstAttribute="top" secondItem="sIe-h8-LqI" secondAttribute="top" constant="9" id="4L3-HH-j6S"/>
                                             <constraint firstItem="qYh-ea-ghM" firstAttribute="centerX" secondItem="sIe-h8-LqI" secondAttribute="centerX" id="5zl-TB-UDD"/>
                                             <constraint firstItem="1eV-5Y-Yd4" firstAttribute="top" secondItem="sIe-h8-LqI" secondAttribute="top" constant="8" id="C3F-qn-unS"/>
                                             <constraint firstItem="TLK-yr-Lfn" firstAttribute="top" secondItem="1eV-5Y-Yd4" secondAttribute="bottom" constant="8" symbolic="YES" id="Qfs-lS-KxC"/>
                                             <constraint firstAttribute="bottom" secondItem="qYh-ea-ghM" secondAttribute="bottom" id="an3-Qi-LB7"/>
                                             <constraint firstItem="1eV-5Y-Yd4" firstAttribute="width" secondItem="sIe-h8-LqI" secondAttribute="width" multiplier="0.9" id="cBM-J9-PJp"/>
                                             <constraint firstItem="1eV-5Y-Yd4" firstAttribute="centerX" secondItem="sIe-h8-LqI" secondAttribute="centerX" id="dg3-X4-yBG"/>
+                                            <constraint firstItem="1fR-i9-YVi" firstAttribute="centerX" secondItem="sIe-h8-LqI" secondAttribute="centerX" id="gSX-zJ-Cfx"/>
                                             <constraint firstItem="TLK-yr-Lfn" firstAttribute="centerX" secondItem="sIe-h8-LqI" secondAttribute="centerX" id="jKN-Mb-DTC"/>
                                             <constraint firstItem="qYh-ea-ghM" firstAttribute="width" secondItem="sIe-h8-LqI" secondAttribute="width" id="knc-1O-Ept"/>
                                             <constraint firstItem="TLK-yr-Lfn" firstAttribute="width" secondItem="sIe-h8-LqI" secondAttribute="width" multiplier="0.9" id="qbG-iw-qMf"/>
@@ -322,6 +331,7 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="accountBalanceLoadingIndicator" destination="1fR-i9-YVi" id="C6D-y2-9uI"/>
                         <outlet property="lbCurrentBalance" destination="1eV-5Y-Yd4" id="ybd-Jx-PCq"/>
                         <outlet property="tableView" destination="MNw-nN-8ak" id="OEx-Z5-027"/>
                         <outlet property="viewTableFooter" destination="bED-Cx-vum" id="1HO-hH-c2q"/>
@@ -380,7 +390,7 @@
                     <viewLayoutGuide key="safeArea" id="bQK-5Q-VQv"/>
                 </view>
             </objects>
-            <point key="canvasLocation" x="154" y="37"/>
+            <point key="canvasLocation" x="153.75" y="36.971830985915496"/>
         </scene>
         <!--Account View Controller-->
         <scene sceneID="qDe-KX-ho1">
