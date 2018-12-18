@@ -74,31 +74,39 @@ class DropDownSearchField: UITextField, UITextFieldDelegate, SearchDataSourcePro
         setupDropdownTable()
     }
     
-    fileprivate func setupDropdownTable() {
-        dropDownTable = UITableView(frame: CGRect(x: frame.origin.x, y: frame.size.height + frame.origin.y, width: frame.size.width, height: 150), style: .plain)
+    func setupDropdownTable() {
+        dropDownTable = UITableView(frame: CGRect(x: 0, y: 0, width: (dropDownListPlaceholder?.frame.size.width) ?? 0, height: 40 * 5), style: .plain)
         dropDownTable?.register(UITableViewCell.self, forCellReuseIdentifier: (searchResult?.cellIdentifier)!)
         dropDownTable?.dataSource = searchResult
         dropDownTable?.delegate = searchResult
         dropDownTable?.isHidden = true
         dropDownTable?.allowsSelection = true
         dropDownTable?.isUserInteractionEnabled = true
+        dropDownTable?.backgroundColor = #colorLiteral(red: 0.8104764819, green: 0.8344743252, blue: 0.8571521044, alpha: 1)
+        dropDownTable?.separatorStyle = .none
+        dropDownListPlaceholder?.addSubview(dropDownTable!)
     }
     
     func clean() {
-        dropDownListPlaceholder?.frame = CGRect(x: 0, y: 0, width: 1, height: 1)
+        dropDownListPlaceholder?.isHidden = false
         searchResult?.items = []
         text = ""
         dropDownTable?.isHidden = true
     }
     
+    func updatePlaceholder(position:Int){
+        vertPosition = CGFloat(position)
+        dropDownListPlaceholder?.frame = CGRect(x: 100, y: position, width: 200, height: 40 * 5)
+    }
+    
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        dropDownListPlaceholder?.frame = CGRect(x: 50, y: vertPosition, width: textField.bounds.size.width - 50, height: 40 * 5)
-        dropDownListPlaceholder?.addSubview(dropDownTable!)
+        dropDownListPlaceholder?.isHidden = false
+        
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
         searchResult?.items = itemsToSearch?.filter({ return ($0.lowercased().hasPrefix(textField.text!.lowercased()) && (textField.text?.count)! > 2) })
-        dropDownTable?.frame.size.height = CGFloat((searchResult?.items?.count)!) * CGFloat(44.0);
+        dropDownTable?.frame.size.height = CGFloat((searchResult?.items?.count)!) * CGFloat(30.0);
         dropDownTable?.isHidden = (searchResult?.items?.count)! == 0
         dropDownTable?.reloadData()
     }

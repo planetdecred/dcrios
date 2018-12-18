@@ -24,13 +24,19 @@ class RecoveryWalletSeedWordsCell: UITableViewCell, UITextFieldDelegate {
         }
     }
     
-    func setup(wordNum:Int, word: String?, seed:[String]){
-        //tfSeedWord.delegate = self
+    func setup(wordNum:Int, word: String?, seed:[String], placeholder: UIView){
+        tfSeedWord.dropDownListPlaceholder = placeholder
         lbWordNum.text = "Word #\(wordNum + 1)"
         tfSeedWord.text = word ?? ""
         self.seed = seed
         self.wordNum = wordNum
         tfSeedWord.autocorrectionType = .no
         tfSeedWord.itemsToSearch = seed
+        tfSeedWord.vertPosition = self.frame.origin.y
+        tfSeedWord.setupDropdownTable()
+    }
+    
+    func updatePlaceholder(vertPosition: Int){
+        tfSeedWord.updatePlaceholder(position:vertPosition)
     }
 }

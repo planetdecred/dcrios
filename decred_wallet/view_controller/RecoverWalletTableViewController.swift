@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     @IBOutlet var tableView : UITableView!
     @IBOutlet var vDropDownPlaceholder: UIView!
     
@@ -36,9 +36,8 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "seedWordCell", for: indexPath) as? RecoveryWalletSeedWordsCell
-        cell?.setup(wordNum: indexPath.row, word: seedWords.count <= indexPath.row ? "" : seedWords[indexPath.row] ?? "", seed: seedtmp)
+        cell?.setup(wordNum: indexPath.row, word: seedWords.count <= indexPath.row ? "" : seedWords[indexPath.row] ?? "", seed: seedtmp, placeholder: vDropDownPlaceholder)
         cell?.tfSeedWord.isEnabled = (indexPath.row == 0 || textFields.count < indexPath.row)
-        cell?.tfSeedWord.dropDownListPlaceholder = vDropDownPlaceholder
         let cellRect = cell?.frame
         cell?.tfSeedWord.vertPosition = (cellRect?.origin.y)! + (cellRect?.size.height)!
         if indexPath.row > textFields.count {
@@ -51,7 +50,7 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
             cell?.tfSeedWord.text = pickedSeedWord
             self.seedWords.append(pickedSeedWord)
             cell?.tfSeedWord.clean()
-            self.vDropDownPlaceholder.removeFromSuperview()
+            self.vDropDownPlaceholder.isHidden = true
         }
         return cell!
     }
@@ -78,5 +77,12 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
     @IBAction func onClear(_ sender: Any) {
         seedWords = []
         tableView.reloadData()
+    }
+}
+
+extension RecoverWalletTableViewController: UIScrollViewDelegate{
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        //let f = vDropDownPlaceholder.frame
+        
     }
 }
