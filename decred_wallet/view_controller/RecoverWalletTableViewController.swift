@@ -49,8 +49,15 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
         cell?.onPickUpSeed = {(index, pickedSeedWord) in
             cell?.tfSeedWord.text = pickedSeedWord
             self.seedWords.append(pickedSeedWord)
-            cell?.tfSeedWord.clean()
             self.vDropDownPlaceholder.isHidden = true
+            if index < 33{
+                let nextIndexPath = IndexPath(row: indexPath.row + 1, section: 0 )
+                let next = tableView.cellForRow(at: nextIndexPath) as? RecoveryWalletSeedWordsCell
+                next?.tfSeedWord.isEnabled = true
+                next?.tfSeedWord.becomeFirstResponder()
+                tableView.scrollToRow(at: nextIndexPath, at: .top, animated: true)
+                self.vDropDownPlaceholder.isHidden = false
+            }
         }
         return cell!
     }
@@ -74,15 +81,15 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
         checkupSeed()
     }
     
-    @IBAction func onClear(_ sender: Any) {
-        seedWords = []
-        tableView.reloadData()
-    }
+//    @IBAction func onClear(_ sender: Any) {
+//        seedWords = []
+//        tableView.reloadData()
+//    }
+    
 }
 
 extension RecoverWalletTableViewController: UIScrollViewDelegate{
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        //let f = vDropDownPlaceholder.frame
-        
+        vDropDownPlaceholder.isHidden = true
     }
 }

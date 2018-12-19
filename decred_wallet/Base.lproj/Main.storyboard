@@ -3545,10 +3545,9 @@
                                 <rect key="frame" x="0.0" y="468" width="320" height="100"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kxh-rN-EuN">
-                                        <rect key="frame" x="202" y="29" width="102" height="42"/>
-                                        <color key="backgroundColor" red="0.16078431369999999" green="0.43921568630000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <rect key="frame" x="17" y="29" width="287" height="42"/>
+                                        <color key="backgroundColor" red="0.17662689089775085" green="0.84774124622344971" blue="0.63897907733917236" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="102" id="akm-39-Ss7"/>
                                             <constraint firstAttribute="height" constant="42" id="qFV-PO-4c6"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -3565,35 +3564,13 @@
                                             <action selector="onConfirm:" destination="HgI-Rd-B4C" eventType="touchUpInside" id="IQH-Tq-pDG"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SQn-ET-L5p">
-                                        <rect key="frame" x="16" y="29" width="102" height="42"/>
-                                        <color key="backgroundColor" red="0.76862745099999996" green="0.79607843140000001" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="42" id="OXb-4x-6eW"/>
-                                            <constraint firstAttribute="width" constant="102" id="klV-zg-agu"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <state key="normal" title="CLEAR">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="5"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="onClear:" destination="Dk9-z5-XZ1" eventType="touchUpInside" id="3og-OZ-1hz"/>
-                                            <action selector="onClear:" destination="HgI-Rd-B4C" eventType="touchUpInside" id="UQv-Z9-Xyq"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.95294117649999999" green="0.96078431369999995" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="kxh-rN-EuN" firstAttribute="centerY" secondItem="061-Vd-w7t" secondAttribute="centerY" id="7AQ-wc-DRX"/>
-                                    <constraint firstItem="SQn-ET-L5p" firstAttribute="centerY" secondItem="061-Vd-w7t" secondAttribute="centerY" id="P6A-6J-dqQ"/>
+                                    <constraint firstItem="kxh-rN-EuN" firstAttribute="leading" secondItem="061-Vd-w7t" secondAttribute="leading" constant="17" id="DVb-9S-ESL"/>
                                     <constraint firstAttribute="height" constant="100" id="YF9-bh-A86"/>
                                     <constraint firstItem="061-Vd-w7t" firstAttribute="trailing" secondItem="kxh-rN-EuN" secondAttribute="trailing" constant="16" id="ttt-aP-QmR"/>
-                                    <constraint firstItem="SQn-ET-L5p" firstAttribute="leading" secondItem="061-Vd-w7t" secondAttribute="leading" constant="16" id="uNH-Bn-J07"/>
                                 </constraints>
                                 <viewLayoutGuide key="safeArea" id="061-Vd-w7t"/>
                             </view>
@@ -3619,7 +3596,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ddq-hm-OZp" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="NW2-Xz-pLS" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2205" y="746"/>
+            <point key="canvasLocation" x="2205" y="745.77464788732391"/>
         </scene>
     </scenes>
     <resources>
