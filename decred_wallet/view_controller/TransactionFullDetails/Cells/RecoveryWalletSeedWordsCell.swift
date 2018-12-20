@@ -33,7 +33,13 @@ class RecoveryWalletSeedWordsCell: UITableViewCell, UITextFieldDelegate {
         tfSeedWord.autocorrectionType = .no
         tfSeedWord.itemsToSearch = seed
         tfSeedWord.vertPosition = self.frame.origin.y
-        //tfSeedWord.setupDropdownTable()
+        tfSeedWord.setupDropdownTable()
+    }
+    
+    
+    func hideDropDown(){
+        tfSeedWord.hideDropDown()
+        tfSeedWord.clean()
     }
     
     func updatePlaceholder(vertPosition: Int){

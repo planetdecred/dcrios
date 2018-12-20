@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+//obsolete
 class RecoverWalletSeedSuggestionsViewController: UIViewController, UITabBarDelegate {
     var popupVerticalPosition : Int = 0
     var suggestions : [String] = []

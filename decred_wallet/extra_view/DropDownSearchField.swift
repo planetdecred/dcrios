@@ -29,6 +29,12 @@ class DropDownListDataSource: NSObject,  DropDownResultsListProtocol {
         return items?.count ?? 0
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let index = indexPath.row
+        let item = items?[index] ?? ""
+        onSelect?(index, item)
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
         setup(cell: cell, index: indexPath.row)
@@ -40,18 +46,7 @@ class DropDownListDataSource: NSObject,  DropDownResultsListProtocol {
     }
     
     private func setup(cell:UITableViewCell, index: Int){
-        let button = ContouredButton(type: .custom)
-        button.borderColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
-        button.borderThick = 1
-        button.titleLabel?.textColor = #colorLiteral(red: 0.03009076789, green: 0.1146984771, blue: 0.3195604682, alpha: 1)
-        button.setTitleColor(#colorLiteral(red: 0.03009076789, green: 0.1146984771, blue: 0.3195604682, alpha: 1), for: .normal)
-        button.frame = CGRect(x: 0, y: 0, width: 150, height: 30)
-        button.tag = index
-        button.setTitle(items?[index], for: .normal)
-        button.addTarget(self, action: #selector(onPickSeedWord), for: .touchUpInside)
-        cell.contentView.backgroundColor = .clear
-        cell.backgroundColor = .clear
-        cell.addSubview(button)
+        cell.textLabel?.text = items?[index]
     }
     
     @objc func onPickSeedWord(sender: UIButton?){
@@ -93,25 +88,30 @@ class DropDownSearchField: UITextField, UITextFieldDelegate, SearchDataSourcePro
         dropDownTable?.register(UITableViewCell.self, forCellReuseIdentifier: (searchResult?.cellIdentifier)!)
         dropDownTable?.dataSource = searchResult
         dropDownTable?.delegate = searchResult
-        //dropDownTable?.isHidden = true
         dropDownTable?.allowsSelection = true
         dropDownTable?.isUserInteractionEnabled = true
-        dropDownTable?.backgroundColor = .clear
-        dropDownTable?.separatorStyle = .none
-        dropDownListPlaceholder?.addSubview(dropDownTable!)
+        //dropDownListPlaceholder?.addSubview(dropDownTable!)
     }
     
+    
     func clean() {
-        dropDownListPlaceholder?.isHidden = false
         searchResult?.items = []
-        text = ""
-        //dropDownTable?.isHidden = true
+    }
+    
+    func hideDropDown(){
+        dropDownListPlaceholder?.isHidden = true
+        clean()
+        //dropDownTable?.removeFromSuperview()
+    }
+    
+    func showDropDown(){
+        dropDownListPlaceholder?.isHidden = false
+        //dropDownListPlaceholder?.addSubview(dropDownTable!)
     }
     
     func updatePlaceholder(position:Int){
         vertPosition = CGFloat(position)
-        dropDownListPlaceholder?.frame = CGRect(x: 100, y: position, width: 200, height: 40 * 5)
-        dropDownListPlaceholder?.isHidden = false
+        dropDownListPlaceholder?.frame = CGRect(x: Int((dropDownListPlaceholder?.frame.origin.x)!), y: position, width: 200, height: Int(CGFloat((searchResult?.items?.count) ?? 0) * CGFloat(40.0)))
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -120,8 +120,13 @@ class DropDownSearchField: UITextField, UITextFieldDelegate, SearchDataSourcePro
     
     @objc func textFieldDidChange(_ textField: UITextField) {
         searchResult?.items = itemsToSearch?.filter({ return ($0.lowercased().hasPrefix(textField.text!.lowercased()) && (textField.text?.count)! > 2) })
-        dropDownTable?.frame.size.height = CGFloat((searchResult?.items?.count)!) * CGFloat(30.0);
-        dropDownListPlaceholder?.isHidden = (searchResult?.items?.count)! == 0
+        dropDownTable?.frame.size.height = CGFloat((searchResult?.items?.count)!) * CGFloat(40.0);
+        if (searchResult?.items?.count)! == 0 {
+            hideDropDown()
+        } else {
+           showDropDown()
+        }
+        
         dropDownTable?.reloadData()
     }
 }

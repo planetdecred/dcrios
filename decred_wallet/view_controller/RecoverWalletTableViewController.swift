@@ -49,14 +49,18 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
         cell?.onPickUpSeed = {(index, pickedSeedWord) in
             cell?.tfSeedWord.text = pickedSeedWord
             self.seedWords.append(pickedSeedWord)
-            self.vDropDownPlaceholder.isHidden = true
+            //self.vDropDownPlaceholder.isHidden = true
+            cell?.hideDropDown()
             if index < 33{
                 let nextIndexPath = IndexPath(row: indexPath.row + 1, section: 0 )
                 let next = tableView.cellForRow(at: nextIndexPath) as? RecoveryWalletSeedWordsCell
                 next?.tfSeedWord.isEnabled = true
                 next?.tfSeedWord.becomeFirstResponder()
-                tableView.scrollToRow(at: nextIndexPath, at: .top, animated: true)
-                self.vDropDownPlaceholder.isHidden = false
+                //next?.tfSeedWord.hideDropDown()
+                next?.updatePlaceholder(vertPosition: Int((next?.frame.origin.y)! + CGFloat(40)))
+                tableView.scrollToRow(at: nextIndexPath, at: .middle, animated: true)
+                //self.vDropDownPlaceholder.isHidden = false
+                
             }
         }
         return cell!
