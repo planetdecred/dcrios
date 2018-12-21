@@ -84,7 +84,8 @@ class DropDownSearchField: UITextField, UITextFieldDelegate, SearchDataSourcePro
     }
     
     func setupDropdownTable() {
-        dropDownTable = UITableView(frame: CGRect(x: 0, y: 0, width: (dropDownListPlaceholder?.frame.size.width) ?? 0, height: 40 * 5), style: .plain)
+        let count = Int(searchResult?.items?.count ?? 0)
+        dropDownTable = UITableView(frame: CGRect(x: 0, y: 0, width: Int((dropDownListPlaceholder?.frame.size.width) ?? 0), height: 44 * count), style: .plain)
         dropDownTable?.register(UITableViewCell.self, forCellReuseIdentifier: (searchResult?.cellIdentifier)!)
         dropDownTable?.dataSource = searchResult
         dropDownTable?.delegate = searchResult
@@ -93,7 +94,6 @@ class DropDownSearchField: UITextField, UITextFieldDelegate, SearchDataSourcePro
         //dropDownListPlaceholder?.addSubview(dropDownTable!)
     }
     
-    
     func clean() {
         searchResult?.items = []
     }
@@ -101,32 +101,37 @@ class DropDownSearchField: UITextField, UITextFieldDelegate, SearchDataSourcePro
     func hideDropDown(){
         dropDownListPlaceholder?.isHidden = true
         clean()
-        //dropDownTable?.removeFromSuperview()
     }
     
     func showDropDown(){
         dropDownListPlaceholder?.isHidden = false
-        //dropDownListPlaceholder?.addSubview(dropDownTable!)
     }
     
     func updatePlaceholder(position:Int){
         vertPosition = CGFloat(position)
-        dropDownListPlaceholder?.frame = CGRect(x: Int((dropDownListPlaceholder?.frame.origin.x)!), y: position, width: 200, height: Int(CGFloat((searchResult?.items?.count) ?? 0) * CGFloat(40.0)))
+        dropDownTable?.frame.size.height = CGFloat((searchResult?.items?.count) ?? 0) * CGFloat(44.0);
+        dropDownListPlaceholder?.frame = CGRect(x: Int((dropDownListPlaceholder?.frame.origin.x)!), y: position, width: 200, height: Int(CGFloat((searchResult?.items?.count) ?? 0) * CGFloat(44.0)))
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
+        dropDownListPlaceholder?.isHidden = true
+        dropDownTable?.removeFromSuperview()
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         dropDownListPlaceholder?.isHidden = false
+        dropDownListPlaceholder?.addSubview(dropDownTable!)
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
         searchResult?.items = itemsToSearch?.filter({ return ($0.lowercased().hasPrefix(textField.text!.lowercased()) && (textField.text?.count)! > 2) })
-        dropDownTable?.frame.size.height = CGFloat((searchResult?.items?.count)!) * CGFloat(40.0);
+        dropDownTable?.frame.size.height = CGFloat((searchResult?.items?.count) ?? 0) * CGFloat(44.0);
+        dropDownListPlaceholder?.frame.size.height = CGFloat((searchResult?.items?.count) ?? 0) * CGFloat(44.0);
         if (searchResult?.items?.count)! == 0 {
             hideDropDown()
         } else {
            showDropDown()
         }
-        
         dropDownTable?.reloadData()
     }
 }
