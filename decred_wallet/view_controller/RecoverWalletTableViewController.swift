@@ -22,9 +22,38 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
     override func viewDidLoad() {
         super.viewDidLoad()
         seedtmp = loadSeedWordsList()
+        registerObserverForKeyboardNotification()
     }
     
     // MARK: - Table view data source
+    
+    deinit {
+        unregisterObserverForKeyboardNotification()
+    }
+    
+    func registerObserverForKeyboardNotification(){
+        NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    func unregisterObserverForKeyboardNotification(){
+        NotificationCenter.default.removeObserver(self, name:NSNotification.Name.UIKeyboardWillShow, object:nil)
+        NotificationCenter.default.removeObserver(self, name:NSNotification.Name.UIKeyboardWillHide, object:nil)
+    }
+    
+    @objc func onKeyboardWillShow(_ notification: Notification){
+        let notificationInfo = notification.userInfo
+        let keyboardFrame = (notificationInfo?[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        let f = tableView.frame
+        tableView.frame = CGRect(x: f.origin.x, y: f.origin.y, width: f.size.width, height: f.size.height - keyboardFrame.size.height + (tableView.tableHeaderView?.frame.size.height)! ?? 0)
+        
+    }
+    
+    @objc func onKeyboardWillHide(_ notification: Notification){
+        let f = view.frame
+        tableView.frame = CGRect(x: 0, y: 0, width: f.size.width, height: f.size.height)
+    }
+    
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -50,15 +79,19 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
             cell?.tfSeedWord.text = pickedSeedWord
             self.seedWords.append(pickedSeedWord)
             cell?.hideDropDown()
+            
             if indexPath.row < 32 {
                 let nextIndexPath = IndexPath(row: indexPath.row + 1, section: 0 )
                 let next = tableView.cellForRow(at: nextIndexPath) as? RecoveryWalletSeedWordsCell
                 next?.tfSeedWord.isEnabled = true
                 next?.tfSeedWord.becomeFirstResponder()
-                tableView.scrollToRow(at: nextIndexPath, at: .middle, animated: true)
+                tableView.scrollToRow(at: nextIndexPath, at: .top, animated: true)
                 let scrollOffset = self.tableView.contentOffset
                 let nextCellPos = self.tableView.rectForRow(at: nextIndexPath)
-                next?.updatePlaceholder(vertPosition: Int(nextCellPos.origin.y  - scrollOffset.y))
+                next?.updatePlaceholder(vertPosition: Int(nextCellPos.origin.y  - scrollOffset.y - ))
+                
+            }else{
+                cell?.tfSeedWord.resignFirstResponder()
             }
         }
         return cell!
