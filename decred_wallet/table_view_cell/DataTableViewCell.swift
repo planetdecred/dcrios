@@ -34,24 +34,24 @@ class DataTableViewCell : BaseTableViewCell {
     override func setData(_ data: Any?) {
         if let data = data as? DataTableViewCellData {
             //self.dataImage.setRandomDownloadImage(80, height: 80)
-            let confirmation =  SingleInstance.shared.wallet?.getBestBlock()
-            let confirm2 = (confirmation)! - Int32(data.trans.Height)
-            
-            print("am in here")
-            print(self.count += 1)
-            if(confirm2 == -1){
+            var confirmations: Int32 = 0
+            if(data.trans.Height != -1){
+            confirmations = (SingleInstance.shared.wallet?.getBestBlock())! - Int32(data.trans.Height)
+                confirmations += 1
+            }
+            if(data.trans.Height == -1){
                 self.status.textColor = UIColor(hex:"#3d659c")
                 self.status.text = "Pending"
-                print("pending")
             }
+                
             else{
-                if(UserDefaults.standard.bool(forKey: "pref_spend_fund_switch") || confirm2 > 1){
+                if(UserDefaults.standard.bool(forKey: "pref_spend_fund_switch") || confirmations > 1){
                     
                     self.status.textColor = UIColor(hex:"#2DD8A3")
                     self.status.text = "Confirmed"
                 }
                 else{
-                    self.status.textColor = UIColor(hex:"#2970FF")
+                    self.status.textColor = UIColor(hex:"#3d659c")
                     self.status.text = "Pending"
                 }
             }
@@ -63,28 +63,19 @@ class DataTableViewCell : BaseTableViewCell {
             dateformater.pmSymbol = "PM"
             dateformater.string(from: Date2 as Date)
             self.dateT.text = dateformater.string(from: Date2 as Date)
-            
+             let tnt = Decimal(data.trans.Amount / 100000000.00) as NSDecimalNumber
             if(data.trans.Direction == 0){
-                self.dataText.attributedText = getAttributedString(str: "-".appending(Decimal(data.trans.Amount / 100000000.00).description), siz: 12.0)
-                print("deduction")
-                print(data.trans.Amount)
-                let num = Decimal(data.trans.Amount) / 100000000
-                print(Double(num.description)!)
+                self.dataText.attributedText = getAttributedString(str: "-".appending(tnt.round(8).description), siz: 12.0)
                 self.dataImage?.image = UIImage(named: "debit")
             }
             else if(data.trans.Direction == 1){
-                self.dataText.attributedText = getAttributedString(str: Decimal(data.trans.Amount / 100000000.00).description, siz: 12.0)
+                self.dataText.attributedText = getAttributedString(str: tnt.round(8).description, siz: 12.0)
                 self.dataImage?.image = UIImage(named: "credit")
-                 print(data.trans.Amount)
-                let num = Decimal(data.trans.Amount) / 100000000
-                print(Double(num.description)!)
+               
             }
             else if(data.trans.Direction == 2){
-                self.dataText.attributedText = getAttributedString(str: (data.trans.Amount / 100000000.00).description, siz: 12.0)
+                self.dataText.attributedText = getAttributedString(str: tnt.round(8).description, siz: 12.0)
                 self.dataImage?.image = UIImage(named: "account")
-                 print(data.trans.Amount)
-                let num = Decimal(data.trans.Amount) / 100000000
-                print(Double(num.description)!)
             }
             if(data.trans.Type == "vote"){
                 self.dataText.text = "Vote"
@@ -92,3 +83,5 @@ class DataTableViewCell : BaseTableViewCell {
         }
     }
 }
+
+

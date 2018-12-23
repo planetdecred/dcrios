@@ -7,6 +7,7 @@
 import SlideMenuControllerSwift
 import Mobilewallet
 import MBProgressHUD
+import UserNotifications
 
 class OverviewViewController: UIViewController, MobilewalletGetTransactionsResponseProtocol, MobilewalletTransactionListenerProtocol, //MobilewalletBlockNotificationErrorProtocol,
 MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
@@ -114,7 +115,7 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
             print("adding observer")
         
         SingleInstance.shared.wallet?.transactionNotification(self)
-       
+        
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -141,7 +142,12 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
         super.viewWillAppear(animated)
         self.visible = true
         if(UserDefaults.standard.bool(forKey: "synced") == true){
-            prepareRecent()
+            if(self.mainContens.count != 0){
+                self.tableView.reloadData()
+                updateCurrentBalance()
+                return
+            }
+            self.prepareRecent()
             updateCurrentBalance()
             
         }
@@ -168,18 +174,18 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
         let finalPassphraseData = finalPassphrase .data(using: String.Encoding.utf8.rawValue)!
         
         if(appInstance.integer(forKey: "network_mode") == 0){
-            print("starting SPV")
-            print("syncing")
+           // print("starting SPV")
+            //print("syncing")
             DispatchQueue.global(qos: .background).async { [weak self] in
                 guard let _ = self else { return }
                 do {
                     SingleInstance.shared.wallet?.add(self)
                     try
             SingleInstance.shared.wallet?.spvSync(getPeerAddress(appInstance: appInstance))
-                    print("done syncing")
+                  //  print("done syncing")
                     
                 } catch {
-                    print("there was an error")
+                  //  print("there was an error")
                     print(error)
                 }
             }
@@ -299,7 +305,7 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
             do {
                 try
                     SingleInstance.shared.wallet?.getTransactions(this)
-                print("done getting transaction")
+               // print("done getting transaction")
             } catch let Error {
                 print(Error)
             }
@@ -316,33 +322,22 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
     func onResult(_ json: String!) {
        print("on result")
         if(self.visible == false){
-            print("on result returning")
+           // print("on result returning")
             return
         }
         else{
             let tjson = json
-            print("on result running")
+           // print("on result running")
             DispatchQueue.main.async {
                 do {
                     let trans = GetTransactionResponse.self
                     let transactions = try JSONDecoder().decode(trans, from: (tjson?.data(using: .utf8)!)!)
-                    print("on result decoded")
                     if (transactions.Transactions.count) > 0 {
-                        print("on result decoded")
                         if transactions.Transactions.count > self.mainContens.count {
                             print(transactions.Transactions.count)
-                            print("new transaction OnResult")
-                            print(self)
                             self.mainContens.removeAll()
-                            print("decoding")
                             for transactionPack in transactions.Transactions {
                                 self.mainContens.append(transactionPack)
-                               /* for creditTransaction in transactionPack.Credits {
-                                    this.mainContens.append("\(creditTransaction.dcrAmount) DCR")
-                                }
-                                for debitTransaction in transactionPack.Debits {
-                                    this.mainContens.append("-\(debitTransaction.dcrAmount) DCR")
-                                }*/
                             }
                             self.mainContens.reverse()
                             self.tableView.reloadData()
@@ -352,7 +347,7 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
                     return
                     
                 } catch let error {
-                    print("onresult error")
+                   // print("onresult error")
                     print(error)
                     return
                 }
@@ -366,7 +361,7 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
     
     func onSynced(_ synced: Bool) {
         self.synced = synced
-        print("synced wallet")
+       // print("synced wallet")
         UserDefaults.standard.set(false, forKey: "walletScanning")
         UserDefaults.standard.set(synced, forKey: "synced")
         UserDefaults.standard.synchronize()
@@ -384,13 +379,14 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
     }
     
     func onBlockNotificationError(_ err: Error!) {
-        print("Block notify error")
+      //  print("Block notify error")
         print(err)
     }
     
     func onTransactionConfirmed(_ hash: String!, height: Int32) {
-        print("incoming")
+       // print("incoming")
         if(visible == true){
+             self.prepareRecent()
              updateCurrentBalance()
         }
        
@@ -417,23 +413,35 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
     }
     
     func onTransaction(_ transaction: String!) {
-        print("New transaction for onTransaction")
         
-        if(visible == false){
+        print("New transaction for onTransaction")
+        var transactions = try! JSONDecoder().decode(Transaction.self, from:transaction.data(using: .utf8)!)
+        
+        if(self.mainContens.contains(where: { $0.Hash == transactions.Hash })){
             return
         }
-     /*   for creditTransaction in transactions.Credits{
-            
-            
+        
+        if(transactions.Fee == 0 && UserDefaults.standard.bool(forKey: "pref_notification_switch") == true){
+            let content = UNMutableNotificationContent()
+            content.title = "New Transaction"
+             let tnt = Decimal(transactions.Amount / 100000000.00) as NSDecimalNumber
+            content.body = "You received ".appending(tnt.round(8).description).appending(" DCR")
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+            let request = UNNotificationRequest(identifier: "TxnIdentifier", content: content, trigger: trigger)
+            UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
         }
-        for debitTransaction in transactions.Debits{
-            self.mainContens.append("-\(debitTransaction.dcrAmount) DCR")
-        }*/
-            let transactions = try! JSONDecoder().decode(Transaction.self, from:transaction.data(using: .utf8)!)
-            self.mainContens.append(transactions)
+        transactions.Animate = true
         DispatchQueue.main.async {
+            self.mainContens.reverse()
+            
+            self.mainContens.append(transactions)
+            self.mainContens.reverse()
+            if(self.visible == false){
+                return
+            }
             self.tableView.reloadData()
         }
+        //self.prepareRecent()
         self.updateCurrentBalance()
         return
     }
@@ -471,40 +479,56 @@ extension OverviewViewController : UITableViewDataSource {
         return cell
         
     }
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if(self.mainContens.count != 0){
+            if(self.mainContens[indexPath.row].Animate){
+                cell.blink()
+            }
+            self.mainContens[indexPath.row].Animate = false
+        }
+        
+        
+    }
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+       // self.mainContens[indexPath.row].Animate = false
+    }
+    
 }
+
 
 extension OverviewViewController : SlideMenuControllerDelegate {
    
     func leftWillOpen() {
-        print("SlideMenuControllerDelegate: leftWillOpen")
+       // print("SlideMenuControllerDelegate: leftWillOpen")
         
     }
     
     func leftDidOpen() {
-        print("SlideMenuControllerDelegate: leftDidOpen")
+      //  print("SlideMenuControllerDelegate: leftDidOpen")
     }
     
     func leftWillClose() {
-        print("SlideMenuControllerDelegate: leftWillClose")
+       // print("SlideMenuControllerDelegate: leftWillClose")
     }
     
     func leftDidClose() {
-        print("SlideMenuControllerDelegate: leftDidClose")
+      //  print("SlideMenuControllerDelegate: leftDidClose")
     }
     
     func rightWillOpen() {
-        print("SlideMenuControllerDelegate: rightWillOpen")
+      //  print("SlideMenuControllerDelegate: rightWillOpen")
     }
     
     func rightDidOpen() {
-        print("SlideMenuControllerDelegate: rightDidOpen")
+        //print("SlideMenuControllerDelegate: rightDidOpen")
     }
     
     func rightWillClose() {
-        print("SlideMenuControllerDelegate: rightWillClose")
+       // print("SlideMenuControllerDelegate: rightWillClose")
     }
     
     func rightDidClose() {
-        print("SlideMenuControllerDelegate: rightDidClose")
+        //print("SlideMenuControllerDelegate: rightDidClose")
     }
 }
+
