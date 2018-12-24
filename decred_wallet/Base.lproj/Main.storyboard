@@ -3545,10 +3545,11 @@
                                 <rect key="frame" x="0.0" y="468" width="320" height="100"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kxh-rN-EuN">
-                                        <rect key="frame" x="17" y="29" width="287" height="42"/>
+                                        <rect key="frame" x="193" y="29" width="111" height="42"/>
                                         <color key="backgroundColor" red="0.17662689089775085" green="0.84774124622344971" blue="0.63897907733917236" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="42" id="qFV-PO-4c6"/>
+                                            <constraint firstAttribute="width" constant="111" id="y0M-r3-EZU"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <state key="normal" title="CONFIRM">
@@ -3564,11 +3565,34 @@
                                             <action selector="onConfirm:" destination="HgI-Rd-B4C" eventType="touchUpInside" id="IQH-Tq-pDG"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P70-IV-yd9">
+                                        <rect key="frame" x="17" y="29" width="102" height="42"/>
+                                        <color key="backgroundColor" red="0.76862745099999996" green="0.79607843140000001" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="102" id="Eo9-Qt-xbv"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="102" id="OZe-hL-JLT"/>
+                                            <constraint firstAttribute="height" constant="42" id="Tjy-G6-DTq"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="42" id="viJ-r6-Ue6"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <state key="normal" title="CLEAR">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="onClear:" destination="Dk9-z5-XZ1" eventType="touchUpInside" id="hCL-6N-lfc"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.95294117649999999" green="0.96078431369999995" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="kxh-rN-EuN" firstAttribute="centerY" secondItem="061-Vd-w7t" secondAttribute="centerY" id="7AQ-wc-DRX"/>
-                                    <constraint firstItem="kxh-rN-EuN" firstAttribute="leading" secondItem="061-Vd-w7t" secondAttribute="leading" constant="17" id="DVb-9S-ESL"/>
+                                    <constraint firstItem="P70-IV-yd9" firstAttribute="leading" secondItem="061-Vd-w7t" secondAttribute="leading" constant="17" id="7hr-zG-Tfo"/>
+                                    <constraint firstItem="P70-IV-yd9" firstAttribute="centerY" secondItem="Yhb-YO-2Wy" secondAttribute="centerY" id="ELZ-sZ-prF"/>
                                     <constraint firstAttribute="height" constant="100" id="YF9-bh-A86"/>
                                     <constraint firstItem="061-Vd-w7t" firstAttribute="trailing" secondItem="kxh-rN-EuN" secondAttribute="trailing" constant="16" id="ttt-aP-QmR"/>
                                 </constraints>

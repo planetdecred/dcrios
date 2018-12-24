@@ -45,7 +45,7 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
         let notificationInfo = notification.userInfo
         let keyboardFrame = (notificationInfo?[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         let f = tableView.frame
-        tableView.frame = CGRect(x: f.origin.x, y: f.origin.y, width: f.size.width, height: f.size.height - keyboardFrame.size.height + (tableView.tableHeaderView?.frame.size.height)! ?? 0)
+        tableView.frame = CGRect(x: f.origin.x, y: f.origin.y, width: f.size.width, height: f.size.height - keyboardFrame.size.height + (tableView.tableHeaderView?.frame.size.height)! )
         
     }
     
@@ -68,7 +68,7 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
         cell?.setup(wordNum: indexPath.row, word: seedWords.count <= indexPath.row ? "" : seedWords[indexPath.row] ?? "", seed: seedtmp, placeholder: vDropDownPlaceholder)
         cell?.tfSeedWord.isEnabled = (indexPath.row == 0 || textFields.count < indexPath.row)
         let cellRect = cell?.frame
-        cell?.tfSeedWord.vertPosition = (cellRect?.origin.y)! + (cellRect?.size.height)!
+        cell?.tfSeedWord.vertPosition = dropdownPosition(for: indexPath)//(cellRect?.origin.y)! + (cellRect?.size.height)!
         if indexPath.row > textFields.count {
             textFields[indexPath.row] = cell?.tfSeedWord
         } else {
@@ -85,11 +85,8 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
                 let next = tableView.cellForRow(at: nextIndexPath) as? RecoveryWalletSeedWordsCell
                 next?.tfSeedWord.isEnabled = true
                 next?.tfSeedWord.becomeFirstResponder()
-                tableView.scrollToRow(at: nextIndexPath, at: .top, animated: true)
-                let scrollOffset = self.tableView.contentOffset
-                let nextCellPos = self.tableView.rectForRow(at: nextIndexPath)
-                next?.updatePlaceholder(vertPosition: Int(nextCellPos.origin.y  - scrollOffset.y - ))
-                
+                tableView.scrollToRow(at: nextIndexPath, at: .middle, animated: true)
+                next?.updatePlaceholder(vertPosition: Int(self.dropdownPosition(for: nextIndexPath)))
             }else{
                 cell?.tfSeedWord.resignFirstResponder()
             }
@@ -97,6 +94,17 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
         return cell!
     }
 
+    private func dropdownPosition(for indexPath:IndexPath) -> CGFloat{
+        let scrollOffset = self.tableView.contentOffset
+        let nextCellPos = self.tableView.rectForRow(at: indexPath)
+        let dropDownHeight = vDropDownPlaceholder.frame.size.height
+        let res = (nextCellPos.origin.y - scrollOffset.y) + 100 + 44
+        if (res + dropDownHeight) <= tableView.frame.size.height{
+            return res
+        }else{
+            return res - (tableView.frame.size.height - dropDownHeight)
+        }
+    }
     
     private func checkupSeed(){
         let seed = seedWords.reduce("", { x, y in  x + " " + y!})
@@ -120,7 +128,6 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
         seedWords = []
         tableView.reloadData()
     }
-    
 }
 
 extension RecoverWalletTableViewController: UIScrollViewDelegate{

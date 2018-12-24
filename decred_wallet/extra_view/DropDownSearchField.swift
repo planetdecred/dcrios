@@ -125,7 +125,7 @@ class DropDownSearchField: UITextField, UITextFieldDelegate, SearchDataSourcePro
     
     @objc func textFieldDidChange(_ textField: UITextField) {
         searchResult?.items = itemsToSearch?.filter({ return ($0.lowercased().hasPrefix(textField.text!.lowercased()) && (textField.text?.count)! > 2) })
-        dropDownTable?.frame.size.height = CGFloat((searchResult?.items?.count) ?? 0) * CGFloat(44.0);
+        dropDownTable?.frame.size.height = CGFloat(((searchResult?.items?.count) ?? 0 >= 5 ? 5 : searchResult?.items?.count ?? 0)) * CGFloat(44.0);
         dropDownListPlaceholder?.frame.size.height = CGFloat((searchResult?.items?.count) ?? 0) * CGFloat(44.0);
         if (searchResult?.items?.count)! == 0 {
             hideDropDown()
