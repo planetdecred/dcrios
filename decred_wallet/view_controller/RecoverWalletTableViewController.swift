@@ -67,8 +67,8 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
         let cell = tableView.dequeueReusableCell(withIdentifier: "seedWordCell", for: indexPath) as? RecoveryWalletSeedWordsCell
         cell?.setup(wordNum: indexPath.row, word: seedWords.count <= indexPath.row ? "" : seedWords[indexPath.row] ?? "", seed: seedtmp, placeholder: vDropDownPlaceholder)
         cell?.tfSeedWord.isEnabled = (indexPath.row == 0 || textFields.count < indexPath.row)
-        let cellRect = cell?.frame
-        cell?.tfSeedWord.vertPosition = dropdownPosition(for: indexPath)//(cellRect?.origin.y)! + (cellRect?.size.height)!
+        //let cellRect = cell?.frame
+        //cell?.tfSeedWord.vertPosition = (cellRect?.origin.y)! + (cellRect?.size.height)!
         if indexPath.row > textFields.count {
             textFields[indexPath.row] = cell?.tfSeedWord
         } else {
@@ -83,6 +83,7 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
             if indexPath.row < 32 {
                 let nextIndexPath = IndexPath(row: indexPath.row + 1, section: 0 )
                 let next = tableView.cellForRow(at: nextIndexPath) as? RecoveryWalletSeedWordsCell
+                next?.tfSeedWord.updateSearchResults()
                 next?.tfSeedWord.isEnabled = true
                 next?.tfSeedWord.becomeFirstResponder()
                 tableView.scrollToRow(at: nextIndexPath, at: .middle, animated: true)
@@ -98,11 +99,15 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
         let scrollOffset = self.tableView.contentOffset
         let nextCellPos = self.tableView.rectForRow(at: indexPath)
         let dropDownHeight = vDropDownPlaceholder.frame.size.height
-        let res = (nextCellPos.origin.y - scrollOffset.y) + 100 + 44
-        if (res + dropDownHeight) <= tableView.frame.size.height{
-            return res
+        let res = nextCellPos.origin.y - scrollOffset.y
+        if indexPath.row < 4{
+            return nextCellPos.origin.y + nextCellPos.size.height + 10
+        }else if indexPath.row > 29 {
+            print("flipped res:\(res)")
+            return res - dropDownHeight + nextCellPos.size.height * 2
         }else{
-            return res - (tableView.frame.size.height - dropDownHeight)
+            print("res:\(res)")
+            return res
         }
     }
     
@@ -111,6 +116,8 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
         let flag = SingleInstance.shared.wallet?.verifySeed(seed)
         if flag! {
             self.performSegue(withIdentifier: "confirmSeedSegue", sender: nil)
+        } else {
+            show(error:"Seed is not valid")
         }
     }
     
@@ -127,6 +134,17 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
     @IBAction func onClear(_ sender: Any) {
         seedWords = []
         tableView.reloadData()
+    }
+    
+    private func show(error:String){
+        let alert = UIAlertController(title: "Recovery error", message: error, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Try again", style: .default) { (action) in
+            alert.dismiss(animated: true, completion: {
+                self.onClear(self)
+            })
+        }
+        alert.addAction(okAction)
+        self.present(alert, animated: true, completion: nil)
     }
 }
 
