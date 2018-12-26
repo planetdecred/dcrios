@@ -104,7 +104,7 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
             return nextCellPos.origin.y + nextCellPos.size.height + 10
         }else if indexPath.row > 29 {
             print("flipped res:\(res)")
-            return res - dropDownHeight + nextCellPos.size.height * 2
+            return res - dropDownHeight + nextCellPos.size.height
         }else{
             print("res:\(res)")
             return res
@@ -145,6 +145,14 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
         }
         alert.addAction(okAction)
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "confirmSeedSegue"{
+            var vc = segue.destination as? SeedCheckupProtocol
+            vc?.seedToVerify = seedWords.reduce("", { x, y in  x + " " + y!})
+
+        }
     }
 }
 
