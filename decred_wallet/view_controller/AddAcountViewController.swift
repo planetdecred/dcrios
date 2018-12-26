@@ -11,7 +11,6 @@ import UIKit
 
 class AddAcountViewController: UIViewController {
     @IBOutlet weak var passphrase: UITextField!
-    
     @IBOutlet weak var accountName: UITextField!
     @IBOutlet weak var createBtn: UIButton!
 
@@ -19,11 +18,6 @@ class AddAcountViewController: UIViewController {
         super.viewDidLoad()
         self.createBtn.layer.cornerRadius = 6
         // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     @IBAction func createFnc(_ sender: Any) {
