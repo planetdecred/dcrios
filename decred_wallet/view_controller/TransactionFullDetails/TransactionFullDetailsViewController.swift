@@ -4,6 +4,7 @@
 
 import UIKit
 import MBProgressHUD
+import SafariServices
 
 class TransactionFullDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -63,7 +64,14 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         tableTransactionDetails.registerCellNib(TransactionDetailCell.self)
         tableTransactionDetails.registerCellNib(TransactiontOutputDetailsCell.self)
         tableTransactionDetails.registerCellNib(TransactiontInputDetails.self)
+        self.navigationItem.title = "Transaction Details"
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "left-arrow"), style: .done, target: self, action: #selector(backk))
         
+    }
+    
+    
+    @objc func backk(){
+        self.navigationController?.popViewController(animated: true)
     }
     
 
@@ -131,7 +139,20 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 5 {
+           copyHash(hash: transaction.Hash)
             print("HASH: \(transaction.Hash)")
+        }
+    }
+
+    private func copyHash(hash: String){
+        DispatchQueue.main.async {
+            //Copy a string to the pasteboard.
+            UIPasteboard.general.string = hash
+            
+            //Alert
+            let alertController = UIAlertController(title: "", message: "Hash copied", preferredStyle: UIAlertControllerStyle.alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alertController, animated: true, completion: nil)
         }
     }
     
@@ -142,15 +163,47 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
     }
     
     fileprivate func wrap(transaction:Transaction?){
+        var confirmations: Int32 = 0
+        var status = "Pending"
+        let textColor: UIColor?
+        
+        if(transaction!.Height != -1){
+            confirmations = (SingleInstance.shared.wallet?.getBestBlock())! - Int32(transaction!.Height)
+            confirmations += 1
+        }
+        let height = transaction?.Height
+        if(height == -1){
+            status = "Pending"
+            textColor = #colorLiteral(red: 0.2392156863, green: 0.3960784314, blue: 0.6117647059, alpha: 1)
+        }
+            
+        else{
+            if(UserDefaults.standard.bool(forKey: "pref_spend_fund_switch") || confirmations > 1){
+                status = "Confirmed"
+                textColor = #colorLiteral(red: 0.2549019608, green: 0.7490196078, blue: 0.3254901961, alpha: 1)
+              
+            }
+            else{
+                status = "Pending"
+                textColor = #colorLiteral(red: 0.2392156863, green: 0.3960784314, blue: 0.6117647059, alpha: 1)
+               
+            }
+        }
         details = [
+            
             TransactionDetails(
-                title: "Status",
-                value: "\(transaction?.Status ?? "0") Confirmed",
-                textColor: nil
+            title: "Date",
+            value: format(timestamp: transaction?.Timestamp),
+            textColor: nil
             ),
             TransactionDetails(
-                title: "Confirmation",
-                value: "\(transaction?.Height ?? 0)",
+                title: "Status",
+                value: status,
+                textColor: textColor
+            ),
+            TransactionDetails(
+                title: "Fee",
+                value: "\(Double((transaction?.Fee)!) / 1e8) DCR",
                 textColor: nil
             ),
             TransactionDetails(
@@ -159,22 +212,28 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
                 textColor: nil
             ),
             TransactionDetails(
-                title: "Date",
-                value: format(timestamp: transaction?.Timestamp),
-                textColor: nil
-            ),
-            TransactionDetails(
-                title: "Fee",
-                value: "\(Double((transaction?.Fee)!) / 1e8) DCR",
+                title: "Confirmation",
+                value: "\(confirmations )",
                 textColor: nil
             ),
             TransactionDetails(
                 title: "Hash",
                 value: (transaction?.Hash)!,
-                textColor: nil
+                textColor: #colorLiteral(red: 0.1607843137, green: 0.4392156863, blue: 1, alpha: 1)
             )
         ]
-        self.amount.text = "\(Double((transaction?.Amount)!) / 1e8) DCR"
+        let tnt = Decimal(Double((transaction?.Amount)!) / 1e8) as NSDecimalNumber
+        self.amount.attributedText = getAttributedString(str: "\(tnt.round(8))", siz: 13)
+    }
+    
+    func openLink(urlString: String) {
+        
+        if let url = URL(string: urlString) {
+            let viewController = SFSafariViewController(url: url, entersReaderIfAvailable: true)
+            viewController.delegate = self as? SFSafariViewControllerDelegate
+            
+            self.present(viewController, animated: true)
+        }
     }
     
     fileprivate func format(timestamp:UInt64?) -> String{

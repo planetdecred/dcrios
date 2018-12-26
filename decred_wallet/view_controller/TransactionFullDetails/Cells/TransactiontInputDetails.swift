@@ -12,27 +12,29 @@ class TransactiontInputDetails: UITableViewCell {
     var expandOrCollapse: (() -> Void)?
 
     func setup(with debits:[Debit]){
+        alcDebitStackHeight.constant = CGFloat(45 * debits.count)
         let _ = debitsStack.arrangedSubviews.map({self.debitsStack.removeArrangedSubview($0)})
         debits.forEach { (debit) in
             self.addSubrow(with: debit)
         }
-        alcDebitStackHeight.constant = CGFloat(45 * debits.count)
+        
     }
     
     @IBAction func hideOrExpandAction(_ sender: UIButton) {
-        self.viewCotainer.isHidden = !self.viewCotainer.isHidden
+        self.viewCotainer.isHidden = false
         expandOrCollapse?()
     }
     
     private func addSubrow(with debit: Debit){
         let subrow = UIView(frame: CGRect(x:0.0, y:0.0, width:self.frame.size.width, height:45.0))
         let amountLabel = UILabel(frame: CGRect(x:5.0, y:1.0, width: self.frame.size.width, height: 22.0))
-        let accountNameLabel = UILabel(frame: CGRect(x:5.0, y:23.0, width:self.frame.size.width, height: 22.0))
-        accountNameLabel.textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+        let addressLabel = UILabel(frame: CGRect(x:5.0, y:23.0, width:self.frame.size.width, height: 22.0))
+        
+        addressLabel.textColor = #colorLiteral(red: 0.2470588235, green: 0.4941176471, blue: 0.8901960784, alpha: 1)
         subrow.addSubview(amountLabel)
-        subrow.addSubview(accountNameLabel)
-        amountLabel.text = "\(debit.dcrAmount)"
-        accountNameLabel.text = debit.AccountName
+        subrow.addSubview(addressLabel)
+        amountLabel.text = "\(debit.dcrAmount) DCR (\(debit.AccountName))"
+        amountLabel.font = amountLabel.font.withSize(15)
         debitsStack.addArrangedSubview(subrow)
     }
 }
