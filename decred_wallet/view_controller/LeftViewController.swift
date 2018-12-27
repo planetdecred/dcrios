@@ -51,7 +51,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
     var historyViewController: UIViewController!
     var helpViewController:  UIViewController!
     var securityMenuViewController:UIViewController!
-    var imageHeaderView: ImageHeaderView!
+    var imageHeaderView: UIImageView?//ImageHeaderView!
     var selectedIndex: Int!
     var storyboard2: UIStoryboard!
     
@@ -67,24 +67,13 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
        // self.rescanHeight.isHidden = true 
          storyboard2 =  UIStoryboard(name: "Main", bundle: nil)  
         self.tableView.registerCellClass(MenuCell.self)     
-        self.imageHeaderView = ImageHeaderView.loadNib()
-        self.view.addSubview(self.imageHeaderView)
-       /* if ((AppContext.instance.decrdConnection?.wallet?.isNetBackendNil())!){
-           
-            DispatchQueue.main.async {
-                self.connectionStatus.text = "connected to RPC"
-                
-            }
-            AppContext.instance.decrdConnection?.rescan()
-            
-            
-        }else{
-            self.connectionStatus.text = "Connecting to RPC server"
-           // self.conectToRpc()
-        }*/
+        self.imageHeaderView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width - 63, height: 80))
+        imageHeaderView?.backgroundColor = UIColor(hex: "F9FBFA")
         
-        
-        
+        self.imageHeaderView?.image = #imageLiteral(resourceName: "dcr-logo-light")
+
+        self.imageHeaderView?.contentMode = .scaleAspectFit
+        self.view.addSubview(self.imageHeaderView!)
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)// 1
@@ -167,7 +156,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.imageHeaderView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 130)
+        //self.imageHeaderView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 130)
         self.view.layoutIfNeeded()
     }
     
