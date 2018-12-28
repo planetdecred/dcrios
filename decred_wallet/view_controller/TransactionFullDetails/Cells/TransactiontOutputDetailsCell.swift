@@ -16,14 +16,14 @@ class TransactiontOutputDetailsCell: UITableViewCell {
     
     func setup(with credits:[Credit]){
         
-        alcCreditStackHeight.constant = CGFloat(45 * min(credits.count, 2))
+        alcCreditStackHeight.constant = CGFloat(45 * min(credits.count, 3))
        
         
         for credit in credits{
             self.addSubrow(with: credit, indexs: index)
             print("credit \(credit.dcrAmount)")
             print(index)
-            if(index == 1){
+            if(index == 2){
                  print(" credit count is \(credits.count)")
                 return
             }
@@ -45,13 +45,17 @@ class TransactiontOutputDetailsCell: UITableViewCell {
         let tmp = SingleInstance.shared.wallet
         let accName = tmp?.accountName(Int32(credit.Account))
         addressLabel.setTitleColor(#colorLiteral(red: 0.2470588235, green: 0.4941176471, blue: 0.8901960784, alpha: 1), for: .normal)
+        amountLabel.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         addressLabel.set(fontSize: 15)
+        addressLabel.contentHorizontalAlignment = .left
         subrow.addSubview(amountLabel)
         subrow.addSubview(addressLabel)
-        amountLabel.text = "\(credit.dcrAmount) DCR (\(accName ?? "external"))"
         amountLabel.font = amountLabel.font.withSize(15)
+        let combine = NSMutableAttributedString()
+        combine.append(getAttributedString(str: "\(credit.dcrAmount)", siz: 12))
+        combine.append(NSMutableAttributedString(string: " (\(accName ?? "external"))"))
+        amountLabel.attributedText = combine
         addressLabel.setTitle(credit.Address, for: .normal)
-      //  addressLabel.a = addressLabel.font.withSize(14)
         self.creditsStack.insertArrangedSubview(subrow, at: indexs)
     }
     func buttonClicked(sender : UIButton){

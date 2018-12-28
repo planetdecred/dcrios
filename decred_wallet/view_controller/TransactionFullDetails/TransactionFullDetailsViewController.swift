@@ -228,7 +228,7 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
             ),
             TransactionDetails(
                 title: "Type",
-                value: NSMutableAttributedString(string: "\(transaction?.Type ?? "Unknown" )"),
+                value: NSMutableAttributedString(string: "\(transaction?.Type.lowercased() ?? "Unknown" )"),
                 textColor: nil
             ),
             TransactionDetails(

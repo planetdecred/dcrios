@@ -13,12 +13,12 @@ class TransactiontInputDetails: UITableViewCell {
     var index = 0
 
     func setup(with debits:[Debit]){
-        alcDebitStackHeight.constant = CGFloat(45 * min(debits.count,2))
+        alcDebitStackHeight.constant = CGFloat(45 * min(debits.count,3))
       
         for debit in debits{
             self.addSubrow(with: debit, indexs: index)
             print("debit \(debit.dcrAmount)")
-            if(index == 1){
+            if(index == 2){
                 print(" debit count is \(debits.count)")
                 return
             }
@@ -46,10 +46,16 @@ class TransactiontInputDetails: UITableViewCell {
         addressLabel!.setTitleColor(#colorLiteral(red: 0.2470588235, green: 0.4941176471, blue: 0.8901960784, alpha: 1), for: .normal)
         addressLabel!.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
         addressLabel?.set(fontSize: 15)
+        amountLabel.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        addressLabel?.contentHorizontalAlignment = .left
         subrow.addSubview(amountLabel)
         subrow.addSubview(addressLabel!)
-        amountLabel.text = "\(debit.dcrAmount) DCR (\(debit.AccountName))"
         amountLabel.font = amountLabel.font.withSize(15)
+        let combine = NSMutableAttributedString()
+        combine.append(getAttributedString(str: "\(debit.dcrAmount)", siz: 12))
+        combine.append(NSMutableAttributedString(string: " (\(debit.AccountName ))"))
+        amountLabel.attributedText = combine
+        
         debitsStack.insertArrangedSubview(subrow, at: indexs)
         debitsStack.addArrangedSubview(subrow)
     }
