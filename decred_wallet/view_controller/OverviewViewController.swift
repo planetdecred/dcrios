@@ -11,10 +11,8 @@ import UserNotifications
 
 class OverviewViewController: UIViewController, MobilewalletGetTransactionsResponseProtocol, MobilewalletTransactionListenerProtocol, //MobilewalletBlockNotificationErrorProtocol,
 MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
-
-     var peerCount = 0
-
-
+    var peerCount = 0
+    
     func onFetchMissingCFilters(_ missingCFitlersStart: Int32, missingCFitlersEnd: Int32, state: String!) {
         
     }
