@@ -64,7 +64,6 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         super.viewDidLoad()
         self.selectedIndex = 0
         self.tableView.separatorColor = GlobalConstants.Colors.separaterGrey
-       // self.rescanHeight.isHidden = true 
          storyboard2 =  UIStoryboard(name: "Main", bundle: nil)  
         self.tableView.registerCellClass(MenuCell.self)     
         self.imageHeaderView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width - 63, height: 80))
