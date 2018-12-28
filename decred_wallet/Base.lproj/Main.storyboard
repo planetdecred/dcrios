@@ -153,15 +153,15 @@
                                                             </label>
                                                         </subviews>
                                                         <constraints>
-                                                            <constraint firstItem="bNJ-00-YxE" firstAttribute="width" secondItem="6X4-hH-Ewc" secondAttribute="width" multiplier="0.2" id="Dqj-a1-avD"/>
+                                                            <constraint firstItem="bNJ-00-YxE" firstAttribute="width" secondItem="6X4-hH-Ewc" secondAttribute="width" multiplier="0.185" id="Dqj-a1-avD"/>
                                                             <constraint firstItem="bNJ-00-YxE" firstAttribute="height" secondItem="6X4-hH-Ewc" secondAttribute="height" multiplier="0.7" id="RpC-MG-mBi"/>
                                                         </constraints>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BE2-jx-ZwV">
-                                                        <rect key="frame" x="106.5" y="0.0" width="181.5" height="50"/>
+                                                        <rect key="frame" x="115" y="0.0" width="173" height="40.5"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Yd-yt-BcX">
-                                                                <rect key="frame" x="0.0" y="0.0" width="127" height="50"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="116" height="40.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <color key="textColor" red="0.53725490196078429" green="0.59215686274509804" blue="0.6470588235294118" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -181,12 +181,12 @@
                                                             </label>
                                                         </subviews>
                                                         <constraints>
-                                                            <constraint firstItem="0Yd-yt-BcX" firstAttribute="width" secondItem="BE2-jx-ZwV" secondAttribute="width" multiplier="0.7" id="J9U-27-icx"/>
+                                                            <constraint firstItem="0Yd-yt-BcX" firstAttribute="width" secondItem="BE2-jx-ZwV" secondAttribute="width" multiplier="0.67" id="J9U-27-icx"/>
                                                         </constraints>
                                                     </stackView>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="BE2-jx-ZwV" firstAttribute="width" secondItem="cVK-cz-Dcd" secondAttribute="width" multiplier="0.63" id="LaY-fl-KU4"/>
+                                                    <constraint firstItem="BE2-jx-ZwV" firstAttribute="width" secondItem="cVK-cz-Dcd" secondAttribute="width" multiplier="0.6" id="LaY-fl-KU4"/>
                                                 </constraints>
                                             </stackView>
                                         </subviews>
@@ -234,6 +234,7 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="LoadingImg" destination="bNJ-00-YxE" id="FuC-NF-hSd"/>
                         <outlet property="bestblock" destination="0Yd-yt-BcX" id="YcR-9g-es2"/>
                         <outlet property="blockInfo" destination="ACm-cR-Pgs" id="vY0-Kq-dYG"/>
                         <outlet property="chainStatus" destination="JWZ-oQ-74e" id="Vd2-ho-Wb3"/>

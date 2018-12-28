@@ -28,12 +28,17 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
 
     var progressHud = MBProgressHUD()
     var scanning = false
+    var sync = false
+    var seconds = 60
+    var timer = Timer()
+    var isTimerRunning = false
     @IBOutlet weak var blockInfo: UILabel!
     @IBOutlet weak var connectionStatus: UILabel!
     @IBOutlet weak var rescanHeight: UILabel!
     @IBOutlet weak var bestblock: UILabel!
     @IBOutlet weak var chainStatus: UILabel!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var LoadingImg: UIImageView!
     var menus = ["Overview", "Account", "Send", "Receive","History", "Settings","Help"]
     var mainViewController: UIViewController!
     var accountViewController: UIViewController!
@@ -67,29 +72,35 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         imageHeaderView?.image = UserDefaults.standard.bool(forKey: "pref_use_testnet") ? UIImage(named: "logo-testnet") : UIImage(named: "logo-mainnet")
         print("am running")
         self.scanning = UserDefaults.standard.bool(forKey: "walletScanning")
-        let sync = UserDefaults.standard.bool(forKey: "synced")
-        
-        if(sync == true){
-             self.loop()
+        self.sync = UserDefaults.standard.bool(forKey: "synced")
+        self.runTimer()
+      /*  if(sync == true){
+             self.runTimer()
         }
         else{
             self.connectionStatus.text = "Not Synced"
-        }
+        }*/
         
+    }
+    func runTimer() {
+        self.timer = Timer.scheduledTimer(timeInterval: 1, target: self,   selector: (#selector(self.updateTimer)), userInfo: nil, repeats: true)
+    }
+     @objc func updateTimer() {
+        self.loop()
     }
     
     func loop() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now()) { [weak self] in
             guard let this = self else { return }
             let bestblck = SingleInstance.shared.wallet?.getBestBlock()
             let bestblocktemp: Int64 = Int64(Int(bestblck!))
-            if this.scanning == true {
+           /* if this.scanning == true {
                 this.chainStatus.text = ""
                 this.blockInfo.text = ""
                 this.connectionStatus.text = "Not Synced"
                 this.bestblock.text = String(bestblck!)
                 return
-            }
+            }*/
             let lastblocktime = SingleInstance.shared.wallet?.getBestBlockTimeStamp()
             let currentTime = NSDate().timeIntervalSince1970
             let estimatedBlocks = ((Int64(currentTime) - lastblocktime!) / 120) + bestblocktemp
@@ -97,15 +108,19 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
                 this.bestblock.text = String(bestblocktemp).appending(" of ").appending(String(estimatedBlocks))
                 this.chainStatus.text = ""
                 this.blockInfo.text = "Fetched"
-                this.statusBackgroud.backgroundColor = UIColor(hex: "#2DD8A3")
+                this.statusBackgroud.backgroundColor = UIColor(hex: "#FFC84E")
                 this.connectionStatus.text = "Fetching Headers..."
             }
             else {
-                this.statusBackgroud.backgroundColor = UIColor(hex: "#FFC84E")
-                this.connectionStatus.text = "Rescanning in progress..."
+                if((self?.sync)!){
+                let peer = UserDefaults.standard.integer(forKey: "peercount")
+                this.statusBackgroud.backgroundColor = UIColor(hex: "#2DD8A3")
+                this.connectionStatus.text = "Synced with \(peer) peer(s)"
                 this.bestblock.text = String(bestblocktemp)
                 this.blockInfo.text = "Latest Block"
                 this.chainStatus.text = this.calculateTime(millis: Int64(NSDate().timeIntervalSince1970) - lastblocktime!)
+                    
+                }
             }
         }
     }
