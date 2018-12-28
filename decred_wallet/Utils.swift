@@ -122,6 +122,7 @@ func loadCertificate() throws ->  String {
     return try String.init(contentsOfFile: filePath)
 }
 
+
 func getAttributedString(str: String, siz: CGFloat) -> NSAttributedString {
     var tmpString = str
     var Strr:NSString = ""
@@ -183,6 +184,13 @@ extension UITableViewCell{
             // your code here
         }
         
+    }
+}
+extension UIButton {
+    func set(fontSize: CGFloat) {
+        if let titleLabel = titleLabel {
+            titleLabel.font = UIFont(name: titleLabel.font.fontName, size: fontSize)
+        }
     }
 }
 

@@ -23,10 +23,10 @@
                         <rect key="frame" x="10" y="0.0" width="300" height="267.5"/>
                         <subviews>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Itd-gQ-Sc8">
-                                <rect key="frame" x="0.0" y="0.0" width="300" height="32"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <rect key="frame" x="0.0" y="0.0" width="300" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="Inputs">
-                                    <color key="titleColor" red="0.047058823529411764" green="0.11764705882352941" blue="0.24313725490196078" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                                 <connections>
                                     <action selector="hideOrExpandAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="w46-vw-AIv"/>
@@ -35,7 +35,7 @@
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fvo-Gc-5cm">
                                 <rect key="frame" x="0.0" y="267.5" width="300" height="0.0"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="3Es-Mp-YOg">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="3Es-Mp-YOg">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="0.0"/>
                                         <constraints>
                                             <constraint firstAttribute="height" id="W2a-ZK-rtU"/>
