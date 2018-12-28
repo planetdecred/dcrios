@@ -51,7 +51,6 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-        SingleInstance.shared.wallet?.runGC()
 
     }
     
@@ -98,7 +97,7 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
         var walletaddress = self.walletAddress.text!
         let acountN = (self.selectedAccount?.Number)!
         if !(validateDestinationAddress()){
-            walletaddress = (try!SingleInstance.shared.wallet?.address(forAccount: acountN))!
+            walletaddress = (try!SingleInstance.shared.wallet?.currentAddress(acountN))!
         }
         var fee = 0.0
        
@@ -178,7 +177,6 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
             guard let `self` = self else { return }
             DispatchQueue.global(qos: .userInitiated).async { [weak self] in
                 guard let this = self else { return }
-                SingleInstance.shared.wallet?.runGC()
                 this.signTransaction(sendAll: sendAll)
                // self?.selectedAccount = nil
                 return

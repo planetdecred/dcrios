@@ -51,10 +51,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     fileprivate func populateFirstScreen() {
         if isWalletCreated() {
-            SingleInstance.shared.wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/", "bdb")
+            SingleInstance.shared.wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/", "bdb", "testnet3")
             SingleInstance.shared.wallet?.initLoader()
+            let key = "public"
+            let finalkey = key as NSString
+            let finalkeyData = finalkey.data(using: String.Encoding.utf8.rawValue)!
             do {
-                ((try SingleInstance.shared.wallet?.open()))
+                ((try SingleInstance.shared.wallet?.open(finalkeyData)))
             } catch let error {
                 print(error)
             }
@@ -63,7 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             
         } else {
-            SingleInstance.shared.wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/", "bdb")
+            SingleInstance.shared.wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/", "bdb", "testnet3")
             SingleInstance.shared.wallet?.initLoader()
            DispatchQueue.global(qos: .default).async {
             self.walletSetupView()
@@ -141,9 +144,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     func applicationDidReceiveMemoryWarning(_ application: UIApplication) {
-        if(SingleInstance.shared.wallet != nil){
-            SingleInstance.shared.wallet?.runGC()
-        }
     }
 }
 
