@@ -6,12 +6,18 @@
 import CoreData
 import Mobilewallet
 import SlideMenuControllerSwift
+import UserNotifications
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     var window: UIWindow?
     var navigation: UINavigationController?
     fileprivate let loadThread = DispatchQueue.self
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping
+        (UNNotificationPresentationOptions) -> Void){
+        completionHandler([.alert])
+    }
 
     fileprivate func walletSetupView() {
          DispatchQueue.main.async{
@@ -98,6 +104,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         DispatchQueue.main.async {
+            UNUserNotificationCenter.current().delegate = self
+            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge , .sound]){ (granted, error) in
+                print("granted: \(granted)")
+                
+            }
              self.showAnimatedStartScreen()
         }
         UserDefaults.standard.setValuesForKeys(["pref_user_name": "dcrwallet",
