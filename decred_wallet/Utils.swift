@@ -158,4 +158,31 @@ func getAttributedString(str: String, siz: CGFloat) -> NSAttributedString {
     }
     return atrStr
 }
+extension NSDecimalNumber {
+    public func round(_ decimals:Int) -> NSDecimalNumber {
+        return self.rounding(accordingToBehavior:
+            NSDecimalNumberHandler(roundingMode: .plain,
+                                   scale: Int16(decimals),
+                                   raiseOnExactness: false,
+                                   raiseOnOverflow: false,
+                                   raiseOnUnderflow: false,
+                                   raiseOnDivideByZero: false))
+    }
+}
+
+extension UITableViewCell{
+    func blink(){
+        UITableViewCell.animate(withDuration: 0.5, //Time duration you want,
+            delay: 0.0,
+            options: [.showHideTransitionViews, .autoreverse, .repeat],
+            animations: { [weak self] in self?.alpha = 0.0 },
+            completion: { [weak self] _ in self?.alpha = 1.0 })
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            [weak self] in
+            self?.layer.removeAllAnimations()
+            // your code here
+        }
+        
+    }
+}
 

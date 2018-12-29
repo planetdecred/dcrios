@@ -113,7 +113,8 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
                 let spendableAmount = spendable(account: (self?.selectedAccount!)!)
                 this.estimateSize.text = "\(preparedTransaction?.estimatedSignedSize() ?? 0) Bytes"
                 this.estimateFee.text = "\(fee) DCR"
-                this.BalanceAfter.attributedText = getAttributedString(str: "\(Double((spendableAmount - Decimal(amountToSend)).description) ?? 0.0)", siz: 13)
+                let tnt =  (spendableAmount - (Decimal(amountToSend) + Decimal(fee))) as NSDecimalNumber
+                this.BalanceAfter.attributedText = getAttributedString(str: "\(tnt.round(8) ?? 0.0)", siz: 13)
                 if(sendAll)!{
                     this.tfAmount.text = "\(MobilewalletAmountCoin(amount - MobilewalletAmountAtom(fee)) )"
                 }
@@ -145,6 +146,7 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
                 self.estimateFee.text = ""
                 self.estimateSize.text = ""
                 self.BalanceAfter.text = ""
+                self.updateBalance()
                
                 return
 
@@ -331,18 +333,19 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
             print(error)
         }
         accounts = (account?.Acc.map { (acc) -> String in
-            let tspendable = spendable(account: acc)
+            let tspendable = spendable(account: acc) as NSDecimalNumber
+            
            
-            return "\(acc.Name) [\(Double(tspendable.description) ?? 0.0)]"
+            return "\(acc.Name) [\( tspendable.round(8) ?? 0.0)]"
         })!
         
         let defaultNumber = UserDefaults.standard.integer(forKey: "wallet_default")
         
         if let defaultAccount = account?.Acc.filter({ $0.Number == defaultNumber }).first {
-            let tspendable = spendable(account: defaultAccount)
+            let tspendable = spendable(account: defaultAccount) as NSDecimalNumber
             
             accountDropdown.setAttributedTitle(
-                getAttributedString(str: "\(defaultAccount.Name) [\(Double(tspendable.description) ?? 0.0)]", siz: 13),
+                getAttributedString(str: "\(defaultAccount.Name) [\(tspendable.round(8) ?? 0.0)]", siz: 13),
                 for: UIControlState.normal
             )
             
