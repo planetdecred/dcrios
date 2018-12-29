@@ -10,10 +10,11 @@ import MBProgressHUD
 
 enum LeftMenu: Int {
     case overview = 0
-    case account
+    case history
     case send
     case receive
-    case history
+    case account
+    case security
     case settings
     case help
 
@@ -38,8 +39,10 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
     @IBOutlet weak var bestblock: UILabel!
     @IBOutlet weak var chainStatus: UILabel!
     @IBOutlet weak var tableView: UITableView!
+    var menus = ["Overview","History", "Send", "Receive", "Account","Security", "Settings","Help"]
+
     @IBOutlet weak var LoadingImg: UIImageView!
-    var menus = ["Overview", "Account", "Send", "Receive","History", "Settings","Help"]
+   
     var mainViewController: UIViewController!
     var accountViewController: UIViewController!
     var sendViewController: UIViewController!
@@ -47,7 +50,9 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
     var settingsViewController: UIViewController!
     var historyViewController: UIViewController!
     var helpViewController:  UIViewController!
-    var imageHeaderView: UIImageView?//ImageHeaderView!
+    var imageHeaderView: UIImageView?
+    var securityMenuViewController:UIViewController!
+    var imageHeaderView: ImageHeaderView!
     var selectedIndex: Int!
     var storyboard2: UIStoryboard!
     
@@ -239,7 +244,21 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
                 self.sendViewController = nil
             }
             
+        case .security:
+        let SecurityViewController = self.storyboard2?.instantiateViewController(withIdentifier: "SecurityMenuViewController") as! SecurityMenuViewController
+        self.securityMenuViewController = UINavigationController(rootViewController: SecurityViewController)
+        self.slideMenuController()?.changeMainViewController(self.securityMenuViewController, close: true)
+        if(self.accountViewController != nil){
+            self.accountViewController.dismiss(animated: true, completion: nil)
+            self.accountViewController = nil
+            
         }
+        if(self.sendViewController != nil){
+            self.sendViewController.dismiss(animated: true, completion: nil)
+            self.sendViewController = nil
+            }
+            
+            }
         }
     }
 }
@@ -248,7 +267,7 @@ extension LeftViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if let menu = LeftMenu(rawValue: indexPath.row) {
             switch menu {
-            case .overview, .account, .send, .receive, .history, .settings, .help:
+            case .overview, .history, .send, .receive, .account, .security, .settings, .help:
                 return MenuCell.height()
             }
         }
@@ -258,7 +277,7 @@ extension LeftViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let menu = LeftMenu(rawValue: indexPath.row) {
             self.selectedIndex = indexPath.row
-            if(self.selectedIndex == 5){
+            if(self.selectedIndex == 6){
                 self.selectedIndex = 0
             }
             self.tableView.reloadData()
@@ -283,7 +302,7 @@ extension LeftViewController : UITableViewDataSource {
         
         if let menu = LeftMenu(rawValue: indexPath.row) {
             switch menu {
-            case .overview, .account, .send, .receive, .history, .settings, .help:
+            case .overview, .history, .send, .receive, .account, .security, .settings, .help:
                 
                 
                 tableView.register(UINib(nibName: MenuCell.identifier, bundle: nil), forCellReuseIdentifier: MenuCell.identifier)

@@ -89,6 +89,7 @@
 		DDA3E27520292EF900C83D18 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DDA3E27420292EF900C83D18 /* Assets.xcassets */; };
 		DDA3E27820292EF900C83D18 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDA3E27620292EF900C83D18 /* LaunchScreen.storyboard */; };
 		DDA3E28320292EF900C83D18 /* Decred_WalletTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA3E28220292EF900C83D18 /* Decred_WalletTests.swift */; };
+		DDA66BB721BFFFA800987248 /* SecurityMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA66BB621BFFFA800987248 /* SecurityMenuViewController.swift */; };
 		DDB89402202F771F002F85EE /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB89401202F771F002F85EE /* UIViewController.swift */; };
 		DDB89404202F7E01002F85EE /* SendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB89403202F7E01002F85EE /* SendViewController.swift */; };
 		DDB89409202F824A002F85EE /* ReceiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB89408202F824A002F85EE /* ReceiveViewController.swift */; };
@@ -223,6 +224,7 @@
 		DDA3E27E20292EF900C83D18 /* Decred WalletTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Decred WalletTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDA3E28220292EF900C83D18 /* Decred_WalletTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decred_WalletTests.swift; sourceTree = "<group>"; };
 		DDA3E28420292EF900C83D18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DDA66BB621BFFFA800987248 /* SecurityMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SecurityMenuViewController.swift; path = decred_wallet/SecurityMenuViewController.swift; sourceTree = SOURCE_ROOT; };
 		DDB89401202F771F002F85EE /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		DDB89403202F7E01002F85EE /* SendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendViewController.swift; sourceTree = "<group>"; };
 		DDB89408202F824A002F85EE /* ReceiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveViewController.swift; sourceTree = "<group>"; };
@@ -433,6 +435,7 @@
 				281D545121B157A600F68803 /* RecoverWalletViewController.swift */,
 				DD1D5C7D20AEDB15009789DD /* WalletLogViewController.swift */,
 				DD1D5C7F20AEDB2B009789DD /* NodeLogViewController.swift */,
+				DDA66BB621BFFFA800987248 /* SecurityMenuViewController.swift */,
 				28EB91B920FCFDA0007A0906 /* SeedCheckupViewController.swift */,
 				28EB91B720FCFD8F007A0906 /* GeneratedSeedDisplayViewController.swift */,
 				28EB91BA20FCFDA1007A0906 /* CreatePasswordViewController.swift */,
@@ -769,6 +772,7 @@
 				DDB89421202F93B3002F85EE /* OverviewViewController.swift in Sources */,
 				2883CA702099D40F0053D9BB /* DropDownSearchField.swift in Sources */,
 				95473E6E20E39E7A0023F50A /* TransactiontOutputDetailsCell.swift in Sources */,
+				DDA66BB721BFFFA800987248 /* SecurityMenuViewController.swift in Sources */,
 				DDB89429202F95AC002F85EE /* UIApplication.swift in Sources */,
 				DD24AFA420A6ED70009EC84F /* NetworkModeTableViewController.swift in Sources */,
 				281D545821B169DE00F68803 /* SecurityViewController.swift in Sources */,
