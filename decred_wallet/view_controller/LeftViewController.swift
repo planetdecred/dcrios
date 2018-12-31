@@ -52,7 +52,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
     var helpViewController:  UIViewController!
     var imageHeaderView: UIImageView?
     var securityMenuViewController:UIViewController!
-    var imageHeaderView: ImageHeaderView!
+    var imageHeaderView: UIImageView?
     var selectedIndex: Int!
     var storyboard2: UIStoryboard!
     
