@@ -66,16 +66,14 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         self.tableView.separatorColor = GlobalConstants.Colors.separaterGrey
          storyboard2 =  UIStoryboard(name: "Main", bundle: nil)  
         self.tableView.registerCellClass(MenuCell.self)     
-        self.imageHeaderView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width - 63, height: 80))
+        imageHeaderView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width - 63, height: 80))
         imageHeaderView?.backgroundColor = UIColor(hex: "F9FBFA")
-        
-        self.imageHeaderView?.image = #imageLiteral(resourceName: "dcr-logo-light")
-
-        self.imageHeaderView?.contentMode = .scaleAspectFit
+        imageHeaderView?.contentMode = .scaleAspectFit
         self.view.addSubview(self.imageHeaderView!)
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)// 1
+        imageHeaderView?.image = UserDefaults.standard.bool(forKey: "pref_use_testnet") ? UIImage(named: "logo-testnet") : UIImage(named: "logo-mainnet")
         print("am running")
         self.scanning = UserDefaults.standard.bool(forKey: "walletScanning")
         self.sync = UserDefaults.standard.bool(forKey: "synced")
