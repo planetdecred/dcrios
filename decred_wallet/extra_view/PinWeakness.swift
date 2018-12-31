@@ -8,7 +8,7 @@
 
 import UIKit
 import PasswordStrength
-import CryptoSwift
+
 
 class PinWeakness {
     let passstrength = PinAnalyzer()

@@ -9,6 +9,11 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Right View Controller-->
         <scene sceneID="bvR-W9-qnC">
@@ -3782,11 +3787,7 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Please confirm to send funds" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dPx-ZI-D15">
-<<<<<<< HEAD
-                                        <rect key="frame" x="33" y="147" width="204.5" height="23"/>
-=======
                                         <rect key="frame" x="48" y="147" width="204.5" height="23"/>
->>>>>>> finished password textfield on confirm screen
                                         <constraints>
                                             <constraint firstAttribute="height" constant="23" id="ff5-hp-HHg"/>
                                         </constraints>
@@ -3795,11 +3796,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sending" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cT1-DZ-jV6">
-<<<<<<< HEAD
-                                        <rect key="frame" x="17.5" y="111" width="93" height="24"/>
-=======
                                         <rect key="frame" x="32.5" y="111" width="93" height="24"/>
->>>>>>> finished password textfield on confirm screen
                                         <constraints>
                                             <constraint firstAttribute="width" constant="93" id="mDp-P3-dNO"/>
                                         </constraints>
@@ -3808,11 +3805,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="234234" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FE2-ZA-Akw">
-<<<<<<< HEAD
-                                        <rect key="frame" x="155.5" y="114" width="37" height="22"/>
-=======
                                         <rect key="frame" x="170.5" y="114" width="37" height="22"/>
->>>>>>> finished password textfield on confirm screen
                                         <constraints>
                                             <constraint firstAttribute="width" constant="37" id="phe-AG-tIV"/>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="37" id="uMs-kB-Y7l"/>
@@ -3822,33 +3815,27 @@
                                         <color key="textColor" red="0.2274509804" green="0.84313725490000002" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-<<<<<<< HEAD
-=======
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KX1-x5-Cfr">
                                         <rect key="frame" x="48" y="190" width="204.5" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
->>>>>>> finished password textfield on confirm screen
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="z8u-C6-Djx" secondAttribute="bottom" id="1Ld-TV-9Zg"/>
-                                    <constraint firstAttribute="height" constant="250" id="1OS-cL-KPY"/>
+                                    <constraint firstAttribute="height" constant="300" id="1OS-cL-KPY"/>
                                     <constraint firstItem="dPx-ZI-D15" firstAttribute="centerX" secondItem="mhO-le-7DW" secondAttribute="centerX" id="1iW-0d-xA7"/>
                                     <constraint firstAttribute="bottom" secondItem="z8u-C6-Djx" secondAttribute="bottom" id="1wN-te-Y6a"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="300" id="5d0-OH-JYf"/>
                                     <constraint firstItem="dPx-ZI-D15" firstAttribute="top" secondItem="cT1-DZ-jV6" secondAttribute="bottom" constant="12" id="7jQ-mB-44S"/>
-                                    <constraint firstItem="z8u-C6-Djx" firstAttribute="top" secondItem="dPx-ZI-D15" secondAttribute="bottom" constant="20" id="Ogb-1s-Ja1"/>
+                                    <constraint firstItem="KX1-x5-Cfr" firstAttribute="trailing" secondItem="dPx-ZI-D15" secondAttribute="trailing" id="JcF-Z6-PdM"/>
+                                    <constraint firstItem="KX1-x5-Cfr" firstAttribute="top" secondItem="dPx-ZI-D15" secondAttribute="bottom" constant="20" id="Jz3-FI-f8Z"/>
                                     <constraint firstItem="z8u-C6-Djx" firstAttribute="leading" secondItem="mhO-le-7DW" secondAttribute="leading" id="U3q-Ky-c0U"/>
-<<<<<<< HEAD
-                                    <constraint firstAttribute="width" secondItem="w3o-Gu-357" secondAttribute="height" multiplier="27:25" id="WiN-ZU-i2c"/>
-=======
                                     <constraint firstAttribute="width" secondItem="w3o-Gu-357" secondAttribute="height" multiplier="1:1" id="WiN-ZU-i2c"/>
                                     <constraint firstItem="KX1-x5-Cfr" firstAttribute="leading" secondItem="dPx-ZI-D15" secondAttribute="leading" id="ogW-PU-poF"/>
                                     <constraint firstItem="KX1-x5-Cfr" firstAttribute="centerX" secondItem="dPx-ZI-D15" secondAttribute="centerX" id="vPR-28-Hbp"/>
->>>>>>> finished password textfield on confirm screen
                                     <constraint firstItem="z8u-C6-Djx" firstAttribute="trailing" secondItem="mhO-le-7DW" secondAttribute="trailing" id="wo8-sU-xJj"/>
                                 </constraints>
                                 <viewLayoutGuide key="safeArea" id="mhO-le-7DW"/>
@@ -3865,20 +3852,20 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img-send-funds" translatesAutoresizingMaskIntoConstraints="NO" id="nCA-rD-n1k">
-                                <rect key="frame" x="125" y="174" width="70" height="70"/>
+                                <rect key="frame" x="125" y="167" width="70" height="70"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="dqN-uN-V9r"/>
                                     <constraint firstAttribute="width" constant="70" id="eXp-bn-U8O"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="25.80" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hKD-mF-CbF">
-                                <rect key="frame" x="140.5" y="272" width="39" height="22"/>
+                                <rect key="frame" x="140.5" y="247" width="39" height="22"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
                                 <color key="textColor" red="0.2274509804" green="0.84313725490000002" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="DCR" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8lE-T6-Qrk">
-                                <rect key="frame" x="222.5" y="272" width="40" height="22"/>
+                                <rect key="frame" x="222.5" y="247" width="40" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="H5m-JP-9KT"/>
                                     <constraint firstAttribute="height" constant="22" id="NTV-oL-5fl"/>
@@ -3888,13 +3875,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.34999999999999998" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="hKD-mF-CbF" firstAttribute="centerX" secondItem="w3o-Gu-357" secondAttribute="centerX" id="Cdy-wZ-qIr"/>
-                            <constraint firstItem="w3o-Gu-357" firstAttribute="leading" secondItem="C3s-cf-vji" secondAttribute="leading" constant="25" id="ETB-eg-8ba"/>
                             <constraint firstItem="FE2-ZA-Akw" firstAttribute="firstBaseline" secondItem="hKD-mF-CbF" secondAttribute="firstBaseline" constant="-3.5" id="LU7-8G-Iw1"/>
                             <constraint firstItem="w3o-Gu-357" firstAttribute="centerX" secondItem="nvU-Z6-GeI" secondAttribute="centerX" id="Qbc-Mm-6tA"/>
-                            <constraint firstItem="hKD-mF-CbF" firstAttribute="top" secondItem="nCA-rD-n1k" secondAttribute="bottom" constant="28" id="cx3-X8-RYU"/>
+                            <constraint firstItem="w3o-Gu-357" firstAttribute="top" secondItem="nCA-rD-n1k" secondAttribute="bottom" constant="-103" id="YDW-fn-8AI"/>
+                            <constraint firstItem="hKD-mF-CbF" firstAttribute="top" secondItem="nCA-rD-n1k" secondAttribute="bottom" constant="10" id="cx3-X8-RYU"/>
                             <constraint firstItem="dPx-ZI-D15" firstAttribute="top" secondItem="hKD-mF-CbF" secondAttribute="bottom" constant="12" id="d4V-To-ZrI"/>
                             <constraint firstItem="8lE-T6-Qrk" firstAttribute="bottom" secondItem="hKD-mF-CbF" secondAttribute="bottom" id="fBg-b8-bJm"/>
                             <constraint firstItem="nCA-rD-n1k" firstAttribute="centerX" secondItem="w3o-Gu-357" secondAttribute="centerX" id="g98-TJ-ZgI"/>
@@ -3908,6 +3895,8 @@
                     <connections>
                         <outlet property="labelTitle" destination="hKD-mF-CbF" id="8Xj-r0-I9p"/>
                         <outlet property="lbMinorDigits" destination="FE2-ZA-Akw" id="drD-xO-Wgw"/>
+                        <outlet property="tfPassword" destination="KX1-x5-Cfr" id="0rp-p0-A1P"/>
+                        <outlet property="vContent" destination="w3o-Gu-357" id="ZuM-pP-sM1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TSf-MD-WVZ" userLabel="First Responder" sceneMemberID="firstResponder"/>

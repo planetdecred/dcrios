@@ -152,7 +152,6 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
         confirmSendFundViewController.amount = amountToSend
         
         confirmSendFundViewController.confirm = { (password) in
-                SingleInstance.shared.wallet?.runGC()
                 self.signTransaction(sendAll: sendAll, password: password)
         }
         DispatchQueue.main.async {
@@ -326,7 +325,7 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
             )
             
             this.selectedAccount = account?.Acc[ind]
-         this.accountDropdown.setTitle("default", for: .normal)
+            this.accountDropdown.setTitle("default", for: .normal)
 
         }
     }

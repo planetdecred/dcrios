@@ -8,7 +8,6 @@ target 'Decred Wallet' do
   pod 'MBProgressHUD'
   pod 'QRCodeReader.swift'
   pod "PasswordStrength"
-  pod 'CryptoSwift'
 end
 
 target 'Decred WalletTests' do
