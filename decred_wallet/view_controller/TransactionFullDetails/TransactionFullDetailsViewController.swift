@@ -3,7 +3,7 @@
 //  Copyright © 2018 The Decred developers. All rights reserved.
 
 import UIKit
-import MBProgressHUD
+import IHProgressHUD
 
 class TransactionFullDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -14,7 +14,6 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
     var transactionHash: String?
     var account : String?
     
-    let hud = MBProgressHUD(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
     var details: [TransactionDetails] = [
         TransactionDetails(
             title: "Status",
@@ -53,8 +52,6 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       // self.view.addSubview(hud)
-        
         tableTransactionDetails
             .hideEmptyAndExtraRows()
             .autoResizeCell(estimatedHeight: 60.0)
@@ -68,7 +65,7 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
     
 
     override func viewWillAppear(_ animated: Bool) {
-        hud.show(animated: true)
+        IHProgressHUD.show()
         wrap(transaction: self.transaction)
      
     }

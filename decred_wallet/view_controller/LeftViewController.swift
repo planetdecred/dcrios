@@ -6,7 +6,7 @@
 
 import Foundation
 import UIKit
-import MBProgressHUD
+import IHProgressHUD
 
 enum LeftMenu: Int {
     case overview = 0
@@ -27,7 +27,7 @@ protocol LeftMenuProtocol : class {
 class LeftViewController : UIViewController, LeftMenuProtocol {
     
 
-    var progressHud = MBProgressHUD()
+    var progressHud = IHProgressHUD()
     var scanning = false
     var sync = false
     var seconds = 60
