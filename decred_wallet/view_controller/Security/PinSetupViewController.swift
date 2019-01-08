@@ -10,8 +10,11 @@ import UIKit
 import MBProgressHUD
 import Mobilewallet
 
-class PinSetupViewController: UIViewController, SeedCheckupProtocol {
-
+class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPasswordProtocol {
+    var senders: String?
+    
+    @IBOutlet weak var headerText: UILabel!
+    
     @IBOutlet weak var pinMarks: PinMarksView!
     @IBOutlet weak var prgsPinStrength: UIProgressView!
     @IBOutlet weak var btnCommit: UIButton!
@@ -39,6 +42,7 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol {
     override func viewDidLoad() {
         progressHud = MBProgressHUD(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
         view.addSubview(progressHud!)
+        setHeader()
     }
     
     @IBAction func on1(_ sender: Any) {
@@ -86,6 +90,44 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol {
     }
 
     @IBAction func onCommit(_ sender: Any) {
+        print(senders as Any)
+        if senders == "launcher"{
+                pass_PIn_Unlock()
+        }
+        else if senders == "settings"{
+            if (UserDefaults.standard.bool(forKey: "secure_wallet")){
+                RemovestartupPin_pas()
+            }
+            else{
+                SetstartupPin_pas()
+            }
+        }
+        else{
+            createWallet()
+        }
+        
+    }
+    
+    func setHeader(){
+        if senders == "launcher"{
+                headerText.text = "Enter Startup PIN"
+
+        }
+        else if senders == "settings"{
+            if (UserDefaults.standard.bool(forKey: "secure_wallet")){
+                 headerText.text = "Enter Current PIN"
+                
+            }
+            else{
+                headerText.text = "Create Startup PIN"
+                
+            }
+        }
+        else{
+            headerText.text = "Create Spending PIN"
+        }
+    }
+    func createWallet(){
         self.progressHud?.show(animated: true)
         self.progressHud?.label.text = "creating wallet..."
         print("creating")
@@ -117,6 +159,106 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol {
                 }
             }
         }
+    }
+    func SetstartupPin_pas(){
+        self.progressHud?.show(animated: true)
+        self.progressHud?.label.text = "securing wallet..."
+        let key = "public"
+        let finalkey = key as NSString
+        let finalkeyData = finalkey.data(using: String.Encoding.utf8.rawValue)!
+        let pass = self.pin
+        
+        let finalpass = pass as NSString
+        let finalkeypassData = finalpass.data(using: String.Encoding.utf8.rawValue)!
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let this = self else { return }
+            
+            do {
+                try SingleInstance.shared.wallet?.changePublicPassphrase(finalkeyData, newPass: finalkeypassData)
+                DispatchQueue.main.async {
+                    this.progressHud?.hide(animated: true)
+                    
+                    print("passSet")
+                    UserDefaults.standard.set(true, forKey: "secure_wallet")
+                    UserDefaults.standard.setValue("PIN", forKey: "securitytype")
+                    UserDefaults.standard.synchronize()
+                    self?.dismissView()
+                }
+                return
+            } catch let error {
+                DispatchQueue.main.async {
+                    this.progressHud?.hide(animated: true)
+                    this.showError(error: error)
+                }
+            }
+        }
+    }
+    func dismissView() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    func pass_PIn_Unlock(){
+        self.progressHud?.show(animated: true)
+        self.progressHud?.label.text = "Opening wallet"
+        let pass = self.pin
+        let finalpass = pass as NSString
+        let finalkeypassData = finalpass.data(using: String.Encoding.utf8.rawValue)!
+        
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let this = self else { return }
+            
+            do {
+                try SingleInstance.shared.wallet?.open(finalkeypassData)
+                
+                DispatchQueue.main.async {
+                    this.progressHud?.hide(animated: true)
+                    self!.createMenu()
+                }
+                return
+            } catch let error {
+                DispatchQueue.main.async {
+                    this.progressHud?.hide(animated: true)
+                    this.showError(error: error)
+                }
+            }
+        }
+    }
+    
+    func RemovestartupPin_pas(){
+        self.progressHud?.show(animated: true)
+        self.progressHud?.label.text = "Removing Security"
+        let key = "public"
+        let finalkey = key as NSString
+        let finalkeyData = finalkey.data(using: String.Encoding.utf8.rawValue)!
+        let pass = self.pin
+        let finalpass = pass as NSString
+        let finalkeypassData = finalpass.data(using: String.Encoding.utf8.rawValue)!
+        
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let this = self else { return }
+            
+            do {
+                try SingleInstance.shared.wallet?.changePublicPassphrase(finalkeypassData, newPass: finalkeyData)
+                DispatchQueue.main.async {
+                    this.progressHud?.hide(animated: true)
+                    
+                    print("passSet")
+                    UserDefaults.standard.set(false, forKey: "secure_wallet")
+                    UserDefaults.standard.synchronize()
+                    self?.dismissView()
+                    
+                }
+                return
+            } catch let error {
+                DispatchQueue.main.async {
+                    this.progressHud?.hide(animated: true)
+                    this.showError(error: error)
+                }
+            }
+        }
+    }
+    func createMenu(){
+        createMainWindow()
     }
     
     func showError(error:Error){

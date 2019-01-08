@@ -105,6 +105,7 @@
 		DDB89421202F93B3002F85EE /* OverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB89420202F93B3002F85EE /* OverviewViewController.swift */; };
 		DDB89427202F955F002F85EE /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB89426202F955F002F85EE /* UIView.swift */; };
 		DDB89429202F95AC002F85EE /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB89428202F95AC002F85EE /* UIApplication.swift */; };
+		DDBCD82621E208D9009A0452 /* StartUpPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBCD82521E208D8009A0452 /* StartUpPasswordViewController.swift */; };
 		DDE90C8A2162CCB20031CED7 /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE90C892162CCB20031CED7 /* HelpViewController.swift */; };
 		DDFD8AF72181B5CB0018DE50 /* splashLoader.gif in Resources */ = {isa = PBXBuildFile; fileRef = DDFD8AF62181B5C90018DE50 /* splashLoader.gif */; };
 /* End PBXBuildFile section */
@@ -242,6 +243,7 @@
 		DDB89420202F93B3002F85EE /* OverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewViewController.swift; sourceTree = "<group>"; };
 		DDB89426202F955F002F85EE /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		DDB89428202F95AC002F85EE /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
+		DDBCD82521E208D8009A0452 /* StartUpPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartUpPasswordViewController.swift; sourceTree = "<group>"; };
 		DDE90C892162CCB20031CED7 /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		DDFD8AF62181B5C90018DE50 /* splashLoader.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = splashLoader.gif; sourceTree = "<group>"; };
 		E75324D536F1BD91575D0609 /* Pods_Decred_Wallet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Decred_Wallet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -435,6 +437,7 @@
 		DD4C89DC2038EEEF003FEA0C /* view_controller */ = {
 			isa = PBXGroup;
 			children = (
+				DDBCD82521E208D8009A0452 /* StartUpPasswordViewController.swift */,
 				281D545321B169D100F68803 /* Security */,
 				281D545121B157A600F68803 /* RecoverWalletViewController.swift */,
 				DD1D5C7D20AEDB15009789DD /* WalletLogViewController.swift */,
@@ -789,6 +792,7 @@
 				28EB91BB20FCFDA1007A0906 /* SeedCheckupViewController.swift in Sources */,
 				DDE90C8A2162CCB20031CED7 /* HelpViewController.swift in Sources */,
 				957F0AFF20B82F3200D3E8A9 /* Constants.swift in Sources */,
+				DDBCD82621E208D9009A0452 /* StartUpPasswordViewController.swift in Sources */,
 				DD976B0F21A5F949006E9410 /* DcrObservers.swift in Sources */,
 				281D545B21B169DE00F68803 /* PasswordSetupViewController.swift in Sources */,
 				286DA549210B0C7A00734259 /* Data.swift in Sources */,

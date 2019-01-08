@@ -6,11 +6,13 @@
 
 import Foundation
 import UIKit
-
-
+protocol StartUpPasswordProtocol {
+    var senders: String?{get set}
+}
 
 class SettingsController: UITableViewController  {
     
+   
     weak var delegate: LeftMenuProtocol?
     @IBOutlet weak var peer_cell: UIView!
     
@@ -22,7 +24,8 @@ class SettingsController: UITableViewController  {
     @IBOutlet weak var certificat_label: UILabel!
     @IBOutlet weak var network_mode_subtitle: UILabel!
     @IBOutlet weak var network_mode: UITableViewCell!
-  
+    @IBOutlet weak var Start_Pin_cell: UITableViewCell!
+    
     @IBOutlet weak var connect_peer_ip: UILabel!
     @IBOutlet weak var build: UILabel!
     @IBOutlet weak var version: UILabel!
@@ -32,6 +35,7 @@ class SettingsController: UITableViewController  {
     @IBOutlet weak var testnet_switch: UISwitch!
     @IBOutlet weak var spend_uncon_fund: UISwitch!
     @IBOutlet weak var incoming_notification_switch: UISwitch!
+    @IBOutlet weak var start_Pin: UISwitch!
     
     var isFromLoader = false
     
@@ -51,6 +55,7 @@ class SettingsController: UITableViewController  {
         server_ip?.text = UserDefaults.standard.string(forKey: "pref_server_ip") ?? ""
         
         let network_value = UserDefaults.standard.integer(forKey: "network_mode")
+        loadDate()
         if (network_value == 0){
             network_mode_subtitle?.text = "Simplified Payment Verification"
             self.certificate_cell.isUserInteractionEnabled = false
@@ -116,6 +121,7 @@ class SettingsController: UITableViewController  {
         
         let network_value = UserDefaults.standard.integer(forKey: "network_mode")
         version?.text = UserDefaults.standard.string(forKey: "app_version") ?? "Pre-release"
+        
         var compileDate:Date{
             let bundleName = Bundle.main.infoDictionary!["CFBundleName"] as? String ?? "Info.plist"
             if let infoPath = Bundle.main.path(forResource: bundleName, ofType: nil),
@@ -132,6 +138,7 @@ class SettingsController: UITableViewController  {
         connect_peer_ip?.text = UserDefaults.standard.string(forKey: "pref_peer_ip") ?? ""
         server_ip?.text = UserDefaults.standard.string(forKey: "pref_server_ip") ?? ""
         incoming_notification_switch?.setOn(UserDefaults.standard.bool(forKey: "pref_notification_switch"), animated: true)
+        start_Pin?.setOn(UserDefaults.standard.bool(forKey: "secure_wallet") , animated: false)
         
         if (network_value == 0){
             network_mode_subtitle?.text = "Simplified Payment Verification (SPV)"
@@ -157,7 +164,43 @@ class SettingsController: UITableViewController  {
         }
         
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "SetstartupPin_pas"{
+            var startUp = segue.destination as?
+            StartUpPasswordProtocol
+            print("preparing segue")
+            startUp?.senders = "settings"
+            print("just sent   \(startUp?.senders ?? "nothing")")
+            
+            
+        }
+    }
 
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 1{
+            if indexPath.row == 0{
+                if(start_Pin.isOn){
+                    if(UserDefaults.standard.string(forKey: "securitytype") == "PASSWORD"){
+                let sendVC = storyboard!.instantiateViewController(withIdentifier: "StartUpPasswordViewController") as! StartUpPasswordViewController
+                sendVC.senders = "settings"
+                self.navigationController?.pushViewController(sendVC, animated: true)
+                
+            }
+                    else{
+                        let sendVC = storyboard!.instantiateViewController(withIdentifier: "PinSetupViewController") as! PinSetupViewController
+                        sendVC.senders = "settings"
+                        self.navigationController?.pushViewController(sendVC, animated: true)
+                        print("load PIN")
+                    }
+                }
+                else{
+                    self.performSegue(withIdentifier: "SetstartupPin_pas", sender: self)
+                }
+            }
+            
+        }
+    }
     
   /*  @IBAction func didTouchToMain(_ sender: UIButton) {
         delegate?.changeViewController(LeftMenu.overview)
