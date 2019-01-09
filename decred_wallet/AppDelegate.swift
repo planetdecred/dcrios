@@ -6,12 +6,18 @@
 import CoreData
 import Mobilewallet
 import SlideMenuControllerSwift
+import UserNotifications
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     var window: UIWindow?
     var navigation: UINavigationController?
     fileprivate let loadThread = DispatchQueue.self
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping
+        (UNNotificationPresentationOptions) -> Void){
+        completionHandler([.alert])
+    }
 
     fileprivate func walletSetupView() {
          DispatchQueue.main.async{
@@ -51,10 +57,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     fileprivate func populateFirstScreen() {
         if isWalletCreated() {
-            SingleInstance.shared.wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/", "bdb")
+            SingleInstance.shared.wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/", "bdb", "testnet3")
             SingleInstance.shared.wallet?.initLoader()
+            let key = "public"
+            let finalkey = key as NSString
+            let finalkeyData = finalkey.data(using: String.Encoding.utf8.rawValue)!
             do {
-                ((try SingleInstance.shared.wallet?.open()))
+                ((try SingleInstance.shared.wallet?.open(finalkeyData)))
             } catch let error {
                 print(error)
             }
@@ -63,7 +72,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             
         } else {
-            SingleInstance.shared.wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/", "bdb")
+            SingleInstance.shared.wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/", "bdb", "testnet3")
             SingleInstance.shared.wallet?.initLoader()
            DispatchQueue.global(qos: .default).async {
             self.walletSetupView()
@@ -95,6 +104,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         DispatchQueue.main.async {
+            UNUserNotificationCenter.current().delegate = self
+            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge , .sound]){ (granted, error) in
+                print("granted: \(granted)")
+                
+            }
              self.showAnimatedStartScreen()
         }
         UserDefaults.standard.setValuesForKeys(["pref_user_name": "dcrwallet",
@@ -141,9 +155,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     func applicationDidReceiveMemoryWarning(_ application: UIApplication) {
-        if(SingleInstance.shared.wallet != nil){
-            SingleInstance.shared.wallet?.runGC()
-        }
     }
 }
 

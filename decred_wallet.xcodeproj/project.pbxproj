@@ -75,7 +75,7 @@
 		B853136BC96255F028D8CB64 /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD1BD0208F6C9A0051F58F /* Pods_Decred_Wallet.framework */; };
 		DD0B356E218930B7000830C4 /* AddAcountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B356D218930B7000830C4 /* AddAcountViewController.swift */; };
 		DD0C493E208A160900986C6B /* WalletSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C493D208A160900986C6B /* WalletSetupViewController.swift */; };
-		DD15867721A803D40086DB44 /* Mobilewallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD15867621A803D40086DB44 /* Mobilewallet.framework */; };
+		DD1A0C7921B33CA900EA03B6 /* Mobilewallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD1A0C7821B33CA900EA03B6 /* Mobilewallet.framework */; };
 		DD1D5C7C20AED828009789DD /* certificateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1D5C7B20AED824009789DD /* certificateViewController.swift */; };
 		DD1D5C7E20AEDB15009789DD /* WalletLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1D5C7D20AEDB15009789DD /* WalletLogViewController.swift */; };
 		DD1D5C8020AEDB2B009789DD /* NodeLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1D5C7F20AEDB2B009789DD /* NodeLogViewController.swift */; };
@@ -94,6 +94,7 @@
 		DDA3E27520292EF900C83D18 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DDA3E27420292EF900C83D18 /* Assets.xcassets */; };
 		DDA3E27820292EF900C83D18 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDA3E27620292EF900C83D18 /* LaunchScreen.storyboard */; };
 		DDA3E28320292EF900C83D18 /* Decred_WalletTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA3E28220292EF900C83D18 /* Decred_WalletTests.swift */; };
+		DDA66BB721BFFFA800987248 /* SecurityMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA66BB621BFFFA800987248 /* SecurityMenuViewController.swift */; };
 		DDB89402202F771F002F85EE /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB89401202F771F002F85EE /* UIViewController.swift */; };
 		DDB89404202F7E01002F85EE /* SendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB89403202F7E01002F85EE /* SendViewController.swift */; };
 		DDB89409202F824A002F85EE /* ReceiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB89408202F824A002F85EE /* ReceiveViewController.swift */; };
@@ -210,7 +211,7 @@
 		A1A97C56BC75512DA55A8A70 /* Pods-Decred WalletTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred WalletTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Decred WalletTests/Pods-Decred WalletTests.release.xcconfig"; sourceTree = "<group>"; };
 		DD0B356D218930B7000830C4 /* AddAcountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddAcountViewController.swift; path = view_controller/AddAcountViewController.swift; sourceTree = "<group>"; };
 		DD0C493D208A160900986C6B /* WalletSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSetupViewController.swift; sourceTree = "<group>"; };
-		DD15867621A803D40086DB44 /* Mobilewallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mobilewallet.framework; sourceTree = "<group>"; };
+		DD1A0C7821B33CA900EA03B6 /* Mobilewallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mobilewallet.framework; sourceTree = "<group>"; };
 		DD1D5C7B20AED824009789DD /* certificateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = certificateViewController.swift; sourceTree = "<group>"; };
 		DD1D5C7D20AEDB15009789DD /* WalletLogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletLogViewController.swift; sourceTree = "<group>"; };
 		DD1D5C7F20AEDB2B009789DD /* NodeLogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeLogViewController.swift; sourceTree = "<group>"; };
@@ -235,6 +236,7 @@
 		DDA3E27E20292EF900C83D18 /* Decred WalletTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Decred WalletTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDA3E28220292EF900C83D18 /* Decred_WalletTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decred_WalletTests.swift; sourceTree = "<group>"; };
 		DDA3E28420292EF900C83D18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DDA66BB621BFFFA800987248 /* SecurityMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SecurityMenuViewController.swift; path = decred_wallet/SecurityMenuViewController.swift; sourceTree = SOURCE_ROOT; };
 		DDB89401202F771F002F85EE /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		DDB89403202F7E01002F85EE /* SendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendViewController.swift; sourceTree = "<group>"; };
 		DDB89408202F824A002F85EE /* ReceiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveViewController.swift; sourceTree = "<group>"; };
@@ -261,7 +263,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1E3D73D7EA02D2D2D3CD052C /* Pods_Decred_Wallet.framework in Frameworks */,
-				DD15867721A803D40086DB44 /* Mobilewallet.framework in Frameworks */,
+				DD1A0C7921B33CA900EA03B6 /* Mobilewallet.framework in Frameworks */,
 				B853136BC96255F028D8CB64 /* Pods_Decred_Wallet.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -352,7 +354,7 @@
 		5300E0A95A9FA022A08F903E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DD15867621A803D40086DB44 /* Mobilewallet.framework */,
+				DD1A0C7821B33CA900EA03B6 /* Mobilewallet.framework */,
 				28FD1BD0208F6C9A0051F58F /* Pods_Decred_Wallet.framework */,
 				28FD1BC5208E667F0051F58F /* Pods_Decred_Wallet.framework */,
 				28FD1BC1208E659A0051F58F /* Pods_Decred_Wallet.framework */,
@@ -451,6 +453,7 @@
 				281D545121B157A600F68803 /* RecoverWalletViewController.swift */,
 				DD1D5C7D20AEDB15009789DD /* WalletLogViewController.swift */,
 				DD1D5C7F20AEDB2B009789DD /* NodeLogViewController.swift */,
+				DDA66BB621BFFFA800987248 /* SecurityMenuViewController.swift */,
 				28EB91B920FCFDA0007A0906 /* SeedCheckupViewController.swift */,
 				28EB91B720FCFD8F007A0906 /* GeneratedSeedDisplayViewController.swift */,
 				28EB91BA20FCFDA1007A0906 /* CreatePasswordViewController.swift */,
@@ -795,6 +798,7 @@
 				DDB89421202F93B3002F85EE /* OverviewViewController.swift in Sources */,
 				2883CA702099D40F0053D9BB /* DropDownSearchField.swift in Sources */,
 				95473E6E20E39E7A0023F50A /* TransactiontOutputDetailsCell.swift in Sources */,
+				DDA66BB721BFFFA800987248 /* SecurityMenuViewController.swift in Sources */,
 				DDB89429202F95AC002F85EE /* UIApplication.swift in Sources */,
 				DD24AFA420A6ED70009EC84F /* NetworkModeTableViewController.swift in Sources */,
 				281D545821B169DE00F68803 /* SecurityViewController.swift in Sources */,
@@ -990,7 +994,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = KQ46EWSK84;
+				DEVELOPMENT_TEAM = LYZ95J7356;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1002,7 +1006,7 @@
 				INFOPLIST_FILE = decred_wallet/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ensoreus.DecredWallet;
+				PRODUCT_BUNDLE_IDENTIFIER = com.macsleven.DecredWallet;
 				PRODUCT_NAME = DecredWallet;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1023,7 +1027,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = KQ46EWSK84;
+				DEVELOPMENT_TEAM = LYZ95J7356;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1035,7 +1039,7 @@
 				INFOPLIST_FILE = decred_wallet/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ensoreus.DecredWallet;
+				PRODUCT_BUNDLE_IDENTIFIER = com.macsleven.DecredWallet;
 				PRODUCT_NAME = DecredWallet;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

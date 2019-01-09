@@ -10,10 +10,11 @@ import MBProgressHUD
 
 enum LeftMenu: Int {
     case overview = 0
-    case account
+    case history
     case send
     case receive
-    case history
+    case account
+    case security
     case settings
     case help
 
@@ -28,13 +29,20 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
 
     var progressHud = MBProgressHUD()
     var scanning = false
+    var sync = false
+    var seconds = 60
+    var timer = Timer()
+    var isTimerRunning = false
     @IBOutlet weak var blockInfo: UILabel!
     @IBOutlet weak var connectionStatus: UILabel!
     @IBOutlet weak var rescanHeight: UILabel!
     @IBOutlet weak var bestblock: UILabel!
     @IBOutlet weak var chainStatus: UILabel!
     @IBOutlet weak var tableView: UITableView!
-    var menus = ["Overview", "Account", "Send", "Receive","History", "Settings","Help"]
+    var menus = ["Overview","History", "Send", "Receive", "Account","Security", "Settings","Help"]
+
+    @IBOutlet weak var LoadingImg: UIImageView!
+   
     var mainViewController: UIViewController!
     var accountViewController: UIViewController!
     var sendViewController: UIViewController!
@@ -42,6 +50,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
     var settingsViewController: UIViewController!
     var historyViewController: UIViewController!
     var helpViewController:  UIViewController!
+    var securityMenuViewController:UIViewController!
     var imageHeaderView: ImageHeaderView!
     var selectedIndex: Int!
     var storyboard2: UIStoryboard!
@@ -81,29 +90,35 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         super.viewDidAppear(true)// 1
         print("am running")
         self.scanning = UserDefaults.standard.bool(forKey: "walletScanning")
-        let sync = UserDefaults.standard.bool(forKey: "synced")
-        
-        if(sync == true){
-             self.loop()
+        self.sync = UserDefaults.standard.bool(forKey: "synced")
+        self.runTimer()
+      /*  if(sync == true){
+             self.runTimer()
         }
         else{
             self.connectionStatus.text = "Not Synced"
-        }
+        }*/
         
+    }
+    func runTimer() {
+        self.timer = Timer.scheduledTimer(timeInterval: 1, target: self,   selector: (#selector(self.updateTimer)), userInfo: nil, repeats: true)
+    }
+     @objc func updateTimer() {
+        self.loop()
     }
     
     func loop() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now()) { [weak self] in
             guard let this = self else { return }
             let bestblck = SingleInstance.shared.wallet?.getBestBlock()
             let bestblocktemp: Int64 = Int64(Int(bestblck!))
-            if this.scanning == true {
+           /* if this.scanning == true {
                 this.chainStatus.text = ""
                 this.blockInfo.text = ""
                 this.connectionStatus.text = "Not Synced"
                 this.bestblock.text = String(bestblck!)
                 return
-            }
+            }*/
             let lastblocktime = SingleInstance.shared.wallet?.getBestBlockTimeStamp()
             let currentTime = NSDate().timeIntervalSince1970
             let estimatedBlocks = ((Int64(currentTime) - lastblocktime!) / 120) + bestblocktemp
@@ -111,15 +126,19 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
                 this.bestblock.text = String(bestblocktemp).appending(" of ").appending(String(estimatedBlocks))
                 this.chainStatus.text = ""
                 this.blockInfo.text = "Fetched"
-                this.statusBackgroud.backgroundColor = UIColor(hex: "#2DD8A3")
+                this.statusBackgroud.backgroundColor = UIColor(hex: "#FFC84E")
                 this.connectionStatus.text = "Fetching Headers..."
             }
             else {
-                this.statusBackgroud.backgroundColor = UIColor(hex: "#FFC84E")
-                this.connectionStatus.text = "Rescanning in progress..."
+                if((self?.sync)!){
+                let peer = UserDefaults.standard.integer(forKey: "peercount")
+                this.statusBackgroud.backgroundColor = UIColor(hex: "#2DD8A3")
+                this.connectionStatus.text = "Synced with \(peer) peer(s)"
                 this.bestblock.text = String(bestblocktemp)
                 this.blockInfo.text = "Latest Block"
                 this.chainStatus.text = this.calculateTime(millis: Int64(NSDate().timeIntervalSince1970) - lastblocktime!)
+                    
+                }
             }
         }
     }
@@ -238,7 +257,21 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
                 self.sendViewController = nil
             }
             
+        case .security:
+        let SecurityViewController = self.storyboard2?.instantiateViewController(withIdentifier: "SecurityMenuViewController") as! SecurityMenuViewController
+        self.securityMenuViewController = UINavigationController(rootViewController: SecurityViewController)
+        self.slideMenuController()?.changeMainViewController(self.securityMenuViewController, close: true)
+        if(self.accountViewController != nil){
+            self.accountViewController.dismiss(animated: true, completion: nil)
+            self.accountViewController = nil
+            
         }
+        if(self.sendViewController != nil){
+            self.sendViewController.dismiss(animated: true, completion: nil)
+            self.sendViewController = nil
+            }
+            
+            }
         }
     }
 }
@@ -247,7 +280,7 @@ extension LeftViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if let menu = LeftMenu(rawValue: indexPath.row) {
             switch menu {
-            case .overview, .account, .send, .receive, .history, .settings, .help:
+            case .overview, .history, .send, .receive, .account, .security, .settings, .help:
                 return MenuCell.height()
             }
         }
@@ -257,7 +290,7 @@ extension LeftViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let menu = LeftMenu(rawValue: indexPath.row) {
             self.selectedIndex = indexPath.row
-            if(self.selectedIndex == 5){
+            if(self.selectedIndex == 6){
                 self.selectedIndex = 0
             }
             self.tableView.reloadData()
@@ -282,7 +315,7 @@ extension LeftViewController : UITableViewDataSource {
         
         if let menu = LeftMenu(rawValue: indexPath.row) {
             switch menu {
-            case .overview, .account, .send, .receive, .history, .settings, .help:
+            case .overview, .history, .send, .receive, .account, .security, .settings, .help:
                 
                 
                 tableView.register(UINib(nibName: MenuCell.identifier, bundle: nil), forCellReuseIdentifier: MenuCell.identifier)
