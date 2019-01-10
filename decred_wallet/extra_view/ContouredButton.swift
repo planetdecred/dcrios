@@ -25,7 +25,7 @@ import UIKit
         let lineThick = isSelected ? borderThick + 1 : borderThick
         let corner = isSelected ? cornerRadius + 1 : cornerRadius
         context!.setLineWidth(lineThick)
-        context!.setFillColor(isSelected ? selectionDependentStrokeColor!.cgColor :backgroundFillColor.cgColor)
+        context!.setFillColor(isSelected ? selectionDependentStrokeColor!.cgColor : backgroundFillColor.cgColor)
         let path = UIBezierPath(roundedRect: rect.insetBy(dx: lineThick / 2, dy: lineThick / 2), cornerRadius: corner)
         context?.addPath(path.cgPath)
         context!.drawPath(using: CGPathDrawingMode.fillStroke)
