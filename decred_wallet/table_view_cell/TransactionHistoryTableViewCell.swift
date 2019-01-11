@@ -73,9 +73,10 @@ class TransactionHistoryTableViewCell: BaseTableViewCell {
             dateformater.pmSymbol = "PM"
             dateformater.string(from: Date2 as Date)
             self.txtDate.text = dateformater.string(from: Date2 as Date)
+            let tnt = Decimal(data.trans.Amount / 100000000.00) as NSDecimalNumber
             
             if(data.trans.Direction == 0){
-                self.txtAmount.attributedText = getAttributedString(str: "-".appending(Decimal(data.trans.Amount / 100000000.00).description), siz: 12.0)
+                self.txtAmount.attributedText = getAttributedString(str: "-".appending(tnt.round(8).description), siz: 12.0)
                 print("deduction")
                 print(data.trans.Amount)
                 let num = Decimal(data.trans.Amount) / 100000000
@@ -83,14 +84,14 @@ class TransactionHistoryTableViewCell: BaseTableViewCell {
                 self.trImage?.image = UIImage(named: "debit")
             }
             else if(data.trans.Direction == 1){
-                self.txtAmount.attributedText = getAttributedString(str: Decimal(data.trans.Amount / 100000000.00).description, siz: 12.0)
+                self.txtAmount.attributedText = getAttributedString(str: tnt.round(8).description, siz: 12.0)
                 self.trImage?.image = UIImage(named: "credit")
                 print(data.trans.Amount)
                 let num = Decimal(data.trans.Amount) / 100000000
                 print(Double(num.description)!)
             }
             else if(data.trans.Direction == 2){
-                self.txtAmount.attributedText = getAttributedString(str: (data.trans.Amount / 100000000.00).description, siz: 12.0)
+                self.txtAmount.attributedText = getAttributedString(str: tnt.round(8).description, siz: 12.0)
                 self.trImage?.image = UIImage(named: "account")
                 print(data.trans.Amount)
                 let num = Decimal(data.trans.Amount) / 100000000
