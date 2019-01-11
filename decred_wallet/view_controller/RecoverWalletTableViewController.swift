@@ -67,8 +67,7 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
         let cell = tableView.dequeueReusableCell(withIdentifier: "seedWordCell", for: indexPath) as? RecoveryWalletSeedWordsCell
         cell?.setup(wordNum: indexPath.row, word: seedWords.count <= indexPath.row ? "" : seedWords[indexPath.row] ?? "", seed: seedtmp, placeholder: vDropDownPlaceholder)
         cell?.tfSeedWord.isEnabled = (indexPath.row == 0 || textFields.count < indexPath.row)
-        //let cellRect = cell?.frame
-        //cell?.tfSeedWord.vertPosition = (cellRect?.origin.y)! + (cellRect?.size.height)!
+
         if indexPath.row > textFields.count {
             textFields[indexPath.row] = cell?.tfSeedWord
         } else {
@@ -97,8 +96,11 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
 
     private func dropdownPosition(for indexPath:IndexPath) -> CGFloat{
         let scrollOffset = self.tableView.contentOffset
+        print("conent offset:\(scrollOffset)")
+        
         let nextCellPos = self.tableView.rectForRow(at: indexPath)
         let dropDownHeight = vDropDownPlaceholder.frame.size.height
+        
         let res = nextCellPos.origin.y - scrollOffset.y
         if indexPath.row < 4{
             return nextCellPos.origin.y + nextCellPos.size.height + 10
