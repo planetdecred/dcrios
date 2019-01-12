@@ -8,6 +8,7 @@ import Foundation
 import UIKit
 protocol StartUpPasswordProtocol {
     var senders: String?{get set}
+    var pass_pinToVerify:String?{get set}
 }
 
 class SettingsController: UITableViewController  {
@@ -179,7 +180,7 @@ class SettingsController: UITableViewController  {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 1{
-            if indexPath.row == 0{
+            if indexPath.row == 1{
                 if(start_Pin.isOn){
                     if(UserDefaults.standard.string(forKey: "securitytype") == "PASSWORD"){
                 let sendVC = storyboard!.instantiateViewController(withIdentifier: "StartUpPasswordViewController") as! StartUpPasswordViewController
@@ -196,6 +197,21 @@ class SettingsController: UITableViewController  {
                 }
                 else{
                     self.performSegue(withIdentifier: "SetstartupPin_pas", sender: self)
+                }
+                
+            }
+            else if indexPath.row == 0{
+                if(UserDefaults.standard.string(forKey: "spendingSecureType") == "PASSWORD"){
+                    let sendVC = storyboard!.instantiateViewController(withIdentifier: "StartUpPasswordViewController") as! StartUpPasswordViewController
+                    sendVC.senders = "settingsChangeSpending"
+                    self.navigationController?.pushViewController(sendVC, animated: true)
+                    
+                }
+                else{
+                    let sendVC = storyboard!.instantiateViewController(withIdentifier: "PinSetupViewController") as! PinSetupViewController
+                    sendVC.senders = "settingsChangeSpending"
+                    self.navigationController?.pushViewController(sendVC, animated: true)
+                    print("load PIN")
                 }
             }
             

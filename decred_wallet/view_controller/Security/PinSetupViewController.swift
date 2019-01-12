@@ -11,6 +11,8 @@ import MBProgressHUD
 import Mobilewallet
 
 class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPasswordProtocol {
+    var pass_pinToVerify: String?
+    
     var senders: String?
     
     @IBOutlet weak var headerText: UILabel!
@@ -102,6 +104,9 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
                 SetstartupPin_pas()
             }
         }
+        else if senders == "settingsChangeSpending"{
+            
+        }
         else{
             createWallet()
         }
@@ -143,8 +148,7 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
                 try SingleInstance.shared.wallet?.createWallet(pass, seedMnemonic: seed)
                 DispatchQueue.main.async {
                     this.progressHud?.hide(animated: true)
-                    UserDefaults.standard.set(pass, forKey: "password")
-                    print("wallet created")
+                    UserDefaults.standard.set("PASSWORD", forKey: "spendingSecureType")
                     createMainWindow()
                     this.dismiss(animated: true, completion: nil)
                 }

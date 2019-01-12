@@ -10,9 +10,10 @@ import UIKit
 
 class SecurityViewController: UIViewController, SeedCheckupProtocol,StartUpPasswordProtocol {
     var senders: String?
-    
+    var pass_pinToVerify: String?
     var seedToVerify: String?
     var pager: UITabBarController?
+    
     
     @IBOutlet weak var btnPin: UIButton!
     @IBOutlet weak var btnPassword: UIButton!
@@ -44,6 +45,7 @@ class SecurityViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
                 vc2?.seedToVerify = seedToVerify
             }
             else{
+                
                 print("startup check")
                 pager = segue.destination as? UITabBarController
                 pager?.tabBar.isHidden = true
@@ -52,6 +54,10 @@ class SecurityViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
                 print("on pager received \(senders  ??  "nothing too")")
                 startChecked2?.senders = senders
                 startChecked1?.senders = senders
+                if senders == "settingsChangeSpending"{
+                    startChecked1?.pass_pinToVerify = pass_pinToVerify
+                    startChecked2?.pass_pinToVerify = pass_pinToVerify
+                }
             }
             
         }
