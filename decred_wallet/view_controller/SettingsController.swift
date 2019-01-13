@@ -209,7 +209,7 @@ class SettingsController: UITableViewController  {
                 }
                 else{
                     let sendVC = storyboard!.instantiateViewController(withIdentifier: "PinSetupViewController") as! PinSetupViewController
-                    sendVC.senders = "settingsChangeSpending"
+                    sendVC.senders = "settingsChangeSpendingPin"
                     self.navigationController?.pushViewController(sendVC, animated: true)
                     print("load PIN")
                 }

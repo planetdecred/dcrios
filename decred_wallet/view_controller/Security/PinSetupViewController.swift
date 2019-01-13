@@ -105,6 +105,16 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
             }
         }
         else if senders == "settingsChangeSpending"{
+            print("proccessing settingsChangeSpending")
+            ChangeSpendingPIN()
+            
+        }
+        else if senders == "settingsChangeSpendingPin"{
+            let sendVC = storyboard!.instantiateViewController(withIdentifier: "SecurityViewController") as! SecurityViewController
+            sendVC.senders = "settingsChangeSpending"
+            sendVC.pass_pinToVerify = self.pin
+            self.navigationController?.pushViewController(sendVC, animated: true)
+            print("processing settings")
             
         }
         else{
@@ -127,7 +137,13 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
                 headerText.text = "Create Startup PIN"
                 
             }
+        }else if senders == "settingsChangeSpending"{
+            headerText.text = "Change Spending PIN"
         }
+        else if senders == "settingsChangeSpendingPin"{
+            headerText.text = "Enter Spending PIN"
+        }
+            
         else{
             headerText.text = "Create Spending PIN"
         }
@@ -198,7 +214,7 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
         }
     }
     func dismissView() {
-        self.navigationController?.popViewController(animated: true)
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
     func pass_PIn_Unlock(){
@@ -217,6 +233,36 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
                 DispatchQueue.main.async {
                     this.progressHud?.hide(animated: true)
                     self!.createMenu()
+                }
+                return
+            } catch let error {
+                DispatchQueue.main.async {
+                    this.progressHud?.hide(animated: true)
+                    this.showError(error: error)
+                }
+            }
+        }
+    }
+    func ChangeSpendingPIN(){
+        self.progressHud?.show(animated: true)
+        self.progressHud?.label.text = "Changing spending PIN..."
+        let key = pass_pinToVerify
+        let finalkey = key! as NSString
+        let finalkeyData = finalkey.data(using: String.Encoding.utf8.rawValue)!
+        let pass = self.pin
+        
+        let finalpass = pass as NSString
+        let finalkeypassData = finalpass.data(using: String.Encoding.utf8.rawValue)!
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let this = self else { return }
+            
+            do {
+                try SingleInstance.shared.wallet?.changePrivatePassphrase(finalkeyData, newPass: finalkeypassData)
+                DispatchQueue.main.async {
+                    this.progressHud?.hide(animated: true)
+                    UserDefaults.standard.setValue("PIN", forKey: "spendingSecureType")
+                    UserDefaults.standard.synchronize()
+                    self?.dismissView()
                 }
                 return
             } catch let error {
