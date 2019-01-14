@@ -102,11 +102,11 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
         let dropDownHeight = vDropDownPlaceholder.frame.size.height
         
         let res = nextCellPos.origin.y - scrollOffset.y
-        if indexPath.row < 4{
-            return nextCellPos.origin.y + nextCellPos.size.height + 10
-        }else if indexPath.row > 29 {
+        if indexPath.row < 3{
+            return nextCellPos.origin.y + nextCellPos.size.height + 20
+        }else if indexPath.row > 28 {
             print("flipped res:\(res)")
-            return res - dropDownHeight + nextCellPos.size.height
+            return res - dropDownHeight + nextCellPos.size.height * 3
         }else{
             print("res:\(res)")
             return res
