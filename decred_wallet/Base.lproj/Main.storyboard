@@ -2594,7 +2594,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wg8-Gu-1h9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1734" y="1471"/>
+            <point key="canvasLocation" x="1691" y="814"/>
         </scene>
         <!--Receive View Controller-->
         <scene sceneID="adq-KJ-u5Z">
@@ -3782,7 +3782,7 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="BtnOkAction:" destination="4aD-n4-v61" eventType="touchUpInside" id="fP5-CS-RyW"/>
+                                    <action selector="OKAction:" destination="4aD-n4-v61" eventType="touchUpInside" id="aBW-Qz-PkZ"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -3808,16 +3808,14 @@
                         <viewLayoutGuide key="safeArea" id="oxY-4Z-2ik"/>
                     </view>
                     <connections>
-                        <outlet property="BtnOk" destination="e5p-5F-xdt" id="jfr-g7-ArU"/>
-                        <outlet property="HeaderText" destination="j1A-Rr-dtQ" id="A6K-bB-dLL"/>
-                        <outlet property="SubHeaderText" destination="Z82-TQ-Th8" id="b5K-vo-txs"/>
-                        <outlet property="passwordText" destination="tDz-Wp-lDV" id="5ol-kj-iyO"/>
-                        <segue destination="ciV-Nm-crU" kind="show" identifier="ChangePassSeg" id="sHU-6p-gg9"/>
+                        <outlet property="headerText" destination="j1A-Rr-dtQ" id="4oo-Wo-eMq"/>
+                        <outlet property="passwordText" destination="tDz-Wp-lDV" id="bBk-YD-XG6"/>
+                        <segue destination="ciV-Nm-crU" kind="show" identifier="ChangePassSeg" id="eOH-Z5-VAf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mJC-yu-dE5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="823" y="1591"/>
+            <point key="canvasLocation" x="1204" y="1510"/>
         </scene>
         <!--Server Set Table View Controller-->
         <scene sceneID="dWF-N1-sg0">
@@ -4291,6 +4289,6 @@
         <image name="sync" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="sHU-6p-gg9"/>
+        <segue reference="eOH-Z5-VAf"/>
     </inferredMetricsTieBreakers>
 </document>

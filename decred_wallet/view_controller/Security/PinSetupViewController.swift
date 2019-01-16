@@ -164,7 +164,9 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
                 try SingleInstance.shared.wallet?.createWallet(pass, seedMnemonic: seed)
                 DispatchQueue.main.async {
                     this.progressHud?.hide(animated: true)
-                    UserDefaults.standard.set("PASSWORD", forKey: "spendingSecureType")
+                     UserDefaults.standard.set(pass, forKey: "password")
+                    UserDefaults.standard.set("PIN", forKey: "spendingSecureType")
+                    UserDefaults.standard.synchronize()
                     createMainWindow()
                     this.dismiss(animated: true, completion: nil)
                 }

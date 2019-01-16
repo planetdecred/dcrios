@@ -44,7 +44,7 @@ class PasswordSetupViewController: UIViewController, SeedCheckupProtocol,UITextF
 
     func onEncrypt() {
         self.progressHud?.show(animated: true)
-        self.progressHud?.label.text = "creating wallet..."
+        self.progressHud?.label.text = "Creating wallet..."
         let seed = self.seedToVerify!
         let pass = self.tfPassword!.text
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
