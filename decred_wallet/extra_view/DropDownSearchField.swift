@@ -17,6 +17,7 @@ protocol DropDownResultsListProtocol : UITableViewDataSource, UITableViewDelegat
 protocol SearchDataSourceProtocol: class {
     var itemsToSearch:[String]?{get set}
     var dropDownListPlaceholder: UIView? {get set}
+    var onTextChanged:(()->Void)? {get set}
     func clean()
 }
 
@@ -57,7 +58,7 @@ class DropDownListDataSource: NSObject,  DropDownResultsListProtocol {
 }
 
 class DropDownSearchField: UITextField, UITextFieldDelegate, SearchDataSourceProtocol {
-    
+    var onTextChanged: (() -> Void)?
     var dropDownListPlaceholder: UIView?
     var itemsToSearch: [String]?
     private var dropDownTable: UITableView?
@@ -120,6 +121,7 @@ class DropDownSearchField: UITextField, UITextFieldDelegate, SearchDataSourcePro
     func textFieldDidBeginEditing(_ textField: UITextField) {
         dropDownListPlaceholder?.isHidden = false
         dropDownListPlaceholder?.addSubview(dropDownTable!)
+        onTextChanged?()
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
@@ -132,6 +134,7 @@ class DropDownSearchField: UITextField, UITextFieldDelegate, SearchDataSourcePro
             showDropDown()
         }
         dropDownTable?.reloadData()
+        
     }
     
     private func updateSearchResult(with text: String){

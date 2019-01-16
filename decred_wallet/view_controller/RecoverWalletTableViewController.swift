@@ -45,7 +45,8 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
         let notificationInfo = notification.userInfo
         let keyboardFrame = (notificationInfo?[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         let f = tableView.frame
-        tableView.frame = CGRect(x: f.origin.x, y: f.origin.y, width: f.size.width, height: f.size.height - keyboardFrame.size.height + (tableView.tableHeaderView?.frame.size.height)! )
+        let screenHeight = UIScreen.main.bounds.height - 100
+        tableView.frame = CGRect(x: f.origin.x, y: f.origin.y, width: f.size.width, height: screenHeight - keyboardFrame.size.height + (tableView.tableHeaderView?.frame.size.height)! )
         
     }
     
@@ -74,6 +75,10 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
             textFields.append(cell?.tfSeedWord)
         }
         
+        cell?.onTextChanged = {
+            cell?.updatePlaceholder(vertPosition:  Int(self.dropdownPosition(for: indexPath)))
+        }
+        
         cell?.onPickUpSeed = {(index, pickedSeedWord) in
             cell?.tfSeedWord.text = pickedSeedWord
             self.seedWords.append(pickedSeedWord)
@@ -86,7 +91,7 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
                 next?.tfSeedWord.isEnabled = true
                 next?.tfSeedWord.becomeFirstResponder()
                 tableView.scrollToRow(at: nextIndexPath, at: .middle, animated: true)
-                next?.updatePlaceholder(vertPosition: Int(self.dropdownPosition(for: nextIndexPath)))
+                //next?.updatePlaceholder(vertPosition: Int(self.dropdownPosition(for: nextIndexPath)))
             }else{
                 cell?.tfSeedWord.resignFirstResponder()
             }
@@ -101,16 +106,20 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
         let nextCellPos = self.tableView.rectForRow(at: indexPath)
         let dropDownHeight = vDropDownPlaceholder.frame.size.height
         
-        let res = nextCellPos.origin.y - scrollOffset.y
-        if indexPath.row < 3{
-            return nextCellPos.origin.y + nextCellPos.size.height + 20
-        }else if indexPath.row > 28 {
-            print("flipped res:\(res)")
-            return res - dropDownHeight + nextCellPos.size.height * 3
-        }else{
-            print("res:\(res)")
-            return res
-        }
+        let res = nextCellPos.origin.y
+        // + scrollOffset.y
+        print("height:\(nextCellPos.size.height) row:\(indexPath.row) prod:\(nextCellPos.size.height * CGFloat(indexPath.row)) scrollOffset:\(scrollOffset.y)")
+        
+        return nextCellPos.size.height * CGFloat(indexPath.row) - CGFloat(fabsf(Float(scrollOffset.y)))  + 100
+//
+//        if indexPath.row < 3{
+//            return nextCellPos.size.height * CGFloat(indexPath.row) - CGFloat(fabsf(Float(scrollOffset.y)))  + 188
+//        }else if indexPath.row > 28 {
+//
+//            return nextCellPos.size.height * CGFloat(indexPath.row) - CGFloat(fabsf(Float(scrollOffset.y)))  + 100
+//        }else{
+//            return nextCellPos.size.height * CGFloat(indexPath.row) - CGFloat(fabsf(Float(scrollOffset.y)))  + 100
+//        }
     }
     
     private func checkupSeed(){

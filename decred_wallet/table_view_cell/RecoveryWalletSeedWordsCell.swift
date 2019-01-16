@@ -15,6 +15,14 @@ class RecoveryWalletSeedWordsCell: UITableViewCell, UITextFieldDelegate {
     
     var seed:[String]?
     var wordNum:Int = 0
+    var onTextChanged:(()->Void)?{
+        set{
+            tfSeedWord.onTextChanged = newValue
+        }
+        get{
+            return tfSeedWord.onTextChanged
+        }
+    }
     var onPickUpSeed:((Int, String)->Void)?{
         set{
             tfSeedWord.onSelect = newValue
@@ -34,6 +42,7 @@ class RecoveryWalletSeedWordsCell: UITableViewCell, UITextFieldDelegate {
         tfSeedWord.itemsToSearch = seed
         tfSeedWord.vertPosition = self.frame.origin.y
         tfSeedWord.setupDropdownTable()
+        tfSeedWord.onTextChanged = onTextChanged
     }
     
     
