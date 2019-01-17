@@ -106,20 +106,17 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
         let nextCellPos = self.tableView.rectForRow(at: indexPath)
         let dropDownHeight = vDropDownPlaceholder.frame.size.height
         
-        let res = nextCellPos.origin.y
+        //let res = nextCellPos.origin.y
         // + scrollOffset.y
-        print("height:\(nextCellPos.size.height) row:\(indexPath.row) prod:\(nextCellPos.size.height * CGFloat(indexPath.row)) scrollOffset:\(scrollOffset.y)")
-        
-        return nextCellPos.size.height * CGFloat(indexPath.row) - CGFloat(fabsf(Float(scrollOffset.y)))  + 100
-//
-//        if indexPath.row < 3{
-//            return nextCellPos.size.height * CGFloat(indexPath.row) - CGFloat(fabsf(Float(scrollOffset.y)))  + 188
-//        }else if indexPath.row > 28 {
-//
-//            return nextCellPos.size.height * CGFloat(indexPath.row) - CGFloat(fabsf(Float(scrollOffset.y)))  + 100
-//        }else{
-//            return nextCellPos.size.height * CGFloat(indexPath.row) - CGFloat(fabsf(Float(scrollOffset.y)))  + 100
-//        }
+        //print("height:\(nextCellPos.size.height) row:\(indexPath.row) prod:\(nextCellPos.size.height * CGFloat(indexPath.row)) scrollOffset:\(scrollOffset.y)")
+
+        if indexPath.row < 3{
+            return nextCellPos.size.height * CGFloat(indexPath.row) - CGFloat(fabsf(Float(scrollOffset.y)))  + 185
+        }else if indexPath.row > 28 {
+            return nextCellPos.size.height * CGFloat(indexPath.row) - CGFloat(fabsf(Float(scrollOffset.y)))  + 100 - dropDownHeight / 2 - 22
+        }else{
+            return nextCellPos.size.height * CGFloat(indexPath.row) - CGFloat(fabsf(Float(scrollOffset.y)))  + 100
+        }
     }
     
     private func checkupSeed(){
