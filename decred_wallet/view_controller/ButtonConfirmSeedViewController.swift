@@ -8,6 +8,11 @@
 
 import UIKit
 
+
+protocol SeedCheckupProtocol {
+    var seedToVerify: String?{get set}
+}
+
 class ButtonConfirmSeedViewController: UIViewController, SeedCheckupProtocol {
     var seedToVerify: String?
     var selectedSeedWords: [Int] = []
