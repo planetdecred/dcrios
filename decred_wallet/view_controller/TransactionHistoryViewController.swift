@@ -47,7 +47,8 @@ class TransactionHistoryViewController: UIViewController,MobilewalletGetTransact
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setNavigationBarItem()
+        //setNavigationBarItem()
+        self.setNavigationBarItem()
         navigationItem.title = "History"
     }
     override func viewDidAppear(_ animated: Bool) {
