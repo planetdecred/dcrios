@@ -87,7 +87,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         
     }
     override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)// 1
+        super.viewDidAppear(animated)// 1
         print("am running")
         self.scanning = UserDefaults.standard.bool(forKey: "walletScanning")
         self.sync = UserDefaults.standard.bool(forKey: "synced")

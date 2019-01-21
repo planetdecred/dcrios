@@ -23,6 +23,6 @@ struct AccountsData {
 
 struct TransactionDetails {
     let title: String
-    let value: String
+    let value: NSAttributedString
     let textColor: UIColor?
 }
