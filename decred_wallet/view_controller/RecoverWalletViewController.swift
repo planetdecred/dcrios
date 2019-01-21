@@ -140,6 +140,7 @@ class RecoverWalletViewController: UIViewController {
         if segue.identifier == "createPassword"{
             var seedcheck = segue.destination as? SeedCheckupProtocol
             seedcheck?.seedToVerify = txSeedCheckCombined.text
+            
         }
         
     }
