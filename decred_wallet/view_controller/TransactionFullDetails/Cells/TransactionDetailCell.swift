@@ -28,7 +28,7 @@ class TransactionDetailCell: UITableViewCell {
         guard let txn = self.txnDetails else { return }
         
         self.labelTitle.text = txn.title
-        self.labelValue.text = txn.value
+        self.labelValue.attributedText = txn.value
         self.labelValue.textColor = txn.textColor
     }
 }
