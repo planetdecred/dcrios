@@ -84,6 +84,7 @@
 		DD96B33F20293F110046F2DD /* LeftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD96B33E20293F110046F2DD /* LeftViewController.swift */; };
 		DD976B0D21A5F929006E9410 /* ObserverProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = DD976B0C21A5F929006E9410 /* ObserverProxy.m */; };
 		DD976B0F21A5F949006E9410 /* DcrObservers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD976B0E21A5F948006E9410 /* DcrObservers.swift */; };
+		DDA0F47421EEC8E7006AB571 /* StartUpPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA0F47321EEC8E7006AB571 /* StartUpPasswordViewController.swift */; };
 		DDA3E26E20292EF900C83D18 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA3E26D20292EF900C83D18 /* AppDelegate.swift */; };
 		DDA3E27320292EF900C83D18 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDA3E27120292EF900C83D18 /* Main.storyboard */; };
 		DDA3E27520292EF900C83D18 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DDA3E27420292EF900C83D18 /* Assets.xcassets */; };
@@ -217,6 +218,7 @@
 		DD976B0B21A5F921006E9410 /* ObserverProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObserverProxy.h; sourceTree = "<group>"; };
 		DD976B0C21A5F929006E9410 /* ObserverProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObserverProxy.m; sourceTree = "<group>"; };
 		DD976B0E21A5F948006E9410 /* DcrObservers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DcrObservers.swift; sourceTree = "<group>"; };
+		DDA0F47321EEC8E7006AB571 /* StartUpPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartUpPasswordViewController.swift; sourceTree = "<group>"; };
 		DDA3E26A20292EF900C83D18 /* DecredWallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DecredWallet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDA3E26D20292EF900C83D18 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DDA3E27220292EF900C83D18 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -435,6 +437,7 @@
 		DD4C89DC2038EEEF003FEA0C /* view_controller */ = {
 			isa = PBXGroup;
 			children = (
+				DDA0F47321EEC8E7006AB571 /* StartUpPasswordViewController.swift */,
 				281D545321B169D100F68803 /* Security */,
 				281D545121B157A600F68803 /* RecoverWalletViewController.swift */,
 				DD1D5C7D20AEDB15009789DD /* WalletLogViewController.swift */,
@@ -789,6 +792,7 @@
 				28EB91BB20FCFDA1007A0906 /* SeedCheckupViewController.swift in Sources */,
 				DDE90C8A2162CCB20031CED7 /* HelpViewController.swift in Sources */,
 				957F0AFF20B82F3200D3E8A9 /* Constants.swift in Sources */,
+				DDA0F47421EEC8E7006AB571 /* StartUpPasswordViewController.swift in Sources */,
 				DD976B0F21A5F949006E9410 /* DcrObservers.swift in Sources */,
 				281D545B21B169DE00F68803 /* PasswordSetupViewController.swift in Sources */,
 				286DA549210B0C7A00734259 /* Data.swift in Sources */,

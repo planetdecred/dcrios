@@ -32,6 +32,7 @@ func createMainWindow(){
     leftViewController.mainViewController = nvc
     
     let slideMenuController = ExSlideMenuController(mainViewController:nvc, leftMenuViewController: leftViewController)
+    slideMenuController.changeLeftViewWidth((UIApplication.shared.keyWindow?.frame.size.width)! - (UIApplication.shared.keyWindow?.frame.size.width)! / 6)
     
     slideMenuController.delegate = mainViewController
     UIApplication.shared.keyWindow?.backgroundColor = GlobalConstants.Colors.lightGrey
