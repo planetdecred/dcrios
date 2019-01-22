@@ -72,19 +72,19 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
     }
     
     func onPeerConnected(_ peerCount: Int32) {
-        if(synced){
+        
         self.peerCount = Int(peerCount)
         UserDefaults.standard.set(self.peerCount, forKey: "peercount")
         UserDefaults.standard.synchronize()
-        }
+        
     }
     
     func onPeerDisconnected(_ peerCount: Int32) {
-        if(synced){
+       
         self.peerCount = Int(peerCount)
         UserDefaults.standard.set(self.peerCount, forKey: "peercount")
         UserDefaults.standard.synchronize()
-        }
+        
     }
     
     func onRescanProgress(_ rescannedThrough: Int32) {
