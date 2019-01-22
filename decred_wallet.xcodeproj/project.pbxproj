@@ -8,12 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		1E3D73D7EA02D2D2D3CD052C /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E75324D536F1BD91575D0609 /* Pods_Decred_Wallet.framework */; };
+
+		2804D43321BAAD170011A5B3 /* SeedCheckActiveCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2804D43221BAAD170011A5B3 /* SeedCheckActiveCellView.swift */; };
+		28102DCD21B83E700052DC00 /* ContouredButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28102DCC21B83E700052DC00 /* ContouredButton.swift */; };
+		28102DCF21B83F8F0052DC00 /* SeedConfirmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28102DCE21B83F8F0052DC00 /* SeedConfirmTableViewCell.swift */; };
+		281D545221B157A600F68803 /* RecoverWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281D545121B157A600F68803 /* RecoverWalletViewController.swift */; };
+
 		281D545821B169DE00F68803 /* SecurityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281D545421B169D100F68803 /* SecurityViewController.swift */; };
 		281D545921B169DE00F68803 /* PinInputController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281D545521B169D100F68803 /* PinInputController.swift */; };
 		281D545A21B169DE00F68803 /* PinSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281D545621B169D100F68803 /* PinSetupViewController.swift */; };
 		281D545B21B169DE00F68803 /* PasswordSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281D545721B169D100F68803 /* PasswordSetupViewController.swift */; };
 		281D545E21B16AC800F68803 /* PinMarksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281D545C21B16AC800F68803 /* PinMarksView.swift */; };
 		281D545F21B16AC800F68803 /* PinWeakness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281D545D21B16AC800F68803 /* PinWeakness.swift */; };
+		2827EE0A21B9675500832555 /* ButtonConfirmSeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2827EE0921B9675500832555 /* ButtonConfirmSeedViewController.swift */; };
 		2850E08B217612EE00171267 /* SourceSansPro-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2850E07F217612EE00171267 /* SourceSansPro-BlackItalic.ttf */; };
 		2850E08C217612EE00171267 /* SourceSansPro-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2850E080217612EE00171267 /* SourceSansPro-SemiBoldItalic.ttf */; };
 		2850E08D217612EE00171267 /* SourceSansPro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2850E081217612EE00171267 /* SourceSansPro-Regular.ttf */; };
@@ -33,7 +40,6 @@
 		2883CA74209B5BA40053D9BB /* Modals.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2883CA73209B5BA40053D9BB /* Modals.storyboard */; };
 		28D36C7C2180ADF5000C6572 /* ConfirmSeedViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D36C7B2180ADF5000C6572 /* ConfirmSeedViewCell.swift */; };
 		28EB91B820FCFD8F007A0906 /* GeneratedSeedDisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EB91B720FCFD8F007A0906 /* GeneratedSeedDisplayViewController.swift */; };
-		28EB91BB20FCFDA1007A0906 /* SeedCheckupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EB91B920FCFDA0007A0906 /* SeedCheckupViewController.swift */; };
 		28EB91BC20FCFDA1007A0906 /* CreatePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EB91BA20FCFDA1007A0906 /* CreatePasswordViewController.swift */; };
 		28EB91C720FCFDBE007A0906 /* TransactionHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EB91BE20FCFDBE007A0906 /* TransactionHistoryTableViewCell.swift */; };
 		28EB91C820FCFDBE007A0906 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EB91BF20FCFDBE007A0906 /* BaseTableViewCell.swift */; };
@@ -136,12 +142,19 @@
 
 /* Begin PBXFileReference section */
 		109877DFD2DABA7636DA7B92 /* Pods-Decred WalletTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred WalletTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Decred WalletTests/Pods-Decred WalletTests.debug.xcconfig"; sourceTree = "<group>"; };
+
+		2804D43221BAAD170011A5B3 /* SeedCheckActiveCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedCheckActiveCellView.swift; sourceTree = "<group>"; };
+		28102DCC21B83E700052DC00 /* ContouredButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContouredButton.swift; sourceTree = "<group>"; };
+		28102DCE21B83F8F0052DC00 /* SeedConfirmTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedConfirmTableViewCell.swift; sourceTree = "<group>"; };
+		281D545121B157A600F68803 /* RecoverWalletViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecoverWalletViewController.swift; sourceTree = "<group>"; };
+
 		281D545421B169D100F68803 /* SecurityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecurityViewController.swift; sourceTree = "<group>"; };
 		281D545521B169D100F68803 /* PinInputController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinInputController.swift; sourceTree = "<group>"; };
 		281D545621B169D100F68803 /* PinSetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinSetupViewController.swift; sourceTree = "<group>"; };
 		281D545721B169D100F68803 /* PasswordSetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordSetupViewController.swift; sourceTree = "<group>"; };
 		281D545C21B16AC800F68803 /* PinMarksView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PinMarksView.swift; path = decred_wallet/extra_view/PinMarksView.swift; sourceTree = SOURCE_ROOT; };
 		281D545D21B16AC800F68803 /* PinWeakness.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PinWeakness.swift; path = decred_wallet/extra_view/PinWeakness.swift; sourceTree = SOURCE_ROOT; };
+		2827EE0921B9675500832555 /* ButtonConfirmSeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonConfirmSeedViewController.swift; sourceTree = "<group>"; };
 		2850E07F217612EE00171267 /* SourceSansPro-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-BlackItalic.ttf"; sourceTree = "<group>"; };
 		2850E080217612EE00171267 /* SourceSansPro-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
 		2850E081217612EE00171267 /* SourceSansPro-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Regular.ttf"; sourceTree = "<group>"; };
@@ -161,7 +174,6 @@
 		2883CA73209B5BA40053D9BB /* Modals.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Modals.storyboard; sourceTree = "<group>"; };
 		28D36C7B2180ADF5000C6572 /* ConfirmSeedViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmSeedViewCell.swift; sourceTree = "<group>"; };
 		28EB91B720FCFD8F007A0906 /* GeneratedSeedDisplayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratedSeedDisplayViewController.swift; sourceTree = "<group>"; };
-		28EB91B920FCFDA0007A0906 /* SeedCheckupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeedCheckupViewController.swift; sourceTree = "<group>"; };
 		28EB91BA20FCFDA1007A0906 /* CreatePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePasswordViewController.swift; sourceTree = "<group>"; };
 		28EB91BE20FCFDBE007A0906 /* TransactionHistoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionHistoryTableViewCell.swift; sourceTree = "<group>"; };
 		28EB91BF20FCFDBE007A0906 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
@@ -329,7 +341,11 @@
 		28EB91BD20FCFDBE007A0906 /* table_view_cell */ = {
 			isa = PBXGroup;
 			children = (
+				28102DCE21B83F8F0052DC00 /* SeedConfirmTableViewCell.swift */,
+				2804D43221BAAD170011A5B3 /* SeedCheckActiveCellView.swift */,
+
 				28FEB26D21D264D9001B074B /* RecoveryWalletSeedWordsCell.swift */,
+
 				28EB91BE20FCFDBE007A0906 /* TransactionHistoryTableViewCell.swift */,
 				28EB91BF20FCFDBE007A0906 /* BaseTableViewCell.swift */,
 				28EB91C020FCFDBE007A0906 /* TransactionHistoryTableViewCell.xib */,
@@ -440,15 +456,18 @@
 		DD4C89DC2038EEEF003FEA0C /* view_controller */ = {
 			isa = PBXGroup;
 			children = (
+
+				2827EE0921B9675500832555 /* ButtonConfirmSeedViewController.swift */,
+
 				28FEB26B21D263E7001B074B /* RecoverWalletTableViewController.swift */,
 
 				DDA0F47321EEC8E7006AB571 /* StartUpPasswordViewController.swift */,
+
 
 				281D545321B169D100F68803 /* Security */,
 				DD1D5C7D20AEDB15009789DD /* WalletLogViewController.swift */,
 				DD1D5C7F20AEDB2B009789DD /* NodeLogViewController.swift */,
 				DDA66BB621BFFFA800987248 /* SecurityMenuViewController.swift */,
-				28EB91B920FCFDA0007A0906 /* SeedCheckupViewController.swift */,
 				28EB91B720FCFD8F007A0906 /* GeneratedSeedDisplayViewController.swift */,
 				28EB91BA20FCFDA1007A0906 /* CreatePasswordViewController.swift */,
 				DD1D5C8320AEE9FE009789DD /* PeerSetTableViewController.swift */,
@@ -478,6 +497,7 @@
 		DD4C89DE2038F2DA003FEA0C /* extra_view */ = {
 			isa = PBXGroup;
 			children = (
+				28102DCC21B83E700052DC00 /* ContouredButton.swift */,
 				95404EBB20E113D700B34327 /* AccountsHeaderView */,
 				2883CA6F2099D40F0053D9BB /* DropDownSearchField.swift */,
 				95E1C96D20FCD43E00D7F3EE /* TextFieldDoneButton.swift */,
@@ -766,12 +786,15 @@
 				95404EBE20E113D700B34327 /* AccountsHeaderView.swift in Sources */,
 				28EB91C720FCFDBE007A0906 /* TransactionHistoryTableViewCell.swift in Sources */,
 				95473E7420E3A6420023F50A /* TransactionDetailCell.swift in Sources */,
+				2827EE0A21B9675500832555 /* ButtonConfirmSeedViewController.swift in Sources */,
 				28F0CE7320888258003AC958 /* Utils.swift in Sources */,
 				DD976B0D21A5F929006E9410 /* ObserverProxy.m in Sources */,
 				28EB91CE20FCFDBE007A0906 /* DataTableViewCell.swift in Sources */,
 				DDB89404202F7E01002F85EE /* SendViewController.swift in Sources */,
+				2804D43321BAAD170011A5B3 /* SeedCheckActiveCellView.swift in Sources */,
 				DDB89411202F8471002F85EE /* String.swift in Sources */,
 				DD419763202F9B570044F068 /* UITableViewExtension.swift in Sources */,
+				28102DCF21B83F8F0052DC00 /* SeedConfirmTableViewCell.swift in Sources */,
 				DDB89413202F8635002F85EE /* ImageHeaderView.swift in Sources */,
 				95877FE920B70CBB00CE53D2 /* TransactionHistoryViewController.swift in Sources */,
 				DD1D5C7E20AEDB15009789DD /* WalletLogViewController.swift in Sources */,
@@ -794,7 +817,6 @@
 				281D545821B169DE00F68803 /* SecurityViewController.swift in Sources */,
 				DD4C89D92038EC12003FEA0C /* DropMenuButton.swift in Sources */,
 				DDB89419202F8F3E002F85EE /* UIIMage.swift in Sources */,
-				28EB91BB20FCFDA1007A0906 /* SeedCheckupViewController.swift in Sources */,
 				DDE90C8A2162CCB20031CED7 /* HelpViewController.swift in Sources */,
 				957F0AFF20B82F3200D3E8A9 /* Constants.swift in Sources */,
 				28FEB26C21D263E7001B074B /* RecoverWalletTableViewController.swift in Sources */,
@@ -821,6 +843,7 @@
 				DDA3E26E20292EF900C83D18 /* AppDelegate.swift in Sources */,
 				DDB8940D202F82E6002F85EE /* SettingsController.swift in Sources */,
 				DDB8940B202F82A3002F85EE /* AccountViewController.swift in Sources */,
+				28102DCD21B83E700052DC00 /* ContouredButton.swift in Sources */,
 				95E1C96E20FCD43E00D7F3EE /* TextFieldDoneButton.swift in Sources */,
 				28EB91CD20FCFDBE007A0906 /* MenuCell.swift in Sources */,
 				28D36C7C2180ADF5000C6572 /* ConfirmSeedViewCell.swift in Sources */,
