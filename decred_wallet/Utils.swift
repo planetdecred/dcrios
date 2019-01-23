@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import JGProgressHUD
 
 extension Notification.Name {
     static let NeedAuth =   Notification.Name("NeedAuthorize")
@@ -37,6 +38,14 @@ func createMainWindow(){
     UIApplication.shared.keyWindow?.backgroundColor = GlobalConstants.Colors.lightGrey
     UIApplication.shared.keyWindow?.rootViewController = slideMenuController
     UIApplication.shared.keyWindow?.makeKeyAndVisible()
+}
+
+func showProgressHud(with title:String?) -> JGProgressHUD{
+    let hud = JGProgressHUD(style: .light)
+    hud.shadow = JGProgressHUDShadow(color: .black, offset: .zero, radius: 5.0, opacity: 0.2)
+    hud.textLabel.text = title ?? ""
+    hud.show(in: (UIApplication.shared.keyWindow?.rootViewController?.view)!)
+    return hud
 }
 
 func saveCertificate(secretKey: String) {

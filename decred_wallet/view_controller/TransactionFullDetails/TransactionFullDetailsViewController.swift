@@ -3,7 +3,7 @@
 //  Copyright © 2018 The Decred developers. All rights reserved.
 
 import UIKit
-import IHProgressHUD
+import JGProgressHUD
 
 class TransactionFullDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -13,6 +13,7 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
      @IBOutlet weak var amount: UILabel!
     var transactionHash: String?
     var account : String?
+    var progressHud : JGProgressHUD?
     
     var details: [TransactionDetails] = [
         TransactionDetails(
@@ -65,7 +66,7 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
     
 
     override func viewWillAppear(_ animated: Bool) {
-        IHProgressHUD.show()
+        progressHud = showProgressHud(with: nil)
         wrap(transaction: self.transaction)
      
     }
@@ -134,6 +135,7 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        progressHud?.dismiss()
         self.dismiss(animated: true, completion: nil)
         
     }

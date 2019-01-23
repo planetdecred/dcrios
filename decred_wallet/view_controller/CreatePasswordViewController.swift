@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import IHProgressHUD
+import JGProgressHUD
 import Mobilewallet
 
 class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITextFieldDelegate {
@@ -16,6 +16,7 @@ class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITex
     @IBOutlet weak var tfVerifyPassword: UITextField!
     @IBOutlet weak var btnEncrypt: UIButton!
     
+    var progressHud : JGProgressHUD?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,9 +49,7 @@ class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITex
     }
     
     @IBAction func onEncrypt(_ sender: Any) {
-        IHProgressHUD.show()
-        IHProgressHUD.set(status:"creating wallet...")
-        print("creating")
+        progressHud = showProgressHud(with: "creating wallet...")
         let seed = self.seedToVerify!
         let pass = self.tfPassword!.text
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
@@ -62,7 +61,7 @@ class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITex
                 }
                 try SingleInstance.shared.wallet?.createWallet(pass, seedMnemonic: seed)
                 DispatchQueue.main.async {
-                    IHProgressHUD.dismiss()
+                    self!.progressHud?.dismiss()
                     UserDefaults.standard.set(pass, forKey: "password")
                     print("wallet created")
                     createMainWindow()
@@ -72,7 +71,7 @@ class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITex
                 return
             } catch let error {
                 DispatchQueue.main.async {
-                    IHProgressHUD.dismiss()
+                    self!.progressHud!.dismiss()
                     this.showError(error: error)
                     print("wallet error")
                     print(error)
@@ -87,7 +86,7 @@ class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITex
             alert.dismiss(animated: true, completion: {self.navigationController?.popToRootViewController(animated: true)})
         }
         alert.addAction(okAction)
-        present(alert, animated: true, completion: {IHProgressHUD.dismiss()})
+        present(alert, animated: true, completion: {self.progressHud!.dismiss()})
     }
     
 }

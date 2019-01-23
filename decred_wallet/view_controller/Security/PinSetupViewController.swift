@@ -7,7 +7,7 @@
 
 
 import UIKit
-import IHProgressHUD
+import JGProgressHUD
 import Mobilewallet
 
 class PinSetupViewController: UIViewController, SeedCheckupProtocol {
@@ -17,7 +17,7 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol {
     @IBOutlet weak var btnCommit: UIButton!
     
     
-    var progressHud : IHProgressHUD?
+    var progressHud : JGProgressHUD?
     let pinStrength = PinWeakness()
     let pinInputController = PinInputController(max: 5)
     var seedToVerify: String?
@@ -81,7 +81,7 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol {
     }
 
     @IBAction func onCommit(_ sender: Any) {
-        IHProgressHUD.show(withStatus: "creating wallet...")
+        progressHud = showProgressHud(with: "creating wallet...")
         let seed = self.seedToVerify!
         let pass = self.pin
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
@@ -93,7 +93,7 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol {
                 }
                 try SingleInstance.shared.wallet?.createWallet(pass, seedMnemonic: seed)
                 DispatchQueue.main.async {
-                    IHProgressHUD.dismiss()
+                    self!.progressHud!.dismiss()
                     UserDefaults.standard.set(pass, forKey: "password")
                     print("wallet created")
                     createMainWindow()
@@ -103,7 +103,7 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol {
                 return
             } catch let error {
                 DispatchQueue.main.async {
-                    IHProgressHUD.dismiss()
+                    self!.progressHud!.dismiss()
                     this.showError(error: error)
                     print("wallet error")
                     print(error)
@@ -118,6 +118,6 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol {
             alert.dismiss(animated: true, completion: {self.navigationController?.popToRootViewController(animated: true)})
         }
         alert.addAction(okAction)
-        present(alert, animated: true, completion: {IHProgressHUD.dismiss()})
+        present(alert, animated: true, completion: {self.progressHud!.dismiss()})
     }
 }

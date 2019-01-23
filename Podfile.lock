@@ -1,13 +1,13 @@
 PODS:
   - CryptoSwift (0.13.0)
-  - IHProgressHUD (0.1.4)
+  - JGProgressHUD (2.0.3)
   - PasswordStrength (0.1.0)
   - QRCodeReader.swift (9.0.1)
   - SlideMenuControllerSwift (4.0.0)
 
 DEPENDENCIES:
   - CryptoSwift
-  - IHProgressHUD (from `https://github.com/Swiftify-Corp/IHProgressHUD.git`)
+  - JGProgressHUD
   - PasswordStrength
   - QRCodeReader.swift
   - SlideMenuControllerSwift
@@ -15,26 +15,18 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - CryptoSwift
+    - JGProgressHUD
     - PasswordStrength
     - QRCodeReader.swift
     - SlideMenuControllerSwift
 
-EXTERNAL SOURCES:
-  IHProgressHUD:
-    :git: https://github.com/Swiftify-Corp/IHProgressHUD.git
-
-CHECKOUT OPTIONS:
-  IHProgressHUD:
-    :commit: 6066466f55d36cccf9d0da3fff000d5dbf7ebe36
-    :git: https://github.com/Swiftify-Corp/IHProgressHUD.git
-
 SPEC CHECKSUMS:
   CryptoSwift: 16e78bebf567bad1c87b2d58f6547f25b74c31aa
-  IHProgressHUD: a01846bfbb581c761c79747c67b08387c3bdfae3
+  JGProgressHUD: 12b20a8f4ffe05258f8635c1ab92816e451f904d
   PasswordStrength: bf426361d758a89824d056c9fb46c48476289ff9
   QRCodeReader.swift: 96292a5612fbc2fd9a0b26f93fa5164c8d02f59d
   SlideMenuControllerSwift: 021d6318201c53d4d4d3710517d43d6c556c7dd0
 
-PODFILE CHECKSUM: ada1ebe8069b7fe2cf9e8a190e1664ab34cd8914
+PODFILE CHECKSUM: f48502a807bd95b227928b3f3c65ca3d1f6310bb
 
 COCOAPODS: 1.5.3
