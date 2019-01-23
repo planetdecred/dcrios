@@ -81,9 +81,7 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol {
     }
 
     @IBAction func onCommit(_ sender: Any) {
-        IHProgressHUD.show()
-        IHProgressHUD.set(status: "creating wallet...")
-        print("creating")
+        IHProgressHUD.show(withStatus: "creating wallet...")
         let seed = self.seedToVerify!
         let pass = self.pin
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
