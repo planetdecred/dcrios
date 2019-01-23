@@ -72,19 +72,19 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
     }
     
     func onPeerConnected(_ peerCount: Int32) {
-        if(synced){
+        
         self.peerCount = Int(peerCount)
         UserDefaults.standard.set(self.peerCount, forKey: "peercount")
         UserDefaults.standard.synchronize()
-        }
+        
     }
     
     func onPeerDisconnected(_ peerCount: Int32) {
-        if(synced){
+       
         self.peerCount = Int(peerCount)
         UserDefaults.standard.set(self.peerCount, forKey: "peercount")
         UserDefaults.standard.synchronize()
-        }
+        
     }
     
     func onRescanProgress(_ rescannedThrough: Int32) {
@@ -181,7 +181,6 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
         let appInstance = UserDefaults.standard
         var passphrase = ""
         passphrase = appInstance.string(forKey: "password")!
-       // print(appInstance.string(forKey: "passphrase")!)
         let finalPassphrase = passphrase as NSString
         let finalPassphraseData = finalPassphrase .data(using: String.Encoding.utf8.rawValue)!
         
