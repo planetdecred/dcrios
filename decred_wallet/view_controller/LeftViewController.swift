@@ -50,8 +50,8 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
     var settingsViewController: UIViewController!
     var historyViewController: UIViewController!
     var helpViewController:  UIViewController!
+    var imageHeaderView: UIImageView?
     var securityMenuViewController:UIViewController!
-    var imageHeaderView: ImageHeaderView!
     var selectedIndex: Int!
     var storyboard2: UIStoryboard!
     
@@ -64,30 +64,16 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         super.viewDidLoad()
         self.selectedIndex = 0
         self.tableView.separatorColor = GlobalConstants.Colors.separaterGrey
-       // self.rescanHeight.isHidden = true 
          storyboard2 =  UIStoryboard(name: "Main", bundle: nil)  
         self.tableView.registerCellClass(MenuCell.self)     
-        self.imageHeaderView = ImageHeaderView.loadNib()
-        self.view.addSubview(self.imageHeaderView)
-       /* if ((AppContext.instance.decrdConnection?.wallet?.isNetBackendNil())!){
-           
-            DispatchQueue.main.async {
-                self.connectionStatus.text = "connected to RPC"
-                
-            }
-            AppContext.instance.decrdConnection?.rescan()
-            
-            
-        }else{
-            self.connectionStatus.text = "Connecting to RPC server"
-           // self.conectToRpc()
-        }*/
-        
-        
-        
+        imageHeaderView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width - 63, height: 80))
+        imageHeaderView?.backgroundColor = UIColor(hex: "F9FBFA")
+        imageHeaderView?.contentMode = .scaleAspectFit
+        self.view.addSubview(self.imageHeaderView!)
     }
     override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)// 1
+        super.viewDidAppear(true)// 1
+        imageHeaderView?.image = UserDefaults.standard.bool(forKey: "pref_use_testnet") ? UIImage(named: "logo-testnet") : UIImage(named: "logo-mainnet")
         print("am running")
         self.scanning = UserDefaults.standard.bool(forKey: "walletScanning")
         self.sync = UserDefaults.standard.bool(forKey: "synced")
@@ -189,7 +175,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.imageHeaderView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 130)
+        //self.imageHeaderView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 130)
         self.view.layoutIfNeeded()
     }
     
