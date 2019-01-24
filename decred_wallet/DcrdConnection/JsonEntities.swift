@@ -132,6 +132,7 @@ struct Transaction: Codable {
     var Height: Int
     var Debits: [Debit]
     var Credits: [Credit]
+   @nonobjc var Animate: Bool
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         self.Hash = try values.decodeIfPresent(String.self, forKey: .Hash) ?? ""
@@ -145,6 +146,7 @@ struct Transaction: Codable {
         self.Height = try values.decodeIfPresent(Int.self, forKey: .Height) ?? 0
         self.Debits = try values.decodeIfPresent([Debit].self, forKey: .Debits) ?? [Debit]()
         self.Credits = try values.decodeIfPresent([Credit].self, forKey: .Credits) ?? [Credit]()
+        self.Animate = false
     }
 }
 

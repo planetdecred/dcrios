@@ -54,6 +54,9 @@ open class MenuCell : UITableViewCell {
             else if(menuText == "Settings"){
                 self.menuImage?.image = UIImage(named: "settings")
             }
+            else if(menuText == "Security"){
+                self.imageView?.image = UIImage(named: "security")
+            }
             else if(menuText == "History"){
                 self.menuImage?.image = UIImage(named: "history")
             }

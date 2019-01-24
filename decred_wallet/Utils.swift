@@ -32,6 +32,7 @@ func createMainWindow(){
     leftViewController.mainViewController = nvc
     
     let slideMenuController = ExSlideMenuController(mainViewController:nvc, leftMenuViewController: leftViewController)
+    slideMenuController.changeLeftViewWidth((UIApplication.shared.keyWindow?.frame.size.width)! - (UIApplication.shared.keyWindow?.frame.size.width)! / 6)
     
     slideMenuController.delegate = mainViewController
     UIApplication.shared.keyWindow?.backgroundColor = GlobalConstants.Colors.lightGrey
@@ -122,6 +123,7 @@ func loadCertificate() throws ->  String {
     return try String.init(contentsOfFile: filePath)
 }
 
+
 func getAttributedString(str: String, siz: CGFloat) -> NSAttributedString {
     var tmpString = str
     var Strr:NSString = ""
@@ -157,5 +159,39 @@ func getAttributedString(str: String, siz: CGFloat) -> NSAttributedString {
         
     }
     return atrStr
+}
+extension NSDecimalNumber {
+    public func round(_ decimals:Int) -> NSDecimalNumber {
+        return self.rounding(accordingToBehavior:
+            NSDecimalNumberHandler(roundingMode: .plain,
+                                   scale: Int16(decimals),
+                                   raiseOnExactness: false,
+                                   raiseOnOverflow: false,
+                                   raiseOnUnderflow: false,
+                                   raiseOnDivideByZero: false))
+    }
+}
+
+extension UITableViewCell{
+    func blink(){
+        UITableViewCell.animate(withDuration: 0.5, //Time duration you want,
+            delay: 0.0,
+            options: [.showHideTransitionViews, .autoreverse, .repeat],
+            animations: { [weak self] in self?.alpha = 0.0 },
+            completion: { [weak self] _ in self?.alpha = 1.0 })
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            [weak self] in
+            self?.layer.removeAllAnimations()
+            // your code here
+        }
+        
+    }
+}
+extension UIButton {
+    func set(fontSize: CGFloat) {
+        if let titleLabel = titleLabel {
+            titleLabel.font = UIFont(name: titleLabel.font.fontName, size: fontSize)
+        }
+    }
 }
 
