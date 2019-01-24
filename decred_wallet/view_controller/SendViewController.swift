@@ -90,7 +90,7 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
                 let spendableAmount = spendable(account: (self?.selectedAccount!)!)
                 this.estimateSize.text = "\(preparedTransaction?.estimatedSignedSize() ?? 0) Bytes"
                 this.estimateFee.text = "\(fee) DCR"
-                let tnt =  (spendableAmount - (Decimal(amountToSend) + Decimal(fee))) as NSDecimalNumber
+                let tnt =  (spendableAmount - (Decimal(amountToSend) )) as NSDecimalNumber
                 this.BalanceAfter.attributedText = getAttributedString(str: "\(tnt.round(8) ?? 0.0)", siz: 13)
                 if(sendAll)!{
                     this.tfAmount.text = "\(MobilewalletAmountCoin(amount - MobilewalletAmountAtom(fee)) )"

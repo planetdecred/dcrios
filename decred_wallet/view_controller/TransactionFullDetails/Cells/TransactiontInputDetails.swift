@@ -10,30 +10,68 @@ class TransactiontInputDetails: UITableViewCell {
     
     @IBOutlet weak var alcDebitStackHeight: NSLayoutConstraint!
     var expandOrCollapse: (() -> Void)?
+    var index = 0
 
     func setup(with debits:[Debit]){
-        let _ = debitsStack.arrangedSubviews.map({self.debitsStack.removeArrangedSubview($0)})
-        debits.forEach { (debit) in
-            self.addSubrow(with: debit)
+        alcDebitStackHeight.constant = CGFloat(45 * min(debits.count,3))
+      
+        for debit in debits{
+            self.addSubrow(with: debit, indexs: index)
+            print("debit \(debit.dcrAmount)")
+            if(index == 2){
+                print(" debit count is \(debits.count)")
+                return
+            }
+            index += 1
+          
         }
-        alcDebitStackHeight.constant = CGFloat(45 * debits.count)
+        print(" debit count is \(debits.count)")
+      /*  debits.forEach { (debit) in
+            self.addSubrow(with: debit)
+            return
+        }*/
+        
     }
     
     @IBAction func hideOrExpandAction(_ sender: UIButton) {
-        self.viewCotainer.isHidden = !self.viewCotainer.isHidden
-        expandOrCollapse?()
+        self.viewCotainer.isHidden = false
+        //expandOrCollapse?()
     }
-    
-    private func addSubrow(with debit: Debit){
+    var addressLabel : UIButton?
+    private func addSubrow(with debit: Debit , indexs : Int){
         let subrow = UIView(frame: CGRect(x:0.0, y:0.0, width:self.frame.size.width, height:45.0))
         let amountLabel = UILabel(frame: CGRect(x:5.0, y:1.0, width: self.frame.size.width, height: 22.0))
-        let accountNameLabel = UILabel(frame: CGRect(x:5.0, y:23.0, width:self.frame.size.width, height: 22.0))
-        accountNameLabel.textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+         self.addressLabel = UIButton(frame: CGRect(x:5.0, y:23.0, width:self.frame.size.width, height: 22.0))
+        
+        addressLabel!.setTitleColor(#colorLiteral(red: 0.2470588235, green: 0.4941176471, blue: 0.8901960784, alpha: 1), for: .normal)
+        addressLabel!.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
+        addressLabel?.set(fontSize: 15)
+        amountLabel.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        addressLabel?.contentHorizontalAlignment = .left
         subrow.addSubview(amountLabel)
-        subrow.addSubview(accountNameLabel)
-        amountLabel.text = "\(debit.dcrAmount)"
-        accountNameLabel.text = debit.AccountName
+        subrow.addSubview(addressLabel!)
+        amountLabel.font = amountLabel.font.withSize(15)
+        let combine = NSMutableAttributedString()
+        combine.append(getAttributedString(str: "\(debit.dcrAmount)", siz: 12))
+        combine.append(NSMutableAttributedString(string: " (\(debit.AccountName ))"))
+        amountLabel.attributedText = combine
+        
+        debitsStack.insertArrangedSubview(subrow, at: indexs)
         debitsStack.addArrangedSubview(subrow)
     }
+    @objc func buttonClicked(sender : UIButton){
+        DispatchQueue.main.async {
+            //Copy a string to the pasteboard.
+            UIPasteboard.general.string = sender.titleLabel?.text
+            
+            //Alert
+            let alertController = UIAlertController(title: "", message: "address copied", preferredStyle: UIAlertControllerStyle.alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+        
+        }
+        
+        
+    }
+
 }
 

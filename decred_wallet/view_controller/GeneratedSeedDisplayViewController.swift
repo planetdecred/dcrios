@@ -86,6 +86,7 @@ class GeneratedSeedDisplayViewController: UIViewController {
         seedContainer.setNeedsLayout()
     }
     
+    
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
