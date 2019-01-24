@@ -6,12 +6,18 @@
 import CoreData
 import Mobilewallet
 import SlideMenuControllerSwift
+import UserNotifications
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     var window: UIWindow?
     var navigation: UINavigationController?
     fileprivate let loadThread = DispatchQueue.self
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping
+        (UNNotificationPresentationOptions) -> Void){
+        completionHandler([.alert])
+    }
 
     fileprivate func walletSetupView() {
          DispatchQueue.main.async{
@@ -51,19 +57,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     fileprivate func populateFirstScreen() {
         if isWalletCreated() {
-            SingleInstance.shared.wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/", "bdb")
+            SingleInstance.shared.wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/", "bdb", "testnet3")
             SingleInstance.shared.wallet?.initLoader()
-            do {
-                ((try SingleInstance.shared.wallet?.open()))
-            } catch let error {
-                print(error)
+            if(UserDefaults.standard.bool(forKey: "secure_wallet")){
+                if(UserDefaults.standard.string(forKey: "securitytype") == "PASSWORD"){
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let sendVC = storyboard.instantiateViewController(withIdentifier: "StartUpPasswordViewController") as! StartUpPasswordViewController
+                    sendVC.senders = "launcher"
+                    self.window?.rootViewController = sendVC
+                    self.window?.makeKeyAndVisible()
+                }
+                else{
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let sendVC = storyboard.instantiateViewController(withIdentifier: "PinSetupViewController") as! PinSetupViewController
+                    sendVC.senders = "launcher"
+                    self.window?.rootViewController = sendVC
+                    self.window?.makeKeyAndVisible()
+                }
+                
             }
-            DispatchQueue.global(qos: .default).async {
-                self.createMenuView()
+            else{
+                openUnSecuredWallet()
             }
             
         } else {
-            SingleInstance.shared.wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/", "bdb")
+            SingleInstance.shared.wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/", "bdb", "testnet3")
             SingleInstance.shared.wallet?.initLoader()
            DispatchQueue.global(qos: .default).async {
             self.walletSetupView()
@@ -95,13 +113,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         DispatchQueue.main.async {
+            UNUserNotificationCenter.current().delegate = self
+            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge , .sound]){ (granted, error) in
+                print("granted: \(granted)")
+                
+            }
+            UserDefaults.standard.setValuesForKeys(["pref_user_name": "dcrwallet",
+                                                    "pref_user_passwd": "dcrwallet",
+                                                    "pref_server_ip": "",
+                                                    "pref_peer_ip": ""])
+            UserDefaults.standard.set(true, forKey: "pref_use_testnet")
              self.showAnimatedStartScreen()
         }
-        UserDefaults.standard.setValuesForKeys(["pref_user_name": "dcrwallet",
-                                                "pref_user_passwd": "dcrwallet",
-                                                "pref_server_ip": "",
-                                                "pref_peer_ip": ""])
-        UserDefaults.standard.set(true, forKey: "pref_use_testnet")
+        
 
         return true
     }
@@ -111,6 +135,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         vcSetting.isFromLoader = true
 
         self.navigation?.pushViewController(vcSetting, animated: true)
+    }
+    fileprivate func openUnSecuredWallet(){
+        SingleInstance.shared.wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/", "bdb", "testnet3")
+        SingleInstance.shared.wallet?.initLoader()
+        let key = "public"
+        let finalkey = key as NSString
+        let finalkeyData = finalkey.data(using: String.Encoding.utf8.rawValue)!
+        do {
+            ((try SingleInstance.shared.wallet?.open(finalkeyData)))
+        } catch let error {
+            print(error)
+        }
+        DispatchQueue.global(qos: .default).async {
+            self.createMenuView()
+        }
     }
 
     func applicationWillResignActive(_: UIApplication) {
@@ -141,9 +180,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     func applicationDidReceiveMemoryWarning(_ application: UIApplication) {
-        if(SingleInstance.shared.wallet != nil){
-            SingleInstance.shared.wallet?.runGC()
-        }
     }
 }
 

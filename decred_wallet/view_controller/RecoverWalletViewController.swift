@@ -58,6 +58,7 @@ class RecoverWalletViewController: UIViewController {
         count = count + 1
         if count == 1{
             self.btnConfirm.isEnabled = false
+            txSeedCheckCombined.text = seedtmp
             let flag = SingleInstance.shared.wallet?.verifySeed(txSeedCheckCombined.text)
             if flag! {
                 performSegue(withIdentifier: "createPassword", sender: nil)
@@ -139,6 +140,7 @@ class RecoverWalletViewController: UIViewController {
         if segue.identifier == "createPassword"{
             var seedcheck = segue.destination as? SeedCheckupProtocol
             seedcheck?.seedToVerify = txSeedCheckCombined.text
+            
         }
         
     }

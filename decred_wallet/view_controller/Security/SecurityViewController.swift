@@ -8,9 +8,12 @@
 
 import UIKit
 
-class SecurityViewController: UIViewController, SeedCheckupProtocol {
+class SecurityViewController: UIViewController, SeedCheckupProtocol,StartUpPasswordProtocol {
+    var senders: String?
+    var pass_pinToVerify: String?
     var seedToVerify: String?
     var pager: UITabBarController?
+    
     
     @IBOutlet weak var btnPin: UIButton!
     @IBOutlet weak var btnPassword: UIButton!
@@ -32,12 +35,31 @@ class SecurityViewController: UIViewController, SeedCheckupProtocol {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "embedPager" {
-            pager = segue.destination as? UITabBarController
-            pager?.tabBar.isHidden = true
-            var seedChecked1 = pager?.viewControllers?.first as? SeedCheckupProtocol
-            var seedChecked2 = pager?.viewControllers?.last as? SeedCheckupProtocol
-            seedChecked1?.seedToVerify = seedToVerify
-            seedChecked2?.seedToVerify = seedToVerify
+            if(self.seedToVerify != nil){
+                print("seed check")
+                pager = segue.destination as? UITabBarController
+                pager?.tabBar.isHidden = true
+                var vc1 = pager?.viewControllers?.first as? SeedCheckupProtocol
+                var vc2 = pager?.viewControllers?.last as? SeedCheckupProtocol
+                vc1?.seedToVerify = seedToVerify
+                vc2?.seedToVerify = seedToVerify
+            }
+            else{
+                
+                print("startup check")
+                pager = segue.destination as? UITabBarController
+                pager?.tabBar.isHidden = true
+                var startChecked1 = pager?.viewControllers?.first as? StartUpPasswordProtocol
+                var startChecked2 = pager?.viewControllers?.last as? StartUpPasswordProtocol
+                print("on pager received \(senders  ??  "nothing too")")
+                startChecked2?.senders = senders
+                startChecked1?.senders = senders
+                if senders == "settingsChangeSpending"{
+                    startChecked1?.pass_pinToVerify = pass_pinToVerify
+                    startChecked2?.pass_pinToVerify = pass_pinToVerify
+                }
+            }
+            
         }
     }
 }
