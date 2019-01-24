@@ -72,12 +72,8 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         self.view.addSubview(self.imageHeaderView!)
     }
     override func viewDidAppear(_ animated: Bool) {
-<<<<<<< HEAD
         super.viewDidAppear(true)// 1
         imageHeaderView?.image = UserDefaults.standard.bool(forKey: "pref_use_testnet") ? UIImage(named: "logo-testnet") : UIImage(named: "logo-mainnet")
-=======
-        super.viewDidAppear(animated)// 1
->>>>>>> master
         print("am running")
         self.scanning = UserDefaults.standard.bool(forKey: "walletScanning")
         self.sync = UserDefaults.standard.bool(forKey: "synced")
