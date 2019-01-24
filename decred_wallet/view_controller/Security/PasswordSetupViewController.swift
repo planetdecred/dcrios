@@ -8,7 +8,7 @@
 
 import UIKit
 import PasswordStrength
-import MBProgressHUD
+import JGProgressHUD
 
 class PasswordSetupViewController: UIViewController, SeedCheckupProtocol,UITextFieldDelegate,StartUpPasswordProtocol{
     var senders: String?
@@ -20,8 +20,8 @@ class PasswordSetupViewController: UIViewController, SeedCheckupProtocol,UITextF
     @IBOutlet weak var pbPasswordStrength: UIProgressView!
     
     @IBOutlet weak var lbPasswordStrengthLabel: UILabel!
-    var progressHud:MBProgressHUD?
     let passwordStrengthMeasurer = MEPasswordStrength()
+    var progressHud : JGProgressHUD?
     @IBOutlet weak var headerText: UILabel!
     
     override func viewDidLoad() {
@@ -31,8 +31,6 @@ class PasswordSetupViewController: UIViewController, SeedCheckupProtocol,UITextF
         lbMatchIndicator.isHidden = true
         pbPasswordStrength.isHidden = true
         lbPasswordStrengthLabel.isHidden = true
-        progressHud = MBProgressHUD(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
-        view.addSubview(progressHud!)
         tfConfirmPassword.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         if self.seedToVerify != nil{
             senders = "seed"
@@ -43,6 +41,7 @@ class PasswordSetupViewController: UIViewController, SeedCheckupProtocol,UITextF
     }
 
     func onEncrypt() {
+        progressHud = showProgressHud(with: "creating wallet...")
         self.progressHud?.show(animated: true)
         self.progressHud?.label.text = "Creating wallet..."
         let seed = self.seedToVerify!
@@ -56,7 +55,7 @@ class PasswordSetupViewController: UIViewController, SeedCheckupProtocol,UITextF
                 }
                 try SingleInstance.shared.wallet?.createWallet(pass, seedMnemonic: seed)
                 DispatchQueue.main.async {
-                    this.progressHud?.hide(animated: true)
+                    self!.progressHud!.dismiss()
                     UserDefaults.standard.set(pass, forKey: "password")
                     UserDefaults.standard.set("PASSWORD", forKey: "spendingSecureType")
                     print("wallet created")
@@ -66,7 +65,7 @@ class PasswordSetupViewController: UIViewController, SeedCheckupProtocol,UITextF
                 return
             } catch let error {
                 DispatchQueue.main.async {
-                    this.progressHud?.hide(animated: true)
+                    self!.progressHud!.dismiss()
                     this.showError(error: error)
                 }
             }
@@ -145,7 +144,7 @@ class PasswordSetupViewController: UIViewController, SeedCheckupProtocol,UITextF
             alert.dismiss(animated: true, completion: {self.navigationController?.popToRootViewController(animated: true)})
         }
         alert.addAction(okAction)
-        present(alert, animated: true, completion: {self.progressHud?.hide(animated: false)})
+        present(alert, animated: true, completion: {self.progressHud!.dismiss()})
     }
     
     @objc func textFieldDidChange(_: NSObject){

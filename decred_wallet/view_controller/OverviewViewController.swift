@@ -6,7 +6,7 @@
 
 import SlideMenuControllerSwift
 import Mobilewallet
-import MBProgressHUD
+import JGProgressHUD
 import UserNotifications
 
 class OverviewViewController: UIViewController, MobilewalletGetTransactionsResponseProtocol, MobilewalletTransactionListenerProtocol, //MobilewalletBlockNotificationErrorProtocol,

@@ -7,7 +7,7 @@
 
 
 import UIKit
-import MBProgressHUD
+import JGProgressHUD
 import Mobilewallet
 
 class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPasswordProtocol {
@@ -22,7 +22,7 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
     @IBOutlet weak var btnCommit: UIButton!
     
     
-    var progressHud : MBProgressHUD?
+    var progressHud : JGProgressHUD?
     let pinStrength = PinWeakness()
     let pinInputController = PinInputController(max: 5)
     var seedToVerify: String?
@@ -42,8 +42,6 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
     }
     
     override func viewDidLoad() {
-        progressHud = MBProgressHUD(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
-        view.addSubview(progressHud!)
         setHeader()
     }
     
@@ -92,6 +90,7 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
     }
 
     @IBAction func onCommit(_ sender: Any) {
+        progressHud = showProgressHud(with: "creating wallet...")
         print(senders as Any)
         if senders == "launcher"{
                 pass_PIn_Unlock()
@@ -163,9 +162,10 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
                 }
                 try SingleInstance.shared.wallet?.createWallet(pass, seedMnemonic: seed)
                 DispatchQueue.main.async {
-                    this.progressHud?.hide(animated: true)
-                     UserDefaults.standard.set(pass, forKey: "password")
-                    UserDefaults.standard.set("PIN", forKey: "spendingSecureType")
+                    self!.progressHud!.dismiss()
+                    print("wallet created")
+                    UserDefaults.standard.set(pass, forKey: "password") //deeply concern about
+                    UserDefaults.standard.set("PIN", forKey: "spendingSecureType") // this stuff
                     UserDefaults.standard.synchronize()
                     createMainWindow()
                     this.dismiss(animated: true, completion: nil)
@@ -174,7 +174,7 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
                 return
             } catch let error {
                 DispatchQueue.main.async {
-                    this.progressHud?.hide(animated: true)
+                    self!.progressHud!.dismiss()
                     this.showError(error: error)
                     print("wallet error")
                     print(error)
@@ -319,6 +319,6 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
             alert.dismiss(animated: true, completion: {self.navigationController?.popToRootViewController(animated: true)})
         }
         alert.addAction(okAction)
-        present(alert, animated: true, completion: {self.progressHud?.hide(animated: false)})
+        present(alert, animated: true, completion: {self.progressHud!.dismiss()})
     }
 }
