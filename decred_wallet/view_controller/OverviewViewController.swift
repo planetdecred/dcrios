@@ -96,11 +96,12 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
     @IBOutlet weak var lbCurrentBalance: UILabel!
     @IBOutlet var viewTableHeader: UIView!
     @IBOutlet var viewTableFooter: UIView!
+    @IBOutlet weak var activityIndicator: UIImageView!
     
     var visible = false
     var scanning = false
     var synced = false
-   
+    
     
     var mainContens = [Transaction]()
     var refreshControl: UIRefreshControl!
@@ -122,13 +123,15 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
         self.tableView.addSubview(self.refreshControl)
         
         
-           connectToDecredNetwork()
-            print("adding observer")
+        connectToDecredNetwork()
+        print("adding observer")
         
         SingleInstance.shared.wallet?.transactionNotification(self)
-        
+
+       showActivity()
     }
-    override func didReceiveMemoryWarning() {
+
+     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         print("low memory")
         
@@ -136,9 +139,17 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
     }
     
     
-        
-        
-   
+    private func showActivity(){
+        lbCurrentBalance.isHidden = true
+        let image = UIImage.gifImageWithURL(Bundle.main.url(forResource: "progress bar-1s-200px", withExtension: "gif")?.absoluteString ?? "");
+        activityIndicator.image = image
+    }
+
+    private func hideActivityIndicator(){
+        activityIndicator.isHidden = true
+        lbCurrentBalance.isHidden = false
+    }
+
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
     }
@@ -147,7 +158,7 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
         super.viewWillAppear(animated)
         self.setNavigationBarItem()
         self.navigationItem.title = "Overview"
-
+        
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -167,7 +178,7 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         self.visible = false
-       // self.dismiss(animated: true, completion: nil)
+        // self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func onRescan(_ sender: Any) {
@@ -271,21 +282,15 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
                     print("best block")
                     print(blockHeight as Any)
                     SingleInstance.shared.wallet?.rescan(0, response: this)
-                    
-               /* if(appInstance.integer(forKey: "rescan_height") < blockHeight!){
-                    AppContext.init().decrdConnection?.wallet?.rescan(self.pHeight.pointee, response: self)
-                    print("done")
-                     
-                }*/
+
                 }
-                // rescanBlocks();
-                // startBlockUpdate();
             } catch {
                 print(error)
             }
         }
          */
 }
+
     
     func updateCurrentBalance(){
         var amount = "0"
@@ -298,14 +303,16 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
                 amount =
                 "\((account.Acc.first?.dcrTotalBalance)!)"
                 DispatchQueue.main.async {
+                    self?.hideActivityIndicator()
+                    if(amount != nil){
                         self?.lbCurrentBalance.attributedText = getAttributedString(str: amount, siz: 15.0)
+                    }
                 }
+                
             } catch let error {
                 print(error)
             }
-           
         }
-        
     }
     
     
@@ -324,14 +331,15 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
     }
     
     
-   @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+    
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
         self.prepareRecent()
         refreshControl.endRefreshing()
     }
     
     
     func onResult(_ json: String!) {
-       print("on result")
+        print("on result")
         if(self.visible == false){
            // print("on result returning")
             return
@@ -385,8 +393,6 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
                 self.updateCurrentBalance()
             }
         }
-        
-        
     }
     
     func onBlockNotificationError(_ err: Error!) {
@@ -400,13 +406,10 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
              self.prepareRecent()
              updateCurrentBalance()
         }
-       
-   
-        
     }
     
     func onEnd(_ height: Int32, cancelled: Bool) {
-    
+        
     }
     
     func onError(_ code: Int32, message: String!) {
@@ -432,6 +435,14 @@ MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
         if(self.mainContens.contains(where: { $0.Hash == transactions.Hash })){
             return
         }
+        /*   for creditTransaction in transactions.Credits{
+         
+         
+         }
+         for debitTransaction in transactions.Debits{
+         self.mainContens.append("-\(debitTransaction.dcrAmount) DCR")
+         }*/
+        self.mainContens.append(transactions)
         
         if(transactions.Fee == 0 && UserDefaults.standard.bool(forKey: "pref_notification_switch") == true){
             let content = UNMutableNotificationContent()
@@ -509,7 +520,7 @@ extension OverviewViewController : UITableViewDataSource {
 
 
 extension OverviewViewController : SlideMenuControllerDelegate {
-   
+    
     func leftWillOpen() {
        // print("SlideMenuControllerDelegate: leftWillOpen")
         
