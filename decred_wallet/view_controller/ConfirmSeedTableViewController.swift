@@ -65,7 +65,7 @@ class ConfirmSeedTableViewController: UIViewController, UITableViewDelegate, UIT
         tableView?.reloadData()
         tableView?.scrollToRow(at: IndexPath(row: currentSeedIndex, section: 0), at: .bottom, animated: true)
     }
-    
+
     func onCommitSeedWord(text:String) {
         seedWords.append(text)
         textFields[currentSeedIndex]?.text = text
@@ -99,6 +99,7 @@ class ConfirmSeedTableViewController: UIViewController, UITableViewDelegate, UIT
         return cell!
     }
     
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         currentSeedIndex = indexPath.row
         performSegue(withIdentifier: "showSuggestionsPopover", sender: indexPath)
@@ -113,6 +114,7 @@ class ConfirmSeedTableViewController: UIViewController, UITableViewDelegate, UIT
         }
     }
     
+
     
     private func loadSeedWordsList() -> [String]{
         let seedWordsPath = Bundle.main.path(forResource: "wordlist", ofType: "txt")

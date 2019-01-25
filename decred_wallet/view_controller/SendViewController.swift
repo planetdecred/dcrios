@@ -34,7 +34,6 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //tfAmountValue.addDoneButton()
         self.sendBtn.layer.cornerRadius = 5;
         self.accountDropdown.backgroundColor = UIColor.clear
         self.tfAmount.text = "0"
@@ -54,7 +53,7 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
 
     }
     
-    @IBAction func onSendAll(_ sender: Any) {
+    @IBAction func onSendAll(_ sender: Any?) {
        self.sendAllTX = true
         let spendableAmount = spendable(account: self.selectedAccount!)
         self.tfAmount.text = "\(spendableAmount)"
@@ -65,30 +64,8 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
     
     @IBAction private func sendFund(_ sender: Any) {
         if self.validate() {
-            // prepareTransaction(sendAll:false)
-            DispatchQueue.main.async {
-            self.askPassword(sendAll: false)
-            }
+            self.confirmSend(sendAll: false)
         }
-    }
-    
-    private func askPassword(sendAll: Bool) {
-        
-        let alert = UIAlertController(title: "Security", message: "Please enter password of your wallet", preferredStyle: .alert)
-        alert.addTextField { textField in
-            textField.placeholder = "password"
-            textField.isSecureTextEntry = true
-        }
-        let okAction = UIAlertAction(title: "Proceed", style: .default) { _ in
-            let tfPasswd = alert.textFields![0] as UITextField
-            self.password = tfPasswd.text!
-            alert.dismiss(animated: false, completion: nil)
-            self.confirmSend(sendAll: sendAll)
-        }
-        alert.addAction(okAction)
-       
-        self.present(alert, animated: true, completion: nil)
-        
     }
     
     private func prepareTransaction(sendAll: Bool?) {
@@ -128,16 +105,15 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
         
     }
     
-    private func signTransaction(sendAll: Bool?) {
+    private func signTransaction(sendAll: Bool?, password:String) {
         DispatchQueue.main.async {
-        let password = (self.password?.data(using: .utf8))!
         let walletAddress = self.walletAddress.text!
         let amount = Double((self.tfAmount.text)!)! * 100000000
         let account = (self.selectedAccount?.Number)!
         DispatchQueue.global(qos: .userInitiated).async {[unowned self] in
         do {
             let isShouldBeConfirmed = UserDefaults.standard.bool(forKey: "pref_spend_fund_switch")
-            let result = try SingleInstance.shared.wallet?.sendTransaction(password, destAddr: walletAddress, amount: Int64(amount) , srcAccount: account , requiredConfs: isShouldBeConfirmed ? 0 : 2, sendAll: sendAll ?? false)
+            let result = try SingleInstance.shared.wallet?.sendTransaction(password.data(using: .utf8), destAddr: walletAddress, amount: Int64(amount) , srcAccount: account , requiredConfs: isShouldBeConfirmed ? 0 : 2, sendAll: sendAll ?? false)
          
             DispatchQueue.main.async {
                 self.transactionSucceeded(hash: result?.hexEncodedString())
@@ -175,21 +151,12 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
         confirmSendFundViewController.modalPresentationStyle = .overCurrentContext
         confirmSendFundViewController.amount = amountToSend
         
-        confirmSendFundViewController.confirm = { [weak self] in
-            guard let `self` = self else { return }
-            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-                guard let this = self else { return }
-                this.signTransaction(sendAll: sendAll)
-               // self?.selectedAccount = nil
-                return
-                
-                
-            }
+        confirmSendFundViewController.confirm = { (password) in
+                self.signTransaction(sendAll: sendAll, password: password)
         }
         DispatchQueue.main.async {
-        self.present(confirmSendFundViewController, animated: true, completion: nil)
+            self.present(confirmSendFundViewController, animated: true, completion: nil)
         }
-        
         return
     }
     
@@ -239,7 +206,7 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
         // Presents the readerVC as modal form sheet
         self.readerVC.modalPresentationStyle = .formSheet
         DispatchQueue.main.async {
-        self.present(self.readerVC, animated: true, completion: nil)
+            self.present(self.readerVC, animated: true, completion: nil)
         }
     }
     
@@ -278,9 +245,6 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
         }
        
         self.present(sendCompletedVC, animated: true, completion: nil)
-        
-//        print("sent transaction")
-//        self.dismiss(animated: true, completion: nil)
         return
     }
     
@@ -361,7 +325,7 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
             )
             
             this.selectedAccount = account?.Acc[ind]
-         this.accountDropdown.setTitle("default", for: .normal)
+            this.accountDropdown.setTitle("default", for: .normal)
 
         }
     }
