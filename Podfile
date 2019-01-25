@@ -9,8 +9,10 @@ target 'Decred Wallet' do
   pod 'QRCodeReader.swift'
   pod "PasswordStrength"
   pod 'CryptoSwift'
+
   pod 'MBProgressHUD'
   # pod 'IHProgressHUD', :git => 'https://github.com/Swiftify-Corp/IHProgressHUD.git'
+
 end
 
 target 'Decred WalletTests' do
