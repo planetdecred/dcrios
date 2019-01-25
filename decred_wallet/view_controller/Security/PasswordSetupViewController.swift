@@ -42,8 +42,6 @@ class PasswordSetupViewController: UIViewController, SeedCheckupProtocol,UITextF
 
     func onEncrypt() {
         progressHud = showProgressHud(with: "creating wallet...")
-        self.progressHud?.show(animated: true)
-        self.progressHud?.label.text = "Creating wallet..."
         let seed = self.seedToVerify!
         let pass = self.tfPassword!.text
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
@@ -73,8 +71,7 @@ class PasswordSetupViewController: UIViewController, SeedCheckupProtocol,UITextF
     }
     
     func SetstartupPin_pas(){
-        self.progressHud?.show(animated: true)
-        self.progressHud?.label.text = "securing wallet..."
+        progressHud = showProgressHud(with: "securing wallet...")
         let key = "public"
         let finalkey = key as NSString
         let finalkeyData = finalkey.data(using: String.Encoding.utf8.rawValue)!
@@ -88,7 +85,7 @@ class PasswordSetupViewController: UIViewController, SeedCheckupProtocol,UITextF
             do {
                 try SingleInstance.shared.wallet?.changePublicPassphrase(finalkeyData, newPass: finalkeypassData)
                 DispatchQueue.main.async {
-                    this.progressHud?.hide(animated: true)
+                    this.progressHud?.dismiss()
                    
                     print("passSet")
                     UserDefaults.standard.set(true, forKey: "secure_wallet")
@@ -99,7 +96,7 @@ class PasswordSetupViewController: UIViewController, SeedCheckupProtocol,UITextF
                 return
             } catch let error {
                 DispatchQueue.main.async {
-                    this.progressHud?.hide(animated: true)
+                    this.progressHud?.dismiss()
                     this.showError(error: error)
                 }
             }
@@ -107,8 +104,7 @@ class PasswordSetupViewController: UIViewController, SeedCheckupProtocol,UITextF
     }
     
     func ChangeSpendingPass(){
-        self.progressHud?.show(animated: true)
-        self.progressHud?.label.text = "Changing spending Password..."
+         progressHud = showProgressHud(with: "Changing spending Password...")
         let key = pass_pinToVerify
         let finalkey = key! as NSString
         let finalkeyData = finalkey.data(using: String.Encoding.utf8.rawValue)!
@@ -122,7 +118,7 @@ class PasswordSetupViewController: UIViewController, SeedCheckupProtocol,UITextF
             do {
                 try SingleInstance.shared.wallet?.changePrivatePassphrase(finalkeyData, newPass: finalkeypassData)
                 DispatchQueue.main.async {
-                    this.progressHud?.hide(animated: true)
+                    this.progressHud?.dismiss()
                     UserDefaults.standard.setValue("PASSWORD", forKey: "spendingSecureType")
                     UserDefaults.standard.synchronize()
                     self?.dismissView()
@@ -130,7 +126,7 @@ class PasswordSetupViewController: UIViewController, SeedCheckupProtocol,UITextF
                 return
             } catch let error {
                 DispatchQueue.main.async {
-                    this.progressHud?.hide(animated: true)
+                    this.progressHud?.dismiss()
                     this.showError(error: error)
                 }
             }
