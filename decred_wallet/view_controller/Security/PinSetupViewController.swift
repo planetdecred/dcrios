@@ -7,7 +7,7 @@
 
 
 import UIKit
-import MBProgressHUD
+import JGProgressHUD
 import Mobilewallet
 
 class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPasswordProtocol {
@@ -22,7 +22,7 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
     @IBOutlet weak var btnCommit: UIButton!
     
     
-    var progressHud : MBProgressHUD?
+    var progressHud : JGProgressHUD?
     let pinStrength = PinWeakness()
     let pinInputController = PinInputController(max: 5)
     var seedToVerify: String?
@@ -42,8 +42,6 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
     }
     
     override func viewDidLoad() {
-        progressHud = MBProgressHUD(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
-        view.addSubview(progressHud!)
         setHeader()
     }
     
@@ -92,6 +90,7 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
     }
 
     @IBAction func onCommit(_ sender: Any) {
+        progressHud = showProgressHud(with: "creating wallet...")
         print(senders as Any)
         if senders == "launcher"{
                 pass_PIn_Unlock()
@@ -149,8 +148,7 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
         }
     }
     func createWallet(){
-        self.progressHud?.show(animated: true)
-        self.progressHud?.label.text = "creating wallet..."
+        progressHud = showProgressHud(with: "creating wallet...")
         print("creating")
         let seed = self.seedToVerify!
         let pass = self.pin
@@ -163,9 +161,10 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
                 }
                 try SingleInstance.shared.wallet?.createWallet(pass, seedMnemonic: seed)
                 DispatchQueue.main.async {
-                    this.progressHud?.hide(animated: true)
-                     UserDefaults.standard.set(pass, forKey: "password")
-                    UserDefaults.standard.set("PIN", forKey: "spendingSecureType")
+                    self!.progressHud!.dismiss()
+                    print("wallet created")
+                    UserDefaults.standard.set(pass, forKey: "password") //deeply concern about
+                    UserDefaults.standard.set("PIN", forKey: "spendingSecureType") // this stuff
                     UserDefaults.standard.synchronize()
                     createMainWindow()
                     this.dismiss(animated: true, completion: nil)
@@ -174,7 +173,7 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
                 return
             } catch let error {
                 DispatchQueue.main.async {
-                    this.progressHud?.hide(animated: true)
+                    self!.progressHud!.dismiss()
                     this.showError(error: error)
                     print("wallet error")
                     print(error)
@@ -183,8 +182,7 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
         }
     }
     func SetstartupPin_pas(){
-        self.progressHud?.show(animated: true)
-        self.progressHud?.label.text = "securing wallet..."
+        progressHud = showProgressHud(with: "securing wallet...")
         let key = "public"
         let finalkey = key as NSString
         let finalkeyData = finalkey.data(using: String.Encoding.utf8.rawValue)!
@@ -198,7 +196,7 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
             do {
                 try SingleInstance.shared.wallet?.changePublicPassphrase(finalkeyData, newPass: finalkeypassData)
                 DispatchQueue.main.async {
-                    this.progressHud?.hide(animated: true)
+                    this.progressHud?.dismiss()
                     
                     print("passSet")
                     UserDefaults.standard.set(true, forKey: "secure_wallet")
@@ -209,7 +207,7 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
                 return
             } catch let error {
                 DispatchQueue.main.async {
-                    this.progressHud?.hide(animated: true)
+                    this.progressHud?.dismiss()
                     this.showError(error: error)
                 }
             }
@@ -220,8 +218,7 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
     }
     
     func pass_PIn_Unlock(){
-        self.progressHud?.show(animated: true)
-        self.progressHud?.label.text = "Opening wallet"
+        progressHud = showProgressHud(with: "Opening wallet")
         let pass = self.pin
         let finalpass = pass as NSString
         let finalkeypassData = finalpass.data(using: String.Encoding.utf8.rawValue)!
@@ -233,21 +230,20 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
                 try SingleInstance.shared.wallet?.open(finalkeypassData)
                 
                 DispatchQueue.main.async {
-                    this.progressHud?.hide(animated: true)
+                    this.progressHud?.dismiss()
                     self!.createMenu()
                 }
                 return
             } catch let error {
                 DispatchQueue.main.async {
-                    this.progressHud?.hide(animated: true)
+                    this.progressHud?.dismiss()
                     this.showError(error: error)
                 }
             }
         }
     }
     func ChangeSpendingPIN(){
-        self.progressHud?.show(animated: true)
-        self.progressHud?.label.text = "Changing spending PIN..."
+        progressHud = showProgressHud(with: "Changing spending PIN...")
         let key = pass_pinToVerify
         let finalkey = key! as NSString
         let finalkeyData = finalkey.data(using: String.Encoding.utf8.rawValue)!
@@ -261,7 +257,7 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
             do {
                 try SingleInstance.shared.wallet?.changePrivatePassphrase(finalkeyData, newPass: finalkeypassData)
                 DispatchQueue.main.async {
-                    this.progressHud?.hide(animated: true)
+                    this.progressHud?.dismiss()
                     UserDefaults.standard.setValue("PIN", forKey: "spendingSecureType")
                     UserDefaults.standard.synchronize()
                     self?.dismissView()
@@ -269,7 +265,7 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
                 return
             } catch let error {
                 DispatchQueue.main.async {
-                    this.progressHud?.hide(animated: true)
+                    this.progressHud?.dismiss()
                     this.showError(error: error)
                 }
             }
@@ -277,8 +273,7 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
     }
     
     func RemovestartupPin_pas(){
-        self.progressHud?.show(animated: true)
-        self.progressHud?.label.text = "Removing Security"
+        progressHud = showProgressHud(with: "Removing Security")
         let key = "public"
         let finalkey = key as NSString
         let finalkeyData = finalkey.data(using: String.Encoding.utf8.rawValue)!
@@ -292,7 +287,7 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
             do {
                 try SingleInstance.shared.wallet?.changePublicPassphrase(finalkeypassData, newPass: finalkeyData)
                 DispatchQueue.main.async {
-                    this.progressHud?.hide(animated: true)
+                    this.progressHud?.dismiss()
                     
                     print("passSet")
                     UserDefaults.standard.set(false, forKey: "secure_wallet")
@@ -303,7 +298,7 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
                 return
             } catch let error {
                 DispatchQueue.main.async {
-                    this.progressHud?.hide(animated: true)
+                    this.progressHud?.dismiss()
                     this.showError(error: error)
                 }
             }
@@ -319,6 +314,6 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
             alert.dismiss(animated: true, completion: {self.navigationController?.popToRootViewController(animated: true)})
         }
         alert.addAction(okAction)
-        present(alert, animated: true, completion: {self.progressHud?.hide(animated: false)})
+        present(alert, animated: true, completion: {self.progressHud!.dismiss()})
     }
 }

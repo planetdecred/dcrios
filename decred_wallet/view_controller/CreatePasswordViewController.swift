@@ -7,29 +7,24 @@
 //
 
 import UIKit
-import MBProgressHUD
+import JGProgressHUD
 import Mobilewallet
 
 class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITextFieldDelegate {
     var seedToVerify: String?
-    var progressHud: MBProgressHUD?
     @IBOutlet weak var tfPassword: UITextField!
     @IBOutlet weak var tfVerifyPassword: UITextField!
     @IBOutlet weak var btnEncrypt: UIButton!
     
+    var progressHud : JGProgressHUD?
     
     override func viewDidLoad() {
         super.viewDidLoad()
          //IQKeyboardManager.shared().isEnabled = false
-        progressHud = MBProgressHUD(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
-        view.addSubview(progressHud!)
         tfPassword.delegate = self
         tfVerifyPassword.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+    
     
     
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -54,9 +49,7 @@ class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITex
     }
     
     @IBAction func onEncrypt(_ sender: Any) {
-        self.progressHud?.show(animated: true)
-        self.progressHud?.label.text = "creating wallet..."
-        print("creating")
+        progressHud = showProgressHud(with: "creating wallet...")
         let seed = self.seedToVerify!
         let pass = self.tfPassword!.text
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
@@ -68,7 +61,7 @@ class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITex
                 }
                 try SingleInstance.shared.wallet?.createWallet(pass, seedMnemonic: seed)
                 DispatchQueue.main.async {
-                    this.progressHud?.hide(animated: true)
+                    self!.progressHud?.dismiss()
                     UserDefaults.standard.set(pass, forKey: "password")
                     print("wallet created")
                     createMainWindow()
@@ -78,7 +71,7 @@ class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITex
                 return
             } catch let error {
                 DispatchQueue.main.async {
-                    this.progressHud?.hide(animated: true)
+                    self!.progressHud!.dismiss()
                     this.showError(error: error)
                     print("wallet error")
                     print(error)
@@ -93,7 +86,7 @@ class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITex
             alert.dismiss(animated: true, completion: {self.navigationController?.popToRootViewController(animated: true)})
         }
         alert.addAction(okAction)
-        present(alert, animated: true, completion: {self.progressHud?.hide(animated: false)})
+        present(alert, animated: true, completion: {self.progressHud!.dismiss()})
     }
     
 }
