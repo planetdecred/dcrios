@@ -3,7 +3,7 @@
 //  Copyright © 2018 The Decred developers. All rights reserved.
 
 import UIKit
-import MBProgressHUD
+import JGProgressHUD
 import SafariServices
 
 class TransactionFullDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,SFSafariViewControllerDelegate  {
@@ -14,16 +14,13 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
      @IBOutlet weak var amount: UILabel!
     var transactionHash: String?
     var account : String?
-    
-    let hud = MBProgressHUD(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+    var progressHud : JGProgressHUD?
     var details: [TransactionDetails] = []
     var transaction: Transaction!
     var txstatus: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-       // self.view.addSubview(hud)
         
         tableTransactionDetails
             .hideEmptyAndExtraRows()
@@ -47,7 +44,7 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
     
 
     override func viewWillAppear(_ animated: Bool) {
-       // hud.show(animated: true)
+        progressHud = showProgressHud(with: nil)
         self.navigationItem.title = "Transaction Details"
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "left-arrow"), style: .done, target: self, action: #selector(backk))
         wrap(transaction: self.transaction)
@@ -171,6 +168,7 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        progressHud?.dismiss()
         self.dismiss(animated: true, completion: nil)
         
     }
