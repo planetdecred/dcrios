@@ -44,7 +44,7 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
     
 
     override func viewWillAppear(_ animated: Bool) {
-        progressHud = showProgressHud(with: nil)
+      //  progressHud = showProgressHud(with: nil)
         self.navigationItem.title = "Transaction Details"
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "left-arrow"), style: .done, target: self, action: #selector(backk))
         wrap(transaction: self.transaction)
