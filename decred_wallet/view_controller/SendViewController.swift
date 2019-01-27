@@ -149,6 +149,10 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
         let confirmSendFundViewController = storyboard.instantiateViewController(withIdentifier: "ConfirmToSendFundViewController") as! ConfirmToSendFundViewController
         confirmSendFundViewController.modalTransitionStyle = .crossDissolve
         confirmSendFundViewController.modalPresentationStyle = .overCurrentContext
+        //confirmSendFundViewController.vContent
+        let tap = UITapGestureRecognizer(target: confirmSendFundViewController.view, action: #selector(confirmSendFundViewController.vContent.endEditing(_:)))
+        tap.cancelsTouchesInView = false
+        confirmSendFundViewController.view.addGestureRecognizer(tap)
         confirmSendFundViewController.amount = amountToSend
         
         confirmSendFundViewController.confirm = { (password) in

@@ -30,9 +30,7 @@
 		2850E094217612EE00171267 /* SourceSansPro-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2850E088217612EE00171267 /* SourceSansPro-SemiBold.ttf */; };
 		2850E095217612EE00171267 /* SourceSansPro-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2850E089217612EE00171267 /* SourceSansPro-ExtraLightItalic.ttf */; };
 		2850E096217612EE00171267 /* SourceSansPro-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2850E08A217612EE00171267 /* SourceSansPro-Italic.ttf */; };
-
 		28664E5E216F740000AA01E2 /* progress bar-1s-200px.gif in Resources */ = {isa = PBXBuildFile; fileRef = 28664E5D216F740000AA01E2 /* progress bar-1s-200px.gif */; };
-
 		286DA549210B0C7A00734259 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286DA548210B0C7A00734259 /* Data.swift */; };
 		2870338B20BC5E7D00BFD0B8 /* JsonEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2870338A20BC5E7D00BFD0B8 /* JsonEntities.swift */; };
 		2883CA702099D40F0053D9BB /* DropDownSearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2883CA6F2099D40F0053D9BB /* DropDownSearchField.swift */; };
@@ -161,11 +159,8 @@
 		2850E088217612EE00171267 /* SourceSansPro-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-SemiBold.ttf"; sourceTree = "<group>"; };
 		2850E089217612EE00171267 /* SourceSansPro-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
 		2850E08A217612EE00171267 /* SourceSansPro-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Italic.ttf"; sourceTree = "<group>"; };
-
-		286CF7AB21DA80B90011401B /* Mobilewallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mobilewallet.framework; path = wallet/debug/Mobilewallet.framework; sourceTree = "<group>"; };
-
 		28664E5D216F740000AA01E2 /* progress bar-1s-200px.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "progress bar-1s-200px.gif"; path = "decred_wallet/Resources/progress bar-1s-200px.gif"; sourceTree = "<group>"; };
-
+		286CF7AB21DA80B90011401B /* Mobilewallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mobilewallet.framework; path = wallet/debug/Mobilewallet.framework; sourceTree = "<group>"; };
 		286DA548210B0C7A00734259 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		2870338A20BC5E7D00BFD0B8 /* JsonEntities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonEntities.swift; sourceTree = "<group>"; };
 		2883CA6F2099D40F0053D9BB /* DropDownSearchField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownSearchField.swift; sourceTree = "<group>"; };
@@ -264,7 +259,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				286CF7AC21DA80B90011401B /* Mobilewallet.framework in Frameworks */,
 				1E3D73D7EA02D2D2D3CD052C /* Pods_Decred_Wallet.framework in Frameworks */,
 				B853136BC96255F028D8CB64 /* Pods_Decred_Wallet.framework in Frameworks */,
 			);
@@ -996,7 +990,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = KQ46EWSK84;
+				DEVELOPMENT_TEAM = LYZ95J7356;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1029,7 +1023,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = KQ46EWSK84;
+				DEVELOPMENT_TEAM = LYZ95J7356;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
