@@ -90,10 +90,9 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
     }
 
     @IBAction func onCommit(_ sender: Any) {
-        progressHud = showProgressHud(with: "creating wallet...")
         print(senders as Any)
         if senders == "launcher"{
-                pass_PIn_Unlock()
+            pass_PIn_Unlock()
         }
         else if senders == "settings"{
             if (UserDefaults.standard.bool(forKey: "secure_wallet")){
@@ -112,11 +111,20 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
             let sendVC = storyboard!.instantiateViewController(withIdentifier: "SecurityViewController") as! SecurityViewController
             sendVC.senders = "settingsChangeSpending"
             sendVC.pass_pinToVerify = self.pin
+            sendVC.seedToVerify = self.seedToVerify
             self.navigationController?.pushViewController(sendVC, animated: true)
             print("processing settings")
             
         }
-        else{
+        else if senders == "initialSetupPin"{
+            performSegue(withIdentifier: "confirmPinSegue", sender: nil)
+        }
+        else if senders == "pinConfirmation"{
+            if pass_pinToVerify == self.pin {
+                createWallet()
+            }
+        }
+        else {
             createWallet()
         }
         
@@ -142,7 +150,9 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
         else if senders == "settingsChangeSpendingPin"{
             headerText.text = "Enter Spending PIN"
         }
-            
+        else if senders == "pinConfirmation"{
+            headerText.text = "Confirm PIN"
+        }
         else{
             headerText.text = "Create Spending PIN"
         }
@@ -164,7 +174,7 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
                     self!.progressHud!.dismiss()
                     print("wallet created")
                     UserDefaults.standard.set(pass, forKey: "password") //deeply concern about
-                    UserDefaults.standard.set("PIN", forKey: "spendingSecureType") // this stuff
+                    UserDefaults.standard.set("PIN", forKey: "spendingSecureType")
                     UserDefaults.standard.synchronize()
                     createMainWindow()
                     this.dismiss(animated: true, completion: nil)
@@ -315,5 +325,13 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
         }
         alert.addAction(okAction)
         present(alert, animated: true, completion: {self.progressHud!.dismiss()})
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "initialSetupPin" {
+            let vc = segue.destination as? PinSetupViewController
+            vc?.seedToVerify = seedToVerify
+            vc?.senders = "pinConfirmation"
+        }
     }
 }
