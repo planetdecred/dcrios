@@ -174,12 +174,10 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
         if segue.identifier == "confirmSeedSegue"{
             var vc = segue.destination as? SeedCheckupProtocol
             vc?.seedToVerify = seedWords.reduce("", { x, y in  x + " " + y!})
+            vc?.senders = "initialSetupPin"
             if count == 1{
                 vc?.seedToVerify = seedtmp2
             }
-            let secvc = segue.destination as? SecurityViewController
-            secvc?.senders = "initialSetupPin"
-            
         }
     }
 }

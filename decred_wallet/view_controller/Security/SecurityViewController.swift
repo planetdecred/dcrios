@@ -43,6 +43,8 @@ class SecurityViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
                 var vc2 = pager?.viewControllers?.last as? SeedCheckupProtocol
                 vc1?.seedToVerify = seedToVerify
                 vc2?.seedToVerify = seedToVerify
+                vc2?.senders = senders
+                vc1?.senders = senders
             }
             else{
                 

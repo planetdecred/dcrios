@@ -11,9 +11,11 @@ import UIKit
 
 protocol SeedCheckupProtocol {
     var seedToVerify: String?{get set}
+    var senders: String?{get set}
 }
 
 class ButtonConfirmSeedViewController: UIViewController, SeedCheckupProtocol {
+    var senders: String?
     var seedToVerify: String?
     var selectedSeedWords: [Int] = []
     var allWords: [String] = []
@@ -47,6 +49,7 @@ class ButtonConfirmSeedViewController: UIViewController, SeedCheckupProtocol {
         if segue.identifier == "createPasswordSegue" {
             var securityvc = segue.destination as? SeedCheckupProtocol
             securityvc?.seedToVerify = enteredWords.joined(separator: " ")
+            securityvc?.senders = "initialSetupPin"
         }
     }
  

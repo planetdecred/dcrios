@@ -11,6 +11,7 @@ import JGProgressHUD
 import Mobilewallet
 
 class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITextFieldDelegate {
+    var senders: String?
     var seedToVerify: String?
     @IBOutlet weak var tfPassword: UITextField!
     @IBOutlet weak var tfVerifyPassword: UITextField!

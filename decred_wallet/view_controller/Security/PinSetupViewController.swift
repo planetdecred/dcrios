@@ -328,10 +328,11 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "initialSetupPin" {
-            let vc = segue.destination as? PinSetupViewController
+        if segue.identifier == "confirmPinSegue" {
+            var vc = segue.destination as? PinSetupViewController
             vc?.seedToVerify = seedToVerify
             vc?.senders = "pinConfirmation"
+            vc?.pass_pinToVerify = self.pin
         }
     }
 }
