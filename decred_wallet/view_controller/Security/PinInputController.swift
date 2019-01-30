@@ -27,4 +27,8 @@ class PinInputController {
         buffer = String(buffer.dropLast())
         return buffer
     }
+    func clear() -> String{
+        buffer = ""
+        return buffer
+    }
 }
