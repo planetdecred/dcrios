@@ -8,6 +8,7 @@
 
 import UIKit
 import Mobilewallet
+import JGProgressHUD
 
 class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
     
@@ -26,8 +27,10 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
     var sigPass  = true
     var passphrase_word = ""
     var mobilewallet :MobilewalletLibWallet!
+    var progressHud : JGProgressHUD?
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         mobilewallet = SingleInstance.shared.wallet
         self.address.delegate = self
         self.signature.delegate = self
@@ -233,8 +236,16 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
         }
         let okAction = UIAlertAction(title: "Proceed", style: .default) { _ in
             let tfPasswd = alert.textFields![0] as UITextField
-            self.SignMsg(pass: tfPasswd.text!)
-            alert.dismiss(animated: false, completion: nil)
+            if (tfPasswd.text?.count)! > 0{
+                self.SignMsg(pass: tfPasswd.text!)
+                alert.dismiss(animated: false, completion: nil)
+            }
+            else{
+                alert.dismiss(animated: false, completion: nil)
+                self.showAlert(message: "Password can't be empty.", titles: "invalid input")
+            }
+           
+            
             
            
         }
@@ -249,8 +260,19 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
         self.present(alert, animated: true, completion: nil)
         
     }
+    private func showAlert(message: String? , titles: String?) {
+        let alert = UIAlertController(title: titles, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+            alert.dismiss(animated: true, completion: nil)
+        }
+        alert.addAction(okAction)
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
     
     func SignMsg(pass:String){
+        progressHud = showProgressHud(with: "Signing Message...")
         let address = self.address.text
         let message = self.message.text
         let finalPassphrase = pass as NSString
@@ -258,24 +280,31 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
         print(address!)
         print(message!)
         print(finalPassphraseData)
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let this = self else { return }
         
         do{
             print("about to enter")
-            let signature = try mobilewallet.signMessage(finalPassphraseData, address: address, message: message)
+            let signature = try self!.mobilewallet.signMessage(finalPassphraseData, address: address, message: message)
             print("not yet")
             print(MobilewalletEncodeHex(signature))
-            self.signature.text = signature.base64EncodedString()
-            self.verifyMessage(signatures: self.signature.text!, messages: message!, address: address!)
-            self.checkCopyBtn(signatured: self.signature.text!)
+            DispatchQueue.main.async {
+                self!.progressHud?.dismiss()
+                this.signature.text = signature.base64EncodedString()
+                this.verifyMessage(signatures: self!.signature.text!, messages: message!, address: address!)
+                this.checkCopyBtn(signatured: self!.signature.text!)
+            }
         }
         catch{
             DispatchQueue.main.async {
+                self!.progressHud?.dismiss()
             let alertController = UIAlertController(title: "", message: "Password entered was not valid.", preferredStyle: UIAlertControllerStyle.alert)
             alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-            self.present(alertController, animated: true, completion: nil)
+                this.present(alertController, animated: true, completion: nil)
             }
            
             
+        }
         }
         
     }
