@@ -10,7 +10,9 @@ import UIKit
 import JGProgressHUD
 import Mobilewallet
 
-class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPasswordProtocol {
+class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPasswordProtocol,PINenteredProtocol {
+    var pinInput: String?
+    
     var pass_pinToVerify: String?
     
     var senders: String?
@@ -157,6 +159,15 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
             print("processing settings")
             
         }
+            
+        else if senders == "spendFund"{
+            pinInput = pin
+            UserDefaults.standard.set(pin, forKey: "TMPPIN") //deeply concern about
+            UserDefaults.standard.synchronize()
+            print("pin copy")
+            print(pinInput as Any)
+            self.navigationController?.popViewController(animated: true)
+        }
         else{
             if very{
                 if pin == VerifyPin{
@@ -212,6 +223,9 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
         }
         else if senders == "settingsChangeSpendingPin"{
             headerText.text = "Enter Spending PIN"
+        }
+        else if senders == "spendFund"{
+            headerText.text = "Input Spending PIN"
         }
             
         else{
