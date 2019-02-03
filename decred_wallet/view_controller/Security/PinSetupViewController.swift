@@ -10,7 +10,9 @@ import UIKit
 import JGProgressHUD
 import Mobilewallet
 
-class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPasswordProtocol {
+class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPasswordProtocol,PINenteredProtocol {
+    var pinInput: String?
+    
     var pass_pinToVerify: String?
     
     var senders: String?
@@ -26,7 +28,8 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
     let pinStrength = PinWeakness()
     let pinInputController = PinInputController(max: 5)
     var seedToVerify: String?
-    
+    var VerifyPin = ""
+    var very = false
     var pin : String = ""{
         didSet {
             pinMarks.entered = pin.count
@@ -90,7 +93,7 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
     }
 
     @IBAction func onCommit(_ sender: Any) {
-        progressHud = showProgressHud(with: "creating wallet...")
+       // progressHud = showProgressHud(with: "creating wallet...")
         print(senders as Any)
         if senders == "launcher"{
                 pass_PIn_Unlock()
@@ -100,12 +103,52 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
                 RemovestartupPin_pas()
             }
             else{
-                SetstartupPin_pas()
+                if very{
+                    if pin == VerifyPin{
+                         SetstartupPin_pas()
+                    }
+                    else{
+                        
+                        show(error: "Invalid PIN combination")
+                        self.pin = self.pinInputController.clear()
+                        self.VerifyPin = ""
+                        self.headerText.text = "Create Startup PIN"
+                        self.very = false
+                    }
+                    
+                }
+                else{
+                    VerifyPin = pin
+                    pin = pinInputController.clear()
+                    headerText.text = "Confirm Startup PIN"
+                    very = true
+                }
+               
             }
         }
         else if senders == "settingsChangeSpending"{
             print("proccessing settingsChangeSpending")
-            ChangeSpendingPIN()
+            if very{
+                if pin == VerifyPin{
+                    ChangeSpendingPIN()
+                }
+                else{
+                    
+                    show(error: "Invalid PIN combination")
+                    self.pin = self.pinInputController.clear()
+                    self.VerifyPin = ""
+                    self.headerText.text = "Change Spending PIN"
+                    self.very = false
+                }
+                
+            }
+            else{
+                VerifyPin = pin
+                pin = pinInputController.clear()
+                headerText.text = "Confirm Spending PIN"
+                very = true
+            }
+            
             
         }
         else if senders == "settingsChangeSpendingPin"{
@@ -116,10 +159,49 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
             print("processing settings")
             
         }
+            
+        else if senders == "spendFund"{
+            pinInput = pin
+            UserDefaults.standard.set(pin, forKey: "TMPPIN") //deeply concern about
+            UserDefaults.standard.synchronize()
+            print("pin copy")
+            print(pinInput as Any)
+            self.navigationController?.popViewController(animated: true)
+        }
         else{
-            createWallet()
+            if very{
+                if pin == VerifyPin{
+                    createWallet()
+                }
+                else{
+                    
+                    show(error: "Invalid PIN combination")
+                    self.pin = self.pinInputController.clear()
+                    self.VerifyPin = ""
+                    self.headerText.text = "Create Spending PIN"
+                    self.very = false
+                }
+                
+            }
+            else{
+                VerifyPin = pin
+                pin = pinInputController.clear()
+                headerText.text = "Confirm Spending PIN"
+                very = true
+            }
+            
         }
         
+    }
+    private func show(error:String){
+        let alert = UIAlertController(title: "PIN mismatch", message: error, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Try again", style: .default) { (action) in
+            alert.dismiss(animated: true, completion: {
+                
+            })
+        }
+        alert.addAction(okAction)
+        self.present(alert, animated: true, completion: nil)
     }
     
     func setHeader(){
@@ -141,6 +223,9 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
         }
         else if senders == "settingsChangeSpendingPin"{
             headerText.text = "Enter Spending PIN"
+        }
+        else if senders == "spendFund"{
+            headerText.text = "Input Spending PIN"
         }
             
         else{

@@ -8,8 +8,12 @@ import QRCodeReader
 import UIKit
 import Mobilewallet
 import SafariServices
-
-class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderViewControllerDelegate {
+protocol PINenteredProtocol {
+    var pinInput: String?{get set}
+}
+class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderViewControllerDelegate, PINenteredProtocol {
+    var pinInput: String?
+    
     weak var delegate: LeftMenuProtocol?
     @IBOutlet var accountDropdown: DropMenuButton!
     @IBOutlet var BalanceAfter: UILabel!
@@ -46,6 +50,14 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
         self.navigationItem.title = "Send"
         self.updateBalance()
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+       
+        if UserDefaults.standard.string(forKey: "TMPPIN") != nil{
+            self.confirmSendWithoutPin(sendAll: false, pin: UserDefaults.standard.string(forKey: "TMPPIN")!)
+            UserDefaults.standard.set(nil, forKey: "TMPPIN")
+        }
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -64,7 +76,15 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
     
     @IBAction private func sendFund(_ sender: Any) {
         if self.validate() {
-            self.confirmSend(sendAll: false)
+            if(UserDefaults.standard.string(forKey: "spendingSecureType") == "PASSWORD"){
+                self.confirmSend(sendAll: false)
+            }
+            else{
+                let sendVC = storyboard!.instantiateViewController(withIdentifier: "PinSetupViewController") as! PinSetupViewController
+                sendVC.senders = "spendFund"
+                self.navigationController?.pushViewController(sendVC, animated: true)
+                //self.confirmSendWithoutPin(sendAll: false, pin: "546789")
+            }
         }
     }
     
@@ -157,6 +177,26 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
         
         confirmSendFundViewController.confirm = { (password) in
                 self.signTransaction(sendAll: sendAll, password: password)
+        }
+        DispatchQueue.main.async {
+            self.present(confirmSendFundViewController, animated: true, completion: nil)
+        }
+        return
+    }
+    private func confirmSendWithoutPin(sendAll: Bool, pin: String) {
+        let amountToSend = Double((tfAmount?.text)!)!
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let confirmSendFundViewController = storyboard.instantiateViewController(withIdentifier: "ConfirmToSendFundViewPINController") as! ConfirmToSendFundViewPINController
+        confirmSendFundViewController.modalTransitionStyle = .crossDissolve
+        confirmSendFundViewController.modalPresentationStyle = .overCurrentContext
+        //confirmSendFundViewController.vContent
+        let tap = UITapGestureRecognizer(target: confirmSendFundViewController.view, action: #selector(confirmSendFundViewController.vContent.endEditing(_:)))
+        tap.cancelsTouchesInView = false
+        confirmSendFundViewController.view.addGestureRecognizer(tap)
+        confirmSendFundViewController.amount = amountToSend
+        let tmp = pin
+        confirmSendFundViewController.confirm = { () in
+            self.signTransaction(sendAll: sendAll, password: tmp)
         }
         DispatchQueue.main.async {
             self.present(confirmSendFundViewController, animated: true, completion: nil)
