@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Mobilewallet
+import Dcrlibwallet
 import JGProgressHUD
 
 class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
@@ -26,7 +26,7 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
     var messagePass = false
     var sigPass  = true
     var passphrase_word = ""
-    var mobilewallet :MobilewalletLibWallet!
+    var mobilewallet :DcrlibwalletLibWallet!
     var progressHud : JGProgressHUD?
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -287,7 +287,7 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
             print("about to enter")
             let signature = try self!.mobilewallet.signMessage(finalPassphraseData, address: address, message: message)
             print("not yet")
-            print(MobilewalletEncodeHex(signature))
+            print(DcrlibwalletEncodeHex(signature))
             DispatchQueue.main.async {
                 self!.progressHud?.dismiss()
                 this.signature.text = signature.base64EncodedString()

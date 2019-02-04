@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import Mobilewallet
+import Dcrlibwallet
 
 // MARK: - endpoint listener protocols
 protocol TransactionObserverProtocol {

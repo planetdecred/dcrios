@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Mobilewallet
+import Dcrlibwallet
 
 class GeneratedSeedDisplayViewController: UIViewController {
     @IBOutlet var vWarningLabel: UILabel!

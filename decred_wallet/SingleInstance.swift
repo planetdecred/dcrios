@@ -8,9 +8,9 @@
 
 import Foundation
 import UIKit
-import Mobilewallet
+import Dcrlibwallet
 public class SingleInstance{
-    var wallet: MobilewalletLibWallet?
+    var wallet: DcrlibwalletLibWallet?
     public class var shared: SingleInstance {
         struct Static {
             static let instance: SingleInstance = SingleInstance()

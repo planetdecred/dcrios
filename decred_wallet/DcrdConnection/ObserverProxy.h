@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Mobilewallet/Mobilewallet.h>
+#import <Dcrlibwallet/Dcrlibwallet.h>
 
 
 /*@class TransactionResponse;

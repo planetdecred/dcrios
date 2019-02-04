@@ -4,7 +4,7 @@
 //  see LICENSE for details.
 
 import CoreData
-import Mobilewallet
+import Dcrlibwallet
 import SlideMenuControllerSwift
 import UserNotifications
 
@@ -57,7 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     fileprivate func populateFirstScreen() {
         if isWalletCreated() {
-            SingleInstance.shared.wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/", "bdb", "testnet3")
+            SingleInstance.shared.wallet = DcrlibwalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/", "bdb", "testnet3")
             SingleInstance.shared.wallet?.initLoader()
             if(UserDefaults.standard.bool(forKey: "secure_wallet")){
                 if(UserDefaults.standard.string(forKey: "securitytype") == "PASSWORD"){
@@ -81,7 +81,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             }
             
         } else {
-            SingleInstance.shared.wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/", "bdb", "testnet3")
+            SingleInstance.shared.wallet = DcrlibwalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/", "bdb", "testnet3")
             SingleInstance.shared.wallet?.initLoader()
            DispatchQueue.global(qos: .default).async {
             self.walletSetupView()
@@ -137,7 +137,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         self.navigation?.pushViewController(vcSetting, animated: true)
     }
     fileprivate func openUnSecuredWallet(){
-        SingleInstance.shared.wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/", "bdb", "testnet3")
+        SingleInstance.shared.wallet = DcrlibwalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/", "bdb", "testnet3")
         SingleInstance.shared.wallet?.initLoader()
         let key = "public"
         let finalkey = key as NSString
