@@ -35,6 +35,7 @@ updateDcrlibwallet() {
 
 buildDcrlibwallet() {
 	cd $DCRLIBWALLET_GIT_DIR
+	rm -rf Dcrlibwallet.framework/
 	export GO111MODULE=on
 	go mod download
 	go mod vendor
