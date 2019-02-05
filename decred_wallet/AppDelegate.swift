@@ -57,7 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     fileprivate func populateFirstScreen() {
         var initWalletError: NSError?
-        SingleInstance.shared.wallet = DcrlibwalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/", "bdb", "testnet", &initWalletError)
+        SingleInstance.shared.wallet = DcrlibwalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/", "bdb", "testnet3", &initWalletError)
         if initWalletError != nil {
             print("init wallet error -> \(initWalletError!.localizedDescription)")
             return
