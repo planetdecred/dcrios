@@ -4,7 +4,7 @@
 //  see LICENSE for details.
 
 import CoreData
-import Mobilewallet
+import Dcrlibwallet
 import SlideMenuControllerSwift
 import UserNotifications
 
@@ -56,9 +56,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
 
     fileprivate func populateFirstScreen() {
+        var initWalletError: NSError?
+        SingleInstance.shared.wallet = DcrlibwalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/", "bdb", "testnet3", &initWalletError)
+        if initWalletError != nil {
+            print("init wallet error -> \(initWalletError!.localizedDescription)")
+            return
+        }
+        
+        SingleInstance.shared.wallet?.initLoader()
+        
         if isWalletCreated() {
-            SingleInstance.shared.wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/", "bdb", "testnet3")
-            SingleInstance.shared.wallet?.initLoader()
             if(UserDefaults.standard.bool(forKey: "secure_wallet")){
                 if(UserDefaults.standard.string(forKey: "securitytype") == "PASSWORD"){
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -81,8 +88,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             }
             
         } else {
-            SingleInstance.shared.wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/", "bdb", "testnet3")
-            SingleInstance.shared.wallet?.initLoader()
            DispatchQueue.global(qos: .default).async {
             self.walletSetupView()
             }
@@ -136,9 +141,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
         self.navigation?.pushViewController(vcSetting, animated: true)
     }
-    fileprivate func openUnSecuredWallet(){
-        SingleInstance.shared.wallet = MobilewalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrwallet/", "bdb", "testnet3")
-        SingleInstance.shared.wallet?.initLoader()
+    
+    fileprivate func openUnSecuredWallet() {
         let key = "public"
         let finalkey = key as NSString
         let finalkeyData = finalkey.data(using: String.Encoding.utf8.rawValue)!

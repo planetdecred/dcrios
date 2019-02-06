@@ -8,7 +8,7 @@
 
 import UIKit
 import JGProgressHUD
-import Mobilewallet
+import Dcrlibwallet
 
 class CreatePasswordViewController: UIViewController, SeedCheckupProtocol, UITextFieldDelegate {
     var seedToVerify: String?

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Mobilewallet
+import Dcrlibwallet
 import JGProgressHUD
 
 class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
@@ -26,12 +26,12 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
     var messagePass = false
     var sigPass  = true
     var passphrase_word = ""
-    var mobilewallet :MobilewalletLibWallet!
+    var dcrlibwallet :DcrlibwalletLibWallet!
     var progressHud : JGProgressHUD?
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mobilewallet = SingleInstance.shared.wallet
+        dcrlibwallet = SingleInstance.shared.wallet
         self.address.delegate = self
         self.signature.delegate = self
         self.message.delegate = self
@@ -75,8 +75,8 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
                 return true
             }
             
-            if(mobilewallet.isAddressValid(updatedString)){
-                if(mobilewallet.haveAddress(updatedString)){
+            if(dcrlibwallet.isAddressValid(updatedString)){
+                if(dcrlibwallet.haveAddress(updatedString)){
                     self.addressError.textColor = UIColor(hex: "#007AFF")
                     self.addressError.text = "Address is valid and you own it."
                     addressPass = true
@@ -185,9 +185,9 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
             self.sigPass = true
             return
         }
-        if(mobilewallet.isAddressValid(addressd)){
+        if(dcrlibwallet.isAddressValid(addressd)){
             do{
-                try mobilewallet.verifyMessage(addressd, message: message, signatureBase64: signatured, ret0_: retV)
+                try dcrlibwallet.verifyMessage(addressd, message: message, signatureBase64: signatured, ret0_: retV)
                 if(retV[0]).boolValue{
                     self.signatureError.text = "This signature verifies against the message and address."
                     self.signatureError.textColor = UIColor(hex: "#007AFF")
@@ -285,9 +285,9 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
         
         do{
             print("about to enter")
-            let signature = try self!.mobilewallet.signMessage(finalPassphraseData, address: address, message: message)
+            let signature = try self!.dcrlibwallet.signMessage(finalPassphraseData, address: address, message: message)
             print("not yet")
-            print(MobilewalletEncodeHex(signature))
+            print(DcrlibwalletEncodeHex(signature))
             DispatchQueue.main.async {
                 self!.progressHud?.dismiss()
                 this.signature.text = signature.base64EncodedString()

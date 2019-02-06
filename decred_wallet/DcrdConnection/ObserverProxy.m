@@ -18,16 +18,16 @@
     return self;
 }
 
-- (void) subscribeForNotifications:(id<MobilewalletGetTransactionsResponse>)observer{
+- (void) subscribeForNotifications:(id<DcrlibwalletGetTransactionsResponse>)observer{
     [self.transactionNotificationsSubscribers addObject:observer];
 }
 
-- (void) unsubscribeForNotifications:(id<MobilewalletGetTransactionsResponse>)observer{
+- (void) unsubscribeForNotifications:(id<DcrlibwalletGetTransactionsResponse>)observer{
     [self.transactionNotificationsSubscribers removeObject:observer];
 }
 
 - (void)onResult:(NSString *)json {
-    for (id<MobilewalletGetTransactionsResponse> observer in self.transactionNotificationsSubscribers) {
+    for (id<DcrlibwalletGetTransactionsResponse> observer in self.transactionNotificationsSubscribers) {
         [observer onResult:json];
     }
 }
@@ -43,14 +43,14 @@
     }
     return self;
 }
-- (void) subscribeForBlockNotifications:(id<MobilewalletBlockNotificationError>)observer{
+- (void) subscribeForBlockNotifications:(id<DcrlibwalletBlockNotificationError>)observer{
     [self.transactionBlockNotificationsSubscribers addObject:observer];
 }
-- (void) unsubscribeForBlockNotifications:(id<MobilewalletBlockNotificationError>)observer{
+- (void) unsubscribeForBlockNotifications:(id<DcrlibwalletBlockNotificationError>)observer{
     [self.transactionBlockNotificationsSubscribers removeObject:observer];
 }
 - (void)onBlockNotificationError:(NSError *)err {
-    for (id<MobilewalletBlockNotificationError> observer in self.transactionBlockNotificationsSubscribers) {
+    for (id<DcrlibwalletBlockNotificationError> observer in self.transactionBlockNotificationsSubscribers) {
         [observer onBlockNotificationError:err];
     }
 }
@@ -67,23 +67,23 @@
     return self;
 }
 
-- (void) subscribeForUpdateNotifications:(id<MobilewalletTransactionListener>)observer{
+- (void) subscribeForUpdateNotifications:(id<DcrlibwalletTransactionListener>)observer{
     [self.transactionNotificationsSubscribers addObject:observer];
     
 }
 
-- (void) unsubscribeForUpdateNotifications:(id<MobilewalletTransactionListener>)observer{
+- (void) unsubscribeForUpdateNotifications:(id<DcrlibwalletTransactionListener>)observer{
     [self.transactionNotificationsSubscribers removeObject:observer];
 }
 
 - (void)onTransaction:(NSString *)transaction {
-    for (id<MobilewalletTransactionListener> observer in self.transactionNotificationsSubscribers) {
+    for (id<DcrlibwalletTransactionListener> observer in self.transactionNotificationsSubscribers) {
         [observer onTransaction:transaction];
     }
 }
 
 - (void)onTransactionConfirmed:(NSString*)hash height:(int32_t)height; {
-    for (id<MobilewalletTransactionListener> observer in self.transactionNotificationsSubscribers) {
+    for (id<DcrlibwalletTransactionListener> observer in self.transactionNotificationsSubscribers) {
         [observer onTransactionConfirmed:hash height:height];
     }
 }
@@ -99,26 +99,26 @@
     return self;
 }
 
-- (void) subscribeForBlockScanNotifications:(id<MobilewalletBlockScanResponse>)observer{
+- (void) subscribeForBlockScanNotifications:(id<DcrlibwalletBlockScanResponse>)observer{
     [self.blockScanNotificationsSubscribers addObject:observer];
 }
 
-- (void) unsubscribeForBlockScanNotifications:(id<MobilewalletBlockScanResponse>)observer{
+- (void) unsubscribeForBlockScanNotifications:(id<DcrlibwalletBlockScanResponse>)observer{
     [self.blockScanNotificationsSubscribers removeObject:observer];
 }
 
 - (void)onEnd:(int32_t)height cancelled:(BOOL)cancelled{
-    for (id<MobilewalletBlockScanResponse> observer in self.blockScanNotificationsSubscribers) {
+    for (id<DcrlibwalletBlockScanResponse> observer in self.blockScanNotificationsSubscribers) {
         [observer onEnd:height cancelled:cancelled];
     }
 }
 - (void)onError:(int32_t)code message:(NSString*)message{
-    for (id<MobilewalletBlockScanResponse> observer in self.blockScanNotificationsSubscribers) {
+    for (id<DcrlibwalletBlockScanResponse> observer in self.blockScanNotificationsSubscribers) {
         [observer onError:code message:message];
     }
 }
 - (BOOL)onScan:(int32_t)rescannedThrough{
-    for (id<MobilewalletBlockScanResponse> observer in self.blockScanNotificationsSubscribers) {
+    for (id<DcrlibwalletBlockScanResponse> observer in self.blockScanNotificationsSubscribers) {
         [observer onScan:rescannedThrough];
     }
     return true;

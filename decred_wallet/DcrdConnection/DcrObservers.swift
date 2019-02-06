@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import Mobilewallet
+import Dcrlibwallet
 
 // MARK: - endpoint listener protocols
 protocol TransactionObserverProtocol {
@@ -34,8 +34,8 @@ struct ObserversListener:WalletTransactionBlockListenerProtocol{
 
 /*class TransactionsObserver {
     fileprivate var listener: TransactionObserverProtocol?
-    fileprivate let mUpcomingTransactionListener = MobilewalletTransactionListener()
-    fileprivate let mTransactionListener = MobilewalletGetTransactionsResponse()
+    fileprivate let mUpcomingTransactionListener = DcrlibwalletTransactionListener()
+    fileprivate let mTransactionListener = DcrlibwalletGetTransactionsResponse()
     init(listener:TransactionObserverProtocol) {
         self.listener = listener
     }

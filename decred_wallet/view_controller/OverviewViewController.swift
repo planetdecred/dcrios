@@ -5,12 +5,12 @@
 //  see LICENSE for details.
 
 import SlideMenuControllerSwift
-import Mobilewallet
+import Dcrlibwallet
 import JGProgressHUD
 import UserNotifications
 
-class OverviewViewController: UIViewController, MobilewalletGetTransactionsResponseProtocol, MobilewalletTransactionListenerProtocol, //MobilewalletBlockNotificationErrorProtocol,
-MobilewalletBlockScanResponseProtocol, MobilewalletSpvSyncResponseProtocol {
+class OverviewViewController: UIViewController, DcrlibwalletGetTransactionsResponseProtocol, DcrlibwalletTransactionListenerProtocol, //DcrlibwalletBlockNotificationErrorProtocol,
+DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol {
     var peerCount = 0
     
 

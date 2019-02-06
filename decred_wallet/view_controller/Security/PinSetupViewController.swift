@@ -8,7 +8,7 @@
 
 import UIKit
 import JGProgressHUD
-import Mobilewallet
+import Dcrlibwallet
 
 class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPasswordProtocol,PINenteredProtocol {
     var pinInput: String?

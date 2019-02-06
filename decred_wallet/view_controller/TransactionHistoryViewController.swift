@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TransactionHistoryViewController: UIViewController,MobilewalletGetTransactionsResponseProtocol {
+class TransactionHistoryViewController: UIViewController,DcrlibwalletGetTransactionsResponseProtocol {
     
     
     var refreshControl: UIRefreshControl = {
