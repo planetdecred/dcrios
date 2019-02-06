@@ -1,25 +1,57 @@
 #!/bin/bash
-cd wallet/pkg
-mkdir bin
-unset GOROOT
-export GOPATH=$(pwd)
-export PATH=$PATH:$GOPATH/bin
-mkdir -p go/src/github.com/raedahgroup/mobilewallet
-cd src/mobilewallet
-dep ensure -v
-go get golang.org/x/mobile/cmd/gomobile
-gomobile init
+export DEBUG_LIB_DIR=$(pwd)/debug
+export RELEASE_LIB_DIR=$(pwd)/release
+export DCRLIBWALLET_GIT_DIR=$GOPATH/src/github.com/raedahgroup/dcrlibwallet
 
-rm -rf ../../../debug
-rm -rf ../../../release
-mkdir ../../../debug
-mkdir ../../../release
+main() {
+	if [ -e $DCRLIBWALLET_GIT_DIR ]
+	then
+		echo "dcrlibwallet git folder found, running git pull"
+		updateDcrlibwallet;
+	else
+		echo "dcrlibwallet git folder does not exist, running git clone"
+		cloneDcrlibwallet;
+	fi
 
-export GOOS=darwin
-export GOARCH=arm
-export GOARM=7
-gomobile bind -target=ios
-cp -R -f Mobilewallet.framework ../../../debug/Mobilewallet.framework
-cp -R -f Mobilewallet.framework ../../../release/Mobilewallet.framework
-lipo -remove i386 -remove x86_64 Mobilewallet.framework/Versions/Current/Mobilewallet -output Mobilewallet
-mv Mobilewallet ../../../release/Mobilewallet.framework/Versions/Current/Mobilewallet
+	echo "building dcrlibwallet"
+	buildDcrlibwallet;
+
+	echo "copying built binary"
+	copyLibrary;
+}
+
+cloneDcrlibwallet() {
+	rm -rf $DCRLIBWALLET_GIT_DIR
+	mkdir -p $DCRLIBWALLET_GIT_DIR
+	git clone https://github.com/raedahgroup/dcrlibwallet.git $DCRLIBWALLET_GIT_DIR
+	echo "done cloning dcrlibwallet"
+}
+
+updateDcrlibwallet() {
+	cd $DCRLIBWALLET_GIT_DIR
+	git checkout master && git pull origin master
+	echo "done updating dcrlibwallet"
+}
+
+buildDcrlibwallet() {
+	cd $DCRLIBWALLET_GIT_DIR
+	rm -rf Dcrlibwallet.framework/
+	export GO111MODULE=on
+	go mod download
+	go mod vendor
+	export GO111MODULE=off
+	gomobile bind -target=ios
+	echo "done building dcrlibwallet"
+}
+
+copyLibrary() {
+	rm -rf $DEBUG_LIB_DIR
+	rm -rf $RELEASE_LIB_DIR
+	mkdir $DEBUG_LIB_DIR
+	mkdir $RELEASE_LIB_DIR
+	cp -R -f Dcrlibwallet.framework $DEBUG_LIB_DIR/Dcrlibwallet.framework
+	cp -R -f Dcrlibwallet.framework $RELEASE_LIB_DIR/Dcrlibwallet.framework
+	echo "done"
+}
+
+main
