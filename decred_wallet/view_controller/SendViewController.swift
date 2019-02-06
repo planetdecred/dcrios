@@ -6,7 +6,7 @@
 
 import QRCodeReader
 import UIKit
-import Mobilewallet
+import Dcrlibwallet
 import SafariServices
 protocol PINenteredProtocol {
     var pinInput: String?{get set}
@@ -90,7 +90,7 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
     
     private func prepareTransaction(sendAll: Bool?) {
         let amountToSend = Double((self.tfAmount.text)!)!
-        let amount = MobilewalletAmountAtom(amountToSend)
+        let amount = DcrlibwalletAmountAtom(amountToSend)
         var walletaddress = self.walletAddress.text!
         let acountN = (self.selectedAccount?.Number)!
         if !(validateDestinationAddress()){
@@ -101,7 +101,7 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
          DispatchQueue.global(qos: .userInitiated).async {
         do {
             let isShouldBeConfirmed = UserDefaults.standard.bool(forKey: "pref_spend_fund_switch")
-             let preparedTransaction: MobilewalletUnsignedTransaction?
+             let preparedTransaction: DcrlibwalletUnsignedTransaction?
             
              preparedTransaction = try SingleInstance.shared.wallet?.constructTransaction(walletaddress, amount: amount, srcAccount: acountN , requiredConfirmations: isShouldBeConfirmed ? 0 : 2, sendAll: sendAll ?? false)
             DispatchQueue.main.async { [weak self] in
@@ -113,7 +113,7 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
                 let tnt =  (spendableAmount - (Decimal(amountToSend) )) as NSDecimalNumber
                 this.BalanceAfter.attributedText = getAttributedString(str: "\(tnt.round(8) ?? 0.0)", siz: 13)
                 if(sendAll)!{
-                    this.tfAmount.text = "\(MobilewalletAmountCoin(amount - MobilewalletAmountAtom(fee)) )"
+                    this.tfAmount.text = "\(DcrlibwalletAmountCoin(amount - DcrlibwalletAmountAtom(fee)) )"
                 }
                 print("total Output")
                 print(preparedTransaction?.totalOutputAmount() as Any)

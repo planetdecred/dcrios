@@ -72,6 +72,7 @@
 		95B80F3220DCCCF2004D5613 /* iOSDevCenters+GIF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B80F3020DCCCF2004D5613 /* iOSDevCenters+GIF.swift */; };
 		95CC024420D3F15800DA73AF /* AccountsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CC024320D3F15800DA73AF /* AccountsData.swift */; };
 		95E1C96E20FCD43E00D7F3EE /* TextFieldDoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E1C96D20FCD43E00D7F3EE /* TextFieldDoneButton.swift */; };
+		B3D79EF42208431800CDDB70 /* Dcrlibwallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3D79EF32208431800CDDB70 /* Dcrlibwallet.framework */; };
 		B853136BC96255F028D8CB64 /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD1BD0208F6C9A0051F58F /* Pods_Decred_Wallet.framework */; };
 		DD0B356E218930B7000830C4 /* AddAcountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B356D218930B7000830C4 /* AddAcountViewController.swift */; };
 		DD0C493E208A160900986C6B /* WalletSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C493D208A160900986C6B /* WalletSetupViewController.swift */; };
@@ -161,7 +162,6 @@
 		2850E089217612EE00171267 /* SourceSansPro-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
 		2850E08A217612EE00171267 /* SourceSansPro-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Italic.ttf"; sourceTree = "<group>"; };
 		28664E5D216F740000AA01E2 /* progress bar-1s-200px.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "progress bar-1s-200px.gif"; path = "decred_wallet/Resources/progress bar-1s-200px.gif"; sourceTree = "<group>"; };
-		286CF7AB21DA80B90011401B /* Mobilewallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mobilewallet.framework; path = wallet/debug/Mobilewallet.framework; sourceTree = "<group>"; };
 		286DA548210B0C7A00734259 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		2870338A20BC5E7D00BFD0B8 /* JsonEntities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonEntities.swift; sourceTree = "<group>"; };
 		2883CA6F2099D40F0053D9BB /* DropDownSearchField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownSearchField.swift; sourceTree = "<group>"; };
@@ -209,6 +209,7 @@
 		95CC024320D3F15800DA73AF /* AccountsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsData.swift; sourceTree = "<group>"; };
 		95E1C96D20FCD43E00D7F3EE /* TextFieldDoneButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldDoneButton.swift; sourceTree = "<group>"; };
 		A1A97C56BC75512DA55A8A70 /* Pods-Decred WalletTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred WalletTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Decred WalletTests/Pods-Decred WalletTests.release.xcconfig"; sourceTree = "<group>"; };
+		B3D79EF32208431800CDDB70 /* Dcrlibwallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Dcrlibwallet.framework; path = debug/Dcrlibwallet.framework; sourceTree = "<group>"; };
 		DD0B356D218930B7000830C4 /* AddAcountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddAcountViewController.swift; path = view_controller/AddAcountViewController.swift; sourceTree = "<group>"; };
 		DD0C493D208A160900986C6B /* WalletSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSetupViewController.swift; sourceTree = "<group>"; };
 		DD1D5C7B20AED824009789DD /* certificateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = certificateViewController.swift; sourceTree = "<group>"; };
@@ -261,6 +262,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3D79EF42208431800CDDB70 /* Dcrlibwallet.framework in Frameworks */,
 				1E3D73D7EA02D2D2D3CD052C /* Pods_Decred_Wallet.framework in Frameworks */,
 				B853136BC96255F028D8CB64 /* Pods_Decred_Wallet.framework in Frameworks */,
 			);
@@ -353,7 +355,7 @@
 		5300E0A95A9FA022A08F903E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				286CF7AB21DA80B90011401B /* Mobilewallet.framework */,
+				B3D79EF32208431800CDDB70 /* Dcrlibwallet.framework */,
 				28FD1BD0208F6C9A0051F58F /* Pods_Decred_Wallet.framework */,
 				28FD1BC5208E667F0051F58F /* Pods_Decred_Wallet.framework */,
 				28FD1BC1208E659A0051F58F /* Pods_Decred_Wallet.framework */,
@@ -998,10 +1000,10 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/mobilewallet",
-					"$(PROJECT_DIR)/mobiwallet",
 					"$(PROJECT_DIR)/wallet/debug",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/release",
+					"$(PROJECT_DIR)/debug",
 				);
 				INFOPLIST_FILE = decred_wallet/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
@@ -1031,10 +1033,10 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/mobilewallet",
-					"$(PROJECT_DIR)/mobiwallet",
 					"$(PROJECT_DIR)/wallet/debug",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/release",
+					"$(PROJECT_DIR)/debug",
 				);
 				INFOPLIST_FILE = decred_wallet/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
