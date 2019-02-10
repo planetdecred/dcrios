@@ -19,7 +19,15 @@ func isWalletCreated() -> Bool{
           let result = fm.fileExists(atPath: NSHomeDirectory()+"/Documents/dcrwallet/testnet3/wallet.db")
             return result
 }
-
+func showMsg(error:String,controller: UIViewController){
+   
+    let alert = UIAlertController(title: "PIN mismatch", message: error, preferredStyle: .alert)
+    let okAction = UIAlertAction(title: "Try again", style: UIAlertActionStyle.default, handler: nil)
+    alert.addAction(okAction)
+    DispatchQueue.main.async {
+    controller.present(alert, animated: true, completion: nil)
+    }
+}
 func createMainWindow(){
     // create viewController code...
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
