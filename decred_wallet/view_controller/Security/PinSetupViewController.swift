@@ -16,6 +16,8 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
     var pass_pinToVerify: String?
     
     var senders: String?
+    var seconds = 1
+    var timer = Timer()
     
     @IBOutlet weak var headerText: UILabel!
     
@@ -25,70 +27,89 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
     
     
     var progressHud : JGProgressHUD?
-    let pinStrength = PinWeakness()
-    let pinInputController = PinInputController(max: 5)
+    var pinStrength = PinWeakness()
+    let pinInputController = PinInputController(max: Int(LONG_LONG_MAX))
     var seedToVerify: String?
     var VerifyPin = ""
     var very = false
     var pin : String = ""{
         didSet {
+            print("triggered")
             pinMarks.entered = pin.count
             pinMarks.update()
             prgsPinStrength.progressTintColor = pinStrength.strengthColor(forPin: pin)
             prgsPinStrength.progress = pinStrength.strength(forPin: pin)
-            if pin.count == 5 {
+            pinMarks.alignment = .center
+            if pin.count > 0{
                 self.btnCommit.isEnabled = true
-            }else{
+            }
+            else{
                 self.btnCommit.isEnabled = false
             }
+            UIApplication.shared.endIgnoringInteractionEvents()
         }
     }
     
     override func viewDidLoad() {
         setHeader()
+        prgsPinStrength.layer.cornerRadius = 25
     }
     
     @IBAction func on1(_ sender: Any) {
+        UIApplication.shared.beginIgnoringInteractionEvents()
         pin = pinInputController.input(digit: 1)
+       
     }
     
     @IBAction func on2(_ sender: Any) {
+       UIApplication.shared.beginIgnoringInteractionEvents()
         pin = pinInputController.input(digit: 2)
+       
     }
     
     @IBAction func on3(_ sender: Any) {
+       UIApplication.shared.beginIgnoringInteractionEvents()
         pin = pinInputController.input(digit: 3)
+      
     }
     
     @IBAction func on4(_ sender: Any) {
+        UIApplication.shared.beginIgnoringInteractionEvents()
         pin = pinInputController.input(digit: 4)
     }
     
     @IBAction func on5(_ sender: Any) {
+        UIApplication.shared.beginIgnoringInteractionEvents()
         pin = pinInputController.input(digit: 5)
     }
     
     @IBAction func on6(_ sender: Any) {
+        UIApplication.shared.beginIgnoringInteractionEvents()
         pin = pinInputController.input(digit: 6)
     }
     
     @IBAction func on7(_ sender: Any) {
+        UIApplication.shared.beginIgnoringInteractionEvents()
         pin = pinInputController.input(digit: 7)
     }
     
     @IBAction func on8(_ sender: Any) {
+        UIApplication.shared.beginIgnoringInteractionEvents()
         pin = pinInputController.input(digit: 8)
     }
     
     @IBAction func on9(_ sender: Any) {
+        UIApplication.shared.beginIgnoringInteractionEvents()
         pin = pinInputController.input(digit: 9)
     }
     
     @IBAction func on0(_ sender: Any) {
+        UIApplication.shared.beginIgnoringInteractionEvents()
         pin = pinInputController.input(digit: 0)
     }
     
     @IBAction func onBackspace(_ sender: Any) {
+        UIApplication.shared.beginIgnoringInteractionEvents()
         pin = pinInputController.backspace()
     }
 
@@ -104,17 +125,21 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
             }
             else{
                 if very{
-                    if pin == VerifyPin{
+                    if pin.elementsEqual(VerifyPin) {
                          SetstartupPin_pas()
                     }
                     else{
                         
-                        show(error: "Invalid PIN combination")
-                        self.pin = self.pinInputController.clear()
-                        self.VerifyPin = ""
-                        self.headerText.text = "Create Startup PIN"
-                        self.very = false
-                    }
+                        self.headerText.text = "PINs do not match. Try again"
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            self.pin = self.pinInputController.clear()
+                            self.VerifyPin = ""
+                            self.headerText.text = "Create Startup PIN"
+                            self.very = false
+                        }
+                        
+                        }
+                    
                     
                 }
                 else{
@@ -129,20 +154,24 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
         else if senders == "settingsChangeSpending"{
             print("proccessing settingsChangeSpending")
             if very{
-                if pin == VerifyPin{
+                if pin.elementsEqual(VerifyPin){
+                    print("confimed PIN")
                     ChangeSpendingPIN()
                 }
                 else{
-                    
-                    show(error: "Invalid PIN combination")
+                    print(" not confimed PIN")
+                    self.headerText.text = "PINs do not match. Try again"
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     self.pin = self.pinInputController.clear()
                     self.VerifyPin = ""
                     self.headerText.text = "Change Spending PIN"
                     self.very = false
+                    }
                 }
                 
             }
             else{
+                print("going to second step")
                 VerifyPin = pin
                 pin = pinInputController.clear()
                 headerText.text = "Confirm Spending PIN"
@@ -170,16 +199,17 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
         }
         else{
             if very{
-                if pin == VerifyPin{
+                if pin.elementsEqual(VerifyPin){
                     createWallet()
                 }
                 else{
-                    
-                    show(error: "Invalid PIN combination")
+                    self.headerText.text = "PINs do not match. Try again"
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     self.pin = self.pinInputController.clear()
                     self.VerifyPin = ""
                     self.headerText.text = "Create Spending PIN"
                     self.very = false
+                    }
                 }
                 
             }
@@ -193,16 +223,7 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
         }
         
     }
-    private func show(error:String){
-        let alert = UIAlertController(title: "PIN mismatch", message: error, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "Try again", style: .default) { (action) in
-            alert.dismiss(animated: true, completion: {
-                
-            })
-        }
-        alert.addAction(okAction)
-        self.present(alert, animated: true, completion: nil)
-    }
+    
     
     func setHeader(){
         if senders == "launcher"{
@@ -401,4 +422,7 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
         alert.addAction(okAction)
         present(alert, animated: true, completion: {self.progressHud!.dismiss()})
     }
+   
+    
+
 }
