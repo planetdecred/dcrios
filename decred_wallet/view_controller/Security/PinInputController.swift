@@ -10,7 +10,7 @@ import Foundation
 
 class PinInputController {
     var buffer: String = ""
-    var max: Int = 5
+    var max: Int = Int(LONG_LONG_MAX)
     
     init(max:Int){
         self.max = max
