@@ -130,7 +130,7 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
                     }
                     else{
                         
-                        self.headerText.text = "PINs do not match.Try again"
+                        self.headerText.text = "PINs do not match. Try again"
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                             self.pin = self.pinInputController.clear()
                             self.VerifyPin = ""
@@ -160,7 +160,7 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
                 }
                 else{
                     print(" not confimed PIN")
-                    self.headerText.text = "PINs do not match.Try again"
+                    self.headerText.text = "PINs do not match. Try again"
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     self.pin = self.pinInputController.clear()
                     self.VerifyPin = ""
@@ -203,7 +203,7 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol,StartUpPassw
                     createWallet()
                 }
                 else{
-                    self.headerText.text = "PINs do not match.Try again"
+                    self.headerText.text = "PINs do not match. Try again"
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     self.pin = self.pinInputController.clear()
                     self.VerifyPin = ""
