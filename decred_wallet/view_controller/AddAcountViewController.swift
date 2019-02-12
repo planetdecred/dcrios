@@ -7,14 +7,13 @@
 //
 
 import UIKit
-import JGProgressHUD
+
 
 
 class AddAcountViewController: UIViewController {
     @IBOutlet weak var passphrase: UITextField!
     @IBOutlet weak var accountName: UITextField!
     @IBOutlet weak var createBtn: UIButton!
-    var progressHud : JGProgressHUD?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,8 +26,6 @@ class AddAcountViewController: UIViewController {
             Info(msg: "Please input an account name")
             return
         }
-        progressHud = showProgressHud(with: "Creating Account...")
-    
         let name = accountName.text
         let pass = passphrase.text
         if(!(name!.isEmpty) || (pass!.isEmpty)){
@@ -38,7 +35,7 @@ class AddAcountViewController: UIViewController {
             do {
                try SingleInstance.shared.wallet?.nextAccount(name, privPass: finalPassphraseData)
                 DispatchQueue.main.async {
-                self.progressHud?.dismiss()
+              
                 self.dismiss(animated: true, completion: nil)
                 }
                 
