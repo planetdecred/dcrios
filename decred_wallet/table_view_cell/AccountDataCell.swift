@@ -45,15 +45,26 @@ class AccountDataCell: UITableViewCell, AccountDetailsCellProtocol {
         //labelHDPathValue.text = "\(account.Balance)"
         labelKeysValue.text = "\(account.ExternalKeyCount) External, \(account.InternalKeyCount) Internal, \(account.ImportedKeyCount) Imported"
           print(account.Number)
-        if( account.isDefaultWallet){
-           
-            defaultAccount.setOn(true, animated: false)
+        print("acount name = \(account.Name)")
+        if(account.Name.elementsEqual("imported")){
+            
+            defaultAccount.setOn(false, animated: false)
             defaultAccount.isEnabled = false
         }
         else{
-            defaultAccount.setOn(false, animated: false)
-            defaultAccount.isEnabled = true
+            if( account.isDefaultWallet){
+                
+                defaultAccount.setOn(true, animated: false)
+                defaultAccount.isEnabled = false
+            }
+            else{
+                defaultAccount.setOn(false, animated: false)
+                defaultAccount.isEnabled = true
+            }
         }
+        
+       
+        
         
     }
 }
