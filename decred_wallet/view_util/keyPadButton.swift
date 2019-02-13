@@ -7,7 +7,7 @@
 import UIKit
 
 class KeyPadButton: UIButton {
-
+    
     @IBInspectable
     open var keyPadButton: String = "1"
     
@@ -98,6 +98,4 @@ class KeyPadButton: UIButton {
             completion: nil
         )
     }
-
-
 }
