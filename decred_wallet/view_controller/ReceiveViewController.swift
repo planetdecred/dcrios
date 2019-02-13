@@ -7,10 +7,12 @@ import Foundation
 import UIKit
 
 class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDelegate {
+    
     @IBOutlet private var accountDropdown: DropMenuButton!
     @IBOutlet private var imgWalletAddrQRCode: UIImageView!
     @IBOutlet weak var generateButton: UIButton!
     @IBOutlet var walletAddress: UIButton!
+    
     var firstTrial = true
     var starttime: Int64 = 0
     var myacc: AccountsEntity!
@@ -18,9 +20,6 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     var tapGesture = UITapGestureRecognizer()
     
     private var selectedAccount = ""
-    
-    // MARK: - View Life Cycle
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,8 +34,6 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
         self.showFirstWalletAddressAndQRCode()
         self.populateWalletDropdownMenu()
         self.starttime = Int64(NSDate().timeIntervalSince1970)
-        print(self.starttime)
-        print(self.starttime * 1000)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -52,7 +49,6 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     }
     
     @IBAction private func generateNewAddress() {
-        
         self.getNextAddress(accountNumber: (self.myacc.Number))
     }
     
@@ -61,6 +57,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     }
     
     private func showFirstWalletAddressAndQRCode() {
+        
         self.account?.Acc.removeAll()
         do{
             let strAccount = try SingleInstance.shared.wallet?.getAccounts(0)
@@ -68,8 +65,9 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
         } catch let error{
             print(error)
         }
+        
         let acc = self.account?.Acc
-        if acc != nil {
+        if (acc != nil) {
             let accNames: [String] = (self.account?.Acc.map({ $0.Name }))!
             self.myacc = self.account?.Acc.first
             
@@ -82,7 +80,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
             print("no account")
         }
     }
-
+    
     @IBAction func tapCopy(_ sender: Any) {
         self.copyAddress()
     }
@@ -90,7 +88,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
         self.copyAddress()
     }
     
-    private func copyAddress(){
+    private func copyAddress() {
         DispatchQueue.main.async {
             //Copy a string to the pasteboard.
             UIPasteboard.general.string = self.walletAddress.currentTitle
@@ -103,16 +101,14 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     }
     
     private func populateWalletDropdownMenu() {
+        
         self.account?.Acc.removeAll()
         do{
-            
             let strAccount = try SingleInstance.shared.wallet?.getAccounts(0)
             self.account = try JSONDecoder().decode(GetAccountResponse.self, from: (strAccount?.data(using: .utf8))!)
         } catch let error{
             print(error)
         }
-        // let acc = self.account?.Acc
-        
         
         if let defaultAccount = account?.Acc.filter({ $0.isDefaultWallet}).first {
             
@@ -121,13 +117,6 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
                 for: UIControlState.normal
             )
             self.accountDropdown.backgroundColor = UIColor.white
-            
-            /*self.accountDropdown.backgroundColor = UIColor(
-                red: 173.0 / 255.0,
-                green: 231.0 / 255.0,
-                blue: 249.0 / 255.0,
-                alpha: 1.0
-            )*/
         }
         
         let accNames: [String] = (self.account?.Acc.map({ $0.Name }))!
@@ -143,34 +132,30 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
             }
         }
     }
+    
     @objc func share(){
-       self.shareImgOnTap()
+        self.shareImgOnTap()
     }
+    
     @objc func getNext(){
         self.getNextAddress(accountNumber: self.myacc.Number)
     }
+    
     func shareImgOnTap(){
-       let imgcopy = self.walletAddress.currentTitle!
+        let imgcopy = self.walletAddress.currentTitle!
         let activityController = UIActivityViewController(activityItems: [imgcopy], applicationActivities: nil)
-        activityController.completionWithItemsHandler = { (nil, completed, _, error)
-            in
-            if completed{
-                print("completed")
-            }
-            else{
-                print("completed")
-            }
+        
+        activityController.completionWithItemsHandler = { (nil, completed, _, error) in
+            
         }
         present(activityController, animated: true){
-            print("presented")
+            
         }
-       
     }
     
     private func getAddress(accountNumber : Int32){
+        
         let receiveAddress = try?SingleInstance.shared.wallet?.currentAddress(Int32(accountNumber))
-        print("got address in  ".appending(String(Int64(NSDate().timeIntervalSince1970) - starttime)))
-       // UserDefaults.standard.setValue(receiveAddress!, forKey: "KEY_RECENT_ADDRESS")
         DispatchQueue.main.async { [weak self] in
             guard let this = self else { return }
             
@@ -179,15 +164,12 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
                 with: receiveAddress!!,
                 forImageViewFrame: this.imgWalletAddrQRCode.frame
             )
-            print("generate QR  in  ".appending(String(Int64(NSDate().timeIntervalSince1970) - this.starttime)))
-            print("generated address for account ".appending(String(accountNumber)))
-            print(receiveAddress!!)
         }
     }
-   @objc private func getNextAddress(accountNumber : Int32){
+    
+    @objc private func getNextAddress(accountNumber : Int32){
+        
         let receiveAddress = try?SingleInstance.shared.wallet?.nextAddress(Int32(accountNumber))
-        print("got address in  ".appending(String(Int64(NSDate().timeIntervalSince1970) - starttime)))
-        // UserDefaults.standard.setValue(receiveAddress!, forKey: "KEY_RECENT_ADDRESS")
         DispatchQueue.main.async { [weak self] in
             guard let this = self else { return }
             
@@ -196,9 +178,6 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
                 with: receiveAddress!!,
                 forImageViewFrame: this.imgWalletAddrQRCode.frame
             )
-            print("generate QR  in  ".appending(String(Int64(NSDate().timeIntervalSince1970) - this.starttime)))
-            print("generated address for account ".appending(String(accountNumber)))
-            print(receiveAddress!!)
         }
     }
 }
