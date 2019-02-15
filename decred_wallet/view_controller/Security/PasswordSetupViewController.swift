@@ -10,7 +10,9 @@ import UIKit
 import PasswordStrength
 import JGProgressHUD
 
-class PasswordSetupViewController: UIViewController, SeedCheckupProtocol, UITextFieldDelegate, StartUpPasswordProtocol{
+class PasswordSetupViewController: UIViewController, SeedCheckupProtocol, UITextFieldDelegate, StartUpPasswordProtocol,PinEnteredProtocol{
+    var pinInput: String?
+    
     
     var senders: String?
     var seedToVerify: String?
@@ -57,7 +59,7 @@ class PasswordSetupViewController: UIViewController, SeedCheckupProtocol, UIText
                 try SingleInstance.shared.wallet?.createWallet(pass, seedMnemonic: seed)
                 DispatchQueue.main.async {
                     self!.progressHud!.dismiss()
-                    UserDefaults.standard.set(pass, forKey: "password")
+                    self!.pinInput = pass
                     UserDefaults.standard.set("PASSWORD", forKey: "spendingSecureType")
                     createMainWindow()
                     this.dismiss(animated: true, completion: nil)
