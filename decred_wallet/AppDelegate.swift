@@ -127,8 +127,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             }
             UserDefaults.standard.setValuesForKeys(["pref_user_name": "dcrwallet",
                                                     "pref_user_passwd": "dcrwallet",
-                                                    "pref_server_ip": "",
-                                                    "pref_peer_ip": ""])
+                                                    ])
             UserDefaults.standard.set(true, forKey: "pref_use_testnet")
             self.showAnimatedStartScreen()
         }
