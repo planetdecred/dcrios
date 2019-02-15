@@ -164,7 +164,7 @@ func getAttributedString(str: String, siz: CGFloat) -> NSAttributedString {
     if(tmpString.length > ((dotRange?.location)!+2)) {
         atrStr.addAttribute(NSAttributedStringKey.font,
                             value: UIFont(
-                                name: "Helvetica",
+                                name: "Inconsolata-Regular",
                                 size: siz)!,
                             range: NSRange(
                                 location:(dotRange?.location)!+3,
