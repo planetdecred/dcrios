@@ -80,11 +80,11 @@ class TransactionHistoryTableViewCell: BaseTableViewCell {
             }
             else if(data.trans.Type.lowercased() == "vote".lowercased()){
                 self.txtAmount.text = "Vote"
-                self.trImage?.image = UIImage(named: "account")
+                self.trImage?.image = UIImage(named: "vote")
             }
             else if (data.trans.Type.lowercased() == "Ticket Purchase".lowercased()) {
                 self.txtAmount.text = "Ticket"
-                self.trImage?.image = UIImage(named: "account")
+                self.trImage?.image = UIImage(named: "immature")
                 if (confirm2 < requireConfirmation){
                     self.txtTrStatus.textColor = UIColor(hex:"#3d659c")
                     self.txtTrStatus.text = "Pending"
@@ -102,6 +102,7 @@ class TransactionHistoryTableViewCell: BaseTableViewCell {
                     let range = (stausText as NSString).range(of: "/")
                     let attributedString = NSMutableAttributedString(string: stausText)
                     attributedString.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.black , range: range)
+                     self.trImage?.image = UIImage(named: "live")
                     self.txtTrStatus.textColor = UIColor.orange
                     self.txtTrStatus.attributedText = attributedString
                 }
