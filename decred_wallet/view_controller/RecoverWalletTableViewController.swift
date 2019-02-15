@@ -26,10 +26,11 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        recognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressHappened))
         self.confirm_btn.addGestureRecognizer(recognizer!)
         seedtmp = loadSeedWordsList()
         registerObserverForKeyboardNotification()
-        recognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressHappened))
+        
     }
     
     // MARK: - Table view data source
