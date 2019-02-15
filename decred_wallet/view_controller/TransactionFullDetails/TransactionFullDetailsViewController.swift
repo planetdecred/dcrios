@@ -183,7 +183,8 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
             }
         }
         
-        let tnt = Decimal(Double((transaction?.Amount)!) / 1e8) as NSDecimalNumber
+        let amount = Decimal(Double((transaction?.Amount)!) / 1e8) as NSDecimalNumber
+        let fee = Decimal(Double((transaction?.Fee)!) / 1e8) as NSDecimalNumber
         
         details = [
             TransactionDetails(
@@ -198,12 +199,12 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
             ),
             TransactionDetails(
                 title: "Amount",
-                value: getAttributedString(str: "\(tnt.round(8))", siz: 13) ,
+                value: getAttributedString(str: "\(amount.round(8))", siz: 13),
                 textColor: nil
             ),
             TransactionDetails(
                 title: "Fee",
-                value: getAttributedString(str: "\(Double((transaction?.Fee)!) / 1e8)", siz: 13),
+                value: getAttributedString(str: "\(fee.round(8))", siz: 13),
                 textColor: nil
             ),
             TransactionDetails(
