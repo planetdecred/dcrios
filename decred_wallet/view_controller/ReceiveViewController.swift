@@ -144,14 +144,20 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     }
     
     func shareImgOnTap(){
-        let imgcopy = self.walletAddress.currentTitle!
-        let activityController = UIActivityViewController(activityItems: [imgcopy], applicationActivities: nil)
         
+        var img: UIImage = self.imgWalletAddrQRCode.image!
+        
+        if img.cgImage == nil {
+            guard let ciImage = img.ciImage, let cgImage = CIContext(options: nil).createCGImage(ciImage, from: ciImage.extent) else {return}
+            img = UIImage(cgImage: cgImage)
+        }
+
+        let activityController = UIActivityViewController(activityItems: [img], applicationActivities: nil)
         activityController.completionWithItemsHandler = { (nil, completed, _, error) in
-            
+
         }
         present(activityController, animated: true){
-            
+
         }
     }
     
