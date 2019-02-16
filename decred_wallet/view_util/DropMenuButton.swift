@@ -23,13 +23,15 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
     {
         fixLayout()
         
-        if containerView.alpha == 0
+        if (containerView.alpha) == 0
         {
+            self.alpha = 0
             layer.zPosition = 1
             containerView.alpha = 1
         }
         else
         {
+            self.alpha = 1
             containerView.alpha = 0
             layer.zPosition = 0
         }
@@ -129,7 +131,7 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
         
         tableFrameHeight = frame.height * CGFloat(items.count)
         
-        containerView.frame = CGRect(x: auxPoint2.x, y: auxPoint2.y, width: 200, height: tableFrameHeight)
+        containerView.frame = CGRect(x: auxPoint2.x, y: auxPoint2.y, width: 300, height: tableFrameHeight)
         table.frame = CGRect(x: 0, y: 0, width: frame.width, height: tableFrameHeight)
         table.rowHeight = frame.height
         table.separatorColor = UIColor.clear
@@ -158,8 +160,8 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
         
         act?(indexPath.row, items[indexPath.row])
         
-        let temp = items.remove(at: indexPath.row)
-        items.insert(temp, at: 0)
+       // let temp = items.remove(at: indexPath.row)
+        //items.insert(temp, at: 0)
         
         showItems()
     }
@@ -169,8 +171,8 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
         let itemLabel = UILabel(frame: CGRect(x: 10, y: 0, width: frame.width - 10, height: frame.height))
         itemLabel.textAlignment = NSTextAlignment.left
         itemLabel.text = items[(indexPath as NSIndexPath).row]
-        itemLabel.font = UIFont(name: "Helvetica Neue", size: 16)
-        itemLabel.textColor = UIColor.darkGray
+        itemLabel.font = UIFont(name: "SourceSansPro-Regular", size: 16)
+        itemLabel.textColor = UIColor.black
         
         let bgColorView = UIView()
         bgColorView.backgroundColor = UIColor.lightGray
@@ -179,8 +181,8 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
         cell.backgroundColor = UIColor.white
         cell.selectedBackgroundView = bgColorView
         cell.separatorInset = UIEdgeInsetsMake(0, frame.width, 0, frame.width)
-        
         cell.addSubview(itemLabel)
+        
         
         return cell
     }

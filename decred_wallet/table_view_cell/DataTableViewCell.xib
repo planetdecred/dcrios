@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+        <array key="inconsolata_regular.ttf">
+            <string>Inconsolata-Regular</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -20,34 +27,34 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I30-9I-EnW">
-                        <rect key="frame" x="58" y="11" width="102" height="39"/>
-                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
+                        <rect key="frame" x="58" y="11" width="122" height="39"/>
+                        <fontDescription key="fontDescription" name="Inconsolata-Regular" family="Inconsolata" pointSize="18"/>
                         <color key="textColor" red="0.035294117647058823" green="0.078431372549019607" blue="0.25098039215686274" alpha="0.88516695205479456" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kgG-PH-sxi">
-                        <rect key="frame" x="168" y="11" width="136" height="38"/>
+                        <rect key="frame" x="188" y="11" width="116" height="38"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yJZ-Jw-X76">
-                                <rect key="frame" x="15" y="21" width="86" height="14"/>
+                                <rect key="frame" x="1" y="21" width="86" height="14"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="14" id="Yi3-hX-x8c"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="10"/>
-                                <color key="textColor" red="0.53725490196078429" green="0.59215686274509804" blue="0.6470588235294118" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="13"/>
+                                <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="confirmed" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c1T-Mh-IIo">
-                                <rect key="frame" x="15" y="4" width="86" height="16"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c1T-Mh-IIo">
+                                <rect key="frame" x="1" y="4" width="86" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="16" id="YGR-AS-qHf"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
-                                <color key="textColor" red="0.42745098039215684" green="0.71480363607406616" blue="0.32268553972244263" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <color key="textColor" red="0.1764705882352941" green="0.84705882352941175" blue="0.63921568627450975" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow" translatesAutoresizingMaskIntoConstraints="NO" id="ACR-tp-aNy">
-                                <rect key="frame" x="102" y="3" width="27" height="28"/>
+                                <rect key="frame" x="88" y="3" width="27" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="QQh-po-3aN"/>
                                     <constraint firstAttribute="width" constant="27" id="waN-Yx-2PM"/>
@@ -57,14 +64,14 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="yJZ-Jw-X76" firstAttribute="top" secondItem="c1T-Mh-IIo" secondAttribute="bottom" constant="1" id="Eho-yu-NVp"/>
-                            <constraint firstAttribute="trailing" secondItem="ACR-tp-aNy" secondAttribute="trailing" constant="7" id="LWS-wV-tcq"/>
+                            <constraint firstAttribute="trailing" secondItem="ACR-tp-aNy" secondAttribute="trailing" constant="1" id="LWS-wV-tcq"/>
                             <constraint firstItem="ACR-tp-aNy" firstAttribute="top" secondItem="c1T-Mh-IIo" secondAttribute="top" constant="-1" id="MKy-yT-Nvh"/>
                             <constraint firstAttribute="bottom" secondItem="yJZ-Jw-X76" secondAttribute="bottom" constant="3" id="bUD-Xw-Y9G"/>
-                            <constraint firstItem="c1T-Mh-IIo" firstAttribute="leading" secondItem="kgG-PH-sxi" secondAttribute="leading" constant="15" id="eGI-T5-dBF"/>
+                            <constraint firstItem="c1T-Mh-IIo" firstAttribute="leading" secondItem="kgG-PH-sxi" secondAttribute="leading" constant="1" id="eGI-T5-dBF"/>
                             <constraint firstItem="ACR-tp-aNy" firstAttribute="leading" secondItem="c1T-Mh-IIo" secondAttribute="trailing" constant="1" id="fkO-b7-TyF"/>
-                            <constraint firstItem="yJZ-Jw-X76" firstAttribute="centerX" secondItem="kgG-PH-sxi" secondAttribute="centerX" constant="-10" id="h0T-5I-X5u"/>
+                            <constraint firstItem="yJZ-Jw-X76" firstAttribute="centerX" secondItem="kgG-PH-sxi" secondAttribute="centerX" constant="-14" id="h0T-5I-X5u"/>
                             <constraint firstItem="yJZ-Jw-X76" firstAttribute="trailing" secondItem="c1T-Mh-IIo" secondAttribute="trailing" id="onx-jy-R9R"/>
-                            <constraint firstItem="yJZ-Jw-X76" firstAttribute="leading" secondItem="kgG-PH-sxi" secondAttribute="leading" constant="15" id="sCC-uL-OkM"/>
+                            <constraint firstItem="yJZ-Jw-X76" firstAttribute="leading" secondItem="kgG-PH-sxi" secondAttribute="leading" constant="1" id="sCC-uL-OkM"/>
                         </constraints>
                     </view>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ppM-43-tik">
@@ -78,7 +85,7 @@
                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstItem="kgG-PH-sxi" firstAttribute="leading" secondItem="eWK-b2-p7R" secondAttribute="leading" constant="168" id="9rO-jL-LAh"/>
+                    <constraint firstItem="kgG-PH-sxi" firstAttribute="leading" secondItem="eWK-b2-p7R" secondAttribute="leading" constant="188" id="9rO-jL-LAh"/>
                     <constraint firstAttribute="bottomMargin" secondItem="kgG-PH-sxi" secondAttribute="bottom" id="BDk-Zs-aQG"/>
                     <constraint firstItem="ppM-43-tik" firstAttribute="top" secondItem="eWK-b2-p7R" secondAttribute="top" constant="15" id="Ejt-ht-YfW"/>
                     <constraint firstAttribute="trailingMargin" secondItem="kgG-PH-sxi" secondAttribute="trailing" id="IFR-r7-GBo"/>
@@ -98,10 +105,10 @@
                 <outlet property="dateT" destination="yJZ-Jw-X76" id="cLL-Us-eQX"/>
                 <outlet property="status" destination="c1T-Mh-IIo" id="wAD-Na-DJb"/>
             </connections>
-            <point key="canvasLocation" x="249" y="183"/>
+            <point key="canvasLocation" x="164.80000000000001" y="179.91004497751126"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="arrow" width="24" height="24"/>
+        <image name="arrow" width="48" height="48"/>
     </resources>
 </document>
