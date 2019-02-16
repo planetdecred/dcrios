@@ -47,6 +47,15 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
         self.navigationItem.title = "Security"
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if UserDefaults.standard.string(forKey: "TMPPIN") != nil{
+            let pin = UserDefaults.standard.string(forKey: "TMPPIN")!
+            self.SignMsg(pass: pin)
+            UserDefaults.standard.set(nil, forKey: "TMPPIN")
+        }
+    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         self.view.endEditing(true)
@@ -194,31 +203,36 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
     }
     
     private func askPassword() {
-        
-        let alert = UIAlertController(title: "Security", message: "Please enter spending password of your wallet", preferredStyle: .alert)
-        alert.addTextField { textField in
-            textField.placeholder = "password"
-            textField.isSecureTextEntry = true
-        }
-        
-        let okAction = UIAlertAction(title: "Proceed", style: .default) { _ in
-            let tfPasswd = alert.textFields![0] as UITextField
-            if (tfPasswd.text?.count)! > 0 {
-                self.SignMsg(pass: tfPasswd.text!)
-                alert.dismiss(animated: false, completion: nil)
-            } else {
-                alert.dismiss(animated: false, completion: nil)
-                self.showAlert(message: "Password can't be empty.", titles: "invalid input")
+        if UserDefaults.standard.string(forKey: "spendingSecureType") == "PASSWORD" {
+            let alert = UIAlertController(title: "Security", message: "Please enter spending password of your wallet", preferredStyle: .alert)
+            alert.addTextField { textField in
+                textField.placeholder = "password"
+                textField.isSecureTextEntry = true
             }
+            
+            let okAction = UIAlertAction(title: "Proceed", style: .default) { _ in
+                let tfPasswd = alert.textFields![0] as UITextField
+                if (tfPasswd.text?.count)! > 0 {
+                    self.SignMsg(pass: tfPasswd.text!)
+                    alert.dismiss(animated: false, completion: nil)
+                } else {
+                    alert.dismiss(animated: false, completion: nil)
+                    self.showAlert(message: "Password can't be empty.", titles: "invalid input")
+                }
+            }
+            
+            let CancelAction = UIAlertAction(title: "Cancel", style: .default) { _ in
+                alert.dismiss(animated: false, completion: nil)
+            }
+            alert.addAction(CancelAction)
+            alert.addAction(okAction)
+            
+            self.present(alert, animated: true, completion: nil)
+        }else{
+            let vc = storyboard!.instantiateViewController(withIdentifier: "PinSetupViewController") as! PinSetupViewController
+            vc.senders = "signMessage"
+            self.navigationController?.pushViewController(vc, animated: true)
         }
-        
-        let CancelAction = UIAlertAction(title: "Cancel", style: .default) { _ in
-            alert.dismiss(animated: false, completion: nil)
-        }
-        alert.addAction(CancelAction)
-        alert.addAction(okAction)
-        
-        self.present(alert, animated: true, completion: nil)
     }
     
     private func showAlert(message: String? , titles: String?) {
