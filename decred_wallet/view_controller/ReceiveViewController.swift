@@ -121,7 +121,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
             self.accountDropdown.backgroundColor = UIColor.white
         }
         
-        let accNames: [String] = (self.account?.Acc.map({ $0.Name }))!
+        let accNames: [String] = (self.account?.Acc.filter({UserDefaults.standard.bool(forKey: "hidden\($0.Number)")  != true && $0.Number != INT_MAX }).map({ $0.Name }))!
         
         accountDropdown.initMenu(
             accNames
@@ -129,7 +129,8 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
             guard let this = self else { return }
             this.selectedAccount = val
             if self?.account?.Acc.filter({ $0.Name == val }).first != nil {
-                self?.myacc = self?.account?.Acc.map({ $0 }).first
+                print("value is \(val)")
+                self?.myacc = self?.account?.Acc.filter({ $0.Name == val }).map({ $0 }).first
                 self?.getAddress(accountNumber: (self?.myacc.Number)!)
             }
         }
@@ -180,6 +181,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
                 with: receiveAddress!!,
                 forImageViewFrame: this.imgWalletAddrQRCode.frame
             )
+            
         }
     }
 }

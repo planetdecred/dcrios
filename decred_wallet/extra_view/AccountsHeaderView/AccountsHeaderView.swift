@@ -13,14 +13,16 @@ class AccountsHeaderView: UIView {
     @IBOutlet private var labelSpendableBalance: UILabel!
     @IBOutlet var expandOrCollapseDetailsButton: UIButton!
     @IBOutlet weak var arrowDirection: UIButton!
+    @IBOutlet weak var accountImg: UIImageView!
     
     var headerIndex: Int = 0
     var arrobool = false
     
+    
     var totalBalance: Double = 0.0 {
         willSet {
             DispatchQueue.main.async { [weak self] in
-                self?.labelTotalBalance.attributedText = getAttributedString(str: "\(newValue)", siz: 13.0)
+                self?.labelTotalBalance.attributedText = getAttributedString(str: "\(newValue)", siz: 13.0, TexthexColor: GlobalConstants.Colors.TextAmount)
             }
         }
     }
@@ -30,13 +32,22 @@ class AccountsHeaderView: UIView {
     var spendableBalance: Double = 0.0 {
         willSet {
             DispatchQueue.main.async {
-                self.labelSpendableBalance.text = "\(newValue)".appending("DCR")
+                self.labelSpendableBalance.attributedText = getAttributedString(str: "\(newValue)", siz: 11.0, TexthexColor: UIColor(hex: "#2DD8A3"))
             }
         }
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
+    }
+    
+    func sethidden(status: Bool){
+        if (status){
+            setAlpha(valueFig: 0.5)
+        }
+        else{
+            setAlpha(valueFig: 1)
+        }
     }
     
     var title: String? {
@@ -48,5 +59,13 @@ class AccountsHeaderView: UIView {
                 self.labelTitle.text = newValue
             }
         }
+    }
+    func setAlpha(valueFig : CGFloat){
+        self.labelSpendableBalance.alpha = valueFig
+        self.labelTitle.alpha = valueFig
+        labelTotalBalance.alpha = valueFig
+        self.arrowDirection.alpha = valueFig
+        self.labelSpendableBalance.alpha = valueFig
+        self.accountImg.alpha = valueFig
     }
 }

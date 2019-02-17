@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+        <array key="inconsolata_regular.ttf">
+            <string>Inconsolata-Regular</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -17,20 +24,20 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="72"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="5HR-QN-iia">
+                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5HR-QN-iia">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="72"/>
                     <subviews>
                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ipD-e1-fPk">
-                            <rect key="frame" x="0.0" y="0.0" width="187.5" height="72"/>
+                            <rect key="frame" x="0.0" y="0.0" width="206.5" height="72"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Wallet" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b82-E1-gbo">
-                                    <rect key="frame" x="82" y="28" width="97.5" height="17"/>
-                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b82-E1-gbo">
+                                    <rect key="frame" x="69" y="36" width="129.5" height="0.0"/>
+                                    <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                     <color key="textColor" red="0.035294117647058823" green="0.078431372549019607" blue="0.25098039215686274" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ErI-6B-Bb2">
-                                    <rect key="frame" x="50" y="24" width="24" height="24"/>
+                                    <rect key="frame" x="42" y="24" width="24" height="24"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="24" id="eu0-G2-nFW"/>
                                     </constraints>
@@ -58,45 +65,48 @@
                                 <constraint firstItem="ErI-6B-Bb2" firstAttribute="top" secondItem="ipD-e1-fPk" secondAttribute="top" constant="24" id="ZXA-1W-Ovn"/>
                                 <constraint firstItem="o5J-LB-o9G" firstAttribute="centerY" secondItem="ipD-e1-fPk" secondAttribute="centerY" constant="-1" id="bTC-Qj-A4d"/>
                                 <constraint firstItem="b82-E1-gbo" firstAttribute="trailing" secondItem="ipD-e1-fPk" secondAttribute="trailingMargin" id="goh-0p-POO"/>
-                                <constraint firstItem="ErI-6B-Bb2" firstAttribute="leading" secondItem="o5J-LB-o9G" secondAttribute="trailing" constant="13" id="hE4-Xe-Ycz"/>
-                                <constraint firstItem="b82-E1-gbo" firstAttribute="leading" secondItem="ErI-6B-Bb2" secondAttribute="trailing" constant="8" id="o8u-SH-V1e"/>
+                                <constraint firstItem="ErI-6B-Bb2" firstAttribute="leading" secondItem="o5J-LB-o9G" secondAttribute="trailing" constant="5" id="hE4-Xe-Ycz"/>
+                                <constraint firstItem="b82-E1-gbo" firstAttribute="leading" secondItem="ErI-6B-Bb2" secondAttribute="trailing" constant="3" id="o8u-SH-V1e"/>
                             </constraints>
                         </view>
                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Fl-P6-MXy">
-                            <rect key="frame" x="187.5" y="0.0" width="187.5" height="72"/>
+                            <rect key="frame" x="206.5" y="0.0" width="168.5" height="72"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0 DCR" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="32h-wD-gkx">
-                                    <rect key="frame" x="8" y="15" width="165.5" height="20.5"/>
-                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                    <nil key="textColor"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="32h-wD-gkx">
+                                    <rect key="frame" x="8" y="21" width="146.5" height="18"/>
+                                    <fontDescription key="fontDescription" name="Inconsolata-Regular" family="Inconsolata" pointSize="17"/>
+                                    <color key="textColor" red="0.035294117647058823" green="0.078431372549019607" blue="0.25098039215686274" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0 DCR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cow-tc-f2n">
-                                    <rect key="frame" x="128" y="42.5" width="45.5" height="14"/>
-                                    <fontDescription key="fontDescription" name="SFMono-Medium" family="SF Mono" pointSize="12"/>
-                                    <color key="textColor" red="0.21176470589999999" green="0.84313725490000002" blue="0.65490196079999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cow-tc-f2n">
+                                    <rect key="frame" x="128.5" y="40.5" width="26" height="14"/>
+                                    <fontDescription key="fontDescription" name="Inconsolata-Regular" family="Inconsolata" pointSize="13"/>
+                                    <color key="textColor" red="0.1764705882352941" green="0.84705882352941175" blue="0.63921568627450975" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Spendable" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XEt-qF-R8C">
-                                    <rect key="frame" x="68" y="42.5" width="58" height="14"/>
-                                    <fontDescription key="fontDescription" name="SFMono-Medium" family="SF Mono" pointSize="12"/>
-                                    <color key="textColor" red="0.81176470590000005" green="0.83137254900000002" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <rect key="frame" x="72.5" y="39" width="54" height="15.5"/>
+                                    <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="12"/>
+                                    <color key="textColor" red="0.53725490196078429" green="0.59215686274509804" blue="0.6470588235294118" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstItem="XEt-qF-R8C" firstAttribute="top" secondItem="cow-tc-f2n" secondAttribute="top" id="7eJ-eA-lqh"/>
                                 <constraint firstItem="cow-tc-f2n" firstAttribute="leading" secondItem="XEt-qF-R8C" secondAttribute="trailing" constant="2" id="9Gd-TI-hFR"/>
-                                <constraint firstItem="cow-tc-f2n" firstAttribute="top" secondItem="32h-wD-gkx" secondAttribute="bottom" constant="7.5" id="Hza-37-2Q9"/>
+                                <constraint firstItem="cow-tc-f2n" firstAttribute="top" secondItem="32h-wD-gkx" secondAttribute="bottom" constant="1.5" id="Hza-37-2Q9"/>
+                                <constraint firstItem="XEt-qF-R8C" firstAttribute="bottom" secondItem="cow-tc-f2n" secondAttribute="bottom" id="JLM-el-tle"/>
                                 <constraint firstAttribute="trailing" secondItem="32h-wD-gkx" secondAttribute="trailing" constant="14" id="K3r-R8-Y5O"/>
                                 <constraint firstItem="cow-tc-f2n" firstAttribute="trailing" secondItem="32h-wD-gkx" secondAttribute="trailing" id="LZp-a3-nzK"/>
                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="cow-tc-f2n" secondAttribute="bottom" constant="15" id="awo-IQ-3g5"/>
                                 <constraint firstItem="32h-wD-gkx" firstAttribute="leading" secondItem="5Fl-P6-MXy" secondAttribute="leading" constant="8" id="hvE-Ah-0qj"/>
-                                <constraint firstItem="32h-wD-gkx" firstAttribute="top" secondItem="5Fl-P6-MXy" secondAttribute="top" constant="15" id="yB5-fi-Za0"/>
+                                <constraint firstItem="32h-wD-gkx" firstAttribute="top" secondItem="5Fl-P6-MXy" secondAttribute="top" constant="21" id="yB5-fi-Za0"/>
                             </constraints>
                         </view>
                     </subviews>
+                    <constraints>
+                        <constraint firstItem="ipD-e1-fPk" firstAttribute="width" secondItem="5HR-QN-iia" secondAttribute="width" multiplier="0.55" id="7L5-j2-BLx"/>
+                    </constraints>
                     <viewLayoutGuide key="safeArea" id="5uB-JW-QYy"/>
                 </stackView>
             </subviews>
@@ -110,17 +120,18 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="accountImg" destination="o5J-LB-o9G" id="B2Y-me-upe"/>
                 <outlet property="arrowDirection" destination="ErI-6B-Bb2" id="aUh-Mt-rRE"/>
                 <outlet property="expandOrCollapseDetailsButton" destination="ftL-zJ-ymV" id="x4E-PD-das"/>
                 <outlet property="labelSpendableBalance" destination="cow-tc-f2n" id="EnZ-Nv-aAU"/>
                 <outlet property="labelTitle" destination="b82-E1-gbo" id="xlJ-gC-Vtz"/>
                 <outlet property="labelTotalBalance" destination="32h-wD-gkx" id="TYA-r3-Zvc"/>
             </connections>
-            <point key="canvasLocation" x="24.5" y="-224"/>
+            <point key="canvasLocation" x="23.199999999999999" y="-224.88755622188907"/>
         </view>
     </objects>
     <resources>
-        <image name="account" width="40" height="40"/>
+        <image name="account" width="80" height="80"/>
         <image name="button:ErI-6B-Bb2:image" width="24" height="24">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGVVZYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEgcI
