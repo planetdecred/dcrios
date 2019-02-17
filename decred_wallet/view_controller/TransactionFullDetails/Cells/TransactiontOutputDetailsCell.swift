@@ -52,7 +52,7 @@ class TransactiontOutputDetailsCell: UITableViewCell {
         amountLabel.font = amountLabel.font.withSize(15)
         
         let combine = NSMutableAttributedString()
-        combine.append(getAttributedString(str: "\(credit.dcrAmount)", siz: 12))
+        combine.append(getAttributedString(str: "\(credit.dcrAmount)", siz: 12, TexthexColor: GlobalConstants.Colors.TextAmount))
         combine.append(NSMutableAttributedString(string: " (\(accName ?? "external"))"))
         
         amountLabel.attributedText = combine

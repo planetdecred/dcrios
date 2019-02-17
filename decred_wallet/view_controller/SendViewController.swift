@@ -10,9 +10,7 @@ import QRCodeReader
 import UIKit
 import Dcrlibwallet
 import SafariServices
-protocol PinEnteredProtocol {
-    var pinInput: String?{get set}
-}
+
 
 class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderViewControllerDelegate, PinEnteredProtocol {
     var pinInput: String?
@@ -112,7 +110,7 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
                     this.estimateSize.text = "\(preparedTransaction?.estimatedSignedSize() ?? 0) Bytes"
                     this.estimateFee.text = "\(fee) DCR"
                     let tnt =  (spendableAmount - (Decimal(amountToSend) )) as NSDecimalNumber
-                    this.BalanceAfter.attributedText = getAttributedString(str: "\(tnt.round(8) ?? 0.0)", siz: 13)
+                    this.BalanceAfter.attributedText = getAttributedString(str: "\(tnt.round(8) ?? 0.0)", siz: 13, TexthexColor: GlobalConstants.Colors.TextAmount)
                     if(sendAll)!{
                         this.tfAmount.text = "\(DcrlibwalletAmountCoin(amount - DcrlibwalletAmountAtom(fee)) )"
                     }
@@ -361,7 +359,7 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
             let tspendable = spendable(account: defaultAccount) as NSDecimalNumber
             
             accountDropdown.setAttributedTitle(
-                getAttributedString(str: "\(defaultAccount.Name) [\(tspendable.round(8) ?? 0.0)]", siz: 13),
+                getAttributedString(str: "\(defaultAccount.Name) [\(tspendable.round(8) ?? 0.0)]", siz: 13, TexthexColor: GlobalConstants.Colors.TextAmount),
                 for: UIControlState.normal
             )
             
@@ -372,7 +370,7 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
             guard let this = self else { return }
             
             this.accountDropdown.setAttributedTitle(
-                getAttributedString(str: val, siz: 13),
+                getAttributedString(str: val, siz: 13, TexthexColor: GlobalConstants.Colors.TextAmount),
                 for: UIControlState.normal
             )
             

@@ -9,6 +9,14 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+        <array key="inconsolata_regular.ttf">
+            <string>Inconsolata-Regular</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -16,15 +24,15 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="72"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="5HR-QN-iia">
+                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5HR-QN-iia">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="72"/>
                     <subviews>
                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ipD-e1-fPk">
-                            <rect key="frame" x="0.0" y="0.0" width="187.5" height="72"/>
+                            <rect key="frame" x="0.0" y="0.0" width="206.5" height="72"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Wallet" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b82-E1-gbo">
-                                    <rect key="frame" x="69" y="27.5" width="110.5" height="17"/>
-                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b82-E1-gbo">
+                                    <rect key="frame" x="69" y="36" width="129.5" height="0.0"/>
+                                    <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
                                     <color key="textColor" red="0.035294117647058823" green="0.078431372549019607" blue="0.25098039215686274" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -62,24 +70,24 @@
                             </constraints>
                         </view>
                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Fl-P6-MXy">
-                            <rect key="frame" x="187.5" y="0.0" width="187.5" height="72"/>
+                            <rect key="frame" x="206.5" y="0.0" width="168.5" height="72"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0 DCR" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="32h-wD-gkx">
-                                    <rect key="frame" x="8" y="15" width="165.5" height="20.5"/>
-                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                    <nil key="textColor"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="32h-wD-gkx">
+                                    <rect key="frame" x="8" y="18" width="146.5" height="20"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                    <color key="textColor" red="0.035294117647058823" green="0.078431372549019607" blue="0.25098039215686274" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0 DCR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cow-tc-f2n">
-                                    <rect key="frame" x="128" y="43" width="45.5" height="14"/>
-                                    <fontDescription key="fontDescription" name="SFMono-Medium" family="SF Mono" pointSize="12"/>
-                                    <color key="textColor" red="0.21176470589999999" green="0.84313725490000002" blue="0.65490196079999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cow-tc-f2n">
+                                    <rect key="frame" x="128.5" y="42.5" width="26" height="14"/>
+                                    <fontDescription key="fontDescription" name="Inconsolata-Regular" family="Inconsolata" pointSize="13"/>
+                                    <color key="textColor" red="0.1764705882352941" green="0.84705882352941175" blue="0.63921568627450975" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Spendable" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XEt-qF-R8C">
-                                    <rect key="frame" x="68" y="43" width="58" height="14"/>
-                                    <fontDescription key="fontDescription" name="SFMono-Medium" family="SF Mono" pointSize="12"/>
-                                    <color key="textColor" red="0.81176470590000005" green="0.83137254900000002" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <rect key="frame" x="72.5" y="42.5" width="54" height="15.5"/>
+                                    <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="12"/>
+                                    <color key="textColor" red="0.53725490196078429" green="0.59215686274509804" blue="0.6470588235294118" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
@@ -87,15 +95,18 @@
                             <constraints>
                                 <constraint firstItem="XEt-qF-R8C" firstAttribute="top" secondItem="cow-tc-f2n" secondAttribute="top" id="7eJ-eA-lqh"/>
                                 <constraint firstItem="cow-tc-f2n" firstAttribute="leading" secondItem="XEt-qF-R8C" secondAttribute="trailing" constant="2" id="9Gd-TI-hFR"/>
-                                <constraint firstItem="cow-tc-f2n" firstAttribute="top" secondItem="32h-wD-gkx" secondAttribute="bottom" constant="7.5" id="Hza-37-2Q9"/>
+                                <constraint firstItem="cow-tc-f2n" firstAttribute="top" secondItem="32h-wD-gkx" secondAttribute="bottom" constant="4.5" id="Hza-37-2Q9"/>
                                 <constraint firstAttribute="trailing" secondItem="32h-wD-gkx" secondAttribute="trailing" constant="14" id="K3r-R8-Y5O"/>
                                 <constraint firstItem="cow-tc-f2n" firstAttribute="trailing" secondItem="32h-wD-gkx" secondAttribute="trailing" id="LZp-a3-nzK"/>
                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="cow-tc-f2n" secondAttribute="bottom" constant="15" id="awo-IQ-3g5"/>
                                 <constraint firstItem="32h-wD-gkx" firstAttribute="leading" secondItem="5Fl-P6-MXy" secondAttribute="leading" constant="8" id="hvE-Ah-0qj"/>
-                                <constraint firstItem="32h-wD-gkx" firstAttribute="top" secondItem="5Fl-P6-MXy" secondAttribute="top" constant="15" id="yB5-fi-Za0"/>
+                                <constraint firstItem="32h-wD-gkx" firstAttribute="top" secondItem="5Fl-P6-MXy" secondAttribute="top" constant="18" id="yB5-fi-Za0"/>
                             </constraints>
                         </view>
                     </subviews>
+                    <constraints>
+                        <constraint firstItem="ipD-e1-fPk" firstAttribute="width" secondItem="5HR-QN-iia" secondAttribute="width" multiplier="0.55" id="7L5-j2-BLx"/>
+                    </constraints>
                     <viewLayoutGuide key="safeArea" id="5uB-JW-QYy"/>
                 </stackView>
             </subviews>
@@ -116,7 +127,7 @@
                 <outlet property="labelTitle" destination="b82-E1-gbo" id="xlJ-gC-Vtz"/>
                 <outlet property="labelTotalBalance" destination="32h-wD-gkx" id="TYA-r3-Zvc"/>
             </connections>
-            <point key="canvasLocation" x="24.5" y="-224"/>
+            <point key="canvasLocation" x="23.199999999999999" y="-224.88755622188907"/>
         </view>
     </objects>
     <resources>
