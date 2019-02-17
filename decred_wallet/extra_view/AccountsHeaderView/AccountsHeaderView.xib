@@ -32,7 +32,7 @@
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b82-E1-gbo">
                                     <rect key="frame" x="69" y="36" width="129.5" height="0.0"/>
-                                    <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
+                                    <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                     <color key="textColor" red="0.035294117647058823" green="0.078431372549019607" blue="0.25098039215686274" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -73,7 +73,7 @@
                             <rect key="frame" x="206.5" y="0.0" width="168.5" height="72"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="32h-wD-gkx">
-                                    <rect key="frame" x="8" y="18" width="146.5" height="20"/>
+                                    <rect key="frame" x="8" y="21" width="146.5" height="20"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                     <color key="textColor" red="0.035294117647058823" green="0.078431372549019607" blue="0.25098039215686274" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
@@ -85,7 +85,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Spendable" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XEt-qF-R8C">
-                                    <rect key="frame" x="72.5" y="42.5" width="54" height="15.5"/>
+                                    <rect key="frame" x="72.5" y="41" width="54" height="15.5"/>
                                     <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="12"/>
                                     <color key="textColor" red="0.53725490196078429" green="0.59215686274509804" blue="0.6470588235294118" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
@@ -93,14 +93,14 @@
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstItem="XEt-qF-R8C" firstAttribute="top" secondItem="cow-tc-f2n" secondAttribute="top" id="7eJ-eA-lqh"/>
                                 <constraint firstItem="cow-tc-f2n" firstAttribute="leading" secondItem="XEt-qF-R8C" secondAttribute="trailing" constant="2" id="9Gd-TI-hFR"/>
-                                <constraint firstItem="cow-tc-f2n" firstAttribute="top" secondItem="32h-wD-gkx" secondAttribute="bottom" constant="4.5" id="Hza-37-2Q9"/>
+                                <constraint firstItem="cow-tc-f2n" firstAttribute="top" secondItem="32h-wD-gkx" secondAttribute="bottom" constant="1.5" id="Hza-37-2Q9"/>
+                                <constraint firstItem="XEt-qF-R8C" firstAttribute="bottom" secondItem="cow-tc-f2n" secondAttribute="bottom" id="JLM-el-tle"/>
                                 <constraint firstAttribute="trailing" secondItem="32h-wD-gkx" secondAttribute="trailing" constant="14" id="K3r-R8-Y5O"/>
                                 <constraint firstItem="cow-tc-f2n" firstAttribute="trailing" secondItem="32h-wD-gkx" secondAttribute="trailing" id="LZp-a3-nzK"/>
                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="cow-tc-f2n" secondAttribute="bottom" constant="15" id="awo-IQ-3g5"/>
                                 <constraint firstItem="32h-wD-gkx" firstAttribute="leading" secondItem="5Fl-P6-MXy" secondAttribute="leading" constant="8" id="hvE-Ah-0qj"/>
-                                <constraint firstItem="32h-wD-gkx" firstAttribute="top" secondItem="5Fl-P6-MXy" secondAttribute="top" constant="18" id="yB5-fi-Za0"/>
+                                <constraint firstItem="32h-wD-gkx" firstAttribute="top" secondItem="5Fl-P6-MXy" secondAttribute="top" constant="21" id="yB5-fi-Za0"/>
                             </constraints>
                         </view>
                     </subviews>
