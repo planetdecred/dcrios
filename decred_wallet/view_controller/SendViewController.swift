@@ -348,8 +348,9 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
             print(error)
         }
         
-        accounts = (account?.Acc.map { (acc) -> String in
+        accounts = (account?.Acc.filter({UserDefaults.standard.bool(forKey: "hidden\($0.Number)")  != true && $0.Number != INT_MAX }).map { (acc) -> String in
             let tspendable = spendable(account: acc) as NSDecimalNumber
+            print(acc.Number)
             
             return "\(acc.Name) [\( tspendable.round(8) ?? 0.0)]"
             })!

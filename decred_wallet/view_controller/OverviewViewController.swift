@@ -117,7 +117,7 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol {
                 do {
                     SingleInstance.shared.wallet?.add(self)
                     try
-                        SingleInstance.shared.wallet?.spvSync("127.0.0.1")
+                        SingleInstance.shared.wallet?.spvSync(getPeerAddress(appInstance: appInstance))
                     print("done syncing")
                 } catch {
                     print(error)
@@ -144,7 +144,8 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol {
             do {
                 let strAccount = try SingleInstance.shared.wallet?.getAccounts(0)
                 account = try JSONDecoder().decode(GetAccountResponse.self, from: (strAccount?.data(using: .utf8))!)
-                amount = "\((account.Acc.first?.dcrTotalBalance)!)"
+                amount = "\((account.Acc.filter({UserDefaults.standard.bool(forKey: "hidden\($0.Number)") != true}).map{$0.dcrTotalBalance}.reduce(0,+)))"
+            
                 DispatchQueue.main.async {
                     self?.hideActivityIndicator()
                     if(amount != nil){

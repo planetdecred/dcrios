@@ -13,9 +13,11 @@ class AccountsHeaderView: UIView {
     @IBOutlet private var labelSpendableBalance: UILabel!
     @IBOutlet var expandOrCollapseDetailsButton: UIButton!
     @IBOutlet weak var arrowDirection: UIButton!
+    @IBOutlet weak var accountImg: UIImageView!
     
     var headerIndex: Int = 0
     var arrobool = false
+    
     
     var totalBalance: Double = 0.0 {
         willSet {
@@ -39,6 +41,15 @@ class AccountsHeaderView: UIView {
         super.awakeFromNib()
     }
     
+    func sethidden(status: Bool){
+        if (status){
+            setAlpha(valueFig: 0.5)
+        }
+        else{
+            setAlpha(valueFig: 1)
+        }
+    }
+    
     var title: String? {
         get {
             return labelTitle.text
@@ -48,5 +59,13 @@ class AccountsHeaderView: UIView {
                 self.labelTitle.text = newValue
             }
         }
+    }
+    func setAlpha(valueFig : CGFloat){
+        self.labelSpendableBalance.alpha = valueFig
+        self.labelTitle.alpha = valueFig
+        labelTotalBalance.alpha = valueFig
+        self.arrowDirection.alpha = valueFig
+        self.labelSpendableBalance.alpha = valueFig
+        self.accountImg.alpha = valueFig
     }
 }
