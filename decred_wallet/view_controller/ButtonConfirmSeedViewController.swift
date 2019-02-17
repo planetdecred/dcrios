@@ -10,6 +10,9 @@ import UIKit
 protocol SeedCheckupProtocol {
     var seedToVerify: String?{get set}
 }
+protocol PinEnteredProtocol {
+    var pinInput: String?{get set}
+}
 
 class ButtonConfirmSeedViewController: UIViewController, SeedCheckupProtocol {
     

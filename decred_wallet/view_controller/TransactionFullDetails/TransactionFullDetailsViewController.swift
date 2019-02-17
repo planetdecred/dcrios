@@ -198,12 +198,12 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
             ),
             TransactionDetails(
                 title: "Amount",
-                value: getAttributedString(str: "\(tnt.round(8))", siz: 13) ,
+                value: getAttributedString(str: "\(tnt.round(8))", siz: 13, TexthexColor: GlobalConstants.Colors.TextAmount) ,
                 textColor: nil
             ),
             TransactionDetails(
                 title: "Fee",
-                value: getAttributedString(str: "\(Double((transaction?.Fee)!) / 1e8)", siz: 13),
+                value: getAttributedString(str: "\(Double((transaction?.Fee)!) / 1e8)", siz: 13, TexthexColor: GlobalConstants.Colors.TextAmount),
                 textColor: nil
             ),
             TransactionDetails(

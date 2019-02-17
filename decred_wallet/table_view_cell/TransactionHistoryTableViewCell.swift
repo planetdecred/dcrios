@@ -65,16 +65,16 @@ class TransactionHistoryTableViewCell: BaseTableViewCell {
             var requireConfirmation = UserDefaults.standard.bool(forKey: "pref_spend_fund_switch") ? 0 : 2
             if (data.trans.Type.lowercased() == "regular".lowercased()) {
                 if (data.trans.Direction == 0) {
-                    self.txtAmount.attributedText = getAttributedString(str:"-".appending(tnt.round(8).description), siz: 13.0)
+                    self.txtAmount.attributedText = getAttributedString(str:"-".appending(tnt.round(8).description), siz: 13.0, TexthexColor: GlobalConstants.Colors.TextAmount)
                     self.trImage?.image = UIImage(named: "debit")
                 }
                 else if (data.trans.Direction == 1) {
-                    self.txtAmount.attributedText = getAttributedString(str: tnt.round(8).description, siz: 13.0)
+                    self.txtAmount.attributedText = getAttributedString(str: tnt.round(8).description, siz: 13.0, TexthexColor: GlobalConstants.Colors.TextAmount)
                     self.trImage?.image = UIImage(named: "credit")
                     
                 }
                 else if (data.trans.Direction == 2) {
-                    self.txtAmount.attributedText = getAttributedString(str: tnt.round(8).description, siz: 13.0)
+                    self.txtAmount.attributedText = getAttributedString(str: tnt.round(8).description, siz: 13.0, TexthexColor: GlobalConstants.Colors.TextAmount)
                     self.trImage?.image = UIImage(named: "account")
                 }
             }
