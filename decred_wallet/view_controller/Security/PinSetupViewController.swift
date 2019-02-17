@@ -226,7 +226,7 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol, StartUpPass
                 DispatchQueue.main.async {
                     self!.progressHud!.dismiss()
                     // TODO: do not save password in defaults
-                    UserDefaults.standard.set(pass, forKey: "password") //deeply concern about
+                    self!.pinInput = pass
                     UserDefaults.standard.set("PIN", forKey: "spendingSecureType") // this stuff
                     UserDefaults.standard.synchronize()
                     createMainWindow()

@@ -12,7 +12,9 @@ import JGProgressHUD
 import UserNotifications
 
 class OverviewViewController: UIViewController, DcrlibwalletGetTransactionsResponseProtocol, DcrlibwalletTransactionListenerProtocol,
-DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol {
+DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEnteredProtocol {
+    var pinInput: String?
+    
     
     var peerCount = 0
     
@@ -108,7 +110,7 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol {
     func connectToDecredNetwork(){
         let appInstance = UserDefaults.standard
         var passphrase = ""
-        passphrase = appInstance.string(forKey: "password")!
+        passphrase = pinInput!
         let finalPassphraseData = (passphrase as NSString).data(using: String.Encoding.utf8.rawValue)!
         
         if (appInstance.integer(forKey: "network_mode") == 0) {

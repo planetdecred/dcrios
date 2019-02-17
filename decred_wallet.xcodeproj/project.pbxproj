@@ -74,6 +74,7 @@
 		95CC024420D3F15800DA73AF /* AccountsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CC024320D3F15800DA73AF /* AccountsData.swift */; };
 		95E1C96E20FCD43E00D7F3EE /* TextFieldDoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E1C96D20FCD43E00D7F3EE /* TextFieldDoneButton.swift */; };
 		B3D79EF42208431800CDDB70 /* Dcrlibwallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3D79EF32208431800CDDB70 /* Dcrlibwallet.framework */; };
+		B400B45E4E5F07D384B138CB /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD1BD0208F6C9A0051F58F /* Pods_Decred_Wallet.framework */; };
 		DD0B356E218930B7000830C4 /* AddAcountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B356D218930B7000830C4 /* AddAcountViewController.swift */; };
 		DD0C493E208A160900986C6B /* WalletSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C493D208A160900986C6B /* WalletSetupViewController.swift */; };
 		DD1D5C7C20AED828009789DD /* certificateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1D5C7B20AED824009789DD /* certificateViewController.swift */; };
@@ -107,6 +108,7 @@
 		DDB89421202F93B3002F85EE /* OverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB89420202F93B3002F85EE /* OverviewViewController.swift */; };
 		DDB89427202F955F002F85EE /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB89426202F955F002F85EE /* UIView.swift */; };
 		DDB89429202F95AC002F85EE /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB89428202F95AC002F85EE /* UIApplication.swift */; };
+		DDBB74A82215B97B003B172C /* inconsolata_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DDBB74A72215B5C7003B172C /* inconsolata_regular.ttf */; };
 		DDD967372204668500462238 /* ConfirmToSendFundViewPINController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD967362204668400462238 /* ConfirmToSendFundViewPINController.swift */; };
 		DDE90C8A2162CCB20031CED7 /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE90C892162CCB20031CED7 /* HelpViewController.swift */; };
 		DDFD8AF72181B5CB0018DE50 /* splashLoader.gif in Resources */ = {isa = PBXBuildFile; fileRef = DDFD8AF62181B5C90018DE50 /* splashLoader.gif */; };
@@ -247,6 +249,7 @@
 		DDB89420202F93B3002F85EE /* OverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewViewController.swift; sourceTree = "<group>"; };
 		DDB89426202F955F002F85EE /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		DDB89428202F95AC002F85EE /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
+		DDBB74A72215B5C7003B172C /* inconsolata_regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = inconsolata_regular.ttf; sourceTree = "<group>"; };
 		DDD967362204668400462238 /* ConfirmToSendFundViewPINController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmToSendFundViewPINController.swift; sourceTree = "<group>"; };
 		DDE90C892162CCB20031CED7 /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		DDFD8AF62181B5C90018DE50 /* splashLoader.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = splashLoader.gif; sourceTree = "<group>"; };
@@ -260,7 +263,9 @@
 			files = (
 				B3D79EF42208431800CDDB70 /* Dcrlibwallet.framework in Frameworks */,
 				1E3D73D7EA02D2D2D3CD052C /* Pods_Decred_Wallet.framework in Frameworks */,
-				910014D004274998B4E800D9 /* Pods_Decred_Wallet.framework in Frameworks */,
+
+				B400B45E4E5F07D384B138CB /* Pods_Decred_Wallet.framework in Frameworks */,
+
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -291,6 +296,7 @@
 		2850E07D217612EE00171267 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				DDBB74A22215B57F003B172C /* Inconsolata */,
 				2850E07E217612EE00171267 /* Source_Sans_Pro */,
 			);
 			name = Fonts;
@@ -546,6 +552,14 @@
 			path = decred_wallet_tests;
 			sourceTree = "<group>";
 		};
+		DDBB74A22215B57F003B172C /* Inconsolata */ = {
+			isa = PBXGroup;
+			children = (
+				DDBB74A72215B5C7003B172C /* inconsolata_regular.ttf */,
+			);
+			path = Inconsolata;
+			sourceTree = "<group>";
+		};
 		FC63DAD1B54B5F8BF85EAA63 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -645,6 +659,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DDBB74A82215B97B003B172C /* inconsolata_regular.ttf in Resources */,
 				2850E092217612EE00171267 /* SourceSansPro-ExtraLight.ttf in Resources */,
 				2850E08C217612EE00171267 /* SourceSansPro-SemiBoldItalic.ttf in Resources */,
 				2850E08B217612EE00171267 /* SourceSansPro-BlackItalic.ttf in Resources */,
