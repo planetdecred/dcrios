@@ -21,13 +21,13 @@ class AccountsHeaderView: UIView {
     var headerIndex: Int = 0
     var arrobool = false
     var spendableColor = UIColor(hex: "#2DD8A3")
-    var TotalColor = UIColor(hex: "#C4CBD2")
+    var totalColor = UIColor(hex: "#C4CBD2")
     
     
     var totalBalance: Double = 0.0 {
         willSet {
             DispatchQueue.main.async { [weak self] in
-                self?.labelTotalBalance.attributedText = getAttributedString(str: "\(newValue)", siz: 13.0, TexthexColor: self!.TotalColor)
+                self?.labelTotalBalance.attributedText = getAttributedString(str: "\(newValue)", siz: 13.0, TexthexColor: self!.totalColor)
             }
         }
     }
@@ -52,16 +52,11 @@ class AccountsHeaderView: UIView {
             self.labelSpendableBalance.textColor = UIColor(hex: "#C4CBD2")
             self.accountImg.alpha = 0.2
             self.arrowDirection.alpha = 0.2
-            
             self.labelTitle.textColor = UIColor(hex: "#C4CBD2")
             self.spendableColor = UIColor(hex: "#C4CBD2")
-            TotalColor = UIColor(hex: "#C4CBD2")
-            
+            totalColor = UIColor(hex: "#C4CBD2")
             self.background2.backgroundColor = UIColor(hex: "#F3F5F6")
             self.background1.backgroundColor = UIColor(hex: "#F3F5F6")
-            
-            
-            
         }
         else{
             self.accountImg.alpha = 1
@@ -69,12 +64,9 @@ class AccountsHeaderView: UIView {
             self.labelSpendableBalance.textColor = UIColor(hex: "#2DD8A3")
             self.labelTitle.textColor = UIColor(hex: "#091440")
             self.spendableColor = UIColor(hex: "#2DD8A3")
-            TotalColor = UIColor(hex: "#091440")
+            totalColor = UIColor(hex: "#091440")
             self.background1.backgroundColor = UIColor(hex: "#FFFFFF")
             self.background2.backgroundColor = UIColor(hex: "#FFFFFF")
-            
-            
-            
         }
     }
     
