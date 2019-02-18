@@ -105,10 +105,13 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
         if !(hidden){
             headerView.title = data.title
             headerView.sethidden(status: false)
+            headerView.backgroundColor = UIColor(hex: "#000000")
+            
         }
         else{
            headerView.sethidden(status: true)
-            headerView.title = data.title.appending("(hidden)")
+            headerView.title = data.title.appending(" (hidden)")
+            headerView.backgroundColor = UIColor(hex: "#FFFFFF")
         
         }
             headerView.totalBalance = data.totalBalance

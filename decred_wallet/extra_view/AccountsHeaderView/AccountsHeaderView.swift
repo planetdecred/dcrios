@@ -12,17 +12,22 @@ class AccountsHeaderView: UIView {
     @IBOutlet private var labelTotalBalance: UILabel!
     @IBOutlet private var labelSpendableBalance: UILabel!
     @IBOutlet var expandOrCollapseDetailsButton: UIButton!
+    @IBOutlet weak var labelSpendable: UILabel!
     @IBOutlet weak var arrowDirection: UIButton!
     @IBOutlet weak var accountImg: UIImageView!
+    @IBOutlet weak var background1: UIView!
+    @IBOutlet weak var background2: UIView!
     
     var headerIndex: Int = 0
     var arrobool = false
+    var spendableColor = UIColor(hex: "#2DD8A3")
+    var TotalColor = UIColor(hex: "#C4CBD2")
     
     
     var totalBalance: Double = 0.0 {
         willSet {
             DispatchQueue.main.async { [weak self] in
-                self?.labelTotalBalance.attributedText = getAttributedString(str: "\(newValue)", siz: 13.0, TexthexColor: GlobalConstants.Colors.TextAmount)
+                self?.labelTotalBalance.attributedText = getAttributedString(str: "\(newValue)", siz: 13.0, TexthexColor: self!.TotalColor)
             }
         }
     }
@@ -31,8 +36,8 @@ class AccountsHeaderView: UIView {
     
     var spendableBalance: Double = 0.0 {
         willSet {
-            DispatchQueue.main.async {
-                self.labelSpendableBalance.attributedText = getAttributedString(str: "\(newValue)", siz: 11.0, TexthexColor: UIColor(hex: "#2DD8A3"))
+            DispatchQueue.main.async {[weak self] in
+                self?.labelSpendableBalance.attributedText = getAttributedString(str: "\(newValue)", siz: 11.0, TexthexColor: self!.spendableColor)
             }
         }
     }
@@ -43,10 +48,33 @@ class AccountsHeaderView: UIView {
     
     func sethidden(status: Bool){
         if (status){
-            setAlpha(valueFig: 0.5)
+            self.labelTotalBalance.textColor = UIColor(hex: "#C4CBD2")
+            self.labelSpendableBalance.textColor = UIColor(hex: "#C4CBD2")
+            self.accountImg.alpha = 0.2
+            self.arrowDirection.alpha = 0.2
+            
+            self.labelTitle.textColor = UIColor(hex: "#C4CBD2")
+            self.spendableColor = UIColor(hex: "#C4CBD2")
+            TotalColor = UIColor(hex: "#C4CBD2")
+            
+            self.background2.backgroundColor = UIColor(hex: "#F3F5F6")
+            self.background1.backgroundColor = UIColor(hex: "#F3F5F6")
+            
+            
+            
         }
         else{
-            setAlpha(valueFig: 1)
+            self.accountImg.alpha = 1
+            self.arrowDirection.alpha = 1
+            self.labelSpendableBalance.textColor = UIColor(hex: "#2DD8A3")
+            self.labelTitle.textColor = UIColor(hex: "#091440")
+            self.spendableColor = UIColor(hex: "#2DD8A3")
+            TotalColor = UIColor(hex: "#091440")
+            self.background1.backgroundColor = UIColor(hex: "#FFFFFF")
+            self.background2.backgroundColor = UIColor(hex: "#FFFFFF")
+            
+            
+            
         }
     }
     
@@ -60,12 +88,5 @@ class AccountsHeaderView: UIView {
             }
         }
     }
-    func setAlpha(valueFig : CGFloat){
-        self.labelSpendableBalance.alpha = valueFig
-        self.labelTitle.alpha = valueFig
-        labelTotalBalance.alpha = valueFig
-        self.arrowDirection.alpha = valueFig
-        self.labelSpendableBalance.alpha = valueFig
-        self.accountImg.alpha = valueFig
-    }
+    
 }
