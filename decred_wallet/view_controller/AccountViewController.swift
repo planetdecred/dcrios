@@ -101,25 +101,34 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
         
         let headerView = AccountsHeaderView.loadNib()
         let data = myBalances[section]
+        let hidden = UserDefaults.standard.bool(forKey: "hidden\(data.number)" )
+        if !(hidden){
+            headerView.title = data.title
+            headerView.sethidden(status: false)
+            headerView.backgroundColor = UIColor(hex: "#000000")
+            
+        }
+        else{
+           headerView.sethidden(status: true)
+            headerView.title = data.title.appending(" (hidden)")
+            headerView.backgroundColor = UIColor(hex: "#FFFFFF")
         
-        headerView.title = data.title
-        headerView.totalBalance = data.totalBalance
-        headerView.spendableBalance = data.spendableBalance
-        headerView.headerIndex = section
-        headerView.expandOrCollapseDetailsButton.tag = section
-        headerView.arrobool = data.isExpanded
-        
-        headerView.expandOrCollapseDetailsButton.addTarget(
-            self,
-            action: #selector(toggleExpandedState(_:)),
-            for: .touchUpInside
-        )
+        }
+            headerView.totalBalance = data.totalBalance
+            headerView.spendableBalance = data.spendableBalance
+            headerView.headerIndex = section
+            headerView.expandOrCollapseDetailsButton.tag = section
+            headerView.arrobool = data.isExpanded
+        headerView.expandOrCollapseDetailsButton.addTarget(self,action:#selector(toggleExpandedState(_:)),
+            for: .touchUpInside)
+   
         
         if (!data.isExpanded) {
             headerView.arrowDirection.setImage(UIImage.init(named: "arrow"), for: .normal)
         } else{
             headerView.arrowDirection.setImage(UIImage.init(named: "arrow-1"), for: .normal)
         }
+       
         
         return headerView
     }

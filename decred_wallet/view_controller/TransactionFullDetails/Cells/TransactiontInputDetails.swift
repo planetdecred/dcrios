@@ -48,7 +48,7 @@ class TransactiontInputDetails: UITableViewCell {
         subrow.addSubview(addressLabel!)
         amountLabel.font = amountLabel.font.withSize(15)
         let combine = NSMutableAttributedString()
-        combine.append(getAttributedString(str: "\(debit.dcrAmount)", siz: 12))
+        combine.append(getAttributedString(str: "\(debit.dcrAmount)", siz: 12, TexthexColor: GlobalConstants.Colors.TextAmount))
         combine.append(NSMutableAttributedString(string: " (\(debit.AccountName ))"))
         amountLabel.attributedText = combine
         

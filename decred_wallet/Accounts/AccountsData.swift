@@ -14,12 +14,14 @@ struct AccountsData {
     let title: String
     let totalBalance: Double
     var isExpanded: Bool = false
+    let number: Int32
     
     init(entity: AccountsEntity, color: UIColor?) {
         self.color = color
         self.spendableBalance = Double((entity.Balance?.dcrSpendable)!)
         self.totalBalance = Double((entity.Balance?.dcrTotal)!)
         self.title = entity.Name
+        self.number = entity.Number
         self.isExpanded = false
     }
 }

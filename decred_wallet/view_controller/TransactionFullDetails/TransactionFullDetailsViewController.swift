@@ -199,12 +199,12 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
             ),
             TransactionDetails(
                 title: "Amount",
-                value: getAttributedString(str: "\(amount.round(8))", siz: 13),
+                value: getAttributedString(str: "\(amount.round(8))", siz: 13, TexthexColor: GlobalConstants.Colors.TextAmount),
                 textColor: nil
             ),
             TransactionDetails(
                 title: "Fee",
-                value: getAttributedString(str: "\(fee.round(8))", siz: 13),
+                value: getAttributedString(str: "\(fee.round(8))", siz: 13, TexthexColor: GlobalConstants.Colors.TextAmount),
                 textColor: nil
             ),
             TransactionDetails(

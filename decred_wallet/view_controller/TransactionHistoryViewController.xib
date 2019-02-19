@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TransactionHistoryViewController" customModule="DecredWallet" customModuleProvider="target">
             <connections>
@@ -23,14 +27,13 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recent Transaction" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wg8-gU-t3W">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Transaction(s)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wg8-gU-t3W">
                     <rect key="frame" x="23" y="41" width="186" height="21"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="186" id="Hgh-w9-fFB"/>
                         <constraint firstAttribute="height" constant="21" id="VMd-db-sBn"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                    <color key="textColor" red="0.035294117647058823" green="0.078431372549019607" blue="0.25098039215686274" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow-1" translatesAutoresizingMaskIntoConstraints="NO" id="rA7-jS-dhT">
@@ -41,14 +44,14 @@
                     </constraints>
                 </imageView>
                 <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LZb-hI-JcZ" customClass="DropMenuButton" customModule="DecredWallet" customModuleProvider="target">
-                    <rect key="frame" x="270" y="39" width="79" height="24"/>
+                    <rect key="frame" x="217" y="29" width="132" height="45"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="79" id="de2-Z0-6zu"/>
-                        <constraint firstAttribute="height" constant="24" id="x7o-03-zTf"/>
+                        <constraint firstAttribute="width" constant="132" id="de2-Z0-6zu"/>
+                        <constraint firstAttribute="height" constant="45" id="x7o-03-zTf"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                     <state key="normal" title="ALL">
-                        <color key="titleColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
                 </button>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Tmy-DS-jlp">
@@ -78,17 +81,17 @@
                 <constraint firstItem="Tmy-DS-jlp" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Tpa-cy-I4w"/>
                 <constraint firstItem="rA7-jS-dhT" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="19" id="a1z-vY-gho"/>
                 <constraint firstItem="wg8-gU-t3W" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="21" id="oOz-4W-vjL"/>
-                <constraint firstItem="LZb-hI-JcZ" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="19" id="rUj-7l-6cz"/>
+                <constraint firstItem="LZb-hI-JcZ" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="9" id="rUj-7l-6cz"/>
                 <constraint firstItem="PjH-in-6bf" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="tdr-p2-QDy"/>
                 <constraint firstItem="PjH-in-6bf" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.98" id="vaQ-eg-dTg"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="LZb-hI-JcZ" secondAttribute="trailing" constant="26" id="yGQ-Lw-d5P"/>
                 <constraint firstItem="wg8-gU-t3W" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="23" id="yK1-Xe-qea"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <point key="canvasLocation" x="24.5" y="52.5"/>
+            <point key="canvasLocation" x="23.199999999999999" y="51.724137931034484"/>
         </view>
     </objects>
     <resources>
-        <image name="arrow-1" width="24" height="24"/>
+        <image name="arrow-1" width="48" height="48"/>
     </resources>
 </document>

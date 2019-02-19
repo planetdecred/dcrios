@@ -54,28 +54,58 @@ class TransactionHistoryTableViewCell: BaseTableViewCell {
             let Date2 = NSDate.init(timeIntervalSince1970: TimeInterval(data.trans.Timestamp) )
             let dateformater = DateFormatter()
             dateformater.locale = Locale(identifier: "en_US_POSIX")
-            dateformater.dateFormat = "MMM dd, yyyy h:mm:ss a"
-            dateformater.amSymbol = "AM"
-            dateformater.pmSymbol = "PM"
+            dateformater.dateFormat = "MMM dd, yyyy hh:mma"
+            dateformater.amSymbol = "am"
+            dateformater.pmSymbol = "pm"
             dateformater.string(from: Date2 as Date)
             
             self.txtDate.text = dateformater.string(from: Date2 as Date)
             
             let tnt = Decimal(data.trans.Amount / 100000000.00) as NSDecimalNumber
-            
-            if (data.trans.Direction == 0) {
-                self.txtAmount.attributedText = getAttributedString(str: "-".appending(tnt.round(8).description), siz: 12.0)
-                self.trImage?.image = UIImage(named: "debit")
-            } else if (data.trans.Direction == 1) {
-                self.txtAmount.attributedText = getAttributedString(str: tnt.round(8).description, siz: 12.0)
-                self.trImage?.image = UIImage(named: "credit")
-            } else if (data.trans.Direction == 2) {
-                self.txtAmount.attributedText = getAttributedString(str: tnt.round(8).description, siz: 12.0)
-                self.trImage?.image = UIImage(named: "account")
+            var requireConfirmation = UserDefaults.standard.bool(forKey: "pref_spend_fund_switch") ? 0 : 2
+            if (data.trans.Type.lowercased() == "regular".lowercased()) {
+                if (data.trans.Direction == 0) {
+                    self.txtAmount.attributedText = getAttributedString(str:"-".appending(tnt.round(8).description), siz: 13.0, TexthexColor: GlobalConstants.Colors.TextAmount)
+                    self.trImage?.image = UIImage(named: "debit")
+                }
+                else if (data.trans.Direction == 1) {
+                    self.txtAmount.attributedText = getAttributedString(str: tnt.round(8).description, siz: 13.0, TexthexColor: GlobalConstants.Colors.TextAmount)
+                    self.trImage?.image = UIImage(named: "credit")
+                    
+                }
+                else if (data.trans.Direction == 2) {
+                    self.txtAmount.attributedText = getAttributedString(str: tnt.round(8).description, siz: 13.0, TexthexColor: GlobalConstants.Colors.TextAmount)
+                    self.trImage?.image = UIImage(named: "account")
+                }
             }
-            
-            if (data.trans.Type == "vote") {
+            else if(data.trans.Type.lowercased() == "vote".lowercased()){
                 self.txtAmount.text = "Vote"
+                self.trImage?.image = UIImage(named: "vote")
+            }
+            else if (data.trans.Type.lowercased() == "Ticket Purchase".lowercased()) {
+                self.txtAmount.text = "Ticket"
+                self.trImage?.image = UIImage(named: "immature")
+                if (confirm2 < requireConfirmation){
+                    self.txtTrStatus.textColor = UIColor(hex:"#3d659c")
+                    self.txtTrStatus.text = "Pending"
+                }
+                else if (confirm2 > 16){
+                    let stausText = "Confirmed / Live"
+                    let range = (stausText as NSString).range(of: "/")
+                    let attributedString = NSMutableAttributedString(string: stausText)
+                    attributedString.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.black , range: range)
+                    self.txtTrStatus.textColor = UIColor(hex:"#2DD8A3")
+                    self.txtTrStatus.attributedText = attributedString
+                }
+                else{
+                    let stausText = "Confirmed / Immature"
+                    let range = (stausText as NSString).range(of: "/")
+                    let attributedString = NSMutableAttributedString(string: stausText)
+                    attributedString.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.black , range: range)
+                     self.trImage?.image = UIImage(named: "live")
+                    self.txtTrStatus.textColor = UIColor.orange
+                    self.txtTrStatus.attributedText = attributedString
+                }
             }
         }
     }

@@ -23,6 +23,7 @@ class AccountDataCell: UITableViewCell, AccountDetailsCellProtocol {
     @IBOutlet private weak var labelKeysValue: UILabel!
     @IBOutlet weak var defaultAccount: UISwitch!
     private var accountTmp: AccountsEntity!
+    @IBOutlet weak var hideAcount: UISwitch!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -31,9 +32,17 @@ class AccountDataCell: UITableViewCell, AccountDetailsCellProtocol {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
+    @IBAction func setHiddenAccount(_ sender: Any) {
+        UserDefaults.standard.set(hideAcount.isOn, forKey: "hidden\(accountTmp.Number)")
+        UserDefaults.standard.synchronize()
+    }
     
     @IBAction func setDefault(_ sender: Any) {
         self.accountTmp.makeDefault()
+        self.hideAcount.setOn(false, animated: true)
+        self.hideAcount.isEnabled = false
+        UserDefaults.standard.set(false, forKey: "hidden\(accountTmp.Number)")
+        UserDefaults.standard.synchronize()
     }
     
     func setup(account: AccountsEntity) {
@@ -46,17 +55,32 @@ class AccountDataCell: UITableViewCell, AccountDetailsCellProtocol {
         labelAccountNoValue.text = "\(account.Number)"
         labelKeysValue.text = "\(account.ExternalKeyCount) External, \(account.InternalKeyCount) Internal, \(account.ImportedKeyCount) Imported"
         
-        if (account.Name.elementsEqual("imported")) {
+        if (account.Number == INT_MAX) {
             defaultAccount.setOn(false, animated: false)
             defaultAccount.isEnabled = false
+            hideAcount.setOn(false, animated: false)
+            hideAcount.isEnabled = false
         }else{
+            let hidden = UserDefaults.standard.bool(forKey: "hidden\(account.Number)")
+            if (hidden){
+                hideAcount.setOn(true, animated: false)
+                hideAcount.isEnabled = true
+            }
+            else{
+                hideAcount.setOn(false, animated: false)
+                hideAcount.isEnabled = true
+            }
             if (account.isDefaultWallet){
                 defaultAccount.setOn(true, animated: false)
                 defaultAccount.isEnabled = false
+                hideAcount.setOn(false, animated: false)
+                hideAcount.isEnabled = false
             }else {
                 defaultAccount.setOn(false, animated: false)
                 defaultAccount.isEnabled = true
+                hideAcount.isEnabled = true
             }
+            
         }
         
         

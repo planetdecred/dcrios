@@ -121,7 +121,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
             self.accountDropdown.backgroundColor = UIColor.white
         }
         
-        let accNames: [String] = (self.account?.Acc.map({ $0.Name }))!
+        let accNames: [String] = (self.account?.Acc.filter({UserDefaults.standard.bool(forKey: "hidden\($0.Number)")  != true && $0.Number != INT_MAX }).map({ $0.Name }))!
         
         accountDropdown.initMenu(
             accNames
@@ -129,7 +129,8 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
             guard let this = self else { return }
             this.selectedAccount = val
             if self?.account?.Acc.filter({ $0.Name == val }).first != nil {
-                self?.myacc = self?.account?.Acc.map({ $0 }).first
+                print("value is \(val)")
+                self?.myacc = self?.account?.Acc.filter({ $0.Name == val }).map({ $0 }).first
                 self?.getAddress(accountNumber: (self?.myacc.Number)!)
             }
         }
@@ -144,14 +145,20 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     }
     
     func shareImgOnTap(){
-        let imgcopy = self.walletAddress.currentTitle!
-        let activityController = UIActivityViewController(activityItems: [imgcopy], applicationActivities: nil)
         
+        var img: UIImage = self.imgWalletAddrQRCode.image!
+        
+        if img.cgImage == nil {
+            guard let ciImage = img.ciImage, let cgImage = CIContext(options: nil).createCGImage(ciImage, from: ciImage.extent) else {return}
+            img = UIImage(cgImage: cgImage)
+        }
+
+        let activityController = UIActivityViewController(activityItems: [img], applicationActivities: nil)
         activityController.completionWithItemsHandler = { (nil, completed, _, error) in
-            
+
         }
         present(activityController, animated: true){
-            
+
         }
     }
     
@@ -180,6 +187,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
                 with: receiveAddress!!,
                 forImageViewFrame: this.imgWalletAddrQRCode.frame
             )
+            
         }
     }
 }

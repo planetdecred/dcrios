@@ -22,6 +22,7 @@ struct GlobalConstants {
         static let separaterGrey = UIColor(red: 224/255, green: 224/255, blue: 224/255, alpha: 1.0)
         static let greenishGrey = UIColor(hex: "F1F8E9")
         static let black = UIColor(hex: "000000")
+        static let TextAmount = UIColor(hex: "#091440")
     }
     
     //MARK: - Storyboard

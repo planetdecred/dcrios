@@ -12,16 +12,24 @@ import JGProgressHUD
 import UserNotifications
 
 class OverviewViewController: UIViewController, DcrlibwalletGetTransactionsResponseProtocol, DcrlibwalletTransactionListenerProtocol,
-DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol {
+DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEnteredProtocol{
+    
+    weak var delegate : LeftMenuProtocol?
+    var pinInput: String?
+    
     
     var peerCount = 0
+   
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var lbCurrentBalance: UILabel!
     @IBOutlet var viewTableHeader: UIView!
     @IBOutlet var viewTableFooter: UIView!
     @IBOutlet weak var activityIndicator: UIImageView!
+    @IBOutlet weak var SendBtn: UIButton!
+    @IBOutlet weak var showAllTransactionBtn: UIButton!
     
+    @IBOutlet weak var ReceiveBtn: UIButton!
     var visible = false
     var scanning = false
     var synced = false
@@ -45,6 +53,7 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol {
             return refreshControl
         }()
         self.tableView.addSubview(self.refreshControl)
+        self.setupBtn()
         
         
         connectToDecredNetwork()
@@ -108,8 +117,8 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol {
     func connectToDecredNetwork(){
         let appInstance = UserDefaults.standard
         var passphrase = ""
-        passphrase = appInstance.string(forKey: "password")!
-        let finalPassphraseData = (passphrase as NSString).data(using: String.Encoding.utf8.rawValue)!
+      //  passphrase = self.pinInput!
+      //  let finalPassphraseData = (passphrase as NSString).data(using: String.Encoding.utf8.rawValue)!
         
         if (appInstance.integer(forKey: "network_mode") == 0) {
             DispatchQueue.global(qos: .background).async { [weak self] in
@@ -117,7 +126,7 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol {
                 do {
                     SingleInstance.shared.wallet?.add(self)
                     try
-                        SingleInstance.shared.wallet?.spvSync("127.0.0.1")
+                        SingleInstance.shared.wallet?.spvSync(getPeerAddress(appInstance: appInstance))
                     print("done syncing")
                 } catch {
                     print(error)
@@ -126,12 +135,12 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol {
         } else {
             DispatchQueue.global(qos: .background).async { [weak self] in
                 guard let this = self else { return }
-                do {
+              /*  do {
                     try
-                        SingleInstance.shared.wallet?.unlock(finalPassphraseData)
+                     //   SingleInstance.shared.wallet?.unlock(finalPassphraseData)
                 } catch {
                     print(error)
-                }
+                }*/
             }
         }
     }
@@ -144,11 +153,12 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol {
             do {
                 let strAccount = try SingleInstance.shared.wallet?.getAccounts(0)
                 account = try JSONDecoder().decode(GetAccountResponse.self, from: (strAccount?.data(using: .utf8))!)
-                amount = "\((account.Acc.first?.dcrTotalBalance)!)"
+                amount = "\((account.Acc.filter({UserDefaults.standard.bool(forKey: "hidden\($0.Number)") != true}).map{$0.dcrTotalBalance}.reduce(0,+)))"
+            
                 DispatchQueue.main.async {
                     self?.hideActivityIndicator()
                     if(amount != nil){
-                        self?.lbCurrentBalance.attributedText = getAttributedString(str: amount, siz: 15.0)
+                        self?.lbCurrentBalance.attributedText = getAttributedString(str: amount, siz: 17.0, TexthexColor: GlobalConstants.Colors.TextAmount)
                     }
                 }
             } catch let error {
@@ -227,6 +237,42 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol {
                 self.prepareRecent()
                 self.updateCurrentBalance()
             }
+        }
+    }
+    func setupBtn(){
+        ReceiveBtn.layer.cornerRadius = 4
+        
+        ReceiveBtn.layer.borderWidth = 1.5
+        ReceiveBtn.layer.borderColor = UIColor(hex: "#596D81", alpha:0.8).cgColor
+        SendBtn.layer.cornerRadius = 4
+        SendBtn.layer.borderWidth = 1.5
+        SendBtn.layer.borderColor = UIColor(hex: "#596D81", alpha:0.8).cgColor
+        showAllTransactionBtn.layer.borderWidth = 1.5
+        showAllTransactionBtn.layer.borderColor = UIColor(hex: "#596D81", alpha:0.8).cgColor
+        showAllTransactionBtn.layer.cornerRadius = 4
+    }
+    
+    @IBAction func sendView(_ sender: Any) {
+        UIApplication.shared.beginIgnoringInteractionEvents()
+         DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+            self.delegate!.changeViewController(LeftMenu.send)
+            UIApplication.shared.endIgnoringInteractionEvents()
+        }
+        
+    }
+    @IBAction func receiveView(_ sender: Any) {
+        UIApplication.shared.beginIgnoringInteractionEvents()
+         DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+            self.delegate!.changeViewController(LeftMenu.receive)
+            UIApplication.shared.endIgnoringInteractionEvents()
+        }
+    }
+    
+    @IBAction func historyView(_ sender: Any) {
+        UIApplication.shared.beginIgnoringInteractionEvents()
+         DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+            self.delegate!.changeViewController(LeftMenu.history)
+            UIApplication.shared.endIgnoringInteractionEvents()
         }
     }
     
@@ -365,7 +411,7 @@ extension OverviewViewController : UITableViewDelegate {
 extension OverviewViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return min(self.mainContens.count, 6)
+        return min(self.mainContens.count, 5)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

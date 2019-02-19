@@ -144,7 +144,7 @@ func loadCertificate() throws ->  String {
     return try String.init(contentsOfFile: filePath)
 }
 
-func getAttributedString(str: String, siz: CGFloat) -> NSAttributedString {
+func getAttributedString(str: String, siz: CGFloat, TexthexColor: UIColor) -> NSAttributedString {
     var tmpString = str
     var Strr:NSString = ""
     if !tmpString.contains("."){
@@ -164,14 +164,14 @@ func getAttributedString(str: String, siz: CGFloat) -> NSAttributedString {
     if(tmpString.length > ((dotRange?.location)!+2)) {
         atrStr.addAttribute(NSAttributedStringKey.font,
                             value: UIFont(
-                                name: "Helvetica",
+                                name: "Inconsolata-Regular",
                                 size: siz)!,
                             range: NSRange(
                                 location:(dotRange?.location)!+3,
                                 length:(stt?.length)!-1 - ((dotRange?.location)!+2)))
         
         atrStr.addAttribute(NSAttributedStringKey.foregroundColor,
-                            value: UIColor(hex: "#091440"),
+                            value: TexthexColor,
                             range: NSRange(
                                 location:0,
                                 length:(stt?.length)!))

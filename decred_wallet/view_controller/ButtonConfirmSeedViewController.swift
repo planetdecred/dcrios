@@ -10,6 +10,9 @@ import UIKit
 protocol SeedCheckupProtocol {
     var seedToVerify: String?{get set}
 }
+protocol PinEnteredProtocol {
+    var pinInput: String?{get set}
+}
 
 class ButtonConfirmSeedViewController: UIViewController, SeedCheckupProtocol {
     
@@ -110,16 +113,19 @@ extension ButtonConfirmSeedViewController: UITableViewDataSource{
         let trueSeed = seed?[row]
         suggestionsWithFake[trueSeedIndex] = trueSeed ?? "dummy"
         
-        let fakeWordsSet = allWords.filter({
-            return ($0.lowercased().hasPrefix((String(trueSeed!.first!)).lowercased()))
+        let fakeWordsArray = allWords.filter({
+            return ($0.lowercased().hasPrefix((String(trueSeed!.first!)).lowercased()) && $0.lowercased() != trueSeed?.lowercased())
         })
-        
-        let fakes = [fakeWordsSet[Int.random(in: 0...(fakeWordsSet.count) - 1)], fakeWordsSet[Int.random(in: 0...(fakeWordsSet.count)-1)]]
+        var fakeWordsSet = Array(Set(fakeWordsArray))
+        let fake1 = Int.random(in: 0...(fakeWordsSet.count) - 1)
+        var fakes = [fakeWordsSet.remove(at: fake1)]
+        let fake2 = Int.random(in: 0...(fakeWordsSet.count) - 1)
+        fakes.append(fakeWordsSet.remove(at: fake2))
         var fakeIndex = 0
         for i in 0...2 {
             if i != trueSeedIndex {
-                suggestionsWithFake[i] = fakes[fakeIndex]
-                fakeIndex += 1
+                    suggestionsWithFake[i] = fakes[fakeIndex]
+                    fakeIndex += 1
             }
         }
         

@@ -35,15 +35,13 @@ class DataTableViewCell : BaseTableViewCell {
     override func setData(_ data: Any?) {
         
         if let data = data as? DataTableViewCellData {
-            var confirmations: Int32 = 0
-            if (data.trans.Height != -1) {
-                confirmations = (SingleInstance.shared.wallet?.getBestBlock())! - Int32(data.trans.Height)
-                confirmations += 1
-            }else if (data.trans.Height == -1) {
+            let confirmation =  SingleInstance.shared.wallet?.getBestBlock()
+            let confirm2 = (confirmation)! - Int32(data.trans.Height)
+            if (confirm2 == -1) {
                 self.status.textColor = UIColor(hex:"#3d659c")
                 self.status.text = "Pending"
             } else {
-                if (UserDefaults.standard.bool(forKey: "pref_spend_fund_switch") || confirmations > 1) {
+                if (UserDefaults.standard.bool(forKey: "pref_spend_fund_switch") || confirm2 > 1) {
                     self.status.textColor = UIColor(hex:"#2DD8A3")
                     self.status.text = "Confirmed"
                 } else {
@@ -55,28 +53,55 @@ class DataTableViewCell : BaseTableViewCell {
             let Date2 = NSDate.init(timeIntervalSince1970: TimeInterval(data.trans.Timestamp) )
             let dateformater = DateFormatter()
             dateformater.locale = Locale(identifier: "en_US_POSIX")
-            dateformater.dateFormat = "MMM dd, yyyy h:mm:ss a"
-            dateformater.amSymbol = "AM"
-            dateformater.pmSymbol = "PM"
+            dateformater.dateFormat = "MMM dd, yyyy hh:mma"
+            dateformater.amSymbol = "am"
+            dateformater.pmSymbol = "pm"
             dateformater.string(from: Date2 as Date)
             
             self.dateT.text = dateformater.string(from: Date2 as Date)
             let tnt = Decimal(data.trans.Amount / 100000000.00) as NSDecimalNumber
-            
+            let requireConfirmation = UserDefaults.standard.bool(forKey: "pref_spend_fund_switch") ? 0 : 2
+            if (data.trans.Type.lowercased() == "regular".lowercased()) {
             if (data.trans.Direction == 0) {
-                self.dataText.attributedText = getAttributedString(str: "-".appending(tnt.round(8).description), siz: 12.0)
+                self.dataText.attributedText = getAttributedString(str: "-".appending(tnt.round(8).description), siz: 13.0, TexthexColor: GlobalConstants.Colors.TextAmount)
                 self.dataImage?.image = UIImage(named: "debit")
             } else if(data.trans.Direction == 1) {
-                self.dataText.attributedText = getAttributedString(str: tnt.round(8).description, siz: 12.0)
+                self.dataText.attributedText = getAttributedString(str: tnt.round(8).description, siz: 13.0, TexthexColor: GlobalConstants.Colors.TextAmount)
                 self.dataImage?.image = UIImage(named: "credit")
             } else if(data.trans.Direction == 2) {
-                self.dataText.attributedText = getAttributedString(str: tnt.round(8).description, siz: 12.0)
+                self.dataText.attributedText = getAttributedString(str: tnt.round(8).description, siz: 13.0, TexthexColor: GlobalConstants.Colors.TextAmount)
                 self.dataImage?.image = UIImage(named: "account")
             }
-            
-            if(data.trans.Type == "vote"){
-                self.dataText.text = "Vote"
             }
+            
+            else if(data.trans.Type.lowercased() != "vote".lowercased()){
+                self.dataText.text = "Stake"
+                self.dataImage?.image = UIImage(named: "account")
+            }
+            else if (data.trans.Type.lowercased() == "Ticket Purchase".lowercased()) {
+                self.dataText.text = "Ticket"
+                self.dataImage?.image = UIImage(named: "account")
+                if (confirm2 < requireConfirmation){
+                    self.status.textColor = UIColor(hex:"#3d659c")
+                    self.status.text = "Pending"
+                }
+                else if (confirm2 > 16){
+                    let stausText = "Confirmed / Live"
+                    let range = (stausText as NSString).range(of: "/")
+                    let attributedString = NSMutableAttributedString(string: stausText)
+                    attributedString.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.black , range: range)
+                    self.status.textColor = UIColor(hex:"#2DD8A3")
+                    self.status.attributedText = attributedString
+                }
+                else{
+                    let stausText = "Confirmed / Immature"
+                    let range = (stausText as NSString).range(of: "/")
+                    let attributedString = NSMutableAttributedString(string: stausText)
+                    attributedString.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.black , range: range)
+                    self.status.textColor = UIColor.orange
+                    self.status.attributedText = attributedString
+                }
         }
     }
+}
 }

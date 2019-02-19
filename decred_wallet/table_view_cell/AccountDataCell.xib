@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -52,9 +52,9 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0DCR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7At-AS-vHt">
-                                        <rect key="frame" x="367.5" y="10" width="52.5" height="80"/>
+                                        <rect key="frame" x="360" y="10" width="60" height="80"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                         <color key="textColor" red="0.34509803921568627" green="0.43529411764705883" blue="0.51764705882352935" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -153,7 +153,7 @@
                                 <rect key="frame" x="0.0" y="457.5" width="428" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Properties" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UDk-ZR-kRY">
-                                        <rect key="frame" x="13" y="15.5" width="395" height="20.5"/>
+                                        <rect key="frame" x="13" y="15" width="395" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -281,6 +281,9 @@
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="4D3-65-ZT2">
                                                 <rect key="frame" x="371" y="17.5" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="setHiddenAccount:" destination="KGk-i7-Jjw" eventType="valueChanged" id="LeZ-oz-XMP"/>
+                                                </connections>
                                             </switch>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wallet balance will be ignored" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cK4-wr-Yg4">
                                                 <rect key="frame" x="13" y="27" width="168.5" height="14.5"/>
@@ -355,6 +358,7 @@ outgoing and incoming transactions.</string>
             <connections>
                 <outlet property="containerStackView" destination="x3z-we-xl8" id="z0t-FV-2Rf"/>
                 <outlet property="defaultAccount" destination="pQl-43-ryM" id="4RH-5P-ABj"/>
+                <outlet property="hideAcount" destination="4D3-65-ZT2" id="Aci-Ug-xAa"/>
                 <outlet property="labelAccountNoValue" destination="P5V-EW-4kC" id="jYz-th-zz6"/>
                 <outlet property="labelHDPathValue" destination="xys-o1-lj8" id="QIE-zE-pi7"/>
                 <outlet property="labelImmatureRewardValue" destination="7At-AS-vHt" id="j02-Aw-orE"/>
