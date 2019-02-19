@@ -167,8 +167,8 @@ struct Credit: Codable {
 }
 
 extension Credit {
-    var dcrAmount: Double {
-        return self.Amount / 100000000
+    var dcrAmount: NSDecimalNumber {
+        return Decimal(Double(self.Amount) / 1e8) as NSDecimalNumber
     }
 }
 
@@ -182,8 +182,8 @@ struct Debit: Codable {
 }
 
 extension Debit {
-    var dcrAmount: Double {
-        return self.PreviousAmount / 100000000
+    var dcrAmount: NSDecimalNumber {
+        return Decimal(Double(self.PreviousAmount) / 1e8) as NSDecimalNumber
     }
 }
 
