@@ -168,7 +168,6 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         DispatchQueue.main.async{
             switch menu {
             case .overview:
-                
                 self.slideMenuController()?.changeMainViewController(self.mainViewController, close: true)
                 
                 if (self.accountViewController != nil) {
