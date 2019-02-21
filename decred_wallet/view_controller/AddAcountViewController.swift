@@ -13,13 +13,14 @@ class AddAcountViewController: UIViewController {
     @IBOutlet weak var passphrase: UITextField!
     @IBOutlet weak var accountName: UITextField!
     @IBOutlet weak var createBtn: UIButton!
-    
+    @IBOutlet weak var createBtnTopConstraint: NSLayoutConstraint!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.createBtn.layer.cornerRadius = 6
         // Do any additional setup after loading the view.
         if UserDefaults.standard.string(forKey: "spendingSecureType") != "PASSWORD" {
             passphrase.isHidden = true
+            createBtnTopConstraint.constant = -40
         }
     }
     
