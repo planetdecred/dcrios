@@ -12,6 +12,8 @@ class AccountDataCell: UITableViewCell, AccountDetailsCellProtocol {
     @IBOutlet private weak var containerStackView: UIStackView!
     
     // MARK:- Details
+    @IBOutlet weak var detailsStackView: UIStackView!
+    @IBOutlet weak var detailsStackHeightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var labelImmatureRewardValue: UILabel!
     @IBOutlet private weak var labelLockedByTicketsValue: UILabel!
     @IBOutlet private weak var labelVotingAuthorityValue: UILabel!
@@ -80,11 +82,12 @@ class AccountDataCell: UITableViewCell, AccountDetailsCellProtocol {
                 defaultAccount.isEnabled = true
                 hideAcount.isEnabled = true
             }
-            
         }
         
-        
-        
+        if account.Balance?.ImmatureReward == 0 && account.Balance?.LockedByTickets == 0 &&
+            account.Balance?.VotingAuthority == 0 && account.Balance?.ImmatureStakeGeneration == 0{
+            detailsStackView.isHidden = true
+        }
         
     }
 }
