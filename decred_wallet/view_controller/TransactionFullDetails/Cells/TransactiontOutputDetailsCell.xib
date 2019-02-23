@@ -19,7 +19,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="302.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="L1u-I6-Anc">
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="L1u-I6-Anc">
                         <rect key="frame" x="10" y="0.0" width="300" height="302.5"/>
                         <subviews>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fC8-5R-u5g">
@@ -35,7 +35,7 @@
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v9E-Zp-tzI">
                                 <rect key="frame" x="0.0" y="302.5" width="300" height="0.0"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="sIE-QO-mlf">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="sIE-QO-mlf">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="0.0"/>
                                         <color key="backgroundColor" red="0.26274509800000001" green="0.69019607839999997" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>

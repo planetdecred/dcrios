@@ -13,18 +13,52 @@ class TransactiontInputDetails: UITableViewCell {
     @IBOutlet weak var alcDebitStackHeight: NSLayoutConstraint!
     
     var expandOrCollapse: (() -> Void)?
-    var index = 0
     
-    func setup(with debits:[Debit]){
+    func setup(with debits:[Debit], decodedInputs: [DecodedInput]){
+        alcDebitStackHeight.constant = 0
         
-        alcDebitStackHeight.constant = CGFloat(45 * min(debits.count,3))
+        var walletInputIndices = [Int]()
         
-        for debit in debits {
-            self.addSubrow(with: debit, indexs: index)
-            if(index == 2){
-                return
+        var index = 0
+        
+        for (_, debit) in debits.enumerated() {
+            
+            walletInputIndices.append(Int(debit.Index))
+        
+            let decodedInput = decodedInputs[Int(debit.Index)]
+        
+            var hash = decodedInput.PreviousTransactionHash
+            if hash == "0000000000000000000000000000000000000000000000000000000000000000" {
+                hash = "Stakebase: 0000"
             }
+            hash = "\(hash):\(decodedInput.PreviousTransactionIndex)"
+            
+            let amount = "\(debit.dcrAmount.round(8))"
+            let title = " (\(debit.AccountName))"
+            
+            self.addSubrow(with: amount, title: title, subTitle: hash, index: index)
             index += 1
+            alcDebitStackHeight.constant = alcDebitStackHeight.constant + 45
+        }
+        
+        for (i, decodedInput) in decodedInputs.enumerated() {
+            
+            if walletInputIndices.contains(i) {
+                continue
+            }
+            
+            let amount = "\(decodedInput.dcrAmount.round(8))"
+            let title = " (external)"
+            
+            var hash = decodedInput.PreviousTransactionHash
+            if hash == "0000000000000000000000000000000000000000000000000000000000000000" {
+                hash = "Stakebase: 0000"
+            }
+            hash = "\(hash):\(decodedInput.PreviousTransactionIndex)"
+            
+            self.addSubrow(with: amount, title: title, subTitle: hash, index: index)
+            index += 1
+            alcDebitStackHeight.constant = alcDebitStackHeight.constant + 45
         }
     }
     
@@ -32,27 +66,27 @@ class TransactiontInputDetails: UITableViewCell {
         self.viewCotainer.isHidden = false
     }
     
-    var addressLabel : UIButton?
-    private func addSubrow(with debit: Debit , indexs : Int) {
+    private func addSubrow(with amount: String, title: String, subTitle: String, index : Int) {
         
         let subrow = UIView(frame: CGRect(x:0.0, y:0.0, width:self.frame.size.width, height:45.0))
         let amountLabel = UILabel(frame: CGRect(x:5.0, y:1.0, width: self.frame.size.width, height: 22.0))
-        self.addressLabel = UIButton(frame: CGRect(x:5.0, y:23.0, width:self.frame.size.width, height: 22.0))
+        let subTitleLabel = UIButton(frame: CGRect(x: 5.0, y: 23, width: self.frame.size.width, height: 22.0))
         
-        addressLabel!.setTitleColor(#colorLiteral(red: 0.2470588235, green: 0.4941176471, blue: 0.8901960784, alpha: 1), for: .normal)
-        addressLabel!.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
-        addressLabel?.set(fontSize: 15)
+        subTitleLabel.setTitleColor(#colorLiteral(red: 0.2470588235, green: 0.4941176471, blue: 0.8901960784, alpha: 1), for: .normal)
+        subTitleLabel.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
+        subTitleLabel.set(fontSize: 15)
         amountLabel.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        addressLabel?.contentHorizontalAlignment = .left
+        subTitleLabel.contentHorizontalAlignment = .left
         subrow.addSubview(amountLabel)
-        subrow.addSubview(addressLabel!)
+        subrow.addSubview(subTitleLabel)
         amountLabel.font = amountLabel.font.withSize(15)
         let combine = NSMutableAttributedString()
-        combine.append(getAttributedString(str: "\(debit.dcrAmount)", siz: 12, TexthexColor: GlobalConstants.Colors.TextAmount))
-        combine.append(NSMutableAttributedString(string: " (\(debit.AccountName ))"))
+        combine.append(getAttributedString(str: amount, siz: 13, TexthexColor: GlobalConstants.Colors.TextAmount))
+        combine.append(NSMutableAttributedString(string: title))
         amountLabel.attributedText = combine
+        subTitleLabel.setTitle(subTitle, for: .normal)
         
-        debitsStack.insertArrangedSubview(subrow, at: indexs)
+        debitsStack.insertArrangedSubview(subrow, at: index)
         debitsStack.addArrangedSubview(subrow)
     }
     
