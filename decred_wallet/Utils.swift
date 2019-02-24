@@ -69,12 +69,12 @@ func saveCertificate(secretKey: String) {
 }
 
 func getPeerAddress(appInstance:UserDefaults) -> String{
-    let ip = appInstance.string(forKey: "pref_peer_ip")
-    if(ip?.elementsEqual(""))!{
+    let ip = appInstance.string(forKey: "pref_peer_ip") ?? ""
+    if(ip.elementsEqual("")){
         return ""
     }
     else{
-        return (ip?.appending(":19108"))!
+        return (ip.appending(":19108"))
     }
 }
 

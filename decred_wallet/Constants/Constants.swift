@@ -23,6 +23,7 @@ struct GlobalConstants {
         static let greenishGrey = UIColor(hex: "F1F8E9")
         static let black = UIColor(hex: "000000")
         static let TextAmount = UIColor(hex: "#091440")
+        static let displayAamount = UIColor(hex: "617386")
     }
     
     //MARK: - Storyboard
