@@ -79,6 +79,30 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
              self.checkpaste()
         }
     }
+    @IBAction func clearFields(_ sender: Any) {
+        if(self.walletAddress.hasText){
+            self.walletAddress.text = ""
+            self.tfAmount.text = ""
+            self.addQrbtn()
+            self.checkpaste()
+            self.addressErrorText.text = ""
+            self.amountErrorText.text = ""
+            self.tfAmount.text = ""
+            self.estimateFee.text = "0.00 DCR"
+            self.estimateSize.text = "0 Bytes"
+            self.BalanceAfter.text = "0.00 DCR"
+            self.switchFunc()
+        }
+        else{
+            self.amountErrorText.text = ""
+            self.tfAmount.text = ""
+            self.estimateFee.text = "0.00 DCR"
+            self.estimateSize.text = "0 Bytes"
+            self.BalanceAfter.text = "0.00 DCR"
+            self.switchFunc()
+        }
+       
+    }
     
     func checkpaste(){
         let pasteboardString: String? = UIPasteboard.general.string
@@ -173,7 +197,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     func sendToSwitch(){
         self.toAddressContainer.isHidden = !toAddressContainer.isHidden
            self.toAccountContainer.isHidden = !toAccountContainer.isHidden
-        
+        self.addressErrorText.isHidden = !self.addressErrorText.isHidden
     }
     func removePasteBtn(){
          DispatchQueue.main.async {
