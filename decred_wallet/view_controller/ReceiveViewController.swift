@@ -31,7 +31,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
         tapGesture.numberOfTouchesRequired = 1
         imgWalletAddrQRCode.addGestureRecognizer(tapGesture)
         imgWalletAddrQRCode.isUserInteractionEnabled = true
-        self.generateButton.layer.cornerRadius = 6
+      //  self.generateButton.layer.cornerRadius = 6
         self.accountDropdown.backgroundColor = UIColor.white
         self.showFirstWalletAddressAndQRCode()
         self.populateWalletDropdownMenu()
