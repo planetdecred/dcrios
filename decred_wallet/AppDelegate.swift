@@ -119,6 +119,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         self.window?.rootViewController = self.navigation
         self.window?.makeKeyAndVisible()
     }
+    func application(_ application: UIApplication, shouldAllowExtensionPointIdentifier extensionPointIdentifier: UIApplicationExtensionPointIdentifier) -> Bool {
+        if extensionPointIdentifier == UIApplicationExtensionPointIdentifier.keyboard {
+            return false
+        }
+        return true
+    }
     
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         DispatchQueue.main.async {
