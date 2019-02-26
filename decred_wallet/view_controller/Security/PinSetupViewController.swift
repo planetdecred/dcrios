@@ -222,7 +222,10 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol, StartUpPass
                     return
                 }
                 
-                try SingleInstance.shared.wallet?.createWallet(pass, seedMnemonic: seed)
+                let wallet = SingleInstance.shared.wallet!
+                
+                try wallet.createWallet(pass, seedMnemonic: seed)
+                try wallet.unlock(pass.data(using: .utf8))
                 DispatchQueue.main.async {
                     self!.progressHud!.dismiss()
                     // TODO: do not save password in defaults
