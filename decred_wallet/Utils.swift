@@ -77,6 +77,55 @@ func getPeerAddress(appInstance:UserDefaults) -> String{
         return (ip.appending(":19108"))
     }
 }
+func getTime( millis : Int64) -> String {
+    var seconds = millis / 1000;
+    if (seconds > 60) {
+        let minutes = seconds / 60;
+        seconds = seconds % 60;
+        return "\(minutes) m \(seconds)s"
+    }
+    
+    return "\(seconds)s"
+}
+func calculateDays(seconds: Int64) -> String{
+    let duration = seconds // 2 minutes, 30 seconds
+    
+    
+    let formattedDuration  = duration/3600
+    if (formattedDuration == 0) {
+        return "< 1 day"
+    } else if (formattedDuration == 1) {
+        return "1 day";
+    }
+    
+    return "\(String(describing: formattedDuration)) days";
+}
+func getSyncTimeRemaining(millis: Int64,percentageCompleted : Int, syncView : Bool)-> String {
+    print("milli seconds = \(millis)")
+    if (millis > 1000) {
+        let seconds = millis / 1000;
+        
+        if (seconds > 60) {
+            let minutes = seconds / 60;
+            if (syncView) {
+             return   "\(percentageCompleted)% completed, \(minutes) min remaining."
+            }
+            return "\(percentageCompleted)% completed, \(minutes) min left"
+        }
+        
+        if (syncView) {
+            return "\(percentageCompleted)% completed, \(seconds) sec remaining."
+        }
+        return "\(percentageCompleted)% completed, \(seconds) sec left."
+        }
+    
+    if (syncView) {
+      return " \(percentageCompleted)% completed, < 1 seconds remaining."
+    }
+    return " \(percentageCompleted)% completed, < 1 seconds left."
+   
+}
+
 
 func generateQRCodeFor(with addres: String, forImageViewFrame: CGRect) -> UIImage? {
     guard let addrData = addres.data(using: String.Encoding.utf8) else {
