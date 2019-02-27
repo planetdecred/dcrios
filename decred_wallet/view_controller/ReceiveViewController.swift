@@ -12,8 +12,10 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     
     @IBOutlet private var accountDropdown: DropMenuButton!
     @IBOutlet private var imgWalletAddrQRCode: UIImageView!
-    @IBOutlet weak var generateButton: UIButton!
+
+    @IBOutlet weak var subheader: UILabel!
     @IBOutlet var walletAddress: UIButton!
+    @IBOutlet weak var menuOptionView: UIView!
     
     var firstTrial = true
     var starttime: Int64 = 0
@@ -25,13 +27,18 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.subheader.text = "Each time you request a payment, a new \naddress is created to protect your privacy."
         // TAP Gesture
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.CopyImgAddress(_:)))
         tapGesture.numberOfTapsRequired = 1
         tapGesture.numberOfTouchesRequired = 1
         imgWalletAddrQRCode.addGestureRecognizer(tapGesture)
         imgWalletAddrQRCode.isUserInteractionEnabled = true
-        self.generateButton.layer.cornerRadius = 6
+        self.menuOptionView.layer.cornerRadius = 4
+        self.menuOptionView.layer.shadowColor = UIColor.black.cgColor
+        self.menuOptionView.layer.shadowOffset = CGSize(width: 0, height: 1.0)
+        self.menuOptionView.layer.shadowOpacity = 0.2
+        self.menuOptionView.layer.shadowRadius = 4.0
         self.accountDropdown.backgroundColor = UIColor.white
         self.showFirstWalletAddressAndQRCode()
         self.populateWalletDropdownMenu()
@@ -43,15 +50,26 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
         setNavigationBarItem()
         navigationItem.title = "Receive"
         let shareBtn = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share))
-        self.navigationItem.rightBarButtonItems = [shareBtn]
+        let generateAddressBtn = UIButton(type: .custom)
+        generateAddressBtn.setImage(UIImage(named: "right-menu"), for: .normal)
+        generateAddressBtn.addTarget(self, action: #selector(switchFunc), for: .touchUpInside)
+        generateAddressBtn.frame = CGRect(x: 0, y: 0, width: 10, height: 51)
+        let barButton = UIBarButtonItem(customView: generateAddressBtn)
+        self.navigationItem.rightBarButtonItems = [barButton, shareBtn ]
+
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    @objc func switchFunc(){
+        self.menuOptionView.isHidden = !self.menuOptionView.isHidden
+        
+    }
     
     @IBAction private func generateNewAddress() {
         self.getNextAddress(accountNumber: (self.myacc.Number))
+        self.switchFunc()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
