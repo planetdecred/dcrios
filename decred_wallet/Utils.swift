@@ -89,9 +89,7 @@ func getTime( millis : Int64) -> String {
 }
 func calculateDays(seconds: Int64) -> String{
     let duration = seconds // 2 minutes, 30 seconds
-    
-    
-    let formattedDuration  = duration/3600
+    let formattedDuration  = duration/86400
     if (formattedDuration == 0) {
         return "< 1 day"
     } else if (formattedDuration == 1) {

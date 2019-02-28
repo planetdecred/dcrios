@@ -32,20 +32,28 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
     @IBOutlet weak var activityIndicator: UIImageView!
     @IBOutlet weak var SendBtn: UIButton!
     @IBOutlet weak var showAllTransactionBtn: UIButton!
-    @IBOutlet weak var connetStatus: UILabel!
-    @IBOutlet weak var chainStatusText: UILabel!
-    @IBOutlet weak var daysbeindText: UILabel!
-    @IBOutlet weak var extraTextAll: UILabel!
-    @IBOutlet weak var extraTextElapse: UILabel!
-    @IBOutlet weak var stageTimesExtra: UILabel!
-    @IBOutlet weak var elapseStage: UILabel!
+    @IBOutlet weak var connetStatus: UIButton!
+    @IBOutlet weak var chainStatusText: UIButton!
+    @IBOutlet weak var daysbeindText: UIButton!
     @IBOutlet weak var peersSyncText: UILabel!
     
+    @IBOutlet weak var tapViewMoreBtn: UIButton!
     @IBOutlet weak var percentageComplete: UILabel!
     @IBOutlet weak var ReceiveBtn: UIButton!
     var visible = false
     var scanning = false
     var synced = false
+    var showAllSyncInfo = false
+    var recognizer:UIGestureRecognizer?
+    var recognizer2 : UIGestureRecognizer?
+    var recognizer3 : UIGestureRecognizer?
+    var recognizer4 : UIGestureRecognizer?
+    @IBOutlet weak var connectStatusCont: UIStackView!
+    @IBOutlet weak var chainStatusCont: UIStackView!
+    @IBOutlet weak var verboseContainer: UIView!
+    @IBOutlet weak var verboseText: UIButton!
+    @IBOutlet weak var dummyVerboseCont: UIView!
+    @IBOutlet weak var syncLoadingText: UILabel!
     
     
     var mainContens = [Transaction]()
@@ -66,7 +74,11 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
             return refreshControl
         }()
         self.tableView.addSubview(self.refreshControl)
-        self.setupBtn()
+        self.setupSendRecvBtn()
+        self.verboseText.contentHorizontalAlignment = .center
+        self.verboseText.contentVerticalAlignment = .top
+        self.verboseText.titleLabel?.textAlignment = .center
+        
         
         
         connectToDecredNetwork()
@@ -74,15 +86,36 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
         SingleInstance.shared.wallet?.transactionNotification(self)
         SingleInstance.shared.wallet?.add(self)
         SingleInstance.shared.syncing = true
-        self.switchContainers()
+        recognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressHappened))
+        recognizer2 = UILongPressGestureRecognizer(target: self, action: #selector(longPressHappened))
+        recognizer3 = UILongPressGestureRecognizer(target: self, action: #selector(longPressHappened))
+        recognizer4 = UILongPressGestureRecognizer(target: self, action: #selector(longPressHappened))
+        self.connetStatus.addGestureRecognizer(recognizer!)
+        self.chainStatusText.addGestureRecognizer(recognizer2!)
+        self.verboseText.addGestureRecognizer(recognizer3!)
+        self.daysbeindText.addGestureRecognizer(recognizer4!)
+        
+        
+        if !((UserDefaults.standard.bool(forKey: "sync"))){
+           self.ShowSyncContainers()
+        }
+        
         showActivity()
     }
-    func switchContainers(){
+    func ShowSyncContainers(){
         DispatchQueue.main.async {
-        self.topAmountContainer.isHidden = !self.topAmountContainer.isHidden
-        self.bottomBtnContainer.isHidden = !self.bottomBtnContainer.isHidden
-        self.syncContainer.isHidden = !self.syncContainer.isHidden
-        self.tableView.isHidden = !self.tableView.isHidden
+            self.topAmountContainer.isHidden = true
+            self.bottomBtnContainer.isHidden = true
+            self.syncContainer.isHidden = false
+            self.tableView.isHidden = true
+        }
+    }
+    func hideSyncContainers(){
+        DispatchQueue.main.async {
+            self.topAmountContainer.isHidden = false
+            self.bottomBtnContainer.isHidden = false
+            self.syncContainer.isHidden = true
+            self.tableView.isHidden = false
         }
     }
     
@@ -136,6 +169,8 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
     @IBAction func onRescan(_ sender: Any) {
         print("rescaning")
     }
+    
+   
     
     func connectToDecredNetwork(){
         let appInstance = UserDefaults.standard
@@ -208,6 +243,86 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
         refreshControl.endRefreshing()
     }
     
+    
+    //Sync Indicator functions
+    @IBAction func viewMoreInfo(_ sender: Any) {
+        self.tapViewMoreFunc()
+    }
+    func tapViewMoreFunc(){
+        DispatchQueue.main.async {
+            if (self.showAllSyncInfo){
+                self.ShowAllSync()
+            }
+            else{
+                self.ShowhalfSync()
+            }
+            
+        }
+    }
+    func ShowhalfSync() {
+         DispatchQueue.main.async {
+            self.tapViewMoreBtn.isHidden = true
+            self.chainStatusText.isHidden = false
+            self.connetStatus.isHidden = false
+            self.daysbeindText.isHidden = false
+            self.peersSyncText.isHidden = false
+            self.verboseContainer.isHidden = true
+            self.dummyVerboseCont.isHidden = false
+        }
+    }
+    func ShowAllSync(){
+         DispatchQueue.main.async {
+            self.tapViewMoreBtn.isHidden = true
+            self.chainStatusText.isHidden = false
+            self.connetStatus.isHidden = false
+            self.daysbeindText.isHidden = false
+            self.peersSyncText.isHidden = false
+            self.verboseContainer.isHidden = false
+            self.dummyVerboseCont.isHidden = true
+        }
+    }
+    func hideHalfSynce(){
+         DispatchQueue.main.async {
+            self.tapViewMoreBtn.isHidden = false
+            self.chainStatusText.isHidden = true
+            self.connetStatus.isHidden = true
+            self.daysbeindText.isHidden = true
+            self.peersSyncText.isHidden = true
+            self.verboseContainer.isHidden = true
+            self.dummyVerboseCont.isHidden = false
+        }
+        
+        
+    }
+    func hideAllSync(){
+         DispatchQueue.main.async {
+            self.tapViewMoreBtn.isHidden = false
+            self.chainStatusText.isHidden = true
+            self.connetStatus.isHidden = true
+            self.daysbeindText.isHidden = true
+            self.peersSyncText.isHidden = true
+            self.verboseContainer.isHidden = true
+            self.dummyVerboseCont.isHidden = false
+        }
+    }
+    var count = 0
+    @objc func longPressHappened(gesture: UILongPressGestureRecognizer){
+         if gesture.state == UIGestureRecognizerState.began {
+                if !(self.showAllSyncInfo){
+                self.ShowAllSync()
+                    self.showAllSyncInfo = true
+            }else{
+                self.ShowhalfSync()
+                    self.showAllSyncInfo = false
+            }
+                return
+        }
+    }
+    @IBAction func toggleViewInfo(_ sender: UIButton) {
+            self.hideAllSync()
+    }
+    
+    
     func onResult(_ json: String!) {
         if (self.visible == false) {
             return
@@ -259,7 +374,7 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
             SingleInstance.shared.syncRemainingTime = -1
             SingleInstance.shared.fetchHeaderTime = -1
             SingleInstance.shared.syncStatus = ""
-            self.switchContainers()
+            self.hideSyncContainers()
             if !(self.visible){
                 return
             }
@@ -270,7 +385,7 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
         }
         
     }
-    func setupBtn(){
+    func setupSendRecvBtn(){
         ReceiveBtn.layer.cornerRadius = 4
         
         ReceiveBtn.layer.borderWidth = 1.5
@@ -398,6 +513,7 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
     func onFetchMissingCFilters(_ missingCFitlersStart: Int32, missingCFitlersEnd: Int32, state: String!) {}
     var headerTime: Int64 = 0
     func onFetchedHeaders(_ fetchedHeadersCount: Int32, lastHeaderTime: Int64, state: String!) {
+        DispatchQueue.global(qos: .background).async {
         if (!SingleInstance.shared.syncing) {
             // Ignore this call because this function gets called for each peer and
             // we'd want to ignore those calls as far as the wallet is synced.
@@ -424,13 +540,21 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
             
             SingleInstance.shared.syncStartPoint = Int64((SingleInstance.shared.wallet?.getBestBlock())!);
             SingleInstance.shared.syncEndPoint = estimatedBlocks - SingleInstance.shared.syncStartPoint;
+            if !(SingleInstance.shared.syncStartPoint < estimatedBlocks){
+                return
+            }
             SingleInstance.shared.syncCurrentPoint =  SingleInstance.shared.syncStartPoint;
             SingleInstance.shared.fetchHeaderTime = Date().millisecondsSince1970
+           self.hideAllSync()
+            DispatchQueue.main.async {
+            self.tapViewMoreBtn.isEnabled = false
+            self.tapViewMoreBtn.setTitle("", for: .normal)
+            }
           //  syncProgressBar.setProgress(0)
           //  syncProgressBar.setVisibility(View.VISIBLE);
             break
         case DcrlibwalletPROGRESS:
-            if (self.headerTime == lastHeaderTime ){
+           if (self.headerTime == lastHeaderTime ){
                 print("returning it")
                 return
             }
@@ -446,14 +570,13 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
             let totalFetchTime = Double((Date().millisecondsSince1970 - SingleInstance.shared.fetchHeaderTime)) / Double(percent)
             let remainingFetchTime = round(totalFetchTime) - Double((Date().millisecondsSince1970 - SingleInstance.shared.fetchHeaderTime));
             let elapsedFetchTime = Double(Date().millisecondsSince1970 - SingleInstance.shared.fetchHeaderTime)
-            
             //10% of fetch time is used for estimating both rescan while 80% is used for address discovery time
-            let estimatedRescanTime = totalFetchTime * reScan_percentage;
-            let estimatedDiscoveryTime = totalFetchTime * discovery_percentage;
+           let estimatedRescanTime = totalFetchTime * self.reScan_percentage;
+           let estimatedDiscoveryTime = totalFetchTime * self.discovery_percentage;
             let totalSyncTime = totalFetchTime + estimatedRescanTime + estimatedDiscoveryTime;
             
             SingleInstance.shared.syncRemainingTime = Int64(round(remainingFetchTime + estimatedRescanTime + estimatedDiscoveryTime));
-            SingleInstance.shared.syncProgress = Int(( elapsedFetchTime / totalSyncTime) * 100);
+           SingleInstance.shared.syncProgress = Int(( Double(elapsedFetchTime) / Double(totalSyncTime) * 100.0))
             SingleInstance.shared.syncStatus = "Fetching block headers."
             SingleInstance.shared.bestBlockTime = "\(lastHeaderTime)"
             SingleInstance.shared.ChainStatus = "\(SingleInstance.shared.syncEndPoint - count) blocks behind"
@@ -464,21 +587,24 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
                 SingleInstance.shared.syncStatus = status
             let status3 = " Your wallet is \(daysBehind) behind."
             let percentage = getSyncTimeRemaining(millis: SingleInstance.shared.syncRemainingTime, percentageCompleted: Int(SingleInstance.shared.syncProgress), syncView: true)
+           let status4 = "All Times\nelapsed: \(getTime(millis: Int64(elapsedFetchTime))) remain: \(getTime(millis: SingleInstance.shared.syncRemainingTime)) total: \(getTime(millis: Int64(round(totalSyncTime)))) \n\nStage Times\nelapsed: \(getTime(millis: Int64(elapsedFetchTime))) remain: \(getTime(millis: Int64(remainingFetchTime)))  total: \(getTime(millis: Int64(round(totalFetchTime))))"
             
         
             DispatchQueue.main.async {
-                self.connetStatus.text = status
+                self.syncLoadingText.text = "Synchronizing"
+                self.connetStatus.setTitle(status, for: .normal)
                 self.percentageComplete.text = percentage
-                self.chainStatusText.text = status2
-                self.daysbeindText.text = status3
-                self.syncProgressbar.progressTintColor = UIColor(hex: "#55EC7E")
+                self.chainStatusText.setTitle(status2, for: .normal)
+                self.tapViewMoreBtn.isEnabled = false
+                self.tapViewMoreBtn.setTitle("Tap to view information", for: .normal)
+                self.daysbeindText.setTitle(status3, for: .normal)
+                self.syncProgressbar.isHidden = false
+                self.tapViewMoreBtn.isEnabled = true
+                self.syncProgressbar.progressTintColor = UIColor(hex: "#7fcc9e")
                 self.syncProgressbar.progress = (Float(SingleInstance.shared.syncProgress) / 100.0)
                 print("progress = \(SingleInstance.shared.syncProgress)")
-                self.extraTextAll.text = "All Times"
-                self.extraTextElapse.text = "elapsed: \(getTime(millis: Int64(elapsedFetchTime))) remain: \(getTime(millis: SingleInstance.shared.syncRemainingTime)) total: \(getTime(millis: Int64(round(totalSyncTime)))) \n"
-                self.stageTimesExtra.text = "Stage Times"
-                self.elapseStage.text = "elapsed: \(getTime(millis: Int64(elapsedFetchTime))) remain: \(getTime(millis: Int64(remainingFetchTime)))  total: \(getTime(millis: Int64(round(totalFetchTime))))"
-                self.peersSyncText.text = "Syncing with \(self.peerCount) on testnet"
+                self.verboseText.setTitle(status4, for: .normal)
+                self.peersSyncText.text = "Syncing with \(self.peerCount) peers on testnet"
                 
             }
            
@@ -488,7 +614,7 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
             }
             break
         case DcrlibwalletFINISH:
-            updatePeerCount();
+            self.updatePeerCount();
             SingleInstance.shared.totalFetchTime = Date().millisecondsSince1970 - SingleInstance.shared.fetchHeaderTime;
             SingleInstance.shared.syncStartPoint = -1;
            SingleInstance.shared.syncEndPoint = -1;
@@ -497,10 +623,12 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
         default:
             break
         }
+        }
     }
     
     
     func onRescan(_ rescannedThrough: Int32, state: String!) {
+        DispatchQueue.global(qos: .background).async {
         if (SingleInstance.shared.syncEndPoint == -1) {
             SingleInstance.shared.syncEndPoint = Int64(SingleInstance.shared.wallet!.getBestBlock());
         }
@@ -527,21 +655,21 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
             let status = "Scanning \(rescannedThrough) of \(SingleInstance.shared.syncEndPoint) block headers."
             let status2 = "\(round(scannedPercentage))% through step 3 of 3."
             SingleInstance.shared.syncStatus = status
+            let status4 = "All Times\nelapsed: \(getTime(millis: Int64(round(Double(elapsedTime))))) remain: \(getTime(millis: SingleInstance.shared.syncRemainingTime)) total: \(getTime(millis: Int64(round(totalSyncTime)))) \n\nStage Times\nelapsed: \(getTime(millis: Int64(round(Double(elapsedRescanTime))))) remain: \(getTime(millis: SingleInstance.shared.syncRemainingTime))  total: \(getTime(millis: Int64(round(totalScanTime))))"
             
             let percentage = getSyncTimeRemaining(millis: SingleInstance.shared.syncRemainingTime, percentageCompleted: Int(SingleInstance.shared.syncProgress), syncView: true)
             DispatchQueue.main.async {
-                self.syncProgressbar.progressTintColor = UIColor(hex: "#55EC7E")
+                self.syncProgressbar.progressTintColor = UIColor(hex: "#7fcc9e")
                 self.syncProgressbar.progress = (Float(SingleInstance.shared.syncProgress) / 100.0)
+                self.syncLoadingText.text = "Synchronizing"
+                self.syncProgressbar.isHidden = false
                 print("progress = \(SingleInstance.shared.syncProgress)")
                 self.percentageComplete.text = percentage
-                self.chainStatusText.text = status2
-                self.connetStatus.text = status
-                self.daysbeindText.text = ""
-                self.extraTextAll.text = "All Times"
-                self.extraTextElapse.text = "elapsed: \(getTime(millis: Int64(round(Double(elapsedTime))))) remain: \(getTime(millis: SingleInstance.shared.syncRemainingTime)) total: \(getTime(millis: Int64(round(totalSyncTime)))) \n"
-                self.stageTimesExtra.text = "Stage Times"
-                self.elapseStage.text = "elapsed: \(getTime(millis: Int64(round(Double(elapsedRescanTime))))) remain: \(getTime(millis: SingleInstance.shared.syncRemainingTime))  total: \(getTime(millis: Int64(round(totalScanTime))))"
-                self.peersSyncText.text = "Syncing with \(self.peerCount) on testnet"
+                self.chainStatusText.setTitle(status2, for: .normal)
+               self.connetStatus.setTitle(status, for: .normal)
+                self.daysbeindText.isHidden = true
+                self.verboseText.setTitle(status4,for: .normal)
+                self.peersSyncText.text = "Syncing with \(self.peerCount) peers on testnet"
                 
             }
             
@@ -549,8 +677,9 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
             
             break;
         default:
-            updatePeerCount();
+            self.updatePeerCount();
             break;
+        }
         }
     }
     
@@ -558,12 +687,13 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
     
     func onDiscoveredAddresses(_ state: String!) {
        // setChainStatus(null);
+        DispatchQueue.global(qos: .background).async {
         if (state.elementsEqual(DcrlibwalletSTART)) {
                     SingleInstance.shared.accountDiscoveryStartTime = Date().millisecondsSince1970;
-                    let estimatedRescanTime = round(Double(SingleInstance.shared.totalFetchTime) * Double(reScan_percentage))
-                    let estimatedDiscoveryTime = round(Double(SingleInstance.shared.totalFetchTime) * Double(discovery_percentage));
+            let estimatedRescanTime = round(Double(SingleInstance.shared.totalFetchTime) * Double(self.reScan_percentage))
+            let estimatedDiscoveryTime = round(Double(SingleInstance.shared.totalFetchTime) * Double(self.discovery_percentage));
 
-                    var elapsedDiscoveryTime = Date().millisecondsSince1970 - SingleInstance.shared.accountDiscoveryStartTime;
+            let elapsedDiscoveryTime = Date().millisecondsSince1970 - SingleInstance.shared.accountDiscoveryStartTime;
                     
             var totalSyncTime = 0.0
                     if (Double(elapsedDiscoveryTime) > Double(estimatedDiscoveryTime)) {
@@ -572,7 +702,7 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
                     totalSyncTime = Double(SingleInstance.shared.totalFetchTime) + estimatedDiscoveryTime + estimatedRescanTime;
                     }
                     
-                   var elapsedTime = Double(SingleInstance.shared.totalFetchTime) + Double(elapsedDiscoveryTime);
+            let elapsedTime = Double(SingleInstance.shared.totalFetchTime) + Double(elapsedDiscoveryTime);
                     
                     var remainingAccountDiscoveryTime = round(Double(estimatedDiscoveryTime) - Double(elapsedDiscoveryTime))
                     if (remainingAccountDiscoveryTime < 0) {
@@ -581,9 +711,6 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
                     
             SingleInstance.shared.syncProgress = Int((Double(elapsedTime) / Double( totalSyncTime)) * 100.0)
             SingleInstance.shared.syncRemainingTime = Int64((remainingAccountDiscoveryTime + estimatedRescanTime))
-                  /*  SingleInstance.shared.syncVerbose = getString(R.string.sync_status_verbose, getTime(round(elapsedTime)), getTime(walletData.syncRemainingTime),
-                    getTime(round(totalSyncTime)), getTime(Math.round(elapsedDiscoveryTime)),
-                    getTime(remainingAccountDiscoveryTime), getTime(estimatedDiscoveryTime));*/
                     
                     SingleInstance.shared.syncStatus = "Discovering used addresses."
             
@@ -591,31 +718,33 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
             let status = "Discovering used addresses."
             let discoveryProgress = round((Double(elapsedDiscoveryTime) / Double(estimatedDiscoveryTime)) * 100.0);
             var status2 = ""
+            let status4 = "All Times\nelapsed: \(getTime(millis: Int64(round(Double(elapsedTime))))) remain: \(getTime(millis: SingleInstance.shared.syncRemainingTime)) total: \(getTime(millis: Int64(round(totalSyncTime)))) \n\nStage Times\nelapsed: \(getTime(millis: Int64(round(Double(elapsedDiscoveryTime))))) remain: \(getTime(millis: SingleInstance.shared.syncRemainingTime))  total: \(getTime(millis: Int64(round(totalSyncTime))))"
             if (discoveryProgress > 100) {
-                status2 = "\(discoveryProgress)% through step 2 of 3."
+                status2 = "\(discoveryProgress)% (over) through step 2 of 3."
                         } else {
                             status2 = "\(discoveryProgress)% through step 2 of 3."
                         }
             DispatchQueue.main.async {
-                self.syncProgressbar.progressTintColor = UIColor(hex: "#55EC7E")
+                self.syncLoadingText.text = "Synchronizing"
+                self.syncProgressbar.isHidden = false
+                self.syncProgressbar.progressTintColor = UIColor(hex: "#7fcc9e")
                 self.syncProgressbar.progress = (Float(SingleInstance.shared.syncProgress) / 100.0)
                 print("progress = \(SingleInstance.shared.syncProgress)")
                 self.percentageComplete.text = percentage
-                self.chainStatusText.text = status2
-                self.connetStatus.text = status
-                self.daysbeindText.text = ""
-                self.extraTextAll.text = "All Times"
-                self.extraTextElapse.text = "elapsed: \(getTime(millis: Int64(round(Double(elapsedTime))))) remain: \(getTime(millis: SingleInstance.shared.syncRemainingTime)) total: \(getTime(millis: Int64(round(totalSyncTime)))) \n"
-                self.stageTimesExtra.text = "Stage Times"
-                self.elapseStage.text = "elapsed: \(getTime(millis: Int64(round(Double(elapsedDiscoveryTime))))) remain: \(getTime(millis: SingleInstance.shared.syncRemainingTime))  total: \(getTime(millis: Int64(round(totalSyncTime))))"
-                self.peersSyncText.text = "Syncing with \(self.peerCount) on testnet"
+                self.chainStatusText.setTitle(status2, for: .normal)
+                self.connetStatus.setTitle(status, for: .normal)
+                self.daysbeindText.isHidden = true
+                self.verboseText.setTitle(status4, for: .normal)
+               
+                self.peersSyncText.text = "Syncing with \(self.peerCount) peers on testnet"
                 
             }
      
         } else {
             
             SingleInstance.shared.totalDiscoveryTime = (Date().millisecondsSince1970 - SingleInstance.shared.accountDiscoveryStartTime);
-            updatePeerCount();
+            self.updatePeerCount();
+        }
         }
     }
     

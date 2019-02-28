@@ -49,7 +49,7 @@ class TransactionHistoryViewController: UIViewController, DcrlibwalletGetTransac
     
     override func viewDidAppear(_ animated: Bool) {
         self.visible = true
-        prepareRecent()
+         prepareRecent()
     }
     
     override func viewDidDisappear(_ animated: Bool) {

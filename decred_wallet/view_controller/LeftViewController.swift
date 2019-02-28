@@ -71,6 +71,9 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         imageHeaderView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width - 63, height: 80))
         imageHeaderView?.backgroundColor = UIColor(hex: "F9FBFA")
         imageHeaderView?.contentMode = .scaleAspectFit
+        UserDefaults.standard.set(false, forKey: "synced")
+        UserDefaults.standard.set(0, forKey: "peercount")
+        UserDefaults.standard.synchronize()
         self.view.addSubview(self.imageHeaderView!)
     }
     
