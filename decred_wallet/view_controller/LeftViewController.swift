@@ -57,6 +57,8 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
     var securityMenuViewController:UIViewController!
     var selectedIndex: Int!
     var storyboard2: UIStoryboard!
+    var walletInfo = SingleInstance.shared
+    var wallet = SingleInstance.shared.wallet
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -98,9 +100,9 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         DispatchQueue.main.asyncAfter(deadline: .now()) { [weak self] in
             guard let this = self else { return }
             
-            let bestblck = SingleInstance.shared.wallet?.getBestBlock()
+            let bestblck = self!.wallet?.getBestBlock()
             let bestblocktemp: Int64 = Int64(Int(bestblck!))
-            let lastblocktime = SingleInstance.shared.wallet?.getBestBlockTimeStamp()
+            let lastblocktime = self!.wallet?.getBestBlockTimeStamp()
             let currentTime = NSDate().timeIntervalSince1970
             let estimatedBlocks = ((Int64(currentTime) - lastblocktime!) / 120) + bestblocktemp
             

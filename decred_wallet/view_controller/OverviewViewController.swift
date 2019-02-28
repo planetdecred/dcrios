@@ -54,7 +54,8 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
     @IBOutlet weak var verboseText: UIButton!
     @IBOutlet weak var dummyVerboseCont: UIView!
     @IBOutlet weak var syncLoadingText: UILabel!
-    
+    var wallet = SingleInstance.shared.wallet
+    var walletInfo = SingleInstance.shared
     
     var mainContens = [Transaction]()
     var refreshControl: UIRefreshControl!
@@ -83,58 +84,23 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
         
         connectToDecredNetwork()
         
-        SingleInstance.shared.wallet?.transactionNotification(self)
-        SingleInstance.shared.wallet?.add(self)
-        SingleInstance.shared.syncing = true
-        recognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressHappened))
-        recognizer2 = UILongPressGestureRecognizer(target: self, action: #selector(longPressHappened))
-        recognizer3 = UILongPressGestureRecognizer(target: self, action: #selector(longPressHappened))
-        recognizer4 = UILongPressGestureRecognizer(target: self, action: #selector(longPressHappened))
-        self.connetStatus.addGestureRecognizer(recognizer!)
-        self.chainStatusText.addGestureRecognizer(recognizer2!)
-        self.verboseText.addGestureRecognizer(recognizer3!)
-        self.daysbeindText.addGestureRecognizer(recognizer4!)
-        
-        
+        self.wallet?.transactionNotification(self)
+        self.wallet?.add(self)
+        self.walletInfo.syncing = true
+        self.SyncGestureSetup()
         if !((UserDefaults.standard.bool(forKey: "sync"))){
            self.ShowSyncContainers()
         }
         
         showActivity()
     }
-    func ShowSyncContainers(){
-        DispatchQueue.main.async {
-            self.topAmountContainer.isHidden = true
-            self.bottomBtnContainer.isHidden = true
-            self.syncContainer.isHidden = false
-            self.tableView.isHidden = true
-        }
-    }
-    func hideSyncContainers(){
-        DispatchQueue.main.async {
-            self.topAmountContainer.isHidden = false
-            self.bottomBtnContainer.isHidden = false
-            self.syncContainer.isHidden = true
-            self.tableView.isHidden = false
-        }
-    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         print("low memory")
         
         // Dispose of any resources that can be recreated.
-    }
-    
-    private func showActivity(){
-        lbCurrentBalance.isHidden = true
-        let image = UIImage.gifImageWithURL(Bundle.main.url(forResource: "progress bar-1s-200px", withExtension: "gif")?.absoluteString ?? "");
-        activityIndicator.image = image
-    }
-    
-    private func hideActivityIndicator(){
-        activityIndicator.isHidden = true
-        lbCurrentBalance.isHidden = false
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -171,34 +137,19 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
     }
     
    
-    
     func connectToDecredNetwork(){
         let appInstance = UserDefaults.standard
-        var passphrase = ""
-      //  passphrase = self.pinInput!
-      //  let finalPassphraseData = (passphrase as NSString).data(using: String.Encoding.utf8.rawValue)!
-        
         if (appInstance.integer(forKey: "network_mode") == 0) {
             DispatchQueue.global(qos: .background).async { [weak self] in
                 guard let _ = self else { return }
                 do {
-                    SingleInstance.shared.wallet?.add(self)
+                    self!.wallet?.add(self)
                     try
-                        SingleInstance.shared.wallet?.spvSync(getPeerAddress(appInstance: appInstance))
+                        self!.wallet?.spvSync(getPeerAddress(appInstance: appInstance))
                     print("done syncing")
                 } catch {
                     print(error)
                 }
-            }
-        } else {
-            DispatchQueue.global(qos: .background).async { [weak self] in
-                guard let this = self else { return }
-              /*  do {
-                    try
-                     //   SingleInstance.shared.wallet?.unlock(finalPassphraseData)
-                } catch {
-                    print(error)
-                }*/
             }
         }
     }
@@ -209,7 +160,7 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
         DispatchQueue.global(qos: .background).async { [weak self] in
             guard self != nil else { return }
             do {
-                let strAccount = try SingleInstance.shared.wallet?.getAccounts(0)
+                let strAccount = try self!.wallet?.getAccounts(0)
                 account = try JSONDecoder().decode(GetAccountResponse.self, from: (strAccount?.data(using: .utf8))!)
                 amount = "\((account.Acc.filter({UserDefaults.standard.bool(forKey: "hidden\($0.Number)") != true}).map{$0.dcrTotalBalance}.reduce(0,+)))"
             
@@ -231,7 +182,7 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
             guard let this = self else { return }
             do {
                 try
-                    SingleInstance.shared.wallet?.getTransactions(this)
+                    self!.wallet?.getTransactions(this)
             } catch let Error {
                 print(Error)
             }
@@ -322,6 +273,33 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
             self.hideAllSync()
     }
     
+    func SyncGestureSetup(){
+        self.recognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressHappened))
+        self.recognizer2 = UILongPressGestureRecognizer(target: self, action: #selector(longPressHappened))
+        self.recognizer3 = UILongPressGestureRecognizer(target: self, action: #selector(longPressHappened))
+        self.recognizer4 = UILongPressGestureRecognizer(target: self, action: #selector(longPressHappened))
+        self.connetStatus.addGestureRecognizer(recognizer!)
+        self.chainStatusText.addGestureRecognizer(recognizer2!)
+        self.verboseText.addGestureRecognizer(recognizer3!)
+        self.daysbeindText.addGestureRecognizer(recognizer4!)
+    }
+    func ShowSyncContainers(){
+        DispatchQueue.main.async {
+            self.topAmountContainer.isHidden = true
+            self.bottomBtnContainer.isHidden = true
+            self.syncContainer.isHidden = false
+            self.tableView.isHidden = true
+        }
+    }
+    func hideSyncContainers(){
+        DispatchQueue.main.async {
+            self.topAmountContainer.isHidden = false
+            self.bottomBtnContainer.isHidden = false
+            self.syncContainer.isHidden = true
+            self.tableView.isHidden = false
+        }
+    }
+    
     
     func onResult(_ json: String!) {
         if (self.visible == false) {
@@ -360,20 +338,19 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
     }
     
     func onSynced(_ synced: Bool) {
-        
         self.synced = synced
         UserDefaults.standard.set(false, forKey: "walletScanning")
         UserDefaults.standard.set(synced, forKey: "synced")
         UserDefaults.standard.synchronize()
-        SingleInstance.shared.synced = synced
-        SingleInstance.shared.syncing = false
+        self.walletInfo.synced = synced
+        self.walletInfo.syncing = false
         if (synced) {
-            SingleInstance.shared.syncStartPoint = -1
-            SingleInstance.shared.syncEndPoint = -1
-            SingleInstance.shared.syncCurrentPoint = -1
-            SingleInstance.shared.syncRemainingTime = -1
-            SingleInstance.shared.fetchHeaderTime = -1
-            SingleInstance.shared.syncStatus = ""
+            self.walletInfo.syncStartPoint = -1
+            self.walletInfo.syncEndPoint = -1
+            self.walletInfo.syncCurrentPoint = -1
+            self.walletInfo.syncRemainingTime = -1
+            self.walletInfo.fetchHeaderTime = -1
+            self.walletInfo.syncStatus = ""
             self.hideSyncContainers()
             if !(self.visible){
                 return
@@ -385,6 +362,8 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
         }
         
     }
+    //overview UI functions
+    
     func setupSendRecvBtn(){
         ReceiveBtn.layer.cornerRadius = 4
         
@@ -420,6 +399,16 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
             self.delegate!.changeViewController(LeftMenu.history)
             UIApplication.shared.endIgnoringInteractionEvents()
         }
+    }
+    private func showActivity(){
+        lbCurrentBalance.isHidden = true
+        let image = UIImage.gifImageWithURL(Bundle.main.url(forResource: "progress bar-1s-200px", withExtension: "gif")?.absoluteString ?? "");
+        activityIndicator.image = image
+    }
+    
+    private func hideActivityIndicator(){
+        activityIndicator.isHidden = true
+        lbCurrentBalance.isHidden = false
     }
     
     func onBlockNotificationError(_ err: Error!) {
@@ -488,24 +477,24 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
         return
     }
     func updatePeerCount() {
-        if (!SingleInstance.shared.synced && !SingleInstance.shared.syncing) {
-            SingleInstance.shared.syncStatus = "Not Synced";
+        if (!self.walletInfo.synced && !self.walletInfo.syncing) {
+            self.walletInfo.syncStatus = "Not Synced";
             return
     }
-        if (!SingleInstance.shared.syncing) {
-            if (SingleInstance.shared.peers == 1) {
-                SingleInstance.shared.syncStatus = "Synced with 1 peer";
+        if (!self.walletInfo.syncing) {
+            if (self.walletInfo.peers == 1) {
+                self.walletInfo.syncStatus = "Synced with 1 peer";
                 
             } else {
-                SingleInstance.shared.syncStatus = "Synced with \(SingleInstance.shared.peers) peers "
+                self.walletInfo.syncStatus = "Synced with \(self.walletInfo.peers) peers "
                 }
             
         }else {
-            if (SingleInstance.shared.peers == 1) {
-                SingleInstance.shared.syncStatus = "Synced with 1 peer"
+            if (self.walletInfo.peers == 1) {
+                self.walletInfo.syncStatus = "Synced with 1 peer"
                 
             } else {
-                 SingleInstance.shared.syncStatus = "Synced with \(SingleInstance.shared.peers) peers "
+                 self.walletInfo.syncStatus = "Synced with \(self.walletInfo.peers) peers "
             }
         }
     }
@@ -514,37 +503,37 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
     var headerTime: Int64 = 0
     func onFetchedHeaders(_ fetchedHeadersCount: Int32, lastHeaderTime: Int64, state: String!) {
         DispatchQueue.global(qos: .background).async {
-        if (!SingleInstance.shared.syncing) {
+        if (!self.walletInfo.syncing) {
             // Ignore this call because this function gets called for each peer and
             // we'd want to ignore those calls as far as the wallet is synced.
             return
-        } else if (SingleInstance.shared.totalFetchTime != -1) {
+        } else if (self.walletInfo.totalFetchTime != -1) {
             return
         }
         
         
         print("last header time \(lastHeaderTime)")
-        let bestblck = SingleInstance.shared.wallet?.getBestBlock()
+        let bestblck = self.wallet?.getBestBlock()
         let bestblocktemp = Int64(bestblck!)
-        let lastblocktime = SingleInstance.shared.wallet?.getBestBlockTimeStamp()
+        let lastblocktime = self.wallet?.getBestBlockTimeStamp()
         let currentTime = Date().millisecondsSince1970 / 1000;
         let estimatedBlocks = ((currentTime - lastblocktime!) / 120 ) + bestblocktemp
         
         switch (state) {
         case DcrlibwalletSTART:
-            if (SingleInstance.shared.fetchHeaderTime != -1) {
+            if (self.walletInfo.fetchHeaderTime != -1) {
                 return
             }
             
-            SingleInstance.shared.syncStatus = "Fetching headers...";
+            self.walletInfo.syncStatus = "Fetching headers...";
             
-            SingleInstance.shared.syncStartPoint = Int64((SingleInstance.shared.wallet?.getBestBlock())!);
-            SingleInstance.shared.syncEndPoint = estimatedBlocks - SingleInstance.shared.syncStartPoint;
-            if !(SingleInstance.shared.syncStartPoint < estimatedBlocks){
+            self.walletInfo.syncStartPoint = Int64((self.wallet?.getBestBlock())!);
+            self.walletInfo.syncEndPoint = estimatedBlocks - self.walletInfo.syncStartPoint;
+            if !(self.walletInfo.syncStartPoint < estimatedBlocks){
                 return
             }
-            SingleInstance.shared.syncCurrentPoint =  SingleInstance.shared.syncStartPoint;
-            SingleInstance.shared.fetchHeaderTime = Date().millisecondsSince1970
+            self.walletInfo.syncCurrentPoint =  self.walletInfo.syncStartPoint;
+            self.walletInfo.fetchHeaderTime = Date().millisecondsSince1970
            self.hideAllSync()
             DispatchQueue.main.async {
             self.tapViewMoreBtn.isEnabled = false
@@ -559,35 +548,35 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
                 return
             }
             self.headerTime = lastHeaderTime
-            SingleInstance.shared.syncEndPoint = estimatedBlocks - SingleInstance.shared.syncStartPoint
-            SingleInstance.shared.syncCurrentPoint += Int64(fetchedHeadersCount)
-            var count = SingleInstance.shared.syncCurrentPoint
-            if (SingleInstance.shared.syncStartPoint > 0) {
-                count -= SingleInstance.shared.syncStartPoint;
+            self.walletInfo.syncEndPoint = estimatedBlocks - self.walletInfo.syncStartPoint
+            self.walletInfo.syncCurrentPoint += Int64(fetchedHeadersCount)
+            var count = self.walletInfo.syncCurrentPoint
+            if (self.walletInfo.syncStartPoint > 0) {
+                count -= self.walletInfo.syncStartPoint;
             }
             
-            let percent =  Float(count) / Float(SingleInstance.shared.syncEndPoint)
-            let totalFetchTime = Double((Date().millisecondsSince1970 - SingleInstance.shared.fetchHeaderTime)) / Double(percent)
-            let remainingFetchTime = round(totalFetchTime) - Double((Date().millisecondsSince1970 - SingleInstance.shared.fetchHeaderTime));
-            let elapsedFetchTime = Double(Date().millisecondsSince1970 - SingleInstance.shared.fetchHeaderTime)
+            let percent =  Float(count) / Float(self.walletInfo.syncEndPoint)
+            let totalFetchTime = Double((Date().millisecondsSince1970 - self.walletInfo.fetchHeaderTime)) / Double(percent)
+            let remainingFetchTime = round(totalFetchTime) - Double((Date().millisecondsSince1970 - self.walletInfo.fetchHeaderTime));
+            let elapsedFetchTime = Double(Date().millisecondsSince1970 - self.walletInfo.fetchHeaderTime)
             //10% of fetch time is used for estimating both rescan while 80% is used for address discovery time
            let estimatedRescanTime = totalFetchTime * self.reScan_percentage;
            let estimatedDiscoveryTime = totalFetchTime * self.discovery_percentage;
             let totalSyncTime = totalFetchTime + estimatedRescanTime + estimatedDiscoveryTime;
             
-            SingleInstance.shared.syncRemainingTime = Int64(round(remainingFetchTime + estimatedRescanTime + estimatedDiscoveryTime));
-           SingleInstance.shared.syncProgress = Int(( Double(elapsedFetchTime) / Double(totalSyncTime) * 100.0))
-            SingleInstance.shared.syncStatus = "Fetching block headers."
-            SingleInstance.shared.bestBlockTime = "\(lastHeaderTime)"
-            SingleInstance.shared.ChainStatus = "\(SingleInstance.shared.syncEndPoint - count) blocks behind"
+            self.walletInfo.syncRemainingTime = Int64(round(remainingFetchTime + estimatedRescanTime + estimatedDiscoveryTime));
+           self.walletInfo.syncProgress = Int(( Double(elapsedFetchTime) / Double(totalSyncTime) * 100.0))
+            self.walletInfo.syncStatus = "Fetching block headers."
+            self.walletInfo.bestBlockTime = "\(lastHeaderTime)"
+            self.walletInfo.ChainStatus = "\(self.walletInfo.syncEndPoint - count) blocks behind"
                 
             let daysBehind = calculateDays(seconds: ((Date().millisecondsSince1970 / 1000) - lastHeaderTime))
-            let status = "Fetched \(count) of \(SingleInstance.shared.syncEndPoint) block headers."
+            let status = "Fetched \(count) of \(self.walletInfo.syncEndPoint) block headers."
             let status2 = "\(round(percent * 100))% through step 1 of 3."
-                SingleInstance.shared.syncStatus = status
+                self.walletInfo.syncStatus = status
             let status3 = " Your wallet is \(daysBehind) behind."
-            let percentage = getSyncTimeRemaining(millis: SingleInstance.shared.syncRemainingTime, percentageCompleted: Int(SingleInstance.shared.syncProgress), syncView: true)
-           let status4 = "All Times\nelapsed: \(getTime(millis: Int64(elapsedFetchTime))) remain: \(getTime(millis: SingleInstance.shared.syncRemainingTime)) total: \(getTime(millis: Int64(round(totalSyncTime)))) \n\nStage Times\nelapsed: \(getTime(millis: Int64(elapsedFetchTime))) remain: \(getTime(millis: Int64(remainingFetchTime)))  total: \(getTime(millis: Int64(round(totalFetchTime))))"
+            let percentage = getSyncTimeRemaining(millis: self.walletInfo.syncRemainingTime, percentageCompleted: Int(self.walletInfo.syncProgress), syncView: true)
+           let status4 = "All Times\nelapsed: \(getTime(millis: Int64(elapsedFetchTime))) remain: \(getTime(millis: self.walletInfo.syncRemainingTime)) total: \(getTime(millis: Int64(round(totalSyncTime)))) \n\nStage Times\nelapsed: \(getTime(millis: Int64(elapsedFetchTime))) remain: \(getTime(millis: Int64(remainingFetchTime)))  total: \(getTime(millis: Int64(round(totalFetchTime))))"
             
         
             DispatchQueue.main.async {
@@ -601,24 +590,24 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
                 self.syncProgressbar.isHidden = false
                 self.tapViewMoreBtn.isEnabled = true
                 self.syncProgressbar.progressTintColor = UIColor(hex: "#7fcc9e")
-                self.syncProgressbar.progress = (Float(SingleInstance.shared.syncProgress) / 100.0)
-                print("progress = \(SingleInstance.shared.syncProgress)")
+                self.syncProgressbar.progress = (Float(self.walletInfo.syncProgress) / 100.0)
+                print("progress = \(self.walletInfo.syncProgress)")
                 self.verboseText.setTitle(status4, for: .normal)
                 self.peersSyncText.text = "Syncing with \(self.peerCount) peers on testnet"
                 
             }
            
             
-            if (SingleInstance.shared.initialSyncEstimate == -1) {
-                SingleInstance.shared.initialSyncEstimate = SingleInstance.shared.syncRemainingTime;
+            if (self.walletInfo.initialSyncEstimate == -1) {
+                self.walletInfo.initialSyncEstimate = self.walletInfo.syncRemainingTime;
             }
             break
         case DcrlibwalletFINISH:
             self.updatePeerCount();
-            SingleInstance.shared.totalFetchTime = Date().millisecondsSince1970 - SingleInstance.shared.fetchHeaderTime;
-            SingleInstance.shared.syncStartPoint = -1;
-           SingleInstance.shared.syncEndPoint = -1;
-           SingleInstance.shared.syncCurrentPoint = -1;
+            self.walletInfo.totalFetchTime = Date().millisecondsSince1970 - self.walletInfo.fetchHeaderTime;
+            self.walletInfo.syncStartPoint = -1;
+           self.walletInfo.syncEndPoint = -1;
+           self.walletInfo.syncCurrentPoint = -1;
             break;
         default:
             break
@@ -629,41 +618,41 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
     
     func onRescan(_ rescannedThrough: Int32, state: String!) {
         DispatchQueue.global(qos: .background).async {
-        if (SingleInstance.shared.syncEndPoint == -1) {
-            SingleInstance.shared.syncEndPoint = Int64(SingleInstance.shared.wallet!.getBestBlock());
+        if (self.walletInfo.syncEndPoint == -1) {
+            self.walletInfo.syncEndPoint = Int64(self.wallet!.getBestBlock());
         }
         
         switch (state) {
         case DcrlibwalletSTART:
-            SingleInstance.shared.syncStatus = "Scanning blocks."
-            SingleInstance.shared.syncStartPoint = 0;
-            SingleInstance.shared.syncCurrentPoint = 0;
-            SingleInstance.shared.syncEndPoint = Int64(SingleInstance.shared.wallet!.getBestBlock());
-            SingleInstance.shared.rescanTime = Date().millisecondsSince1970;
+            self.walletInfo.syncStatus = "Scanning blocks."
+            self.walletInfo.syncStartPoint = 0;
+            self.walletInfo.syncCurrentPoint = 0;
+            self.walletInfo.syncEndPoint = Int64(self.wallet!.getBestBlock());
+            self.walletInfo.rescanTime = Date().millisecondsSince1970;
             break;
         case DcrlibwalletPROGRESS:
             
-            let scannedPercentage = ((Double(rescannedThrough) / Double(SingleInstance.shared.syncEndPoint)) * 100)
+            let scannedPercentage = ((Double(rescannedThrough) / Double(self.walletInfo.syncEndPoint)) * 100)
             
-            let elapsedRescanTime = Date().millisecondsSince1970 - SingleInstance.shared.rescanTime;
-            let totalScanTime = Double(elapsedRescanTime) / ((Double(rescannedThrough) / Double(SingleInstance.shared.syncEndPoint)))
-            let totalSyncTime = Double(SingleInstance.shared.totalFetchTime) + Double(SingleInstance.shared.totalDiscoveryTime) + totalScanTime
-            let elapsedTime = (Double(SingleInstance.shared.totalFetchTime) + Double(SingleInstance.shared.totalDiscoveryTime) + Double(elapsedRescanTime))
+            let elapsedRescanTime = Date().millisecondsSince1970 - self.walletInfo.rescanTime;
+            let totalScanTime = Double(elapsedRescanTime) / ((Double(rescannedThrough) / Double(self.walletInfo.syncEndPoint)))
+            let totalSyncTime = Double(self.walletInfo.totalFetchTime) + Double(self.walletInfo.totalDiscoveryTime) + totalScanTime
+            let elapsedTime = (Double(self.walletInfo.totalFetchTime) + Double(self.walletInfo.totalDiscoveryTime) + Double(elapsedRescanTime))
             
-            SingleInstance.shared.syncRemainingTime = Int64(round(totalScanTime)) - elapsedRescanTime
-            SingleInstance.shared.syncProgress = Int((Double(elapsedTime) /  Double(totalSyncTime)) * 100.0)
-            let status = "Scanning \(rescannedThrough) of \(SingleInstance.shared.syncEndPoint) block headers."
+            self.walletInfo.syncRemainingTime = Int64(round(totalScanTime)) - elapsedRescanTime
+            self.walletInfo.syncProgress = Int((Double(elapsedTime) /  Double(totalSyncTime)) * 100.0)
+            let status = "Scanning \(rescannedThrough) of \(self.walletInfo.syncEndPoint) block headers."
             let status2 = "\(round(scannedPercentage))% through step 3 of 3."
-            SingleInstance.shared.syncStatus = status
-            let status4 = "All Times\nelapsed: \(getTime(millis: Int64(round(Double(elapsedTime))))) remain: \(getTime(millis: SingleInstance.shared.syncRemainingTime)) total: \(getTime(millis: Int64(round(totalSyncTime)))) \n\nStage Times\nelapsed: \(getTime(millis: Int64(round(Double(elapsedRescanTime))))) remain: \(getTime(millis: SingleInstance.shared.syncRemainingTime))  total: \(getTime(millis: Int64(round(totalScanTime))))"
+            self.walletInfo.syncStatus = status
+            let status4 = "All Times\nelapsed: \(getTime(millis: Int64(round(Double(elapsedTime))))) remain: \(getTime(millis: self.walletInfo.syncRemainingTime)) total: \(getTime(millis: Int64(round(totalSyncTime)))) \n\nStage Times\nelapsed: \(getTime(millis: Int64(round(Double(elapsedRescanTime))))) remain: \(getTime(millis: self.walletInfo.syncRemainingTime))  total: \(getTime(millis: Int64(round(totalScanTime))))"
             
-            let percentage = getSyncTimeRemaining(millis: SingleInstance.shared.syncRemainingTime, percentageCompleted: Int(SingleInstance.shared.syncProgress), syncView: true)
+            let percentage = getSyncTimeRemaining(millis: self.walletInfo.syncRemainingTime, percentageCompleted: Int(self.walletInfo.syncProgress), syncView: true)
             DispatchQueue.main.async {
                 self.syncProgressbar.progressTintColor = UIColor(hex: "#7fcc9e")
-                self.syncProgressbar.progress = (Float(SingleInstance.shared.syncProgress) / 100.0)
+                self.syncProgressbar.progress = (Float(self.walletInfo.syncProgress) / 100.0)
                 self.syncLoadingText.text = "Synchronizing"
                 self.syncProgressbar.isHidden = false
-                print("progress = \(SingleInstance.shared.syncProgress)")
+                print("progress = \(self.walletInfo.syncProgress)")
                 self.percentageComplete.text = percentage
                 self.chainStatusText.setTitle(status2, for: .normal)
                self.connetStatus.setTitle(status, for: .normal)
@@ -673,7 +662,7 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
                 
             }
             
-            SingleInstance.shared.syncStatus = "Scanning blocks."
+            self.walletInfo.syncStatus = "Scanning blocks."
             
             break;
         default:
@@ -689,36 +678,36 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
        // setChainStatus(null);
         DispatchQueue.global(qos: .background).async {
         if (state.elementsEqual(DcrlibwalletSTART)) {
-                    SingleInstance.shared.accountDiscoveryStartTime = Date().millisecondsSince1970;
-            let estimatedRescanTime = round(Double(SingleInstance.shared.totalFetchTime) * Double(self.reScan_percentage))
-            let estimatedDiscoveryTime = round(Double(SingleInstance.shared.totalFetchTime) * Double(self.discovery_percentage));
+                    self.walletInfo.accountDiscoveryStartTime = Date().millisecondsSince1970;
+            let estimatedRescanTime = round(Double(self.walletInfo.totalFetchTime) * Double(self.reScan_percentage))
+            let estimatedDiscoveryTime = round(Double(self.walletInfo.totalFetchTime) * Double(self.discovery_percentage));
 
-            let elapsedDiscoveryTime = Date().millisecondsSince1970 - SingleInstance.shared.accountDiscoveryStartTime;
+            let elapsedDiscoveryTime = Date().millisecondsSince1970 - self.walletInfo.accountDiscoveryStartTime;
                     
             var totalSyncTime = 0.0
                     if (Double(elapsedDiscoveryTime) > Double(estimatedDiscoveryTime)) {
-                    totalSyncTime = Double(SingleInstance.shared.totalFetchTime) + Double(elapsedDiscoveryTime) + estimatedRescanTime
+                    totalSyncTime = Double(self.walletInfo.totalFetchTime) + Double(elapsedDiscoveryTime) + estimatedRescanTime
                     } else {
-                    totalSyncTime = Double(SingleInstance.shared.totalFetchTime) + estimatedDiscoveryTime + estimatedRescanTime;
+                    totalSyncTime = Double(self.walletInfo.totalFetchTime) + estimatedDiscoveryTime + estimatedRescanTime;
                     }
                     
-            let elapsedTime = Double(SingleInstance.shared.totalFetchTime) + Double(elapsedDiscoveryTime);
+            let elapsedTime = Double(self.walletInfo.totalFetchTime) + Double(elapsedDiscoveryTime);
                     
                     var remainingAccountDiscoveryTime = round(Double(estimatedDiscoveryTime) - Double(elapsedDiscoveryTime))
                     if (remainingAccountDiscoveryTime < 0) {
                     remainingAccountDiscoveryTime = 0;
                     }
                     
-            SingleInstance.shared.syncProgress = Int((Double(elapsedTime) / Double( totalSyncTime)) * 100.0)
-            SingleInstance.shared.syncRemainingTime = Int64((remainingAccountDiscoveryTime + estimatedRescanTime))
+            self.walletInfo.syncProgress = Int((Double(elapsedTime) / Double( totalSyncTime)) * 100.0)
+            self.walletInfo.syncRemainingTime = Int64((remainingAccountDiscoveryTime + estimatedRescanTime))
                     
-                    SingleInstance.shared.syncStatus = "Discovering used addresses."
+                    self.walletInfo.syncStatus = "Discovering used addresses."
             
-            let percentage = getSyncTimeRemaining(millis: SingleInstance.shared.syncRemainingTime, percentageCompleted: SingleInstance.shared.syncProgress, syncView: true)
+            let percentage = getSyncTimeRemaining(millis: self.walletInfo.syncRemainingTime, percentageCompleted: self.walletInfo.syncProgress, syncView: true)
             let status = "Discovering used addresses."
             let discoveryProgress = round((Double(elapsedDiscoveryTime) / Double(estimatedDiscoveryTime)) * 100.0);
             var status2 = ""
-            let status4 = "All Times\nelapsed: \(getTime(millis: Int64(round(Double(elapsedTime))))) remain: \(getTime(millis: SingleInstance.shared.syncRemainingTime)) total: \(getTime(millis: Int64(round(totalSyncTime)))) \n\nStage Times\nelapsed: \(getTime(millis: Int64(round(Double(elapsedDiscoveryTime))))) remain: \(getTime(millis: SingleInstance.shared.syncRemainingTime))  total: \(getTime(millis: Int64(round(totalSyncTime))))"
+            let status4 = "All Times\nelapsed: \(getTime(millis: Int64(round(Double(elapsedTime))))) remain: \(getTime(millis: self.walletInfo.syncRemainingTime)) total: \(getTime(millis: Int64(round(totalSyncTime)))) \n\nStage Times\nelapsed: \(getTime(millis: Int64(round(Double(elapsedDiscoveryTime))))) remain: \(getTime(millis: self.walletInfo.syncRemainingTime))  total: \(getTime(millis: Int64(round(totalSyncTime))))"
             if (discoveryProgress > 100) {
                 status2 = "\(discoveryProgress)% (over) through step 2 of 3."
                         } else {
@@ -728,8 +717,8 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
                 self.syncLoadingText.text = "Synchronizing"
                 self.syncProgressbar.isHidden = false
                 self.syncProgressbar.progressTintColor = UIColor(hex: "#7fcc9e")
-                self.syncProgressbar.progress = (Float(SingleInstance.shared.syncProgress) / 100.0)
-                print("progress = \(SingleInstance.shared.syncProgress)")
+                self.syncProgressbar.progress = (Float(self.walletInfo.syncProgress) / 100.0)
+                print("progress = \(self.walletInfo.syncProgress)")
                 self.percentageComplete.text = percentage
                 self.chainStatusText.setTitle(status2, for: .normal)
                 self.connetStatus.setTitle(status, for: .normal)
@@ -742,7 +731,7 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
      
         } else {
             
-            SingleInstance.shared.totalDiscoveryTime = (Date().millisecondsSince1970 - SingleInstance.shared.accountDiscoveryStartTime);
+            self.walletInfo.totalDiscoveryTime = (Date().millisecondsSince1970 - self.walletInfo.accountDiscoveryStartTime);
             self.updatePeerCount();
         }
         }
@@ -759,11 +748,11 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
     func onBlockAttached(_ height: Int32, timestamp: Int64) {
         self.bestBlock = height;
         self.bestBlockTimestamp = timestamp / 1000000000;
-        if (!SingleInstance.shared.syncing) {
+        if (!self.walletInfo.syncing) {
             let status =  "latest Block \(String(describing: bestBlock))"
-            SingleInstance.shared.ChainStatus = status
+            self.walletInfo.ChainStatus = status
            self.updateCurrentBalance()
-            SingleInstance.shared.bestBlockTime = "\(String(describing: bestBlockTimestamp))"
+            self.walletInfo.bestBlockTime = "\(String(describing: bestBlockTimestamp))"
             }
         
     }
