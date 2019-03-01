@@ -43,9 +43,7 @@ class TransactionHistoryViewController: UIViewController, DcrlibwalletGetTransac
         super.viewWillAppear(animated)
         self.setNavigationBarItem()
         navigationItem.title = "History"
-
     }
-    
     
     override func viewDidAppear(_ animated: Bool) {
         self.visible = true
@@ -203,7 +201,7 @@ extension TransactionHistoryViewController: UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return TransactionHistoryTableViewCell.height()
+        return DataTableViewCell.height()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -218,10 +216,10 @@ extension TransactionHistoryViewController: UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        tableView.register(UINib(nibName: TransactionHistoryTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: TransactionHistoryTableViewCell.identifier)
-        let cell = self.tableView.dequeueReusableCell(withIdentifier: "TransactionHistoryTableViewCell") as! TransactionHistoryTableViewCell
+        tableView.register(UINib(nibName: DataTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: DataTableViewCell.identifier)
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: "DataTableViewCell") as! DataTableViewCell
         if self.Filtercontent.count != 0{
-            let data = TransactionTableViewCellData(data: Filtercontent[indexPath.row])
+            let data = DataTableViewCellData(trans: Filtercontent[indexPath.row])
             cell.setData(data)
             return cell
         }
