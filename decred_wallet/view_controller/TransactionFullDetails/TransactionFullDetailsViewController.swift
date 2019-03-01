@@ -22,6 +22,7 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
     var progressHud : JGProgressHUD?
     var details: [TransactionDetails] = []
     var transaction: Transaction!
+    var decodedTransaction: DecodedTransaction!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,20 +50,19 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         
         self.navigationItem.title = "Transaction Details"
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "left-arrow"), style: .done, target: self, action: #selector(backk))
-        wrap(transaction: self.transaction)
         
-        do{
-            print(self.transaction.Hash)
+        do {
             if let data = Data(fromHexEncodedString: self.transaction.Hash) {
-                // Data to hex string:
-                print(data.hexEncodedString())
-                print(try SingleInstance.shared.wallet?.decodeTransaction(data) ?? "nothing")
-            } else {
+                let decodedTxJson = try SingleInstance.shared.wallet?.decodeTransaction(data)
+                self.decodedTransaction = try JSONDecoder().decode(DecodedTransaction.self, from: (decodedTxJson?.data(using: .utf8))!)
+            }else{
                 print("invalid hex string")
             }
-        } catch {
+        } catch let error {
             print(error)
         }
+        
+        wrap(transaction: self.transaction)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -98,7 +98,7 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         case 1:
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "TransactiontInputDetails") as! TransactiontInputDetails
-            cell.setup(with: transaction.Debits)
+            cell.setup(with: transaction.Debits, decodedInputs: decodedTransaction.Inputs)
             cell.expandOrCollapse = { [weak self] in
                 self?.tableTransactionDetails.reloadData()
             }
@@ -107,7 +107,7 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         case 2:
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "TransactiontOutputDetailsCell") as! TransactiontOutputDetailsCell
-            cell.setup(with: transaction.Credits)
+            cell.setup(with: transaction.Credits, decodedOutputs: decodedTransaction.Outputs)
             cell.expandOrCollapse = { [weak self] in
                 self?.tableTransactionDetails.reloadData()
             }
@@ -186,6 +186,16 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         let amount = Decimal(Double((transaction?.Amount)!) / 1e8) as NSDecimalNumber
         let fee = Decimal(Double((transaction?.Fee)!) / 1e8) as NSDecimalNumber
         
+        var txType: String
+        if transaction?.Type.lowercased() == "ticket_purchase" {
+            txType = "Ticket Purchase"
+        }else{
+            let first = String((transaction?.Type.prefix(1))!).capitalized
+            let other = String((transaction?.Type.dropFirst())!).lowercased()
+            print("First: \(first) Other: \(other)")
+            txType = first + other
+        }
+        
         details = [
             TransactionDetails(
                 title: "Date",
@@ -209,7 +219,7 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
             ),
             TransactionDetails(
                 title: "Type",
-                value: NSMutableAttributedString(string: "\(transaction?.Type.lowercased() ?? "Unknown" )"),
+                value: NSMutableAttributedString(string: "\(txType ?? "Unknown" )"),
                 textColor: nil
             ),
             TransactionDetails(
@@ -223,6 +233,30 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
                 textColor: #colorLiteral(red: 0.1607843137, green: 0.4392156863, blue: 1, alpha: 1)
             )
         ]
+        
+        if(transaction?.Type.lowercased() == "vote"){
+            
+            let lastBlockValid = TransactionDetails(
+                title: "Last Block Valid",
+                value: NSMutableAttributedString(string: String(describing: (decodedTransaction?.LastBlockValid.string)!)),
+                textColor: nil
+            )
+            details.append(lastBlockValid)
+            
+            let voteVersion = TransactionDetails(
+                title: "Version",
+                value: NSAttributedString(string: String(describing: (decodedTransaction?.VoteVersion)!)),
+                textColor: nil
+            )
+            details.append(voteVersion)
+            
+            let voteBits = TransactionDetails(
+                title: "Vote Bits",
+                value: NSAttributedString(string: String(describing: (decodedTransaction?.VoteBits)!)),
+                textColor: nil
+            )
+            details.append(voteBits)
+        }
     }
     
     func openLink(urlString: String) {
