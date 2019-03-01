@@ -34,7 +34,7 @@ class AccountsHeaderView: UIView {
     
     @IBAction func expnandOrCollapseAction(_ sender: UIButton) {}
     
-    var spendableBalance: Double = 0.0 {
+    var spendableBalance: NSDecimalNumber = 0.0 {
         willSet {
             DispatchQueue.main.async {[weak self] in
                 self?.labelSpendableBalance.attributedText = getAttributedString(str: "\(newValue)", siz: 11.0, TexthexColor: self!.spendableColor)
