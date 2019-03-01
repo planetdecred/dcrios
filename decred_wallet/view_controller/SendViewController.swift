@@ -12,19 +12,31 @@ import Dcrlibwallet
 import SafariServices
 
 
-class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderViewControllerDelegate, PinEnteredProtocol {
+class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDelegate, QRCodeReaderViewControllerDelegate, PinEnteredProtocol {
     var pinInput: String?
     
+    @IBOutlet weak var pasteBtn: UIButton!
     weak var delegate: LeftMenuProtocol?
     @IBOutlet var accountDropdown: DropMenuButton!
+    @IBOutlet weak var toAccountDropDown: DropMenuButton!
     @IBOutlet var BalanceAfter: UILabel!
     @IBOutlet var estimateFee: UILabel!
     @IBOutlet var estimateSize: UILabel!
     @IBOutlet var walletAddress: UITextField!
     @IBOutlet var tfAmount: UITextField!
     @IBOutlet var sendAllBtn: UIButton!
+    @IBOutlet weak var toAccountContainer: UIStackView!
+    @IBOutlet weak var toAddressContainer: UIStackView!
+    var removedBtn = true
+    @IBOutlet weak var sendToaddressOption: UIButton!
+    var wallet :DcrlibwalletLibWallet!
     
+    @IBOutlet weak var amountErrorText: UILabel!
+    @IBOutlet weak var addressErrorText: UILabel!
+    @IBOutlet weak var menuOptionView: UIView!
     @IBOutlet weak var sendBtn: UIButton!
+    @IBOutlet weak var qrcodeBtn: UIButton!
+    var fromNotQRScreen = true
     
     private lazy var readerVC: QRCodeReaderViewController = {
         let builder = QRCodeReaderViewControllerBuilder {
@@ -35,6 +47,7 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
     }()
     
     var selectedAccount: AccountsEntity?
+    var sendToAccount: AccountsEntity?
     var password: String?
     var sendAllTX = false
     
@@ -42,8 +55,80 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
         super.viewDidLoad()
         self.sendBtn.layer.cornerRadius = 5;
         self.accountDropdown.backgroundColor = UIColor.clear
-        self.tfAmount.text = "0"
+        self.toAccountDropDown.backgroundColor = UIColor.clear
         self.tfAmount.delegate = self
+        self.pasteBtn.layer.cornerRadius = 4
+        self.pasteBtn.layer.shadowOffset = CGSize(width: 0, height: 2.0)
+        self.menuOptionView.layer.cornerRadius = 4
+        self.menuOptionView.layer.shadowColor = UIColor.black.cgColor
+        self.menuOptionView.layer.shadowOffset = CGSize(width: 0, height: 1.0)
+        self.menuOptionView.layer.shadowOpacity = 0.2
+        self.menuOptionView.layer.shadowRadius = 4.0
+        wallet = SingleInstance.shared.wallet
+        NotificationCenter.default.addObserver(self, selector: #selector(willResignActive), name:.UIApplicationWillEnterForeground, object: nil)
+        self.walletAddress.delegate = self
+        removedBtn = false
+        self.removePasteBtn()
+        self.checkpaste()
+       
+       
+        
+    }
+    @objc func willResignActive(){
+        if ( (self.walletAddress.text?.count)! < 1) {
+             self.checkpaste()
+        }
+    }
+    @IBAction func clearFields(_ sender: Any) {
+        if(self.walletAddress.hasText){
+            self.walletAddress.text = ""
+            self.tfAmount.text = ""
+            self.addQrbtn()
+            self.checkpaste()
+            self.addressErrorText.text = ""
+            self.amountErrorText.text = ""
+            self.tfAmount.text = ""
+            self.estimateFee.text = "0.00 DCR"
+            self.estimateSize.text = "0 Bytes"
+            self.BalanceAfter.text = "0.00 DCR"
+            self.switchFunc()
+        }
+        else{
+            self.amountErrorText.text = ""
+            self.tfAmount.text = ""
+            self.estimateFee.text = "0.00 DCR"
+            self.estimateSize.text = "0 Bytes"
+            self.BalanceAfter.text = "0.00 DCR"
+            self.switchFunc()
+        }
+       
+    }
+    
+    func checkpaste(){
+        let pasteboardString: String? = UIPasteboard.general.string
+        if let theString = pasteboardString {
+            if (self.wallet.isAddressValid(theString )) {
+                print("address valid on appear")
+                if !(removedBtn){
+                    print("not showing but adding now")
+                    removedBtn = true
+                    self.removePasteBtn()
+                }
+                else{
+                    print("showing and leaving it")
+                }
+                //self.addressError.text = ""
+            }
+            else{
+                print("address invalid on appear")
+                if (removedBtn){
+                    print("showing but removing now")
+                    removedBtn = false
+                    self.removePasteBtn()
+                }
+                //self.addressError.text = ""
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -51,6 +136,22 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
         self.setNavigationBarItem()
         self.navigationItem.title = "Send"
         self.updateBalance()
+        let accountAddressBtn = UIButton(type: .custom)
+        accountAddressBtn.setImage(UIImage(named: "right-menu"), for: .normal)
+        accountAddressBtn.addTarget(self, action: #selector(switchFunc), for: .touchUpInside)
+        accountAddressBtn.frame = CGRect(x: 0, y: 0, width: 10, height: 51)
+        let barButton = UIBarButtonItem(customView: accountAddressBtn)
+        self.navigationItem.rightBarButtonItems = [barButton]
+        print("address valid on appear")
+        if !(self.fromNotQRScreen){
+            self.fromNotQRScreen = true
+        }
+        else{
+            self.checkpaste()
+        }
+        
+        
+        
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -59,6 +160,8 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
             self.confirmSendWithoutPin(sendAll: false, pin: UserDefaults.standard.string(forKey: "TMPPIN")!)
             UserDefaults.standard.set(nil, forKey: "TMPPIN")
         }
+       
+       
     }
     
     override func didReceiveMemoryWarning() {
@@ -73,8 +176,63 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
         self.prepareTransaction(sendAll: self.sendAllTX)
     }
     
+    @IBAction func sendToBtnOption(_ sender: Any) {
+         sendToSwitch()
+        if (self.toAddressContainer.isHidden){
+            sendToaddressOption.setTitle("Send to address", for: .normal)
+        }
+        else{
+            sendToaddressOption.setTitle("Send to account", for: .normal)
+        }
+        
+        self.menuOptionView.isHidden = true
+    }
+    
+    
+    @objc func switchFunc(){
+        self.menuOptionView.isHidden = !self.menuOptionView.isHidden
+        
+      
+    }
+    func sendToSwitch(){
+        self.toAddressContainer.isHidden = !toAddressContainer.isHidden
+           self.toAccountContainer.isHidden = !toAccountContainer.isHidden
+        self.addressErrorText.isHidden = !self.addressErrorText.isHidden
+    }
+    func removePasteBtn(){
+         DispatchQueue.main.async {
+            if !(self.removedBtn){
+            
+            self.toAddressContainer.removeArrangedSubview(self.pasteBtn)
+            self.pasteBtn.isHidden = true
+                //self.removedBtn = true
+                
+            }
+            else{
+            self.toAddressContainer.insertArrangedSubview(self.pasteBtn, at: 1)
+               // self.removedBtn = false
+            self.pasteBtn.isHidden = false
+            }
+        }
+        
+    }
+    
+    func removeQrbtn(){
+        DispatchQueue.main.async {
+        self.toAddressContainer.removeArrangedSubview(self.qrcodeBtn)
+        self.qrcodeBtn.isHidden = true
+        }
+    }
+    func addQrbtn(){
+        DispatchQueue.main.async {
+        self.toAddressContainer.insertArrangedSubview(self.qrcodeBtn, at: 1)
+        self.qrcodeBtn.isHidden = false
+        }
+    }
+    
     @IBAction private func sendFund(_ sender: Any) {
         if self.validate() {
+            self.fromNotQRScreen = false
             if(UserDefaults.standard.string(forKey: "spendingSecureType") == "PASSWORD"){
                 self.confirmSend(sendAll: false)
             } else {
@@ -93,7 +251,7 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
         var fee = 0.0
         
         if !(validateDestinationAddress()) {
-            walletaddress = (try!SingleInstance.shared.wallet?.currentAddress(acountN))!
+            walletaddress = (try!wallet?.currentAddress(acountN))!
         }
         
         DispatchQueue.global(qos: .userInitiated).async {
@@ -101,7 +259,7 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
                 
                 let isShouldBeConfirmed = UserDefaults.standard.bool(forKey: "pref_spend_fund_switch")
                 let preparedTransaction: DcrlibwalletUnsignedTransaction?
-                preparedTransaction = try SingleInstance.shared.wallet?.constructTransaction(walletaddress, amount: amount, srcAccount: acountN , requiredConfirmations: isShouldBeConfirmed ? 0 : 2, sendAll: sendAll ?? false)
+                preparedTransaction = try self.wallet?.constructTransaction(walletaddress, amount: amount, srcAccount: acountN , requiredConfirmations: isShouldBeConfirmed ? 0 : 2, sendAll: sendAll ?? false)
                 
                 DispatchQueue.main.async { [weak self] in
                     guard let this = self else { return }
@@ -109,8 +267,8 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
                     let spendableAmount = spendable(account: (self?.selectedAccount!)!)
                     this.estimateSize.text = "\(preparedTransaction?.estimatedSignedSize() ?? 0) Bytes"
                     this.estimateFee.text = "\(fee) DCR"
-                    let tnt =  (spendableAmount - (Decimal(amountToSend) )) as NSDecimalNumber
-                    this.BalanceAfter.attributedText = getAttributedString(str: "\(tnt.round(8) ?? 0.0)", siz: 13, TexthexColor: GlobalConstants.Colors.TextAmount)
+                    let Amount =  (spendableAmount - (Decimal(amountToSend) )) as NSDecimalNumber
+                    this.BalanceAfter.text = "\(Amount.round(8)) DCR"
                     if(sendAll)!{
                         this.tfAmount.text = "\(DcrlibwalletAmountCoin(amount - DcrlibwalletAmountAtom(fee)) )"
                     }
@@ -120,25 +278,34 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
             }
         }
     }
+   
     
     private func signTransaction(sendAll: Bool?, password:String) {
+          var walletAddress = ""
+        if (self.toAddressContainer.isHidden){
+            let receiveAddress = try?wallet?.currentAddress((self.sendToAccount?.Number)!)
+            walletAddress = (receiveAddress!)!
+        }
+        else{
+            DispatchQueue.main.async {
+                 walletAddress = self.walletAddress.text!
+            }
+        }
         DispatchQueue.main.async {
-            let walletAddress = self.walletAddress.text!
             let amount = Double((self.tfAmount.text)!)! * 100000000
             let account = (self.selectedAccount?.Number)!
             DispatchQueue.global(qos: .userInitiated).async {[unowned self] in
                 do {
                     
                     let isShouldBeConfirmed = UserDefaults.standard.bool(forKey: "pref_spend_fund_switch")
-                    let result = try SingleInstance.shared.wallet?.sendTransaction(password.data(using: .utf8), destAddr: walletAddress, amount: Int64(amount) , srcAccount: account , requiredConfs: isShouldBeConfirmed ? 0 : 2, sendAll: sendAll ?? false)
+                    let result = try self.wallet?.sendTransaction(password.data(using: .utf8), destAddr: walletAddress, amount: Int64(amount) , srcAccount: account , requiredConfs: isShouldBeConfirmed ? 0 : 2, sendAll: sendAll ?? false)
                     
                     DispatchQueue.main.async {
                         self.transactionSucceeded(hash: result?.hexEncodedString())
                         self.walletAddress.text = ""
-                        self.tfAmount.text = "0"
-                        self.estimateFee.text = ""
-                        self.estimateSize.text = ""
-                        self.BalanceAfter.text = ""
+                        self.estimateFee.text = "0.00 DCR"
+                        self.estimateSize.text = "0 Bytes"
+                        self.BalanceAfter.text = "0.00 DCR"
                         self.updateBalance()
                         
                         return
@@ -154,6 +321,7 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: .UIApplicationWillEnterForeground, object: nil)
     }
     
     private func confirmSend(sendAll: Bool) {
@@ -232,7 +400,17 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
                     }
                     if (address?.length)! > 25 && (address?.length)! < 37 {
                         if (address?.starts(with: "T"))! {
-                            this.walletAddress?.text = address
+                            self?.fromNotQRScreen = false
+                            DispatchQueue.main.async {
+                                this.walletAddress?.text = address
+                            }
+                            this.removeQrbtn()
+                            if (this.removedBtn){
+                                print("showing but removing now")
+                                this.removedBtn = false
+                                this.removePasteBtn()
+                             
+                            }
                         } else{
                             self?.showAlert(message: message, titles: "Info")
                         }
@@ -308,27 +486,141 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         
-        if (self.tfAmount.text != nil && self.tfAmount.text != "" && self.tfAmount.text != "0") {
+        if (self.tfAmount.text != nil && self.tfAmount.text != "" && self.tfAmount.text != "0" && self.amountErrorText.text == "") {
             self.prepareTransaction(sendAll: false)
             return true
         }
         
         if (textField == self.tfAmount) {
-            self.tfAmount.text = "0"
-            self.estimateFee.text = ""
-            self.estimateSize.text = ""
-            self.BalanceAfter.text = ""
+            self.estimateFee.text = "0.00 DCR"
+            self.estimateSize.text = "0 Bytes"
+            self.BalanceAfter.text = "0.00 DCR"
         }
         
         return true
     }
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if textField == self.tfAmount{
-            return string.rangeOfCharacter(from: CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")) == nil
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+         if (textField == self.walletAddress) {
+             DispatchQueue.main.async {
+                self.addressErrorText.text = ""
+                
+            }
+            self.addQrbtn()
+            if (self.wallet.isAddressValid(UIPasteboard.general.string)) {
+                removedBtn = true
+                self.removePasteBtn()
+                return true
+            }
         }
+        
         return true
     }
+    var ACCEPTABLE_CHARACTERS = ""
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        var updatedString = (textField.text as NSString?)?.replacingCharacters(in: range, with: string)
+        
+       
+        if (textField == self.walletAddress) {
+            print("am typing")
+            if (updatedString == nil || updatedString?.trimmingCharacters(in: .whitespaces) == "") {
+                print("zero or invalid address")
+                DispatchQueue.main.async {
+                    self.addressErrorText.text = ""
+                }
+                self.addQrbtn()
+                if (self.wallet.isAddressValid(UIPasteboard.general.string)) {
+                   
+                        removedBtn = true
+                         self.removePasteBtn()
+                        return true
+            }
+                return true
+            }
+            print("input is more than 1")
+            if (removedBtn){
+                removedBtn = false
+                    self.removePasteBtn()
+            }
+            self.removeQrbtn()
+            
+            if (self.wallet.isAddressValid(updatedString)) {
+                DispatchQueue.main.async {
+                self.addressErrorText.text = ""
+                    
+                }
+                return true
+            } else {
+                DispatchQueue.main.async {
+                self.addressErrorText.text = "Destination address is not valid"
+                    
+                }
+                return true
+            }
+        }
+        if (textField == self.tfAmount) {
+            
+            let cs = NSCharacterSet(charactersIn: ACCEPTABLE_CHARACTERS).inverted
+            if (updatedString != nil && updatedString != "" ){
+                if((updatedString?.contains("."))!){
+                    let tmp2 = updatedString! as NSString
+                    let TmpDot = tmp2.range(of: ".")
+                    if((updatedString!.length - (TmpDot.location + 1)) > 8 || TmpDot.location > 8){
+                        return false
+                        
+                    }
+                    
+                    if(updatedString?.first == "."){
+                        DispatchQueue.main.async {
+                            self.tfAmount.text = "0."
+                            print(" . first")
+                        }
+                        updatedString = "0."
+                        ACCEPTABLE_CHARACTERS = "."
+                    }
+                    else{
+                        print(" . still point inside")
+                        ACCEPTABLE_CHARACTERS = "."
+                    }
+                }
+                else{
+                    if(updatedString!.length > 8){
+                        return false
+                        
+                    }
+                    print(" . no point inside")
+                    ACCEPTABLE_CHARACTERS = ""
+                    
+                }
+                
+                if !(CharacterSet(charactersIn: string).isSubset(of: cs)){
+                    return false
+                }
+                self.amountErrorText.text = ""
+                let tspendable = spendable(account: self.selectedAccount!) as Decimal
+                let amountToSend = Decimal(Double((updatedString)!)!)
+                
+                if (amountToSend > tspendable) {
+                    print("zero or invalid address")
+                    DispatchQueue.main.async {
+                        self.amountErrorText.text = "Not enough funds (or not connected)"
+                    }
+            }
+                else{
+                    DispatchQueue.main.async {
+                        self.amountErrorText.text = ""
+                       
+                    }
+                     return true
+                }
+           
+                return true
+            }
+        }
+        
+        return true
+            
+        }
+    
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
@@ -339,7 +631,7 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
         var accounts = [String]()
         var account: GetAccountResponse?
         do {
-            let strAccount = try SingleInstance.shared.wallet?.getAccounts(0)
+            let strAccount = try wallet?.getAccounts(0)
             account = try JSONDecoder().decode(GetAccountResponse.self, from: (strAccount?.data(using: .utf8))!)
             
         } catch let error {
@@ -350,7 +642,7 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
             let tspendable = spendable(account: acc) as NSDecimalNumber
             print(acc.Number)
             
-            return "\(acc.Name) [\( tspendable.round(8) ?? 0.0)]"
+            return "\(acc.Name) [\( tspendable.round(8) )]"
             })!
         
         let defaultNumber = UserDefaults.standard.integer(forKey: "wallet_default")
@@ -358,26 +650,54 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
         if let defaultAccount = account?.Acc.filter({ $0.Number == defaultNumber }).first {
             let tspendable = spendable(account: defaultAccount) as NSDecimalNumber
             
-            accountDropdown.setAttributedTitle(
-                getAttributedString(str: "\(defaultAccount.Name) [\(tspendable.round(8) ?? 0.0)]", siz: 13, TexthexColor: GlobalConstants.Colors.TextAmount),
+            accountDropdown.setTitle(
+                "\(defaultAccount.Name) [\(tspendable.round(8) )]",
                 for: UIControlState.normal
             )
-            
+            toAccountDropDown.setTitle(
+                "\(defaultAccount.Name) [\(tspendable.round(8) )]",
+                for: UIControlState.normal
+            )
             selectedAccount = account?.Acc[0]
+            sendToAccount = account?.Acc[0]
+           
         }
         
         self.accountDropdown.initMenu(accounts) { [weak self] ind, val in
             guard let this = self else { return }
             
-            this.accountDropdown.setAttributedTitle(
-                getAttributedString(str: val, siz: 13, TexthexColor: GlobalConstants.Colors.TextAmount),
+            this.accountDropdown.setTitle(
+                val,
                 for: UIControlState.normal
             )
             
             this.selectedAccount = account?.Acc[ind]
-            this.accountDropdown.setTitle("default", for: .normal)
+           
             
         }
+        self.toAccountDropDown.initMenu(accounts) { [weak self] ind, val in
+            guard let this = self else { return }
+            
+            this.toAccountDropDown.setTitle(
+                 val,
+                for: UIControlState.normal
+            )
+            
+            this.sendToAccount = account?.Acc[ind]
+            
+            
+        }
+    }
+    
+    @IBAction func pasteFunc(_ sender: Any) {
+        DispatchQueue.main.async {
+            self.walletAddress.text = UIPasteboard.general.string
+        }
+        self.removedBtn = false
+        self.addressErrorText.text = ""
+        self.removeQrbtn()
+        self.removePasteBtn()
+        self.walletAddress.becomeFirstResponder()
     }
     
     //MARK: - Validation
@@ -387,14 +707,17 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
             self.showAlertForInvalidWallet()
             return false
         }
-        
-        if !self.validateDestinationAddress() {
-            self.showAlertForInvalidDestinationAddress()
+        if !(self.toAddressContainer.isHidden){
+            if !self.validateDestinationAddress() {
+                self.addressErrorText.text = "Destination address is not valid"
+                return false
+            }
+        }
+        if !self.validateAmount() {
+            self.amountErrorText.text = "Amount can not be zero"
             return false
         }
-        
-        if !self.validateAmount() {
-            self.showAlertInvalidAmount()
+        if(self.amountErrorText.text != ""){
             return false
         }
         
@@ -406,7 +729,14 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
     }
     
     private func validateAmount() -> Bool {
-        return (self.BalanceAfter.text?.count ?? 0) > 0
+        if(self.tfAmount?.text == nil || self.tfAmount?.text == "" ){
+            return false
+        }
+        else{
+            let amountToSend = Double((self.tfAmount?.text ?? "0.0")!)!
+            return amountToSend > 0
+        }
+        
     }
     
     private func validateWallet() -> Bool {
@@ -438,6 +768,15 @@ class SendViewController: UIViewController, UITextFieldDelegate, QRCodeReaderVie
     }
     
     private func validate(address: String) -> Bool {
-        return (SingleInstance.shared.wallet?.isAddressValid(address)) ?? false
+        return (wallet?.isAddressValid(address)) ?? false
+    }
+    
+}
+class AmountTextfield: UITextField {
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        if action == #selector(UIResponderStandardEditActions.paste(_:)) {
+            return false
+        }
+        return super.canPerformAction(action, withSender: sender)
     }
 }
