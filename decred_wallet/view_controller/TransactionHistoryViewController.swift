@@ -24,7 +24,7 @@ class TransactionHistoryViewController: UIViewController, DcrlibwalletGetTransac
     
     @IBOutlet var tableView: UITableView!
     @IBOutlet var btnFilter: DropMenuButton!
-    
+    var FromMenu = true
     var visible:Bool = false
     
     var filterMenu = ["All"] as [String]
@@ -49,7 +49,11 @@ class TransactionHistoryViewController: UIViewController, DcrlibwalletGetTransac
     
     override func viewDidAppear(_ animated: Bool) {
         self.visible = true
-         prepareRecent()
+        if (self.FromMenu){
+             prepareRecent()
+            FromMenu = true
+        }
+
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -208,7 +212,7 @@ extension TransactionHistoryViewController: UITableViewDataSource, UITableViewDe
         if self.Filtercontent.count == 0{
             return
         }
-        
+        self.FromMenu = false
         subContentsVC.transaction = self.Filtercontent[indexPath.row]
         self.navigationController?.pushViewController(subContentsVC, animated: true)
     }

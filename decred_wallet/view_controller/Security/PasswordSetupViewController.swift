@@ -56,7 +56,11 @@ class PasswordSetupViewController: UIViewController, SeedCheckupProtocol, UIText
                 if SingleInstance.shared.wallet == nil {
                     return
                 }
-                try SingleInstance.shared.wallet?.createWallet(pass, seedMnemonic: seed)
+                
+                let wallet = SingleInstance.shared.wallet!
+                
+                try wallet.createWallet(pass, seedMnemonic: seed)
+                try wallet.unlock(pass!.data(using: .utf8))
                 DispatchQueue.main.async {
                     self!.progressHud!.dismiss()
                     self!.pinInput = pass
