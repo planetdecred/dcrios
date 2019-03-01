@@ -10,7 +10,7 @@ import UIKit
 
 struct AccountsData {
     let color: UIColor?
-    let spendableBalance: Double
+    let spendableBalance: NSDecimalNumber
     let title: String
     let totalBalance: Double
     var isExpanded: Bool = false
@@ -18,7 +18,7 @@ struct AccountsData {
     
     init(entity: AccountsEntity, color: UIColor?) {
         self.color = color
-        self.spendableBalance = Double((entity.Balance?.dcrSpendable)!)
+        self.spendableBalance = (spendable(account: entity) as NSDecimalNumber).round(8)
         self.totalBalance = Double((entity.Balance?.dcrTotal)!)
         self.title = entity.Name
         self.number = entity.Number
