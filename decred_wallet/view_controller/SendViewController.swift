@@ -29,7 +29,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     @IBOutlet weak var toAddressContainer: UIStackView!
     var removedBtn = true
     @IBOutlet weak var sendToaddressOption: UIButton!
-    var dcrlibwallet :DcrlibwalletLibWallet!
+    var wallet :DcrlibwalletLibWallet!
     
     @IBOutlet weak var amountErrorText: UILabel!
     @IBOutlet weak var addressErrorText: UILabel!
@@ -64,7 +64,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         self.menuOptionView.layer.shadowOffset = CGSize(width: 0, height: 1.0)
         self.menuOptionView.layer.shadowOpacity = 0.2
         self.menuOptionView.layer.shadowRadius = 4.0
-        dcrlibwallet = SingleInstance.shared.wallet
+        wallet = SingleInstance.shared.wallet
         NotificationCenter.default.addObserver(self, selector: #selector(willResignActive), name:.UIApplicationWillEnterForeground, object: nil)
         self.walletAddress.delegate = self
         removedBtn = false
@@ -107,7 +107,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     func checkpaste(){
         let pasteboardString: String? = UIPasteboard.general.string
         if let theString = pasteboardString {
-            if (dcrlibwallet.isAddressValid(theString )) {
+            if (self.wallet.isAddressValid(theString )) {
                 print("address valid on appear")
                 if !(removedBtn){
                     print("not showing but adding now")
@@ -251,7 +251,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         var fee = 0.0
         
         if !(validateDestinationAddress()) {
-            walletaddress = (try!SingleInstance.shared.wallet?.currentAddress(acountN))!
+            walletaddress = (try!wallet?.currentAddress(acountN))!
         }
         
         DispatchQueue.global(qos: .userInitiated).async {
@@ -259,7 +259,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                 
                 let isShouldBeConfirmed = UserDefaults.standard.bool(forKey: "pref_spend_fund_switch")
                 let preparedTransaction: DcrlibwalletUnsignedTransaction?
-                preparedTransaction = try SingleInstance.shared.wallet?.constructTransaction(walletaddress, amount: amount, srcAccount: acountN , requiredConfirmations: isShouldBeConfirmed ? 0 : 2, sendAll: sendAll ?? false)
+                preparedTransaction = try self.wallet?.constructTransaction(walletaddress, amount: amount, srcAccount: acountN , requiredConfirmations: isShouldBeConfirmed ? 0 : 2, sendAll: sendAll ?? false)
                 
                 DispatchQueue.main.async { [weak self] in
                     guard let this = self else { return }
@@ -283,7 +283,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     private func signTransaction(sendAll: Bool?, password:String) {
           var walletAddress = ""
         if (self.toAddressContainer.isHidden){
-            let receiveAddress = try?SingleInstance.shared.wallet?.currentAddress((self.sendToAccount?.Number)!)
+            let receiveAddress = try?wallet?.currentAddress((self.sendToAccount?.Number)!)
             walletAddress = (receiveAddress!)!
         }
         else{
@@ -298,7 +298,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                 do {
                     
                     let isShouldBeConfirmed = UserDefaults.standard.bool(forKey: "pref_spend_fund_switch")
-                    let result = try SingleInstance.shared.wallet?.sendTransaction(password.data(using: .utf8), destAddr: walletAddress, amount: Int64(amount) , srcAccount: account , requiredConfs: isShouldBeConfirmed ? 0 : 2, sendAll: sendAll ?? false)
+                    let result = try self.wallet?.sendTransaction(password.data(using: .utf8), destAddr: walletAddress, amount: Int64(amount) , srcAccount: account , requiredConfs: isShouldBeConfirmed ? 0 : 2, sendAll: sendAll ?? false)
                     
                     DispatchQueue.main.async {
                         self.transactionSucceeded(hash: result?.hexEncodedString())
@@ -506,7 +506,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                 
             }
             self.addQrbtn()
-            if (dcrlibwallet.isAddressValid(UIPasteboard.general.string)) {
+            if (self.wallet.isAddressValid(UIPasteboard.general.string)) {
                 removedBtn = true
                 self.removePasteBtn()
                 return true
@@ -528,7 +528,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                     self.addressErrorText.text = ""
                 }
                 self.addQrbtn()
-                if (dcrlibwallet.isAddressValid(UIPasteboard.general.string)) {
+                if (self.wallet.isAddressValid(UIPasteboard.general.string)) {
                    
                         removedBtn = true
                          self.removePasteBtn()
@@ -543,7 +543,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             }
             self.removeQrbtn()
             
-            if (dcrlibwallet.isAddressValid(updatedString)) {
+            if (self.wallet.isAddressValid(updatedString)) {
                 DispatchQueue.main.async {
                 self.addressErrorText.text = ""
                     
@@ -631,7 +631,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         var accounts = [String]()
         var account: GetAccountResponse?
         do {
-            let strAccount = try SingleInstance.shared.wallet?.getAccounts(0)
+            let strAccount = try wallet?.getAccounts(0)
             account = try JSONDecoder().decode(GetAccountResponse.self, from: (strAccount?.data(using: .utf8))!)
             
         } catch let error {
@@ -768,7 +768,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     }
     
     private func validate(address: String) -> Bool {
-        return (SingleInstance.shared.wallet?.isAddressValid(address)) ?? false
+        return (wallet?.isAddressValid(address)) ?? false
     }
     
 }
