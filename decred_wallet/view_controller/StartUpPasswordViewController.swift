@@ -27,7 +27,7 @@ class StartUpPasswordViewController: UIViewController,StartUpPasswordProtocol {
     }
     
     @IBAction func OKAction(_ sender: Any) {
-        if((self.passwordText.text?.count)! > 1){
+        if((self.passwordText.text?.count)! > 0){
             if (senders == "launcher") {
                 password_Unlock()
             } else if (senders == "settings") {
