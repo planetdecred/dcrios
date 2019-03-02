@@ -194,8 +194,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="tZ8-EX-Dgz">
-                                <rect key="frame" x="0.0" y="80" width="375" height="459"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="logo-mainnet" translatesAutoresizingMaskIntoConstraints="NO" id="9E2-N4-aPH">
+                                <rect key="frame" x="0.0" y="24" width="375" height="80"/>
+                                <color key="backgroundColor" red="0.97808688879013062" green="0.98281043767929077" blue="0.97899872064590454" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            </imageView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" bounces="NO" alwaysBounceVertical="YES" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="tZ8-EX-Dgz">
+                                <rect key="frame" x="0.0" y="104" width="375" height="435"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="awq-jF-BLV">
@@ -360,15 +364,17 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.97808688880000005" green="0.98281043769999998" blue="0.97899872060000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="hXM-FI-ON0" firstAttribute="top" secondItem="tZ8-EX-Dgz" secondAttribute="bottom" priority="750" constant="114" id="JJj-IC-vli"/>
                             <constraint firstItem="wP1-7n-prK" firstAttribute="top" secondItem="tZ8-EX-Dgz" secondAttribute="bottom" id="JaX-Mq-7YE"/>
-                            <constraint firstItem="tZ8-EX-Dgz" firstAttribute="top" secondItem="REJ-n5-19V" secondAttribute="top" constant="80" id="K0e-FY-E01"/>
+                            <constraint firstItem="tZ8-EX-Dgz" firstAttribute="top" secondItem="9E2-N4-aPH" secondAttribute="top" constant="80" id="K0e-FY-E01"/>
+                            <constraint firstItem="9E2-N4-aPH" firstAttribute="width" secondItem="REJ-n5-19V" secondAttribute="width" id="Ror-Ri-sN3"/>
                             <constraint firstItem="wP1-7n-prK" firstAttribute="leading" secondItem="tWm-u4-mem" secondAttribute="leading" id="Xfh-nN-vpR"/>
                             <constraint firstItem="hXM-FI-ON0" firstAttribute="top" secondItem="wP1-7n-prK" secondAttribute="bottom" id="dOm-Iy-CkC"/>
-                            <constraint firstAttribute="trailing" secondItem="tZ8-EX-Dgz" secondAttribute="trailing" id="g5C-cu-sdP"/>
-                            <constraint firstItem="tZ8-EX-Dgz" firstAttribute="leading" secondItem="REJ-n5-19V" secondAttribute="leading" id="pzK-e6-Yy4"/>
+                            <constraint firstItem="9E2-N4-aPH" firstAttribute="trailing" secondItem="tZ8-EX-Dgz" secondAttribute="trailing" id="g5C-cu-sdP"/>
+                            <constraint firstItem="tWm-u4-mem" firstAttribute="top" secondItem="9E2-N4-aPH" secondAttribute="bottom" constant="-60" id="ge6-6B-ert"/>
+                            <constraint firstItem="tZ8-EX-Dgz" firstAttribute="leading" secondItem="9E2-N4-aPH" secondAttribute="leading" id="pzK-e6-Yy4"/>
                             <constraint firstItem="wP1-7n-prK" firstAttribute="trailing" secondItem="tWm-u4-mem" secondAttribute="trailing" id="qJU-Wq-NRZ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="tWm-u4-mem"/>
@@ -381,13 +387,14 @@
                         <outlet property="blockInfo" destination="ACm-cR-Pgs" id="vY0-Kq-dYG"/>
                         <outlet property="chainStatus" destination="JWZ-oQ-74e" id="Vd2-ho-Wb3"/>
                         <outlet property="connectionStatus" destination="hMO-Fb-VRL" id="m8b-Db-bSj"/>
+                        <outlet property="headerImage" destination="9E2-N4-aPH" id="jkc-NI-l5y"/>
                         <outlet property="statusBackgroud" destination="Dps-jd-BY4" id="Vf7-Wk-W60"/>
                         <outlet property="tableView" destination="tZ8-EX-Dgz" id="Q4I-bN-BsR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JrB-Wy-sfE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="15" y="-753.16901408450701"/>
+            <point key="canvasLocation" x="13.6" y="-753.37331334332839"/>
         </scene>
         <!--Overview View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -7744,6 +7751,7 @@ AAAAAAAAAAAAAAACkeI
         <image name="img-checkmark" width="42" height="44"/>
         <image name="img-send-funds" width="145" height="139"/>
         <image name="left-arrow" width="33" height="33"/>
+        <image name="logo-mainnet" width="262" height="56"/>
         <image name="paste" width="13.439999580383301" height="16.319999694824219"/>
         <image name="qr_code_filled" width="33" height="33"/>
         <image name="receive" width="48" height="48"/>

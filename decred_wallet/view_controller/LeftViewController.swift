@@ -43,6 +43,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var LoadingImg: UIImageView!
     @IBOutlet weak var statusBackgroud: UIView!
+    @IBOutlet weak var headerImage: UIImageView!
     
     var menus = ["Overview","History", "Send", "Receive", "Account","Security", "Settings","Help"]
     
@@ -53,7 +54,6 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
     var settingsViewController: UIViewController!
     var historyViewController: UIViewController!
     var helpViewController:  UIViewController!
-    var imageHeaderView: UIImageView?
     var securityMenuViewController:UIViewController!
     var selectedIndex: Int!
     var storyboard2: UIStoryboard!
@@ -69,19 +69,17 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         self.selectedIndex = 0
         self.tableView.separatorColor = GlobalConstants.Colors.separaterGrey
         storyboard2 =  UIStoryboard(name: "Main", bundle: nil)
-        self.tableView.registerCellClass(MenuCell.self)     
-        imageHeaderView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width - 63, height: 80))
-        imageHeaderView?.backgroundColor = UIColor(hex: "F9FBFA")
-        imageHeaderView?.contentMode = .scaleAspectFit
+        self.tableView.registerCellClass(MenuCell.self)
         UserDefaults.standard.set(false, forKey: "synced")
         UserDefaults.standard.set(0, forKey: "peercount")
         UserDefaults.standard.synchronize()
-        self.view.addSubview(self.imageHeaderView!)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        imageHeaderView?.image = UserDefaults.standard.bool(forKey: "pref_use_testnet") ? UIImage(named: "logo-testnet") : UIImage(named: "logo-mainnet")
+        if UserDefaults.standard.bool(forKey: "pref_use_testnet") {
+            headerImage?.image = UIImage(named: "logo-testnet")
+        }
         
         self.scanning = UserDefaults.standard.bool(forKey: "walletScanning")
         self.sync = UserDefaults.standard.bool(forKey: "synced")
