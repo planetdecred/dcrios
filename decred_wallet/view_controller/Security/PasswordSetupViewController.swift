@@ -172,6 +172,10 @@ class PasswordSetupViewController: UIViewController, SeedCheckupProtocol, UIText
         } else if (tmpsender == "settingsChangeSpending") {
             ChangeSpendingPass()
         } else {
+            guard self.tfPassword.text == self.tfConfirmPassword.text else {
+                self.showMessageDialog(title: "Error", message: "Password does not match")
+                return false
+            }
             onEncrypt()
         }
         
