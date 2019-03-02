@@ -188,6 +188,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         if (SingleInstance.shared.wallet != nil){
             UserDefaults.standard.set(false, forKey: "walletScanning")
             UserDefaults.standard.set(false, forKey: "synced")
+            UserDefaults.standard.set(0, forKey: "peercount")
             UserDefaults.standard.synchronize()
             SingleInstance.shared.wallet?.shutdown()
         }

@@ -51,7 +51,7 @@ class TransactionHistoryViewController: UIViewController, DcrlibwalletGetTransac
              prepareRecent()
             FromMenu = true
         }
-       
+
     }
     
     override func viewDidDisappear(_ animated: Bool) {
