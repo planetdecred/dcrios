@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import SlideMenuControllerSwift
 
 class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDelegate {
     
@@ -35,6 +36,10 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
                self.showFirstWalletAddressAndQRCode()
         self.populateWalletDropdownMenu()
         self.starttime = Int64(NSDate().timeIntervalSince1970)
+        
+        self.accountDropdown.setTapListener(tapListener: {
+            self.menuOptionView.isHidden = true
+        })
     }
     
     func setupExtraUI(){
@@ -164,6 +169,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     }
     
     @objc func share(){
+        self.menuOptionView.isHidden = true
         self.shareImgOnTap()
     }
     
@@ -222,5 +228,12 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
             
         }
        
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touch: UITouch? = touches.first
+        if touch?.view != self.menuOptionView {
+            self.menuOptionView.isHidden = true
+        }
     }
 }

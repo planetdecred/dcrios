@@ -74,9 +74,15 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         self.removePasteBtn()
         self.checkpaste()
        
+        self.toAccountDropDown.setTapListener(tapListener: {
+            self.menuOptionView.isHidden = true
+        })
        
-        
+        self.accountDropdown.setTapListener(tapListener: {
+            self.menuOptionView.isHidden = true
+        })
     }
+    
     @objc func willResignActive(){
         if ( (self.walletAddress.text?.count)! < 1) {
              self.checkpaste()
@@ -661,7 +667,6 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                 else{
                     DispatchQueue.main.async {
                         self.amountErrorText.text = ""
-                       
                     }
                      return true
                 }
@@ -678,6 +683,12 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         self.view.endEditing(true)
+        
+        let touch: UITouch? = touches.first
+        
+        if touch?.view != self.menuOptionView {
+            self.menuOptionView.isHidden = true
+        }
     }
     private func showDefaultAccount(){
         var accounts = [String]()
@@ -840,7 +851,6 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     private func validate(address: String) -> Bool {
         return (wallet?.isAddressValid(address)) ?? false
     }
-    
 }
 class AmountTextfield: UITextField {
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
