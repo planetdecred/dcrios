@@ -16,9 +16,11 @@ class TransactiontOutputDetailsCell: UITableViewCell {
     
     var expandOrCollapse: (() -> Void)?
     
-    func setup(with credits:[Credit], decodedOutputs: [DecodedOutput]){
-        
+    var presentingController: TransactionFullDetailsViewController!
+    
+    func setup(with credits:[Credit], decodedOutputs: [DecodedOutput], presentingController: TransactionFullDetailsViewController){
         alcCreditStackHeight.constant = 0
+        self.presentingController = presentingController
         
         var walletOutputIndices = [Int]()
         
@@ -98,8 +100,9 @@ class TransactiontOutputDetailsCell: UITableViewCell {
             //Copy a string to the pasteboard.
             UIPasteboard.general.string = sender.titleLabel?.text
             //Alert
-            let alertController = UIAlertController(title: "", message: "address copied", preferredStyle: UIAlertControllerStyle.alert)
+            let alertController = UIAlertController(title: "", message: "Address copied!", preferredStyle: UIAlertControllerStyle.alert)
             alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            self.presentingController.present(alertController, animated: true, completion: nil)
         }
     }
 }

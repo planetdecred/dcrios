@@ -133,7 +133,7 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         case 1:
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "TransactiontInputDetails") as! TransactiontInputDetails
-            cell.setup(with: transaction.Debits, decodedInputs: decodedTransaction.Inputs)
+            cell.setup(with: transaction.Debits, decodedInputs: decodedTransaction.Inputs, presentingController: self)
             cell.expandOrCollapse = { [weak self] in
                 self?.tableTransactionDetails.reloadData()
             }
@@ -142,7 +142,7 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         case 2:
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "TransactiontOutputDetailsCell") as! TransactiontOutputDetailsCell
-            cell.setup(with: transaction.Credits, decodedOutputs: decodedTransaction.Outputs)
+            cell.setup(with: transaction.Credits, decodedOutputs: decodedTransaction.Outputs, presentingController: self)
             cell.expandOrCollapse = { [weak self] in
                 self?.tableTransactionDetails.reloadData()
             }
