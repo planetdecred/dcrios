@@ -306,6 +306,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                         self.estimateFee.text = "0.00 DCR"
                         self.estimateSize.text = "0 Bytes"
                         self.BalanceAfter.text = "0.00 DCR"
+                        self.tfAmount.text = nil
                         self.updateBalance()
                         
                         return
