@@ -37,6 +37,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     @IBOutlet weak var sendBtn: UIButton!
     @IBOutlet weak var qrcodeBtn: UIButton!
     var fromNotQRScreen = true
+     var AccountFilter: [AccountsEntity]?
     
     private lazy var readerVC: QRCodeReaderViewController = {
         let builder = QRCodeReaderViewControllerBuilder {
@@ -68,6 +69,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         NotificationCenter.default.addObserver(self, selector: #selector(willResignActive), name:.UIApplicationWillEnterForeground, object: nil)
         self.walletAddress.delegate = self
         removedBtn = false
+        self.showDefaultAccount()
         self.removePasteBtn()
         self.checkpaste()
        
@@ -307,6 +309,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                         self.estimateSize.text = "0 Bytes"
                         self.BalanceAfter.text = "0.00 DCR"
                         self.tfAmount.text = nil
+                        self.showDefaultAccount()
                         self.updateBalance()
                         
                         return
@@ -627,8 +630,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         super.touchesBegan(touches, with: event)
         self.view.endEditing(true)
     }
-    
-    private func updateBalance() {
+    private func showDefaultAccount(){
         var accounts = [String]()
         var account: GetAccountResponse?
         do {
@@ -659,11 +661,35 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                 "\(defaultAccount.Name) [\(tspendable.round(8) )]",
                 for: UIControlState.normal
             )
-            selectedAccount = account?.Acc[0]
-            sendToAccount = account?.Acc[0]
-           
+            selectedAccount = defaultAccount
+            sendToAccount = defaultAccount
+            
         }
         
+    }
+    
+    private func updateBalance() {
+        var accounts = [String]()
+        var account: GetAccountResponse?
+        do {
+            let strAccount = try wallet?.getAccounts(0)
+            account = try JSONDecoder().decode(GetAccountResponse.self, from: (strAccount?.data(using: .utf8))!)
+            
+        } catch let error {
+            print(error)
+        }
+        
+        accounts = (account?.Acc.filter({UserDefaults.standard.bool(forKey: "hidden\($0.Number)")  != true && $0.Number != INT_MAX }).map { (acc) -> String in
+            let tspendable = spendable(account: acc) as NSDecimalNumber
+            print(acc.Number)
+            
+            return "\(acc.Name) [\( tspendable.round(8) )]"
+            })!
+        AccountFilter = (account?.Acc.filter({UserDefaults.standard.bool(forKey: "hidden\($0.Number)")  != true && $0.Number != INT_MAX }).map { (acc) -> AccountsEntity in
+           
+            
+            return acc
+            })!
         self.accountDropdown.initMenu(accounts) { [weak self] ind, val in
             guard let this = self else { return }
             
@@ -671,10 +697,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                 val,
                 for: UIControlState.normal
             )
-            
-            this.selectedAccount = account?.Acc[ind]
-           
-            
+            this.selectedAccount = self?.AccountFilter?[ind]
         }
         self.toAccountDropDown.initMenu(accounts) { [weak self] ind, val in
             guard let this = self else { return }
@@ -683,10 +706,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                  val,
                 for: UIControlState.normal
             )
-            
-            this.sendToAccount = account?.Acc[ind]
-            
-            
+            this.sendToAccount = self?.AccountFilter?[ind]
         }
     }
     
