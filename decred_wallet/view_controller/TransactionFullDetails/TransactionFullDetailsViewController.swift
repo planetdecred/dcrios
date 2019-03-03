@@ -14,6 +14,8 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet var detailsHeader: UIView!
     @IBOutlet weak var amount: UILabel!
+    @IBOutlet weak var optionsMenu: UIView!
+    
     
     var transactionHash: String?
     var account : String?
@@ -40,6 +42,12 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         self.slideMenuController()?.removeLeftGestures()
         self.navigationItem.title = "Transaction Details"
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "left-arrow"), style: .done, target: self, action: #selector(backk))
+        
+        self.optionsMenu.layer.cornerRadius = 3
+        self.optionsMenu.layer.shadowColor = UIColor.black.cgColor
+        self.optionsMenu.layer.shadowOffset = CGSize(width: 0, height: 1.0)
+        self.optionsMenu.layer.shadowOpacity = 0.2
+        self.optionsMenu.layer.shadowRadius = 4.0
     }
     
     @objc func backk(){
@@ -50,6 +58,13 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         
         self.navigationItem.title = "Transaction Details"
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "left-arrow"), style: .done, target: self, action: #selector(backk))
+       
+        let optionsMenuButton = UIButton(type: .custom)
+        optionsMenuButton.setImage(UIImage(named: "right-menu"), for: .normal)
+        optionsMenuButton.addTarget(self, action: #selector(toggleOptionsMenu), for: .touchUpInside)
+        optionsMenuButton.frame = CGRect(x: 0, y: 0, width: 10, height: 51)
+        let barButton = UIBarButtonItem(customView: optionsMenuButton)
+        self.navigationItem.rightBarButtonItems = [barButton]
         
         do {
             if let data = Data(fromHexEncodedString: self.transaction.Hash) {
@@ -63,6 +78,26 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         }
         
         wrap(transaction: self.transaction)
+    }
+    
+    @objc func toggleOptionsMenu(){
+        print("Bar button clicked \(self.optionsMenu.isHidden)")
+        self.optionsMenu.isHidden = !self.optionsMenu.isHidden
+    }
+    
+    @IBAction func copyRawTransaction(_ sender: Any) {
+        copyText(text: transaction.Raw)
+        toggleOptionsMenu()
+    }
+    
+    @IBAction func copyTransactionHash(_ sender: Any) {
+        copyText(text: transaction.Hash)
+        toggleOptionsMenu()
+    }
+    
+    @IBAction func viewOnDcrdata(_ sender: Any) {
+        openLink(urlString: "https://testnet.dcrdata.org/tx/\(transaction.Hash)")
+        toggleOptionsMenu()
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -98,7 +133,7 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         case 1:
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "TransactiontInputDetails") as! TransactiontInputDetails
-            cell.setup(with: transaction.Debits, decodedInputs: decodedTransaction.Inputs)
+            cell.setup(with: transaction.Debits, decodedInputs: decodedTransaction.Inputs, presentingController: self)
             cell.expandOrCollapse = { [weak self] in
                 self?.tableTransactionDetails.reloadData()
             }
@@ -107,7 +142,7 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         case 2:
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "TransactiontOutputDetailsCell") as! TransactiontOutputDetailsCell
-            cell.setup(with: transaction.Credits, decodedOutputs: decodedTransaction.Outputs)
+            cell.setup(with: transaction.Credits, decodedOutputs: decodedTransaction.Outputs, presentingController: self)
             cell.expandOrCollapse = { [weak self] in
                 self?.tableTransactionDetails.reloadData()
             }
@@ -123,30 +158,21 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         case 0:
             
             if indexPath.row == 6 {
-                self.openLink(urlString: "https://testnet.dcrdata.org/tx/" + transaction.Hash)
+                copyText(text: transaction.Hash)
             }
-            
-        case 1:
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TransactiontInputDetails") as! TransactiontInputDetails
-            copyHash(hash: "")
-            
-        case 2:
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TransactiontOutputDetailsCell") as! TransactiontOutputDetailsCell
             
         default:
             return
         }
     }
     
-    private func copyHash(hash: String){
+    private func copyText(text: String){
         DispatchQueue.main.async {
             //Copy a string to the pasteboard.
-            UIPasteboard.general.string = hash
+            UIPasteboard.general.string = text
             
             //Alert
-            let alertController = UIAlertController(title: "", message: "Hash copied", preferredStyle: UIAlertControllerStyle.alert)
+            let alertController = UIAlertController(title: "", message: "Copied", preferredStyle: UIAlertControllerStyle.alert)
             alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
             self.present(alertController, animated: true, completion: nil)
         }

@@ -14,8 +14,11 @@ class TransactiontInputDetails: UITableViewCell {
     
     var expandOrCollapse: (() -> Void)?
     
-    func setup(with debits:[Debit], decodedInputs: [DecodedInput]){
+    var presentingController: TransactionFullDetailsViewController!
+    
+    func setup(with debits:[Debit], decodedInputs: [DecodedInput], presentingController: TransactionFullDetailsViewController){
         alcDebitStackHeight.constant = 0
+        self.presentingController = presentingController
         
         var walletInputIndices = [Int]()
         
@@ -95,8 +98,9 @@ class TransactiontInputDetails: UITableViewCell {
             //Copy a string to the pasteboard.
             UIPasteboard.general.string = sender.titleLabel?.text
             //Alert
-            let alertController = UIAlertController(title: "", message: "address copied", preferredStyle: UIAlertControllerStyle.alert)
+            let alertController = UIAlertController(title: "", message: "Previous outpoint copied!", preferredStyle: UIAlertControllerStyle.alert)
             alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            self.presentingController.present(alertController, animated: true, completion: nil)
         }
     }
 }
