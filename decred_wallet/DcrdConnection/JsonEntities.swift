@@ -122,7 +122,6 @@ struct GetTransactionResponse: Codable {
 
 struct Transaction: Codable {
     var Hash: String
-    var Transaction: String?
     var Fee: Double
     var Direction: Int
     var Timestamp: UInt64
@@ -132,11 +131,11 @@ struct Transaction: Codable {
     var Height: Int
     var Debits: [Debit]
     var Credits: [Credit]
+    var Raw: String
     @nonobjc var Animate: Bool
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         self.Hash = try values.decodeIfPresent(String.self, forKey: .Hash) ?? ""
-        self.Transaction = try values.decodeIfPresent(String.self, forKey: .Transaction) ?? ""
         self.Fee = try values.decodeIfPresent(Double.self, forKey: .Fee) ?? 0.0
         self.Direction = try values.decodeIfPresent(Int.self, forKey: .Direction) ?? 0
         self.Timestamp = try values.decodeIfPresent(UInt64.self, forKey: .Timestamp) ?? 0
@@ -146,6 +145,7 @@ struct Transaction: Codable {
         self.Height = try values.decodeIfPresent(Int.self, forKey: .Height) ?? 0
         self.Debits = try values.decodeIfPresent([Debit].self, forKey: .Debits) ?? [Debit]()
         self.Credits = try values.decodeIfPresent([Credit].self, forKey: .Credits) ?? [Credit]()
+        self.Raw = try values.decodeIfPresent(String.self, forKey: .Raw) ?? ""
         self.Animate = false
     }
 }

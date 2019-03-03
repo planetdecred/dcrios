@@ -59,7 +59,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
         let shareBtn = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share))
         let generateAddressBtn = UIButton(type: .custom)
         generateAddressBtn.setImage(UIImage(named: "right-menu"), for: .normal)
-        generateAddressBtn.addTarget(self, action: #selector(switchFunc), for: .touchUpInside)
+        generateAddressBtn.addTarget(self, action: #selector(toggleOptionsMenu), for: .touchUpInside)
         generateAddressBtn.frame = CGRect(x: 0, y: 0, width: 10, height: 51)
         let barButton = UIBarButtonItem(customView: generateAddressBtn)
         self.navigationItem.rightBarButtonItems = [barButton, shareBtn ]
@@ -69,7 +69,8 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    @objc func switchFunc(){
+    
+    @objc func toggleOptionsMenu(){
         self.menuOptionView.isHidden = !self.menuOptionView.isHidden
         
     }
@@ -77,7 +78,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     @IBAction private func generateNewAddress() {
         self.oldAddress = self.walletAddress.currentTitle!
         self.getNextAddress(accountNumber: (self.myacc.Number))
-        self.switchFunc()
+        self.toggleOptionsMenu()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
