@@ -43,4 +43,12 @@ struct GlobalConstants {
     struct CellIdentifier {
         
     }
+    
+    struct Strings {
+        static let VOTE = "VOTE"
+        static let REVOCATION = "REVOCATION"
+        static let TICKET_PURCHASE = "TICKET_PURCHASE"
+        static let COINBASE = "COINBASE"
+        static let REGULAR = "REGULAR"
+    }
 }

@@ -48,10 +48,9 @@ class TransactionHistoryViewController: UIViewController, DcrlibwalletGetTransac
     override func viewDidAppear(_ animated: Bool) {
         self.visible = true
         if (self.FromMenu){
-             prepareRecent()
+            prepareRecent()
             FromMenu = true
         }
-
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -112,45 +111,49 @@ class TransactionHistoryViewController: UIViewController, DcrlibwalletGetTransac
             }
         }
     }
+    
     func initFilterBtn(){
         self.btnFilter.initMenu(filterMenu) { [weak self] index, value in
             guard let this = self else { return }
             
             switch(index){
-            case 0:
-                this.Filtercontent = this.mainContens
-                this.Filtercontent.reverse()
-                this.btnFilter.setTitle("All (".appending(String(this.Filtercontent.count)).appending(")"), for: .normal)
-                this.tableView.reloadData()
-                break
             case 1:
-                this.Filtercontent = this.mainContens.filter{$0.Direction == 0}
+                // TODO: Remove after next dcrlibwallet update
+                this.Filtercontent = this.mainContens.filter{$0.Direction == 0 && $0.Type == GlobalConstants.Strings.REGULAR}
                 this.btnFilter.setTitle("Sent (".appending(String(this.Filtercontent.count)).appending(")"), for: .normal)
                 this.Filtercontent.reverse()
                 this.tableView.reloadData()
                 break
             case 2:
-                this.Filtercontent = this.mainContens.filter{$0.Direction == 1}
+                // TODO: Remove after next dcrlibwallet update
+                this.Filtercontent = this.mainContens.filter{$0.Direction == 1 && $0.Type == GlobalConstants.Strings.REGULAR}
                 this.btnFilter.setTitle("Received (".appending(String(this.Filtercontent.count)).appending(")"), for: .normal)
                 this.Filtercontent.reverse()
                 this.tableView.reloadData()
                 break
             case 3:
-                this.Filtercontent = this.mainContens.filter{$0.Direction == 2}
+                // TODO: Remove after next dcrlibwallet update
+                this.Filtercontent = this.mainContens.filter{$0.Direction == 2 && $0.Type == GlobalConstants.Strings.REGULAR}
                 this.btnFilter.setTitle("Yourself (".appending(String(this.Filtercontent.count)).appending(")"), for: .normal)
                 this.Filtercontent.reverse()
                 this.tableView.reloadData()
                 break
             case 4:
-                this.Filtercontent = this.mainContens.filter{$0.Type.lowercased() != "Regular".lowercased()}
+                this.Filtercontent = this.mainContens.filter{$0.Type == GlobalConstants.Strings.REVOCATION || $0.Type == GlobalConstants.Strings.TICKET_PURCHASE || $0.Type == GlobalConstants.Strings.VOTE}
                 this.btnFilter.setTitle("Staking (".appending(String(this.Filtercontent.count)).appending(")"), for: .normal)
+                this.Filtercontent.reverse()
+                this.tableView.reloadData()
+                break
+            case 5:
+                this.Filtercontent = this.mainContens.filter{$0.Type == GlobalConstants.Strings.COINBASE}
+                this.btnFilter.setTitle("Coinbase (".appending(String(this.Filtercontent.count)).appending(")"), for: .normal)
                 this.Filtercontent.reverse()
                 this.tableView.reloadData()
                 break
             default:
                 this.Filtercontent = this.mainContens
-                this.btnFilter.setTitle("All (".appending(String(this.Filtercontent.count)).appending(")"), for: .normal)
                 this.Filtercontent.reverse()
+                this.btnFilter.setTitle("All (".appending(String(this.Filtercontent.count)).appending(")"), for: .normal)
                 this.tableView.reloadData()
             }
             
@@ -164,6 +167,7 @@ class TransactionHistoryViewController: UIViewController, DcrlibwalletGetTransac
         let ReceiveCount = self.mainContens.filter{$0.Direction == 1}.count
         let yourselfCount = self.mainContens.filter{$0.Direction == 2}.count
         let stakeCount = self.mainContens.filter{$0.Type.lowercased() != "Regular".lowercased()}.count
+        let coinbaseCount = self.mainContens.filter{$0.Type == GlobalConstants.Strings.COINBASE}.count
         self.btnFilter.setTitle("All (".appending(String(self.Filtercontent.count)).appending(")"), for: .normal)
         self.btnFilter.items.insert("All (".appending(String(self.Filtercontent.count)).appending(")"), at: 0)
         if(sentCount != 0){
@@ -177,6 +181,9 @@ class TransactionHistoryViewController: UIViewController, DcrlibwalletGetTransac
         }
         if(stakeCount != 0){
             self.btnFilter.items.insert("Stake (".appending(String(stakeCount)).appending(")"), at: 4)
+        }
+        if(coinbaseCount != 0){
+            self.btnFilter.items.insert("Coinbase (".appending(String(coinbaseCount)).appending(")"), at: 5)
         }
     }
     
