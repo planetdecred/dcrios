@@ -7,7 +7,6 @@
 
 import Foundation
 import UIKit
-import SlideMenuControllerSwift
 
 class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDelegate {
     
