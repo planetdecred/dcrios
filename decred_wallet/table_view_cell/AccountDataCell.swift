@@ -56,6 +56,12 @@ class AccountDataCell: UITableViewCell, AccountDetailsCellProtocol {
         labelAccountNoValue.text = "\(account.Number)"
         labelKeysValue.text = "\(account.ExternalKeyCount) External, \(account.InternalKeyCount) Internal, \(account.ImportedKeyCount) Imported"
         
+        if UserDefaults.standard.bool(forKey: "pref_use_testnet") {
+            labelHDPathValue.text = "\(GlobalConstants.Strings.TESTNET_HD_PATH) \(account.Number)'"
+        }else {
+            labelHDPathValue.text = "\(GlobalConstants.Strings.MAINNET_HD_PATH) \(account.Number)'"
+        }
+        
         if (account.Number == INT_MAX) {
             defaultAccount.setOn(false, animated: false)
             defaultAccount.isEnabled = false

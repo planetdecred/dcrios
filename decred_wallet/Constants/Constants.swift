@@ -50,5 +50,9 @@ struct GlobalConstants {
         static let TICKET_PURCHASE = "TICKET_PURCHASE"
         static let COINBASE = "COINBASE"
         static let REGULAR = "REGULAR"
+        static let TESTNET_HD_PATH = "m / 44' / 1' /"
+        static let LEGACY_TESTNET_HD_PATH = "m / 44' / 11' /"
+        static let MAINNET_HD_PATH = "m / 44' / 42' /"
+        static let LEGACY_MAINNET_HD_PATH = "m / 44' / 20' /"
     }
 }
