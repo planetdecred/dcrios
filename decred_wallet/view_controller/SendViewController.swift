@@ -31,6 +31,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     @IBOutlet weak var sendToaddressOption: UIButton!
     var wallet :DcrlibwalletLibWallet!
     
+    @IBOutlet weak var sendNtwkErrtext: UILabel!
     @IBOutlet weak var amountErrorText: UILabel!
     @IBOutlet weak var addressErrorText: UILabel!
     @IBOutlet weak var menuOptionView: UIView!
@@ -233,6 +234,13 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     }
     
     @IBAction private func sendFund(_ sender: Any) {
+        guard !(UserDefaults.standard.bool(forKey: "synced")) else {
+            sendNtwkErrtext.text = "Please wait for network synchronization."
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                self.sendNtwkErrtext.text = " "
+            }
+            return
+        }
         if self.validate() {
             self.fromNotQRScreen = false
             if(UserDefaults.standard.string(forKey: "spendingSecureType") == "PASSWORD"){
