@@ -13,7 +13,6 @@ class AccountDataCell: UITableViewCell, AccountDetailsCellProtocol {
     
     // MARK:- Details
     @IBOutlet weak var detailsStackView: UIStackView!
-    @IBOutlet weak var detailsStackHeightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var labelImmatureRewardValue: UILabel!
     @IBOutlet private weak var labelLockedByTicketsValue: UILabel!
     @IBOutlet private weak var labelVotingAuthorityValue: UILabel!

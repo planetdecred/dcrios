@@ -142,6 +142,12 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let acct = account?.Acc[indexPath.section]
+        if acct?.Balance?.ImmatureReward == 0 && acct?.Balance?.LockedByTickets == 0 &&
+            acct?.Balance?.VotingAuthority == 0 && acct?.Balance?.ImmatureStakeGeneration == 0 {
+                return 330
+        }
+        
         return 540.0
     }
     
