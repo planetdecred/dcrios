@@ -538,7 +538,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     }
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        
+        self.menuOptionView.isHidden = true
         if (self.tfAmount.text != nil && self.tfAmount.text != "" && self.tfAmount.text != "0" && self.amountErrorText.text == "") {
             self.prepareTransaction(sendAll: false)
             return true
