@@ -112,7 +112,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
                     this.chainStatus.text = ""
                     this.blockInfo.text = "Fetched"
                     this.statusBackgroud.backgroundColor = UIColor(hex: "#2DD8A3")
-                    this.connectionStatus.text = "Fetching Headers..."
+                    this.connectionStatus.text = "Syncing with \(peer) peers"
                 } else {
                     this.bestblock.text = String(bestblocktemp).appending(" of ").appending(String(estimatedBlocks))
                     this.chainStatus.text = ""
