@@ -31,6 +31,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     @IBOutlet weak var sendToaddressOption: UIButton!
     var wallet :DcrlibwalletLibWallet!
     
+    @IBOutlet weak var sendNtwkErrtext: UILabel!
     @IBOutlet weak var amountErrorText: UILabel!
     @IBOutlet weak var addressErrorText: UILabel!
     @IBOutlet weak var menuOptionView: UIView!
@@ -233,6 +234,14 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     }
     
     @IBAction private func sendFund(_ sender: Any) {
+        let peer = UserDefaults.standard.integer(forKey: "peercount")
+        guard peer > 0 else {
+            sendNtwkErrtext.text = "Not connected to the network."
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                self.sendNtwkErrtext.text = " "
+            }
+            return
+        }
         if self.validate() {
             self.fromNotQRScreen = false
             if(UserDefaults.standard.string(forKey: "spendingSecureType") == "PASSWORD"){
@@ -280,9 +289,16 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             }
         }
     }
-   
     
     private func signTransaction(sendAll: Bool?, password:String) {
+        let peer = UserDefaults.standard.integer(forKey: "peercount")
+        guard peer > 0 else {
+            sendNtwkErrtext.text = "Not connected to the network."
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                self.sendNtwkErrtext.text = " "
+            }
+            return
+        }
           var walletAddress = ""
         if (self.toAddressContainer.isHidden){
             let receiveAddress = try?wallet?.currentAddress((self.sendToAccount?.Number)!)
@@ -304,14 +320,6 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                     
                     DispatchQueue.main.async {
                         self.transactionSucceeded(hash: result?.hexEncodedString())
-                        self.walletAddress.text = ""
-                        self.estimateFee.text = "0.00 DCR"
-                        self.estimateSize.text = "0 Bytes"
-                        self.BalanceAfter.text = "0.00 DCR"
-                        self.tfAmount.text = nil
-                        self.showDefaultAccount()
-                        self.updateBalance()
-                        
                         return
                     }
                     return
@@ -468,9 +476,38 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         
         sendCompletedVC.openDetails = { [weak self] in
             guard let `self` = self else { return }
+            DispatchQueue.main.async {
+            self.walletAddress.text = nil
+            self.estimateFee.text = "0.00 DCR"
+            self.estimateSize.text = "0 Bytes"
+            self.BalanceAfter.text = "0.00 DCR"
+            self.tfAmount.text = nil
+            if !(self.toAddressContainer.isHidden){
+                self.addQrbtn()
+                self.checkpaste()
+                
+            }
+            self.showDefaultAccount()
+            }
             self.openLink(urlString: "https://testnet.dcrdata.org/tx/" + hashe! )
         }
-        
+        sendCompletedVC.closeView = { [weak self] in
+            guard let `self` = self else { return }
+            DispatchQueue.main.async {
+            self.walletAddress.text = nil
+            self.estimateFee.text = "0.00 DCR"
+            self.estimateSize.text = "0 Bytes"
+            self.BalanceAfter.text = "0.00 DCR"
+            self.tfAmount.text = nil
+            if !(self.toAddressContainer.isHidden){
+                self.addQrbtn()
+                self.checkpaste()
+            }
+            self.showDefaultAccount()
+            self.updateBalance()
+            }
+            
+        }
         self.present(sendCompletedVC, animated: true, completion: nil)
         return
     }
