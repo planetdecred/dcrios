@@ -114,7 +114,7 @@ extension ButtonConfirmSeedViewController: UITableViewDataSource{
         suggestionsWithFake[trueSeedIndex] = trueSeed ?? "dummy"
         
         let fakeWordsArray = allWords.filter({
-            return ($0.lowercased().hasPrefix((String(trueSeed!.first!)).lowercased()) && $0.lowercased() != trueSeed?.lowercased())
+            return ($0.lowercased() != trueSeed?.lowercased())
         })
         var fakeWordsSet = Array(Set(fakeWordsArray))
         let fake1 = Int.random(in: 0...(fakeWordsSet.count) - 1)
