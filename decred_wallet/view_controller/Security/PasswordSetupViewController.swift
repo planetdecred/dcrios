@@ -166,6 +166,10 @@ class PasswordSetupViewController: UIViewController, SeedCheckupProtocol, UIText
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        guard self.tfPassword.text == self.tfConfirmPassword.text else {
+            self.showMessageDialog(title: "Error", message: "Password does not match")
+            return false
+        }
         let tmpsender = self.senders
         if (tmpsender == "settings") {
             SetstartupPin_pas()
