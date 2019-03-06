@@ -29,6 +29,7 @@ class TransactionHistoryViewController: UIViewController, DcrlibwalletGetTransac
     var visible:Bool = false
     
     var filterMenu = ["All"] as [String]
+    var filtertitle = [0] as [Int]
     
     var mainContens = [Transaction]()
     var Filtercontent = [Transaction]()
@@ -126,7 +127,7 @@ class TransactionHistoryViewController: UIViewController, DcrlibwalletGetTransac
         self.btnFilter.initMenu(filterMenu) { [weak self] index, value in
             guard let this = self else { return }
             
-            switch(index){
+            switch(self?.filtertitle[index]){
             case 1:
                 // TODO: Remove after next dcrlibwallet update
                 this.Filtercontent = this.mainContens.filter{$0.Direction == 0 && $0.Type == GlobalConstants.Strings.REGULAR}
@@ -178,22 +179,31 @@ class TransactionHistoryViewController: UIViewController, DcrlibwalletGetTransac
         let yourselfCount = self.mainContens.filter{$0.Direction == 2}.count
         let stakeCount = self.mainContens.filter{$0.Type.lowercased() != "Regular".lowercased()}.count
         let coinbaseCount = self.mainContens.filter{$0.Type == GlobalConstants.Strings.COINBASE}.count
+        self.filtertitle.removeAll()
         self.btnFilter.setTitle("All (".appending(String(self.Filtercontent.count)).appending(")"), for: .normal)
-        self.btnFilter.items.insert("All (".appending(String(self.Filtercontent.count)).appending(")"), at: 0)
+        self.btnFilter.items.append("All (".appending(String(self.Filtercontent.count)).appending(")"))
+        self.filtertitle.append(0)
         if(sentCount != 0){
-            self.btnFilter.items.insert("Sent (".appending(String(sentCount)).appending(")"), at: 1)
+            self.btnFilter.items.append("Sent (".appending(String(sentCount)).appending(")"))
+            filtertitle.append(1)
         }
         if(ReceiveCount != 0){
-            self.btnFilter.items.insert("Received (".appending(String(ReceiveCount)).appending(")"), at: 2)
+            self.btnFilter.items.append("Received (".appending(String(ReceiveCount)).appending(")"))
+            filtertitle.append(2)
+            
+            
         }
         if(yourselfCount != 0){
-            self.btnFilter.items.insert("Yourself (".appending(String(yourselfCount)).appending(")"), at: 3)
+            self.btnFilter.items.append("Yourself (".appending(String(yourselfCount)).appending(")"))
+            filtertitle.append(3)
         }
         if(stakeCount != 0){
-            self.btnFilter.items.insert("Stake (".appending(String(stakeCount)).appending(")"), at: 4)
+            self.btnFilter.items.append("Stake (".appending(String(stakeCount)).appending(")"))
+            filtertitle.append(4)
         }
         if(coinbaseCount != 0){
-            self.btnFilter.items.insert("Coinbase (".appending(String(coinbaseCount)).appending(")"), at: 5)
+            self.btnFilter.items.append("Coinbase (".appending(String(coinbaseCount)).appending(")"))
+            filtertitle.append(5)
         }
     }
     
