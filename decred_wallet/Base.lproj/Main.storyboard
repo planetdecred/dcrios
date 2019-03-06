@@ -2846,7 +2846,6 @@
                             <constraint firstItem="tia-x0-Tuk" firstAttribute="trailing" secondItem="mDr-9c-nJH" secondAttribute="trailing" constant="16" id="fZW-DZ-7yf"/>
                             <constraint firstItem="mDr-9c-nJH" firstAttribute="centerX" secondItem="poY-fZ-1pE" secondAttribute="centerX" id="gs6-aa-EGf"/>
                             <constraint firstItem="laf-LU-TvR" firstAttribute="width" secondItem="poY-fZ-1pE" secondAttribute="width" multiplier="0.5" id="hl3-RV-7eo"/>
-                            <constraint firstItem="tia-x0-Tuk" firstAttribute="trailing" secondItem="SPK-YM-wpQ" secondAttribute="trailing" constant="8" id="hri-Z3-odu"/>
                             <constraint firstItem="67q-nv-wAm" firstAttribute="leading" secondItem="tia-x0-Tuk" secondAttribute="leading" constant="16" id="iYi-W7-dbs"/>
                             <constraint firstItem="tia-x0-Tuk" firstAttribute="trailing" secondItem="C84-at-Tbh" secondAttribute="trailing" constant="16" id="q3w-Xc-cOl"/>
                             <constraint firstItem="mDr-9c-nJH" firstAttribute="leading" secondItem="tia-x0-Tuk" secondAttribute="leading" constant="16" id="sCc-9e-31m"/>
@@ -2864,13 +2863,11 @@
                         <outlet property="amountErrorText" destination="P3M-Nu-LWx" id="z8r-Hl-mhL"/>
                         <outlet property="estimateFee" destination="h3w-yu-1hS" id="Ly4-ZN-GSe"/>
                         <outlet property="estimateSize" destination="EYP-dy-3rP" id="F36-21-nTH"/>
-                        <outlet property="menuOptionView" destination="SPK-YM-wpQ" id="puy-6E-cah"/>
                         <outlet property="pasteBtn" destination="5cw-XO-3Nc" id="wec-3B-69g"/>
                         <outlet property="qrcodeBtn" destination="ekN-Q7-cJw" id="iyJ-34-Ifw"/>
                         <outlet property="sendAllBtn" destination="XEv-GC-rJ4" id="hfA-WZ-tSH"/>
                         <outlet property="sendBtn" destination="7bo-wU-1ZW" id="GpK-B5-1fx"/>
                         <outlet property="sendNtwkErrtext" destination="qHe-MI-nxa" id="vyt-Gc-ziW"/>
-                        <outlet property="sendToaddressOption" destination="PVP-E5-R8B" id="agq-Nh-ggS"/>
                         <outlet property="tfAmount" destination="LV4-0v-JkB" id="7Wm-vk-E6h"/>
                         <outlet property="toAccountContainer" destination="Ivr-X3-eRr" id="w9O-bo-SAP"/>
                         <outlet property="toAccountDropDown" destination="cGY-Qg-Len" id="cxo-4w-K7A"/>
@@ -3149,7 +3146,6 @@
                             <constraint firstItem="Bpw-2z-j9u" firstAttribute="centerX" secondItem="IWZ-ke-U66" secondAttribute="centerX" id="4fO-ZL-wiA"/>
                             <constraint firstItem="P2Q-l4-CRY" firstAttribute="top" secondItem="xB6-h2-AYO" secondAttribute="bottom" id="7Er-iY-Q6B"/>
                             <constraint firstItem="Bpw-2z-j9u" firstAttribute="width" secondItem="IWZ-ke-U66" secondAttribute="width" multiplier="0.9" id="7fW-2n-Q0s"/>
-                            <constraint firstItem="jg0-hE-iYI" firstAttribute="trailing" secondItem="re2-AD-PQ6" secondAttribute="trailing" constant="8" id="9FY-a2-OsI"/>
                             <constraint firstItem="Flk-UH-f1q" firstAttribute="width" secondItem="IWZ-ke-U66" secondAttribute="width" multiplier="0.98" id="9G3-LL-u6b"/>
                             <constraint firstItem="1Ww-qc-2o9" firstAttribute="centerX" secondItem="IWZ-ke-U66" secondAttribute="centerX" id="AV9-ci-Zbh"/>
                             <constraint firstItem="KIw-9c-4KG" firstAttribute="width" secondItem="IWZ-ke-U66" secondAttribute="width" multiplier="0.9" id="BiL-Wv-tMo"/>
@@ -3166,7 +3162,6 @@
                             <constraint firstItem="jg0-hE-iYI" firstAttribute="trailing" secondItem="P2Q-l4-CRY" secondAttribute="trailing" constant="8" id="fpk-za-lqw"/>
                             <constraint firstItem="KIw-9c-4KG" firstAttribute="top" secondItem="Flk-UH-f1q" secondAttribute="bottom" id="gsE-T2-xhu"/>
                             <constraint firstItem="P2Q-l4-CRY" firstAttribute="leading" secondItem="jg0-hE-iYI" secondAttribute="leading" constant="8" id="iIA-dY-cQd"/>
-                            <constraint firstItem="re2-AD-PQ6" firstAttribute="top" secondItem="jg0-hE-iYI" secondAttribute="top" constant="1" id="q54-D9-cGE"/>
                             <constraint firstItem="xB6-h2-AYO" firstAttribute="width" secondItem="IWZ-ke-U66" secondAttribute="width" multiplier="0.9" id="uAa-3K-0h5"/>
                             <constraint firstItem="P2Q-l4-CRY" firstAttribute="top" secondItem="jg0-hE-iYI" secondAttribute="top" constant="143" id="v2R-LR-oMH"/>
                             <constraint firstItem="iXW-Px-8lO" firstAttribute="centerX" secondItem="IWZ-ke-U66" secondAttribute="centerX" id="yeV-jj-1vs"/>
@@ -3180,7 +3175,6 @@
                     <connections>
                         <outlet property="accountDropdown" destination="fvx-Vc-1a6" id="GlO-JJ-21g"/>
                         <outlet property="imgWalletAddrQRCode" destination="P2Q-l4-CRY" id="2cl-JZ-uxS"/>
-                        <outlet property="menuOptionView" destination="re2-AD-PQ6" id="nZ5-uN-ycj"/>
                         <outlet property="subheader" destination="iXW-Px-8lO" id="X67-mK-iY8"/>
                         <outlet property="walletAddress" destination="Flk-UH-f1q" id="fBg-uz-vgt"/>
                     </connections>
