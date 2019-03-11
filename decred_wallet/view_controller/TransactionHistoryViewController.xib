@@ -28,16 +28,16 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Transaction(s)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wg8-gU-t3W">
-                    <rect key="frame" x="23" y="41" width="186" height="21"/>
+                    <rect key="frame" x="23" y="29" width="186" height="45"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="186" id="Hgh-w9-fFB"/>
-                        <constraint firstAttribute="height" constant="21" id="VMd-db-sBn"/>
+                        <constraint firstAttribute="height" constant="45" id="VMd-db-sBn"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow-1" translatesAutoresizingMaskIntoConstraints="NO" id="rA7-jS-dhT">
-                    <rect key="frame" x="343" y="39" width="27" height="24"/>
+                    <rect key="frame" x="343" y="39.5" width="27" height="24"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="27" id="Jdj-k0-gtD"/>
                         <constraint firstAttribute="height" constant="24" id="ix7-kb-jlO"/>
@@ -49,13 +49,13 @@
                         <constraint firstAttribute="width" constant="132" id="de2-Z0-6zu"/>
                         <constraint firstAttribute="height" constant="45" id="x7o-03-zTf"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                    <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
                     <state key="normal" title="ALL">
                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
                 </button>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Tmy-DS-jlp">
-                    <rect key="frame" x="0.0" y="85" width="375" height="582"/>
+                    <rect key="frame" x="0.0" y="82" width="375" height="585"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="Toe-8H-UGq"/>
@@ -63,7 +63,7 @@
                     </connections>
                 </tableView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PjH-in-6bf">
-                    <rect key="frame" x="4" y="82" width="367.5" height="1"/>
+                    <rect key="frame" x="4" y="79" width="367.5" height="1"/>
                     <color key="backgroundColor" red="0.83921568629999999" green="0.84705882349999995" blue="0.84705882349999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="0uh-gQ-rxz"/>
@@ -73,14 +73,14 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="PjH-in-6bf" firstAttribute="top" secondItem="rA7-jS-dhT" secondAttribute="bottom" constant="19" id="4D9-nl-Pef"/>
                 <constraint firstItem="Tmy-DS-jlp" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="9Cn-7P-URB"/>
                 <constraint firstItem="Tmy-DS-jlp" firstAttribute="top" secondItem="PjH-in-6bf" secondAttribute="bottom" constant="2" id="BvC-Jm-ptn"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="rA7-jS-dhT" secondAttribute="trailing" constant="5" id="ENo-oK-8IU"/>
                 <constraint firstItem="Tmy-DS-jlp" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="L6H-r1-7HS"/>
+                <constraint firstItem="PjH-in-6bf" firstAttribute="top" secondItem="LZb-hI-JcZ" secondAttribute="bottom" constant="5" id="Tiw-Bh-4nt"/>
                 <constraint firstItem="Tmy-DS-jlp" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Tpa-cy-I4w"/>
-                <constraint firstItem="rA7-jS-dhT" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="19" id="a1z-vY-gho"/>
-                <constraint firstItem="wg8-gU-t3W" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="21" id="oOz-4W-vjL"/>
+                <constraint firstItem="rA7-jS-dhT" firstAttribute="centerY" secondItem="LZb-hI-JcZ" secondAttribute="centerY" id="dzv-cu-u8K"/>
+                <constraint firstItem="wg8-gU-t3W" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="9" id="oOz-4W-vjL"/>
                 <constraint firstItem="LZb-hI-JcZ" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="9" id="rUj-7l-6cz"/>
                 <constraint firstItem="PjH-in-6bf" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="tdr-p2-QDy"/>
                 <constraint firstItem="PjH-in-6bf" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.98" id="vaQ-eg-dTg"/>

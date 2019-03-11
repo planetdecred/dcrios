@@ -169,6 +169,7 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
                     self?.hideActivityIndicator()
                     if(amount != nil){
                         self?.lbCurrentBalance.attributedText = getAttributedString(str: amount, siz: 17.0, TexthexColor: GlobalConstants.Colors.TextAmount)
+                        self!.walletInfo.walletBalance = amount
                     }
                 }
             } catch let error {
@@ -563,17 +564,19 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
            let estimatedRescanTime = totalFetchTime * self.reScan_percentage;
            let estimatedDiscoveryTime = totalFetchTime * self.discovery_percentage;
             let totalSyncTime = totalFetchTime + estimatedRescanTime + estimatedDiscoveryTime;
-            
+           if totalSyncTime > 0{
             self.walletInfo.syncRemainingTime = Int64(round(remainingFetchTime + estimatedRescanTime + estimatedDiscoveryTime));
-           self.walletInfo.syncProgress = Int(( Double(elapsedFetchTime) / Double(totalSyncTime) * 100.0))
+             self.walletInfo.syncProgress = Int(( Double(elapsedFetchTime) / Double(totalSyncTime) * 100.0))
+           }
+          
             self.walletInfo.syncStatus = "Fetching block headers."
             self.walletInfo.bestBlockTime = "\(lastHeaderTime)"
-            self.walletInfo.ChainStatus = "\(self.walletInfo.syncEndPoint - count) blocks behind"
+            self.walletInfo.ChainStatus = "\(self.walletInfo.syncEndPoint - count) blocks behind."
                 
             let daysBehind = calculateDays(seconds: ((Date().millisecondsSince1970 / 1000) - lastHeaderTime))
+           self.walletInfo.bestblockTimeInfo = "\(daysBehind) ago"
             let status = "Fetched \(count) of \(self.walletInfo.syncEndPoint) block headers."
             let status2 = "\(round(percent * 100))% through step 1 of 3."
-                self.walletInfo.syncStatus = status
             let status3 = " Your wallet is \(daysBehind) behind."
             let percentage = getSyncTimeRemaining(millis: self.walletInfo.syncRemainingTime, percentageCompleted: Int(self.walletInfo.syncProgress), syncView: true)
            let status4 = "All Times\nelapsed: \(getTime(millis: Int64(elapsedFetchTime))) remain: \(getTime(millis: self.walletInfo.syncRemainingTime)) total: \(getTime(millis: Int64(round(totalSyncTime)))) \n\nStage Times\nelapsed: \(getTime(millis: Int64(elapsedFetchTime))) remain: \(getTime(millis: Int64(remainingFetchTime)))  total: \(getTime(millis: Int64(round(totalFetchTime))))"
@@ -608,6 +611,12 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
             self.walletInfo.syncStartPoint = -1;
            self.walletInfo.syncEndPoint = -1;
            self.walletInfo.syncCurrentPoint = -1;
+            self.walletInfo.syncStatus = ""
+            self.walletInfo.ChainStatus = ""
+            self.walletInfo.bestblockTimeInfo = ""
+            DispatchQueue.main.async {
+                self.daysbeindText.setTitle("", for: .normal)
+            }
             break;
         default:
             break
@@ -661,9 +670,10 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
                 self.peersSyncText.text = "Syncing with \(self.peerCount) peers on testnet"
                 
             }
-            
+             let percentage3 = getSyncTimeRemaining(millis: self.walletInfo.syncRemainingTime, percentageCompleted: Int(self.walletInfo.syncProgress), syncView: false)
             self.walletInfo.syncStatus = "Scanning blocks."
-            
+            self.walletInfo.bestblockTimeInfo = ""
+            self.walletInfo.ChainStatus = percentage3
             break;
         default:
             self.updatePeerCount();
@@ -728,6 +738,10 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
                 self.peersSyncText.text = "Syncing with \(self.peerCount) peers on testnet"
                 
             }
+            let percentage3 = getSyncTimeRemaining(millis: self.walletInfo.syncRemainingTime, percentageCompleted: Int(self.walletInfo.syncProgress), syncView: false)
+            self.walletInfo.bestblockTimeInfo = ""
+            self.walletInfo.ChainStatus = percentage3
+            
      
         } else {
             
