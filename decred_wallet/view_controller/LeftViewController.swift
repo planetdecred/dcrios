@@ -138,6 +138,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         }
     }
     
+<<<<<<< HEAD
     func loop() {
         DispatchQueue.main.asyncAfter(deadline: .now()) { [weak self] in
             guard let this = self else { return }
@@ -185,6 +186,8 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         }
     }
     
+=======
+>>>>>>> clean block info background and remove redundant code
     func calculateTime(millis: Int64) -> String {
         var millis2 = millis
         if(millis2 > 59){
