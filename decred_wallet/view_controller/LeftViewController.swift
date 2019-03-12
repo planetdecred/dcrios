@@ -134,60 +134,9 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
                     this.chainStatus.text = this.calculateTime(millis: Int64(NSDate().timeIntervalSince1970) - lastblocktime!)
                 }
             }
-            
         }
     }
     
-<<<<<<< HEAD
-    func loop() {
-        DispatchQueue.main.asyncAfter(deadline: .now()) { [weak self] in
-            guard let this = self else { return }
-            
-            let bestblck = self!.wallet?.getBestBlock()
-            let bestblocktemp: Int64 = Int64(Int(bestblck!))
-            let lastblocktime = self!.wallet?.getBestBlockTimeStamp()
-            let currentTime = NSDate().timeIntervalSince1970
-            let estimatedBlocks = ((Int64(currentTime) - lastblocktime!) / 120) + bestblocktemp
-            
-            if estimatedBlocks > bestblocktemp {
-                
-                let peer = UserDefaults.standard.integer(forKey: "peercount")
-                if (peer >= 1) {
-                    this.bestblock.text = String(bestblocktemp).appending(" of ").appending(String(estimatedBlocks))
-                    this.chainStatus.text = ""
-                    this.blockInfo.text = "Fetched"
-                    this.statusBackgroud.backgroundColor = UIColor(hex: "#2DD8A3")
-                    this.connectionStatus.text = "Syncing with \(peer) peers"
-                } else {
-                    this.bestblock.text = String(bestblocktemp).appending(" of ").appending(String(estimatedBlocks))
-                    this.chainStatus.text = ""
-                    this.blockInfo.text = "Fetched"
-                    this.statusBackgroud.backgroundColor = UIColor(hex: "#FFC84E")
-                    this.connectionStatus.text = "Connecting to peers"
-                }
-            } else {
-                if ((self?.sync)!) {
-                    let peer = UserDefaults.standard.integer(forKey: "peercount")
-                    if (peer >= 1) {
-                        this.statusBackgroud.backgroundColor = UIColor(hex: "#2DD8A3")
-                        this.connectionStatus.text = "Synced with \(peer) peer(s)"
-                        this.bestblock.text = String(bestblocktemp)
-                        this.blockInfo.text = "Latest Block"
-                        this.chainStatus.text = this.calculateTime(millis: Int64(NSDate().timeIntervalSince1970) - lastblocktime!)
-                    } else {
-                        this.statusBackgroud.backgroundColor = UIColor(hex: "#FFC84E")
-                        this.connectionStatus.text = "Connecting to peers"
-                        this.bestblock.text = String(bestblocktemp)
-                        this.blockInfo.text = "Latest Block"
-                        this.chainStatus.text = this.calculateTime(millis: Int64(NSDate().timeIntervalSince1970) - lastblocktime!)
-                    }
-                }
-            }
-        }
-    }
-    
-=======
->>>>>>> clean block info background and remove redundant code
     func calculateTime(millis: Int64) -> String {
         var millis2 = millis
         if(millis2 > 59){
