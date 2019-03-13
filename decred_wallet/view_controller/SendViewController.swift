@@ -234,6 +234,12 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     }
     
     @IBAction private func sendFund(_ sender: Any) {
+        guard !(UserDefaults.standard.bool(forKey: "synced")) else {
+            sendNtwkErrtext.text = "Please wait for network synchronization."
+          DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                self.sendNtwkErrtext.text = " "
+            }
+            return
         let peer = UserDefaults.standard.integer(forKey: "peercount")
         guard peer > 0 else {
             sendNtwkErrtext.text = "Not connected to the network."
