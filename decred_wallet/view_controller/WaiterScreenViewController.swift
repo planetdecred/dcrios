@@ -37,7 +37,7 @@ class WaiterScreenViewController: UIViewController, WaiterScreenProtocol {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let url = Bundle.main.url(forResource: "splashLoader", withExtension: "gif")!
+        let url = Bundle.main.url(forResource: "symbol72_004", withExtension: "gif")!
         let data = try! Data(contentsOf: url)
         girload.load(data, mimeType: "image/gif", textEncodingName: "UTF-8", baseURL: NSURL() as URL)
     }
