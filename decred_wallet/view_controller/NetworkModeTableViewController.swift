@@ -26,16 +26,9 @@ class NetworkModeTableViewController: UITableViewController {
         if (network_value == 0) {
             spv_cell.accessoryType = .checkmark
             spv_cell.setSelected(true, animated: true)
-            local_node.accessoryType = .none
             remote_cell.accessoryType = .none
         } else if(network_value == 1) {
             spv_cell.accessoryType = .none
-            local_node.accessoryType = .checkmark
-            local_node.setSelected(true, animated: true)
-            remote_cell.accessoryType = .none
-        } else if(network_value == 2) {
-            spv_cell.accessoryType = .none
-            local_node.accessoryType = .none
             remote_cell.accessoryType = .checkmark
             remote_cell.setSelected(true, animated: true)
         }
@@ -50,7 +43,6 @@ class NetworkModeTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         spv_cell.accessoryType = .none
-        local_node.accessoryType = .none
         remote_cell.accessoryType = .none
         tableView.cellForRow(at: indexPath as IndexPath)?.accessoryType = .checkmark
         UserDefaults.standard.set(indexPath.row, forKey: "network_mode")
