@@ -13,7 +13,11 @@ import JGProgressHUD
 class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
     
     
+    @IBOutlet weak var border3: UIView!
+    @IBOutlet weak var border2: UIView!
+    @IBOutlet weak var border1: UIView!
     @IBOutlet weak var address: UITextField!
+    @IBOutlet weak var securityTxt: UILabel!
     @IBOutlet weak var addressError: UILabel!
     @IBOutlet weak var message: UITextField!
     @IBOutlet weak var messageError: UILabel!
@@ -22,11 +26,12 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var signMsgBtn: UIButton!
     @IBOutlet weak var copyBtn: UIButton!
     @IBOutlet weak var HeaderInfo: UILabel!
-    
+    @IBOutlet weak var syncInfoLabel: UILabel!
     var addressPass = false
     var messagePass = false
     var sigPass  = true
     var passphrase_word = ""
+  
     
     var dcrlibwallet :DcrlibwalletLibWallet!
     
@@ -45,10 +50,21 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
         super.viewWillAppear(animated)
         self.setNavigationBarItem()
         self.navigationItem.title = "Security"
+        if !(UserDefaults.standard.bool(forKey: "synced")) {
+            syncInfoLabel.isHidden = false
+            
+            return
+        }
+        syncInfoLabel.isHidden = true
+        self.toggleView()
+       
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        if !(UserDefaults.standard.bool(forKey: "synced")) {
+            return
+        }
         if UserDefaults.standard.string(forKey: "TMPPIN") != nil{
             let pin = UserDefaults.standard.string(forKey: "TMPPIN")!
             self.SignMsg(pass: pin)
@@ -245,6 +261,21 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
         DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
         }
+    }
+    func toggleView(){
+        self.address.isHidden = !self.address.isHidden
+        self.message.isHidden = !self.message.isHidden
+        self.signature.isHidden = !self.signature.isHidden
+        self.border1.isHidden = !self.border1.isHidden
+        self.border2.isHidden = !self.border2.isHidden
+        self.border3.isHidden = !self.border3.isHidden
+        self.signMsgBtn.isHidden = !self.signMsgBtn.isHidden
+        self.copyBtn.isHidden = !self.copyBtn.isHidden
+        self.securityTxt.isHidden = !self.securityTxt.isHidden
+        self.addressError.isHidden = !self.addressError.isHidden
+        self.signatureError.isHidden = !self.signatureError.isHidden
+        self.messageError.isHidden = !self.messageError.isHidden
+        self.HeaderInfo.isHidden = !self.HeaderInfo.isHidden
     }
     
     func SignMsg(pass:String) {

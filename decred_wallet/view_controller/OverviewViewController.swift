@@ -568,7 +568,6 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
             self.walletInfo.syncRemainingTime = Int64(round(remainingFetchTime + estimatedRescanTime + estimatedDiscoveryTime));
              self.walletInfo.syncProgress = Int(( Double(elapsedFetchTime) / Double(totalSyncTime) * 100.0))
            }
-          
             self.walletInfo.syncStatus = "Fetching block headers."
             self.walletInfo.bestBlockTime = "\(lastHeaderTime)"
             self.walletInfo.ChainStatus = "\(self.walletInfo.syncEndPoint - count) blocks behind."
