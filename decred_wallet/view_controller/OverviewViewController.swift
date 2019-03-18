@@ -59,7 +59,7 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
     
     var mainContens = [Transaction]()
     var refreshControl: UIRefreshControl!
-    let image = UIImage.gifImageWithURL(Bundle.main.url(forResource: "progress bar-1s-200px", withExtension: "gif")?.absoluteString ?? "");
+   // let image = UIImage.gifImageWithURL(Bundle.main.url(forResource: "progress bar-1s-200px", withExtension: "gif")?.absoluteString ?? "");
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -403,7 +403,7 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
     }
     private func showActivity(){
         lbCurrentBalance.isHidden = true
-        activityIndicator.image = self.image
+        activityIndicator.loadGif(name: "progress bar-1s-200px")
     }
     
     private func hideActivityIndicator(){

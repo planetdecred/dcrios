@@ -69,7 +69,6 @@
 		957F0AFF20B82F3200D3E8A9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957F0AFE20B82F3200D3E8A9 /* Constants.swift */; };
 		95877FE820B70CBB00CE53D2 /* TransactionHistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95877FE620B70CBB00CE53D2 /* TransactionHistoryViewController.xib */; };
 		95877FE920B70CBB00CE53D2 /* TransactionHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95877FE720B70CBB00CE53D2 /* TransactionHistoryViewController.swift */; };
-		95B80F3220DCCCF2004D5613 /* iOSDevCenters+GIF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B80F3020DCCCF2004D5613 /* iOSDevCenters+GIF.swift */; };
 		95CC024420D3F15800DA73AF /* AccountsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CC024320D3F15800DA73AF /* AccountsData.swift */; };
 		95E1C96E20FCD43E00D7F3EE /* TextFieldDoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E1C96D20FCD43E00D7F3EE /* TextFieldDoneButton.swift */; };
 		B3D79EF42208431800CDDB70 /* Dcrlibwallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3D79EF32208431800CDDB70 /* Dcrlibwallet.framework */; };
@@ -97,6 +96,7 @@
 		DDAE8BBB223ABC95005CDD9C /* splashLoaderss.gif in Resources */ = {isa = PBXBuildFile; fileRef = DDAE8BBA223ABC94005CDD9C /* splashLoaderss.gif */; };
 		DDAE8BBD223C1820005CDD9C /* symbol72_003.gif in Resources */ = {isa = PBXBuildFile; fileRef = DDAE8BBC223C181E005CDD9C /* symbol72_003.gif */; };
 		DDAE8BBF223C1A65005CDD9C /* symbol72_004.gif in Resources */ = {isa = PBXBuildFile; fileRef = DDAE8BBE223C1A62005CDD9C /* symbol72_004.gif */; };
+		DDAE8BC3224283AE005CDD9C /* customUImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAE8BC2224283AE005CDD9C /* customUImage.swift */; };
 		DDB89402202F771F002F85EE /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB89401202F771F002F85EE /* UIViewController.swift */; };
 		DDB89404202F7E01002F85EE /* SendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB89403202F7E01002F85EE /* SendViewController.swift */; };
 		DDB89409202F824A002F85EE /* ReceiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB89408202F824A002F85EE /* ReceiveViewController.swift */; };
@@ -208,7 +208,6 @@
 		957F0AFE20B82F3200D3E8A9 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		95877FE620B70CBB00CE53D2 /* TransactionHistoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionHistoryViewController.xib; sourceTree = "<group>"; };
 		95877FE720B70CBB00CE53D2 /* TransactionHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionHistoryViewController.swift; sourceTree = "<group>"; };
-		95B80F3020DCCCF2004D5613 /* iOSDevCenters+GIF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "iOSDevCenters+GIF.swift"; sourceTree = "<group>"; };
 		95CC024320D3F15800DA73AF /* AccountsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsData.swift; sourceTree = "<group>"; };
 		95E1C96D20FCD43E00D7F3EE /* TextFieldDoneButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldDoneButton.swift; sourceTree = "<group>"; };
 		A1A97C56BC75512DA55A8A70 /* Pods-Decred WalletTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred WalletTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Decred WalletTests/Pods-Decred WalletTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -240,6 +239,7 @@
 		DDAE8BBA223ABC94005CDD9C /* splashLoaderss.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = splashLoaderss.gif; sourceTree = "<group>"; };
 		DDAE8BBC223C181E005CDD9C /* symbol72_003.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = symbol72_003.gif; sourceTree = "<group>"; };
 		DDAE8BBE223C1A62005CDD9C /* symbol72_004.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = symbol72_004.gif; sourceTree = "<group>"; };
+		DDAE8BC2224283AE005CDD9C /* customUImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = customUImage.swift; sourceTree = "<group>"; };
 		DDB89401202F771F002F85EE /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		DDB89403202F7E01002F85EE /* SendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendViewController.swift; sourceTree = "<group>"; };
 		DDB89408202F824A002F85EE /* ReceiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveViewController.swift; sourceTree = "<group>"; };
@@ -436,7 +436,7 @@
 		DD4C89DB2038EE60003FEA0C /* view_util */ = {
 			isa = PBXGroup;
 			children = (
-				95B80F3020DCCCF2004D5613 /* iOSDevCenters+GIF.swift */,
+				DDAE8BC2224283AE005CDD9C /* customUImage.swift */,
 				DD4C89D72038CABD003FEA0C /* keyPadButton.swift */,
 				DDB89410202F8471002F85EE /* String.swift */,
 				DDB89418202F8F3E002F85EE /* UIIMage.swift */,
@@ -779,6 +779,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DDAE8BC3224283AE005CDD9C /* customUImage.swift in Sources */,
 				281D545E21B16AC800F68803 /* PinMarksView.swift in Sources */,
 				DDB89409202F824A002F85EE /* ReceiveViewController.swift in Sources */,
 				DD1D5C8220AEE90D009789DD /* ServerSetTableViewController.swift in Sources */,
@@ -808,7 +809,6 @@
 				DDB8941D202F9252002F85EE /* ExSlideMenuController.swift in Sources */,
 				28FEB26E21D264D9001B074B /* RecoveryWalletSeedWordsCell.swift in Sources */,
 				DDD967372204668500462238 /* ConfirmToSendFundViewPINController.swift in Sources */,
-				95B80F3220DCCCF2004D5613 /* iOSDevCenters+GIF.swift in Sources */,
 				2883CA72209B52AE0053D9BB /* WaiterScreenViewController.swift in Sources */,
 				DDB89421202F93B3002F85EE /* OverviewViewController.swift in Sources */,
 				2883CA702099D40F0053D9BB /* DropDownSearchField.swift in Sources */,

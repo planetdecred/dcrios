@@ -32,14 +32,12 @@ class WaiterScreenViewController: UIViewController, WaiterScreenProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        girload.backgroundColor = UIColor(hex: "#F3F5F6")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let url = Bundle.main.url(forResource: "symbol72_004", withExtension: "gif")!
-        let data = try! Data(contentsOf: url)
-        girload.load(data, mimeType: "image/gif", textEncodingName: "UTF-8", baseURL: NSURL() as URL)
+  
+        logo.loadGif(name: "symbol72_003")
     }
     
     override func viewDidAppear(_ animated: Bool) {
