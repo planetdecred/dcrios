@@ -649,7 +649,13 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                 if (amountToSend > tspendable) {
                     print("zero or invalid address")
                     DispatchQueue.main.async {
-                        self.amountErrorText.text = "Not enough funds (or not connected)"
+                        if(UserDefaults.standard.bool(forKey: "synced")){
+                             self.amountErrorText.text = "Not enough funds"
+                        }
+                        else{
+                             self.amountErrorText.text = "Not enough funds (or not connected)"
+                        }
+                       
                     }
             }
                 else{
