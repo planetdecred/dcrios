@@ -37,7 +37,7 @@ class WaiterScreenViewController: UIViewController, WaiterScreenProtocol {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
   
-        logo.loadGif(name: "symbol72_003")
+        logo.loadGif(name: "splashLogo")
     }
     
     override func viewDidAppear(_ animated: Bool) {

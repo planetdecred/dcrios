@@ -93,9 +93,7 @@
 		DDA3E27820292EF900C83D18 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDA3E27620292EF900C83D18 /* LaunchScreen.storyboard */; };
 		DDA3E28320292EF900C83D18 /* Decred_WalletTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA3E28220292EF900C83D18 /* Decred_WalletTests.swift */; };
 		DDA66BB721BFFFA800987248 /* SecurityMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA66BB621BFFFA800987248 /* SecurityMenuViewController.swift */; };
-		DDAE8BBB223ABC95005CDD9C /* splashLoaderss.gif in Resources */ = {isa = PBXBuildFile; fileRef = DDAE8BBA223ABC94005CDD9C /* splashLoaderss.gif */; };
-		DDAE8BBD223C1820005CDD9C /* symbol72_003.gif in Resources */ = {isa = PBXBuildFile; fileRef = DDAE8BBC223C181E005CDD9C /* symbol72_003.gif */; };
-		DDAE8BBF223C1A65005CDD9C /* symbol72_004.gif in Resources */ = {isa = PBXBuildFile; fileRef = DDAE8BBE223C1A62005CDD9C /* symbol72_004.gif */; };
+		DDAE8BBD223C1820005CDD9C /* splashLogo.gif in Resources */ = {isa = PBXBuildFile; fileRef = DDAE8BBC223C181E005CDD9C /* splashLogo.gif */; };
 		DDAE8BC3224283AE005CDD9C /* customUImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAE8BC2224283AE005CDD9C /* customUImage.swift */; };
 		DDB89402202F771F002F85EE /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB89401202F771F002F85EE /* UIViewController.swift */; };
 		DDB89404202F7E01002F85EE /* SendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB89403202F7E01002F85EE /* SendViewController.swift */; };
@@ -236,9 +234,7 @@
 		DDA3E28220292EF900C83D18 /* Decred_WalletTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decred_WalletTests.swift; sourceTree = "<group>"; };
 		DDA3E28420292EF900C83D18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DDA66BB621BFFFA800987248 /* SecurityMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SecurityMenuViewController.swift; path = decred_wallet/SecurityMenuViewController.swift; sourceTree = SOURCE_ROOT; };
-		DDAE8BBA223ABC94005CDD9C /* splashLoaderss.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = splashLoaderss.gif; sourceTree = "<group>"; };
-		DDAE8BBC223C181E005CDD9C /* symbol72_003.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = symbol72_003.gif; sourceTree = "<group>"; };
-		DDAE8BBE223C1A62005CDD9C /* symbol72_004.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = symbol72_004.gif; sourceTree = "<group>"; };
+		DDAE8BBC223C181E005CDD9C /* splashLogo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = splashLogo.gif; sourceTree = "<group>"; };
 		DDAE8BC2224283AE005CDD9C /* customUImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = customUImage.swift; sourceTree = "<group>"; };
 		DDB89401202F771F002F85EE /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		DDB89403202F7E01002F85EE /* SendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendViewController.swift; sourceTree = "<group>"; };
@@ -522,9 +518,7 @@
 		DDA3E26C20292EF900C83D18 /* decred_wallet */ = {
 			isa = PBXGroup;
 			children = (
-				DDAE8BBA223ABC94005CDD9C /* splashLoaderss.gif */,
-				DDAE8BBE223C1A62005CDD9C /* symbol72_004.gif */,
-				DDAE8BBC223C181E005CDD9C /* symbol72_003.gif */,
+				DDAE8BBC223C181E005CDD9C /* splashLogo.gif */,
 				95CC024220D3F14800DA73AF /* Accounts */,
 				957F0AFD20B82F0800D3E8A9 /* Constants */,
 				286E279620B6E22300EE0B08 /* DcrdConnection */,
@@ -663,11 +657,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				DDBB74A82215B97B003B172C /* inconsolata_regular.ttf in Resources */,
-				DDAE8BBB223ABC95005CDD9C /* splashLoaderss.gif in Resources */,
 				2850E092217612EE00171267 /* SourceSansPro-ExtraLight.ttf in Resources */,
 				2850E08C217612EE00171267 /* SourceSansPro-SemiBoldItalic.ttf in Resources */,
 				2850E08B217612EE00171267 /* SourceSansPro-BlackItalic.ttf in Resources */,
-				DDAE8BBD223C1820005CDD9C /* symbol72_003.gif in Resources */,
+				DDAE8BBD223C1820005CDD9C /* splashLogo.gif in Resources */,
 				DDA3E27820292EF900C83D18 /* LaunchScreen.storyboard in Resources */,
 				28EB91CC20FCFDBE007A0906 /* DataTableViewCell.xib in Resources */,
 				2850E091217612EE00171267 /* SourceSansPro-Black.ttf in Resources */,
@@ -683,7 +676,6 @@
 				95473E7520E3A6420023F50A /* TransactionDetailCell.xib in Resources */,
 				95473E6B20E39E3C0023F50A /* TransactiontInputDetails.xib in Resources */,
 				28EB91C920FCFDBE007A0906 /* TransactionHistoryTableViewCell.xib in Resources */,
-				DDAE8BBF223C1A65005CDD9C /* symbol72_004.gif in Resources */,
 				95877FE820B70CBB00CE53D2 /* TransactionHistoryViewController.xib in Resources */,
 				DDA3E27320292EF900C83D18 /* Main.storyboard in Resources */,
 				95473E7120E3A4C20023F50A /* TransactiontOutputDetailsCell.xib in Resources */,
