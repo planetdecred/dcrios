@@ -259,7 +259,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             }
         }
     }
-    
+    }
     private func prepareTransaction(sendAll: Bool?) {
         let amountToSend = Double((self.tfAmount.text)!)!
         let amount = DcrlibwalletAmountAtom(amountToSend)
@@ -495,7 +495,11 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             }
             self.showDefaultAccount()
             }
-            self.openLink(urlString: "https://testnet.dcrdata.org/tx/" + hashe! )
+            if(UserDefaults.standard.bool(forKey: "walletScanning")){
+                self.openLink(urlString: "https://testnet.dcrdata.org/tx/" + hashe! )
+            }else{
+                self.openLink(urlString: "https://mainnet.dcrdata.org/tx/" + hashe! )
+            }
         }
         sendCompletedVC.closeView = { [weak self] in
             guard let `self` = self else { return }

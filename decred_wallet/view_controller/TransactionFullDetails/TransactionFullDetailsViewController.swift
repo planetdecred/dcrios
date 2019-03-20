@@ -96,7 +96,12 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
     }
     
     @IBAction func viewOnDcrdata(_ sender: Any) {
+       if(UserDefaults.standard.bool(forKey: "walletScanning")){
         openLink(urlString: "https://testnet.dcrdata.org/tx/\(transaction.Hash)")
+        }
+       else{
+        openLink(urlString: "https://mainnet.dcrdata.org/tx/\(transaction.Hash)")
+        }
         toggleOptionsMenu()
     }
     
