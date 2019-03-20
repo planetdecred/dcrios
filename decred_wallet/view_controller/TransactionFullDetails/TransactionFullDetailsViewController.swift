@@ -85,7 +85,7 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
             self.copyText(text: self.transaction.Raw)
         })
         
-        let viewOnDcrdata = UIAlertAction(title: "View on Dcrdata", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        let viewOnDcrdata = UIAlertAction(title: "View on dcrdata", style: .default, handler: { (alert: UIAlertAction!) -> Void in
             self.openLink(urlString: "https://testnet.dcrdata.org/tx/\(self.transaction.Hash)")
         })
         
