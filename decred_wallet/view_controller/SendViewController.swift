@@ -495,7 +495,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             }
             self.showDefaultAccount()
             }
-            if(UserDefaults.standard.bool(forKey: "walletScanning")){
+            if(UserDefaults.standard.bool(forKey: "pref_use_testnet")){
                 self.openLink(urlString: "https://testnet.dcrdata.org/tx/" + hashe! )
             }else{
                 self.openLink(urlString: "https://mainnet.dcrdata.org/tx/" + hashe! )
