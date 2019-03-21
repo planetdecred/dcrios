@@ -40,8 +40,8 @@ open class MenuCell : UITableViewCell {
             self.lblMenu?.text = menuText
             if (menuText == "Overview") {
                 self.menuImage?.image = UIImage(named: "overview")
-            } else if (menuText == "Account") {
-                self.menuImage?.image = UIImage(named: "account")
+            } else if (menuText == "Accounts") {
+                self.menuImage?.image = UIImage(named: "menu-account")
             } else if (menuText == "Send") {
                 self.menuImage?.image = UIImage(named: "send")
             } else if (menuText == "Receive") {

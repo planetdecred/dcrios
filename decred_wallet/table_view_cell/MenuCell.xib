@@ -9,6 +9,11 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -23,29 +28,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                         <subviews>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="beQ-gl-OQd">
-                                <rect key="frame" x="0.0" y="0.0" width="6" height="43.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="4.5" height="43.5"/>
                                 <color key="backgroundColor" red="0.16470588235294117" green="0.83921568627450982" blue="0.66235173757002797" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="6" id="b9C-1b-Cc0"/>
+                                    <constraint firstAttribute="width" constant="4.5" id="b9C-1b-Cc0"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.94509803920000002" green="0.95294117649999999" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="beQ-gl-OQd" secondAttribute="bottom" id="MNJ-YM-Bp0"/>
-                            <constraint firstItem="beQ-gl-OQd" firstAttribute="top" secondItem="gEi-Dy-yHm" secondAttribute="top" id="y0G-Us-O5h"/>
+                            <constraint firstItem="beQ-gl-OQd" firstAttribute="leading" secondItem="gEi-Dy-yHm" secondAttribute="leading" id="HfX-XO-GP1"/>
+                            <constraint firstItem="beQ-gl-OQd" firstAttribute="centerY" secondItem="gEi-Dy-yHm" secondAttribute="centerY" id="Uqf-H9-XZu"/>
+                            <constraint firstItem="beQ-gl-OQd" firstAttribute="height" secondItem="gEi-Dy-yHm" secondAttribute="height" id="Y9p-6E-6Lq"/>
                         </constraints>
                     </view>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bIe-GN-mEy">
-                        <rect key="frame" x="18" y="9" width="26" height="26"/>
+                        <rect key="frame" x="20.5" y="9" width="26" height="26"/>
                         <constraints>
-                            <constraint firstAttribute="width" secondItem="bIe-GN-mEy" secondAttribute="height" multiplier="12:11" constant="-2.3636363636363598" id="Pg7-kL-bHy"/>
-                            <constraint firstAttribute="width" constant="26" id="d1O-wd-FVw"/>
+                            <constraint firstAttribute="width" constant="26" id="WFM-03-DpB"/>
+                            <constraint firstAttribute="height" constant="26" id="fiJ-tN-YVQ"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VRN-tO-V10">
-                        <rect key="frame" x="79" y="0.0" width="225" height="43.5"/>
-                        <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="16"/>
+                        <rect key="frame" x="71.5" y="0.0" width="232.5" height="43.5"/>
+                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                         <color key="textColor" red="0.52549019610000003" green="0.5450980392" blue="0.62745098040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -53,17 +59,17 @@
                 <color key="backgroundColor" red="0.97647058823529409" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
                     <constraint firstItem="gEi-Dy-yHm" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="5ND-NC-nBd"/>
-                    <constraint firstItem="bIe-GN-mEy" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="9" id="5cF-om-YQX"/>
                     <constraint firstAttribute="trailing" secondItem="VRN-tO-V10" secondAttribute="trailing" constant="16" id="6Vk-6Z-8ee"/>
                     <constraint firstAttribute="bottom" secondItem="gEi-Dy-yHm" secondAttribute="bottom" id="FSB-2w-UUi"/>
-                    <constraint firstItem="bIe-GN-mEy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="18" id="Ig7-XG-HWp"/>
                     <constraint firstItem="gEi-Dy-yHm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="MTH-Ys-sfB"/>
                     <constraint firstAttribute="trailing" secondItem="gEi-Dy-yHm" secondAttribute="trailing" id="NAb-XX-FyR"/>
-                    <constraint firstAttribute="bottom" secondItem="bIe-GN-mEy" secondAttribute="bottom" constant="8.5" id="UsX-dk-KOu"/>
-                    <constraint firstAttribute="bottom" secondItem="VRN-tO-V10" secondAttribute="bottom" id="ZDh-DW-DQT"/>
-                    <constraint firstItem="VRN-tO-V10" firstAttribute="leading" secondItem="bIe-GN-mEy" secondAttribute="trailing" constant="35" id="dsm-Zt-MQm"/>
-                    <constraint firstItem="VRN-tO-V10" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-11" id="ffU-O3-f3Q"/>
-                    <constraint firstItem="bIe-GN-mEy" firstAttribute="leading" secondItem="beQ-gl-OQd" secondAttribute="trailing" constant="12" id="pIR-GO-uK1"/>
+                    <constraint firstItem="gEi-Dy-yHm" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="TLA-KB-KC0"/>
+                    <constraint firstItem="VRN-tO-V10" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="d1X-LR-3ei"/>
+                    <constraint firstItem="VRN-tO-V10" firstAttribute="leading" secondItem="bIe-GN-mEy" secondAttribute="trailing" constant="25" id="dsm-Zt-MQm"/>
+                    <constraint firstItem="bIe-GN-mEy" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="l8X-QK-cBa"/>
+                    <constraint firstItem="gEi-Dy-yHm" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" id="opv-zG-7q2"/>
+                    <constraint firstItem="bIe-GN-mEy" firstAttribute="leading" secondItem="beQ-gl-OQd" secondAttribute="trailing" constant="16" id="pIR-GO-uK1"/>
+                    <constraint firstItem="VRN-tO-V10" firstAttribute="height" secondItem="gEi-Dy-yHm" secondAttribute="height" id="uad-xF-j3x"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -73,6 +79,7 @@
                 <outlet property="menuImage" destination="bIe-GN-mEy" id="Taz-nX-Nbw"/>
                 <outlet property="selectedView" destination="beQ-gl-OQd" id="pAM-QY-ngy"/>
             </connections>
+            <point key="canvasLocation" x="137.59999999999999" y="121.4392803598201"/>
         </tableViewCell>
     </objects>
 </document>
