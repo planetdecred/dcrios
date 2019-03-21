@@ -772,9 +772,6 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             )
             this.sendToAccount = self?.AccountFilter?[ind]
         }
-        if(self.sendAllTX){
-            
-        }
     }
     
     @IBAction func pasteFunc(_ sender: Any) {
