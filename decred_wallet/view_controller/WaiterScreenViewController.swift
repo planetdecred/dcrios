@@ -26,7 +26,7 @@ class WaiterScreenViewController: UIViewController, WaiterScreenProtocol {
     
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var logo: UIImageView!
-    @IBOutlet weak var girload: UIWebView!
+    @IBOutlet weak var testnetLabel: UILabel!
     
     var  groupAnimation: CAAnimationGroup?
     
@@ -43,9 +43,22 @@ class WaiterScreenViewController: UIViewController, WaiterScreenProtocol {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         set(duration: 5)
+        let testnetOn = UserDefaults.standard.bool(forKey: "pref_use_testnet")
+        if(testnetOn){
+            testnetLabel.text = "testnet"
+            
+        }
+        else{
+            testnetLabel.isHidden = true
+        }
+        if isWalletCreated(){
+            set(label: "Opening Wallet...")
+        }
+        
     }
     
     func set(label: String) {
+        
         self.label.text = label
     }
     

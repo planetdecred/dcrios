@@ -240,6 +240,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                 self.sendNtwkErrtext.text = " "
             }
             return
+        }
         let peer = UserDefaults.standard.integer(forKey: "peercount")
         guard peer > 0 else {
             sendNtwkErrtext.text = "Not connected to the network."
