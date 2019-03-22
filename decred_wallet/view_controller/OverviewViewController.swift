@@ -89,10 +89,6 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
         self.wallet?.add(self)
         self.walletInfo.syncing = true
         self.SyncGestureSetup()
-        if !((UserDefaults.standard.bool(forKey: "sync"))){
-           self.ShowSyncContainers()
-        }
-        
         showActivity()
     }
     
@@ -285,14 +281,7 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
         self.verboseText.addGestureRecognizer(recognizer3!)
         self.daysbeindText.addGestureRecognizer(recognizer4!)
     }
-    func ShowSyncContainers(){
-        DispatchQueue.main.async {
-            self.topAmountContainer.isHidden = true
-            self.bottomBtnContainer.isHidden = true
-            self.syncContainer.isHidden = false
-            self.tableView.isHidden = true
-        }
-    }
+   
     func hideSyncContainers(){
         DispatchQueue.main.async {
             self.topAmountContainer.isHidden = false

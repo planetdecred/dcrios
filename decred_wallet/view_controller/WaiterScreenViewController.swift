@@ -52,7 +52,7 @@ class WaiterScreenViewController: UIViewController, WaiterScreenProtocol {
             testnetLabel.isHidden = true
         }
         if isWalletCreated(){
-            set(label: "Opening Wallet...")
+            set(label: "Opening wallet...")
         }
         
     }
