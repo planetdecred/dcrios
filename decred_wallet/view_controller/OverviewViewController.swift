@@ -56,7 +56,8 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
     @IBOutlet weak var syncLoadingText: UILabel!
     var wallet = SingleInstance.shared.wallet
     var walletInfo = SingleInstance.shared
-    
+    let testnetOn = UserDefaults.standard.bool(forKey: "pref_use_testnet")
+    var NetType = "mainnet"
     var mainContens = [Transaction]()
     var refreshControl: UIRefreshControl!
     let image = UIImage.gifImageWithURL(Bundle.main.url(forResource: "progress bar-1s-200px", withExtension: "gif")?.absoluteString ?? "");
@@ -75,6 +76,7 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
             
             return refreshControl
         }()
+        NetType = testnetOn ? "testnet" : "mainnet"
         self.tableView.addSubview(self.refreshControl)
         self.setupSendRecvBtn()
         self.verboseText.contentHorizontalAlignment = .center
@@ -595,7 +597,7 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
                 self.syncProgressbar.progress = (Float(self.walletInfo.syncProgress) / 100.0)
                 print("progress = \(self.walletInfo.syncProgress)")
                 self.verboseText.setTitle(status4, for: .normal)
-                self.peersSyncText.text = "Syncing with \(self.peerCount) peers on testnet"
+                self.peersSyncText.text = "Syncing with \(self.peerCount) peers on \(self.NetType)."
                 
             }
            
@@ -666,7 +668,7 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
                self.connetStatus.setTitle(status, for: .normal)
                 self.daysbeindText.isHidden = true
                 self.verboseText.setTitle(status4,for: .normal)
-                self.peersSyncText.text = "Syncing with \(self.peerCount) peers on testnet"
+                self.peersSyncText.text = "Syncing with \(self.peerCount) peers on \(self.NetType)."
                 
             }
              let percentage3 = getSyncTimeRemaining(millis: self.walletInfo.syncRemainingTime, percentageCompleted: Int(self.walletInfo.syncProgress), syncView: false)
@@ -734,7 +736,7 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
                 self.daysbeindText.isHidden = true
                 self.verboseText.setTitle(status4, for: .normal)
                
-                self.peersSyncText.text = "Syncing with \(self.peerCount) peers on testnet"
+                self.peersSyncText.text = "Syncing with \(self.peerCount) peers on \(self.NetType)."
                 
             }
             let percentage3 = getSyncTimeRemaining(millis: self.walletInfo.syncRemainingTime, percentageCompleted: Int(self.walletInfo.syncProgress), syncView: false)
