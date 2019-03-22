@@ -16,7 +16,7 @@ extension Notification.Name {
 
 func isWalletCreated() -> Bool{
     let fm = FileManager()
-    let result = fm.fileExists(atPath: NSHomeDirectory()+"/Documents/dcrwallet/testnet3/wallet.db")
+    let result = fm.fileExists(atPath: NSHomeDirectory()+"/Documents/dcrlibwallet/testnet3/wallet.db")
     return result
 }
 
