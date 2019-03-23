@@ -4437,13 +4437,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="decredWord" translatesAutoresizingMaskIntoConstraints="NO" id="dYR-FH-u7X">
-                                <rect key="frame" x="135" y="321.5" width="105" height="24"/>
+                                <rect key="frame" x="140" y="322" width="95" height="23"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="24" id="b5C-s2-Ic1"/>
+                                    <constraint firstAttribute="height" constant="23" id="b5C-s2-Ic1"/>
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Je2-ms-0XC">
-                                <rect key="frame" x="117.5" y="208.5" width="140" height="105"/>
+                                <rect key="frame" x="117.5" y="209" width="140" height="105"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="c0d-2Z-wlh">
                                         <rect key="frame" x="0.0" y="0.0" width="140" height="105"/>
@@ -4463,13 +4463,13 @@
                                 </connections>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="testnet" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hRj-cn-ZPx">
-                                <rect key="frame" x="154.5" y="351" width="66" height="23"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                <rect key="frame" x="158" y="350.5" width="59" height="20.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="textColor" red="0.043137254899999998" green="0.1137254902" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="highlightedColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w3H-Un-Z5W">
-                                <rect key="frame" x="150.5" y="390" width="74" height="23"/>
+                                <rect key="frame" x="150.5" y="387" width="74" height="23"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                 <color key="textColor" red="0.043137254899999998" green="0.1137254902" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="highlightedColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -4477,7 +4477,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.95294117649999999" green="0.96078431369999995" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="dYR-FH-u7X" firstAttribute="width" secondItem="c0d-2Z-wlh" secondAttribute="width" multiplier="0.75" id="0Aw-X2-QBn"/>
+                            <constraint firstItem="dYR-FH-u7X" firstAttribute="width" secondItem="c0d-2Z-wlh" secondAttribute="width" multiplier="0.68" id="0Aw-X2-QBn"/>
                             <constraint firstItem="w3H-Un-Z5W" firstAttribute="top" secondItem="hRj-cn-ZPx" secondAttribute="bottom" constant="16" id="6RK-vA-EqZ"/>
                             <constraint firstItem="w3H-Un-Z5W" firstAttribute="centerX" secondItem="EO2-Pa-A0e" secondAttribute="centerX" id="8Qd-OH-T47"/>
                             <constraint firstItem="hRj-cn-ZPx" firstAttribute="centerX" secondItem="EO2-Pa-A0e" secondAttribute="centerX" id="KH1-Re-2no"/>
