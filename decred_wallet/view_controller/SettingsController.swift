@@ -17,6 +17,7 @@ class SettingsController: UITableViewController  {
     
     weak var delegate: LeftMenuProtocol?
     
+    @IBOutlet weak var changeStartPINCell: UITableViewCell!
     @IBOutlet weak var peer_cell: UIView!
     @IBOutlet weak var connectPeer_cell: UITableViewCell!
     @IBOutlet weak var server_cell: UITableViewCell!
@@ -49,7 +50,7 @@ class SettingsController: UITableViewController  {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = false
-        self.navigationController?.navigationBar.tintColor = UIColor.blue
+        self.navigationController?.navigationBar.tintColor = UIColor.black
         self.navigationItem.title = "Settings"
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
@@ -89,6 +90,7 @@ class SettingsController: UITableViewController  {
             self.serverAdd_label.textColor = UIColor.darkText
             self.connect_ip_label.textColor = UIColor.lightGray
         }
+        
     }
     
     @objc func cancel() -> Void {
@@ -174,6 +176,17 @@ class SettingsController: UITableViewController  {
         }
     }
     
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if !(start_Pin.isOn) {
+            if (indexPath.section == 1){
+                if (indexPath.row == 2) {
+                    return 0
+                }
+            }
+        }
+        return 44
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (indexPath.section == 1) {
             if (indexPath.row == 1) {
@@ -198,6 +211,17 @@ class SettingsController: UITableViewController  {
                 } else {
                     let sendVC = storyboard!.instantiateViewController(withIdentifier: "PinSetupViewController") as! PinSetupViewController
                     sendVC.senders = "settingsChangeSpendingPin"
+                    self.navigationController?.pushViewController(sendVC, animated: true)
+                }
+            }
+            else if (indexPath.row == 2) {
+                if (UserDefaults.standard.string(forKey: "startupSecureType") == "PASSWORD") {
+                    let sendVC = storyboard!.instantiateViewController(withIdentifier: "StartUpPasswordViewController") as! StartUpPasswordViewController
+                    sendVC.senders = "settingsChangeStartup"
+                    self.navigationController?.pushViewController(sendVC, animated: true)
+                } else {
+                    let sendVC = storyboard!.instantiateViewController(withIdentifier: "PinSetupViewController") as! PinSetupViewController
+                    sendVC.senders = "settingsChangeStartupPin"
                     self.navigationController?.pushViewController(sendVC, animated: true)
                 }
             }
