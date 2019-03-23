@@ -60,7 +60,7 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
     var NetType = "mainnet"
     var mainContens = [Transaction]()
     var refreshControl: UIRefreshControl!
-    let image = UIImage.gifImageWithURL(Bundle.main.url(forResource: "progress bar-1s-200px", withExtension: "gif")?.absoluteString ?? "");
+   // let image = UIImage.gifImageWithURL(Bundle.main.url(forResource: "progress bar-1s-200px", withExtension: "gif")?.absoluteString ?? "");
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,10 +91,6 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
         self.wallet?.add(self)
         self.walletInfo.syncing = true
         self.SyncGestureSetup()
-        if !((UserDefaults.standard.bool(forKey: "sync"))){
-           self.ShowSyncContainers()
-        }
-        
         showActivity()
     }
     
@@ -287,14 +283,7 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
         self.verboseText.addGestureRecognizer(recognizer3!)
         self.daysbeindText.addGestureRecognizer(recognizer4!)
     }
-    func ShowSyncContainers(){
-        DispatchQueue.main.async {
-            self.topAmountContainer.isHidden = true
-            self.bottomBtnContainer.isHidden = true
-            self.syncContainer.isHidden = false
-            self.tableView.isHidden = true
-        }
-    }
+   
     func hideSyncContainers(){
         DispatchQueue.main.async {
             self.topAmountContainer.isHidden = false
@@ -406,7 +395,7 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
     }
     private func showActivity(){
         lbCurrentBalance.isHidden = true
-        activityIndicator.image = self.image
+        activityIndicator.loadGif(name: "progress bar-1s-200px")
     }
     
     private func hideActivityIndicator(){

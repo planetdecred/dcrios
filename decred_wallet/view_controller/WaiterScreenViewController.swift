@@ -26,28 +26,39 @@ class WaiterScreenViewController: UIViewController, WaiterScreenProtocol {
     
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var logo: UIImageView!
-    @IBOutlet weak var girload: UIWebView!
+    @IBOutlet weak var testnetLabel: UILabel!
     
     var  groupAnimation: CAAnimationGroup?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        girload.backgroundColor = UIColor(hex: "#F3F5F6")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let url = Bundle.main.url(forResource: "splashLoader", withExtension: "gif")!
-        let data = try! Data(contentsOf: url)
-        girload.load(data, mimeType: "image/gif", textEncodingName: "UTF-8", baseURL: NSURL() as URL)
+  
+        logo.loadGif(name: "splashLogo")
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         set(duration: 5)
+        let testnetOn = UserDefaults.standard.bool(forKey: "pref_use_testnet")
+        if(testnetOn){
+            testnetLabel.text = "testnet"
+            
+        }
+        else{
+            testnetLabel.isHidden = true
+        }
+        if isWalletCreated(){
+            set(label: "Opening wallet...")
+        }
+        
     }
     
     func set(label: String) {
+        
         self.label.text = label
     }
     
