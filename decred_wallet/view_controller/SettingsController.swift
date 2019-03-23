@@ -90,6 +90,14 @@ class SettingsController: UITableViewController  {
             self.serverAdd_label.textColor = UIColor.darkText
             self.connect_ip_label.textColor = UIColor.lightGray
         }
+        if (start_Pin.isOn) {
+            changeStartPINCell.isUserInteractionEnabled = true
+            changeStartPINCell.alpha = 1
+        }
+        else{
+            changeStartPINCell.isUserInteractionEnabled = false
+            changeStartPINCell.alpha = 0.4
+        }
         
     }
     
