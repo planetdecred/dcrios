@@ -21,6 +21,7 @@ class ButtonConfirmSeedViewController: UIViewController, SeedCheckupProtocol {
     var allWords: [String] = []
     var enteredWords: [String] = []
     
+  
     @IBOutlet weak var btnConfirm: UIButton!
     @IBOutlet var vActiveCellView: SeedCheckActiveCellView!
     
@@ -31,6 +32,9 @@ class ButtonConfirmSeedViewController: UIViewController, SeedCheckupProtocol {
             selectedSeedWords.append(-1)
             enteredWords.append("")
         }
+    }
+    @IBAction func backbtn(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func onConfirm(_ sender: Any) {
