@@ -62,7 +62,7 @@ class TransactionHistoryTableViewCell: BaseTableViewCell {
             self.txtDate.text = dateformater.string(from: Date2 as Date)
             
             let tnt = Decimal(data.trans.Amount / 100000000.00) as NSDecimalNumber
-            var requireConfirmation = UserDefaults.standard.bool(forKey: "pref_spend_fund_switch") ? 0 : 2
+            let requireConfirmation = UserDefaults.standard.bool(forKey: "pref_spend_fund_switch") ? 0 : 2
             if (data.trans.Type.lowercased() == "regular".lowercased()) {
                 if (data.trans.Direction == 0) {
                     self.txtAmount.attributedText = getAttributedString(str:"-".appending(tnt.round(8).description), siz: 13.0, TexthexColor: GlobalConstants.Colors.TextAmount)
