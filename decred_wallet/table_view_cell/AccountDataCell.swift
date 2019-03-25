@@ -12,6 +12,7 @@ class AccountDataCell: UITableViewCell, AccountDetailsCellProtocol {
     @IBOutlet private weak var containerStackView: UIStackView!
     
     // MARK:- Details
+    @IBOutlet weak var detailsStackView: UIStackView!
     @IBOutlet private weak var labelImmatureRewardValue: UILabel!
     @IBOutlet private weak var labelLockedByTicketsValue: UILabel!
     @IBOutlet private weak var labelVotingAuthorityValue: UILabel!
@@ -55,6 +56,12 @@ class AccountDataCell: UITableViewCell, AccountDetailsCellProtocol {
         labelAccountNoValue.text = "\(account.Number)"
         labelKeysValue.text = "\(account.ExternalKeyCount) External, \(account.InternalKeyCount) Internal, \(account.ImportedKeyCount) Imported"
         
+        if UserDefaults.standard.bool(forKey: "pref_use_testnet") {
+            labelHDPathValue.text = "\(GlobalConstants.Strings.TESTNET_HD_PATH) \(account.Number)'"
+        }else {
+            labelHDPathValue.text = "\(GlobalConstants.Strings.MAINNET_HD_PATH) \(account.Number)'"
+        }
+        
         if (account.Number == INT_MAX) {
             defaultAccount.setOn(false, animated: false)
             defaultAccount.isEnabled = false
@@ -80,11 +87,12 @@ class AccountDataCell: UITableViewCell, AccountDetailsCellProtocol {
                 defaultAccount.isEnabled = true
                 hideAcount.isEnabled = true
             }
-            
         }
         
-        
-        
+        if account.Balance?.ImmatureReward == 0 && account.Balance?.LockedByTickets == 0 &&
+            account.Balance?.VotingAuthority == 0 && account.Balance?.ImmatureStakeGeneration == 0{
+            detailsStackView.isHidden = true
+        }
         
     }
 }
