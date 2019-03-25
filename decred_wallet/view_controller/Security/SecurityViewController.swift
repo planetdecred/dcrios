@@ -53,7 +53,7 @@ class SecurityViewController: UIViewController, SeedCheckupProtocol, StartUpPass
                 startChecked2?.senders = senders
                 startChecked1?.senders = senders
                 
-                if senders == "settingsChangeSpending"{
+                if senders == "settingsChangeSpending" || senders == "settingsChangeStartup" {
                     startChecked1?.pass_pinToVerify = pass_pinToVerify
                     startChecked2?.pass_pinToVerify = pass_pinToVerify
                 }
