@@ -194,10 +194,15 @@ func loadCertificate() throws ->  String {
 func getAttributedString(str: String, siz: CGFloat, TexthexColor: UIColor) -> NSAttributedString {
     let tmpString = str
     if tmpString.contains("."){
-    let stt = tmpString.appending(" DCR") as NSString?
+    var stt = tmpString as NSString?
     let atrStr = NSMutableAttributedString(string: stt! as String)
     let dotRange = stt?.range(of: ".")
-    if(tmpString.length > ((dotRange?.location)!+2)) {
+    if(tmpString.length - ((dotRange?.location)!) <= 3){
+            return NSMutableAttributedString(string: tmpString.appending(" DCR") as String)
+        }
+    else if(tmpString.length > ((dotRange?.location)!+2)) {
+        atrStr.append(NSMutableAttributedString(string: " DCR"))
+        stt = (stt?.appending(((" DCR")))) as NSString?
         atrStr.addAttribute(NSAttributedStringKey.font,
                             value: UIFont(
                                 name: "Inconsolata-Regular",
@@ -209,13 +214,13 @@ func getAttributedString(str: String, siz: CGFloat, TexthexColor: UIColor) -> NS
         atrStr.addAttribute(NSAttributedStringKey.foregroundColor,
                             value: TexthexColor,
                             range: NSRange(
-                                location:0,
+                                 location:0,
                                 length:(stt?.length)!))
         
-    }
+        }
     return atrStr
     }
-    return NSMutableAttributedString(string: tmpString as String)
+    return NSMutableAttributedString(string: tmpString.appending(" DCR") as String)
 }
 
 extension NSDecimalNumber {

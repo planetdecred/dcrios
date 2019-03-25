@@ -75,17 +75,17 @@ class DataTableViewCell : BaseTableViewCell {
                     self.dataText.attributedText = getAttributedString(str: "-".appending(amount.round(8).description), siz: 13.0, TexthexColor: GlobalConstants.Colors.TextAmount)
                     self.dataImage?.image = UIImage(named: "debit")
                 } else if(data.trans.Direction == 1) {
-                    self.dataText.attributedText = getAttributedString(str: amount.round(8).description, siz: 13.0, TexthexColor: GlobalConstants.Colors.TextAmount)
+                    self.dataText.attributedText = getAttributedString(str: " ".appending(amount.round(8).description), siz: 13.0, TexthexColor: GlobalConstants.Colors.TextAmount)
                     self.dataImage?.image = UIImage(named: "credit")
                 } else if(data.trans.Direction == 2) {
-                    self.dataText.attributedText = getAttributedString(str: amount.round(8).description, siz: 13.0, TexthexColor: GlobalConstants.Colors.TextAmount)
+                    self.dataText.attributedText = getAttributedString(str: " ".appending(amount.round(8).description), siz: 13.0, TexthexColor: GlobalConstants.Colors.TextAmount)
                     self.dataImage?.image = UIImage(named: "account")
                 }
             } else if(data.trans.Type.lowercased() == "vote") {
-                self.dataText.text = "Vote"
+                self.dataText.text = " Vote"
                 self.dataImage?.image = UIImage(named: "vote")
             } else if (data.trans.Type.lowercased() == "ticket_purchase") {
-                self.dataText.text = "Ticket"
+                self.dataText.text = " Ticket"
                 self.dataImage?.image = UIImage(named: "immature")
                 
                 if (confirmations < requireConfirmation){
