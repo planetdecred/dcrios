@@ -119,7 +119,8 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
                 this.progressbar.progress = (Float(self!.walletInfo.syncProgress) / 100.0)
             }
             else{
-                this.progressbar.isHidden = true
+                this.progressbar.progressTintColor = UIColor(hex: "#F9FAFA")
+                this.progressbar.progress = 1
                 self!.totalBalance.attributedText = getAttributedString(str: self!.walletInfo.walletBalance, siz: 12, TexthexColor: GlobalConstants.Colors.TextAmount)
                 let peer = UserDefaults.standard.integer(forKey: "peercount")
                 if (peer >= 1) {
