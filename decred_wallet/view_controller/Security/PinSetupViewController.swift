@@ -12,6 +12,7 @@ import Dcrlibwallet
 
 class PinSetupViewController: UIViewController, SeedCheckupProtocol, StartUpPasswordProtocol, PinEnteredProtocol {
     
+    @IBOutlet weak var cancelBtn: UIButton!
     var very = false
     var pinInput: String?
     var senders: String?
@@ -217,6 +218,9 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol, StartUpPass
     }
     
     
+    @IBAction func dismisView(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
     func setHeader(){
         if (senders == "launcher") {
             headerText.text = "Enter Startup PIN"
@@ -235,9 +239,13 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol, StartUpPass
             headerText.text = "Change Startup PIN"
         } else if (senders == "settingsChangeStartupPin") {
             headerText.text = "Enter Startup PIN"
-        }else if (senders == "spendFund" || senders == "createFnc" || senders == "signMessage") {
+        } else if (senders == "spendFund" || senders == "signMessage") {
+            headerText.text = "Input Spending PIN"         
+        }else if (senders == "createFnc") {
             headerText.text = "Input Spending PIN"
-        } else {
+            cancelBtn.isHidden = false
+        }
+        else {
             headerText.text = "Create Spending PIN"
         }
     }
