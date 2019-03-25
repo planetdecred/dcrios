@@ -46,6 +46,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
     @IBOutlet weak var totalBalance: UILabel!
     @IBOutlet weak var progressbar: UIProgressView!
     
+    @IBOutlet weak var synIndicate: UIImageView!
     var menus = ["Overview","History", "Send", "Receive", "Accounts","Security", "Settings","Help"]
     
     var mainViewController: UIViewController!
@@ -71,6 +72,8 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         self.tableView.separatorColor = GlobalConstants.Colors.separaterGrey
         storyboard2 =  UIStoryboard(name: "Main", bundle: nil)
         self.tableView.registerCellClass(MenuCell.self)
+        self.totalBalance.text = ""
+        self.synIndicate.loadGif(name: "progress bar-1s-200px")
         UserDefaults.standard.set(false, forKey: "synced")
         UserDefaults.standard.set(0, forKey: "peercount")
         UserDefaults.standard.synchronize()
@@ -119,8 +122,10 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
                 this.progressbar.progress = (Float(self!.walletInfo.syncProgress) / 100.0)
             }
             else{
-                this.progressbar.isHidden = true
+                this.progressbar.progressTintColor = UIColor(hex: "#F9FAFA")
+                this.progressbar.progress = 1
                 self!.totalBalance.attributedText = getAttributedString(str: self!.walletInfo.walletBalance, siz: 12, TexthexColor: GlobalConstants.Colors.TextAmount)
+                self!.synIndicate.isHidden = true
                 let peer = UserDefaults.standard.integer(forKey: "peercount")
                 if (peer >= 1) {
                     this.statusBackgroud.backgroundColor = UIColor(hex: "#2DD8A3")

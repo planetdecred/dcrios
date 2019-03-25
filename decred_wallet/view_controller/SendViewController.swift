@@ -158,6 +158,10 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     
     @IBAction func onSendAll(_ sender: Any?) {
         self.sendAllTX = true
+        sendAll()
+        
+    }
+    func sendAll(){
         let spendableAmount = spendable(account: self.selectedAccount!)
         self.tfAmount.text = "\(spendableAmount)"
         self.prepareTransaction(sendAll: self.sendAllTX)
@@ -222,12 +226,13 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     }
     
     @IBAction private func sendFund(_ sender: Any) {
-        guard !(UserDefaults.standard.bool(forKey: "synced")) else {
+        guard (UserDefaults.standard.bool(forKey: "synced")) else {
             sendNtwkErrtext.text = "Please wait for network synchronization."
           DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 self.sendNtwkErrtext.text = " "
             }
             return
+        }
         let peer = UserDefaults.standard.integer(forKey: "peercount")
         guard peer > 0 else {
             sendNtwkErrtext.text = "Not connected to the network."
@@ -247,8 +252,6 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             }
         }
     }
-    }
-    
     private func prepareTransaction(sendAll: Bool?) {
         let amountToSend = Double((self.tfAmount.text)!)!
         let amount = DcrlibwalletAmountAtom(amountToSend)
@@ -484,7 +487,11 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             }
             self.showDefaultAccount()
             }
-            self.openLink(urlString: "https://testnet.dcrdata.org/tx/" + hashe! )
+            if(UserDefaults.standard.bool(forKey: "pref_use_testnet")){
+                self.openLink(urlString: "https://testnet.dcrdata.org/tx/" + hashe! )
+            }else{
+                self.openLink(urlString: "https://mainnet.dcrdata.org/tx/" + hashe! )
+            }
         }
         sendCompletedVC.closeView = { [weak self] in
             guard let `self` = self else { return }
@@ -522,7 +529,8 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         if (self.tfAmount.text != nil && self.tfAmount.text != "" && self.tfAmount.text != "0" && self.amountErrorText.text == "") {
-            self.prepareTransaction(sendAll: false)
+            self.sendAllTX = false
+            self.prepareTransaction(sendAll: self.sendAllTX)
             return true
         }
         
@@ -593,9 +601,10 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             }
         }
         if (textField == self.tfAmount) {
-            
+            self.sendAllTX = false
             let cs = NSCharacterSet(charactersIn: ACCEPTABLE_CHARACTERS).inverted
             if (updatedString != nil && updatedString != "" ){
+                
                 if((updatedString?.contains("."))!){
                     let tmp2 = updatedString! as NSString
                     let TmpDot = tmp2.range(of: ".")
@@ -694,6 +703,8 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             )
             selectedAccount = defaultAccount
             sendToAccount = defaultAccount
+            print("before function default")
+            
             
         }
         
@@ -729,6 +740,11 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                 for: UIControlState.normal
             )
             this.selectedAccount = self?.AccountFilter?[ind]
+            print("before function update")
+            if(self!.sendAllTX){
+                self!.sendAll()
+                
+            }
         }
         self.toAccountDropDown.initMenu(accounts) { [weak self] ind, val in
             guard let this = self else { return }

@@ -18,6 +18,7 @@ class AccountsHeaderView: UIView {
     @IBOutlet weak var background1: UIView!
     @IBOutlet weak var background2: UIView!
     
+    @IBOutlet weak var syncIndicate: UIImageView!
     var headerIndex: Int = 0
     var arrobool = false
     var spendableColor = UIColor(hex: "#2DD8A3")
@@ -36,14 +37,30 @@ class AccountsHeaderView: UIView {
     
     var spendableBalance: NSDecimalNumber = 0.0 {
         willSet {
+            
+
             DispatchQueue.main.async {[weak self] in
+                if(UserDefaults.standard.bool(forKey: "synced")){
                 self?.labelSpendableBalance.attributedText = getAttributedString(str: "\(newValue)", siz: 11.0, TexthexColor: self!.spendableColor)
+                }
             }
         }
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
+    }
+    func syncing(status: Bool){
+        if(status){
+            syncIndicate.loadGif(name: "progress bar-1s-200px")
+            labelSpendableBalance.text = "-"
+        }
+        else{
+            syncIndicate.image = nil
+            syncIndicate.isHidden = true
+            labelTotalBalance.isHidden = false
+            labelSpendable.isHidden = false
+        }
     }
     
     func sethidden(status: Bool){

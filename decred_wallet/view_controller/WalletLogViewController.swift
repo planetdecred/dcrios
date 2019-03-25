@@ -22,7 +22,7 @@ class WalletLogViewController: UIViewController {
     }
     
     fileprivate func load(log:String){
-        let logPath = NSHomeDirectory()+"/Documents/dcrwallet/logs/\(log)/dcrlibwallet.log"
+        let logPath = NSHomeDirectory()+"/Documents/dcrlibwallet/logs/\(log)/dcrlibwallet.log"
         let logContent = try? String(contentsOf: URL(fileURLWithPath: logPath))
         let aLogs = logContent?.split(separator: "\n")
         var cutOffLogFlow = aLogs?.suffix(from: 0)

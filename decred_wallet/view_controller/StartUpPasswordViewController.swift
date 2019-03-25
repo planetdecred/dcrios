@@ -40,6 +40,12 @@ class StartUpPasswordViewController: UIViewController,StartUpPasswordProtocol {
                 sendVC.pass_pinToVerify = self.passwordText.text
                 
                 self.navigationController?.pushViewController(sendVC, animated: true)
+            }else if (senders == "settingsChangeStartup") {
+                let sendVC = storyboard!.instantiateViewController(withIdentifier: "SecurityViewController") as! SecurityViewController
+                sendVC.senders = "settingsChangeStartup"
+                sendVC.pass_pinToVerify = self.passwordText.text
+                
+                self.navigationController?.pushViewController(sendVC, animated: true)
             }
         }
     }
@@ -53,6 +59,9 @@ class StartUpPasswordViewController: UIViewController,StartUpPasswordProtocol {
             }
         } else if (senders == "settingsChangeSpending") {
             headerText.text = "Enter Spending Password"
+        }
+        else if (senders == "settingsChangeStartup") {
+            headerText.text = "Enter StartUp Password"
         }
     }
     

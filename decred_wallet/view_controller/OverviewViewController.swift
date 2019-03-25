@@ -56,10 +56,11 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
     @IBOutlet weak var syncLoadingText: UILabel!
     var wallet = SingleInstance.shared.wallet
     var walletInfo = SingleInstance.shared
-    
+    let testnetOn = UserDefaults.standard.bool(forKey: "pref_use_testnet")
+    var NetType = "mainnet"
     var mainContens = [Transaction]()
     var refreshControl: UIRefreshControl!
-    let image = UIImage.gifImageWithURL(Bundle.main.url(forResource: "progress bar-1s-200px", withExtension: "gif")?.absoluteString ?? "");
+   // let image = UIImage.gifImageWithURL(Bundle.main.url(forResource: "progress bar-1s-200px", withExtension: "gif")?.absoluteString ?? "");
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,6 +76,7 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
             
             return refreshControl
         }()
+        NetType = testnetOn ? "testnet" : "mainnet"
         self.tableView.addSubview(self.refreshControl)
         self.setupSendRecvBtn()
         self.verboseText.contentHorizontalAlignment = .center
@@ -89,10 +91,6 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
         self.wallet?.add(self)
         self.walletInfo.syncing = true
         self.SyncGestureSetup()
-        if !((UserDefaults.standard.bool(forKey: "sync"))){
-           self.ShowSyncContainers()
-        }
-        
         showActivity()
     }
     
@@ -164,12 +162,13 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
                 let strAccount = try self!.wallet?.getAccounts(0)
                 account = try JSONDecoder().decode(GetAccountResponse.self, from: (strAccount?.data(using: .utf8))!)
                 amount = "\((account.Acc.filter({UserDefaults.standard.bool(forKey: "hidden\($0.Number)") != true}).map{$0.dcrTotalBalance}.reduce(0,+)))"
+                let amountTmp = Decimal(Double(amount)!) as NSDecimalNumber
             
                 DispatchQueue.main.async {
                     self?.hideActivityIndicator()
                     if(amount != nil){
-                        self?.lbCurrentBalance.attributedText = getAttributedString(str: amount, siz: 17.0, TexthexColor: GlobalConstants.Colors.TextAmount)
-                        self!.walletInfo.walletBalance = amount
+                        self?.lbCurrentBalance.attributedText = getAttributedString(str: "\(amountTmp.round(8))", siz: 17.0, TexthexColor: GlobalConstants.Colors.TextAmount)
+                        self!.walletInfo.walletBalance = "\(amountTmp.round(8))"
                     }
                 }
             } catch let error {
@@ -285,14 +284,7 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
         self.verboseText.addGestureRecognizer(recognizer3!)
         self.daysbeindText.addGestureRecognizer(recognizer4!)
     }
-    func ShowSyncContainers(){
-        DispatchQueue.main.async {
-            self.topAmountContainer.isHidden = true
-            self.bottomBtnContainer.isHidden = true
-            self.syncContainer.isHidden = false
-            self.tableView.isHidden = true
-        }
-    }
+   
     func hideSyncContainers(){
         DispatchQueue.main.async {
             self.topAmountContainer.isHidden = false
@@ -404,7 +396,7 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
     }
     private func showActivity(){
         lbCurrentBalance.isHidden = true
-        activityIndicator.image = self.image
+        activityIndicator.loadGif(name: "progress bar-1s-200px")
     }
     
     private func hideActivityIndicator(){
@@ -595,7 +587,7 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
                 self.syncProgressbar.progress = (Float(self.walletInfo.syncProgress) / 100.0)
                 print("progress = \(self.walletInfo.syncProgress)")
                 self.verboseText.setTitle(status4, for: .normal)
-                self.peersSyncText.text = "Syncing with \(self.peerCount) peers on testnet"
+                self.peersSyncText.text = "Syncing with \(self.peerCount) peers on \(self.NetType)."
                 
             }
            
@@ -666,7 +658,7 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
                self.connetStatus.setTitle(status, for: .normal)
                 self.daysbeindText.isHidden = true
                 self.verboseText.setTitle(status4,for: .normal)
-                self.peersSyncText.text = "Syncing with \(self.peerCount) peers on testnet"
+                self.peersSyncText.text = "Syncing with \(self.peerCount) peers on \(self.NetType)."
                 
             }
              let percentage3 = getSyncTimeRemaining(millis: self.walletInfo.syncRemainingTime, percentageCompleted: Int(self.walletInfo.syncProgress), syncView: false)
@@ -734,7 +726,7 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
                 self.daysbeindText.isHidden = true
                 self.verboseText.setTitle(status4, for: .normal)
                
-                self.peersSyncText.text = "Syncing with \(self.peerCount) peers on testnet"
+                self.peersSyncText.text = "Syncing with \(self.peerCount) peers on \(self.NetType)."
                 
             }
             let percentage3 = getSyncTimeRemaining(millis: self.walletInfo.syncRemainingTime, percentageCompleted: Int(self.walletInfo.syncProgress), syncView: false)
