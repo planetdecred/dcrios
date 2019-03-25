@@ -14,8 +14,6 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet var detailsHeader: UIView!
     @IBOutlet weak var amount: UILabel!
-    @IBOutlet weak var optionsMenu: UIView!
-    
     
     var transactionHash: String?
     var account : String?
@@ -42,12 +40,6 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         self.slideMenuController()?.removeLeftGestures()
         self.navigationItem.title = "Transaction Details"
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "left-arrow"), style: .done, target: self, action: #selector(backk))
-        
-        self.optionsMenu.layer.cornerRadius = 3
-        self.optionsMenu.layer.shadowColor = UIColor.black.cgColor
-        self.optionsMenu.layer.shadowOffset = CGSize(width: 0, height: 1.0)
-        self.optionsMenu.layer.shadowOpacity = 0.2
-        self.optionsMenu.layer.shadowRadius = 4.0
     }
     
     @objc func backk(){
@@ -61,7 +53,7 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
        
         let optionsMenuButton = UIButton(type: .custom)
         optionsMenuButton.setImage(UIImage(named: "right-menu"), for: .normal)
-        optionsMenuButton.addTarget(self, action: #selector(toggleOptionsMenu), for: .touchUpInside)
+        optionsMenuButton.addTarget(self, action: #selector(showMenu), for: .touchUpInside)
         optionsMenuButton.frame = CGRect(x: 0, y: 0, width: 10, height: 51)
         let barButton = UIBarButtonItem(customView: optionsMenuButton)
         self.navigationItem.rightBarButtonItems = [barButton]
@@ -80,24 +72,30 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         wrap(transaction: self.transaction)
     }
     
-    @objc func toggleOptionsMenu(){
-        print("Bar button clicked \(self.optionsMenu.isHidden)")
-        self.optionsMenu.isHidden = !self.optionsMenu.isHidden
-    }
-    
-    @IBAction func copyRawTransaction(_ sender: Any) {
-        copyText(text: transaction.Raw)
-        toggleOptionsMenu()
-    }
-    
-    @IBAction func copyTransactionHash(_ sender: Any) {
-        copyText(text: transaction.Hash)
-        toggleOptionsMenu()
-    }
-    
-    @IBAction func viewOnDcrdata(_ sender: Any) {
-        openLink(urlString: "https://testnet.dcrdata.org/tx/\(transaction.Hash)")
-        toggleOptionsMenu()
+    @objc func showMenu(){
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        let copyTxHash = UIAlertAction(title: "Copy transaction hash", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+            self.copyText(text: self.transaction.Hash)
+        })
+        
+        let copyRawTx = UIAlertAction(title: "Copy raw transaction", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+            self.copyText(text: self.transaction.Raw)
+        })
+        
+        let viewOnDcrdata = UIAlertAction(title: "View on dcrdata", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+            self.openLink(urlString: "https://testnet.dcrdata.org/tx/\(self.transaction.Hash)")
+        })
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(copyTxHash)
+        alertController.addAction(copyRawTx)
+        alertController.addAction(viewOnDcrdata)
+        
+        self.present(alertController, animated: true, completion: nil)
+
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -295,9 +293,8 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
     }
     
     fileprivate func format(timestamp:UInt64?) -> String {
-        
         let formatter = DateFormatter()
-        formatter.dateFormat = "MMM dd, yyyy / hh:mm:ss pp"
+        formatter.dateFormat = "MMM dd, yyyy / hh:mm:ss a"
         let date = Date(timeIntervalSince1970: Double(timestamp!))
         return formatter.string(from: date)
     }

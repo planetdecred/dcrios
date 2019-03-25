@@ -53,7 +53,8 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         visible = true
-        prepareData()
+        
+            prepareData()
     }
     
     @objc func addAccount(){
@@ -128,7 +129,7 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
         } else{
             headerView.arrowDirection.setImage(UIImage.init(named: "arrow-1"), for: .normal)
         }
-       
+        headerView.syncing(status: !UserDefaults.standard.bool(forKey: "synced"))
         
         return headerView
     }

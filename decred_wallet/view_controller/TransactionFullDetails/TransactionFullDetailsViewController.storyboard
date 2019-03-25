@@ -27,78 +27,19 @@
                                     <outlet property="delegate" destination="Gia-AO-cm1" id="RFq-hW-lfF"/>
                                 </connections>
                             </tableView>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Pw-I1-PFM">
-                                <rect key="frame" x="147" y="21" width="220" height="142.5"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="9YJ-4h-4u9">
-                                        <rect key="frame" x="8" y="14.5" width="154" height="114"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iSM-dp-Rau">
-                                                <rect key="frame" x="0.0" y="0.0" width="154" height="30"/>
-                                                <state key="normal" title="Copy transaction hash">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="copyTransactionHash:" destination="Gia-AO-cm1" eventType="touchUpInside" id="xT0-DA-NGy"/>
-                                                </connections>
-                                            </button>
-                                            <view autoresizesSubviews="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hjd-Vl-a6S" userLabel="divider">
-                                                <rect key="frame" x="0.0" y="41" width="240" height="50"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </view>
-                                            <button opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kHf-1F-YNi">
-                                                <rect key="frame" x="0.0" y="41" width="154" height="32"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                <state key="normal" title="Copy raw transaction">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="copyRawTransaction:" destination="Gia-AO-cm1" eventType="touchUpInside" id="ahf-v4-NDt"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d6h-g7-KCg">
-                                                <rect key="frame" x="0.0" y="84" width="154" height="30"/>
-                                                <state key="normal" title="View on Dcrdata">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="viewOnDcrdata:" destination="Gia-AO-cm1" eventType="touchUpInside" id="Ykz-W8-L5E"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <variation key="default">
-                                            <mask key="subviews">
-                                                <exclude reference="hjd-Vl-a6S"/>
-                                            </mask>
-                                        </variation>
-                                    </stackView>
-                                </subviews>
-                                <color key="backgroundColor" white="0.14014340750000001" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="9YJ-4h-4u9" firstAttribute="width" secondItem="1Pw-I1-PFM" secondAttribute="width" multiplier="0.7" id="3PC-NG-dbk"/>
-                                    <constraint firstItem="9YJ-4h-4u9" firstAttribute="leading" secondItem="1Pw-I1-PFM" secondAttribute="leading" constant="8" id="bHd-fR-PMe"/>
-                                    <constraint firstItem="9YJ-4h-4u9" firstAttribute="height" secondItem="1Pw-I1-PFM" secondAttribute="height" multiplier="0.8" id="bKA-j8-ku2"/>
-                                    <constraint firstItem="9YJ-4h-4u9" firstAttribute="centerY" secondItem="1Pw-I1-PFM" secondAttribute="centerY" id="dIo-uA-RKm"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="dx6-nC-hdi" firstAttribute="leading" secondItem="Jia-se-qbj" secondAttribute="leading" id="CSr-m8-nbn"/>
-                            <constraint firstItem="Jia-se-qbj" firstAttribute="trailing" secondItem="1Pw-I1-PFM" secondAttribute="trailing" constant="8" id="KZX-au-deZ"/>
                             <constraint firstItem="Jia-se-qbj" firstAttribute="bottom" secondItem="dx6-nC-hdi" secondAttribute="bottom" id="Y4W-wK-Ien"/>
                             <constraint firstItem="dx6-nC-hdi" firstAttribute="top" secondItem="Jia-se-qbj" secondAttribute="top" id="h0o-BZ-gG0"/>
                             <constraint firstItem="Jia-se-qbj" firstAttribute="trailing" secondItem="dx6-nC-hdi" secondAttribute="trailing" id="nm0-X6-iQL"/>
-                            <constraint firstItem="1Pw-I1-PFM" firstAttribute="top" secondItem="Jia-se-qbj" secondAttribute="top" constant="1" id="oth-Eq-SH1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Jia-se-qbj"/>
                     </view>
                     <connections>
                         <outlet property="amount" destination="I0P-ya-PoI" id="XOh-SQ-Xpg"/>
                         <outlet property="detailsHeader" destination="9Ha-a1-zJH" id="Yu4-gV-Li4"/>
-                        <outlet property="optionsMenu" destination="1Pw-I1-PFM" id="qua-dA-1QH"/>
                         <outlet property="tableTransactionDetails" destination="dx6-nC-hdi" id="Lf9-c4-Per"/>
                         <outlet property="tableView" destination="dx6-nC-hdi" id="gOC-Y9-JtM"/>
                     </connections>

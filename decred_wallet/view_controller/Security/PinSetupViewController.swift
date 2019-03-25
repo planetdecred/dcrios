@@ -12,6 +12,7 @@ import Dcrlibwallet
 
 class PinSetupViewController: UIViewController, SeedCheckupProtocol, StartUpPasswordProtocol, PinEnteredProtocol {
     
+    @IBOutlet weak var cancelBtn: UIButton!
     var very = false
     var pinInput: String?
     var senders: String?
@@ -159,7 +160,32 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol, StartUpPass
             sendVC.senders = "settingsChangeSpending"
             sendVC.pass_pinToVerify = self.pin
             self.navigationController?.pushViewController(sendVC, animated: true)
-        } else if (senders == "spendFund" || senders == "createFnc" || senders == "signMessage") {
+        }else if (senders == "settingsChangeStartup") {
+            if very {
+                if pin.elementsEqual(VerifyPin){
+                    ChangeStartupPin()
+                } else {
+                    self.headerText.text = "PINs do not match. Try again"
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        self.pin = self.pinInputController.clear()
+                        self.VerifyPin = ""
+                        self.headerText.text = "Change Startup PIN"
+                        self.very = false
+                    }
+                }
+            } else {
+                VerifyPin = pin
+                pin = pinInputController.clear()
+                headerText.text = "Confirm Startup PIN"
+                very = true
+            }
+        } else if (senders == "settingsChangeStartupPin") {
+            let sendVC = storyboard!.instantiateViewController(withIdentifier: "SecurityViewController") as! SecurityViewController
+            sendVC.senders = "settingsChangeStartup"
+            sendVC.pass_pinToVerify = self.pin
+            self.navigationController?.pushViewController(sendVC, animated: true)
+        }
+        else if (senders == "spendFund" || senders == "createFnc" || senders == "signMessage") {
             pinInput = pin
             UserDefaults.standard.set(pin, forKey: "TMPPIN") //deeply concern about
             UserDefaults.standard.synchronize()
@@ -192,6 +218,9 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol, StartUpPass
     }
     
     
+    @IBAction func dismisView(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
     func setHeader(){
         if (senders == "launcher") {
             headerText.text = "Enter Startup PIN"
@@ -205,9 +234,18 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol, StartUpPass
             headerText.text = "Change Spending PIN"
         } else if (senders == "settingsChangeSpendingPin") {
             headerText.text = "Enter Spending PIN"
-        } else if (senders == "spendFund" || senders == "createFnc" || senders == "signMessage") {
+        }
+        else if (senders == "settingsChangeStartup") {
+            headerText.text = "Change Startup PIN"
+        } else if (senders == "settingsChangeStartupPin") {
+            headerText.text = "Enter Startup PIN"
+        } else if (senders == "spendFund" || senders == "signMessage") {
+            headerText.text = "Input Spending PIN"         
+        }else if (senders == "createFnc") {
             headerText.text = "Input Spending PIN"
-        } else {
+            cancelBtn.isHidden = false
+        }
+        else {
             headerText.text = "Create Spending PIN"
         }
     }
@@ -322,6 +360,33 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol, StartUpPass
                 DispatchQueue.main.async {
                     this.progressHud?.dismiss()
                     UserDefaults.standard.setValue("PIN", forKey: "spendingSecureType")
+                    UserDefaults.standard.synchronize()
+                    self?.dismissView()
+                }
+                return
+            } catch let error {
+                DispatchQueue.main.async {
+                    this.progressHud?.dismiss()
+                    this.showError(error: error)
+                }
+            }
+        }
+    }
+    func ChangeStartupPin(){
+        progressHud = showProgressHud(with: "Changing startup PIN...")
+        
+        let startupPIN = (pass_pinToVerify! as NSString).data(using: String.Encoding.utf8.rawValue)!
+        let pass = (self.pin as NSString).data(using: String.Encoding.utf8.rawValue)
+        
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let this = self else { return }
+            
+            do {
+                try SingleInstance.shared.wallet?.changePublicPassphrase(startupPIN, newPass: pass)
+                DispatchQueue.main.async {
+                    this.progressHud?.dismiss()
+                    UserDefaults.standard.set(true, forKey: "secure_wallet")
+                    UserDefaults.standard.setValue("PIN", forKey: "securitytype")
                     UserDefaults.standard.synchronize()
                     self?.dismissView()
                 }

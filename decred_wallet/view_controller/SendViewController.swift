@@ -28,12 +28,11 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     @IBOutlet weak var toAccountContainer: UIStackView!
     @IBOutlet weak var toAddressContainer: UIStackView!
     var removedBtn = true
-    @IBOutlet weak var sendToaddressOption: UIButton!
     var wallet :DcrlibwalletLibWallet!
     
+    @IBOutlet weak var sendNtwkErrtext: UILabel!
     @IBOutlet weak var amountErrorText: UILabel!
     @IBOutlet weak var addressErrorText: UILabel!
-    @IBOutlet weak var menuOptionView: UIView!
     @IBOutlet weak var sendBtn: UIButton!
     @IBOutlet weak var qrcodeBtn: UIButton!
     var fromNotQRScreen = true
@@ -60,11 +59,6 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         self.tfAmount.delegate = self
         self.pasteBtn.layer.cornerRadius = 4
         self.pasteBtn.layer.shadowOffset = CGSize(width: 0, height: 2.0)
-        self.menuOptionView.layer.cornerRadius = 4
-        self.menuOptionView.layer.shadowColor = UIColor.black.cgColor
-        self.menuOptionView.layer.shadowOffset = CGSize(width: 0, height: 1.0)
-        self.menuOptionView.layer.shadowOpacity = 0.2
-        self.menuOptionView.layer.shadowRadius = 4.0
         wallet = SingleInstance.shared.wallet
         NotificationCenter.default.addObserver(self, selector: #selector(willResignActive), name:.UIApplicationWillEnterForeground, object: nil)
         self.walletAddress.delegate = self
@@ -72,16 +66,15 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         self.showDefaultAccount()
         self.removePasteBtn()
         self.checkpaste()
-       
-       
-        
     }
+    
     @objc func willResignActive(){
         if ( (self.walletAddress.text?.count)! < 1) {
              self.checkpaste()
         }
     }
-    @IBAction func clearFields(_ sender: Any) {
+    
+    private func clearFields() {
         if(self.walletAddress.hasText){
             self.walletAddress.text = ""
             self.tfAmount.text = ""
@@ -93,17 +86,13 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             self.estimateFee.text = "0.00 DCR"
             self.estimateSize.text = "0 Bytes"
             self.BalanceAfter.text = "0.00 DCR"
-            self.switchFunc()
-        }
-        else{
+        } else {
             self.amountErrorText.text = ""
             self.tfAmount.text = ""
             self.estimateFee.text = "0.00 DCR"
             self.estimateSize.text = "0 Bytes"
             self.BalanceAfter.text = "0.00 DCR"
-            self.switchFunc()
         }
-       
     }
     
     func checkpaste(){
@@ -138,11 +127,11 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         self.setNavigationBarItem()
         self.navigationItem.title = "Send"
         self.updateBalance()
-        let accountAddressBtn = UIButton(type: .custom)
-        accountAddressBtn.setImage(UIImage(named: "right-menu"), for: .normal)
-        accountAddressBtn.addTarget(self, action: #selector(switchFunc), for: .touchUpInside)
-        accountAddressBtn.frame = CGRect(x: 0, y: 0, width: 10, height: 51)
-        let barButton = UIBarButtonItem(customView: accountAddressBtn)
+        let menu = UIButton(type: .custom)
+        menu.setImage(UIImage(named: "right-menu"), for: .normal)
+        menu.addTarget(self, action: #selector(showMenu), for: .touchUpInside)
+        menu.frame = CGRect(x: 0, y: 0, width: 10, height: 51)
+        let barButton = UIBarButtonItem(customView: menu)
         self.navigationItem.rightBarButtonItems = [barButton]
         print("address valid on appear")
         if !(self.fromNotQRScreen){
@@ -151,10 +140,8 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         else{
             self.checkpaste()
         }
-        
-        
-        
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -162,8 +149,6 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             self.confirmSendWithoutPin(sendAll: false, pin: UserDefaults.standard.string(forKey: "TMPPIN")!)
             UserDefaults.standard.set(nil, forKey: "TMPPIN")
         }
-       
-       
     }
     
     override func didReceiveMemoryWarning() {
@@ -173,34 +158,42 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     
     @IBAction func onSendAll(_ sender: Any?) {
         self.sendAllTX = true
+        sendAll()
+        
+    }
+    func sendAll(){
         let spendableAmount = spendable(account: self.selectedAccount!)
         self.tfAmount.text = "\(spendableAmount)"
         self.prepareTransaction(sendAll: self.sendAllTX)
     }
     
-    @IBAction func sendToBtnOption(_ sender: Any) {
-         sendToSwitch()
-        if (self.toAddressContainer.isHidden){
-            sendToaddressOption.setTitle("Send to address", for: .normal)
-        }
-        else{
-            sendToaddressOption.setTitle("Send to account", for: .normal)
-        }
+    @objc func showMenu(){
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        self.menuOptionView.isHidden = true
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        let sendTitle = self.toAddressContainer.isHidden ? "Send to address" : "Send to account"
+        let sendToAccount = UIAlertAction(title: sendTitle, style: .default, handler: { (alert: UIAlertAction!) -> Void in
+            self.sendToSwitch()
+        })
+        
+        let clearFields = UIAlertAction(title: "Clear fields", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+            self.clearFields()
+        })
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(sendToAccount)
+        alertController.addAction(clearFields)
+        
+        self.present(alertController, animated: true, completion: nil)
     }
     
-    
-    @objc func switchFunc(){
-        self.menuOptionView.isHidden = !self.menuOptionView.isHidden
-        
-      
-    }
     func sendToSwitch(){
         self.toAddressContainer.isHidden = !toAddressContainer.isHidden
-           self.toAccountContainer.isHidden = !toAccountContainer.isHidden
+        self.toAccountContainer.isHidden = !toAccountContainer.isHidden
         self.addressErrorText.isHidden = !self.addressErrorText.isHidden
     }
+    
     func removePasteBtn(){
          DispatchQueue.main.async {
             if !(self.removedBtn){
@@ -233,6 +226,21 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     }
     
     @IBAction private func sendFund(_ sender: Any) {
+        guard (UserDefaults.standard.bool(forKey: "synced")) else {
+            sendNtwkErrtext.text = "Please wait for network synchronization."
+          DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                self.sendNtwkErrtext.text = " "
+            }
+            return
+        }
+        let peer = UserDefaults.standard.integer(forKey: "peercount")
+        guard peer > 0 else {
+            sendNtwkErrtext.text = "Not connected to the network."
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                self.sendNtwkErrtext.text = " "
+            }
+            return
+        }
         if self.validate() {
             self.fromNotQRScreen = false
             if(UserDefaults.standard.string(forKey: "spendingSecureType") == "PASSWORD"){
@@ -244,7 +252,6 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             }
         }
     }
-    
     private func prepareTransaction(sendAll: Bool?) {
         let amountToSend = Double((self.tfAmount.text)!)!
         let amount = DcrlibwalletAmountAtom(amountToSend)
@@ -280,9 +287,16 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             }
         }
     }
-   
     
     private func signTransaction(sendAll: Bool?, password:String) {
+        let peer = UserDefaults.standard.integer(forKey: "peercount")
+        guard peer > 0 else {
+            sendNtwkErrtext.text = "Not connected to the network."
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                self.sendNtwkErrtext.text = " "
+            }
+            return
+        }
           var walletAddress = ""
         if (self.toAddressContainer.isHidden){
             let receiveAddress = try?wallet?.currentAddress((self.sendToAccount?.Number)!)
@@ -304,14 +318,6 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                     
                     DispatchQueue.main.async {
                         self.transactionSucceeded(hash: result?.hexEncodedString())
-                        self.walletAddress.text = ""
-                        self.estimateFee.text = "0.00 DCR"
-                        self.estimateSize.text = "0 Bytes"
-                        self.BalanceAfter.text = "0.00 DCR"
-                        self.tfAmount.text = nil
-                        self.showDefaultAccount()
-                        self.updateBalance()
-                        
                         return
                     }
                     return
@@ -468,9 +474,42 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         
         sendCompletedVC.openDetails = { [weak self] in
             guard let `self` = self else { return }
-            self.openLink(urlString: "https://testnet.dcrdata.org/tx/" + hashe! )
+            DispatchQueue.main.async {
+            self.walletAddress.text = nil
+            self.estimateFee.text = "0.00 DCR"
+            self.estimateSize.text = "0 Bytes"
+            self.BalanceAfter.text = "0.00 DCR"
+            self.tfAmount.text = nil
+            if !(self.toAddressContainer.isHidden){
+                self.addQrbtn()
+                self.checkpaste()
+                
+            }
+            self.showDefaultAccount()
+            }
+            if(UserDefaults.standard.bool(forKey: "pref_use_testnet")){
+                self.openLink(urlString: "https://testnet.dcrdata.org/tx/" + hashe! )
+            }else{
+                self.openLink(urlString: "https://mainnet.dcrdata.org/tx/" + hashe! )
+            }
         }
-        
+        sendCompletedVC.closeView = { [weak self] in
+            guard let `self` = self else { return }
+            DispatchQueue.main.async {
+            self.walletAddress.text = nil
+            self.estimateFee.text = "0.00 DCR"
+            self.estimateSize.text = "0 Bytes"
+            self.BalanceAfter.text = "0.00 DCR"
+            self.tfAmount.text = nil
+            if !(self.toAddressContainer.isHidden){
+                self.addQrbtn()
+                self.checkpaste()
+            }
+            self.showDefaultAccount()
+            self.updateBalance()
+            }
+            
+        }
         self.present(sendCompletedVC, animated: true, completion: nil)
         return
     }
@@ -489,9 +528,9 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     }
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        
         if (self.tfAmount.text != nil && self.tfAmount.text != "" && self.tfAmount.text != "0" && self.amountErrorText.text == "") {
-            self.prepareTransaction(sendAll: false)
+            self.sendAllTX = false
+            self.prepareTransaction(sendAll: self.sendAllTX)
             return true
         }
         
@@ -562,9 +601,10 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             }
         }
         if (textField == self.tfAmount) {
-            
+            self.sendAllTX = false
             let cs = NSCharacterSet(charactersIn: ACCEPTABLE_CHARACTERS).inverted
             if (updatedString != nil && updatedString != "" ){
+                
                 if((updatedString?.contains("."))!){
                     let tmp2 = updatedString! as NSString
                     let TmpDot = tmp2.range(of: ".")
@@ -606,13 +646,18 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                 if (amountToSend > tspendable) {
                     print("zero or invalid address")
                     DispatchQueue.main.async {
-                        self.amountErrorText.text = "Not enough funds (or not connected)"
+                        if(UserDefaults.standard.bool(forKey: "synced")){
+                             self.amountErrorText.text = "Not enough funds"
+                        }
+                        else{
+                             self.amountErrorText.text = "Not enough funds (or not connected)"
+                        }
+                       
                     }
             }
                 else{
                     DispatchQueue.main.async {
                         self.amountErrorText.text = ""
-                       
                     }
                      return true
                 }
@@ -625,12 +670,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             
         }
     
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        self.view.endEditing(true)
-    }
-    private func showDefaultAccount(){
+    private func showDefaultAccount() {
         var accounts = [String]()
         var account: GetAccountResponse?
         do {
@@ -663,6 +703,8 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             )
             selectedAccount = defaultAccount
             sendToAccount = defaultAccount
+            print("before function default")
+            
             
         }
         
@@ -698,6 +740,11 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                 for: UIControlState.normal
             )
             this.selectedAccount = self?.AccountFilter?[ind]
+            print("before function update")
+            if(self!.sendAllTX){
+                self!.sendAll()
+                
+            }
         }
         self.toAccountDropDown.initMenu(accounts) { [weak self] ind, val in
             guard let this = self else { return }
@@ -791,7 +838,6 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     private func validate(address: String) -> Bool {
         return (wallet?.isAddressValid(address)) ?? false
     }
-    
 }
 class AmountTextfield: UITextField {
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
