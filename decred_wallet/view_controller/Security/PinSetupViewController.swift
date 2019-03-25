@@ -195,6 +195,11 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol, StartUpPass
             }else if (senders == "createFnc"){
                 self.presentingViewController?.dismiss(animated: true, completion: nil)
             }
+        } else if(senders == "settingsDeleteWallet"){
+            pinInput = pin
+            UserDefaults.standard.set(pin, forKey: "TMPPIN") //deeply concern about
+            UserDefaults.standard.synchronize()
+            self.navigationController?.popViewController(animated: true)
         } else {
             if very {
                 if pin.elementsEqual(VerifyPin){
@@ -241,7 +246,7 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol, StartUpPass
             headerText.text = "Enter Startup PIN"
         } else if (senders == "spendFund" || senders == "signMessage") {
             headerText.text = "Input Spending PIN"         
-        }else if (senders == "createFnc") {
+        }else if (senders == "createFnc" || senders == "settingsDeleteWallet") {
             headerText.text = "Input Spending PIN"
             cancelBtn.isHidden = false
         }
