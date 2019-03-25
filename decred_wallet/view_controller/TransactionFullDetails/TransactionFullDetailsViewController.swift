@@ -300,9 +300,8 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
     }
     
     fileprivate func format(timestamp:UInt64?) -> String {
-        
         let formatter = DateFormatter()
-        formatter.dateFormat = "MMM dd, yyyy / hh:mm:ss pp"
+        formatter.dateFormat = "MMM dd, yyyy / hh:mm:ss a"
         let date = Date(timeIntervalSince1970: Double(timestamp!))
         return formatter.string(from: date)
     }
