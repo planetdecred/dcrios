@@ -1619,13 +1619,29 @@
                                 <color key="textColor" red="0.76862745099999996" green="0.79607843140000001" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OGq-dJ-zLW">
+                                <rect key="frame" x="18" y="35" width="57" height="25.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="57" id="w3i-vZ-c0g"/>
+                                    <constraint firstAttribute="height" constant="25.5" id="zLP-H5-k0d"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="dismisView:" destination="2RX-3t-cyE" eventType="touchUpInside" id="fma-hl-2MZ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.92941176469999998" green="0.93725490199999995" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="geO-25-Uc5" firstAttribute="top" secondItem="ccM-jW-cPb" secondAttribute="bottom" constant="10" id="1bH-EU-Vnd"/>
                             <constraint firstItem="Erh-Y0-nwo" firstAttribute="top" secondItem="GJH-Uf-GCe" secondAttribute="bottom" constant="15" id="832-qd-BsR"/>
+                            <constraint firstItem="OGq-dJ-zLW" firstAttribute="leading" secondItem="VRi-91-TOo" secondAttribute="leading" constant="18" id="8cM-hH-Nwe"/>
                             <constraint firstItem="geO-25-Uc5" firstAttribute="top" secondItem="ccM-jW-cPb" secondAttribute="bottom" constant="10" id="9Y4-AY-E3D"/>
                             <constraint firstItem="geO-25-Uc5" firstAttribute="firstBaseline" secondItem="jVG-MB-vB8" secondAttribute="firstBaseline" id="Brc-Xv-btp"/>
+                            <constraint firstItem="OGq-dJ-zLW" firstAttribute="centerY" secondItem="GJH-Uf-GCe" secondAttribute="centerY" id="D8N-Kn-TUc"/>
                             <constraint firstItem="fNT-WV-EOD" firstAttribute="centerX" secondItem="VRi-91-TOo" secondAttribute="centerX" id="Nuf-OE-bcg"/>
                             <constraint firstItem="VRi-91-TOo" firstAttribute="bottom" secondItem="7hC-2G-6be" secondAttribute="bottom" constant="10" id="Qhu-1H-KjI"/>
                             <constraint firstItem="Erh-Y0-nwo" firstAttribute="centerX" secondItem="jJ5-rS-0ca" secondAttribute="centerX" id="RJn-nx-Gvg"/>
@@ -1644,6 +1660,7 @@
                     <tabBarItem key="tabBarItem" title="Item 2" id="p4K-qT-HqF"/>
                     <connections>
                         <outlet property="btnCommit" destination="6jA-s0-6kT" id="cWj-sr-uOj"/>
+                        <outlet property="cancelBtn" destination="OGq-dJ-zLW" id="fFe-vJ-K6k"/>
                         <outlet property="headerText" destination="GJH-Uf-GCe" id="gEf-TN-xGw"/>
                         <outlet property="pinMarks" destination="Erh-Y0-nwo" id="jUX-nd-F49"/>
                         <outlet property="prgsPinStrength" destination="vRA-0U-8dN" id="b3n-vD-jS0"/>
@@ -2936,19 +2953,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Account Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="f24-xl-TCh">
-                                <rect key="frame" x="19" y="172" width="337.5" height="40"/>
+                                <rect key="frame" x="19" y="176" width="337.5" height="40"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Private Passphrase" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Ci-fh-xL9">
-                                <rect key="frame" x="19" y="228" width="337.5" height="40"/>
+                                <rect key="frame" x="19" y="232" width="337.5" height="40"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3fY-ne-PU1">
-                                <rect key="frame" x="112.5" y="290" width="150" height="40"/>
+                                <rect key="frame" x="112.5" y="294" width="150" height="40"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Create Account">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2958,23 +2975,26 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Account" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9vy-aP-AN1">
-                                <rect key="frame" x="19" y="68" width="337.5" height="33.5"/>
+                                <rect key="frame" x="19" y="72" width="337.5" height="33.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Input your new account name and enter your private passphrase." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uEE-xL-XMv">
-                                <rect key="frame" x="19" y="116" width="342.5" height="40"/>
+                                <rect key="frame" x="19" y="120" width="342.5" height="40"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="omU-f5-HkH">
-                                <rect key="frame" x="19" y="20" width="337.5" height="30"/>
+                                <rect key="frame" x="19" y="20" width="337.5" height="34"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VGy-mq-b5b">
-                                        <rect key="frame" x="0.0" y="0.0" width="48" height="30"/>
-                                        <state key="normal" title="Cancel"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="48" height="34"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
                                         <connections>
                                             <action selector="cancelBtn:" destination="oZ5-dq-itK" eventType="touchUpInside" id="wgT-Yo-LZr"/>
                                         </connections>
@@ -2982,7 +3002,7 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.92941176470588238" green="0.93725490196078431" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="9vy-aP-AN1" firstAttribute="height" secondItem="5eF-E0-YtW" secondAttribute="height" multiplier="0.05" id="3XY-nx-8br"/>
                             <constraint firstItem="f24-xl-TCh" firstAttribute="centerX" secondItem="5eF-E0-YtW" secondAttribute="centerX" id="4IQ-jt-gFj"/>
