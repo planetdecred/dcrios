@@ -15,7 +15,6 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
 
     @IBOutlet weak var subheader: UILabel!
     @IBOutlet var walletAddress: UIButton!
-    @IBOutlet weak var menuOptionView: UIView!
     
     var firstTrial = true
     var starttime: Int64 = 0
@@ -43,11 +42,6 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
         tapGesture.numberOfTouchesRequired = 1
         imgWalletAddrQRCode.addGestureRecognizer(tapGesture)
         imgWalletAddrQRCode.isUserInteractionEnabled = true
-        self.menuOptionView.layer.cornerRadius = 4
-        self.menuOptionView.layer.shadowColor = UIColor.black.cgColor
-        self.menuOptionView.layer.shadowOffset = CGSize(width: 0, height: 1.0)
-        self.menuOptionView.layer.shadowOpacity = 0.2
-        self.menuOptionView.layer.shadowRadius = 4.0
         self.accountDropdown.backgroundColor = UIColor.white
         
     }
@@ -59,26 +53,34 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
         let shareBtn = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share))
         let generateAddressBtn = UIButton(type: .custom)
         generateAddressBtn.setImage(UIImage(named: "right-menu"), for: .normal)
-        generateAddressBtn.addTarget(self, action: #selector(toggleOptionsMenu), for: .touchUpInside)
+        generateAddressBtn.addTarget(self, action: #selector(showMenu), for: .touchUpInside)
         generateAddressBtn.frame = CGRect(x: 0, y: 0, width: 10, height: 51)
         let barButton = UIBarButtonItem(customView: generateAddressBtn)
         self.navigationItem.rightBarButtonItems = [barButton, shareBtn ]
-
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    @objc func toggleOptionsMenu(){
-        self.menuOptionView.isHidden = !self.menuOptionView.isHidden
+    @objc func showMenu(){
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        let generateNewAddressAction = UIAlertAction(title: "Generate new address", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+            self.generateNewAddress()
+        })
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(generateNewAddressAction)
+        
+        self.present(alertController, animated: true, completion: nil)
     }
     
-    @IBAction private func generateNewAddress() {
+    private func generateNewAddress() {
         self.oldAddress = self.walletAddress.currentTitle!
         self.getNextAddress(accountNumber: (self.myacc.Number))
-        self.toggleOptionsMenu()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -113,6 +115,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     @IBAction func tapCopy(_ sender: Any) {
         self.copyAddress()
     }
+    
     @IBAction func CopyImgAddress(_ sender: UITapGestureRecognizer) {
         self.copyAddress()
     }

@@ -9,18 +9,21 @@
 import UIKit
 
 typealias CallBack = ((Int, String) -> Void) // callback function
+typealias TapListener = ()->()
 
 class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
 {
     var items = [String]()
     var table = UITableView()
     var act: CallBack?
+    var listener: TapListener?
     
     var superSuperView = UIView()
     var containerView = UIView()
     
     @objc func showItems()
     {
+        listener?()
         fixLayout()
         
         if (containerView.alpha) == 0
@@ -183,7 +186,10 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
         cell.separatorInset = UIEdgeInsetsMake(0, frame.width, 0, frame.width)
         cell.addSubview(itemLabel)
         
-        
         return cell
+    }
+    
+    func setTapListener(tapListener: @escaping TapListener){
+        self.listener = tapListener
     }
 }
