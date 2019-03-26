@@ -659,6 +659,11 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
                 self.daysbeindText.isHidden = true
                 self.verboseText.setTitle(status4,for: .normal)
                 self.peersSyncText.text = "Syncing with \(self.peerCount) peers on \(self.NetType)."
+                if !(self.tapViewMoreBtn.isEnabled){
+                    self.hideAllSync()
+                    self.tapViewMoreBtn.isEnabled = true
+                    self.tapViewMoreBtn.setTitle("Tap to view information", for: .normal)
+                }
                 
             }
              let percentage3 = getSyncTimeRemaining(millis: self.walletInfo.syncRemainingTime, percentageCompleted: Int(self.walletInfo.syncProgress), syncView: false)
@@ -727,6 +732,11 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
                 self.verboseText.setTitle(status4, for: .normal)
                
                 self.peersSyncText.text = "Syncing with \(self.peerCount) peers on \(self.NetType)."
+                if !(self.tapViewMoreBtn.isEnabled){
+                    self.hideAllSync()
+                    self.tapViewMoreBtn.isEnabled = true
+                    self.tapViewMoreBtn.setTitle("Tap to view information", for: .normal)
+                }
                 
             }
             let percentage3 = getSyncTimeRemaining(millis: self.walletInfo.syncRemainingTime, percentageCompleted: Int(self.walletInfo.syncProgress), syncView: false)
