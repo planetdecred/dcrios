@@ -83,8 +83,26 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
          print("left did open")
-        
+        let initialSyncHelp = UserDefaults.standard.bool(forKey: GlobalConstants.Strings.INITIAL_SYNC_HELP)
+        if(!initialSyncHelp){
+            showAlert(message: "Your 33 word seed is your wallet, keep it safe. Without it your funds cannot be recovered should your device be lost or destroyed.\n\nInitial wallet sync will take longer than usual. The wallet will connect to p2p nodes to download the blockchain headers, and will fetch only the blocks that you need while preserving your privacy.", title: "Welcome to Decred Wallet.")
+            UserDefaults.standard.set(true, forKey: GlobalConstants.Strings.INITIAL_SYNC_HELP)
+            UserDefaults.standard.synchronize()
+        }
     }
+    
+    private func showAlert(message: String? , title: String?) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+            alert.dismiss(animated: true, completion: nil)
+        }
+        alert.addAction(okAction)
+        
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         if UserDefaults.standard.bool(forKey: "pref_use_testnet") {

@@ -54,5 +54,6 @@ struct GlobalConstants {
         static let LEGACY_TESTNET_HD_PATH = "m / 44' / 11' /"
         static let MAINNET_HD_PATH = "m / 44' / 42' /"
         static let LEGACY_MAINNET_HD_PATH = "m / 44' / 20' /"
+        static let INITIAL_SYNC_HELP = "initial_sync_help"
     }
 }
