@@ -84,15 +84,36 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         super.viewDidAppear(true)
          print("left did open")
         let initialSyncHelp = UserDefaults.standard.bool(forKey: GlobalConstants.Strings.INITIAL_SYNC_HELP)
-        if(!initialSyncHelp){
-            showAlert(message: "Your 33 word seed is your wallet, keep it safe. Without it your funds cannot be recovered should your device be lost or destroyed.\n\nInitial wallet sync will take longer than usual. The wallet will connect to p2p nodes to download the blockchain headers, and will fetch only the blocks that you need while preserving your privacy.", title: "Welcome to Decred Wallet.")
+        if(initialSyncHelp){
+            showAlert(message: "\nYour 33 word seed is your wallet, keep it safe. Without it your funds cannot be recovered should your device be lost or destroyed.\n\nInitial wallet sync will take longer than usual. The wallet will connect to p2p nodes to download the blockchain headers, and will fetch only the blocks that you need while preserving your privacy.", title: "Welcome to Decred Wallet.")
             UserDefaults.standard.set(true, forKey: GlobalConstants.Strings.INITIAL_SYNC_HELP)
             UserDefaults.standard.synchronize()
         }
     }
     
     private func showAlert(message: String? , title: String?) {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = NSTextAlignment.left
+        
+        let messageText = NSMutableAttributedString(
+            string: message!,
+            attributes: [
+                NSAttributedStringKey.paragraphStyle: paragraphStyle,
+                NSAttributedStringKey.font : UIFont.preferredFont(forTextStyle: UIFontTextStyle.body),
+                NSAttributedStringKey.foregroundColor : UIColor.black
+            ]
+        )
+        let titleText = NSMutableAttributedString(
+            string: title!,
+            attributes: [
+                NSAttributedStringKey.paragraphStyle: paragraphStyle,
+                NSAttributedStringKey.font : UIFont.preferredFont(forTextStyle: UIFontTextStyle.title3),
+                NSAttributedStringKey.foregroundColor : UIColor.black
+            ]
+        )
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.setValue(messageText, forKey: "attributedMessage")
+        alert.setValue(titleText, forKey: "attributedTitle")
         let okAction = UIAlertAction(title: "OK", style: .default) { _ in
             alert.dismiss(animated: true, completion: nil)
         }
