@@ -87,6 +87,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
             UserDefaults.standard.removePersistentDomain(forName: domain)
             UserDefaults.standard.set(true, forKey: GlobalConstants.Strings.USE_TESTNET)
             UserDefaults.standard.synchronize()
+            SingleInstance.shared.setDefaults()
             DispatchQueue.main.async {
                 self.timer?.invalidate()
                 self.timer = nil
