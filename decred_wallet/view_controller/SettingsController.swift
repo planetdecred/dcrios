@@ -126,7 +126,10 @@ class SettingsController: UITableViewController  {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         self.dismiss(animated: true, completion: nil)
-        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         if UserDefaults.standard.string(forKey: "TMPPIN") != nil{
             let pin = UserDefaults.standard.string(forKey: "TMPPIN")!
             self.handleDeleteWallet(pass: pin)
@@ -288,25 +291,29 @@ class SettingsController: UITableViewController  {
     }
     
     func handleDeleteWallet(pass: String){
+        let progressHud = showProgressHud(with: "Deleting wallet...")
         let wallet = SingleInstance.shared.wallet!
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let this = self else { return }
             
             do {
                 let passData = (pass as NSString).data(using: String.Encoding.utf8.rawValue)!
+                wallet.dropSpvConnection()
                 try wallet.unlock(passData)
                 try wallet.close()
 
                 let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
                 let walletDir = paths[0].appendingPathComponent("dcrlibwallet")
                 try FileManager.default.removeItem(at: walletDir)
-                print("Files deleted")
                 DispatchQueue.main.async {
-                    print("Restarting")
-                    exit(0)
+                    progressHud.dismiss()
+                    UserDefaults.standard.set(true, forKey: GlobalConstants.Strings.DELETE_WALLET)
+                    UserDefaults.standard.synchronize()
+                    self?.delegate?.changeViewController(LeftMenu.overview)
                 }
             } catch {
                 DispatchQueue.main.async {
+                    progressHud.dismiss()
                     let alertController = UIAlertController(title: "", message: "Passphrase was not valid.", preferredStyle: UIAlertControllerStyle.alert)
                     alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
                     this.present(alertController, animated: true, completion: nil)

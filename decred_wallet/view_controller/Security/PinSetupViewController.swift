@@ -184,22 +184,16 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol, StartUpPass
             sendVC.senders = "settingsChangeStartup"
             sendVC.pass_pinToVerify = self.pin
             self.navigationController?.pushViewController(sendVC, animated: true)
-        }
-        else if (senders == "spendFund" || senders == "createFnc" || senders == "signMessage") {
+        } else if (senders == "spendFund" || senders == "createFnc" || senders == "signMessage" || senders == "settingsDeleteWallet") {
             pinInput = pin
             UserDefaults.standard.set(pin, forKey: "TMPPIN") //deeply concern about
             UserDefaults.standard.synchronize()
             print(pinInput as Any)
-            if (senders == "spendFund" || senders == "signMessage"){
+            if (senders == "spendFund" || senders == "signMessage" || senders == "settingsDeleteWallet"){
                 self.navigationController?.popViewController(animated: true)
             }else if (senders == "createFnc"){
                 self.presentingViewController?.dismiss(animated: true, completion: nil)
             }
-        } else if(senders == "settingsDeleteWallet"){
-            pinInput = pin
-            UserDefaults.standard.set(pin, forKey: "TMPPIN") //deeply concern about
-            UserDefaults.standard.synchronize()
-            self.navigationController?.popViewController(animated: true)
         } else {
             if very {
                 if pin.elementsEqual(VerifyPin){
