@@ -238,9 +238,9 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol, StartUpPass
             headerText.text = "Change Startup PIN"
         } else if (senders == "settingsChangeStartupPin") {
             headerText.text = "Enter Startup PIN"
-        } else if (senders == "spendFund" || senders == "signMessage") {
+        } else if (senders == "spendFund" || senders == "signMessage" || senders == "settingsDeleteWallet") {
             headerText.text = "Input Spending PIN"         
-        }else if (senders == "createFnc" || senders == "settingsDeleteWallet") {
+        }else if (senders == "createFnc") {
             headerText.text = "Input Spending PIN"
             cancelBtn.isHidden = false
         }
