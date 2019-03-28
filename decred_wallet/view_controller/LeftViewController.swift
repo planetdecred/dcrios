@@ -84,7 +84,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         super.viewDidAppear(true)
          print("left did open")
         let initialSyncHelp = UserDefaults.standard.bool(forKey: GlobalConstants.Strings.INITIAL_SYNC_HELP)
-        if(initialSyncHelp){
+        if(!initialSyncHelp){
             showAlert(message: "\nYour 33 word seed is your wallet, keep it safe. Without it your funds cannot be recovered should your device be lost or destroyed.\n\nInitial wallet sync will take longer than usual. The wallet will connect to p2p nodes to download the blockchain headers, and will fetch only the blocks that you need while preserving your privacy.", title: "Welcome to Decred Wallet.")
             UserDefaults.standard.set(true, forKey: GlobalConstants.Strings.INITIAL_SYNC_HELP)
             UserDefaults.standard.synchronize()
