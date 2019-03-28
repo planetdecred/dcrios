@@ -33,7 +33,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
     var isTimerRunning = false
     
     var seconds = 60
-    var timer = Timer()
+    var timer: Timer?
     
     @IBOutlet weak var blockInfo: UILabel!
     @IBOutlet weak var connectionStatus: UILabel!
@@ -77,11 +77,11 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         UserDefaults.standard.set(false, forKey: "synced")
         UserDefaults.standard.set(0, forKey: "peercount")
         UserDefaults.standard.synchronize()
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
+
          print("left did open")
         let initialSyncHelp = UserDefaults.standard.bool(forKey: GlobalConstants.Strings.INITIAL_SYNC_HELP)
         if(!initialSyncHelp){
@@ -121,6 +121,21 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         
         DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
+        if UserDefaults.standard.bool(forKey: GlobalConstants.Strings.DELETE_WALLET) != false{
+            UserDefaults.standard.set(false, forKey: GlobalConstants.Strings.DELETE_WALLET)
+            let domain = Bundle.main.bundleIdentifier!
+            UserDefaults.standard.removePersistentDomain(forName: domain)
+            UserDefaults.standard.set(true, forKey: GlobalConstants.Strings.USE_TESTNET)
+            UserDefaults.standard.synchronize()
+            SingleInstance.shared.setDefaults()
+            DispatchQueue.main.async {
+                self.timer?.invalidate()
+                self.timer = nil
+            }
+            UIApplication.shared.keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
+            if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                appDelegate.showAnimatedStartScreen()
+            }
         }
     }
     
@@ -136,7 +151,9 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
     }
     
     func runTimer() {
-        self.timer = Timer.scheduledTimer(timeInterval: 0.5, target: self,   selector: (#selector(self.updateTimer)), userInfo: nil, repeats: true)
+        if(timer == nil){
+            self.timer = Timer.scheduledTimer(timeInterval: 0.5, target: self,   selector: (#selector(self.updateTimer)), userInfo: nil, repeats: true)
+        }
     }
     
     @objc func updateTimer() {
@@ -151,7 +168,6 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
             let currentTime = NSDate().timeIntervalSince1970
             let estimatedBlocks = ((Int64(currentTime) - lastblocktime!) / 120) + bestblocktemp
             self!.sync = UserDefaults.standard.bool(forKey: "synced")
-        
             
             if !((self?.sync)!){
                 this.connectionStatus.text = self!.walletInfo.syncStatus
