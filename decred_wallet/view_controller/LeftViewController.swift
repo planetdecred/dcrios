@@ -83,6 +83,22 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         super.viewDidAppear(true)
 
          print("left did open")
+        if UserDefaults.standard.bool(forKey: GlobalConstants.Strings.DELETE_WALLET) != false{
+            UserDefaults.standard.set(false, forKey: GlobalConstants.Strings.DELETE_WALLET)
+            let domain = Bundle.main.bundleIdentifier!
+            UserDefaults.standard.removePersistentDomain(forName: domain)
+            UserDefaults.standard.set(true, forKey: GlobalConstants.Strings.USE_TESTNET)
+            UserDefaults.standard.synchronize()
+            SingleInstance.shared.setDefaults()
+            DispatchQueue.main.async {
+                self.timer?.invalidate()
+                self.timer = nil
+            }
+            UIApplication.shared.keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
+            if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                appDelegate.showAnimatedStartScreen()
+            }
+        }
         let initialSyncHelp = UserDefaults.standard.bool(forKey: GlobalConstants.Strings.INITIAL_SYNC_HELP)
         if(!initialSyncHelp){
             showAlert(message: "\nYour 33 word seed is your wallet, keep it safe. Without it your funds cannot be recovered should your device be lost or destroyed.\n\nInitial wallet sync will take longer than usual. The wallet will connect to p2p nodes to download the blockchain headers, and will fetch only the blocks that you need while preserving your privacy.", title: "Welcome to Decred Wallet.")
@@ -121,24 +137,8 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         
         DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
-        if UserDefaults.standard.bool(forKey: GlobalConstants.Strings.DELETE_WALLET) != false{
-            UserDefaults.standard.set(false, forKey: GlobalConstants.Strings.DELETE_WALLET)
-            let domain = Bundle.main.bundleIdentifier!
-            UserDefaults.standard.removePersistentDomain(forName: domain)
-            UserDefaults.standard.set(true, forKey: GlobalConstants.Strings.USE_TESTNET)
-            UserDefaults.standard.synchronize()
-            SingleInstance.shared.setDefaults()
-            DispatchQueue.main.async {
-                self.timer?.invalidate()
-                self.timer = nil
-            }
-            UIApplication.shared.keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
-            if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-                appDelegate.showAnimatedStartScreen()
-            }
         }
     }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         if UserDefaults.standard.bool(forKey: "pref_use_testnet") {
