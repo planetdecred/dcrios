@@ -7,6 +7,7 @@
 // license that can be found in the LICENSE file.
 
 import UIKit
+import JGProgressHUD
 
 class AddAcountViewController: UIViewController {
     
@@ -67,16 +68,23 @@ class AddAcountViewController: UIViewController {
     }
     
     private func addAccount(passphrase: Data){
+        let progressHud = JGProgressHUD(style: .light)
+        progressHud.shadow = JGProgressHUDShadow(color: .black, offset: .zero, radius: 5.0, opacity: 0.2)
+        progressHud.textLabel.text = "Creating account..."
+        progressHud.show(in: self.view)
+        
         let accountName = self.accountName.text!
         
         DispatchQueue.global(qos: .userInitiated).async {
             do {
                 try SingleInstance.shared.wallet?.nextAccount(accountName, privPass: passphrase)
                 DispatchQueue.main.async {
+                    progressHud.dismiss()
                     self.dismiss(animated: true, completion: nil)
                 }
             }catch{
                 DispatchQueue.main.async {
+                    progressHud.dismiss()
                     self.showError(error: error)
                     print("error")
                 }
