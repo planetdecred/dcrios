@@ -11,7 +11,7 @@ import UIKit
 import Dcrlibwallet
 public class SingleInstance{
     var wallet: DcrlibwalletLibWallet?
-    var  synced = false, syncing = true;
+    var synced = false, syncing = true;
     var peers = 0;
     var syncStartPoint : Int64 = -1, syncCurrentPoint : Int64 = -1, syncEndPoint : Int64 = -1;
     var syncProgress = 0, accountDiscoveryStartTime: Int64 = 0, totalDiscoveryTime: Int64 = 0;
@@ -26,5 +26,27 @@ public class SingleInstance{
             static let instance: SingleInstance = SingleInstance()
         }
         return Static.instance
+    }
+    
+    func setDefaults() {
+        walletBalance = ""
+        bestBlockTime = ""
+        bestblockTimeInfo = ""
+        ChainStatus = ""
+        synced = false;
+        syncing = true;
+        syncStartPoint = -1;
+        syncCurrentPoint = -1;
+        syncEndPoint = -1;
+        syncProgress = 0;
+        accountDiscoveryStartTime = 0;
+        totalDiscoveryTime = 0;
+        fetchHeaderTime = -1;
+        totalFetchTime = -1;
+        rescanTime = 0;
+        syncRemainingTime = 0;
+        initialSyncEstimate = -1;
+        syncStatus = "Connecting to peers";
+        syncVerbose = "";
     }
 }
