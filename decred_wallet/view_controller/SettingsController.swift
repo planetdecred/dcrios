@@ -195,7 +195,7 @@ class SettingsController: UITableViewController  {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if !(start_Pin.isOn) {
-            if (indexPath.section == 1){
+            if (indexPath.section == 0){
                 if (indexPath.row == 2) {
                     return 0
                 }
@@ -205,7 +205,7 @@ class SettingsController: UITableViewController  {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (indexPath.section == 1) {
+        if (indexPath.section == 0) {
             if (indexPath.row == 1) {
                 if (start_Pin.isOn) {
                     if (UserDefaults.standard.string(forKey: "securitytype") == "PASSWORD") {
