@@ -61,7 +61,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     fileprivate func populateFirstScreen() {
         var initWalletError: NSError?
-        if(UserDefaults.standard.bool(forKey: "pref_use_testnet")){
+        let testnet = UserDefaults.standard.bool(forKey: "pref_use_testnet")
+        if(testnet){
             SingleInstance.shared.wallet = DcrlibwalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrlibwallet/", "bdb", "testnet3", &initWalletError)
         }
         else{
@@ -105,7 +106,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
     }
     
-    fileprivate func showAnimatedStartScreen() {
+    func showAnimatedStartScreen() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let startScreenController = storyboard.instantiateViewController(withIdentifier: "WaiterScreenViewController") as! WaiterScreenViewController
         
@@ -125,6 +126,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         self.window?.rootViewController = self.navigation
         self.window?.makeKeyAndVisible()
     }
+
     func application(_ application: UIApplication, shouldAllowExtensionPointIdentifier extensionPointIdentifier: UIApplicationExtensionPointIdentifier) -> Bool {
         if extensionPointIdentifier == UIApplicationExtensionPointIdentifier.keyboard {
             return false
@@ -142,7 +144,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             UserDefaults.standard.setValuesForKeys(["pref_user_name": "dcrwallet",
                                                     "pref_user_passwd": "dcrwallet",
                                                     ])
-            UserDefaults.standard.set(true, forKey: "pref_use_testnet")
+            UserDefaults.standard.set(true, forKey: GlobalConstants.Strings.USE_TESTNET)
             self.showAnimatedStartScreen()
         }
         
