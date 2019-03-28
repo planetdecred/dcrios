@@ -34,13 +34,16 @@ class PeerSetTableViewController: UITableViewController {
     
     @objc func save() -> Void {
         // save here
-        if (peer_ip.text?.isEmpty)! || (peer_ip.text)! == "" || isValidIP(s: peer_ip.text!){
+        print("saving")
+        if (peer_ip.text?.isEmpty)! || (peer_ip.text)! == ""{
+            print("saving nothing")
             UserDefaults.standard.set("", forKey: "pref_peer_ip")
             UserDefaults.standard.synchronize()
             self.navigationController?.popViewController(animated: true)
             return
         }
         else if isValidIP(s: peer_ip.text!){
+            print("saving \(String(describing: peer_ip.text))")
             UserDefaults.standard.set(peer_ip.text, forKey: "pref_peer_ip")
             UserDefaults.standard.synchronize()
             self.navigationController?.popViewController(animated: true)

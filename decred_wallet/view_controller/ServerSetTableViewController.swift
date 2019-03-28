@@ -33,7 +33,7 @@ class ServerSetTableViewController: UITableViewController {
     
     @objc func save() -> Void {
         // save here
-        if (server_ip.text?.isEmpty)! || (server_ip.text)! == "" || isValidIP(s: server_ip.text!){
+        if (server_ip.text?.isEmpty)! || (server_ip.text)! == ""{
             UserDefaults.standard.set("", forKey: "pref_server_ip")
             UserDefaults.standard.synchronize()
             self.navigationController?.popViewController(animated: true)
