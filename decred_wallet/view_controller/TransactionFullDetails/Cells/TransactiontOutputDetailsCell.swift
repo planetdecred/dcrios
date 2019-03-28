@@ -12,14 +12,12 @@ class TransactiontOutputDetailsCell: UITableViewCell {
     @IBOutlet weak var creditsStack: UIStackView!
     @IBOutlet weak var alcCreditStackHeight: NSLayoutConstraint!
     
-    var index = 0
-    
     var expandOrCollapse: (() -> Void)?
     
     var presentingController: TransactionFullDetailsViewController!
     
     func setup(with credits:[Credit], decodedOutputs: [DecodedOutput], presentingController: TransactionFullDetailsViewController){
-        alcCreditStackHeight.constant = 0
+        creditsStack.subviews.forEach({ $0.removeFromSuperview() }) // this stack view comes with previous items when this function is called again
         self.presentingController = presentingController
         
         var walletOutputIndices = [Int]()
@@ -34,9 +32,6 @@ class TransactiontOutputDetailsCell: UITableViewCell {
             let address = credit.Address
             
             addSubrow(with: amount, title: title, subTitle: address)
-            
-            index += 1
-            alcCreditStackHeight.constant = alcCreditStackHeight.constant + 45
         }
         
         for(i, decodedOutput) in decodedOutputs.enumerated() {
@@ -62,10 +57,10 @@ class TransactiontOutputDetailsCell: UITableViewCell {
             }
             
             addSubrow(with: amount, title: title, subTitle: address)
-            
-            index += 1
-            alcCreditStackHeight.constant = alcCreditStackHeight.constant + 45
         }
+        
+        // each debit row has an height of 45
+        alcCreditStackHeight.constant = CGFloat(45 * creditsStack.arrangedSubviews.count)
     }
     
     @IBAction func hideOrExpandAction(_ sender: UIButton) {
@@ -74,7 +69,7 @@ class TransactiontOutputDetailsCell: UITableViewCell {
     
     private func addSubrow(with amount: NSAttributedString, title: String, subTitle: String){
     
-        let subrow = UIView(frame: CGRect(x:0.0, y:0.0, width:self.frame.size.width, height:45.0))
+        let subrow = UIView(frame: CGRect(x:0.0, y:0.0, width: self.frame.size.width, height:45.0))
         let amountLabel = UILabel(frame: CGRect(x:5.0, y:1.0, width: self.frame.size.width, height: 22.0))
         let subTitleLabel = UIButton(frame: CGRect(x: 5.0, y: 23, width: self.frame.size.width, height: 22.0))
         
@@ -92,7 +87,7 @@ class TransactiontOutputDetailsCell: UITableViewCell {
         amountLabel.attributedText = combine
         subTitleLabel.setTitle(subTitle, for: .normal)
         
-        creditsStack.insertArrangedSubview(subrow, at: index)
+        creditsStack.addArrangedSubview(subrow)
     }
     
     @objc func buttonClicked(sender : UIButton){
