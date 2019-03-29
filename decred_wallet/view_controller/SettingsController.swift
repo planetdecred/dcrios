@@ -69,16 +69,6 @@ class SettingsController: UITableViewController  {
             self.connect_peer_ip.textColor = UIColor.darkText
             self.serverAdd_label.textColor = UIColor.lightGray
             self.connect_ip_label.textColor = UIColor.darkText
-        } else if (network_value == 1) {
-            network_mode_subtitle?.text = "Local Full Node"
-            self.certificate_cell.isUserInteractionEnabled = false
-            self.server_cell.isUserInteractionEnabled = false
-            self.connectPeer_cell.isUserInteractionEnabled = true
-            self.server_ip.textColor = UIColor.lightGray
-            self.certificat_label.textColor = UIColor.lightGray
-            self.connect_peer_ip.textColor = UIColor.darkText
-            self.serverAdd_label.textColor = UIColor.lightGray
-            self.connect_ip_label.textColor = UIColor.darkText
         } else {
             network_mode_subtitle?.text = "Remote Full Node"
             self.certificate_cell.isUserInteractionEnabled = true
