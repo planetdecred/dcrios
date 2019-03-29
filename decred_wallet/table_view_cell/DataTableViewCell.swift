@@ -72,13 +72,19 @@ class DataTableViewCell : BaseTableViewCell {
             
             if (data.trans.Type.lowercased() == "regular".lowercased()) {
                 if (data.trans.Direction == 0) {
-                    self.dataText.attributedText = getAttributedString(str: "-".appending(amount.round(8).description), siz: 13.0, TexthexColor: GlobalConstants.Colors.TextAmount)
+                    let attributedString = NSMutableAttributedString(string: "-")
+                    attributedString.append(getAttributedString(str: amount.round(8).description, siz: 13.0, TexthexColor: GlobalConstants.Colors.TextAmount))
+                    self.dataText.attributedText = attributedString
                     self.dataImage?.image = UIImage(named: "debit")
                 } else if(data.trans.Direction == 1) {
-                    self.dataText.attributedText = getAttributedString(str: " ".appending(amount.round(8).description), siz: 13.0, TexthexColor: GlobalConstants.Colors.TextAmount)
+                    let attributedString = NSMutableAttributedString(string: " ")
+                    attributedString.append(getAttributedString(str: amount.round(8).description, siz: 13.0, TexthexColor: GlobalConstants.Colors.TextAmount))
+                    self.dataText.attributedText = attributedString
                     self.dataImage?.image = UIImage(named: "credit")
                 } else if(data.trans.Direction == 2) {
-                    self.dataText.attributedText = getAttributedString(str: " ".appending(amount.round(8).description), siz: 13.0, TexthexColor: GlobalConstants.Colors.TextAmount)
+                    let attributedString = NSMutableAttributedString(string: " ")
+                    attributedString.append(getAttributedString(str: amount.round(8).description, siz: 13.0, TexthexColor: GlobalConstants.Colors.TextAmount))
+                    self.dataText.attributedText = attributedString
                     self.dataImage?.image = UIImage(named: "account")
                 }
             } else if(data.trans.Type.lowercased() == "vote") {

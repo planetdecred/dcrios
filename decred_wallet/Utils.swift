@@ -192,11 +192,33 @@ func loadCertificate() throws ->  String {
 }
 
 func getAttributedString(str: String, siz: CGFloat, TexthexColor: UIColor) -> NSAttributedString {
-    let tmpString = str
+    var tmpString = str
     if tmpString.contains("."){
     var stt = tmpString as NSString?
-    let atrStr = NSMutableAttributedString(string: stt! as String)
-    let dotRange = stt?.range(of: ".")
+        let sttbTmp = stt
+        var atrStr = NSMutableAttributedString(string: stt! as String)
+        var dotRange = sttbTmp?.range(of: ".")
+         print("about to values are \((dotRange?.location)!) ")
+        if ((dotRange!.location) > 3){
+            print("sttbTmp are \(String(describing: sttbTmp))")
+            let  tmpstt = Int((sttbTmp!.substring(to: (dotRange!.location))))
+            let newValue = tmpstt!.formattedWithSeparator
+            print("tmpstt are \(String(describing: tmpstt))")
+            print("format tmpstt \(newValue))")
+            stt = newValue.appending(sttbTmp!.substring(from: (dotRange!.location))) as NSString?
+            print("stt are \(String(describing: stt))")
+            tmpString = newValue.appending(sttbTmp!.substring(from: (dotRange!.location)))
+            print("format \(tmpstt!.formattedWithSeparator))")
+            print("tmpString are \(String(describing: tmpString))")
+            print("finish")
+        atrStr = NSMutableAttributedString(string: stt! as String)
+            dotRange = stt?.range(of: ".")
+            print("values are \(tmpString)")
+            
+        }
+         
+ 
+       
     if(tmpString.length - ((dotRange?.location)!) <= 3){
             return NSMutableAttributedString(string: tmpString.appending(" DCR") as String)
         }
@@ -220,6 +242,10 @@ func getAttributedString(str: String, siz: CGFloat, TexthexColor: UIColor) -> NS
         }
     return atrStr
     }
+    if(tmpString.length > 3) {
+        return NSMutableAttributedString(string: Int(tmpString)!.formattedWithSeparator.appending(" DCR") )
+        }
+    
     return NSMutableAttributedString(string: tmpString.appending(" DCR") as String)
 }
 
@@ -250,9 +276,24 @@ extension UITableViewCell{
 }
 
 extension UIButton {
-    func set(fontSize: CGFloat) {
+    func set(fontSize: CGFloat, name : String) {
         if let titleLabel = titleLabel {
-            titleLabel.font = UIFont(name: titleLabel.font.fontName, size: fontSize)
+            titleLabel.font = UIFont(name: name, size: fontSize)
         }
     }
+}
+extension BinaryInteger{
+    var formattedWithSeparator:
+        String{
+        return Formatter.withSeparator.string(for :self) ?? ","
+    }
+}
+
+extension Formatter{
+    static let withSeparator:
+        NumberFormatter = {
+            let formatter = NumberFormatter()
+            formatter.groupingSeparator = ","
+            formatter.numberStyle = .decimal
+            return formatter}()
 }
