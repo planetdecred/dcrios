@@ -77,12 +77,13 @@ class TransactiontInputDetails: UITableViewCell {
         
         subTitleLabel.setTitleColor(#colorLiteral(red: 0.2470588235, green: 0.4941176471, blue: 0.8901960784, alpha: 1), for: .normal)
         subTitleLabel.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
-        subTitleLabel.set(fontSize: 15)
-        amountLabel.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        subTitleLabel.set(fontSize: 15, name: "SourceSansPro-Regular")
+        amountLabel.textColor = #colorLiteral(red: 0.03529411765, green: 0.07843137255, blue: 0.2509803922, alpha: 1)
+        amountLabel.font = UIFont(name: "Inconsolata-Regular", size: 16)
         subTitleLabel.contentHorizontalAlignment = .left
         subrow.addSubview(amountLabel)
         subrow.addSubview(subTitleLabel)
-        amountLabel.font = amountLabel.font.withSize(15)
+        amountLabel.font = amountLabel.font.withSize(16)
         let combine = NSMutableAttributedString()
         combine.append(getAttributedString(str: amount, siz: 13, TexthexColor: GlobalConstants.Colors.TextAmount))
         combine.append(NSMutableAttributedString(string: title))
