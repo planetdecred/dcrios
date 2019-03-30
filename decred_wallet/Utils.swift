@@ -198,22 +198,13 @@ func getAttributedString(str: String, siz: CGFloat, TexthexColor: UIColor) -> NS
         let sttbTmp = stt
         var atrStr = NSMutableAttributedString(string: stt! as String)
         var dotRange = sttbTmp?.range(of: ".")
-         print("about to values are \((dotRange?.location)!) ")
         if ((dotRange!.location) > 3){
-            print("sttbTmp are \(String(describing: sttbTmp))")
             let  tmpstt = Int((sttbTmp!.substring(to: (dotRange!.location))))
             let newValue = tmpstt!.formattedWithSeparator
-            print("tmpstt are \(String(describing: tmpstt))")
-            print("format tmpstt \(newValue))")
             stt = newValue.appending(sttbTmp!.substring(from: (dotRange!.location))) as NSString?
-            print("stt are \(String(describing: stt))")
             tmpString = newValue.appending(sttbTmp!.substring(from: (dotRange!.location)))
-            print("format \(tmpstt!.formattedWithSeparator))")
-            print("tmpString are \(String(describing: tmpString))")
-            print("finish")
         atrStr = NSMutableAttributedString(string: stt! as String)
             dotRange = stt?.range(of: ".")
-            print("values are \(tmpString)")
             
         }
          
