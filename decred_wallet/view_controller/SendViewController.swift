@@ -38,6 +38,16 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     var fromNotQRScreen = true
      var AccountFilter: [AccountsEntity]?
     
+    @IBOutlet weak var conversionContHeight: NSLayoutConstraint!
+    @IBOutlet weak var conversionRowCont: UIStackView!
+    
+    @IBOutlet weak var bottomCont: UIView!
+    @IBOutlet weak var conversionFeeCont: UIStackView!
+    
+    @IBOutlet weak var buttomDummyCont: UIStackView!
+    @IBOutlet weak var sendInfoHeight: NSLayoutConstraint!
+    
+    @IBOutlet weak var exchangeRateCont: UIStackView!
     private lazy var readerVC: QRCodeReaderViewController = {
         let builder = QRCodeReaderViewControllerBuilder {
             $0.reader = QRCodeReader(metadataObjectTypes: [.qr], captureDevicePosition: .back)
@@ -63,6 +73,13 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         NotificationCenter.default.addObserver(self, selector: #selector(willResignActive), name:.UIApplicationWillEnterForeground, object: nil)
         self.walletAddress.delegate = self
         removedBtn = false
+        let currency_value = UserDefaults.standard.integer(forKey: "currency")
+        if(currency_value == 1){
+            conversionContHeight.constant = 75
+            conversionRowCont.isHidden = false
+            sendInfoHeight.constant = 135
+            exchangeRateCont.isHidden = false
+        }
         self.showDefaultAccount()
         self.removePasteBtn()
         self.checkpaste()
