@@ -48,6 +48,11 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     @IBOutlet weak var sendInfoHeight: NSLayoutConstraint!
     
     @IBOutlet weak var exchangeRateCont: UIStackView!
+    @IBOutlet weak var exchangeRateDisplay: UILabel!
+    @IBOutlet weak var convertionFeeOther: UILabel!
+    @IBOutlet weak var exchangeRateError: UIButton!
+    @IBOutlet weak var currencyAmount2: AmountTextfield!
+    
     private lazy var readerVC: QRCodeReaderViewController = {
         let builder = QRCodeReaderViewControllerBuilder {
             $0.reader = QRCodeReader(metadataObjectTypes: [.qr], captureDevicePosition: .back)
@@ -75,10 +80,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         removedBtn = false
         let currency_value = UserDefaults.standard.integer(forKey: "currency")
         if(currency_value == 1){
-            conversionContHeight.constant = 75
-            conversionRowCont.isHidden = false
-            sendInfoHeight.constant = 135
-            exchangeRateCont.isHidden = false
+            GetExchangeRate()
         }
         self.showDefaultAccount()
         self.removePasteBtn()
@@ -100,12 +102,14 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             self.addressErrorText.text = ""
             self.amountErrorText.text = ""
             self.tfAmount.text = ""
+            self.currencyAmount2.text = ""
             self.estimateFee.text = "0.00 DCR"
             self.estimateSize.text = "0 Bytes"
             self.BalanceAfter.text = "0.00 DCR"
         } else {
             self.amountErrorText.text = ""
             self.tfAmount.text = ""
+            self.currencyAmount2.text = ""
             self.estimateFee.text = "0.00 DCR"
             self.estimateSize.text = "0 Bytes"
             self.BalanceAfter.text = "0.00 DCR"
@@ -859,6 +863,90 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     private func validate(address: String) -> Bool {
         return (wallet?.isAddressValid(address)) ?? false
     }
+    
+    @IBAction func reloadExchange(_ sender: Any) {
+        self.exchangeRateError.isEnabled = false
+        self.GetExchangeRate()
+    }
+    
+    func GetExchangeRate(){
+        //create the url with NSURL
+       let url = NSURL(string: "https://bittrex.com/api/v1.1/public/getticker?market=USDT-DCR")! //change the url
+        print("start fetching")
+        //create the session object
+        let session = URLSession.shared
+        
+        //now create the URLRequest object using the url object
+        let request = URLRequest(url: url as URL)
+        
+        //create dataTask using the session object to send data to the server
+        let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
+            print("in task now")
+            guard error == nil else {
+                DispatchQueue.main.async {
+                    self.exchangeRateError.setTitle("bittrex rate unavailable (tap to retry)", for: .normal)
+                    self.exchangeRateError.isEnabled = true
+                }
+                return
+            }
+            
+            guard let data = data else {
+                DispatchQueue.main.async {
+                    self.exchangeRateError.setTitle("bittrex rate unavailable (tap to retry)", for: .normal)
+                    self.exchangeRateError.isEnabled = true
+                }
+                return
+            }
+            
+            do {
+                //create json object from data
+                if let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: Any] {
+                    let resultValue = json["success"] as? Bool?
+                    print(json["result"]! as Any)
+                    print(json["success"]!)
+                    if resultValue  == true{
+                        // print(json["data"] as Any)
+                        let reportLoad = json["result"] as? NSDictionary
+                        if let exchangeRate = reportLoad!["Last"] as? Double?{
+                            let exchange = Decimal(exchangeRate!) as NSDecimalNumber
+                            DispatchQueue.main.async {
+                                self.conversionContHeight.constant = 75
+                                self.conversionRowCont.isHidden = false
+                                self.sendInfoHeight.constant = 135
+                                self.exchangeRateCont.isHidden = false
+                                self.exchangeRateDisplay.text = exchange.round(2).stringValue + " USD/DCR (bittrex)"
+                                self.exchangeRateError.isEnabled = false
+                                self.exchangeRateError.setTitle("", for: .normal)
+                            }
+                            return
+                        }
+                        DispatchQueue.main.async {
+                            self.exchangeRateError.setTitle("bittrex rate unavailable (tap to retry)", for: .normal)
+                            self.exchangeRateError.isEnabled = true
+                        }
+                    }
+                    else{
+                        DispatchQueue.main.async {
+                            self.exchangeRateError.setTitle("bittrex rate unavailable (tap to retry)", for: .normal)
+                            self.exchangeRateError.isEnabled = true
+                        }
+                        return
+                    }
+                }
+            } catch let error {
+                DispatchQueue.main.async {
+                    self.exchangeRateError.setTitle("bittrex rate unavailable (tap to retry)", for: .normal)
+                    self.exchangeRateError.isEnabled = true
+                }
+                
+                print(error.localizedDescription)
+                return
+            }
+        })
+        
+        task.resume()
+    }
+    
 }
 class AmountTextfield: UITextField {
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
