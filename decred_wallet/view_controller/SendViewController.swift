@@ -65,6 +65,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     var sendToAccount: AccountsEntity?
     var password: String?
     var sendAllTX = false
+    var exchangeRateGloabal :NSDecimalNumber = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,6 +73,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         self.accountDropdown.backgroundColor = UIColor.clear
         self.toAccountDropDown.backgroundColor = UIColor.clear
         self.tfAmount.delegate = self
+        self.currencyAmount2.delegate = self
         self.pasteBtn.layer.cornerRadius = 4
         self.pasteBtn.layer.shadowOffset = CGSize(width: 0, height: 2.0)
         wallet = SingleInstance.shared.wallet
@@ -585,9 +587,9 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         
        
         if (textField == self.walletAddress) {
-            print("am typing")
+           
             if (updatedString == nil || updatedString?.trimmingCharacters(in: .whitespaces) == "") {
-                print("zero or invalid address")
+                
                 DispatchQueue.main.async {
                     self.addressErrorText.text = ""
                 }
@@ -622,10 +624,15 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             }
         }
         if (textField == self.tfAmount) {
+            print("affected me")
             self.sendAllTX = false
             let cs = NSCharacterSet(charactersIn: ACCEPTABLE_CHARACTERS).inverted
             if (updatedString != nil && updatedString != "" ){
-                
+                DispatchQueue.main.async {
+                    self.estimateFee.text = "0.00 DCR"
+                    self.estimateSize.text = "0 Bytes"
+                    self.BalanceAfter.text = "0.00 DCR"
+                }
                 if((updatedString?.contains("."))!){
                     let tmp2 = updatedString! as NSString
                     let TmpDot = tmp2.range(of: ".")
@@ -637,13 +644,11 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                     if(updatedString?.first == "."){
                         DispatchQueue.main.async {
                             self.tfAmount.text = "0."
-                            print(" . first")
                         }
                         updatedString = "0."
                         ACCEPTABLE_CHARACTERS = "."
                     }
                     else{
-                        print(" . still point inside")
                         ACCEPTABLE_CHARACTERS = "."
                     }
                 }
@@ -652,7 +657,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                         return false
                         
                     }
-                    print(" . no point inside")
+                   
                     ACCEPTABLE_CHARACTERS = ""
                     
                 }
@@ -665,8 +670,12 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                 let amountToSend = Decimal(Double((updatedString)!)!)
                 
                 if (amountToSend > tspendable) {
-                    print("zero or invalid address")
                     DispatchQueue.main.async {
+                        if !(self.conversionRowCont.isHidden){
+                            let tmp = Double((updatedString)!)!
+                            let tmp2 = Decimal(tmp)
+                            self.currencyAmount2.text = "\((((self.exchangeRateGloabal as Decimal) * tmp2)as NSDecimalNumber).round(2)))"
+                        }
                         if(UserDefaults.standard.bool(forKey: "synced")){
                              self.amountErrorText.text = "Not enough funds"
                         }
@@ -679,11 +688,101 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                 else{
                     DispatchQueue.main.async {
                         self.amountErrorText.text = ""
+                        if !(self.conversionRowCont.isHidden){
+                            let tmp = Double((updatedString)!)!
+                            let tmp2 = Decimal(tmp)
+                            self.currencyAmount2.text = "\((((self.exchangeRateGloabal as Decimal) * tmp2)as NSDecimalNumber).round(2)))"
+                        }
                     }
                      return true
                 }
            
                 return true
+            }else{
+                self.currencyAmount2.text = nil
+            }
+        }
+       else if (textField == self.currencyAmount2) {
+            self.sendAllTX = false
+            let cs = NSCharacterSet(charactersIn: ACCEPTABLE_CHARACTERS).inverted
+            if (updatedString != nil && updatedString != "" ){
+                DispatchQueue.main.async {
+                    self.estimateFee.text = "0.00 DCR"
+                    self.estimateSize.text = "0 Bytes"
+                    self.BalanceAfter.text = "0.00 DCR"
+                }
+                if((updatedString?.contains("."))!){
+                    let tmp2 = updatedString! as NSString
+                    let TmpDot = tmp2.range(of: ".")
+                    if((updatedString!.length - (TmpDot.location + 1)) > 2 || TmpDot.location > 10){
+                        return false
+                        
+                    }
+                    
+                    if(updatedString?.first == "."){
+                        DispatchQueue.main.async {
+                            self.currencyAmount2.text = "0."
+                            
+                        }
+                        updatedString = "0."
+                        ACCEPTABLE_CHARACTERS = "."
+                    }
+                    else{
+                        ACCEPTABLE_CHARACTERS = "."
+                    }
+                }
+                else{
+                    if(updatedString!.length > 10){
+                        return false
+                        
+                    }
+                   
+                    ACCEPTABLE_CHARACTERS = ""
+                    
+                }
+                
+                if !(CharacterSet(charactersIn: string).isSubset(of: cs)){
+                    return false
+                }
+                self.amountErrorText.text = ""
+                let tspendable = spendable(account: self.selectedAccount!) as Decimal
+                let amountToSend = Decimal(Double((updatedString)!)!)
+                
+                if (amountToSend > tspendable) {
+                    DispatchQueue.main.async {
+                            let tmp = Double((updatedString)!)!
+                            let tmp2 = Decimal(tmp)
+                        print("\((tmp2 )) and \(self.exchangeRateGloabal as Decimal)")
+                        print((tmp2 ) / (self.exchangeRateGloabal as Decimal))
+                        print("currency")
+                        self.tfAmount.text = "\(((tmp2 ) / (self.exchangeRateGloabal as Decimal) as NSDecimalNumber).round(8))"
+                        if(UserDefaults.standard.bool(forKey: "synced")){
+                            self.amountErrorText.text = "Not enough funds"
+                        }
+                        else{
+                            self.amountErrorText.text = "Not enough funds (or not connected)"
+                        }
+                        
+                    }
+                }
+                else{
+                    DispatchQueue.main.async {
+                        self.amountErrorText.text = ""
+                        if !(self.conversionRowCont.isHidden){
+                            let tmp = Double((updatedString)!)!
+                            let tmp2 = Decimal(tmp)
+                            print("\((tmp2 )) and \(self.exchangeRateGloabal as Decimal)")
+                            print((tmp2 ) / (self.exchangeRateGloabal as Decimal))
+                            print("currency")
+                            self.tfAmount.text = "\(((tmp2 ) / (self.exchangeRateGloabal as Decimal) as NSDecimalNumber).round(8))"
+                        }
+                    }
+                    return true
+                }
+                
+                return true
+            }else{
+                self.tfAmount.text = nil
             }
         }
         
@@ -915,6 +1014,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                                 self.sendInfoHeight.constant = 135
                                 self.exchangeRateCont.isHidden = false
                                 self.exchangeRateDisplay.text = exchange.round(2).stringValue + " USD/DCR (bittrex)"
+                                self.exchangeRateGloabal = exchange.round(2)
                                 self.exchangeRateError.isEnabled = false
                                 self.exchangeRateError.setTitle("", for: .normal)
                             }
