@@ -215,6 +215,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         self.toAddressContainer.isHidden = !toAddressContainer.isHidden
         self.toAccountContainer.isHidden = !toAccountContainer.isHidden
         self.addressErrorText.isHidden = !self.addressErrorText.isHidden
+        self.toggleSendBtn(validate: self.validateSentBtn(amount: self.tfAmount.text!))
     }
     
     func removePasteBtn(){
@@ -264,7 +265,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             }
             return
         }
-        if self.validate() {
+        if self.validate(amount: self.tfAmount.text!) {
             self.fromNotQRScreen = false
             if(UserDefaults.standard.string(forKey: "spendingSecureType") == "PASSWORD"){
                 self.confirmSend(sendAll: false)
@@ -545,7 +546,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     // MARK: - TextFieldDelegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if !self.validateAmount() {
+        if !self.validateAmount(amount: self.tfAmount.text!) {
             self.showAlertInvalidAmount()
             return false
         }
@@ -707,7 +708,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                 }
                 self.sendAllTX = false
                 self.prepareTransaction(sendAll: self.sendAllTX, amount: updatedString!)
-                return true
+                self.toggleSendBtn(validate: self.validateSentBtn(amount: updatedString!))
             }else{
                 
                 DispatchQueue.main.async {
@@ -715,13 +716,16 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                     self.estimateFee.text = "0.00 DCR"
                     self.estimateSize.text = "0 Bytes"
                     self.BalanceAfter.text = "0.00 DCR"
+                    self.amountErrorText.text = ""
                     if !(self.conversionRowCont.isHidden){
                         self.conversionFeeCont.isHidden = true
                         self.sendInfoHeight.constant = 135
                         self.convertionFeeOther.text = ""
                     }
+                    self.toggleSendBtn(validate: self.validateSentBtn(amount: updatedString!))
                 }
             }
+            
         }
        else if (textField == self.currencyAmount2) {
             self.sendAllTX = false
@@ -798,16 +802,16 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                         if !(self.conversionRowCont.isHidden){
                             let tmp = Double((updatedString)!)!
                             let tmp2 = Decimal(tmp)
-                            print("\((tmp2 )) and \(self.exchangeRateGloabal as Decimal)")
-                            print((tmp2 ) / (self.exchangeRateGloabal as Decimal))
-                            print("currency")
                             self.tfAmount.text = "\(((tmp2 ) / (self.exchangeRateGloabal as Decimal) as NSDecimalNumber).round(8))"
                         }
                     }
                   
                 }
                 self.sendAllTX = false
+                print("before validate")
+                self.toggleSendBtn(validate: self.validateSentBtn(amount: updatedString!))
                 self.prepareTransaction(sendAll: self.sendAllTX, amount: updatedString!)
+                
                 return true
             }else{
                 DispatchQueue.main.async {
@@ -820,6 +824,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                         self.sendInfoHeight.constant = 135
                         self.convertionFeeOther.text = ""
                     }
+                    self.toggleSendBtn(validate: self.validateSentBtn(amount: updatedString!))
                 }
                 
             }
@@ -831,6 +836,19 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         self.view.endEditing(true)
+    }
+    
+    private func toggleSendBtn(validate: Bool){
+        if(validate){
+            self.sendBtn.backgroundColor = UIColor.blue
+            self.sendBtn.setTitleColor(UIColor.white, for: .normal)
+            print("btn true")
+        }
+        else{
+            self.sendBtn.backgroundColor = UIColor(hex: "#E6EAED")
+            self.sendBtn.setTitleColor(UIColor(hex: "#000000", alpha: 0.61), for: .normal)
+            print("btn false")
+        }
     }
     
     private func showDefaultAccount() {
@@ -933,7 +951,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     
     //MARK: - Validation
     
-    private func validate() -> Bool {
+    private func validate(amount: String) -> Bool {
         if !self.validateWallet() {
             self.showAlertForInvalidWallet()
             return false
@@ -944,11 +962,34 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                 return false
             }
         }
-        if !self.validateAmount() {
+        if !self.validateAmount(amount: amount) {
             self.amountErrorText.text = "Amount can not be zero"
             return false
         }
         if(self.amountErrorText.text != ""){
+            return false
+        }
+        
+        return true
+    }
+    private func validateSentBtn(amount : String)-> Bool{
+        if !self.validateWallet() {
+            self.showAlertForInvalidWallet()
+            print("wallet error")
+            return false
+        }
+        if !(self.toAddressContainer.isHidden){
+            if !self.validateDestinationAddress() {
+                print("address error")
+                return false
+            }
+        }
+        if !self.validateAmount(amount: amount) {
+            print("amount error")
+            return false
+        }
+        if(self.amountErrorText.text != ""){
+            print("addressErrorText error")
             return false
         }
         
@@ -959,13 +1000,17 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         return (self.walletAddress.text?.count ?? 0) > 25
     }
     
-    private func validateAmount() -> Bool {
-        if(self.tfAmount?.text == nil || self.tfAmount?.text == "" ){
+    private func validateAmount(amount : String) -> Bool {
+        if(amount == "" ){
+            print("Amount nill or empty")
             return false
         }
         else{
-            let amountToSend = Double((self.tfAmount?.text ?? "0.0")!)!
-            return amountToSend > 0
+            
+            let amountToSend = Double((amount ))!
+            let tspendable = spendable(account: self.selectedAccount!) as Decimal
+            print(" result of amount is \(amountToSend > 0 || Decimal(amountToSend) < tspendable)")
+            return amountToSend > 0 && Decimal(amountToSend) < tspendable
         }
         
     }
