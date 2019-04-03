@@ -11,21 +11,47 @@ class ConfirmToSendFundViewPINController: UIViewController {
     @IBOutlet private weak var labelTitle: UILabel!
     @IBOutlet weak var lbMinorDigits: UILabel!
     @IBOutlet weak var vContent: UIView!
+    @IBOutlet weak var Destaddress: UILabel!
+    @IBOutlet weak var accountName: UILabel!
+    @IBOutlet weak var totalAmount: UILabel!
     
     var confirm: (()->Void)?
     var cancel: (()->Void)?
     
-    var amount: Double = 0.0 {
+    var amount: String = "" {
         willSet (newValue) {
-            labelTitle?.text = major(amount: newValue)
-            lbMinorDigits?.text = minor(amount: newValue)
+            labelTitle?.text = "Sending \(newValue)"
+        }
+    }
+    var fee: String = "" {
+        willSet (newValue) {
+            lbMinorDigits?.text = "with a fee of \(newValue) "
+        }
+    }
+    var address: String = "" {
+        willSet (newValue) {
+            Destaddress?.text = newValue
+        }
+    }
+    var account: String = "" {
+        willSet (newValue) {
+            accountName?.text = "to account (\(newValue))"
+        }
+    }
+    var total: String = "" {
+        willSet (newValue) {
+            totalAmount?.text = newValue
         }
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        labelTitle?.text = major(amount: amount)
-        lbMinorDigits.text = minor(amount: amount)
+        labelTitle?.text = "Sending \(amount) "
+        lbMinorDigits.text = "With a fee of \(fee) "
+        accountName?.text = "to account (\(account))"
+        Destaddress?.text = address
+        totalAmount?.text = total
         let layer = view.layer
         layer.frame = vContent.frame
         layer.shadowColor = UIColor.gray.cgColor
@@ -37,21 +63,6 @@ class ConfirmToSendFundViewPINController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         self.dismiss(animated: true, completion: nil)
-    }
-    
-    private func major(amount:Double) -> String{
-        let major = String(format: "%.2f", amount)
-        return major
-    }
-    
-    private func minor(amount:Double) -> String{
-        let sAmount = "\(amount)"
-        let majorCount = major(amount: amount).count
-        if sAmount.count <= majorCount{
-            return "000000"
-        }else{
-            return sAmount.substring(majorCount)
-        }
     }
     
     @IBAction private func cancelAction(_ sender: UIButton) {

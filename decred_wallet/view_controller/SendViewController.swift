@@ -66,6 +66,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     var password: String?
     var sendAllTX = false
     var exchangeRateGloabal :NSDecimalNumber = 0.0
+    var tempFee = "0"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -169,7 +170,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         super.viewDidAppear(animated)
         
         if UserDefaults.standard.string(forKey: "TMPPIN") != nil{
-            self.confirmSendWithoutPin(sendAll: false, pin: UserDefaults.standard.string(forKey: "TMPPIN")!)
+            self.confirmSendWithoutPin(sendAll: false, pin: UserDefaults.standard.string(forKey: "TMPPIN")!, fee: self.tempFee)
             UserDefaults.standard.set(nil, forKey: "TMPPIN")
         }
     }
@@ -305,7 +306,8 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                     if !(self!.conversionRowCont.isHidden){
                         self?.conversionFeeCont.isHidden = false
                         self!.sendInfoHeight.constant = 155
-                        self?.convertionFeeOther.text = "(\((((Decimal(fee)) * ((self?.exchangeRateGloabal)! as Decimal)) as NSDecimalNumber).round(4)) USD)"
+                        self?.tempFee = "\((((Decimal(fee)) * ((self?.exchangeRateGloabal)! as Decimal)) as NSDecimalNumber).round(4))"
+                        self?.convertionFeeOther.text = "(\(self!.tempFee) USD)"
                     }
                     if(sendAll)!{
                         this.tfAmount.text = "\(DcrlibwalletAmountCoin(amount - DcrlibwalletAmountAtom(fee)) )"
@@ -387,9 +389,10 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         }
         return
     }
-    private func confirmSendWithoutPin(sendAll: Bool, pin: String) {
+    
+    private func confirmSendWithoutPin(sendAll: Bool, pin: String, fee : String) {
         
-        let amountToSend = Double((tfAmount?.text)!)!
+        let amountToSend = (tfAmount?.text)!
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
         let confirmSendFundViewController = storyboard.instantiateViewController(withIdentifier: "ConfirmToSendFundViewPINController") as! ConfirmToSendFundViewPINController
@@ -400,7 +403,28 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         tap.cancelsTouchesInView = false
         
         confirmSendFundViewController.view.addGestureRecognizer(tap)
-        confirmSendFundViewController.amount = amountToSend
+         DispatchQueue.main.async {
+            if (self.toAddressContainer.isHidden){
+                let receiveAddress = try?self.wallet?.currentAddress((self.sendToAccount?.Number)!)
+                confirmSendFundViewController.address = (receiveAddress!)!
+                confirmSendFundViewController.account = (self.selectedAccount?.Name)!
+            }
+            else{
+                confirmSendFundViewController.accountName.isHidden = true
+                    confirmSendFundViewController.address = self.walletAddress.text!
+            }
+            if !(self.conversionRowCont.isHidden){
+                confirmSendFundViewController.amount = "\(amountToSend) DCR ($\((self.currencyAmount2.text)!))"
+                confirmSendFundViewController.fee = "\((self.estimateFee.text)!) ($\((self.tempFee)))"
+            }
+            else{
+                confirmSendFundViewController.amount = "\(amountToSend) DCR"
+                confirmSendFundViewController.fee = "\((self.estimateFee.text)!) (\((self.estimateSize.text)!))"
+            
+                }
+            
+            }
+        
         
         let tmp = pin
         confirmSendFundViewController.confirm = { () in
