@@ -44,7 +44,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     @IBOutlet weak var bottomCont: UIView!
     @IBOutlet weak var conversionFeeCont: UIStackView!
     
-    @IBOutlet weak var buttomDummyCont: UIStackView!
+
     @IBOutlet weak var sendInfoHeight: NSLayoutConstraint!
     
     @IBOutlet weak var exchangeRateCont: UIStackView!
@@ -301,6 +301,11 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                     this.estimateFee.text = "\(fee) DCR"
                     let Amount =  (spendableAmount - (Decimal(amountToSend) )) as NSDecimalNumber
                     this.BalanceAfter.text = "\(Amount.round(8)) DCR"
+                    if !(self!.conversionRowCont.isHidden){
+                        self?.conversionFeeCont.isHidden = false
+                        self!.sendInfoHeight.constant = 155
+                        self?.convertionFeeOther.text = "(\((((Decimal(fee)) * ((self?.exchangeRateGloabal)! as Decimal)) as NSDecimalNumber).round(4)) USD)"
+                    }
                     if(sendAll)!{
                         this.tfAmount.text = "\(DcrlibwalletAmountCoin(amount - DcrlibwalletAmountAtom(fee)) )"
                     }
@@ -624,7 +629,6 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             }
         }
         if (textField == self.tfAmount) {
-            print("affected me")
             self.sendAllTX = false
             let cs = NSCharacterSet(charactersIn: ACCEPTABLE_CHARACTERS).inverted
             if (updatedString != nil && updatedString != "" ){
@@ -682,6 +686,11 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                             self.estimateFee.text = "0.00 DCR"
                             self.estimateSize.text = "0 Bytes"
                             self.BalanceAfter.text = "0.00 DCR"
+                            if !(self.conversionRowCont.isHidden){
+                                self.conversionFeeCont.isHidden = true
+                                self.sendInfoHeight.constant = 135
+                                self.convertionFeeOther.text = ""
+                            }
                         }
                     }
             }
@@ -706,6 +715,11 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                     self.estimateFee.text = "0.00 DCR"
                     self.estimateSize.text = "0 Bytes"
                     self.BalanceAfter.text = "0.00 DCR"
+                    if !(self.conversionRowCont.isHidden){
+                        self.conversionFeeCont.isHidden = true
+                        self.sendInfoHeight.constant = 135
+                        self.convertionFeeOther.text = ""
+                    }
                 }
             }
         }
@@ -713,11 +727,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             self.sendAllTX = false
             let cs = NSCharacterSet(charactersIn: ACCEPTABLE_CHARACTERS).inverted
             if (updatedString != nil && updatedString != "" ){
-                DispatchQueue.main.async {
-                    self.estimateFee.text = "0.00 DCR"
-                    self.estimateSize.text = "0 Bytes"
-                    self.BalanceAfter.text = "0.00 DCR"
-                }
+                
                 if((updatedString?.contains("."))!){
                     let tmp2 = updatedString! as NSString
                     let TmpDot = tmp2.range(of: ".")
@@ -773,6 +783,11 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                             self.estimateFee.text = "0.00 DCR"
                             self.estimateSize.text = "0 Bytes"
                             self.BalanceAfter.text = "0.00 DCR"
+                            if !(self.conversionRowCont.isHidden){
+                                self.conversionFeeCont.isHidden = true
+                                self.sendInfoHeight.constant = 135
+                                self.convertionFeeOther.text = ""
+                            }
                         }
                         
                     }
@@ -800,6 +815,11 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                     self.estimateFee.text = "0.00 DCR"
                     self.estimateSize.text = "0 Bytes"
                     self.BalanceAfter.text = "0.00 DCR"
+                    if !(self.conversionRowCont.isHidden){
+                        self.conversionFeeCont.isHidden = true
+                        self.sendInfoHeight.constant = 135
+                        self.convertionFeeOther.text = ""
+                    }
                 }
                 
             }
