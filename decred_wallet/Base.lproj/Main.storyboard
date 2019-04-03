@@ -3884,7 +3884,7 @@
                                                     <constraint firstAttribute="height" constant="30" id="br2-j6-4mq"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                                                <state key="normal" title="CONFIRM">
+                                                <state key="normal" title="SEND">
                                                     <color key="titleColor" red="0.16078431369999999" green="0.43921568630000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                                 <connections>
@@ -3915,56 +3915,70 @@
                                             <constraint firstAttribute="height" constant="60" id="r1J-nL-TtW"/>
                                         </constraints>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Please confirm to send funds" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xnU-NK-9Lq">
-                                        <rect key="frame" x="48" y="146.5" width="204.5" height="23"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="23" id="jhR-jT-vTH"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
-                                        <color key="textColor" red="0.37254901959999998" green="0.44705882349999998" blue="0.52549019610000003" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sending" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WKF-sp-GZl">
-                                        <rect key="frame" x="33" y="110.5" width="93" height="24"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="93" id="aTX-ku-BYe"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="19"/>
-                                        <color key="textColor" red="0.1766268909" green="0.84774124620000002" blue="0.63897907730000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="234234" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5EW-ux-Tsv">
-                                        <rect key="frame" x="170.5" y="114" width="37" height="22"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="22" id="5Nk-zt-lbB"/>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="37" id="kQu-an-8mB"/>
-                                            <constraint firstAttribute="width" constant="37" id="yZ3-O9-iJj"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="12"/>
-                                        <color key="textColor" red="0.2274509804" green="0.84313725490000002" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DDk-dj-478">
-                                        <rect key="frame" x="48" y="189.5" width="204.5" height="30"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DDk-dj-478">
+                                        <rect key="frame" x="30" y="186.5" width="240" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="MvV-ZU-fad">
+                                        <rect key="frame" x="16" y="8" width="268" height="170.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Sending 600 DCR($12098.94)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YQs-4i-vdZ">
+                                                <rect key="frame" x="0.0" y="0.0" width="268" height="34"/>
+                                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                                <color key="textColor" red="0.2274509804" green="0.84313725490000002" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="with a fee of 0.001414 DCR ($0.03)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N0c-te-OYd">
+                                                <rect key="frame" x="0.0" y="34" width="268" height="34"/>
+                                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                                                <color key="textColor" red="0.37254901959999998" green="0.44705882349999998" blue="0.52549019610000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="to" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s9I-wT-Rd0">
+                                                <rect key="frame" x="0.0" y="68" width="268" height="34.5"/>
+                                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="15"/>
+                                                <color key="textColor" red="0.37254901959999998" green="0.44705882349999998" blue="0.52549019610000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="TsdgffhJKShhe5djmskkhhFdRsPYfdOsFvptdrty" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6he-C2-Cu2">
+                                                <rect key="frame" x="0.0" y="102.5" width="268" height="34"/>
+                                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                                                <color key="textColor" red="0.37254901959999998" green="0.44705882349999998" blue="0.52549019610000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="(default)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bag-fX-egC">
+                                                <rect key="frame" x="0.0" y="136.5" width="268" height="34"/>
+                                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                                                <color key="textColor" red="0.37254901959999998" green="0.44705882349999998" blue="0.52549019610000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Total 600.001415 DCR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hyN-2t-PLU">
+                                                <rect key="frame" x="0.0" y="170.5" width="268" height="0.0"/>
+                                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
+                                                <color key="textColor" red="0.37254901959999998" green="0.44705882349999998" blue="0.52549019610000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="xnU-NK-9Lq" firstAttribute="centerX" secondItem="l5b-HS-2FO" secondAttribute="centerX" id="4vM-Kh-kk7"/>
-                                    <constraint firstItem="DDk-dj-478" firstAttribute="trailing" secondItem="xnU-NK-9Lq" secondAttribute="trailing" id="5Fl-39-qj0"/>
+                                    <constraint firstItem="l5b-HS-2FO" firstAttribute="trailing" secondItem="MvV-ZU-fad" secondAttribute="trailing" constant="16" id="0OY-r0-B7k"/>
+                                    <constraint firstItem="DDk-dj-478" firstAttribute="width" secondItem="bB8-JN-6mS" secondAttribute="width" multiplier="0.8" id="69z-cd-lTQ"/>
+                                    <constraint firstItem="DDk-dj-478" firstAttribute="centerX" secondItem="bB8-JN-6mS" secondAttribute="centerX" id="7c3-BP-NxG"/>
+                                    <constraint firstItem="DDk-dj-478" firstAttribute="top" secondItem="MvV-ZU-fad" secondAttribute="bottom" constant="8" id="7ot-fg-cHi"/>
                                     <constraint firstItem="801-yS-uV3" firstAttribute="trailing" secondItem="l5b-HS-2FO" secondAttribute="trailing" id="7pt-rD-KLC"/>
                                     <constraint firstAttribute="bottom" secondItem="801-yS-uV3" secondAttribute="bottom" id="8WT-2H-dgs"/>
-                                    <constraint firstItem="xnU-NK-9Lq" firstAttribute="top" secondItem="WKF-sp-GZl" secondAttribute="bottom" constant="12" id="GzB-cj-s7a"/>
-                                    <constraint firstItem="DDk-dj-478" firstAttribute="top" secondItem="xnU-NK-9Lq" secondAttribute="bottom" constant="20" id="N7q-Kf-OAl"/>
+                                    <constraint firstItem="801-yS-uV3" firstAttribute="top" secondItem="DDk-dj-478" secondAttribute="bottom" constant="23.5" id="ECN-o5-Z5r"/>
+                                    <constraint firstItem="MvV-ZU-fad" firstAttribute="top" secondItem="l5b-HS-2FO" secondAttribute="top" constant="8" id="JO0-cR-WvW"/>
+                                    <constraint firstItem="MvV-ZU-fad" firstAttribute="leading" secondItem="l5b-HS-2FO" secondAttribute="leading" constant="16" id="Ks5-4P-OoJ"/>
                                     <constraint firstAttribute="height" constant="300" id="dhc-xB-7gS"/>
-                                    <constraint firstItem="DDk-dj-478" firstAttribute="centerX" secondItem="xnU-NK-9Lq" secondAttribute="centerX" id="eLS-2M-xVy"/>
-                                    <constraint firstItem="DDk-dj-478" firstAttribute="leading" secondItem="xnU-NK-9Lq" secondAttribute="leading" id="fWS-hK-y2T"/>
                                     <constraint firstAttribute="bottom" secondItem="801-yS-uV3" secondAttribute="bottom" id="gGJ-f1-tJG"/>
                                     <constraint firstAttribute="width" secondItem="bB8-JN-6mS" secondAttribute="height" multiplier="1:1" id="j9x-US-o1y"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="300" id="mHg-DO-KM9"/>
+                                    <constraint firstItem="MvV-ZU-fad" firstAttribute="centerX" secondItem="bB8-JN-6mS" secondAttribute="centerX" id="sWh-70-mRk"/>
                                     <constraint firstItem="801-yS-uV3" firstAttribute="leading" secondItem="l5b-HS-2FO" secondAttribute="leading" id="vJa-wp-ipR"/>
                                 </constraints>
                                 <viewLayoutGuide key="safeArea" id="l5b-HS-2FO"/>
@@ -3980,57 +3994,26 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img-send-funds" translatesAutoresizingMaskIntoConstraints="NO" id="Mie-WA-vBY">
-                                <rect key="frame" x="152.5" y="216.5" width="70" height="70"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="70" id="d7M-hg-gNE"/>
-                                    <constraint firstAttribute="width" constant="70" id="jx0-5f-MVu"/>
-                                </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="25.80" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lZE-gl-EKj">
-                                <rect key="frame" x="168.5" y="296.5" width="38.5" height="21.5"/>
-                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
-                                <color key="textColor" red="0.2274509804" green="0.84313725490000002" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="DCR" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Cw-Lr-PDO">
-                                <rect key="frame" x="250" y="296" width="40" height="22"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="22" id="040-5r-kHr"/>
-                                    <constraint firstAttribute="width" constant="40" id="4Na-ZO-ZEz"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
-                                <color key="textColor" red="0.2274509804" green="0.84313725490000002" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="5EW-ux-Tsv" firstAttribute="leading" secondItem="lZE-gl-EKj" secondAttribute="trailing" constant="1" id="7Oz-Y7-UWu"/>
-                            <constraint firstItem="lZE-gl-EKj" firstAttribute="centerX" secondItem="bB8-JN-6mS" secondAttribute="centerX" id="JcN-d4-f7U"/>
-                            <constraint firstItem="bB8-JN-6mS" firstAttribute="top" secondItem="Mie-WA-vBY" secondAttribute="bottom" constant="-103" id="LZ0-g2-gGG"/>
-                            <constraint firstItem="lZE-gl-EKj" firstAttribute="top" secondItem="Mie-WA-vBY" secondAttribute="bottom" constant="10" id="WiZ-A8-pIX"/>
-                            <constraint firstItem="lZE-gl-EKj" firstAttribute="leading" secondItem="WKF-sp-GZl" secondAttribute="trailing" constant="5" id="Xbh-BU-7Fh"/>
-                            <constraint firstItem="Mie-WA-vBY" firstAttribute="centerX" secondItem="bB8-JN-6mS" secondAttribute="centerX" id="Zb0-vS-rpx"/>
-                            <constraint firstItem="5EW-ux-Tsv" firstAttribute="firstBaseline" secondItem="lZE-gl-EKj" secondAttribute="firstBaseline" constant="-3.5" id="dcQ-Wi-41T"/>
                             <constraint firstItem="bB8-JN-6mS" firstAttribute="centerX" secondItem="lEP-UP-o7U" secondAttribute="centerX" id="die-ec-o6W"/>
-                            <constraint firstItem="xnU-NK-9Lq" firstAttribute="top" secondItem="lZE-gl-EKj" secondAttribute="bottom" constant="12" id="gHh-0x-s0N"/>
-                            <constraint firstItem="8Cw-Lr-PDO" firstAttribute="bottom" secondItem="lZE-gl-EKj" secondAttribute="bottom" id="mAd-rY-Gkr"/>
-                            <constraint firstItem="8Cw-Lr-PDO" firstAttribute="leading" secondItem="5EW-ux-Tsv" secondAttribute="trailing" constant="5" id="wMZ-bt-Amo"/>
                             <constraint firstItem="bB8-JN-6mS" firstAttribute="centerY" secondItem="lEP-UP-o7U" secondAttribute="centerY" id="yQA-Wq-8Oc"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="osM-aR-Ssx"/>
                     </view>
                     <connections>
-                        <outlet property="labelTitle" destination="lZE-gl-EKj" id="VYv-M1-ywE"/>
-                        <outlet property="lbMinorDigits" destination="5EW-ux-Tsv" id="dPD-1A-jQj"/>
+                        <outlet property="accountLabel" destination="bag-fX-egC" id="4MF-b5-Ucs"/>
+                        <outlet property="addressLabel" destination="6he-C2-Cu2" id="R5B-kQ-kyL"/>
+                        <outlet property="feeLabel" destination="N0c-te-OYd" id="HkK-Ax-EJq"/>
+                        <outlet property="labelTitle" destination="YQs-4i-vdZ" id="VYs-dg-eOv"/>
                         <outlet property="tfPassword" destination="DDk-dj-478" id="9I1-2P-C2M"/>
                         <outlet property="vContent" destination="bB8-JN-6mS" id="7th-8f-Ttm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rRp-Ql-sxw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2619" y="1957"/>
+            <point key="canvasLocation" x="2618.4000000000001" y="1956.9715142428788"/>
         </scene>
         <!--Account View Controller-->
         <scene sceneID="dnl-tR-kvs">
@@ -7513,7 +7496,6 @@ AAAAAAAAAAAAAAACkeI
 </mutableData>
         </image>
         <image name="img-checkmark" width="42" height="44"/>
-        <image name="img-send-funds" width="145" height="139"/>
         <image name="left-arrow" width="33" height="33"/>
         <image name="logo-mainnet" width="262" height="56"/>
         <image name="nav-accounts" width="72" height="72"/>

@@ -9,24 +9,41 @@ import UIKit
 class ConfirmToSendFundViewController: UIViewController {
     
     @IBOutlet private weak var labelTitle: UILabel!
-    @IBOutlet weak var lbMinorDigits: UILabel!
+    @IBOutlet weak var feeLabel: UILabel!
     @IBOutlet weak var tfPassword: UITextField!
     @IBOutlet weak var vContent: UIView!
+    @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var accountLabel: UILabel!
     
-    var amount: Double = 0.0 {
+    var amount: String = "" {
         willSet (newValue) {
-            labelTitle?.text = major(amount: newValue)
-            lbMinorDigits?.text = minor(amount: newValue)
+            labelTitle?.text = "Sending \(newValue)"
         }
     }
-    
+    var fee: String = "" {
+        willSet (newValue) {
+            feeLabel?.text = "with a fee of \(newValue) "
+        }
+    }
+    var address: String = "" {
+        willSet (newValue) {
+            addressLabel?.text = newValue
+        }
+    }
+    var account: String = "" {
+        willSet (newValue) {
+            accountLabel?.text = "to account (\(newValue))"
+        }
+    }
     var confirm: ((String)->Void)?
     var cancel: (()->Void)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        labelTitle?.text = major(amount: amount)
-        lbMinorDigits.text = minor(amount: amount)
+        labelTitle?.text = "Sending \(amount) "
+        feeLabel.text = "With a fee of \(fee) "
+        addressLabel.text = address
+        accountLabel.text = "to account (\(account))"
         let layer = view.layer
         layer.frame = vContent.frame
         layer.shadowColor = UIColor.gray.cgColor
@@ -40,20 +57,6 @@ class ConfirmToSendFundViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    private func major(amount:Double) -> String {
-        let major = String(format: "%.2f", amount)
-        return major
-    }
-    
-    private func minor(amount:Double) -> String{
-        let sAmount = "\(amount)"
-        let majorCount = major(amount: amount).count
-        if (sAmount.count <= majorCount) {
-            return "000000"
-        }else{
-            return sAmount.substring(majorCount)
-        }
-    }
     
     @IBAction private func cancelAction(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)

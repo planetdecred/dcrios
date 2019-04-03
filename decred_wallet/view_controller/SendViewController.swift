@@ -367,7 +367,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     
     private func confirmSend(sendAll: Bool) {
         
-        let amountToSend = Double((tfAmount?.text)!)!
+        let amountToSend = (tfAmount?.text)!
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
         let confirmSendFundViewController = storyboard.instantiateViewController(withIdentifier: "ConfirmToSendFundViewController") as! ConfirmToSendFundViewController
@@ -378,7 +378,27 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         tap.cancelsTouchesInView = false
         
         confirmSendFundViewController.view.addGestureRecognizer(tap)
-        confirmSendFundViewController.amount = amountToSend
+        DispatchQueue.main.async {
+            if (self.toAddressContainer.isHidden){
+                let receiveAddress = try?self.wallet?.currentAddress((self.sendToAccount?.Number)!)
+                confirmSendFundViewController.address = (receiveAddress!)!
+                confirmSendFundViewController.account = (self.selectedAccount?.Name)!
+            }
+            else{
+                confirmSendFundViewController.accountLabel.isHidden = true
+                confirmSendFundViewController.address = self.walletAddress.text!
+            }
+            if !(self.conversionRowCont.isHidden){
+                confirmSendFundViewController.amount = "\(amountToSend) DCR ($\((self.currencyAmount2.text)!))"
+                confirmSendFundViewController.fee = "\((self.estimateFee.text)!) ($\((self.tempFee)))"
+            }
+            else{
+                confirmSendFundViewController.amount = "\(amountToSend) DCR"
+                confirmSendFundViewController.fee = "\((self.estimateFee.text)!) (\((self.estimateSize.text)!))"
+                
+            }
+            
+        }
         
         confirmSendFundViewController.confirm = { (password) in
             self.signTransaction(sendAll: sendAll, password: password)
@@ -864,7 +884,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     
     private func toggleSendBtn(validate: Bool){
         if(validate){
-            self.sendBtn.backgroundColor = UIColor.blue
+            self.sendBtn.backgroundColor = UIColor(hex: "#007AFF")
             self.sendBtn.setTitleColor(UIColor.white, for: .normal)
             print("btn true")
         }
