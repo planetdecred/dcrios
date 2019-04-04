@@ -15,6 +15,8 @@ class ConfirmToSendFundViewPINController: UIViewController {
     @IBOutlet weak var accountName: UILabel!
     @IBOutlet weak var totalAmount: UILabel!
     
+    @IBOutlet weak var contentHeight2: NSLayoutConstraint!
+    @IBOutlet weak var contentHeight1: NSLayoutConstraint!
     var confirm: (()->Void)?
     var cancel: (()->Void)?
     
@@ -35,7 +37,7 @@ class ConfirmToSendFundViewPINController: UIViewController {
     }
     var account: String = "" {
         willSet (newValue) {
-            accountName?.text = "to account (\(newValue))"
+            accountName?.text = "to account \'\(newValue)\'"
         }
     }
     var total: String = "" {
@@ -49,7 +51,7 @@ class ConfirmToSendFundViewPINController: UIViewController {
         super.viewDidLoad()
         labelTitle?.text = "Sending \(amount) "
         lbMinorDigits.text = "With a fee of \(fee) "
-        accountName?.text = "to account (\(account))"
+        accountName?.text = "to account \'\(account)\'"
         Destaddress?.text = address
         totalAmount?.text = total
         let layer = view.layer
