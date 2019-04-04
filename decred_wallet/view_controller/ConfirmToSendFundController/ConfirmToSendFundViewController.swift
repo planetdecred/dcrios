@@ -32,7 +32,7 @@ class ConfirmToSendFundViewController: UIViewController {
     }
     var account: String = "" {
         willSet (newValue) {
-            accountLabel?.text = "to account (\(newValue))"
+            accountLabel?.text = "to account \'\(newValue)\'"
         }
     }
     var confirm: ((String)->Void)?
@@ -43,7 +43,7 @@ class ConfirmToSendFundViewController: UIViewController {
         labelTitle?.text = "Sending \(amount) "
         feeLabel.text = "With a fee of \(fee) "
         addressLabel.text = address
-        accountLabel.text = "to account (\(account))"
+        accountLabel.text = "to account \'\(account)\'"
         let layer = view.layer
         layer.frame = vContent.frame
         layer.shadowColor = UIColor.gray.cgColor
