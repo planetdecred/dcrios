@@ -46,6 +46,7 @@ class AddAcountViewController: UIViewController {
                 vc.isSpendingPassword = true
                 vc.showCancel = true
                 vc.caller = self
+                vc.popViewController = false
                 present(vc, animated: true, completion: nil)
                 print("pushed")
             }
