@@ -15,6 +15,7 @@ class AddAcountViewController: UIViewController {
     @IBOutlet weak var accountName: UITextField!
     @IBOutlet weak var createBtn: UIButton!
     @IBOutlet weak var createBtnTopConstraint: NSLayoutConstraint!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.createBtn.layer.cornerRadius = 6
@@ -25,13 +26,8 @@ class AddAcountViewController: UIViewController {
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if UserDefaults.standard.string(forKey: "TMPPIN") != nil{
-            let pin = UserDefaults.standard.string(forKey: "TMPPIN")!
-            self.addAccountWithPin(pin: pin as NSString)
-            UserDefaults.standard.set(nil, forKey: "TMPPIN")
-        }
+    override func onPassCompleted(pass: String) {
+        self.addAccountWithPin(pin: pass as NSString)
     }
     
     @IBAction func createFnc(_ sender: Any) {
@@ -47,7 +43,9 @@ class AddAcountViewController: UIViewController {
                 addAccountWithoutPin()
             }else{
                 let vc = storyboard!.instantiateViewController(withIdentifier: "PinSetupViewController") as! PinSetupViewController
-                vc.senders = "createFnc"
+                vc.isSpendingPassword = true
+                vc.showCancel = true
+                vc.caller = self
                 present(vc, animated: true, completion: nil)
                 print("pushed")
             }

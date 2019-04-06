@@ -167,15 +167,6 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        if UserDefaults.standard.string(forKey: "TMPPIN") != nil{
-            self.confirmSendWithoutPin(sendAll: false, pin: UserDefaults.standard.string(forKey: "TMPPIN")!, fee: self.tempFee)
-            UserDefaults.standard.set(nil, forKey: "TMPPIN")
-        }
-    }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -280,12 +271,14 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             if(UserDefaults.standard.string(forKey: "spendingSecureType") == "PASSWORD"){
                 self.confirmSend(sendAll: false)
             } else {
-                let sendVC = storyboard!.instantiateViewController(withIdentifier: "PinSetupViewController") as! PinSetupViewController
-                sendVC.senders = "spendFund"
-                self.navigationController?.pushViewController(sendVC, animated: true)
+                let passSetupVC = storyboard!.instantiateViewController(withIdentifier: "PinSetupViewController") as! PinSetupViewController
+                passSetupVC.isSpendingPassword = true
+                passSetupVC.caller = self
+                self.navigationController?.pushViewController(passSetupVC, animated: true)
             }
         }
     }
+    
     private func prepareTransaction(sendAll: Bool?, amount : String) {
         let amountToSend = Double((amount))!
         let amount = DcrlibwalletAmountAtom(amountToSend)
@@ -419,8 +412,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         return
     }
     
-    private func confirmSendWithoutPin(sendAll: Bool, pin: String, fee : String) {
-        
+    private func confirmSendWithoutPin(sendAll: Bool, pin: String) {
         let amountToSend = (tfAmount?.text)!
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
@@ -465,6 +457,10 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         }
         
         return
+    }
+    
+    override func onPassCompleted(pass: String) {
+        self.confirmSendWithoutPin(sendAll: false, pin: pass)
     }
     
     @IBAction private func scanQRCodeAction(_ sender: UIButton) {

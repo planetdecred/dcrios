@@ -84,7 +84,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 else{
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                     let sendVC = storyboard.instantiateViewController(withIdentifier: "PinSetupViewController") as! PinSetupViewController
-                    sendVC.senders = "launcher"
+                    sendVC.isSpendingPassword = false
+                    sendVC.isChange = false
                     self.window?.rootViewController = sendVC
                     self.window?.makeKeyAndVisible()
                 }

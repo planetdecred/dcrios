@@ -208,9 +208,10 @@ class SettingsController: UITableViewController  {
                         sendVC.senders = "settings"
                         self.navigationController?.pushViewController(sendVC, animated: true)
                     } else {
-                        let sendVC = storyboard!.instantiateViewController(withIdentifier: "PinSetupViewController") as! PinSetupViewController
-                        sendVC.senders = "settings"
-                        self.navigationController?.pushViewController(sendVC, animated: true)
+                        let pinSetupVC = storyboard!.instantiateViewController(withIdentifier: "PinSetupViewController") as! PinSetupViewController
+                        pinSetupVC.isSpendingPassword = false
+                        pinSetupVC.isSecure = true
+                        self.navigationController?.pushViewController(pinSetupVC, animated: true)
                     }
                 } else {
                     self.performSegue(withIdentifier: "SetstartupPin_pas", sender: self)
@@ -221,9 +222,10 @@ class SettingsController: UITableViewController  {
                     sendVC.senders = "settingsChangeSpending"
                     self.navigationController?.pushViewController(sendVC, animated: true)
                 } else {
-                    let sendVC = storyboard!.instantiateViewController(withIdentifier: "PinSetupViewController") as! PinSetupViewController
-                    sendVC.senders = "settingsChangeSpendingPin"
-                    self.navigationController?.pushViewController(sendVC, animated: true)
+                    let pinSetupVC = storyboard!.instantiateViewController(withIdentifier: "PinSetupViewController") as! PinSetupViewController
+                    pinSetupVC.isSpendingPassword = true
+                    pinSetupVC.isChange = true
+                    self.navigationController?.pushViewController(pinSetupVC, animated: true)
                 }
             }
             else if (indexPath.row == 2) {
@@ -232,9 +234,10 @@ class SettingsController: UITableViewController  {
                     sendVC.senders = "settingsChangeStartup"
                     self.navigationController?.pushViewController(sendVC, animated: true)
                 } else {
-                    let sendVC = storyboard!.instantiateViewController(withIdentifier: "PinSetupViewController") as! PinSetupViewController
-                    sendVC.senders = "settingsChangeStartupPin"
-                    self.navigationController?.pushViewController(sendVC, animated: true)
+                    let pinSetupVC = storyboard!.instantiateViewController(withIdentifier: "PinSetupViewController") as! PinSetupViewController
+                    pinSetupVC.isSpendingPassword = false
+                    pinSetupVC.isChange = true
+                    self.navigationController?.pushViewController(pinSetupVC, animated: true)
                 }
             }
         }
@@ -268,7 +271,7 @@ class SettingsController: UITableViewController  {
             self.present(alert, animated: true, completion: nil)
         }else{
             let vc = storyboard!.instantiateViewController(withIdentifier: "PinSetupViewController") as! PinSetupViewController
-            vc.senders = "settingsDeleteWallet"
+            vc.isSpendingPassword = true
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
