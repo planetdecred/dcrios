@@ -72,11 +72,6 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
         if !(UserDefaults.standard.bool(forKey: "synced")) {
             return
         }
-        if UserDefaults.standard.string(forKey: "TMPPIN") != nil{
-            let pin = UserDefaults.standard.string(forKey: "TMPPIN")!
-            self.SignMsg(pass: pin)
-            UserDefaults.standard.set(nil, forKey: "TMPPIN")
-        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -304,9 +299,12 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
             
             self.present(alert, animated: true, completion: nil)
         }else{
-            let vc = storyboard!.instantiateViewController(withIdentifier: "PinSetupViewController") as! PinSetupViewController
-            vc.senders = "signMessage"
-            self.navigationController?.pushViewController(vc, animated: true)
+            let requestPinVC = storyboard!.instantiateViewController(withIdentifier: "RequestPinViewController") as! RequestPinViewController
+            requestPinVC.prompt = "Enter Spending PIN"
+            requestPinVC.onUserEnteredPin = { pin in
+                self.SignMsg(pass: pin)
+            }
+            self.present(requestPinVC, animated: true, completion: nil)
         }
     }
     

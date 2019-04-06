@@ -1,27 +1,19 @@
 //
-//  ButtonConfirmSeedViewController.swift
+//  ConfirmNewWalletSeedViewController.swift
 //  Decred Wallet
 //
 // Copyright (c) 2018-2019 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 import UIKit
+import JGProgressHUD
 
-protocol SeedCheckupProtocol {
-    var seedToVerify: String?{get set}
-}
-protocol PinEnteredProtocol {
-    var pinInput: String?{get set}
-}
-
-class ButtonConfirmSeedViewController: UIViewController, SeedCheckupProtocol {
-    
+class ConfirmNewWalletSeedViewController: WalletSetupBaseViewController {
     var seedToVerify: String?
     var selectedSeedWords: [Int] = []
     var allWords: [String] = []
     var enteredWords: [String] = []
     
-  
     @IBOutlet weak var btnConfirm: UIButton!
     @IBOutlet var vActiveCellView: SeedCheckActiveCellView!
     
@@ -33,15 +25,16 @@ class ButtonConfirmSeedViewController: UIViewController, SeedCheckupProtocol {
             enteredWords.append("")
         }
     }
+    
     @IBAction func backbtn(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func onConfirm(_ sender: Any) {
         let seed = enteredWords.joined(separator: " ")
-        let flag = SingleInstance.shared.wallet?.verifySeed(seed)
-        if flag! {
-            performSegue(withIdentifier: "createPasswordSegue", sender: nil)
+        let seedIsValid = SingleInstance.shared.wallet?.verifySeed(seed)
+        if seedIsValid! {
+            performSegue(withIdentifier: "secureNewWalletSegue", sender: nil)
         } else {
             showError(error: "Seed does not matches. Try again, please")
         }
@@ -49,9 +42,12 @@ class ButtonConfirmSeedViewController: UIViewController, SeedCheckupProtocol {
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "createPasswordSegue" {
-            var securityvc = segue.destination as? SeedCheckupProtocol
-            securityvc?.seedToVerify = enteredWords.joined(separator: " ")
+        if segue.identifier == "secureNewWalletSegue" {
+            let securityVC = segue.destination as? SecurityViewController
+            let seed = enteredWords.joined(separator: " ")
+            securityVC?.onUserEnteredPinOrPassword = { (pinOrPassword, securityType) in
+                self.finalizeWalletSetup(seed, pinOrPassword, securityType)
+            }
         }
     }
     
@@ -71,7 +67,7 @@ class ButtonConfirmSeedViewController: UIViewController, SeedCheckupProtocol {
     }
 }
 
-extension ButtonConfirmSeedViewController: UITableViewDelegate{
+extension ConfirmNewWalletSeedViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.beginUpdates()
         tableView.endUpdates()
@@ -81,7 +77,7 @@ extension ButtonConfirmSeedViewController: UITableViewDelegate{
     }
 }
 
-extension ButtonConfirmSeedViewController: UITableViewDataSource{
+extension ConfirmNewWalletSeedViewController: UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return 33

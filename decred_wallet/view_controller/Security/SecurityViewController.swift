@@ -8,55 +8,47 @@
 
 import UIKit
 
-class SecurityViewController: UIViewController, SeedCheckupProtocol, StartUpPasswordProtocol {
+class SecurityViewController: UIViewController {
+    // "Password" or "Pin" will be appended to the title depending on what tab is activated
+    var pageTitlePrefix = "Create Spending"
     
-    var senders: String?
-    var pass_pinToVerify: String?
-    var seedToVerify: String?
+    // This will be triggered after a pin or password is provided by the user.
+    var onUserEnteredPinOrPassword: ((_ pinOrPassword: String, _ securityType: String) -> Void)?
     
     var pager: UITabBarController?
-    
     @IBOutlet weak var btnPin: UIButton!
     @IBOutlet weak var btnPassword: UIButton!
     
     @IBAction func onPasswordTab(_ sender: Any) {
         pager?.selectedIndex = 0
-        btnPassword.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        btnPin.backgroundColor = #colorLiteral(red: 0.9449833035, green: 0.9450840354, blue: 0.9490672946, alpha: 1)
+        btnPassword.backgroundColor = #colorLiteral(red: 0.9529411765, green: 0.9607843137, blue: 0.9647058824, alpha: 1)
+        btnPin.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     }
     
     @IBAction func onPinTab(_ sender: Any) {
         pager?.selectedIndex = 1
-        btnPin.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        btnPassword.backgroundColor = #colorLiteral(red: 0.9449833035, green: 0.9450840354, blue: 0.9490672946, alpha: 1)
+        btnPin.backgroundColor = #colorLiteral(red: 0.9529411765, green: 0.9607843137, blue: 0.9647058824, alpha: 1)
+        btnPassword.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     }
     
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "embedPager" {
-            if (self.seedToVerify != nil) {
-                pager = segue.destination as? UITabBarController
-                pager?.tabBar.isHidden = true
-                
-                var vc1 = pager?.viewControllers?.first as? SeedCheckupProtocol
-                var vc2 = pager?.viewControllers?.last as? SeedCheckupProtocol
-                vc1?.seedToVerify = seedToVerify
-                vc2?.seedToVerify = seedToVerify
-            } else {
-                
-                pager = segue.destination as? UITabBarController
-                pager?.tabBar.isHidden = true
-                
-                var startChecked1 = pager?.viewControllers?.first as? StartUpPasswordProtocol
-                var startChecked2 = pager?.viewControllers?.last as? StartUpPasswordProtocol
-                startChecked2?.senders = senders
-                startChecked1?.senders = senders
-                
-                if senders == "settingsChangeSpending" || senders == "settingsChangeStartup" {
-                    startChecked1?.pass_pinToVerify = pass_pinToVerify
-                    startChecked2?.pass_pinToVerify = pass_pinToVerify
-                }
+            pager = segue.destination as? UITabBarController
+            pager?.tabBar.isHidden = true
+            
+            let passwordTabVC = pager?.viewControllers?.first as? PasswordSetupViewController
+            passwordTabVC?.pageTitle = "\(self.pageTitlePrefix) Password"
+            passwordTabVC?.onUserEnteredPassword = { password in
+                self.onUserEnteredPinOrPassword?(password, "PASSWORD")
+            }
+            
+            let pinTabVC = pager?.viewControllers?.last as? RequestPinViewController
+            pinTabVC?.prompt = "\(self.pageTitlePrefix) PIN"
+            pinTabVC?.requestPinConfirmation = true
+            pinTabVC?.onUserEnteredPin = { pin in
+                self.onUserEnteredPinOrPassword?(pin, "PIN")
             }
         }
     }

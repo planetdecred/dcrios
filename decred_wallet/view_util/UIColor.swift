@@ -16,6 +16,12 @@ extension UIColor {
     }
     
     static let LightGray = UIColor.init(hex: "#C4CBD2")
+    struct AppColors {
+        static let YellowWarning = UIColor.init(hex: "#FFC84E")
+        static let DarkYellowWarning = UIColor.init(hex: "#E7C659")
+        static let Green = UIColor.init(hex: "#2DD8A3")
+        static let DecredBlue = UIColor.init(hex: "#2970FF")
+    }
     
     convenience init(hex: String) {
         self.init(hex: hex, alpha:1)

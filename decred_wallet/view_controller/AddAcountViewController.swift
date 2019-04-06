@@ -15,6 +15,7 @@ class AddAcountViewController: UIViewController {
     @IBOutlet weak var accountName: UITextField!
     @IBOutlet weak var createBtn: UIButton!
     @IBOutlet weak var createBtnTopConstraint: NSLayoutConstraint!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.createBtn.layer.cornerRadius = 6
@@ -22,15 +23,6 @@ class AddAcountViewController: UIViewController {
         if UserDefaults.standard.string(forKey: "spendingSecureType") != "PASSWORD" {
             passphrase.isHidden = true
             createBtnTopConstraint.constant = -40
-        }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if UserDefaults.standard.string(forKey: "TMPPIN") != nil{
-            let pin = UserDefaults.standard.string(forKey: "TMPPIN")!
-            self.addAccountWithPin(pin: pin as NSString)
-            UserDefaults.standard.set(nil, forKey: "TMPPIN")
         }
     }
     
@@ -43,13 +35,16 @@ class AddAcountViewController: UIViewController {
         
         let name = accountName.text
         if(!(name!.isEmpty)){
-            if UserDefaults.standard.string(forKey: "spendingSecureType") == "PASSWORD" {
+            if SpendingPinOrPassword.currentSecurityType() == "PASSWORD" {
                 addAccountWithoutPin()
             }else{
-                let vc = storyboard!.instantiateViewController(withIdentifier: "PinSetupViewController") as! PinSetupViewController
-                vc.senders = "createFnc"
-                present(vc, animated: true, completion: nil)
-                print("pushed")
+                let requestPinVC = storyboard!.instantiateViewController(withIdentifier: "RequestPinViewController") as! RequestPinViewController
+                requestPinVC.prompt = "Enter Spending PIN"
+                requestPinVC.showCancelButton = true
+                requestPinVC.onUserEnteredPin = { pin in
+                    self.addAccountWithPin(pin: pin as NSString)
+                }
+                present(requestPinVC, animated: true, completion: nil)
             }
         }
     }
@@ -86,7 +81,6 @@ class AddAcountViewController: UIViewController {
                 DispatchQueue.main.async {
                     progressHud.dismiss()
                     self.showError(error: error)
-                    print("error")
                 }
             }
         }

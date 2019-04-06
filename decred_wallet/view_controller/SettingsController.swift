@@ -7,11 +7,7 @@
 // license that can be found in the LICENSE file.
 import Foundation
 import UIKit
-
-protocol StartUpPasswordProtocol {
-    var senders: String?{get set}
-    var pass_pinToVerify:String?{get set}
-}
+import JGProgressHUD
 
 class SettingsController: UITableViewController  {
     
@@ -153,7 +149,7 @@ class SettingsController: UITableViewController  {
         connect_peer_ip?.text = UserDefaults.standard.string(forKey: "pref_peer_ip") ?? ""
         server_ip?.text = UserDefaults.standard.string(forKey: "pref_server_ip") ?? ""
         incoming_notification_switch?.setOn(UserDefaults.standard.bool(forKey: "pref_notification_switch"), animated: true)
-        start_Pin?.setOn(UserDefaults.standard.bool(forKey: "secure_wallet") , animated: false)
+        start_Pin?.setOn(UserDefaults.standard.bool(forKey: GlobalConstants.SettingsKeys.IsStartupSecuritySet) , animated: false)
         
         if (network_value == 0) {
             network_mode_subtitle?.text = "Simplified Payment Verification (SPV)"
@@ -180,14 +176,6 @@ class SettingsController: UITableViewController  {
         }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "SetstartupPin_pas"{
-            var startUp = segue.destination as?
-            StartUpPasswordProtocol
-            startUp?.senders = "settings"
-        }
-    }
-    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if !(start_Pin.isOn) {
             if (indexPath.section == 0){
@@ -200,54 +188,37 @@ class SettingsController: UITableViewController  {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (indexPath.section == 0) {
-            if (indexPath.row == 1) {
-                if (start_Pin.isOn) {
-                    if (UserDefaults.standard.string(forKey: "securitytype") == "PASSWORD") {
-                        let sendVC = storyboard!.instantiateViewController(withIdentifier: "StartUpPasswordViewController") as! StartUpPasswordViewController
-                        sendVC.senders = "settings"
-                        self.navigationController?.pushViewController(sendVC, animated: true)
-                    } else {
-                        let sendVC = storyboard!.instantiateViewController(withIdentifier: "PinSetupViewController") as! PinSetupViewController
-                        sendVC.senders = "settings"
-                        self.navigationController?.pushViewController(sendVC, animated: true)
-                    }
-                } else {
-                    self.performSegue(withIdentifier: "SetstartupPin_pas", sender: self)
-                }
-            } else if (indexPath.row == 0) {
-                if (UserDefaults.standard.string(forKey: "spendingSecureType") == "PASSWORD") {
-                    let sendVC = storyboard!.instantiateViewController(withIdentifier: "StartUpPasswordViewController") as! StartUpPasswordViewController
-                    sendVC.senders = "settingsChangeSpending"
-                    self.navigationController?.pushViewController(sendVC, animated: true)
-                } else {
-                    let sendVC = storyboard!.instantiateViewController(withIdentifier: "PinSetupViewController") as! PinSetupViewController
-                    sendVC.senders = "settingsChangeSpendingPin"
-                    self.navigationController?.pushViewController(sendVC, animated: true)
-                }
+        if (indexPath.section != 0) {
+            return
+        }
+        
+        switch indexPath.row {
+        case 0: // change spending pin/password
+            SpendingPinOrPassword.change(sender: self)
+            
+        case 1: // enable/disable startup pin/password
+            if (start_Pin.isOn) {
+                StartupPinOrPassword.clear(sender: self)
+            } else {
+                StartupPinOrPassword.set(sender: self)
             }
-            else if (indexPath.row == 2) {
-                if (UserDefaults.standard.string(forKey: "startupSecureType") == "PASSWORD") {
-                    let sendVC = storyboard!.instantiateViewController(withIdentifier: "StartUpPasswordViewController") as! StartUpPasswordViewController
-                    sendVC.senders = "settingsChangeStartup"
-                    self.navigationController?.pushViewController(sendVC, animated: true)
-                } else {
-                    let sendVC = storyboard!.instantiateViewController(withIdentifier: "PinSetupViewController") as! PinSetupViewController
-                    sendVC.senders = "settingsChangeStartupPin"
-                    self.navigationController?.pushViewController(sendVC, animated: true)
-                }
-            }
+            
+        case 2: // change startup pin/password
+            StartupPinOrPassword.change(sender: self)
+            
+        default:
+            break
         }
     }
     
     @IBAction func deleteWallet(_ sender: Any) {
-        if UserDefaults.standard.string(forKey: "spendingSecureType") == "PASSWORD" {
+        if SpendingPinOrPassword.currentSecurityType() == "PASSWORD" {
             let alert = UIAlertController(title: "Delete Wallet", message: "Please enter spending password of your wallet", preferredStyle: .alert)
             alert.addTextField { textField in
                 textField.placeholder = "password"
                 textField.isSecureTextEntry = true
             }
-        
+
             let okAction = UIAlertAction(title: "Proceed", style: .default) { _ in
                 let tfPasswd = alert.textFields![0] as UITextField
                 if (tfPasswd.text?.count)! > 0 {
@@ -255,26 +226,29 @@ class SettingsController: UITableViewController  {
                     alert.dismiss(animated: false, completion: nil)
                 } else {
                     alert.dismiss(animated: false, completion: nil)
-                    self.showAlert(message: "Password can't be empty.", titles: "invalid input")
+                    self.showAlert(message: "Password can't be empty.", title: "invalid input")
                 }
             }
-        
+
             let CancelAction = UIAlertAction(title: "Cancel", style: .default) { _ in
                 alert.dismiss(animated: false, completion: nil)
             }
             alert.addAction(CancelAction)
             alert.addAction(okAction)
-        
+
             self.present(alert, animated: true, completion: nil)
-        }else{
-            let vc = storyboard!.instantiateViewController(withIdentifier: "PinSetupViewController") as! PinSetupViewController
-            vc.senders = "settingsDeleteWallet"
-            self.navigationController?.pushViewController(vc, animated: true)
+        } else {
+            let requestPinVC = storyboard!.instantiateViewController(withIdentifier: "RequestPinViewController") as! RequestPinViewController
+            requestPinVC.prompt = "Enter Spending PIN"
+            requestPinVC.onUserEnteredPin = { pin in
+                self.handleDeleteWallet(pass: pin)
+            }
+            self.present(requestPinVC, animated: true, completion: nil)
         }
     }
     
-    private func showAlert(message: String? , titles: String?) {
-        let alert = UIAlertController(title: titles, message: message, preferredStyle: .alert)
+    private func showAlert(message: String? , title: String?) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default) { _ in
             alert.dismiss(animated: true, completion: nil)
         }

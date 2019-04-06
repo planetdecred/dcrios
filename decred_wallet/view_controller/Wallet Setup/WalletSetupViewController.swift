@@ -35,13 +35,4 @@ class WalletSetupViewController : UIViewController {
         let netType = infoForKey(GlobalConstants.Strings.NetType)! == "mainnet" ? "mainnet" : "testnet"
         build?.text = "build \(netType) " + dateformater.string(from: compileDate as Date)
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
-    @IBAction func btn_create_wallet(_ sender: Any) {}
-    
-    @IBAction func backToMenu(_:UIStoryboardSegue){}
-    
 }

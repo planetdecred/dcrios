@@ -8,80 +8,98 @@
 
 import UIKit
 
-class PinMarksView: UIStackView {
-    var total = 5
-    var entered: Int
-    let space:CGFloat = 10.0
-    var numberw = UILabel()
-    override init(frame: CGRect) {
-        total = 5
-        entered = 0
-        
-        super.init(frame: frame)
-    }
+class PinInputView: UIStackView {
+    static let spacingBetweenPinCircles: CGFloat = 10.0
+    static let maxNumberOfPinCircles = 5
     
-    required init(coder: NSCoder) {
-        total = 5
-        entered = 0
-        
-        super.init(coder: coder)
-    }
-    
-    override func draw(_ rect: CGRect) {
-        super.alignment = .center
-        update()
-    }
-    
-    func removeBtn(){
-        self.removeArrangedSubview(numberw)
-    }
-    
-    func update() {
-        self.alignment = .center
-        drawCells(in: frame)
-    }
-    
-    func drawCells(in rect:CGRect){
-        let h = rect.size.height
-        var w = rect.size.width / CGFloat(total) - space
-        
-        if self.arrangedSubviews.count > 0{
-            self.removeArrangedSubview(numberw)
+    var maxNumberOfDigits: Int = Int(LONG_LONG_MAX)
+    var pin: String = "" {
+        didSet {
+            self.setNeedsDisplay()
+            // self.drawCells(in: self.frame)
         }
-        
+    }
+    
+    func append(digit: Int) -> String {
+        if (self.pin.count < self.maxNumberOfDigits) {
+            self.pin += "\(digit)"
+        }
+        return self.pin
+    }
+    
+    func backspace() -> String {
+        self.pin = String(self.pin.dropLast())
+        return self.pin
+    }
+    
+    func clear() {
+        self.pin = ""
+    }
+    
+    override func draw(_ frame: CGRect) {
+        self.alignment = .center
+        self.drawCells(in: frame)
+    }
+    
+    func drawCells(in frame: CGRect) {
+        // clear current views
         self.layer.sublayers?.removeAll()
-        numberw.text = ""
+        if self.arrangedSubviews.count > 0{
+            self.removeArrangedSubview(self.arrangedSubviews[0])
+        }
         
-        if entered == 0 {
-            return
-        } else if (entered > 0 && entered < 6) {
-            for i in 0...(min((entered - 1),4)) {
-                let cellRect = CGRect(x: CGFloat(i) * w + space * CGFloat(i), y:0, width: w, height: h)
-                drawActiveCell(rect: cellRect)
-                w = rect.size.width / CGFloat(total) - space
-            }
+        if pin.count > PinInputView.maxNumberOfPinCircles {
+            self.drawPinLabel()
         } else {
-            numberw = UILabel()
-            numberw.text = String(entered)
-            self.alignment = .center
-            numberw.textAlignment = .center
-            numberw.textColor = #colorLiteral(red: 0.2537069321, green: 0.8615272641, blue: 0.7028611302, alpha: 1)
-            numberw.font = numberw.font.withSize(25)
-            self.addArrangedSubview(numberw)
+            self.drawPinCircles(in: frame)
         }
     }
     
-    func drawActiveCell(rect: CGRect){
+    func drawPinLabel() {
+        let pinDigitsCount = String(pin.count)
         
-        let circlePath = UIBezierPath(arcCenter: CGPoint(x: rect.origin.x + rect.size.width / 2, y: rect.size.height / 2), radius: rect.size.width / 2 * 0.7, startAngle: CGFloat(0), endAngle:CGFloat(Double.pi * 2), clockwise: true)
+        let pinLabel = UILabel()
+        pinLabel.text = String(pinDigitsCount)
+        pinLabel.textAlignment = .center
+        pinLabel.textColor = #colorLiteral(red: 0.2537069321, green: 0.8615272641, blue: 0.7028611302, alpha: 1)
+        pinLabel.font = pinLabel.font.withSize(25)
         
-        let shapeLayer = CAShapeLayer()
-        shapeLayer.path = circlePath.cgPath
+        self.addArrangedSubview(pinLabel)
+    }
+    
+    func drawPinCircles(in frame: CGRect) {
+        let maxWidthPerCircle = frame.width / CGFloat(PinInputView.maxNumberOfPinCircles)
         
-        shapeLayer.fillColor = #colorLiteral(red: 0.2537069321, green: 0.8615272641, blue: 0.7028611302, alpha: 1).cgColor
-        shapeLayer.strokeColor = UIColor.white.cgColor
-        shapeLayer.lineWidth = 2
-        self.alignment = .center
-        self.layer.addSublayer(shapeLayer)
+        var eachCircleDiameter = frame.height * 0.8
+        if eachCircleDiameter > maxWidthPerCircle {
+            eachCircleDiameter = maxWidthPerCircle
+        }
+        
+        var nextXPos = CGFloat(0)
+        
+        for _ in 0..<pin.count {
+            self.drawPinCircle(in: frame, xPos: nextXPos, diameter: eachCircleDiameter)
+            nextXPos += eachCircleDiameter + PinInputView.spacingBetweenPinCircles
+        }
+    }
+    
+    func drawPinCircle(in frame: CGRect, xPos: CGFloat, diameter: CGFloat) {
+        let yCenter = frame.height / 2
+        
+        let circlePath = UIBezierPath(
+            arcCenter: CGPoint(x: xPos, y: yCenter),
+            radius: diameter / 2,
+            startAngle: 0.0,
+            endAngle: 360.0,
+            clockwise: true
+        )
+        
+        let circleShape = CAShapeLayer()
+        circleShape.path = circlePath.cgPath
+        circleShape.fillColor = #colorLiteral(red: 0.2537069321, green: 0.8615272641, blue: 0.7028611302, alpha: 1).cgColor
+        circleShape.strokeColor = UIColor.white.cgColor
+        circleShape.lineWidth = 2
+        
+        self.layer.addSublayer(circleShape)
     }
 }

@@ -7,11 +7,11 @@ target 'Decred Wallet' do
   pod 'SlideMenuControllerSwift'
   pod 'JGProgressHUD'
   pod 'QRCodeReader.swift'
-  pod 'PasswordStrength'
   pod 'CryptoSwift'
   pod 'Fabric'
   pod 'Crashlytics'
   pod 'MBProgressHUD'
+  pod 'PasswordStrength'
 
 end
 
