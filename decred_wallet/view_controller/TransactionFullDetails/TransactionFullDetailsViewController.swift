@@ -22,6 +22,7 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
     var progressHud : JGProgressHUD?
     var details: [TransactionDetails] = []
     var transaction: Transaction!
+    var decodedTransaction: DecodedTransaction!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,20 +50,52 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         
         self.navigationItem.title = "Transaction Details"
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "left-arrow"), style: .done, target: self, action: #selector(backk))
-        wrap(transaction: self.transaction)
+       
+        let optionsMenuButton = UIButton(type: .custom)
+        optionsMenuButton.setImage(UIImage(named: "right-menu"), for: .normal)
+        optionsMenuButton.addTarget(self, action: #selector(showMenu), for: .touchUpInside)
+        optionsMenuButton.frame = CGRect(x: 0, y: 0, width: 10, height: 51)
+        let barButton = UIBarButtonItem(customView: optionsMenuButton)
+        self.navigationItem.rightBarButtonItems = [barButton]
         
-        do{
-            print(self.transaction.Hash)
+        do {
             if let data = Data(fromHexEncodedString: self.transaction.Hash) {
-                // Data to hex string:
-                print(data.hexEncodedString())
-                print(try SingleInstance.shared.wallet?.decodeTransaction(data) ?? "nothing")
-            } else {
+                let decodedTxJson = try SingleInstance.shared.wallet?.decodeTransaction(data)
+                self.decodedTransaction = try JSONDecoder().decode(DecodedTransaction.self, from: (decodedTxJson?.data(using: .utf8))!)
+            }else{
                 print("invalid hex string")
             }
-        } catch {
+        } catch let error {
             print(error)
         }
+        
+        wrap(transaction: self.transaction)
+    }
+    
+    @objc func showMenu(){
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        let copyTxHash = UIAlertAction(title: "Copy transaction hash", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+            self.copyText(text: self.transaction.Hash)
+        })
+        
+        let copyRawTx = UIAlertAction(title: "Copy raw transaction", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+            self.copyText(text: self.transaction.Raw)
+        })
+        
+        let viewOnDcrdata = UIAlertAction(title: "View on dcrdata", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+            self.openLink(urlString: "https://testnet.dcrdata.org/tx/\(self.transaction.Hash)")
+        })
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(copyTxHash)
+        alertController.addAction(copyRawTx)
+        alertController.addAction(viewOnDcrdata)
+        
+        self.present(alertController, animated: true, completion: nil)
+
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -98,7 +131,7 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         case 1:
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "TransactiontInputDetails") as! TransactiontInputDetails
-            cell.setup(with: transaction.Debits)
+            cell.setup(with: transaction.Debits, decodedInputs: decodedTransaction.Inputs, presentingController: self)
             cell.expandOrCollapse = { [weak self] in
                 self?.tableTransactionDetails.reloadData()
             }
@@ -107,7 +140,7 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         case 2:
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "TransactiontOutputDetailsCell") as! TransactiontOutputDetailsCell
-            cell.setup(with: transaction.Credits)
+            cell.setup(with: transaction.Credits, decodedOutputs: decodedTransaction.Outputs, presentingController: self)
             cell.expandOrCollapse = { [weak self] in
                 self?.tableTransactionDetails.reloadData()
             }
@@ -123,30 +156,21 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         case 0:
             
             if indexPath.row == 6 {
-                self.openLink(urlString: "https://testnet.dcrdata.org/tx/" + transaction.Hash)
+                copyText(text: transaction.Hash)
             }
-            
-        case 1:
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TransactiontInputDetails") as! TransactiontInputDetails
-            copyHash(hash: "")
-            
-        case 2:
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TransactiontOutputDetailsCell") as! TransactiontOutputDetailsCell
             
         default:
             return
         }
     }
     
-    private func copyHash(hash: String){
+    private func copyText(text: String){
         DispatchQueue.main.async {
             //Copy a string to the pasteboard.
-            UIPasteboard.general.string = hash
+            UIPasteboard.general.string = text
             
             //Alert
-            let alertController = UIAlertController(title: "", message: "Hash copied", preferredStyle: UIAlertControllerStyle.alert)
+            let alertController = UIAlertController(title: "", message: "Copied", preferredStyle: UIAlertControllerStyle.alert)
             alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
             self.present(alertController, animated: true, completion: nil)
         }
@@ -186,6 +210,16 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         let amount = Decimal(Double((transaction?.Amount)!) / 1e8) as NSDecimalNumber
         let fee = Decimal(Double((transaction?.Fee)!) / 1e8) as NSDecimalNumber
         
+        var txType: String
+        if transaction?.Type.lowercased() == "ticket_purchase" {
+            txType = "Ticket Purchase"
+        }else{
+            let first = String((transaction?.Type.prefix(1))!).capitalized
+            let other = String((transaction?.Type.dropFirst())!).lowercased()
+            print("First: \(first) Other: \(other)")
+            txType = first + other
+        }
+        
         details = [
             TransactionDetails(
                 title: "Date",
@@ -209,7 +243,7 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
             ),
             TransactionDetails(
                 title: "Type",
-                value: NSMutableAttributedString(string: "\(transaction?.Type.lowercased() ?? "Unknown" )"),
+                value: NSMutableAttributedString(string: "\(txType ?? "Unknown" )"),
                 textColor: nil
             ),
             TransactionDetails(
@@ -223,6 +257,30 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
                 textColor: #colorLiteral(red: 0.1607843137, green: 0.4392156863, blue: 1, alpha: 1)
             )
         ]
+        
+        if(transaction?.Type.lowercased() == "vote"){
+            
+            let lastBlockValid = TransactionDetails(
+                title: "Last Block Valid",
+                value: NSMutableAttributedString(string: String(describing: (decodedTransaction?.LastBlockValid.string)!)),
+                textColor: nil
+            )
+            details.append(lastBlockValid)
+            
+            let voteVersion = TransactionDetails(
+                title: "Version",
+                value: NSAttributedString(string: String(describing: (decodedTransaction?.VoteVersion)!)),
+                textColor: nil
+            )
+            details.append(voteVersion)
+            
+            let voteBits = TransactionDetails(
+                title: "Vote Bits",
+                value: NSAttributedString(string: String(describing: (decodedTransaction?.VoteBits)!)),
+                textColor: nil
+            )
+            details.append(voteBits)
+        }
     }
     
     func openLink(urlString: String) {
@@ -235,9 +293,8 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
     }
     
     fileprivate func format(timestamp:UInt64?) -> String {
-        
         let formatter = DateFormatter()
-        formatter.dateFormat = "MMM dd, yyyy / hh:mm:ss pp"
+        formatter.dateFormat = "MMM dd, yyyy / hh:mm:ss a"
         let date = Date(timeIntervalSince1970: Double(timestamp!))
         return formatter.string(from: date)
     }

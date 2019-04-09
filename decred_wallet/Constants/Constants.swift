@@ -23,6 +23,7 @@ struct GlobalConstants {
         static let greenishGrey = UIColor(hex: "F1F8E9")
         static let black = UIColor(hex: "000000")
         static let TextAmount = UIColor(hex: "#091440")
+        static let displayAamount = UIColor(hex: "617386")
     }
     
     //MARK: - Storyboard
@@ -41,5 +42,20 @@ struct GlobalConstants {
     //MARK: - Cell Identifiers
     struct CellIdentifier {
         
+    }
+    
+    struct Strings {
+        static let VOTE = "VOTE"
+        static let REVOCATION = "REVOCATION"
+        static let TICKET_PURCHASE = "TICKET_PURCHASE"
+        static let COINBASE = "COINBASE"
+        static let REGULAR = "REGULAR"
+        static let TESTNET_HD_PATH = "m / 44' / 1' /"
+        static let LEGACY_TESTNET_HD_PATH = "m / 44' / 11' /"
+        static let MAINNET_HD_PATH = "m / 44' / 42' /"
+        static let LEGACY_MAINNET_HD_PATH = "m / 44' / 20' /"
+        static let INITIAL_SYNC_HELP = "initial_sync_help"
+        static let DELETE_WALLET = "delete_wallet"
+        static let USE_TESTNET = "pref_use_testnet"
     }
 }

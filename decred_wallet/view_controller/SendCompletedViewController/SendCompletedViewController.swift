@@ -14,6 +14,7 @@ class SendCompletedViewController: UIViewController {
     @IBOutlet weak var vContent: UIView!
     
     var openDetails: (() -> Void)?
+    var closeView: (() -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +36,9 @@ class SendCompletedViewController: UIViewController {
     }
     
     @IBAction func closeAction(_ sender: UIButton) {
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: false) { [weak self] in
+            self?.closeView?()
+        }
+        
     }
 }

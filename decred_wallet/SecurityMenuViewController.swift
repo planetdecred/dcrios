@@ -13,7 +13,11 @@ import JGProgressHUD
 class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
     
     
+    @IBOutlet weak var border3: UIView!
+    @IBOutlet weak var border2: UIView!
+    @IBOutlet weak var border1: UIView!
     @IBOutlet weak var address: UITextField!
+    @IBOutlet weak var securityTxt: UILabel!
     @IBOutlet weak var addressError: UILabel!
     @IBOutlet weak var message: UITextField!
     @IBOutlet weak var messageError: UILabel!
@@ -22,11 +26,12 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var signMsgBtn: UIButton!
     @IBOutlet weak var copyBtn: UIButton!
     @IBOutlet weak var HeaderInfo: UILabel!
-    
+    @IBOutlet weak var syncInfoLabel: UILabel!
     var addressPass = false
     var messagePass = false
     var sigPass  = true
     var passphrase_word = ""
+  
     
     var dcrlibwallet :DcrlibwalletLibWallet!
     
@@ -39,17 +44,78 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
         self.address.delegate = self
         self.signature.delegate = self
         self.message.delegate = self
+        if (UserDefaults.standard.bool(forKey: "synced")) {
+            self.toggleView()
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.setNavigationBarItem()
         self.navigationItem.title = "Security"
+        if !(UserDefaults.standard.bool(forKey: "synced")) {
+            syncInfoLabel.isHidden = false
+            
+            return
+        }
+        let clearFieldBtn = UIButton(type: .custom)
+        clearFieldBtn.setImage(UIImage(named: "right-menu"), for: .normal)
+        clearFieldBtn.addTarget(self, action: #selector(showMenu), for: .touchUpInside)
+        clearFieldBtn.frame = CGRect(x: 0, y: 0, width: 10, height: 51)
+        let barButton = UIBarButtonItem(customView: clearFieldBtn)
+        self.navigationItem.rightBarButtonItems = [barButton]
+        syncInfoLabel.isHidden = true
+        
+       
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if !(UserDefaults.standard.bool(forKey: "synced")) {
+            return
+        }
+        if UserDefaults.standard.string(forKey: "TMPPIN") != nil{
+            let pin = UserDefaults.standard.string(forKey: "TMPPIN")!
+            self.SignMsg(pass: pin)
+            UserDefaults.standard.set(nil, forKey: "TMPPIN")
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         self.view.endEditing(true)
+    }
+    @objc func showMenu(){
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        let clearField = UIAlertAction(title: "Clear fields", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+            self.clearAllFields()
+            
+        })
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(clearField )
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    func clearAllFields(){
+        self.address.text = nil
+        self.message.text = nil
+        self.signature.text = nil
+        self.addressError.text = ""
+        self.signatureError.text = ""
+        self.signatureError.text = ""
+        self.signMsgBtn.isEnabled = false
+        self.addressPass = false
+        self.sigPass = false
+        self.signMsgBtn.backgroundColor = UIColor(hex: "#F2F4F3")
+        self.signMsgBtn.setTitleColor(UIColor(hex: "#434343"), for: .normal)
+        self.copyBtn.isEnabled = false
+        self.copyBtn.backgroundColor = UIColor(hex: "#F2F4F3")
+        self.copyBtn.setTitleColor(UIColor(hex: "#434343"), for: .normal)
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -104,16 +170,31 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
             }
         } else if (textField == self.signature) {
             if (updatedString == nil || updatedString?.trimmingCharacters(in: .whitespaces) == "") {
-                self.signatureError.text = ""
-                self.copyBtn.isEnabled = false
-                self.copyBtn.backgroundColor = UIColor(hex: "#F2F4F3")
-                self.copyBtn.setTitleColor(UIColor(hex: "#434343"), for: .normal)
-                self.signMsgBtn.isEnabled = true
-                self.signMsgBtn.backgroundColor = UIColor(hex: "#007AFF")
-                self.signMsgBtn.setTitleColor(UIColor(hex: "#FFFFFF"), for: .normal)
-                self.sigPass = false
-                return true
+                if(addressPass){
+                    self.signatureError.text = ""
+                    self.copyBtn.isEnabled = false
+                    self.copyBtn.backgroundColor = UIColor(hex: "#F2F4F3")
+                    self.copyBtn.setTitleColor(UIColor(hex: "#434343"), for: .normal)
+                    self.signMsgBtn.isEnabled = true
+                    self.signMsgBtn.backgroundColor = UIColor(hex: "#007AFF")
+                    self.signMsgBtn.setTitleColor(UIColor(hex: "#FFFFFF"), for: .normal)
+                    self.sigPass = false
+                    return true
+                }
+                else{
+                    self.signatureError.text = ""
+                    self.copyBtn.isEnabled = false
+                    self.copyBtn.backgroundColor = UIColor(hex: "#F2F4F3")
+                    self.copyBtn.setTitleColor(UIColor(hex: "#434343"), for: .normal)
+                    self.signMsgBtn.isEnabled = false
+                    self.signMsgBtn.backgroundColor = UIColor(hex: "#F2F4F3")
+                    self.signMsgBtn.setTitleColor(UIColor(hex: "#434343"), for: .normal)
+                    self.sigPass = false
+                    return true
+                }
+                
             }
+            
             
             let tmp = updatedString
             let addr = self.address.text
@@ -194,31 +275,36 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
     }
     
     private func askPassword() {
-        
-        let alert = UIAlertController(title: "Security", message: "Please enter spending password of your wallet", preferredStyle: .alert)
-        alert.addTextField { textField in
-            textField.placeholder = "password"
-            textField.isSecureTextEntry = true
-        }
-        
-        let okAction = UIAlertAction(title: "Proceed", style: .default) { _ in
-            let tfPasswd = alert.textFields![0] as UITextField
-            if (tfPasswd.text?.count)! > 0 {
-                self.SignMsg(pass: tfPasswd.text!)
-                alert.dismiss(animated: false, completion: nil)
-            } else {
-                alert.dismiss(animated: false, completion: nil)
-                self.showAlert(message: "Password can't be empty.", titles: "invalid input")
+        if UserDefaults.standard.string(forKey: "spendingSecureType") == "PASSWORD" {
+            let alert = UIAlertController(title: "Security", message: "Please enter spending password of your wallet", preferredStyle: .alert)
+            alert.addTextField { textField in
+                textField.placeholder = "password"
+                textField.isSecureTextEntry = true
             }
+            
+            let okAction = UIAlertAction(title: "Proceed", style: .default) { _ in
+                let tfPasswd = alert.textFields![0] as UITextField
+                if (tfPasswd.text?.count)! > 0 {
+                    self.SignMsg(pass: tfPasswd.text!)
+                    alert.dismiss(animated: false, completion: nil)
+                } else {
+                    alert.dismiss(animated: false, completion: nil)
+                    self.showAlert(message: "Password can't be empty.", titles: "invalid input")
+                }
+            }
+            
+            let CancelAction = UIAlertAction(title: "Cancel", style: .default) { _ in
+                alert.dismiss(animated: false, completion: nil)
+            }
+            alert.addAction(CancelAction)
+            alert.addAction(okAction)
+            
+            self.present(alert, animated: true, completion: nil)
+        }else{
+            let vc = storyboard!.instantiateViewController(withIdentifier: "PinSetupViewController") as! PinSetupViewController
+            vc.senders = "signMessage"
+            self.navigationController?.pushViewController(vc, animated: true)
         }
-        
-        let CancelAction = UIAlertAction(title: "Cancel", style: .default) { _ in
-            alert.dismiss(animated: false, completion: nil)
-        }
-        alert.addAction(CancelAction)
-        alert.addAction(okAction)
-        
-        self.present(alert, animated: true, completion: nil)
     }
     
     private func showAlert(message: String? , titles: String?) {
@@ -231,6 +317,21 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
         DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
         }
+    }
+    func toggleView(){
+        self.address.isHidden = !self.address.isHidden
+        self.message.isHidden = !self.message.isHidden
+        self.signature.isHidden = !self.signature.isHidden
+        self.border1.isHidden = !self.border1.isHidden
+        self.border2.isHidden = !self.border2.isHidden
+        self.border3.isHidden = !self.border3.isHidden
+        self.signMsgBtn.isHidden = !self.signMsgBtn.isHidden
+        self.copyBtn.isHidden = !self.copyBtn.isHidden
+        self.securityTxt.isHidden = !self.securityTxt.isHidden
+        self.addressError.isHidden = !self.addressError.isHidden
+        self.signatureError.isHidden = !self.signatureError.isHidden
+        self.messageError.isHidden = !self.messageError.isHidden
+        self.HeaderInfo.isHidden = !self.HeaderInfo.isHidden
     }
     
     func SignMsg(pass:String) {

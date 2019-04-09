@@ -27,7 +27,7 @@ class StartUpPasswordViewController: UIViewController,StartUpPasswordProtocol {
     }
     
     @IBAction func OKAction(_ sender: Any) {
-        if((self.passwordText.text?.count)! > 1){
+        if((self.passwordText.text?.count)! > 0){
             if (senders == "launcher") {
                 password_Unlock()
             } else if (senders == "settings") {
@@ -37,6 +37,12 @@ class StartUpPasswordViewController: UIViewController,StartUpPasswordProtocol {
             } else if (senders == "settingsChangeSpending") {
                 let sendVC = storyboard!.instantiateViewController(withIdentifier: "SecurityViewController") as! SecurityViewController
                 sendVC.senders = "settingsChangeSpending"
+                sendVC.pass_pinToVerify = self.passwordText.text
+                
+                self.navigationController?.pushViewController(sendVC, animated: true)
+            }else if (senders == "settingsChangeStartup") {
+                let sendVC = storyboard!.instantiateViewController(withIdentifier: "SecurityViewController") as! SecurityViewController
+                sendVC.senders = "settingsChangeStartup"
                 sendVC.pass_pinToVerify = self.passwordText.text
                 
                 self.navigationController?.pushViewController(sendVC, animated: true)
@@ -53,6 +59,9 @@ class StartUpPasswordViewController: UIViewController,StartUpPasswordProtocol {
             }
         } else if (senders == "settingsChangeSpending") {
             headerText.text = "Enter Spending Password"
+        }
+        else if (senders == "settingsChangeStartup") {
+            headerText.text = "Enter StartUp Password"
         }
     }
     

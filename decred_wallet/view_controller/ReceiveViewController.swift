@@ -12,7 +12,8 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     
     @IBOutlet private var accountDropdown: DropMenuButton!
     @IBOutlet private var imgWalletAddrQRCode: UIImageView!
-    @IBOutlet weak var generateButton: UIButton!
+
+    @IBOutlet weak var subheader: UILabel!
     @IBOutlet var walletAddress: UIButton!
     
     var firstTrial = true
@@ -20,22 +21,29 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     var myacc: AccountsEntity!
     var account: GetAccountResponse?
     var tapGesture = UITapGestureRecognizer()
+    var oldAddress = ""
+    var wallet = SingleInstance.shared.wallet
     
     private var selectedAccount = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.subheader.text = "Each time you request a payment, a new \naddress is created to protect your privacy."
         // TAP Gesture
+        self.setupExtraUI()
+               self.showFirstWalletAddressAndQRCode()
+        self.populateWalletDropdownMenu()
+        self.starttime = Int64(NSDate().timeIntervalSince1970)
+    }
+    
+    func setupExtraUI(){
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.CopyImgAddress(_:)))
         tapGesture.numberOfTapsRequired = 1
         tapGesture.numberOfTouchesRequired = 1
         imgWalletAddrQRCode.addGestureRecognizer(tapGesture)
         imgWalletAddrQRCode.isUserInteractionEnabled = true
-        self.generateButton.layer.cornerRadius = 6
         self.accountDropdown.backgroundColor = UIColor.white
-        self.showFirstWalletAddressAndQRCode()
-        self.populateWalletDropdownMenu()
-        self.starttime = Int64(NSDate().timeIntervalSince1970)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,14 +51,35 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
         setNavigationBarItem()
         navigationItem.title = "Receive"
         let shareBtn = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share))
-        self.navigationItem.rightBarButtonItems = [shareBtn]
+        let generateAddressBtn = UIButton(type: .custom)
+        generateAddressBtn.setImage(UIImage(named: "right-menu"), for: .normal)
+        generateAddressBtn.addTarget(self, action: #selector(showMenu), for: .touchUpInside)
+        generateAddressBtn.frame = CGRect(x: 0, y: 0, width: 10, height: 51)
+        let barButton = UIBarButtonItem(customView: generateAddressBtn)
+        self.navigationItem.rightBarButtonItems = [barButton, shareBtn ]
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    @IBAction private func generateNewAddress() {
+    @objc func showMenu(){
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        let generateNewAddressAction = UIAlertAction(title: "Generate new address", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+            self.generateNewAddress()
+        })
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(generateNewAddressAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    private func generateNewAddress() {
+        self.oldAddress = self.walletAddress.currentTitle!
         self.getNextAddress(accountNumber: (self.myacc.Number))
     }
     
@@ -62,7 +91,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
         
         self.account?.Acc.removeAll()
         do{
-            let strAccount = try SingleInstance.shared.wallet?.getAccounts(0)
+            let strAccount = try self.wallet?.getAccounts(0)
             self.account = try JSONDecoder().decode(GetAccountResponse.self, from: (strAccount?.data(using: .utf8))!)
         } catch let error{
             print(error)
@@ -86,6 +115,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     @IBAction func tapCopy(_ sender: Any) {
         self.copyAddress()
     }
+    
     @IBAction func CopyImgAddress(_ sender: UITapGestureRecognizer) {
         self.copyAddress()
     }
@@ -106,7 +136,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
         
         self.account?.Acc.removeAll()
         do{
-            let strAccount = try SingleInstance.shared.wallet?.getAccounts(0)
+            let strAccount = try self.wallet?.getAccounts(0)
             self.account = try JSONDecoder().decode(GetAccountResponse.self, from: (strAccount?.data(using: .utf8))!)
         } catch let error{
             print(error)
@@ -164,7 +194,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     
     private func getAddress(accountNumber : Int32){
         
-        let receiveAddress = try?SingleInstance.shared.wallet?.currentAddress(Int32(accountNumber))
+        let receiveAddress = try?self.wallet?.currentAddress(Int32(accountNumber))
         DispatchQueue.main.async { [weak self] in
             guard let this = self else { return }
             
@@ -178,16 +208,22 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     
     @objc private func getNextAddress(accountNumber : Int32){
         
-        let receiveAddress = try?SingleInstance.shared.wallet?.nextAddress(Int32(accountNumber))
+        let receiveAddress = try?self.wallet?.nextAddress(Int32(accountNumber))
         DispatchQueue.main.async { [weak self] in
             guard let this = self else { return }
-            
+            if (this.oldAddress != receiveAddress!){
             this.walletAddress.setTitle(receiveAddress!, for: .normal)
-            this.imgWalletAddrQRCode.image = generateQRCodeFor(
-                with: receiveAddress!!,
-                forImageViewFrame: this.imgWalletAddrQRCode.frame
-            )
+                this.imgWalletAddrQRCode.image = generateQRCodeFor(
+                    with: receiveAddress!!,
+                    forImageViewFrame: this.imgWalletAddrQRCode.frame
+                )
+                return
+            }
+            else{
+                self!.getNext()
+            }
             
         }
+       
     }
 }

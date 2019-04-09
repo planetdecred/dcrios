@@ -56,7 +56,11 @@ class PasswordSetupViewController: UIViewController, SeedCheckupProtocol, UIText
                 if SingleInstance.shared.wallet == nil {
                     return
                 }
-                try SingleInstance.shared.wallet?.createWallet(pass, seedMnemonic: seed)
+                
+                let wallet = SingleInstance.shared.wallet!
+                
+                try wallet.createWallet(pass, seedMnemonic: seed)
+                try wallet.unlock(pass!.data(using: .utf8))
                 DispatchQueue.main.async {
                     self!.progressHud!.dismiss()
                     self!.pinInput = pass
@@ -75,7 +79,7 @@ class PasswordSetupViewController: UIViewController, SeedCheckupProtocol, UIText
     }
     
     func SetstartupPin_pas(){
-        progressHud = showProgressHud(with: "securing wallet...")
+        progressHud = showProgressHud(with: "Securing wallet...")
         
         let finalkeyData = ("public" as NSString).data(using: String.Encoding.utf8.rawValue)!
         let finalkeypassData = (self.tfPassword!.text! as NSString).data(using: String.Encoding.utf8.rawValue)!
@@ -103,7 +107,7 @@ class PasswordSetupViewController: UIViewController, SeedCheckupProtocol, UIText
     }
     
     func ChangeSpendingPass(){
-        progressHud = showProgressHud(with: "Changing spending Password...")
+        progressHud = showProgressHud(with: "Changing spending password...")
         
         let finalkeyData = (pass_pinToVerify! as NSString).data(using: String.Encoding.utf8.rawValue)!
         let finalkeypassData = (self.tfPassword!.text! as NSString).data(using: String.Encoding.utf8.rawValue)!
@@ -128,7 +132,33 @@ class PasswordSetupViewController: UIViewController, SeedCheckupProtocol, UIText
             }
         }
     }
-    
+    func ChangeStartupPass(){
+        progressHud = showProgressHud(with: "Changing startup password...")
+        
+        let finalkeyData = (pass_pinToVerify! as NSString).data(using: String.Encoding.utf8.rawValue)!
+        let finalkeypassData = (self.tfPassword!.text! as NSString).data(using: String.Encoding.utf8.rawValue)!
+        
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let this = self else { return }
+            
+            do {
+                try SingleInstance.shared.wallet?.changePublicPassphrase(finalkeyData, newPass: finalkeypassData)
+                DispatchQueue.main.async {
+                    this.progressHud?.dismiss()
+                    UserDefaults.standard.set(true, forKey: "secure_wallet")
+                    UserDefaults.standard.setValue("PASSWORD", forKey: "securitytype")
+                    UserDefaults.standard.synchronize()
+                    self?.dismissView()
+                }
+                return
+            } catch let error {
+                DispatchQueue.main.async {
+                    this.progressHud?.dismiss()
+                    this.showError(error: error)
+                }
+            }
+        }
+    }
     func showError(error:Error){
         let alert = UIAlertController(title: "Warning", message: error.localizedDescription, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
@@ -162,12 +192,20 @@ class PasswordSetupViewController: UIViewController, SeedCheckupProtocol, UIText
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        guard self.tfPassword.text == self.tfConfirmPassword.text else {
+            self.showMessageDialog(title: "Error", message: "Password does not match")
+            return false
+        }
         let tmpsender = self.senders
         if (tmpsender == "settings") {
             SetstartupPin_pas()
-        } else if (tmpsender == "settingsChangeSpending") {
+        }
+        else if (tmpsender == "settingsChangeSpending") {
             ChangeSpendingPass()
-        } else {
+        }else if (tmpsender == "settingsChangeStartup") {
+            ChangeStartupPass()
+        }
+        else {
             onEncrypt()
         }
         
@@ -187,9 +225,14 @@ class PasswordSetupViewController: UIViewController, SeedCheckupProtocol, UIText
             } else {
                 headerText.text = "Create Startup Password"
             }
-        } else if (senders == "settingsChangeSpending") {
+        }
+        else if (senders == "settingsChangeSpending") {
             headerText.text = "Change Spending Password"
-        } else {
+        }
+        else if (senders == "settingsChangeStartup") {
+            headerText.text = "Change Startup Password"
+        }
+        else {
             headerText.text = "Create Spending Password"
         }
     }

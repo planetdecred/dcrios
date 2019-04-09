@@ -17,6 +17,7 @@ class SettingsController: UITableViewController  {
     
     weak var delegate: LeftMenuProtocol?
     
+    @IBOutlet weak var changeStartPINCell: UITableViewCell!
     @IBOutlet weak var peer_cell: UIView!
     @IBOutlet weak var connectPeer_cell: UITableViewCell!
     @IBOutlet weak var server_cell: UITableViewCell!
@@ -49,7 +50,7 @@ class SettingsController: UITableViewController  {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = false
-        self.navigationController?.navigationBar.tintColor = UIColor.blue
+        self.navigationController?.navigationBar.tintColor = UIColor.black
         self.navigationItem.title = "Settings"
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
@@ -60,16 +61,6 @@ class SettingsController: UITableViewController  {
         loadDate()
         if (network_value == 0) {
             network_mode_subtitle?.text = "Simplified Payment Verification"
-            self.certificate_cell.isUserInteractionEnabled = false
-            self.server_cell.isUserInteractionEnabled = false
-            self.connectPeer_cell.isUserInteractionEnabled = true
-            self.server_ip.textColor = UIColor.lightGray
-            self.certificat_label.textColor = UIColor.lightGray
-            self.connect_peer_ip.textColor = UIColor.darkText
-            self.serverAdd_label.textColor = UIColor.lightGray
-            self.connect_ip_label.textColor = UIColor.darkText
-        } else if (network_value == 1) {
-            network_mode_subtitle?.text = "Local Full Node"
             self.certificate_cell.isUserInteractionEnabled = false
             self.server_cell.isUserInteractionEnabled = false
             self.connectPeer_cell.isUserInteractionEnabled = true
@@ -89,6 +80,15 @@ class SettingsController: UITableViewController  {
             self.serverAdd_label.textColor = UIColor.darkText
             self.connect_ip_label.textColor = UIColor.lightGray
         }
+        if (start_Pin.isOn) {
+            changeStartPINCell.isUserInteractionEnabled = true
+            changeStartPINCell.alpha = 1
+        }
+        else{
+            changeStartPINCell.isUserInteractionEnabled = false
+            changeStartPINCell.alpha = 0.4
+        }
+        
     }
     
     @objc func cancel() -> Void {
@@ -116,6 +116,15 @@ class SettingsController: UITableViewController  {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if UserDefaults.standard.string(forKey: "TMPPIN") != nil{
+            let pin = UserDefaults.standard.string(forKey: "TMPPIN")!
+            self.handleDeleteWallet(pass: pin)
+            UserDefaults.standard.set(nil, forKey: "TMPPIN")
+        }
     }
     
     func loadDate()-> Void {
@@ -174,8 +183,19 @@ class SettingsController: UITableViewController  {
         }
     }
     
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if !(start_Pin.isOn) {
+            if (indexPath.section == 0){
+                if (indexPath.row == 2) {
+                    return 0
+                }
+            }
+        }
+        return 44
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (indexPath.section == 1) {
+        if (indexPath.section == 0) {
             if (indexPath.row == 1) {
                 if (start_Pin.isOn) {
                     if (UserDefaults.standard.string(forKey: "securitytype") == "PASSWORD") {
@@ -201,6 +221,95 @@ class SettingsController: UITableViewController  {
                     self.navigationController?.pushViewController(sendVC, animated: true)
                 }
             }
+            else if (indexPath.row == 2) {
+                if (UserDefaults.standard.string(forKey: "startupSecureType") == "PASSWORD") {
+                    let sendVC = storyboard!.instantiateViewController(withIdentifier: "StartUpPasswordViewController") as! StartUpPasswordViewController
+                    sendVC.senders = "settingsChangeStartup"
+                    self.navigationController?.pushViewController(sendVC, animated: true)
+                } else {
+                    let sendVC = storyboard!.instantiateViewController(withIdentifier: "PinSetupViewController") as! PinSetupViewController
+                    sendVC.senders = "settingsChangeStartupPin"
+                    self.navigationController?.pushViewController(sendVC, animated: true)
+                }
+            }
         }
     }
+    
+    @IBAction func deleteWallet(_ sender: Any) {
+        if UserDefaults.standard.string(forKey: "spendingSecureType") == "PASSWORD" {
+            let alert = UIAlertController(title: "Delete Wallet", message: "Please enter spending password of your wallet", preferredStyle: .alert)
+            alert.addTextField { textField in
+                textField.placeholder = "password"
+                textField.isSecureTextEntry = true
+            }
+        
+            let okAction = UIAlertAction(title: "Proceed", style: .default) { _ in
+                let tfPasswd = alert.textFields![0] as UITextField
+                if (tfPasswd.text?.count)! > 0 {
+                    self.handleDeleteWallet(pass: tfPasswd.text!)
+                    alert.dismiss(animated: false, completion: nil)
+                } else {
+                    alert.dismiss(animated: false, completion: nil)
+                    self.showAlert(message: "Password can't be empty.", titles: "invalid input")
+                }
+            }
+        
+            let CancelAction = UIAlertAction(title: "Cancel", style: .default) { _ in
+                alert.dismiss(animated: false, completion: nil)
+            }
+            alert.addAction(CancelAction)
+            alert.addAction(okAction)
+        
+            self.present(alert, animated: true, completion: nil)
+        }else{
+            let vc = storyboard!.instantiateViewController(withIdentifier: "PinSetupViewController") as! PinSetupViewController
+            vc.senders = "settingsDeleteWallet"
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    private func showAlert(message: String? , titles: String?) {
+        let alert = UIAlertController(title: titles, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+            alert.dismiss(animated: true, completion: nil)
+        }
+        alert.addAction(okAction)
+        
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    func handleDeleteWallet(pass: String){
+        let progressHud = showProgressHud(with: "Deleting wallet...")
+        let wallet = SingleInstance.shared.wallet!
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let this = self else { return }
+            
+            do {
+                let passData = (pass as NSString).data(using: String.Encoding.utf8.rawValue)!
+                wallet.dropSpvConnection()
+                try wallet.unlock(passData)
+                try wallet.close()
+
+                let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+                let walletDir = paths[0].appendingPathComponent("dcrlibwallet")
+                try FileManager.default.removeItem(at: walletDir)
+                DispatchQueue.main.async {
+                    progressHud.dismiss()
+                    UserDefaults.standard.set(true, forKey: GlobalConstants.Strings.DELETE_WALLET)
+                    UserDefaults.standard.synchronize()
+                    self?.delegate?.changeViewController(LeftMenu.overview)
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    progressHud.dismiss()
+                    let alertController = UIAlertController(title: "", message: "Passphrase was not valid.", preferredStyle: UIAlertControllerStyle.alert)
+                    alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                    this.present(alertController, animated: true, completion: nil)
+                }
+            }
+        }
+    }
+    
 }

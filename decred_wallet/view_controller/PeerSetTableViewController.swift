@@ -19,7 +19,7 @@ class PeerSetTableViewController: UITableViewController {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
         self.navigationItem.title = "Connect to peer"
         // Do any additional setup after loading the view.
-        peer_ip?.text = UserDefaults.standard.string(forKey: "pref_peer_ip") ?? "0.0.0.0"
+        peer_ip?.text = UserDefaults.standard.string(forKey: "pref_peer_ip") ?? ""
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -34,11 +34,22 @@ class PeerSetTableViewController: UITableViewController {
     
     @objc func save() -> Void {
         // save here
-        if !(peer_ip.text?.isEmpty)! && isValidIP(s: peer_ip.text!){
+        print("saving")
+        if (peer_ip.text?.isEmpty)! || (peer_ip.text)! == ""{
+            print("saving nothing")
+            UserDefaults.standard.set("", forKey: "pref_peer_ip")
+            UserDefaults.standard.synchronize()
+            self.navigationController?.popViewController(animated: true)
+            return
+        }
+        else if isValidIP(s: peer_ip.text!){
+            print("saving \(String(describing: peer_ip.text))")
             UserDefaults.standard.set(peer_ip.text, forKey: "pref_peer_ip")
             UserDefaults.standard.synchronize()
             self.navigationController?.popViewController(animated: true)
-        } else {
+            return
+            }
+        else {
             self.showMessage(title: "Invalid input", userMessage: "please input a valid IP address", buttonTitle: "ok")
         }
     }

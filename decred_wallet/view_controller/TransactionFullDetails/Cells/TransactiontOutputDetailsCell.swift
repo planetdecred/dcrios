@@ -12,61 +12,93 @@ class TransactiontOutputDetailsCell: UITableViewCell {
     @IBOutlet weak var creditsStack: UIStackView!
     @IBOutlet weak var alcCreditStackHeight: NSLayoutConstraint!
     
-    var index = 0
-    
     var expandOrCollapse: (() -> Void)?
     
-    func setup(with credits:[Credit]){
+    var presentingController: TransactionFullDetailsViewController!
+    
+    func setup(with credits:[Credit], decodedOutputs: [DecodedOutput], presentingController: TransactionFullDetailsViewController){
+        creditsStack.subviews.forEach({ $0.removeFromSuperview() }) // this stack view comes with previous items when this function is called again
+        self.presentingController = presentingController
         
-        alcCreditStackHeight.constant = CGFloat(45 * min(credits.count, 3))
+        var walletOutputIndices = [Int]()
         
-        for credit in credits{
-            self.addSubrow(with: credit, indexs: index)
-            print(index)
-            if(index == 2){
-                return
-            }
-            index += 1
+        let wallet = SingleInstance.shared.wallet
+        
+        for (_, credit) in credits.enumerated() {
+            walletOutputIndices.append(Int(credit.Index))
+            
+            let amount = getAttributedString(str: "\(credit.dcrAmount.round(8))", siz: 13, TexthexColor: GlobalConstants.Colors.TextAmount)
+            let title = " (\((wallet?.account(ofAddress: credit.Address))!))"
+            let address = credit.Address
+            
+            addSubrow(with: amount, title: title, subTitle: address)
         }
+        
+        for(i, decodedOutput) in decodedOutputs.enumerated() {
+            if walletOutputIndices.contains(i) {
+                continue
+            }
+            
+            var address = decodedOutput.Addresses.count > 0 ? decodedOutput.Addresses[0] : ""
+            var amount = getAttributedString(str: "\(decodedOutput.dcrAmount.round(8))", siz: 13, TexthexColor: GlobalConstants.Colors.TextAmount)
+            var title = " (external)"
+            
+            switch(decodedOutput.ScriptType){
+            case "nulldata":
+                amount = NSAttributedString(string: "[null data]")
+                address = "[script]"
+                title = ""
+                break
+            case "stakegen":
+                address = "[stakegen]"
+                break
+            default:
+                break
+            }
+            
+            addSubrow(with: amount, title: title, subTitle: address)
+        }
+        
+        // each debit row has an height of 45
+        alcCreditStackHeight.constant = CGFloat(45 * creditsStack.arrangedSubviews.count)
     }
     
     @IBAction func hideOrExpandAction(_ sender: UIButton) {
         self.viewContainer.isHidden = false
     }
     
-    var addressLabel : UIButton?
-    private func addSubrow(with credit: Credit, indexs: Int){
-        
-        let subrow = UIView(frame: CGRect(x:0.0, y:0.0, width:self.frame.size.width, height:45.0))
+    private func addSubrow(with amount: NSAttributedString, title: String, subTitle: String){
+    
+        let subrow = UIView(frame: CGRect(x:0.0, y:0.0, width: self.frame.size.width, height:45.0))
         let amountLabel = UILabel(frame: CGRect(x:5.0, y:1.0, width: self.frame.size.width, height: 22.0))
-        let addressLabel = UIButton(frame: CGRect(x:5.0, y:23.0, width:self.frame.size.width, height: 22.0))
-        let tmp = SingleInstance.shared.wallet
-        let accName = tmp?.accountName(Int32(credit.Account))
+        let subTitleLabel = UIButton(frame: CGRect(x: 5.0, y: 23, width: self.frame.size.width, height: 22.0))
         
-        addressLabel.setTitleColor(#colorLiteral(red: 0.2470588235, green: 0.4941176471, blue: 0.8901960784, alpha: 1), for: .normal)
-        amountLabel.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        addressLabel.set(fontSize: 15)
-        addressLabel.contentHorizontalAlignment = .left
+        subTitleLabel.setTitleColor(#colorLiteral(red: 0.2470588235, green: 0.4941176471, blue: 0.8901960784, alpha: 1), for: .normal)
+        subTitleLabel.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
+        subTitleLabel.set(fontSize: 15, name: "SourceSansPro-Regular")
+        amountLabel.textColor = #colorLiteral(red: 0.03529411765, green: 0.07843137255, blue: 0.2509803922, alpha: 1)
+        amountLabel.font = UIFont(name: "Inconsolata-Regular", size: 16)
+        subTitleLabel.contentHorizontalAlignment = .left
         subrow.addSubview(amountLabel)
-        subrow.addSubview(addressLabel)
-        amountLabel.font = amountLabel.font.withSize(15)
-        
+        subrow.addSubview(subTitleLabel)
+        amountLabel.font = amountLabel.font.withSize(16)
         let combine = NSMutableAttributedString()
-        combine.append(getAttributedString(str: "\(credit.dcrAmount)", siz: 12, TexthexColor: GlobalConstants.Colors.TextAmount))
-        combine.append(NSMutableAttributedString(string: " (\(accName ?? "external"))"))
-        
+        combine.append(amount)
+        combine.append(NSMutableAttributedString(string: title))
         amountLabel.attributedText = combine
-        addressLabel.setTitle(credit.Address, for: .normal)
-        self.creditsStack.insertArrangedSubview(subrow, at: indexs)
+        subTitleLabel.setTitle(subTitle, for: .normal)
+        
+        creditsStack.addArrangedSubview(subrow)
     }
     
-    func buttonClicked(sender : UIButton){
+    @objc func buttonClicked(sender : UIButton){
         DispatchQueue.main.async {
             //Copy a string to the pasteboard.
-            UIPasteboard.general.string = self.addressLabel!.titleLabel?.text
+            UIPasteboard.general.string = sender.titleLabel?.text
             //Alert
-            let alertController = UIAlertController(title: "", message: "address copied", preferredStyle: UIAlertControllerStyle.alert)
+            let alertController = UIAlertController(title: "", message: "Address copied!", preferredStyle: UIAlertControllerStyle.alert)
             alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            self.presentingController.present(alertController, animated: true, completion: nil)
         }
     }
 }

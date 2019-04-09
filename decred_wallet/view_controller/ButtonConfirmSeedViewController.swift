@@ -21,6 +21,7 @@ class ButtonConfirmSeedViewController: UIViewController, SeedCheckupProtocol {
     var allWords: [String] = []
     var enteredWords: [String] = []
     
+  
     @IBOutlet weak var btnConfirm: UIButton!
     @IBOutlet var vActiveCellView: SeedCheckActiveCellView!
     
@@ -31,6 +32,9 @@ class ButtonConfirmSeedViewController: UIViewController, SeedCheckupProtocol {
             selectedSeedWords.append(-1)
             enteredWords.append("")
         }
+    }
+    @IBAction func backbtn(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func onConfirm(_ sender: Any) {
@@ -114,7 +118,7 @@ extension ButtonConfirmSeedViewController: UITableViewDataSource{
         suggestionsWithFake[trueSeedIndex] = trueSeed ?? "dummy"
         
         let fakeWordsArray = allWords.filter({
-            return ($0.lowercased().hasPrefix((String(trueSeed!.first!)).lowercased()) && $0.lowercased() != trueSeed?.lowercased())
+            return ($0.lowercased() != trueSeed?.lowercased())
         })
         var fakeWordsSet = Array(Set(fakeWordsArray))
         let fake1 = Int.random(in: 0...(fakeWordsSet.count) - 1)

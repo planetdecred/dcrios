@@ -18,7 +18,7 @@ class ServerSetTableViewController: UITableViewController {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
         self.navigationItem.title = "Server Address"
-        server_ip?.text = UserDefaults.standard.string(forKey: "pref_server_ip") ?? "0.0.0.0"
+        server_ip?.text = UserDefaults.standard.string(forKey: "pref_server_ip") ?? ""
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -33,12 +33,20 @@ class ServerSetTableViewController: UITableViewController {
     
     @objc func save() -> Void {
         // save here
-        if !(server_ip.text?.isEmpty)! && isValidIP(s: server_ip.text!) {
+        if (server_ip.text?.isEmpty)! || (server_ip.text)! == ""{
+            UserDefaults.standard.set("", forKey: "pref_server_ip")
+            UserDefaults.standard.synchronize()
+            self.navigationController?.popViewController(animated: true)
+            return
+        }
+        else if isValidIP(s: server_ip.text!){
             UserDefaults.standard.set(server_ip.text, forKey: "pref_server_ip")
             UserDefaults.standard.synchronize()
             self.navigationController?.popViewController(animated: true)
-        } else {
-            self.showMessage(title: "Invali input", userMessage: "please input a valid IP", buttonTitle: "ok")
+            return
+        }
+        else {
+            self.showMessage(title: "Invalid input", userMessage: "please input a valid IP address", buttonTitle: "ok")
         }
     }
     
