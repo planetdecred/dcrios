@@ -12,6 +12,9 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
     @IBOutlet var tableView : UITableView!
     @IBOutlet var vDropDownPlaceholder: UIView!
     @IBOutlet weak var confirm_btn: UIButton!
+    @IBOutlet weak var Headerview: UIView!
+    @IBOutlet weak var headerconstraintTop: NSLayoutConstraint!
+    @IBOutlet weak var warningMsg: UILabel!
     
     var currentTextField : UITextField?
     var nextTextField : UITextField?
@@ -23,6 +26,8 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
     var suggestions: [String] = []
     var recognizer:UIGestureRecognizer?
     let seedtmp2 = "reform aftermath printer warranty gremlin paragraph beehive stethoscope regain disruptive regain Bradbury chisel October trouble forever Algol applicant island infancy physique paragraph woodlark hydraulic snapshot backwater ratchet surrender revenge customer retouch intention minnow"
+    var Tmpcell: RecoveryWalletSeedWordsCell?
+    var activeCell = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,23 +47,49 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
     func registerObserverForKeyboardNotification(){
         NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardDidShow), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
     }
     
     func unregisterObserverForKeyboardNotification(){
         NotificationCenter.default.removeObserver(self, name:NSNotification.Name.UIKeyboardWillShow, object:nil)
         NotificationCenter.default.removeObserver(self, name:NSNotification.Name.UIKeyboardWillHide, object:nil)
+        NotificationCenter.default.removeObserver(self, name:NSNotification.Name.UIKeyboardDidShow, object:nil)
     }
     
     @objc func onKeyboardWillShow(_ notification: Notification){
-        let notificationInfo = notification.userInfo
-        let keyboardFrame = (notificationInfo?[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-        let f = tableView.frame
-        tableView.frame = CGRect(x: f.origin.x, y: f.origin.y, width: f.size.width, height: f.size.height - keyboardFrame.size.height + (tableView.tableHeaderView?.frame.size.height)! )
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.tableView.contentInset = UIEdgeInsets(top: 220, left: 0, bottom: 0, right: 0)
+                self.view.frame.origin.y -= keyboardSize.height
+                
+                
+                
+                
+            }
+        }
     }
     
     @objc func onKeyboardWillHide(_ notification: Notification){
-        let f = view.frame
-        tableView.frame = CGRect(x: 0, y: 0, width: f.size.width, height: f.size.height)
+       if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
+       
+    }
+    @objc func onKeyboardDidShow(_ notification: Notification){
+        if self.view.frame.origin.y != 0 {
+            self.tableView.scrollToRow(at: IndexPath(row: self.activeCell, section: 0), at: UITableViewScrollPosition.middle, animated: true)
+            if self.activeCell != 0{
+                let next = tableView.cellForRow(at: IndexPath(row: self.activeCell, section: 0)) as? RecoveryWalletSeedWordsCell
+                next?.updatePlaceholder(vertPosition: Int(self.dropdownPosition(for: IndexPath(row: self.activeCell, section: 0))))
+            }
+            else{
+                let next = tableView.cellForRow(at: IndexPath(row: 4, section: 0)) as? RecoveryWalletSeedWordsCell
+                next?.updatePlaceholder(vertPosition: Int(self.dropdownPosition(for: IndexPath(row: 4, section: 0))))
+            }
+           
+           
+        }
+        
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -73,7 +104,7 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "seedWordCell", for: indexPath) as? RecoveryWalletSeedWordsCell
         cell?.setup(wordNum: indexPath.row, word: seedWords.count <= indexPath.row ? "" : seedWords[indexPath.row] ?? "", seed: seedtmp, placeholder: vDropDownPlaceholder)
-        cell?.tfSeedWord.isEnabled = (indexPath.row == 0 || textFields.count < indexPath.row)
+       // cell?.tfSeedWord.isEnabled = (indexPath.row == 0 || textFields.count < indexPath.row)
         
         if indexPath.row > textFields.count {
             textFields[indexPath.row] = cell?.tfSeedWord
@@ -93,10 +124,15 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
                 next?.tfSeedWord.updateSearchResults()
                 next?.tfSeedWord.isEnabled = true
                 next?.tfSeedWord.becomeFirstResponder()
+                 self.Tmpcell = next
+                self.activeCell = indexPath.row
                 tableView.scrollToRow(at: nextIndexPath, at: .middle, animated: true)
                 next?.updatePlaceholder(vertPosition: Int(self.dropdownPosition(for: nextIndexPath)))
-            } else {
+                self.warningMsg.isHidden = false
+            } else if self.seedWords.count > 31 {
                 cell?.tfSeedWord.resignFirstResponder()
+                self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+                self.warningMsg.isHidden = true
             }
         }
         
@@ -109,12 +145,11 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
         
         let nextCellPos = self.tableView.rectForRow(at: indexPath)
         let dropDownHeight = vDropDownPlaceholder.frame.size.height
-        
-        let res = nextCellPos.origin.y - scrollOffset.y
-        if (indexPath.row < 3) {
+        let res = nextCellPos.origin.y  - scrollOffset.y
+        /*if (indexPath.row < 3) {
             return nextCellPos.origin.y + nextCellPos.size.height + 20
-        } else if (indexPath.row > 28) {
-            return res - dropDownHeight + nextCellPos.size.height * 3
+        } else*/ if (indexPath.row > 29) {
+            return res - dropDownHeight - nextCellPos.size.height * 1.07
         }
         
         return res
