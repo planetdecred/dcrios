@@ -1964,12 +1964,10 @@
                                                     </label>
                                                 </subviews>
                                                 <gestureRecognizers/>
-                                                <connections>
-                                                    <outletCollection property="gestureRecognizers" destination="nbt-YL-CHb" appends="YES" id="pcG-UR-icd"/>
-                                                </connections>
                                             </stackView>
                                         </subviews>
                                         <color key="backgroundColor" red="0.93371140956878662" green="0.93763142824172974" blue="0.94460195302963257" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstItem="KG6-kr-bu1" firstAttribute="width" secondItem="zlU-nV-PuO" secondAttribute="width" id="Hw8-DP-U7U"/>
                                             <constraint firstItem="KG6-kr-bu1" firstAttribute="centerX" secondItem="zlU-nV-PuO" secondAttribute="centerX" id="QCV-Wg-GNp"/>
@@ -1980,6 +1978,9 @@
                                                 <integer key="value" value="5"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="1QI-hl-aXp" appends="YES" id="XLq-Sc-FYE"/>
+                                        </connections>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZeU-Bc-nQZ">
                                         <rect key="frame" x="176" y="0.0" width="161.5" height="130"/>
@@ -2019,12 +2020,10 @@
                                                     </label>
                                                 </subviews>
                                                 <gestureRecognizers/>
-                                                <connections>
-                                                    <outletCollection property="gestureRecognizers" destination="aWv-Qi-hSA" appends="YES" id="ttZ-v5-wNg"/>
-                                                </connections>
                                             </stackView>
                                         </subviews>
                                         <color key="backgroundColor" red="0.93371140956878662" green="0.93763142824172974" blue="0.94460195302963257" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstItem="0hY-El-bgm" firstAttribute="centerX" secondItem="ZeU-Bc-nQZ" secondAttribute="centerX" id="Quc-C8-eH8"/>
                                             <constraint firstItem="0hY-El-bgm" firstAttribute="centerY" secondItem="ZeU-Bc-nQZ" secondAttribute="centerY" id="ZmP-iV-Dzg"/>
@@ -2034,6 +2033,9 @@
                                                 <integer key="value" value="5"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="rvs-fU-Ufg" appends="YES" id="USR-Hr-jvv"/>
+                                        </connections>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" red="0.95294117649999999" green="0.96078431369999995" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2094,14 +2096,14 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fgt-ue-jul" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="nbt-YL-CHb">
+                <tapGestureRecognizer id="rvs-fU-Ufg">
                     <connections>
-                        <segue destination="eoW-KE-o6O" kind="show" id="jSg-p5-wgq"/>
+                        <segue destination="Dk9-z5-XZ1" kind="show" id="PNO-Gh-n5b"/>
                     </connections>
                 </tapGestureRecognizer>
-                <tapGestureRecognizer id="aWv-Qi-hSA">
+                <tapGestureRecognizer id="1QI-hl-aXp">
                     <connections>
-                        <segue destination="Dk9-z5-XZ1" kind="show" id="Uxz-oA-0JJ"/>
+                        <segue destination="eoW-KE-o6O" kind="show" id="viG-wo-7U4"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -2609,19 +2611,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Account Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="f24-xl-TCh">
-                                <rect key="frame" x="19" y="176" width="337.5" height="40"/>
+                                <rect key="frame" x="19" y="174" width="337.5" height="40"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Private Passphrase" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Ci-fh-xL9">
-                                <rect key="frame" x="19" y="232" width="337.5" height="40"/>
+                                <rect key="frame" x="19" y="230" width="337.5" height="40"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3fY-ne-PU1">
-                                <rect key="frame" x="112.5" y="294" width="150" height="40"/>
+                                <rect key="frame" x="112.5" y="292" width="150" height="40"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Create Account">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2631,22 +2633,22 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Account" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9vy-aP-AN1">
-                                <rect key="frame" x="19" y="72" width="337.5" height="33.5"/>
+                                <rect key="frame" x="19" y="70" width="337.5" height="33.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Input your new account name and enter your private passphrase." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uEE-xL-XMv">
-                                <rect key="frame" x="19" y="120" width="342.5" height="40"/>
+                                <rect key="frame" x="19" y="118" width="342.5" height="40"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="omU-f5-HkH">
-                                <rect key="frame" x="19" y="20" width="337.5" height="34"/>
+                                <rect key="frame" x="19" y="20" width="337.5" height="32"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VGy-mq-b5b">
-                                        <rect key="frame" x="0.0" y="0.0" width="48" height="34"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="53" height="32"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
                                         <state key="normal" title="Cancel">
                                             <color key="titleColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -7360,8 +7362,8 @@ AAAAAAAAAAAAAAACkeI
         <image name="send" width="48" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Uxz-oA-0JJ"/>
+        <segue reference="PNO-Gh-n5b"/>
         <segue reference="eKH-jk-Lo5"/>
-        <segue reference="jSg-p5-wgq"/>
+        <segue reference="viG-wo-7U4"/>
     </inferredMetricsTieBreakers>
 </document>
