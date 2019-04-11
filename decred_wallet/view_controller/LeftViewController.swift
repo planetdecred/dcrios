@@ -87,7 +87,6 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
             UserDefaults.standard.set(false, forKey: GlobalConstants.Strings.DELETE_WALLET)
             let domain = Bundle.main.bundleIdentifier!
             UserDefaults.standard.removePersistentDomain(forName: domain)
-            UserDefaults.standard.set(true, forKey: GlobalConstants.Strings.USE_TESTNET)
             UserDefaults.standard.synchronize()
             SingleInstance.shared.setDefaults()
             DispatchQueue.main.async {
@@ -149,7 +148,8 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        if UserDefaults.standard.bool(forKey: "pref_use_testnet") {
+        let isTestnet = Bool(infoForKey(GlobalConstants.Strings.IS_TESTNET)!)!
+        if isTestnet {
             headerImage?.image = UIImage(named: "logo-testnet")
         }
         
@@ -173,8 +173,6 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
             let bestblck = self!.wallet?.getBestBlock()
             let bestblocktemp: Int64 = Int64(Int(bestblck!))
             let lastblocktime = self!.wallet?.getBestBlockTimeStamp()
-            let currentTime = NSDate().timeIntervalSince1970
-            let estimatedBlocks = ((Int64(currentTime) - lastblocktime!) / 120) + bestblocktemp
             self!.sync = UserDefaults.standard.bool(forKey: "synced")
             
             if !((self?.sync)!){

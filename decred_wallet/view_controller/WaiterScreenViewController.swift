@@ -32,6 +32,11 @@ class WaiterScreenViewController: UIViewController, WaiterScreenProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let isTestnet = Bool(infoForKey(GlobalConstants.Strings.IS_TESTNET)!)!
+        if(isTestnet) {
+            testnetLabel.isHidden = false
+            testnetLabel.text = "testnet"
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,14 +48,7 @@ class WaiterScreenViewController: UIViewController, WaiterScreenProtocol {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         set(duration: 5)
-        let testnetOn = UserDefaults.standard.bool(forKey: "pref_use_testnet")
-        if(testnetOn){
-            testnetLabel.text = "testnet"
-            
-        }
-        else{
-            testnetLabel.isHidden = true
-        }
+        
         if isWalletCreated(){
             set(label: "Opening wallet...")
         }

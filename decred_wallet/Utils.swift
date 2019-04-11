@@ -15,8 +15,9 @@ extension Notification.Name {
 }
 
 func isWalletCreated() -> Bool{
+    let netType = infoForKey(GlobalConstants.Strings.NetType)!
     let fm = FileManager()
-    let result = fm.fileExists(atPath: NSHomeDirectory()+"/Documents/dcrlibwallet/testnet3/wallet.db")
+    let result = fm.fileExists(atPath: NSHomeDirectory()+"/Documents/dcrlibwallet/\(netType)/wallet.db")
     return result
 }
 
@@ -287,4 +288,9 @@ extension Formatter{
             formatter.groupingSeparator = ","
             formatter.numberStyle = .decimal
             return formatter}()
+}
+
+func infoForKey(_ key: String) -> String? {
+    return (Bundle.main.infoDictionary?[key] as? String)?
+        .replacingOccurrences(of: "\\", with: "")
 }

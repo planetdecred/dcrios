@@ -56,7 +56,6 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
     @IBOutlet weak var syncLoadingText: UILabel!
     var wallet = SingleInstance.shared.wallet
     var walletInfo = SingleInstance.shared
-    let testnetOn = UserDefaults.standard.bool(forKey: "pref_use_testnet")
     var NetType = "mainnet"
     var mainContens = [Transaction]()
     var refreshControl: UIRefreshControl!
@@ -76,7 +75,8 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
             
             return refreshControl
         }()
-        NetType = testnetOn ? "testnet" : "mainnet"
+        let isTestnet = Bool(infoForKey(GlobalConstants.Strings.IS_TESTNET)!)!
+        NetType = isTestnet ? "testnet" : "mainnet"
         self.tableView.addSubview(self.refreshControl)
         self.setupSendRecvBtn()
         self.verboseText.contentHorizontalAlignment = .center
@@ -520,6 +520,7 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
         self.updateCurrentBalance()
         return
     }
+    
     func updatePeerCount() {
         if (!self.walletInfo.synced && !self.walletInfo.syncing) {
             self.walletInfo.syncStatus = "Not Synced";
@@ -544,6 +545,7 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
     }
     
     func onFetchMissingCFilters(_ missingCFitlersStart: Int32, missingCFitlersEnd: Int32, state: String!) {}
+    
     var headerTime: Int64 = 0
     func onFetchedHeaders(_ fetchedHeadersCount: Int32, lastHeaderTime: Int64, state: String!) {
         DispatchQueue.global(qos: .background).async {
@@ -561,7 +563,8 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
         let bestblocktemp = Int64(bestblck!)
         let lastblocktime = self.wallet?.getBestBlockTimeStamp()
         let currentTime = Date().millisecondsSince1970 / 1000;
-        let estimatedBlocks = ((currentTime - lastblocktime!) / 120 ) + bestblocktemp
+        let targetTimePerBlock = Int64(infoForKey("TargetTimePerBlock")!)!
+        let estimatedBlocks = ((currentTime - lastblocktime!) / targetTimePerBlock ) + bestblocktemp
         
         switch (state) {
         case DcrlibwalletSTART:

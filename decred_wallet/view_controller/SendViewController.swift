@@ -486,25 +486,22 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                 let lenght = min((address?.length)!,40)
                 let errorText = address?.prefix(lenght)
                 let message = "This is not a decred wallet address.\n".appending((errorText)!)
+                
                 if (address?.length)! > 0 {
                     if (address?.starts(with: "decred:"))! {
                         address = address?.replacingOccurrences(of: "decred:", with: "")
                     }
-                    if (address?.length)! > 25 && (address?.length)! < 37 {
-                        if (address?.starts(with: "T"))! {
-                            self?.fromNotQRScreen = false
-                            DispatchQueue.main.async {
-                                this.walletAddress?.text = address
-                            }
-                            this.removeQrbtn()
-                            if (this.removedBtn){
-                                print("showing but removing now")
-                                this.removedBtn = false
-                                this.removePasteBtn()
-                             
-                            }
-                        } else{
-                            self?.showAlert(message: message, titles: "Info")
+                    
+                    if self!.wallet.isAddressValid(address!) {
+                        self?.fromNotQRScreen = false
+                        DispatchQueue.main.async {
+                            this.walletAddress?.text = address
+                        }
+                        this.removeQrbtn()
+                        if (this.removedBtn){
+                            print("showing but removing now")
+                            this.removedBtn = false
+                            this.removePasteBtn()
                         }
                     } else{
                         self?.showAlert(message: message, titles: "Info")
@@ -569,7 +566,9 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             }
             self.showDefaultAccount()
             }
-            if(UserDefaults.standard.bool(forKey: "pref_use_testnet")){
+            
+            let isTestnet = Bool(infoForKey(GlobalConstants.Strings.IS_TESTNET)!)!
+            if (isTestnet){
                 self.openLink(urlString: "https://testnet.dcrdata.org/tx/" + hashe! )
             }else{
                 self.openLink(urlString: "https://mainnet.dcrdata.org/tx/" + hashe! )
