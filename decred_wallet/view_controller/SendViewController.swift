@@ -27,6 +27,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     @IBOutlet var sendAllBtn: UIButton!
     @IBOutlet weak var toAccountContainer: UIStackView!
     @IBOutlet weak var toAddressContainer: UIStackView!
+    private var barButton: UIBarButtonItem?
     var removedBtn = true
     var wallet :DcrlibwalletLibWallet!
     
@@ -131,8 +132,8 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         menu.setImage(UIImage(named: "right-menu"), for: .normal)
         menu.addTarget(self, action: #selector(showMenu), for: .touchUpInside)
         menu.frame = CGRect(x: 0, y: 0, width: 10, height: 51)
-        let barButton = UIBarButtonItem(customView: menu)
-        self.navigationItem.rightBarButtonItems = [barButton]
+        barButton = UIBarButtonItem(customView: menu)
+        self.navigationItem.rightBarButtonItems = [barButton!]
         print("address valid on appear")
         if !(self.fromNotQRScreen){
             self.fromNotQRScreen = true
@@ -180,6 +181,10 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         let clearFields = UIAlertAction(title: "Clear fields", style: .default, handler: { (alert: UIAlertAction!) -> Void in
             self.clearFields()
         })
+        
+        if let popoverPresentationController = alertController.popoverPresentationController {
+            popoverPresentationController.barButtonItem = barButton
+        }
         
         alertController.addAction(cancelAction)
         alertController.addAction(sendToAccount)
