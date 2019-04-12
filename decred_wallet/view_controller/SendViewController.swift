@@ -188,7 +188,11 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     func sendAll(){
         let spendableAmount = spendable(account: self.selectedAccount!)
         self.tfAmount.text = "\(spendableAmount)"
+        if !(self.conversionRowCont.isHidden){
+            self.currencyAmount2.text = "\((((self.exchangeRateGloabal as Decimal) * spendableAmount)as NSDecimalNumber).round(2))"
+        }
         self.prepareTransaction(sendAll: self.sendAllTX, amount: self.tfAmount.text!)
+        self.toggleSendBtn(validate: self.validateSentBtn(amount: self.tfAmount.text!))
     }
     
     @objc func showMenu(){
@@ -1054,7 +1058,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             let amountToSend = Double((amount ))!
             let tspendable = spendable(account: self.selectedAccount!) as Decimal
             print(" result of amount is \(amountToSend > 0 || Decimal(amountToSend) < tspendable)")
-            return amountToSend > 0 && Decimal(amountToSend) < tspendable
+            return amountToSend > 0 && Decimal(amountToSend) <= tspendable
         }
         
     }
