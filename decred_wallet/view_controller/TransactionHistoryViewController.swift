@@ -13,7 +13,7 @@ class TransactionHistoryViewController: UIViewController, DcrlibwalletGetTransac
     var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:
-            #selector(OverviewViewController.handleRefresh(_:)),
+            #selector(TransactionHistoryViewController.handleRefresh(_:)),
                                  for: UIControlEvents.valueChanged)
         refreshControl.tintColor = UIColor.lightGray
         
@@ -37,7 +37,7 @@ class TransactionHistoryViewController: UIViewController, DcrlibwalletGetTransac
     override func viewDidLoad() {
         super.viewDidLoad()
         initFilterBtn()
-       
+        self.tableView.addSubview(self.refreshControl)
         // Do any additional setup after loading the view.
     }
     
@@ -73,6 +73,11 @@ class TransactionHistoryViewController: UIViewController, DcrlibwalletGetTransac
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        self.prepareRecent()
+        refreshControl.endRefreshing()
     }
     
     func prepareRecent(){
