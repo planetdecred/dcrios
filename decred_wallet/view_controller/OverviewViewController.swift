@@ -11,13 +11,12 @@ import Dcrlibwallet
 import JGProgressHUD
 import UserNotifications
 
-class OverviewViewController: UIViewController, DcrlibwalletGetTransactionsResponseProtocol, DcrlibwalletTransactionListenerProtocol,
-DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEnteredProtocol{
+class OverviewViewController: UIViewController, DcrlibwalletGetTransactionsResponseProtocol, DcrlibwalletTransactionListenerProtocol, DcrlibwalletSpvSyncResponseProtocol, PinEnteredProtocol{
     
     weak var delegate : LeftMenuProtocol?
     var pinInput: String?
-    var reScan_percentage = 0.1;
-    var discovery_percentage = 0.8
+    let RESCAN_PERCENTAGE = 0.1;
+    let DISCOVERY_PERCENTAGE = 0.8
     var peerCount = 0
     var bestBlock :Int32?
     var bestBlockTimestamp : Int64?
@@ -455,29 +454,11 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
         lbCurrentBalance.isHidden = false
     }
     
-    func onBlockNotificationError(_ err: Error!) {
-        print(err)
-    }
-    
     func onTransactionConfirmed(_ hash: String!, height: Int32) {
         if(visible == true){
             self.prepareRecent()
             updateCurrentBalance()
         }
-    }
-    
-    func onEnd(_ height: Int32, cancelled: Bool) {
-        
-    }
-    
-    func onError(_ code: Int32, message: String!) {
-        
-    }
-    
-    func onScan(_ rescannedThrough: Int32) -> Bool {
-        UserDefaults.standard.set(true, forKey: "walletScanning")
-        UserDefaults.standard.synchronize()
-        return true
     }
     
     func onTransactionRefresh() {
@@ -546,294 +527,296 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
     
     func onFetchMissingCFilters(_ missingCFitlersStart: Int32, missingCFitlersEnd: Int32, state: String!) {}
     
-    var headerTime: Int64 = 0
-    func onFetchedHeaders(_ fetchedHeadersCount: Int32, lastHeaderTime: Int64, state: String!) {
+    func onFetchedHeaders(_ fetchedCount: Int32, lastHeaderTime: Int64, state: String!) {
         DispatchQueue.global(qos: .background).async {
-        if (!self.walletInfo.syncing) {
-            // Ignore this call because this function gets called for each peer and
-            // we'd want to ignore those calls as far as the wallet is synced.
-            return
-        } else if (self.walletInfo.totalFetchTime != -1) {
-            return
-        }
-        
-        
-        print("last header time \(lastHeaderTime)")
-        let bestblck = self.wallet?.getBestBlock()
-        let bestblocktemp = Int64(bestblck!)
-        let lastblocktime = self.wallet?.getBestBlockTimeStamp()
-        let currentTime = Date().millisecondsSince1970 / 1000;
-        let targetTimePerBlock = Int64(infoForKey("TargetTimePerBlock")!)!
-        let estimatedBlocks = ((currentTime - lastblocktime!) / targetTimePerBlock ) + bestblocktemp
-        
-        switch (state) {
-        case DcrlibwalletSTART:
-            if (self.walletInfo.fetchHeaderTime != -1) {
+            if (!self.walletInfo.syncing) {
+                // Ignore this call because this function gets called for each peer and
+                // we'd want to ignore those calls as far as the wallet is synced.
+                return
+            } else if (self.walletInfo.totalFetchTime != -1) {
                 return
             }
             
-            self.walletInfo.syncStatus = "Fetching headers...";
+            let bestblck = self.wallet?.getBestBlock()
+            let bestBlockTemp = Int64(bestblck!)
+            let lastBlockTime = self.wallet?.getBestBlockTimeStamp()
+            let currentTime = Date().millisecondsSince1970 / 1000;
+            let estimatedBlocks = ((currentTime - lastBlockTime!) / 120 ) + bestBlockTemp
             
-            self.walletInfo.syncStartPoint = Int64((self.wallet?.getBestBlock())!);
-            self.walletInfo.syncEndPoint = estimatedBlocks - self.walletInfo.syncStartPoint;
-            if !(self.walletInfo.syncStartPoint < estimatedBlocks){
-                return
-            }
-            self.walletInfo.syncCurrentPoint =  self.walletInfo.syncStartPoint;
-            self.walletInfo.fetchHeaderTime = Date().millisecondsSince1970
-           self.hideAllSync()
-            DispatchQueue.main.async {
-            self.tapViewMoreBtn.isEnabled = false
-            self.tapViewMoreBtn.setTitle("", for: .normal)
-            }
-          //  syncProgressBar.setProgress(0)
-          //  syncProgressBar.setVisibility(View.VISIBLE);
-            break
-        case DcrlibwalletPROGRESS:
-           if (self.headerTime == lastHeaderTime ){
-                print("returning it")
-                return
-            }
-            self.headerTime = lastHeaderTime
-            self.walletInfo.syncEndPoint = estimatedBlocks - self.walletInfo.syncStartPoint
-            self.walletInfo.syncCurrentPoint += Int64(fetchedHeadersCount)
-            var count = self.walletInfo.syncCurrentPoint
-            if (self.walletInfo.syncStartPoint > 0) {
-                count -= self.walletInfo.syncStartPoint;
-            }
-            
-            let percent =  Float(count) / Float(self.walletInfo.syncEndPoint)
-            let totalFetchTime = Double((Date().millisecondsSince1970 - self.walletInfo.fetchHeaderTime)) / Double(percent)
-            let remainingFetchTime = round(totalFetchTime) - Double((Date().millisecondsSince1970 - self.walletInfo.fetchHeaderTime));
-            let elapsedFetchTime = Double(Date().millisecondsSince1970 - self.walletInfo.fetchHeaderTime)
-            //10% of fetch time is used for estimating both rescan while 80% is used for address discovery time
-           let estimatedRescanTime = totalFetchTime * self.reScan_percentage;
-           let estimatedDiscoveryTime = totalFetchTime * self.discovery_percentage;
-            let totalSyncTime = totalFetchTime + estimatedRescanTime + estimatedDiscoveryTime;
-           if totalSyncTime > 0{
-            self.walletInfo.syncRemainingTime = Int64(round(remainingFetchTime + estimatedRescanTime + estimatedDiscoveryTime));
-             self.walletInfo.syncProgress = Int(( Double(elapsedFetchTime) / Double(totalSyncTime) * 100.0))
-           }
-            self.walletInfo.syncStatus = "Fetching block headers."
-            self.walletInfo.bestBlockTime = "\(lastHeaderTime)"
-            self.walletInfo.ChainStatus = "\(self.walletInfo.syncEndPoint - count) blocks behind."
+            switch (state) {
+            case DcrlibwalletSTART:
+                if (self.walletInfo.fetchHeaderTime != -1) {
+                    return
+                }
                 
-            let daysBehind = calculateDays(seconds: ((Date().millisecondsSince1970 / 1000) - lastHeaderTime))
-           self.walletInfo.bestblockTimeInfo = "\(daysBehind) ago"
-            let status = "Fetched \(count) of \(self.walletInfo.syncEndPoint) block headers."
-            let status2 = "\(round(percent * 100))% through step 1 of 3."
-            let status3 = " Your wallet is \(daysBehind) behind."
-            let percentage = getSyncTimeRemaining(millis: self.walletInfo.syncRemainingTime, percentageCompleted: Int(self.walletInfo.syncProgress), syncView: true)
-           let status4 = "All Times\nelapsed: \(getTime(millis: Int64(elapsedFetchTime))) remain: \(getTime(millis: self.walletInfo.syncRemainingTime)) total: \(getTime(millis: Int64(round(totalSyncTime)))) \n\nStage Times\nelapsed: \(getTime(millis: Int64(elapsedFetchTime))) remain: \(getTime(millis: Int64(remainingFetchTime)))  total: \(getTime(millis: Int64(round(totalFetchTime))))"
-            
-        
-            DispatchQueue.main.async {
-                self.syncLoadingText.text = "Synchronizing"
-                self.connetStatus.setTitle(status, for: .normal)
-                self.percentageComplete.text = percentage
-                self.chainStatusText.setTitle(status2, for: .normal)
-                self.tapViewMoreBtn.isEnabled = false
-                self.tapViewMoreBtn.setTitle("Tap to view information", for: .normal)
-                self.daysbeindText.setTitle(status3, for: .normal)
-                self.syncProgressbar.isHidden = false
-                self.tapViewMoreBtn.isEnabled = true
-                self.syncProgressbar.progressTintColor = UIColor(hex: "#7fcc9e")
-                self.syncProgressbar.progress = (Float(self.walletInfo.syncProgress) / 100.0)
-                print("progress = \(self.walletInfo.syncProgress)")
-                self.verboseText.setTitle(status4, for: .normal)
-                self.peersSyncText.text = "Syncing with \(self.peerCount) peers on \(self.NetType)."
+                self.walletInfo.syncStatus = "Fetching headers...";
                 
-            }
-           
+                self.walletInfo.syncStartPoint = (self.wallet?.getBestBlock())!;
+                self.walletInfo.syncEndPoint = Int32(estimatedBlocks) - self.walletInfo.syncStartPoint;
+
+                
+                self.walletInfo.syncCurrentPoint = self.walletInfo.syncStartPoint;
+                self.walletInfo.fetchHeaderTime = Date().millisecondsSince1970
+                self.hideAllSync()
+                
+                DispatchQueue.main.async {
+                    self.tapViewMoreBtn.isEnabled = false
+                    self.tapViewMoreBtn.setTitle("", for: .normal)
+                }
+                break
+            case DcrlibwalletPROGRESS:
+                self.walletInfo.syncEndPoint = Int32(estimatedBlocks) - self.walletInfo.syncStartPoint
+                self.walletInfo.syncCurrentPoint = bestblck! - self.walletInfo.syncStartPoint
+                
+                let count = self.walletInfo.syncCurrentPoint
+                let percent =  Float(count) / Float(self.walletInfo.syncEndPoint)
+                let totalFetchTime = Double((Date().millisecondsSince1970 - self.walletInfo.fetchHeaderTime)) / Double(percent)
+                let remainingFetchTime = round(totalFetchTime) - Double((Date().millisecondsSince1970 - self.walletInfo.fetchHeaderTime));
+                let elapsedFetchTime = Date().millisecondsSince1970 - self.walletInfo.fetchHeaderTime
+                
+                //10% of fetch time is used for estimating both rescan while 80% is used for address discovery time
+                let estimatedRescanTime = totalFetchTime * self.RESCAN_PERCENTAGE;
+                let estimatedDiscoveryTime = totalFetchTime * self.DISCOVERY_PERCENTAGE;
+                let totalSyncTime = totalFetchTime + estimatedRescanTime + estimatedDiscoveryTime;
+                
+                let remainingTimeTemp = round(remainingFetchTime + estimatedRescanTime + estimatedDiscoveryTime);
+                guard !(remainingTimeTemp.isNaN || remainingTimeTemp.isInfinite) else {
+                    return
+                }
+                self.walletInfo.syncRemainingTime = Int64(remainingTimeTemp)
+                self.walletInfo.syncProgress = (Double(elapsedFetchTime) / totalSyncTime) * 100
+                
+                self.walletInfo.syncStatus = "Fetching block headers."
+                self.walletInfo.bestBlockTime = "\(lastHeaderTime)"
+                self.walletInfo.ChainStatus = "\(self.walletInfo.syncEndPoint - count) blocks behind."
+                
+                let daysBehind = calculateDays(seconds: ((Date().millisecondsSince1970 / 1000) - lastHeaderTime))
+                self.walletInfo.bestblockTimeInfo = "\(daysBehind) ago"
+                let status = "Fetched \(count) of \(self.walletInfo.syncEndPoint) block headers."
+                let status2 = "\(round(percent * 100))% through step 1 of 3."
+                let status3 = " Your wallet is \(daysBehind) behind."
+                let percentage = getSyncTimeRemaining(millis: self.walletInfo.syncRemainingTime, percentageCompleted: Int(self.walletInfo.syncProgress), syncView: true)
+                let status4 = "All Times\nelapsed: \(getTime(millis: Int64(elapsedFetchTime))) remain: \(getTime(millis: self.walletInfo.syncRemainingTime)) total: \(getTime(millis: Int64(round(totalSyncTime)))) \n\nStage Times\nelapsed: \(getTime(millis: Int64(elapsedFetchTime))) remain: \(getTime(millis: Int64(remainingFetchTime)))  total: \(getTime(millis: Int64(round(totalFetchTime))))"
             
-            if (self.walletInfo.initialSyncEstimate == -1) {
-                self.walletInfo.initialSyncEstimate = self.walletInfo.syncRemainingTime;
+                DispatchQueue.main.async {
+                    self.syncLoadingText.text = "Synchronizing"
+                    self.connetStatus.setTitle(status, for: .normal)
+                    self.percentageComplete.text = percentage
+                    self.chainStatusText.setTitle(status2, for: .normal)
+                    self.tapViewMoreBtn.isEnabled = false
+                    self.tapViewMoreBtn.setTitle("Tap to view information", for: .normal)
+                    self.daysbeindText.setTitle(status3, for: .normal)
+                    self.syncProgressbar.isHidden = false
+                    self.tapViewMoreBtn.isEnabled = true
+                    self.syncProgressbar.progressTintColor = UIColor(hex: "#7fcc9e")
+                    self.syncProgressbar.progress = (Float(self.walletInfo.syncProgress) / 100.0)
+                    print("progress = \(self.walletInfo.syncProgress)")
+                    self.verboseText.setTitle(status4, for: .normal)
+                    self.peersSyncText.text = "Syncing with \(self.peerCount) peers on \(self.NetType)."
+                }
+                
+                if (self.walletInfo.initialSyncEstimate == -1) {
+                    self.walletInfo.initialSyncEstimate = self.walletInfo.syncRemainingTime;
+                }
+                
+                break
+            case DcrlibwalletFINISH:
+                self.updatePeerCount();
+                self.walletInfo.totalFetchTime = Date().millisecondsSince1970 - self.walletInfo.fetchHeaderTime;
+                self.walletInfo.syncStartPoint = -1;
+                self.walletInfo.syncEndPoint = -1;
+                self.walletInfo.syncCurrentPoint = -1;
+                self.walletInfo.syncStatus = ""
+                self.walletInfo.ChainStatus = ""
+                self.walletInfo.bestblockTimeInfo = ""
+                DispatchQueue.main.async {
+                    self.daysbeindText.setTitle("", for: .normal)
+                }
+                break;
+            default:
+                break
+                }
             }
-            break
-        case DcrlibwalletFINISH:
-            self.updatePeerCount();
-            self.walletInfo.totalFetchTime = Date().millisecondsSince1970 - self.walletInfo.fetchHeaderTime;
-            self.walletInfo.syncStartPoint = -1;
-           self.walletInfo.syncEndPoint = -1;
-           self.walletInfo.syncCurrentPoint = -1;
-            self.walletInfo.syncStatus = ""
-            self.walletInfo.ChainStatus = ""
-            self.walletInfo.bestblockTimeInfo = ""
-            DispatchQueue.main.async {
-                self.daysbeindText.setTitle("", for: .normal)
-            }
-            break;
-        default:
-            break
-        }
-        }
     }
-    
     
     func onRescan(_ rescannedThrough: Int32, state: String!) {
         DispatchQueue.global(qos: .background).async {
         if (self.walletInfo.syncEndPoint == -1) {
-            self.walletInfo.syncEndPoint = Int64(self.wallet!.getBestBlock());
+            self.walletInfo.syncEndPoint = self.wallet!.getBestBlock();
         }
         
         switch (state) {
-        case DcrlibwalletSTART:
-            self.walletInfo.syncStatus = "Scanning blocks."
-            self.walletInfo.syncStartPoint = 0;
-            self.walletInfo.syncCurrentPoint = 0;
-            self.walletInfo.syncEndPoint = Int64(self.wallet!.getBestBlock());
-            self.walletInfo.rescanTime = Date().millisecondsSince1970;
-            break;
-        case DcrlibwalletPROGRESS:
+            case DcrlibwalletSTART:
             
-            let scannedPercentage = ((Double(rescannedThrough) / Double(self.walletInfo.syncEndPoint)) * 100)
+                self.walletInfo.syncStatus = "Scanning blocks."
+                self.walletInfo.syncStartPoint = 0;
+                self.walletInfo.syncCurrentPoint = 0;
+                self.walletInfo.syncEndPoint = self.wallet!.getBestBlock();
+                self.walletInfo.rescanTime = Date().millisecondsSince1970;
+                break;
             
-            let elapsedRescanTime = Date().millisecondsSince1970 - self.walletInfo.rescanTime;
-            let totalScanTime = Double(elapsedRescanTime) / ((Double(rescannedThrough) / Double(self.walletInfo.syncEndPoint)))
-            let totalSyncTime = Double(self.walletInfo.totalFetchTime) + Double(self.walletInfo.totalDiscoveryTime) + totalScanTime
-            let elapsedTime = (Double(self.walletInfo.totalFetchTime) + Double(self.walletInfo.totalDiscoveryTime) + Double(elapsedRescanTime))
-            
-            self.walletInfo.syncRemainingTime = Int64(round(totalScanTime)) - elapsedRescanTime
-            self.walletInfo.syncProgress = Int((Double(elapsedTime) /  Double(totalSyncTime)) * 100.0)
-            let status = "Scanning \(rescannedThrough) of \(self.walletInfo.syncEndPoint) block headers."
-            let status2 = "\(round(scannedPercentage))% through step 3 of 3."
-            self.walletInfo.syncStatus = status
-            let status4 = "All Times\nelapsed: \(getTime(millis: Int64(round(Double(elapsedTime))))) remain: \(getTime(millis: self.walletInfo.syncRemainingTime)) total: \(getTime(millis: Int64(round(totalSyncTime)))) \n\nStage Times\nelapsed: \(getTime(millis: Int64(round(Double(elapsedRescanTime))))) remain: \(getTime(millis: self.walletInfo.syncRemainingTime))  total: \(getTime(millis: Int64(round(totalScanTime))))"
-            
-            let percentage = getSyncTimeRemaining(millis: self.walletInfo.syncRemainingTime, percentageCompleted: Int(self.walletInfo.syncProgress), syncView: true)
-            DispatchQueue.main.async {
-                self.syncProgressbar.progressTintColor = UIColor(hex: "#7fcc9e")
-                self.syncProgressbar.progress = (Float(self.walletInfo.syncProgress) / 100.0)
-                self.syncLoadingText.text = "Synchronizing"
-                self.syncProgressbar.isHidden = false
-                print("progress = \(self.walletInfo.syncProgress)")
-                self.percentageComplete.text = percentage
-                self.chainStatusText.setTitle(status2, for: .normal)
-               self.connetStatus.setTitle(status, for: .normal)
-                self.daysbeindText.isHidden = true
-                self.verboseText.setTitle(status4,for: .normal)
-                self.peersSyncText.text = "Syncing with \(self.peerCount) peers on \(self.NetType)."
-                if !(self.tapViewMoreBtn.isEnabled){
-                    self.hideAllSync()
-                    self.tapViewMoreBtn.isEnabled = true
-                    self.tapViewMoreBtn.setTitle("Tap to view information", for: .normal)
+            case DcrlibwalletPROGRESS:
+
+                let scannedPercentage = (Double(rescannedThrough) / Double(self.walletInfo.syncEndPoint)) * 100
+                
+                let elapsedRescanTime = Date().millisecondsSince1970 - self.walletInfo.rescanTime;
+                let totalScanTime = Double(elapsedRescanTime) / ((Double(rescannedThrough) / Double(self.walletInfo.syncEndPoint)))
+                let totalSyncTime = Double(self.walletInfo.totalFetchTime) + Double(self.walletInfo.totalDiscoveryTime) + totalScanTime
+                let elapsedTime = (Double(self.walletInfo.totalFetchTime) + Double(self.walletInfo.totalDiscoveryTime) + Double(elapsedRescanTime))
+                
+                self.walletInfo.syncRemainingTime = Int64(round(totalScanTime)) - elapsedRescanTime
+                self.walletInfo.syncProgress = (Double(elapsedTime) /  Double(totalSyncTime)) * 100.0
+                let status = "Scanning \(rescannedThrough) of \(self.walletInfo.syncEndPoint) block headers."
+                let status2 = "\(round(scannedPercentage))% through step 3 of 3."
+                self.walletInfo.syncStatus = status
+                let status4 = "All Times\nelapsed: \(getTime(millis: Int64(round(Double(elapsedTime))))) remain: \(getTime(millis: self.walletInfo.syncRemainingTime)) total: \(getTime(millis: Int64(round(totalSyncTime)))) \n\nStage Times\nelapsed: \(getTime(millis: Int64(round(Double(elapsedRescanTime))))) remain: \(getTime(millis: self.walletInfo.syncRemainingTime))  total: \(getTime(millis: Int64(round(totalScanTime))))"
+                
+                let percentage = getSyncTimeRemaining(millis: self.walletInfo.syncRemainingTime, percentageCompleted: Int(self.walletInfo.syncProgress), syncView: true)
+                
+                DispatchQueue.main.async {
+                    self.syncProgressbar.progressTintColor = UIColor(hex: "#7fcc9e")
+                    self.syncProgressbar.progress = (Float(self.walletInfo.syncProgress) / 100.0)
+                    self.syncLoadingText.text = "Synchronizing"
+                    self.syncProgressbar.isHidden = false
+                    print("progress = \(self.walletInfo.syncProgress)")
+                    self.percentageComplete.text = percentage
+                    self.chainStatusText.setTitle(status2, for: .normal)
+                    self.connetStatus.setTitle(status, for: .normal)
+                    self.daysbeindText.isHidden = true
+                    self.verboseText.setTitle(status4,for: .normal)
+                    self.peersSyncText.text = "Syncing with \(self.peerCount) peers on \(self.NetType)."
+                    if !(self.tapViewMoreBtn.isEnabled){
+                        self.hideAllSync()
+                        self.tapViewMoreBtn.isEnabled = true
+                        self.tapViewMoreBtn.setTitle("Tap to view information", for: .normal)
+                    }
                 }
                 
+                 let percentage3 = getSyncTimeRemaining(millis: self.walletInfo.syncRemainingTime, percentageCompleted: Int(self.walletInfo.syncProgress), syncView: false)
+                self.walletInfo.syncStatus = "Scanning blocks."
+                self.walletInfo.bestblockTimeInfo = ""
+                self.walletInfo.ChainStatus = percentage3
+                
+                break;
+            default:
+                self.updatePeerCount();
+                break;
             }
-             let percentage3 = getSyncTimeRemaining(millis: self.walletInfo.syncRemainingTime, percentageCompleted: Int(self.walletInfo.syncProgress), syncView: false)
-            self.walletInfo.syncStatus = "Scanning blocks."
-            self.walletInfo.bestblockTimeInfo = ""
-            self.walletInfo.ChainStatus = percentage3
-            break;
-        default:
-            self.updatePeerCount();
-            break;
-        }
         }
     }
     
-    func onError(_ err: String!) {}
-    
+    var accountDiscoveryEnded = false
+    var accountDiscoveryStarted = false
     func onDiscoveredAddresses(_ state: String!) {
        // setChainStatus(null);
-        DispatchQueue.global(qos: .background).async {
         if (state.elementsEqual(DcrlibwalletSTART)) {
-                    self.walletInfo.accountDiscoveryStartTime = Date().millisecondsSince1970;
-            let estimatedRescanTime = round(Double(self.walletInfo.totalFetchTime) * Double(self.reScan_percentage))
-            let estimatedDiscoveryTime = round(Double(self.walletInfo.totalFetchTime) * Double(self.discovery_percentage));
-
-            let elapsedDiscoveryTime = Date().millisecondsSince1970 - self.walletInfo.accountDiscoveryStartTime;
-                    
-            var totalSyncTime = 0.0
-                    if (Double(elapsedDiscoveryTime) > Double(estimatedDiscoveryTime)) {
-                    totalSyncTime = Double(self.walletInfo.totalFetchTime) + Double(elapsedDiscoveryTime) + estimatedRescanTime
-                    } else {
-                    totalSyncTime = Double(self.walletInfo.totalFetchTime) + estimatedDiscoveryTime + estimatedRescanTime;
-                    }
-                    
-            let elapsedTime = Double(self.walletInfo.totalFetchTime) + Double(elapsedDiscoveryTime);
-                    
-                    var remainingAccountDiscoveryTime = round(Double(estimatedDiscoveryTime) - Double(elapsedDiscoveryTime))
-                    if (remainingAccountDiscoveryTime < 0) {
-                    remainingAccountDiscoveryTime = 0;
-                    }
-                    
-            self.walletInfo.syncProgress = Int((Double(elapsedTime) / Double( totalSyncTime)) * 100.0)
-            self.walletInfo.syncRemainingTime = Int64((remainingAccountDiscoveryTime + estimatedRescanTime))
-                    
-                    self.walletInfo.syncStatus = "Discovering used addresses."
             
-            let percentage = getSyncTimeRemaining(millis: self.walletInfo.syncRemainingTime, percentageCompleted: self.walletInfo.syncProgress, syncView: true)
-            let status = "Discovering used addresses."
-            let discoveryProgress = round((Double(elapsedDiscoveryTime) / Double(estimatedDiscoveryTime)) * 100.0);
-            var status2 = ""
-            let status4 = "All Times\nelapsed: \(getTime(millis: Int64(round(Double(elapsedTime))))) remain: \(getTime(millis: self.walletInfo.syncRemainingTime)) total: \(getTime(millis: Int64(round(totalSyncTime)))) \n\nStage Times\nelapsed: \(getTime(millis: Int64(round(Double(elapsedDiscoveryTime))))) remain: \(getTime(millis: self.walletInfo.syncRemainingTime))  total: \(getTime(millis: Int64(round(totalSyncTime))))"
-            if (discoveryProgress > 100) {
-                status2 = "\(discoveryProgress)% (over) through step 2 of 3."
-                        } else {
-                            status2 = "\(discoveryProgress)% through step 2 of 3."
-                        }
-            DispatchQueue.main.async {
-                self.syncLoadingText.text = "Synchronizing"
-                self.syncProgressbar.isHidden = false
-                self.syncProgressbar.progressTintColor = UIColor(hex: "#7fcc9e")
-                self.syncProgressbar.progress = (Float(self.walletInfo.syncProgress) / 100.0)
-                print("progress = \(self.walletInfo.syncProgress)")
-                self.percentageComplete.text = percentage
-                self.chainStatusText.setTitle(status2, for: .normal)
-                self.connetStatus.setTitle(status, for: .normal)
-                self.daysbeindText.isHidden = true
-                self.verboseText.setTitle(status4, for: .normal)
-               
-                self.peersSyncText.text = "Syncing with \(self.peerCount) peers on \(self.NetType)."
-                if !(self.tapViewMoreBtn.isEnabled){
-                    self.hideAllSync()
-                    self.tapViewMoreBtn.isEnabled = true
-                    self.tapViewMoreBtn.setTitle("Tap to view information", for: .normal)
-                }
-                
+            if(accountDiscoveryStarted){
+                return
             }
-            let percentage3 = getSyncTimeRemaining(millis: self.walletInfo.syncRemainingTime, percentageCompleted: Int(self.walletInfo.syncProgress), syncView: false)
-            self.walletInfo.bestblockTimeInfo = ""
-            self.walletInfo.ChainStatus = percentage3
             
-     
-        } else {
+            accountDiscoveryStarted = true
+            accountDiscoveryEnded = false
+            
+            DispatchQueue.main.asyncAfter(deadline: .now()) { [weak self] in
+                guard let this = self else { return }
+                
+                this.walletInfo.accountDiscoveryStartTime = Date().millisecondsSince1970;
+                let totalFetchTime = Double(this.walletInfo.totalFetchTime)
+                let estimatedRescanTime = round(totalFetchTime * round(this.RESCAN_PERCENTAGE))
+                let estimatedDiscoveryTime = round(totalFetchTime * Double(this.DISCOVERY_PERCENTAGE))
+                print("Total Fetch Time: \(totalFetchTime) Estimated Discovery Time: \(estimatedDiscoveryTime)")
+                
+                while(!this.accountDiscoveryEnded){
+                    let elapsedDiscoveryTime = Date().millisecondsSince1970 - this.walletInfo.accountDiscoveryStartTime;
+                    
+                    var totalSyncTime = 0.0
+                    if (Double(elapsedDiscoveryTime) > estimatedDiscoveryTime) {
+                        totalSyncTime = Double(totalFetchTime) + Double(elapsedDiscoveryTime) + estimatedRescanTime
+                    } else {
+                        totalSyncTime = Double(totalFetchTime) + estimatedDiscoveryTime + estimatedRescanTime;
+                    }
+                    
+                    let totalElapsedTime = Double(totalFetchTime) + Double(elapsedDiscoveryTime);
+                    
+                    var remainingAccountDiscoveryTime = round(estimatedDiscoveryTime - Double(elapsedDiscoveryTime))
+                    if (remainingAccountDiscoveryTime < 0) {
+                        remainingAccountDiscoveryTime = 0;
+                    }
+                    
+                    this.walletInfo.syncProgress = (totalElapsedTime / Double(totalSyncTime)) * 100.0
+                    this.walletInfo.syncRemainingTime = Int64((remainingAccountDiscoveryTime + estimatedRescanTime))
+                    
+                    this.walletInfo.syncStatus = "Discovering used addresses."
+                    guard !(this.walletInfo.syncProgress.isNaN || this.walletInfo.syncProgress.isInfinite) else {
+                        return
+                    }
+                    
+                    let percentage = getSyncTimeRemaining(millis: this.walletInfo.syncRemainingTime, percentageCompleted: Int(this.walletInfo.syncProgress), syncView: true)
+                    let status = "Discovering used addresses."
+                    
+                    let discoveryProgress = round((Double(elapsedDiscoveryTime) / estimatedDiscoveryTime) * 100.0);
+                    var status2 = ""
+                    if (discoveryProgress > 100) {
+                        status2 = "\(discoveryProgress)% (over) through step 2 of 3."
+                    } else {
+                        status2 = "\(discoveryProgress)% through step 2 of 3."
+                    }
+                    
+                    print("Elapsed discovery time: \(elapsedDiscoveryTime) of \(estimatedDiscoveryTime) (\(discoveryProgress)) Status: \(status2)")
+                    
+                    let status4 = "All Times\nelapsed: \(getTime(millis: Int64(round(Double(totalElapsedTime))))) remain: \(getTime(millis: this.walletInfo.syncRemainingTime)) total: \(getTime(millis: Int64(round(totalSyncTime)))) \n\nStage Times\nelapsed: \(getTime(millis: Int64(round(Double(elapsedDiscoveryTime))))) remain: \(getTime(millis: this.walletInfo.syncRemainingTime))  total: \(getTime(millis: Int64(round(totalSyncTime))))"
+                    
+                    DispatchQueue.main.async {
+                        this.syncLoadingText.text = "Synchronizing"
+                        print("Updating UI")
+                        // Update Progress bar
+                        this.syncProgressbar.isHidden = false
+                        this.syncProgressbar.progressTintColor = UIColor(hex: "#7fcc9e")
+                        this.syncProgressbar.progress = (Float(this.walletInfo.syncProgress) / 100.0)
+                        
+                        print("progress = \(this.walletInfo.syncProgress)")
+                        
+                        this.percentageComplete.text = percentage
+                        this.chainStatusText.setTitle(status2, for: .normal)
+                        this.connetStatus.setTitle(status, for: .normal)
+                        this.daysbeindText.isHidden = true
+                        this.verboseText.setTitle(status4, for: .normal)
+                        
+                        this.peersSyncText.text = "Syncing with \(this.peerCount) \(this.peerCount == 1 ? "peer" : "peers") on \(this.NetType)."
+                        if !(this.tapViewMoreBtn.isEnabled){
+                            this.hideAllSync()
+                            this.tapViewMoreBtn.isEnabled = true
+                            this.tapViewMoreBtn.setTitle("Tap to view information", for: .normal)
+                        }
+                    }
+                    
+                    let percentage3 = getSyncTimeRemaining(millis: this.walletInfo.syncRemainingTime, percentageCompleted: Int(this.walletInfo.syncProgress), syncView: false)
+                    this.walletInfo.bestblockTimeInfo = ""
+                    this.walletInfo.ChainStatus = percentage3
+                    
+                    sleep(1)
+                }
+            }
+        }else{
+            print("Account discovery ended")
+            accountDiscoveryEnded = true
+            accountDiscoveryStarted = false
             
             self.walletInfo.totalDiscoveryTime = (Date().millisecondsSince1970 - self.walletInfo.accountDiscoveryStartTime);
             self.updatePeerCount();
         }
-        }
     }
-    
-    func onFetchMissingCFilters(_ missingCFitlersStart: Int32, missingCFitlersEnd: Int32, finished: Bool) {}
-    
-    func onFetchedHeaders(_ fetchedHeadersCount: Int32, lastHeaderTime: Int64, finished: Bool) {}
-    
-    func onRescanProgress(_ rescannedThrough: Int32, finished: Bool) {}
-    
-    func onFetchMissingCFilters(_ missingCFitlersStart: Int32, missingCFitlersEnd: Int32) {}
-    
+
     func onBlockAttached(_ height: Int32, timestamp: Int64) {
         self.bestBlock = height;
         self.bestBlockTimestamp = timestamp / 1000000000;
         if (!self.walletInfo.syncing) {
             let status =  "latest Block \(String(describing: bestBlock))"
             self.walletInfo.ChainStatus = status
-           self.updateCurrentBalance()
+            self.updateCurrentBalance()
             self.walletInfo.bestBlockTime = "\(String(describing: bestBlockTimestamp))"
-            }
-        
-    }
-    
-    func onBlockAttached(_ height: Int32) {}
-    
-    func onDiscoveredAddresses(_ finished: Bool) {}
-    
-    func onFetchMissingCFilters(_ fetchedCFiltersCount: Int32) {}
-    
-    func onFetchedHeaders(_ fetchedHeadersCount: Int32, lastHeaderTime: Int64) {
-       
+        }
     }
     
     func onPeerConnected(_ peerCount: Int32) {
@@ -851,8 +834,6 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
         UserDefaults.standard.synchronize()
         
     }
-    
-    func onRescanProgress(_ rescannedThrough: Int32) {}
 }
 
 extension OverviewViewController : UITableViewDelegate {
@@ -922,6 +903,7 @@ extension OverviewViewController : SlideMenuControllerDelegate {
     
     func rightDidClose() {}
 }
+
 extension Date {
     var millisecondsSince1970:Int64 {
          return Int64((self.timeIntervalSince1970 * 1000.0).rounded())
@@ -931,4 +913,3 @@ extension Date {
         self = Date(timeIntervalSince1970: TimeInterval(milliseconds) / 1000)
     }
 }
-

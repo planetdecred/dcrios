@@ -99,8 +99,7 @@ func calculateDays(seconds: Int64) -> String{
     
     return "\(String(describing: formattedDuration)) days";
 }
-func getSyncTimeRemaining(millis: Int64,percentageCompleted : Int, syncView : Bool)-> String {
-    print("milli seconds = \(millis)")
+func getSyncTimeRemaining(millis: Int64, percentageCompleted : Int, syncView : Bool)-> String {
     if (millis > 1000) {
         let seconds = millis / 1000;
         
