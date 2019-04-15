@@ -39,6 +39,21 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     var fromNotQRScreen = true
      var AccountFilter: [AccountsEntity]?
     
+    @IBOutlet weak var conversionContHeight: NSLayoutConstraint!
+    @IBOutlet weak var conversionRowCont: UIStackView!
+    
+    @IBOutlet weak var bottomCont: UIView!
+    @IBOutlet weak var conversionFeeCont: UIStackView!
+    
+
+    @IBOutlet weak var sendInfoHeight: NSLayoutConstraint!
+    
+    @IBOutlet weak var exchangeRateCont: UIStackView!
+    @IBOutlet weak var exchangeRateDisplay: UILabel!
+    @IBOutlet weak var convertionFeeOther: UILabel!
+    @IBOutlet weak var exchangeRateError: UIButton!
+    @IBOutlet weak var currencyAmount2: AmountTextfield!
+    
     private lazy var readerVC: QRCodeReaderViewController = {
         let builder = QRCodeReaderViewControllerBuilder {
             $0.reader = QRCodeReader(metadataObjectTypes: [.qr], captureDevicePosition: .back)
@@ -51,6 +66,8 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     var sendToAccount: AccountsEntity?
     var password: String?
     var sendAllTX = false
+    var exchangeRateGloabal :NSDecimalNumber = 0.0
+    var tempFee = "0"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,12 +75,17 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         self.accountDropdown.backgroundColor = UIColor.clear
         self.toAccountDropDown.backgroundColor = UIColor.clear
         self.tfAmount.delegate = self
+        self.currencyAmount2.delegate = self
         self.pasteBtn.layer.cornerRadius = 4
         self.pasteBtn.layer.shadowOffset = CGSize(width: 0, height: 2.0)
         wallet = SingleInstance.shared.wallet
         NotificationCenter.default.addObserver(self, selector: #selector(willResignActive), name:.UIApplicationWillEnterForeground, object: nil)
         self.walletAddress.delegate = self
         removedBtn = false
+        let currency_value = UserDefaults.standard.integer(forKey: "currency")
+        if(currency_value == 1){
+            GetExchangeRate()
+        }
         self.showDefaultAccount()
         self.removePasteBtn()
         self.checkpaste()
@@ -84,12 +106,14 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             self.addressErrorText.text = ""
             self.amountErrorText.text = ""
             self.tfAmount.text = ""
+            self.currencyAmount2.text = ""
             self.estimateFee.text = "0.00 DCR"
             self.estimateSize.text = "0 Bytes"
             self.BalanceAfter.text = "0.00 DCR"
         } else {
             self.amountErrorText.text = ""
             self.tfAmount.text = ""
+            self.currencyAmount2.text = ""
             self.estimateFee.text = "0.00 DCR"
             self.estimateSize.text = "0 Bytes"
             self.BalanceAfter.text = "0.00 DCR"
@@ -147,7 +171,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         super.viewDidAppear(animated)
         
         if UserDefaults.standard.string(forKey: "TMPPIN") != nil{
-            self.confirmSendWithoutPin(sendAll: false, pin: UserDefaults.standard.string(forKey: "TMPPIN")!)
+            self.confirmSendWithoutPin(sendAll: false, pin: UserDefaults.standard.string(forKey: "TMPPIN")!, fee: self.tempFee)
             UserDefaults.standard.set(nil, forKey: "TMPPIN")
         }
     }
@@ -165,7 +189,11 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     func sendAll(){
         let spendableAmount = spendable(account: self.selectedAccount!)
         self.tfAmount.text = "\(spendableAmount)"
-        self.prepareTransaction(sendAll: self.sendAllTX)
+        if !(self.conversionRowCont.isHidden){
+            self.currencyAmount2.text = "\((((self.exchangeRateGloabal as Decimal) * spendableAmount)as NSDecimalNumber).round(2))"
+        }
+        self.prepareTransaction(sendAll: self.sendAllTX, amount: self.tfAmount.text!)
+        self.toggleSendBtn(validate: self.validateSentBtn(amount: self.tfAmount.text!))
     }
     
     @objc func showMenu(){
@@ -197,6 +225,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         self.toAddressContainer.isHidden = !toAddressContainer.isHidden
         self.toAccountContainer.isHidden = !toAccountContainer.isHidden
         self.addressErrorText.isHidden = !self.addressErrorText.isHidden
+        self.toggleSendBtn(validate: self.validateSentBtn(amount: self.tfAmount.text!))
     }
     
     func removePasteBtn(){
@@ -246,7 +275,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             }
             return
         }
-        if self.validate() {
+        if self.validate(amount: self.tfAmount.text!) {
             self.fromNotQRScreen = false
             if(UserDefaults.standard.string(forKey: "spendingSecureType") == "PASSWORD"){
                 self.confirmSend(sendAll: false)
@@ -257,8 +286,8 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             }
         }
     }
-    private func prepareTransaction(sendAll: Bool?) {
-        let amountToSend = Double((self.tfAmount.text)!)!
+    private func prepareTransaction(sendAll: Bool?, amount : String) {
+        let amountToSend = Double((amount))!
         let amount = DcrlibwalletAmountAtom(amountToSend)
         var walletaddress = self.walletAddress.text!
         let acountN = (self.selectedAccount?.Number)!
@@ -283,12 +312,18 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                     this.estimateFee.text = "\(fee) DCR"
                     let Amount =  (spendableAmount - (Decimal(amountToSend) )) as NSDecimalNumber
                     this.BalanceAfter.text = "\(Amount.round(8)) DCR"
+                    if !(self!.conversionRowCont.isHidden){
+                        self?.conversionFeeCont.isHidden = false
+                        self!.sendInfoHeight.constant = 155
+                        self?.tempFee = "\((((Decimal(fee)) * ((self?.exchangeRateGloabal)! as Decimal)) as NSDecimalNumber).round(4))"
+                        self?.convertionFeeOther.text = "(\(self!.tempFee) USD)"
+                    }
                     if(sendAll)!{
                         this.tfAmount.text = "\(DcrlibwalletAmountCoin(amount - DcrlibwalletAmountAtom(fee)) )"
                     }
                 }
             } catch let error {
-                self.showAlert(message: error.localizedDescription, titles: "Error")
+               // self.showAlert(message: error.localizedDescription, titles: "Error")
             }
         }
     }
@@ -341,7 +376,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     
     private func confirmSend(sendAll: Bool) {
         
-        let amountToSend = Double((tfAmount?.text)!)!
+        let amountToSend = (tfAmount?.text)!
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
         let confirmSendFundViewController = storyboard.instantiateViewController(withIdentifier: "ConfirmToSendFundViewController") as! ConfirmToSendFundViewController
@@ -352,7 +387,27 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         tap.cancelsTouchesInView = false
         
         confirmSendFundViewController.view.addGestureRecognizer(tap)
-        confirmSendFundViewController.amount = amountToSend
+        DispatchQueue.main.async {
+            if (self.toAddressContainer.isHidden){
+                let receiveAddress = try?self.wallet?.currentAddress((self.sendToAccount?.Number)!)
+                confirmSendFundViewController.address = (receiveAddress!)!
+                confirmSendFundViewController.account = (self.selectedAccount?.Name)!
+            }
+            else{
+                confirmSendFundViewController.accountLabel.isHidden = true
+                confirmSendFundViewController.address = self.walletAddress.text!
+            }
+            if !(self.conversionRowCont.isHidden){
+                confirmSendFundViewController.amount = "\(amountToSend) DCR ($\((self.currencyAmount2.text)!))"
+                confirmSendFundViewController.fee = "\((self.estimateFee.text)!) ($\((self.tempFee)))"
+            }
+            else{
+                confirmSendFundViewController.amount = "\(amountToSend) DCR"
+                confirmSendFundViewController.fee = "\((self.estimateFee.text)!) (\((self.estimateSize.text)!))"
+                
+            }
+            
+        }
         
         confirmSendFundViewController.confirm = { (password) in
             self.signTransaction(sendAll: sendAll, password: password)
@@ -363,9 +418,10 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         }
         return
     }
-    private func confirmSendWithoutPin(sendAll: Bool, pin: String) {
+    
+    private func confirmSendWithoutPin(sendAll: Bool, pin: String, fee : String) {
         
-        let amountToSend = Double((tfAmount?.text)!)!
+        let amountToSend = (tfAmount?.text)!
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
         let confirmSendFundViewController = storyboard.instantiateViewController(withIdentifier: "ConfirmToSendFundViewPINController") as! ConfirmToSendFundViewPINController
@@ -376,7 +432,28 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         tap.cancelsTouchesInView = false
         
         confirmSendFundViewController.view.addGestureRecognizer(tap)
-        confirmSendFundViewController.amount = amountToSend
+         DispatchQueue.main.async {
+            if (self.toAddressContainer.isHidden){
+                let receiveAddress = try?self.wallet?.currentAddress((self.sendToAccount?.Number)!)
+                confirmSendFundViewController.address = (receiveAddress!)!
+                confirmSendFundViewController.account = (self.selectedAccount?.Name)!
+            }
+            else{
+                confirmSendFundViewController.accountName.isHidden = true
+                    confirmSendFundViewController.address = self.walletAddress.text!
+            }
+            if !(self.conversionRowCont.isHidden){
+                confirmSendFundViewController.amount = "\(amountToSend) DCR ($\((self.currencyAmount2.text)!))"
+                confirmSendFundViewController.fee = "\((self.estimateFee.text)!) ($\((self.tempFee)))"
+            }
+            else{
+                confirmSendFundViewController.amount = "\(amountToSend) DCR"
+                confirmSendFundViewController.fee = "\((self.estimateFee.text)!) (\((self.estimateSize.text)!))"
+            
+                }
+            
+            }
+        
         
         let tmp = pin
         confirmSendFundViewController.confirm = { () in
@@ -522,12 +599,12 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     // MARK: - TextFieldDelegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if !self.validateAmount() {
+        if !self.validateAmount(amount: self.tfAmount.text!) {
             self.showAlertInvalidAmount()
             return false
         }
         
-        self.prepareTransaction(sendAll: false)
+       // self.prepareTransaction(sendAll: false)
         textField.resignFirstResponder()
         return true
     }
@@ -535,7 +612,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         if (self.tfAmount.text != nil && self.tfAmount.text != "" && self.tfAmount.text != "0" && self.amountErrorText.text == "") {
             self.sendAllTX = false
-            self.prepareTransaction(sendAll: self.sendAllTX)
+           // self.prepareTransaction(sendAll: self.sendAllTX)
             return true
         }
         
@@ -569,9 +646,9 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         
        
         if (textField == self.walletAddress) {
-            print("am typing")
+           
             if (updatedString == nil || updatedString?.trimmingCharacters(in: .whitespaces) == "") {
-                print("zero or invalid address")
+                
                 DispatchQueue.main.async {
                     self.addressErrorText.text = ""
                 }
@@ -621,13 +698,11 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                     if(updatedString?.first == "."){
                         DispatchQueue.main.async {
                             self.tfAmount.text = "0."
-                            print(" . first")
                         }
                         updatedString = "0."
                         ACCEPTABLE_CHARACTERS = "."
                     }
                     else{
-                        print(" . still point inside")
                         ACCEPTABLE_CHARACTERS = "."
                     }
                 }
@@ -636,7 +711,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                         return false
                         
                     }
-                    print(" . no point inside")
+                   
                     ACCEPTABLE_CHARACTERS = ""
                     
                 }
@@ -649,25 +724,162 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                 let amountToSend = Decimal(Double((updatedString)!)!)
                 
                 if (amountToSend > tspendable) {
-                    print("zero or invalid address")
                     DispatchQueue.main.async {
+                        if !(self.conversionRowCont.isHidden){
+                            let tmp = Double((updatedString)!)!
+                            let tmp2 = Decimal(tmp)
+                            self.currencyAmount2.text = "\((((self.exchangeRateGloabal as Decimal) * tmp2)as NSDecimalNumber).round(2))"
+                        }
                         if(UserDefaults.standard.bool(forKey: "synced")){
                              self.amountErrorText.text = "Not enough funds"
                         }
                         else{
                              self.amountErrorText.text = "Not enough funds (or not connected)"
                         }
-                       
+                        DispatchQueue.main.async {
+                            self.estimateFee.text = "0.00 DCR"
+                            self.estimateSize.text = "0 Bytes"
+                            self.BalanceAfter.text = "0.00 DCR"
+                            if !(self.conversionRowCont.isHidden){
+                                self.conversionFeeCont.isHidden = true
+                                self.sendInfoHeight.constant = 135
+                                self.convertionFeeOther.text = ""
+                            }
+                        }
                     }
             }
                 else{
                     DispatchQueue.main.async {
                         self.amountErrorText.text = ""
+                        if !(self.conversionRowCont.isHidden){
+                            let tmp = Double((updatedString)!)!
+                            let tmp2 = Decimal(tmp)
+                            self.currencyAmount2.text = "\((((self.exchangeRateGloabal as Decimal) * tmp2)as NSDecimalNumber).round(2))"
+                        }
                     }
-                     return true
+                  
                 }
-           
+                self.sendAllTX = false
+                self.prepareTransaction(sendAll: self.sendAllTX, amount: updatedString!)
+                self.toggleSendBtn(validate: self.validateSentBtn(amount: updatedString!))
+            }else{
+                
+                DispatchQueue.main.async {
+                    self.currencyAmount2.text = nil
+                    self.estimateFee.text = "0.00 DCR"
+                    self.estimateSize.text = "0 Bytes"
+                    self.BalanceAfter.text = "0.00 DCR"
+                    self.amountErrorText.text = ""
+                    if !(self.conversionRowCont.isHidden){
+                        self.conversionFeeCont.isHidden = true
+                        self.sendInfoHeight.constant = 135
+                        self.convertionFeeOther.text = ""
+                    }
+                    self.toggleSendBtn(validate: self.validateSentBtn(amount: updatedString!))
+                }
+            }
+            
+        }
+       else if (textField == self.currencyAmount2) {
+            self.sendAllTX = false
+            let cs = NSCharacterSet(charactersIn: ACCEPTABLE_CHARACTERS).inverted
+            if (updatedString != nil && updatedString != "" ){
+                
+                if((updatedString?.contains("."))!){
+                    let tmp2 = updatedString! as NSString
+                    let TmpDot = tmp2.range(of: ".")
+                    if((updatedString!.length - (TmpDot.location + 1)) > 2 || TmpDot.location > 10){
+                        return false
+                        
+                    }
+                    
+                    if(updatedString?.first == "."){
+                        DispatchQueue.main.async {
+                            self.currencyAmount2.text = "0."
+                            
+                        }
+                        updatedString = "0."
+                        ACCEPTABLE_CHARACTERS = "."
+                    }
+                    else{
+                        ACCEPTABLE_CHARACTERS = "."
+                    }
+                }
+                else{
+                    if(updatedString!.length > 10){
+                        return false
+                        
+                    }
+                   
+                    ACCEPTABLE_CHARACTERS = ""
+                    
+                }
+                
+                if !(CharacterSet(charactersIn: string).isSubset(of: cs)){
+                    return false
+                }
+                self.amountErrorText.text = ""
+                let tspendable = spendable(account: self.selectedAccount!) as Decimal
+                let amountToSend = Decimal(Double((updatedString)!)!)
+                
+                if (amountToSend > tspendable) {
+                    DispatchQueue.main.async {
+                            let tmp = Double((updatedString)!)!
+                            let tmp2 = Decimal(tmp)
+                        print("\((tmp2 )) and \(self.exchangeRateGloabal as Decimal)")
+                        print((tmp2 ) / (self.exchangeRateGloabal as Decimal))
+                        print("currency")
+                        self.tfAmount.text = "\(((tmp2 ) / (self.exchangeRateGloabal as Decimal) as NSDecimalNumber).round(8))"
+                        if(UserDefaults.standard.bool(forKey: "synced")){
+                            self.amountErrorText.text = "Not enough funds"
+                        }
+                        else{
+                            self.amountErrorText.text = "Not enough funds (or not connected)"
+                        }
+                        DispatchQueue.main.async {
+                            self.estimateFee.text = "0.00 DCR"
+                            self.estimateSize.text = "0 Bytes"
+                            self.BalanceAfter.text = "0.00 DCR"
+                            if !(self.conversionRowCont.isHidden){
+                                self.conversionFeeCont.isHidden = true
+                                self.sendInfoHeight.constant = 135
+                                self.convertionFeeOther.text = ""
+                            }
+                        }
+                        
+                    }
+                }
+                else{
+                    DispatchQueue.main.async {
+                        self.amountErrorText.text = ""
+                        if !(self.conversionRowCont.isHidden){
+                            let tmp = Double((updatedString)!)!
+                            let tmp2 = Decimal(tmp)
+                            self.tfAmount.text = "\(((tmp2 ) / (self.exchangeRateGloabal as Decimal) as NSDecimalNumber).round(8))"
+                        }
+                    }
+                  
+                }
+                self.sendAllTX = false
+                print("before validate")
+                self.toggleSendBtn(validate: self.validateSentBtn(amount: updatedString!))
+                self.prepareTransaction(sendAll: self.sendAllTX, amount: updatedString!)
+                
                 return true
+            }else{
+                DispatchQueue.main.async {
+                    self.tfAmount.text = nil
+                    self.estimateFee.text = "0.00 DCR"
+                    self.estimateSize.text = "0 Bytes"
+                    self.BalanceAfter.text = "0.00 DCR"
+                    if !(self.conversionRowCont.isHidden){
+                        self.conversionFeeCont.isHidden = true
+                        self.sendInfoHeight.constant = 135
+                        self.convertionFeeOther.text = ""
+                    }
+                    self.toggleSendBtn(validate: self.validateSentBtn(amount: updatedString!))
+                }
+                
             }
         }
         
@@ -677,6 +889,19 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         self.view.endEditing(true)
+    }
+    
+    private func toggleSendBtn(validate: Bool){
+        if(validate){
+            self.sendBtn.backgroundColor = UIColor(hex: "#007AFF")
+            self.sendBtn.setTitleColor(UIColor.white, for: .normal)
+            print("btn true")
+        }
+        else{
+            self.sendBtn.backgroundColor = UIColor(hex: "#E6EAED")
+            self.sendBtn.setTitleColor(UIColor(hex: "#000000", alpha: 0.61), for: .normal)
+            print("btn false")
+        }
     }
     
     private func showDefaultAccount() {
@@ -779,7 +1004,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     
     //MARK: - Validation
     
-    private func validate() -> Bool {
+    private func validate(amount: String) -> Bool {
         if !self.validateWallet() {
             self.showAlertForInvalidWallet()
             return false
@@ -790,11 +1015,34 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                 return false
             }
         }
-        if !self.validateAmount() {
+        if !self.validateAmount(amount: amount) {
             self.amountErrorText.text = "Amount can not be zero"
             return false
         }
         if(self.amountErrorText.text != ""){
+            return false
+        }
+        
+        return true
+    }
+    private func validateSentBtn(amount : String)-> Bool{
+        if !self.validateWallet() {
+            self.showAlertForInvalidWallet()
+            print("wallet error")
+            return false
+        }
+        if !(self.toAddressContainer.isHidden){
+            if !self.validateDestinationAddress() {
+                print("address error")
+                return false
+            }
+        }
+        if !self.validateAmount(amount: amount) {
+            print("amount error")
+            return false
+        }
+        if(self.amountErrorText.text != ""){
+            print("addressErrorText error")
             return false
         }
         
@@ -805,13 +1053,17 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         return (self.walletAddress.text?.count ?? 0) > 25
     }
     
-    private func validateAmount() -> Bool {
-        if(self.tfAmount?.text == nil || self.tfAmount?.text == "" ){
+    private func validateAmount(amount : String) -> Bool {
+        if(amount == "" ){
+            print("Amount nill or empty")
             return false
         }
         else{
-            let amountToSend = Double((self.tfAmount?.text ?? "0.0")!)!
-            return amountToSend > 0
+            
+            let amountToSend = Double((amount ))!
+            let tspendable = spendable(account: self.selectedAccount!) as Decimal
+            print(" result of amount is \(amountToSend > 0 || Decimal(amountToSend) < tspendable)")
+            return amountToSend > 0 && Decimal(amountToSend) <= tspendable
         }
         
     }
@@ -847,6 +1099,91 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     private func validate(address: String) -> Bool {
         return (wallet?.isAddressValid(address)) ?? false
     }
+    
+    @IBAction func reloadExchange(_ sender: Any) {
+        self.exchangeRateError.isEnabled = false
+        self.GetExchangeRate()
+    }
+    
+    func GetExchangeRate(){
+        //create the url with NSURL
+       let url = NSURL(string: "https://bittrex.com/api/v1.1/public/getticker?market=USDT-DCR")! //change the url
+        print("start fetching")
+        //create the session object
+        let session = URLSession.shared
+        
+        //now create the URLRequest object using the url object
+        let request = URLRequest(url: url as URL)
+        
+        //create dataTask using the session object to send data to the server
+        let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
+            print("in task now")
+            guard error == nil else {
+                DispatchQueue.main.async {
+                    self.exchangeRateError.setTitle("bittrex rate unavailable (tap to retry)", for: .normal)
+                    self.exchangeRateError.isEnabled = true
+                }
+                return
+            }
+            
+            guard let data = data else {
+                DispatchQueue.main.async {
+                    self.exchangeRateError.setTitle("bittrex rate unavailable (tap to retry)", for: .normal)
+                    self.exchangeRateError.isEnabled = true
+                }
+                return
+            }
+            
+            do {
+                //create json object from data
+                if let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: Any] {
+                    let resultValue = json["success"] as? Bool?
+                    print(json["result"]! as Any)
+                    print(json["success"]!)
+                    if resultValue  == true{
+                        // print(json["data"] as Any)
+                        let reportLoad = json["result"] as? NSDictionary
+                        if let exchangeRate = reportLoad!["Last"] as? Double?{
+                            let exchange = Decimal(exchangeRate!) as NSDecimalNumber
+                            DispatchQueue.main.async {
+                                self.conversionContHeight.constant = 75
+                                self.conversionRowCont.isHidden = false
+                                self.sendInfoHeight.constant = 135
+                                self.exchangeRateCont.isHidden = false
+                                self.exchangeRateDisplay.text = exchange.round(2).stringValue + " USD/DCR (bittrex)"
+                                self.exchangeRateGloabal = exchange.round(2)
+                                self.exchangeRateError.isEnabled = false
+                                self.exchangeRateError.setTitle("", for: .normal)
+                            }
+                            return
+                        }
+                        DispatchQueue.main.async {
+                            self.exchangeRateError.setTitle("bittrex rate unavailable (tap to retry)", for: .normal)
+                            self.exchangeRateError.isEnabled = true
+                        }
+                    }
+                    else{
+                        DispatchQueue.main.async {
+                            self.exchangeRateError.setTitle("bittrex rate unavailable (tap to retry)", for: .normal)
+                            self.exchangeRateError.isEnabled = true
+                        }
+                        return
+                    }
+                }
+            } catch let error {
+                DispatchQueue.main.async {
+                    self.exchangeRateError.setTitle("bittrex rate unavailable (tap to retry)", for: .normal)
+                    self.exchangeRateError.isEnabled = true
+                }
+                
+                print(error.localizedDescription)
+                return
+            }
+        })
+        
+        task.resume()
+    }
+    
 }
 class AmountTextfield: UITextField {
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
