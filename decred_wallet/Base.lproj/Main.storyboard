@@ -1963,9 +1963,11 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
+                                                <gestureRecognizers/>
                                             </stackView>
                                         </subviews>
                                         <color key="backgroundColor" red="0.93371140956878662" green="0.93763142824172974" blue="0.94460195302963257" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstItem="KG6-kr-bu1" firstAttribute="width" secondItem="zlU-nV-PuO" secondAttribute="width" id="Hw8-DP-U7U"/>
                                             <constraint firstItem="KG6-kr-bu1" firstAttribute="centerX" secondItem="zlU-nV-PuO" secondAttribute="centerX" id="QCV-Wg-GNp"/>
@@ -1976,6 +1978,9 @@
                                                 <integer key="value" value="5"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="1QI-hl-aXp" appends="YES" id="XLq-Sc-FYE"/>
+                                        </connections>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZeU-Bc-nQZ">
                                         <rect key="frame" x="176" y="0.0" width="161.5" height="130"/>
@@ -2014,9 +2019,11 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
+                                                <gestureRecognizers/>
                                             </stackView>
                                         </subviews>
                                         <color key="backgroundColor" red="0.93371140956878662" green="0.93763142824172974" blue="0.94460195302963257" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstItem="0hY-El-bgm" firstAttribute="centerX" secondItem="ZeU-Bc-nQZ" secondAttribute="centerX" id="Quc-C8-eH8"/>
                                             <constraint firstItem="0hY-El-bgm" firstAttribute="centerY" secondItem="ZeU-Bc-nQZ" secondAttribute="centerY" id="ZmP-iV-Dzg"/>
@@ -2026,6 +2033,9 @@
                                                 <integer key="value" value="5"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="rvs-fU-Ufg" appends="YES" id="USR-Hr-jvv"/>
+                                        </connections>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" red="0.95294117649999999" green="0.96078431369999995" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2086,6 +2096,16 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fgt-ue-jul" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="rvs-fU-Ufg">
+                    <connections>
+                        <segue destination="Dk9-z5-XZ1" kind="show" id="PNO-Gh-n5b"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="1QI-hl-aXp">
+                    <connections>
+                        <segue destination="eoW-KE-o6O" kind="show" id="viG-wo-7U4"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1036" y="-177"/>
         </scene>
@@ -7550,6 +7570,8 @@ AAAAAAAAAAAAAAACkeI
         <image name="send" width="48" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="PNO-Gh-n5b"/>
         <segue reference="eKH-jk-Lo5"/>
+        <segue reference="viG-wo-7U4"/>
     </inferredMetricsTieBreakers>
 </document>
