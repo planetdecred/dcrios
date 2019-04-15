@@ -39,6 +39,9 @@ class SettingsController: UITableViewController  {
     @IBOutlet weak var spend_uncon_fund: UISwitch!
     @IBOutlet weak var incoming_notification_switch: UISwitch!
     @IBOutlet weak var start_Pin: UISwitch!
+    @IBOutlet weak var currency_subtitle: UILabel!
+    
+    
     
     var isFromLoader = false
     
@@ -130,6 +133,7 @@ class SettingsController: UITableViewController  {
     func loadDate()-> Void {
         
         let network_value = UserDefaults.standard.integer(forKey: "network_mode")
+        let currency_value = UserDefaults.standard.integer(forKey: "currency")
         version?.text = UserDefaults.standard.string(forKey: "app_version") ?? "Pre-release"
         
         var compileDate:Date
@@ -154,10 +158,13 @@ class SettingsController: UITableViewController  {
         
         if (network_value == 0) {
             network_mode_subtitle?.text = "Simplified Payment Verification (SPV)"
-        } else if(network_value == 1) {
-            network_mode_subtitle?.text = "Local Full Node"
-        } else {
+        }else{
             network_mode_subtitle?.text = "Remote Full Node"
+        }
+        if (currency_value == 0) {
+            currency_subtitle?.text = "None"
+        }else{
+            currency_subtitle?.text = "USD (bittrex)"
         }
     }
     
