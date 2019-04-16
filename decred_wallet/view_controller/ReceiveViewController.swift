@@ -16,6 +16,8 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     @IBOutlet weak var subheader: UILabel!
     @IBOutlet var walletAddress: UIButton!
     
+    private var barButton: UIBarButtonItem?
+    
     var firstTrial = true
     var starttime: Int64 = 0
     var myacc: AccountsEntity!
@@ -55,15 +57,15 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
         generateAddressBtn.setImage(UIImage(named: "right-menu"), for: .normal)
         generateAddressBtn.addTarget(self, action: #selector(showMenu), for: .touchUpInside)
         generateAddressBtn.frame = CGRect(x: 0, y: 0, width: 10, height: 51)
-        let barButton = UIBarButtonItem(customView: generateAddressBtn)
-        self.navigationItem.rightBarButtonItems = [barButton, shareBtn ]
+        barButton = UIBarButtonItem(customView: generateAddressBtn)
+        self.navigationItem.rightBarButtonItems = [barButton!, shareBtn ]
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    @objc func showMenu(){
+    @objc func showMenu(sender: Any){
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -75,6 +77,10 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
         alertController.addAction(cancelAction)
         alertController.addAction(generateNewAddressAction)
         
+        if let popoverPresentationController = alertController.popoverPresentationController {
+            popoverPresentationController.barButtonItem = barButton
+        }
+
         self.present(alertController, animated: true, completion: nil)
     }
     

@@ -15,6 +15,8 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
     @IBOutlet var detailsHeader: UIView!
     @IBOutlet weak var amount: UILabel!
     
+    private var barButton: UIBarButtonItem?
+    
     var transactionHash: String?
     var account : String?
     var txstatus: String?
@@ -55,8 +57,8 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         optionsMenuButton.setImage(UIImage(named: "right-menu"), for: .normal)
         optionsMenuButton.addTarget(self, action: #selector(showMenu), for: .touchUpInside)
         optionsMenuButton.frame = CGRect(x: 0, y: 0, width: 10, height: 51)
-        let barButton = UIBarButtonItem(customView: optionsMenuButton)
-        self.navigationItem.rightBarButtonItems = [barButton]
+        barButton = UIBarButtonItem(customView: optionsMenuButton)
+        self.navigationItem.rightBarButtonItems = [barButton!]
         
         do {
             if let data = Data(fromHexEncodedString: self.transaction.Hash) {
@@ -72,7 +74,7 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         wrap(transaction: self.transaction)
     }
     
-    @objc func showMenu(){
+    @objc func showMenu(sender: UIBarButtonItem){
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -93,6 +95,10 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         alertController.addAction(copyTxHash)
         alertController.addAction(copyRawTx)
         alertController.addAction(viewOnDcrdata)
+        
+        if let popoverPresentationController = alertController.popoverPresentationController {
+            popoverPresentationController.barButtonItem = barButton
+        }
         
         self.present(alertController, animated: true, completion: nil)
 
