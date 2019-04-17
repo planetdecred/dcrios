@@ -105,6 +105,14 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
             UserDefaults.standard.set(true, forKey: GlobalConstants.Strings.INITIAL_SYNC_HELP)
             UserDefaults.standard.synchronize()
         }
+        
+        let clickGesture = UITapGestureRecognizer(target: self, action:  #selector(self.reconnect))
+        statusBackgroud.addGestureRecognizer(clickGesture)
+    }
+    
+    @objc func reconnect(){
+        wallet?.dropSpvConnection()
+        ((mainViewController as! UINavigationController).topViewController as! OverviewViewController).connectToDecredNetwork()
     }
     
     private func showAlert(message: String? , title: String?) {
