@@ -823,7 +823,8 @@ extension OverviewViewController : UITableViewDelegate {
 extension OverviewViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return min(self.mainContens.count, 5)
+        let maxDisplayItems = round(tableView.frame.size.height / DataTableViewCell.height())
+        return min(self.mainContens.count, Int(maxDisplayItems))
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
