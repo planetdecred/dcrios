@@ -27,6 +27,7 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var copyBtn: UIButton!
     @IBOutlet weak var HeaderInfo: UILabel!
     @IBOutlet weak var syncInfoLabel: UILabel!
+    private var barButton: UIBarButtonItem?
     var addressPass = false
     var messagePass = false
     var sigPass  = true
@@ -63,8 +64,8 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
         clearFieldBtn.setImage(UIImage(named: "right-menu"), for: .normal)
         clearFieldBtn.addTarget(self, action: #selector(showMenu), for: .touchUpInside)
         clearFieldBtn.frame = CGRect(x: 0, y: 0, width: 10, height: 51)
-        let barButton = UIBarButtonItem(customView: clearFieldBtn)
-        self.navigationItem.rightBarButtonItems = [barButton]
+        barButton = UIBarButtonItem(customView: clearFieldBtn)
+        self.navigationItem.rightBarButtonItems = [barButton!]
         syncInfoLabel.isHidden = true
         
        
@@ -86,6 +87,7 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
         super.touchesBegan(touches, with: event)
         self.view.endEditing(true)
     }
+    
     @objc func showMenu(){
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
@@ -99,8 +101,13 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
         alertController.addAction(cancelAction)
         alertController.addAction(clearField )
         
+        if let popoverPresentationController = alertController.popoverPresentationController {
+            popoverPresentationController.barButtonItem = barButton
+        }
+        
         self.present(alertController, animated: true, completion: nil)
     }
+    
     func clearAllFields(){
         self.address.text = nil
         self.message.text = nil
