@@ -82,16 +82,67 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
         self.verboseText.contentHorizontalAlignment = .center
         self.verboseText.contentVerticalAlignment = .top
         self.verboseText.titleLabel?.textAlignment = .center
+       self.wifiSyncOption()
         
         
-        
-        connectToDecredNetwork()
+    }
+    
+    func wifiSyncOption(){
+        let wifiselect = UserDefaults.standard.integer(forKey: "wifsync")
+        switch wifiselect {
+        case 0:
+            wifCheck()
+            break
+        case 1:
+            wifCheck()
+            break
+        case 2:
+            self.setupConnection()
+            break
+        default:
+            wifCheck()
+        }
+    }
+    func setupConnection(){
+        self.connectToDecredNetwork()
         
         self.wallet?.transactionNotification(self)
         self.wallet?.add(self)
         self.walletInfo.syncing = true
         self.SyncGestureSetup()
-        showActivity()
+        self.showActivity()
+    }
+    func wifCheck(){
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        let WifiConfirmationController = storyboard.instantiateViewController(withIdentifier: "WifiSyncView") as! WifiConfirmationController
+        WifiConfirmationController.modalTransitionStyle = .crossDissolve
+        WifiConfirmationController.modalPresentationStyle = .overCurrentContext
+        
+        let tap = UITapGestureRecognizer(target: WifiConfirmationController.view, action: #selector(WifiConfirmationController.msgContent.endEditing(_:)))
+        tap.cancelsTouchesInView = false
+        
+    WifiConfirmationController.view.addGestureRecognizer(tap)
+        
+        WifiConfirmationController.Always = {
+            UserDefaults.standard.set(2, forKey: "wifsync")
+            UserDefaults.standard.synchronize()
+            self.setupConnection()
+        }
+        WifiConfirmationController.Yes = {
+            UserDefaults.standard.set(1, forKey: "wifsync")
+            UserDefaults.standard.synchronize()
+            self.setupConnection()
+        }
+        WifiConfirmationController.No = {
+            UserDefaults.standard.set(0, forKey: "wifsync")
+            UserDefaults.standard.synchronize()
+        }
+        
+        DispatchQueue.main.async {
+            self.present(WifiConfirmationController, animated: true, completion: nil)
+        }
     }
     
     
