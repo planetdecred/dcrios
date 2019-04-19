@@ -91,6 +91,7 @@
 		DDA3E27520292EF900C83D18 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DDA3E27420292EF900C83D18 /* Assets.xcassets */; };
 		DDA3E27820292EF900C83D18 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDA3E27620292EF900C83D18 /* LaunchScreen.storyboard */; };
 		DDA3E28320292EF900C83D18 /* Decred_WalletTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA3E28220292EF900C83D18 /* Decred_WalletTests.swift */; };
+		DDA5C06B22591D9D0052CD52 /* WifiConfirmationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA5C06A22591D9D0052CD52 /* WifiConfirmationController.swift */; };
 		DDA66BB721BFFFA800987248 /* SecurityMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA66BB621BFFFA800987248 /* SecurityMenuViewController.swift */; };
 		DDAE8BBD223C1820005CDD9C /* splashLogo.gif in Resources */ = {isa = PBXBuildFile; fileRef = DDAE8BBC223C181E005CDD9C /* splashLogo.gif */; };
 		DDAE8BC3224283AE005CDD9C /* customUImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAE8BC2224283AE005CDD9C /* customUImage.swift */; };
@@ -232,6 +233,7 @@
 		DDA3E27E20292EF900C83D18 /* Decred WalletTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Decred WalletTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDA3E28220292EF900C83D18 /* Decred_WalletTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decred_WalletTests.swift; sourceTree = "<group>"; };
 		DDA3E28420292EF900C83D18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DDA5C06A22591D9D0052CD52 /* WifiConfirmationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WifiConfirmationController.swift; sourceTree = "<group>"; };
 		DDA66BB621BFFFA800987248 /* SecurityMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SecurityMenuViewController.swift; path = decred_wallet/SecurityMenuViewController.swift; sourceTree = SOURCE_ROOT; };
 		DDAE8BBC223C181E005CDD9C /* splashLogo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = splashLogo.gif; sourceTree = "<group>"; };
 		DDAE8BC2224283AE005CDD9C /* customUImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = customUImage.swift; sourceTree = "<group>"; };
@@ -367,6 +369,7 @@
 			children = (
 				DDD967362204668400462238 /* ConfirmToSendFundViewPINController.swift */,
 				952C932620E2174B00A60E43 /* ConfirmToSendFundViewController.swift */,
+				DDA5C06A22591D9D0052CD52 /* WifiConfirmationController.swift */,
 			);
 			path = ConfirmToSendFundController;
 			sourceTree = "<group>";
@@ -830,6 +833,7 @@
 				95CC024420D3F15800DA73AF /* AccountsData.swift in Sources */,
 				DDB89402202F771F002F85EE /* UIViewController.swift in Sources */,
 				281D545A21B169DE00F68803 /* PinSetupViewController.swift in Sources */,
+				DDA5C06B22591D9D0052CD52 /* WifiConfirmationController.swift in Sources */,
 				DD0B356E218930B7000830C4 /* AddAcountViewController.swift in Sources */,
 				DDA3E26E20292EF900C83D18 /* AppDelegate.swift in Sources */,
 				DDB8940D202F82E6002F85EE /* SettingsController.swift in Sources */,
