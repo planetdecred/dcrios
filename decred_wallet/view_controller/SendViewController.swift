@@ -306,9 +306,9 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                 
                 DispatchQueue.main.async { [weak self] in
                     guard let this = self else { return }
-                    fee = Double((preparedTransaction?.estimatedSignedSize())!) / 0.001 / 1e8
+                    fee = Double((preparedTransaction?.estimatedSignedSize)!) / 0.001 / 1e8
                     let spendableAmount = spendable(account: (self?.selectedAccount!)!)
-                    this.estimateSize.text = "\(preparedTransaction?.estimatedSignedSize() ?? 0) Bytes"
+                    this.estimateSize.text = "\(preparedTransaction?.estimatedSignedSize ?? 0) Bytes"
                     this.estimateFee.text = "\(fee) DCR"
                     let Amount =  (spendableAmount - (Decimal(amountToSend) )) as NSDecimalNumber
                     this.BalanceAfter.text = "\(Amount.round(8)) DCR"
