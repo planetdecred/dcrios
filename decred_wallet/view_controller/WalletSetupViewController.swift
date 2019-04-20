@@ -65,7 +65,23 @@ class WalletSetupViewController : UIViewController {
             }
         }
         else if UIDevice().userInterfaceIdiom == .pad{
-            self.setFontSize(infoTxt: 36, restoreWalletTxt: 32, createWalletTxt: 32, buildTxt: 28, walletTxt: 38)
+            switch UIScreen.main.nativeBounds.height {
+            case 2048:
+                // iPad Pro (9.7-inch)/ iPad Air 2/ iPad Mini 4
+                self.setFontSize(infoTxt: 26, restoreWalletTxt: 22, createWalletTxt: 22, buildTxt: 18, walletTxt: 28)
+                print("ipad air")
+                break
+            case 2224:
+                //iPad Pro 10.5-inch
+                self.setFontSize(infoTxt: 28, restoreWalletTxt: 24, createWalletTxt: 24, buildTxt: 20, walletTxt: 30)
+                print("ipad air 10inch")
+                break
+            case 2732:
+                //iPad Pro 12.9-inch
+                self.setFontSize(infoTxt: 36, restoreWalletTxt: 32, createWalletTxt: 32, buildTxt: 28, walletTxt: 38)
+                break
+            default:break
+            }
         }
     }
     func setFontSize(infoTxt: CGFloat ,restoreWalletTxt : CGFloat ,createWalletTxt : CGFloat ,buildTxt : CGFloat ,walletTxt: CGFloat){
