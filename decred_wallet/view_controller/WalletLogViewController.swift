@@ -16,13 +16,12 @@ class WalletLogViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Wallet Log"
-        let testnetOn = UserDefaults.standard.bool(forKey: "pref_use_testnet")
-        let logsType = testnetOn ? "testnet3" : "mainnet"
-        load(log: logsType)
+        load()
     }
     
-    fileprivate func load(log:String){
-        let logPath = NSHomeDirectory()+"/Documents/dcrlibwallet/logs/\(log)/dcrlibwallet.log"
+    fileprivate func load(){
+        let netType = infoForKey(GlobalConstants.Strings.NetType)!
+        let logPath = NSHomeDirectory()+"/Documents/dcrlibwallet/logs/\(netType)/dcrlibwallet.log"
         let logContent = try? String(contentsOf: URL(fileURLWithPath: logPath))
         let aLogs = logContent?.split(separator: "\n")
         var cutOffLogFlow = aLogs?.suffix(from: 0)
