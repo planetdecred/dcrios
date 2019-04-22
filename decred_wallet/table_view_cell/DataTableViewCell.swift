@@ -70,7 +70,7 @@ class DataTableViewCell : BaseTableViewCell {
             let amount = Decimal(data.trans.Amount / 100000000.00) as NSDecimalNumber
             let requireConfirmation = spendUnconfirmedFunds ? 0 : 2
             
-            if (data.trans.Type.lowercased() == "regular".lowercased()) {
+            if (data.trans.Type.lowercased() == "regular") {
                 if (data.trans.Direction == 0) {
                     let attributedString = NSMutableAttributedString(string: "-")
                     attributedString.append(getAttributedString(str: amount.round(8).description, siz: 13.0, TexthexColor: GlobalConstants.Colors.TextAmount))
@@ -93,22 +93,22 @@ class DataTableViewCell : BaseTableViewCell {
             } else if (data.trans.Type.lowercased() == "ticket_purchase") {
                 self.dataText.text = " Ticket"
                 self.dataImage?.image = UIImage(named: "immature")
-                
+                let ticketMaturity = Int(infoForKey("TicketMaturity")!)!
                 if (confirmations < requireConfirmation){
                     self.status.textColor = UIColor(hex:"#3d659c")
                     self.status.text = "Pending"
-                } else if (confirmations > 16) {
-                    let stausText = "Confirmed / Live"
-                    let range = (stausText as NSString).range(of: "/")
-                    let attributedString = NSMutableAttributedString(string: stausText)
+                } else if (confirmations > ticketMaturity) {
+                    let statusText = "Confirmed / Live"
+                    let range = (statusText as NSString).range(of: "/")
+                    let attributedString = NSMutableAttributedString(string: statusText)
                     attributedString.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.black , range: range)
                     self.status.textColor = UIColor(hex:"#2DD8A3")
                     self.status.attributedText = attributedString
                     self.dataImage?.image = UIImage(named: "live")
                 } else {
-                    let stausText = "Confirmed / Immature"
-                    let range = (stausText as NSString).range(of: "/")
-                    let attributedString = NSMutableAttributedString(string: stausText)
+                    let statusText = "Confirmed / Immature"
+                    let range = (statusText as NSString).range(of: "/")
+                    let attributedString = NSMutableAttributedString(string: statusText)
                     attributedString.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.black , range: range)
 
                     self.status.textColor = UIColor.orange
