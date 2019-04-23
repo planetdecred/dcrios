@@ -35,10 +35,12 @@ class SettingsController: UITableViewController  {
     @IBOutlet weak var server_ip: UILabel!
     
     @IBOutlet weak var debu_msg: UISwitch!
-    @IBOutlet weak var testnet_switch: UISwitch!
     @IBOutlet weak var spend_uncon_fund: UISwitch!
     @IBOutlet weak var incoming_notification_switch: UISwitch!
     @IBOutlet weak var start_Pin: UISwitch!
+    @IBOutlet weak var currency_subtitle: UILabel!
+    
+    
     
     var isFromLoader = false
     
@@ -130,6 +132,7 @@ class SettingsController: UITableViewController  {
     func loadDate()-> Void {
         
         let network_value = UserDefaults.standard.integer(forKey: "network_mode")
+        let currency_value = UserDefaults.standard.integer(forKey: "currency")
         version?.text = UserDefaults.standard.string(forKey: "app_version") ?? "Pre-release"
         
         var compileDate:Date
@@ -154,10 +157,13 @@ class SettingsController: UITableViewController  {
         
         if (network_value == 0) {
             network_mode_subtitle?.text = "Simplified Payment Verification (SPV)"
-        } else if(network_value == 1) {
-            network_mode_subtitle?.text = "Local Full Node"
-        } else {
+        }else{
             network_mode_subtitle?.text = "Remote Full Node"
+        }
+        if (currency_value == 0) {
+            currency_subtitle?.text = "None"
+        }else{
+            currency_subtitle?.text = "USD (bittrex)"
         }
     }
     
@@ -165,7 +171,6 @@ class SettingsController: UITableViewController  {
         UserDefaults.standard.set(incoming_notification_switch.isOn, forKey: "pref_notification_switch")
         UserDefaults.standard.set(spend_uncon_fund.isOn, forKey: "pref_spend_fund_switch")
         UserDefaults.standard.set(debu_msg.isOn, forKey: "pref_debug_switch")
-        UserDefaults.standard.set(testnet_switch.isOn, forKey: "pref_use_testnet")
         UserDefaults.standard.synchronize()
         if (self.isFromLoader == true) {
             self.navigationController?.navigationBar.isHidden = true

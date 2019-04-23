@@ -61,14 +61,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     fileprivate func populateFirstScreen() {
         var initWalletError: NSError?
-        let testnet = UserDefaults.standard.bool(forKey: "pref_use_testnet")
-        if(testnet){
-            SingleInstance.shared.wallet = DcrlibwalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrlibwallet/", "bdb", "testnet3", &initWalletError)
-        }
-        else{
-            SingleInstance.shared.wallet = DcrlibwalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrlibwallet/", "bdb", "mainnet", &initWalletError)
-        }
-        
+        let netType = infoForKey(GlobalConstants.Strings.NetType)!
+        SingleInstance.shared.wallet = DcrlibwalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrlibwallet/", "bdb", netType, &initWalletError)
         if initWalletError != nil {
             print("init wallet error -> \(initWalletError!.localizedDescription)")
             return
@@ -144,7 +138,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             UserDefaults.standard.setValuesForKeys(["pref_user_name": "dcrwallet",
                                                     "pref_user_passwd": "dcrwallet",
                                                     ])
-            UserDefaults.standard.set(true, forKey: GlobalConstants.Strings.USE_TESTNET)
             self.showAnimatedStartScreen()
         }
         

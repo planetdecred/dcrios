@@ -56,7 +56,6 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
     @IBOutlet weak var syncLoadingText: UILabel!
     var wallet = SingleInstance.shared.wallet
     var walletInfo = SingleInstance.shared
-    let testnetOn = UserDefaults.standard.bool(forKey: "pref_use_testnet")
     var NetType = "mainnet"
     var mainContens = [Transaction]()
     var refreshControl: UIRefreshControl!
@@ -76,22 +75,74 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
             
             return refreshControl
         }()
-        NetType = testnetOn ? "testnet" : "mainnet"
+        let isTestnet = Bool(infoForKey(GlobalConstants.Strings.IS_TESTNET)!)!
+        NetType = isTestnet ? "testnet" : "mainnet"
         self.tableView.addSubview(self.refreshControl)
         self.setupSendRecvBtn()
         self.verboseText.contentHorizontalAlignment = .center
         self.verboseText.contentVerticalAlignment = .top
         self.verboseText.titleLabel?.textAlignment = .center
+       self.wifiSyncOption()
         
         
-        
-        connectToDecredNetwork()
+    }
+    
+    func wifiSyncOption(){
+        let wifiselect = UserDefaults.standard.integer(forKey: "wifsync")
+        switch wifiselect {
+        case 0:
+            wifCheck()
+            break
+        case 1:
+            wifCheck()
+            break
+        case 2:
+            self.setupConnection()
+            break
+        default:
+            wifCheck()
+        }
+    }
+    func setupConnection(){
+        self.connectToDecredNetwork()
         
         self.wallet?.transactionNotification(self)
         self.wallet?.add(self)
         self.walletInfo.syncing = true
         self.SyncGestureSetup()
-        showActivity()
+        self.showActivity()
+    }
+    func wifCheck(){
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        let WifiConfirmationController = storyboard.instantiateViewController(withIdentifier: "WifiSyncView") as! WifiConfirmationController
+        WifiConfirmationController.modalTransitionStyle = .crossDissolve
+        WifiConfirmationController.modalPresentationStyle = .overCurrentContext
+        
+        let tap = UITapGestureRecognizer(target: WifiConfirmationController.view, action: #selector(WifiConfirmationController.msgContent.endEditing(_:)))
+        tap.cancelsTouchesInView = false
+        
+    WifiConfirmationController.view.addGestureRecognizer(tap)
+        
+        WifiConfirmationController.Always = {
+            UserDefaults.standard.set(2, forKey: "wifsync")
+            UserDefaults.standard.synchronize()
+            self.setupConnection()
+        }
+        WifiConfirmationController.Yes = {
+            UserDefaults.standard.set(1, forKey: "wifsync")
+            UserDefaults.standard.synchronize()
+            self.setupConnection()
+        }
+        WifiConfirmationController.No = {
+            UserDefaults.standard.set(0, forKey: "wifsync")
+            UserDefaults.standard.synchronize()
+        }
+        
+        DispatchQueue.main.async {
+            self.present(WifiConfirmationController, animated: true, completion: nil)
+        }
     }
     
     
@@ -469,6 +520,7 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
         self.updateCurrentBalance()
         return
     }
+    
     func updatePeerCount() {
         if (!self.walletInfo.synced && !self.walletInfo.syncing) {
             self.walletInfo.syncStatus = "Not Synced";
@@ -493,6 +545,7 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
     }
     
     func onFetchMissingCFilters(_ missingCFitlersStart: Int32, missingCFitlersEnd: Int32, state: String!) {}
+    
     var headerTime: Int64 = 0
     func onFetchedHeaders(_ fetchedHeadersCount: Int32, lastHeaderTime: Int64, state: String!) {
         DispatchQueue.global(qos: .background).async {
@@ -510,7 +563,8 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
         let bestblocktemp = Int64(bestblck!)
         let lastblocktime = self.wallet?.getBestBlockTimeStamp()
         let currentTime = Date().millisecondsSince1970 / 1000;
-        let estimatedBlocks = ((currentTime - lastblocktime!) / 120 ) + bestblocktemp
+        let targetTimePerBlock = Int64(infoForKey("TargetTimePerBlock")!)!
+        let estimatedBlocks = ((currentTime - lastblocktime!) / targetTimePerBlock ) + bestblocktemp
         
         switch (state) {
         case DcrlibwalletSTART:
@@ -823,7 +877,8 @@ extension OverviewViewController : UITableViewDelegate {
 extension OverviewViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return min(self.mainContens.count, 5)
+        let maxDisplayItems = round(tableView.frame.size.height / DataTableViewCell.height())
+        return min(self.mainContens.count, Int(maxDisplayItems))
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
