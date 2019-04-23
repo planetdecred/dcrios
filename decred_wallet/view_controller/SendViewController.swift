@@ -44,6 +44,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     
     @IBOutlet weak var bottomCont: UIView!
     @IBOutlet weak var conversionFeeCont: UIStackView!
+    @IBOutlet weak var buttomContHeight: NSLayoutConstraint!
     
 
     @IBOutlet weak var sendInfoHeight: NSLayoutConstraint!
@@ -314,7 +315,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                     this.BalanceAfter.text = "\(Amount.round(8)) DCR"
                     if !(self!.conversionRowCont.isHidden){
                         self?.conversionFeeCont.isHidden = false
-                        self!.sendInfoHeight.constant = 155
+                        self!.sendInfoHeight.constant = 0.585 * self!.buttomContHeight.constant
                         self?.tempFee = "\((((Decimal(fee)) * ((self?.exchangeRateGloabal)! as Decimal)) as NSDecimalNumber).round(4))"
                         self?.convertionFeeOther.text = "(\(self!.tempFee) USD)"
                     }
@@ -741,7 +742,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                             self.BalanceAfter.text = "0.00 DCR"
                             if !(self.conversionRowCont.isHidden){
                                 self.conversionFeeCont.isHidden = true
-                                self.sendInfoHeight.constant = 135
+                                self.sendInfoHeight.constant = 0.515 * self.buttomContHeight.constant
                                 self.convertionFeeOther.text = ""
                             }
                         }
@@ -771,7 +772,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                     self.amountErrorText.text = ""
                     if !(self.conversionRowCont.isHidden){
                         self.conversionFeeCont.isHidden = true
-                        self.sendInfoHeight.constant = 135
+                        self.sendInfoHeight.constant = 0.515 * self.buttomContHeight.constant
                         self.convertionFeeOther.text = ""
                     }
                     self.toggleSendBtn(validate: self.validateSentBtn(amount: updatedString!))
@@ -841,7 +842,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                             self.BalanceAfter.text = "0.00 DCR"
                             if !(self.conversionRowCont.isHidden){
                                 self.conversionFeeCont.isHidden = true
-                                self.sendInfoHeight.constant = 135
+                                self.sendInfoHeight.constant = 0.515 * self.buttomContHeight.constant
                                 self.convertionFeeOther.text = ""
                             }
                         }
@@ -873,7 +874,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                     self.BalanceAfter.text = "0.00 DCR"
                     if !(self.conversionRowCont.isHidden){
                         self.conversionFeeCont.isHidden = true
-                        self.sendInfoHeight.constant = 135
+                        self.sendInfoHeight.constant = 0.515 * self.buttomContHeight.constant
                         self.convertionFeeOther.text = ""
                     }
                     self.toggleSendBtn(validate: self.validateSentBtn(amount: updatedString!))
@@ -1145,9 +1146,9 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                         if let exchangeRate = reportLoad!["Last"] as? Double?{
                             let exchange = Decimal(exchangeRate!) as NSDecimalNumber
                             DispatchQueue.main.async {
-                                self.conversionContHeight.constant = 75
+                                self.conversionContHeight.constant = UIScreen.main.bounds.height * 0.028
                                 self.conversionRowCont.isHidden = false
-                                self.sendInfoHeight.constant = 135
+                                self.sendInfoHeight.constant = 0.515 * self.buttomContHeight.constant
                                 self.exchangeRateCont.isHidden = false
                                 self.exchangeRateDisplay.text = exchange.round(2).stringValue + " USD/DCR (bittrex)"
                                 self.exchangeRateGloabal = exchange.round(2)
