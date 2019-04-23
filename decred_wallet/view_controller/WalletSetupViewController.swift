@@ -30,7 +30,8 @@ class WalletSetupViewController : UIViewController {
         }
         let dateformater = DateFormatter()
         dateformater.dateFormat = "yyyy-MM-dd"
-        build?.text = "build testnet " + dateformater.string(from: compileDate as Date)
+        let netType = infoForKey(GlobalConstants.Strings.NetType)! == "mainnet" ? "mainnet" : "testnet"
+        build?.text = "build \(netType) " + dateformater.string(from: compileDate as Date)
     }
     
     override func didReceiveMemoryWarning() {

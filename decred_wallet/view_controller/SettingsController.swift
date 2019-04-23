@@ -35,7 +35,6 @@ class SettingsController: UITableViewController  {
     @IBOutlet weak var server_ip: UILabel!
     
     @IBOutlet weak var debu_msg: UISwitch!
-    @IBOutlet weak var testnet_switch: UISwitch!
     @IBOutlet weak var spend_uncon_fund: UISwitch!
     @IBOutlet weak var incoming_notification_switch: UISwitch!
     @IBOutlet weak var start_Pin: UISwitch!
@@ -172,7 +171,6 @@ class SettingsController: UITableViewController  {
         UserDefaults.standard.set(incoming_notification_switch.isOn, forKey: "pref_notification_switch")
         UserDefaults.standard.set(spend_uncon_fund.isOn, forKey: "pref_spend_fund_switch")
         UserDefaults.standard.set(debu_msg.isOn, forKey: "pref_debug_switch")
-        UserDefaults.standard.set(testnet_switch.isOn, forKey: "pref_use_testnet")
         UserDefaults.standard.synchronize()
         if (self.isFromLoader == true) {
             self.navigationController?.navigationBar.isHidden = true
