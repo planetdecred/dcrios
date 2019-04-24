@@ -7,9 +7,10 @@ target 'Decred Wallet' do
   pod 'SlideMenuControllerSwift'
   pod 'JGProgressHUD'
   pod 'QRCodeReader.swift'
-  pod "PasswordStrength"
+  pod 'PasswordStrength'
   pod 'CryptoSwift'
-
+  pod 'Fabric'
+  pod 'Crashlytics'
   pod 'MBProgressHUD'
   # pod 'IHProgressHUD', :git => 'https://github.com/Swiftify-Corp/IHProgressHUD.git'
 
