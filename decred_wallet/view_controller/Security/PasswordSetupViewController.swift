@@ -18,12 +18,15 @@ class PasswordSetupViewController: UIViewController, SeedCheckupProtocol, UIText
     var seedToVerify: String?
     var pass_pinToVerify: String?
     
+    @IBOutlet weak var confirmPassLabel: UILabel!
+    @IBOutlet weak var passwordLabel: UILabel!
     @IBOutlet weak var tfPassword: UITextField!
     @IBOutlet weak var tfConfirmPassword: UITextField!
     @IBOutlet weak var lbMatchIndicator: UILabel!
     @IBOutlet weak var pbPasswordStrength: UIProgressView!
     @IBOutlet weak var lbPasswordStrengthLabel: UILabel!
     @IBOutlet weak var headerText: UILabel!
+    @IBOutlet weak var okBtn: UIButton!
     
     let passwordStrengthMeasurer = MEPasswordStrength()
     var progressHud : JGProgressHUD?
@@ -32,13 +35,15 @@ class PasswordSetupViewController: UIViewController, SeedCheckupProtocol, UIText
         super.viewDidLoad()
         tfPassword.delegate = self
         tfConfirmPassword.delegate = self
-        lbMatchIndicator.isHidden = true
-        pbPasswordStrength.isHidden = true
-//        lbPasswordStrengthLabel.isHidden = true
+        //lbMatchIndicator.isHidden = true
+        // pbPasswordStrength.isHidden = true
+        // lbPasswordStrengthLabel.isHidden = true
+        okBtn.layer.cornerRadius = 5
         tfConfirmPassword.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         if (self.seedToVerify != nil) {
             senders = "seed"
         }
+        setScreenFont()
         setHeader()
     }
     
@@ -172,11 +177,21 @@ class PasswordSetupViewController: UIViewController, SeedCheckupProtocol, UIText
         if self.tfPassword.text == self.tfConfirmPassword.text {
             self.lbMatchIndicator.textColor = #colorLiteral(red: 0.2537069321, green: 0.8615272641, blue: 0.7028611302, alpha: 1)
             self.lbMatchIndicator.text = "PASSWORDS MATCH"
+            self.okBtn.isEnabled = true
+            self.okBtn.backgroundColor = UIColor(hex: "#007AFF")
+            self.okBtn.setTitleColor(UIColor.white, for: .normal)
         }else{
             self.lbMatchIndicator.textColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
-            self.lbMatchIndicator.text = "PASSWORDS NOT MATCH"
+            self.lbMatchIndicator.text = "PASSWORDS DO NOT MATCH"
+            self.okBtn.isEnabled = false
+            self.okBtn.backgroundColor = UIColor(hex: "#E6EAED")
+            self.okBtn.setTitleColor(UIColor(hex: "#000000", alpha: 0.61), for: .normal)
         }
     }
+    @IBAction func creayePassBtn(_ sender: Any) {
+        self.ActionButton()
+    }
+    
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
@@ -192,6 +207,10 @@ class PasswordSetupViewController: UIViewController, SeedCheckupProtocol, UIText
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return self.ActionButton()
+    }
+    
+    func ActionButton() -> Bool{
         guard self.tfPassword.text == self.tfConfirmPassword.text else {
             self.showMessageDialog(title: "Error", message: "Password does not match")
             return false
@@ -208,7 +227,6 @@ class PasswordSetupViewController: UIViewController, SeedCheckupProtocol, UIText
         else {
             onEncrypt()
         }
-        
         return true
     }
     
@@ -235,5 +253,63 @@ class PasswordSetupViewController: UIViewController, SeedCheckupProtocol, UIText
         else {
             headerText.text = "Create Spending Password"
         }
+    }
+    func setScreenFont(){
+        if UIDevice().userInterfaceIdiom == .phone {
+            switch UIScreen.main.nativeBounds.height {
+            case 1136:
+                //iPhone 5 or 5S or 5C
+                self.setFontSize(confirmPassLabeTxt: 13, passwordLabelTxt: 13, lbMatchIndicatorTxt: 13, lbPasswordStrengthLabelTxt: 13, okBtnTxt: 13, headerTxt: 18, tfPasswordTxt: 13, tfConfirmPasswordTxt: 13)
+                break
+            case 1334:
+                // iPhone 6/6S/7/8
+                self.setFontSize(confirmPassLabeTxt: 15, passwordLabelTxt: 15, lbMatchIndicatorTxt: 15, lbPasswordStrengthLabelTxt: 15, okBtnTxt: 15, headerTxt: 20, tfPasswordTxt: 15, tfConfirmPasswordTxt: 15)
+                
+                break
+            case 2208:
+                //iPhone 6+/6S+/7+/8+
+                self.setFontSize(confirmPassLabeTxt: 17, passwordLabelTxt: 17, lbMatchIndicatorTxt: 17, lbPasswordStrengthLabelTxt: 17, okBtnTxt: 17, headerTxt: 22, tfPasswordTxt: 17, tfConfirmPasswordTxt: 17)
+                break
+            case 2436:
+                // iPhone X
+                self.setFontSize(confirmPassLabeTxt: 15, passwordLabelTxt: 15, lbMatchIndicatorTxt: 15, lbPasswordStrengthLabelTxt: 15, okBtnTxt: 15, headerTxt: 20, tfPasswordTxt: 15, tfConfirmPasswordTxt: 15)
+                
+                break
+            default: break
+                // print("unknown")
+            }
+        }
+        else if UIDevice().userInterfaceIdiom == .pad{
+            switch UIScreen.main.nativeBounds.height {
+            case 2048:
+                // iPad Pro (9.7-inch)/ iPad Air 2/ iPad Mini 4
+                self.setFontSize(confirmPassLabeTxt: 27, passwordLabelTxt: 27, lbMatchIndicatorTxt: 27, lbPasswordStrengthLabelTxt: 27, okBtnTxt: 27, headerTxt: 42, tfPasswordTxt: 27, tfConfirmPasswordTxt: 27)
+                print("ipad air")
+                break
+            case 2224:
+                //iPad Pro 10.5-inch
+                self.setFontSize(confirmPassLabeTxt: 29, passwordLabelTxt: 29, lbMatchIndicatorTxt: 29, lbPasswordStrengthLabelTxt: 29, okBtnTxt: 29, headerTxt: 44, tfPasswordTxt: 29, tfConfirmPasswordTxt: 29)
+                print("ipad air 10inch")
+                break
+            case 2732:
+                // iPad Pro 12.9-inch
+                self.setFontSize(confirmPassLabeTxt: 37, passwordLabelTxt: 37, lbMatchIndicatorTxt: 37, lbPasswordStrengthLabelTxt: 37, okBtnTxt: 37, headerTxt: 52, tfPasswordTxt: 37, tfConfirmPasswordTxt: 37)
+                break
+            default:
+                print("unknown")
+                print(UIScreen.main.nativeBounds.height)
+                break
+            }
+        }
+    }
+    func setFontSize(confirmPassLabeTxt: CGFloat, passwordLabelTxt: CGFloat, lbMatchIndicatorTxt: CGFloat,lbPasswordStrengthLabelTxt: CGFloat, okBtnTxt: CGFloat,headerTxt: CGFloat,tfPasswordTxt: CGFloat, tfConfirmPasswordTxt : CGFloat){
+        self.confirmPassLabel.font = confirmPassLabel.font?.withSize(confirmPassLabeTxt)
+        self.passwordLabel.font = passwordLabel.font?.withSize(passwordLabelTxt)
+        self.lbMatchIndicator.font = lbMatchIndicator.font?.withSize(lbMatchIndicatorTxt)
+        self.lbPasswordStrengthLabel.font = lbPasswordStrengthLabel.font.withSize(lbPasswordStrengthLabelTxt)
+        self.headerText.font = headerText.font.withSize(headerTxt)
+        self.okBtn.titleLabel?.font = .systemFont(ofSize: okBtnTxt)
+        self.tfPassword.font = .systemFont(ofSize: tfPasswordTxt)
+        self.tfConfirmPassword.font = .systemFont(ofSize: tfConfirmPasswordTxt)
     }
 }
