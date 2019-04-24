@@ -34,7 +34,7 @@ class PasswordSetupViewController: UIViewController, SeedCheckupProtocol, UIText
         tfConfirmPassword.delegate = self
         lbMatchIndicator.isHidden = true
         pbPasswordStrength.isHidden = true
-        lbPasswordStrengthLabel.isHidden = true
+//        lbPasswordStrengthLabel.isHidden = true
         tfConfirmPassword.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         if (self.seedToVerify != nil) {
             senders = "seed"
