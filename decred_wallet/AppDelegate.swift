@@ -131,7 +131,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-              Fabric.with([Crashlytics.self])
+        
+        // setup crash reporting for testnet build only
+        let isTestnet = Bool(infoForKey(GlobalConstants.Strings.IS_TESTNET)!)!
+        if isTestnet {
+            Fabric.with([Crashlytics.self])
+        }
+        
         DispatchQueue.main.async {
             UNUserNotificationCenter.current().delegate = self
             UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge , .sound]){ (granted, error) in
@@ -143,7 +149,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                                                     ])
             self.showAnimatedStartScreen()
         }
-        
         
         return true
     }

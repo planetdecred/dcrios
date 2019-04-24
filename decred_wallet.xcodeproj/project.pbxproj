@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1E3D73D7EA02D2D2D3CD052C /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E75324D536F1BD91575D0609 /* Pods_Decred_Wallet.framework */; };
 		2804D43321BAAD170011A5B3 /* SeedCheckActiveCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2804D43221BAAD170011A5B3 /* SeedCheckActiveCellView.swift */; };
 		28102DCD21B83E700052DC00 /* ContouredButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28102DCC21B83E700052DC00 /* ContouredButton.swift */; };
 		28102DCF21B83F8F0052DC00 /* SeedConfirmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28102DCE21B83F8F0052DC00 /* SeedConfirmTableViewCell.swift */; };
@@ -70,8 +69,8 @@
 		95877FE920B70CBB00CE53D2 /* TransactionHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95877FE720B70CBB00CE53D2 /* TransactionHistoryViewController.swift */; };
 		95CC024420D3F15800DA73AF /* AccountsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CC024320D3F15800DA73AF /* AccountsData.swift */; };
 		95E1C96E20FCD43E00D7F3EE /* TextFieldDoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E1C96D20FCD43E00D7F3EE /* TextFieldDoneButton.swift */; };
-		B3A32AAA227012BB00CDD53D /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3A32AA9227012BB00CDD53D /* Crashlytics.framework */; };
-		B400B45E4E5F07D384B138CB /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD1BD0208F6C9A0051F58F /* Pods_Decred_Wallet.framework */; };
+		B38F4545227062A60068F33D /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B38F4544227062A60068F33D /* Pods_Decred_Wallet.framework */; };
+		B38F4548227066CA0068F33D /* Dcrlibwallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B38F4546227062B50068F33D /* Dcrlibwallet.framework */; };
 		DD0B356E218930B7000830C4 /* AddAcountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B356D218930B7000830C4 /* AddAcountViewController.swift */; };
 		DD0C493E208A160900986C6B /* WalletSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C493D208A160900986C6B /* WalletSetupViewController.swift */; };
 		DD1D5C7C20AED828009789DD /* certificateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1D5C7B20AED824009789DD /* certificateViewController.swift */; };
@@ -214,6 +213,8 @@
 		95CC024320D3F15800DA73AF /* AccountsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsData.swift; sourceTree = "<group>"; };
 		95E1C96D20FCD43E00D7F3EE /* TextFieldDoneButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldDoneButton.swift; sourceTree = "<group>"; };
 		A1A97C56BC75512DA55A8A70 /* Pods-Decred WalletTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred WalletTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Decred WalletTests/Pods-Decred WalletTests.release.xcconfig"; sourceTree = "<group>"; };
+		B38F4544227062A60068F33D /* Pods_Decred_Wallet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Decred_Wallet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B38F4546227062B50068F33D /* Dcrlibwallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Dcrlibwallet.framework; path = debug/Dcrlibwallet.framework; sourceTree = "<group>"; };
 		B3A32AA9227012BB00CDD53D /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = Pods/Crashlytics/Crashlytics.framework; sourceTree = "<group>"; };
 		BDFD22D327AF7F80DA90882F /* libPods-Decred WalletTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Decred WalletTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD0B356D218930B7000830C4 /* AddAcountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddAcountViewController.swift; path = view_controller/AddAcountViewController.swift; sourceTree = "<group>"; };
@@ -268,9 +269,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3A32AAA227012BB00CDD53D /* Crashlytics.framework in Frameworks */,
-				1E3D73D7EA02D2D2D3CD052C /* Pods_Decred_Wallet.framework in Frameworks */,
-				B400B45E4E5F07D384B138CB /* Pods_Decred_Wallet.framework in Frameworks */,
+				B38F4548227066CA0068F33D /* Dcrlibwallet.framework in Frameworks */,
+				B38F4545227062A60068F33D /* Pods_Decred_Wallet.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,6 +360,8 @@
 		5300E0A95A9FA022A08F903E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B38F4546227062B50068F33D /* Dcrlibwallet.framework */,
+				B38F4544227062A60068F33D /* Pods_Decred_Wallet.framework */,
 				B3A32AA9227012BB00CDD53D /* Crashlytics.framework */,
 				28FD1BD0208F6C9A0051F58F /* Pods_Decred_Wallet.framework */,
 				28FD1BC5208E667F0051F58F /* Pods_Decred_Wallet.framework */,
@@ -948,7 +950,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -976,9 +978,8 @@
 		};
 		74BA834C225ED31D00D3359E /* testnet */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 74BA834F225ED7AA00D3359E /* testnet.xcconfig */;
+			baseConfigurationReference = 22EDE8529570C09D6690267C /* Pods-Decred Wallet.testnet.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				APP_NAME = "$(APP_NAME)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = "${APP_ICON}";
 				CLANG_ENABLE_MODULES = YES;
@@ -988,8 +989,7 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/**",
-					"$(PROJECT_DIR)/Pods/Crashlytics",
+					"$(PROJECT_DIR)/debug",
 				);
 				INFOPLIST_FILE = decred_wallet/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
@@ -1008,7 +1008,7 @@
 		};
 		74BA834D225ED31D00D3359E /* testnet */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 74BA834F225ED7AA00D3359E /* testnet.xcconfig */;
+			baseConfigurationReference = 4C37EDE41D4CC6414C6AFD68 /* Pods-Decred WalletTests.testnet.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1079,9 +1079,8 @@
 		};
 		74BA8351225EDD0500D3359E /* mainnet */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 74BA8353225EDDB900D3359E /* mainnet.xcconfig */;
+			baseConfigurationReference = 2E4FA9F0E9EFBF333E25FB80 /* Pods-Decred Wallet.mainnet.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				APP_NAME = "$(APP_NAME)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = "${APP_ICON}";
 				CLANG_ENABLE_MODULES = YES;
@@ -1091,8 +1090,7 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/**",
-					"$(PROJECT_DIR)/Pods/Crashlytics",
+					"$(PROJECT_DIR)/debug",
 				);
 				INFOPLIST_FILE = decred_wallet/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
@@ -1110,7 +1108,7 @@
 		};
 		74BA8352225EDD0500D3359E /* mainnet */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 74BA8353225EDDB900D3359E /* mainnet.xcconfig */;
+			baseConfigurationReference = 3CEA0AF5B0DD35D72ADA27C5 /* Pods-Decred WalletTests.mainnet.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1159,7 +1157,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1241,7 +1239,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2C59C3E0BD7A56A91BB0B9B1 /* Pods-Decred Wallet.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				APP_NAME = "$(APP_NAME)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = "${APP_ICON}";
 				CLANG_ENABLE_MODULES = YES;
@@ -1251,8 +1248,7 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/**",
-					"$(PROJECT_DIR)/Pods/Crashlytics",
+					"$(PROJECT_DIR)/debug",
 				);
 				INFOPLIST_FILE = decred_wallet/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
@@ -1273,7 +1269,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 31D8BF868913ED4E2A4B0577 /* Pods-Decred Wallet.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				APP_NAME = "$(APP_NAME)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = "${APP_ICON}";
 				CLANG_ENABLE_MODULES = YES;
@@ -1283,8 +1278,7 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/**",
-					"$(PROJECT_DIR)/Pods/Crashlytics",
+					"$(PROJECT_DIR)/debug",
 				);
 				INFOPLIST_FILE = decred_wallet/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
