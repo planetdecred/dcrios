@@ -2,9 +2,9 @@
 //  JsonEntities.swift
 //  Decred Wallet
 //
-//  Copyright © 2018 The Decred developers.
-//  see LICENSE for details.
-//
+// Copyright (c) 2018-2019 The Decred developers
+// Use of this source code is governed by an ISC
+// license that can be found in the LICENSE file.
 
 import Foundation
 
@@ -22,27 +22,27 @@ extension BalanceEntity {
     var dcrTotal: Double {
         return self.Total / 100000000
     }
-
+    
     var dcrSpendable: Double {
         return self.Spendable / 100000000
     }
-
+    
     var dcrImmatureReward: Double {
         return self.ImmatureReward / 100000000
     }
-
+    
     var dcrImmatureStakeGeneration: Double {
         return self.ImmatureStakeGeneration / 100000000
     }
-
+    
     var dcrLockedByTickets: Double {
         return self.LockedByTickets / 100000000
     }
-
+    
     var dcrVotingAuthority: Double {
         return self.VotingAuthority / 100000000
     }
-
+    
     var dcrUnConfirmed: Double {
         return self.UnConfirmed / 100000000
     }
@@ -56,14 +56,14 @@ struct AccountsEntity: Decodable {
     var ExternalKeyCount = 20
     var InternalKeyCount = 20
     var ImportedKeyCount = 0
-
+    
     func makeDefault() {
         UserDefaults.standard.set(self.Number, forKey: "wallet_default")
     }
-
+    
     var isDefaultWallet: Bool {
         let `default` = UserDefaults.standard.integer(forKey: "wallet_default")
-
+        
         return `default` == self.Number ? true : false
     }
 }
@@ -88,7 +88,7 @@ struct GroceryProduct: Codable {
     var name: String
     var points: Int
     var description: String
-
+    
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         self.name = try values.decode(String.self, forKey: .name)
@@ -122,7 +122,6 @@ struct GetTransactionResponse: Codable {
 
 struct Transaction: Codable {
     var Hash: String
-    var Transaction: String?
     var Fee: Double
     var Direction: Int
     var Timestamp: UInt64
@@ -132,11 +131,11 @@ struct Transaction: Codable {
     var Height: Int
     var Debits: [Debit]
     var Credits: [Credit]
-   @nonobjc var Animate: Bool
+    var Raw: String
+    @nonobjc var Animate: Bool
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         self.Hash = try values.decodeIfPresent(String.self, forKey: .Hash) ?? ""
-        self.Transaction = try values.decodeIfPresent(String.self, forKey: .Transaction) ?? ""
         self.Fee = try values.decodeIfPresent(Double.self, forKey: .Fee) ?? 0.0
         self.Direction = try values.decodeIfPresent(Int.self, forKey: .Direction) ?? 0
         self.Timestamp = try values.decodeIfPresent(UInt64.self, forKey: .Timestamp) ?? 0
@@ -146,6 +145,7 @@ struct Transaction: Codable {
         self.Height = try values.decodeIfPresent(Int.self, forKey: .Height) ?? 0
         self.Debits = try values.decodeIfPresent([Debit].self, forKey: .Debits) ?? [Debit]()
         self.Credits = try values.decodeIfPresent([Credit].self, forKey: .Credits) ?? [Credit]()
+        self.Raw = try values.decodeIfPresent(String.self, forKey: .Raw) ?? ""
         self.Animate = false
     }
 }
@@ -167,8 +167,8 @@ struct Credit: Codable {
 }
 
 extension Credit {
-    var dcrAmount: Double {
-        return self.Amount / 100000000
+    var dcrAmount: NSDecimalNumber {
+        return Decimal(Double(self.Amount) / 1e8) as NSDecimalNumber
     }
 }
 
@@ -177,14 +177,85 @@ struct Debit: Codable {
     var PreviousAccount: Double = 0.0
     var PreviousAmount: Double = 0.0
     var AccountName = ""
-
-    // var Address = ""
 }
 
 extension Debit {
-    var dcrAmount: Double {
-        return self.PreviousAmount / 100000000
+    var dcrAmount: NSDecimalNumber {
+        return Decimal(Double(self.PreviousAmount) / 1e8) as NSDecimalNumber
     }
+}
+
+struct DecodedTransaction: Codable {
+    
+    var Hash: String
+    var `Type`: String
+    var Version: Int32
+    var LockTime: Int32
+    var Expiry: Int32
+    var Inputs: [DecodedInput]
+    var Outputs: [DecodedOutput]
+    
+    // Vote Info
+    var VoteVersion: Int32
+    var LastBlockValid: Bool
+    var VoteBits: String
+    
+    init(from decoder: Decoder) throws {
+       
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.Hash = try values.decodeIfPresent(String.self, forKey: .Hash) ?? ""
+        self.Type = try values.decodeIfPresent(String.self, forKey: .Type) ?? ""
+        self.Version = try values.decodeIfPresent(Int32.self, forKey: .Version) ?? 0
+        self.LockTime = try values.decodeIfPresent(Int32.self, forKey: .LockTime) ?? 0
+        self.Expiry = try values.decodeIfPresent(Int32.self, forKey: .Expiry) ?? 0
+        
+        self.Inputs = try values.decodeIfPresent([DecodedInput].self, forKey: .Inputs) ?? [DecodedInput]()
+        self.Outputs = try values.decodeIfPresent([DecodedOutput].self, forKey: .Outputs) ?? [DecodedOutput]()
+        
+        self.VoteVersion = try values.decodeIfPresent(Int32.self, forKey: .VoteVersion) ?? 0
+        self.LastBlockValid = try values.decodeIfPresent(Bool.self, forKey: .LastBlockValid) ?? false
+        self.VoteBits = try values.decodeIfPresent(String.self, forKey: .VoteBits) ?? ""
+    }
+}
+
+struct DecodedInput: Codable {
+    
+    var PreviousTransactionHash: String
+    var PreviousTransactionIndex: Int32
+    var AmountIn: Int64
+    var dcrAmount: NSDecimalNumber {
+        return Decimal(Double(self.AmountIn) / 1e8) as NSDecimalNumber
+    }
+    
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        self.PreviousTransactionHash = try values.decodeIfPresent(String.self, forKey: .PreviousTransactionHash) ?? ""
+        self.PreviousTransactionIndex = try values.decodeIfPresent(Int32.self, forKey: .PreviousTransactionIndex) ?? 0
+        self.AmountIn = try values.decodeIfPresent(Int64.self, forKey: .AmountIn) ?? 0
+    }
+}
+
+struct DecodedOutput: Codable{
+    
+    var Index: Int32
+    var Value: Int64
+    var Version: Int32
+    var ScriptType: String
+    var Addresses: [String]
+    var dcrAmount: NSDecimalNumber {
+        return Decimal(Double(self.Value) / 1e8) as NSDecimalNumber
+    }
+    
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        self.Index = try values.decodeIfPresent(Int32.self, forKey: .Index) ?? 0
+        self.Value = try values.decodeIfPresent(Int64.self, forKey: .Value) ?? 0
+        self.Version = try values.decodeIfPresent(Int32.self, forKey: .Version) ?? 0
+        self.ScriptType = try values.decodeIfPresent(String.self, forKey: .ScriptType) ?? ""
+        self.Addresses = try values.decodeIfPresent([String].self, forKey: .Addresses) ?? []
+    }
+    
 }
 
 extension GetTransactionResponse {
@@ -194,26 +265,8 @@ extension GetTransactionResponse {
         }
         return timeline
     }
-
+    
     func transaction(by hash: String) -> Transaction? {
         return self.Transactions.filter({ $0.Hash == hash }).first
     }
 }
-
-//extension UserDefaults {
-//    var defaultAccountNumber: Int32 {
-//        get {
-//            return Int32(self.integer(forKey: "wallet_default"))
-//        }
-//
-//        set {
-//            self.set(newValue, forKey: "wallet_default")
-//            self.synchronize()
-//        }
-//    }
-//
-//    func deleteDefaultAccountNumber() {
-//        self.defaultAccountNumber = -1
-//    }
-//}
-

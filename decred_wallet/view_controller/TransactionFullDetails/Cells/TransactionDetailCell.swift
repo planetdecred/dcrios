@@ -1,12 +1,17 @@
 //  TransactionDetailCell.swift
 //  Decred Wallet
-//  Copyright © 2018 The Decred developers. All rights reserved.
+
+// Copyright (c) 2018-2019 The Decred developers
+// Use of this source code is governed by an ISC
+// license that can be found in the LICENSE file.
 
 import UIKit
 
 class TransactionDetailCell: UITableViewCell {
+    
     @IBOutlet private weak var labelTitle: UILabel!
     @IBOutlet private weak var labelValue: UILabel!
+    
     var txnDetails: TransactionDetails? {
         didSet {
             showData()
@@ -20,7 +25,6 @@ class TransactionDetailCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
         // Configure the view for the selected state
     }
     

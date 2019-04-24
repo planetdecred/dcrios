@@ -2,14 +2,14 @@
 //  certificateViewController.swift
 //  Decred Wallet
 //
-//  Created by Suleiman Abubakar on 18/05/2018.
-//  Copyright © 2018 The Decred developers. All rights reserved.
-//
+// Copyright (c) 2018-2019 The Decred developers
+// Use of this source code is governed by an ISC
+// license that can be found in the LICENSE file.
 
 import UIKit
 
 class certificateViewController: UIViewController {
-
+    
     @IBOutlet weak var certificate: UITextView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,18 +20,20 @@ class certificateViewController: UIViewController {
         
         loadCert()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     @objc func save() -> Void {
-       // save here
+        // save here
         guard certificate.text.length > 0 else { return }
         
         saveCertificate(secretKey: self.certificate.text)
         self.navigationController?.popViewController(animated: true)
     }
+    
     @objc func cancel() -> Void {
         self.navigationController?.popViewController(animated: true)
     }
@@ -41,15 +43,13 @@ class certificateViewController: UIViewController {
         self.certificate.text = cerContent
     }
     
-
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
 }

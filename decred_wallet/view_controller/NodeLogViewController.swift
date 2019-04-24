@@ -2,19 +2,18 @@
 //  NodeLogViewController.swift
 //  Decred Wallet
 //
-//  Created by Suleiman Abubakar on 18/05/2018.
-//  Copyright © 2018 The Decred developers. All rights reserved.
-//
+// Copyright (c) 2018-2019 The Decred developers
+// Use of this source code is governed by an ISC
+// license that can be found in the LICENSE file.
 
 import UIKit
 
 class NodeLogViewController: UIViewController {
-
+    
     @IBOutlet weak var logTextView: UITextView!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Node Log"
-        // Do any additional setup after loading the view.
     }
     
     override func didReceiveMemoryWarning() {
@@ -36,6 +35,4 @@ class NodeLogViewController: UIViewController {
      // Pass the selected object to the new view controller.
      }
      */
-
-
 }

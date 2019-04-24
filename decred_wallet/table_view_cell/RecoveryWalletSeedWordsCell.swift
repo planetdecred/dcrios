@@ -2,9 +2,9 @@
 //  RecoveryWalletSeedWordsCell.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018, The Decred developers
-// See LICENSE for details.
-//
+// Copyright (c) 2018-2019 The Decred developers
+// Use of this source code is governed by an ISC
+// license that can be found in the LICENSE file.
 
 import UIKit
 
@@ -15,6 +15,7 @@ class RecoveryWalletSeedWordsCell: UITableViewCell, UITextFieldDelegate {
     
     var seed:[String]?
     var wordNum:Int = 0
+    
     var onTextChanged:(()->Void)?{
         set{
             tfSeedWord.onTextChanged = newValue
@@ -23,6 +24,7 @@ class RecoveryWalletSeedWordsCell: UITableViewCell, UITextFieldDelegate {
             return tfSeedWord.onTextChanged
         }
     }
+    
     var onPickUpSeed:((Int, String)->Void)?{
         set{
             tfSeedWord.onSelect = newValue
@@ -33,18 +35,19 @@ class RecoveryWalletSeedWordsCell: UITableViewCell, UITextFieldDelegate {
     }
     
     func setup(wordNum:Int, word: String?, seed:[String], placeholder: UIView){
-        tfSeedWord.dropDownListPlaceholder = placeholder
-        lbWordNum.text = "Word #\(wordNum + 1)"
-        tfSeedWord.text = word ?? ""
         self.seed = seed
         self.wordNum = wordNum
+        
+        lbWordNum.text = "Word #\(wordNum + 1)"
+        
+        tfSeedWord.dropDownListPlaceholder = placeholder
+        tfSeedWord.text = word ?? ""
         tfSeedWord.autocorrectionType = .no
         tfSeedWord.itemsToSearch = seed
         tfSeedWord.vertPosition = self.frame.origin.y
         tfSeedWord.setupDropdownTable()
         tfSeedWord.onTextChanged = onTextChanged
     }
-    
     
     func hideDropDown(){
         tfSeedWord.hideDropDown()

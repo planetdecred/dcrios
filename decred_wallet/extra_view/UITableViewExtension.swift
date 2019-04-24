@@ -1,8 +1,10 @@
 //
 //  UITableViewExtension.swift
 //  Decred Wallet
-//  Copyright © 2018 The Decred developers.
-//  see LICENSE for details.
+//
+// Copyright (c) 2018-2019 The Decred developers
+// Use of this source code is governed by an ISC
+// license that can be found in the LICENSE file.
 
 import Foundation
 import UIKit
@@ -30,7 +32,7 @@ public extension UITableView {
         let nib = UINib(nibName: identifier, bundle: nil)
         self.register(nib, forHeaderFooterViewReuseIdentifier: identifier)
     }
-
+    
     /// Hides extra rows created by UIKit with no data to display.
     @discardableResult public func hideEmptyAndExtraRows() -> UITableView {
         tableFooterView = UIView()
@@ -43,8 +45,6 @@ public extension UITableView {
         return self
     }
 }
-
-import Foundation
 
 // MARK: - Properties
 public extension Bool {

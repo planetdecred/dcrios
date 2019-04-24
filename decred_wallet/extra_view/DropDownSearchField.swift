@@ -2,9 +2,9 @@
 //  DropDownSearchField.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018, The Decred developers
-// See LICENSE for details.
-//
+/// Copyright (c) 2018-2019 The Decred developers
+// Use of this source code is governed by an ISC
+// license that can be found in the LICENSE file.
 
 import UIKit
 
@@ -22,6 +22,7 @@ protocol SearchDataSourceProtocol: class {
 }
 
 class DropDownListDataSource: NSObject,  DropDownResultsListProtocol {
+    
     var onSelect: ((Int, String) -> Void)?
     var items: [String]?
     var cellIdentifier: String = ""
@@ -58,6 +59,7 @@ class DropDownListDataSource: NSObject,  DropDownResultsListProtocol {
 }
 
 class DropDownSearchField: UITextField, UITextFieldDelegate, SearchDataSourceProtocol {
+    
     var onTextChanged: (() -> Void)?
     var dropDownListPlaceholder: UIView?
     var itemsToSearch: [String]?

@@ -2,9 +2,9 @@
 //  Utils.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018, The Decred developers
-// See LICENSE for details.
-//
+// Copyright (c) 2018-2019 The Decred developers
+// Use of this source code is governed by an ISC
+// license that can be found in the LICENSE file.
 
 import UIKit
 import JGProgressHUD
@@ -15,19 +15,21 @@ extension Notification.Name {
 }
 
 func isWalletCreated() -> Bool{
-        let fm = FileManager()
-          let result = fm.fileExists(atPath: NSHomeDirectory()+"/Documents/dcrwallet/testnet3/wallet.db")
-            return result
+    let netType = infoForKey(GlobalConstants.Strings.NetType)!
+    let fm = FileManager()
+    let result = fm.fileExists(atPath: NSHomeDirectory()+"/Documents/dcrlibwallet/\(netType)/wallet.db")
+    return result
 }
+
 func showMsg(error:String,controller: UIViewController){
-   
     let alert = UIAlertController(title: "PIN mismatch", message: error, preferredStyle: .alert)
     let okAction = UIAlertAction(title: "Try again", style: UIAlertActionStyle.default, handler: nil)
     alert.addAction(okAction)
     DispatchQueue.main.async {
-    controller.present(alert, animated: true, completion: nil)
+        controller.present(alert, animated: true, completion: nil)
     }
 }
+
 func createMainWindow(){
     // create viewController code...
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -66,16 +68,64 @@ func saveCertificate(secretKey: String) {
         debugPrint("Could not create certificate file")
     }
 }
-func getPeerAddress(appInstance:UserDefaults)-> String{
-    let ip = appInstance.string(forKey: "pref_peer_ip")
-    if(ip?.elementsEqual(""))!{
+
+func getPeerAddress(appInstance:UserDefaults) -> String{
+    let ip = appInstance.string(forKey: "pref_peer_ip") ?? ""
+    if(ip.elementsEqual("")){
         return ""
     }
     else{
-        return (ip?.appending(":19108"))!
+        return (ip.appending(":19108"))
+    }
+}
+func getTime( millis : Int64) -> String {
+    var seconds = millis / 1000;
+    if (seconds > 60) {
+        let minutes = seconds / 60;
+        seconds = seconds % 60;
+        return "\(minutes) m \(seconds)s"
     }
     
+    return "\(seconds)s"
 }
+func calculateDays(seconds: Int64) -> String{
+    let duration = seconds // 2 minutes, 30 seconds
+    let formattedDuration  = duration/86400
+    if (formattedDuration == 0) {
+        return "< 1 day"
+    } else if (formattedDuration == 1) {
+        return "1 day";
+    }
+    
+    return "\(String(describing: formattedDuration)) days";
+}
+func getSyncTimeRemaining(millis: Int64,percentageCompleted : Int, syncView : Bool)-> String {
+    print("milli seconds = \(millis)")
+    if (millis > 1000) {
+        let seconds = millis / 1000;
+        
+        if (seconds > 60) {
+            let minutes = seconds / 60;
+            if (syncView) {
+             return   "\(percentageCompleted)% completed, \(minutes) min remaining."
+            }
+            return "\(percentageCompleted)% completed, \(minutes) min left"
+        }
+        
+        if (syncView) {
+            return "\(percentageCompleted)% completed, \(seconds) sec remaining."
+        }
+        return "\(percentageCompleted)% completed, \(seconds) sec left."
+        }
+    
+    if (syncView) {
+      return " \(percentageCompleted)% completed, < 1 seconds remaining."
+    }
+    return " \(percentageCompleted)% completed, < 1 seconds left."
+   
+}
+
+
 func generateQRCodeFor(with addres: String, forImageViewFrame: CGRect) -> UIImage? {
     guard let addrData = addres.data(using: String.Encoding.utf8) else {
         return nil
@@ -120,6 +170,7 @@ func generateQRCodeFor(with addres: String, forImageViewFrame: CGRect) -> UIImag
     
     return nil
 }
+
 func spendable(account:AccountsEntity) -> Decimal{
     let bRequireConfirm = UserDefaults.standard.bool(forKey: "pref_spend_fund_switch")
     let iRequireConfirm = (bRequireConfirm ) ? Int32(0) : Int32(2)
@@ -135,48 +186,61 @@ func spendable(account:AccountsEntity) -> Decimal{
     print(Decimal(int64Pointer.move()))
     return Decimal(int64Pointer.move()) / 100000000.0
 }
+
 func loadCertificate() throws ->  String {
     let filePath = NSHomeDirectory() + "/Documents/rpc.cert"
     return try String.init(contentsOfFile: filePath)
 }
 
-
-func getAttributedString(str: String, siz: CGFloat) -> NSAttributedString {
+func getAttributedString(str: String, siz: CGFloat, TexthexColor: UIColor) -> NSAttributedString {
     var tmpString = str
-    var Strr:NSString = ""
-    if !tmpString.contains("."){
-        Strr =  (str.appending(".00") as NSString)
-        tmpString = str.appending(".00")
-    }
-    let tmp2 = tmpString as NSString
-    let TmpDot = tmp2.range(of: ".")
-    if((tmpString.length - (TmpDot.location + 1)) == 1){
-        tmpString = str.appending("0")
+    if tmpString.contains("."){
+    var stt = tmpString as NSString?
+        let sttbTmp = stt
+        var atrStr = NSMutableAttributedString(string: stt! as String)
+        var dotRange = sttbTmp?.range(of: ".")
+        if ((dotRange!.location) > 3){
+            let  tmpstt = Int((sttbTmp!.substring(to: (dotRange!.location))))
+            let newValue = tmpstt!.formattedWithSeparator
+            stt = newValue.appending(sttbTmp!.substring(from: (dotRange!.location))) as NSString?
+            tmpString = newValue.appending(sttbTmp!.substring(from: (dotRange!.location)))
+        atrStr = NSMutableAttributedString(string: stt! as String)
+            dotRange = stt?.range(of: ".")
+            
+        }
+         
+ 
        
-    }
-    
-    let stt = tmpString.appending(" DCR") as NSString?
-    let atrStr = NSMutableAttributedString(string: stt! as String)
-    let dotRange = stt?.range(of: ".")
-    //print("Index = \(dotRange?.location)")
-    if(tmpString.length > ((dotRange?.location)!+2)) {
+    if(tmpString.length - ((dotRange?.location)!) <= 3){
+            return NSMutableAttributedString(string: tmpString.appending(" DCR") as String)
+        }
+    else if(tmpString.length > ((dotRange?.location)!+2)) {
+        atrStr.append(NSMutableAttributedString(string: " DCR"))
+        stt = (stt?.appending(((" DCR")))) as NSString?
         atrStr.addAttribute(NSAttributedStringKey.font,
                             value: UIFont(
-                                name: "Helvetica",
+                                name: "Inconsolata-Regular",
                                 size: siz)!,
                             range: NSRange(
                                 location:(dotRange?.location)!+3,
                                 length:(stt?.length)!-1 - ((dotRange?.location)!+2)))
-       
+        
         atrStr.addAttribute(NSAttributedStringKey.foregroundColor,
-                            value: UIColor(hex: "#091440"),
+                            value: TexthexColor,
                             range: NSRange(
-                                location:0,
+                                 location:0,
                                 length:(stt?.length)!))
         
-    }
+        }
     return atrStr
+    }
+    if(tmpString.length > 3) {
+        return NSMutableAttributedString(string: Int(tmpString)!.formattedWithSeparator.appending(" DCR") )
+        }
+    
+    return NSMutableAttributedString(string: tmpString.appending(" DCR") as String)
 }
+
 extension NSDecimalNumber {
     public func round(_ decimals:Int) -> NSDecimalNumber {
         return self.rounding(accordingToBehavior:
@@ -199,16 +263,34 @@ extension UITableViewCell{
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             [weak self] in
             self?.layer.removeAllAnimations()
-            // your code here
-        }
-        
-    }
-}
-extension UIButton {
-    func set(fontSize: CGFloat) {
-        if let titleLabel = titleLabel {
-            titleLabel.font = UIFont(name: titleLabel.font.fontName, size: fontSize)
         }
     }
 }
 
+extension UIButton {
+    func set(fontSize: CGFloat, name : String) {
+        if let titleLabel = titleLabel {
+            titleLabel.font = UIFont(name: name, size: fontSize)
+        }
+    }
+}
+extension BinaryInteger{
+    var formattedWithSeparator:
+        String{
+        return Formatter.withSeparator.string(for :self) ?? ","
+    }
+}
+
+extension Formatter{
+    static let withSeparator:
+        NumberFormatter = {
+            let formatter = NumberFormatter()
+            formatter.groupingSeparator = ","
+            formatter.numberStyle = .decimal
+            return formatter}()
+}
+
+func infoForKey(_ key: String) -> String? {
+    return (Bundle.main.infoDictionary?[key] as? String)?
+        .replacingOccurrences(of: "\\", with: "")
+}

@@ -1,15 +1,17 @@
 //
 //  UIViewController.swift
 //  Decred Wallet
-//  Copyright © 2018 The Decred developers.
-//  see LICENSE for details.
+//
+// Copyright (c) 2018-2019 The Decred developers
+// Use of this source code is governed by an ISC
+// license that can be found in the LICENSE file.
 
 import Foundation
 import UIKit
 extension UIViewController {
+    
     func setNavigationBarItem() {
         self.addLeftBarButtonWithImage(UIImage(named: "ic_menu_black_24dp")!)
-       // self.addRightBarButtonWithImage(UIImage(named: "ic_notifications_black_24dp")!)
         self.navigationController?.navigationBar.tintColor = UIColor.black
         self.slideMenuController()?.removeLeftGestures()
         self.slideMenuController()?.removeRightGestures()
@@ -19,7 +21,6 @@ extension UIViewController {
     
     func removeNavigationBarItem() {
         self.navigationItem.leftBarButtonItem = nil
-       // self.navigationItem.rightBarButtonItem = nil
         self.slideMenuController()?.removeLeftGestures()
         self.slideMenuController()?.removeRightGestures()
     }
@@ -47,6 +48,7 @@ extension UIViewController {
     /// Inspired by this answer
     /// http://stackoverflow.com/a/27301207/1568609
     var isModal: Bool {
+        
         if presentingViewController != nil {
             return true
         }
@@ -64,5 +66,14 @@ extension UIViewController {
         }
         
         return false
+    }
+    
+    func showMessageDialog(title: String, message: String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
+            alert.dismiss(animated: true, completion: nil)
+        }
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
     }
 }

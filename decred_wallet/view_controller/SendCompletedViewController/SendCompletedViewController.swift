@@ -1,18 +1,24 @@
 //  SendCompletedViewController.swift
 //  Decred Wallet
-//  Copyright © 2018 The Decred developers. All rights reserved.
-
+//
+// Copyright (c) 2018-2019 The Decred developers
+// Use of this source code is governed by an ISC
+// license that can be found in the LICENSE file.
 import UIKit
 
 class SendCompletedViewController: UIViewController {
-    @IBOutlet private weak var labelTransactionHash: UILabel!
+    
     var transactionHash: String?
     
+    @IBOutlet private weak var labelTransactionHash: UILabel!
     @IBOutlet weak var vContent: UIView!
+    
     var openDetails: (() -> Void)?
+    var closeView: (() -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         let layer = view.layer
         
         layer.frame = vContent.frame
@@ -30,6 +36,9 @@ class SendCompletedViewController: UIViewController {
     }
     
     @IBAction func closeAction(_ sender: UIButton) {
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: false) { [weak self] in
+            self?.closeView?()
+        }
+        
     }
 }

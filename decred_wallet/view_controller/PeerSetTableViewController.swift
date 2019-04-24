@@ -2,14 +2,14 @@
 //  PeerSetTableViewController.swift
 //  Decred Wallet
 //
-//  Created by Suleiman Abubakar on 18/05/2018.
-//  Copyright © 2018 The Decred developers. All rights reserved.
-//
+// Copyright (c) 2018-2019 The Decred developers
+// Use of this source code is governed by an ISC
+// license that can be found in the LICENSE file.
 
 import UIKit
 
 class PeerSetTableViewController: UITableViewController {
-
+    
     @IBOutlet weak var peer_ip: UITextField!
     
     override func viewDidLoad() {
@@ -19,8 +19,9 @@ class PeerSetTableViewController: UITableViewController {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
         self.navigationItem.title = "Connect to peer"
         // Do any additional setup after loading the view.
-        peer_ip?.text = UserDefaults.standard.string(forKey: "pref_peer_ip") ?? "0.0.0.0"
+        peer_ip?.text = UserDefaults.standard.string(forKey: "pref_peer_ip") ?? ""
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         self.peer_ip.becomeFirstResponder()
@@ -33,33 +34,43 @@ class PeerSetTableViewController: UITableViewController {
     
     @objc func save() -> Void {
         // save here
-        if !(peer_ip.text?.isEmpty)! && isValidIP(s: peer_ip.text!){
+        print("saving")
+        if (peer_ip.text?.isEmpty)! || (peer_ip.text)! == ""{
+            print("saving nothing")
+            UserDefaults.standard.set("", forKey: "pref_peer_ip")
+            UserDefaults.standard.synchronize()
+            self.navigationController?.popViewController(animated: true)
+            return
+        }
+        else if isValidIP(s: peer_ip.text!){
+            print("saving \(String(describing: peer_ip.text))")
             UserDefaults.standard.set(peer_ip.text, forKey: "pref_peer_ip")
             UserDefaults.standard.synchronize()
             self.navigationController?.popViewController(animated: true)
-        }
-        else{
+            return
+            }
+        else {
             self.showMessage(title: "Invalid input", userMessage: "please input a valid IP address", buttonTitle: "ok")
         }
-        
-        
     }
+    
     @objc func cancel() -> Void {
         self.navigationController?.popViewController(animated: true)
     }
+    
     func showMessage(title: String,userMessage : String, buttonTitle button:String) {
-        let uiAlert = UIAlertController(title: title, message: userMessage, preferredStyle: UIAlertControllerStyle.alert)
         
+        let uiAlert = UIAlertController(title: title, message: userMessage, preferredStyle: UIAlertControllerStyle.alert)
         let uiAction = UIAlertAction(title: button, style: UIAlertActionStyle.default, handler: nil)
         
         uiAlert.addAction(uiAction)
         
         self.present(uiAlert, animated: true, completion: nil)
     }
+    
     func isValidIP(s: String) -> Bool {
         let parts = s.components(separatedBy: ".")
-    let nums = parts.flatMap { Int($0) }
-    return parts.count == 4 && nums.count == 4 && nums.filter { $0 >= 0 && $0 < 256}.count == 4
+        let nums = parts.flatMap { Int($0) }
+        return parts.count == 4 && nums.count == 4 && nums.filter { $0 >= 0 && $0 < 256}.count == 4
     }
-
 }

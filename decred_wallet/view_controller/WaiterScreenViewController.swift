@@ -1,9 +1,10 @@
 //
 //  WaiterScreenViewController.swift
 //  Decred Wallet
-//  Copyright (c) 2018, The Decred developers
-//  See LICENSE for details.
-//
+
+// Copyright (c) 2018-2019 The Decred developers
+// Use of this source code is governed by an ISC
+// license that can be found in the LICENSE file.
 
 import UIKit
 
@@ -17,39 +18,45 @@ protocol WaiterScreenProtocol {
 
 
 class WaiterScreenViewController: UIViewController, WaiterScreenProtocol {
-    var onTapAnimation: (() -> Void)?
-//    private lazy var doubleTap: UITapGestureRecognizer = {
-//        let tap: UITapGestureRecognizer = UITapGestureRecognizer.init(target: <#T##Any?#>, action: <#T##Selector?#>)
-//    }()
     
+    var onTapAnimation: (() -> Void)?
     var onFinish:(()->Void)?
+    
     var timer: Timer?
+    
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var logo: UIImageView!
+    @IBOutlet weak var testnetLabel: UILabel!
+    
     var  groupAnimation: CAAnimationGroup?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        girload.backgroundColor = UIColor(hex: "#F3F5F6")
-        
-        
-        
+        let isTestnet = Bool(infoForKey(GlobalConstants.Strings.IS_TESTNET)!)!
+        if(isTestnet) {
+            testnetLabel.isHidden = false
+            testnetLabel.text = "testnet"
+        }
     }
-    @IBOutlet weak var girload: UIWebView!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let url = Bundle.main.url(forResource: "splashLoader", withExtension: "gif")!
-        let data = try! Data(contentsOf: url)
-        girload.load(data, mimeType: "image/gif", textEncodingName: "UTF-8", baseURL: NSURL() as URL)
+  
+        logo.loadGif(name: "splashLogo")
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        set(duration: 5)
         
-       set(duration: 5)
+        if isWalletCreated(){
+            set(label: "Opening wallet...")
+        }
+        
     }
     
     func set(label: String) {
+        
         self.label.text = label
     }
     
@@ -58,10 +65,10 @@ class WaiterScreenViewController: UIViewController, WaiterScreenProtocol {
             self.stopAnimation()
         })
     }
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         self.dismiss(animated: true, completion: nil)
-        
     }
     
     @IBAction func goToSeetings(_ sender: Any) {
@@ -70,7 +77,6 @@ class WaiterScreenViewController: UIViewController, WaiterScreenProtocol {
     }
     
     func stopAnimation() {
-       // logo.image = nil
         onFinish?()
     }
 }
