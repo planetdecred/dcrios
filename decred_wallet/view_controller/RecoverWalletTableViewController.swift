@@ -26,11 +26,12 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         recognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressHappened))
         self.confirm_btn.addGestureRecognizer(recognizer!)
         seedtmp = loadSeedWordsList()
-        registerObserverForKeyboardNotification()
         
+        registerObserverForKeyboardNotification()
     }
     
     // MARK: - Table view data source
@@ -50,15 +51,26 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
     }
     
     @objc func onKeyboardWillShow(_ notification: Notification){
-        let notificationInfo = notification.userInfo
-        let keyboardFrame = (notificationInfo?[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-        let f = tableView.frame
-        tableView.frame = CGRect(x: f.origin.x, y: f.origin.y, width: f.size.width, height: f.size.height - keyboardFrame.size.height + (tableView.tableHeaderView?.frame.size.height)! )
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue,
+            let window = self.view.window?.frame {
+            // We're not just minusing the kb height from the view height because
+            // the view could already have been resized for the keyboard before
+            self.view.frame = CGRect(x: self.view.frame.origin.x,
+                                     y: self.view.frame.origin.y,
+                                     width: self.view.frame.width,
+                                     height: window.origin.y + window.height - keyboardSize.height)
+        }
     }
     
     @objc func onKeyboardWillHide(_ notification: Notification){
-        let f = view.frame
-        tableView.frame = CGRect(x: 0, y: 0, width: f.size.width, height: f.size.height)
+        if let window = self.view.window?.frame {
+            // We're not just minusing the kb height from the view height because
+            // the view could already have been resized for the keyboard before
+            self.view.frame = CGRect(x: self.view.frame.origin.x,
+                                     y: self.view.frame.origin.y,
+                                     width: self.view.frame.width,
+                                     height: window.origin.y + window.height)
+        }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
