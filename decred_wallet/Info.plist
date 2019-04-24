@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NetType</key>
-	<string>$(NetType)</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -20,12 +18,36 @@
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
 	<string>2</string>
+	<key>Fabric</key>
+	<dict>
+		<key>APIKey</key>
+		<string>7e7665339b679dfd7ad19ebb8e859867ade8ca99</string>
+		<key>Kits</key>
+		<array>
+			<dict>
+				<key>KitInfo</key>
+				<dict/>
+				<key>KitName</key>
+				<string>Crashlytics</string>
+			</dict>
+		</array>
+	</dict>
+	<key>IS_TESTNET</key>
+	<string>$(IS_TESTNET)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>LogDir</key>
+	<string>$(LogDir)</string>
 	<key>NSCameraUsageDescription</key>
 	<string>To scan QR code</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>dcrios needs permission to save photos</string>
+	<key>NetType</key>
+	<string>$(NetType)</string>
+	<key>TargetTimePerBlock</key>
+	<string>$(TargetTimePerBlock)</string>
+	<key>TicketMaturity</key>
+	<string>$(TicketMaturity)</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>inconsolata_regular.ttf</string>
@@ -44,14 +66,6 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
-	<key>LogDir</key>
-	<string>$(LogDir)</string>
-	<key>TicketMaturity</key>
-	<string>$(TicketMaturity)</string>
-	<key>TargetTimePerBlock</key>
-	<string>$(TargetTimePerBlock)</string>
-	<key>IS_TESTNET</key>
-	<string>$(IS_TESTNET)</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
