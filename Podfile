@@ -13,8 +13,6 @@ target 'Decred Wallet' do
   pod 'Crashlytics'
   pod 'MBProgressHUD'
   pod 'SearchTextField'
-  pod 'AutoCompletion'
-  # pod 'IHProgressHUD', :git => 'https://github.com/Swiftify-Corp/IHProgressHUD.git'
 
 end
 

@@ -3753,82 +3753,58 @@
                                         </constraints>
                                         <viewLayoutGuide key="safeArea" id="1C0-sL-ncj"/>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="goa-fp-Y0X">
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="XFc-Sh-dQq">
                                         <rect key="frame" x="0.0" y="97" width="375" height="450"/>
-                                        <subviews>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="XFc-Sh-dQq">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="450"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <prototypes>
-                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="seedWordCell" rowHeight="36" id="Urh-a8-TU1" customClass="RecoveryWalletSeedWordsCell" customModule="DecredWallet" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="28" width="375" height="36"/>
-                                                        <autoresizingMask key="autoresizingMask"/>
-                                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Urh-a8-TU1" id="Q4l-eL-cma">
-                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="35.5"/>
-                                                            <autoresizingMask key="autoresizingMask"/>
-                                                            <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Word#1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mBc-7g-2Qz">
-                                                                    <rect key="frame" x="16" y="7.5" width="45" height="18"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="height" constant="18" id="3mk-tB-N13"/>
-                                                                    </constraints>
-                                                                    <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
-                                                                    <color key="textColor" red="0.53725490196078429" green="0.59215686274509804" blue="0.6470588235294118" alpha="1" colorSpace="calibratedRGB"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EFz-uM-LOu" customClass="AutoCompletionTextField">
-                                                                    <rect key="frame" x="69" y="7" width="290" height="22"/>
-                                                                    <color key="backgroundColor" red="0.92941176470588238" green="0.93725490196078431" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="height" constant="22" id="5v1-Mk-50J"/>
-                                                                    </constraints>
-                                                                    <nil key="textColor"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                    <textInputTraits key="textInputTraits"/>
-                                                                </textField>
-                                                            </subviews>
-                                                            <constraints>
-                                                                <constraint firstItem="EFz-uM-LOu" firstAttribute="centerY" secondItem="Q4l-eL-cma" secondAttribute="centerY" constant="0.25" id="6Jo-P1-mpI"/>
-                                                                <constraint firstItem="mBc-7g-2Qz" firstAttribute="centerY" secondItem="Q4l-eL-cma" secondAttribute="centerY" constant="-1.25" id="IxO-W3-Uxd"/>
-                                                                <constraint firstAttribute="trailing" secondItem="EFz-uM-LOu" secondAttribute="trailing" constant="16" id="Seh-eb-d3H"/>
-                                                                <constraint firstItem="EFz-uM-LOu" firstAttribute="leading" secondItem="mBc-7g-2Qz" secondAttribute="trailing" constant="8" id="smX-rI-GEa"/>
-                                                                <constraint firstItem="mBc-7g-2Qz" firstAttribute="leading" secondItem="Q4l-eL-cma" secondAttribute="leading" constant="16" id="z6F-VX-KMi"/>
-                                                            </constraints>
-                                                        </tableViewCellContentView>
-                                                        <color key="backgroundColor" red="0.95294117647058818" green="0.96078431372549022" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <connections>
-                                                            <outlet property="lbSeedWordNum" destination="mBc-7g-2Qz" id="DY8-tK-mp8"/>
-                                                            <outlet property="seedWordAutoComplete" destination="EFz-uM-LOu" id="R1a-rI-pDg"/>
-                                                        </connections>
-                                                    </tableViewCell>
-                                                </prototypes>
-                                                <sections/>
-                                                <connections>
-                                                    <outlet property="dataSource" destination="Dk9-z5-XZ1" id="h5A-k3-fA1"/>
-                                                    <outlet property="delegate" destination="Dk9-z5-XZ1" id="TvM-Yb-clP"/>
-                                                </connections>
-                                            </tableView>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rCw-YF-Vgf">
-                                                <rect key="frame" x="20" y="75" width="335" height="300"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="300" id="khH-wf-u3A"/>
-                                                </constraints>
-                                                <viewLayoutGuide key="safeArea" id="VrN-Mg-nmy"/>
-                                            </view>
-                                        </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstItem="XFc-Sh-dQq" firstAttribute="top" secondItem="goa-fp-Y0X" secondAttribute="top" id="3xD-KK-EVC"/>
-                                            <constraint firstItem="rCw-YF-Vgf" firstAttribute="centerX" secondItem="goa-fp-Y0X" secondAttribute="centerX" id="Aop-PU-FEG"/>
-                                            <constraint firstItem="rCw-YF-Vgf" firstAttribute="centerY" secondItem="goa-fp-Y0X" secondAttribute="centerY" id="LfL-3Q-ZPa"/>
-                                            <constraint firstItem="rCw-YF-Vgf" firstAttribute="leading" secondItem="goa-fp-Y0X" secondAttribute="leading" constant="20" id="QQc-6x-gn5"/>
-                                            <constraint firstAttribute="trailing" secondItem="rCw-YF-Vgf" secondAttribute="trailing" constant="20" id="XsP-oy-nCf"/>
-                                            <constraint firstAttribute="bottom" secondItem="XFc-Sh-dQq" secondAttribute="bottom" id="fhc-Cl-9P3"/>
-                                            <constraint firstItem="XFc-Sh-dQq" firstAttribute="leading" secondItem="goa-fp-Y0X" secondAttribute="leading" id="p73-JN-4B1"/>
-                                            <constraint firstAttribute="trailing" secondItem="XFc-Sh-dQq" secondAttribute="trailing" id="sND-VG-8V8"/>
-                                        </constraints>
-                                    </view>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="seedWordCell" rowHeight="36" id="Urh-a8-TU1" customClass="RecoveryWalletSeedWordsCell" customModule="DecredWallet" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="28" width="375" height="36"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Urh-a8-TU1" id="Q4l-eL-cma">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="35.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Word#1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mBc-7g-2Qz">
+                                                            <rect key="frame" x="16" y="7.5" width="45" height="18"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="18" id="3mk-tB-N13"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                                                            <color key="textColor" red="0.53725490196078429" green="0.59215686274509804" blue="0.6470588235294118" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EFz-uM-LOu" customClass="SearchTextField" customModule="SearchTextField">
+                                                            <rect key="frame" x="69" y="7" width="290" height="22"/>
+                                                            <color key="backgroundColor" red="0.92941176470588238" green="0.93725490196078431" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="22" id="5v1-Mk-50J"/>
+                                                            </constraints>
+                                                            <nil key="textColor"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <textInputTraits key="textInputTraits"/>
+                                                        </textField>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="EFz-uM-LOu" firstAttribute="centerY" secondItem="Q4l-eL-cma" secondAttribute="centerY" constant="0.25" id="6Jo-P1-mpI"/>
+                                                        <constraint firstItem="mBc-7g-2Qz" firstAttribute="centerY" secondItem="Q4l-eL-cma" secondAttribute="centerY" constant="-1.25" id="IxO-W3-Uxd"/>
+                                                        <constraint firstAttribute="trailing" secondItem="EFz-uM-LOu" secondAttribute="trailing" constant="16" id="Seh-eb-d3H"/>
+                                                        <constraint firstItem="EFz-uM-LOu" firstAttribute="leading" secondItem="mBc-7g-2Qz" secondAttribute="trailing" constant="8" id="smX-rI-GEa"/>
+                                                        <constraint firstItem="mBc-7g-2Qz" firstAttribute="leading" secondItem="Q4l-eL-cma" secondAttribute="leading" constant="16" id="z6F-VX-KMi"/>
+                                                    </constraints>
+                                                </tableViewCellContentView>
+                                                <color key="backgroundColor" red="0.95294117647058818" green="0.96078431372549022" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
+                                                <connections>
+                                                    <outlet property="lbSeedWordNum" destination="mBc-7g-2Qz" id="DY8-tK-mp8"/>
+                                                    <outlet property="seedWordAutoComplete" destination="EFz-uM-LOu" id="R1a-rI-pDg"/>
+                                                </connections>
+                                            </tableViewCell>
+                                        </prototypes>
+                                        <sections/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="Dk9-z5-XZ1" id="h5A-k3-fA1"/>
+                                            <outlet property="delegate" destination="Dk9-z5-XZ1" id="TvM-Yb-clP"/>
+                                        </connections>
+                                    </tableView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yhb-YO-2Wy">
                                         <rect key="frame" x="0.0" y="547" width="375" height="100"/>
                                         <subviews>
@@ -3900,7 +3876,6 @@
                     <connections>
                         <outlet property="confirm_btn" destination="kxh-rN-EuN" id="n7W-L6-LbF"/>
                         <outlet property="tableView" destination="XFc-Sh-dQq" id="zun-zO-xM8"/>
-                        <outlet property="vDropDownPlaceholder" destination="rCw-YF-Vgf" id="iS7-nc-gBH"/>
                         <segue destination="ciV-Nm-crU" kind="show" identifier="confirmSeedSegue" id="UCy-dU-LGn"/>
                     </connections>
                 </viewController>

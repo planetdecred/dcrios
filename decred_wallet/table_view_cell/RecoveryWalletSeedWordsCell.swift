@@ -7,14 +7,13 @@
 // license that can be found in the LICENSE file.
 
 import UIKit
-import AutoCompletion
+import SearchTextField
 
-class RecoveryWalletSeedWordsCell: UITableViewCell, AutoCompletionTextFieldDataSource, AutoCompletionTextFieldDelegate {
-    
+class RecoveryWalletSeedWordsCell: UITableViewCell, UITextFieldDelegate {
     @IBOutlet weak var lbSeedWordNum: UILabel!
-    @IBOutlet weak var seedWordAutoComplete: AutoCompletionTextField!
+    @IBOutlet weak var seedWordAutoComplete: SearchTextField!
     
-    var seedWords: [String]?
+    var seedWords: [String] = []
     
     func setup(wordNum: Int, currentWord: String?, seedWords: [String]) {
         self.seedWords = seedWords
@@ -23,30 +22,27 @@ class RecoveryWalletSeedWordsCell: UITableViewCell, AutoCompletionTextFieldDataS
         
         self.seedWordAutoComplete.text = currentWord ?? ""
         self.seedWordAutoComplete.autocorrectionType = .no
-        self.seedWordAutoComplete.suggestionsResultDataSource = self
-        self.seedWordAutoComplete.suggestionsResultDelegate = self
-    }
-    
-    /**
-     Called by AutoCompletionTextField to get items to display in autoselection drop down.
-     */
-    func fetchSuggestions(forIncompleteString incompleteString: String!,
-                          withCompletionBlock completion: FetchCompletionBlock!) {
+        self.seedWordAutoComplete.minCharactersNumberToStartFiltering = 3
         
-        let matchingWords = self.seedWords?.filter({ return ($0.lowercased().hasPrefix(incompleteString.lowercased()) && incompleteString.count > 2) })
-        completion(matchingWords, incompleteString)
+        self.seedWordAutoComplete.delegate = self
     }
     
-    func textField(_ textField: AutoCompletionTextField!, didSelectItem selectedItem: Any!) {
-        
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        self.seedWordAutoComplete.filterStrings(seedWords)
+        return true
     }
     
-    var onSeedWordSelected: AutoCompletionTextFieldDelegate {
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        self.seedWordAutoComplete.filterStrings([])
+        return true
+    }
+    
+    var onSeedWordSelected: ((_ filteredResults: [SearchTextFieldItem], _ itemPosition: Int) -> Void)? {
         set{
-            self.seedWordAutoComplete.suggestionsResultDelegate = newValue
+            self.seedWordAutoComplete.itemSelectionHandler = newValue
         }
         get{
-            return self.seedWordAutoComplete.suggestionsResultDelegate
+            return self.seedWordAutoComplete.itemSelectionHandler
         }
     }
 }

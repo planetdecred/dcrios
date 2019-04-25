@@ -8,33 +8,24 @@
 import UIKit
 
 class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
     @IBOutlet var tableView : UITableView!
-    @IBOutlet var vDropDownPlaceholder: UIView! // todo remove
     @IBOutlet weak var confirm_btn: UIButton!
     
-    var currentTextField : UITextField?
-    var nextTextField : UITextField?
-    var textFields: [UITextField?] = []
-    
-    var allSeedWords : [String] = []
+    var validSeedWords : [String] = []
     var userEnteredSeedWords: [String?] = []
     
     let testSeedWords = "reform aftermath printer warranty gremlin paragraph beehive stethoscope regain disruptive regain Bradbury chisel October trouble forever Algol applicant island infancy physique paragraph woodlark hydraulic snapshot backwater ratchet surrender revenge customer retouch intention minnow"
     
-    var recognizer:UIGestureRecognizer?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        recognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressHappened))
-        self.confirm_btn.addGestureRecognizer(recognizer!)
-        allSeedWords = loadSeedWordsList()
+        validSeedWords = loadSeedWordsList()
+        
+        let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressHappened))
+        self.confirm_btn.addGestureRecognizer(longPressGestureRecognizer)
         
         registerObserverForKeyboardNotification()
     }
-    
-    // MARK: - Table view data source
     
     deinit {
         unregisterObserverForKeyboardNotification()
@@ -53,8 +44,7 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
     @objc func onKeyboardWillShow(_ notification: Notification){
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue,
             let window = self.view.window?.frame {
-            // We're not just minusing the kb height from the view height because
-            // the view could already have been resized for the keyboard before
+            // Minusing keyboard height from window height
             self.view.frame = CGRect(x: self.view.frame.origin.x,
                                      y: self.view.frame.origin.y,
                                      width: self.view.frame.width,
@@ -64,8 +54,7 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
     
     @objc func onKeyboardWillHide(_ notification: Notification){
         if let window = self.view.window?.frame {
-            // We're not just minusing the kb height from the view height because
-            // the view could already have been resized for the keyboard before
+            // Resize main view to window height
             self.view.frame = CGRect(x: self.view.frame.origin.x,
                                      y: self.view.frame.origin.y,
                                      width: self.view.frame.width,
@@ -86,44 +75,35 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
         let currentWord = userEnteredSeedWords.count <= indexPath.row ? "" : userEnteredSeedWords[indexPath.row] ?? ""
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "seedWordCell", for: indexPath) as? RecoveryWalletSeedWordsCell
-        cell?.setup(wordNum: wordNum, currentWord: currentWord, seedWords: allSeedWords)
-        cell?.seedWordAutoComplete.isEnabled = (indexPath.row == 0 || textFields.count < indexPath.row)
+        cell?.setup(wordNum: wordNum, currentWord: currentWord, seedWords: validSeedWords)
         
-        if indexPath.row > textFields.count {
-            textFields[indexPath.row] = cell?.seedWordAutoComplete
-        } else {
-            textFields.append(cell?.seedWordAutoComplete)
+         // enable cells that seeds have been selected for including next row to allow next seed input
+        cell?.seedWordAutoComplete.isEnabled = userEnteredSeedWords.count + 1 > indexPath.row
+        
+        cell?.onSeedWordSelected = {(filteredResults, itemPosition) in
+            let selectedWord = filteredResults[itemPosition].title
+
+            cell?.seedWordAutoComplete.text = selectedWord
+            if self.userEnteredSeedWords.count > indexPath.row {
+                self.userEnteredSeedWords[indexPath.row] = selectedWord
+            } else {
+                self.userEnteredSeedWords.append(selectedWord)
+            }
+
+            if indexPath.row < 32 {
+                let nextIndexPath = IndexPath(row: indexPath.row + 1, section: 0)
+                
+                // scroll next view into vertical middle
+                tableView.scrollToRow(at: nextIndexPath, at: .middle, animated: true)
+                
+                let nextCell = tableView.cellForRow(at: nextIndexPath) as? RecoveryWalletSeedWordsCell
+                nextCell?.seedWordAutoComplete.becomeFirstResponder()
+            } else {
+                cell?.seedWordAutoComplete.resignFirstResponder()
+            }
         }
-        
-//        cell?.onSeedWordSelected = {(pickedSeedWord, index) in
-//            let selectedWord = pickedSeedWord[index].title
-//
-//            cell?.seedAutoComplete.text = selectedWord
-//            self.seedWords.append(selectedWord)
-//
-//            if indexPath.row < 32 {
-//                let nextIndexPath = IndexPath(row: indexPath.row + 1, section: 0 )
-//                let next = tableView.cellForRow(at: nextIndexPath) as? RecoveryWalletSeedWordsCell
-//
-//                next?.seedAutoComplete.isEnabled = true
-//                next?.seedAutoComplete.becomeFirstResponder()
-//                tableView.scrollToRow(at: nextIndexPath, at: .middle, animated: true)
-//            } else {
-//                cell?.seedAutoComplete.resignFirstResponder()
-//            }
-//        }
         
         return cell!
-    }
-    
-    private func checkupSeed() {
-        let seed = userEnteredSeedWords.reduce("", { x, y in  x + " " + y!})
-        let flag = SingleInstance.shared.wallet?.verifySeed(seed)
-        if flag! {
-            self.performSegue(withIdentifier: "confirmSeedSegue", sender: nil)
-        } else {
-            show(error:"Seed is not valid")
-        }
     }
     
     private func loadSeedWordsList() -> [String] {
@@ -134,7 +114,13 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
     }
     
     @IBAction func onConfirm() {
-        checkupSeed()
+        let seed = userEnteredSeedWords.reduce("", { x, y in  x + " " + y!})
+        let flag = SingleInstance.shared.wallet?.verifySeed(seed)
+        if flag! {
+            self.performSegue(withIdentifier: "confirmSeedSegue", sender: nil)
+        } else {
+            show(error:"Seed is not valid")
+        }
     }
     
     @IBAction func onClear(_ sender: Any) {
@@ -177,11 +163,5 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
                 vc?.seedToVerify = testSeedWords
             }
         }
-    }
-}
-
-extension RecoverWalletTableViewController: UIScrollViewDelegate{
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        vDropDownPlaceholder.isHidden = true
     }
 }
