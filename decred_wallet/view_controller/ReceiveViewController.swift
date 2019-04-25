@@ -96,7 +96,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     private func showFirstWalletAddressAndQRCode() {
         
         self.account?.Acc.removeAll()
-        do{
+        do {
             let strAccount = try self.wallet?.getAccounts(0)
             self.account = try JSONDecoder().decode(GetAccountResponse.self, from: (strAccount?.data(using: .utf8))!)
         } catch let error{

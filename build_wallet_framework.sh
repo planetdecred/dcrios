@@ -24,7 +24,7 @@ cloneDcrlibwallet() {
 	mkdir -p $DCRLIBWALLET_GIT_DIR
 	git clone https://github.com/raedahgroup/dcrlibwallet.git $DCRLIBWALLET_GIT_DIR
 	# update with the appropriate tag/commit hash to checkout 
-	git checkout v1.0.0-rc1
+	git checkout v1.0.0
 	echo "done cloning dcrlibwallet"
 }
 
@@ -32,7 +32,7 @@ updateDcrlibwallet() {
 	cd $DCRLIBWALLET_GIT_DIR
 	git fetch
 	# update with the appropriate tag/commit hash to checkout 
-	git checkout v1.0.0-rc1
+	git checkout v1.0.0
 	echo "done updating dcrlibwallet"
 }
 
