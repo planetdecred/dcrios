@@ -97,6 +97,7 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
                 tableView.scrollToRow(at: nextIndexPath, at: .middle, animated: true)
                 
                 let nextCell = tableView.cellForRow(at: nextIndexPath) as? RecoveryWalletSeedWordsCell
+                nextCell?.seedWordAutoComplete.isEnabled = true
                 nextCell?.seedWordAutoComplete.becomeFirstResponder()
             } else {
                 cell?.seedWordAutoComplete.resignFirstResponder()
