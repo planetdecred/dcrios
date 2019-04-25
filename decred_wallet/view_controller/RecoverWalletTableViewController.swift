@@ -25,6 +25,7 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
         self.confirm_btn.addGestureRecognizer(longPressGestureRecognizer)
         
         registerObserverForKeyboardNotification()
+        self.hideKeyboardWhenTappedAround()
     }
     
     deinit {
@@ -93,8 +94,10 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
             if indexPath.row < 32 {
                 let nextIndexPath = IndexPath(row: indexPath.row + 1, section: 0)
                 
-                // scroll next view into vertical middle
-                tableView.scrollToRow(at: nextIndexPath, at: .middle, animated: true)
+                // scroll next view into vertical middle if it's a previously unfilled field
+                if self.userEnteredSeedWords.count <= nextIndexPath.row {
+                    tableView.scrollToRow(at: nextIndexPath, at: .middle, animated: true)
+                }
                 
                 let nextCell = tableView.cellForRow(at: nextIndexPath) as? RecoveryWalletSeedWordsCell
                 nextCell?.seedWordAutoComplete.isEnabled = true
@@ -127,6 +130,7 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
     @IBAction func onClear(_ sender: Any) {
         userEnteredSeedWords = []
         tableView.reloadData()
+        tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
     }
     
     var count = 0
