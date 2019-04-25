@@ -7,29 +7,29 @@
 // license that can be found in the LICENSE file.
 import UIKit
 
-class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
+class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet var tableView : UITableView!
-    @IBOutlet var vDropDownPlaceholder: UIView!
+    @IBOutlet var vDropDownPlaceholder: UIView! // todo remove
     @IBOutlet weak var confirm_btn: UIButton!
     
     var currentTextField : UITextField?
     var nextTextField : UITextField?
     var textFields: [UITextField?] = []
     
-    var seedWords: [String?] = []
-    var suggestionWords: [String] = []
-    var seedtmp : [String] = []
-    var suggestions: [String] = []
+    var allSeedWords : [String] = []
+    var userEnteredSeedWords: [String?] = []
+    
+    let testSeedWords = "reform aftermath printer warranty gremlin paragraph beehive stethoscope regain disruptive regain Bradbury chisel October trouble forever Algol applicant island infancy physique paragraph woodlark hydraulic snapshot backwater ratchet surrender revenge customer retouch intention minnow"
+    
     var recognizer:UIGestureRecognizer?
-    let seedtmp2 = "reform aftermath printer warranty gremlin paragraph beehive stethoscope regain disruptive regain Bradbury chisel October trouble forever Algol applicant island infancy physique paragraph woodlark hydraulic snapshot backwater ratchet surrender revenge customer retouch intention minnow"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         recognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressHappened))
         self.confirm_btn.addGestureRecognizer(recognizer!)
-        seedtmp = loadSeedWordsList()
+        allSeedWords = loadSeedWordsList()
         
         registerObserverForKeyboardNotification()
     }
@@ -82,58 +82,42 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let wordNum = indexPath.row + 1
+        let currentWord = userEnteredSeedWords.count <= indexPath.row ? "" : userEnteredSeedWords[indexPath.row] ?? ""
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "seedWordCell", for: indexPath) as? RecoveryWalletSeedWordsCell
-        cell?.setup(wordNum: indexPath.row, word: seedWords.count <= indexPath.row ? "" : seedWords[indexPath.row] ?? "", seed: seedtmp, placeholder: vDropDownPlaceholder)
-        cell?.tfSeedWord.isEnabled = (indexPath.row == 0 || textFields.count < indexPath.row)
+        cell?.setup(wordNum: wordNum, currentWord: currentWord, seedWords: allSeedWords)
+        cell?.seedWordAutoComplete.isEnabled = (indexPath.row == 0 || textFields.count < indexPath.row)
         
         if indexPath.row > textFields.count {
-            textFields[indexPath.row] = cell?.tfSeedWord
+            textFields[indexPath.row] = cell?.seedWordAutoComplete
         } else {
-            textFields.append(cell?.tfSeedWord)
+            textFields.append(cell?.seedWordAutoComplete)
         }
         
-        cell?.onPickUpSeed = {(index, pickedSeedWord) in
-            
-            cell?.tfSeedWord.text = pickedSeedWord
-            self.seedWords.append(pickedSeedWord)
-            cell?.hideDropDown()
-            
-            if indexPath.row < 32 {
-                let nextIndexPath = IndexPath(row: indexPath.row + 1, section: 0 )
-                let next = tableView.cellForRow(at: nextIndexPath) as? RecoveryWalletSeedWordsCell
-                next?.tfSeedWord.updateSearchResults()
-                next?.tfSeedWord.isEnabled = true
-                next?.tfSeedWord.becomeFirstResponder()
-                tableView.scrollToRow(at: nextIndexPath, at: .middle, animated: true)
-                next?.updatePlaceholder(vertPosition: Int(self.dropdownPosition(for: nextIndexPath)))
-            } else {
-                cell?.tfSeedWord.resignFirstResponder()
-            }
-        }
+//        cell?.onSeedWordSelected = {(pickedSeedWord, index) in
+//            let selectedWord = pickedSeedWord[index].title
+//
+//            cell?.seedAutoComplete.text = selectedWord
+//            self.seedWords.append(selectedWord)
+//
+//            if indexPath.row < 32 {
+//                let nextIndexPath = IndexPath(row: indexPath.row + 1, section: 0 )
+//                let next = tableView.cellForRow(at: nextIndexPath) as? RecoveryWalletSeedWordsCell
+//
+//                next?.seedAutoComplete.isEnabled = true
+//                next?.seedAutoComplete.becomeFirstResponder()
+//                tableView.scrollToRow(at: nextIndexPath, at: .middle, animated: true)
+//            } else {
+//                cell?.seedAutoComplete.resignFirstResponder()
+//            }
+//        }
         
         return cell!
     }
     
-    private func dropdownPosition(for indexPath:IndexPath) -> CGFloat{
-        
-        let scrollOffset = self.tableView.contentOffset
-        
-        let nextCellPos = self.tableView.rectForRow(at: indexPath)
-        let dropDownHeight = vDropDownPlaceholder.frame.size.height
-        
-        let res = nextCellPos.origin.y - scrollOffset.y
-        if (indexPath.row < 3) {
-            return nextCellPos.origin.y + nextCellPos.size.height + 20
-        } else if (indexPath.row > 28) {
-            return res - dropDownHeight + nextCellPos.size.height * 3
-        }
-        
-        return res
-    }
-    
-    private func checkupSeed(){
-        let seed = seedWords.reduce("", { x, y in  x + " " + y!})
+    private func checkupSeed() {
+        let seed = userEnteredSeedWords.reduce("", { x, y in  x + " " + y!})
         let flag = SingleInstance.shared.wallet?.verifySeed(seed)
         if flag! {
             self.performSegue(withIdentifier: "confirmSeedSegue", sender: nil)
@@ -142,7 +126,7 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
         }
     }
     
-    private func loadSeedWordsList() -> [String]{
+    private func loadSeedWordsList() -> [String] {
         let seedWordsPath = Bundle.main.path(forResource: "wordlist", ofType: "txt")
         let seedWords = try? String(contentsOfFile: seedWordsPath ?? "")
         
@@ -154,7 +138,7 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
     }
     
     @IBAction func onClear(_ sender: Any) {
-        seedWords = []
+        userEnteredSeedWords = []
         tableView.reloadData()
     }
     
@@ -163,7 +147,7 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
         view.endEditing(true)
         count = count + 1
         if (count == 1){
-            let flag = SingleInstance.shared.wallet?.verifySeed(seedtmp2)
+            let flag = SingleInstance.shared.wallet?.verifySeed(testSeedWords)
             if flag! {
                 performSegue(withIdentifier: "confirmSeedSegue", sender: nil)
                 return
@@ -188,9 +172,9 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "confirmSeedSegue" {
             var vc = segue.destination as? SeedCheckupProtocol
-            vc?.seedToVerify = seedWords.reduce("", { x, y in  x + " " + y!})
+            vc?.seedToVerify = userEnteredSeedWords.reduce("", { x, y in  x + " " + y!})
             if (count == 1) {
-                vc?.seedToVerify = seedtmp2
+                vc?.seedToVerify = testSeedWords
             }
         }
     }

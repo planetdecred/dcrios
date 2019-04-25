@@ -7,54 +7,46 @@
 // license that can be found in the LICENSE file.
 
 import UIKit
+import AutoCompletion
 
-class RecoveryWalletSeedWordsCell: UITableViewCell, UITextFieldDelegate {
+class RecoveryWalletSeedWordsCell: UITableViewCell, AutoCompletionTextFieldDataSource, AutoCompletionTextFieldDelegate {
     
-    @IBOutlet weak var lbWordNum: UILabel!
-    @IBOutlet weak var tfSeedWord: DropDownSearchField!
+    @IBOutlet weak var lbSeedWordNum: UILabel!
+    @IBOutlet weak var seedWordAutoComplete: AutoCompletionTextField!
     
-    var seed:[String]?
-    var wordNum:Int = 0
+    var seedWords: [String]?
     
-    var onTextChanged:(()->Void)?{
+    func setup(wordNum: Int, currentWord: String?, seedWords: [String]) {
+        self.seedWords = seedWords
+        
+        self.lbSeedWordNum.text = "Word #\(wordNum)"
+        
+        self.seedWordAutoComplete.text = currentWord ?? ""
+        self.seedWordAutoComplete.autocorrectionType = .no
+        self.seedWordAutoComplete.suggestionsResultDataSource = self
+        self.seedWordAutoComplete.suggestionsResultDelegate = self
+    }
+    
+    /**
+     Called by AutoCompletionTextField to get items to display in autoselection drop down.
+     */
+    func fetchSuggestions(forIncompleteString incompleteString: String!,
+                          withCompletionBlock completion: FetchCompletionBlock!) {
+        
+        let matchingWords = self.seedWords?.filter({ return ($0.lowercased().hasPrefix(incompleteString.lowercased()) && incompleteString.count > 2) })
+        completion(matchingWords, incompleteString)
+    }
+    
+    func textField(_ textField: AutoCompletionTextField!, didSelectItem selectedItem: Any!) {
+        
+    }
+    
+    var onSeedWordSelected: AutoCompletionTextFieldDelegate {
         set{
-            tfSeedWord.onTextChanged = newValue
+            self.seedWordAutoComplete.suggestionsResultDelegate = newValue
         }
         get{
-            return tfSeedWord.onTextChanged
+            return self.seedWordAutoComplete.suggestionsResultDelegate
         }
-    }
-    
-    var onPickUpSeed:((Int, String)->Void)?{
-        set{
-            tfSeedWord.onSelect = newValue
-        }
-        get{
-            return tfSeedWord.onSelect
-        }
-    }
-    
-    func setup(wordNum:Int, word: String?, seed:[String], placeholder: UIView){
-        self.seed = seed
-        self.wordNum = wordNum
-        
-        lbWordNum.text = "Word #\(wordNum + 1)"
-        
-        tfSeedWord.dropDownListPlaceholder = placeholder
-        tfSeedWord.text = word ?? ""
-        tfSeedWord.autocorrectionType = .no
-        tfSeedWord.itemsToSearch = seed
-        tfSeedWord.vertPosition = self.frame.origin.y
-        tfSeedWord.setupDropdownTable()
-        tfSeedWord.onTextChanged = onTextChanged
-    }
-    
-    func hideDropDown(){
-        tfSeedWord.hideDropDown()
-        tfSeedWord.clean()
-    }
-    
-    func updatePlaceholder(vertPosition: Int){
-        tfSeedWord.updatePlaceholder(position:vertPosition)
     }
 }
