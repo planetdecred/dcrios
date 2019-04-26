@@ -30,7 +30,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.subheader.text = "Each time you request a payment, a new \naddress is created to protect your privacy."
+        self.subheader.text = "Each time you request a payment, a new address is created to protect your privacy."
         // TAP Gesture
         self.setupExtraUI()
                self.showFirstWalletAddressAndQRCode()
