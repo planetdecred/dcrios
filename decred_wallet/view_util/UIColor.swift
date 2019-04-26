@@ -10,6 +10,9 @@ import Foundation
 import UIKit
 
 extension UIColor {
+    struct DecredColors  {
+        static let Warning = UIColor.init(hex: "#ED6D47")
+    }
     
     convenience init(hex: String) {
         self.init(hex: hex, alpha:1)
