@@ -12,7 +12,7 @@ import Dcrlibwallet
 import SafariServices
 
 
-class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDelegate, QRCodeReaderViewControllerDelegate, PinEnteredProtocol {
+class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDelegate, QRCodeReaderViewControllerDelegate {
     var pinInput: String?
     
     @IBOutlet weak var pasteBtn: UIButton!

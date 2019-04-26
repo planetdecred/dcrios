@@ -10,7 +10,10 @@ import UIKit
 import JGProgressHUD
 import Dcrlibwallet
 
-class PinSetupViewController: UIViewController, SeedCheckupProtocol, StartUpPasswordProtocol, PinEnteredProtocol {
+class PinSetupViewController: UIViewController {
+    var pageTitle: String?
+    var onUserEnteredPin: ((_ pin: String) -> Void)?
+    
     var senders: String?
     @IBOutlet weak var cancelBtn: UIButton!
     var very = false
@@ -19,6 +22,7 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol, StartUpPass
     var pass_pinToVerify: String?
     var seedToVerify: String?
     var VerifyPin = ""
+    
     var pin: String = "" {
         didSet {
             print("triggered")
@@ -196,8 +200,8 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol, StartUpPass
             }
         } else if (sender == "settingsChangeSpendingPin") {
             let sendVC = storyboard!.instantiateViewController(withIdentifier: "SecurityViewController") as! SecurityViewController
-            sendVC.senders = "settingsChangeSpending"
-            sendVC.pass_pinToVerify = self.pin
+//            sendVC.senders = "settingsChangeSpending"
+//            sendVC.pass_pinToVerify = self.pin
             self.navigationController?.pushViewController(sendVC, animated: true)
         }else if (sender == "settingsChangeStartup") {
             if very {
@@ -220,8 +224,8 @@ class PinSetupViewController: UIViewController, SeedCheckupProtocol, StartUpPass
             }
         } else if (sender == "settingsChangeStartupPin") {
             let sendVC = storyboard!.instantiateViewController(withIdentifier: "SecurityViewController") as! SecurityViewController
-            sendVC.senders = "settingsChangeStartup"
-            sendVC.pass_pinToVerify = self.pin
+//            sendVC.senders = "settingsChangeStartup"
+//            sendVC.pass_pinToVerify = self.pin
             self.navigationController?.pushViewController(sendVC, animated: true)
         } else if (sender == "spendFund" || sender == "createFnc" || sender == "signMessage" || sender == "settingsDeleteWallet") {
             pinInput = pin

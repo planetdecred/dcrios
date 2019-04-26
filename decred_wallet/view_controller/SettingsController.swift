@@ -7,11 +7,7 @@
 // license that can be found in the LICENSE file.
 import Foundation
 import UIKit
-
-protocol StartUpPasswordProtocol {
-    var senders: String?{get set}
-    var pass_pinToVerify:String?{get set}
-}
+import JGProgressHUD
 
 class SettingsController: UITableViewController  {
     
@@ -181,10 +177,64 @@ class SettingsController: UITableViewController  {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "SetstartupPin_pas"{
-            var startUp = segue.destination as?
-            StartUpPasswordProtocol
-            startUp?.senders = "settings"
+        if segue.identifier == "setStartupPinOrPassword" {
+            let securityVC = segue.destination as! SecurityViewController
+            securityVC.onUserEnteredPinOrPassword = self.setStartupPinOrPassword
+            // "Password" or "Pin" will be appended when user selects the desired tab on the security vc
+            securityVC.pageTitlePrefix = "Create Startup"
+        }
+    }
+    
+    func setStartupPinOrPassword(_ pinOrPassword: String, _ securityType: String) {
+        self.changeWalletPublicPassphrase(current: "", new: pinOrPassword, type: securityType)
+    }
+    
+    func changeWalletPublicPassphrase(current currentPassword: String, new newPinOrPassword: String, type securityType: String) {
+        var progressHud: JGProgressHUD
+        var currentPublicPassphrase, newPublicPassphrase: String
+        
+        if currentPassword == "" {
+            currentPublicPassphrase = "public" // use default passphrase as current passphrase
+        } else {
+            currentPublicPassphrase = currentPassword
+        }
+        
+        if newPinOrPassword == "" {
+            newPublicPassphrase = "public" // set new passphrase to default i.e. "public"
+            progressHud = showProgressHud(with: "Removing security...")
+        } else {
+            newPublicPassphrase = newPinOrPassword
+            progressHud = showProgressHud(with: "Securing wallet...")
+        }
+        
+        let oldPublicPass = (currentPublicPassphrase as NSString).data(using: String.Encoding.utf8.rawValue)!
+        let newPublicPass = (newPublicPassphrase as NSString).data(using: String.Encoding.utf8.rawValue)!
+        
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let this = self else { return }
+            
+            do {
+                try SingleInstance.shared.wallet?.changePublicPassphrase(oldPublicPass, newPass: newPublicPass)
+                
+                DispatchQueue.main.async {
+                    progressHud.dismiss()
+                    
+                    if newPinOrPassword == "" {
+                        UserDefaults.standard.set(false, forKey: "secure_wallet")
+                    } else {
+                        UserDefaults.standard.set(true, forKey: "secure_wallet")
+                        UserDefaults.standard.setValue(securityType, forKey: "securitytype")
+                    }
+                    
+                    UserDefaults.standard.synchronize()
+                }
+                return
+            } catch let error {
+                DispatchQueue.main.async {
+                    progressHud.dismiss()
+                    this.showMessageDialog(title: "Warning", message: error.localizedDescription)
+                }
+            }
         }
     }
     
@@ -200,46 +250,105 @@ class SettingsController: UITableViewController  {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (indexPath.section == 0) {
-            if (indexPath.row == 1) {
-                if (start_Pin.isOn) {
-                    if (UserDefaults.standard.string(forKey: "securitytype") == "PASSWORD") {
-                        let sendVC = storyboard!.instantiateViewController(withIdentifier: "StartUpPasswordViewController") as! StartUpPasswordViewController
-                        sendVC.senders = "settings"
-                        self.navigationController?.pushViewController(sendVC, animated: true)
-                    } else {
-                        let pinSetupVC = storyboard!.instantiateViewController(withIdentifier: "PinSetupViewController") as! PinSetupViewController
-                        pinSetupVC.isSpendingPassword = false
-                        pinSetupVC.isSecure = true
-                        self.navigationController?.pushViewController(pinSetupVC, animated: true)
-                    }
-                } else {
-                    self.performSegue(withIdentifier: "SetstartupPin_pas", sender: self)
+        if (indexPath.section != 0) {
+            return
+        }
+        
+        switch indexPath.row {
+        case 0: // change spending pin/passphrase
+            self.changeSpendingPasswordOrPin()
+            
+        case 1: // startup pin or password
+            if (start_Pin.isOn) {
+                self.clearWalletPasswordOrPin()
+            } else {
+                self.performSegue(withIdentifier: "setStartupPinOrPassword", sender: self)
+            }
+            
+        case 2: // spend unconfirmed funds
+            if (UserDefaults.standard.string(forKey: "startupSecureType") == "PASSWORD") {
+                let sendVC = storyboard!.instantiateViewController(withIdentifier: "StartUpPasswordViewController") as! RequestPasswordViewController
+                sendVC.senders = "settingsChangeStartup"
+                self.navigationController?.pushViewController(sendVC, animated: true)
+            } else {
+                let pinSetupVC = storyboard!.instantiateViewController(withIdentifier: "PinSetupViewController") as! PinSetupViewController
+                pinSetupVC.isSpendingPassword = false
+                pinSetupVC.isChange = true
+                self.navigationController?.pushViewController(pinSetupVC, animated: true)
+            }
+            
+        default:
+            break
+        }
+    }
+    
+    func changeSpendingPasswordOrPin() {
+        // init secutity vc to use in getting new spending password or pin from user after the current password/pin is gotten
+        let securityVC = storyboard!.instantiateViewController(withIdentifier: "SecurityViewController") as! SecurityViewController
+        securityVC.pageTitlePrefix = "Change Spending"
+        
+        // get current password or pin from user and set wallet private passphrase
+        let afterUserEntersPasswordOrPin = { (currentPinOrPassword: String) in
+            securityVC.onUserEnteredPinOrPassword = { (newPinOrPassword, securityType) in
+                self.changeWalletSpendingPassphrase(current: currentPinOrPassword, new: newPinOrPassword, type: securityType)
+            }
+            self.navigationController?.pushViewController(securityVC, animated: true)
+        }
+        
+        if (UserDefaults.standard.string(forKey: "spendingSecureType") == "PASSWORD") {
+            let requestPasswordVC = storyboard!.instantiateViewController(withIdentifier: "RequestPasswordViewController") as! RequestPasswordViewController
+            requestPasswordVC.onUserEnteredPinOrPassword = afterUserEntersPasswordOrPin
+            self.navigationController?.pushViewController(requestPasswordVC, animated: true)
+        } else {
+            let pinSetupVC = storyboard!.instantiateViewController(withIdentifier: "PinSetupViewController") as! PinSetupViewController
+            pinSetupVC.isSpendingPassword = true
+            pinSetupVC.isChange = true
+            self.navigationController?.pushViewController(pinSetupVC, animated: true)
+        }
+    }
+    
+    func changeWalletSpendingPassphrase(current currentPassphrase: String, new newPassphrase: String, type securityType: String) {
+        let progressHud = showProgressHud(with: "Changing spending password...")
+        
+        let oldPrivatePass = (currentPassphrase as NSString).data(using: String.Encoding.utf8.rawValue)!
+        let newPrivatePass = (newPassphrase as NSString).data(using: String.Encoding.utf8.rawValue)!
+        
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let this = self else { return }
+            
+            do {
+                try SingleInstance.shared.wallet?.changePrivatePassphrase(oldPrivatePass, newPass: newPrivatePass)
+                DispatchQueue.main.async {
+                    progressHud.dismiss()
+                    UserDefaults.standard.setValue(securityType, forKey: "spendingSecureType")
+                    UserDefaults.standard.synchronize()
                 }
-            } else if (indexPath.row == 0) {
-                if (UserDefaults.standard.string(forKey: "spendingSecureType") == "PASSWORD") {
-                    let sendVC = storyboard!.instantiateViewController(withIdentifier: "StartUpPasswordViewController") as! StartUpPasswordViewController
-                    sendVC.senders = "settingsChangeSpending"
-                    self.navigationController?.pushViewController(sendVC, animated: true)
-                } else {
-                    let pinSetupVC = storyboard!.instantiateViewController(withIdentifier: "PinSetupViewController") as! PinSetupViewController
-                    pinSetupVC.isSpendingPassword = true
-                    pinSetupVC.isChange = true
-                    self.navigationController?.pushViewController(pinSetupVC, animated: true)
+            } catch let error {
+                DispatchQueue.main.async {
+                    progressHud.dismiss()
+                    this.showAlert(message: error.localizedDescription, title: "Warning")
                 }
             }
-            else if (indexPath.row == 2) {
-                if (UserDefaults.standard.string(forKey: "startupSecureType") == "PASSWORD") {
-                    let sendVC = storyboard!.instantiateViewController(withIdentifier: "StartUpPasswordViewController") as! StartUpPasswordViewController
-                    sendVC.senders = "settingsChangeStartup"
-                    self.navigationController?.pushViewController(sendVC, animated: true)
-                } else {
-                    let pinSetupVC = storyboard!.instantiateViewController(withIdentifier: "PinSetupViewController") as! PinSetupViewController
-                    pinSetupVC.isSpendingPassword = false
-                    pinSetupVC.isChange = true
-                    self.navigationController?.pushViewController(pinSetupVC, animated: true)
-                }
-            }
+        }
+    }
+    
+    func clearWalletPasswordOrPin() {
+        // get current password or pin from user and clear security
+        let afterUserEntersPasswordOrPin = { currentStartupPinOrPassword in
+            self.changeWalletPublicPassphrase(current: currentStartupPinOrPassword, new: "", type: "")
+        }
+        
+        // show the appropriate vc to read current pin or password
+        if (UserDefaults.standard.string(forKey: "securitytype") == "PASSWORD") {
+            let requestPasswordVC = storyboard!.instantiateViewController(withIdentifier: "RequestPasswordViewController") as! RequestPasswordViewController
+            requestPasswordVC.prompt = "Enter Current Password"
+            requestPasswordVC.onUserEnteredPinOrPassword = afterUserEntersPasswordOrPin
+            self.navigationController?.pushViewController(requestPasswordVC, animated: true)
+        } else {
+            let pinSetupVC = storyboard!.instantiateViewController(withIdentifier: "PinSetupViewController") as! PinSetupViewController
+            pinSetupVC.isSpendingPassword = false
+            pinSetupVC.isSecure = true
+            self.navigationController?.pushViewController(pinSetupVC, animated: true)
         }
     }
     
@@ -276,8 +385,8 @@ class SettingsController: UITableViewController  {
         }
     }
     
-    private func showAlert(message: String? , titles: String?) {
-        let alert = UIAlertController(title: titles, message: message, preferredStyle: .alert)
+    private func showAlert(message: String? , title: String?) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default) { _ in
             alert.dismiss(animated: true, completion: nil)
         }

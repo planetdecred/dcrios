@@ -8,14 +8,14 @@
 
 import UIKit
 
-class SecurityViewController: UIViewController, SeedCheckupProtocol, StartUpPasswordProtocol {
+class SecurityViewController: UIViewController {
+    // "Password" or "Pin" will be appended to the title depending on what tab is activated
+    var pageTitlePrefix = "Create Spending"
     
-    var senders: String?
-    var pass_pinToVerify: String?
-    var seedToVerify: String?
+    // This will be triggered after a pin or password is provided by the user.
+    var onUserEnteredPinOrPassword: ((_ pinOrPassword: String, _ securityType: String) -> Void)?
     
     var pager: UITabBarController?
-    
     @IBOutlet weak var btnPin: UIButton!
     @IBOutlet weak var btnPassword: UIButton!
     
@@ -35,28 +35,19 @@ class SecurityViewController: UIViewController, SeedCheckupProtocol, StartUpPass
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "embedPager" {
-            if (self.seedToVerify != nil) {
-                pager = segue.destination as? UITabBarController
-                pager?.tabBar.isHidden = true
-                
-                var vc1 = pager?.viewControllers?.first as? SeedCheckupProtocol
-                var vc2 = pager?.viewControllers?.last as? SeedCheckupProtocol
-                vc1?.seedToVerify = seedToVerify
-                vc2?.seedToVerify = seedToVerify
-            } else {
-                
-                pager = segue.destination as? UITabBarController
-                pager?.tabBar.isHidden = true
-                
-                var startChecked1 = pager?.viewControllers?.first as? StartUpPasswordProtocol
-                var startChecked2 = pager?.viewControllers?.last as? StartUpPasswordProtocol
-                startChecked2?.senders = senders
-                startChecked1?.senders = senders
-                
-                if senders == "settingsChangeSpending" || senders == "settingsChangeStartup" {
-                    startChecked1?.pass_pinToVerify = pass_pinToVerify
-                    startChecked2?.pass_pinToVerify = pass_pinToVerify
-                }
+            pager = segue.destination as? UITabBarController
+            pager?.tabBar.isHidden = true
+            
+            let passwordTabVC = pager?.viewControllers?.first as? PasswordSetupViewController
+            passwordTabVC?.pageTitle = "\(self.pageTitlePrefix) Password"
+            passwordTabVC?.onUserEnteredPassword = { password in
+                self.onUserEnteredPinOrPassword?(password, "PASSWORD")
+            }
+            
+            let pinTabVC = pager?.viewControllers?.last as? PinSetupViewController
+            pinTabVC?.pageTitle = "\(self.pageTitlePrefix) Pin"
+            pinTabVC?.onUserEnteredPin = { pin in
+                self.onUserEnteredPinOrPassword?(pin, "PIN")
             }
         }
     }

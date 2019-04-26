@@ -1,5 +1,5 @@
 //
-//  GeneratedSeedDisplayViewController.swift
+//  CreateNewWalletViewController.swift
 //  Decred Wallet
 //
 // Copyright (c) 2018-2019 The Decred developers
@@ -9,7 +9,7 @@
 import UIKit
 import Dcrlibwallet
 
-class GeneratedSeedDisplayViewController: UIViewController {
+class CreateNewWalletViewController: UIViewController {
     
     @IBOutlet var vWarningLabel: UILabel!
     @IBOutlet private var seedWordLabels: [UILabel]!
@@ -88,8 +88,8 @@ class GeneratedSeedDisplayViewController: UIViewController {
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        var vc = segue.destination as! SeedCheckupProtocol
-        vc.seedToVerify = self.seed
+        let confirmSeedVC = segue.destination as! ConfirmNewWalletSeedViewController
+        confirmSeedVC.seedToVerify = self.seed
     }
     
     @IBAction func backAction(_ sender: UIButton) {

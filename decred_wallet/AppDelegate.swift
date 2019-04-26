@@ -76,7 +76,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             if(UserDefaults.standard.bool(forKey: "secure_wallet")){
                 if(UserDefaults.standard.string(forKey: "securitytype") == "PASSWORD"){
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                    let sendVC = storyboard.instantiateViewController(withIdentifier: "StartUpPasswordViewController") as! StartUpPasswordViewController
+                    let sendVC = storyboard.instantiateViewController(withIdentifier: "StartUpPasswordViewController") as! RequestPasswordViewController
                     sendVC.senders = "launcher"
                     self.window?.rootViewController = sendVC
                     self.window?.makeKeyAndVisible()
