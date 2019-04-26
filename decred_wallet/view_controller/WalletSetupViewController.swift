@@ -80,7 +80,9 @@ class WalletSetupViewController : UIViewController {
                 //iPad Pro 12.9-inch
                 self.setFontSize(infoTxt: 36, restoreWalletTxt: 32, createWalletTxt: 32, buildTxt: 28, walletTxt: 38)
                 break
-            default:break
+            default:
+                self.setFontSize(infoTxt: 28, restoreWalletTxt: 24, createWalletTxt: 24, buildTxt: 20, walletTxt: 30)
+                break
             }
         }
     }

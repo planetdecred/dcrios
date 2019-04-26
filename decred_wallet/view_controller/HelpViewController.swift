@@ -77,7 +77,8 @@ class HelpViewController: UIViewController,SFSafariViewControllerDelegate {
                 //iPad Pro 12.9-inch
                  self.setFontSize(helpInfoTxt: 36, linkBtnTxt: 32)
                 break
-            default:break
+            default:self.setFontSize(helpInfoTxt: 28, linkBtnTxt: 24)
+                break
             }
            
         }

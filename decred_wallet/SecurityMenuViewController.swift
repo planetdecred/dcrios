@@ -452,6 +452,7 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
                 break
              default:
                 print("unknown")
+                self.setFontSize(addressTxt: 30, messageTxt: 30, securityTxtLabel: 42, signatureTxt: 30, addressErrorTxt: 18, copyBtnTxt: 28, signatureErrorTxt: 18, signMsgBtnTxt: 28, HeaderInfoTxt: 34, syncInfoLabelTxt: 22, messageErrorTxt: 18)
                 print(UIScreen.main.nativeBounds.height)
                 break
                 

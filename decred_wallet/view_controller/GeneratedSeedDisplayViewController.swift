@@ -140,7 +140,10 @@ class GeneratedSeedDisplayViewController: UIViewController {
             self.setFontSize(HeaderTxt: 50, subHeadTxt: 40, waningTxt: 42, buttonCopyTxt: 38)
             self.labelFont = 36
             break
-            default:break
+            default:
+                self.setFontSize(HeaderTxt: 42, subHeadTxt: 32, waningTxt: 34, buttonCopyTxt: 30)
+                self.labelFont = 28
+                break
         }
             
         }

@@ -103,7 +103,8 @@ class SecurityViewController: UIViewController, SeedCheckupProtocol, StartUpPass
                 //iPad Pro 12.9-inch
                 self.setFontSize(PassBtnTxt: 42, PINBtnTxt: 42)
                 break
-            default:break
+            default: self.setFontSize(PassBtnTxt: 34, PINBtnTxt: 34)
+                break
             }
             
         }
