@@ -14,7 +14,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     @IBOutlet private var imgWalletAddrQRCode: UIImageView!
 
     @IBOutlet weak var subheader: UILabel!
-    @IBOutlet var walletAddress: UIButton!
+    @IBOutlet weak var lblWalletAddress: UILabel!
     
     private var barButton: UIBarButtonItem?
     
@@ -85,7 +85,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     }
     
     private func generateNewAddress() {
-        self.oldAddress = self.walletAddress.currentTitle!
+        self.oldAddress = self.lblWalletAddress.text!
         self.getNextAddress(accountNumber: (self.myacc.Number))
     }
     
@@ -118,10 +118,6 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
         }
     }
     
-    @IBAction func tapCopy(_ sender: Any) {
-        self.copyAddress()
-    }
-    
     @IBAction func CopyImgAddress(_ sender: UITapGestureRecognizer) {
         self.copyAddress()
     }
@@ -129,7 +125,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     private func copyAddress() {
         DispatchQueue.main.async {
             //Copy a string to the pasteboard.
-            UIPasteboard.general.string = self.walletAddress.currentTitle
+            UIPasteboard.general.string = self.lblWalletAddress.text!
             
             //Alert
             let alertController = UIAlertController(title: "", message: "Wallet address copied", preferredStyle: UIAlertControllerStyle.alert)
@@ -204,7 +200,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
         DispatchQueue.main.async { [weak self] in
             guard let this = self else { return }
             
-            this.walletAddress.setTitle(receiveAddress!, for: .normal)
+            this.lblWalletAddress.text = receiveAddress!
             this.imgWalletAddrQRCode.image = generateQRCodeFor(
                 with: receiveAddress!!,
                 forImageViewFrame: this.imgWalletAddrQRCode.frame
@@ -217,8 +213,8 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
         let receiveAddress = try?self.wallet?.nextAddress(Int32(accountNumber))
         DispatchQueue.main.async { [weak self] in
             guard let this = self else { return }
-            if (this.oldAddress != receiveAddress!){
-            this.walletAddress.setTitle(receiveAddress!, for: .normal)
+            if (this.oldAddress != receiveAddress!) {
+                this.lblWalletAddress.text = receiveAddress!
                 this.imgWalletAddrQRCode.image = generateQRCodeFor(
                     with: receiveAddress!!,
                     forImageViewFrame: this.imgWalletAddrQRCode.frame
