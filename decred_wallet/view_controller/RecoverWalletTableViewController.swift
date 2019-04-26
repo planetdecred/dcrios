@@ -98,9 +98,9 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
         }
         
         if self.userEnteredSeedWords.contains("") {
-            self.disableConfirmButton()
+            self.deactivateConfirmButton()
         } else {
-            self.enableConfirmButton()
+            self.activateConfirmButton()
         }
     }
     
@@ -113,23 +113,23 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
         self.tableView.scrollToRow(at: tableIndexPath, at: .middle, animated: true)
     }
     
-    func enableConfirmButton() {
+    func activateConfirmButton() {
         self.btnConfirm.alpha = 1
         self.lblEnterAllSeeds.isHidden = true
         
         // increase top spacing since warning label is now hidden so as to position button in center
-        self.tableViewFooterTopSpacingConstraint.constant = 20
+        self.tableViewFooterTopSpacingConstraint.constant = 25
         UIView.animate(withDuration: 0.5) {
             self.tableViewFooter.layoutIfNeeded()
         }
     }
     
-    func disableConfirmButton() {
+    func deactivateConfirmButton() {
         self.btnConfirm.alpha = 0.5
         self.lblEnterAllSeeds.isHidden = false
         
         // reduce top spacing so that warning label and confirm button are centered in display
-        self.tableViewFooterTopSpacingConstraint.constant = 5
+        self.tableViewFooterTopSpacingConstraint.constant = 10
         UIView.animate(withDuration: 0.5) {
             self.tableViewFooter.layoutIfNeeded()
         }
