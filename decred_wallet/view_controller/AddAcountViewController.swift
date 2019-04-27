@@ -26,10 +26,6 @@ class AddAcountViewController: UIViewController {
         }
     }
     
-    override func onPassCompleted(pass: String) {
-        self.addAccountWithPin(pin: pass as NSString)
-    }
-    
     @IBAction func createFnc(_ sender: Any) {
 
         if (accountName.text?.length)! < 1{
@@ -39,16 +35,16 @@ class AddAcountViewController: UIViewController {
         
         let name = accountName.text
         if(!(name!.isEmpty)){
-            if UserDefaults.standard.string(forKey: "spendingSecureType") == "PASSWORD" {
+            if SpendingPinOrPassword.currentSecurityType() == "PASSWORD" {
                 addAccountWithoutPin()
             }else{
-                let vc = storyboard!.instantiateViewController(withIdentifier: "PinSetupViewController") as! PinSetupViewController
-                vc.isSpendingPassword = true
-                vc.showCancel = true
-                vc.caller = self
-                vc.popViewController = false
-                present(vc, animated: true, completion: nil)
-                print("pushed")
+                let requestPinVC = storyboard!.instantiateViewController(withIdentifier: "RequestPinViewController") as! RequestPinViewController
+                requestPinVC.prompt = "Enter Spending PIN"
+                requestPinVC.showCancelButton = true
+                requestPinVC.onUserEnteredPin = { pin in
+                    self.addAccountWithPin(pin: pin as NSString)
+                }
+                present(requestPinVC, animated: true, completion: nil)
             }
         }
     }
@@ -85,7 +81,6 @@ class AddAcountViewController: UIViewController {
                 DispatchQueue.main.async {
                     progressHud.dismiss()
                     self.showError(error: error)
-                    print("error")
                 }
             }
         }

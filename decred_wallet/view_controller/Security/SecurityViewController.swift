@@ -44,8 +44,8 @@ class SecurityViewController: UIViewController {
                 self.onUserEnteredPinOrPassword?(password, "PASSWORD")
             }
             
-            let pinTabVC = pager?.viewControllers?.last as? PinSetupViewController
-            pinTabVC?.pageTitle = "\(self.pageTitlePrefix) Pin"
+            let pinTabVC = pager?.viewControllers?.last as? RequestPinViewController
+            pinTabVC?.prompt = "\(self.pageTitlePrefix) Pin"
             pinTabVC?.onUserEnteredPin = { pin in
                 self.onUserEnteredPinOrPassword?(pin, "PIN")
             }

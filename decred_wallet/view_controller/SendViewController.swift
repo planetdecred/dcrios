@@ -268,13 +268,15 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         }
         if self.validate(amount: self.tfAmount.text!) {
             self.fromNotQRScreen = false
-            if(UserDefaults.standard.string(forKey: "spendingSecureType") == "PASSWORD"){
+            if SpendingPinOrPassword.currentSecurityType() == "PASSWORD" {
                 self.confirmSend(sendAll: false)
             } else {
-                let passSetupVC = storyboard!.instantiateViewController(withIdentifier: "PinSetupViewController") as! PinSetupViewController
-                passSetupVC.isSpendingPassword = true
-                passSetupVC.caller = self
-                self.navigationController?.pushViewController(passSetupVC, animated: true)
+                let requestPinVC = storyboard!.instantiateViewController(withIdentifier: "RequestPinViewController") as! RequestPinViewController
+                requestPinVC.prompt = "Enter Spending PIN"
+                requestPinVC.onUserEnteredPin = { pin in
+                    self.confirmSendWithoutPin(sendAll: false, pin: pin)
+                }
+                self.present(requestPinVC, animated: true, completion: nil)
             }
         }
     }
@@ -1020,6 +1022,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         
         return true
     }
+    
     private func validateSentBtn(amount : String)-> Bool{
         if !self.validateWallet() {
             self.showAlertForInvalidWallet()

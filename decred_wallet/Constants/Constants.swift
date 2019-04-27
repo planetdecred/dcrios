@@ -10,8 +10,14 @@ import Foundation
 import UIKit
 
 struct GlobalConstants {
+    struct SettingsKeys {
+        static let IsStartupSecuritySet = "startup_security_set"
+        static let StartupSecurityType = "startup_security_type"
+        static let SpendingPassphraseSecurityType = "spending_security_type"
+    }
     
     //MARK: - Colors
+    // todo move to UIColor.swift
     struct Colors {
         static let orangeColor = UIColor(hex: "fd714a")
         static let navigationBarColor = UIColor(hex: "689F38")

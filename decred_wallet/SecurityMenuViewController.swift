@@ -78,10 +78,6 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
         }
     }
     
-    override func onPassCompleted(pass: String) {
-        self.SignMsg(pass: pass)
-    }
-    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         self.view.endEditing(true)
@@ -307,11 +303,12 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
             
             self.present(alert, animated: true, completion: nil)
         }else{
-            let vc = storyboard!.instantiateViewController(withIdentifier: "PinSetupViewController") as! PinSetupViewController
-            vc.isSpendingPassword = true
-            vc.isChange = false
-            vc.caller = self
-            self.navigationController?.pushViewController(vc, animated: true)
+            let requestPinVC = storyboard!.instantiateViewController(withIdentifier: "RequestPinViewController") as! RequestPinViewController
+            requestPinVC.prompt = "Enter Spending PIN"
+            requestPinVC.onUserEnteredPin = { pin in
+                self.SignMsg(pass: pin)
+            }
+            self.present(requestPinVC, animated: true, completion: nil)
         }
     }
     

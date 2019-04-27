@@ -38,41 +38,6 @@ class RequestPasswordViewController: UIViewController {
             onUserEnteredPinOrPassword?(password)
             self.navigationController?.popToRootViewController(animated: true)
         }
-//            if (senders == "launcher") {
-//                password_Unlock()
-//            } else if (senders == "settings") {
-//                if (UserDefaults.standard.bool(forKey: "secure_wallet")){
-//                    RemovestartupPassword()
-//                }
-//            } else if (senders == "settingsChangeSpending") {
-//                let sendVC = storyboard!.instantiateViewController(withIdentifier: "SecurityViewController") as! SecurityViewController
-//                sendVC.senders = "settingsChangeSpending"
-//                sendVC.pass_pinToVerify = self.passwordText.text
-//
-//                self.navigationController?.pushViewController(sendVC, animated: true)
-//            }else if (senders == "settingsChangeStartup") {
-//                let sendVC = storyboard!.instantiateViewController(withIdentifier: "SecurityViewController") as! SecurityViewController
-//                sendVC.senders = "settingsChangeStartup"
-//                sendVC.pass_pinToVerify = self.passwordText.text
-//
-//                self.navigationController?.pushViewController(sendVC, animated: true)
-//            }
-//        }
-    }
-    
-    func setHeader(){
-//        if (senders == "launcher") {
-//            headerText.text = "Enter StartUp Password"
-//        } else if (senders == "settings") {
-//            if (UserDefaults.standard.bool(forKey: "secure_wallet")) {
-//                headerText.text = "Enter Current Password"
-//            }
-//        } else if (senders == "settingsChangeSpending") {
-//            headerText.text = "Enter Spending Password"
-//        }
-//        else if (senders == "settingsChangeStartup") {
-//            headerText.text = "Enter StartUp Password"
-//        }
     }
     
     func unlockWalletAndStartApp(password: String) {
@@ -90,7 +55,7 @@ class RequestPasswordViewController: UIViewController {
             } catch let error {
                 DispatchQueue.main.async {
                     this.progressHud?.hide(animated: true)
-                    this.showError(error)
+                    this.showOkAlert(message: error.localizedDescription, title: "Error")
                 }
             }
         }
@@ -102,54 +67,4 @@ class RequestPasswordViewController: UIViewController {
             createMainWindow()
         }
     }
-    
-    func showError(_ error: Error){
-        let alert = UIAlertController(title: "Warning", message: error.localizedDescription, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
-            alert.dismiss(animated: true, completion: nil)
-        }
-        alert.addAction(okAction)
-        present(alert, animated: true, completion: nil)
-    }
-
-    
-//
-//    func RemovestartupPassword(){
-//
-//        self.progressHud?.show(animated: true)
-//        self.progressHud?.label.text = "Removing Security"
-//
-//        let key = "public"
-//        let finalkey = key as NSString
-//        let finalkeyData = finalkey.data(using: String.Encoding.utf8.rawValue)!
-//        let pass = self.passwordText.text
-//        let finalpass = pass! as NSString
-//        let finalkeypassData = finalpass.data(using: String.Encoding.utf8.rawValue)!
-//
-//        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-//            guard let this = self else { return }
-//
-//            do {
-//                try SingleInstance.shared.wallet?.changePublicPassphrase(finalkeypassData, newPass: finalkeyData)
-//                DispatchQueue.main.async {
-//                    this.progressHud?.hide(animated: true)
-//
-//                    UserDefaults.standard.set(false, forKey: "secure_wallet")
-//                    UserDefaults.standard.synchronize()
-//                    self?.dismissView()
-//                }
-//                return
-//            } catch let error {
-//                DispatchQueue.main.async {
-//                    this.progressHud?.hide(animated: true)
-//                    this.showError(error: error)
-//                }
-//            }
-//        }
-//    }
-//
-//    func createMenu(){
-//
-//    }
-//
 }

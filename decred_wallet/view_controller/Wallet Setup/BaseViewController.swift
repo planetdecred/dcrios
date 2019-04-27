@@ -14,7 +14,7 @@ class WalletSetupBaseViewController: UIViewController {
     
     // finalizeWalletSetup is called by ...
     func finalizeWalletSetup(_ seed: String, _ pinOrPassword: String, _ securityType: String) {
-        let progressHud = showProgressHud(with: "creating wallet...")
+        let progressHud = showProgressHud(with: "Setting up wallet...")
         
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let this = self else { return }
@@ -25,12 +25,12 @@ class WalletSetupBaseViewController: UIViewController {
                 }
                 
                 let wallet = SingleInstance.shared.wallet!
-                try wallet.createWallet(password, seedMnemonic: seed)
-                try wallet.unlock(password.data(using: .utf8))
+                try wallet.createWallet(pinOrPassword, seedMnemonic: seed)
+                try wallet.unlock(pinOrPassword.data(using: .utf8))
                 
                 DispatchQueue.main.async {
                     progressHud.dismiss()
-                    UserDefaults.standard.set(securityType, forKey: "spendingSecureType")
+                    UserDefaults.standard.set(securityType, forKey: GlobalConstants.SettingsKeys.SpendingPassphraseSecurityType)
                     createMainWindow()
                     this.dismiss(animated: true, completion: nil)
                 }
@@ -38,18 +38,9 @@ class WalletSetupBaseViewController: UIViewController {
             } catch let error {
                 DispatchQueue.main.async {
                     progressHud.dismiss()
-                    this.showWalletSetupError(error: error)
+                    this.showOkAlert(message: error.localizedDescription, title: "Error setting up wallet")
                 }
             }
         }
-    }
-    
-    func showWalletSetupError(error:Error) {
-        let alert = UIAlertController(title: "Warning", message: error.localizedDescription, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default) { _ in
-            alert.dismiss(animated: true, completion: nil)
-        }
-        alert.addAction(okAction)
-        present(alert, animated: true, completion: nil)
     }
 }

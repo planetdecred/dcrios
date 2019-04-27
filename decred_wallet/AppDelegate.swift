@@ -73,23 +73,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         SingleInstance.shared.wallet?.initLoader()
         
         if isWalletCreated() {
-            if(UserDefaults.standard.bool(forKey: "secure_wallet")){
-                if(UserDefaults.standard.string(forKey: "securitytype") == "PASSWORD"){
+            if StartupPinOrPassword.pinOrPasswordIsSet() {
+                if StartupPinOrPassword.currentSecurityType() == "PASSWORD" {
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                    let sendVC = storyboard.instantiateViewController(withIdentifier: "StartUpPasswordViewController") as! RequestPasswordViewController
-                    sendVC.senders = "launcher"
-                    self.window?.rootViewController = sendVC
+                    let requestPasswordVC = storyboard.instantiateViewController(withIdentifier: "RequestPasswordViewController") as! RequestPasswordViewController
+                    requestPasswordVC.prompt = "Enter Startup Password"
+                    requestPasswordVC.openWalletOnEnterPassword = true
+                    self.window?.rootViewController = requestPasswordVC
                     self.window?.makeKeyAndVisible()
                 }
                 else{
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                    let sendVC = storyboard.instantiateViewController(withIdentifier: "PinSetupViewController") as! PinSetupViewController
-                    sendVC.isSpendingPassword = false
-                    sendVC.isChange = false
-                    self.window?.rootViewController = sendVC
+                    let requestPinVC = storyboard.instantiateViewController(withIdentifier: "RequestPinViewController") as! RequestPinViewController
+                    requestPinVC.prompt = "Enter Startup PIN"
+                    requestPinVC.openWalletOnEnterPin = true
+                    self.window?.rootViewController = requestPinVC
                     self.window?.makeKeyAndVisible()
                 }
-                
             }
             else{
                 openUnSecuredWallet()
