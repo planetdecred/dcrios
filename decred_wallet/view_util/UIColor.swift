@@ -11,8 +11,11 @@ import UIKit
 
 extension UIColor {
     struct DecredColors  {
+        static let Green = UIColor.init(hex: "#41BF53")
         static let Warning = UIColor.init(hex: "#ED6D47")
     }
+    
+    static let LightGray = UIColor.init(hex: "#C4CBD2")
     
     convenience init(hex: String) {
         self.init(hex: hex, alpha:1)

@@ -97,10 +97,10 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
             self.view.endEditing(true)
         }
         
-        if self.userEnteredSeedWords.contains("") {
-            self.deactivateConfirmButton()
-        } else {
+        if self.validateSeed().valid {
             self.activateConfirmButton()
+        } else {
+            self.deactivateConfirmButton()
         }
     }
     
@@ -114,19 +114,25 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
     }
     
     func activateConfirmButton() {
-        self.btnConfirm.alpha = 1
+        self.btnConfirm.backgroundColor = UIColor.DecredColors.Green
         self.lblEnterAllSeeds.isHidden = true
         
         // increase top spacing since warning label is now hidden so as to position button in center
-        self.tableViewFooterTopSpacingConstraint.constant = 25
+        self.tableViewFooterTopSpacingConstraint.constant = 30
         UIView.animate(withDuration: 0.5) {
             self.tableViewFooter.layoutIfNeeded()
         }
     }
     
     func deactivateConfirmButton() {
-        self.btnConfirm.alpha = 0.5
+        self.btnConfirm.backgroundColor = UIColor.LightGray
         self.lblEnterAllSeeds.isHidden = false
+        
+        if self.userEnteredSeedWords.contains("") {
+            self.lblEnterAllSeeds.text = "Not all seeds are entered. Please, check input fields and enter all seeds."
+        } else {
+            self.lblEnterAllSeeds.text = "You entered an incorrect seed. Please check your words."
+        }
         
         // reduce top spacing so that warning label and confirm button are centered in display
         self.tableViewFooterTopSpacingConstraint.constant = 10
@@ -136,9 +142,7 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
     }
     
     @IBAction func onConfirm() {
-        let seed = self.userEnteredSeedWords.reduce("", {(word1, word2) in "\(word1!) \(word2)"})
-        let seedValid = SingleInstance.shared.wallet?.verifySeed(seed)
-        if seedValid! {
+        if self.validateSeed().valid {
             self.performSegue(withIdentifier: "confirmSeedSegue", sender: nil)
         } else {
             self.showError("Seed is not valid")
@@ -148,8 +152,14 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "confirmSeedSegue" {
             var vc = segue.destination as? SeedCheckupProtocol
-            vc?.seedToVerify = self.userEnteredSeedWords.reduce("", {(word1, word2) in "\(word1!) \(word2)"})
+            vc?.seedToVerify = self.validateSeed().seed
         }
+    }
+    
+    private func validateSeed() -> (seed: String, valid: Bool) {
+        let seed = self.userEnteredSeedWords.reduce("", {(word1, word2) in "\(word1!) \(word2)"})
+        let seedValid = SingleInstance.shared.wallet?.verifySeed(seed)
+        return (seed, seedValid!)
     }
     
     private func showError(_ error: String) {
@@ -163,7 +173,7 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
     }
     
     func clearSeedInputs() {
-        self.userEnteredSeedWords = []
+        self.userEnteredSeedWords = [String](repeating: "", count: 33)
         self.tableView.reloadData()
         self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
     }

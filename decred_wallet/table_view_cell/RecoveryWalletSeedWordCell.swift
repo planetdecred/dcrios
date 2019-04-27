@@ -23,8 +23,12 @@ class RecoveryWalletSeedWordCell: UITableViewCell, UITextFieldDelegate {
         self.validSeedWords = wordsToFilter
         self.onSeedEntered = onSeedEntered
         
+        // set autocomplete properties
         self.seedWordAutoComplete.autocorrectionType = .no
         self.seedWordAutoComplete.minCharactersNumberToStartFiltering = 3
+//        self.seedWordAutoComplete.theme.cellHeight = 50
+        self.seedWordAutoComplete.theme.font = UIFont.systemFont(ofSize: 14)
+        
         setTextAppearance(self.seedWordAutoComplete)
         
         // setup autocomplete text edit begin/end listeners
