@@ -37,7 +37,6 @@ class WaiterScreenViewController: UIViewController, WaiterScreenProtocol {
             testnetLabel.isHidden = false
             testnetLabel.text = "testnet"
         }
-        setScreenFont()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -57,55 +56,7 @@ class WaiterScreenViewController: UIViewController, WaiterScreenProtocol {
     }
     
     func set(label: String) {
-        
         self.label.text = label
-    }
-    func setScreenFont(){
-        if UIDevice().userInterfaceIdiom == .phone {
-            switch UIScreen.main.nativeBounds.height {
-            case 1136:
-                setFontSize(testnetTxt: 14, labelTxt: 15)
-                print("iPhone 5 or 5S or 5C")
-                break
-            case 1334:
-                setFontSize(testnetTxt: 17, labelTxt: 18)
-                print("iPhone 6/6S/7/8")
-                break
-            case 2208:
-                setFontSize(testnetTxt: 18, labelTxt: 19)
-                print("iPhone 6+/6S+/7+/8+")
-                break
-            case 2436:
-                setFontSize(testnetTxt: 18, labelTxt: 19)
-                print("iPhone X")
-            default:
-                print("unknown")
-            }
-        }
-        else if UIDevice().userInterfaceIdiom == .pad{
-            switch UIScreen.main.nativeBounds.height {
-            case 2048:
-                // iPad Pro (9.7-inch)/ iPad Air 2/ iPad Mini 4
-                setFontSize(testnetTxt: 24, labelTxt: 26)
-                print("ipad air")
-                break
-            case 2224:
-                //iPad Pro 10.5-inch
-                setFontSize(testnetTxt: 26, labelTxt: 28)
-                print("ipad air 10inch")
-                break
-            case 2732:
-                //iPad Pro 12.9-inch
-                setFontSize(testnetTxt: 34, labelTxt: 36)
-                break
-            default:break
-            }
-           
-        }
-    }
-    func setFontSize(testnetTxt: CGFloat ,labelTxt : CGFloat ){
-        testnetLabel.font = testnetLabel.font.withSize(testnetTxt)
-        label.font = label.font.withSize(labelTxt)
     }
     
     func set(duration: Double) {

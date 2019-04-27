@@ -32,7 +32,6 @@ class SecurityViewController: UIViewController, SeedCheckupProtocol, StartUpPass
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        setScreenFont()
     }
     // MARK: - Navigation
     
@@ -62,55 +61,5 @@ class SecurityViewController: UIViewController, SeedCheckupProtocol, StartUpPass
                 }
             }
         }
-    }
-    func setScreenFont(){
-        if UIDevice().userInterfaceIdiom == .phone {
-            switch UIScreen.main.nativeBounds.height {
-            case 1136:
-                //iPhone 5 or 5S or 5C
-                self.setFontSize(PassBtnTxt: 13, PINBtnTxt: 13)
-                break
-            case 1334:
-               // iPhone 6/6S/7/8
-                self.setFontSize(PassBtnTxt: 15, PINBtnTxt: 15)
-                
-                break
-            case 2208:
-                //iPhone 6+/6S+/7+/8+
-                self.setFontSize(PassBtnTxt: 16, PINBtnTxt: 16)
-                break
-            case 2436:
-              // iPhone X
-                self.setFontSize(PassBtnTxt: 16, PINBtnTxt: 16)
-                break
-            default: break
-               // print("unknown")
-            }
-        }
-        else if UIDevice().userInterfaceIdiom == .pad{
-            switch UIScreen.main.nativeBounds.height {
-            case 2048:
-                // iPad Pro (9.7-inch)/ iPad Air 2/ iPad Mini 4
-                self.setFontSize(PassBtnTxt: 32, PINBtnTxt: 32)
-                print("ipad air")
-                break
-            case 2224:
-                //iPad Pro 10.5-inch
-                self.setFontSize(PassBtnTxt: 34, PINBtnTxt: 34)
-                print("ipad air 10inch")
-                break
-            case 2732:
-                //iPad Pro 12.9-inch
-                self.setFontSize(PassBtnTxt: 42, PINBtnTxt: 42)
-                break
-            default: self.setFontSize(PassBtnTxt: 34, PINBtnTxt: 34)
-                break
-            }
-            
-        }
-    }
-    func setFontSize(PassBtnTxt: CGFloat, PINBtnTxt: CGFloat){
-        self.btnPassword.titleLabel?.font = .systemFont(ofSize: PassBtnTxt)
-         self.btnPin.titleLabel?.font = .systemFont(ofSize: PINBtnTxt)
     }
 }

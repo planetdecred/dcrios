@@ -77,7 +77,6 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setScreenFont()
         self.sendBtn.layer.cornerRadius = 5;
         self.accountDropdown.backgroundColor = UIColor.clear
         self.toAccountDropDown.backgroundColor = UIColor.clear
@@ -1190,97 +1189,6 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         task.resume()
     }
     
-    func setScreenFont(){
-        if UIDevice().userInterfaceIdiom == .phone {
-            switch UIScreen.main.nativeBounds.height {
-            case 1136:
-                //iPhone 5 or 5S or 5C
-                // self.setFontSize(addressTxt: 14, messageTxt: 14, securityTxtLabel: 16, signatureTxt: 14, addressErrorTxt: 11, copyBtnTxt: 13, signatureErrorTxt: 11, signMsgBtnTxt: 13, HeaderInfoTxt: 12, syncInfoLabelTxt: 12, messageErrorTxt: 11)
-                self.setFontSize(TxtfeeLabel: 14, TxtusdLabel: 12, TxtfromLabel: 15, TxtsubHeaderLabel: 14, TxtHeaderLabel: 18, TxttoLabel: 15, TxtsendInUsd: 13, TxtsendInDcr: 13, TxtdcrLabel: 12, TxtestimatedFeeLabel: 14, TxtbalanceAfterLabel: 14, TxtexchangeRateLabel: 14, TxtBalanceAfter: 14, TxtestimateFee: 14, TxtestimateSize: 14, TxtwalletAddress: 13, TxttfAmount: 12, TxtsendAllBtn: 12, TxtpasteBtn: 9, TxtsendNtwkErrtext: 12, TxtamountErrorText: 9, TxtaddressErrorText: 9, TxtexchangeRateDisplay: 14, TxtconvertionFeeOther: 14, TxtsendBtn: 13, TxtexchangeRateError: 12, TxtcurrencyAmount2: 13, TxtaccountDropdown: 14, TxttoAccountDropDown: 14)
-                break
-            case 1334:
-                // iPhone 6/6S/7/8
-                // self.setFontSize(addressTxt: 16, messageTxt: 16, securityTxtLabel: 18, signatureTxt: 16, addressErrorTxt: 13, copyBtnTxt: 15, signatureErrorTxt: 13, signMsgBtnTxt: 15, HeaderInfoTxt: 14, syncInfoLabelTxt: 14, messageErrorTxt: 13)
-                self.setFontSize(TxtfeeLabel: 16, TxtusdLabel: 14, TxtfromLabel: 18, TxtsubHeaderLabel: 17, TxtHeaderLabel: 20, TxttoLabel: 18, TxtsendInUsd: 16, TxtsendInDcr: 16, TxtdcrLabel: 14, TxtestimatedFeeLabel: 16, TxtbalanceAfterLabel: 16, TxtexchangeRateLabel: 16, TxtBalanceAfter: 16, TxtestimateFee: 16, TxtestimateSize: 16, TxtwalletAddress: 15, TxttfAmount: 15, TxtsendAllBtn: 14, TxtpasteBtn: 14, TxtsendNtwkErrtext: 14, TxtamountErrorText: 11, TxtaddressErrorText: 11, TxtexchangeRateDisplay: 16, TxtconvertionFeeOther: 16, TxtsendBtn: 15, TxtexchangeRateError: 14, TxtcurrencyAmount2: 15, TxtaccountDropdown: 16, TxttoAccountDropDown: 16)
-                
-                break
-            case 2208:
-                //iPhone 6+/6S+/7+/8+
-                // self.setFontSize(addressTxt: 18, messageTxt: 18, securityTxtLabel: 20, signatureTxt: 18, addressErrorTxt: 15, copyBtnTxt: 17, signatureErrorTxt: 15, signMsgBtnTxt: 17, HeaderInfoTxt: 16, syncInfoLabelTxt: 16, messageErrorTxt: 15)
-                self.setFontSize(TxtfeeLabel: 18, TxtusdLabel: 16, TxtfromLabel: 20, TxtsubHeaderLabel: 19, TxtHeaderLabel: 22, TxttoLabel: 20, TxtsendInUsd: 18, TxtsendInDcr: 18, TxtdcrLabel: 16, TxtestimatedFeeLabel: 18, TxtbalanceAfterLabel: 18, TxtexchangeRateLabel: 18, TxtBalanceAfter: 18, TxtestimateFee: 18, TxtestimateSize: 18, TxtwalletAddress: 17, TxttfAmount: 17, TxtsendAllBtn: 16, TxtpasteBtn: 16, TxtsendNtwkErrtext: 16, TxtamountErrorText: 13, TxtaddressErrorText: 13, TxtexchangeRateDisplay: 18, TxtconvertionFeeOther: 18, TxtsendBtn: 17, TxtexchangeRateError: 16, TxtcurrencyAmount2: 17, TxtaccountDropdown: 18, TxttoAccountDropDown: 18)
-                break
-            case 2436:
-                // iPhone X
-                //self.setFontSize(addressTxt: 16, messageTxt: 16, securityTxtLabel: 18, signatureTxt: 16, addressErrorTxt: 13, copyBtnTxt: 15, signatureErrorTxt: 13, signMsgBtnTxt: 15, HeaderInfoTxt: 14, syncInfoLabelTxt: 14, messageErrorTxt: 13)
-                self.setFontSize(TxtfeeLabel: 16, TxtusdLabel: 14, TxtfromLabel: 18, TxtsubHeaderLabel: 17, TxtHeaderLabel: 20, TxttoLabel: 18, TxtsendInUsd: 16, TxtsendInDcr: 16, TxtdcrLabel: 14, TxtestimatedFeeLabel: 16, TxtbalanceAfterLabel: 16, TxtexchangeRateLabel: 16, TxtBalanceAfter: 16, TxtestimateFee: 16, TxtestimateSize: 16, TxtwalletAddress: 15, TxttfAmount: 15, TxtsendAllBtn: 14, TxtpasteBtn: 14, TxtsendNtwkErrtext: 14, TxtamountErrorText: 11, TxtaddressErrorText: 11, TxtexchangeRateDisplay: 16, TxtconvertionFeeOther: 16, TxtsendBtn: 15, TxtexchangeRateError: 14, TxtcurrencyAmount2: 15, TxtaccountDropdown: 16, TxttoAccountDropDown: 16)
-                break
-            default: break
-                // print("unknown")
-            }
-        }
-        else if UIDevice().userInterfaceIdiom == .pad{
-            switch UIScreen.main.nativeBounds.height {
-            case 2048:
-                // iPad Pro (9.7-inch)/ iPad Air 2/ iPad Mini 4
-                // self.setFontSize(addressTxt: 28, messageTxt: 28, securityTxtLabel: 40, signatureTxt: 28, addressErrorTxt: 16, copyBtnTxt: 27, signatureErrorTxt: 16, signMsgBtnTxt: 27, HeaderInfoTxt: 32, syncInfoLabelTxt: 20, messageErrorTxt: 16)
-                self.setFontSize(TxtfeeLabel: 28, TxtusdLabel: 26, TxtfromLabel: 30, TxtsubHeaderLabel: 28, TxtHeaderLabel: 32, TxttoLabel: 30, TxtsendInUsd: 28, TxtsendInDcr: 28, TxtdcrLabel: 26, TxtestimatedFeeLabel: 28, TxtbalanceAfterLabel: 28, TxtexchangeRateLabel: 28, TxtBalanceAfter: 28, TxtestimateFee: 28, TxtestimateSize: 28, TxtwalletAddress: 27, TxttfAmount: 27, TxtsendAllBtn: 27, TxtpasteBtn: 26, TxtsendNtwkErrtext: 26, TxtamountErrorText: 23, TxtaddressErrorText: 23, TxtexchangeRateDisplay: 28, TxtconvertionFeeOther: 28, TxtsendBtn: 27, TxtexchangeRateError: 26, TxtcurrencyAmount2: 27, TxtaccountDropdown: 28, TxttoAccountDropDown: 28)
-                print("ipad air")
-                break
-            case 2224:
-                //iPad Pro 10.5-inch
-                // self.setFontSize(addressTxt: 30, messageTxt: 30, securityTxtLabel: 42, signatureTxt: 30, addressErrorTxt: 18, copyBtnTxt: 28, signatureErrorTxt: 18, signMsgBtnTxt: 28, HeaderInfoTxt: 34, syncInfoLabelTxt: 22, messageErrorTxt: 18)
-                self.setFontSize(TxtfeeLabel: 30, TxtusdLabel: 28, TxtfromLabel: 32, TxtsubHeaderLabel: 29, TxtHeaderLabel: 34, TxttoLabel: 32, TxtsendInUsd: 30, TxtsendInDcr: 30, TxtdcrLabel: 28, TxtestimatedFeeLabel: 30, TxtbalanceAfterLabel: 30, TxtexchangeRateLabel: 30, TxtBalanceAfter: 30, TxtestimateFee: 30, TxtestimateSize: 30, TxtwalletAddress: 29, TxttfAmount: 29, TxtsendAllBtn: 29, TxtpasteBtn: 28, TxtsendNtwkErrtext: 28, TxtamountErrorText: 25, TxtaddressErrorText: 25, TxtexchangeRateDisplay: 30, TxtconvertionFeeOther: 30, TxtsendBtn: 29, TxtexchangeRateError: 28, TxtcurrencyAmount2: 29, TxtaccountDropdown: 30, TxttoAccountDropDown: 30)
-                print("ipad air 10inch")
-                break
-            case 2732:
-                // iPad Pro 12.9-inch
-                // self.setFontSize(addressTxt: 38, messageTxt: 38, securityTxtLabel: 50, signatureTxt: 38, addressErrorTxt: 24, copyBtnTxt: 36, signatureErrorTxt: 24, signMsgBtnTxt: 36, HeaderInfoTxt: 42, syncInfoLabelTxt: 30, messageErrorTxt: 24)
-                self.setFontSize(TxtfeeLabel: 38, TxtusdLabel: 36, TxtfromLabel: 40, TxtsubHeaderLabel: 37, TxtHeaderLabel: 42, TxttoLabel: 40, TxtsendInUsd: 38, TxtsendInDcr: 38, TxtdcrLabel: 36, TxtestimatedFeeLabel: 38, TxtbalanceAfterLabel: 38, TxtexchangeRateLabel: 38, TxtBalanceAfter: 38, TxtestimateFee: 38, TxtestimateSize: 38, TxtwalletAddress: 37, TxttfAmount: 37, TxtsendAllBtn: 37, TxtpasteBtn: 36, TxtsendNtwkErrtext: 36, TxtamountErrorText: 33, TxtaddressErrorText: 33, TxtexchangeRateDisplay: 38, TxtconvertionFeeOther: 38, TxtsendBtn: 37, TxtexchangeRateError: 36, TxtcurrencyAmount2: 37, TxtaccountDropdown: 38, TxttoAccountDropDown: 38)
-                break
-            default:
-                print("unknown")
-                 self.setFontSize(TxtfeeLabel: 28, TxtusdLabel: 26, TxtfromLabel: 30, TxtsubHeaderLabel: 28, TxtHeaderLabel: 32, TxttoLabel: 30, TxtsendInUsd: 28, TxtsendInDcr: 28, TxtdcrLabel: 26, TxtestimatedFeeLabel: 28, TxtbalanceAfterLabel: 28, TxtexchangeRateLabel: 28, TxtBalanceAfter: 28, TxtestimateFee: 28, TxtestimateSize: 28, TxtwalletAddress: 27, TxttfAmount: 27, TxtsendAllBtn: 27, TxtpasteBtn: 26, TxtsendNtwkErrtext: 26, TxtamountErrorText: 23, TxtaddressErrorText: 23, TxtexchangeRateDisplay: 28, TxtconvertionFeeOther: 28, TxtsendBtn: 27, TxtexchangeRateError: 26, TxtcurrencyAmount2: 27, TxtaccountDropdown: 28, TxttoAccountDropDown: 28)
-                print(UIScreen.main.nativeBounds.height)
-                break
-                
-                
-            }
-            
-            
-        }
-    }
-    
-    func setFontSize(TxtfeeLabel: CGFloat,TxtusdLabel: CGFloat,TxtfromLabel: CGFloat,TxtsubHeaderLabel: CGFloat,TxtHeaderLabel: CGFloat,TxttoLabel: CGFloat,TxtsendInUsd: CGFloat,TxtsendInDcr: CGFloat,TxtdcrLabel: CGFloat,TxtestimatedFeeLabel: CGFloat,TxtbalanceAfterLabel: CGFloat,TxtexchangeRateLabel: CGFloat,TxtBalanceAfter: CGFloat,TxtestimateFee: CGFloat,TxtestimateSize: CGFloat,TxtwalletAddress: CGFloat,TxttfAmount: CGFloat,TxtsendAllBtn: CGFloat,TxtpasteBtn: CGFloat,TxtsendNtwkErrtext: CGFloat,TxtamountErrorText: CGFloat,TxtaddressErrorText: CGFloat,TxtexchangeRateDisplay: CGFloat,TxtconvertionFeeOther: CGFloat,TxtsendBtn: CGFloat,TxtexchangeRateError: CGFloat,TxtcurrencyAmount2: CGFloat,TxtaccountDropdown: CGFloat,TxttoAccountDropDown: CGFloat){
-        self.feeLabel.font = feeLabel.font?.withSize(TxtfeeLabel)
-        self.usdLabel.font = usdLabel.font?.withSize(TxtusdLabel)
-         self.fromLabel.font = fromLabel.font?.withSize(TxtfromLabel)
-         self.subHeaderLabel.font = subHeaderLabel.font?.withSize(TxtsubHeaderLabel)
-         self.HeaderLabel.font = HeaderLabel.font?.withSize(TxtHeaderLabel)
-         self.toLabel.font = toLabel.font?.withSize(TxttoLabel)
-         self.sendInUsd.font = sendInUsd.font?.withSize(TxtsendInUsd)
-         self.sendInDcr.font = sendInDcr.font?.withSize(TxtsendInDcr)
-         self.dcrLabel.font = dcrLabel.font?.withSize(TxtdcrLabel)
-         self.estimatedFeeLabel.font = estimatedFeeLabel.font?.withSize(TxtestimatedFeeLabel)
-         self.balanceAfterLabel.font = balanceAfterLabel.font?.withSize(TxtbalanceAfterLabel)
-         self.exchangeRateLabel.font = exchangeRateLabel.font?.withSize(TxtexchangeRateLabel)
-         self.BalanceAfter.font = BalanceAfter.font?.withSize(TxtBalanceAfter)
-         self.estimateFee.font = estimateFee.font?.withSize(TxtestimateFee)
-         self.estimateSize.font = estimateSize.font?.withSize(TxtestimateSize)
-         self.walletAddress.font = walletAddress.font?.withSize(TxtwalletAddress)
-         self.tfAmount.font = tfAmount.font?.withSize(TxttfAmount)
-         self.sendAllBtn.titleLabel?.font = .systemFont(ofSize: TxtsendAllBtn)
-         self.pasteBtn.titleLabel?.font = .systemFont(ofSize: TxtpasteBtn)
-         self.sendNtwkErrtext.font = sendNtwkErrtext.font?.withSize(TxtsendNtwkErrtext)
-         self.amountErrorText.font = amountErrorText.font?.withSize(TxtamountErrorText)
-         self.addressErrorText.font = addressErrorText.font?.withSize(TxtaddressErrorText)
-         self.exchangeRateDisplay.font = exchangeRateDisplay.font?.withSize(TxtexchangeRateDisplay)
-         self.convertionFeeOther.font = convertionFeeOther.font?.withSize(TxtconvertionFeeOther)
-         self.sendBtn.titleLabel?.font = .systemFont(ofSize: TxtsendBtn)
-        self.exchangeRateError.titleLabel?.font = .systemFont(ofSize: TxtexchangeRateError)
-         self.currencyAmount2.font = currencyAmount2.font?.withSize(TxtcurrencyAmount2)
-        self.accountDropdown.titleLabel?.font = .systemFont(ofSize: TxtaccountDropdown)
-        self.toAccountDropDown.titleLabel?.font = .systemFont(ofSize: TxttoAccountDropDown)
-    }
     
 }
 class AmountTextfield: UITextField {
