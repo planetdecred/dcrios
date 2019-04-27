@@ -3811,22 +3811,32 @@
                                                     <color key="textColor" red="0.53725490196078429" green="0.59215686274509804" blue="0.6470588235294118" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="EFz-uM-LOu" customClass="SearchTextField" customModule="SearchTextField">
-                                                    <rect key="frame" x="69" y="7" width="290" height="22"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R6F-ha-U7Q">
+                                                    <rect key="frame" x="69" y="3" width="290" height="30"/>
+                                                    <subviews>
+                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="EFz-uM-LOu" customClass="SearchTextField" customModule="SearchTextField">
+                                                            <rect key="frame" x="5" y="5" width="280" height="20"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="textColor"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <textInputTraits key="textInputTraits"/>
+                                                        </textField>
+                                                    </subviews>
                                                     <color key="backgroundColor" red="0.92941176470588238" green="0.93725490196078431" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="22" id="5v1-Mk-50J"/>
+                                                        <constraint firstItem="EFz-uM-LOu" firstAttribute="top" secondItem="R6F-ha-U7Q" secondAttribute="top" constant="5" id="F4w-i8-mNf"/>
+                                                        <constraint firstItem="EFz-uM-LOu" firstAttribute="leading" secondItem="R6F-ha-U7Q" secondAttribute="leading" constant="5" id="Luu-ZH-mdd"/>
+                                                        <constraint firstAttribute="bottom" secondItem="EFz-uM-LOu" secondAttribute="bottom" constant="5" id="VER-kc-Z4I"/>
+                                                        <constraint firstAttribute="trailing" secondItem="EFz-uM-LOu" secondAttribute="trailing" constant="5" id="Wq8-dA-xgd"/>
+                                                        <constraint firstAttribute="height" constant="30" id="xzh-C8-vYx"/>
                                                     </constraints>
-                                                    <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                </textField>
+                                                </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="EFz-uM-LOu" firstAttribute="centerY" secondItem="Q4l-eL-cma" secondAttribute="centerY" constant="0.25" id="6Jo-P1-mpI"/>
+                                                <constraint firstItem="R6F-ha-U7Q" firstAttribute="centerY" secondItem="Q4l-eL-cma" secondAttribute="centerY" id="EIY-PR-gCE"/>
                                                 <constraint firstItem="mBc-7g-2Qz" firstAttribute="centerY" secondItem="Q4l-eL-cma" secondAttribute="centerY" constant="-1.25" id="IxO-W3-Uxd"/>
-                                                <constraint firstAttribute="trailing" secondItem="EFz-uM-LOu" secondAttribute="trailing" constant="16" id="Seh-eb-d3H"/>
-                                                <constraint firstItem="EFz-uM-LOu" firstAttribute="leading" secondItem="mBc-7g-2Qz" secondAttribute="trailing" constant="8" id="smX-rI-GEa"/>
+                                                <constraint firstItem="R6F-ha-U7Q" firstAttribute="leading" secondItem="mBc-7g-2Qz" secondAttribute="trailing" constant="8" id="QgM-8g-eiE"/>
+                                                <constraint firstAttribute="trailing" secondItem="R6F-ha-U7Q" secondAttribute="trailing" constant="16" id="ki2-qT-ptr"/>
                                                 <constraint firstItem="mBc-7g-2Qz" firstAttribute="leading" secondItem="Q4l-eL-cma" secondAttribute="leading" constant="16" id="z6F-VX-KMi"/>
                                             </constraints>
                                         </tableViewCellContentView>

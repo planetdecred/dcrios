@@ -34,6 +34,7 @@ class RecoveryWalletSeedWordCell: UITableViewCell, UITextFieldDelegate {
         setTextAppearance(self.seedWordAutoComplete)
         
         // setup autocomplete text edit begin/end listeners
+        self.seedWordAutoComplete.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         self.seedWordAutoComplete.delegate = self
         
         // setup word selection callback to trigger onSeedEntered
@@ -42,19 +43,18 @@ class RecoveryWalletSeedWordCell: UITableViewCell, UITextFieldDelegate {
             self.seedWordAutoComplete.text = selectedWord
             self.onSeedEntered!(self.fieldIndex!, selectedWord, true)
         }
-        
-        // setup filter
-        self.seedWordAutoComplete.userStoppedTypingHandler = {
-            let userTypedText = self.seedWordAutoComplete.text
-            if (userTypedText?.length)! < 2 {
-                return
-            }
-            
-            let matchingSeedWords = self.validSeedWords.filter({
-                return $0.lowercased().hasPrefix(userTypedText!.lowercased())
-            })
-            self.seedWordAutoComplete.filterStrings(matchingSeedWords)
+    }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        let userTypedText = self.seedWordAutoComplete.text
+        if (userTypedText?.length)! < 2 {
+            return
         }
+        
+        let matchingSeedWords = self.validSeedWords.filter({
+            return $0.lowercased().hasPrefix(userTypedText!.lowercased())
+        })
+        self.seedWordAutoComplete.filterStrings(matchingSeedWords)
     }
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
