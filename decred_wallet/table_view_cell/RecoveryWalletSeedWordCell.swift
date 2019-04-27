@@ -25,9 +25,11 @@ class RecoveryWalletSeedWordCell: UITableViewCell, UITextFieldDelegate {
         
         // set autocomplete properties
         self.seedWordAutoComplete.autocorrectionType = .no
-        self.seedWordAutoComplete.minCharactersNumberToStartFiltering = 3
-//        self.seedWordAutoComplete.theme.cellHeight = 50
+        self.seedWordAutoComplete.minCharactersNumberToStartFiltering = 2
+        self.seedWordAutoComplete.theme.cellHeight = 40
         self.seedWordAutoComplete.theme.font = UIFont.systemFont(ofSize: 14)
+        self.seedWordAutoComplete.theme.separatorColor = UIColor.LightGray
+        self.seedWordAutoComplete.theme.bgColor = UIColor.white
         
         setTextAppearance(self.seedWordAutoComplete)
         
@@ -40,17 +42,22 @@ class RecoveryWalletSeedWordCell: UITableViewCell, UITextFieldDelegate {
             self.seedWordAutoComplete.text = selectedWord
             self.onSeedEntered!(self.fieldIndex!, selectedWord, true)
         }
-    }
-    
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        // enable dropdown on this field
-        self.seedWordAutoComplete.filterStrings(validSeedWords)
-        return true
+        
+        // setup filter
+        self.seedWordAutoComplete.userStoppedTypingHandler = {
+            let userTypedText = self.seedWordAutoComplete.text
+            if (userTypedText?.length)! < 2 {
+                return
+            }
+            
+            let matchingSeedWords = self.validSeedWords.filter({
+                return $0.lowercased().hasPrefix(userTypedText!.lowercased())
+            })
+            self.seedWordAutoComplete.filterStrings(matchingSeedWords)
+        }
     }
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        // disable dropdown on this field after editing ends
-        self.seedWordAutoComplete.filterStrings([])
         setTextAppearance(textField)
         self.onSeedEntered!(self.fieldIndex!, textField.text ?? "", false)
         return true

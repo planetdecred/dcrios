@@ -142,6 +142,11 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
     }
     
     @IBAction func onConfirm() {
+        if self.validSeedWords.contains("") {
+            // all words have not been entered
+            return
+        }
+        
         if self.validateSeed().valid {
             self.performSegue(withIdentifier: "confirmSeedSegue", sender: nil)
         } else {
