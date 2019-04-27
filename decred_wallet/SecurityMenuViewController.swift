@@ -42,7 +42,6 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
         super.viewDidLoad()
         
         dcrlibwallet = SingleInstance.shared.wallet
-        setScreenFont()
         self.address.delegate = self
         self.signature.delegate = self
         self.message.delegate = self
@@ -409,71 +408,4 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
     @IBAction func Copy(_ sender: Any) {
         self.copyData()
     }
-    
-    func setScreenFont(){
-        if UIDevice().userInterfaceIdiom == .phone {
-            switch UIScreen.main.nativeBounds.height {
-            case 1136:
-                //iPhone 5 or 5S or 5C
-               self.setFontSize(addressTxt: 14, messageTxt: 14, securityTxtLabel: 16, signatureTxt: 14, addressErrorTxt: 11, copyBtnTxt: 13, signatureErrorTxt: 11, signMsgBtnTxt: 13, HeaderInfoTxt: 12, syncInfoLabelTxt: 12, messageErrorTxt: 11)
-                break
-            case 1334:
-                // iPhone 6/6S/7/8
-                self.setFontSize(addressTxt: 16, messageTxt: 16, securityTxtLabel: 18, signatureTxt: 16, addressErrorTxt: 13, copyBtnTxt: 15, signatureErrorTxt: 13, signMsgBtnTxt: 15, HeaderInfoTxt: 14, syncInfoLabelTxt: 14, messageErrorTxt: 13)
-                
-                break
-            case 2208:
-                //iPhone 6+/6S+/7+/8+
-                self.setFontSize(addressTxt: 18, messageTxt: 18, securityTxtLabel: 20, signatureTxt: 18, addressErrorTxt: 15, copyBtnTxt: 17, signatureErrorTxt: 15, signMsgBtnTxt: 17, HeaderInfoTxt: 16, syncInfoLabelTxt: 16, messageErrorTxt: 15)
-                break
-            case 2436:
-                // iPhone X
-                self.setFontSize(addressTxt: 16, messageTxt: 16, securityTxtLabel: 18, signatureTxt: 16, addressErrorTxt: 13, copyBtnTxt: 15, signatureErrorTxt: 13, signMsgBtnTxt: 15, HeaderInfoTxt: 14, syncInfoLabelTxt: 14, messageErrorTxt: 13)
-                break
-            default: break
-                // print("unknown")
-            }
-        }
-        else if UIDevice().userInterfaceIdiom == .pad{
-             switch UIScreen.main.nativeBounds.height {
-             case 2048:
-                // iPad Pro (9.7-inch)/ iPad Air 2/ iPad Mini 4
-                self.setFontSize(addressTxt: 28, messageTxt: 28, securityTxtLabel: 40, signatureTxt: 28, addressErrorTxt: 16, copyBtnTxt: 27, signatureErrorTxt: 16, signMsgBtnTxt: 27, HeaderInfoTxt: 32, syncInfoLabelTxt: 20, messageErrorTxt: 16)
-                print("ipad air")
-                break
-             case 2224:
-                //iPad Pro 10.5-inch
-                self.setFontSize(addressTxt: 30, messageTxt: 30, securityTxtLabel: 42, signatureTxt: 30, addressErrorTxt: 18, copyBtnTxt: 28, signatureErrorTxt: 18, signMsgBtnTxt: 28, HeaderInfoTxt: 34, syncInfoLabelTxt: 22, messageErrorTxt: 18)
-                 print("ipad air 10inch")
-                break
-             case 2732:
-                // iPad Pro 12.9-inch
-                self.setFontSize(addressTxt: 38, messageTxt: 38, securityTxtLabel: 50, signatureTxt: 38, addressErrorTxt: 24, copyBtnTxt: 36, signatureErrorTxt: 24, signMsgBtnTxt: 36, HeaderInfoTxt: 42, syncInfoLabelTxt: 30, messageErrorTxt: 24)
-                break
-             default:
-                print("unknown")
-                self.setFontSize(addressTxt: 30, messageTxt: 30, securityTxtLabel: 42, signatureTxt: 30, addressErrorTxt: 18, copyBtnTxt: 28, signatureErrorTxt: 18, signMsgBtnTxt: 28, HeaderInfoTxt: 34, syncInfoLabelTxt: 22, messageErrorTxt: 18)
-                print(UIScreen.main.nativeBounds.height)
-                break
-                
-                
-            }
-            
-            
-        }
-    }
-    func setFontSize(addressTxt: CGFloat, messageTxt: CGFloat,securityTxtLabel: CGFloat, signatureTxt: CGFloat,addressErrorTxt: CGFloat, copyBtnTxt: CGFloat,signatureErrorTxt: CGFloat,signMsgBtnTxt: CGFloat,HeaderInfoTxt: CGFloat,syncInfoLabelTxt: CGFloat, messageErrorTxt: CGFloat){
-        self.address.font = address.font?.withSize(addressTxt)
-        self.message.font = message.font?.withSize(messageTxt)
-        self.securityTxt.font = securityTxt.font.withSize(securityTxtLabel)
-        self.signature.font = signature.font?.withSize(signatureTxt)
-        self.addressError.font = addressError.font.withSize(addressErrorTxt)
-        self.signatureError.font = signatureError.font.withSize(signatureErrorTxt)
-        self.signMsgBtn.titleLabel?.font = .systemFont(ofSize: signMsgBtnTxt)
-        self.copyBtn.titleLabel?.font = .systemFont(ofSize: copyBtnTxt)
-        self.HeaderInfo.font = HeaderInfo.font.withSize(HeaderInfoTxt)
-        self.syncInfoLabel.font = syncInfoLabel.font.withSize(syncInfoLabelTxt)
-        self.messageError.font = messageError.font.withSize(messageErrorTxt)
-    }
-    
 }
