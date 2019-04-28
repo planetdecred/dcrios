@@ -732,7 +732,7 @@
                                 <rect key="frame" x="20" y="523.5" width="335" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Failure to keep this seed phrase can result in theft of your funds and inability to recover your wallet." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T26-ed-GAn">
-                                        <rect key="frame" x="0.0" y="0.0" width="335" height="50"/>
+                                        <rect key="frame" x="0.0" y="-14" width="335" height="64"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" red="0.92941176470588238" green="0.42745098039215684" blue="0.27843137254901962" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -741,8 +741,7 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="VaL-Ph-uen"/>
-                                    <constraint firstItem="T26-ed-GAn" firstAttribute="top" secondItem="wB1-BW-PiR" secondAttribute="top" id="kQY-Sf-8EX"/>
+                                    <constraint firstItem="T26-ed-GAn" firstAttribute="top" secondItem="wB1-BW-PiR" secondAttribute="top" constant="-14" id="kQY-Sf-8EX"/>
                                     <constraint firstAttribute="bottom" secondItem="T26-ed-GAn" secondAttribute="bottom" id="u75-Xd-yfY"/>
                                 </constraints>
                             </view>
@@ -812,7 +811,7 @@
                             <constraint firstItem="yCc-SR-3I9" firstAttribute="height" secondItem="ozH-zT-ShC" secondAttribute="height" multiplier="0.034" id="72p-iV-95V"/>
                             <constraint firstItem="c6C-Nf-IKq" firstAttribute="width" secondItem="ozH-zT-ShC" secondAttribute="width" multiplier="0.8" id="8eI-Tp-sL7"/>
                             <constraint firstItem="2E6-So-256" firstAttribute="width" secondItem="ozH-zT-ShC" secondAttribute="width" id="8he-Xh-dMB"/>
-                            <constraint firstItem="T26-ed-GAn" firstAttribute="height" secondItem="ozH-zT-ShC" secondAttribute="height" multiplier="0.075" id="AI3-qC-uo1"/>
+                            <constraint firstItem="T26-ed-GAn" firstAttribute="height" secondItem="ozH-zT-ShC" secondAttribute="height" multiplier="0.075" constant="13.975000000000001" id="AI3-qC-uo1"/>
                             <constraint firstItem="c6C-Nf-IKq" firstAttribute="leading" secondItem="jd5-nv-AjR" secondAttribute="trailing" constant="4.5" id="F2s-ab-7rX"/>
                             <constraint firstItem="zFg-8l-pvv" firstAttribute="top" secondItem="qYt-xo-S4a" secondAttribute="bottom" id="FCG-Al-INs"/>
                             <constraint firstItem="T26-ed-GAn" firstAttribute="centerX" secondItem="WZx-qh-N33" secondAttribute="centerX" id="J9H-ab-277"/>
@@ -1736,7 +1735,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please confirm your seed phrase by typing and selecting requested words accordingly." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HgZ-dA-uka">
-                                            <rect key="frame" x="16" y="40" width="810" height="44"/>
+                                            <rect key="frame" x="16" y="40" width="296" height="44"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="44" id="Hbe-Nb-Inm"/>
                                             </constraints>
@@ -1761,7 +1760,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nnz-ce-Eae">
-                                            <rect key="frame" x="50" y="19" width="734" height="42"/>
+                                            <rect key="frame" x="50" y="19" width="220" height="42"/>
                                             <color key="backgroundColor" red="0.17662689089775085" green="0.84774124622344971" blue="0.63897907733917236" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="42" id="mXu-mK-QwL"/>
@@ -1999,7 +1998,7 @@
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create a New Wallet" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fll-mn-qXq">
-                                                        <rect key="frame" x="12" y="64.5" width="136.5" height="65"/>
+                                                        <rect key="frame" x="18" y="64.5" width="124.5" height="65"/>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="15"/>
                                                         <color key="textColor" red="0.28235294117647058" green="0.33725490196078434" blue="0.43137254901960786" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -2054,7 +2053,7 @@
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Restore Existing Wallet" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m0c-38-zjg">
-                                                        <rect key="frame" x="3.5" y="64.5" width="154" height="65"/>
+                                                        <rect key="frame" x="10" y="64.5" width="141" height="65"/>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="15"/>
                                                         <color key="textColor" red="0.28235294117647058" green="0.33725490196078434" blue="0.43137254901960786" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -2765,7 +2764,7 @@
                                         <rect key="frame" x="0.0" y="651.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yST-Pa-b2X" id="N7G-zh-fTF">
-                                            <rect key="frame" x="0.0" y="0.0" width="834" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GPe-xT-vF2">
@@ -2775,7 +2774,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pre-release" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E5I-QX-JBY">
-                                                    <rect key="frame" x="713" y="8" width="113" height="27.5"/>
+                                                    <rect key="frame" x="199" y="8" width="113" height="27.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="113" id="m5i-SU-Vpj"/>
                                                     </constraints>
@@ -2798,11 +2797,11 @@
                                         <rect key="frame" x="0.0" y="695.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pv2-ck-twg" id="D2U-ys-rD4">
-                                            <rect key="frame" x="0.0" y="0.0" width="834" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eMj-Ry-6VY">
-                                                    <rect key="frame" x="650" y="16.5" width="176" height="20"/>
+                                                    <rect key="frame" x="136" y="16.5" width="176" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="176" id="z30-iK-TqZ"/>
                                                     </constraints>
@@ -2834,11 +2833,11 @@
                                         <rect key="frame" x="0.0" y="795.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hCC-gF-Gu6" id="3Zc-Zx-xkT">
-                                            <rect key="frame" x="0.0" y="0.0" width="834" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Rescan Blockchain" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eOS-CJ-QEb">
-                                                    <rect key="frame" x="15" y="0.0" width="804" height="43.5"/>
+                                                    <rect key="frame" x="15" y="0.0" width="290" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -2851,7 +2850,7 @@
                                         <rect key="frame" x="0.0" y="839.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NOX-7g-qH5" id="iEf-uB-MwJ">
-                                            <rect key="frame" x="0.0" y="0.0" width="834" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show debug messages" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JvZ-CW-8Dg">
@@ -2864,7 +2863,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d2z-v0-J8z">
-                                                    <rect key="frame" x="777" y="6.5" width="51" height="31"/>
+                                                    <rect key="frame" x="263" y="6.5" width="51" height="31"/>
                                                 </switch>
                                             </subviews>
                                             <constraints>
@@ -2883,11 +2882,11 @@
                                         <rect key="frame" x="0.0" y="883.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="P3v-pp-Ab2" id="lrZ-sQ-5Tp">
-                                            <rect key="frame" x="0.0" y="0.0" width="808" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="294" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Wallet Log" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="roe-vF-JdQ">
-                                                    <rect key="frame" x="15" y="0.0" width="784" height="43.5"/>
+                                                    <rect key="frame" x="15" y="0.0" width="270" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -2903,11 +2902,11 @@
                                         <rect key="frame" x="0.0" y="927.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cGS-0D-Yw9" id="NPL-q7-hGx">
-                                            <rect key="frame" x="0.0" y="0.0" width="834" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8yy-Hu-jNf">
-                                                    <rect key="frame" x="0.0" y="0.0" width="834" height="43.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <inset key="titleEdgeInsets" minX="20" minY="10" maxX="0.0" maxY="0.0"/>
                                                     <state key="normal" title="Delete Wallet">
@@ -3803,7 +3802,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wallet recovery ..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rdI-HR-4XN">
-                                            <rect key="frame" x="49" y="43" width="769" height="21"/>
+                                            <rect key="frame" x="49" y="43" width="255" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="21" id="XUl-BJ-qQW"/>
                                             </constraints>
@@ -3812,7 +3811,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please type your seed phrase by typing and selecting each word accordingly." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h13-XG-sNV">
-                                            <rect key="frame" x="16" y="74" width="802" height="16"/>
+                                            <rect key="frame" x="16" y="74" width="288" height="16"/>
                                             <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="13"/>
                                             <color key="textColor" red="0.34901960784313724" green="0.42745098039215684" blue="0.50588235294117645" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -3862,7 +3861,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EFz-uM-LOu" customClass="DropDownSearchField" customModule="DecredWallet" customModuleProvider="target">
-                                                    <rect key="frame" x="69" y="7" width="749" height="22"/>
+                                                    <rect key="frame" x="69" y="7" width="235" height="22"/>
                                                     <color key="backgroundColor" red="0.92941176470588238" green="0.93725490196078431" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="22" id="5v1-Mk-50J"/>
