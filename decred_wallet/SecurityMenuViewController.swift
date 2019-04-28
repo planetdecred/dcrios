@@ -46,6 +46,7 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
         self.signature.delegate = self
         self.message.delegate = self
         self.HeaderInfo.text = "Here you can verify the validity of an address, sign messages to prove your ownership of an address\nand verify signatures."
+        self.toggleView()
         if (UserDefaults.standard.bool(forKey: "synced")) {
             self.toggleView()
         }
@@ -57,7 +58,7 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
         self.setNavigationBarItem()
         self.navigationItem.title = "Security"
         if !(UserDefaults.standard.bool(forKey: "synced")) {
-            syncInfoLabel.isHidden = false
+            syncInfoLabel.isHidden = true
             
             return
         }
