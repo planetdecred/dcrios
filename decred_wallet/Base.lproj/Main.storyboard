@@ -704,18 +704,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Setting up your wallet" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c6C-Nf-IKq">
+                                <rect key="frame" x="56" y="46" width="300" height="25"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <color key="textColor" red="0.043137254899999998" green="0.1137254902" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="qYt-xo-S4a">
-                                <rect key="frame" x="19" y="79" width="337.5" height="79"/>
+                                <rect key="frame" x="19" y="79" width="337.5" height="50.5"/>
                                 <string key="text">Write down this seed phrase and save it in a secure location. You will be asked to enter it on the next screen and if you ever need to restore your wallet.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.34901960784313724" green="0.42745098039215684" blue="0.50588235294117645" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OEN-2p-5ZC">
-                                <rect key="frame" x="0.0" y="166.5" width="375" height="325.5"/>
+                                <rect key="frame" x="0.0" y="139" width="375" height="378.5"/>
                                 <subviews>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fcL-1d-Y58">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="325.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="378.5"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                 </subviews>
@@ -729,7 +735,7 @@
                                 </constraints>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wB1-BW-PiR">
-                                <rect key="frame" x="20" y="512" width="335" height="64"/>
+                                <rect key="frame" x="20" y="525.5" width="335" height="64"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Failure to keep this seed phrase can result in theft of your funds and inability to recover your wallet." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T26-ed-GAn">
                                         <rect key="frame" x="0.0" y="0.0" width="335" height="64"/>
@@ -761,14 +767,8 @@
                                     <segue destination="b83-s9-ggO" kind="show" id="qKU-Dd-1Gq"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Setting up your wallet" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c6C-Nf-IKq">
-                                <rect key="frame" x="56" y="46" width="300" height="25"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                <color key="textColor" red="0.043137254899999998" green="0.1137254902" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yCc-SR-3I9">
-                                <rect key="frame" x="0.0" y="576" width="375" height="20"/>
+                                <rect key="frame" x="0.0" y="589.5" width="375" height="6.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L7I-Gv-e9c">
@@ -776,7 +776,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zFg-8l-pvv">
-                                <rect key="frame" x="0.0" y="158" width="375" height="6.5"/>
+                                <rect key="frame" x="0.0" y="129.5" width="375" height="7.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2E6-So-256">
@@ -804,9 +804,9 @@
                             <constraint firstItem="2E6-So-256" firstAttribute="centerX" secondItem="ozH-zT-ShC" secondAttribute="centerX" id="1YP-An-JUw"/>
                             <constraint firstItem="zFg-8l-pvv" firstAttribute="centerX" secondItem="ozH-zT-ShC" secondAttribute="centerX" id="2WZ-2O-kQl"/>
                             <constraint firstItem="2E6-So-256" firstAttribute="height" secondItem="ozH-zT-ShC" secondAttribute="height" multiplier="0.03" id="3Kx-DH-iPS"/>
-                            <constraint firstItem="zFg-8l-pvv" firstAttribute="height" secondItem="ozH-zT-ShC" secondAttribute="height" multiplier="0.01" id="4QA-xc-sRx"/>
+                            <constraint firstItem="zFg-8l-pvv" firstAttribute="height" secondItem="ozH-zT-ShC" secondAttribute="height" multiplier="0.011" id="4QA-xc-sRx"/>
                             <constraint firstItem="Dyu-PU-IId" firstAttribute="height" secondItem="ozH-zT-ShC" secondAttribute="height" multiplier="0.04" id="669-7H-mvV"/>
-                            <constraint firstItem="yCc-SR-3I9" firstAttribute="height" secondItem="ozH-zT-ShC" secondAttribute="height" multiplier="0.03" id="72p-iV-95V"/>
+                            <constraint firstItem="yCc-SR-3I9" firstAttribute="height" secondItem="ozH-zT-ShC" secondAttribute="height" multiplier="0.01" id="72p-iV-95V"/>
                             <constraint firstItem="c6C-Nf-IKq" firstAttribute="width" secondItem="ozH-zT-ShC" secondAttribute="width" multiplier="0.8" id="8eI-Tp-sL7"/>
                             <constraint firstItem="2E6-So-256" firstAttribute="width" secondItem="ozH-zT-ShC" secondAttribute="width" id="8he-Xh-dMB"/>
                             <constraint firstItem="T26-ed-GAn" firstAttribute="height" secondItem="ozH-zT-ShC" secondAttribute="height" multiplier="0.075" constant="13.975000000000001" id="AI3-qC-uo1"/>
@@ -818,12 +818,11 @@
                             <constraint firstItem="qYt-xo-S4a" firstAttribute="centerX" secondItem="ozH-zT-ShC" secondAttribute="centerX" id="MDf-4f-YdU"/>
                             <constraint firstItem="L7I-Gv-e9c" firstAttribute="top" secondItem="WZx-qh-N33" secondAttribute="top" id="OHw-Rg-AX3"/>
                             <constraint firstItem="Dyu-PU-IId" firstAttribute="leading" secondItem="qYt-xo-S4a" secondAttribute="leading" id="OXv-3F-p1l"/>
-                            <constraint firstItem="wB1-BW-PiR" firstAttribute="top" secondItem="OEN-2p-5ZC" secondAttribute="bottom" constant="20" id="RCl-pF-obP"/>
+                            <constraint firstItem="wB1-BW-PiR" firstAttribute="top" secondItem="OEN-2p-5ZC" secondAttribute="bottom" constant="8" id="RCl-pF-obP"/>
                             <constraint firstItem="2E6-So-256" firstAttribute="top" secondItem="BQ4-TL-G1r" secondAttribute="bottom" constant="8" symbolic="YES" id="T32-8g-9Uc"/>
                             <constraint firstItem="L7I-Gv-e9c" firstAttribute="width" secondItem="ozH-zT-ShC" secondAttribute="width" id="Trd-hV-C95"/>
                             <constraint firstItem="BQ4-TL-G1r" firstAttribute="width" secondItem="ozH-zT-ShC" secondAttribute="width" multiplier="0.775" id="Wrm-jN-a9P"/>
                             <constraint firstItem="Dyu-PU-IId" firstAttribute="top" secondItem="L7I-Gv-e9c" secondAttribute="bottom" constant="2.5" id="X7r-U6-kCk"/>
-                            <constraint firstItem="qYt-xo-S4a" firstAttribute="height" secondItem="ozH-zT-ShC" secondAttribute="height" multiplier="0.118" id="Z2R-IK-nbO"/>
                             <constraint firstItem="BQ4-TL-G1r" firstAttribute="centerX" secondItem="ozH-zT-ShC" secondAttribute="centerX" id="Z48-w8-i2B"/>
                             <constraint firstItem="WZx-qh-N33" firstAttribute="trailing" secondItem="c6C-Nf-IKq" secondAttribute="trailing" constant="19" id="ajl-y5-JVo"/>
                             <constraint firstItem="c6C-Nf-IKq" firstAttribute="height" secondItem="ozH-zT-ShC" secondAttribute="height" multiplier="0.038" id="asl-y0-xHQ"/>
