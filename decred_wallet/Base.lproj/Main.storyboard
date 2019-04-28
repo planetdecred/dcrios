@@ -1870,7 +1870,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S7H-wK-sCE" customClass="ContouredButton" customModule="DecredWallet" customModuleProvider="target">
-                                                    <rect key="frame" x="42" y="30" width="96" height="40"/>
+                                                    <rect key="frame" x="139" y="30" width="96" height="40"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="14"/>
                                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1905,7 +1905,7 @@
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Word #1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fq8-jR-DSk">
-                                                    <rect key="frame" x="31" y="6" width="74" height="21"/>
+                                                    <rect key="frame" x="150" y="6" width="74" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1966,7 +1966,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="faD-sH-f5s">
-                                <rect key="frame" x="19" y="398" width="337.5" height="152.5"/>
+                                <rect key="frame" x="19" y="408" width="337.5" height="152.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zlU-nV-PuO">
                                         <rect key="frame" x="0.0" y="0.0" width="161" height="152.5"/>
@@ -2095,7 +2095,7 @@
                                 <rect key="frame" x="131.5" y="225.5" width="112" height="28"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create or recover your wallet and start managing your decred." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UZz-wo-aN7">
-                                <rect key="frame" x="19" y="299" width="337.5" height="43.5"/>
+                                <rect key="frame" x="19" y="299" width="337.5" height="53.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="textColor" red="0.34901960784313724" green="0.42745098039215684" blue="0.50588235294117645" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -2105,7 +2105,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Gl-O1-Amx">
-                                <rect key="frame" x="0.0" y="342.5" width="375" height="54"/>
+                                <rect key="frame" x="0.0" y="352.5" width="375" height="54"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
@@ -2121,7 +2121,7 @@
                             <constraint firstItem="4Gl-O1-Amx" firstAttribute="centerX" secondItem="6gb-k6-hWB" secondAttribute="centerX" id="BNj-BW-7wH"/>
                             <constraint firstItem="pFE-eJ-4kC" firstAttribute="top" secondItem="MEy-74-rLe" secondAttribute="bottom" constant="8" id="CTS-JL-WOu"/>
                             <constraint firstItem="4Gl-O1-Amx" firstAttribute="top" secondItem="UZz-wo-aN7" secondAttribute="bottom" id="DwO-pC-ain"/>
-                            <constraint firstItem="UZz-wo-aN7" firstAttribute="height" secondItem="6gb-k6-hWB" secondAttribute="height" multiplier="0.065" id="H3u-D6-bFm"/>
+                            <constraint firstItem="UZz-wo-aN7" firstAttribute="height" secondItem="6gb-k6-hWB" secondAttribute="height" multiplier="0.08" id="H3u-D6-bFm"/>
                             <constraint firstItem="pFE-eJ-4kC" firstAttribute="centerX" secondItem="6gb-k6-hWB" secondAttribute="centerX" id="IGF-M2-B2o"/>
                             <constraint firstItem="faD-sH-f5s" firstAttribute="top" secondItem="4Gl-O1-Amx" secondAttribute="bottom" constant="1.5" id="J6n-wf-dUD"/>
                             <constraint firstItem="MEy-74-rLe" firstAttribute="height" secondItem="6gb-k6-hWB" secondAttribute="height" multiplier="0.143" id="MXO-Qn-DMO"/>
@@ -7773,7 +7773,7 @@ AAAAAAAAAAAAAAACkeI
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="PNO-Gh-n5b"/>
-        <segue reference="m1q-Si-7b9"/>
+        <segue reference="eKH-jk-Lo5"/>
         <segue reference="viG-wo-7U4"/>
     </inferredMetricsTieBreakers>
 </document>
