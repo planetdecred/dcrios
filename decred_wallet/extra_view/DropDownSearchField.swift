@@ -11,6 +11,7 @@ import UIKit
 class DropDownSearchField: UITextField, UITextFieldDelegate {
     var dropDownListPlaceholder: UIView?
     var wordsToFilter: [String] = []
+    var maxDropDownResultsCount = 4
     
     private var dropDownTable: UITableView?
     private var dropDownTableDataSource: DropDownTableDataSource
@@ -56,9 +57,12 @@ class DropDownSearchField: UITextField, UITextFieldDelegate {
     
     @objc func textFieldDidChange(_ textField: UITextField) {
         let currentText = textField.text ?? ""
-        let filteredWords = self.wordsToFilter.filter({
+        var filteredWords = self.wordsToFilter.filter({
             return (currentText.count >= 2 && $0.lowercased().hasPrefix(currentText.lowercased()))
         })
+        if filteredWords.count > self.maxDropDownResultsCount {
+            filteredWords = Array(filteredWords.dropLast(filteredWords.count - self.maxDropDownResultsCount))
+        }
         self.dropDownTableDataSource.filteredWords = filteredWords
         
         if filteredWords.count == 0 {
@@ -97,6 +101,7 @@ class DropDownSearchField: UITextField, UITextFieldDelegate {
 class DropDownTableDataSource: NSObject, UITableViewDataSource, UITableViewDelegate {
     let cellIdentifier: String = "dropDownCell"
     let cellHeight: CGFloat = 40
+    let footerHeight: CGFloat = 22
     
     var filteredWords: [String] = []
     var onWordSelected: ((_ selectedWord: String) -> Void)?
@@ -124,11 +129,18 @@ class DropDownTableDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
         return cell
     }
     
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return self.footerHeight
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let footerHintLabel = UILabel(frame: CGRect(x: 1, y: 1, width: tableView.frame.width, height: self.footerHeight))
+        footerHintLabel.text = "Tap to select the word"
+        footerHintLabel.backgroundColor = UIColor.init(hex: "#DDDDDD")
+        return footerHintLabel
+    }
+    
     func tableHeight() -> CGFloat {
-        if self.filteredWords.count > 4 {
-            return 4 * self.cellHeight
-        } else {
-            return CGFloat(self.filteredWords.count) * self.cellHeight
-        }
+        return (CGFloat(self.filteredWords.count) * self.cellHeight) + self.footerHeight
     }
 }
