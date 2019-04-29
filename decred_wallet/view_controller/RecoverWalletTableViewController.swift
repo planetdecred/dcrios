@@ -17,8 +17,11 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
     @IBOutlet weak var lblEnterAllSeeds: UILabel!
     @IBOutlet weak var btnConfirm: UIButton!
     
-    var validSeedWords : [String] = []
+    var validSeedWords: [String] = []
     var userEnteredSeedWords = [String](repeating: "", count: 33)
+    
+    private var testSeed = "reform aftermath printer warranty gremlin paragraph beehive stethoscope regain disruptive regain Bradbury chisel October trouble forever Algol applicant island infancy physique paragraph woodlark hydraulic snapshot backwater ratchet surrender revenge customer retouch intention minnow"
+    private var useTestSeed: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +33,13 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
         
         registerObserverForKeyboardNotification()
         self.hideKeyboardWhenTappedAround()
+        
+        // long press to proceed with test seed, only on testnet
+        let isTestnet = Bool(infoForKey(GlobalConstants.Strings.IS_TESTNET)!)!
+        if isTestnet {
+            let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressConfirm))
+            btnConfirm.addGestureRecognizer(longGesture)
+        }
     }
     
     deinit {
@@ -152,10 +162,22 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
         self.performSegue(withIdentifier: "confirmSeedSegue", sender: nil)
     }
     
+    @objc func longPressConfirm() {
+        if self.useTestSeed {
+            return
+        }
+        self.useTestSeed = true
+        self.performSegue(withIdentifier: "confirmSeedSegue", sender: nil)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "confirmSeedSegue" {
-            var vc = segue.destination as? SeedCheckupProtocol
-            vc?.seedToVerify = self.validateSeed().seed
+            var confirmSeedVC = segue.destination as? SeedCheckupProtocol
+            if self.useTestSeed {
+                confirmSeedVC?.seedToVerify = self.testSeed
+            } else {
+                confirmSeedVC?.seedToVerify = self.validateSeed().seed
+            }
         }
     }
     
