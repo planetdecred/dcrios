@@ -25,7 +25,7 @@ struct SpendingPinOrPassword {
             vc.navigationController?.pushViewController(requestPasswordVC, animated: true)
         } else {
             let requestPinVC = vc.storyboard!.instantiateViewController(withIdentifier: "RequestPinViewController") as! RequestPinViewController
-            requestPinVC.prompt = "Enter Current Password"
+            requestPinVC.prompt = "Enter Current PIN"
             requestPinVC.onUserEnteredPin = afterUserEntersPinOrPassword
             vc.navigationController?.pushViewController(requestPinVC, animated: true)
         }

@@ -10,7 +10,6 @@ import UIKit
 import PasswordStrength
 
 class PasswordSetupViewController: UIViewController, UITextFieldDelegate {
-    
     @IBOutlet weak var tfPassword: UITextField!
     @IBOutlet weak var tfConfirmPassword: UITextField!
     @IBOutlet weak var lbMatchIndicator: UILabel!
@@ -29,10 +28,11 @@ class PasswordSetupViewController: UIViewController, UITextFieldDelegate {
         tfPassword.delegate = self
         tfConfirmPassword.delegate = self
         
-        // add editing changed target to check if password matches when confirm password text changes
+        // add editing changed target to check if password matches
+        tfPassword.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         tfConfirmPassword.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
-        headerText.text = self.pageTitle ?? "Create Spending Password"
+        headerText.text = self.pageTitle ?? "Setup Password"
     }
     
     @objc func textFieldDidChange(_: NSObject) {
@@ -41,7 +41,7 @@ class PasswordSetupViewController: UIViewController, UITextFieldDelegate {
             self.lbMatchIndicator.text = "PASSWORDS MATCH"
         } else {
             self.lbMatchIndicator.textColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
-            self.lbMatchIndicator.text = "PASSWORDS NOT MATCH"
+            self.lbMatchIndicator.text = "PASSWORDS DO NOT MATCH"
         }
     }
     
