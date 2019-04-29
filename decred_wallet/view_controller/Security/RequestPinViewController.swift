@@ -76,15 +76,15 @@ class RequestPinViewController: UIViewController {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.headerText.text = self.prompt
             }
-        } else {
-            
-        }
-        
-        if self.onUserEnteredPin == nil && self.openWalletOnEnterPin {
+        } else if self.onUserEnteredPin == nil && self.openWalletOnEnterPin {
             self.unlockWalletAndStartApp(password: self.pinInputView.pin)
         } else {
             self.onUserEnteredPin?(self.pinInputView.pin)
-            self.dismiss(animated: true, completion: nil)
+            if self.isModal {
+                self.dismiss(animated: true, completion: nil)
+            } else {
+                self.navigationController?.popToRootViewController(animated: true)
+            }
         }
     }
     

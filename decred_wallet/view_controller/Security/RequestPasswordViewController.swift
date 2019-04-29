@@ -36,7 +36,7 @@ class RequestPasswordViewController: UIViewController {
             unlockWalletAndStartApp(password: password)
         } else {
             onUserEnteredPinOrPassword?(password)
-            self.navigationController?.popToRootViewController(animated: true)
+//            self.navigationController?.popToRootViewController(animated: true)
         }
     }
     

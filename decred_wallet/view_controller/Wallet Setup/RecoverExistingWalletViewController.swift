@@ -183,6 +183,7 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
                 } else {
                     seed = self.seedWords.reduce("", { x, y in  x + " " + y!})
                 }
+                print(seed)
                 self.finalizeWalletSetup(seed, pinOrPassword, securityType)
             }
         }

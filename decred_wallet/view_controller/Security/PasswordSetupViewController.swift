@@ -69,111 +69,9 @@ class PasswordSetupViewController: UIViewController, UITextFieldDelegate {
         
         self.onUserEnteredPassword?(self.tfPassword.text!)
         self.navigationController?.popToRootViewController(animated: true)
-        
-        //        let tmpsender = self.senders
-        //        if (tmpsender == "settings") {
-        //            SetstartupPin_pas()
-        //        }
-        //        else if (tmpsender == "settingsChangeSpending") {
-        //            ChangeSpendingPass()
-        //        }else if (tmpsender == "settingsChangeStartup") {
-        //            ChangeStartupPass()
-        //        }
-        //        else {
-        //            onEncrypt()
-        //        }
-        
         return true
     }
     
-    
-//    func onEncrypt() {
-//
-    
-//    }
-//
-//    func SetstartupPin_pas(){
-//        progressHud = showProgressHud(with: "Securing wallet...")
-//
-//        let finalkeyData = ("public" as NSString).data(using: String.Encoding.utf8.rawValue)!
-//        let finalkeypassData = (self.tfPassword!.text! as NSString).data(using: String.Encoding.utf8.rawValue)!
-//
-//        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-//            guard let this = self else { return }
-//
-//            do {
-//                try SingleInstance.shared.wallet?.changePublicPassphrase(finalkeyData, newPass: finalkeypassData)
-//                DispatchQueue.main.async {
-//                    this.progressHud?.dismiss()
-//                    UserDefaults.standard.set(true, forKey: "secure_wallet")
-//                    UserDefaults.standard.setValue("PASSWORD", forKey: "securitytype")
-//                    UserDefaults.standard.synchronize()
-//                    self?.dismissView()
-//                }
-//                return
-//            } catch let error {
-//                DispatchQueue.main.async {
-//                    this.progressHud?.dismiss()
-//                    this.showError(error: error)
-//                }
-//            }
-//        }
-//    }
-//
-//    func ChangeSpendingPass(){
-//        progressHud = showProgressHud(with: "Changing spending password...")
-//
-//        let finalkeyData = (pass_pinToVerify! as NSString).data(using: String.Encoding.utf8.rawValue)!
-//        let finalkeypassData = (self.tfPassword!.text! as NSString).data(using: String.Encoding.utf8.rawValue)!
-//
-//        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-//            guard let this = self else { return }
-//
-//            do {
-//                try SingleInstance.shared.wallet?.changePrivatePassphrase(finalkeyData, newPass: finalkeypassData)
-//                DispatchQueue.main.async {
-//                    this.progressHud?.dismiss()
-//                    UserDefaults.standard.setValue("PASSWORD", forKey: "spendingSecureType")
-//                    UserDefaults.standard.synchronize()
-//                    self?.dismissView()
-//                }
-//                return
-//            } catch let error {
-//                DispatchQueue.main.async {
-//                    this.progressHud?.dismiss()
-//                    this.showError(error: error)
-//                }
-//            }
-//        }
-//    }
-//    func ChangeStartupPass(){
-//        progressHud = showProgressHud(with: "Changing startup password...")
-//
-//        let finalkeyData = (pass_pinToVerify! as NSString).data(using: String.Encoding.utf8.rawValue)!
-//        let finalkeypassData = (self.tfPassword!.text! as NSString).data(using: String.Encoding.utf8.rawValue)!
-//
-//        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-//            guard let this = self else { return }
-//
-//            do {
-//                try SingleInstance.shared.wallet?.changePublicPassphrase(finalkeyData, newPass: finalkeypassData)
-//                DispatchQueue.main.async {
-//                    this.progressHud?.dismiss()
-//                    UserDefaults.standard.set(true, forKey: "secure_wallet")
-//                    UserDefaults.standard.setValue("PASSWORD", forKey: "securitytype")
-//                    UserDefaults.standard.synchronize()
-//                    self?.dismissView()
-//                }
-//                return
-//            } catch let error {
-//                DispatchQueue.main.async {
-//                    this.progressHud?.dismiss()
-//                    this.showError(error: error)
-//                }
-//            }
-//        }
-//    }
-
     func showError(error:Error) {
         let alert = UIAlertController(title: "Warning", message: error.localizedDescription, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
@@ -182,25 +80,4 @@ class PasswordSetupViewController: UIViewController, UITextFieldDelegate {
         alert.addAction(okAction)
         present(alert, animated: true, completion: nil)
     }
-    
-//    func setHeader(){
-//        if (senders == "launcher") {
-//            headerText.text = "Enter Startup Password"
-//        } else if (senders == "settings") {
-//            if (UserDefaults.standard.bool(forKey: "secure_wallet")) {
-//                headerText.text = "Enter Current Password"
-//            } else {
-//                headerText.text = "Create Startup Password"
-//            }
-//        }
-//        else if (senders == "settingsChangeSpending") {
-//            headerText.text = "Change Spending Password"
-//        }
-//        else if (senders == "settingsChangeStartup") {
-//            headerText.text = "Change Startup Password"
-//        }
-//        else {
-//            headerText.text = "Create Spending Password"
-//        }
-//    }
 }
