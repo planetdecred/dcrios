@@ -3814,7 +3814,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R6F-ha-U7Q">
                                                     <rect key="frame" x="69" y="3" width="290" height="30"/>
                                                     <subviews>
-                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="EFz-uM-LOu" customClass="SearchTextField" customModule="SearchTextField">
+                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="EFz-uM-LOu" customClass="DropDownSearchField" customModule="DecredWallet" customModuleProvider="target">
                                                             <rect key="frame" x="5" y="5" width="280" height="20"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="textColor"/>
@@ -3853,13 +3853,23 @@
                                     <outlet property="delegate" destination="Dk9-z5-XZ1" id="TvM-Yb-clP"/>
                                 </connections>
                             </tableView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wqB-ai-d5X">
+                                <rect key="frame" x="60" y="311.5" width="299" height="44"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="Umq-g4-nm5"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="lxu-GG-6vB" firstAttribute="trailing" secondItem="wqB-ai-d5X" secondAttribute="trailing" constant="16" id="0nN-Ge-fEC"/>
                             <constraint firstItem="XFc-Sh-dQq" firstAttribute="leading" secondItem="lxu-GG-6vB" secondAttribute="leading" id="Use-4a-m0D"/>
+                            <constraint firstItem="wqB-ai-d5X" firstAttribute="leading" secondItem="lxu-GG-6vB" secondAttribute="leading" constant="60" id="YYl-e3-Pip"/>
                             <constraint firstItem="lxu-GG-6vB" firstAttribute="trailing" secondItem="XFc-Sh-dQq" secondAttribute="trailing" id="jOH-sJ-mwQ"/>
                             <constraint firstItem="lxu-GG-6vB" firstAttribute="top" secondItem="XFc-Sh-dQq" secondAttribute="top" id="lqR-VP-Jcp"/>
                             <constraint firstItem="lxu-GG-6vB" firstAttribute="bottom" secondItem="XFc-Sh-dQq" secondAttribute="bottom" id="vzG-FN-6pz"/>
+                            <constraint firstItem="wqB-ai-d5X" firstAttribute="centerY" secondItem="ysh-U5-Cfc" secondAttribute="centerY" id="y20-tD-5np"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="lxu-GG-6vB"/>
                     </view>
@@ -3869,6 +3879,7 @@
                         <outlet property="tableView" destination="XFc-Sh-dQq" id="zun-zO-xM8"/>
                         <outlet property="tableViewFooter" destination="VYH-AP-9BW" id="gUJ-Cf-PhQ"/>
                         <outlet property="tableViewFooterTopSpacingConstraint" destination="6zz-xr-Gwp" id="Ja6-93-VHF"/>
+                        <outlet property="wordSelectionDropDownContainer" destination="wqB-ai-d5X" id="fng-p4-EgC"/>
                         <segue destination="ciV-Nm-crU" kind="show" identifier="confirmSeedSegue" id="UCy-dU-LGn"/>
                     </connections>
                 </viewController>

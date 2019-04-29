@@ -9,6 +9,7 @@ import UIKit
 
 class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet var tableView : UITableView!
+    @IBOutlet weak var wordSelectionDropDownContainer: UIView!
     
     @IBOutlet weak var tableViewFooter: UIStackView!
     @IBOutlet weak var tableViewFooterTopSpacingConstraint: NSLayoutConstraint!
@@ -83,6 +84,7 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
         
         seedWordCell.setupAutoComplete(for: indexPath.row,
                                        filter: self.validSeedWords,
+                                       dropDownListPlaceholder: self.wordSelectionDropDownContainer,
                                        onSeedEntered: self.seedWordEntered)
         
         return seedWordCell
@@ -142,16 +144,12 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
     }
     
     @IBAction func onConfirm() {
-        if self.validSeedWords.contains("") {
+        if self.validSeedWords.contains("") || !self.validateSeed().valid {
             // all words have not been entered
             return
         }
         
-        if self.validateSeed().valid {
-            self.performSegue(withIdentifier: "confirmSeedSegue", sender: nil)
-        } else {
-            self.showError("Seed is not valid")
-        }
+        self.performSegue(withIdentifier: "confirmSeedSegue", sender: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -181,5 +179,29 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
         self.userEnteredSeedWords = [String](repeating: "", count: 33)
         self.tableView.reloadData()
         self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+    }
+}
+
+extension RecoverWalletTableViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.wordSelectionDropDownContainer.isHidden = true
+    }
+    
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func handleTap(_ tap: UITapGestureRecognizer) {
+        var tapPoint = tap.location(in: self.view)
+        tapPoint = self.wordSelectionDropDownContainer.convert(tapPoint, from: self.view)
+        if self.wordSelectionDropDownContainer.bounds.contains(tapPoint) {
+            // ignore taps inside the autoselection dropdown
+            return
+        }
+        
+        view.endEditing(true)
+        self.wordSelectionDropDownContainer.isHidden = true
     }
 }

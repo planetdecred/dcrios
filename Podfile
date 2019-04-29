@@ -12,7 +12,6 @@ target 'Decred Wallet' do
   pod 'Fabric'
   pod 'Crashlytics'
   pod 'MBProgressHUD'
-  pod 'SearchTextField'
 
 end
 
