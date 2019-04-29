@@ -15,7 +15,6 @@ class WalletSetupBaseViewController: UIViewController {
     // finalizeWalletSetup is called by ...
     func finalizeWalletSetup(_ seed: String, _ pinOrPassword: String, _ securityType: String) {
         let progressHud = showProgressHud(with: "Setting up wallet...")
-        print(seed)
         
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let this = self else { return }

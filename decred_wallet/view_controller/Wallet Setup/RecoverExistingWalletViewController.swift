@@ -175,15 +175,15 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "secureRecoveredWalletSegue" {
+            var seed: String
+            if self.count == 1 {
+                seed = self.seedtmp2
+            } else {
+                seed = self.seedWords.reduce("", { x, y in  x + " " + y!})
+            }
+            
             let securityVC = segue.destination as! SecurityViewController
             securityVC.onUserEnteredPinOrPassword = { (pinOrPassword, securityType) in
-                var seed: String
-                if self.count == 1 {
-                    seed = self.seedtmp2
-                } else {
-                    seed = self.seedWords.reduce("", { x, y in  x + " " + y!})
-                }
-                print(seed)
                 self.finalizeWalletSetup(seed, pinOrPassword, securityType)
             }
         }
