@@ -82,7 +82,7 @@ class RequestPinViewController: UIViewController {
             self.onUserEnteredPin?(self.pinInputView.pin)
             
             // only quit VC if not part of the SecurityVC tabs
-            if !self.isTabBar {
+            if self.tabBarController == nil {
                 if self.isModal {
                     self.dismiss(animated: true, completion: nil)
                 } else {

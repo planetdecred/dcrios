@@ -31,7 +31,7 @@ class PasswordSetupViewController: UIViewController, UITextFieldDelegate {
         self.tfConfirmPassword.delegate = self
         
         self.headerText.text = self.pageTitle ?? "Setup Password"
-        self.lbMatchIndicator.text = ""
+        self.lbMatchIndicator.text = " " // use empty space so label height isn't reduced
     }
     
     @objc func passwordTextFieldChange() {
@@ -48,7 +48,7 @@ class PasswordSetupViewController: UIViewController, UITextFieldDelegate {
     
     func checkPasswordMatch() {
         if self.tfConfirmPassword.text == "" {
-            self.lbMatchIndicator.text = ""
+            self.lbMatchIndicator.text = " " // use empty space so label height isn't reduced
         } else if self.tfPassword.text == self.tfConfirmPassword.text {
             self.lbMatchIndicator.textColor = UIColor.AppColors.Green
             self.lbMatchIndicator.text = "PASSWORDS MATCH"
@@ -56,12 +56,6 @@ class PasswordSetupViewController: UIViewController, UITextFieldDelegate {
             self.lbMatchIndicator.textColor = UIColor.AppColors.YellowWarning
             self.lbMatchIndicator.text = "PASSWORDS DO NOT MATCH"
         }
-    }
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-       
-        
-        return true
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -72,7 +66,9 @@ class PasswordSetupViewController: UIViewController, UITextFieldDelegate {
         
         return self.validatePaswordsAndProceed()
     }
+    
     @IBAction func onOkTapped(_ sender: Any) {
+        _ = self.validatePaswordsAndProceed()
     }
     
     func validatePaswordsAndProceed() -> Bool {
@@ -90,7 +86,7 @@ class PasswordSetupViewController: UIViewController, UITextFieldDelegate {
         self.onUserEnteredPassword?(self.tfPassword.text!)
         
         // only quit VC if not part of the SecurityVC tabs
-        if !self.isTabBar {
+        if self.tabBarController == nil {
             if self.isModal {
                 self.dismiss(animated: true, completion: nil)
             } else {
