@@ -11,6 +11,7 @@ target 'Decred Wallet' do
   pod 'Fabric'
   pod 'Crashlytics'
   pod 'MBProgressHUD'
+  pod 'PasswordStrength'
 
 end
 

@@ -21,12 +21,12 @@ class PasswordSetupViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // calculate password strength when password changes; and check if password matches
+        self.tfPassword.addTarget(self, action: #selector(self.passwordTextFieldChange), for: .editingChanged)
         // add editing changed target to check if password matches
-        self.tfPassword.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        self.tfConfirmPassword.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        self.tfConfirmPassword.addTarget(self, action: #selector(self.confirmPasswordTextFieldChange), for: .editingChanged)
         
-        // set textfield delegates to calculate password strength when password changes
-        // and move to next field or submit password on return key press
+        // set textfield delegates to move to next field or submit password on return key press
         self.tfPassword.delegate = self
         self.tfConfirmPassword.delegate = self
         
@@ -34,7 +34,19 @@ class PasswordSetupViewController: UIViewController, UITextFieldDelegate {
         self.lbMatchIndicator.text = ""
     }
     
-    @objc func textFieldDidChange(_: NSObject) {
+    @objc func passwordTextFieldChange() {
+        let passwordStrength = PinPasswordStrength.percentageStrength(of: self.tfPassword.text ?? "")
+        pbPasswordStrength.progress = passwordStrength.strength
+        pbPasswordStrength.progressTintColor = passwordStrength.color
+        
+        self.checkPasswordMatch()
+    }
+    
+    @objc func confirmPasswordTextFieldChange() {
+        self.checkPasswordMatch()
+    }
+    
+    func checkPasswordMatch() {
         if self.tfConfirmPassword.text == "" {
             self.lbMatchIndicator.text = ""
         } else if self.tfPassword.text == self.tfConfirmPassword.text {
@@ -46,13 +58,8 @@ class PasswordSetupViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    // caculate and display password strength on password field text change
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if (textField == self.tfPassword) {
-            let passwordStrength = PinPasswordStrength.percentageStrength(of: textField.text ?? "")
-            pbPasswordStrength.progress = passwordStrength.strength
-            pbPasswordStrength.progressTintColor = passwordStrength.color
-        }
+       
         
         return true
     }
