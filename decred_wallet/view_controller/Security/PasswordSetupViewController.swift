@@ -7,17 +7,13 @@
 // license that can be found in the LICENSE file.
 
 import UIKit
-import PasswordStrength
 
 class PasswordSetupViewController: UIViewController, UITextFieldDelegate {
+    @IBOutlet weak var headerText: UILabel!
     @IBOutlet weak var tfPassword: UITextField!
     @IBOutlet weak var tfConfirmPassword: UITextField!
     @IBOutlet weak var lbMatchIndicator: UILabel!
     @IBOutlet weak var pbPasswordStrength: UIProgressView!
-    @IBOutlet weak var lbPasswordStrengthLabel: UILabel!
-    @IBOutlet weak var headerText: UILabel!
-    
-    let passwordStrengthMeasurer = MEPasswordStrength()
     
     var pageTitle: String?
     var onUserEnteredPassword: ((_ password: String) -> Void)?
@@ -25,37 +21,54 @@ class PasswordSetupViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tfPassword.delegate = self
-        tfConfirmPassword.delegate = self
-        
         // add editing changed target to check if password matches
-        tfPassword.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        tfConfirmPassword.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        self.tfPassword.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        self.tfConfirmPassword.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
-        headerText.text = self.pageTitle ?? "Setup Password"
+        // set textfield delegates to calculate password strength when password changes
+        // and move to next field or submit password on return key press
+        self.tfPassword.delegate = self
+        self.tfConfirmPassword.delegate = self
+        
+        self.headerText.text = self.pageTitle ?? "Setup Password"
+        self.lbMatchIndicator.text = ""
     }
     
     @objc func textFieldDidChange(_: NSObject) {
-        if self.tfPassword.text == self.tfConfirmPassword.text {
-            self.lbMatchIndicator.textColor = #colorLiteral(red: 0.2537069321, green: 0.8615272641, blue: 0.7028611302, alpha: 1)
+        if self.tfConfirmPassword.text == "" {
+            self.lbMatchIndicator.text = ""
+        } else if self.tfPassword.text == self.tfConfirmPassword.text {
+            self.lbMatchIndicator.textColor = UIColor.AppColors.Green
             self.lbMatchIndicator.text = "PASSWORDS MATCH"
         } else {
-            self.lbMatchIndicator.textColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+            self.lbMatchIndicator.textColor = UIColor.AppColors.YellowWarning
             self.lbMatchIndicator.text = "PASSWORDS DO NOT MATCH"
         }
     }
     
+    // caculate and display password strength on password field text change
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if (textField.tag == 5) {
-            // password field, caculate and display password strength
-            pbPasswordStrength.progress = passwordStrengthMeasurer.strength(forPassword: textField.text) as! Float
-            pbPasswordStrength.progressTintColor = passwordStrengthMeasurer.strengthColor(forPassword: textField.text)
+        if (textField == self.tfPassword) {
+            let passwordStrength = PinPasswordStrength.percentageStrength(of: textField.text ?? "")
+            pbPasswordStrength.progress = passwordStrength.strength
+            pbPasswordStrength.progressTintColor = passwordStrength.color
         }
         
         return true
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == self.tfPassword {
+            self.tfConfirmPassword.becomeFirstResponder()
+            return true
+        }
+        
+        return self.validatePaswordsAndProceed()
+    }
+    @IBAction func onOkTapped(_ sender: Any) {
+    }
+    
+    func validatePaswordsAndProceed() -> Bool {
         let password = self.tfPassword.text ?? ""
         if password.length == 0 {
             self.showMessageDialog(title: "Error", message: "Empty password not allowed")
@@ -63,21 +76,21 @@ class PasswordSetupViewController: UIViewController, UITextFieldDelegate {
         }
         
         if self.tfPassword.text != self.tfConfirmPassword.text {
-            self.showMessageDialog(title: "Error", message: "Password does not match")
+            self.showMessageDialog(title: "Error", message: "Passwords do not match")
             return false
         }
         
         self.onUserEnteredPassword?(self.tfPassword.text!)
-        self.navigationController?.popToRootViewController(animated: true)
-        return true
-    }
-    
-    func showError(error:Error) {
-        let alert = UIAlertController(title: "Warning", message: error.localizedDescription, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
-            alert.dismiss(animated: true, completion: {self.navigationController?.popToRootViewController(animated: true)})
+        
+        // only quit VC if not part of the SecurityVC tabs
+        if !self.isTabBar {
+            if self.isModal {
+                self.dismiss(animated: true, completion: nil)
+            } else {
+                self.navigationController?.popToRootViewController(animated: true)
+            }
         }
-        alert.addAction(okAction)
-        present(alert, animated: true, completion: nil)
+        
+        return true
     }
 }

@@ -47,25 +47,14 @@ extension UIViewController {
     /// Checks if controller was pushed or presented
     /// Inspired by this answer
     /// http://stackoverflow.com/a/27301207/1568609
+    var isTabBar: Bool {
+        return self.tabBarController?.presentingViewController is UITabBarController
+    }
+    
     var isModal: Bool {
-        
-        if presentingViewController != nil {
-            return true
-        }
-        
-        if presentingViewController?.presentedViewController == self {
-            return true
-        }
-        
-        if navigationController?.presentingViewController?.presentedViewController == navigationController {
-            return true
-        }
-        
-        if tabBarController?.presentingViewController is UITabBarController {
-            return true
-        }
-        
-        return false
+        let presentingIsModal = self.presentingViewController != nil
+        let presentingIsNavigation = self.navigationController?.presentingViewController?.presentedViewController == self.navigationController
+        return presentingIsModal || presentingIsNavigation || self.isTabBar
     }
     
     func showMessageDialog(title: String, message: String){

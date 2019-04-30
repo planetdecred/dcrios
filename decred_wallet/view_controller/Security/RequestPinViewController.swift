@@ -80,10 +80,14 @@ class RequestPinViewController: UIViewController {
             self.unlockWalletAndStartApp(password: self.pinInputView.pin)
         } else {
             self.onUserEnteredPin?(self.pinInputView.pin)
-            if self.isModal {
-                self.dismiss(animated: true, completion: nil)
-            } else {
-                self.navigationController?.popToRootViewController(animated: true)
+            
+            // only quit VC if not part of the SecurityVC tabs
+            if !self.isTabBar {
+                if self.isModal {
+                    self.dismiss(animated: true, completion: nil)
+                } else {
+                    self.navigationController?.popToRootViewController(animated: true)
+                }
             }
         }
     }
