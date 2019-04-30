@@ -204,23 +204,26 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
         }
     }
     
-    func updateCurrentBalance(){
+    func updateCurrentBalance() {
         var amount = "0"
         var account = GetAccountResponse()
         DispatchQueue.global(qos: .background).async { [weak self] in
             guard self != nil else { return }
             do {
-                let strAccount = try self!.wallet?.getAccounts(0)
+                var getAccountError: NSError?
+                let strAccount = self!.wallet?.getAccounts(0, error: &getAccountError)
+                if getAccountError != nil {
+                    throw getAccountError!
+                }
+                
                 account = try JSONDecoder().decode(GetAccountResponse.self, from: (strAccount?.data(using: .utf8))!)
                 amount = "\((account.Acc.filter({UserDefaults.standard.bool(forKey: "hidden\($0.Number)") != true}).map{$0.dcrTotalBalance}.reduce(0,+)))"
                 let amountTmp = Decimal(Double(amount)!) as NSDecimalNumber
             
                 DispatchQueue.main.async {
                     self?.hideActivityIndicator()
-                    if(amount != nil){
-                        self?.lbCurrentBalance.attributedText = getAttributedString(str: "\(amountTmp.round(8))", siz: 17.0, TexthexColor: GlobalConstants.Colors.TextAmount)
-                        self!.walletInfo.walletBalance = "\(amountTmp.round(8))"
-                    }
+                    self?.lbCurrentBalance.attributedText = getAttributedString(str: "\(amountTmp.round(8))", siz: 17.0, TexthexColor: GlobalConstants.Colors.TextAmount)
+                    self!.walletInfo.walletBalance = "\(amountTmp.round(8))"
                 }
             } catch let error {
                 print(error)

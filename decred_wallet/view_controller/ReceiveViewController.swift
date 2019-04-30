@@ -97,7 +97,12 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
         
         self.account?.Acc.removeAll()
         do{
-            let strAccount = try self.wallet?.getAccounts(0)
+            var getAccountError: NSError?
+            let strAccount = try self.wallet?.getAccounts(0, error: &getAccountError)
+            if getAccountError != nil {
+                throw getAccountError!
+            }
+            
             self.account = try JSONDecoder().decode(GetAccountResponse.self, from: (strAccount?.data(using: .utf8))!)
         } catch let error{
             print(error)
@@ -138,7 +143,11 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
         
         self.account?.Acc.removeAll()
         do{
-            let strAccount = try self.wallet?.getAccounts(0)
+            var getAccountError: NSError?
+            let strAccount = self.wallet?.getAccounts(0, error: &getAccountError)
+            if getAccountError != nil {
+                throw getAccountError!
+            }
             self.account = try JSONDecoder().decode(GetAccountResponse.self, from: (strAccount?.data(using: .utf8))!)
         } catch let error{
             print(error)
@@ -194,29 +203,27 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
         }
     }
     
-    private func getAddress(accountNumber : Int32){
-        
-        let receiveAddress = try?self.wallet?.currentAddress(Int32(accountNumber))
+    private func getAddress(accountNumber : Int32) {
+        let receiveAddress = self.wallet?.currentAddress(Int32(accountNumber), error: nil)
         DispatchQueue.main.async { [weak self] in
             guard let this = self else { return }
             
             this.lblWalletAddress.text = receiveAddress!
             this.imgWalletAddrQRCode.image = generateQRCodeFor(
-                with: receiveAddress!!,
+                with: receiveAddress!,
                 forImageViewFrame: this.imgWalletAddrQRCode.frame
             )
         }
     }
     
     @objc private func getNextAddress(accountNumber : Int32){
-        
-        let receiveAddress = try?self.wallet?.nextAddress(Int32(accountNumber))
+        let receiveAddress = self.wallet?.nextAddress(Int32(accountNumber), error: nil)
         DispatchQueue.main.async { [weak self] in
             guard let this = self else { return }
             if (this.oldAddress != receiveAddress!) {
                 this.lblWalletAddress.text = receiveAddress!
                 this.imgWalletAddrQRCode.image = generateQRCodeFor(
-                    with: receiveAddress!!,
+                    with: receiveAddress!,
                     forImageViewFrame: this.imgWalletAddrQRCode.frame
                 )
                 return
