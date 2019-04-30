@@ -1,11 +1,9 @@
 //
 //  SendViewController.swift
 //  Decred Wallet
-
 // Copyright (c) 2018-2019 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
-
 import QRCodeReader
 import UIKit
 import Dcrlibwallet
@@ -13,60 +11,47 @@ import SafariServices
 
 
 class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDelegate, QRCodeReaderViewControllerDelegate, PinEnteredProtocol {
-
-    @IBOutlet weak var feeLabel: UILabel!
-    @IBOutlet weak var usdLabel: UILabel!
-    @IBOutlet weak var fromLabel: UILabel!
-    @IBOutlet weak var subHeaderLabel: UILabel!
-    @IBOutlet weak var HeaderLabel: UILabel!
-    @IBOutlet weak var toLabel: UILabel!
-    @IBOutlet weak var sendInUsd: UILabel!
-    @IBOutlet weak var sendInDcr: UILabel!
-    @IBOutlet weak var dcrLabel: UILabel!
-    @IBOutlet weak var estimatedFeeLabel: UILabel!
-    @IBOutlet weak var balanceAfterLabel: UILabel!
-    @IBOutlet weak var exchangeRateLabel: UILabel!
+    var pinInput: String?
+    
+    @IBOutlet weak var pasteBtn: UIButton!
+    weak var delegate: LeftMenuProtocol?
+    @IBOutlet var accountDropdown: DropMenuButton!
+    @IBOutlet weak var toAccountDropDown: DropMenuButton!
     @IBOutlet var BalanceAfter: UILabel!
     @IBOutlet var estimateFee: UILabel!
     @IBOutlet var estimateSize: UILabel!
     @IBOutlet var walletAddress: UITextField!
     @IBOutlet var tfAmount: UITextField!
     @IBOutlet var sendAllBtn: UIButton!
-    @IBOutlet weak var pasteBtn: UIButton!
-    @IBOutlet weak var sendNtwkErrtext: UILabel!
-    @IBOutlet weak var amountErrorText: UILabel!
-    @IBOutlet weak var addressErrorText: UILabel!
-    @IBOutlet weak var exchangeRateDisplay: UILabel!
-    @IBOutlet weak var convertionFeeOther: UILabel!
-    @IBOutlet weak var sendBtn: UIButton!
-    @IBOutlet weak var exchangeRateError: UIButton!
-    @IBOutlet weak var currencyAmount2: AmountTextfield!
-    @IBOutlet weak var qrcodeBtn: UIButton!
-    @IBOutlet weak var conversionContHeight: NSLayoutConstraint!
-    @IBOutlet weak var conversionRowCont: UIStackView!
-    @IBOutlet weak var bottomCont: UIView!
-    @IBOutlet weak var conversionFeeCont: UIStackView!
-    @IBOutlet weak var buttomContHeight: NSLayoutConstraint!
-    @IBOutlet weak var sendInfoHeight: NSLayoutConstraint!
-    @IBOutlet weak var exchangeRateCont: UIStackView!
-    weak var delegate: LeftMenuProtocol?
-    @IBOutlet var accountDropdown: DropMenuButton!
-    @IBOutlet weak var toAccountDropDown: DropMenuButton!
     @IBOutlet weak var toAccountContainer: UIStackView!
     @IBOutlet weak var toAddressContainer: UIStackView!
-   
-    var fromNotQRScreen = true
-    var AccountFilter: [AccountsEntity]?
-    var pinInput: String?
     private var barButton: UIBarButtonItem?
     var removedBtn = true
     var wallet :DcrlibwalletLibWallet!
-    var selectedAccount: AccountsEntity?
-    var sendToAccount: AccountsEntity?
-    var password: String?
-    var sendAllTX = false
-    var exchangeRateGloabal :NSDecimalNumber = 0.0
-    var tempFee = "0"
+    
+    @IBOutlet weak var sendNtwkErrtext: UILabel!
+    @IBOutlet weak var amountErrorText: UILabel!
+    @IBOutlet weak var addressErrorText: UILabel!
+    @IBOutlet weak var sendBtn: UIButton!
+    @IBOutlet weak var qrcodeBtn: UIButton!
+    var fromNotQRScreen = true
+    var AccountFilter: [AccountsEntity]?
+    
+    @IBOutlet weak var conversionContHeight: NSLayoutConstraint!
+    @IBOutlet weak var conversionRowCont: UIStackView!
+    
+    @IBOutlet weak var bottomCont: UIView!
+    @IBOutlet weak var conversionFeeCont: UIStackView!
+    
+    
+    @IBOutlet weak var sendInfoHeight: NSLayoutConstraint!
+    
+    @IBOutlet weak var exchangeRateCont: UIStackView!
+    @IBOutlet weak var exchangeRateDisplay: UILabel!
+    @IBOutlet weak var convertionFeeOther: UILabel!
+    @IBOutlet weak var exchangeRateError: UIButton!
+    @IBOutlet weak var currencyAmount2: AmountTextfield!
+    
     private lazy var readerVC: QRCodeReaderViewController = {
         let builder = QRCodeReaderViewControllerBuilder {
             $0.reader = QRCodeReader(metadataObjectTypes: [.qr], captureDevicePosition: .back)
@@ -74,6 +59,13 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         
         return QRCodeReaderViewController(builder: builder)
     }()
+    
+    var selectedAccount: AccountsEntity?
+    var sendToAccount: AccountsEntity?
+    var password: String?
+    var sendAllTX = false
+    var exchangeRateGloabal :NSDecimalNumber = 0.0
+    var tempFee = "0"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -99,7 +91,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     
     @objc func willResignActive(){
         if ( (self.walletAddress.text?.count)! < 1) {
-             self.checkpaste()
+            self.checkpaste()
         }
     }
     
@@ -235,18 +227,18 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     }
     
     func removePasteBtn(){
-         DispatchQueue.main.async {
+        DispatchQueue.main.async {
             if !(self.removedBtn){
-            
-            self.toAddressContainer.removeArrangedSubview(self.pasteBtn)
-            self.pasteBtn.isHidden = true
+                
+                self.toAddressContainer.removeArrangedSubview(self.pasteBtn)
+                self.pasteBtn.isHidden = true
                 //self.removedBtn = true
                 
             }
             else{
-            self.toAddressContainer.insertArrangedSubview(self.pasteBtn, at: 1)
-               // self.removedBtn = false
-            self.pasteBtn.isHidden = false
+                self.toAddressContainer.insertArrangedSubview(self.pasteBtn, at: 1)
+                // self.removedBtn = false
+                self.pasteBtn.isHidden = false
             }
         }
         
@@ -254,21 +246,21 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     
     func removeQrbtn(){
         DispatchQueue.main.async {
-        self.toAddressContainer.removeArrangedSubview(self.qrcodeBtn)
-        self.qrcodeBtn.isHidden = true
+            self.toAddressContainer.removeArrangedSubview(self.qrcodeBtn)
+            self.qrcodeBtn.isHidden = true
         }
     }
     func addQrbtn(){
         DispatchQueue.main.async {
-        self.toAddressContainer.insertArrangedSubview(self.qrcodeBtn, at: 1)
-        self.qrcodeBtn.isHidden = false
+            self.toAddressContainer.insertArrangedSubview(self.qrcodeBtn, at: 1)
+            self.qrcodeBtn.isHidden = false
         }
     }
     
     @IBAction private func sendFund(_ sender: Any) {
         guard (UserDefaults.standard.bool(forKey: "synced")) else {
             sendNtwkErrtext.text = "Please wait for network synchronization."
-          DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 self.sendNtwkErrtext.text = " "
             }
             return
@@ -320,7 +312,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                     this.BalanceAfter.text = "\(Amount.round(8)) DCR"
                     if !(self!.conversionRowCont.isHidden){
                         self?.conversionFeeCont.isHidden = false
-                        self!.sendInfoHeight.constant = 0.585 * self!.buttomContHeight.constant
+                        self!.sendInfoHeight.constant = 155
                         self?.tempFee = "\((((Decimal(fee)) * ((self?.exchangeRateGloabal)! as Decimal)) as NSDecimalNumber).round(4))"
                         self?.convertionFeeOther.text = "(\(self!.tempFee) USD)"
                     }
@@ -329,7 +321,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                     }
                 }
             } catch let error {
-               // self.showAlert(message: error.localizedDescription, titles: "Error")
+                // self.showAlert(message: error.localizedDescription, titles: "Error")
             }
         }
     }
@@ -343,14 +335,14 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             }
             return
         }
-          var walletAddress = ""
+        var walletAddress = ""
         if (self.toAddressContainer.isHidden){
             let receiveAddress = try?wallet?.currentAddress((self.sendToAccount?.Number)!)
             walletAddress = (receiveAddress!)!
         }
         else{
             DispatchQueue.main.async {
-                 walletAddress = self.walletAddress.text!
+                walletAddress = self.walletAddress.text!
             }
         }
         DispatchQueue.main.async {
@@ -438,7 +430,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         tap.cancelsTouchesInView = false
         
         confirmSendFundViewController.view.addGestureRecognizer(tap)
-         DispatchQueue.main.async {
+        DispatchQueue.main.async {
             if (self.toAddressContainer.isHidden){
                 let receiveAddress = try?self.wallet?.currentAddress((self.sendToAccount?.Number)!)
                 confirmSendFundViewController.address = (receiveAddress!)!
@@ -446,7 +438,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             }
             else{
                 confirmSendFundViewController.accountName.isHidden = true
-                    confirmSendFundViewController.address = self.walletAddress.text!
+                confirmSendFundViewController.address = self.walletAddress.text!
             }
             if !(self.conversionRowCont.isHidden){
                 confirmSendFundViewController.amount = "\(amountToSend) DCR ($\((self.currencyAmount2.text)!))"
@@ -455,10 +447,10 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             else{
                 confirmSendFundViewController.amount = "\(amountToSend) DCR"
                 confirmSendFundViewController.fee = "\((self.estimateFee.text)!) (\((self.estimateSize.text)!))"
-            
-                }
-            
+                
             }
+            
+        }
         
         
         let tmp = pin
@@ -560,17 +552,17 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         sendCompletedVC.openDetails = { [weak self] in
             guard let `self` = self else { return }
             DispatchQueue.main.async {
-            self.walletAddress.text = nil
-            self.estimateFee.text = "0.00 DCR"
-            self.estimateSize.text = "0 Bytes"
-            self.BalanceAfter.text = "0.00 DCR"
-            self.tfAmount.text = nil
-            if !(self.toAddressContainer.isHidden){
-                self.addQrbtn()
-                self.checkpaste()
-                
-            }
-            self.showDefaultAccount()
+                self.walletAddress.text = nil
+                self.estimateFee.text = "0.00 DCR"
+                self.estimateSize.text = "0 Bytes"
+                self.BalanceAfter.text = "0.00 DCR"
+                self.tfAmount.text = nil
+                if !(self.toAddressContainer.isHidden){
+                    self.addQrbtn()
+                    self.checkpaste()
+                    
+                }
+                self.showDefaultAccount()
             }
             
             let isTestnet = Bool(infoForKey(GlobalConstants.Strings.IS_TESTNET)!)!
@@ -583,17 +575,18 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         sendCompletedVC.closeView = { [weak self] in
             guard let `self` = self else { return }
             DispatchQueue.main.async {
-            self.walletAddress.text = nil
-            self.estimateFee.text = "0.00 DCR"
-            self.estimateSize.text = "0 Bytes"
-            self.BalanceAfter.text = "0.00 DCR"
-            self.tfAmount.text = nil
-            if !(self.toAddressContainer.isHidden){
-                self.addQrbtn()
-                self.checkpaste()
-            }
-            self.showDefaultAccount()
-            self.updateBalance()
+                self.walletAddress.text = nil
+                self.estimateFee.text = "0.00 DCR"
+                self.estimateSize.text = "0 Bytes"
+                self.BalanceAfter.text = "0.00 DCR"
+                self.tfAmount.text = nil
+                self.currencyAmount2.text = nil
+                if !(self.toAddressContainer.isHidden){
+                    self.addQrbtn()
+                    self.checkpaste()
+                }
+                self.showDefaultAccount()
+                self.updateBalance()
             }
             
         }
@@ -609,7 +602,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             return false
         }
         
-       // self.prepareTransaction(sendAll: false)
+        // self.prepareTransaction(sendAll: false)
         textField.resignFirstResponder()
         return true
     }
@@ -617,7 +610,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         if (self.tfAmount.text != nil && self.tfAmount.text != "" && self.tfAmount.text != "0" && self.amountErrorText.text == "") {
             self.sendAllTX = false
-           // self.prepareTransaction(sendAll: self.sendAllTX)
+            // self.prepareTransaction(sendAll: self.sendAllTX)
             return true
         }
         
@@ -630,8 +623,8 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         return true
     }
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
-         if (textField == self.walletAddress) {
-             DispatchQueue.main.async {
+        if (textField == self.walletAddress) {
+            DispatchQueue.main.async {
                 self.addressErrorText.text = ""
                 
             }
@@ -747,7 +740,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                             self.BalanceAfter.text = "0.00 DCR"
                             if !(self.conversionRowCont.isHidden){
                                 self.conversionFeeCont.isHidden = true
-                                self.sendInfoHeight.constant = 0.515 * self.buttomContHeight.constant
+                                self.sendInfoHeight.constant = 135
                                 self.convertionFeeOther.text = ""
                             }
                         }
@@ -777,7 +770,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                     self.amountErrorText.text = ""
                     if !(self.conversionRowCont.isHidden){
                         self.conversionFeeCont.isHidden = true
-                        self.sendInfoHeight.constant = 0.515 * self.buttomContHeight.constant
+                        self.sendInfoHeight.constant = 135
                         self.convertionFeeOther.text = ""
                     }
                     self.toggleSendBtn(validate: self.validateSentBtn(amount: updatedString!))
@@ -847,7 +840,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                             self.BalanceAfter.text = "0.00 DCR"
                             if !(self.conversionRowCont.isHidden){
                                 self.conversionFeeCont.isHidden = true
-                                self.sendInfoHeight.constant = 0.515 * self.buttomContHeight.constant
+                                self.sendInfoHeight.constant = 135
                                 self.convertionFeeOther.text = ""
                             }
                         }
@@ -879,7 +872,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                     self.BalanceAfter.text = "0.00 DCR"
                     if !(self.conversionRowCont.isHidden){
                         self.conversionFeeCont.isHidden = true
-                        self.sendInfoHeight.constant = 0.515 * self.buttomContHeight.constant
+                        self.sendInfoHeight.constant = 135
                         self.convertionFeeOther.text = ""
                     }
                     self.toggleSendBtn(validate: self.validateSentBtn(amount: updatedString!))
@@ -1151,9 +1144,9 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                         if let exchangeRate = reportLoad!["Last"] as? Double?{
                             let exchange = Decimal(exchangeRate!) as NSDecimalNumber
                             DispatchQueue.main.async {
-                                self.conversionContHeight.constant = UIScreen.main.bounds.height * 0.035
+                                self.conversionContHeight.constant = 75
                                 self.conversionRowCont.isHidden = false
-                                self.sendInfoHeight.constant = 0.515 * self.buttomContHeight.constant
+                                self.sendInfoHeight.constant = 135
                                 self.exchangeRateCont.isHidden = false
                                 self.exchangeRateDisplay.text = exchange.round(2).stringValue + " USD/DCR (bittrex)"
                                 self.exchangeRateGloabal = exchange.round(2)
@@ -1188,7 +1181,6 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         
         task.resume()
     }
-    
     
 }
 class AmountTextfield: UITextField {

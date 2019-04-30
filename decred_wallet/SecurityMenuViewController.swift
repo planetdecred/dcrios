@@ -45,11 +45,9 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
         self.address.delegate = self
         self.signature.delegate = self
         self.message.delegate = self
-        self.HeaderInfo.text = "Here you can verify the validity of an address, sign messages to prove your ownership of an address\nand verify signatures."
         if (UserDefaults.standard.bool(forKey: "synced")) {
             self.toggleView()
         }
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -58,7 +56,6 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
         self.navigationItem.title = "Security"
         if !(UserDefaults.standard.bool(forKey: "synced")) {
             syncInfoLabel.isHidden = false
-            
             return
         }
         let clearFieldBtn = UIButton(type: .custom)
@@ -68,8 +65,6 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
         barButton = UIBarButtonItem(customView: clearFieldBtn)
         self.navigationItem.rightBarButtonItems = [barButton!]
         syncInfoLabel.isHidden = true
-        
-       
     }
     
     override func viewDidAppear(_ animated: Bool) {

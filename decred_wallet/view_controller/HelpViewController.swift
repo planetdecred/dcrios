@@ -11,11 +11,9 @@ import SafariServices
 
 class HelpViewController: UIViewController,SFSafariViewControllerDelegate {
     
-    @IBOutlet weak var helpInfo: UILabel!
     @IBOutlet weak var linkBtn: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
     
     override func didReceiveMemoryWarning() {

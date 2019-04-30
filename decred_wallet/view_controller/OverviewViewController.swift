@@ -611,11 +611,8 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
            let estimatedDiscoveryTime = totalFetchTime * self.discovery_percentage;
             let totalSyncTime = totalFetchTime + estimatedRescanTime + estimatedDiscoveryTime;
            if totalSyncTime > 0{
-            let tmp = remainingFetchTime + estimatedRescanTime + estimatedDiscoveryTime
-            if !(tmp.isNaN || tmp.isInfinite){
-            self.walletInfo.syncRemainingTime = Int64(round(tmp));
-                self.walletInfo.syncProgress = Int(( Double(elapsedFetchTime) / Double(totalSyncTime) * 100.0))
-            }
+            self.walletInfo.syncRemainingTime = Int64(round(remainingFetchTime + estimatedRescanTime + estimatedDiscoveryTime));
+            self.walletInfo.syncProgress = Int(( Double(elapsedFetchTime) / Double(totalSyncTime) * 100.0))
            }
             self.walletInfo.syncStatus = "Fetching block headers."
             self.walletInfo.bestBlockTime = "\(lastHeaderTime)"

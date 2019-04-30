@@ -15,8 +15,6 @@ class GeneratedSeedDisplayViewController: UIViewController {
     @IBOutlet weak var subHeaderLabel: UILabel!
     @IBOutlet var vWarningLabel: UILabel!
     @IBOutlet private var seedWordLabels: [UILabel]!
-    
-    @IBOutlet weak var buttonCopied: UIButton!
     @IBOutlet private var outerStackView: UIStackView!
     @IBOutlet var seedContainer: UIView!
     
@@ -42,7 +40,6 @@ class GeneratedSeedDisplayViewController: UIViewController {
         
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) { [weak self] in
             guard let this = self else { return }
-            
             this.drawSeed()
         }
         

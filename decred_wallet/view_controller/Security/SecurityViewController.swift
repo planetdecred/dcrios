@@ -30,6 +30,7 @@ class SecurityViewController: UIViewController, SeedCheckupProtocol, StartUpPass
         btnPin.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         btnPassword.backgroundColor = #colorLiteral(red: 0.9449833035, green: 0.9450840354, blue: 0.9490672946, alpha: 1)
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
