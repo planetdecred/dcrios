@@ -108,6 +108,7 @@
 		DDB89427202F955F002F85EE /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB89426202F955F002F85EE /* UIView.swift */; };
 		DDB89429202F95AC002F85EE /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB89428202F95AC002F85EE /* UIApplication.swift */; };
 		DDBB74A82215B97B003B172C /* inconsolata_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DDBB74A72215B5C7003B172C /* inconsolata_regular.ttf */; };
+		DDC51CA02272076E00ED24B0 /* Dcrlibwallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDC51C9F2272076D00ED24B0 /* Dcrlibwallet.framework */; };
 		DDD2BA17224FED3800136C65 /* CurrencyOptionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD2BA16224FED3800136C65 /* CurrencyOptionTableViewController.swift */; };
 		DDD967372204668500462238 /* ConfirmToSendFundViewPINController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD967362204668400462238 /* ConfirmToSendFundViewPINController.swift */; };
 		DDE90C8A2162CCB20031CED7 /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE90C892162CCB20031CED7 /* HelpViewController.swift */; };
@@ -265,6 +266,7 @@
 		DDB89426202F955F002F85EE /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		DDB89428202F95AC002F85EE /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		DDBB74A72215B5C7003B172C /* inconsolata_regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = inconsolata_regular.ttf; sourceTree = "<group>"; };
+		DDC51C9F2272076D00ED24B0 /* Dcrlibwallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Dcrlibwallet.framework; sourceTree = "<group>"; };
 		DDD2BA16224FED3800136C65 /* CurrencyOptionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CurrencyOptionTableViewController.swift; path = decred_wallet/view_controller/CurrencyOptionTableViewController.swift; sourceTree = "<group>"; };
 		DDD967362204668400462238 /* ConfirmToSendFundViewPINController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmToSendFundViewPINController.swift; sourceTree = "<group>"; };
 		DDE90C892162CCB20031CED7 /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
@@ -278,6 +280,7 @@
 			files = (
 				B39F41C82278DB8300F6F202 /* Dcrlibwallet.framework in Frameworks */,
 				B38F4545227062A60068F33D /* Pods_Decred_Wallet.framework in Frameworks */,
+				DDC51CA02272076E00ED24B0 /* Dcrlibwallet.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,6 +374,7 @@
 				B38F4546227062B50068F33D /* Dcrlibwallet.framework */,
 				B39F41C72278DB8300F6F202 /* Dcrlibwallet.framework */,
 				B38F4544227062A60068F33D /* Pods_Decred_Wallet.framework */,
+				DDC51C9F2272076D00ED24B0 /* Dcrlibwallet.framework */,
 				B3A32AA9227012BB00CDD53D /* Crashlytics.framework */,
 				28FD1BD0208F6C9A0051F58F /* Pods_Decred_Wallet.framework */,
 				28FD1BC5208E667F0051F58F /* Pods_Decred_Wallet.framework */,
@@ -649,7 +653,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0940;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "The Decred developers";
 				TargetAttributes = {
 					DDA3E26920292EF900C83D18 = {

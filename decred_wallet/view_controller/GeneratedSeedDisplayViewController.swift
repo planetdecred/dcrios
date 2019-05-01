@@ -13,7 +13,6 @@ class GeneratedSeedDisplayViewController: UIViewController {
     
     @IBOutlet var vWarningLabel: UILabel!
     @IBOutlet private var seedWordLabels: [UILabel]!
-    
     @IBOutlet private var outerStackView: UIStackView!
     @IBOutlet var seedContainer: UIView!
     

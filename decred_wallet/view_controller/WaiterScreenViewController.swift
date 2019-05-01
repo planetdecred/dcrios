@@ -56,7 +56,6 @@ class WaiterScreenViewController: UIViewController, WaiterScreenProtocol {
     }
     
     func set(label: String) {
-        
         self.label.text = label
     }
     
