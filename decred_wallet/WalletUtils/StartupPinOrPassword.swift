@@ -49,10 +49,10 @@ struct StartupPinOrPassword {
             let requestPasswordVC = vc.storyboard!.instantiateViewController(withIdentifier: "RequestPasswordViewController") as! RequestPasswordViewController
             requestPasswordVC.prompt = "Enter Current Password"
             requestPasswordVC.onUserEnteredPinOrPassword = afterUserEntersPinOrPassword
-            vc.navigationController?.pushViewController(requestPasswordVC, animated: true)
+            vc.present(requestPasswordVC, animated: true)
         } else {
             let requestPinVC = vc.storyboard!.instantiateViewController(withIdentifier: "RequestPinViewController") as! RequestPinViewController
-            requestPinVC.prompt = "Enter Current PIN"
+            requestPinVC.securityFor = "Startup"
             requestPinVC.onUserEnteredPin = afterUserEntersPinOrPassword
             vc.present(requestPinVC, animated: true, completion: nil)
         }
@@ -61,8 +61,7 @@ struct StartupPinOrPassword {
     private static func setNewPinOrPassword(_ vc: UIViewController, currentPinOrPassword: String?) {
         // init secutity vc to use in getting new password or pin from user
         let securityVC = vc.storyboard!.instantiateViewController(withIdentifier: "SecurityViewController") as! SecurityViewController
-        securityVC.pageTitlePrefix = "Create Startup" // "Password" or "Pin" will be appended when user selects the desired tab on the security vc
-        
+        securityVC.securityFor = "Startup"
         securityVC.onUserEnteredPinOrPassword = { newPinOrPassword, securityType in
             self.changeWalletPublicPassphrase(vc, current: currentPinOrPassword, new: newPinOrPassword, type: securityType)
         }

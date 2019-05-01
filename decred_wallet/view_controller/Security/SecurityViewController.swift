@@ -10,7 +10,7 @@ import UIKit
 
 class SecurityViewController: UIViewController {
     // "Password" or "Pin" will be appended to the title depending on what tab is activated
-    var pageTitlePrefix = "Create Spending"
+    var securityFor = "Spending" // or Startup
     
     // This will be triggered after a pin or password is provided by the user.
     var onUserEnteredPinOrPassword: ((_ pinOrPassword: String, _ securityType: String) -> Void)?
@@ -39,13 +39,13 @@ class SecurityViewController: UIViewController {
             pager?.tabBar.isHidden = true
             
             let passwordTabVC = pager?.viewControllers?.first as? PasswordSetupViewController
-            passwordTabVC?.pageTitle = "\(self.pageTitlePrefix) Password"
+            passwordTabVC?.securityFor = self.securityFor
             passwordTabVC?.onUserEnteredPassword = { password in
                 self.onUserEnteredPinOrPassword?(password, "PASSWORD")
             }
             
             let pinTabVC = pager?.viewControllers?.last as? RequestPinViewController
-            pinTabVC?.prompt = "\(self.pageTitlePrefix) PIN"
+            pinTabVC?.securityFor = self.securityFor
             pinTabVC?.requestPinConfirmation = true
             pinTabVC?.onUserEnteredPin = { pin in
                 self.onUserEnteredPinOrPassword?(pin, "PIN")

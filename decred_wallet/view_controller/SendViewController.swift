@@ -269,7 +269,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                 self.confirmSend(sendAll: false)
             } else {
                 let requestPinVC = storyboard!.instantiateViewController(withIdentifier: "RequestPinViewController") as! RequestPinViewController
-                requestPinVC.prompt = "Enter Spending PIN"
+                requestPinVC.securityFor = "Spending"
                 requestPinVC.onUserEnteredPin = { pin in
                     self.confirmSendWithoutPin(sendAll: false, pin: pin)
                 }

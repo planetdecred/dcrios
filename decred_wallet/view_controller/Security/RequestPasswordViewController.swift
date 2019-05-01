@@ -34,10 +34,16 @@ class RequestPasswordViewController: UIViewController {
         
         if onUserEnteredPinOrPassword == nil && openWalletOnEnterPassword {
             unlockWalletAndStartApp(password: password)
-        } else {
-            onUserEnteredPinOrPassword?(password)
-//            self.navigationController?.popToRootViewController(animated: true)
+            return
         }
+        
+        if self.isModal {
+            self.dismiss(animated: true, completion: nil)
+        } else {
+            self.navigationController?.popViewController(animated: true)
+        }
+        
+        onUserEnteredPinOrPassword?(password)
     }
     
     func unlockWalletAndStartApp(password: String) {

@@ -22,19 +22,19 @@ struct SpendingPinOrPassword {
             let requestPasswordVC = vc.storyboard!.instantiateViewController(withIdentifier: "RequestPasswordViewController") as! RequestPasswordViewController
             requestPasswordVC.prompt = "Enter Current Password"
             requestPasswordVC.onUserEnteredPinOrPassword = afterUserEntersPinOrPassword
-            vc.navigationController?.pushViewController(requestPasswordVC, animated: true)
+            vc.present(requestPasswordVC, animated: true)
         } else {
             let requestPinVC = vc.storyboard!.instantiateViewController(withIdentifier: "RequestPinViewController") as! RequestPinViewController
-            requestPinVC.prompt = "Enter Current PIN"
+            requestPinVC.securityFor = "Current"
             requestPinVC.onUserEnteredPin = afterUserEntersPinOrPassword
-            vc.navigationController?.pushViewController(requestPinVC, animated: true)
+            vc.present(requestPinVC, animated: true)
         }
     }
     
     private static func promptForNewPinOrPassword(_ vc: UIViewController, currentPinOrPassword: String) {
         // init secutity vc to use in getting new spending password or pin from user
         let securityVC = vc.storyboard!.instantiateViewController(withIdentifier: "SecurityViewController") as! SecurityViewController
-        securityVC.pageTitlePrefix = "Change Spending"
+        securityVC.securityFor = "Spending"
         
         securityVC.onUserEnteredPinOrPassword = { (newPinOrPassword, securityType) in
             self.changeWalletSpendingPassphrase(vc, current: currentPinOrPassword, new: newPinOrPassword, type: securityType)

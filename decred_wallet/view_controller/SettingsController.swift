@@ -239,7 +239,7 @@ class SettingsController: UITableViewController  {
             self.present(alert, animated: true, completion: nil)
         } else {
             let requestPinVC = storyboard!.instantiateViewController(withIdentifier: "RequestPinViewController") as! RequestPinViewController
-            requestPinVC.prompt = "Enter Spending PIN"
+            requestPinVC.securityFor = "Spending"
             requestPinVC.onUserEnteredPin = { pin in
                 self.handleDeleteWallet(pass: pin)
             }

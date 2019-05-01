@@ -15,7 +15,7 @@ class PasswordSetupViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var lbMatchIndicator: UILabel!
     @IBOutlet weak var pbPasswordStrength: UIProgressView!
     
-    var pageTitle: String?
+    var securityFor: String = "" // expects "Spending", "Startup" or other security section
     var onUserEnteredPassword: ((_ password: String) -> Void)?
     
     override func viewDidLoad() {
@@ -30,7 +30,7 @@ class PasswordSetupViewController: UIViewController, UITextFieldDelegate {
         self.tfPassword.delegate = self
         self.tfConfirmPassword.delegate = self
         
-        self.headerText.text = self.pageTitle ?? "Setup Password"
+        self.headerText.text = "Create \(self.securityFor) Password"
         self.lbMatchIndicator.text = " " // use empty space so label height isn't reduced
     }
     
@@ -83,16 +83,16 @@ class PasswordSetupViewController: UIViewController, UITextFieldDelegate {
             return false
         }
         
-        self.onUserEnteredPassword?(self.tfPassword.text!)
-        
         // only quit VC if not part of the SecurityVC tabs
         if self.tabBarController == nil {
             if self.isModal {
                 self.dismiss(animated: true, completion: nil)
             } else {
-                self.navigationController?.popToRootViewController(animated: true)
+                self.navigationController?.popViewController(animated: true)
             }
         }
+        
+        self.onUserEnteredPassword?(self.tfPassword.text!)
         
         return true
     }

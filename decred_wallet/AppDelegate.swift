@@ -85,7 +85,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 else{
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                     let requestPinVC = storyboard.instantiateViewController(withIdentifier: "RequestPinViewController") as! RequestPinViewController
-                    requestPinVC.prompt = "Enter Startup PIN"
+                    requestPinVC.securityFor = "Startup"
                     requestPinVC.openWalletOnEnterPin = true
                     self.window?.rootViewController = requestPinVC
                     self.window?.makeKeyAndVisible()

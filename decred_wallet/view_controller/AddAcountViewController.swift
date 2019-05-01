@@ -39,7 +39,7 @@ class AddAcountViewController: UIViewController {
                 addAccountWithoutPin()
             }else{
                 let requestPinVC = storyboard!.instantiateViewController(withIdentifier: "RequestPinViewController") as! RequestPinViewController
-                requestPinVC.prompt = "Enter Spending PIN"
+                requestPinVC.securityFor = "Spending"
                 requestPinVC.showCancelButton = true
                 requestPinVC.onUserEnteredPin = { pin in
                     self.addAccountWithPin(pin: pin as NSString)

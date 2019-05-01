@@ -8,15 +8,15 @@
 
 import UIKit
 
-class PinInputView: UIStackView {
+class PinInputView: UIView {
     static let spacingBetweenPinCircles: CGFloat = 10.0
+    static let circleBorderSizeFactor: CGFloat = 0.15
     static let maxNumberOfPinCircles = 5
     
     var maxNumberOfDigits: Int = Int(LONG_LONG_MAX)
     var pin: String = "" {
         didSet {
             self.setNeedsDisplay()
-            // self.drawCells(in: self.frame)
         }
     }
     
@@ -37,15 +37,14 @@ class PinInputView: UIStackView {
     }
     
     override func draw(_ frame: CGRect) {
-        self.alignment = .center
         self.drawCells(in: frame)
     }
     
     func drawCells(in frame: CGRect) {
         // clear current views
         self.layer.sublayers?.removeAll()
-        if self.arrangedSubviews.count > 0{
-            self.removeArrangedSubview(self.arrangedSubviews[0])
+        if self.subviews.count > 0 {
+            self.subviews[0].removeFromSuperview()
         }
         
         if pin.count > PinInputView.maxNumberOfPinCircles {
@@ -64,7 +63,7 @@ class PinInputView: UIStackView {
         pinLabel.textColor = #colorLiteral(red: 0.2537069321, green: 0.8615272641, blue: 0.7028611302, alpha: 1)
         pinLabel.font = pinLabel.font.withSize(25)
         
-        self.addArrangedSubview(pinLabel)
+        self.addSubview(pinLabel)
     }
     
     func drawPinCircles(in frame: CGRect) {
@@ -75,7 +74,11 @@ class PinInputView: UIStackView {
             eachCircleDiameter = maxWidthPerCircle
         }
         
-        var nextXPos = CGFloat(0)
+        // calculate x pos for first pin circle
+        let totalPinCircleWidths = CGFloat(self.pin.count) * eachCircleDiameter
+        let totalSpaceBetweenPins = CGFloat(self.pin.count - 1) * PinInputView.spacingBetweenPinCircles
+        let totalPinCircleWidthPlusSpacing = totalPinCircleWidths + totalSpaceBetweenPins
+        var nextXPos = (frame.width - totalPinCircleWidthPlusSpacing) / 2
         
         for _ in 0..<pin.count {
             self.drawPinCircle(in: frame, xPos: nextXPos, diameter: eachCircleDiameter)
@@ -84,21 +87,18 @@ class PinInputView: UIStackView {
     }
     
     func drawPinCircle(in frame: CGRect, xPos: CGFloat, diameter: CGFloat) {
-        let yCenter = frame.height / 2
-        
-        let circlePath = UIBezierPath(
-            arcCenter: CGPoint(x: xPos, y: yCenter),
-            radius: diameter / 2,
-            startAngle: 0.0,
-            endAngle: 360.0,
-            clockwise: true
+        let radius = diameter / 2
+        let arcCenter = CGPoint(
+            x: xPos + radius,
+            y: frame.height / 2
         )
+        let circlePath = UIBezierPath(arcCenter: arcCenter, radius: radius, startAngle: 0.0, endAngle: 360.0, clockwise: true)
         
         let circleShape = CAShapeLayer()
         circleShape.path = circlePath.cgPath
         circleShape.fillColor = #colorLiteral(red: 0.2537069321, green: 0.8615272641, blue: 0.7028611302, alpha: 1).cgColor
         circleShape.strokeColor = UIColor.white.cgColor
-        circleShape.lineWidth = 2
+        circleShape.lineWidth = diameter * PinInputView.circleBorderSizeFactor
         
         self.layer.addSublayer(circleShape)
     }
