@@ -29,12 +29,12 @@ class GeneratedSeedDisplayViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        do{
-            try
-                self.seed =  (SingleInstance.shared.wallet?.generateSeed())
-        } catch {
-            seed = ""
+        var generateSeedError: NSError?
+        self.seed =  (SingleInstance.shared.wallet?.generateSeed(&generateSeedError))
+        if generateSeedError != nil {
+            print("seed generate error: \(generateSeedError?.localizedDescription)")
         }
+        
         arrWords = (seed.components(separatedBy: " "))
         
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) { [weak self] in
