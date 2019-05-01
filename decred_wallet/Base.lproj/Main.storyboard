@@ -1148,7 +1148,7 @@
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Erh-Y0-nwo" customClass="PinInputView" customModule="DecredWallet" customModuleProvider="target">
                                 <rect key="frame" x="67.5" y="90.5" width="240" height="54"/>
-                                <color key="backgroundColor" red="0.92941176469999998" green="0.93725490199999995" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="54" id="6OL-b7-gml"/>
                                     <constraint firstAttribute="width" constant="240" id="oQw-ws-5M3"/>
@@ -1394,7 +1394,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.92941176469999998" green="0.93725490199999995" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="aLo-VU-Pca" firstAttribute="centerY" secondItem="xsO-Xg-s1c" secondAttribute="centerY" id="0s8-8A-3R2"/>
                                     <constraint firstItem="BCw-cI-q8d" firstAttribute="top" secondItem="7hC-2G-6be" secondAttribute="top" id="3YC-AM-cyK"/>
@@ -1423,13 +1423,14 @@
                                     <constraint firstItem="jVG-MB-vB8" firstAttribute="centerX" secondItem="7hC-2G-6be" secondAttribute="centerX" id="z0f-c0-3Cf"/>
                                 </constraints>
                             </view>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vRA-0U-8dN">
+                            <progressView contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vRA-0U-8dN">
                                 <rect key="frame" x="112.5" y="189" width="150" height="10"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="c5y-Or-f8E"/>
                                     <constraint firstAttribute="height" constant="10" id="u1O-T2-gLw"/>
                                 </constraints>
+                                <color key="trackTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </progressView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PIN STRENGTH" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fNT-WV-EOD">
                                 <rect key="frame" x="134.5" y="152.5" width="106.5" height="21.5"/>
@@ -1562,7 +1563,7 @@
                                 <color key="textColor" red="0.76862745098039209" green="0.79607843137254897" blue="0.82352941176470584" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jWF-k2-g90">
+                            <progressView contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jWF-k2-g90">
                                 <rect key="frame" x="101" y="324.5" width="173" height="7"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -1570,6 +1571,7 @@
                                     <constraint firstAttribute="width" constant="173" id="wcL-Go-V6o"/>
                                 </constraints>
                                 <color key="progressTintColor" red="0.2274509804" green="0.84313725490000002" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="trackTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </progressView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KSR-pO-HpK" customClass="Button" customModule="DecredWallet" customModuleProvider="target">
                                 <rect key="frame" x="137.5" y="354.5" width="100" height="40"/>
