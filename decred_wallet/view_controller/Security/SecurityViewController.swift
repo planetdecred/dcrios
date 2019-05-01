@@ -31,9 +31,6 @@ class SecurityViewController: UIViewController, SeedCheckupProtocol, StartUpPass
         btnPassword.backgroundColor = #colorLiteral(red: 0.9449833035, green: 0.9450840354, blue: 0.9490672946, alpha: 1)
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

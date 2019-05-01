@@ -11,8 +11,6 @@ import Dcrlibwallet
 
 class GeneratedSeedDisplayViewController: UIViewController {
     
-    @IBOutlet weak var HeaderLabel: UILabel!
-    @IBOutlet weak var subHeaderLabel: UILabel!
     @IBOutlet var vWarningLabel: UILabel!
     @IBOutlet private var seedWordLabels: [UILabel]!
     @IBOutlet private var outerStackView: UIStackView!

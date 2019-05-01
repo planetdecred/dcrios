@@ -15,7 +15,7 @@ class WalletSetupViewController : UIViewController {
     @IBOutlet weak var restoreWallet: UILabel!
     @IBOutlet weak var createWallet: UILabel!
     @IBOutlet weak var build: UILabel!
-    @IBOutlet weak var walletText: UILabel!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         createWallet.text = "Create a New \n Wallet"
