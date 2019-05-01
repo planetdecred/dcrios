@@ -48,7 +48,6 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
         if (UserDefaults.standard.bool(forKey: "synced")) {
             self.toggleView()
         }
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -57,7 +56,6 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
         self.navigationItem.title = "Security"
         if !(UserDefaults.standard.bool(forKey: "synced")) {
             syncInfoLabel.isHidden = false
-            
             return
         }
         let clearFieldBtn = UIButton(type: .custom)
@@ -67,8 +65,6 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
         barButton = UIBarButtonItem(customView: clearFieldBtn)
         self.navigationItem.rightBarButtonItems = [barButton!]
         syncInfoLabel.isHidden = true
-        
-       
     }
     
     override func viewDidAppear(_ animated: Bool) {

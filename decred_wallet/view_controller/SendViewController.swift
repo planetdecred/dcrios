@@ -1,7 +1,6 @@
 //
 //  SendViewController.swift
 //  Decred Wallet
-
 // Copyright (c) 2018-2019 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
@@ -37,7 +36,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     @IBOutlet weak var sendBtn: UIButton!
     @IBOutlet weak var qrcodeBtn: UIButton!
     var fromNotQRScreen = true
-     var AccountFilter: [AccountsEntity]?
+    var AccountFilter: [AccountsEntity]?
     
     @IBOutlet weak var conversionContHeight: NSLayoutConstraint!
     @IBOutlet weak var conversionRowCont: UIStackView!
@@ -45,7 +44,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     @IBOutlet weak var bottomCont: UIView!
     @IBOutlet weak var conversionFeeCont: UIStackView!
     
-
+    
     @IBOutlet weak var sendInfoHeight: NSLayoutConstraint!
     
     @IBOutlet weak var exchangeRateCont: UIStackView!
@@ -93,7 +92,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     
     @objc func willResignActive(){
         if ( (self.walletAddress.text?.count)! < 1) {
-             self.checkpaste()
+            self.checkpaste()
         }
     }
     
@@ -229,18 +228,16 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     }
     
     func removePasteBtn(){
-         DispatchQueue.main.async {
+        DispatchQueue.main.async {
             if !(self.removedBtn){
-            
-            self.toAddressContainer.removeArrangedSubview(self.pasteBtn)
-            self.pasteBtn.isHidden = true
-                //self.removedBtn = true
+                
+                self.toAddressContainer.removeArrangedSubview(self.pasteBtn)
+                self.pasteBtn.isHidden = true
                 
             }
             else{
-            self.toAddressContainer.insertArrangedSubview(self.pasteBtn, at: 1)
-               // self.removedBtn = false
-            self.pasteBtn.isHidden = false
+                self.toAddressContainer.insertArrangedSubview(self.pasteBtn, at: 1)
+                self.pasteBtn.isHidden = false
             }
         }
         
@@ -248,21 +245,21 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     
     func removeQrbtn(){
         DispatchQueue.main.async {
-        self.toAddressContainer.removeArrangedSubview(self.qrcodeBtn)
-        self.qrcodeBtn.isHidden = true
+            self.toAddressContainer.removeArrangedSubview(self.qrcodeBtn)
+            self.qrcodeBtn.isHidden = true
         }
     }
     func addQrbtn(){
         DispatchQueue.main.async {
-        self.toAddressContainer.insertArrangedSubview(self.qrcodeBtn, at: 1)
-        self.qrcodeBtn.isHidden = false
+            self.toAddressContainer.insertArrangedSubview(self.qrcodeBtn, at: 1)
+            self.qrcodeBtn.isHidden = false
         }
     }
     
     @IBAction private func sendFund(_ sender: Any) {
         guard (UserDefaults.standard.bool(forKey: "synced")) else {
             sendNtwkErrtext.text = "Please wait for network synchronization."
-          DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 self.sendNtwkErrtext.text = " "
             }
             return
@@ -344,7 +341,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         }
         else{
             DispatchQueue.main.async {
-                 walletAddress = self.walletAddress.text!
+                walletAddress = self.walletAddress.text!
             }
         }
         DispatchQueue.main.async {
@@ -432,7 +429,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         tap.cancelsTouchesInView = false
         
         confirmSendFundViewController.view.addGestureRecognizer(tap)
-         DispatchQueue.main.async {
+        DispatchQueue.main.async {
             if (self.toAddressContainer.isHidden){
                 let receiveAddress = self.wallet?.currentAddress((self.sendToAccount?.Number)!, error: nil)
                 confirmSendFundViewController.address = receiveAddress!
@@ -440,7 +437,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             }
             else{
                 confirmSendFundViewController.accountName.isHidden = true
-                    confirmSendFundViewController.address = self.walletAddress.text!
+                confirmSendFundViewController.address = self.walletAddress.text!
             }
             if !(self.conversionRowCont.isHidden){
                 confirmSendFundViewController.amount = "\(amountToSend) DCR ($\((self.currencyAmount2.text)!))"
@@ -449,21 +446,15 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             else{
                 confirmSendFundViewController.amount = "\(amountToSend) DCR"
                 confirmSendFundViewController.fee = "\((self.estimateFee.text)!) (\((self.estimateSize.text)!))"
-            
-                }
-            
             }
-        
-        
+        }
         let tmp = pin
         confirmSendFundViewController.confirm = { () in
             self.signTransaction(sendAll: sendAll, password: tmp)
         }
-        
         DispatchQueue.main.async {
             self.present(confirmSendFundViewController, animated: true, completion: nil)
         }
-        
         return
     }
     
@@ -477,7 +468,6 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             
             DispatchQueue.main.async { [weak self] in
                 guard let this = self else { return }
-                
                 var address = result?.value
                 if address == nil {
                     return
@@ -491,7 +481,6 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                     if (address?.starts(with: "decred:"))! {
                         address = address?.replacingOccurrences(of: "decred:", with: "")
                     }
-                    
                     if self!.wallet.isAddressValid(address!) {
                         self?.fromNotQRScreen = false
                         DispatchQueue.main.async {
@@ -554,17 +543,17 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         sendCompletedVC.openDetails = { [weak self] in
             guard let `self` = self else { return }
             DispatchQueue.main.async {
-            self.walletAddress.text = nil
-            self.estimateFee.text = "0.00 DCR"
-            self.estimateSize.text = "0 Bytes"
-            self.BalanceAfter.text = "0.00 DCR"
-            self.tfAmount.text = nil
-            if !(self.toAddressContainer.isHidden){
-                self.addQrbtn()
-                self.checkpaste()
-                
-            }
-            self.showDefaultAccount()
+                self.walletAddress.text = nil
+                self.estimateFee.text = "0.00 DCR"
+                self.estimateSize.text = "0 Bytes"
+                self.BalanceAfter.text = "0.00 DCR"
+                self.tfAmount.text = nil
+                if !(self.toAddressContainer.isHidden){
+                    self.addQrbtn()
+                    self.checkpaste()
+                    
+                }
+                self.showDefaultAccount()
             }
             
             let isTestnet = Bool(infoForKey(GlobalConstants.Strings.IS_TESTNET)!)!
@@ -577,17 +566,18 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         sendCompletedVC.closeView = { [weak self] in
             guard let `self` = self else { return }
             DispatchQueue.main.async {
-            self.walletAddress.text = nil
-            self.estimateFee.text = "0.00 DCR"
-            self.estimateSize.text = "0 Bytes"
-            self.BalanceAfter.text = "0.00 DCR"
-            self.tfAmount.text = nil
-            if !(self.toAddressContainer.isHidden){
-                self.addQrbtn()
-                self.checkpaste()
-            }
-            self.showDefaultAccount()
-            self.updateBalance()
+                self.walletAddress.text = nil
+                self.estimateFee.text = "0.00 DCR"
+                self.estimateSize.text = "0 Bytes"
+                self.BalanceAfter.text = "0.00 DCR"
+                self.tfAmount.text = nil
+                self.currencyAmount2.text = nil
+                if !(self.toAddressContainer.isHidden){
+                    self.addQrbtn()
+                    self.checkpaste()
+                }
+                self.showDefaultAccount()
+                self.updateBalance()
             }
             
         }
@@ -602,8 +592,6 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             self.showAlertInvalidAmount()
             return false
         }
-        
-       // self.prepareTransaction(sendAll: false)
         textField.resignFirstResponder()
         return true
     }
@@ -611,7 +599,6 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         if (self.tfAmount.text != nil && self.tfAmount.text != "" && self.tfAmount.text != "0" && self.amountErrorText.text == "") {
             self.sendAllTX = false
-           // self.prepareTransaction(sendAll: self.sendAllTX)
             return true
         }
         
@@ -624,8 +611,8 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         return true
     }
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
-         if (textField == self.walletAddress) {
-             DispatchQueue.main.async {
+        if (textField == self.walletAddress) {
+            DispatchQueue.main.async {
                 self.addressErrorText.text = ""
                 
             }
@@ -647,7 +634,6 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         if (textField == self.walletAddress) {
            
             if (updatedString == nil || updatedString?.trimmingCharacters(in: .whitespaces) == "") {
-                
                 DispatchQueue.main.async {
                     self.addressErrorText.text = ""
                 }
@@ -676,7 +662,6 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             } else {
                 DispatchQueue.main.async {
                 self.addressErrorText.text = "Destination address is not valid"
-                    
                 }
                 return true
             }
@@ -685,15 +670,12 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             self.sendAllTX = false
             let cs = NSCharacterSet(charactersIn: ACCEPTABLE_CHARACTERS).inverted
             if (updatedString != nil && updatedString != "" ){
-                
                 if((updatedString?.contains("."))!){
                     let tmp2 = updatedString! as NSString
                     let TmpDot = tmp2.range(of: ".")
                     if((updatedString!.length - (TmpDot.location + 1)) > 8 || TmpDot.location > 8){
                         return false
-                        
                     }
-                    
                     if(updatedString?.first == "."){
                         DispatchQueue.main.async {
                             self.tfAmount.text = "0."
@@ -708,20 +690,15 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                 else{
                     if(updatedString!.length > 8){
                         return false
-                        
                     }
-                   
                     ACCEPTABLE_CHARACTERS = ""
-                    
                 }
-                
                 if !(CharacterSet(charactersIn: string).isSubset(of: cs)){
                     return false
                 }
                 self.amountErrorText.text = ""
                 let tspendable = spendable(account: self.selectedAccount!) as Decimal
                 let amountToSend = Decimal(Double((updatedString)!)!)
-                
                 if (amountToSend > tspendable) {
                     DispatchQueue.main.async {
                         if !(self.conversionRowCont.isHidden){
@@ -756,7 +733,6 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                             self.currencyAmount2.text = "\((((self.exchangeRateGloabal as Decimal) * tmp2)as NSDecimalNumber).round(2))"
                         }
                     }
-                  
                 }
                 self.sendAllTX = false
                 self.prepareTransaction(sendAll: self.sendAllTX, amount: updatedString!)
@@ -777,25 +753,20 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                     self.toggleSendBtn(validate: self.validateSentBtn(amount: updatedString!))
                 }
             }
-            
         }
        else if (textField == self.currencyAmount2) {
             self.sendAllTX = false
             let cs = NSCharacterSet(charactersIn: ACCEPTABLE_CHARACTERS).inverted
             if (updatedString != nil && updatedString != "" ){
-                
                 if((updatedString?.contains("."))!){
                     let tmp2 = updatedString! as NSString
                     let TmpDot = tmp2.range(of: ".")
                     if((updatedString!.length - (TmpDot.location + 1)) > 2 || TmpDot.location > 10){
                         return false
-                        
                     }
-                    
                     if(updatedString?.first == "."){
                         DispatchQueue.main.async {
                             self.currencyAmount2.text = "0."
-                            
                         }
                         updatedString = "0."
                         ACCEPTABLE_CHARACTERS = "."
@@ -807,20 +778,15 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                 else{
                     if(updatedString!.length > 10){
                         return false
-                        
                     }
-                   
                     ACCEPTABLE_CHARACTERS = ""
-                    
                 }
-                
                 if !(CharacterSet(charactersIn: string).isSubset(of: cs)){
                     return false
                 }
                 self.amountErrorText.text = ""
                 let tspendable = spendable(account: self.selectedAccount!) as Decimal
                 let amountToSend = Decimal(Double((updatedString)!)!)
-                
                 if (amountToSend > tspendable) {
                     DispatchQueue.main.async {
                             let tmp = Double((updatedString)!)!
@@ -845,7 +811,6 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                                 self.convertionFeeOther.text = ""
                             }
                         }
-                        
                     }
                 }
                 else{
@@ -857,13 +822,11 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                             self.tfAmount.text = "\(((tmp2 ) / (self.exchangeRateGloabal as Decimal) as NSDecimalNumber).round(8))"
                         }
                     }
-                  
                 }
                 self.sendAllTX = false
                 print("before validate")
                 self.toggleSendBtn(validate: self.validateSentBtn(amount: updatedString!))
                 self.prepareTransaction(sendAll: self.sendAllTX, amount: updatedString!)
-                
                 return true
             }else{
                 DispatchQueue.main.async {
@@ -878,12 +841,9 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                     }
                     self.toggleSendBtn(validate: self.validateSentBtn(amount: updatedString!))
                 }
-                
             }
         }
-        
         return true
-            
         }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
@@ -941,10 +901,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             selectedAccount = defaultAccount
             sendToAccount = defaultAccount
             print("before function default")
-            
-            
         }
-        
     }
     
     private func updateBalance() {
@@ -961,7 +918,6 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         } catch let error {
             print(error)
         }
-        
         accounts = (account?.Acc.filter({UserDefaults.standard.bool(forKey: "hidden\($0.Number)")  != true && $0.Number != INT_MAX }).map { (acc) -> String in
             let tspendable = spendable(account: acc) as NSDecimalNumber
             print(acc.Number)
@@ -969,13 +925,10 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             return "\(acc.Name) [\( tspendable.round(8) )]"
             })!
         AccountFilter = (account?.Acc.filter({UserDefaults.standard.bool(forKey: "hidden\($0.Number)")  != true && $0.Number != INT_MAX }).map { (acc) -> AccountsEntity in
-           
-            
             return acc
             })!
         self.accountDropdown.initMenu(accounts) { [weak self] ind, val in
             guard let this = self else { return }
-            
             this.accountDropdown.setTitle(
                 val,
                 for: UIControlState.normal
@@ -984,12 +937,10 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             print("before function update")
             if(self!.sendAllTX){
                 self!.sendAll()
-                
             }
         }
         self.toAccountDropDown.initMenu(accounts) { [weak self] ind, val in
             guard let this = self else { return }
-            
             this.toAccountDropDown.setTitle(
                  val,
                 for: UIControlState.normal
@@ -1029,7 +980,6 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         if(self.amountErrorText.text != ""){
             return false
         }
-        
         return true
     }
     private func validateSentBtn(amount : String)-> Bool{
@@ -1072,7 +1022,6 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             print(" result of amount is \(amountToSend > 0 || Decimal(amountToSend) < tspendable)")
             return amountToSend > 0 && Decimal(amountToSend) <= tspendable
         }
-        
     }
     
     private func validateWallet() -> Bool {

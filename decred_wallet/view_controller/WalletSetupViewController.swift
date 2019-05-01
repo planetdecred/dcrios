@@ -15,6 +15,7 @@ class WalletSetupViewController : UIViewController {
     @IBOutlet weak var restoreWallet: UILabel!
     @IBOutlet weak var createWallet: UILabel!
     @IBOutlet weak var build: UILabel!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         createWallet.text = "Create a New \n Wallet"
@@ -28,6 +29,7 @@ class WalletSetupViewController : UIViewController {
             { return infoDate }
             return Date()
         }
+    
         let dateformater = DateFormatter()
         dateformater.dateFormat = "yyyy-MM-dd"
         let netType = infoForKey(GlobalConstants.Strings.NetType)! == "mainnet" ? "mainnet" : "testnet"
