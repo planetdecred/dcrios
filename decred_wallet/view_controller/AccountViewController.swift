@@ -75,7 +75,12 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
             this.account?.Acc.removeAll()
             this.myBalances.removeAll()
             do {
-                let strAccount = try SingleInstance.shared.wallet?.getAccounts(0)
+                var getAccountError: NSError?
+                let strAccount = SingleInstance.shared.wallet?.getAccounts(0, error: &getAccountError)
+                if getAccountError != nil {
+                    throw getAccountError!
+                }
+                
                 this.account = try JSONDecoder().decode(GetAccountResponse.self, from: (strAccount?.data(using: .utf8))!)
                 this.myBalances = {
                     var colorCount = -1

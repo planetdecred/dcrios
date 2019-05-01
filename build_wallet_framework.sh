@@ -1,6 +1,5 @@
 #!/bin/bash
-export DEBUG_LIB_DIR=$(pwd)/debug
-export RELEASE_LIB_DIR=$(pwd)/release
+export LIB_DIR=$(pwd)/libs
 export DCRLIBWALLET_GIT_DIR=$GOPATH/src/github.com/raedahgroup/dcrlibwallet
 
 main() {
@@ -24,12 +23,16 @@ cloneDcrlibwallet() {
 	rm -rf $DCRLIBWALLET_GIT_DIR
 	mkdir -p $DCRLIBWALLET_GIT_DIR
 	git clone https://github.com/raedahgroup/dcrlibwallet.git $DCRLIBWALLET_GIT_DIR
+	# update with the appropriate tag/commit hash to checkout 
+	git checkout v1.0.0
 	echo "done cloning dcrlibwallet"
 }
 
 updateDcrlibwallet() {
 	cd $DCRLIBWALLET_GIT_DIR
-	git checkout master && git pull origin master
+	git fetch
+	# update with the appropriate tag/commit hash to checkout 
+	git checkout v1.0.0
 	echo "done updating dcrlibwallet"
 }
 
@@ -45,12 +48,9 @@ buildDcrlibwallet() {
 }
 
 copyLibrary() {
-	rm -rf $DEBUG_LIB_DIR
-	rm -rf $RELEASE_LIB_DIR
-	mkdir $DEBUG_LIB_DIR
-	mkdir $RELEASE_LIB_DIR
-	cp -R -f Dcrlibwallet.framework $DEBUG_LIB_DIR/Dcrlibwallet.framework
-	cp -R -f Dcrlibwallet.framework $RELEASE_LIB_DIR/Dcrlibwallet.framework
+	rm -rf $LIB_DIR
+	mkdir $LIB_DIR
+	cp -R -f Dcrlibwallet.framework $LIB_DIR/Dcrlibwallet.framework
 	echo "done"
 }
 

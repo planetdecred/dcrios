@@ -7,6 +7,17 @@ A Decred Mobile Wallet for iOS that runs on top of [dcrwallet](https://github.co
 IOS 10.3 or above.
 
 ## Build Instructions
-[Xcode](https://developer.apple.com/xcode/) and [Dcrlibwallet](https://github.com/raedahgroup/dcrlibwallet) are required to build this project.
+Clone this repo, install and setup the following software tools. The versions in brackets are not definite, other versions may work. This process has been confirmed working with the versions specified.
 
-Clone this repo and run `build_wallet_framework.sh` to build Dcrlibwallet and add the generated library as a framework to the Xcode project (requires [go to be installed](http://golang.org/doc/install) with $GOPATH set and [Gomobile](https://github.com/golang/go/wiki/Mobile#tools) installed and initialized with `gomobile init`). Then open this project with Xcode and build.
+### Requirements
+- [Xcode](https://developer.apple.com/xcode/). _(Version 10.1)_.
+- [Go](http://golang.org/doc/install). _(Version 1.12.1 tested, 1.11 should work too)_.
+  - Ensure your `$GOPATH` environment variable is set and that `$GOPATH/bin` is added to your `$PATH` environment variable.
+- [Gomobile](https://github.com/golang/go/wiki/Mobile#tools) _(latest version)_.
+  - Run `go get golang.org/x/mobile/cmd/gomobile`  to ensure you're using the latest version of `gomobile`.
+  - Run `gomobile init` afterwards to setup `gomobile`.
+
+### Building/running the app
+- Run `pod install` to download project dependencies.
+- Run `build_wallet_framework.sh` to generate `dcrlibwallet.framework` using a preset revision/commit of [dcrlibwallet](https://github.com/raedahgroup/dcrlibwallet). The generated `Dcrlibwallet.framework` binary will be placed in `./libs` sub-directory.
+- Open `decred_wallet.xcworkspace` with Xcode and build/run.

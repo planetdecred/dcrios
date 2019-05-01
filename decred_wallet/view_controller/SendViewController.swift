@@ -294,7 +294,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         var fee = 0.0
         
         if !(validateDestinationAddress()) {
-            walletaddress = (try!wallet?.currentAddress(acountN))!
+            walletaddress = (wallet?.currentAddress(acountN, error: nil))!
         }
         
         DispatchQueue.global(qos: .userInitiated).async {
@@ -322,7 +322,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                         this.tfAmount.text = "\(DcrlibwalletAmountCoin(amount - DcrlibwalletAmountAtom(fee)) )"
                     }
                 }
-            } catch let error {
+            } catch {
                // self.showAlert(message: error.localizedDescription, titles: "Error")
             }
         }
@@ -338,9 +338,9 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             return
         }
           var walletAddress = ""
-        if (self.toAddressContainer.isHidden){
-            let receiveAddress = try?wallet?.currentAddress((self.sendToAccount?.Number)!)
-            walletAddress = (receiveAddress!)!
+        if (self.toAddressContainer.isHidden) {
+            let receiveAddress = wallet?.currentAddress((self.sendToAccount?.Number)!, error: nil)
+            walletAddress = receiveAddress!
         }
         else{
             DispatchQueue.main.async {
@@ -389,8 +389,8 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         confirmSendFundViewController.view.addGestureRecognizer(tap)
         DispatchQueue.main.async {
             if (self.toAddressContainer.isHidden){
-                let receiveAddress = try?self.wallet?.currentAddress((self.sendToAccount?.Number)!)
-                confirmSendFundViewController.address = (receiveAddress!)!
+                let receiveAddress = self.wallet?.currentAddress((self.sendToAccount?.Number)!, error: nil)
+                confirmSendFundViewController.address = receiveAddress!
                 confirmSendFundViewController.account = (self.selectedAccount?.Name)!
             }
             else{
@@ -434,8 +434,8 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         confirmSendFundViewController.view.addGestureRecognizer(tap)
          DispatchQueue.main.async {
             if (self.toAddressContainer.isHidden){
-                let receiveAddress = try?self.wallet?.currentAddress((self.sendToAccount?.Number)!)
-                confirmSendFundViewController.address = (receiveAddress!)!
+                let receiveAddress = self.wallet?.currentAddress((self.sendToAccount?.Number)!, error: nil)
+                confirmSendFundViewController.address = receiveAddress!
                 confirmSendFundViewController.account = (self.selectedAccount?.Name)!
             }
             else{
@@ -907,7 +907,11 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         var accounts = [String]()
         var account: GetAccountResponse?
         do {
-            let strAccount = try wallet?.getAccounts(0)
+            var getAccountError: NSError?
+            let strAccount = try wallet?.getAccounts(0, error: &getAccountError)
+            if getAccountError != nil {
+                throw getAccountError!
+            }
             account = try JSONDecoder().decode(GetAccountResponse.self, from: (strAccount?.data(using: .utf8))!)
             
         } catch let error {
@@ -947,7 +951,11 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         var accounts = [String]()
         var account: GetAccountResponse?
         do {
-            let strAccount = try wallet?.getAccounts(0)
+            var getAccountError: NSError?
+            let strAccount = wallet?.getAccounts(0, error: &getAccountError)
+            if getAccountError != nil {
+                throw getAccountError!
+            }
             account = try JSONDecoder().decode(GetAccountResponse.self, from: (strAccount?.data(using: .utf8))!)
             
         } catch let error {

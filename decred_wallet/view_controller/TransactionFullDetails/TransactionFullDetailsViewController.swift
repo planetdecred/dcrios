@@ -62,9 +62,14 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         
         do {
             if let data = Data(fromHexEncodedString: self.transaction.Hash) {
-                let decodedTxJson = try SingleInstance.shared.wallet?.decodeTransaction(data)
+                var decodeTxError: NSError?
+                let decodedTxJson = SingleInstance.shared.wallet?.decodeTransaction(data, error: &decodeTxError)
+                if decodeTxError != nil {
+                    throw decodeTxError!
+                }
+                
                 self.decodedTransaction = try JSONDecoder().decode(DecodedTransaction.self, from: (decodedTxJson?.data(using: .utf8))!)
-            }else{
+            } else {
                 print("invalid hex string")
             }
         } catch let error {
