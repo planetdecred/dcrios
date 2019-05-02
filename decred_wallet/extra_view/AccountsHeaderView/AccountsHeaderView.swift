@@ -41,7 +41,7 @@ class AccountsHeaderView: UIView {
 
             DispatchQueue.main.async {[weak self] in
                 if(UserDefaults.standard.bool(forKey: "synced")){
-                self?.labelSpendableBalance.attributedText = getAttributedString(str: "\(newValue)", siz: 11.0, TexthexColor: self!.spendableColor)
+                self?.labelSpendableBalance.attributedText = getAttributedString(str: "\(newValue)", siz: 9.0, TexthexColor: self!.spendableColor)
                 }
             }
         }
