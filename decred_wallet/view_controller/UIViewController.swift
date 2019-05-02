@@ -25,6 +25,16 @@ extension UIViewController {
         self.slideMenuController()?.removeRightGestures()
     }
     
+    func hideKeyboardOnTapAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.hideKeyboard))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
+    }
+    
+    @objc func hideKeyboard() {
+        self.view.endEditing(true)
+    }
+    
     /// Creates custom back butotn on ViewController. Hides default back button and createa a UIBarButtonItem instance on controller and sets to leftBartButtonItem property.
     ///
     /// - Parameter imageName: Name of the image to show. if nil is supplied "picture_done" is assumed, specific to Imaginamos

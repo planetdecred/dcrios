@@ -3349,13 +3349,22 @@
                                     <constraint firstAttribute="height" constant="1" id="CCt-sz-Gh9"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e5p-5F-xdt">
-                                <rect key="frame" x="122" y="177.5" width="131" height="33"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e5p-5F-xdt" customClass="Button" customModule="DecredWallet" customModuleProvider="target">
+                                <rect key="frame" x="137.5" y="177.5" width="100" height="40"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137254901957" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="bYt-6S-NGK"/>
+                                    <constraint firstAttribute="width" constant="100" id="qG0-jK-Cwl"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="OK">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="OKAction:" destination="4aD-n4-v61" eventType="touchUpInside" id="aBW-Qz-PkZ"/>
                                 </connections>
@@ -3363,7 +3372,6 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="e5p-5F-xdt" firstAttribute="width" secondItem="kNX-lP-Ssb" secondAttribute="width" multiplier="0.35" id="5lC-5K-kxe"/>
                             <constraint firstItem="Z82-TQ-Th8" firstAttribute="top" secondItem="j1A-Rr-dtQ" secondAttribute="bottom" constant="20" id="6a6-a7-t11"/>
                             <constraint firstItem="e5p-5F-xdt" firstAttribute="centerX" secondItem="kNX-lP-Ssb" secondAttribute="centerX" id="9XC-7u-kua"/>
                             <constraint firstItem="tDz-Wp-lDV" firstAttribute="width" secondItem="kNX-lP-Ssb" secondAttribute="width" multiplier="0.5" id="Iz3-Nu-Mdi"/>
@@ -7667,7 +7675,7 @@ AAAAAAAAAAAAAAACkeI
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="PNO-Gh-n5b"/>
-        <segue reference="UCy-dU-LGn"/>
+        <segue reference="eOH-Z5-VAf"/>
         <segue reference="UcJ-je-ijB"/>
     </inferredMetricsTieBreakers>
 </document>

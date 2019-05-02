@@ -47,16 +47,20 @@ class SettingsController: UITableViewController  {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         self.navigationController?.navigationBar.isHidden = false
         self.navigationController?.navigationBar.tintColor = UIColor.black
         self.navigationItem.title = "Settings"
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
+        
         connect_peer_ip?.text = UserDefaults.standard.string(forKey: "pref_peer_ip") ?? ""
         server_ip?.text = UserDefaults.standard.string(forKey: "pref_server_ip") ?? ""
         
-        let network_value = UserDefaults.standard.integer(forKey: "network_mode")
         loadDate()
+        self.checkStartupSecurity()
+        
+        let network_value = UserDefaults.standard.integer(forKey: "network_mode")
         if (network_value == 0) {
             network_mode_subtitle?.text = "Simplified Payment Verification"
             self.certificate_cell.isUserInteractionEnabled = false
@@ -78,15 +82,6 @@ class SettingsController: UITableViewController  {
             self.serverAdd_label.textColor = UIColor.darkText
             self.connect_ip_label.textColor = UIColor.lightGray
         }
-        if (start_Pin.isOn) {
-            changeStartPINCell.isUserInteractionEnabled = true
-            changeStartPINCell.alpha = 1
-        }
-        else{
-            changeStartPINCell.isUserInteractionEnabled = false
-            changeStartPINCell.alpha = 0.4
-        }
-        
     }
     
     @objc func cancel() -> Void {
@@ -111,22 +106,7 @@ class SettingsController: UITableViewController  {
         })
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if UserDefaults.standard.string(forKey: "TMPPIN") != nil{
-            let pin = UserDefaults.standard.string(forKey: "TMPPIN")!
-            self.handleDeleteWallet(pass: pin)
-            UserDefaults.standard.set(nil, forKey: "TMPPIN")
-        }
-    }
-    
-    func loadDate()-> Void {
-        
+    func loadDate() -> Void {
         let network_value = UserDefaults.standard.integer(forKey: "network_mode")
         let currency_value = UserDefaults.standard.integer(forKey: "currency")
         version?.text = UserDefaults.standard.string(forKey: "app_version") ?? "Pre-release"
@@ -149,7 +129,6 @@ class SettingsController: UITableViewController  {
         connect_peer_ip?.text = UserDefaults.standard.string(forKey: "pref_peer_ip") ?? ""
         server_ip?.text = UserDefaults.standard.string(forKey: "pref_server_ip") ?? ""
         incoming_notification_switch?.setOn(UserDefaults.standard.bool(forKey: "pref_notification_switch"), animated: true)
-        start_Pin?.setOn(UserDefaults.standard.bool(forKey: GlobalConstants.SettingsKeys.IsStartupSecuritySet) , animated: false)
         
         if (network_value == 0) {
             network_mode_subtitle?.text = "Simplified Payment Verification (SPV)"
@@ -161,6 +140,21 @@ class SettingsController: UITableViewController  {
         }else{
             currency_subtitle?.text = "USD (bittrex)"
         }
+    }
+    
+    func checkStartupSecurity() {
+        start_Pin?.setOn(StartupPinOrPassword.pinOrPasswordIsSet(), animated: false)
+        
+        if start_Pin.isOn {
+            changeStartPINCell.isUserInteractionEnabled = true
+            changeStartPINCell.alpha = 1
+        }
+        else{
+            changeStartPINCell.isUserInteractionEnabled = false
+            changeStartPINCell.alpha = 0.4
+        }
+        
+        tableView.reloadData()
     }
     
     @objc func save() -> Void {
@@ -177,12 +171,8 @@ class SettingsController: UITableViewController  {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if !(start_Pin.isOn) {
-            if (indexPath.section == 0){
-                if (indexPath.row == 2) {
-                    return 0
-                }
-            }
+        if !start_Pin.isOn && indexPath.section == 0 && indexPath.row == 2 {
+            return 0
         }
         return 44
     }
@@ -198,13 +188,13 @@ class SettingsController: UITableViewController  {
             
         case 1: // enable/disable startup pin/password
             if (start_Pin.isOn) {
-                StartupPinOrPassword.clear(sender: self)
+                StartupPinOrPassword.clear(sender: self, completion: self.checkStartupSecurity)
             } else {
-                StartupPinOrPassword.set(sender: self)
+                StartupPinOrPassword.set(sender: self, completion: self.checkStartupSecurity)
             }
             
         case 2: // change startup pin/password
-            StartupPinOrPassword.change(sender: self)
+            StartupPinOrPassword.change(sender: self, completion: self.checkStartupSecurity)
             
         default:
             break
@@ -240,6 +230,7 @@ class SettingsController: UITableViewController  {
         } else {
             let requestPinVC = storyboard!.instantiateViewController(withIdentifier: "RequestPinViewController") as! RequestPinViewController
             requestPinVC.securityFor = "Spending"
+            requestPinVC.showCancelButton = true
             requestPinVC.onUserEnteredPin = { pin in
                 self.handleDeleteWallet(pass: pin)
             }

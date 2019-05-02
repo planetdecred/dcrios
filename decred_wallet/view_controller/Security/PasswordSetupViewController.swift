@@ -20,6 +20,7 @@ class PasswordSetupViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardOnTapAround()
         
         // calculate password strength when password changes; and check if password matches
         self.tfPassword.addTarget(self, action: #selector(self.passwordTextFieldChange), for: .editingChanged)
