@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		205BBE26D52F1C7ECCE1459D /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0CDC13394776DFA4B58A4EA /* Pods_Decred_Wallet.framework */; };
 		2804D43321BAAD170011A5B3 /* SeedCheckActiveCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2804D43221BAAD170011A5B3 /* SeedCheckActiveCellView.swift */; };
 		28102DCD21B83E700052DC00 /* ContouredButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28102DCC21B83E700052DC00 /* ContouredButton.swift */; };
 		28102DCF21B83F8F0052DC00 /* SeedConfirmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28102DCE21B83F8F0052DC00 /* SeedConfirmTableViewCell.swift */; };
@@ -67,11 +66,10 @@
 		95877FE920B70CBB00CE53D2 /* TransactionHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95877FE720B70CBB00CE53D2 /* TransactionHistoryViewController.swift */; };
 		95CC024420D3F15800DA73AF /* AccountsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CC024320D3F15800DA73AF /* AccountsData.swift */; };
 		95E1C96E20FCD43E00D7F3EE /* TextFieldDoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E1C96D20FCD43E00D7F3EE /* TextFieldDoneButton.swift */; };
+		B34476FD227ACC1500D7AA63 /* Dcrlibwallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3879A102271F4970066CD0F /* Dcrlibwallet.framework */; };
 		B35BF4632278923700018DBE /* PinPasswordStrength.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35BF4622278923700018DBE /* PinPasswordStrength.swift */; };
 		B35BF4682278A43F00018DBE /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35BF4672278A43F00018DBE /* Button.swift */; };
 		B36225DF22725BC100D61D15 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36225DE22725BC100D61D15 /* BaseViewController.swift */; };
-		B3879A112271F4970066CD0F /* Dcrlibwallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3879A102271F4970066CD0F /* Dcrlibwallet.framework */; };
-		B39F41C82278DB8300F6F202 /* Dcrlibwallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B39F41C72278DB8300F6F202 /* Dcrlibwallet.framework */; };
 		B3BA850C22744C7400440D3A /* SpendingPinOrPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BA850B22744C7400440D3A /* SpendingPinOrPassword.swift */; };
 		B3BA850E22744C8800440D3A /* StartupPinOrPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BA850D22744C8800440D3A /* StartupPinOrPassword.swift */; };
 		DD0B356E218930B7000830C4 /* AddAcountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B356D218930B7000830C4 /* AddAcountViewController.swift */; };
@@ -111,7 +109,6 @@
 		DDB89427202F955F002F85EE /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB89426202F955F002F85EE /* UIView.swift */; };
 		DDB89429202F95AC002F85EE /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB89428202F95AC002F85EE /* UIApplication.swift */; };
 		DDBB74A82215B97B003B172C /* inconsolata_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DDBB74A72215B5C7003B172C /* inconsolata_regular.ttf */; };
-		DDC51CA02272076E00ED24B0 /* Dcrlibwallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDC51C9F2272076D00ED24B0 /* Dcrlibwallet.framework */; };
 		DDD2BA17224FED3800136C65 /* CurrencyOptionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD2BA16224FED3800136C65 /* CurrencyOptionTableViewController.swift */; };
 		DDD967372204668500462238 /* ConfirmToSendFundViewPINController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD967362204668400462238 /* ConfirmToSendFundViewPINController.swift */; };
 		DDE90C8A2162CCB20031CED7 /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE90C892162CCB20031CED7 /* HelpViewController.swift */; };
@@ -284,11 +281,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B39F41C82278DB8300F6F202 /* Dcrlibwallet.framework in Frameworks */,
-				B38F4545227062A60068F33D /* Pods_Decred_Wallet.framework in Frameworks */,
-				DDC51CA02272076E00ED24B0 /* Dcrlibwallet.framework in Frameworks */,
-				B3879A112271F4970066CD0F /* Dcrlibwallet.framework in Frameworks */,
-				205BBE26D52F1C7ECCE1459D /* Pods_Decred_Wallet.framework in Frameworks */,
+				B34476FD227ACC1500D7AA63 /* Dcrlibwallet.framework in Frameworks */,
 				F8A392FBF2FB40CCA890AE28 /* Pods_Decred_Wallet.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -383,7 +376,6 @@
 			children = (
 				B38F4546227062B50068F33D /* Dcrlibwallet.framework */,
 				B39F41C72278DB8300F6F202 /* Dcrlibwallet.framework */,
-				B38F4544227062A60068F33D /* Pods_Decred_Wallet.framework */,
 				DDC51C9F2272076D00ED24B0 /* Dcrlibwallet.framework */,
 				B3879A102271F4970066CD0F /* Dcrlibwallet.framework */,
 				B3A32AA9227012BB00CDD53D /* Crashlytics.framework */,

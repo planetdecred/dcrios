@@ -9,10 +9,9 @@
 import UIKit
 import MBProgressHUD
 
-class RequestPasswordViewController: UIViewController {
+class RequestPasswordViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var lblPrompt: UILabel!
     @IBOutlet weak var tfPassword: UITextField!
-    var progressHud : MBProgressHUD?
     
     var prompt: String?
     var openWalletOnEnterPassword = false
@@ -22,33 +21,38 @@ class RequestPasswordViewController: UIViewController {
         super.viewDidLoad()
         lblPrompt.text = self.prompt ?? "Enter Password"
         
-        progressHud = MBProgressHUD(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
-        view.addSubview(progressHud!)
+        // set textfield delegates to move to next field or submit password on return key press
+        self.tfPassword.delegate = self
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return self.validatePasswordAndProceed()
     }
     
     @IBAction func OKAction(_ sender: Any) {
+        _ = self.validatePasswordAndProceed()
+    }
+    
+    func validatePasswordAndProceed() -> Bool {
         let password = self.tfPassword.text ?? ""
         if password.length == 0 {
-            return
+            return false
         }
         
-        if onUserEnteredPinOrPassword == nil && openWalletOnEnterPassword {
-            unlockWalletAndStartApp(password: password)
-            return
-        }
-        
-        if self.isModal {
+        if self.onUserEnteredPinOrPassword == nil && self.openWalletOnEnterPassword {
+            self.unlockWalletAndStartApp(password: password)
+        } else if self.isModal {
             self.dismiss(animated: true, completion: nil)
         } else {
             self.navigationController?.popViewController(animated: true)
         }
         
-        onUserEnteredPinOrPassword?(password)
+        self.onUserEnteredPinOrPassword?(password)
+        return true
     }
     
     func unlockWalletAndStartApp(password: String) {
-        self.progressHud?.show(animated: true)
-        self.progressHud?.label.text = "Opening wallet"
+        let progressHud = showProgressHud(with: "Opening wallet")
 
         let walletPassphrase = (password as NSString).data(using: String.Encoding.utf8.rawValue)!
 
@@ -57,20 +61,16 @@ class RequestPasswordViewController: UIViewController {
 
             do {
                 try SingleInstance.shared.wallet?.open(walletPassphrase)
-                this.startApp()
+                DispatchQueue.main.async {
+                    progressHud.dismiss()
+                    createMainWindow()
+                }
             } catch let error {
                 DispatchQueue.main.async {
-                    this.progressHud?.hide(animated: true)
+                    progressHud.dismiss()
                     this.showOkAlert(message: error.localizedDescription, title: "Error")
                 }
             }
-        }
-    }
-    
-    func startApp() {
-        DispatchQueue.main.async {
-            self.progressHud?.hide(animated: true)
-            createMainWindow()
         }
     }
 }

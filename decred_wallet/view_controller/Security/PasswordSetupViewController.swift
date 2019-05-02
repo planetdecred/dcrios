@@ -65,14 +65,14 @@ class PasswordSetupViewController: UIViewController, UITextFieldDelegate {
             return true
         }
         
-        return self.validatePaswordsAndProceed()
+        return self.validatePasswordsAndProceed()
     }
     
     @IBAction func onOkTapped(_ sender: Any) {
-        _ = self.validatePaswordsAndProceed()
+        _ = self.validatePasswordsAndProceed()
     }
     
-    func validatePaswordsAndProceed() -> Bool {
+    func validatePasswordsAndProceed() -> Bool {
         let password = self.tfPassword.text ?? ""
         if password.length == 0 {
             self.showMessageDialog(title: "Error", message: "Empty password not allowed")
@@ -94,7 +94,6 @@ class PasswordSetupViewController: UIViewController, UITextFieldDelegate {
         }
         
         self.onUserEnteredPassword?(self.tfPassword.text!)
-        
         return true
     }
 }
