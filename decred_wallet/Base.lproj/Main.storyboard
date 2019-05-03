@@ -2258,108 +2258,89 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Each time you request a payment, a new address is created to protect your privacy." lineBreakMode="characterWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iXW-Px-8lO">
-                                <rect key="frame" x="19" y="69.5" width="337.5" height="48"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="48" id="D4k-ad-SWr"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
-                                <color key="textColor" red="0.38039215686274508" green="0.45098039215686275" blue="0.52549019607843139" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Receiving Decred" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bpw-2z-j9u">
-                                <rect key="frame" x="19" y="45" width="337.5" height="21.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <color key="textColor" red="0.035294117647058823" green="0.078431372549019607" blue="0.25098039215686274" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Ww-qc-2o9">
-                                <rect key="frame" x="19" y="125" width="337.5" height="34"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="CjE-tq-m7A">
+                                <rect key="frame" x="10" y="30" width="355" height="637"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NGJ-UJ-dIK">
-                                        <rect key="frame" x="0.0" y="0.0" width="67.5" height="34"/>
-                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="751" text="Receiving Decred" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bpw-2z-j9u">
+                                        <rect key="frame" x="0.0" y="0.0" width="355" height="21.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <color key="textColor" red="0.035294117647058823" green="0.078431372549019607" blue="0.25098039215686274" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fvx-Vc-1a6" customClass="DropMenuButton" customModule="DecredWallet" customModuleProvider="target">
-                                        <rect key="frame" x="67.5" y="0.0" width="236" height="34"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="748" text="Each time you request a payment, a new address is created to protect your privacy." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iXW-Px-8lO">
+                                        <rect key="frame" x="0.0" y="23.5" width="355" height="45.5"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
+                                        <color key="textColor" red="0.38039215686274508" green="0.45098039215686275" blue="0.52549019607843139" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="1Ww-qc-2o9">
+                                        <rect key="frame" x="0.0" y="71" width="355" height="36"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NGJ-UJ-dIK">
+                                                <rect key="frame" x="0.0" y="0.0" width="62.5" height="36"/>
+                                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
+                                                <color key="textColor" red="0.035294117647058823" green="0.078431372549019607" blue="0.25098039215686274" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fvx-Vc-1a6" customClass="DropMenuButton" customModule="DecredWallet" customModuleProvider="target">
+                                                <rect key="frame" x="72.5" y="0.0" width="250.5" height="36"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="19"/>
+                                                <state key="normal" title="default">
+                                                    <color key="titleColor" red="0.035294117647058823" green="0.078431372549019607" blue="0.25098039215686274" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lfm-QD-JzI">
+                                                <rect key="frame" x="333" y="0.0" width="22" height="36"/>
+                                                <state key="normal" image="dropdown-icon"/>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ELj-zD-ScR">
+                                        <rect key="frame" x="0.0" y="109" width="355" height="1"/>
+                                        <color key="backgroundColor" red="0.61176470588235299" green="0.61176470588235299" blue="0.61176470588235299" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="34" id="ZCl-0v-zB9"/>
+                                            <constraint firstAttribute="height" constant="1" id="7P5-K4-rt5"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="19"/>
-                                        <state key="normal" title="default">
-                                            <color key="titleColor" red="0.035294117647058823" green="0.078431372549019607" blue="0.25098039215686274" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lfm-QD-JzI">
-                                        <rect key="frame" x="303.5" y="0.0" width="34" height="34"/>
-                                        <state key="normal" title="Button" image="arrow-1"/>
-                                    </button>
+                                    </view>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="P2Q-l4-CRY">
+                                        <rect key="frame" x="0.0" y="112" width="355" height="355"/>
+                                        <gestureRecognizers/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="P2Q-l4-CRY" secondAttribute="height" multiplier="1:1" id="RAZ-q2-eSQ"/>
+                                        </constraints>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="83B-mb-51W" appends="YES" id="5k8-Yq-9To"/>
+                                        </connections>
+                                    </imageView>
+                                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ad3-va-aFy">
+                                        <rect key="frame" x="0.0" y="469" width="355" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.016995774582028389" green="0.48766422271728516" blue="0.99898439645767212" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="83B-mb-51W" appends="YES" id="Cnz-Aa-Bzr"/>
+                                        </connections>
+                                    </label>
+                                    <label opaque="NO" contentMode="left" text="(Copy on tap)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KIw-9c-4KG">
+                                        <rect key="frame" x="0.0" y="491.5" width="355" height="21.5"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="0.59928831335616439" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" verticalCompressionResistancePriority="100" translatesAutoresizingMaskIntoConstraints="NO" id="sxc-kh-VnI">
+                                        <rect key="frame" x="0.0" y="515" width="355" height="122"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstItem="fvx-Vc-1a6" firstAttribute="width" secondItem="1Ww-qc-2o9" secondAttribute="width" multiplier="0.7" id="YLp-M5-qcj"/>
-                                    <constraint firstItem="NGJ-UJ-dIK" firstAttribute="width" secondItem="1Ww-qc-2o9" secondAttribute="width" multiplier="0.2" id="ZDt-Vw-U2m"/>
-                                </constraints>
                             </stackView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="P2Q-l4-CRY">
-                                <rect key="frame" x="8" y="163" width="359" height="359"/>
-                                <gestureRecognizers/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="P2Q-l4-CRY" secondAttribute="height" multiplier="200:200" id="DtR-ja-1ts"/>
-                                </constraints>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="83B-mb-51W" appends="YES" id="5k8-Yq-9To"/>
-                                </connections>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Copy on tap)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KIw-9c-4KG">
-                                <rect key="frame" x="19" y="569.5" width="337.5" height="21.5"/>
-                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="0.59928831335616439" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xB6-h2-AYO">
-                                <rect key="frame" x="19" y="162" width="337.5" height="1"/>
-                                <color key="backgroundColor" red="0.13725490196078433" green="0.12156862745098039" blue="0.12549019607843137" alpha="0.16446382705479451" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="hia-Ft-Aj5"/>
-                                </constraints>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Flk-UH-f1q">
-                                <rect key="frame" x="4" y="534.5" width="367.5" height="35"/>
-                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
-                                <state key="normal" title="Wallet Address"/>
-                                <connections>
-                                    <action selector="tapCopy:" destination="pwN-Wv-Ioh" eventType="touchUpInside" id="8MH-W8-488"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="iXW-Px-8lO" firstAttribute="width" secondItem="IWZ-ke-U66" secondAttribute="width" multiplier="0.9" id="3AD-a0-ioG"/>
-                            <constraint firstItem="Bpw-2z-j9u" firstAttribute="centerX" secondItem="IWZ-ke-U66" secondAttribute="centerX" id="4fO-ZL-wiA"/>
-                            <constraint firstItem="P2Q-l4-CRY" firstAttribute="top" secondItem="xB6-h2-AYO" secondAttribute="bottom" id="7Er-iY-Q6B"/>
-                            <constraint firstItem="Bpw-2z-j9u" firstAttribute="width" secondItem="IWZ-ke-U66" secondAttribute="width" multiplier="0.9" id="7fW-2n-Q0s"/>
-                            <constraint firstItem="Flk-UH-f1q" firstAttribute="width" secondItem="IWZ-ke-U66" secondAttribute="width" multiplier="0.98" id="9G3-LL-u6b"/>
-                            <constraint firstItem="1Ww-qc-2o9" firstAttribute="centerX" secondItem="IWZ-ke-U66" secondAttribute="centerX" id="AV9-ci-Zbh"/>
-                            <constraint firstItem="KIw-9c-4KG" firstAttribute="width" secondItem="IWZ-ke-U66" secondAttribute="width" multiplier="0.9" id="BiL-Wv-tMo"/>
-                            <constraint firstItem="Flk-UH-f1q" firstAttribute="centerX" secondItem="IWZ-ke-U66" secondAttribute="centerX" id="Fse-ll-iKV"/>
-                            <constraint firstItem="1Ww-qc-2o9" firstAttribute="width" secondItem="IWZ-ke-U66" secondAttribute="width" multiplier="0.9" id="Fy6-Jx-gNb"/>
-                            <constraint firstItem="P2Q-l4-CRY" firstAttribute="centerX" secondItem="IWZ-ke-U66" secondAttribute="centerX" id="JTm-t0-B8n"/>
-                            <constraint firstItem="xB6-h2-AYO" firstAttribute="centerX" secondItem="IWZ-ke-U66" secondAttribute="centerX" id="UcV-xo-yMf"/>
-                            <constraint firstItem="iXW-Px-8lO" firstAttribute="top" secondItem="Bpw-2z-j9u" secondAttribute="bottom" constant="3" id="YUJ-5j-tCJ"/>
-                            <constraint firstItem="Flk-UH-f1q" firstAttribute="top" secondItem="P2Q-l4-CRY" secondAttribute="bottom" constant="12.5" id="bZF-sx-Bfu"/>
-                            <constraint firstItem="Bpw-2z-j9u" firstAttribute="top" secondItem="jg0-hE-iYI" secondAttribute="top" constant="25" id="dUG-tX-miF"/>
-                            <constraint firstItem="1Ww-qc-2o9" firstAttribute="top" secondItem="iXW-Px-8lO" secondAttribute="bottom" constant="7.5" id="e0h-5I-Jqc"/>
-                            <constraint firstItem="xB6-h2-AYO" firstAttribute="top" secondItem="1Ww-qc-2o9" secondAttribute="bottom" constant="3" id="eLB-Gp-veD"/>
-                            <constraint firstItem="KIw-9c-4KG" firstAttribute="centerX" secondItem="IWZ-ke-U66" secondAttribute="centerX" id="eTp-nb-km4"/>
-                            <constraint firstItem="jg0-hE-iYI" firstAttribute="trailing" secondItem="P2Q-l4-CRY" secondAttribute="trailing" constant="8" id="fpk-za-lqw"/>
-                            <constraint firstItem="KIw-9c-4KG" firstAttribute="top" secondItem="Flk-UH-f1q" secondAttribute="bottom" id="gsE-T2-xhu"/>
-                            <constraint firstItem="P2Q-l4-CRY" firstAttribute="leading" secondItem="jg0-hE-iYI" secondAttribute="leading" constant="8" id="iIA-dY-cQd"/>
-                            <constraint firstItem="xB6-h2-AYO" firstAttribute="width" secondItem="IWZ-ke-U66" secondAttribute="width" multiplier="0.9" id="uAa-3K-0h5"/>
-                            <constraint firstItem="P2Q-l4-CRY" firstAttribute="top" secondItem="jg0-hE-iYI" secondAttribute="top" constant="143" id="v2R-LR-oMH"/>
-                            <constraint firstItem="iXW-Px-8lO" firstAttribute="centerX" secondItem="IWZ-ke-U66" secondAttribute="centerX" id="yeV-jj-1vs"/>
+                            <constraint firstItem="CjE-tq-m7A" firstAttribute="top" secondItem="QEC-CO-vAa" secondAttribute="bottom" constant="10" id="Agf-mR-3KO"/>
+                            <constraint firstItem="CjE-tq-m7A" firstAttribute="width" secondItem="IWZ-ke-U66" secondAttribute="width" constant="-20" id="WJs-xa-GIE"/>
+                            <constraint firstItem="CjE-tq-m7A" firstAttribute="centerX" secondItem="jg0-hE-iYI" secondAttribute="centerX" id="cJn-S8-X6u"/>
+                            <constraint firstItem="4w6-Ph-vE3" firstAttribute="top" secondItem="CjE-tq-m7A" secondAttribute="bottom" id="hgI-ty-nKs"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="jg0-hE-iYI"/>
                     </view>
@@ -2370,8 +2351,8 @@
                     <connections>
                         <outlet property="accountDropdown" destination="fvx-Vc-1a6" id="GlO-JJ-21g"/>
                         <outlet property="imgWalletAddrQRCode" destination="P2Q-l4-CRY" id="2cl-JZ-uxS"/>
+                        <outlet property="lblWalletAddress" destination="ad3-va-aFy" id="czF-ZO-nC7"/>
                         <outlet property="subheader" destination="iXW-Px-8lO" id="X67-mK-iY8"/>
-                        <outlet property="walletAddress" destination="Flk-UH-f1q" id="fBg-uz-vgt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R0Q-i3-kfU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -4844,6 +4825,7 @@
         <image name="create-wallet" width="109" height="109"/>
         <image name="decredWord" width="90.480003356933594" height="21.600000381469727"/>
         <image name="decred_logo" width="153" height="120"/>
+        <image name="dropdown-icon" width="22.5" height="22.5"/>
         <image name="helpIcon" width="100" height="134"/>
         <image name="imageView:ymc-Qp-gqg:image" width="200" height="200">
             <mutableData key="keyedArchiveRepresentation">

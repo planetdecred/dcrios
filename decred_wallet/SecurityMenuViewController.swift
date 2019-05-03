@@ -273,7 +273,7 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
     }
     
     private func askPassword() {
-        if UserDefaults.standard.string(forKey: "spendingSecureType") == "PASSWORD" {
+        if SpendingPinOrPassword.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
             let alert = UIAlertController(title: "Security", message: "Please enter spending password of your wallet", preferredStyle: .alert)
             alert.addTextField { textField in
                 textField.placeholder = "password"
@@ -301,6 +301,7 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
         }else{
             let requestPinVC = storyboard!.instantiateViewController(withIdentifier: "RequestPinViewController") as! RequestPinViewController
             requestPinVC.securityFor = "Spending"
+            requestPinVC.showCancelButton = true
             requestPinVC.onUserEnteredPin = { pin in
                 self.SignMsg(pass: pin)
             }
