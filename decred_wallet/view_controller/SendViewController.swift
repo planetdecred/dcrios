@@ -265,11 +265,12 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         }
         if self.validate(amount: self.tfAmount.text!) {
             self.fromNotQRScreen = false
-            if SpendingPinOrPassword.currentSecurityType() == "PASSWORD" {
+            if SpendingPinOrPassword.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
                 self.confirmSend(sendAll: false)
             } else {
                 let requestPinVC = storyboard!.instantiateViewController(withIdentifier: "RequestPinViewController") as! RequestPinViewController
                 requestPinVC.securityFor = "Spending"
+                requestPinVC.showCancelButton = true
                 requestPinVC.onUserEnteredPin = { pin in
                     self.confirmSendWithoutPin(sendAll: false, pin: pin)
                 }

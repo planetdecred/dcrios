@@ -20,14 +20,13 @@ class AddAcountViewController: UIViewController {
         super.viewDidLoad()
         self.createBtn.layer.cornerRadius = 6
         // Do any additional setup after loading the view.
-        if UserDefaults.standard.string(forKey: "spendingSecureType") != "PASSWORD" {
+        if SpendingPinOrPassword.currentSecurityType() != SecurityViewController.SECURITY_TYPE_PASSWORD {
             passphrase.isHidden = true
             createBtnTopConstraint.constant = -40
         }
     }
     
     @IBAction func createFnc(_ sender: Any) {
-
         if (accountName.text?.length)! < 1{
             Info(msg: "Please input an account name")
             return
@@ -35,7 +34,7 @@ class AddAcountViewController: UIViewController {
         
         let name = accountName.text
         if(!(name!.isEmpty)){
-            if SpendingPinOrPassword.currentSecurityType() == "PASSWORD" {
+            if SpendingPinOrPassword.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
                 addAccountWithoutPin()
             }else{
                 let requestPinVC = storyboard!.instantiateViewController(withIdentifier: "RequestPinViewController") as! RequestPinViewController
