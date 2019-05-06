@@ -57,7 +57,7 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
             prepareData()
     }
     
-    @objc func addAccount(){
+    @objc func addAccount() {
         let storyboard2 =  UIStoryboard(name: "Main", bundle: nil)
         let switchView = storyboard2.instantiateViewController(withIdentifier: "addaccount")
         DispatchQueue.main.async {

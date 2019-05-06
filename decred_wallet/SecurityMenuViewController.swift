@@ -72,11 +72,6 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
         if !(UserDefaults.standard.bool(forKey: "synced")) {
             return
         }
-        if UserDefaults.standard.string(forKey: "TMPPIN") != nil{
-            let pin = UserDefaults.standard.string(forKey: "TMPPIN")!
-            self.SignMsg(pass: pin)
-            UserDefaults.standard.set(nil, forKey: "TMPPIN")
-        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -278,7 +273,7 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
     }
     
     private func askPassword() {
-        if UserDefaults.standard.string(forKey: "spendingSecureType") == "PASSWORD" {
+        if SpendingPinOrPassword.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
             let alert = UIAlertController(title: "Security", message: "Please enter spending password of your wallet", preferredStyle: .alert)
             alert.addTextField { textField in
                 textField.placeholder = "password"
@@ -304,9 +299,13 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
             
             self.present(alert, animated: true, completion: nil)
         }else{
-            let vc = storyboard!.instantiateViewController(withIdentifier: "PinSetupViewController") as! PinSetupViewController
-            vc.senders = "signMessage"
-            self.navigationController?.pushViewController(vc, animated: true)
+            let requestPinVC = storyboard!.instantiateViewController(withIdentifier: "RequestPinViewController") as! RequestPinViewController
+            requestPinVC.securityFor = "Spending"
+            requestPinVC.showCancelButton = true
+            requestPinVC.onUserEnteredPin = { pin in
+                self.SignMsg(pass: pin)
+            }
+            self.present(requestPinVC, animated: true, completion: nil)
         }
     }
     

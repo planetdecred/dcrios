@@ -25,6 +25,16 @@ extension UIViewController {
         self.slideMenuController()?.removeRightGestures()
     }
     
+    func hideKeyboardOnTapAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.hideKeyboard))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
+    }
+    
+    @objc func hideKeyboard() {
+        self.view.endEditing(true)
+    }
+    
     /// Creates custom back butotn on ViewController. Hides default back button and createa a UIBarButtonItem instance on controller and sets to leftBartButtonItem property.
     ///
     /// - Parameter imageName: Name of the image to show. if nil is supplied "picture_done" is assumed, specific to Imaginamos
@@ -48,24 +58,11 @@ extension UIViewController {
     /// Inspired by this answer
     /// http://stackoverflow.com/a/27301207/1568609
     var isModal: Bool {
+        let presentingIsModal = presentingViewController != nil
+        let presentingIsNavigation = navigationController?.presentingViewController?.presentedViewController == navigationController
+        let presentingIsTabBar = tabBarController?.presentingViewController is UITabBarController
         
-        if presentingViewController != nil {
-            return true
-        }
-        
-        if presentingViewController?.presentedViewController == self {
-            return true
-        }
-        
-        if navigationController?.presentingViewController?.presentedViewController == navigationController {
-            return true
-        }
-        
-        if tabBarController?.presentingViewController is UITabBarController {
-            return true
-        }
-        
-        return false
+        return presentingIsModal || presentingIsNavigation || presentingIsTabBar
     }
     
     func showMessageDialog(title: String, message: String){
@@ -75,5 +72,17 @@ extension UIViewController {
         }
         alert.addAction(okAction)
         present(alert, animated: true, completion: nil)
+    }
+    
+    func showOkAlert(message: String, title: String? = nil, onPressOk: (() -> Void)? = nil) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+            alert.dismiss(animated: true, completion: onPressOk)
+        }
+        alert.addAction(okAction)
+        
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
     }
 }

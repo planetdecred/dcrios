@@ -1,5 +1,5 @@
 //
-//  RecoverWalletTableViewController.swift
+//  RecoverExistingWalletViewController.swift
 //  Decred Wallet
 
 // Copyright (c) 2018-2019 The Decred developers
@@ -7,7 +7,7 @@
 // license that can be found in the LICENSE file.
 import UIKit
 
-class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet var tableView : UITableView!
     @IBOutlet weak var wordSelectionDropDownContainer: UIView!
     
@@ -159,7 +159,7 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
             return
         }
         
-        self.performSegue(withIdentifier: "confirmSeedSegue", sender: nil)
+        self.performSegue(withIdentifier: "secureRecoveredWalletSegue", sender: nil)
     }
     
     @objc func longPressConfirm() {
@@ -167,16 +167,21 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
             return
         }
         self.useTestSeed = true
-        self.performSegue(withIdentifier: "confirmSeedSegue", sender: nil)
+        self.performSegue(withIdentifier: "secureRecoveredWalletSegue", sender: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "confirmSeedSegue" {
-            var confirmSeedVC = segue.destination as? SeedCheckupProtocol
+        if segue.identifier == "secureRecoveredWalletSegue" {
+            var seed: String
             if self.useTestSeed {
-                confirmSeedVC?.seedToVerify = self.testSeed
+                seed = self.testSeed
             } else {
-                confirmSeedVC?.seedToVerify = self.validateSeed().seed
+                seed = self.validateSeed().seed
+            }
+            
+            let securityVC = segue.destination as! SecurityViewController
+            securityVC.onUserEnteredPinOrPassword = { (pinOrPassword, securityType) in
+                self.finalizeWalletSetup(seed, pinOrPassword, securityType)
             }
         }
     }
@@ -204,7 +209,7 @@ class RecoverWalletTableViewController: UIViewController, UITableViewDelegate, U
     }
 }
 
-extension RecoverWalletTableViewController: UIScrollViewDelegate {
+extension RecoverExistingWalletViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.wordSelectionDropDownContainer.isHidden = true
     }

@@ -8,56 +8,64 @@
 
 import UIKit
 
-class SecurityViewController: UIViewController, SeedCheckupProtocol, StartUpPasswordProtocol {
+class SecurityViewController: UIViewController {
+    static let SECURITY_TYPE_PASSWORD = "PASSWORD"
+    static let SECURITY_TYPE_PIN = "PIN"
     
-    var senders: String?
-    var pass_pinToVerify: String?
-    var seedToVerify: String?
+    // "Password" or "Pin" will be appended to the title depending on what tab is activated
+    var securityFor = "Spending" // or Startup
+    var initialSecurityType: String? // determines which tab will be displayed first
+    
+    // This will be triggered after a pin or password is provided by the user.
+    var onUserEnteredPinOrPassword: ((_ pinOrPassword: String, _ securityType: String) -> Void)?
     
     var pager: UITabBarController?
-    
     @IBOutlet weak var btnPin: UIButton!
     @IBOutlet weak var btnPassword: UIButton!
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "embedPager" {
+            self.pager = segue.destination as? UITabBarController
+            self.pager?.tabBar.isHidden = true
+            
+            let passwordTabVC = self.pager?.viewControllers?.first as? PasswordSetupViewController
+            passwordTabVC?.securityFor = self.securityFor
+            passwordTabVC?.onUserEnteredPassword = { password in
+                self.navigationController?.popViewController(animated: true)
+                self.onUserEnteredPinOrPassword?(password, SecurityViewController.SECURITY_TYPE_PASSWORD)
+            }
+            
+            let pinTabVC = self.pager?.viewControllers?.last as? RequestPinViewController
+            pinTabVC?.securityFor = self.securityFor
+            pinTabVC?.requestPinConfirmation = true
+            pinTabVC?.onUserEnteredPin = { pin in
+                self.navigationController?.popViewController(animated: true)
+                self.onUserEnteredPinOrPassword?(pin, SecurityViewController.SECURITY_TYPE_PIN)
+            }
+            
+            if self.initialSecurityType == SecurityViewController.SECURITY_TYPE_PIN {
+                self.activatePinTab()
+            }
+        }
+    }
+
     @IBAction func onPasswordTab(_ sender: Any) {
-        pager?.selectedIndex = 0
-        btnPassword.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        btnPin.backgroundColor = #colorLiteral(red: 0.9449833035, green: 0.9450840354, blue: 0.9490672946, alpha: 1)
+        self.activatePasswordTab()
     }
     
     @IBAction func onPinTab(_ sender: Any) {
-        pager?.selectedIndex = 1
-        btnPin.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        btnPassword.backgroundColor = #colorLiteral(red: 0.9449833035, green: 0.9450840354, blue: 0.9490672946, alpha: 1)
+        self.activatePinTab()
     }
     
-    // MARK: - Navigation
+    func activatePasswordTab() {
+        pager?.selectedIndex = 0
+        btnPassword.backgroundColor = #colorLiteral(red: 0.9529411765, green: 0.9607843137, blue: 0.9647058824, alpha: 1)
+        btnPin.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+    }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "embedPager" {
-            if (self.seedToVerify != nil) {
-                pager = segue.destination as? UITabBarController
-                pager?.tabBar.isHidden = true
-                
-                var vc1 = pager?.viewControllers?.first as? SeedCheckupProtocol
-                var vc2 = pager?.viewControllers?.last as? SeedCheckupProtocol
-                vc1?.seedToVerify = seedToVerify
-                vc2?.seedToVerify = seedToVerify
-            } else {
-                
-                pager = segue.destination as? UITabBarController
-                pager?.tabBar.isHidden = true
-                
-                var startChecked1 = pager?.viewControllers?.first as? StartUpPasswordProtocol
-                var startChecked2 = pager?.viewControllers?.last as? StartUpPasswordProtocol
-                startChecked2?.senders = senders
-                startChecked1?.senders = senders
-                
-                if senders == "settingsChangeSpending" || senders == "settingsChangeStartup" {
-                    startChecked1?.pass_pinToVerify = pass_pinToVerify
-                    startChecked2?.pass_pinToVerify = pass_pinToVerify
-                }
-            }
-        }
+    func activatePinTab() {
+        pager?.selectedIndex = 1
+        btnPin.backgroundColor = #colorLiteral(red: 0.9529411765, green: 0.9607843137, blue: 0.9647058824, alpha: 1)
+        btnPassword.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     }
 }

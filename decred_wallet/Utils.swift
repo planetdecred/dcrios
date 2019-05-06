@@ -294,3 +294,7 @@ func infoForKey(_ key: String) -> String? {
     return (Bundle.main.infoDictionary?[key] as? String)?
         .replacingOccurrences(of: "\\", with: "")
 }
+
+extension UIViewController{
+    @objc public func onPassCompleted(pass: String){}
+}
