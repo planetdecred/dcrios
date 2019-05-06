@@ -11,7 +11,7 @@ import Dcrlibwallet
 import SafariServices
 
 
-class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDelegate, QRCodeReaderViewControllerDelegate, PinEnteredProtocol {
+class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDelegate, QRCodeReaderViewControllerDelegate {
     var pinInput: String?
     
     @IBOutlet weak var pasteBtn: UIButton!
@@ -166,15 +166,6 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        if UserDefaults.standard.string(forKey: "TMPPIN") != nil{
-            self.confirmSendWithoutPin(sendAll: false, pin: UserDefaults.standard.string(forKey: "TMPPIN")!, fee: self.tempFee)
-            UserDefaults.standard.set(nil, forKey: "TMPPIN")
-        }
-    }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -274,15 +265,20 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         }
         if self.validate(amount: self.tfAmount.text!) {
             self.fromNotQRScreen = false
-            if(UserDefaults.standard.string(forKey: "spendingSecureType") == "PASSWORD"){
+            if SpendingPinOrPassword.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
                 self.confirmSend(sendAll: false)
             } else {
-                let sendVC = storyboard!.instantiateViewController(withIdentifier: "PinSetupViewController") as! PinSetupViewController
-                sendVC.senders = "spendFund"
-                self.navigationController?.pushViewController(sendVC, animated: true)
+                let requestPinVC = storyboard!.instantiateViewController(withIdentifier: "RequestPinViewController") as! RequestPinViewController
+                requestPinVC.securityFor = "Spending"
+                requestPinVC.showCancelButton = true
+                requestPinVC.onUserEnteredPin = { pin in
+                    self.confirmSendWithoutPin(sendAll: false, pin: pin)
+                }
+                self.present(requestPinVC, animated: true, completion: nil)
             }
         }
     }
+    
     private func prepareTransaction(sendAll: Bool?, amount : String) {
         let amountToSend = Double((amount))!
         let amount = DcrlibwalletAmountAtom(amountToSend)
@@ -416,8 +412,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         return
     }
     
-    private func confirmSendWithoutPin(sendAll: Bool, pin: String, fee : String) {
-        
+    private func confirmSendWithoutPin(sendAll: Bool, pin: String) {
         let amountToSend = (tfAmount?.text)!
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
@@ -456,6 +451,10 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             self.present(confirmSendFundViewController, animated: true, completion: nil)
         }
         return
+    }
+    
+    override func onPassCompleted(pass: String) {
+        self.confirmSendWithoutPin(sendAll: false, pin: pass)
     }
     
     @IBAction private func scanQRCodeAction(_ sender: UIButton) {
@@ -982,6 +981,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         }
         return true
     }
+    
     private func validateSentBtn(amount : String)-> Bool{
         if !self.validateWallet() {
             self.showAlertForInvalidWallet()

@@ -11,8 +11,7 @@ import Dcrlibwallet
 import JGProgressHUD
 import UserNotifications
 
-class OverviewViewController: UIViewController, DcrlibwalletGetTransactionsResponseProtocol, DcrlibwalletTransactionListenerProtocol,
-DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEnteredProtocol{
+class OverviewViewController: UIViewController, DcrlibwalletGetTransactionsResponseProtocol, DcrlibwalletTransactionListenerProtocol, DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol {
     
     weak var delegate : LeftMenuProtocol?
     var pinInput: String?
@@ -59,13 +58,13 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
     var NetType = "mainnet"
     var mainContens = [Transaction]()
     var refreshControl: UIRefreshControl!
-   // let image = UIImage.gifImageWithURL(Bundle.main.url(forResource: "progress bar-1s-200px", withExtension: "gif")?.absoluteString ?? "");
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.registerCellNib(DataTableViewCell.self)
         self.tableView.tableHeaderView = viewTableHeader
         self.tableView.tableFooterView = viewTableFooter
+        
         refreshControl = {
             let refreshControl = UIRefreshControl()
             refreshControl.addTarget(self, action:
@@ -75,6 +74,7 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
             
             return refreshControl
         }()
+        
         let isTestnet = Bool(infoForKey(GlobalConstants.Strings.IS_TESTNET)!)!
         NetType = isTestnet ? "testnet" : "mainnet"
         self.tableView.addSubview(self.refreshControl)
@@ -82,12 +82,10 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
         self.verboseText.contentHorizontalAlignment = .center
         self.verboseText.contentVerticalAlignment = .top
         self.verboseText.titleLabel?.textAlignment = .center
-       self.wifiSyncOption()
-        
-        
+        self.wifiSyncOption()
     }
     
-    func wifiSyncOption(){
+    func wifiSyncOption() {
         let wifiselect = UserDefaults.standard.integer(forKey: "wifsync")
         switch wifiselect {
         case 0:
@@ -103,7 +101,8 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
             wifCheck()
         }
     }
-    func setupConnection(){
+    
+    func setupConnection() {
         self.connectToDecredNetwork()
         
         self.wallet?.transactionNotification(self)
@@ -112,8 +111,8 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
         self.SyncGestureSetup()
         self.showActivity()
     }
-    func wifCheck(){
-        
+    
+    func wifCheck() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
         let WifiConfirmationController = storyboard.instantiateViewController(withIdentifier: "WifiSyncView") as! WifiConfirmationController
@@ -123,7 +122,7 @@ DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol,PinEn
         let tap = UITapGestureRecognizer(target: WifiConfirmationController.view, action: #selector(WifiConfirmationController.msgContent.endEditing(_:)))
         tap.cancelsTouchesInView = false
         
-    WifiConfirmationController.view.addGestureRecognizer(tap)
+        WifiConfirmationController.view.addGestureRecognizer(tap)
         
         WifiConfirmationController.Always = {
             UserDefaults.standard.set(2, forKey: "wifsync")
