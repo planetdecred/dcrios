@@ -69,7 +69,7 @@ class OverviewViewController: UIViewController, DcrlibwalletGetTransactionsRespo
             let refreshControl = UIRefreshControl()
             refreshControl.addTarget(self, action:
                 #selector(OverviewViewController.handleRefresh(_:)),
-                                     for: UIControlEvents.valueChanged)
+                                     for: UIControl.Event.valueChanged)
             refreshControl.tintColor = UIColor.lightGray
             
             return refreshControl
@@ -312,7 +312,7 @@ class OverviewViewController: UIViewController, DcrlibwalletGetTransactionsRespo
     }
     var count = 0
     @objc func longPressHappened(gesture: UILongPressGestureRecognizer){
-         if gesture.state == UIGestureRecognizerState.began {
+        if gesture.state == UIGestureRecognizer.State.began {
                 if !(self.showAllSyncInfo){
                 self.ShowAllSync()
                     self.showAllSyncInfo = true
@@ -458,7 +458,7 @@ class OverviewViewController: UIViewController, DcrlibwalletGetTransactionsRespo
     }
     
     func onBlockNotificationError(_ err: Error!) {
-        print(err)
+        print(err!)
     }
     
     func onTransactionConfirmed(_ hash: String?, height: Int32) {

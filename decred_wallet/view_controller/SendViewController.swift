@@ -80,7 +80,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         self.pasteBtn.layer.cornerRadius = 4
         self.pasteBtn.layer.shadowOffset = CGSize(width: 0, height: 2.0)
         wallet = SingleInstance.shared.wallet
-        NotificationCenter.default.addObserver(self, selector: #selector(willResignActive), name:.UIApplicationWillEnterForeground, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(willResignActive), name: UIApplication.willEnterForegroundNotification, object: nil)
         self.walletAddress.delegate = self
         removedBtn = false
         let currency_value = UserDefaults.standard.integer(forKey: "currency")
@@ -366,7 +366,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        NotificationCenter.default.removeObserver(self, name: .UIApplicationWillEnterForeground, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIApplication.willEnterForegroundNotification, object: nil)
     }
     
     private func confirmSend(sendAll: Bool) {
@@ -889,11 +889,11 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             
             accountDropdown.setTitle(
                 "\(defaultAccount.Name) [\(tspendable.round(8) )]",
-                for: UIControlState.normal
+                for: UIControl.State.normal
             )
             toAccountDropDown.setTitle(
                 "\(defaultAccount.Name) [\(tspendable.round(8) )]",
-                for: UIControlState.normal
+                for: UIControl.State.normal
             )
             selectedAccount = defaultAccount
             sendToAccount = defaultAccount
@@ -928,7 +928,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             guard let this = self else { return }
             this.accountDropdown.setTitle(
                 val,
-                for: UIControlState.normal
+                for: UIControl.State.normal
             )
             this.selectedAccount = self?.AccountFilter?[ind]
             print("before function update")
@@ -940,7 +940,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             guard let this = self else { return }
             this.toAccountDropDown.setTitle(
                  val,
-                for: UIControlState.normal
+                 for: UIControl.State.normal
             )
             this.sendToAccount = self?.AccountFilter?[ind]
         }

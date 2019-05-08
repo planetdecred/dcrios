@@ -14,7 +14,7 @@ class TransactionHistoryViewController: UIViewController, DcrlibwalletGetTransac
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:
             #selector(TransactionHistoryViewController.handleRefresh(_:)),
-                                 for: UIControlEvents.valueChanged)
+                                 for: UIControl.Event.valueChanged)
         refreshControl.tintColor = UIColor.lightGray
         
         return refreshControl

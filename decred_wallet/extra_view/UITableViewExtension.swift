@@ -40,7 +40,7 @@ public extension UITableView {
     }
     
     @discardableResult func autoResizeCell(estimatedHeight _estimatedHeight: CGFloat = 100.0) -> UITableView {
-        rowHeight = UITableViewAutomaticDimension
+        rowHeight = UITableView.automaticDimension
         estimatedRowHeight = _estimatedHeight
         return self
     }

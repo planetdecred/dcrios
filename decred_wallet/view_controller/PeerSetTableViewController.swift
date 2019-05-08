@@ -60,8 +60,8 @@ class PeerSetTableViewController: UITableViewController {
     
     func showMessage(title: String,userMessage : String, buttonTitle button:String) {
         
-        let uiAlert = UIAlertController(title: title, message: userMessage, preferredStyle: UIAlertControllerStyle.alert)
-        let uiAction = UIAlertAction(title: button, style: UIAlertActionStyle.default, handler: nil)
+        let uiAlert = UIAlertController(title: title, message: userMessage, preferredStyle: UIAlertController.Style.alert)
+        let uiAction = UIAlertAction(title: button, style: UIAlertAction.Style.default, handler: nil)
         
         uiAlert.addAction(uiAction)
         
