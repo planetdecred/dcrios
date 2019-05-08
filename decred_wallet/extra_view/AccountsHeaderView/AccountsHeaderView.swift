@@ -37,7 +37,7 @@ class AccountsHeaderView: UIView {
         willSet {
             DispatchQueue.main.async {[weak self] in
                 if(UserDefaults.standard.bool(forKey: "synced")){
-                    let spendableTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor(hex: "#8997A5")]
+                    let spendableTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(hex: "#8997A5")]
                     let spendableTextattr =  NSMutableAttributedString(string: "Spendable ", attributes: spendableTextAttributes)
                     let amount = getAttributedString(str: "\(newValue)", siz: 9.0, TexthexColor: self!.spendableColor)
                     let combination = NSMutableAttributedString()
@@ -52,13 +52,14 @@ class AccountsHeaderView: UIView {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
+    
     func syncing(status: Bool){
         if(status){
             syncIndicate.loadGif(name: "progress bar-1s-200px")
-            let spendableTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor(hex: "#8997A5")]
+            let spendableTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(hex: "#8997A5")]
             let spendableTextattr =  NSMutableAttributedString(string: "Spendable ", attributes: spendableTextAttributes)
             let AmountText = "-"
-            let amountTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor(hex: "#2DD8A3")]
+            let amountTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(hex: "#2DD8A3")]
             let amountTextattr =  NSMutableAttributedString(string: AmountText, attributes: amountTextAttributes)
             let combination = NSMutableAttributedString()
             combination.append(spendableTextattr)
