@@ -70,7 +70,7 @@ class PeerSetTableViewController: UITableViewController {
     
     func isValidIP(s: String) -> Bool {
         let parts = s.components(separatedBy: ".")
-        let nums = parts.flatMap { Int($0) }
+        let nums = parts.compactMap { Int($0) }
         return parts.count == 4 && nums.count == 4 && nums.filter { $0 >= 0 && $0 < 256}.count == 4
     }
 }

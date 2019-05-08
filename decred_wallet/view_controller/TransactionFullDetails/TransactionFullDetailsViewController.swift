@@ -254,12 +254,12 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
             ),
             TransactionDetails(
                 title: "Type",
-                value: NSMutableAttributedString(string: "\(txType ?? "Unknown" )"),
+                value: NSMutableAttributedString(string: "\(txType)"),
                 textColor: nil
             ),
             TransactionDetails(
                 title: "Confirmation",
-                value: NSMutableAttributedString(string:"\(confirmations )"),
+                value: NSMutableAttributedString(string:"\(confirmations)"),
                 textColor: nil
             ),
             TransactionDetails(
@@ -295,10 +295,9 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
     }
     
     func openLink(urlString: String) {
-        
         if let url = URL(string: urlString) {
             let viewController = SFSafariViewController(url: url, entersReaderIfAvailable: true)
-            viewController.delegate = self as? SFSafariViewControllerDelegate
+            viewController.delegate = self as SFSafariViewControllerDelegate
             self.navigationController?.pushViewController(viewController, animated: true)
         }
     }

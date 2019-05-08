@@ -98,7 +98,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
         self.account?.Acc.removeAll()
         do{
             var getAccountError: NSError?
-            let strAccount = try self.wallet?.getAccounts(0, error: &getAccountError)
+            let strAccount = self.wallet?.getAccounts(0, error: &getAccountError)
             if getAccountError != nil {
                 throw getAccountError!
             }
