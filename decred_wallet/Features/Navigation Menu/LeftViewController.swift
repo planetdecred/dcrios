@@ -413,4 +413,8 @@ extension LeftViewController : UITableViewDataSource {
         }
         return UITableViewCell()
     }
+    
+    static func instantiate() -> Self {
+        return Storyboards.NavigationMenu.instantiateViewController(for: self)
+    }
 }

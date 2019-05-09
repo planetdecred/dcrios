@@ -8,6 +8,7 @@
 
 import UIKit
 import JGProgressHUD
+import SlideMenuControllerSwift
 
 extension Notification.Name {
     static let NeedAuth =   Notification.Name("NeedAuthorize")
@@ -23,11 +24,11 @@ func showMsg(error:String,controller: UIViewController){
     }
 }
 
-func createMainWindow(){
+func createMainWindow() {
     // create viewController code...
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
     let mainViewController = storyboard.instantiateViewController(withIdentifier: "OverviewViewController") as! OverviewViewController
-    let leftViewController = storyboard.instantiateViewController(withIdentifier: "LeftViewController") as! LeftViewController
+    let leftViewController = LeftViewController.instantiate()
     
     let nvc: UINavigationController = UINavigationController(rootViewController: mainViewController)
     
@@ -35,7 +36,7 @@ func createMainWindow(){
     
     leftViewController.mainViewController = nvc
     
-    let slideMenuController = ExSlideMenuController(mainViewController:nvc, leftMenuViewController: leftViewController)
+    let slideMenuController = SlideMenuController(mainViewController:nvc, leftMenuViewController: leftViewController)
     slideMenuController.changeLeftViewWidth((UIApplication.shared.keyWindow?.frame.size.width)! - (UIApplication.shared.keyWindow?.frame.size.width)! / 6)
     
     slideMenuController.delegate = mainViewController

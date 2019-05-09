@@ -42,7 +42,7 @@ class ConfirmNewWalletSeedViewController: WalletSetupBaseViewController {
     
     func secureWallet() {
         let seed = enteredWords.joined(separator: " ")
-        let securityVC = Storyboards.Main.instantiateViewController(vc: SecurityViewController.self)
+        let securityVC = SecurityViewController.instantiate()
         securityVC.onUserEnteredPinOrPassword = { (pinOrPassword, securityType) in
             self.finalizeWalletSetup(seed, pinOrPassword, securityType)
         }

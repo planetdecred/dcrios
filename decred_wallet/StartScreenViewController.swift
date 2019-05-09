@@ -7,6 +7,7 @@
 // license that can be found in the LICENSE file.
 
 import UIKit
+import SlideMenuControllerSwift
 
 class StartScreenViewController: UIViewController {
     @IBOutlet weak var label: UILabel!
@@ -52,7 +53,7 @@ class StartScreenViewController: UIViewController {
         // stop timer, will be restarted after settings page is closed and this page re-appears
         timer?.invalidate()
         
-        let settingsVC = Storyboards.Main.instantiateViewController(vc: SettingsController.self)
+        let settingsVC = SettingsController.instantiate()
         self.navigationController?.pushViewController(settingsVC, animated: true)
     }
     
@@ -61,49 +62,44 @@ class StartScreenViewController: UIViewController {
             self.displayWalletSetupScreen()
         }
         else if StartupPinOrPassword.pinOrPasswordIsSet() {
-            self.openSecuredWallet()
+            self.promptForWalletPinOrPassword()
         } else {
-            self.openUnSecuredWallet()
+            self.unlockWalletAndStartApp(password: "public") // unlock wallet using default public passphrase
         }
     }
     
     func displayWalletSetupScreen() {
-        DispatchQueue.main.async{
-            let walletSetupController = Storyboards.WalletSetup.instantiateViewController(vc: WalletSetupViewController.self)
-            let navigationController = UINavigationController(rootViewController: walletSetupController)
-            navigationController.isNavigationBarHidden = true
-            AppDelegate.shared.setAndDisplayRootViewController(navigationController)
-        }
+        let walletSetupController = WalletSetupViewController.instantiate()
+        let navigationController = UINavigationController(rootViewController: walletSetupController)
+        navigationController.isNavigationBarHidden = true
+        AppDelegate.shared.setAndDisplayRootViewController(navigationController)
     }
     
-    func openSecuredWallet() {
-        if StartupPinOrPassword.currentSecurityType() == "PASSWORD" {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let requestPasswordVC = storyboard.instantiateViewController(withIdentifier: "RequestPasswordViewController") as! RequestPasswordViewController
+    func promptForWalletPinOrPassword() {
+        if StartupPinOrPassword.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
+            let requestPasswordVC = RequestPasswordViewController.instantiate()
             requestPasswordVC.prompt = "Enter Startup Password"
-            requestPasswordVC.openWalletOnEnterPassword = true
-            AppDelegate.shared.setAndDisplayRootViewController(requestPasswordVC)
+            requestPasswordVC.onUserEnteredPassword = self.unlockWalletAndStartApp
+            self.present(requestPasswordVC, animated: true, completion: nil)
         }
-        else{
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let requestPinVC = storyboard.instantiateViewController(withIdentifier: "RequestPinViewController") as! RequestPinViewController
+        else {
+            let requestPinVC = RequestPinViewController.instantiate()
             requestPinVC.securityFor = "Startup"
-            requestPinVC.openWalletOnEnterPin = true
-            AppDelegate.shared.setAndDisplayRootViewController(requestPinVC)
+            requestPinVC.onUserEnteredPin = self.unlockWalletAndStartApp
+            self.present(requestPinVC, animated: true, completion: nil)
         }
     }
     
-    func openUnSecuredWallet() {
-        let key = "public"
-        let finalkey = key as NSString
-        let finalkeyData = finalkey.data(using: String.Encoding.utf8.rawValue)!
-        do {
-            ((try SingleInstance.shared.wallet?.open(finalkeyData)))
-        } catch let error {
-            print(error)
-        }
+    func unlockWalletAndStartApp(password: String) {
+        self.label.text = "Opening wallet..."
         
-        self.createMenuView()
+        let walletPassphrase = (password as NSString).data(using: String.Encoding.utf8.rawValue)!
+        do {
+            try SingleInstance.shared.wallet?.open(walletPassphrase)
+            self.createMenuView()
+        } catch let error {
+            self.showOkAlert(message: error.localizedDescription, title: "Error")
+        }
     }
     
     func createMenuView() {
@@ -111,7 +107,7 @@ class StartScreenViewController: UIViewController {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let mainViewController = storyboard.instantiateViewController(withIdentifier: "OverviewViewController") as! OverviewViewController
             
-            let leftViewController = storyboard.instantiateViewController(withIdentifier: "LeftViewController") as! LeftViewController
+            let leftViewController = LeftViewController.instantiate()
             mainViewController.delegate = leftViewController
             
             let nvc: UINavigationController = UINavigationController(rootViewController: mainViewController)
@@ -121,7 +117,7 @@ class StartScreenViewController: UIViewController {
             leftViewController.mainViewController = nvc
             
             let window = AppDelegate.shared.window
-            let slideMenuController = ExSlideMenuController(mainViewController: nvc, leftMenuViewController: leftViewController)
+            let slideMenuController = SlideMenuController(mainViewController: nvc, leftMenuViewController: leftViewController)
             slideMenuController.changeLeftViewWidth((window?.frame.size.width)! - (window?.frame.size.width)! / 6)
             
             slideMenuController.delegate = mainViewController
@@ -129,5 +125,9 @@ class StartScreenViewController: UIViewController {
             window?.rootViewController = slideMenuController
             window?.makeKeyAndVisible()
         }
+    }
+    
+    static func instantiate() -> Self {
+        return Storyboards.Main.instantiateViewController(for: self)
     }
 }

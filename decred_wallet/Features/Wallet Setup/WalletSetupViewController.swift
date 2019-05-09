@@ -9,8 +9,7 @@
 import Foundation
 import UIKit
 
-class WalletSetupViewController : UIViewController {
-    
+class WalletSetupViewController: WalletSetupBaseViewController {
     @IBOutlet weak var infoText: UILabel!
     @IBOutlet weak var restoreWallet: UILabel!
     @IBOutlet weak var createWallet: UILabel!
@@ -21,6 +20,7 @@ class WalletSetupViewController : UIViewController {
         createWallet.text = "Create a New \n Wallet"
         restoreWallet.text = "Restore Existing \n Wallet"
         infoText.text = "Create or recover your wallet and \nstart managing your decred."
+        
         var compileDate:Date{
             let bundleName = Bundle.main.infoDictionary!["CFBundleName"] as? String ?? "Info.plist"
             if let infoPath = Bundle.main.path(forResource: bundleName, ofType: nil),

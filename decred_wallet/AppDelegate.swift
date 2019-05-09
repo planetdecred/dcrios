@@ -22,15 +22,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             Fabric.with([Crashlytics.self])
         }
         
-        self.showAnimatedStartScreen()
-        
-        // request permission to display notifications in background while app is launched
-        DispatchQueue.main.async {
-            UNUserNotificationCenter.current().delegate = self
-            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge , .sound]){ (granted, error) in
-                print("user authorized notifications: \(granted)")
-            }
+        UNUserNotificationCenter.current().delegate = self
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge , .sound]) { (granted, error) in
+            print("user authorized notifications: \(granted)")
         }
+        
+        self.showAnimatedStartScreen()
         
         return true
     }
@@ -67,7 +64,7 @@ extension AppDelegate {
     }
     
     func showAnimatedStartScreen() {
-        let startScreenController = Storyboards.Main.instantiateViewController(vc: StartScreenViewController.self)
+        let startScreenController = StartScreenViewController.instantiate()
         
         let navigationVC = UINavigationController(rootViewController: startScreenController)
         UINavigationBar.appearance().tintColor = GlobalConstants.Colors.navigationBarColor

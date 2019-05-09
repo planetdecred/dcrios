@@ -272,4 +272,7 @@ class SettingsController: UITableViewController  {
         }
     }
     
+    static func instantiate() -> Self {
+        return Storyboards.Main.instantiateViewController(for: self)
+    }
 }

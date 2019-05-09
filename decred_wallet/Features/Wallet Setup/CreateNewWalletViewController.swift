@@ -9,7 +9,7 @@
 import UIKit
 import Dcrlibwallet
 
-class CreateNewWalletViewController: UIViewController {
+class CreateNewWalletViewController: WalletSetupBaseViewController {
     
     @IBOutlet var vWarningLabel: UILabel!
     @IBOutlet private var seedWordLabels: [UILabel]!

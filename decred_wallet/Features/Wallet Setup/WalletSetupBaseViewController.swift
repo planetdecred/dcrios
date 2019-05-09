@@ -9,10 +9,11 @@
 import Foundation
 import UIKit
 
-// WalletSetupBaseViewController is extended by ...
 class WalletSetupBaseViewController: UIViewController {
+    static func instantiate() -> Self {
+        return Storyboards.WalletSetup.instantiateViewController(for: self)
+    }
     
-    // finalizeWalletSetup is called by ...
     func finalizeWalletSetup(_ seed: String, _ pinOrPassword: String, _ securityType: String) {
         let progressHud = showProgressHud(with: "Setting up wallet...")
         

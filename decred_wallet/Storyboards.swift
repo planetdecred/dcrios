@@ -12,13 +12,15 @@ import UIKit
 enum Storyboards: String {
     case Main = "Main"
     case WalletSetup = "WalletSetup"
+    case Security = "Security"
+    case NavigationMenu = "NavigationMenu"
     
     var instance: UIStoryboard {
         return UIStoryboard(name: self.rawValue, bundle: nil)
     }
     
-    func instantiateViewController<T: UIViewController>(vc: T.Type, function: String = #function, line: Int = #line, file: String = #file) -> T {
-        let storyboardID = (vc as UIViewController.Type).storyboardID
+    func instantiateViewController<T: UIViewController>(for viewControllerType: T.Type, function: String = #function, line: Int = #line, file: String = #file) -> T {
+        let storyboardID = (viewControllerType as UIViewController.Type).storyboardID
         
         guard let scene = instance.instantiateViewController(withIdentifier: storyboardID) as? T else {
             fatalError("ViewController with identifier \(storyboardID), not found in \(self.rawValue) Storyboard.\nFile : \(file) \nLine Number : \(line) \nFunction : \(function)")

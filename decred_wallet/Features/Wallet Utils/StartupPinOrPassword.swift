@@ -46,13 +46,13 @@ struct StartupPinOrPassword {
     
     static func promptForCurrentPinOrPassword(_ vc: UIViewController, afterUserEntersPinOrPassword: @escaping (String) -> Void) {
         // show the appropriate vc to read current pin or password
-        if self.currentSecurityType() == "PASSWORD" {
-            let requestPasswordVC = vc.storyboard!.instantiateViewController(withIdentifier: "RequestPasswordViewController") as! RequestPasswordViewController
+        if self.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
+            let requestPasswordVC = RequestPasswordViewController.instantiate()
             requestPasswordVC.prompt = "Enter Current Startup Password"
-            requestPasswordVC.onUserEnteredPinOrPassword = afterUserEntersPinOrPassword
+            requestPasswordVC.onUserEnteredPassword = afterUserEntersPinOrPassword
             vc.present(requestPasswordVC, animated: true)
         } else {
-            let requestPinVC = vc.storyboard!.instantiateViewController(withIdentifier: "RequestPinViewController") as! RequestPinViewController
+            let requestPinVC = RequestPinViewController.instantiate()
             requestPinVC.securityFor = "Current"
             requestPinVC.showCancelButton = true
             requestPinVC.onUserEnteredPin = afterUserEntersPinOrPassword
@@ -62,7 +62,7 @@ struct StartupPinOrPassword {
     
     private static func setNewPinOrPassword(_ vc: UIViewController, currentPinOrPassword: String?, completion: (() -> Void)? = nil) {
         // init secutity vc to use in getting new password or pin from user
-        let securityVC = vc.storyboard!.instantiateViewController(withIdentifier: "SecurityViewController") as! SecurityViewController
+        let securityVC = SecurityViewController.instantiate()
         securityVC.securityFor = "Startup"
         securityVC.initialSecurityType = self.currentSecurityType()
         securityVC.onUserEnteredPinOrPassword = { newPinOrPassword, securityType in
