@@ -34,21 +34,19 @@ class ConfirmNewWalletSeedViewController: WalletSetupBaseViewController {
         let seed = enteredWords.joined(separator: " ")
         let seedIsValid = SingleInstance.shared.wallet?.verifySeed(seed)
         if seedIsValid! {
-            performSegue(withIdentifier: "secureNewWalletSegue", sender: nil)
+            self.secureWallet()
         } else {
-            showError(error: "Seed does not matches. Try again, please")
+            self.showError(error: "Seed does not matches. Try again, please")
         }
     }
     
-    // MARK: - Navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "secureNewWalletSegue" {
-            let securityVC = segue.destination as? SecurityViewController
-            let seed = enteredWords.joined(separator: " ")
-            securityVC?.onUserEnteredPinOrPassword = { (pinOrPassword, securityType) in
-                self.finalizeWalletSetup(seed, pinOrPassword, securityType)
-            }
+    func secureWallet() {
+        let seed = enteredWords.joined(separator: " ")
+        let securityVC = Storyboards.Main.instantiateViewController(vc: SecurityViewController.self)
+        securityVC.onUserEnteredPinOrPassword = { (pinOrPassword, securityType) in
+            self.finalizeWalletSetup(seed, pinOrPassword, securityType)
         }
+        self.navigationController?.pushViewController(securityVC, animated: true)
     }
     
     private func showError(error:String){

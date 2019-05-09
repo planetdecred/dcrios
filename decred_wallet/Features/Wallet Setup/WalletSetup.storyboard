@@ -70,6 +70,9 @@
                                                                 <color key="value" red="0.92941176469999998" green="0.93725490199999995" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <segue destination="gFt-pD-kVi" kind="show" id="7Sg-BI-PiE"/>
+                                                        </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create a New Wallet" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o7v-m1-uhB">
                                                         <rect key="frame" x="27.5" y="54.5" width="124.5" height="54.5"/>
@@ -123,6 +126,9 @@
                                                                 <color key="value" red="0.92941176469999998" green="0.93725490199999995" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <segue destination="JeB-dY-AWc" kind="show" id="7YZ-GJ-hcP"/>
+                                                        </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Restore Existing Wallet" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3ui-eJ-rsh">
                                                         <rect key="frame" x="0.0" y="54.5" width="141" height="54.5"/>
@@ -210,12 +216,12 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="958-W0-p93" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="kqc-Og-IdQ">
                     <connections>
-                        <segue destination="gFt-pD-kVi" kind="show" id="Rh5-jF-LTD"/>
+                        <segue destination="gFt-pD-kVi" kind="show" id="bTC-5f-N0z"/>
                     </connections>
                 </tapGestureRecognizer>
                 <tapGestureRecognizer id="wQA-U0-fKq">
                     <connections>
-                        <segue destination="JeB-dY-AWc" kind="show" id="K6P-Y5-KFF"/>
+                        <segue destination="JeB-dY-AWc" kind="show" id="tpL-HT-Xj2"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -855,20 +861,20 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="sjO-51-aZT">
-                                            <rect key="frame" x="16" y="16" width="343" height="66"/>
+                                            <rect key="frame" x="16" y="16" width="382" height="66"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="oRf-Dp-0Nl">
-                                                    <rect key="frame" x="0.0" y="0.0" width="343" height="33"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="382" height="33"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hUY-un-M1r">
                                                             <rect key="frame" x="0.0" y="0.0" width="33" height="33"/>
                                                             <state key="normal" image="left-arrow"/>
                                                             <connections>
-                                                                <segue destination="Ugv-5Y-sAK" kind="unwind" unwindAction="backToMenu:" id="klB-om-jrm"/>
+                                                                <action selector="backButtonTap:" destination="JeB-dY-AWc" eventType="touchUpInside" id="SXG-l8-Ueo"/>
                                                             </connections>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" text="Seed Restore" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xum-F1-MfM">
-                                                            <rect key="frame" x="43" y="0.0" width="300" height="33"/>
+                                                            <rect key="frame" x="43" y="0.0" width="339" height="33"/>
                                                             <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
                                                             <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -876,7 +882,7 @@
                                                     </subviews>
                                                 </stackView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start typing the word and then tap the current word from the suggestion list." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cxy-o8-Fd4">
-                                                    <rect key="frame" x="0.0" y="33" width="343" height="33"/>
+                                                    <rect key="frame" x="0.0" y="33" width="382" height="33"/>
                                                     <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="13"/>
                                                     <color key="textColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -896,16 +902,16 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="H36-9D-vfZ">
-                                            <rect key="frame" x="16" y="30" width="343" height="36"/>
+                                            <rect key="frame" x="16" y="30" width="382" height="36"/>
                                             <subviews>
                                                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Not all seeds are entered. Please, check input fields and enter all seeds." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yKo-jo-2pm">
-                                                    <rect key="frame" x="-20.5" y="0.0" width="384" height="0.0"/>
+                                                    <rect key="frame" x="-1" y="0.0" width="384" height="0.0"/>
                                                     <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="13"/>
                                                     <color key="textColor" red="0.92941176469999998" green="0.42745098040000001" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z7B-hI-KRP">
-                                                    <rect key="frame" x="121.5" y="0.0" width="100" height="36"/>
+                                                    <rect key="frame" x="141" y="0.0" width="100" height="36"/>
                                                     <color key="backgroundColor" red="0.76862745099999996" green="0.79607843140000001" blue="0.82352941180000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="36" id="Qgw-fT-gGN"/>
@@ -953,10 +959,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jXR-IR-ia3">
-                                                    <rect key="frame" x="69" y="3" width="290" height="30"/>
+                                                    <rect key="frame" x="69" y="3" width="329" height="30"/>
                                                     <subviews>
                                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="XmM-bN-iln" customClass="DropDownSearchField" customModule="DecredWallet" customModuleProvider="target">
-                                                            <rect key="frame" x="5" y="5" width="280" height="20"/>
+                                                            <rect key="frame" x="5" y="5" width="319" height="20"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1024,7 +1030,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wbz-wq-m0C" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="Ugv-5Y-sAK" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2228" y="226"/>
         </scene>
@@ -1036,4 +1041,8 @@
         <image name="left-arrow" width="33" height="33"/>
         <image name="recover-wallet" width="54.5" height="54.5"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="7YZ-GJ-hcP"/>
+        <segue reference="bTC-5f-N0z"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -153,13 +153,15 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
         }
     }
     
+    @IBAction func backButtonTap(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     @IBAction func onConfirm() {
-        if self.validSeedWords.contains("") || !self.validateSeed().valid {
-            // all words have not been entered
-            return
+        let validatedSeed = self.validateSeed()
+        if validatedSeed.valid {
+            self.secureWallet(validatedSeed.seed)
         }
-        
-        self.performSegue(withIdentifier: "secureRecoveredWalletSegue", sender: nil)
     }
     
     @objc func longPressConfirm() {
@@ -167,23 +169,15 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
             return
         }
         self.useTestSeed = true
-        self.performSegue(withIdentifier: "secureRecoveredWalletSegue", sender: nil)
+        self.secureWallet(self.testSeed)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "secureRecoveredWalletSegue" {
-            var seed: String
-            if self.useTestSeed {
-                seed = self.testSeed
-            } else {
-                seed = self.validateSeed().seed
-            }
-            
-            let securityVC = segue.destination as! SecurityViewController
-            securityVC.onUserEnteredPinOrPassword = { (pinOrPassword, securityType) in
-                self.finalizeWalletSetup(seed, pinOrPassword, securityType)
-            }
+    func secureWallet(_ seed: String) {
+        let securityVC = Storyboards.Main.instantiateViewController(vc: SecurityViewController.self)
+        securityVC.onUserEnteredPinOrPassword = { (pinOrPassword, securityType) in
+            self.finalizeWalletSetup(seed, pinOrPassword, securityType)
         }
+        self.navigationController?.pushViewController(securityVC, animated: true)
     }
     
     private func validateSeed() -> (seed: String, valid: Bool) {

@@ -53,9 +53,6 @@ class CreateNewWalletViewController: UIViewController {
         super.viewWillDisappear(animated)
     }
     
-    @IBAction func unwind(_: UIStoryboardSegue){}
-    // MARK: - Utility
-    
     func setUpUItraits() {
         totalWidth = seedContainer.frame.size.width
         yPosition = 20.0
