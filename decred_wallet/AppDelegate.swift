@@ -14,9 +14,32 @@ import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
-    var window: UIWindow?
-    var navigation: UINavigationController?
-    fileprivate let loadThread = DispatchQueue.self
+//    var window: UIWindow?
+//    var navigation: UINavigationController?
+    
+    func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        // setup crash reporting for testnet build only
+        let isTestnet = Bool(infoForKey(GlobalConstants.Strings.IS_TESTNET)!)!
+        if isTestnet {
+            Fabric.with([Crashlytics.self])
+        }
+        
+        DispatchQueue.main.async {
+            UNUserNotificationCenter.current().delegate = self
+            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge , .sound]){ (granted, error) in
+                print("granted: \(granted)")
+                
+            }
+            UserDefaults.standard.setValuesForKeys(["pref_user_name": "dcrwallet",
+                                                    "pref_user_passwd": "dcrwallet",
+                ])
+            self.showAnimatedStartScreen()
+        }
+        
+        return true
+    }
+    
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping
         (UNNotificationPresentationOptions) -> Void){
@@ -25,12 +48,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     fileprivate func walletSetupView() {
         DispatchQueue.main.async{
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let walletSetupController = storyboard.instantiateViewController(withIdentifier: "WalletSetupViewController") as! WalletSetupViewController
+            let walletSetupController = Storyboards.WalletSetup.instantiateViewController(vc: WalletSetupViewController.self)
             let nv = UINavigationController(rootViewController: walletSetupController)
             nv.isNavigationBarHidden = true
             self.window?.rootViewController = nv
-            
             self.window?.makeKeyAndVisible()
         }
     }
@@ -104,23 +125,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     func showAnimatedStartScreen() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let startScreenController = storyboard.instantiateViewController(withIdentifier: "WaiterScreenViewController") as! WaiterScreenViewController
+        let startScreenController = Storyboards.Main.instantiateViewController(vc: StartScreenViewController.self)
+        
+        let navigationVC = UINavigationController(rootViewController: startScreenController)
+        UINavigationBar.appearance().tintColor = GlobalConstants.Colors.navigationBarColor
+        navigationVC.navigationBar.isHidden = true
+        
+        startScreenController.onTapAnimation = {
+            let settingsVC = Storyboards.Main.instantiateViewController(vc: SettingsController.self)
+            settingsVC.isFromLoader = true
+            navigationVC.pushViewController(settingsVC, animated: true)
+        }
         
         startScreenController.onFinish = { [weak self] in
             guard let this = self else { return }
             this.populateFirstScreen()
         }
         
-        startScreenController.onTapAnimation = { [weak self] in
-            guard let this = self else { return }
-            this.gotoSetting()
-        }
-        
-        self.navigation = UINavigationController(rootViewController: startScreenController)
-        UINavigationBar.appearance().tintColor = GlobalConstants.Colors.navigationBarColor
-        self.navigation?.navigationBar.isHidden = true
-        self.window?.rootViewController = self.navigation
+        self.window?.rootViewController = navigationVC
         self.window?.makeKeyAndVisible()
     }
 
@@ -129,36 +151,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             return false
         }
         return true
-    }
-    
-    func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
-        // setup crash reporting for testnet build only
-        let isTestnet = Bool(infoForKey(GlobalConstants.Strings.IS_TESTNET)!)!
-        if isTestnet {
-            Fabric.with([Crashlytics.self])
-        }
-        
-        DispatchQueue.main.async {
-            UNUserNotificationCenter.current().delegate = self
-            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge , .sound]){ (granted, error) in
-                print("granted: \(granted)")
-                
-            }
-            UserDefaults.standard.setValuesForKeys(["pref_user_name": "dcrwallet",
-                                                    "pref_user_passwd": "dcrwallet",
-                                                    ])
-            self.showAnimatedStartScreen()
-        }
-        
-        return true
-    }
-    
-    fileprivate func gotoSetting() {
-        let vcSetting = GlobalConstants.ConstantStoryboardMain.getControllerInstance(identifier: "SettingsController2", storyBoard: GlobalConstants.ConstantStoryboardMain.IDENTIFIER_STORYBOARD_MAIN) as! SettingsController
-        vcSetting.isFromLoader = true
-        
-        self.navigation?.pushViewController(vcSetting, animated: true)
     }
     
     fileprivate func openUnSecuredWallet() {
@@ -203,8 +195,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             SingleInstance.shared.wallet?.shutdown()
         }
     }
-    func applicationDidReceiveMemoryWarning(_ application: UIApplication) {
-    }
+    
+    func applicationDidReceiveMemoryWarning(_ application: UIApplication) {}
 }
 
 extension AppDelegate {

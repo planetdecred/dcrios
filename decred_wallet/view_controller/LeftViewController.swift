@@ -291,7 +291,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
                 
             case .settings:
                 
-                let settingsController = self.storyboard2.instantiateViewController(withIdentifier: "SettingsController2") as! SettingsController
+                let settingsController = self.storyboard2.instantiateViewController(withIdentifier: "SettingsController") as! SettingsController
                 settingsController.delegate = self
                 self.settingsViewController = UINavigationController(rootViewController: settingsController)
                 self.slideMenuController()?.changeMainViewController(self.settingsViewController, close: true)
