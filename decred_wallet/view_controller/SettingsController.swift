@@ -10,7 +10,6 @@ import UIKit
 import JGProgressHUD
 
 class SettingsController: UITableViewController  {
-    
     weak var delegate: LeftMenuProtocol?
     
     @IBOutlet weak var changeStartPINCell: UITableViewCell!
@@ -36,10 +35,6 @@ class SettingsController: UITableViewController  {
     @IBOutlet weak var start_Pin: UISwitch!
     @IBOutlet weak var currency_subtitle: UILabel!
     
-    
-    
-    var isFromLoader = false
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         loadDate()
@@ -51,7 +46,7 @@ class SettingsController: UITableViewController  {
         self.navigationController?.navigationBar.isHidden = false
         self.navigationController?.navigationBar.tintColor = UIColor.black
         self.navigationItem.title = "Settings"
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(exitSettings))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
         
         connect_peer_ip?.text = UserDefaults.standard.string(forKey: "pref_peer_ip") ?? ""
@@ -84,12 +79,12 @@ class SettingsController: UITableViewController  {
         }
     }
     
-    @objc func cancel() -> Void {
-        if self.isFromLoader == true {
+    @objc func exitSettings() -> Void {
+        if let navigationMenu = self.delegate {
+            navigationMenu.changeViewController(LeftMenu.overview)
+        } else {
             self.navigationController?.navigationBar.isHidden = true
             self.navigationController?.popViewController(animated: true)
-        } else {
-            delegate?.changeViewController(LeftMenu.overview)
         }
     }
     
@@ -162,12 +157,7 @@ class SettingsController: UITableViewController  {
         UserDefaults.standard.set(spend_uncon_fund.isOn, forKey: "pref_spend_fund_switch")
         UserDefaults.standard.set(debu_msg.isOn, forKey: "pref_debug_switch")
         UserDefaults.standard.synchronize()
-        if (self.isFromLoader == true) {
-            self.navigationController?.navigationBar.isHidden = true
-            self.navigationController?.popViewController(animated: true)
-        } else {
-            delegate?.changeViewController(LeftMenu.overview)
-        }
+        self.exitSettings()
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

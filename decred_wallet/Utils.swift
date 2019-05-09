@@ -14,13 +14,6 @@ extension Notification.Name {
     static let NeedLogout = Notification.Name("NeedDeauthorize")
 }
 
-func isWalletCreated() -> Bool{
-    let netType = infoForKey(GlobalConstants.Strings.NetType)!
-    let fm = FileManager()
-    let result = fm.fileExists(atPath: NSHomeDirectory()+"/Documents/dcrlibwallet/\(netType)/wallet.db")
-    return result
-}
-
 func showMsg(error:String,controller: UIViewController){
     let alert = UIAlertController(title: "PIN mismatch", message: error, preferredStyle: .alert)
     let okAction = UIAlertAction(title: "Try again", style: UIAlertAction.Style.default, handler: nil)
