@@ -20,7 +20,7 @@ class WalletLogViewController: UIViewController {
     }
     
     fileprivate func load(){
-        let netType = infoForKey(GlobalConstants.Strings.NetType)!
+        let netType = Utils.infoForKey(GlobalConstants.Strings.NetType)!
         let logPath = NSHomeDirectory()+"/Documents/dcrlibwallet/logs/\(netType)/dcrlibwallet.log"
         let logContent = try? String(contentsOf: URL(fileURLWithPath: logPath))
         let aLogs = logContent?.split(separator: "\n")

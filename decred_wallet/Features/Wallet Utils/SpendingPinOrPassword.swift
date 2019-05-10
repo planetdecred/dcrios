@@ -18,13 +18,13 @@ struct SpendingPinOrPassword {
     
     private static func promptForCurrentPinOrPassword(_ vc: UIViewController, afterUserEntersPinOrPassword: @escaping (String) -> Void) {
         // show the appropriate vc to read current pin or password
-        if self.currentSecurityType() == "PASSWORD" {
-            let requestPasswordVC = vc.storyboard!.instantiateViewController(withIdentifier: "RequestPasswordViewController") as! RequestPasswordViewController
+        if self.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
+            let requestPasswordVC = RequestPasswordViewController.instantiate()
             requestPasswordVC.prompt = "Enter Current Spending Password"
-            requestPasswordVC.onUserEnteredPinOrPassword = afterUserEntersPinOrPassword
+            requestPasswordVC.onUserEnteredPassword = afterUserEntersPinOrPassword
             vc.present(requestPasswordVC, animated: true)
         } else {
-            let requestPinVC = vc.storyboard!.instantiateViewController(withIdentifier: "RequestPinViewController") as! RequestPinViewController
+            let requestPinVC = RequestPinViewController.instantiate()
             requestPinVC.securityFor = "Current"
             requestPinVC.showCancelButton = true
             requestPinVC.onUserEnteredPin = afterUserEntersPinOrPassword
@@ -34,7 +34,7 @@ struct SpendingPinOrPassword {
     
     private static func promptForNewPinOrPassword(_ vc: UIViewController, currentPinOrPassword: String) {
         // init secutity vc to use in getting new spending password or pin from user
-        let securityVC = vc.storyboard!.instantiateViewController(withIdentifier: "SecurityViewController") as! SecurityViewController
+        let securityVC = SecurityViewController.instantiate()
         securityVC.securityFor = "Spending"
         securityVC.initialSecurityType = self.currentSecurityType()
         
@@ -47,7 +47,7 @@ struct SpendingPinOrPassword {
     
     private static func changeWalletSpendingPassphrase(_ vc: UIViewController, current currentPassphrase: String, new newPassphrase: String, type securityType: String) {
         let newSecurityType = securityType.lowercased()
-        let progressHud = showProgressHud(with: "Changing spending \(newSecurityType)...")
+        let progressHud = Utils.showProgressHud(with: "Changing spending \(newSecurityType)...")
         
         let oldPrivatePass = (currentPassphrase as NSString).data(using: String.Encoding.utf8.rawValue)!
         let newPrivatePass = (newPassphrase as NSString).data(using: String.Encoding.utf8.rawValue)!

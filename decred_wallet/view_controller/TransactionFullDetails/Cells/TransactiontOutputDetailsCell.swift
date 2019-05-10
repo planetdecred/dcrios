@@ -27,7 +27,7 @@ class TransactiontOutputDetailsCell: UITableViewCell {
         for (_, credit) in credits.enumerated() {
             walletOutputIndices.append(Int(credit.Index))
             
-            let amount = getAttributedString(str: "\(credit.dcrAmount.round(8))", siz: 13, TexthexColor: GlobalConstants.Colors.TextAmount)
+            let amount = Utils.getAttributedString(str: "\(credit.dcrAmount.round(8))", siz: 13, TexthexColor: GlobalConstants.Colors.TextAmount)
             let title = " (\((wallet?.account(ofAddress: credit.Address))!))"
             let address = credit.Address
             
@@ -40,7 +40,7 @@ class TransactiontOutputDetailsCell: UITableViewCell {
             }
             
             var address = decodedOutput.Addresses.count > 0 ? decodedOutput.Addresses[0] : ""
-            var amount = getAttributedString(str: "\(decodedOutput.dcrAmount.round(8))", siz: 13, TexthexColor: GlobalConstants.Colors.TextAmount)
+            var amount = Utils.getAttributedString(str: "\(decodedOutput.dcrAmount.round(8))", siz: 13, TexthexColor: GlobalConstants.Colors.TextAmount)
             var title = " (external)"
             
             switch(decodedOutput.ScriptType){

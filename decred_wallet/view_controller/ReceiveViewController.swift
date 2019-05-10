@@ -209,7 +209,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
             guard let this = self else { return }
             
             this.lblWalletAddress.text = receiveAddress!
-            this.imgWalletAddrQRCode.image = generateQRCodeFor(
+            this.imgWalletAddrQRCode.image = this.generateQRCodeFor(
                 with: receiveAddress!,
                 forImageViewFrame: this.imgWalletAddrQRCode.frame
             )
@@ -222,7 +222,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
             guard let this = self else { return }
             if (this.oldAddress != receiveAddress!) {
                 this.lblWalletAddress.text = receiveAddress!
-                this.imgWalletAddrQRCode.image = generateQRCodeFor(
+                this.imgWalletAddrQRCode.image = this.generateQRCodeFor(
                     with: receiveAddress!,
                     forImageViewFrame: this.imgWalletAddrQRCode.frame
                 )
@@ -231,8 +231,51 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
             else{
                 self!.getNext()
             }
-            
         }
-       
+    }
+    
+    func generateQRCodeFor(with addres: String, forImageViewFrame: CGRect) -> UIImage? {
+        guard let addrData = addres.data(using: String.Encoding.utf8) else {
+            return nil
+        }
+        
+        // Color code and background
+        guard let colorFilter = CIFilter(name: "CIFalseColor") else { return nil }
+        
+        let filter = CIFilter(name: "CIQRCodeGenerator")
+        
+        filter?.setValue(addrData, forKey: "inputMessage")
+        
+        /// Foreground color of the output
+        let color = CIColor(red: 26/255, green: 29/255, blue: 47/255)
+        
+        /// Background color of the output
+        let backgroundColor = CIColor.clear
+        
+        colorFilter.setDefaults()
+        colorFilter.setValue(filter!.outputImage, forKey: "inputImage")
+        colorFilter.setValue(color, forKey: "inputColor0")
+        colorFilter.setValue(backgroundColor, forKey: "inputColor1")
+        
+        if let imgQR = colorFilter.outputImage {
+            var tempFrame: CGRect? = forImageViewFrame
+            
+            if tempFrame == nil {
+                tempFrame = CGRect(x: 0, y: 0, width: 100, height: 100)
+            }
+            
+            guard let frame = tempFrame else { return nil }
+            
+            let smallerSide = frame.size.width < frame.size.height ? frame.size.width : frame.size.height
+            
+            let scale = smallerSide/imgQR.extent.size.width
+            let transformedImage = imgQR.transformed(by: CGAffineTransform(scaleX: scale, y: scale))
+            
+            let imageQRCode = UIImage(ciImage: transformedImage)
+            
+            return imageQRCode
+        }
+        
+        return nil
     }
 }

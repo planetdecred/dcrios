@@ -8,293 +8,177 @@
 
 import UIKit
 import JGProgressHUD
+import SlideMenuControllerSwift
 
-extension Notification.Name {
-    static let NeedAuth =   Notification.Name("NeedAuthorize")
-    static let NeedLogout = Notification.Name("NeedDeauthorize")
-}
-
-func isWalletCreated() -> Bool{
-    let netType = infoForKey(GlobalConstants.Strings.NetType)!
-    let fm = FileManager()
-    let result = fm.fileExists(atPath: NSHomeDirectory()+"/Documents/dcrlibwallet/\(netType)/wallet.db")
-    return result
-}
-
-func showMsg(error:String,controller: UIViewController){
-    let alert = UIAlertController(title: "PIN mismatch", message: error, preferredStyle: .alert)
-    let okAction = UIAlertAction(title: "Try again", style: UIAlertAction.Style.default, handler: nil)
-    alert.addAction(okAction)
-    DispatchQueue.main.async {
-        controller.present(alert, animated: true, completion: nil)
-    }
-}
-
-func createMainWindow(){
-    // create viewController code...
-    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    let mainViewController = storyboard.instantiateViewController(withIdentifier: "OverviewViewController") as! OverviewViewController
-    let leftViewController = storyboard.instantiateViewController(withIdentifier: "LeftViewController") as! LeftViewController
-    
-    let nvc: UINavigationController = UINavigationController(rootViewController: mainViewController)
-    
-    UINavigationBar.appearance().tintColor = GlobalConstants.Colors.navigationBarColor
-    
-    leftViewController.mainViewController = nvc
-    
-    let slideMenuController = ExSlideMenuController(mainViewController:nvc, leftMenuViewController: leftViewController)
-    slideMenuController.changeLeftViewWidth((UIApplication.shared.keyWindow?.frame.size.width)! - (UIApplication.shared.keyWindow?.frame.size.width)! / 6)
-    
-    slideMenuController.delegate = mainViewController
-    UIApplication.shared.keyWindow?.backgroundColor = GlobalConstants.Colors.lightGrey
-    UIApplication.shared.keyWindow?.rootViewController = slideMenuController
-    UIApplication.shared.keyWindow?.makeKeyAndVisible()
-}
-
-func showProgressHud(with title:String?) -> JGProgressHUD{
-    let hud = JGProgressHUD(style: .light)
-    hud.shadow = JGProgressHUDShadow(color: .black, offset: .zero, radius: 5.0, opacity: 0.2)
-    hud.textLabel.text = title ?? ""
-    hud.show(in: (UIApplication.shared.keyWindow?.rootViewController?.view)!)
-    return hud
-}
-
-func saveCertificate(secretKey: String) {
-    do {
-        let filePath = NSHomeDirectory() + "/Documents/rpc.cert"
-        let filePathURL = URL.init(fileURLWithPath: filePath)
-        try secretKey.write(to: filePathURL, atomically: true, encoding: String.Encoding.utf8)
-    } catch {
-        debugPrint("Could not create certificate file")
-    }
-}
-
-func getPeerAddress(appInstance:UserDefaults) -> String{
-    let ip = appInstance.string(forKey: "pref_peer_ip") ?? ""
-    if(ip.elementsEqual("")){
-        return ""
-    }
-    else{
-        return (ip.appending(":19108"))
-    }
-}
-func getTime( millis : Int64) -> String {
-    var seconds = millis / 1000;
-    if (seconds > 60) {
-        let minutes = seconds / 60;
-        seconds = seconds % 60;
-        return "\(minutes) m \(seconds)s"
+struct Utils {
+    static func runInMainThread(_ run: @escaping () -> Void) {
+        DispatchQueue.main.async {
+            run()
+        }
     }
     
-    return "\(seconds)s"
-}
-func calculateDays(seconds: Int64) -> String{
-    let duration = seconds // 2 minutes, 30 seconds
-    let formattedDuration  = duration/86400
-    if (formattedDuration == 0) {
-        return "< 1 day"
-    } else if (formattedDuration == 1) {
-        return "1 day";
-    }
-    
-    return "\(String(describing: formattedDuration)) days";
-}
-func getSyncTimeRemaining(millis: Int64,percentageCompleted : Int, syncView : Bool)-> String {
-    print("milli seconds = \(millis)")
-    if (millis > 1000) {
-        let seconds = millis / 1000;
+    static func createMainWindow() {
+        // create viewController code...
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let mainViewController = storyboard.instantiateViewController(withIdentifier: "OverviewViewController") as! OverviewViewController
+        let leftViewController = LeftViewController.instantiate()
         
+        let nvc: UINavigationController = UINavigationController(rootViewController: mainViewController)
+        
+        UINavigationBar.appearance().tintColor = GlobalConstants.Colors.navigationBarColor
+        
+        leftViewController.mainViewController = nvc
+        
+        let slideMenuController = SlideMenuController(mainViewController:nvc, leftMenuViewController: leftViewController)
+        slideMenuController.changeLeftViewWidth((UIApplication.shared.keyWindow?.frame.size.width)! - (UIApplication.shared.keyWindow?.frame.size.width)! / 6)
+        
+        slideMenuController.delegate = mainViewController
+        UIApplication.shared.keyWindow?.backgroundColor = GlobalConstants.Colors.lightGrey
+        UIApplication.shared.keyWindow?.rootViewController = slideMenuController
+        UIApplication.shared.keyWindow?.makeKeyAndVisible()
+    }
+    
+    static func showProgressHud(with title:String?) -> JGProgressHUD{
+        let hud = JGProgressHUD(style: .light)
+        hud.shadow = JGProgressHUDShadow(color: .black, offset: .zero, radius: 5.0, opacity: 0.2)
+        hud.textLabel.text = title ?? ""
+        hud.show(in: (UIApplication.shared.keyWindow?.rootViewController?.view)!)
+        return hud
+    }
+    
+    static func getPeerAddress(appInstance:UserDefaults) -> String{
+        let ip = appInstance.string(forKey: "pref_peer_ip") ?? ""
+        if(ip.elementsEqual("")){
+            return ""
+        }
+        else{
+            return (ip.appending(":19108"))
+        }
+    }
+    
+    static func getTime( millis : Int64) -> String {
+        var seconds = millis / 1000;
         if (seconds > 60) {
             let minutes = seconds / 60;
-            if (syncView) {
-             return   "\(percentageCompleted)% completed, \(minutes) min remaining."
+            seconds = seconds % 60;
+            return "\(minutes) m \(seconds)s"
+        }
+        
+        return "\(seconds)s"
+    }
+    
+    static func calculateDays(seconds: Int64) -> String{
+        let duration = seconds // 2 minutes, 30 seconds
+        let formattedDuration  = duration/86400
+        if (formattedDuration == 0) {
+            return "< 1 day"
+        } else if (formattedDuration == 1) {
+            return "1 day";
+        }
+        
+        return "\(String(describing: formattedDuration)) days";
+    }
+    
+    static func getSyncTimeRemaining(millis: Int64,percentageCompleted : Int, syncView : Bool)-> String {
+        print("milli seconds = \(millis)")
+        if (millis > 1000) {
+            let seconds = millis / 1000;
+            
+            if (seconds > 60) {
+                let minutes = seconds / 60;
+                if (syncView) {
+                    return   "\(percentageCompleted)% completed, \(minutes) min remaining."
+                }
+                return "\(percentageCompleted)% completed, \(minutes) min left"
             }
-            return "\(percentageCompleted)% completed, \(minutes) min left"
+            
+            if (syncView) {
+                return "\(percentageCompleted)% completed, \(seconds) sec remaining."
+            }
+            return "\(percentageCompleted)% completed, \(seconds) sec left."
         }
         
         if (syncView) {
-            return "\(percentageCompleted)% completed, \(seconds) sec remaining."
+            return " \(percentageCompleted)% completed, < 1 seconds remaining."
         }
-        return "\(percentageCompleted)% completed, \(seconds) sec left."
-        }
-    
-    if (syncView) {
-      return " \(percentageCompleted)% completed, < 1 seconds remaining."
-    }
-    return " \(percentageCompleted)% completed, < 1 seconds left."
-   
-}
-
-
-func generateQRCodeFor(with addres: String, forImageViewFrame: CGRect) -> UIImage? {
-    guard let addrData = addres.data(using: String.Encoding.utf8) else {
-        return nil
+        return " \(percentageCompleted)% completed, < 1 seconds left."
+        
     }
     
-    // Color code and background
-    guard let colorFilter = CIFilter(name: "CIFalseColor") else { return nil }
-    
-    let filter = CIFilter(name: "CIQRCodeGenerator")
-    
-    filter?.setValue(addrData, forKey: "inputMessage")
-    
-    /// Foreground color of the output
-    let color = CIColor(red: 26/255, green: 29/255, blue: 47/255)
-    
-    /// Background color of the output
-    let backgroundColor = CIColor.clear
-    
-    colorFilter.setDefaults()
-    colorFilter.setValue(filter!.outputImage, forKey: "inputImage")
-    colorFilter.setValue(color, forKey: "inputColor0")
-    colorFilter.setValue(backgroundColor, forKey: "inputColor1")
-    
-    if let imgQR = colorFilter.outputImage {
-        var tempFrame: CGRect? = forImageViewFrame
-        
-        if tempFrame == nil {
-            tempFrame = CGRect(x: 0, y: 0, width: 100, height: 100)
-        }
-        
-        guard let frame = tempFrame else { return nil }
-        
-        let smallerSide = frame.size.width < frame.size.height ? frame.size.width : frame.size.height
-        
-        let scale = smallerSide/imgQR.extent.size.width
-        let transformedImage = imgQR.transformed(by: CGAffineTransform(scaleX: scale, y: scale))
-        
-        let imageQRCode = UIImage(ciImage: transformedImage)
-        
-        return imageQRCode
-    }
-    
-    return nil
-}
-
-func spendable(account:AccountsEntity) -> Decimal{
-    let bRequireConfirm = UserDefaults.standard.bool(forKey: "pref_spend_fund_switch")
-    let iRequireConfirm = (bRequireConfirm ) ? Int32(0) : Int32(2)
-    let int64Pointer = UnsafeMutablePointer<Int64>.allocate(capacity: 64)    
-    do {
-        
-        try  SingleInstance.shared.wallet?.spendable(forAccount: account.Number, requiredConfirmations: iRequireConfirm, ret0_: int64Pointer)
-    } catch let error{
-        print(error)
-        return 0.0
-    }
-    print("spendable =")
-    print(Decimal(int64Pointer.move()))
-    return Decimal(int64Pointer.move()) / 100000000.0
-}
-
-func loadCertificate() throws ->  String {
-    let filePath = NSHomeDirectory() + "/Documents/rpc.cert"
-    return try String.init(contentsOfFile: filePath)
-}
-
-func getAttributedString(str: String, siz: CGFloat, TexthexColor: UIColor) -> NSAttributedString {
-    var tmpString = str
-    if tmpString.contains("."){
-    var stt = tmpString as NSString?
-        let sttbTmp = stt
-        var atrStr = NSMutableAttributedString(string: stt! as String)
-        var dotRange = sttbTmp?.range(of: ".")
-        if ((dotRange!.location) > 3){
-            let  tmpstt = Int((sttbTmp!.substring(to: (dotRange!.location))))
-            let newValue = tmpstt!.formattedWithSeparator
-            stt = newValue.appending(sttbTmp!.substring(from: (dotRange!.location))) as NSString?
-            tmpString = newValue.appending(sttbTmp!.substring(from: (dotRange!.location)))
-        atrStr = NSMutableAttributedString(string: stt! as String)
-            dotRange = stt?.range(of: ".")
+    static func spendable(account:AccountsEntity) -> Decimal{
+        let bRequireConfirm = UserDefaults.standard.bool(forKey: "pref_spend_fund_switch")
+        let iRequireConfirm = (bRequireConfirm ) ? Int32(0) : Int32(2)
+        let int64Pointer = UnsafeMutablePointer<Int64>.allocate(capacity: 64)
+        do {
             
+            try  SingleInstance.shared.wallet?.spendable(forAccount: account.Number, requiredConfirmations: iRequireConfirm, ret0_: int64Pointer)
+        } catch let error{
+            print(error)
+            return 0.0
         }
-         
- 
-       
-    if(tmpString.length - ((dotRange?.location)!) <= 3){
-            return NSMutableAttributedString(string: tmpString.appending(" DCR") as String)
-        }
-    else if(tmpString.length > ((dotRange?.location)!+2)) {
-        atrStr.append(NSMutableAttributedString(string: " DCR"))
-        stt = (stt?.appending(((" DCR")))) as NSString?
-        atrStr.addAttribute(NSAttributedString.Key.font,
-                            value: UIFont(
-                                name: "Inconsolata-Regular",
-                                size: siz)!,
-                            range: NSRange(
-                                location:(dotRange?.location)!+3,
-                                length:(stt?.length)!-1 - ((dotRange?.location)!+2)))
-        
-        atrStr.addAttribute(NSAttributedString.Key.foregroundColor,
-                            value: TexthexColor,
-                            range: NSRange(
-                                 location:0,
-                                length:(stt?.length)!))
-        
-        }
-    return atrStr
+        print("spendable =")
+        print(Decimal(int64Pointer.move()))
+        return Decimal(int64Pointer.move()) / 100000000.0
     }
-    if(tmpString.length > 3) {
-        return NSMutableAttributedString(string: Int(tmpString)!.formattedWithSeparator.appending(" DCR") )
-        }
     
-    return NSMutableAttributedString(string: tmpString.appending(" DCR") as String)
-}
-
-extension NSDecimalNumber {
-    public func round(_ decimals:Int) -> NSDecimalNumber {
-        return self.rounding(accordingToBehavior:
-            NSDecimalNumberHandler(roundingMode: .plain,
-                                   scale: Int16(decimals),
-                                   raiseOnExactness: false,
-                                   raiseOnOverflow: false,
-                                   raiseOnUnderflow: false,
-                                   raiseOnDivideByZero: false))
+    static func loadCertificate() throws ->  String {
+        let filePath = NSHomeDirectory() + "/Documents/rpc.cert"
+        return try String.init(contentsOfFile: filePath)
     }
-}
-
-extension UITableViewCell{
-    func blink(){
-        UITableViewCell.animate(withDuration: 0.5, //Time duration you want,
-            delay: 0.0,
-            options: [.showHideTransitionViews, .autoreverse, .repeat],
-            animations: { [weak self] in self?.alpha = 0.0 },
-            completion: { [weak self] _ in self?.alpha = 1.0 })
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            [weak self] in
-            self?.layer.removeAllAnimations()
+    
+    static func saveCertificate(secretKey: String) {
+        do {
+            let filePath = NSHomeDirectory() + "/Documents/rpc.cert"
+            let filePathURL = URL.init(fileURLWithPath: filePath)
+            try secretKey.write(to: filePathURL, atomically: true, encoding: String.Encoding.utf8)
+        } catch {
+            debugPrint("Could not create certificate file")
         }
     }
-}
-
-extension UIButton {
-    func set(fontSize: CGFloat, name : String) {
-        if let titleLabel = titleLabel {
-            titleLabel.font = UIFont(name: name, size: fontSize)
+    
+    static func getAttributedString(str: String, siz: CGFloat, TexthexColor: UIColor) -> NSAttributedString {
+        var tmpString = str
+        if tmpString.contains("."){
+            var stt = tmpString as NSString?
+            let sttbTmp = stt
+            var atrStr = NSMutableAttributedString(string: stt! as String)
+            var dotRange = sttbTmp?.range(of: ".")
+            if ((dotRange!.location) > 3){
+                let  tmpstt = Int((sttbTmp!.substring(to: (dotRange!.location))))
+                let newValue = tmpstt!.formattedWithSeparator
+                stt = newValue.appending(sttbTmp!.substring(from: (dotRange!.location))) as NSString?
+                tmpString = newValue.appending(sttbTmp!.substring(from: (dotRange!.location)))
+                atrStr = NSMutableAttributedString(string: stt! as String)
+                dotRange = stt?.range(of: ".")
+                
+            }
+            
+            if (tmpString.length - ((dotRange?.location)!) <= 3) {
+                return NSMutableAttributedString(string: tmpString.appending(" DCR") as String)
+            }
+            else if(tmpString.length > ((dotRange?.location)!+2)) {
+                atrStr.append(NSMutableAttributedString(string: " DCR"))
+                stt = (stt?.appending(((" DCR")))) as NSString?
+                atrStr.addAttribute(NSAttributedString.Key.font,
+                                    value: UIFont(name: "Inconsolata-Regular", size: siz)!,
+                                    range: NSRange(location:(dotRange?.location)!+3, length:(stt?.length)!-1 - ((dotRange?.location)!+2)))
+                
+                atrStr.addAttribute(NSAttributedString.Key.foregroundColor,
+                                    value: TexthexColor,
+                                    range: NSRange(location:0, length:(stt?.length)!))
+            }
+            
+            return atrStr
         }
+        
+        if (tmpString.length > 3) {
+            return NSMutableAttributedString(string: Int(tmpString)!.formattedWithSeparator.appending(" DCR") )
+        }
+        
+        return NSMutableAttributedString(string: tmpString.appending(" DCR") as String)
     }
-}
-extension BinaryInteger{
-    var formattedWithSeparator:
-        String{
-        return Formatter.withSeparator.string(for :self) ?? ","
+    
+    static func infoForKey(_ key: String) -> String? {
+        return (Bundle.main.infoDictionary?[key] as? String)?.replacingOccurrences(of: "\\", with: "")
     }
-}
-
-extension Formatter{
-    static let withSeparator:
-        NumberFormatter = {
-            let formatter = NumberFormatter()
-            formatter.groupingSeparator = ","
-            formatter.numberStyle = .decimal
-            return formatter}()
-}
-
-func infoForKey(_ key: String) -> String? {
-    return (Bundle.main.infoDictionary?[key] as? String)?
-        .replacingOccurrences(of: "\\", with: "")
-}
-
-extension UIViewController{
-    @objc public func onPassCompleted(pass: String){}
 }

@@ -75,8 +75,7 @@ class OverviewViewController: UIViewController, DcrlibwalletGetTransactionsRespo
             return refreshControl
         }()
         
-        let isTestnet = Bool(infoForKey(GlobalConstants.Strings.IS_TESTNET)!)!
-        NetType = isTestnet ? "testnet" : "mainnet"
+        NetType = GlobalConstants.App.IsTestnet ? "testnet" : "mainnet"
         self.tableView.addSubview(self.refreshControl)
         self.setupSendRecvBtn()
         self.verboseText.contentHorizontalAlignment = .center
@@ -194,7 +193,7 @@ class OverviewViewController: UIViewController, DcrlibwalletGetTransactionsRespo
                 do {
                     self!.wallet?.add(self)
                     try
-                        self!.wallet?.spvSync(getPeerAddress(appInstance: appInstance))
+                        self!.wallet?.spvSync(Utils.getPeerAddress(appInstance: appInstance))
                     print("done syncing")
                 } catch {
                     print(error)
@@ -221,7 +220,7 @@ class OverviewViewController: UIViewController, DcrlibwalletGetTransactionsRespo
             
                 DispatchQueue.main.async {
                     self?.hideActivityIndicator()
-                    self?.lbCurrentBalance.attributedText = getAttributedString(str: "\(amountTmp.round(8))", siz: 17.0, TexthexColor: GlobalConstants.Colors.TextAmount)
+                    self?.lbCurrentBalance.attributedText = Utils.getAttributedString(str: "\(amountTmp.round(8))", siz: 17.0, TexthexColor: GlobalConstants.Colors.TextAmount)
                     self!.walletInfo.walletBalance = "\(amountTmp.round(8))"
                 }
             } catch let error {
@@ -565,7 +564,7 @@ class OverviewViewController: UIViewController, DcrlibwalletGetTransactionsRespo
         let bestblocktemp = Int64(bestblck!)
         let lastblocktime = self.wallet?.getBestBlockTimeStamp()
         let currentTime = Date().millisecondsSince1970 / 1000;
-        let targetTimePerBlock = Int64(infoForKey("TargetTimePerBlock")!)!
+        let targetTimePerBlock = Int64(Utils.infoForKey("TargetTimePerBlock")!)!
         let estimatedBlocks = ((currentTime - lastblocktime!) / targetTimePerBlock ) + bestblocktemp
         
         switch (state) {
@@ -619,13 +618,13 @@ class OverviewViewController: UIViewController, DcrlibwalletGetTransactionsRespo
                 self.walletInfo.syncStatus = "Fetching block headers."
                 self.walletInfo.bestBlockTime = "\(lastHeaderTime)"
                 self.walletInfo.ChainStatus = "\(self.walletInfo.syncEndPoint - count) blocks behind."
-                let daysBehind = calculateDays(seconds: ((Date().millisecondsSince1970 / 1000) - lastHeaderTime))
+                let daysBehind = Utils.calculateDays(seconds: ((Date().millisecondsSince1970 / 1000) - lastHeaderTime))
                 self.walletInfo.bestblockTimeInfo = "\(daysBehind) ago"
                 let status = "Fetched \(count) of \(self.walletInfo.syncEndPoint) block headers."
                 let status2 = "\(round(percent * 100))% through step 1 of 3."
                 let status3 = " Your wallet is \(daysBehind) behind."
-                let percentage = getSyncTimeRemaining(millis: self.walletInfo.syncRemainingTime, percentageCompleted: Int(self.walletInfo.syncProgress), syncView: true)
-                let status4 = "All Times\nelapsed: \(getTime(millis: Int64(elapsedFetchTime))) remain: \(getTime(millis: self.walletInfo.syncRemainingTime)) total: \(getTime(millis: Int64(round(totalSyncTime)))) \n\nStage Times\nelapsed: \(getTime(millis: Int64(elapsedFetchTime))) remain: \(getTime(millis: Int64(remainingFetchTime)))  total: \(getTime(millis: Int64(round(totalFetchTime))))"
+                let percentage = Utils.getSyncTimeRemaining(millis: self.walletInfo.syncRemainingTime, percentageCompleted: Int(self.walletInfo.syncProgress), syncView: true)
+                let status4 = "All Times\nelapsed: \(Utils.getTime(millis: Int64(elapsedFetchTime))) remain: \(Utils.getTime(millis: self.walletInfo.syncRemainingTime)) total: \(Utils.getTime(millis: Int64(round(totalSyncTime)))) \n\nStage Times\nelapsed: \(Utils.getTime(millis: Int64(elapsedFetchTime))) remain: \(Utils.getTime(millis: Int64(remainingFetchTime)))  total: \(Utils.getTime(millis: Int64(round(totalFetchTime))))"
 
                 DispatchQueue.main.async {
                     self.syncLoadingText.text = "Synchronizing"
@@ -696,9 +695,9 @@ class OverviewViewController: UIViewController, DcrlibwalletGetTransactionsRespo
             let status = "Scanning \(rescannedThrough) of \(self.walletInfo.syncEndPoint) block headers."
             let status2 = "\(round(scannedPercentage))% through step 3 of 3."
             self.walletInfo.syncStatus = status
-            let status4 = "All Times\nelapsed: \(getTime(millis: Int64(round(Double(elapsedTime))))) remain: \(getTime(millis: self.walletInfo.syncRemainingTime)) total: \(getTime(millis: Int64(round(totalSyncTime)))) \n\nStage Times\nelapsed: \(getTime(millis: Int64(round(Double(elapsedRescanTime))))) remain: \(getTime(millis: self.walletInfo.syncRemainingTime))  total: \(getTime(millis: Int64(round(totalScanTime))))"
+            let status4 = "All Times\nelapsed: \(Utils.getTime(millis: Int64(round(Double(elapsedTime))))) remain: \(Utils.getTime(millis: self.walletInfo.syncRemainingTime)) total: \(Utils.getTime(millis: Int64(round(totalSyncTime)))) \n\nStage Times\nelapsed: \(Utils.getTime(millis: Int64(round(Double(elapsedRescanTime))))) remain: \(Utils.getTime(millis: self.walletInfo.syncRemainingTime))  total: \(Utils.getTime(millis: Int64(round(totalScanTime))))"
             
-            let percentage = getSyncTimeRemaining(millis: self.walletInfo.syncRemainingTime, percentageCompleted: Int(self.walletInfo.syncProgress), syncView: true)
+            let percentage = Utils.getSyncTimeRemaining(millis: self.walletInfo.syncRemainingTime, percentageCompleted: Int(self.walletInfo.syncProgress), syncView: true)
             DispatchQueue.main.async {
                 self.syncProgressbar.progressTintColor = UIColor(hex: "#7fcc9e")
                 self.syncProgressbar.progress = (Float(self.walletInfo.syncProgress) / 100.0)
@@ -718,7 +717,7 @@ class OverviewViewController: UIViewController, DcrlibwalletGetTransactionsRespo
                 }
                 
             }
-             let percentage3 = getSyncTimeRemaining(millis: self.walletInfo.syncRemainingTime, percentageCompleted: Int(self.walletInfo.syncProgress), syncView: false)
+             let percentage3 = Utils.getSyncTimeRemaining(millis: self.walletInfo.syncRemainingTime, percentageCompleted: Int(self.walletInfo.syncProgress), syncView: false)
             self.walletInfo.syncStatus = "Scanning blocks."
             self.walletInfo.bestblockTimeInfo = ""
             self.walletInfo.ChainStatus = percentage3
@@ -761,11 +760,11 @@ class OverviewViewController: UIViewController, DcrlibwalletGetTransactionsRespo
                     
                     self.walletInfo.syncStatus = "Discovering used addresses."
             
-            let percentage = getSyncTimeRemaining(millis: self.walletInfo.syncRemainingTime, percentageCompleted: self.walletInfo.syncProgress, syncView: true)
+            let percentage = Utils.getSyncTimeRemaining(millis: self.walletInfo.syncRemainingTime, percentageCompleted: self.walletInfo.syncProgress, syncView: true)
             let status = "Discovering used addresses."
             let discoveryProgress = round((Double(elapsedDiscoveryTime) / Double(estimatedDiscoveryTime)) * 100.0);
             var status2 = ""
-            let status4 = "All Times\nelapsed: \(getTime(millis: Int64(round(Double(elapsedTime))))) remain: \(getTime(millis: self.walletInfo.syncRemainingTime)) total: \(getTime(millis: Int64(round(totalSyncTime)))) \n\nStage Times\nelapsed: \(getTime(millis: Int64(round(Double(elapsedDiscoveryTime))))) remain: \(getTime(millis: self.walletInfo.syncRemainingTime))  total: \(getTime(millis: Int64(round(totalSyncTime))))"
+            let status4 = "All Times\nelapsed: \(Utils.getTime(millis: Int64(round(Double(elapsedTime))))) remain: \(Utils.getTime(millis: self.walletInfo.syncRemainingTime)) total: \(Utils.getTime(millis: Int64(round(totalSyncTime)))) \n\nStage Times\nelapsed: \(Utils.getTime(millis: Int64(round(Double(elapsedDiscoveryTime))))) remain: \(Utils.getTime(millis: self.walletInfo.syncRemainingTime))  total: \(Utils.getTime(millis: Int64(round(totalSyncTime))))"
             if (discoveryProgress > 100) {
                 status2 = "\(discoveryProgress)% (over) through step 2 of 3."
                         } else {
@@ -791,7 +790,7 @@ class OverviewViewController: UIViewController, DcrlibwalletGetTransactionsRespo
                 }
                 
             }
-            let percentage3 = getSyncTimeRemaining(millis: self.walletInfo.syncRemainingTime, percentageCompleted: Int(self.walletInfo.syncProgress), syncView: false)
+            let percentage3 = Utils.getSyncTimeRemaining(millis: self.walletInfo.syncRemainingTime, percentageCompleted: Int(self.walletInfo.syncProgress), syncView: false)
             self.walletInfo.bestblockTimeInfo = ""
             self.walletInfo.ChainStatus = percentage3
             

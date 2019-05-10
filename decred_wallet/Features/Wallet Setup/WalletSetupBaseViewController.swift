@@ -9,12 +9,13 @@
 import Foundation
 import UIKit
 
-// WalletSetupBaseViewController is extended by ...
 class WalletSetupBaseViewController: UIViewController {
+    static func instantiate() -> Self {
+        return Storyboards.WalletSetup.instantiateViewController(for: self)
+    }
     
-    // finalizeWalletSetup is called by ...
     func finalizeWalletSetup(_ seed: String, _ pinOrPassword: String, _ securityType: String) {
-        let progressHud = showProgressHud(with: "Setting up wallet...")
+        let progressHud = Utils.showProgressHud(with: "Setting up wallet...")
         
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let this = self else { return }
@@ -31,7 +32,7 @@ class WalletSetupBaseViewController: UIViewController {
                 DispatchQueue.main.async {
                     progressHud.dismiss()
                     UserDefaults.standard.set(securityType, forKey: GlobalConstants.SettingsKeys.SpendingPassphraseSecurityType)
-                    createMainWindow()
+                    Utils.createMainWindow()
                     this.dismiss(animated: true, completion: nil)
                 }
                 return

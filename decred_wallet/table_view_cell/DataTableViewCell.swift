@@ -73,17 +73,17 @@ class DataTableViewCell : BaseTableViewCell {
             if (data.trans.Type.lowercased() == "regular") {
                 if (data.trans.Direction == 0) {
                     let attributedString = NSMutableAttributedString(string: "-")
-                    attributedString.append(getAttributedString(str: amount.round(8).description, siz: 13.0, TexthexColor: GlobalConstants.Colors.TextAmount))
+                    attributedString.append(Utils.getAttributedString(str: amount.round(8).description, siz: 13.0, TexthexColor: GlobalConstants.Colors.TextAmount))
                     self.dataText.attributedText = attributedString
                     self.dataImage?.image = UIImage(named: "debit")
                 } else if(data.trans.Direction == 1) {
                     let attributedString = NSMutableAttributedString(string: " ")
-                    attributedString.append(getAttributedString(str: amount.round(8).description, siz: 13.0, TexthexColor: GlobalConstants.Colors.TextAmount))
+                    attributedString.append(Utils.getAttributedString(str: amount.round(8).description, siz: 13.0, TexthexColor: GlobalConstants.Colors.TextAmount))
                     self.dataText.attributedText = attributedString
                     self.dataImage?.image = UIImage(named: "credit")
                 } else if(data.trans.Direction == 2) {
                     let attributedString = NSMutableAttributedString(string: " ")
-                    attributedString.append(getAttributedString(str: amount.round(8).description, siz: 13.0, TexthexColor: GlobalConstants.Colors.TextAmount))
+                    attributedString.append(Utils.getAttributedString(str: amount.round(8).description, siz: 13.0, TexthexColor: GlobalConstants.Colors.TextAmount))
                     self.dataText.attributedText = attributedString
                     self.dataImage?.image = UIImage(named: "account")
                 }
@@ -93,7 +93,7 @@ class DataTableViewCell : BaseTableViewCell {
             } else if (data.trans.Type.lowercased() == "ticket_purchase") {
                 self.dataText.text = " Ticket"
                 self.dataImage?.image = UIImage(named: "immature")
-                let ticketMaturity = Int(infoForKey("TicketMaturity")!)!
+                let ticketMaturity = Int(Utils.infoForKey("TicketMaturity")!)!
                 if (confirmations < requireConfirmation){
                     self.status.textColor = UIColor(hex:"#3d659c")
                     self.status.text = "Pending"

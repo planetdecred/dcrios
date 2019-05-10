@@ -95,7 +95,8 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
             }
             UIApplication.shared.keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
             if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-                appDelegate.showAnimatedStartScreen()
+                let startScreen = Storyboards.Main.initialViewController()
+                appDelegate.setAndDisplayRootViewController(startScreen!)
             }
         }
         let initialSyncHelp = UserDefaults.standard.bool(forKey: GlobalConstants.Strings.INITIAL_SYNC_HELP)
@@ -148,8 +149,8 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        let isTestnet = Bool(infoForKey(GlobalConstants.Strings.IS_TESTNET)!)!
-        if isTestnet {
+        
+        if GlobalConstants.App.IsTestnet {
             headerImage?.image = UIImage(named: "logo-testnet")
         }
         
@@ -192,7 +193,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
             else{
                 this.progressbar.progressTintColor = UIColor(hex: "#F9FAFA")
                 this.progressbar.progress = 1
-                self!.totalBalance.attributedText = getAttributedString(str: self!.walletInfo.walletBalance, siz: 12, TexthexColor: GlobalConstants.Colors.TextAmount)
+                self!.totalBalance.attributedText = Utils.getAttributedString(str: self!.walletInfo.walletBalance, siz: 12, TexthexColor: GlobalConstants.Colors.TextAmount)
                 self!.synIndicate.isHidden = true
                 let peer = UserDefaults.standard.integer(forKey: "peercount")
                 if (peer >= 1) {
@@ -291,7 +292,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
                 
             case .settings:
                 
-                let settingsController = self.storyboard2.instantiateViewController(withIdentifier: "SettingsController2") as! SettingsController
+                let settingsController = self.storyboard2.instantiateViewController(withIdentifier: "SettingsController") as! SettingsController
                 settingsController.delegate = self
                 self.settingsViewController = UINavigationController(rootViewController: settingsController)
                 self.slideMenuController()?.changeMainViewController(self.settingsViewController, close: true)
@@ -412,5 +413,9 @@ extension LeftViewController : UITableViewDataSource {
             }
         }
         return UITableViewCell()
+    }
+    
+    static func instantiate() -> Self {
+        return Storyboards.NavigationMenu.instantiateViewController(for: self)
     }
 }

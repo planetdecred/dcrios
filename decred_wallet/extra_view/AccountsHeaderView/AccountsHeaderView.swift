@@ -27,7 +27,7 @@ class AccountsHeaderView: UIView {
     var totalBalance: Double = 0.0 {
         willSet {
             DispatchQueue.main.async { [weak self] in
-                self?.labelTotalBalance.attributedText = getAttributedString(str: "\(newValue)", siz: 13.0, TexthexColor: self!.totalColor)
+                self?.labelTotalBalance.attributedText = Utils.getAttributedString(str: "\(newValue)", siz: 13.0, TexthexColor: self!.totalColor)
             }
         }
     }
@@ -39,7 +39,7 @@ class AccountsHeaderView: UIView {
                 if(UserDefaults.standard.bool(forKey: "synced")){
                     let spendableTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(hex: "#8997A5")]
                     let spendableTextattr =  NSMutableAttributedString(string: "Spendable ", attributes: spendableTextAttributes)
-                    let amount = getAttributedString(str: "\(newValue)", siz: 9.0, TexthexColor: self!.spendableColor)
+                    let amount = Utils.getAttributedString(str: "\(newValue)", siz: 9.0, TexthexColor: self!.spendableColor)
                     let combination = NSMutableAttributedString()
                     combination.append(spendableTextattr)
                     combination.append(amount)

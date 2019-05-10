@@ -18,7 +18,7 @@ struct AccountsData {
     
     init(entity: AccountsEntity, color: UIColor?) {
         self.color = color
-        self.spendableBalance = (spendable(account: entity) as NSDecimalNumber).round(8)
+        self.spendableBalance = (Utils.spendable(account: entity) as NSDecimalNumber).round(8)
         self.totalBalance = Double((entity.Balance?.dcrTotal)!)
         self.title = entity.Name
         self.number = entity.Number

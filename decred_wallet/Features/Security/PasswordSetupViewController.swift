@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PasswordSetupViewController: UIViewController, UITextFieldDelegate {
+class PasswordSetupViewController: SecurityBaseViewController, UITextFieldDelegate {
     @IBOutlet weak var headerText: UILabel!
     @IBOutlet weak var tfPassword: UITextField!
     @IBOutlet weak var tfConfirmPassword: UITextField!

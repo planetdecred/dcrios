@@ -338,7 +338,7 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
     
     func SignMsg(pass:String) {
         
-        progressHud = showProgressHud(with: "Signing Message...")
+        progressHud = Utils.showProgressHud(with: "Signing Message...")
         
         let address = self.address.text
         let message = self.message.text

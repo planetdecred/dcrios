@@ -179,7 +179,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         
     }
     func sendAll() {
-        let spendableAmount = spendable(account: self.selectedAccount!)
+        let spendableAmount = Utils.spendable(account: self.selectedAccount!)
         self.tfAmount.text = "\(spendableAmount)"
         if !(self.conversionRowCont.isHidden){
             self.currencyAmount2.text = "\((((self.exchangeRateGloabal as Decimal) * spendableAmount)as NSDecimalNumber).round(2))"
@@ -302,7 +302,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                 DispatchQueue.main.async { [weak self] in
                     guard let this = self else { return }
                     fee = Double((preparedTransaction?.estimatedSignedSize)!) / 0.001 / 1e8
-                    let spendableAmount = spendable(account: (self?.selectedAccount!)!)
+                    let spendableAmount = Utils.spendable(account: (self?.selectedAccount!)!)
                     this.estimateSize.text = "\(preparedTransaction?.estimatedSignedSize ?? 0) Bytes"
                     this.estimateFee.text = "\(fee) DCR"
                     let Amount =  (spendableAmount - (Decimal(amountToSend) )) as NSDecimalNumber
@@ -455,10 +455,6 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         return
     }
     
-    override func onPassCompleted(pass: String) {
-        self.confirmSendWithoutPin(sendAll: false, pin: pass)
-    }
-    
     @IBAction private func scanQRCodeAction(_ sender: UIButton) {
         // Retrieve the QRCode content
         // By using the delegate pattern
@@ -557,8 +553,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                 self.showDefaultAccount()
             }
             
-            let isTestnet = Bool(infoForKey(GlobalConstants.Strings.IS_TESTNET)!)!
-            if (isTestnet){
+            if GlobalConstants.App.IsTestnet {
                 self.openLink(urlString: "https://testnet.dcrdata.org/tx/" + hashe! )
             }else{
                 self.openLink(urlString: "https://mainnet.dcrdata.org/tx/" + hashe! )
@@ -702,7 +697,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                 }
                 self.amountErrorText.text = ""
                 
-                let tspendable = spendable(account: self.selectedAccount!) as Decimal
+                let tspendable = Utils.spendable(account: self.selectedAccount!) as Decimal
                 let amountToSend = Decimal(Double((updatedString)!)!)
                 
                 if (amountToSend > tspendable) {
@@ -790,7 +785,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                     return false
                 }
                 self.amountErrorText.text = ""
-                let tspendable = spendable(account: self.selectedAccount!) as Decimal
+                let tspendable = Utils.spendable(account: self.selectedAccount!) as Decimal
                 let amountToSend = Decimal(Double((updatedString)!)!)
                 if (amountToSend > tspendable) {
                     DispatchQueue.main.async {
@@ -885,7 +880,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         let defaultNumber = UserDefaults.standard.integer(forKey: "wallet_default")
         
         if let defaultAccount = account?.Acc.filter({ $0.Number == defaultNumber }).first {
-            let tspendable = spendable(account: defaultAccount) as NSDecimalNumber
+            let tspendable = Utils.spendable(account: defaultAccount) as NSDecimalNumber
             
             accountDropdown.setTitle(
                 "\(defaultAccount.Name) [\(tspendable.round(8) )]",
@@ -916,7 +911,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             print(error)
         }
         accounts = (account?.Acc.filter({UserDefaults.standard.bool(forKey: "hidden\($0.Number)")  != true && $0.Number != INT_MAX }).map { (acc) -> String in
-            let tspendable = spendable(account: acc) as NSDecimalNumber
+            let tspendable = Utils.spendable(account: acc) as NSDecimalNumber
             print(acc.Number)
             
             return "\(acc.Name) [\( tspendable.round(8) )]"
@@ -1016,7 +1011,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         else{
             
             let amountToSend = Double((amount ))!
-            let tspendable = spendable(account: self.selectedAccount!) as Decimal
+            let tspendable = Utils.spendable(account: self.selectedAccount!) as Decimal
             print(" result of amount is \(amountToSend > 0 || Decimal(amountToSend) < tspendable)")
             return amountToSend > 0 && Decimal(amountToSend) <= tspendable
         }

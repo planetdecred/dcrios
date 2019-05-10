@@ -10,6 +10,12 @@ import Foundation
 import UIKit
 
 struct GlobalConstants {
+    struct App {
+        static var IsTestnet: Bool {
+            return Bool(Utils.infoForKey(GlobalConstants.Strings.IS_TESTNET)!)!
+        }
+    }
+    
     struct SettingsKeys {
         static let IsStartupSecuritySet = "startup_security_set"
         static let StartupSecurityType = "startup_security_type"
@@ -30,14 +36,6 @@ struct GlobalConstants {
         static let black = UIColor(hex: "000000")
         static let TextAmount = UIColor(hex: "#091440")
         static let displayAamount = UIColor(hex: "617386")
-    }
-    
-    //MARK: - Storyboard
-    struct ConstantStoryboardMain {
-        static let IDENTIFIER_STORYBOARD_MAIN = "Main"
-        static func getControllerInstance(identifier:String, storyBoard:String) -> UIViewController {
-            return UIStoryboard(name: storyBoard, bundle: nil).instantiateViewController(withIdentifier: identifier)
-        }
     }
     
     //MARK: - Cell Identifiers

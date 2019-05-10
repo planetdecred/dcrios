@@ -9,7 +9,7 @@
 import UIKit
 import Dcrlibwallet
 
-class CreateNewWalletViewController: UIViewController {
+class CreateNewWalletViewController: WalletSetupBaseViewController {
     
     @IBOutlet var vWarningLabel: UILabel!
     @IBOutlet private var seedWordLabels: [UILabel]!
@@ -52,9 +52,6 @@ class CreateNewWalletViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
     }
-    
-    @IBAction func unwind(_: UIStoryboardSegue){}
-    // MARK: - Utility
     
     func setUpUItraits() {
         totalWidth = seedContainer.frame.size.width
