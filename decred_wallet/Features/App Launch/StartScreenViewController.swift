@@ -61,20 +61,19 @@ class StartScreenViewController: UIViewController {
             self.displayWalletSetupScreen()
         }
         else if StartupPinOrPassword.pinOrPasswordIsSet() {
-            self.promptForWalletPinOrPassword()
+            self.promptForStartupPinOrPassword()
         } else {
             self.unlockWalletAndStartApp(password: "public") // unlock wallet using default public passphrase
         }
     }
     
     func displayWalletSetupScreen() {
-        let walletSetupController = WalletSetupViewController.instantiate()
-        let navigationController = UINavigationController(rootViewController: walletSetupController)
-        navigationController.isNavigationBarHidden = true
-        AppDelegate.shared.setAndDisplayRootViewController(navigationController)
+        let walletSetupController = WalletSetupViewController.instantiate().wrapInNavigationcontroller()
+        walletSetupController.isNavigationBarHidden = true
+        AppDelegate.shared.setAndDisplayRootViewController(walletSetupController)
     }
     
-    func promptForWalletPinOrPassword() {
+    func promptForStartupPinOrPassword() {
         if StartupPinOrPassword.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
             let requestPasswordVC = RequestPasswordViewController.instantiate()
             requestPasswordVC.prompt = "Enter Startup Password"
@@ -102,8 +101,7 @@ class StartScreenViewController: UIViewController {
     }
     
     func createMenuView() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let mainViewController = storyboard.instantiateViewController(withIdentifier: "OverviewViewController") as! OverviewViewController
+        let mainViewController = Storyboards.Main.instantiateViewController(for: OverviewViewController.self)
         
         let leftViewController = LeftViewController.instantiate()
         mainViewController.delegate = leftViewController
