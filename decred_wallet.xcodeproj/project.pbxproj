@@ -78,6 +78,7 @@
 		B3CC32B02284CBCC00A48624 /* Security.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3CC32AF2284CBCC00A48624 /* Security.storyboard */; };
 		B3CC32B22284CFC000A48624 /* SecurityBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CC32B12284CFC000A48624 /* SecurityBaseViewController.swift */; };
 		B3CC32B42284D7FD00A48624 /* NavigationMenu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3CC32B32284D7FD00A48624 /* NavigationMenu.storyboard */; };
+		B3CC32BA22856AEF00A48624 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CC32B922856AEF00A48624 /* Extensions.swift */; };
 		DD0B356E218930B7000830C4 /* AddAcountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B356D218930B7000830C4 /* AddAcountViewController.swift */; };
 		DD0C493E208A160900986C6B /* WalletSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C493D208A160900986C6B /* WalletSetupViewController.swift */; };
 		DD1D5C7C20AED828009789DD /* certificateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1D5C7B20AED824009789DD /* certificateViewController.swift */; };
@@ -227,6 +228,7 @@
 		B3CC32AF2284CBCC00A48624 /* Security.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Security.storyboard; sourceTree = "<group>"; };
 		B3CC32B12284CFC000A48624 /* SecurityBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityBaseViewController.swift; sourceTree = "<group>"; };
 		B3CC32B32284D7FD00A48624 /* NavigationMenu.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NavigationMenu.storyboard; sourceTree = "<group>"; };
+		B3CC32B922856AEF00A48624 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		D041B416C87AEF5835443B41 /* libPods-Decred WalletTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Decred WalletTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D88FC8D6F04F2065EA91CDD0 /* Pods-Decred WalletTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred WalletTests.release.xcconfig"; path = "Target Support Files/Pods-Decred WalletTests/Pods-Decred WalletTests.release.xcconfig"; sourceTree = "<group>"; };
 		DD0B356D218930B7000830C4 /* AddAcountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAcountViewController.swift; sourceTree = "<group>"; };
@@ -525,6 +527,7 @@
 			isa = PBXGroup;
 			children = (
 				DDB89401202F771F002F85EE /* UIViewController.swift */,
+				B3CC32B922856AEF00A48624 /* Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -971,6 +974,7 @@
 				DDB8940D202F82E6002F85EE /* SettingsController.swift in Sources */,
 				DDB8940B202F82A3002F85EE /* AccountViewController.swift in Sources */,
 				28102DCD21B83E700052DC00 /* ContouredButton.swift in Sources */,
+				B3CC32BA22856AEF00A48624 /* Extensions.swift in Sources */,
 				95E1C96E20FCD43E00D7F3EE /* TextFieldDoneButton.swift in Sources */,
 				28EB91CD20FCFDBE007A0906 /* MenuCell.swift in Sources */,
 				28D36C7C2180ADF5000C6572 /* ConfirmSeedViewCell.swift in Sources */,

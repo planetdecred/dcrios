@@ -149,8 +149,8 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        let isTestnet = Bool(infoForKey(GlobalConstants.Strings.IS_TESTNET)!)!
-        if isTestnet {
+        
+        if GlobalConstants.App.IsTestnet {
             headerImage?.image = UIImage(named: "logo-testnet")
         }
         
@@ -193,7 +193,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
             else{
                 this.progressbar.progressTintColor = UIColor(hex: "#F9FAFA")
                 this.progressbar.progress = 1
-                self!.totalBalance.attributedText = getAttributedString(str: self!.walletInfo.walletBalance, siz: 12, TexthexColor: GlobalConstants.Colors.TextAmount)
+                self!.totalBalance.attributedText = Utils.getAttributedString(str: self!.walletInfo.walletBalance, siz: 12, TexthexColor: GlobalConstants.Colors.TextAmount)
                 self!.synIndicate.isHidden = true
                 let peer = UserDefaults.standard.integer(forKey: "peercount")
                 if (peer >= 1) {

@@ -56,8 +56,7 @@ class AccountDataCell: UITableViewCell, AccountDetailsCellProtocol {
         labelAccountNoValue.text = "\(account.Number)"
         labelKeysValue.text = "\(account.ExternalKeyCount) External, \(account.InternalKeyCount) Internal, \(account.ImportedKeyCount) Imported"
         
-        let isTestnet = Bool(infoForKey(GlobalConstants.Strings.IS_TESTNET)!)!
-        if isTestnet {
+        if GlobalConstants.App.IsTestnet {
             labelHDPathValue.text = "\(GlobalConstants.Strings.TESTNET_HD_PATH) \(account.Number)'"
         }else {
             labelHDPathValue.text = "\(GlobalConstants.Strings.MAINNET_HD_PATH) \(account.Number)'"

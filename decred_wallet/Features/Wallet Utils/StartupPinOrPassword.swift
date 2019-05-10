@@ -84,15 +84,15 @@ struct StartupPinOrPassword {
         if currentPassword == nil {
             // password was not previously configured, let's set it
             let newSecurityType = securityType!.lowercased()
-            progressHud = showProgressHud(with: "Setting startup \(newSecurityType)...")
+            progressHud = Utils.showProgressHud(with: "Setting startup \(newSecurityType)...")
         } else if newPinOrPassword == nil {
             // password was previously configured, but no new password is to be set
             let currentSecurityType = self.currentSecurityType()!.lowercased()
-            progressHud = showProgressHud(with: "Removing startup \(currentSecurityType)...")
+            progressHud = Utils.showProgressHud(with: "Removing startup \(currentSecurityType)...")
         } else {
             // password was previously configured, but we're to set a new one
             let newSecurityType = securityType!.lowercased()
-            progressHud = showProgressHud(with: "Changing startup \(newSecurityType)...")
+            progressHud = Utils.showProgressHud(with: "Changing startup \(newSecurityType)...")
         }
         
         let currentPublicPassphrase = currentPassword ?? self.defaultPublicPassphrase

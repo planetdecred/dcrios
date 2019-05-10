@@ -30,7 +30,7 @@ class certificateViewController: UIViewController {
         // save here
         guard certificate.text.length > 0 else { return }
         
-        saveCertificate(secretKey: self.certificate.text)
+        Utils.saveCertificate(secretKey: self.certificate.text)
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -39,7 +39,7 @@ class certificateViewController: UIViewController {
     }
     
     func loadCert(){
-        guard let cerContent = try? loadCertificate() else { return }
+        guard let cerContent = try? Utils.loadCertificate() else { return }
         self.certificate.text = cerContent
     }
     

@@ -12,7 +12,7 @@ import UIKit
 struct GlobalConstants {
     struct App {
         static var IsTestnet: Bool {
-            return Bool(infoForKey(GlobalConstants.Strings.IS_TESTNET)!)!
+            return Bool(Utils.infoForKey(GlobalConstants.Strings.IS_TESTNET)!)!
         }
     }
     

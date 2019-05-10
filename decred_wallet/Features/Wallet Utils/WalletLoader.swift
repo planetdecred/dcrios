@@ -13,14 +13,14 @@ struct WalletLoader {
         // todo master has
         // return SingleInstance.shared.wallet?.walletExists()
     
-        let netType = infoForKey(GlobalConstants.Strings.NetType)!
+        let netType = Utils.infoForKey(GlobalConstants.Strings.NetType)!
         let fm = FileManager()
         let result = fm.fileExists(atPath: NSHomeDirectory()+"/Documents/dcrlibwallet/\(netType)/wallet.db")
         return result
     }
     
     static func initialize() -> NSError? {
-        let netType = infoForKey(GlobalConstants.Strings.NetType)!
+        let netType = Utils.infoForKey(GlobalConstants.Strings.NetType)!
         
         var initWalletError: NSError?
         SingleInstance.shared.wallet = DcrlibwalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrlibwallet/", "bdb", netType, &initWalletError)

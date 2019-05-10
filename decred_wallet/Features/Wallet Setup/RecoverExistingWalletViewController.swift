@@ -35,8 +35,7 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
         self.hideKeyboardWhenTappedAround()
         
         // long press to proceed with test seed, only on testnet
-        let isTestnet = Bool(infoForKey(GlobalConstants.Strings.IS_TESTNET)!)!
-        if isTestnet {
+        if GlobalConstants.App.IsTestnet {
             let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressConfirm))
             btnConfirm.addGestureRecognizer(longGesture)
         }

@@ -32,7 +32,7 @@ class WalletSetupViewController: WalletSetupBaseViewController {
     
         let dateformater = DateFormatter()
         dateformater.dateFormat = "yyyy-MM-dd"
-        let netType = infoForKey(GlobalConstants.Strings.NetType)! == "mainnet" ? "mainnet" : "testnet"
+        let netType = Utils.infoForKey(GlobalConstants.Strings.NetType)! == "mainnet" ? "mainnet" : "testnet"
         build?.text = "build \(netType) " + dateformater.string(from: compileDate as Date)
     }
 }

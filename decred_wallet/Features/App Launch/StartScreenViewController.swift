@@ -91,12 +91,20 @@ class StartScreenViewController: UIViewController {
     func unlockWalletAndStartApp(password: String) {
         self.label.text = "Opening wallet..."
         
-        let walletPassphrase = (password as NSString).data(using: String.Encoding.utf8.rawValue)!
-        do {
-            try SingleInstance.shared.wallet?.open(walletPassphrase)
-            self.createMenuView()
-        } catch let error {
-            self.showOkAlert(message: error.localizedDescription, title: "Error")
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let this = self else { return }
+            
+            let walletPassphrase = (password as NSString).data(using: String.Encoding.utf8.rawValue)!
+            do {
+                try SingleInstance.shared.wallet?.open(walletPassphrase)
+                Utils.runInMainThread {
+                    this.createMenuView()
+                }
+            } catch let error {
+                Utils.runInMainThread {
+                    this.showOkAlert(message: error.localizedDescription, title: "Error")
+                }
+            }
         }
     }
     
