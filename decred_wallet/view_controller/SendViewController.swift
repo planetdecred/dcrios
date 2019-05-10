@@ -455,10 +455,6 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         return
     }
     
-    override func onPassCompleted(pass: String) {
-        self.confirmSendWithoutPin(sendAll: false, pin: pass)
-    }
-    
     @IBAction private func scanQRCodeAction(_ sender: UIButton) {
         // Retrieve the QRCode content
         // By using the delegate pattern
