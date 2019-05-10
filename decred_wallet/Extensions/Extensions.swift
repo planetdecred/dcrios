@@ -46,19 +46,18 @@ extension UIButton {
 }
 
 extension BinaryInteger{
-    var formattedWithSeparator:
-        String{
+    var formattedWithSeparator: String {
         return Formatter.withSeparator.string(for :self) ?? ","
     }
 }
 
 extension Formatter{
-    static let withSeparator:
-        NumberFormatter = {
+    static let withSeparator: NumberFormatter = {
             let formatter = NumberFormatter()
             formatter.groupingSeparator = ","
             formatter.numberStyle = .decimal
-            return formatter}()
+            return formatter
+    }()
 }
 
 extension UIViewController{
