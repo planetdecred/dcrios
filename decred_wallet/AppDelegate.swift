@@ -27,21 +27,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("user authorized notifications: \(granted)")
         }
         
-        self.showAnimatedStartScreen()
-        
         return true
     }
     
     func application(_ application: UIApplication, shouldAllowExtensionPointIdentifier extensionPointIdentifier: UIApplication.ExtensionPointIdentifier) -> Bool {
         if extensionPointIdentifier == UIApplication.ExtensionPointIdentifier.keyboard {
+            // disallow use of custom keyboards
             return false
         }
         return true
     }
     
     func applicationWillTerminate(_: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-        if (SingleInstance.shared.wallet != nil){
+        if SingleInstance.shared.wallet != nil {
             UserDefaults.standard.set(false, forKey: "walletScanning")
             UserDefaults.standard.set(false, forKey: "synced")
             UserDefaults.standard.set(0, forKey: "peercount")
@@ -52,6 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
+    // handle notification display when app is in foreground
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping
         (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.alert])
@@ -61,17 +60,6 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 extension AppDelegate {
     class var shared: AppDelegate {
         return UIApplication.shared.delegate as! AppDelegate
-    }
-    
-    func showAnimatedStartScreen() {
-        let startScreenController = StartScreenViewController.instantiate()
-        
-        let navigationVC = UINavigationController(rootViewController: startScreenController)
-        UINavigationBar.appearance().tintColor = GlobalConstants.Colors.navigationBarColor
-        navigationVC.navigationBar.isHidden = true
-        
-        self.window?.rootViewController = navigationVC
-        self.window?.makeKeyAndVisible()
     }
     
     func setAndDisplayRootViewController(_ vc: UIViewController) {

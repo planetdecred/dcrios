@@ -95,7 +95,8 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
             }
             UIApplication.shared.keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
             if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-                appDelegate.showAnimatedStartScreen()
+                let startScreen = Storyboards.Main.initialViewController()
+                appDelegate.setAndDisplayRootViewController(startScreen!)
             }
         }
         let initialSyncHelp = UserDefaults.standard.bool(forKey: GlobalConstants.Strings.INITIAL_SYNC_HELP)

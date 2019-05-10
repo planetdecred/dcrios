@@ -82,8 +82,9 @@ class SettingsController: UITableViewController  {
     @objc func exitSettings() -> Void {
         if let navigationMenu = self.delegate {
             navigationMenu.changeViewController(LeftMenu.overview)
+        } else if self.isModal {
+            self.dismiss(animated: true, completion: nil)
         } else {
-            self.navigationController?.navigationBar.isHidden = true
             self.navigationController?.popViewController(animated: true)
         }
     }

@@ -9,6 +9,15 @@
 import Foundation
 import UIKit
 extension UIViewController {
+    // Not using static so that individual VCs can override to provide custom storyboardID value.
+    // By default, this returns the name of VC class as the storyboard ID.
+    class var storyboardID: String {
+        return "\(self)"
+    }
+    
+    func wrapInNavigationcontroller() -> UINavigationController {
+        return UINavigationController(rootViewController: self)
+    }
     
     func setNavigationBarItem() {
         self.addLeftBarButtonWithImage(UIImage(named: "ic_menu_black_24dp")!)
@@ -65,7 +74,7 @@ extension UIViewController {
         return presentingIsModal || presentingIsNavigation || presentingIsTabBar
     }
     
-    func showMessageDialog(title: String, message: String){
+    func showMessageDialog(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
             alert.dismiss(animated: true, completion: nil)

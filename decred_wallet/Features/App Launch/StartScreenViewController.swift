@@ -53,8 +53,8 @@ class StartScreenViewController: UIViewController {
         // stop timer, will be restarted after settings page is closed and this page re-appears
         timer?.invalidate()
         
-        let settingsVC = SettingsController.instantiate()
-        self.navigationController?.pushViewController(settingsVC, animated: true)
+        let settingsVC = SettingsController.instantiate().wrapInNavigationcontroller()
+        self.present(settingsVC, animated: true, completion: nil)
     }
     
     func loadMainScreen() {
@@ -103,28 +103,26 @@ class StartScreenViewController: UIViewController {
     }
     
     func createMenuView() {
-        DispatchQueue.main.async{
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let mainViewController = storyboard.instantiateViewController(withIdentifier: "OverviewViewController") as! OverviewViewController
-            
-            let leftViewController = LeftViewController.instantiate()
-            mainViewController.delegate = leftViewController
-            
-            let nvc: UINavigationController = UINavigationController(rootViewController: mainViewController)
-            
-            UINavigationBar.appearance().tintColor = GlobalConstants.Colors.navigationBarColor
-            
-            leftViewController.mainViewController = nvc
-            
-            let window = AppDelegate.shared.window
-            let slideMenuController = SlideMenuController(mainViewController: nvc, leftMenuViewController: leftViewController)
-            slideMenuController.changeLeftViewWidth((window?.frame.size.width)! - (window?.frame.size.width)! / 6)
-            
-            slideMenuController.delegate = mainViewController
-            window?.backgroundColor = GlobalConstants.Colors.lightGrey
-            window?.rootViewController = slideMenuController
-            window?.makeKeyAndVisible()
-        }
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let mainViewController = storyboard.instantiateViewController(withIdentifier: "OverviewViewController") as! OverviewViewController
+        
+        let leftViewController = LeftViewController.instantiate()
+        mainViewController.delegate = leftViewController
+        
+        let nvc: UINavigationController = UINavigationController(rootViewController: mainViewController)
+        
+        UINavigationBar.appearance().tintColor = GlobalConstants.Colors.navigationBarColor
+        
+        leftViewController.mainViewController = nvc
+        
+        let window = AppDelegate.shared.window
+        let slideMenuController = SlideMenuController(mainViewController: nvc, leftMenuViewController: leftViewController)
+        slideMenuController.changeLeftViewWidth((window?.frame.size.width)! - (window?.frame.size.width)! / 6)
+        
+        slideMenuController.delegate = mainViewController
+        window?.backgroundColor = GlobalConstants.Colors.lightGrey
+        window?.rootViewController = slideMenuController
+        window?.makeKeyAndVisible()
     }
     
     static func instantiate() -> Self {

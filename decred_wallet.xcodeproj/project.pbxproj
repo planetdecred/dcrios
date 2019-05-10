@@ -449,6 +449,7 @@
 		B35354962284285700DBFDC9 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				B3CC32B722855F4C00A48624 /* App Launch */,
 				B36225DD22725B7C00D61D15 /* Wallet Setup */,
 				B3BA850A22744C4F00440D3A /* Wallet Utils */,
 				B3CC32AE2284CB9300A48624 /* Security */,
@@ -512,6 +513,22 @@
 			path = Security;
 			sourceTree = "<group>";
 		};
+		B3CC32B722855F4C00A48624 /* App Launch */ = {
+			isa = PBXGroup;
+			children = (
+				2883CA71209B52AE0053D9BB /* StartScreenViewController.swift */,
+			);
+			path = "App Launch";
+			sourceTree = "<group>";
+		};
+		B3CC32B82285631E00A48624 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				DDB89401202F771F002F85EE /* UIViewController.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		DC51136384787171F3F2350F /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -563,7 +580,6 @@
 				95473E6220E393A00023F50A /* TransactionFullDetails */,
 				95877FE720B70CBB00CE53D2 /* TransactionHistoryViewController.swift */,
 				95877FE620B70CBB00CE53D2 /* TransactionHistoryViewController.xib */,
-				DDB89401202F771F002F85EE /* UIViewController.swift */,
 				DD1D5C7D20AEDB15009789DD /* WalletLogViewController.swift */,
 			);
 			path = view_controller;
@@ -609,6 +625,7 @@
 		DDA3E26C20292EF900C83D18 /* decred_wallet */ = {
 			isa = PBXGroup;
 			children = (
+				B3CC32B82285631E00A48624 /* Extensions */,
 				B35354962284285700DBFDC9 /* Features */,
 				B35BF4642278A17300018DBE /* Custom Views */,
 				95CC024220D3F14800DA73AF /* Accounts */,
@@ -620,7 +637,6 @@
 				DDA3E27920292EF900C83D18 /* Info.plist */,
 				DDA3E27620292EF900C83D18 /* LaunchScreen.storyboard */,
 				DDA3E27120292EF900C83D18 /* Main.storyboard */,
-				2883CA71209B52AE0053D9BB /* StartScreenViewController.swift */,
 				74BA8353225EDDB900D3359E /* mainnet.xcconfig */,
 				DD3A7E0D2152A7520009A0BE /* SingleInstance.swift */,
 				DDAE8BBC223C181E005CDD9C /* splashLogo.gif */,

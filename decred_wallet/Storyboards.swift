@@ -33,11 +33,3 @@ enum Storyboards: String {
         return instance.instantiateInitialViewController()
     }
 }
-
-extension UIViewController {
-    // Not using static so that individual VCs can override to provide custom storyboardID value.
-    // By default, this returns the name of VC class as the storyboard ID.
-    class var storyboardID: String {
-        return "\(self)"
-    }
-}
