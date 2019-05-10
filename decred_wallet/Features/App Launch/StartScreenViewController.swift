@@ -27,7 +27,6 @@ class StartScreenViewController: UIViewController {
         let initWalletError = WalletLoader.initialize()
         if initWalletError != nil {
             print("init wallet error: \(initWalletError!.localizedDescription)")
-            return
         }
     }
     
