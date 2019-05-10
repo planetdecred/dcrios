@@ -59,7 +59,3 @@ extension Formatter{
             return formatter
     }()
 }
-
-extension UIViewController{
-    @objc public func onPassCompleted(pass: String){}
-}

@@ -6,8 +6,8 @@
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
-import Foundation
 import UIKit
+
 extension UIViewController {
     // Not using static so that individual VCs can override to provide custom storyboardID value.
     // By default, this returns the name of VC class as the storyboard ID.
