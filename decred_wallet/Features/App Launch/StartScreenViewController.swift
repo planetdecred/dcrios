@@ -110,21 +110,18 @@ class StartScreenViewController: UIViewController {
     
     func createMenuView() {
         let mainViewController = Storyboards.Main.instantiateViewController(for: OverviewViewController.self)
-        
         let leftViewController = LeftViewController.instantiate()
         mainViewController.delegate = leftViewController
-        
         let nvc: UINavigationController = UINavigationController(rootViewController: mainViewController)
         
         UINavigationBar.appearance().tintColor = GlobalConstants.Colors.navigationBarColor
-        
         leftViewController.mainViewController = nvc
         
         let window = AppDelegate.shared.window
         let slideMenuController = SlideMenuController(mainViewController: nvc, leftMenuViewController: leftViewController)
         slideMenuController.changeLeftViewWidth((window?.frame.size.width)! - (window?.frame.size.width)! / 6)
-        
         slideMenuController.delegate = mainViewController
+        
         window?.backgroundColor = GlobalConstants.Colors.lightGrey
         window?.rootViewController = slideMenuController
         window?.makeKeyAndVisible()
