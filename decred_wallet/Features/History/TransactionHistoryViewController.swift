@@ -9,7 +9,6 @@
 import UIKit
 
 class TransactionHistoryViewController: UIViewController, DcrlibwalletGetTransactionsResponseProtocol {
-    
     var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:
@@ -211,17 +210,6 @@ class TransactionHistoryViewController: UIViewController, DcrlibwalletGetTransac
             filtertitle.append(5)
         }
     }
-    
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
 }
 
 // MARK: - Table Delegates

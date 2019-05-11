@@ -871,7 +871,6 @@ extension OverviewViewController : UITableViewDelegate {
 }
 
 extension OverviewViewController : UITableViewDataSource {
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let maxDisplayItems = round(tableView.frame.size.height / DataTableViewCell.height())
         return min(self.mainContens.count, Int(maxDisplayItems))
@@ -896,35 +895,4 @@ extension OverviewViewController : UITableViewDataSource {
             self.mainContens[indexPath.row].Animate = false
         }
     }
-    
-    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {}
 }
-
-extension OverviewViewController : SlideMenuControllerDelegate {
-    
-    func leftWillOpen() {}
-    
-    func leftDidOpen() {}
-    
-    func leftWillClose() {}
-    
-    func leftDidClose() {}
-    
-    func rightWillOpen() {}
-    
-    func rightDidOpen() {}
-    
-    func rightWillClose() {}
-    
-    func rightDidClose() {}
-}
-extension Date {
-    var millisecondsSince1970:Int64 {
-         return Int64((self.timeIntervalSince1970 * 1000.0).rounded())
-    }
-    
-    init(milliseconds:Int) {
-        self = Date(timeIntervalSince1970: TimeInterval(milliseconds) / 1000)
-    }
-}
-

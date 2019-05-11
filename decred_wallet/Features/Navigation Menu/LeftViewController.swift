@@ -24,7 +24,7 @@ protocol LeftMenuProtocol : class {
     func changeViewController(_ menu: LeftMenu)
 }
 
-class LeftViewController : UIViewController, LeftMenuProtocol {
+class LeftViewController2: UIViewController, LeftMenuProtocol {
     
     var progressHud : JGProgressHUD?
     
@@ -40,9 +40,9 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
     @IBOutlet weak var rescanHeight: UILabel!
     @IBOutlet weak var bestblock: UILabel!
     @IBOutlet weak var chainStatus: UILabel!
-    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var statusBackgroud: UIView!
     @IBOutlet weak var headerImage: UIImageView!
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var totalBalance: UILabel!
     @IBOutlet weak var progressbar: UIProgressView!
     
@@ -352,7 +352,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
     }
 }
 
-extension LeftViewController : UITableViewDelegate {
+extension LeftViewController2: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if let menu = LeftMenu(rawValue: indexPath.row) {
             switch menu {
@@ -377,7 +377,7 @@ extension LeftViewController : UITableViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {}
 }
 
-extension LeftViewController : UITableViewDataSource {
+extension LeftViewController2: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return menus.count

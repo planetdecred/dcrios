@@ -17,27 +17,6 @@ struct Utils {
         }
     }
     
-    static func createMainWindow() {
-        // create viewController code...
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let mainViewController = storyboard.instantiateViewController(withIdentifier: "OverviewViewController") as! OverviewViewController
-        let leftViewController = LeftViewController.instantiate()
-        
-        let nvc: UINavigationController = UINavigationController(rootViewController: mainViewController)
-        
-        UINavigationBar.appearance().tintColor = GlobalConstants.Colors.navigationBarColor
-        
-        leftViewController.mainViewController = nvc
-        
-        let slideMenuController = SlideMenuController(mainViewController:nvc, leftMenuViewController: leftViewController)
-        slideMenuController.changeLeftViewWidth((UIApplication.shared.keyWindow?.frame.size.width)! - (UIApplication.shared.keyWindow?.frame.size.width)! / 6)
-        
-        slideMenuController.delegate = mainViewController
-        UIApplication.shared.keyWindow?.backgroundColor = GlobalConstants.Colors.lightGrey
-        UIApplication.shared.keyWindow?.rootViewController = slideMenuController
-        UIApplication.shared.keyWindow?.makeKeyAndVisible()
-    }
-    
     static func showProgressHud(with title:String?) -> JGProgressHUD{
         let hud = JGProgressHUD(style: .light)
         hud.shadow = JGProgressHUDShadow(color: .black, offset: .zero, radius: 5.0, opacity: 0.2)

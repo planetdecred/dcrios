@@ -32,7 +32,7 @@ class WalletSetupBaseViewController: UIViewController {
                 DispatchQueue.main.async {
                     progressHud.dismiss()
                     UserDefaults.standard.set(securityType, forKey: GlobalConstants.SettingsKeys.SpendingPassphraseSecurityType)
-                    Utils.createMainWindow()
+                    NavigationMenuViewController.setupMenuAndLaunchApp()
                     this.dismiss(animated: true, completion: nil)
                 }
                 return

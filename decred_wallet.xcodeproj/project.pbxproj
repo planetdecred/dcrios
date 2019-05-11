@@ -40,9 +40,9 @@
 		28EB91CA20FCFDBE007A0906 /* AccountDataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EB91C120FCFDBE007A0906 /* AccountDataCell.swift */; };
 		28EB91CB20FCFDBE007A0906 /* AccountDataCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28EB91C220FCFDBE007A0906 /* AccountDataCell.xib */; };
 		28EB91CC20FCFDBE007A0906 /* DataTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28EB91C320FCFDBE007A0906 /* DataTableViewCell.xib */; };
-		28EB91CD20FCFDBE007A0906 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EB91C420FCFDBE007A0906 /* MenuCell.swift */; };
+		28EB91CD20FCFDBE007A0906 /* MenuItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EB91C420FCFDBE007A0906 /* MenuItemCell.swift */; };
 		28EB91CE20FCFDBE007A0906 /* DataTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EB91C520FCFDBE007A0906 /* DataTableViewCell.swift */; };
-		28EB91CF20FCFDBE007A0906 /* MenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28EB91C620FCFDBE007A0906 /* MenuCell.xib */; };
+		28EB91CF20FCFDBE007A0906 /* MenuItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28EB91C620FCFDBE007A0906 /* MenuItemCell.xib */; };
 		28F0CE7320888258003AC958 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F0CE7220888258003AC958 /* Utils.swift */; };
 		28FEB26C21D263E7001B074B /* RecoverExistingWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FEB26B21D263E7001B074B /* RecoverExistingWalletViewController.swift */; };
 		28FEB26E21D264D9001B074B /* RecoveryWalletSeedWordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FEB26D21D264D9001B074B /* RecoveryWalletSeedWordCell.swift */; };
@@ -73,6 +73,8 @@
 		B35BF4632278923700018DBE /* PinPasswordStrength.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35BF4622278923700018DBE /* PinPasswordStrength.swift */; };
 		B35BF4682278A43F00018DBE /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35BF4672278A43F00018DBE /* Button.swift */; };
 		B36225DF22725BC100D61D15 /* WalletSetupBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36225DE22725BC100D61D15 /* WalletSetupBaseViewController.swift */; };
+		B36547C62286A6490015F911 /* NavigationMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36547C52286A6490015F911 /* NavigationMenuViewController.swift */; };
+		B36547C82286B4B70015F911 /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36547C72286B4B70015F911 /* MenuItem.swift */; };
 		B3BA850C22744C7400440D3A /* SpendingPinOrPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BA850B22744C7400440D3A /* SpendingPinOrPassword.swift */; };
 		B3BA850E22744C8800440D3A /* StartupPinOrPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BA850D22744C8800440D3A /* StartupPinOrPassword.swift */; };
 		B3CC32B02284CBCC00A48624 /* Security.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3CC32AF2284CBCC00A48624 /* Security.storyboard */; };
@@ -178,9 +180,9 @@
 		28EB91C120FCFDBE007A0906 /* AccountDataCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountDataCell.swift; sourceTree = "<group>"; };
 		28EB91C220FCFDBE007A0906 /* AccountDataCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountDataCell.xib; sourceTree = "<group>"; };
 		28EB91C320FCFDBE007A0906 /* DataTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DataTableViewCell.xib; sourceTree = "<group>"; };
-		28EB91C420FCFDBE007A0906 /* MenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
+		28EB91C420FCFDBE007A0906 /* MenuItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItemCell.swift; sourceTree = "<group>"; };
 		28EB91C520FCFDBE007A0906 /* DataTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataTableViewCell.swift; sourceTree = "<group>"; };
-		28EB91C620FCFDBE007A0906 /* MenuCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuCell.xib; sourceTree = "<group>"; };
+		28EB91C620FCFDBE007A0906 /* MenuItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuItemCell.xib; sourceTree = "<group>"; };
 		28F0CE7220888258003AC958 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		28FEB26B21D263E7001B074B /* RecoverExistingWalletViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecoverExistingWalletViewController.swift; sourceTree = "<group>"; };
 		28FEB26D21D264D9001B074B /* RecoveryWalletSeedWordCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecoveryWalletSeedWordCell.swift; sourceTree = "<group>"; };
@@ -219,6 +221,8 @@
 		B35BF4622278923700018DBE /* PinPasswordStrength.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinPasswordStrength.swift; sourceTree = "<group>"; };
 		B35BF4672278A43F00018DBE /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		B36225DE22725BC100D61D15 /* WalletSetupBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSetupBaseViewController.swift; sourceTree = "<group>"; };
+		B36547C52286A6490015F911 /* NavigationMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationMenuViewController.swift; sourceTree = "<group>"; };
+		B36547C72286B4B70015F911 /* MenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
 		B3879A102271F4970066CD0F /* Dcrlibwallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Dcrlibwallet.framework; path = libs/Dcrlibwallet.framework; sourceTree = "<group>"; };
 		B38F4546227062B50068F33D /* Dcrlibwallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Dcrlibwallet.framework; path = debug/Dcrlibwallet.framework; sourceTree = "<group>"; };
 		B39F41C72278DB8300F6F202 /* Dcrlibwallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Dcrlibwallet.framework; path = libs/Dcrlibwallet.framework; sourceTree = "<group>"; };
@@ -358,9 +362,7 @@
 				28EB91C120FCFDBE007A0906 /* AccountDataCell.swift */,
 				28EB91C220FCFDBE007A0906 /* AccountDataCell.xib */,
 				28EB91C320FCFDBE007A0906 /* DataTableViewCell.xib */,
-				28EB91C420FCFDBE007A0906 /* MenuCell.swift */,
 				28EB91C520FCFDBE007A0906 /* DataTableViewCell.swift */,
-				28EB91C620FCFDBE007A0906 /* MenuCell.xib */,
 				28D36C7B2180ADF5000C6572 /* ConfirmSeedViewCell.swift */,
 			);
 			path = table_view_cell;
@@ -456,6 +458,7 @@
 				B3BA850A22744C4F00440D3A /* Wallet Utils */,
 				B3CC32AE2284CB9300A48624 /* Security */,
 				B3CC32AD2284BF0C00A48624 /* Navigation Menu */,
+				B36547C92286CBE30015F911 /* History */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -481,6 +484,15 @@
 			path = "Wallet Setup";
 			sourceTree = "<group>";
 		};
+		B36547C92286CBE30015F911 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				95877FE720B70CBB00CE53D2 /* TransactionHistoryViewController.swift */,
+				95877FE620B70CBB00CE53D2 /* TransactionHistoryViewController.xib */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
 		B3BA850A22744C4F00440D3A /* Wallet Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -496,6 +508,10 @@
 			children = (
 				B3CC32B32284D7FD00A48624 /* NavigationMenu.storyboard */,
 				DD96B33E20293F110046F2DD /* LeftViewController.swift */,
+				B36547C52286A6490015F911 /* NavigationMenuViewController.swift */,
+				B36547C72286B4B70015F911 /* MenuItem.swift */,
+				28EB91C620FCFDBE007A0906 /* MenuItemCell.xib */,
+				28EB91C420FCFDBE007A0906 /* MenuItemCell.swift */,
 			);
 			path = "Navigation Menu";
 			sourceTree = "<group>";
@@ -581,8 +597,6 @@
 				DD1D5C8120AEE90D009789DD /* ServerSetTableViewController.swift */,
 				DDB8940C202F82E6002F85EE /* SettingsController.swift */,
 				95473E6220E393A00023F50A /* TransactionFullDetails */,
-				95877FE720B70CBB00CE53D2 /* TransactionHistoryViewController.swift */,
-				95877FE620B70CBB00CE53D2 /* TransactionHistoryViewController.xib */,
 				DD1D5C7D20AEDB15009789DD /* WalletLogViewController.swift */,
 			);
 			path = view_controller;
@@ -769,7 +783,7 @@
 				DDA3E27820292EF900C83D18 /* LaunchScreen.storyboard in Resources */,
 				28EB91CC20FCFDBE007A0906 /* DataTableViewCell.xib in Resources */,
 				2850E091217612EE00171267 /* SourceSansPro-Black.ttf in Resources */,
-				28EB91CF20FCFDBE007A0906 /* MenuCell.xib in Resources */,
+				28EB91CF20FCFDBE007A0906 /* MenuItemCell.xib in Resources */,
 				2850E08E217612EE00171267 /* SourceSansPro-Bold.ttf in Resources */,
 				B353549822842A8700DBFDC9 /* WalletSetup.storyboard in Resources */,
 				2850E095217612EE00171267 /* SourceSansPro-ExtraLightItalic.ttf in Resources */,
@@ -915,6 +929,7 @@
 				DDB8941B202F8F92002F85EE /* UIColor.swift in Sources */,
 				95404EBE20E113D700B34327 /* AccountsHeaderView.swift in Sources */,
 				28EB91C720FCFDBE007A0906 /* TransactionHistoryTableViewCell.swift in Sources */,
+				B36547C82286B4B70015F911 /* MenuItem.swift in Sources */,
 				B3BA850E22744C8800440D3A /* StartupPinOrPassword.swift in Sources */,
 				95473E7420E3A6420023F50A /* TransactionDetailCell.swift in Sources */,
 				2827EE0A21B9675500832555 /* ConfirmNewWalletSeedViewController.swift in Sources */,
@@ -941,6 +956,7 @@
 				DDD2BA17224FED3800136C65 /* CurrencyOptionTableViewController.swift in Sources */,
 				DDA66BB721BFFFA800987248 /* SecurityMenuViewController.swift in Sources */,
 				DDB89429202F95AC002F85EE /* UIApplication.swift in Sources */,
+				B36547C62286A6490015F911 /* NavigationMenuViewController.swift in Sources */,
 				DD24AFA420A6ED70009EC84F /* NetworkModeTableViewController.swift in Sources */,
 				B35BF4632278923700018DBE /* PinPasswordStrength.swift in Sources */,
 				281D545821B169DE00F68803 /* SecurityViewController.swift in Sources */,
@@ -976,7 +992,7 @@
 				28102DCD21B83E700052DC00 /* ContouredButton.swift in Sources */,
 				B3CC32BA22856AEF00A48624 /* Extensions.swift in Sources */,
 				95E1C96E20FCD43E00D7F3EE /* TextFieldDoneButton.swift in Sources */,
-				28EB91CD20FCFDBE007A0906 /* MenuCell.swift in Sources */,
+				28EB91CD20FCFDBE007A0906 /* MenuItemCell.swift in Sources */,
 				28D36C7C2180ADF5000C6572 /* ConfirmSeedViewCell.swift in Sources */,
 				95473E6420E393C00023F50A /* TransactionFullDetailsViewController.swift in Sources */,
 			);
