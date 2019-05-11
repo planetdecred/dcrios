@@ -10,8 +10,6 @@ import UIKit
 import JGProgressHUD
 
 class SettingsController: UITableViewController  {
-    weak var delegate: LeftMenuProtocol?
-    
     @IBOutlet weak var changeStartPINCell: UITableViewCell!
     @IBOutlet weak var peer_cell: UIView!
     @IBOutlet weak var connectPeer_cell: UITableViewCell!
@@ -80,8 +78,8 @@ class SettingsController: UITableViewController  {
     }
     
     @objc func exitSettings() -> Void {
-        if let navigationMenu = self.delegate {
-            navigationMenu.changeViewController(LeftMenu.overview)
+        if let navMenuController = self.navigationMenuViewController() {
+            navMenuController.changeActivePage(to: MenuItem.overview)
         } else if self.isModal {
             self.dismiss(animated: true, completion: nil)
         } else {
@@ -256,11 +254,10 @@ class SettingsController: UITableViewController  {
                 let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
                 let walletDir = paths[0].appendingPathComponent("dcrlibwallet")
                 try FileManager.default.removeItem(at: walletDir)
+                
                 DispatchQueue.main.async {
                     progressHud.dismiss()
-                    UserDefaults.standard.set(true, forKey: GlobalConstants.Strings.DELETE_WALLET)
-                    UserDefaults.standard.synchronize()
-                    self?.delegate?.changeViewController(LeftMenu.overview)
+                    this.walletDeleted()
                 }
             } catch {
                 DispatchQueue.main.async {
@@ -270,6 +267,21 @@ class SettingsController: UITableViewController  {
                     this.present(alertController, animated: true, completion: nil)
                 }
             }
+        }
+    }
+    
+    // Restarts the app when wallet is deleted.
+    func walletDeleted() {
+        let domain = Bundle.main.bundleIdentifier!
+        UserDefaults.standard.removePersistentDomain(forName: domain)
+        UserDefaults.standard.synchronize()
+        SingleInstance.shared.setDefaults()
+        
+        UIApplication.shared.keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
+        
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            let startScreen = Storyboards.Main.initialViewController()
+            appDelegate.setAndDisplayRootViewController(startScreen!)
         }
     }
     

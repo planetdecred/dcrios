@@ -13,34 +13,58 @@ class NavigationMenuViewController: UIViewController {
     @IBOutlet weak var decredHeaderLogo: UIImageView!
     @IBOutlet weak var navMenuTableView: UITableView!
     
+    @IBOutlet weak var totalBalanceAmountLabel: UILabel!
+    
+    @IBOutlet weak var syncInProgressIndicator: UIImageView!
+    @IBOutlet weak var syncStatusLabel: UILabel!
+    @IBOutlet weak var syncOperationProgressBar: UIProgressView!
+    
+    @IBOutlet weak var bestBlockLabel: UILabel!
+    @IBOutlet weak var bestBlockAgeLabel: UILabel!
+    
     var currentMenuItem: MenuItem = MenuItem.overview
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if GlobalConstants.App.IsTestnet {
+            decredHeaderLogo?.image = UIImage(named: "logo-testnet")
+        }
+        
         self.navMenuTableView.separatorColor = GlobalConstants.Colors.separaterGrey
-        self.navMenuTableView.register(UINib(nibName: MenuCell.identifier, bundle: nil), forCellReuseIdentifier: MenuCell.identifier)
+        self.navMenuTableView.register(UINib(nibName: MenuItemCell.identifier, bundle: nil), forCellReuseIdentifier: MenuItemCell.identifier)
         self.navMenuTableView.dataSource = self
         self.navMenuTableView.delegate = self
         
-//        self.totalBalance.text = ""
-//        self.synIndicate.loadGif(name: "progress bar-1s-200px")
+        self.totalBalanceAmountLabel.text = ""
+        
+        self.syncInProgressIndicator.loadGif(name: "progress bar-1s-200px")
+        self.syncStatusLabel.text = ""
+        self.syncOperationProgressBar.isHidden = true
+        
+        self.bestBlockLabel.text = ""
+        self.bestBlockAgeLabel.text = ""
         
         // todo why do we need these?
 //        UserDefaults.standard.set(false, forKey: "synced")
 //        UserDefaults.standard.set(0, forKey: "peercount")
 //        UserDefaults.standard.synchronize()
     }
+    
+    func changeActivePage(to menuItem: MenuItem) {
+        self.currentMenuItem = menuItem
+        self.slideMenuController()?.changeMainViewController(self.currentMenuItem.viewController, close: true)
+        self.navMenuTableView.reloadData()
+    }
 }
 
 extension NavigationMenuViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return MenuCell.height()
+        return MenuItemCell.height
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.currentMenuItem = MenuItem.allCases[indexPath.row]
-        self.slideMenuController()?.changeMainViewController(self.currentMenuItem.viewController, close: true)
+        self.changeActivePage(to: MenuItem.allCases[indexPath.row])
     }
 }
 
@@ -50,22 +74,12 @@ extension NavigationMenuViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let menuItemCell = self.navMenuTableView.dequeueReusableCell(withIdentifier: MenuItemCell.identifier) as! MenuItemCell
-        
         let menuItem = MenuItem.allCases[indexPath.row]
-        menuItemCell.setData(menuItem)
         
-        if menuItem == self.currentMenuItem {
-            menuItemCell.backgroundColor = UIColor.white
-            cell.lblMenu.textColor = UIColor.black
-            cell.selectedView.isHidden = false
-        } else {
-            menuItemCell.backgroundColor = GlobalConstants.Colors.menuCell
-            cell.lblMenu.textColor = GlobalConstants.Colors.menuTitle
-            cell.selectedView.isHidden = true
-        }
+        let menuItemCell = self.navMenuTableView.dequeueReusableCell(withIdentifier: MenuItemCell.identifier) as! MenuItemCell
+        menuItemCell.render(menuItem, isCurrentItem: self.currentMenuItem == menuItem)
         
-        return cell
+        return menuItemCell
     }
 }
 
@@ -77,7 +91,9 @@ extension NavigationMenuViewController {
             leftMenuViewController: navMenu
         )
         
-        AppDelegate.shared.window?.backgroundColor = GlobalConstants.Colors.lightGrey // todo necessary?
+        let deviceWidth = (AppDelegate.shared.window?.frame.width)!
+        slideMenuController.changeLeftViewWidth(deviceWidth * 0.8)
+        
         AppDelegate.shared.setAndDisplayRootViewController(slideMenuController)
     }
 }

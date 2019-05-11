@@ -125,7 +125,7 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
     }
     
     func activateConfirmButton() {
-        self.btnConfirm.backgroundColor = UIColor.DecredColors.Green
+        self.btnConfirm.backgroundColor = UIColor.appColors.decredGreen
         self.lblEnterAllSeeds.isHidden = true
         
         // increase top spacing since warning label is now hidden so as to position button in center
@@ -136,7 +136,7 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
     }
     
     func deactivateConfirmButton() {
-        self.btnConfirm.backgroundColor = UIColor.LightGray
+        self.btnConfirm.backgroundColor = UIColor.appColors.lightGray
         self.lblEnterAllSeeds.isHidden = false
         
         if self.userEnteredSeedWords.contains("") {

@@ -47,4 +47,32 @@ enum MenuItem: String, CaseIterable {
             return Storyboards.Main.instantiateViewController(for: HelpViewController.self).wrapInNavigationcontroller()
         }
     }
+    
+    var icon: UIImage? {
+        switch self {
+        case .overview:
+            return UIImage(named: "overview")
+            
+        case .history:
+            return UIImage(named: "history")
+            
+        case .send:
+            return  UIImage(named: "send")
+            
+        case .receive:
+            return UIImage(named: "receive")
+            
+        case .accounts:
+            return UIImage(named: "menu-account")
+            
+        case .security:
+            return UIImage(named: "security")
+            
+        case .settings:
+            return UIImage(named: "settings")
+            
+        case .help:
+            return UIImage(named: "help")
+        }
+    }
 }

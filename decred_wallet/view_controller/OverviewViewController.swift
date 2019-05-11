@@ -13,7 +13,6 @@ import UserNotifications
 
 class OverviewViewController: UIViewController, DcrlibwalletGetTransactionsResponseProtocol, DcrlibwalletTransactionListenerProtocol, DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol {
     
-    weak var delegate : LeftMenuProtocol?
     var pinInput: String?
     var reScan_percentage = 0.1;
     var discovery_percentage = 0.8
@@ -425,15 +424,16 @@ class OverviewViewController: UIViewController, DcrlibwalletGetTransactionsRespo
     @IBAction func sendView(_ sender: Any) {
         UIApplication.shared.beginIgnoringInteractionEvents()
          DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
-            self.delegate!.changeViewController(LeftMenu.send)
+            self.navigationMenuViewController()?.changeActivePage(to: MenuItem.send)
             UIApplication.shared.endIgnoringInteractionEvents()
         }
         
     }
+    
     @IBAction func receiveView(_ sender: Any) {
         UIApplication.shared.beginIgnoringInteractionEvents()
          DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
-            self.delegate!.changeViewController(LeftMenu.receive)
+            self.navigationMenuViewController()?.changeActivePage(to: MenuItem.receive)
             UIApplication.shared.endIgnoringInteractionEvents()
         }
     }
@@ -441,7 +441,7 @@ class OverviewViewController: UIViewController, DcrlibwalletGetTransactionsRespo
     @IBAction func historyView(_ sender: Any) {
         UIApplication.shared.beginIgnoringInteractionEvents()
          DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
-            self.delegate!.changeViewController(LeftMenu.history)
+            self.navigationMenuViewController()?.changeActivePage(to: MenuItem.history)
             UIApplication.shared.endIgnoringInteractionEvents()
         }
     }

@@ -19,6 +19,10 @@ extension UIViewController {
         return UINavigationController(rootViewController: self)
     }
     
+    func navigationMenuViewController() -> NavigationMenuViewController? {
+        return self.slideMenuController()?.leftViewController as? NavigationMenuViewController
+    }
+    
     func setNavigationBarItem() {
         self.addLeftBarButtonWithImage(UIImage(named: "ic_menu_black_24dp")!)
         self.navigationController?.navigationBar.tintColor = UIColor.black

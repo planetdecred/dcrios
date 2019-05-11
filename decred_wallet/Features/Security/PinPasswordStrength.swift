@@ -13,9 +13,9 @@ class PinPasswordStrength {
     static func percentageStrength(of pinOrPassword: String) -> (strength: Float, color: UIColor) {
         let strength = (self.shannonEntropy(of: pinOrPassword) / 4)
         if strength > 0.7 {
-            return (strength, UIColor.AppColors.Green)
+            return (strength, UIColor.appColors.green)
         } else {
-            return (strength, UIColor.AppColors.DarkYellowWarning)
+            return (strength, UIColor.appColors.darkYellowWarning)
         }
     }
     
