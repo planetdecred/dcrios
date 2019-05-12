@@ -44,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UserDefaults.standard.set(false, forKey: "synced")
             UserDefaults.standard.set(0, forKey: "peercount")
             UserDefaults.standard.synchronize()
-            SingleInstance.shared.wallet?.shutdown()
+            SingleInstance.shared.wallet?.shutdown(true)
         }
     }
 }

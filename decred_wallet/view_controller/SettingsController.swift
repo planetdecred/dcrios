@@ -247,7 +247,7 @@ class SettingsController: UITableViewController  {
             
             do {
                 let passData = (pass as NSString).data(using: String.Encoding.utf8.rawValue)!
-                wallet.dropSpvConnection()
+                wallet.cancelSync()
                 try wallet.unlock(passData)
                 try wallet.close()
 

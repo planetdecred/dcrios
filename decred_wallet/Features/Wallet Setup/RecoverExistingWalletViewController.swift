@@ -181,8 +181,8 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
     
     private func validateSeed() -> (seed: String, valid: Bool) {
         let seed = self.userEnteredSeedWords.reduce("", {(word1, word2) in "\(word1) \(word2)"})
-        let seedValid = SingleInstance.shared.wallet?.verifySeed(seed)
-        return (seed, seedValid!)
+        let seedValid = DcrlibwalletVerifySeed(seed)
+        return (seed, seedValid)
     }
     
     private func showError(_ error: String) {

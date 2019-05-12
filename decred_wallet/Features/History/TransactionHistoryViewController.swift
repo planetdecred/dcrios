@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TransactionHistoryViewController: UIViewController, DcrlibwalletGetTransactionsResponseProtocol {
+class TransactionHistoryViewController: UIViewController {
     var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:
@@ -84,8 +84,13 @@ class TransactionHistoryViewController: UIViewController, DcrlibwalletGetTransac
         DispatchQueue.global(qos: .background).async { [weak self] in
             guard let this = self else { return }
             do {
-                try
-                    SingleInstance.shared.wallet?.getTransactions(this)
+                var getTxsError: NSError?
+                // use limit = 0 to return all transactions
+                let jsonResponse = SingleInstance.shared.wallet?.getTransactions(0, error: &getTxsError)
+                if getTxsError != nil {
+                    throw getTxsError!
+                }
+                this.onResult(jsonResponse)
             } catch let Error {
                 print(Error)
             }
@@ -93,7 +98,6 @@ class TransactionHistoryViewController: UIViewController, DcrlibwalletGetTransac
     }
     
     func onResult(_ json: String?) {
-        
         if (self.visible == false) {
             return
         } else {

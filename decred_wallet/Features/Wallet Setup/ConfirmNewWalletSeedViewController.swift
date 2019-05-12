@@ -32,8 +32,8 @@ class ConfirmNewWalletSeedViewController: WalletSetupBaseViewController {
     
     @IBAction func onConfirm(_ sender: Any) {
         let seed = enteredWords.joined(separator: " ")
-        let seedIsValid = SingleInstance.shared.wallet?.verifySeed(seed)
-        if seedIsValid! {
+        let seedIsValid = DcrlibwalletVerifySeed(seed)
+        if seedIsValid {
             self.secureWallet()
         } else {
             self.showError(error: "Seed does not matches. Try again, please")

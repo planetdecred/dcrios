@@ -10,13 +10,15 @@ import Foundation
 
 struct WalletLoader {
     static var isWalletCreated: Bool {
-        // todo master has
-        // return SingleInstance.shared.wallet?.walletExists()
-    
-        let netType = Utils.infoForKey(GlobalConstants.Strings.NetType)!
-        let fm = FileManager()
-        let result = fm.fileExists(atPath: NSHomeDirectory()+"/Documents/dcrlibwallet/\(netType)/wallet.db")
-        return result
+        var walletExists: ObjCBool = ObjCBool(false)
+        
+        do {
+            try SingleInstance.shared.wallet?.walletExists(&walletExists)
+        } catch (let error) {
+            print("Error checking if wallet exists: \(error.localizedDescription)")
+        }
+        
+        return walletExists.boolValue
     }
     
     static func initialize() -> NSError? {
@@ -24,7 +26,6 @@ struct WalletLoader {
         
         var initWalletError: NSError?
         SingleInstance.shared.wallet = DcrlibwalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrlibwallet/", "bdb", netType, &initWalletError)
-        SingleInstance.shared.wallet?.initLoader()
         
         return initWalletError
     }

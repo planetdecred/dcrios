@@ -29,7 +29,7 @@ class CreateNewWalletViewController: WalletSetupBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         var generateSeedError: NSError?
-        self.seed =  (SingleInstance.shared.wallet?.generateSeed(&generateSeedError))
+        self.seed =  (DcrlibwalletGenerateSeed(&generateSeedError))
         if generateSeedError != nil {
             print("seed generate error: \(String(describing: generateSeedError?.localizedDescription))")
         }
