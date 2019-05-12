@@ -23,9 +23,12 @@ extension UIViewController {
         return self.slideMenuController()?.leftViewController as? NavigationMenuViewController
     }
     
-    func setNavigationBarItem() {
-        self.addLeftBarButtonWithImage(UIImage(named: "ic_menu_black_24dp")!)
+    func setupNavigationBar(withTitle title: String) {
         self.navigationController?.navigationBar.tintColor = UIColor.black
+        self.navigationItem.title = title
+        
+        // setup slidemenucontroller (drawer icon and tap action)
+        self.addLeftBarButtonWithImage(UIImage(named: "ic_menu_black_24dp")!)
         self.slideMenuController()?.removeLeftGestures()
         self.slideMenuController()?.removeRightGestures()
         self.slideMenuController()?.addLeftGestures()

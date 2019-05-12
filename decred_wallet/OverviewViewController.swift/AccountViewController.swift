@@ -32,7 +32,8 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setupNavigationBar(withTitle: "Account")
+        setNavigationBarItem()
+        navigationItem.title = "Account"
         
         self.navigationItem.rightBarButtonItem?.accessibilityElementsHidden = true
     }

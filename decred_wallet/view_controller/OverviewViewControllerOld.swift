@@ -11,7 +11,7 @@ import Dcrlibwallet
 import JGProgressHUD
 import UserNotifications
 
-class OverviewViewController: UIViewController, DcrlibwalletGetTransactionsResponseProtocol, DcrlibwalletTransactionListenerProtocol, DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol {
+class OverviewViewControllerOld: UIViewController, DcrlibwalletGetTransactionsResponseProtocol, DcrlibwalletTransactionListenerProtocol, DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol {
     
     var pinInput: String?
     var reScan_percentage = 0.1;
@@ -67,7 +67,7 @@ class OverviewViewController: UIViewController, DcrlibwalletGetTransactionsRespo
         refreshControl = {
             let refreshControl = UIRefreshControl()
             refreshControl.addTarget(self, action:
-                #selector(OverviewViewController.handleRefresh(_:)),
+                #selector(OverviewViewControllerOld.handleRefresh(_:)),
                                      for: UIControl.Event.valueChanged)
             refreshControl.tintColor = UIColor.lightGray
             
@@ -104,6 +104,7 @@ class OverviewViewController: UIViewController, DcrlibwalletGetTransactionsRespo
         self.connectToDecredNetwork()
         
         self.wallet?.transactionNotification(self)
+        self.wallet?.add(self)
         self.walletInfo.syncing = true
         self.SyncGestureSetup()
         self.showActivity()
@@ -155,8 +156,7 @@ class OverviewViewController: UIViewController, DcrlibwalletGetTransactionsRespo
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.setNavigationBarItem()
-        self.navigationItem.title = "Overview"
+        self.setupNavigationBar(withTitle: "Overview")
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -851,7 +851,7 @@ class OverviewViewController: UIViewController, DcrlibwalletGetTransactionsRespo
     func onRescanProgress(_ rescannedThrough: Int32) {}
 }
 
-extension OverviewViewController : UITableViewDelegate {
+extension OverviewViewControllerOld : UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return DataTableViewCell.height()
@@ -870,7 +870,7 @@ extension OverviewViewController : UITableViewDelegate {
     
 }
 
-extension OverviewViewController : UITableViewDataSource {
+extension OverviewViewControllerOld : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let maxDisplayItems = round(tableView.frame.size.height / DataTableViewCell.height())
         return min(self.mainContens.count, Int(maxDisplayItems))

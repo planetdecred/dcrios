@@ -99,7 +99,7 @@ class StartScreenViewController: UIViewController {
             do {
                 try SingleInstance.shared.wallet?.open(walletPassphrase)
                 Utils.runInMainThread {
-                    NavigationMenuViewController.setupMenuAndLaunchApp()
+                    NavigationMenuViewController.setupMenuAndLaunchApp(isNewWallet: false)
                 }
             } catch let error {
                 Utils.runInMainThread {

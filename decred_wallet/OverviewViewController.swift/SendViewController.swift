@@ -17,6 +17,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     var pinInput: String?
     
     @IBOutlet weak var pasteBtn: UIButton!
+    weak var delegate: LeftMenuProtocol?
     @IBOutlet var accountDropdown: DropMenuButton!
     @IBOutlet weak var toAccountDropDown: DropMenuButton!
     @IBOutlet var BalanceAfter: UILabel!
@@ -149,8 +150,8 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.setupNavigationBar(withTitle: "Send")
-
+        self.setNavigationBarItem()
+        self.navigationItem.title = "Send"
         self.updateBalance()
         let menu = UIButton(type: .custom)
         menu.setImage(UIImage(named: "right-menu"), for: .normal)
@@ -269,7 +270,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             if SpendingPinOrPassword.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
                 self.confirmSend(sendAll: false)
             } else {
-                let requestPinVC = RequestPinViewController.instantiate()
+                let requestPinVC = storyboard!.instantiateViewController(withIdentifier: "RequestPinViewController") as! RequestPinViewController
                 requestPinVC.securityFor = "Spending"
                 requestPinVC.showCancelButton = true
                 requestPinVC.onUserEnteredPin = { pin in

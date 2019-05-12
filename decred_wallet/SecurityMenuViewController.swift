@@ -52,12 +52,13 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.setNavigationBarItem()
-        self.navigationItem.title = "Security"
+        self.setupNavigationBar(withTitle: "Security")
+
         if !(UserDefaults.standard.bool(forKey: "synced")) {
             syncInfoLabel.isHidden = false
             return
         }
+        
         let clearFieldBtn = UIButton(type: .custom)
         clearFieldBtn.setImage(UIImage(named: "right-menu"), for: .normal)
         clearFieldBtn.addTarget(self, action: #selector(showMenu), for: .touchUpInside)

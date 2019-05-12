@@ -1,5 +1,5 @@
 //
-//  HelpViewController.swift
+//  NodeLogViewController.swift
 //  Decred Wallet
 //
 // Copyright (c) 2018-2019 The Decred developers
@@ -7,13 +7,13 @@
 // license that can be found in the LICENSE file.
 
 import UIKit
-import SafariServices
 
-class HelpViewController: UIViewController,SFSafariViewControllerDelegate {
+class NodeLogViewController: UIViewController {
     
-    @IBOutlet weak var linkBtn: UIButton!
+    @IBOutlet weak var logTextView: UITextView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.title = "Node Log"
     }
     
     override func didReceiveMemoryWarning() {
@@ -21,24 +21,10 @@ class HelpViewController: UIViewController,SFSafariViewControllerDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.setupNavigationBar(withTitle: "Help")
-    }
-    
-    @IBAction func openHelpLink(_ sender: Any) {
-        self.openLink(urlString: linkBtn.currentTitle!)
-    }
-    
-    func openLink(urlString: String) {
+    func loadLog(){
         
-        if let url = URL(string: urlString) {
-            let viewController = SFSafariViewController(url: url, entersReaderIfAvailable: true)
-            viewController.delegate = self as SFSafariViewControllerDelegate
-            
-            self.present(viewController, animated: true)
-        }
     }
+    
     
     /*
      // MARK: - Navigation
@@ -49,5 +35,4 @@ class HelpViewController: UIViewController,SFSafariViewControllerDelegate {
      // Pass the selected object to the new view controller.
      }
      */
-    
 }

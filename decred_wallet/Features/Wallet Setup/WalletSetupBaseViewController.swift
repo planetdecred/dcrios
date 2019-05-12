@@ -19,23 +19,18 @@ class WalletSetupBaseViewController: UIViewController {
         
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let this = self else { return }
+            guard let wallet = SingleInstance.shared.wallet else { return }
             
             do {
-                if SingleInstance.shared.wallet == nil {
-                    return
-                }
-                
-                let wallet = SingleInstance.shared.wallet!
                 try wallet.createWallet(pinOrPassword, seedMnemonic: seed)
                 try wallet.unlock(pinOrPassword.data(using: .utf8))
                 
                 DispatchQueue.main.async {
                     progressHud.dismiss()
                     UserDefaults.standard.set(securityType, forKey: GlobalConstants.SettingsKeys.SpendingPassphraseSecurityType)
-                    NavigationMenuViewController.setupMenuAndLaunchApp()
+                    NavigationMenuViewController.setupMenuAndLaunchApp(isNewWallet: true)
                     this.dismiss(animated: true, completion: nil)
                 }
-                return
             } catch let error {
                 DispatchQueue.main.async {
                     progressHud.dismiss()

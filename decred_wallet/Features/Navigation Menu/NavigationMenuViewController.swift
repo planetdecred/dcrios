@@ -22,6 +22,7 @@ class NavigationMenuViewController: UIViewController {
     @IBOutlet weak var bestBlockLabel: UILabel!
     @IBOutlet weak var bestBlockAgeLabel: UILabel!
     
+    var showNewWalletWelcomeMessage: Bool = false
     var currentMenuItem: MenuItem = MenuItem.overview
     
     override func viewDidLoad() {
@@ -49,6 +50,15 @@ class NavigationMenuViewController: UIViewController {
 //        UserDefaults.standard.set(false, forKey: "synced")
 //        UserDefaults.standard.set(0, forKey: "peercount")
 //        UserDefaults.standard.synchronize()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if !self.showNewWalletWelcomeMessage {
+            return
+        }
+        
+        self.showNewWalletWelcomeMessage = false
+        self.showOkAlert(message: "\nYour 33 word seed is your wallet, keep it safe. Without it your funds cannot be recovered should your device be lost or destroyed.\n\nInitial wallet sync will take longer than usual. The wallet will connect to p2p nodes to download the blockchain headers, and will fetch only the blocks that you need while preserving your privacy.", title: "Welcome to Decred Wallet.")
     }
     
     func changeActivePage(to menuItem: MenuItem) {
@@ -84,8 +94,10 @@ extension NavigationMenuViewController: UITableViewDataSource {
 }
 
 extension NavigationMenuViewController {
-    static func setupMenuAndLaunchApp() {
+    static func setupMenuAndLaunchApp(isNewWallet: Bool) {
         let navMenu = Storyboards.NavigationMenu.instantiateViewController(for: self)
+        navMenu.showNewWalletWelcomeMessage = isNewWallet
+        
         let slideMenuController = SlideMenuController(
             mainViewController: MenuItem.overview.viewController,
             leftMenuViewController: navMenu

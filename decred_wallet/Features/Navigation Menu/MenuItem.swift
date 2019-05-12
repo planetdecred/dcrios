@@ -23,7 +23,7 @@ enum MenuItem: String, CaseIterable {
     var viewController: UIViewController {
         switch self {
         case .overview:
-            return Storyboards.Main.instantiateViewController(for: OverviewViewController.self).wrapInNavigationcontroller()
+            return OverviewViewController.instantiate().wrapInNavigationcontroller()
             
         case .history:
             return TransactionHistoryViewController(nibName: "TransactionHistoryViewController", bundle: nil).wrapInNavigationcontroller()

@@ -23,7 +23,8 @@ class HelpViewController: UIViewController,SFSafariViewControllerDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.setupNavigationBar(withTitle: "Help")
+        self.setNavigationBarItem()
+        self.navigationItem.title = "Help"
     }
     
     @IBAction func openHelpLink(_ sender: Any) {

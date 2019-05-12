@@ -50,8 +50,8 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setupNavigationBar(withTitle: "Receive")
-        
+        setNavigationBarItem()
+        navigationItem.title = "Receive"
         let shareBtn = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share))
         let generateAddressBtn = UIButton(type: .custom)
         generateAddressBtn.setImage(UIImage(named: "right-menu"), for: .normal)

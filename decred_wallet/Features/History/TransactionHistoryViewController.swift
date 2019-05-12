@@ -19,7 +19,6 @@ class TransactionHistoryViewController: UIViewController, DcrlibwalletGetTransac
         return refreshControl
     }()
     
-    weak var delegate: LeftMenuProtocol?
     @IBOutlet weak var syncLabel: UILabel!
     
     @IBOutlet var tableView: UITableView!
@@ -42,8 +41,8 @@ class TransactionHistoryViewController: UIViewController, DcrlibwalletGetTransac
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.setNavigationBarItem()
-        navigationItem.title = "History"
+        self.setupNavigationBar(withTitle: "History")
+
         if (UserDefaults.standard.bool(forKey: "synced")) {
             print(" wallet is synced on history")
             self.syncLabel.isHidden = true
