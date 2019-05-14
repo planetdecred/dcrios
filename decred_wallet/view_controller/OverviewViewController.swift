@@ -105,7 +105,7 @@ class OverviewViewController: UIViewController, DcrlibwalletGetTransactionsRespo
         self.connectToDecredNetwork()
         
         self.wallet?.transactionNotification(self)
-        self.wallet?.add(self)
+        //self.wallet?.add(self)
         self.walletInfo.syncing = true
         self.SyncGestureSetup()
         self.showActivity()
