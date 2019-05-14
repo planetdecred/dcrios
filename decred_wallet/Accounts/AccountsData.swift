@@ -16,7 +16,7 @@ struct AccountsData {
     var isExpanded: Bool = false
     let number: Int32
     
-    init(entity: AccountsEntity, color: UIColor?) {
+    init(entity: WalletAccount, color: UIColor?) {
         self.color = color
         self.spendableBalance = (Utils.spendable(account: entity) as NSDecimalNumber).round(8)
         self.totalBalance = Double((entity.Balance?.dcrTotal)!)

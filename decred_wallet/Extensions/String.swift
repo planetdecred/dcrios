@@ -2,13 +2,15 @@
 //  String.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
-// Use of this source code is governed by an ISC
-// license that can be found in the LICENSE file.
-
-import Foundation
+//  Created by Wisdom Arerosuoghene on 13/05/2019.
+//  Copyright © 2019 The Decred developers. All rights reserved.
+//
 
 extension String {
+    var utf8Bits: Data {
+        return self.data(using: .utf8)!
+    }
+
     static func className(_ aClass: AnyClass) -> String {
         return NSStringFromClass(aClass).components(separatedBy: ".").last!
     }

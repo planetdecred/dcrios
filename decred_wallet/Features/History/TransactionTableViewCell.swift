@@ -1,5 +1,5 @@
 //
-//  DataTableViewCell.swift
+//  TransactionTableViewCell.swift
 //  Decred Wallet
 //
 // Copyright (c) 2018-2019 The Decred developers
@@ -8,16 +8,7 @@
 import Foundation
 import UIKit
 
-struct DataTableViewCellData {
-    
-    var trans: Transaction
-    
-    init(trans: Transaction) {
-        self.trans = trans
-    }
-}
-
-class DataTableViewCell : BaseTableViewCell {
+class TransactionTableViewCell: BaseTableViewCell {
     
     @IBOutlet weak var dataImage: UIImageView!
     @IBOutlet weak var dataText: UILabel!
@@ -34,12 +25,11 @@ class DataTableViewCell : BaseTableViewCell {
     
     override func setData(_ data: Any?) {
         
-        if let data = data as? DataTableViewCellData {
-            
-            let bestBlock =  SingleInstance.shared.wallet?.getBestBlock()
+        if let transaction = data as? Transaction {
+            let bestBlock =  WalletLoader.wallet?.getBestBlock()
             var confirmations = 0
-            if(data.trans.Height != -1){
-                confirmations = Int(bestBlock!) - data.trans.Height
+            if(transaction.Height != -1){
+                confirmations = Int(bestBlock!) - transaction.Height
                 confirmations += 1
             }
             
@@ -58,7 +48,7 @@ class DataTableViewCell : BaseTableViewCell {
                 }
             }
             
-            let Date2 = NSDate.init(timeIntervalSince1970: TimeInterval(data.trans.Timestamp) )
+            let Date2 = NSDate.init(timeIntervalSince1970: TimeInterval(transaction.Timestamp) )
             let dateformater = DateFormatter()
             dateformater.locale = Locale(identifier: "en_US_POSIX")
             dateformater.dateFormat = "MMM dd, yyyy hh:mma"
@@ -67,30 +57,30 @@ class DataTableViewCell : BaseTableViewCell {
             dateformater.string(from: Date2 as Date)
             
             self.dateT.text = dateformater.string(from: Date2 as Date)
-            let amount = Decimal(data.trans.Amount / 100000000.00) as NSDecimalNumber
+            let amount = Decimal(transaction.Amount / 100000000.00) as NSDecimalNumber
             let requireConfirmation = spendUnconfirmedFunds ? 0 : 2
             
-            if (data.trans.Type.lowercased() == "regular") {
-                if (data.trans.Direction == 0) {
+            if (transaction.Type.lowercased() == "regular") {
+                if (transaction.Direction == 0) {
                     let attributedString = NSMutableAttributedString(string: "-")
                     attributedString.append(Utils.getAttributedString(str: amount.round(8).description, siz: 13.0, TexthexColor: GlobalConstants.Colors.TextAmount))
                     self.dataText.attributedText = attributedString
                     self.dataImage?.image = UIImage(named: "debit")
-                } else if(data.trans.Direction == 1) {
+                } else if(transaction.Direction == 1) {
                     let attributedString = NSMutableAttributedString(string: " ")
                     attributedString.append(Utils.getAttributedString(str: amount.round(8).description, siz: 13.0, TexthexColor: GlobalConstants.Colors.TextAmount))
                     self.dataText.attributedText = attributedString
                     self.dataImage?.image = UIImage(named: "credit")
-                } else if(data.trans.Direction == 2) {
+                } else if(transaction.Direction == 2) {
                     let attributedString = NSMutableAttributedString(string: " ")
                     attributedString.append(Utils.getAttributedString(str: amount.round(8).description, siz: 13.0, TexthexColor: GlobalConstants.Colors.TextAmount))
                     self.dataText.attributedText = attributedString
                     self.dataImage?.image = UIImage(named: "account")
                 }
-            } else if(data.trans.Type.lowercased() == "vote") {
+            } else if(transaction.Type.lowercased() == "vote") {
                 self.dataText.text = " Vote"
                 self.dataImage?.image = UIImage(named: "vote")
-            } else if (data.trans.Type.lowercased() == "ticket_purchase") {
+            } else if (transaction.Type.lowercased() == "ticket_purchase") {
                 self.dataText.text = " Ticket"
                 self.dataImage?.image = UIImage(named: "immature")
                 let ticketMaturity = Int(Utils.infoForKey("TicketMaturity")!)!

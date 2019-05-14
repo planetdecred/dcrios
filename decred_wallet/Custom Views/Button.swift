@@ -10,21 +10,24 @@ import UIKit
 
 @IBDesignable
 class Button: UIButton {
-    
-    @IBInspectable
-    var cornerRadius: CGFloat {
+    @IBInspectable var borderColor: UIColor = UIColor.clear {
         didSet {
-            self.layer.cornerRadius = self.cornerRadius
+            self.layer.borderColor = self.borderColor.cgColor
+            self.setNeedsLayout()
         }
     }
     
-    override init(frame: CGRect) {
-        cornerRadius = 0
-        super.init(frame: frame)
+    @IBInspectable var borderWidth: CGFloat = 0 {
+        didSet {
+            self.layer.borderWidth = self.borderWidth
+            self.setNeedsLayout()
+        }
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        cornerRadius = 0
-        super.init(coder: aDecoder)
+    @IBInspectable var cornerRadius: CGFloat = 0 {
+        didSet {
+            self.layer.cornerRadius = self.cornerRadius
+            self.setNeedsLayout()
+        }
     }
 }

@@ -41,10 +41,11 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        dcrlibwallet = SingleInstance.shared.wallet
+        dcrlibwallet = WalletLoader.wallet
         self.address.delegate = self
         self.signature.delegate = self
         self.message.delegate = self
+        
         if (UserDefaults.standard.bool(forKey: "synced")) {
             self.toggleView()
         }

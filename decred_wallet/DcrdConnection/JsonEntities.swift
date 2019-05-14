@@ -8,7 +8,44 @@
 
 import Foundation
 
-struct BalanceEntity: Decodable {
+struct WalletAccounts: Decodable {
+    var Count = 0
+    var ErrorMessage = ""
+    var ErrorCode = 0
+    var ErrorOccurred = false
+    var Acc: [WalletAccount] = []
+    var CurrentBlockHash = ""
+    var CurrentBlockHeight = 0
+}
+
+struct WalletAccount: Decodable {
+    var Number: Int32 = 0
+    var Name = "default"
+    var Balance: WalletBalance?
+    var TotalBalance: Int64
+    var ExternalKeyCount = 20
+    var InternalKeyCount = 20
+    var ImportedKeyCount = 0
+    
+    func makeDefault() {
+        UserDefaults.standard.set(self.Number, forKey: "wallet_default")
+    }
+    
+    var isDefault: Bool {
+        let defaultWalletNumber = UserDefaults.standard.integer(forKey: "wallet_default")
+        return defaultWalletNumber == self.Number
+    }
+    
+    var isHidden: Bool {
+        return UserDefaults.standard.bool(forKey: "hidden\(self.Number)")
+    }
+    
+    var dcrTotalBalance: Double {
+        return Double(self.TotalBalance) / 100000000.0
+    }
+}
+
+struct WalletBalance: Decodable {
     var Total: Double = 0
     var Spendable: Double = 0
     var ImmatureReward: Double = 0
@@ -16,9 +53,7 @@ struct BalanceEntity: Decodable {
     var LockedByTickets: Double = 0
     var VotingAuthority: Double = 0
     var UnConfirmed: Double = 0
-}
-
-extension BalanceEntity {
+    
     var dcrTotal: Double {
         return self.Total / 100000000
     }
@@ -45,55 +80,6 @@ extension BalanceEntity {
     
     var dcrUnConfirmed: Double {
         return self.UnConfirmed / 100000000
-    }
-}
-
-struct AccountsEntity: Decodable {
-    var Number: Int32 = 0
-    var Name = "default"
-    var Balance: BalanceEntity?
-    var TotalBalance: Double = 0.0
-    var ExternalKeyCount = 20
-    var InternalKeyCount = 20
-    var ImportedKeyCount = 0
-    
-    func makeDefault() {
-        UserDefaults.standard.set(self.Number, forKey: "wallet_default")
-    }
-    
-    var isDefaultWallet: Bool {
-        let `default` = UserDefaults.standard.integer(forKey: "wallet_default")
-        
-        return `default` == self.Number ? true : false
-    }
-}
-
-extension AccountsEntity {
-    var dcrTotalBalance: Double {
-        return self.TotalBalance / 100000000
-    }
-}
-
-struct GetAccountResponse: Decodable {
-    var Count = 0
-    var ErrorMessage = ""
-    var ErrorCode = 0
-    var ErrorOccurred = false
-    var Acc: [AccountsEntity] = []
-    var CurrentBlockHash = ""
-    var CurrentBlockHeight = 0
-}
-
-struct GroceryProduct: Codable {
-    var name: String
-    var points: Int
-    var description: String
-    
-    init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        self.name = try values.decode(String.self, forKey: .name)
-        self.points = try values.decodeIfPresent(Int.self, forKey: .points) ?? 0
-        self.description = try values.decodeIfPresent(String.self, forKey: .description) ?? ""
     }
 }
 
@@ -132,7 +118,9 @@ struct Transaction: Codable {
     var Debits: [Debit]
     var Credits: [Credit]
     var Raw: String
+    
     @nonobjc var Animate: Bool
+    
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         self.Hash = try values.decodeIfPresent(String.self, forKey: .Hash) ?? ""

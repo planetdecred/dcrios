@@ -86,7 +86,7 @@ class TransactionHistoryViewController: UIViewController {
             do {
                 var getTxsError: NSError?
                 // use limit = 0 to return all transactions
-                let jsonResponse = SingleInstance.shared.wallet?.getTransactions(0, error: &getTxsError)
+                let jsonResponse = WalletLoader.wallet?.getTransactions(0, error: &getTxsError)
                 if getTxsError != nil {
                     throw getTxsError!
                 }
@@ -224,7 +224,7 @@ extension TransactionHistoryViewController: UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return DataTableViewCell.height()
+        return TransactionTableViewCell.height()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -239,11 +239,11 @@ extension TransactionHistoryViewController: UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        tableView.register(UINib(nibName: DataTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: DataTableViewCell.identifier)
-        let cell = self.tableView.dequeueReusableCell(withIdentifier: "DataTableViewCell") as! DataTableViewCell
+        tableView.register(UINib(nibName: TransactionTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: TransactionTableViewCell.identifier)
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: "DataTableViewCell") as! TransactionTableViewCell
         if self.Filtercontent.count != 0{
-            let data = DataTableViewCellData(trans: Filtercontent[indexPath.row])
-            cell.setData(data)
+            let transaction = Filtercontent[indexPath.row]
+            cell.setData(transaction)
             return cell
         }
         

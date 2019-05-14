@@ -381,46 +381,6 @@
 //        print(err!)
 //    }
 //
-//    func onSynced(_ synced: Bool) {
-//        self.synced = synced
-//        UserDefaults.standard.set(false, forKey: "walletScanning")
-//        UserDefaults.standard.set(synced, forKey: "synced")
-//        UserDefaults.standard.synchronize()
-//        self.walletInfo.synced = synced
-//        self.walletInfo.syncing = false
-//        if (synced) {
-//            self.walletInfo.syncStartPoint = -1
-//            self.walletInfo.syncEndPoint = -1
-//            self.walletInfo.syncCurrentPoint = -1
-//            self.walletInfo.syncRemainingTime = -1
-//            self.walletInfo.fetchHeaderTime = -1
-//            self.walletInfo.syncStatus = ""
-//            self.hideSyncContainers()
-//            if !(self.visible){
-//                return
-//            }
-//            else{
-//                self.prepareRecent()
-//                self.updateCurrentBalance()
-//            }
-//        }
-//
-//    }
-//    //overview UI functions
-//
-//    func setupSendRecvBtn(){
-//        ReceiveBtn.layer.cornerRadius = 4
-//
-//        ReceiveBtn.layer.borderWidth = 1.5
-//        ReceiveBtn.layer.borderColor = UIColor(hex: "#596D81", alpha:0.8).cgColor
-//        SendBtn.layer.cornerRadius = 4
-//        SendBtn.layer.borderWidth = 1.5
-//        SendBtn.layer.borderColor = UIColor(hex: "#596D81", alpha:0.8).cgColor
-//        showAllTransactionBtn.layer.borderWidth = 1.5
-//        showAllTransactionBtn.layer.borderColor = UIColor(hex: "#596D81", alpha:0.8).cgColor
-//        showAllTransactionBtn.layer.cornerRadius = 4
-//    }
-//
 //    @IBAction func sendView(_ sender: Any) {
 //        UIApplication.shared.beginIgnoringInteractionEvents()
 //         DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {

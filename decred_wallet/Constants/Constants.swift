@@ -20,6 +20,8 @@ struct GlobalConstants {
         static let IsStartupSecuritySet = "startup_security_set"
         static let StartupSecurityType = "startup_security_type"
         static let SpendingPassphraseSecurityType = "spending_security_type"
+        
+        static let SPVPeerIP = "pref_peer_ip"
     }
     
     //MARK: - Colors
@@ -34,16 +36,6 @@ struct GlobalConstants {
         static let black = UIColor(hex: "000000")
         static let TextAmount = UIColor(hex: "#091440")
         static let displayAamount = UIColor(hex: "617386")
-    }
-    
-    //MARK: - Cell Identifiers
-    struct VCIdentifier {
-        
-    }
-    
-    //MARK: - Cell Identifiers
-    struct CellIdentifier {
-        
     }
     
     struct Strings {

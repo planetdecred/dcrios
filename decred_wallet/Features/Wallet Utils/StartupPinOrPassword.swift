@@ -102,7 +102,7 @@ struct StartupPinOrPassword {
             do {
                 let oldPublicPass = (currentPublicPassphrase as NSString).data(using: String.Encoding.utf8.rawValue)!
                 let newPublicPass = (newPublicPassphrase as NSString).data(using: String.Encoding.utf8.rawValue)!
-                try SingleInstance.shared.wallet?.changePublicPassphrase(oldPublicPass, newPass: newPublicPass)
+                try WalletLoader.wallet?.changePublicPassphrase(oldPublicPass, newPass: newPublicPass)
                 
                 DispatchQueue.main.async {
                     progressHud.dismiss()

@@ -41,15 +41,12 @@ class NavigationMenuViewController: UIViewController {
         
         self.syncInProgressIndicator.loadGif(name: "progress bar-1s-200px")
         self.syncStatusLabel.text = ""
-        self.syncOperationProgressBar.isHidden = true
+        self.syncOperationProgressBar.progress = 0
         
         self.bestBlockLabel.text = ""
         self.bestBlockAgeLabel.text = ""
         
-        // todo why do we need these?
-//        UserDefaults.standard.set(false, forKey: "synced")
-//        UserDefaults.standard.set(0, forKey: "peercount")
-//        UserDefaults.standard.synchronize()
+        self.startSync()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -65,6 +62,37 @@ class NavigationMenuViewController: UIViewController {
         self.currentMenuItem = menuItem
         self.slideMenuController()?.changeMainViewController(self.currentMenuItem.viewController, close: true)
         self.navMenuTableView.reloadData()
+    }
+}
+
+extension NavigationMenuViewController: SyncProgressListenerProtocol {
+    func startSync() {
+        self.syncStatusLabel.text = "Connecting to peers."
+        
+        WalletLoader.shared.syncer?.registerSyncProgressListener(for: "\(self)", self)
+        WalletLoader.shared.syncer?.beginSync()
+    }
+    
+    func onGeneralSyncProgress(_ progressReport: GeneralSyncProgressReport) {
+        self.syncOperationProgressBar.progress = Float(progressReport.totalSyncProgress) / 100.0
+    }
+    
+    func onHeadersFetchProgress(_ progressReport: HeadersFetchProgressReport) {
+        self.syncStatusLabel.text = "Fetching block headers."
+        if progressReport.currentHeaderTimestamp != 0 {
+            self.bestBlockLabel.text = "\(progressReport.totalHeadersToFetch - progressReport.fetchedHeadersCount) blocks behind."
+            if progressReport.bestBlockAge != "" {
+                self.bestBlockAgeLabel.text = "\(progressReport.bestBlockAge) ago"
+            }
+        }
+    }
+    
+    func onAddressDiscoveryProgress(_ progressReport: AddressDiscoveryProgressReport) {
+        self.syncStatusLabel.text = "Discovering used addresses."
+    }
+    
+    func onHeadersRescanProgress(_ progressReport: HeadersRescanProgressReport) {
+        self.syncStatusLabel.text = "Rescanning block headers."
     }
 }
 

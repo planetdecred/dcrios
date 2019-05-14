@@ -47,7 +47,7 @@ class SettingsController: UITableViewController  {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(exitSettings))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
         
-        connect_peer_ip?.text = UserDefaults.standard.string(forKey: "pref_peer_ip") ?? ""
+        connect_peer_ip?.text = UserDefaults.standard.string(forKey: GlobalConstants.SettingsKeys.SPVPeerIP) ?? ""
         server_ip?.text = UserDefaults.standard.string(forKey: "pref_server_ip") ?? ""
         
         loadDate()
@@ -120,7 +120,7 @@ class SettingsController: UITableViewController  {
         build?.text = dateformater.string(from: compileDate as Date)
         debu_msg?.setOn((UserDefaults.standard.bool(forKey: "pref_debug_switch") ), animated: false)
         spend_uncon_fund?.setOn(UserDefaults.standard.bool(forKey: "pref_spend_fund_switch"), animated: false)
-        connect_peer_ip?.text = UserDefaults.standard.string(forKey: "pref_peer_ip") ?? ""
+        connect_peer_ip?.text = UserDefaults.standard.string(forKey: GlobalConstants.SettingsKeys.SPVPeerIP) ?? ""
         server_ip?.text = UserDefaults.standard.string(forKey: "pref_server_ip") ?? ""
         incoming_notification_switch?.setOn(UserDefaults.standard.bool(forKey: "pref_notification_switch"), animated: true)
         
@@ -241,7 +241,7 @@ class SettingsController: UITableViewController  {
     
     func handleDeleteWallet(pass: String){
         let progressHud = Utils.showProgressHud(with: "Deleting wallet...")
-        let wallet = SingleInstance.shared.wallet!
+        let wallet = WalletLoader.wallet!
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let this = self else { return }
             
@@ -270,12 +270,10 @@ class SettingsController: UITableViewController  {
         }
     }
     
-    // Restarts the app when wallet is deleted.
+    // Clears values stored in UserDefaults and restarts the app when wallet is deleted.
     func walletDeleted() {
-        let domain = Bundle.main.bundleIdentifier!
-        UserDefaults.standard.removePersistentDomain(forName: domain)
+        UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
         UserDefaults.standard.synchronize()
-        SingleInstance.shared.setDefaults()
         
         UIApplication.shared.keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
         

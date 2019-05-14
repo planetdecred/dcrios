@@ -35,7 +35,7 @@ class TransactionHistoryTableViewCell: BaseTableViewCell {
         
         if let data = data as? TransactionTableViewCellData {
             
-            let confirmation =  SingleInstance.shared.wallet?.getBestBlock()
+            let confirmation =  WalletLoader.wallet?.getBestBlock()
             let confirm2 = (confirmation)! - Int32(data.trans.Height)
             
             if (confirm2 == -1) {

@@ -37,7 +37,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     @IBOutlet weak var sendBtn: UIButton!
     @IBOutlet weak var qrcodeBtn: UIButton!
     var fromNotQRScreen = true
-    var AccountFilter: [AccountsEntity]?
+    var AccountFilter: [WalletAccount]?
     
     @IBOutlet weak var conversionContHeight: NSLayoutConstraint!
     @IBOutlet weak var conversionRowCont: UIStackView!
@@ -62,8 +62,8 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         return QRCodeReaderViewController(builder: builder)
     }()
     
-    var selectedAccount: AccountsEntity?
-    var sendToAccount: AccountsEntity?
+    var selectedAccount: WalletAccount?
+    var sendToAccount: WalletAccount?
     var password: String?
     var sendAllTX = false
     var exchangeRateGloabal :NSDecimalNumber = 0.0
@@ -78,7 +78,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         self.currencyAmount2.delegate = self
         self.pasteBtn.layer.cornerRadius = 4
         self.pasteBtn.layer.shadowOffset = CGSize(width: 0, height: 2.0)
-        wallet = SingleInstance.shared.wallet
+        wallet = WalletLoader.wallet
         NotificationCenter.default.addObserver(self, selector: #selector(willResignActive), name: UIApplication.willEnterForegroundNotification, object: nil)
         self.walletAddress.delegate = self
         removedBtn = false
@@ -863,14 +863,14 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     }
     
     private func showDefaultAccount() {
-        var account: GetAccountResponse?
+        var account: WalletAccounts?
         do {
             var getAccountError: NSError?
             let strAccount = wallet?.getAccounts(0, error: &getAccountError)
             if getAccountError != nil {
                 throw getAccountError!
             }
-            account = try JSONDecoder().decode(GetAccountResponse.self, from: (strAccount?.data(using: .utf8))!)
+            account = try JSONDecoder().decode(WalletAccounts.self, from: (strAccount?.data(using: .utf8))!)
             
         } catch let error {
             print(error)
@@ -897,14 +897,14 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     
     private func updateBalance() {
         var accounts = [String]()
-        var account: GetAccountResponse?
+        var account: WalletAccounts?
         do {
             var getAccountError: NSError?
             let strAccount = wallet?.getAccounts(0, error: &getAccountError)
             if getAccountError != nil {
                 throw getAccountError!
             }
-            account = try JSONDecoder().decode(GetAccountResponse.self, from: (strAccount?.data(using: .utf8))!)
+            account = try JSONDecoder().decode(WalletAccounts.self, from: (strAccount?.data(using: .utf8))!)
             
         } catch let error {
             print(error)
@@ -915,7 +915,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             
             return "\(acc.Name) [\( tspendable.round(8) )]"
             })!
-        AccountFilter = (account?.Acc.filter({UserDefaults.standard.bool(forKey: "hidden\($0.Number)")  != true && $0.Number != INT_MAX }).map { (acc) -> AccountsEntity in
+        AccountFilter = (account?.Acc.filter({UserDefaults.standard.bool(forKey: "hidden\($0.Number)")  != true && $0.Number != INT_MAX }).map { (acc) -> WalletAccount in
             return acc
             })!
         self.accountDropdown.initMenu(accounts) { [weak self] ind, val in

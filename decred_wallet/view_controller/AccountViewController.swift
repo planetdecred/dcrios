@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol AccountDetailsCellProtocol {
-    func setup(account: AccountsEntity)
+    func setup(account: WalletAccount)
     
 }
 
@@ -17,7 +17,7 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
     // MARK: - Properties
     
     var myBalances: [AccountsData] = [AccountsData]()
-    var account: GetAccountResponse?
+    var account: WalletAccounts?
     var visible = false
     
     @IBOutlet var tableAccountData: UITableView!
@@ -75,12 +75,12 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
             this.myBalances.removeAll()
             do {
                 var getAccountError: NSError?
-                let strAccount = SingleInstance.shared.wallet?.getAccounts(0, error: &getAccountError)
+                let strAccount = WalletLoader.wallet?.getAccounts(0, error: &getAccountError)
                 if getAccountError != nil {
                     throw getAccountError!
                 }
                 
-                this.account = try JSONDecoder().decode(GetAccountResponse.self, from: (strAccount?.data(using: .utf8))!)
+                this.account = try JSONDecoder().decode(WalletAccounts.self, from: (strAccount?.data(using: .utf8))!)
                 this.myBalances = {
                     var colorCount = -1
                     return this.account!.Acc.map {

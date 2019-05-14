@@ -25,7 +25,7 @@ class StartScreenViewController: UIViewController {
             testnetLabel.isHidden = false
         }
         
-        let initWalletError = WalletLoader.initialize()
+        let initWalletError = WalletLoader.shared.initialize()
         if initWalletError != nil {
             print("init wallet error: \(initWalletError!.localizedDescription)")
         }
@@ -44,7 +44,7 @@ class StartScreenViewController: UIViewController {
             self.startTimerWhenViewAppears = false
         }
         
-        if WalletLoader.isWalletCreated {
+        if WalletLoader.shared.isWalletCreated {
             self.label.text = "Opening wallet..."
         }
     }
@@ -58,7 +58,7 @@ class StartScreenViewController: UIViewController {
     }
     
     func loadMainScreen() {
-        if !WalletLoader.isWalletCreated {
+        if !WalletLoader.shared.isWalletCreated {
             self.displayWalletSetupScreen()
         }
         else if StartupPinOrPassword.pinOrPasswordIsSet() {
@@ -97,12 +97,12 @@ class StartScreenViewController: UIViewController {
             
             let walletPassphrase = (password as NSString).data(using: String.Encoding.utf8.rawValue)!
             do {
-                try SingleInstance.shared.wallet?.open(walletPassphrase)
-                Utils.runInMainThread {
+                try WalletLoader.wallet?.open(walletPassphrase)
+                DispatchQueue.main.async {
                     NavigationMenuViewController.setupMenuAndLaunchApp(isNewWallet: false)
                 }
             } catch let error {
-                Utils.runInMainThread {
+                DispatchQueue.main.async {
                     this.showOkAlert(message: error.localizedDescription, title: "Error")
                 }
             }
