@@ -15,14 +15,14 @@ Clone this repo, install and setup the following software tools. The versions in
   - Ensure your `$GOPATH` environment variable is set 
   - Ensure that your `$GOPATH/bin` is added to your `$PATH` environment variable.
   - Ensure that your `GOBIN=$GOPATH/bin` is added to your `$PATH` environment variable.
-  ```
-  in the bash shell, it will look similar to this in your ```~/.bash_profile``` or equiv
 
-```bash
- export GOPATH=$HOME/go
-export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
-export GOBIN=$GOPATH/bin
-```
+	in the bash shell, it will look similar to this in your ```~/.bash_profile``` or equiv
+
+    ```bash
+    export GOPATH=$HOME/go
+    export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+    export GOBIN=$GOPATH/bin
+    ```
 
 - [Gomobile](https://github.com/golang/go/wiki/Mobile#tools) _(latest version)_.
   - Run `go get golang.org/x/mobile/cmd/gomobile`  to ensure you're using the latest version of `gomobile`.
