@@ -219,7 +219,7 @@ class SettingsController: UITableViewController  {
 
             self.present(alert, animated: true, completion: nil)
         } else {
-            let requestPinVC = storyboard!.instantiateViewController(withIdentifier: "RequestPinViewController") as! RequestPinViewController
+            let requestPinVC = RequestPinViewController.instantiate()
             requestPinVC.securityFor = "Spending"
             requestPinVC.showCancelButton = true
             requestPinVC.onUserEnteredPin = { pin in

@@ -37,7 +37,7 @@ class AddAcountViewController: UIViewController {
             if SpendingPinOrPassword.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
                 addAccountWithoutPin()
             }else{
-                let requestPinVC = storyboard!.instantiateViewController(withIdentifier: "RequestPinViewController") as! RequestPinViewController
+                let requestPinVC = RequestPinViewController.instantiate()
                 requestPinVC.securityFor = "Spending"
                 requestPinVC.showCancelButton = true
                 requestPinVC.onUserEnteredPin = { pin in
