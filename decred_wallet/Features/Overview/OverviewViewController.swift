@@ -54,6 +54,9 @@ class OverviewViewController: UIViewController {
     }
     
     func initializeOverviewContent() {
+        WalletLoader.shared.notification?.registerListener(for: "\(self)", newTxistener: self)
+        WalletLoader.shared.notification?.registerListener(for: "\(self)", confirmedTxListener: self)
+        
         self.fetchingBalanceIndicator.loadGif(name: "progress bar-1s-200px")
         self.updateCurrentBalance()
         
@@ -71,18 +74,20 @@ class OverviewViewController: UIViewController {
     }
     
     func updateCurrentBalance() {
-        self.totalBalanceLabel.isHidden = true
-        self.fetchingBalanceIndicator.superview?.isHidden = false
-        
-        do {
-            let totalWalletAmount = try WalletLoader.wallet?.totalWalletBalance()
-            let totalAmountRoundedOff = (Decimal(totalWalletAmount!) as NSDecimalNumber).round(8)
+        DispatchQueue.main.async {
+            self.totalBalanceLabel.isHidden = true
+            self.fetchingBalanceIndicator.superview?.isHidden = false
             
-            self.totalBalanceLabel.attributedText = Utils.getAttributedString(str: "\(totalAmountRoundedOff)", siz: 17.0, TexthexColor: GlobalConstants.Colors.TextAmount)
-            self.fetchingBalanceIndicator.superview?.isHidden = true
-            self.totalBalanceLabel.isHidden = false
-        } catch let error {
-            print(error)
+            do {
+                let totalWalletAmount = try WalletLoader.wallet?.totalWalletBalance()
+                let totalAmountRoundedOff = (Decimal(totalWalletAmount!) as NSDecimalNumber).round(8)
+                
+                self.totalBalanceLabel.attributedText = Utils.getAttributedString(str: "\(totalAmountRoundedOff)", siz: 17.0, TexthexColor: GlobalConstants.Colors.TextAmount)
+                self.fetchingBalanceIndicator.superview?.isHidden = true
+                self.totalBalanceLabel.isHidden = false
+            } catch let error {
+                print(error)
+            }
         }
     }
     
@@ -125,6 +130,35 @@ class OverviewViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
             self.navigationMenuViewController()?.changeActivePage(to: menuItem)
         }
+    }
+}
+
+extension OverviewViewController: NewTransactionNotificationProtocol, ConfirmedTransactionNotificationProtocol {
+    func onTransaction(_ transaction: String?) {
+        var tx = try! JSONDecoder().decode(Transaction.self, from:(transaction!.utf8Bits))
+        
+        if self.recentTransactions.contains(where: { $0.Hash == tx.Hash }) {
+            // duplicate notification, tx is already being displayed in table
+            return
+        }
+        
+        self.recentTransactions.insert(tx, at: 0)
+        self.updateCurrentBalance()
+        
+        DispatchQueue.main.async {
+            let maxDisplayItems = round(self.recentActivityTableView.frame.size.height / TransactionTableViewCell.height())
+            if self.recentTransactions.count > Int(maxDisplayItems) {
+                _ = self.recentTransactions.popLast()
+            }
+            
+            tx.Animate = true
+            self.recentActivityTableView.reloadData()
+        }
+    }
+    
+    func onTransactionConfirmed(_ hash: String?, height: Int32) {
+        self.updateCurrentBalance()
+        self.loadRecentActivity()
     }
 }
 

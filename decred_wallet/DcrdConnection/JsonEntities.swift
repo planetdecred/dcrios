@@ -113,6 +113,10 @@ struct Transaction: Codable {
         self.Raw = try values.decodeIfPresent(String.self, forKey: .Raw) ?? ""
         self.Animate = false
     }
+    
+    var dcrAmount: NSDecimalNumber {
+        return Decimal(Double(self.Amount) / 1e8) as NSDecimalNumber
+    }
 }
 
 struct Credit: Codable {
