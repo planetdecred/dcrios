@@ -87,6 +87,7 @@
 		B3CC32B22284CFC000A48624 /* SecurityBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CC32B12284CFC000A48624 /* SecurityBaseViewController.swift */; };
 		B3CC32B42284D7FD00A48624 /* NavigationMenu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3CC32B32284D7FD00A48624 /* NavigationMenu.storyboard */; };
 		B3CC32BA22856AEF00A48624 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CC32B922856AEF00A48624 /* Extensions.swift */; };
+		B3FA1D81228B3CA000C8FE16 /* TransactionNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA1D80228B3CA000C8FE16 /* TransactionNotification.swift */; };
 		DD0B356E218930B7000830C4 /* AddAcountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B356D218930B7000830C4 /* AddAcountViewController.swift */; };
 		DD0C493E208A160900986C6B /* WalletSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C493D208A160900986C6B /* WalletSetupViewController.swift */; };
 		DD1D5C7C20AED828009789DD /* certificateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1D5C7B20AED824009789DD /* certificateViewController.swift */; };
@@ -243,6 +244,7 @@
 		B3CC32B12284CFC000A48624 /* SecurityBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityBaseViewController.swift; sourceTree = "<group>"; };
 		B3CC32B32284D7FD00A48624 /* NavigationMenu.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NavigationMenu.storyboard; sourceTree = "<group>"; };
 		B3CC32B922856AEF00A48624 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		B3FA1D80228B3CA000C8FE16 /* TransactionNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionNotification.swift; sourceTree = "<group>"; };
 		D041B416C87AEF5835443B41 /* libPods-Decred WalletTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Decred WalletTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D88FC8D6F04F2065EA91CDD0 /* Pods-Decred WalletTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred WalletTests.release.xcconfig"; path = "Target Support Files/Pods-Decred WalletTests/Pods-Decred WalletTests.release.xcconfig"; sourceTree = "<group>"; };
 		DD0B356D218930B7000830C4 /* AddAcountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAcountViewController.swift; sourceTree = "<group>"; };
@@ -312,13 +314,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		281D545321B169D100F68803 /* Security */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Security;
-			sourceTree = "<group>";
-		};
 		2850E07D217612EE00171267 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -486,8 +481,8 @@
 		B36547C92286CBE30015F911 /* History */ = {
 			isa = PBXGroup;
 			children = (
-				95877FE720B70CBB00CE53D2 /* TransactionHistoryViewController.swift */,
 				95877FE620B70CBB00CE53D2 /* TransactionHistoryViewController.xib */,
+				95877FE720B70CBB00CE53D2 /* TransactionHistoryViewController.swift */,
 				28EB91C320FCFDBE007A0906 /* TransactionTableViewCell.xib */,
 				28EB91C520FCFDBE007A0906 /* TransactionTableViewCell.swift */,
 			);
@@ -520,6 +515,7 @@
 				B3BA850D22744C8800440D3A /* StartupPinOrPassword.swift */,
 				B39F15B3228992120024A884 /* Syncer.swift */,
 				B39F15B5228994D00024A884 /* SyncDecodableDataTypes.swift */,
+				B3FA1D80228B3CA000C8FE16 /* TransactionNotification.swift */,
 			);
 			path = "Wallet Utils";
 			sourceTree = "<group>";
@@ -610,7 +606,6 @@
 				DDB89420202F93B3002F85EE /* OverviewViewControllerOld.swift */,
 				DD1D5C8320AEE9FE009789DD /* PeerSetTableViewController.swift */,
 				DDB89408202F824A002F85EE /* ReceiveViewController.swift */,
-				281D545321B169D100F68803 /* Security */,
 				DDA66BB621BFFFA800987248 /* SecurityMenuViewController.swift */,
 				952C932820E247D100A60E43 /* SendCompletedViewController */,
 				DDB89403202F7E01002F85EE /* SendViewController.swift */,
@@ -1008,6 +1003,7 @@
 				B3BA850C22744C7400440D3A /* SpendingPinOrPassword.swift in Sources */,
 				DDB89402202F771F002F85EE /* UIViewController.swift in Sources */,
 				281D545A21B169DE00F68803 /* RequestPinViewController.swift in Sources */,
+				B3FA1D81228B3CA000C8FE16 /* TransactionNotification.swift in Sources */,
 				DDA5C06B22591D9D0052CD52 /* WifiConfirmationController.swift in Sources */,
 				DD0B356E218930B7000830C4 /* AddAcountViewController.swift in Sources */,
 				DDA3E26E20292EF900C83D18 /* AppDelegate.swift in Sources */,

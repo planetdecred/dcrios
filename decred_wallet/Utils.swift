@@ -11,6 +11,15 @@ import JGProgressHUD
 import SlideMenuControllerSwift
 
 struct Utils {
+    struct TimeInSeconds {
+        static let Minute: Int64 = 60
+        static let Hour: Int64 = TimeInSeconds.Minute * 60
+        static let Day: Int64 = TimeInSeconds.Hour * 24
+        static let Week: Int64 = TimeInSeconds.Day * 7
+        static let Month: Int64 = TimeInSeconds.Week * 4
+        static let Year: Int64 = TimeInSeconds.Month * 12
+    }
+    
     static func showProgressHud(with title:String?) -> JGProgressHUD{
         let hud = JGProgressHUD(style: .light)
         hud.shadow = JGProgressHUDShadow(color: .black, offset: .zero, radius: 5.0, opacity: 0.2)

@@ -46,7 +46,7 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
         self.signature.delegate = self
         self.message.delegate = self
         
-        if (UserDefaults.standard.bool(forKey: "synced")) {
+        if WalletLoader.isSynced {
             self.toggleView()
         }
     }
@@ -55,7 +55,7 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
         super.viewWillAppear(animated)
         self.setupNavigationBar(withTitle: "Security")
 
-        if !(UserDefaults.standard.bool(forKey: "synced")) {
+        if !WalletLoader.isSynced {
             syncInfoLabel.isHidden = false
             return
         }
@@ -67,13 +67,6 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
         barButton = UIBarButtonItem(customView: clearFieldBtn)
         self.navigationItem.rightBarButtonItems = [barButton!]
         syncInfoLabel.isHidden = true
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if !(UserDefaults.standard.bool(forKey: "synced")) {
-            return
-        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

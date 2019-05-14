@@ -11,6 +11,7 @@ import Foundation
 class WalletLoader: NSObject {
     var wallet: DcrlibwalletLibWallet?
     var syncer: Syncer?
+    var notification: TransactionNotification?
     
     struct Static {
         static let instance: WalletLoader = WalletLoader()
@@ -22,6 +23,10 @@ class WalletLoader: NSObject {
     
     public class var wallet: DcrlibwalletLibWallet? {
         return Static.instance.wallet
+    }
+    
+    public class var isSynced: Bool {
+        return Static.instance.syncer?.generalSyncProgress?.done ?? false
     }
     
     func initialize() -> NSError? {

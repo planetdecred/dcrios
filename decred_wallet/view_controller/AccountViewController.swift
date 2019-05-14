@@ -133,7 +133,7 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
         } else{
             headerView.arrowDirection.setImage(UIImage.init(named: "arrow-1"), for: .normal)
         }
-        headerView.syncing(status: !UserDefaults.standard.bool(forKey: "synced"))
+        headerView.syncing(status: !WalletLoader.isSynced)
         
         return headerView
     }

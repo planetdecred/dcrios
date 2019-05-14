@@ -44,7 +44,7 @@ struct HeadersFetchProgressReport: Decodable {
         }
         
         let nowSeconds = Date().millisecondsSince1970 / 1000
-        let hoursBehind = Float(nowSeconds - self.currentHeaderTimestamp) / 60.0
+        let hoursBehind = Float(nowSeconds - self.currentHeaderTimestamp) / Float(Utils.TimeInSeconds.Hour)
         let daysBehind = Int64(round(hoursBehind / 24.0))
         
         if daysBehind < 1 {

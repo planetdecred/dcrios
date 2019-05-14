@@ -249,14 +249,15 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     }
     
     @IBAction private func sendFund(_ sender: Any) {
-        guard (UserDefaults.standard.bool(forKey: "synced")) else {
+        guard WalletLoader.isSynced else {
             sendNtwkErrtext.text = "Please wait for network synchronization."
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 self.sendNtwkErrtext.text = " "
             }
             return
         }
-        let peer = UserDefaults.standard.integer(forKey: "peercount")
+        
+        let peer = WalletLoader.shared.syncer?.generalSyncProgress?.connectedPeers ?? 0
         guard peer > 0 else {
             sendNtwkErrtext.text = "Not connected to the network."
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
@@ -323,7 +324,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     }
     
     private func signTransaction(sendAll: Bool?, password:String) {
-        let peer = UserDefaults.standard.integer(forKey: "peercount")
+        let peer = WalletLoader.shared.syncer?.generalSyncProgress?.connectedPeers ?? 0
         guard peer > 0 else {
             sendNtwkErrtext.text = "Not connected to the network."
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
@@ -706,7 +707,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                             let tmp2 = Decimal(tmp)
                             self.currencyAmount2.text = "\((((self.exchangeRateGloabal as Decimal) * tmp2)as NSDecimalNumber).round(2))"
                         }
-                        if(UserDefaults.standard.bool(forKey: "synced")){
+                        if WalletLoader.isSynced {
                              self.amountErrorText.text = "Not enough funds"
                         }
                         else{
@@ -794,7 +795,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                         print((tmp2 ) / (self.exchangeRateGloabal as Decimal))
                         print("currency")
                         self.tfAmount.text = "\(((tmp2 ) / (self.exchangeRateGloabal as Decimal) as NSDecimalNumber).round(8))"
-                        if(UserDefaults.standard.bool(forKey: "synced")){
+                        if WalletLoader.isSynced {
                             self.amountErrorText.text = "Not enough funds"
                         }
                         else{

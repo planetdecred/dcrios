@@ -21,6 +21,7 @@ class NavigationMenuViewController: UIViewController {
     
     @IBOutlet weak var bestBlockLabel: UILabel!
     @IBOutlet weak var bestBlockAgeLabel: UILabel!
+    var refreshBestBlockAgeTimer: Timer?
     
     var showNewWalletWelcomeMessage: Bool = false
     var currentMenuItem: MenuItem = MenuItem.overview
@@ -132,8 +133,11 @@ extension NavigationMenuViewController: SyncProgressListenerProtocol {
         self.updateBalance()
         self.updateLatestBlockInfo()
         
-        self.syncStatusLabel.text = "Synced with \(progressReport.peerCount) peers"
+        self.syncStatusLabel.text = "Synced with \(progressReport.peerCount)"
         self.syncStatusLabel.superview?.backgroundColor = UIColor(hex: "#2DD8A3")
+        
+        WalletLoader.shared.notification?.registerListener(for: "\(self)", newBlockListener: self)
+        WalletLoader.shared.notification?.registerListener(for: "\(self)", newTxistener: self)
     }
     
     func onHeadersFetchProgress(_ progressReport: HeadersFetchProgressReport) {
@@ -161,59 +165,73 @@ extension NavigationMenuViewController: SyncProgressListenerProtocol {
         self.syncStatusLabel.text = "Scanning blocks."
         self.bestBlockAgeLabel.text = ""
         
-        let timeLeft = WalletLoader.shared.syncer?.generalSyncProgress?.totalTimeRemaining ?? ""
-        if timeLeft != "" {
-            self.bestBlockLabel.text = "\(timeLeft) left."
+        if let generalSyncProgress = WalletLoader.shared.syncer?.generalSyncProgress {
+            self.bestBlockLabel.text = "\(generalSyncProgress.totalSyncProgress)% completed, \(generalSyncProgress.totalTimeRemaining) left."
         } else {
             self.bestBlockLabel.text = ""
         }
     }
 }
 
-// Transaction notification callback to update best block info and balance on nav menu.
-extension NavigationMenuViewController {
-    struct TimeInSeconds {
-        static let Minute: Int64 = 60
-        static let Hour: Int64 = TimeInSeconds.Minute * 60
-        static let Day: Int64 = TimeInSeconds.Hour * 24
-        static let Week: Int64 = TimeInSeconds.Day * 7
-        static let Month: Int64 = TimeInSeconds.Week * 4
-        static let Year: Int64 = TimeInSeconds.Month * 12
+// Transaction notification callback to update best block info (on block attached) and balance (on new transaction).
+extension NavigationMenuViewController: NewBlockNotificationProtocol, NewTransactionNotificationProtocol {
+    func onBlockAttached(_ height: Int32, timestamp: Int64) {
+        DispatchQueue.main.async {
+            self.updateLatestBlockInfo()
+        }
+    }
+    
+    func onTransaction(_ transaction: String?) {
+        DispatchQueue.main.async {
+            self.updateBalance()
+        }
     }
     
     func updateLatestBlockInfo() {
+        if self.refreshBestBlockAgeTimer != nil {
+            self.refreshBestBlockAgeTimer?.invalidate()
+        }
+        
         self.bestBlockLabel.text = "Latest Block: \(WalletLoader.wallet!.getBestBlock())"
-        let bestBlockAge = Int64(Date().timeIntervalSince1970.rounded() / 1000) - WalletLoader.wallet!.getBestBlockTimeStamp()
+        self.setBestBlockAge()
+        
+        self.refreshBestBlockAgeTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) {_ in
+            self.setBestBlockAge()
+        }
+    }
+    
+    func setBestBlockAge() {
+        let bestBlockAge = Int64(Date().timeIntervalSince1970) - WalletLoader.wallet!.getBestBlockTimeStamp()
         
         switch bestBlockAge {
         case Int64.min...0:
             self.bestBlockAgeLabel.text = "now"
             
-        case 0..<TimeInSeconds.Minute:
+        case 0..<Utils.TimeInSeconds.Minute:
             self.bestBlockAgeLabel.text = "\(bestBlockAge)s ago"
             
-        case TimeInSeconds.Minute..<TimeInSeconds.Hour:
-            let minutes = bestBlockAge / TimeInSeconds.Minute
+        case Utils.TimeInSeconds.Minute..<Utils.TimeInSeconds.Hour:
+            let minutes = bestBlockAge / Utils.TimeInSeconds.Minute
             self.bestBlockAgeLabel.text = "\(minutes)m ago"
             
-        case TimeInSeconds.Hour..<TimeInSeconds.Day:
-            let hours = bestBlockAge / TimeInSeconds.Hour
+        case Utils.TimeInSeconds.Hour..<Utils.TimeInSeconds.Day:
+            let hours = bestBlockAge / Utils.TimeInSeconds.Hour
             self.bestBlockAgeLabel.text = "\(hours)h ago"
             
-        case TimeInSeconds.Day..<TimeInSeconds.Week:
-            let days = bestBlockAge / TimeInSeconds.Day
+        case Utils.TimeInSeconds.Day..<Utils.TimeInSeconds.Week:
+            let days = bestBlockAge / Utils.TimeInSeconds.Day
             self.bestBlockAgeLabel.text = "\(days)d ago"
             
-        case TimeInSeconds.Week..<TimeInSeconds.Month:
-            let weeks = bestBlockAge / TimeInSeconds.Week
+        case Utils.TimeInSeconds.Week..<Utils.TimeInSeconds.Month:
+            let weeks = bestBlockAge / Utils.TimeInSeconds.Week
             self.bestBlockAgeLabel.text = "\(weeks)w ago"
             
-        case TimeInSeconds.Month..<TimeInSeconds.Year:
-            let months = bestBlockAge / TimeInSeconds.Month
+        case Utils.TimeInSeconds.Month..<Utils.TimeInSeconds.Year:
+            let months = bestBlockAge / Utils.TimeInSeconds.Month
             self.bestBlockAgeLabel.text = "\(months)mo ago"
             
         default:
-            let years = bestBlockAge / TimeInSeconds.Year
+            let years = bestBlockAge / Utils.TimeInSeconds.Year
             self.bestBlockAgeLabel.text = "\(years)y ago"
         }
     }
@@ -252,6 +270,9 @@ extension NavigationMenuViewController: UITableViewDataSource {
 
 extension NavigationMenuViewController {
     static func setupMenuAndLaunchApp(isNewWallet: Bool) {
+        // wallet is open, start notification listener
+        WalletLoader.shared.notification = TransactionNotification()
+        
         let navMenu = Storyboards.NavigationMenu.instantiateViewController(for: self)
         navMenu.showNewWalletWelcomeMessage = isNewWallet
         

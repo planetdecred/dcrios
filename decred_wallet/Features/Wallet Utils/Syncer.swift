@@ -26,13 +26,17 @@ class Syncer: NSObject {
     var currentSyncOp: SyncOp?
     var currentSyncOpProgress: Any?
     
+    override init() {
+        super.init()
+        // Register sync progress listener once, on init.
+        // beginSync may be called multiple times, so don't register listener there.
+        WalletLoader.wallet?.addEstimatedSyncProgressListener(self)
+    }
+    
     func beginSync() {
         self.generalSyncProgress = nil
         self.currentSyncOp = nil
         self.currentSyncOpProgress = nil
-        
-        DcrlibwalletSetLogLevels("off")
-        WalletLoader.wallet?.addEstimatedSyncProgressListener(self)
         
         do {
             let userSetSPVPeerIPs = UserDefaults.standard.string(forKey: GlobalConstants.SettingsKeys.SPVPeerIP) ?? ""

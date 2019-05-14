@@ -83,29 +83,6 @@ struct WalletBalance: Decodable {
     }
 }
 
-struct GetTransactionResponse: Codable {
-    var Transactions: [Transaction]
-    var ErrorOccurred: Bool
-    var ErrorMessage: String
-    init(from decoder: Decoder) throws {
-        do {
-            print("in decoding now ")
-            let values = try decoder.container(keyedBy: CodingKeys.self)
-            self.Transactions = try values.decodeIfPresent([Transaction].self, forKey: .Transactions) ?? [Transaction(from: decoder)]
-            self.ErrorOccurred = try values.decodeIfPresent(Bool.self, forKey: .ErrorOccurred) ?? true
-            self.ErrorMessage = (try values.decodeIfPresent(String.self, forKey: .ErrorMessage)) ?? ""
-            print("done my work decoding")
-        }
-        catch {
-            print(Error.self)
-            print("error decoding")
-            self.Transactions = [try Transaction(from: decoder)]
-            self.ErrorOccurred = false
-            self.ErrorMessage = ""
-        }
-    }
-}
-
 struct Transaction: Codable {
     var Hash: String
     var Fee: Double
@@ -144,6 +121,7 @@ struct Credit: Codable {
     var Internal: Bool
     var Amount: Double
     var Address: String
+    
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         self.Index = (try values.decodeIfPresent(Int64.self, forKey: .Index) ?? 0)
@@ -152,9 +130,7 @@ struct Credit: Codable {
         self.Amount = try values.decodeIfPresent(Double.self, forKey: .Amount) ?? 0.0
         self.Address = try values.decodeIfPresent(String.self, forKey: .Address) ?? ""
     }
-}
-
-extension Credit {
+    
     var dcrAmount: NSDecimalNumber {
         return Decimal(Double(self.Amount) / 1e8) as NSDecimalNumber
     }
@@ -165,16 +141,13 @@ struct Debit: Codable {
     var PreviousAccount: Double = 0.0
     var PreviousAmount: Double = 0.0
     var AccountName = ""
-}
-
-extension Debit {
+    
     var dcrAmount: NSDecimalNumber {
         return Decimal(Double(self.PreviousAmount) / 1e8) as NSDecimalNumber
     }
 }
 
 struct DecodedTransaction: Codable {
-    
     var Hash: String
     var `Type`: String
     var Version: Int32
@@ -189,7 +162,6 @@ struct DecodedTransaction: Codable {
     var VoteBits: String
     
     init(from decoder: Decoder) throws {
-       
         let values = try decoder.container(keyedBy: CodingKeys.self)
         
         self.Hash = try values.decodeIfPresent(String.self, forKey: .Hash) ?? ""
@@ -208,10 +180,10 @@ struct DecodedTransaction: Codable {
 }
 
 struct DecodedInput: Codable {
-    
     var PreviousTransactionHash: String
     var PreviousTransactionIndex: Int32
     var AmountIn: Int64
+    
     var dcrAmount: NSDecimalNumber {
         return Decimal(Double(self.AmountIn) / 1e8) as NSDecimalNumber
     }
@@ -224,8 +196,7 @@ struct DecodedInput: Codable {
     }
 }
 
-struct DecodedOutput: Codable{
-    
+struct DecodedOutput: Codable {
     var Index: Int32
     var Value: Int64
     var Version: Int32
@@ -242,19 +213,5 @@ struct DecodedOutput: Codable{
         self.Version = try values.decodeIfPresent(Int32.self, forKey: .Version) ?? 0
         self.ScriptType = try values.decodeIfPresent(String.self, forKey: .ScriptType) ?? ""
         self.Addresses = try values.decodeIfPresent([String].self, forKey: .Addresses) ?? []
-    }
-    
-}
-
-extension GetTransactionResponse {
-    var transactionsTimeline: [Transaction] {
-        let timeline = Transactions.sorted { (transaction1, transaction2) -> Bool in
-            transaction1.Timestamp > transaction2.Timestamp
-        }
-        return timeline
-    }
-    
-    func transaction(by hash: String) -> Transaction? {
-        return self.Transactions.filter({ $0.Hash == hash }).first
     }
 }

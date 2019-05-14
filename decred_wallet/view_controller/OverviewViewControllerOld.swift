@@ -102,29 +102,6 @@
 //        return
 //    }
 //
-//    func updatePeerCount() {
-//        if (!self.walletInfo.synced && !self.walletInfo.syncing) {
-//            self.walletInfo.syncStatus = "Not Synced";
-//            return
-//    }
-//        if (!self.walletInfo.syncing) {
-//            if (self.walletInfo.peers == 1) {
-//                self.walletInfo.syncStatus = "Synced with 1 peer";
-//
-//            } else {
-//                self.walletInfo.syncStatus = "Synced with \(self.walletInfo.peers) peers "
-//                }
-//
-//        }else {
-//            if (self.walletInfo.peers == 1) {
-//                self.walletInfo.syncStatus = "Synced with 1 peer"
-//
-//            } else {
-//                 self.walletInfo.syncStatus = "Synced with \(self.walletInfo.peers) peers "
-//            }
-//        }
-//    }
-
 //    func onBlockAttached(_ height: Int32, timestamp: Int64) {
 //        self.bestBlock = height;
 //        self.bestBlockTimestamp = timestamp / 1000000000;

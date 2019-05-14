@@ -36,14 +36,14 @@ class TransactionHistoryViewController: UIViewController {
         super.viewDidLoad()
         initFilterBtn()
         self.tableView.addSubview(self.refreshControl)
-        // Do any additional setup after loading the view.
+        self.tableView.register(UINib(nibName: TransactionTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: TransactionTableViewCell.identifier)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.setupNavigationBar(withTitle: "History")
 
-        if (UserDefaults.standard.bool(forKey: "synced")) {
+        if WalletLoader.isSynced {
             print(" wallet is synced on history")
             self.syncLabel.isHidden = true
             self.tableView.isHidden = false
@@ -51,7 +51,7 @@ class TransactionHistoryViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        if !(UserDefaults.standard.bool(forKey: "synced")) {
+        if !WalletLoader.isSynced {
             print(" wallet not synced on history")
             return
         }
@@ -104,22 +104,18 @@ class TransactionHistoryViewController: UIViewController {
             DispatchQueue.main.async { [weak self] in
                 guard let this = self else { return }
                 do {
-                    let trans = GetTransactionResponse.self
-                    let transactions = try JSONDecoder().decode(trans, from: (json?.data(using: .utf8)!)!)
-                    if (transactions.Transactions.count) > 0 {
-                        if (transactions.Transactions.count > this.Filtercontent.count) {
+                    let transactions = try JSONDecoder().decode([Transaction].self, from: (json?.data(using: .utf8)!)!)
+                    if (transactions.count) > 0 {
+                        if (transactions.count > this.Filtercontent.count) {
                             print(this.Filtercontent.count)
                             this.Filtercontent.removeAll()
-                            for transactionPack in transactions.Transactions {
-                                
-                                this.mainContens.append(transactionPack)
-                            }
+                            
+                            this.mainContens = transactions
                             this.Filtercontent = this.mainContens
+                            
                             this.btnFilter.items.removeAll()
                             this.updateDropdown()
-                            this.Filtercontent.reverse()
                             this.tableView.reloadData()
-                            
                         }
                     }
                 } catch let error {
@@ -139,38 +135,32 @@ class TransactionHistoryViewController: UIViewController {
                 // TODO: Remove after next dcrlibwallet update
                 this.Filtercontent = this.mainContens.filter{$0.Direction == 0 && $0.Type == GlobalConstants.Strings.REGULAR}
                 this.btnFilter.setTitle("Sent (".appending(String(this.Filtercontent.count)).appending(")"), for: .normal)
-                this.Filtercontent.reverse()
                 this.tableView.reloadData()
                 break
             case 2:
                 // TODO: Remove after next dcrlibwallet update
                 this.Filtercontent = this.mainContens.filter{$0.Direction == 1 && $0.Type == GlobalConstants.Strings.REGULAR}
                 this.btnFilter.setTitle("Received (".appending(String(this.Filtercontent.count)).appending(")"), for: .normal)
-                this.Filtercontent.reverse()
                 this.tableView.reloadData()
                 break
             case 3:
                 // TODO: Remove after next dcrlibwallet update
                 this.Filtercontent = this.mainContens.filter{$0.Direction == 2 && $0.Type == GlobalConstants.Strings.REGULAR}
                 this.btnFilter.setTitle("Yourself (".appending(String(this.Filtercontent.count)).appending(")"), for: .normal)
-                this.Filtercontent.reverse()
                 this.tableView.reloadData()
                 break
             case 4:
                 this.Filtercontent = this.mainContens.filter{$0.Type == GlobalConstants.Strings.REVOCATION || $0.Type == GlobalConstants.Strings.TICKET_PURCHASE || $0.Type == GlobalConstants.Strings.VOTE}
                 this.btnFilter.setTitle("Staking (".appending(String(this.Filtercontent.count)).appending(")"), for: .normal)
-                this.Filtercontent.reverse()
                 this.tableView.reloadData()
                 break
             case 5:
                 this.Filtercontent = this.mainContens.filter{$0.Type == GlobalConstants.Strings.COINBASE}
                 this.btnFilter.setTitle("Coinbase (".appending(String(this.Filtercontent.count)).appending(")"), for: .normal)
-                this.Filtercontent.reverse()
                 this.tableView.reloadData()
                 break
             default:
                 this.Filtercontent = this.mainContens
-                this.Filtercontent.reverse()
                 this.btnFilter.setTitle("All (".appending(String(this.Filtercontent.count)).appending(")"), for: .normal)
                 this.tableView.reloadData()
             }
@@ -218,7 +208,6 @@ class TransactionHistoryViewController: UIViewController {
 // MARK: - Table Delegates
 
 extension TransactionHistoryViewController: UITableViewDataSource, UITableViewDelegate {
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return Filtercontent.count
     }
@@ -239,8 +228,7 @@ extension TransactionHistoryViewController: UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        tableView.register(UINib(nibName: TransactionTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: TransactionTableViewCell.identifier)
-        let cell = self.tableView.dequeueReusableCell(withIdentifier: "DataTableViewCell") as! TransactionTableViewCell
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: TransactionTableViewCell.identifier) as! TransactionTableViewCell
         if self.Filtercontent.count != 0{
             let transaction = Filtercontent[indexPath.row]
             cell.setData(transaction)

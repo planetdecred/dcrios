@@ -101,7 +101,7 @@ class SyncProgressViewController: UIViewController, SyncProgressListenerProtocol
         if progressReport.addressDiscoveryProgress > 100 {
             reportText += "\(progressReport.addressDiscoveryProgress)% (over) through step 2 of 3."
         } else {
-            reportText += "\(progressReport.addressDiscoveryProgress)% through step 2 of 3."
+            reportText += "~\(progressReport.addressDiscoveryProgress)% through step 2 of 3."
         }
         
         self.currentSyncActionReportLabel.text = reportText
