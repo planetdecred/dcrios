@@ -59,7 +59,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
     var securityMenuViewController:UIViewController!
     var selectedIndex: Int!
     var storyboard2: UIStoryboard!
-    var walletInfo = SingleInstance.shared
+
     var wallet = SingleInstance.shared.wallet
     
     required init?(coder aDecoder: NSCoder) {
@@ -72,8 +72,21 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         self.tableView.separatorColor = GlobalConstants.Colors.separaterGrey
         storyboard2 =  UIStoryboard(name: "Main", bundle: nil)
         self.tableView.registerCellClass(MenuCell.self)
-        self.totalBalance.text = ""
-        self.synIndicate.loadGif(name: "progress bar-1s-200px")
+        DispatchQueue.main.async {
+            self.totalBalance.text = ""
+            let clickGesture = UITapGestureRecognizer(target: self, action:  #selector(self.reconnect))
+            self.statusBackgroud.addGestureRecognizer(clickGesture)
+            self.scanning = UserDefaults.standard.bool(forKey: "walletScanning")
+            self.runTimer()
+            self.synIndicate.loadGif(name: "progress bar-1s-200px")
+        }
+        let initialSyncHelp = UserDefaults.standard.bool(forKey: GlobalConstants.Strings.INITIAL_SYNC_HELP)
+        if(!initialSyncHelp){
+            showAlert(message: "\nYour 33 word seed is your wallet, keep it safe. Without it your funds cannot be recovered should your device be lost or destroyed.\n\nInitial wallet sync will take longer than usual. The wallet will connect to p2p nodes to download the blockchain headers, and will fetch only the blocks that you need while preserving your privacy.", title: "Welcome to Decred Wallet.")
+            UserDefaults.standard.set(true, forKey: GlobalConstants.Strings.INITIAL_SYNC_HELP)
+            UserDefaults.standard.synchronize()
+        }
+        
         UserDefaults.standard.set(false, forKey: "synced")
         UserDefaults.standard.set(0, forKey: "peercount")
         UserDefaults.standard.synchronize()
@@ -81,8 +94,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-
-         print("left did open")
+        
         if UserDefaults.standard.bool(forKey: GlobalConstants.Strings.DELETE_WALLET) != false{
             UserDefaults.standard.set(false, forKey: GlobalConstants.Strings.DELETE_WALLET)
             let domain = Bundle.main.bundleIdentifier!
@@ -99,15 +111,7 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
                 appDelegate.setAndDisplayRootViewController(startScreen!)
             }
         }
-        let initialSyncHelp = UserDefaults.standard.bool(forKey: GlobalConstants.Strings.INITIAL_SYNC_HELP)
-        if(!initialSyncHelp){
-            showAlert(message: "\nYour 33 word seed is your wallet, keep it safe. Without it your funds cannot be recovered should your device be lost or destroyed.\n\nInitial wallet sync will take longer than usual. The wallet will connect to p2p nodes to download the blockchain headers, and will fetch only the blocks that you need while preserving your privacy.", title: "Welcome to Decred Wallet.")
-            UserDefaults.standard.set(true, forKey: GlobalConstants.Strings.INITIAL_SYNC_HELP)
-            UserDefaults.standard.synchronize()
-        }
         
-        let clickGesture = UITapGestureRecognizer(target: self, action:  #selector(self.reconnect))
-        statusBackgroud.addGestureRecognizer(clickGesture)
     }
     
     @objc func reconnect(){
@@ -147,17 +151,6 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
             self.present(alert, animated: true, completion: nil)
         }
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        
-        if GlobalConstants.App.IsTestnet {
-            headerImage?.image = UIImage(named: "logo-testnet")
-        }
-        
-        self.scanning = UserDefaults.standard.bool(forKey: "walletScanning")
-        self.runTimer()
-        print("left will appear")
-    }
     
     func runTimer() {
         if(timer == nil){
@@ -169,43 +162,43 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         self.navStatusInfo()
     }
     func navStatusInfo(){
-        DispatchQueue.main.asyncAfter(deadline: .now()) { [weak self] in
-            guard let this = self else { return }
-            let bestblck = self!.wallet?.getBestBlock()
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+            let walletInfo = SingleInstance.shared
+            let bestblck = self.wallet?.getBestBlock()
             let bestblocktemp: Int64 = Int64(Int(bestblck!))
-            let lastblocktime = self!.wallet?.getBestBlockTimeStamp()
-            self!.sync = UserDefaults.standard.bool(forKey: "synced")
+            let lastblocktime = self.wallet?.getBestBlockTimeStamp()
+            self.sync = UserDefaults.standard.bool(forKey: "synced")
             
-            if !((self?.sync)!){
-                this.connectionStatus.text = self!.walletInfo.syncStatus
-                this.blockInfo.text = self!.walletInfo.ChainStatus
-                this.chainStatus.text = self!.walletInfo.bestblockTimeInfo
-                if (this.connectionStatus.text == "Connecting to peers"){
-                    this.progressbar.progressTintColor = UIColor(hex: "#F9FAFA")
-                    this.progressbar.progress = 1
+            if !((self.sync)){
+                 self.connectionStatus.text = walletInfo.syncStatus
+                 self.blockInfo.text = walletInfo.ChainStatus
+                 self.chainStatus.text = walletInfo.bestblockTimeInfo
+                if (self.connectionStatus.text == "Connecting to peers"){
+                    self.progressbar.progressTintColor = UIColor(hex: "#F9FAFA")
+                    self.progressbar.progress = 1
                 }
                 else{
-                    this.progressbar.progressTintColor = UIColor(hex: "#2DD8A3")
-                    this.progressbar.progress = (Float(self!.walletInfo.syncProgress) / 100.0)
+                    self.progressbar.progressTintColor = UIColor(hex: "#2DD8A3")
+                     self.progressbar.progress = (Float(walletInfo.syncProgress) / 100.0)
                 }
                 
             }
             else{
-                this.progressbar.progressTintColor = UIColor(hex: "#F9FAFA")
-                this.progressbar.progress = 1
-                self!.totalBalance.attributedText = Utils.getAttributedString(str: self!.walletInfo.walletBalance, siz: 12, TexthexColor: GlobalConstants.Colors.TextAmount)
-                self!.synIndicate.isHidden = true
+                self.progressbar.progressTintColor = UIColor(hex: "#F9FAFA")
+                self.progressbar.progress = 1
+                self.totalBalance.attributedText = Utils.getAttributedString(str: walletInfo.walletBalance, siz: 12, TexthexColor: GlobalConstants.Colors.TextAmount)
+                self.synIndicate.isHidden = true
                 let peer = UserDefaults.standard.integer(forKey: "peercount")
                 if (peer >= 1) {
-                    this.statusBackgroud.backgroundColor = UIColor(hex: "#2DD8A3")
-                    this.connectionStatus.text = "Synced with \(peer) peer(s)"
-                    this.blockInfo.text = "Latest Block \(bestblocktemp)"
-                    this.chainStatus.text = this.calculateTime(millis: Int64(NSDate().timeIntervalSince1970) - lastblocktime!)
+                    self.statusBackgroud.backgroundColor = UIColor(hex: "#2DD8A3")
+                    self.connectionStatus.text = "Synced with \(peer) peer(s)"
+                    self.blockInfo.text = "Latest Block \(bestblocktemp)"
+                    self.chainStatus.text = self.calculateTime(millis: Int64(NSDate().timeIntervalSince1970) - lastblocktime!)
                 } else {
-                    this.statusBackgroud.backgroundColor = UIColor(hex: "#555555", alpha: 0.4)
-                    this.connectionStatus.text = "Connecting to peers"
-                    this.blockInfo.text = "Latest Block \(bestblocktemp)"
-                    this.chainStatus.text = this.calculateTime(millis: Int64(NSDate().timeIntervalSince1970) - lastblocktime!)
+                    self.statusBackgroud.backgroundColor = UIColor(hex: "#555555", alpha: 0.4)
+                    self.connectionStatus.text = "Connecting to peers"
+                    self.blockInfo.text = "Latest Block \(bestblocktemp)"
+                    self.chainStatus.text = self.calculateTime(millis: Int64(NSDate().timeIntervalSince1970) - lastblocktime!)
                 }
             }
         }
