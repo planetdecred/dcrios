@@ -176,17 +176,16 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
             self.sync = UserDefaults.standard.bool(forKey: "synced")
             
             if !((self.sync)){
-                // self.connectionStatus.text = walletInfo.syncStatus
-                // self.blockInfo.text = walletInfo.ChainStatus
-                // self.chainStatus.text = walletInfo.bestblockTimeInfo
+                 self.connectionStatus.text = walletInfo.syncStatus
+                 self.blockInfo.text = walletInfo.ChainStatus
+                 self.chainStatus.text = walletInfo.bestblockTimeInfo
                 if (self.connectionStatus.text == "Connecting to peers"){
                     self.progressbar.progressTintColor = UIColor(hex: "#F9FAFA")
                     self.progressbar.progress = 1
                 }
                 else{
                     self.progressbar.progressTintColor = UIColor(hex: "#2DD8A3")
-                    // self.progressbar.progress = (Float(walletInfo.syncProgress) / 100.0)
-                    self.progressbar.progress = 0
+                     self.progressbar.progress = (Float(walletInfo.syncProgress) / 100.0)
                 }
                 
             }
