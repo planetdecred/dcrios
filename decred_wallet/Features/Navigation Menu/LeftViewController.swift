@@ -95,7 +95,6 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
-        // print("left did open")
         if UserDefaults.standard.bool(forKey: GlobalConstants.Strings.DELETE_WALLET) != false{
             UserDefaults.standard.set(false, forKey: GlobalConstants.Strings.DELETE_WALLET)
             let domain = Bundle.main.bundleIdentifier!
@@ -151,11 +150,6 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
         }
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        
-        print("left will appear")
     }
     
     func runTimer() {
