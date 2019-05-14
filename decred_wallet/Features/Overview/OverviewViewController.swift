@@ -10,46 +10,47 @@ import UIKit
 
 class OverviewViewController: UIViewController {
     @IBOutlet weak var syncProgressViewContainer: UIView!
-    @IBOutlet weak var syncHeaderLabel: UILabel!
-    @IBOutlet weak var generalSyncProgressBar: UIProgressView!
-    @IBOutlet weak var generalSyncProgressLabel: UILabel!
-    @IBOutlet weak var showDetailedSyncReportButton: UIButton!
-    @IBOutlet weak var currentSyncActionReportLabel: UILabel!
-    @IBOutlet weak var connectedPeersLabel: UILabel!
+    var syncProgressViewController: SyncProgressViewController?
     
     @IBOutlet weak var overviewPageContentView: UIView!
-    @IBOutlet weak var recentActivityTableView: UITableView!
     @IBOutlet weak var fetchingBalanceIndicator: UIImageView!
     @IBOutlet weak var totalBalanceLabel: UILabel!
+    @IBOutlet weak var recentActivityTableView: UITableView!
     
     var recentTransactions = [Transaction]()
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "embedSyncProgressVC" {
+            self.syncProgressViewController = segue.destination as? SyncProgressViewController
+        }
+    }
     
     override func viewDidLoad() {
         let initialSyncCompleted = WalletLoader.shared.syncer?.generalSyncProgress?.done ?? false
         if initialSyncCompleted {
-            self.syncProgressViewContainer = nil
-            self.initializeOverviewContent()
+            self.removeSyncViewsAndLoadOverview()
             return
         }
         
-        self.initializeSyncViews()
         self.overviewPageContentView.isHidden = true
-        self.view.addSubview(self.syncProgressViewContainer)
-        WalletLoader.shared.syncer?.registerSyncProgressListener(for: "\(self)", self)
+        
+        self.syncProgressViewController?.afterSyncCompletes = self.removeSyncViewsAndLoadOverview
+        self.syncProgressViewController!.initialize()
+    }
+    
+    func removeSyncViewsAndLoadOverview() {
+        self.syncProgressViewController?.dismiss(animated: false, completion: nil)
+        self.syncProgressViewContainer.removeFromSuperview()
+        
+        self.syncProgressViewController = nil
+        self.syncProgressViewContainer = nil
+        
+        self.initializeOverviewContent()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.setupNavigationBar(withTitle: "Overview")
-    }
-    
-    func initializeSyncViews() {
-        self.syncHeaderLabel.text = "Loading..."
-        self.generalSyncProgressBar.isHidden = true
-        self.generalSyncProgressBar.progress = 0.0
-        self.generalSyncProgressLabel.text = ""
-        self.currentSyncActionReportLabel.text = ""
-        self.connectedPeersLabel.text = ""
     }
     
     func initializeOverviewContent() {
@@ -74,15 +75,8 @@ class OverviewViewController: UIViewController {
         self.fetchingBalanceIndicator.superview?.isHidden = false
         
         do {
-            var getAccountsError: NSError?
-            let accountsJson = WalletLoader.wallet?.getAccounts(0, error: &getAccountsError)
-            if getAccountsError != nil {
-                throw getAccountsError!
-            }
-            
-            let accounts = try JSONDecoder().decode(WalletAccounts.self, from: accountsJson!.utf8Bits)
-            let totalAmount = accounts.Acc.filter({ !$0.isHidden }).map({ $0.dcrTotalBalance }).reduce(0,+)
-            let totalAmountRoundedOff = (Decimal(totalAmount) as NSDecimalNumber).round(8)
+            let totalWalletAmount = try WalletLoader.wallet?.totalWalletBalance()
+            let totalAmountRoundedOff = (Decimal(totalWalletAmount!) as NSDecimalNumber).round(8)
             
             self.totalBalanceLabel.attributedText = Utils.getAttributedString(str: "\(totalAmountRoundedOff)", siz: 17.0, TexthexColor: GlobalConstants.Colors.TextAmount)
             self.fetchingBalanceIndicator.superview?.isHidden = true
@@ -115,68 +109,22 @@ class OverviewViewController: UIViewController {
         }
     }
     
-    func removeSyncViewsFromPage() {
-        for syncProgressView in self.syncProgressViewContainer.subviews {
-            syncProgressView.removeFromSuperview()
-        }
-        self.syncProgressViewContainer.removeFromSuperview()
-        self.syncProgressViewContainer = nil
-    }
-}
-
-extension OverviewViewController: SyncProgressListenerProtocol {
-    func onGeneralSyncProgress(_ progressReport: GeneralSyncProgressReport) {
-        if progressReport.done {
-            WalletLoader.shared.syncer?.deRegisterSyncProgressListener(for: "\(self)")
-            self.removeSyncViewsFromPage()
-            self.initializeOverviewContent()
-            return
-        }
-
-        self.syncHeaderLabel.text = "Synchronizing"
-        
-        self.generalSyncProgressBar.isHidden = false
-        self.generalSyncProgressBar.progress = Float(progressReport.totalSyncProgress) / 100.0
-        
-        self.generalSyncProgressLabel.text = "\(progressReport.totalSyncProgress)% completed, \(progressReport.totalTimeRemaining) remaining."
-        
-        var peerCount: String
-        if progressReport.connectedPeers == 1 {
-            peerCount = "\(progressReport.connectedPeers) peer"
-        } else {
-            peerCount = "\(progressReport.connectedPeers) peers"
-        }
-        self.connectedPeersLabel.text = "Syncing with \(peerCount) on \(WalletLoader.shared.netType!)."
+    @IBAction func showAllTransactionsButtonTap(_ sender: Any) {
+        self.navigateToMenu(.history)
     }
     
-    func onHeadersFetchProgress(_ progressReport: HeadersFetchProgressReport) {
-        var reportText = "Fetched \(progressReport.fetchedHeadersCount) of ~\(progressReport.totalHeadersToFetch) block headers.\n"
-        reportText += "\(progressReport.headersFetchProgress)% through step 1 of 3."
-        
-        if progressReport.bestBlockAge != "" {
-            reportText += "\nYour wallet is \(progressReport.bestBlockAge) behind."
-        }
-        
-        self.currentSyncActionReportLabel.text = reportText
+    @IBAction func showSendPage(_ sender: Any) {
+        self.navigateToMenu(.send)
     }
     
-    func onAddressDiscoveryProgress(_ progressReport: AddressDiscoveryProgressReport) {
-        var reportText = "Discovering used addresses.\n"
-        
-        if progressReport.addressDiscoveryProgress > 100 {
-            reportText += "\(progressReport.addressDiscoveryProgress)% (over) through step 2 of 3."
-        } else {
-            reportText += "\(progressReport.addressDiscoveryProgress)% through step 2 of 3."
-        }
-        
-        self.currentSyncActionReportLabel.text = reportText
+    @IBAction func showReceivePage(_ sender: Any) {
+        self.navigateToMenu(.receive)
     }
     
-    func onHeadersRescanProgress(_ progressReport: HeadersRescanProgressReport) {
-        var reportText = "Scanning \(progressReport.currentRescanHeight) of \(progressReport.totalHeadersToScan) block headers.\n"
-        reportText += "\(progressReport.rescanProgress)% through step 3 of 3."
-        
-        self.currentSyncActionReportLabel.text = reportText
+    func navigateToMenu(_ menuItem: MenuItem) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+            self.navigationMenuViewController()?.changeActivePage(to: menuItem)
+        }
     }
 }
 

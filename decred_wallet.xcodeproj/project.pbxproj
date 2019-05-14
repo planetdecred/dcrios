@@ -75,11 +75,12 @@
 		B36547C62286A6490015F911 /* NavigationMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36547C52286A6490015F911 /* NavigationMenuViewController.swift */; };
 		B36547C82286B4B70015F911 /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36547C72286B4B70015F911 /* MenuItem.swift */; };
 		B39D0F432287ECF90035F781 /* OverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39D0F412287ECF90035F781 /* OverviewViewController.swift */; };
-		B39F15AD22895C3C0024A884 /* Overview.xib in Resources */ = {isa = PBXBuildFile; fileRef = B39F15AC22895C3C0024A884 /* Overview.xib */; };
 		B39F15B222896E340024A884 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39F15B122896E330024A884 /* Button.swift */; };
 		B39F15B4228992120024A884 /* Syncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39F15B3228992120024A884 /* Syncer.swift */; };
 		B39F15B6228994D00024A884 /* SyncDecodableDataTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39F15B5228994D00024A884 /* SyncDecodableDataTypes.swift */; };
 		B39F15B822899A770024A884 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39F15B722899A770024A884 /* String.swift */; };
+		B39F15BA228A53640024A884 /* Overview.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B39F15B9228A53640024A884 /* Overview.storyboard */; };
+		B39F15BC228A54E60024A884 /* SyncProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39F15BB228A54E60024A884 /* SyncProgressViewController.swift */; };
 		B3BA850C22744C7400440D3A /* SpendingPinOrPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BA850B22744C7400440D3A /* SpendingPinOrPassword.swift */; };
 		B3BA850E22744C8800440D3A /* StartupPinOrPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BA850D22744C8800440D3A /* StartupPinOrPassword.swift */; };
 		B3CC32B02284CBCC00A48624 /* Security.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3CC32AF2284CBCC00A48624 /* Security.storyboard */; };
@@ -228,11 +229,12 @@
 		B3879A102271F4970066CD0F /* Dcrlibwallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Dcrlibwallet.framework; path = libs/Dcrlibwallet.framework; sourceTree = "<group>"; };
 		B38F4546227062B50068F33D /* Dcrlibwallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Dcrlibwallet.framework; path = debug/Dcrlibwallet.framework; sourceTree = "<group>"; };
 		B39D0F412287ECF90035F781 /* OverviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverviewViewController.swift; sourceTree = "<group>"; };
-		B39F15AC22895C3C0024A884 /* Overview.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Overview.xib; sourceTree = "<group>"; };
 		B39F15B122896E330024A884 /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		B39F15B3228992120024A884 /* Syncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Syncer.swift; sourceTree = "<group>"; };
 		B39F15B5228994D00024A884 /* SyncDecodableDataTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncDecodableDataTypes.swift; sourceTree = "<group>"; };
 		B39F15B722899A770024A884 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		B39F15B9228A53640024A884 /* Overview.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Overview.storyboard; sourceTree = "<group>"; };
+		B39F15BB228A54E60024A884 /* SyncProgressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncProgressViewController.swift; sourceTree = "<group>"; };
 		B39F41C72278DB8300F6F202 /* Dcrlibwallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Dcrlibwallet.framework; path = libs/Dcrlibwallet.framework; sourceTree = "<group>"; };
 		B3A32AA9227012BB00CDD53D /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = Pods/Crashlytics/Crashlytics.framework; sourceTree = "<group>"; };
 		B3BA850B22744C7400440D3A /* SpendingPinOrPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendingPinOrPassword.swift; sourceTree = "<group>"; };
@@ -495,8 +497,9 @@
 		B39D0F3F2287ECF90035F781 /* Overview */ = {
 			isa = PBXGroup;
 			children = (
-				B39F15AC22895C3C0024A884 /* Overview.xib */,
+				B39F15B9228A53640024A884 /* Overview.storyboard */,
 				B39D0F412287ECF90035F781 /* OverviewViewController.swift */,
+				B39F15BB228A54E60024A884 /* SyncProgressViewController.swift */,
 			);
 			path = Overview;
 			sourceTree = "<group>";
@@ -814,6 +817,7 @@
 				95473E6B20E39E3C0023F50A /* TransactiontInputDetails.xib in Resources */,
 				28EB91C920FCFDBE007A0906 /* TransactionHistoryTableViewCell.xib in Resources */,
 				B3CC32B42284D7FD00A48624 /* NavigationMenu.storyboard in Resources */,
+				B39F15BA228A53640024A884 /* Overview.storyboard in Resources */,
 				95877FE820B70CBB00CE53D2 /* TransactionHistoryViewController.xib in Resources */,
 				DDA3E27320292EF900C83D18 /* Main.storyboard in Resources */,
 				95473E7120E3A4C20023F50A /* TransactiontOutputDetailsCell.xib in Resources */,
@@ -823,7 +827,6 @@
 				28664E5E216F740000AA01E2 /* progress bar-1s-200px.gif in Resources */,
 				95404EBF20E113D700B34327 /* AccountsHeaderView.xib in Resources */,
 				952C932A20E247FE00A60E43 /* SendCompletedViewController.storyboard in Resources */,
-				B39F15AD22895C3C0024A884 /* Overview.xib in Resources */,
 				2850E093217612EE00171267 /* SourceSansPro-BoldItalic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -992,6 +995,7 @@
 				952C932C20E2481500A60E43 /* SendCompletedViewController.swift in Sources */,
 				DDB89417202F8EE2002F85EE /* UIImageView.swift in Sources */,
 				B39F15B6228994D00024A884 /* SyncDecodableDataTypes.swift in Sources */,
+				B39F15BC228A54E60024A884 /* SyncProgressViewController.swift in Sources */,
 				28EB91B820FCFD8F007A0906 /* CreateNewWalletViewController.swift in Sources */,
 				DD1D5C7C20AED828009789DD /* certificateViewController.swift in Sources */,
 				B353549C22844CB100DBFDC9 /* WalletLoader.swift in Sources */,

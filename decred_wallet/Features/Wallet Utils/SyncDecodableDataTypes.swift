@@ -15,6 +15,14 @@ struct GeneralSyncProgressReport: Decodable {
     var totalSyncProgress: Int32
     var totalTimeRemainingSeconds: Int64
     
+    var peerCount: String {
+        if self.connectedPeers == 1 {
+            return "\(self.connectedPeers) peer"
+        } else {
+            return "\(self.connectedPeers) peers"
+        }
+    }
+    
     var totalTimeRemaining: String {
         let minutes = self.totalTimeRemainingSeconds / 60
         if minutes > 0 {

@@ -27,6 +27,10 @@ class Syncer: NSObject {
     var currentSyncOpProgress: Any?
     
     func beginSync() {
+        self.generalSyncProgress = nil
+        self.currentSyncOp = nil
+        self.currentSyncOpProgress = nil
+        
         DcrlibwalletSetLogLevels("off")
         WalletLoader.wallet?.addEstimatedSyncProgressListener(self)
         
@@ -40,7 +44,6 @@ class Syncer: NSObject {
     
     func registerSyncProgressListener(for identifier: String, _ listener: SyncProgressListenerProtocol) {
         self.syncListeners[identifier] = listener
-        print("registered sync listener for \(listener)")
         
         guard let generalSyncProgress = self.generalSyncProgress else {
             return
@@ -67,7 +70,6 @@ class Syncer: NSObject {
     
     func deRegisterSyncProgressListener(for identifier: String) {
         self.syncListeners.removeValue(forKey: identifier)
-        print("removed sync listener for \(identifier)")
     }
 }
 
@@ -85,8 +87,8 @@ extension Syncer: DcrlibwalletEstimatedSyncProgressJsonListenerProtocol {
     
     func onHeadersFetchProgress(_ report: String?, generalProgress: String?) {
         do {
-            let generalSyncProgress = try JSONDecoder().decode(GeneralSyncProgressReport.self, from: generalProgress!.utf8Bits)
-            self.onGeneralSyncProgress(generalSyncProgress)
+            self.generalSyncProgress = try JSONDecoder().decode(GeneralSyncProgressReport.self, from: generalProgress!.utf8Bits)
+            self.onGeneralSyncProgress(self.generalSyncProgress!)
             
             let headersFetchProgress = try JSONDecoder().decode(HeadersFetchProgressReport.self, from: report!.utf8Bits)
             self.onHeadersFetchProgress(headersFetchProgress)
@@ -97,8 +99,8 @@ extension Syncer: DcrlibwalletEstimatedSyncProgressJsonListenerProtocol {
     
     func onAddressDiscoveryProgress(_ report: String?, generalProgress: String?) {
         do {
-            let generalSyncProgress = try JSONDecoder().decode(GeneralSyncProgressReport.self, from: generalProgress!.utf8Bits)
-            self.onGeneralSyncProgress(generalSyncProgress)
+            self.generalSyncProgress = try JSONDecoder().decode(GeneralSyncProgressReport.self, from: generalProgress!.utf8Bits)
+            self.onGeneralSyncProgress(self.generalSyncProgress!)
             
             let addressDiscoveryProgress = try JSONDecoder().decode(AddressDiscoveryProgressReport.self, from: report!.utf8Bits)
             self.onAddressDiscoveryProgress(addressDiscoveryProgress)
@@ -109,8 +111,8 @@ extension Syncer: DcrlibwalletEstimatedSyncProgressJsonListenerProtocol {
     
     func onHeadersRescanProgress(_ report: String?, generalProgress: String?) {
         do {
-            let generalSyncProgress = try JSONDecoder().decode(GeneralSyncProgressReport.self, from: generalProgress!.utf8Bits)
-            self.onGeneralSyncProgress(generalSyncProgress)
+            self.generalSyncProgress = try JSONDecoder().decode(GeneralSyncProgressReport.self, from: generalProgress!.utf8Bits)
+            self.onGeneralSyncProgress(self.generalSyncProgress!)
             
             let headersRescanProgress = try JSONDecoder().decode(HeadersRescanProgressReport.self, from: report!.utf8Bits)
             self.onHeadersRescanProgress(headersRescanProgress)
