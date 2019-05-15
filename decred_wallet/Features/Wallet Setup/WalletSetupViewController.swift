@@ -17,22 +17,26 @@ class WalletSetupViewController: WalletSetupBaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         createWallet.text = "Create a New \n Wallet"
         restoreWallet.text = "Restore Existing \n Wallet"
         infoText.text = "Create or recover your wallet and \nstart managing your decred."
         
-        var compileDate:Date{
+        var compileDate: Date {
             let bundleName = Bundle.main.infoDictionary!["CFBundleName"] as? String ?? "Info.plist"
+            
             if let infoPath = Bundle.main.path(forResource: bundleName, ofType: nil),
                 let infoAttr = try? FileManager.default.attributesOfItem(atPath: infoPath),
-                let infoDate = infoAttr[FileAttributeKey.creationDate] as? Date
-            { return infoDate }
+                let infoDate = infoAttr[FileAttributeKey.creationDate] as? Date {
+                return infoDate
+            }
+            
             return Date()
         }
     
         let dateformater = DateFormatter()
         dateformater.dateFormat = "yyyy-MM-dd"
-        let netType = Utils.infoForKey(GlobalConstants.Strings.NetType)! == "mainnet" ? "mainnet" : "testnet"
-        build?.text = "build \(netType) " + dateformater.string(from: compileDate as Date)
+        let netType = GlobalConstants.App.IsTestnet ? "testnet" : Utils.infoForKey(GlobalConstants.Strings.NetType)!
+        build?.text = "build \(netType) " + dateformater.string(from: compileDate)
     }
 }

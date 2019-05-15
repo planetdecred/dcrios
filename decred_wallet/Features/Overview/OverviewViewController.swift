@@ -10,7 +10,6 @@ import UIKit
 
 class OverviewViewController: UIViewController {
     @IBOutlet weak var syncProgressViewContainer: UIView!
-    var syncProgressViewController: SyncProgressViewController?
     
     @IBOutlet weak var overviewPageContentView: UIView!
     @IBOutlet weak var fetchingBalanceIndicator: UIImageView!
@@ -19,33 +18,23 @@ class OverviewViewController: UIViewController {
     
     var recentTransactions = [Transaction]()
     
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == "embedSyncProgressVC" && WalletLoader.isSynced {
+            return false
+        }
+        return true
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "embedSyncProgressVC" {
-            self.syncProgressViewController = segue.destination as? SyncProgressViewController
+            (segue.destination as! SyncProgressViewController).afterSyncCompletes = self.initializeOverviewContent
         }
     }
     
     override func viewDidLoad() {
-        let initialSyncCompleted = WalletLoader.shared.syncer?.generalSyncProgress?.done ?? false
-        if initialSyncCompleted {
-            self.removeSyncViewsAndLoadOverview()
-            return
+        if WalletLoader.isSynced {
+            self.initializeOverviewContent()
         }
-        
-        self.overviewPageContentView.isHidden = true
-        
-        self.syncProgressViewController?.afterSyncCompletes = self.removeSyncViewsAndLoadOverview
-        self.syncProgressViewController!.initialize()
-    }
-    
-    func removeSyncViewsAndLoadOverview() {
-        self.syncProgressViewController?.dismiss(animated: false, completion: nil)
-        self.syncProgressViewContainer.removeFromSuperview()
-        
-        self.syncProgressViewController = nil
-        self.syncProgressViewContainer = nil
-        
-        self.initializeOverviewContent()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,8 +43,11 @@ class OverviewViewController: UIViewController {
     }
     
     func initializeOverviewContent() {
-        WalletLoader.shared.notification?.registerListener(for: "\(self)", newTxistener: self)
-        WalletLoader.shared.notification?.registerListener(for: "\(self)", confirmedTxListener: self)
+        self.syncProgressViewContainer.removeFromSuperview()
+        self.syncProgressViewContainer = nil
+        
+        WalletLoader.instance.notification.registerListener(for: "\(self)", newTxistener: self)
+        WalletLoader.instance.notification.registerListener(for: "\(self)", confirmedTxListener: self)
         
         self.fetchingBalanceIndicator.loadGif(name: "progress bar-1s-200px")
         self.updateCurrentBalance()

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SyncProgressViewController: UIViewController, SyncProgressListenerProtocol {
+class SyncProgressViewController: UIViewController {
     @IBOutlet weak var syncHeaderLabel: UILabel!
     @IBOutlet weak var generalSyncProgressBar: UIProgressView!
     @IBOutlet weak var generalSyncProgressLabel: UILabel!
@@ -19,11 +19,13 @@ class SyncProgressViewController: UIViewController, SyncProgressListenerProtocol
     var netType: String?
     var afterSyncCompletes: (() -> Void)?
     
-    func initialize() {
+    override func viewDidLoad() {
         self.syncHeaderLabel.text = "Loading..."
+        
         self.generalSyncProgressBar.isHidden = true
         self.generalSyncProgressBar.progress = 0.0
         self.generalSyncProgressLabel.text = ""
+        
         self.showDetailedSyncReportButton.isHidden = true
         
         self.currentSyncActionReportLabel.addGestureRecognizer(self.hideDetailedSyncReportTapGesture())
@@ -41,7 +43,7 @@ class SyncProgressViewController: UIViewController, SyncProgressListenerProtocol
             self.netType = Utils.infoForKey(GlobalConstants.Strings.NetType)
         }
         
-        WalletLoader.shared.syncer!.registerSyncProgressListener(for: "\(self)", self)
+        WalletLoader.instance.syncer.registerSyncProgressListener(for: "\(self)", self)
     }
     
     @IBAction func onTapShowDetailedSync(_ sender: Any) {
@@ -63,31 +65,24 @@ class SyncProgressViewController: UIViewController, SyncProgressListenerProtocol
             self.connectedPeersLabel.isHidden = true
         })
     }
-    
-    func onGeneralSyncProgress(_ progressReport: GeneralSyncProgressReport) {
-        if progressReport.done {
-            WalletLoader.shared.syncer?.deRegisterSyncProgressListener(for: "\(self)")
-            self.afterSyncCompletes?()
-            return
+}
+
+extension SyncProgressViewController: SyncProgressListenerProtocol {
+    func onPeerConnectedOrDisconnected(_ numberOfConnectedPeers: Int32) {
+        var connectedPeers: String
+        if numberOfConnectedPeers == 1 {
+            connectedPeers = "\(numberOfConnectedPeers) peer"
+        } else {
+            connectedPeers = "\(numberOfConnectedPeers) peers"
         }
-        
-        self.syncHeaderLabel.text = "Synchronizing"
-        
-        self.generalSyncProgressBar.isHidden = false
-        self.generalSyncProgressBar.progress = Float(progressReport.totalSyncProgress) / 100.0
-        
-        self.generalSyncProgressLabel.text = "\(progressReport.totalSyncProgress)% completed, \(progressReport.totalTimeRemaining) remaining."
-        self.connectedPeersLabel.text = "Syncing with \(progressReport.peerCount) on \(self.netType!)."
-        
-        if self.connectedPeersLabel.isHidden {
-            self.showDetailedSyncReportButton.isHidden = false
-        }
+        self.connectedPeersLabel.text = "Syncing with \(connectedPeers) on \(self.netType!)."
     }
     
     func onHeadersFetchProgress(_ progressReport: HeadersFetchProgressReport) {
+        self.handleGeneralProgressReport(progressReport)
+        
         var reportText = "Fetched \(progressReport.fetchedHeadersCount) of ~\(progressReport.totalHeadersToFetch) block headers.\n"
         reportText += "\(progressReport.headersFetchProgress)% through step 1 of 3."
-        
         if progressReport.bestBlockAge != "" {
             reportText += "\nYour wallet is \(progressReport.bestBlockAge) behind."
         }
@@ -96,8 +91,9 @@ class SyncProgressViewController: UIViewController, SyncProgressListenerProtocol
     }
     
     func onAddressDiscoveryProgress(_ progressReport: AddressDiscoveryProgressReport) {
-        var reportText = "Discovering used addresses.\n"
+        self.handleGeneralProgressReport(progressReport)
         
+        var reportText = "Discovering used addresses.\n"
         if progressReport.addressDiscoveryProgress > 100 {
             reportText += "\(progressReport.addressDiscoveryProgress)% (over) through step 2 of 3."
         } else {
@@ -108,9 +104,36 @@ class SyncProgressViewController: UIViewController, SyncProgressListenerProtocol
     }
     
     func onHeadersRescanProgress(_ progressReport: HeadersRescanProgressReport) {
+        self.handleGeneralProgressReport(progressReport)
+        
         var reportText = "Scanning \(progressReport.currentRescanHeight) of \(progressReport.totalHeadersToScan) block headers.\n"
         reportText += "\(progressReport.rescanProgress)% through step 3 of 3."
         
         self.currentSyncActionReportLabel.text = reportText
+    }
+    
+    func handleGeneralProgressReport(_ generalProgress: GeneralSyncProgressProtocol) {
+        self.syncHeaderLabel.text = "Synchronizing"
+        
+        self.generalSyncProgressBar.isHidden = false
+        self.generalSyncProgressBar.progress = Float(generalProgress.totalSyncProgress) / 100.0
+        
+        self.generalSyncProgressLabel.text = "\(generalProgress.totalSyncProgress)% completed, \(generalProgress.totalTimeRemaining) remaining."
+        
+        // Display "show details" button if details are not being shown currently.
+        self.showDetailedSyncReportButton.isHidden = !self.currentSyncActionReportLabel.isHidden
+    }
+    
+    func onSyncCompleted() {
+        WalletLoader.instance.syncer.deRegisterSyncProgressListener(for: "\(self)")
+        self.afterSyncCompletes?()
+    }
+    
+    func onSyncCanceled() {
+        self.syncHeaderLabel.text = "Synchronization canceled"
+    }
+    
+    func onSyncEndedWithError(_ error: String) {
+        self.syncHeaderLabel.text = "Synchronization error"
     }
 }

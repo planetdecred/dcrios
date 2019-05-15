@@ -9,32 +9,25 @@
 import Foundation
 
 class WalletLoader: NSObject {
+    static let instance: WalletLoader = WalletLoader()
+    
     var wallet: DcrlibwalletLibWallet?
-    var syncer: Syncer?
-    var notification: TransactionNotification?
-    
-    struct Static {
-        static let instance: WalletLoader = WalletLoader()
-    }
-    
-    public class var shared: WalletLoader {
-        return Static.instance
-    }
+    var syncer: Syncer = Syncer()
+    var notification: TransactionNotification = TransactionNotification()
     
     public class var wallet: DcrlibwalletLibWallet? {
-        return Static.instance.wallet
+        return instance.wallet
     }
     
     public class var isSynced: Bool {
-        return Static.instance.syncer?.generalSyncProgress?.done ?? false
+        return instance.syncer.currentSyncOp == SyncOp.Done
     }
     
-    func initialize() -> NSError? {
+    func initWallet() -> NSError? {
         let netType = Utils.infoForKey(GlobalConstants.Strings.NetType)
         
         var initWalletError: NSError?
         self.wallet = DcrlibwalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrlibwallet/", "bdb", netType!, &initWalletError)
-        self.syncer = Syncer()
         
         return initWalletError
     }

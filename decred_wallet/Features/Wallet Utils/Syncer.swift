@@ -7,34 +7,44 @@
 //
 
 protocol SyncProgressListenerProtocol {
-    func onGeneralSyncProgress(_ progressReport: GeneralSyncProgressReport)
+    func onPeerConnectedOrDisconnected(_ numberOfConnectedPeers: Int32)
     func onHeadersFetchProgress(_ progressReport: HeadersFetchProgressReport)
     func onAddressDiscoveryProgress(_ progressReport: AddressDiscoveryProgressReport)
     func onHeadersRescanProgress(_ progressReport: HeadersRescanProgressReport)
+    func onSyncCompleted()
+    func onSyncCanceled()
+    func onSyncEndedWithError(_ error: String)
 }
 
 enum SyncOp {
     case FetchingHeaders
     case DiscoveringAddresses
     case RescanningHeaders
+    case Done
+    case Canceled
+    case Errored
 }
 
 class Syncer: NSObject {
     var syncListeners = [String : SyncProgressListenerProtocol]()
     
-    var generalSyncProgress: GeneralSyncProgressReport?
     var currentSyncOp: SyncOp?
     var currentSyncOpProgress: Any?
     
-    override init() {
-        super.init()
-        // Register sync progress listener once, on init.
-        // beginSync may be called multiple times, so don't register listener there.
+    var connectedPeersCount: Int32 = 0
+    var connectedPeers: String {
+        if self.connectedPeersCount == 1 {
+            return "\(self.connectedPeersCount) peer"
+        } else {
+            return "\(self.connectedPeersCount) peers"
+        }
+    }
+    
+    func registerEstimatedSyncProgressListener() {
         WalletLoader.wallet?.addEstimatedSyncProgressListener(self)
     }
     
     func beginSync() {
-        self.generalSyncProgress = nil
         self.currentSyncOp = nil
         self.currentSyncOpProgress = nil
         
@@ -49,16 +59,10 @@ class Syncer: NSObject {
     func registerSyncProgressListener(for identifier: String, _ listener: SyncProgressListenerProtocol) {
         self.syncListeners[identifier] = listener
         
-        guard let generalSyncProgress = self.generalSyncProgress else {
-            return
-        }
-        
         // Report current status to newly added listener.
         // Especially important when a user navigates away from overview page during sync and returns to the page.
         // The listener is re-registered; this ensures that the UI is updated immediately.
-        if !generalSyncProgress.done && self.currentSyncOp != nil {
-            listener.onGeneralSyncProgress(generalSyncProgress)
-            
+        if self.currentSyncOp != nil {
             switch self.currentSyncOp! {
             case .FetchingHeaders:
                 listener.onHeadersFetchProgress(self.currentSyncOpProgress as! HeadersFetchProgressReport)
@@ -68,119 +72,93 @@ class Syncer: NSObject {
                 
             case .RescanningHeaders:
                 listener.onHeadersRescanProgress(self.currentSyncOpProgress as! HeadersRescanProgressReport)
+                
+            case .Done:
+                listener.onSyncCompleted()
+                
+            case .Canceled:
+                listener.onSyncCanceled()
+                
+            case .Errored:
+                listener.onSyncEndedWithError(self.currentSyncOpProgress as! String)
             }
+            
+            listener.onPeerConnectedOrDisconnected(self.connectedPeersCount)
         }
     }
     
     func deRegisterSyncProgressListener(for identifier: String) {
         self.syncListeners.removeValue(forKey: identifier)
     }
+    
+    func forEachSyncListener(_ callback: @escaping (_ syncListener: SyncProgressListenerProtocol) -> Void) {
+        DispatchQueue.main.async {
+            for (_, syncListener) in self.syncListeners {
+                callback(syncListener)
+            }
+        }
+    }
 }
 
 // Extension for receiving estimated sync progress report from dcrlibwallet sync process.
 // Progress report is decoded from the received Json string back to the original data format in the same dcrlibwallet background thread.
 extension Syncer: DcrlibwalletEstimatedSyncProgressJsonListenerProtocol {
-    func onGeneralSyncProgress(_ report: String?) {
-        do {
-            self.generalSyncProgress = try JSONDecoder().decode(GeneralSyncProgressReport.self, from: report!.utf8Bits)
-            self.onGeneralSyncProgress(self.generalSyncProgress!)
-        } catch (let error) {
-            self.onError(error)
-        }
+    func onPeerConnectedOrDisconnected(_ numberOfConnectedPeers: Int32) {
+        self.connectedPeersCount = numberOfConnectedPeers
+        self.forEachSyncListener({ syncListener in syncListener.onPeerConnectedOrDisconnected(numberOfConnectedPeers) })
     }
     
-    func onHeadersFetchProgress(_ report: String?, generalProgress: String?) {
-        do {
-            self.generalSyncProgress = try JSONDecoder().decode(GeneralSyncProgressReport.self, from: generalProgress!.utf8Bits)
-            self.onGeneralSyncProgress(self.generalSyncProgress!)
-            
-            let headersFetchProgress = try JSONDecoder().decode(HeadersFetchProgressReport.self, from: report!.utf8Bits)
-            self.onHeadersFetchProgress(headersFetchProgress)
-        } catch (let error) {
-            self.onError(error)
-        }
-    }
-    
-    func onAddressDiscoveryProgress(_ report: String?, generalProgress: String?) {
-        do {
-            self.generalSyncProgress = try JSONDecoder().decode(GeneralSyncProgressReport.self, from: generalProgress!.utf8Bits)
-            self.onGeneralSyncProgress(self.generalSyncProgress!)
-            
-            let addressDiscoveryProgress = try JSONDecoder().decode(AddressDiscoveryProgressReport.self, from: report!.utf8Bits)
-            self.onAddressDiscoveryProgress(addressDiscoveryProgress)
-        } catch (let error) {
-            self.onError(error)
-        }
-    }
-    
-    func onHeadersRescanProgress(_ report: String?, generalProgress: String?) {
-        do {
-            self.generalSyncProgress = try JSONDecoder().decode(GeneralSyncProgressReport.self, from: generalProgress!.utf8Bits)
-            self.onGeneralSyncProgress(self.generalSyncProgress!)
-            
-            let headersRescanProgress = try JSONDecoder().decode(HeadersRescanProgressReport.self, from: report!.utf8Bits)
-            self.onHeadersRescanProgress(headersRescanProgress)
-        } catch (let error) {
-            self.onError(error)
-        }
-    }
-    
-    func onError(_ err: Error?) {
-        print("estimated sync progress json encode/decode error: \(err!.localizedDescription)")
-    }
-}
-
-// Extension for notifying UI sync listeners on main thread after progress report is decoded in previous extension.
-extension Syncer: SyncProgressListenerProtocol {
-    func onGeneralSyncProgress(_ progressReport: GeneralSyncProgressReport) {
-        DispatchQueue.main.async {
-            self.syncListeners.forEach({ (_, syncListener) in
-                syncListener.onGeneralSyncProgress(progressReport)
-            })
-        }
-        
-        if progressReport.done {
-            self.currentSyncOp = nil
-            self.currentSyncOpProgress = nil
-        }
-    }
-    
-    func onHeadersFetchProgress(_ progressReport: HeadersFetchProgressReport) {
-        DispatchQueue.main.async {
-            for (_, syncListener) in self.syncListeners {
-                syncListener.onHeadersFetchProgress(progressReport)
-            }
-        }
-        
-        if !self.generalSyncProgress!.done {
+    func onHeadersFetchProgress(_ headersFetchProgressJson: String?) {
+        self.decodeProgressReport(headersFetchProgressJson, for: HeadersFetchProgressReport.self) { progressReport in
             self.currentSyncOp = .FetchingHeaders
             self.currentSyncOpProgress = progressReport
+            self.forEachSyncListener({ syncListener in syncListener.onHeadersFetchProgress(progressReport) })
         }
     }
     
-    func onAddressDiscoveryProgress(_ progressReport: AddressDiscoveryProgressReport) {
-        DispatchQueue.main.async {
-            for (_, syncListener) in self.syncListeners {
-                syncListener.onAddressDiscoveryProgress(progressReport)
-            }
-        }
-        
-        if !self.generalSyncProgress!.done {
+    func onAddressDiscoveryProgress(_ addressDiscoveryProgressJson: String?) {
+        self.decodeProgressReport(addressDiscoveryProgressJson, for: AddressDiscoveryProgressReport.self) { progressReport in
             self.currentSyncOp = .DiscoveringAddresses
             self.currentSyncOpProgress = progressReport
+            self.forEachSyncListener({ syncListener in syncListener.onAddressDiscoveryProgress(progressReport) })
         }
     }
     
-    func onHeadersRescanProgress(_ progressReport: HeadersRescanProgressReport) {
-        DispatchQueue.main.async {
-            for (_, syncListener) in self.syncListeners {
-                syncListener.onHeadersRescanProgress(progressReport)
-            }
-        }
-        
-        if !self.generalSyncProgress!.done {
+    func onHeadersRescanProgress(_ headersRescanProgressJson: String?) {
+        self.decodeProgressReport(headersRescanProgressJson, for: HeadersRescanProgressReport.self) { progressReport in
             self.currentSyncOp = .RescanningHeaders
             self.currentSyncOpProgress = progressReport
+            self.forEachSyncListener({ syncListener in syncListener.onHeadersRescanProgress(progressReport) })
+        }
+    }
+    
+    func onSyncCompleted() {
+        print("sync completed")
+        self.currentSyncOp = .Done
+        self.currentSyncOpProgress = nil
+        self.forEachSyncListener({ syncListener in syncListener.onSyncCompleted() })
+    }
+    
+    func onSyncCanceled() {
+        print("sync canceled")
+        self.currentSyncOp = .Canceled
+        self.currentSyncOpProgress = nil
+        self.forEachSyncListener({ syncListener in syncListener.onSyncCanceled() })
+    }
+    
+    func onSyncEndedWithError(_ err: String?) {
+        print("sync error: \(err!)")
+        self.currentSyncOp = .Errored
+        self.currentSyncOpProgress = err!
+        self.forEachSyncListener({ syncListener in syncListener.onSyncEndedWithError(err!) })
+    }
+    
+    func decodeProgressReport<T: Decodable>(_ reportJson: String?, for reportType: T.Type, _ handleProgressReport: (_ progressReport: T) -> Void) {
+        do {
+            let progressReport = try JSONDecoder().decode(reportType, from: reportJson!.utf8Bits)
+            handleProgressReport(progressReport)
+        } catch (let error) {
+            print("sync progress json decode error: \(error.localizedDescription)")
         }
     }
 }

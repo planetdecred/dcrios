@@ -23,8 +23,27 @@ class NavigationMenuViewController: UIViewController {
     @IBOutlet weak var bestBlockAgeLabel: UILabel!
     var refreshBestBlockAgeTimer: Timer?
     
-    var showNewWalletWelcomeMessage: Bool = false
+    var isNewWallet: Bool = false
     var currentMenuItem: MenuItem = MenuItem.overview
+    
+    static func setupMenuAndLaunchApp(isNewWallet: Bool) {
+        // wallet is open, setup sync listener and start notification listener
+        WalletLoader.instance.syncer.registerEstimatedSyncProgressListener()
+        WalletLoader.instance.notification.startListeningForNotifications()
+        
+        let navMenu = Storyboards.NavigationMenu.instantiateViewController(for: self)
+        navMenu.isNewWallet = isNewWallet
+        
+        let slideMenuController = SlideMenuController(
+            mainViewController: MenuItem.overview.viewController,
+            leftMenuViewController: navMenu
+        )
+        
+        let deviceWidth = (AppDelegate.shared.window?.frame.width)!
+        slideMenuController.changeLeftViewWidth(deviceWidth * 0.8)
+        
+        AppDelegate.shared.setAndDisplayRootViewController(slideMenuController)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,39 +57,17 @@ class NavigationMenuViewController: UIViewController {
         self.navMenuTableView.dataSource = self
         self.navMenuTableView.delegate = self
         
-        self.totalBalanceAmountLabel.text = ""
+        let tapToRestartSyncGesture = UITapGestureRecognizer(target: self, action:  #selector(self.restartSync))
+        self.syncStatusLabel.superview?.addGestureRecognizer(tapToRestartSyncGesture)
         
-        self.syncInProgressIndicator.loadGif(name: "progress bar-1s-200px")
-        self.syncOperationProgressBar.progress = 0
-        
-        self.syncStatusLabel.text = ""
-        let clickGesture = UITapGestureRecognizer(target: self, action:  #selector(self.restartSync))
-        self.syncStatusLabel.superview?.addGestureRecognizer(clickGesture)
-        
-        self.bestBlockLabel.text = ""
-        self.bestBlockAgeLabel.text = ""
-        
-        self.checkSyncPermissions()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        if !self.showNewWalletWelcomeMessage {
-            return
+        if self.isNewWallet {
+            self.showOkAlert(message: "\nYour 33 word seed is your wallet, keep it safe. Without it your funds cannot be recovered should your device be lost or destroyed.\n\nInitial wallet sync will take longer than usual. The wallet will connect to p2p nodes to download the blockchain headers, and will fetch only the blocks that you need while preserving your privacy.", title: "Welcome to Decred Wallet.", onPressOk: self.checkSyncPermission)
+        } else {
+            self.checkSyncPermission()
         }
-        
-        self.showNewWalletWelcomeMessage = false
-        self.showOkAlert(message: "\nYour 33 word seed is your wallet, keep it safe. Without it your funds cannot be recovered should your device be lost or destroyed.\n\nInitial wallet sync will take longer than usual. The wallet will connect to p2p nodes to download the blockchain headers, and will fetch only the blocks that you need while preserving your privacy.", title: "Welcome to Decred Wallet.")
     }
     
-    func changeActivePage(to menuItem: MenuItem) {
-        self.currentMenuItem = menuItem
-        self.slideMenuController()?.changeMainViewController(self.currentMenuItem.viewController, close: true)
-        self.navMenuTableView.reloadData()
-    }
-}
-
-extension NavigationMenuViewController: SyncProgressListenerProtocol {
-    func checkSyncPermissions() {
+    func checkSyncPermission() {
         let alwaysSync = UserDefaults.standard.bool(forKey: "always_sync")
         if alwaysSync {
             self.startSync()
@@ -102,45 +99,58 @@ extension NavigationMenuViewController: SyncProgressListenerProtocol {
         }
         
         syncConfirmationController.No = {
-            self.syncStatusLabel.text = "Wallet not synced."
+            self.onSyncCanceled()
         }
         
         AppDelegate.shared.window?.rootViewController?.present(syncConfirmationController, animated: true, completion: nil)
     }
 
+    
+    func resetSyncViews() {
+        self.totalBalanceAmountLabel.text = ""
+        
+        self.syncInProgressIndicator.loadGif(name: "progress bar-1s-200px")
+        self.syncInProgressIndicator.isHidden = false
+        
+        self.syncStatusLabel.text = ""
+        self.syncStatusLabel.superview?.backgroundColor = UIColor.lightGray
+        
+        self.syncOperationProgressBar.progress = 0
+        self.syncOperationProgressBar.isHidden = false
+        
+        self.bestBlockLabel.text = ""
+        self.bestBlockAgeLabel.text = ""
+    }
+    
+    func changeActivePage(to menuItem: MenuItem) {
+        self.currentMenuItem = menuItem
+        self.slideMenuController()?.changeMainViewController(self.currentMenuItem.viewController, close: true)
+        self.navMenuTableView.reloadData()
+    }
+}
+
+extension NavigationMenuViewController: SyncProgressListenerProtocol {
     func startSync() {
+        self.resetSyncViews()
         self.syncStatusLabel.text = "Connecting to peers."
-        WalletLoader.shared.syncer?.registerSyncProgressListener(for: "\(self)", self)
-        WalletLoader.shared.syncer?.beginSync()
+        WalletLoader.instance.syncer.registerSyncProgressListener(for: "\(self)", self)
+        WalletLoader.instance.syncer.beginSync()
     }
     
     @objc func restartSync() {
-        WalletLoader.shared.wallet?.cancelSync()
-        self.startSync()
+        WalletLoader.instance.wallet?.cancelSync()
+//        self.startSync()
     }
     
-    func onGeneralSyncProgress(_ progressReport: GeneralSyncProgressReport) {
-        if !progressReport.done {
-            self.syncOperationProgressBar.progress = Float(progressReport.totalSyncProgress) / 100.0
-            return
+    func onPeerConnectedOrDisconnected(_ numberOfConnectedPeers: Int32) {
+        if WalletLoader.isSynced {
+            self.syncStatusLabel.text = "Synced with \(WalletLoader.instance.syncer.connectedPeers)"
         }
-        
-        self.syncInProgressIndicator.stopAnimating()
-        self.syncInProgressIndicator.isHidden = true
-        self.syncOperationProgressBar.isHidden = true
-        
-        self.totalBalanceAmountLabel.isHidden = false
-        self.updateBalance()
-        self.updateLatestBlockInfo()
-        
-        self.syncStatusLabel.text = "Synced with \(progressReport.peerCount)"
-        self.syncStatusLabel.superview?.backgroundColor = UIColor(hex: "#2DD8A3")
-        
-        WalletLoader.shared.notification?.registerListener(for: "\(self)", newBlockListener: self)
-        WalletLoader.shared.notification?.registerListener(for: "\(self)", newTxistener: self)
     }
     
     func onHeadersFetchProgress(_ progressReport: HeadersFetchProgressReport) {
+        self.handleGeneralProgressReport(progressReport)
+        
         self.syncStatusLabel.text = "Fetching block headers."
         if progressReport.currentHeaderTimestamp != 0 {
             self.bestBlockLabel.text = "\(progressReport.totalHeadersToFetch - progressReport.fetchedHeadersCount) blocks behind."
@@ -151,25 +161,52 @@ extension NavigationMenuViewController: SyncProgressListenerProtocol {
     }
     
     func onAddressDiscoveryProgress(_ progressReport: AddressDiscoveryProgressReport) {
-        self.syncStatusLabel.text = "Discovering used addresses."
-        self.bestBlockAgeLabel.text = ""
+        self.handleGeneralProgressReport(progressReport)
         
-        if let generalSyncProgress = WalletLoader.shared.syncer?.generalSyncProgress {
-            self.bestBlockLabel.text = "\(generalSyncProgress.totalSyncProgress)% completed, \(generalSyncProgress.totalTimeRemaining) left."
-        } else {
-            self.bestBlockLabel.text = ""
-        }
+        self.syncStatusLabel.text = "Discovering used addresses."
+        self.bestBlockLabel.text = "\(progressReport.totalSyncProgress)% completed, \(progressReport.totalTimeRemaining) left."
+        self.bestBlockAgeLabel.text = ""
     }
     
     func onHeadersRescanProgress(_ progressReport: HeadersRescanProgressReport) {
-        self.syncStatusLabel.text = "Scanning blocks."
-        self.bestBlockAgeLabel.text = ""
+        self.handleGeneralProgressReport(progressReport)
         
-        if let generalSyncProgress = WalletLoader.shared.syncer?.generalSyncProgress {
-            self.bestBlockLabel.text = "\(generalSyncProgress.totalSyncProgress)% completed, \(generalSyncProgress.totalTimeRemaining) left."
-        } else {
-            self.bestBlockLabel.text = ""
-        }
+        self.syncStatusLabel.text = "Scanning blocks."
+        self.bestBlockLabel.text = "\(progressReport.totalSyncProgress)% completed, \(progressReport.totalTimeRemaining) left."
+        self.bestBlockAgeLabel.text = ""
+    }
+    
+    func handleGeneralProgressReport(_ generalProgress: GeneralSyncProgressProtocol) {
+        self.syncOperationProgressBar.progress = Float(generalProgress.totalSyncProgress) / 100.0
+    }
+    
+    func onSyncCompleted() {
+        self.updateBalance()
+        
+        self.syncInProgressIndicator.stopAnimating()
+        self.syncInProgressIndicator.isHidden = true
+        
+        self.syncStatusLabel.text = "Synced with \(WalletLoader.instance.syncer.connectedPeers)"
+        self.syncStatusLabel.superview?.backgroundColor = UIColor(hex: "#2DD8A3")
+        
+        self.syncOperationProgressBar.isHidden = true
+        
+        self.updateLatestBlockInfo()
+        
+        WalletLoader.instance.notification.registerListener(for: "\(self)", newBlockListener: self)
+        WalletLoader.instance.notification.registerListener(for: "\(self)", newTxistener: self)
+    }
+    
+    func onSyncCanceled() {
+        self.resetSyncViews()
+        self.syncStatusLabel.text = "Sync canceled. Tap to restart."
+        self.syncStatusLabel.superview?.backgroundColor = UIColor.yellow
+    }
+    
+    func onSyncEndedWithError(_ error: String) {
+        self.resetSyncViews()
+        self.syncStatusLabel.text = "Sync error."
+        self.syncStatusLabel.superview?.backgroundColor = UIColor.red
     }
 }
 
@@ -265,25 +302,5 @@ extension NavigationMenuViewController: UITableViewDataSource {
         menuItemCell.render(menuItem, isCurrentItem: self.currentMenuItem == menuItem)
         
         return menuItemCell
-    }
-}
-
-extension NavigationMenuViewController {
-    static func setupMenuAndLaunchApp(isNewWallet: Bool) {
-        // wallet is open, start notification listener
-        WalletLoader.shared.notification = TransactionNotification()
-        
-        let navMenu = Storyboards.NavigationMenu.instantiateViewController(for: self)
-        navMenu.showNewWalletWelcomeMessage = isNewWallet
-        
-        let slideMenuController = SlideMenuController(
-            mainViewController: MenuItem.overview.viewController,
-            leftMenuViewController: navMenu
-        )
-        
-        let deviceWidth = (AppDelegate.shared.window?.frame.width)!
-        slideMenuController.changeLeftViewWidth(deviceWidth * 0.8)
-        
-        AppDelegate.shared.setAndDisplayRootViewController(slideMenuController)
     }
 }

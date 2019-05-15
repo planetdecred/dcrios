@@ -25,7 +25,7 @@ class StartScreenViewController: UIViewController {
             testnetLabel.isHidden = false
         }
         
-        let initWalletError = WalletLoader.shared.initialize()
+        let initWalletError = WalletLoader.instance.initWallet()
         if initWalletError != nil {
             print("init wallet error: \(initWalletError!.localizedDescription)")
         }
@@ -38,13 +38,13 @@ class StartScreenViewController: UIViewController {
         
         // start timer to load main screen after specified interval
         if self.startTimerWhenViewAppears {
-            timer = Timer.scheduledTimer(withTimeInterval: self.animationDurationSeconds, repeats: false, block: {_ in
+            timer = Timer.scheduledTimer(withTimeInterval: self.animationDurationSeconds, repeats: false) {_ in
                 self.loadMainScreen()
-            })
+            }
             self.startTimerWhenViewAppears = false
         }
         
-        if WalletLoader.shared.isWalletCreated {
+        if WalletLoader.instance.isWalletCreated {
             self.label.text = "Opening wallet..."
         }
     }
@@ -58,13 +58,13 @@ class StartScreenViewController: UIViewController {
     }
     
     func loadMainScreen() {
-        if !WalletLoader.shared.isWalletCreated {
+        if !WalletLoader.instance.isWalletCreated {
             self.displayWalletSetupScreen()
         }
         else if StartupPinOrPassword.pinOrPasswordIsSet() {
             self.promptForStartupPinOrPassword()
         } else {
-            self.unlockWalletAndStartApp(password: "public") // unlock wallet using default public passphrase
+            self.unlockWalletAndStartApp(pinOrPassword: "public") // unlock wallet using default public passphrase
         }
     }
     
@@ -89,15 +89,14 @@ class StartScreenViewController: UIViewController {
         }
     }
     
-    func unlockWalletAndStartApp(password: String) {
+    func unlockWalletAndStartApp(pinOrPassword: String) {
         self.label.text = "Opening wallet..."
         
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let this = self else { return }
             
-            let walletPassphrase = (password as NSString).data(using: String.Encoding.utf8.rawValue)!
             do {
-                try WalletLoader.wallet?.open(walletPassphrase)
+                try WalletLoader.wallet?.open(pinOrPassword.utf8Bits)
                 DispatchQueue.main.async {
                     NavigationMenuViewController.setupMenuAndLaunchApp(isNewWallet: false)
                 }

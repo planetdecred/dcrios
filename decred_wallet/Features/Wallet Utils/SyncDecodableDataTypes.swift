@@ -6,23 +6,12 @@
 //  Copyright © 2019 The Decred developers. All rights reserved.
 //
 
-struct GeneralSyncProgressReport: Decodable {
-    var status: String
-    var connectedPeers: Int32
-    var error: String
-    var done: Bool
-    
-    var totalSyncProgress: Int32
-    var totalTimeRemainingSeconds: Int64
-    
-    var peerCount: String {
-        if self.connectedPeers == 1 {
-            return "\(self.connectedPeers) peer"
-        } else {
-            return "\(self.connectedPeers) peers"
-        }
-    }
-    
+protocol GeneralSyncProgressProtocol {
+    var totalSyncProgress: Int32 { get }
+    var totalTimeRemainingSeconds: Int64 { get }
+}
+
+extension GeneralSyncProgressProtocol {
     var totalTimeRemaining: String {
         let minutes = self.totalTimeRemainingSeconds / 60
         if minutes > 0 {
@@ -32,7 +21,10 @@ struct GeneralSyncProgressReport: Decodable {
     }
 }
 
-struct HeadersFetchProgressReport: Decodable {
+struct HeadersFetchProgressReport: Decodable, GeneralSyncProgressProtocol {
+    var totalSyncProgress: Int32
+    var totalTimeRemainingSeconds: Int64
+    
     var totalHeadersToFetch: Int32
     var currentHeaderTimestamp: Int64
     var fetchedHeadersCount: Int32
@@ -57,11 +49,17 @@ struct HeadersFetchProgressReport: Decodable {
     }
 }
 
-struct AddressDiscoveryProgressReport: Decodable {
+struct AddressDiscoveryProgressReport: Decodable, GeneralSyncProgressProtocol {
+    var totalSyncProgress: Int32
+    var totalTimeRemainingSeconds: Int64
+    
     var addressDiscoveryProgress: Int32
 }
 
-struct HeadersRescanProgressReport: Decodable {
+struct HeadersRescanProgressReport: Decodable, GeneralSyncProgressProtocol {
+    var totalSyncProgress: Int32
+    var totalTimeRemainingSeconds: Int64
+    
     var totalHeadersToScan: Int32
     var rescanProgress: Int32
     var currentRescanHeight: Int32

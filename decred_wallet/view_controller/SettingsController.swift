@@ -240,7 +240,7 @@ class SettingsController: UITableViewController  {
     }
     
     func handleDeleteWallet(pass: String){
-        let progressHud = Utils.showProgressHud(with: "Deleting wallet...")
+        let progressHud = Utils.showProgressHud(withText: "Deleting wallet...")
         let wallet = WalletLoader.wallet!
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let this = self else { return }

@@ -20,10 +20,10 @@ struct Utils {
         static let Year: Int64 = TimeInSeconds.Month * 12
     }
     
-    static func showProgressHud(with title:String?) -> JGProgressHUD{
+    static func showProgressHud(withText text: String) -> JGProgressHUD {
         let hud = JGProgressHUD(style: .light)
+        hud.textLabel.text = text
         hud.shadow = JGProgressHUDShadow(color: .black, offset: .zero, radius: 5.0, opacity: 0.2)
-        hud.textLabel.text = title ?? ""
         hud.show(in: (UIApplication.shared.keyWindow?.rootViewController?.view)!)
         return hud
     }

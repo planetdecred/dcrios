@@ -257,14 +257,14 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             return
         }
         
-        let peer = WalletLoader.shared.syncer?.generalSyncProgress?.connectedPeers ?? 0
-        guard peer > 0 else {
+        guard WalletLoader.instance.syncer.connectedPeersCount > 0 else {
             sendNtwkErrtext.text = "Not connected to the network."
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 self.sendNtwkErrtext.text = " "
             }
             return
         }
+        
         if self.validate(amount: self.tfAmount.text!) {
             self.fromNotQRScreen = false
             if SpendingPinOrPassword.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
@@ -324,15 +324,15 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     }
     
     private func signTransaction(sendAll: Bool?, password:String) {
-        let peer = WalletLoader.shared.syncer?.generalSyncProgress?.connectedPeers ?? 0
-        guard peer > 0 else {
+        guard WalletLoader.instance.syncer.connectedPeersCount > 0 else {
             sendNtwkErrtext.text = "Not connected to the network."
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 self.sendNtwkErrtext.text = " "
             }
             return
         }
-          var walletAddress = ""
+
+        var walletAddress = ""
         if (self.toAddressContainer.isHidden) {
             let receiveAddress = wallet?.currentAddress((self.sendToAccount?.Number)!, error: nil)
             walletAddress = receiveAddress!
@@ -342,6 +342,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                 walletAddress = self.walletAddress.text!
             }
         }
+        
         DispatchQueue.main.async {
             let amount = Double((self.tfAmount.text)!)! * 100000000
             let account = (self.selectedAccount?.Number)!
