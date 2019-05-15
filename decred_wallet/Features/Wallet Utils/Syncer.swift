@@ -14,6 +14,7 @@ protocol SyncProgressListenerProtocol {
     func onSyncCompleted()
     func onSyncCanceled()
     func onSyncEndedWithError(_ error: String)
+    func debug(_ totalTimeElapsed: Int64, _ totalTimeRemaining: Int64, _ currentStageTimeElapsed: Int64, _ currentStageTimeRemaining: Int64)
 }
 
 enum SyncOp {
@@ -160,5 +161,11 @@ extension Syncer: DcrlibwalletEstimatedSyncProgressJsonListenerProtocol {
         } catch (let error) {
             print("sync progress json decode error: \(error.localizedDescription)")
         }
+    }
+    
+    func debug(_ totalTimeElapsed: Int64, totalTimeRemaining: Int64, currentStageTimeElapsed: Int64, currentStageTimeRemaining: Int64) {
+        self.forEachSyncListener({ syncListener in
+            syncListener.debug(totalTimeElapsed, totalTimeRemaining, currentStageTimeElapsed, currentStageTimeRemaining)
+        })
     }
 }

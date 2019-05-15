@@ -14,6 +14,7 @@ class SyncProgressViewController: UIViewController {
     @IBOutlet weak var generalSyncProgressLabel: UILabel!
     @IBOutlet weak var showDetailedSyncReportButton: UIButton!
     @IBOutlet weak var currentSyncActionReportLabel: UILabel!
+    @IBOutlet weak var debugSyncInfoLabel: UILabel!
     @IBOutlet weak var connectedPeersLabel: UILabel!
     
     var netType: String?
@@ -28,14 +29,18 @@ class SyncProgressViewController: UIViewController {
         
         self.showDetailedSyncReportButton.isHidden = true
         
-        self.currentSyncActionReportLabel.addGestureRecognizer(self.hideDetailedSyncReportTapGesture())
-        self.connectedPeersLabel.addGestureRecognizer(self.hideDetailedSyncReportTapGesture())
-        
         self.currentSyncActionReportLabel.text = ""
         self.currentSyncActionReportLabel.isHidden = true
+        self.currentSyncActionReportLabel.addGestureRecognizer(self.hideDetailedSyncReportTapGesture())
+        self.currentSyncActionReportLabel.addGestureRecognizer(self.showOrHideDebugSyncReportLongPressGesture())
+        
+        self.debugSyncInfoLabel.text = ""
+        self.debugSyncInfoLabel.isHidden = true
+        self.debugSyncInfoLabel.addGestureRecognizer(self.showOrHideDebugSyncReportLongPressGesture())
         
         self.connectedPeersLabel.text = ""
         self.connectedPeersLabel.isHidden = true
+        self.connectedPeersLabel.addGestureRecognizer(self.hideDetailedSyncReportTapGesture())
         
         if GlobalConstants.App.IsTestnet {
             self.netType = "testnet"
@@ -63,6 +68,23 @@ class SyncProgressViewController: UIViewController {
             self.showDetailedSyncReportButton.isHidden = false
             self.currentSyncActionReportLabel.isHidden = true
             self.connectedPeersLabel.isHidden = true
+        })
+    }
+    
+    func showOrHideDebugSyncReportLongPressGesture() -> UILongPressGestureRecognizer {
+        return UILongPressGestureRecognizer(target: self, action: #selector(self.showOrHideDebugSyncReport))
+    }
+    
+    @objc func showOrHideDebugSyncReport(_ sender: Any) {
+        guard let longPress = sender as? UILongPressGestureRecognizer else {
+            return
+        }
+        if longPress.state != .began {
+            return
+        }
+        
+        UIView.animate(withDuration: 0.1, animations: { () -> Void in
+            self.debugSyncInfoLabel.isHidden = !self.debugSyncInfoLabel.isHidden
         })
     }
 }
@@ -135,5 +157,27 @@ extension SyncProgressViewController: SyncProgressListenerProtocol {
     
     func onSyncEndedWithError(_ error: String) {
         self.syncHeaderLabel.text = "Synchronization error"
+    }
+    
+    func debug(_ totalTimeElapsed: Int64, _ totalTimeRemaining: Int64, _ currentStageTimeElapsed: Int64, _ currentStageTimeRemaining: Int64) {
+        let timeFormatter = DateComponentsFormatter()
+        timeFormatter.allowedUnits = [.day, .hour, .minute, .second]
+        timeFormatter.unitsStyle = .abbreviated
+        
+        let formatTime: (_ time: Int64) -> String = { time in
+            return timeFormatter.string(from: TimeInterval(time))!
+        }
+        
+        var debugSyncInfo = "All Times\n"
+        debugSyncInfo += "elapsed: \(formatTime(totalTimeElapsed))"
+        debugSyncInfo += " remain: \(formatTime(totalTimeRemaining))"
+        debugSyncInfo += " total: \(formatTime(totalTimeElapsed + totalTimeRemaining))\n"
+        
+        debugSyncInfo += "Stage Times\n"
+        debugSyncInfo += "elapsed: \(formatTime(currentStageTimeElapsed))"
+        debugSyncInfo += " remain: \(formatTime(currentStageTimeRemaining))"
+        debugSyncInfo += " total: \(formatTime(currentStageTimeElapsed + currentStageTimeRemaining))"
+        
+        self.debugSyncInfoLabel.text = debugSyncInfo
     }
 }

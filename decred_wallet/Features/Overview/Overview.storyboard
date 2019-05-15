@@ -213,7 +213,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="qBd-aw-Ju0">
-                                <rect key="frame" x="0.0" y="300" width="414" height="218.5"/>
+                                <rect key="frame" x="0.0" y="283" width="414" height="252"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Synchronizing" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gpN-C1-UKu">
                                         <rect key="frame" x="16" y="16" width="382" height="24"/>
@@ -248,8 +248,14 @@
                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Syncing with 6 peers on testnet." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aRH-eN-kcY">
+                                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Debug information goes here" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="be1-m8-0Mv">
                                         <rect key="frame" x="16" y="181" width="382" height="21.5"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
+                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Syncing with 6 peers on testnet." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aRH-eN-kcY">
+                                        <rect key="frame" x="16" y="214.5" width="382" height="21.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -269,6 +275,7 @@
                     <connections>
                         <outlet property="connectedPeersLabel" destination="aRH-eN-kcY" id="Abs-mt-UBH"/>
                         <outlet property="currentSyncActionReportLabel" destination="FQx-9O-b3Q" id="9Uk-my-itj"/>
+                        <outlet property="debugSyncInfoLabel" destination="be1-m8-0Mv" id="2DW-4C-b2k"/>
                         <outlet property="generalSyncProgressBar" destination="yHy-WX-9OF" id="eam-HG-jit"/>
                         <outlet property="generalSyncProgressLabel" destination="i2g-EK-0Wo" id="faA-8L-BZp"/>
                         <outlet property="showDetailedSyncReportButton" destination="gy1-Aw-5vP" id="NRX-f2-7nZ"/>

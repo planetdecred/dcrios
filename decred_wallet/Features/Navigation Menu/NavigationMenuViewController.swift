@@ -208,6 +208,8 @@ extension NavigationMenuViewController: SyncProgressListenerProtocol {
         self.syncStatusLabel.text = "Sync error."
         self.syncStatusLabel.superview?.backgroundColor = UIColor.red
     }
+    
+    func debug(_ totalTimeElapsed: Int64, _ totalTimeRemaining: Int64, _ currentStageTimeElapsed: Int64, _ currentStageTimeRemaining: Int64) {}
 }
 
 // Transaction notification callback to update best block info (on block attached) and balance (on new transaction).
