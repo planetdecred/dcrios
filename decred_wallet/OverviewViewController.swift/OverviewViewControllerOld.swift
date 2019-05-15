@@ -11,9 +11,8 @@ import Dcrlibwallet
 import JGProgressHUD
 import UserNotifications
 
-class OverviewViewController: UIViewController, DcrlibwalletGetTransactionsResponseProtocol, DcrlibwalletTransactionListenerProtocol, DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol {
+class OverviewViewControllerOld: UIViewController, DcrlibwalletGetTransactionsResponseProtocol, DcrlibwalletTransactionListenerProtocol, DcrlibwalletBlockScanResponseProtocol, DcrlibwalletSpvSyncResponseProtocol {
     
-    weak var delegate : LeftMenuProtocol?
     var pinInput: String?
     var reScan_percentage = 0.1;
     var discovery_percentage = 0.8
@@ -68,7 +67,7 @@ class OverviewViewController: UIViewController, DcrlibwalletGetTransactionsRespo
         refreshControl = {
             let refreshControl = UIRefreshControl()
             refreshControl.addTarget(self, action:
-                #selector(OverviewViewController.handleRefresh(_:)),
+                #selector(OverviewViewControllerOld.handleRefresh(_:)),
                                      for: UIControl.Event.valueChanged)
             refreshControl.tintColor = UIColor.lightGray
             
@@ -425,15 +424,16 @@ class OverviewViewController: UIViewController, DcrlibwalletGetTransactionsRespo
     @IBAction func sendView(_ sender: Any) {
         UIApplication.shared.beginIgnoringInteractionEvents()
          DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
-            self.delegate!.changeViewController(LeftMenu.send)
+            self.navigationMenuViewController()?.changeActivePage(to: MenuItem.send)
             UIApplication.shared.endIgnoringInteractionEvents()
         }
         
     }
+    
     @IBAction func receiveView(_ sender: Any) {
         UIApplication.shared.beginIgnoringInteractionEvents()
          DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
-            self.delegate!.changeViewController(LeftMenu.receive)
+            self.navigationMenuViewController()?.changeActivePage(to: MenuItem.receive)
             UIApplication.shared.endIgnoringInteractionEvents()
         }
     }
@@ -441,7 +441,7 @@ class OverviewViewController: UIViewController, DcrlibwalletGetTransactionsRespo
     @IBAction func historyView(_ sender: Any) {
         UIApplication.shared.beginIgnoringInteractionEvents()
          DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
-            self.delegate!.changeViewController(LeftMenu.history)
+            self.navigationMenuViewController()?.changeActivePage(to: MenuItem.history)
             UIApplication.shared.endIgnoringInteractionEvents()
         }
     }
@@ -851,7 +851,7 @@ class OverviewViewController: UIViewController, DcrlibwalletGetTransactionsRespo
     func onRescanProgress(_ rescannedThrough: Int32) {}
 }
 
-extension OverviewViewController : UITableViewDelegate {
+extension OverviewViewControllerOld : UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return DataTableViewCell.height()
@@ -870,8 +870,7 @@ extension OverviewViewController : UITableViewDelegate {
     
 }
 
-extension OverviewViewController : UITableViewDataSource {
-    
+extension OverviewViewControllerOld : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let maxDisplayItems = round(tableView.frame.size.height / DataTableViewCell.height())
         return min(self.mainContens.count, Int(maxDisplayItems))
@@ -896,35 +895,4 @@ extension OverviewViewController : UITableViewDataSource {
             self.mainContens[indexPath.row].Animate = false
         }
     }
-    
-    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {}
 }
-
-extension OverviewViewController : SlideMenuControllerDelegate {
-    
-    func leftWillOpen() {}
-    
-    func leftDidOpen() {}
-    
-    func leftWillClose() {}
-    
-    func leftDidClose() {}
-    
-    func rightWillOpen() {}
-    
-    func rightDidOpen() {}
-    
-    func rightWillClose() {}
-    
-    func rightDidClose() {}
-}
-extension Date {
-    var millisecondsSince1970:Int64 {
-         return Int64((self.timeIntervalSince1970 * 1000.0).rounded())
-    }
-    
-    init(milliseconds:Int) {
-        self = Date(timeIntervalSince1970: TimeInterval(milliseconds) / 1000)
-    }
-}
-

@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol AccountDetailsCellProtocol {
-    func setup(account: AccountsEntity)
+    func setup(account: WalletAccount)
     
 }
 
@@ -17,7 +17,7 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
     // MARK: - Properties
     
     var myBalances: [AccountsData] = [AccountsData]()
-    var account: GetAccountResponse?
+    var account: WalletAccounts?
     var visible = false
     
     @IBOutlet var tableAccountData: UITableView!
@@ -32,8 +32,7 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setNavigationBarItem()
-        navigationItem.title = "Account"
+        setupNavigationBar(withTitle: "Account")
         
         self.navigationItem.rightBarButtonItem?.accessibilityElementsHidden = true
     }
@@ -76,12 +75,12 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
             this.myBalances.removeAll()
             do {
                 var getAccountError: NSError?
-                let strAccount = SingleInstance.shared.wallet?.getAccounts(0, error: &getAccountError)
+                let strAccount = WalletLoader.wallet?.getAccounts(0, error: &getAccountError)
                 if getAccountError != nil {
                     throw getAccountError!
                 }
                 
-                this.account = try JSONDecoder().decode(GetAccountResponse.self, from: (strAccount?.data(using: .utf8))!)
+                this.account = try JSONDecoder().decode(WalletAccounts.self, from: (strAccount?.data(using: .utf8))!)
                 this.myBalances = {
                     var colorCount = -1
                     return this.account!.Acc.map {
@@ -134,7 +133,7 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
         } else{
             headerView.arrowDirection.setImage(UIImage.init(named: "arrow-1"), for: .normal)
         }
-        headerView.syncing(status: !UserDefaults.standard.bool(forKey: "synced"))
+        headerView.syncing(status: !WalletLoader.isSynced)
         
         return headerView
     }

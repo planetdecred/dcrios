@@ -84,15 +84,15 @@ struct StartupPinOrPassword {
         if currentPassword == nil {
             // password was not previously configured, let's set it
             let newSecurityType = securityType!.lowercased()
-            progressHud = Utils.showProgressHud(with: "Setting startup \(newSecurityType)...")
+            progressHud = Utils.showProgressHud(withText: "Setting startup \(newSecurityType)...")
         } else if newPinOrPassword == nil {
             // password was previously configured, but no new password is to be set
             let currentSecurityType = self.currentSecurityType()!.lowercased()
-            progressHud = Utils.showProgressHud(with: "Removing startup \(currentSecurityType)...")
+            progressHud = Utils.showProgressHud(withText: "Removing startup \(currentSecurityType)...")
         } else {
             // password was previously configured, but we're to set a new one
             let newSecurityType = securityType!.lowercased()
-            progressHud = Utils.showProgressHud(with: "Changing startup \(newSecurityType)...")
+            progressHud = Utils.showProgressHud(withText: "Changing startup \(newSecurityType)...")
         }
         
         let currentPublicPassphrase = currentPassword ?? self.defaultPublicPassphrase
@@ -102,7 +102,7 @@ struct StartupPinOrPassword {
             do {
                 let oldPublicPass = (currentPublicPassphrase as NSString).data(using: String.Encoding.utf8.rawValue)!
                 let newPublicPass = (newPublicPassphrase as NSString).data(using: String.Encoding.utf8.rawValue)!
-                try SingleInstance.shared.wallet?.changePublicPassphrase(oldPublicPass, newPass: newPublicPass)
+                try WalletLoader.wallet?.changePublicPassphrase(oldPublicPass, newPass: newPublicPass)
                 
                 DispatchQueue.main.async {
                     progressHud.dismiss()

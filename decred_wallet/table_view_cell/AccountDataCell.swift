@@ -23,7 +23,7 @@ class AccountDataCell: UITableViewCell, AccountDetailsCellProtocol {
     @IBOutlet private weak var labelHDPathValue: UILabel!
     @IBOutlet private weak var labelKeysValue: UILabel!
     @IBOutlet weak var defaultAccount: UISwitch!
-    private var accountTmp: AccountsEntity!
+    private var accountTmp: WalletAccount!
     @IBOutlet weak var hideAcount: UISwitch!
     
     override func awakeFromNib() {
@@ -46,7 +46,7 @@ class AccountDataCell: UITableViewCell, AccountDetailsCellProtocol {
         UserDefaults.standard.synchronize()
     }
     
-    func setup(account: AccountsEntity) {
+    func setup(account: WalletAccount) {
         self.accountTmp = account
         
         labelImmatureRewardValue.text = "\(account.Balance?.dcrImmatureReward ?? 0)"
@@ -77,7 +77,7 @@ class AccountDataCell: UITableViewCell, AccountDetailsCellProtocol {
                 hideAcount.setOn(false, animated: false)
                 hideAcount.isEnabled = true
             }
-            if (account.isDefaultWallet){
+            if (account.isDefault){
                 defaultAccount.setOn(true, animated: false)
                 defaultAccount.isEnabled = false
                 hideAcount.setOn(false, animated: false)

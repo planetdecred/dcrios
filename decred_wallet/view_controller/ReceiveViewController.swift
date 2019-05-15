@@ -20,11 +20,11 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     
     var firstTrial = true
     var starttime: Int64 = 0
-    var myacc: AccountsEntity!
-    var account: GetAccountResponse?
+    var myacc: WalletAccount!
+    var account: WalletAccounts?
     var tapGesture = UITapGestureRecognizer()
     var oldAddress = ""
-    var wallet = SingleInstance.shared.wallet
+    var wallet = WalletLoader.wallet
     
     private var selectedAccount = ""
     
@@ -50,8 +50,8 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setNavigationBarItem()
-        navigationItem.title = "Receive"
+        setupNavigationBar(withTitle: "Receive")
+        
         let shareBtn = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share))
         let generateAddressBtn = UIButton(type: .custom)
         generateAddressBtn.setImage(UIImage(named: "right-menu"), for: .normal)
@@ -103,7 +103,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
                 throw getAccountError!
             }
             
-            self.account = try JSONDecoder().decode(GetAccountResponse.self, from: (strAccount?.data(using: .utf8))!)
+            self.account = try JSONDecoder().decode(WalletAccounts.self, from: (strAccount?.data(using: .utf8))!)
         } catch let error{
             print(error)
         }
@@ -148,12 +148,12 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
             if getAccountError != nil {
                 throw getAccountError!
             }
-            self.account = try JSONDecoder().decode(GetAccountResponse.self, from: (strAccount?.data(using: .utf8))!)
+            self.account = try JSONDecoder().decode(WalletAccounts.self, from: (strAccount?.data(using: .utf8))!)
         } catch let error{
             print(error)
         }
         
-        if let defaultAccount = account?.Acc.filter({ $0.isDefaultWallet}).first {
+        if let defaultAccount = account?.Acc.filter({ $0.isDefault}).first {
             
             accountDropdown.setTitle(
                 defaultAccount.Name,

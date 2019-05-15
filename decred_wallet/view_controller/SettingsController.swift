@@ -10,8 +10,6 @@ import UIKit
 import JGProgressHUD
 
 class SettingsController: UITableViewController  {
-    weak var delegate: LeftMenuProtocol?
-    
     @IBOutlet weak var changeStartPINCell: UITableViewCell!
     @IBOutlet weak var peer_cell: UIView!
     @IBOutlet weak var connectPeer_cell: UITableViewCell!
@@ -49,7 +47,7 @@ class SettingsController: UITableViewController  {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(exitSettings))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
         
-        connect_peer_ip?.text = UserDefaults.standard.string(forKey: "pref_peer_ip") ?? ""
+        connect_peer_ip?.text = UserDefaults.standard.string(forKey: GlobalConstants.SettingsKeys.SPVPeerIP) ?? ""
         server_ip?.text = UserDefaults.standard.string(forKey: "pref_server_ip") ?? ""
         
         loadDate()
@@ -80,8 +78,8 @@ class SettingsController: UITableViewController  {
     }
     
     @objc func exitSettings() -> Void {
-        if let navigationMenu = self.delegate {
-            navigationMenu.changeViewController(LeftMenu.overview)
+        if let navMenuController = self.navigationMenuViewController() {
+            navMenuController.changeActivePage(to: MenuItem.overview)
         } else if self.isModal {
             self.dismiss(animated: true, completion: nil)
         } else {
@@ -122,7 +120,7 @@ class SettingsController: UITableViewController  {
         build?.text = dateformater.string(from: compileDate as Date)
         debu_msg?.setOn((UserDefaults.standard.bool(forKey: "pref_debug_switch") ), animated: false)
         spend_uncon_fund?.setOn(UserDefaults.standard.bool(forKey: "pref_spend_fund_switch"), animated: false)
-        connect_peer_ip?.text = UserDefaults.standard.string(forKey: "pref_peer_ip") ?? ""
+        connect_peer_ip?.text = UserDefaults.standard.string(forKey: GlobalConstants.SettingsKeys.SPVPeerIP) ?? ""
         server_ip?.text = UserDefaults.standard.string(forKey: "pref_server_ip") ?? ""
         incoming_notification_switch?.setOn(UserDefaults.standard.bool(forKey: "pref_notification_switch"), animated: true)
         
@@ -242,25 +240,24 @@ class SettingsController: UITableViewController  {
     }
     
     func handleDeleteWallet(pass: String){
-        let progressHud = Utils.showProgressHud(with: "Deleting wallet...")
-        let wallet = SingleInstance.shared.wallet!
+        let progressHud = Utils.showProgressHud(withText: "Deleting wallet...")
+        let wallet = WalletLoader.wallet!
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let this = self else { return }
             
             do {
                 let passData = (pass as NSString).data(using: String.Encoding.utf8.rawValue)!
-                wallet.dropSpvConnection()
+                wallet.cancelSync()
                 try wallet.unlock(passData)
                 try wallet.close()
 
                 let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
                 let walletDir = paths[0].appendingPathComponent("dcrlibwallet")
                 try FileManager.default.removeItem(at: walletDir)
+                
                 DispatchQueue.main.async {
                     progressHud.dismiss()
-                    UserDefaults.standard.set(true, forKey: GlobalConstants.Strings.DELETE_WALLET)
-                    UserDefaults.standard.synchronize()
-                    self?.delegate?.changeViewController(LeftMenu.overview)
+                    this.walletDeleted()
                 }
             } catch {
                 DispatchQueue.main.async {
@@ -270,6 +267,19 @@ class SettingsController: UITableViewController  {
                     this.present(alertController, animated: true, completion: nil)
                 }
             }
+        }
+    }
+    
+    // Clears values stored in UserDefaults and restarts the app when wallet is deleted.
+    func walletDeleted() {
+        UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
+        UserDefaults.standard.synchronize()
+        
+        UIApplication.shared.keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
+        
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            let startScreen = Storyboards.Main.initialViewController()
+            appDelegate.setAndDisplayRootViewController(startScreen!)
         }
     }
     

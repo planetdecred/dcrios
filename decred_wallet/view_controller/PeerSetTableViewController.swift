@@ -19,7 +19,7 @@ class PeerSetTableViewController: UITableViewController {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
         self.navigationItem.title = "Connect to peer"
         // Do any additional setup after loading the view.
-        peer_ip?.text = UserDefaults.standard.string(forKey: "pref_peer_ip") ?? ""
+        peer_ip?.text = UserDefaults.standard.string(forKey: GlobalConstants.SettingsKeys.SPVPeerIP) ?? ""
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -37,14 +37,14 @@ class PeerSetTableViewController: UITableViewController {
         print("saving")
         if (peer_ip.text?.isEmpty)! || (peer_ip.text)! == ""{
             print("saving nothing")
-            UserDefaults.standard.set("", forKey: "pref_peer_ip")
+            UserDefaults.standard.set("", forKey: GlobalConstants.SettingsKeys.SPVPeerIP)
             UserDefaults.standard.synchronize()
             self.navigationController?.popViewController(animated: true)
             return
         }
         else if isValidIP(s: peer_ip.text!){
             print("saving \(String(describing: peer_ip.text))")
-            UserDefaults.standard.set(peer_ip.text, forKey: "pref_peer_ip")
+            UserDefaults.standard.set(peer_ip.text, forKey: GlobalConstants.SettingsKeys.SPVPeerIP)
             UserDefaults.standard.synchronize()
             self.navigationController?.popViewController(animated: true)
             return

@@ -15,6 +15,7 @@ class StartScreenViewController: UIViewController {
     @IBOutlet weak var testnetLabel: UILabel!
     
     var timer: Timer?
+    var startTimerWhenViewAppears = true
     let animationDurationSeconds: Double = 5
     
     override func viewDidLoad() {
@@ -24,14 +25,11 @@ class StartScreenViewController: UIViewController {
             testnetLabel.isHidden = false
         }
         
-        let initWalletError = WalletLoader.initialize()
+        let initWalletError = WalletLoader.instance.initWallet()
         if initWalletError != nil {
             print("init wallet error: \(initWalletError!.localizedDescription)")
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        
         logo.loadGif(name: "splashLogo")
     }
     
@@ -39,31 +37,34 @@ class StartScreenViewController: UIViewController {
         super.viewDidAppear(animated)
         
         // start timer to load main screen after specified interval
-        timer = Timer.scheduledTimer(withTimeInterval: self.animationDurationSeconds, repeats: false, block: {_ in
-            self.loadMainScreen()
-        })
+        if self.startTimerWhenViewAppears {
+            timer = Timer.scheduledTimer(withTimeInterval: self.animationDurationSeconds, repeats: false) {_ in
+                self.loadMainScreen()
+            }
+            self.startTimerWhenViewAppears = false
+        }
         
-        if WalletLoader.isWalletCreated {
+        if WalletLoader.instance.isWalletCreated {
             self.label.text = "Opening wallet..."
         }
     }
     
     @IBAction func animatedLogoTap(_ sender: Any) {
-        // stop timer, will be restarted after settings page is closed and this page re-appears
         timer?.invalidate()
+        self.startTimerWhenViewAppears = true
         
         let settingsVC = SettingsController.instantiate().wrapInNavigationcontroller()
         self.present(settingsVC, animated: true, completion: nil)
     }
     
     func loadMainScreen() {
-        if !WalletLoader.isWalletCreated {
+        if !WalletLoader.instance.isWalletCreated {
             self.displayWalletSetupScreen()
         }
         else if StartupPinOrPassword.pinOrPasswordIsSet() {
             self.promptForStartupPinOrPassword()
         } else {
-            self.unlockWalletAndStartApp(password: "public") // unlock wallet using default public passphrase
+            self.unlockWalletAndStartApp(pinOrPassword: "public") // unlock wallet using default public passphrase
         }
     }
     
@@ -88,43 +89,23 @@ class StartScreenViewController: UIViewController {
         }
     }
     
-    func unlockWalletAndStartApp(password: String) {
+    func unlockWalletAndStartApp(pinOrPassword: String) {
         self.label.text = "Opening wallet..."
         
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let this = self else { return }
             
-            let walletPassphrase = (password as NSString).data(using: String.Encoding.utf8.rawValue)!
             do {
-                try SingleInstance.shared.wallet?.open(walletPassphrase)
-                Utils.runInMainThread {
-                    this.createMenuView()
+                try WalletLoader.wallet?.open(pinOrPassword.utf8Bits)
+                DispatchQueue.main.async {
+                    NavigationMenuViewController.setupMenuAndLaunchApp(isNewWallet: false)
                 }
             } catch let error {
-                Utils.runInMainThread {
+                DispatchQueue.main.async {
                     this.showOkAlert(message: error.localizedDescription, title: "Error")
                 }
             }
         }
-    }
-    
-    func createMenuView() {
-        let mainViewController = Storyboards.Main.instantiateViewController(for: OverviewViewController.self)
-        let leftViewController = LeftViewController.instantiate()
-        mainViewController.delegate = leftViewController
-        let nvc: UINavigationController = UINavigationController(rootViewController: mainViewController)
-        
-        UINavigationBar.appearance().tintColor = GlobalConstants.Colors.navigationBarColor
-        leftViewController.mainViewController = nvc
-        
-        let window = AppDelegate.shared.window
-        let slideMenuController = SlideMenuController(mainViewController: nvc, leftMenuViewController: leftViewController)
-        slideMenuController.changeLeftViewWidth((window?.frame.size.width)! - (window?.frame.size.width)! / 6)
-        slideMenuController.delegate = mainViewController
-        
-        window?.backgroundColor = GlobalConstants.Colors.lightGrey
-        window?.rootViewController = slideMenuController
-        window?.makeKeyAndVisible()
     }
     
     static func instantiate() -> Self {

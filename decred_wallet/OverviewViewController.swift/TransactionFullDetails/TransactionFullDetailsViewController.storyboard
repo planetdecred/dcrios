@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Gia-AO-cm1">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Transaction Full Details View Controller-->
+        <scene sceneID="DpT-Dg-OV6">
+            <objects>
+                <viewController storyboardIdentifier="TransactionFullDetailsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Gia-AO-cm1" customClass="TransactionFullDetailsViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jVq-pq-hff">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" pagingEnabled="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dx6-nC-hdi">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="Gia-AO-cm1" id="H7w-tR-Vtr"/>
+                                    <outlet property="delegate" destination="Gia-AO-cm1" id="RFq-hW-lfF"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="dx6-nC-hdi" firstAttribute="leading" secondItem="Jia-se-qbj" secondAttribute="leading" id="CSr-m8-nbn"/>
+                            <constraint firstItem="Jia-se-qbj" firstAttribute="bottom" secondItem="dx6-nC-hdi" secondAttribute="bottom" id="Y4W-wK-Ien"/>
+                            <constraint firstItem="dx6-nC-hdi" firstAttribute="top" secondItem="Jia-se-qbj" secondAttribute="top" id="h0o-BZ-gG0"/>
+                            <constraint firstItem="Jia-se-qbj" firstAttribute="trailing" secondItem="dx6-nC-hdi" secondAttribute="trailing" id="nm0-X6-iQL"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Jia-se-qbj"/>
+                    </view>
+                    <connections>
+                        <outlet property="amount" destination="I0P-ya-PoI" id="XOh-SQ-Xpg"/>
+                        <outlet property="detailsHeader" destination="9Ha-a1-zJH" id="Yu4-gV-Li4"/>
+                        <outlet property="tableTransactionDetails" destination="dx6-nC-hdi" id="Lf9-c4-Per"/>
+                        <outlet property="tableView" destination="dx6-nC-hdi" id="gOC-Y9-JtM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IlY-vi-Dxo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="9Ha-a1-zJH">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="sZT-FG-PWz">
+                            <rect key="frame" x="8" y="0.0" width="224" height="128"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xTy-8d-BVD">
+                                    <rect key="frame" x="0.0" y="0.0" width="112" height="128"/>
+                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                                    <color key="textColor" red="0.047058823530000002" green="0.1176470588" blue="0.24313725489999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.00 DCR" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I0P-ya-PoI">
+                                    <rect key="frame" x="112" y="0.0" width="112" height="128"/>
+                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <viewLayoutGuide key="safeArea" id="PX1-1m-6Rp"/>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" red="0.95686274509803915" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="sZT-FG-PWz" firstAttribute="top" secondItem="pew-yZ-hLF" secondAttribute="top" id="4a3-X5-Byr"/>
+                        <constraint firstItem="sZT-FG-PWz" firstAttribute="leading" secondItem="pew-yZ-hLF" secondAttribute="leading" constant="8" id="5CT-ZA-fJa"/>
+                        <constraint firstItem="pew-yZ-hLF" firstAttribute="bottom" secondItem="sZT-FG-PWz" secondAttribute="bottom" id="el4-Su-RbO"/>
+                        <constraint firstAttribute="trailing" secondItem="sZT-FG-PWz" secondAttribute="trailing" constant="8" id="rwZ-9c-ozn"/>
+                    </constraints>
+                    <viewLayoutGuide key="safeArea" id="pew-yZ-hLF"/>
+                </view>
+            </objects>
+            <point key="canvasLocation" x="-42.399999999999999" y="-204.64767616191907"/>
+        </scene>
+    </scenes>
+</document>

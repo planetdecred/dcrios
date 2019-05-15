@@ -10,18 +10,18 @@ import Foundation
 import UIKit
 
 extension UIColor {
-    struct DecredColors  {
-        static let Green = UIColor.init(hex: "#41BF53")
-        static let Warning = UIColor.init(hex: "#ED6D47")
-    }
-    
-    static let LightGray = UIColor.init(hex: "#C4CBD2")
-    
-    struct AppColors {
-        static let YellowWarning = UIColor.init(hex: "#FFC84E")
-        static let DarkYellowWarning = UIColor.init(hex: "#E7C659")
-        static let Green = UIColor.init(hex: "#2DD8A3")
-        static let DecredBlue = UIColor.init(hex: "#2970FF")
+    struct appColors {
+        // decred colors are from https://decred.org/brand/
+        static let decredBlue = UIColor.init(hex: "#2970FF")
+        static let decredGreen = UIColor.init(hex: "#41BF53")
+        static let decredOrange = UIColor.init(hex: "#ED6D47")
+        
+        static let darkYellowWarning = UIColor.init(hex: "#E7C659")
+        static let green = UIColor.init(hex: "#2DD8A3")
+//        static let gray = UIColor(red: 132.0/255.0, green: 139.0/255.0, blue: 144.0/255.0, alpha: 1.0)
+        static let lightGray = UIColor.init(hex: "#C4CBD2")
+        static let offWhite = UIColor(hex:"#F9FAFA")
+        static let yellowWarning = UIColor.init(hex: "#FFC84E")
     }
     
     convenience init(hex: String) {

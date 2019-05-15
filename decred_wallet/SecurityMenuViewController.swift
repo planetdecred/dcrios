@@ -41,23 +41,25 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        dcrlibwallet = SingleInstance.shared.wallet
+        dcrlibwallet = WalletLoader.wallet
         self.address.delegate = self
         self.signature.delegate = self
         self.message.delegate = self
-        if (UserDefaults.standard.bool(forKey: "synced")) {
+        
+        if WalletLoader.isSynced {
             self.toggleView()
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.setNavigationBarItem()
-        self.navigationItem.title = "Security"
-        if !(UserDefaults.standard.bool(forKey: "synced")) {
+        self.setupNavigationBar(withTitle: "Security")
+
+        if !WalletLoader.isSynced {
             syncInfoLabel.isHidden = false
             return
         }
+        
         let clearFieldBtn = UIButton(type: .custom)
         clearFieldBtn.setImage(UIImage(named: "right-menu"), for: .normal)
         clearFieldBtn.addTarget(self, action: #selector(showMenu), for: .touchUpInside)
@@ -65,13 +67,6 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
         barButton = UIBarButtonItem(customView: clearFieldBtn)
         self.navigationItem.rightBarButtonItems = [barButton!]
         syncInfoLabel.isHidden = true
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if !(UserDefaults.standard.bool(forKey: "synced")) {
-            return
-        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -338,7 +333,7 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
     
     func SignMsg(pass:String) {
         
-        progressHud = Utils.showProgressHud(with: "Signing Message...")
+        progressHud = Utils.showProgressHud(withText: "Signing Message...")
         
         let address = self.address.text
         let message = self.message.text

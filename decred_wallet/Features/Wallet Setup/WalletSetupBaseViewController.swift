@@ -15,27 +15,21 @@ class WalletSetupBaseViewController: UIViewController {
     }
     
     func finalizeWalletSetup(_ seed: String, _ pinOrPassword: String, _ securityType: String) {
-        let progressHud = Utils.showProgressHud(with: "Setting up wallet...")
+        let progressHud = Utils.showProgressHud(withText: "Setting up wallet...")
         
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let this = self else { return }
+            guard let wallet = WalletLoader.wallet else { return }
             
             do {
-                if SingleInstance.shared.wallet == nil {
-                    return
-                }
-                
-                let wallet = SingleInstance.shared.wallet!
                 try wallet.createWallet(pinOrPassword, seedMnemonic: seed)
-                try wallet.unlock(pinOrPassword.data(using: .utf8))
+                try wallet.unlock(pinOrPassword.utf8Bits)
                 
                 DispatchQueue.main.async {
                     progressHud.dismiss()
                     UserDefaults.standard.set(securityType, forKey: GlobalConstants.SettingsKeys.SpendingPassphraseSecurityType)
-                    Utils.createMainWindow()
-                    this.dismiss(animated: true, completion: nil)
+                    NavigationMenuViewController.setupMenuAndLaunchApp(isNewWallet: true)
                 }
-                return
             } catch let error {
                 DispatchQueue.main.async {
                     progressHud.dismiss()

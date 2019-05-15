@@ -47,14 +47,14 @@ struct SpendingPinOrPassword {
     
     private static func changeWalletSpendingPassphrase(_ vc: UIViewController, current currentPassphrase: String, new newPassphrase: String, type securityType: String) {
         let newSecurityType = securityType.lowercased()
-        let progressHud = Utils.showProgressHud(with: "Changing spending \(newSecurityType)...")
+        let progressHud = Utils.showProgressHud(withText: "Changing spending \(newSecurityType)...")
         
         let oldPrivatePass = (currentPassphrase as NSString).data(using: String.Encoding.utf8.rawValue)!
         let newPrivatePass = (newPassphrase as NSString).data(using: String.Encoding.utf8.rawValue)!
         
         DispatchQueue.global(qos: .userInitiated).async {
             do {
-                try SingleInstance.shared.wallet?.changePrivatePassphrase(oldPrivatePass, newPass: newPrivatePass)
+                try WalletLoader.wallet?.changePrivatePassphrase(oldPrivatePass, newPass: newPrivatePass)
                 DispatchQueue.main.async {
                     progressHud.dismiss()
                     UserDefaults.standard.setValue(securityType, forKey: GlobalConstants.SettingsKeys.SpendingPassphraseSecurityType)

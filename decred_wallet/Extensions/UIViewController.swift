@@ -19,9 +19,16 @@ extension UIViewController {
         return UINavigationController(rootViewController: self)
     }
     
-    func setNavigationBarItem() {
-        self.addLeftBarButtonWithImage(UIImage(named: "ic_menu_black_24dp")!)
+    func navigationMenuViewController() -> NavigationMenuViewController? {
+        return self.slideMenuController()?.leftViewController as? NavigationMenuViewController
+    }
+    
+    func setupNavigationBar(withTitle title: String) {
         self.navigationController?.navigationBar.tintColor = UIColor.black
+        self.navigationItem.title = title
+        
+        // setup slidemenucontroller (drawer icon and tap action)
+        self.addLeftBarButtonWithImage(UIImage(named: "ic_menu_black_24dp")!)
         self.slideMenuController()?.removeLeftGestures()
         self.slideMenuController()?.removeRightGestures()
         self.slideMenuController()?.addLeftGestures()
@@ -85,8 +92,10 @@ extension UIViewController {
     
     func showOkAlert(message: String, title: String? = nil, onPressOk: (() -> Void)? = nil) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
         let okAction = UIAlertAction(title: "OK", style: .default) { _ in
-            alert.dismiss(animated: true, completion: onPressOk)
+            onPressOk?()
+//            alert.dismiss(animated: true, completion: nil)
         }
         alert.addAction(okAction)
         

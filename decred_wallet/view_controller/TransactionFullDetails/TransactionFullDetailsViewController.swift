@@ -63,7 +63,7 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         do {
             if let data = Data(fromHexEncodedString: self.transaction.Hash) {
                 var decodeTxError: NSError?
-                let decodedTxJson = SingleInstance.shared.wallet?.decodeTransaction(data, error: &decodeTxError)
+                let decodedTxJson = WalletLoader.wallet?.decodeTransaction(data, error: &decodeTxError)
                 if decodeTxError != nil {
                     throw decodeTxError!
                 }
@@ -200,7 +200,7 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         let textColor: UIColor?
         
         if(transaction!.Height != -1){
-            confirmations = (SingleInstance.shared.wallet?.getBestBlock())! - Int32(transaction!.Height)
+            confirmations = (WalletLoader.wallet?.getBestBlock())! - Int32(transaction!.Height)
             confirmations += 1
         }
         

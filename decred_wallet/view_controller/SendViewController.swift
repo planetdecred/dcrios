@@ -17,7 +17,6 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     var pinInput: String?
     
     @IBOutlet weak var pasteBtn: UIButton!
-    weak var delegate: LeftMenuProtocol?
     @IBOutlet var accountDropdown: DropMenuButton!
     @IBOutlet weak var toAccountDropDown: DropMenuButton!
     @IBOutlet var BalanceAfter: UILabel!
@@ -38,7 +37,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     @IBOutlet weak var sendBtn: UIButton!
     @IBOutlet weak var qrcodeBtn: UIButton!
     var fromNotQRScreen = true
-    var AccountFilter: [AccountsEntity]?
+    var AccountFilter: [WalletAccount]?
     
     @IBOutlet weak var conversionContHeight: NSLayoutConstraint!
     @IBOutlet weak var conversionRowCont: UIStackView!
@@ -63,8 +62,8 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         return QRCodeReaderViewController(builder: builder)
     }()
     
-    var selectedAccount: AccountsEntity?
-    var sendToAccount: AccountsEntity?
+    var selectedAccount: WalletAccount?
+    var sendToAccount: WalletAccount?
     var password: String?
     var sendAllTX = false
     var exchangeRateGloabal :NSDecimalNumber = 0.0
@@ -79,7 +78,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         self.currencyAmount2.delegate = self
         self.pasteBtn.layer.cornerRadius = 4
         self.pasteBtn.layer.shadowOffset = CGSize(width: 0, height: 2.0)
-        wallet = SingleInstance.shared.wallet
+        wallet = WalletLoader.wallet
         NotificationCenter.default.addObserver(self, selector: #selector(willResignActive), name: UIApplication.willEnterForegroundNotification, object: nil)
         self.walletAddress.delegate = self
         removedBtn = false
@@ -150,8 +149,8 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.setNavigationBarItem()
-        self.navigationItem.title = "Send"
+        self.setupNavigationBar(withTitle: "Send")
+
         self.updateBalance()
         let menu = UIButton(type: .custom)
         menu.setImage(UIImage(named: "right-menu"), for: .normal)
@@ -250,21 +249,22 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     }
     
     @IBAction private func sendFund(_ sender: Any) {
-        guard (UserDefaults.standard.bool(forKey: "synced")) else {
+        guard WalletLoader.isSynced else {
             sendNtwkErrtext.text = "Please wait for network synchronization."
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 self.sendNtwkErrtext.text = " "
             }
             return
         }
-        let peer = UserDefaults.standard.integer(forKey: "peercount")
-        guard peer > 0 else {
+        
+        guard WalletLoader.instance.syncer.connectedPeersCount > 0 else {
             sendNtwkErrtext.text = "Not connected to the network."
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 self.sendNtwkErrtext.text = " "
             }
             return
         }
+        
         if self.validate(amount: self.tfAmount.text!) {
             self.fromNotQRScreen = false
             if SpendingPinOrPassword.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
@@ -324,15 +324,15 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     }
     
     private func signTransaction(sendAll: Bool?, password:String) {
-        let peer = UserDefaults.standard.integer(forKey: "peercount")
-        guard peer > 0 else {
+        guard WalletLoader.instance.syncer.connectedPeersCount > 0 else {
             sendNtwkErrtext.text = "Not connected to the network."
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 self.sendNtwkErrtext.text = " "
             }
             return
         }
-          var walletAddress = ""
+
+        var walletAddress = ""
         if (self.toAddressContainer.isHidden) {
             let receiveAddress = wallet?.currentAddress((self.sendToAccount?.Number)!, error: nil)
             walletAddress = receiveAddress!
@@ -342,6 +342,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                 walletAddress = self.walletAddress.text!
             }
         }
+        
         DispatchQueue.main.async {
             let amount = Double((self.tfAmount.text)!)! * 100000000
             let account = (self.selectedAccount?.Number)!
@@ -707,7 +708,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                             let tmp2 = Decimal(tmp)
                             self.currencyAmount2.text = "\((((self.exchangeRateGloabal as Decimal) * tmp2)as NSDecimalNumber).round(2))"
                         }
-                        if(UserDefaults.standard.bool(forKey: "synced")){
+                        if WalletLoader.isSynced {
                              self.amountErrorText.text = "Not enough funds"
                         }
                         else{
@@ -795,7 +796,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                         print((tmp2 ) / (self.exchangeRateGloabal as Decimal))
                         print("currency")
                         self.tfAmount.text = "\(((tmp2 ) / (self.exchangeRateGloabal as Decimal) as NSDecimalNumber).round(8))"
-                        if(UserDefaults.standard.bool(forKey: "synced")){
+                        if WalletLoader.isSynced {
                             self.amountErrorText.text = "Not enough funds"
                         }
                         else{
@@ -864,14 +865,14 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     }
     
     private func showDefaultAccount() {
-        var account: GetAccountResponse?
+        var account: WalletAccounts?
         do {
             var getAccountError: NSError?
             let strAccount = wallet?.getAccounts(0, error: &getAccountError)
             if getAccountError != nil {
                 throw getAccountError!
             }
-            account = try JSONDecoder().decode(GetAccountResponse.self, from: (strAccount?.data(using: .utf8))!)
+            account = try JSONDecoder().decode(WalletAccounts.self, from: (strAccount?.data(using: .utf8))!)
             
         } catch let error {
             print(error)
@@ -898,14 +899,14 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     
     private func updateBalance() {
         var accounts = [String]()
-        var account: GetAccountResponse?
+        var account: WalletAccounts?
         do {
             var getAccountError: NSError?
             let strAccount = wallet?.getAccounts(0, error: &getAccountError)
             if getAccountError != nil {
                 throw getAccountError!
             }
-            account = try JSONDecoder().decode(GetAccountResponse.self, from: (strAccount?.data(using: .utf8))!)
+            account = try JSONDecoder().decode(WalletAccounts.self, from: (strAccount?.data(using: .utf8))!)
             
         } catch let error {
             print(error)
@@ -916,7 +917,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             
             return "\(acc.Name) [\( tspendable.round(8) )]"
             })!
-        AccountFilter = (account?.Acc.filter({UserDefaults.standard.bool(forKey: "hidden\($0.Number)")  != true && $0.Number != INT_MAX }).map { (acc) -> AccountsEntity in
+        AccountFilter = (account?.Acc.filter({UserDefaults.standard.bool(forKey: "hidden\($0.Number)")  != true && $0.Number != INT_MAX }).map { (acc) -> WalletAccount in
             return acc
             })!
         self.accountDropdown.initMenu(accounts) { [weak self] ind, val in

@@ -39,13 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillTerminate(_: UIApplication) {
-        if SingleInstance.shared.wallet != nil {
-            UserDefaults.standard.set(false, forKey: "walletScanning")
-            UserDefaults.standard.set(false, forKey: "synced")
-            UserDefaults.standard.set(0, forKey: "peercount")
-            UserDefaults.standard.synchronize()
-            SingleInstance.shared.wallet?.shutdown()
-        }
+        WalletLoader.wallet?.shutdown(true)
     }
 }
 
@@ -65,5 +59,17 @@ extension AppDelegate {
     func setAndDisplayRootViewController(_ vc: UIViewController) {
         self.window?.rootViewController = vc
         self.window?.makeKeyAndVisible()
+    }
+    
+    func showOkAlert(message: String, title: String? = nil, onPressOk: (() -> Void)? = nil) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+            alert.dismiss(animated: true, completion: onPressOk)
+        }
+        alert.addAction(okAction)
+        
+        DispatchQueue.main.async {
+            self.window?.rootViewController?.present(alert, animated: true, completion: nil)
+        }
     }
 }
