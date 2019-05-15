@@ -30,8 +30,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="240" verticalHuggingPriority="240" image="logo-mainnet" translatesAutoresizingMaskIntoConstraints="NO" id="b2k-sG-2bd">
-                                <rect key="frame" x="10" y="20" width="404" height="56"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="240" verticalHuggingPriority="240" image="logo-mainnet" translatesAutoresizingMaskIntoConstraints="NO" id="b2k-sG-2bd">
+                                <rect key="frame" x="10" y="20" width="262" height="56"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="EtP-5T-OJx">
@@ -151,7 +151,7 @@
                         <constraints>
                             <constraint firstItem="EtP-5T-OJx" firstAttribute="trailing" secondItem="NQW-hZ-Kda" secondAttribute="trailing" id="89x-07-wzP"/>
                             <constraint firstItem="EtP-5T-OJx" firstAttribute="leading" secondItem="NQW-hZ-Kda" secondAttribute="leading" id="UGd-Eo-fio"/>
-                            <constraint firstItem="b2k-sG-2bd" firstAttribute="trailing" secondItem="NQW-hZ-Kda" secondAttribute="trailing" id="ate-th-Lfg"/>
+                            <constraint firstItem="b2k-sG-2bd" firstAttribute="width" relation="lessThanOrEqual" secondItem="Q68-T0-QTV" secondAttribute="width" constant="-20" id="cvt-eI-V1M"/>
                             <constraint firstItem="Yrk-EO-Tzc" firstAttribute="top" secondItem="EtP-5T-OJx" secondAttribute="bottom" id="dkq-GK-Fmg"/>
                             <constraint firstItem="b2k-sG-2bd" firstAttribute="leading" secondItem="NQW-hZ-Kda" secondAttribute="leading" constant="10" id="g7F-4v-zdm"/>
                             <constraint firstItem="b2k-sG-2bd" firstAttribute="top" secondItem="JIy-vl-juc" secondAttribute="bottom" id="gsm-M1-gdc"/>
