@@ -102,7 +102,12 @@ class StartScreenViewController: UIViewController {
                 }
             } catch let error {
                 DispatchQueue.main.async {
-                    this.showOkAlert(message: error.localizedDescription, title: "Error")
+                    var errorMessage = error.localizedDescription
+                    if error.localizedDescription == DcrlibwalletErrInvalidPassphrase {
+                        let securityType = StartupPinOrPassword.currentSecurityType()!.lowercased()
+                        errorMessage = "You entered an incorrect \(securityType). Try again?"
+                    }
+                    this.showOkAlert(message: errorMessage, title: "Error", okText: "Retry", onPressOk: this.promptForStartupPinOrPassword)
                 }
             }
         }
