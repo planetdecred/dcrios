@@ -7,28 +7,30 @@
 // license that can be found in the LICENSE file.
 
 import UIKit
-import os
 
 class WalletLogViewController: UIViewController {
-    
     @IBOutlet weak var logTextView: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Wallet Log"
-        load()
+        self.logTextView.text = WalletLogViewController.readLog()
     }
     
-    fileprivate func load(){
+    private static func readLog() -> String {
         let netType = Utils.infoForKey(GlobalConstants.Strings.NetType)!
-        let logPath = NSHomeDirectory()+"/Documents/dcrlibwallet/logs/\(netType)/dcrlibwallet.log"
-        let logContent = try? String(contentsOf: URL(fileURLWithPath: logPath))
-        let aLogs = logContent?.split(separator: "\n")
-        var cutOffLogFlow = aLogs?.suffix(from: 0)
-        if (aLogs?.count)! > 500 {
-            cutOffLogFlow = aLogs?.suffix(from: (aLogs?.count)! - 500)
-        }
+        let logPath = NSHomeDirectory()+"/Documents/dcrlibwallet/\(netType)/dcrlibwallet.log"
         
-        logTextView.text = cutOffLogFlow?.joined(separator: ";\n")
+        do {
+            let logContent = try String(contentsOf: URL(fileURLWithPath: logPath))
+            let logEntries = logContent.split(separator: "\n")
+            if logEntries.count > 500 {
+                return logEntries.suffix(from: logEntries.count - 500).joined(separator: ";\n")
+            } else {
+                return logEntries.suffix(from: 0).joined(separator: ";\n")
+            }
+        } catch (let error) {
+            return "Error loading log: \(error.localizedDescription)"
+        }
     }
 }
