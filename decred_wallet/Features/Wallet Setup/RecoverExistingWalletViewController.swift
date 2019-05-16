@@ -34,6 +34,10 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
         registerObserverForKeyboardNotification()
         self.hideKeyboardWhenTappedAround()
         
+        //set border for dropdown list
+        self.wordSelectionDropDownContainer.layer.borderWidth = 1
+        self.wordSelectionDropDownContainer.layer.borderColor = UIColor(red:222/255, green:225/255, blue:227/255, alpha: 1).cgColor
+        
         // long press to proceed with test seed, only on testnet
         if GlobalConstants.App.IsTestnet {
             let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressConfirm))
@@ -63,8 +67,10 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
                                      y: self.view.frame.origin.y,
                                      width: self.view.frame.width,
                                      height: window.origin.y + window.height - keyboardSize.height)
+            self.tableView.contentInset = UIEdgeInsets(top: 0,left: 0,bottom: 10,right: 0)
         }
     }
+    
     
     @objc func onKeyboardWillHide(_ notification: Notification) {
         if let window = self.view.window?.frame {
@@ -73,6 +79,7 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
                                      y: self.view.frame.origin.y,
                                      width: self.view.frame.width,
                                      height: window.origin.y + window.height)
+             self.tableView.contentInset = UIEdgeInsets(top: 0,left: 0,bottom: 0,right: 0)
         }
     }
     
@@ -101,7 +108,7 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
     
     func seedWordEntered(for wordIndex: Int, seedWord: String, moveToNextField: Bool) {
         self.userEnteredSeedWords[wordIndex] = seedWord
-        
+        self.lblEnterAllSeeds.isHidden = true
         if wordIndex < 32 && moveToNextField {
             self.focusSeedWordInput(at: wordIndex + 1)
         } else {
@@ -111,39 +118,20 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
         if self.validateSeed().valid {
             self.activateConfirmButton()
         } else {
-            self.deactivateConfirmButton()
+            self.deactivateConfirmButtonForError()
         }
     }
     
     func focusSeedWordInput(at tableRowIndex: Int) {
         let tableIndexPath = IndexPath(row: tableRowIndex, section: 0)
-        
         let nextSeedWordCell = self.tableView.cellForRow(at: tableIndexPath) as? RecoveryWalletSeedWordCell
         nextSeedWordCell?.seedWordAutoComplete.becomeFirstResponder()
         
-        self.tableView.scrollToRow(at: tableIndexPath, at: .middle, animated: true)
+        self.tableView.scrollToRow(at: tableIndexPath, at: .bottom, animated: true)
     }
     
-    func activateConfirmButton() {
-        self.btnConfirm.backgroundColor = UIColor.appColors.decredGreen
-        self.lblEnterAllSeeds.isHidden = true
-        
-        // increase top spacing since warning label is now hidden so as to position button in center
-        self.tableViewFooterTopSpacingConstraint.constant = 30
-        UIView.animate(withDuration: 0.5) {
-            self.tableViewFooter.layoutIfNeeded()
-        }
-    }
-    
-    func deactivateConfirmButton() {
-        self.btnConfirm.backgroundColor = UIColor.appColors.lightGray
-        self.lblEnterAllSeeds.isHidden = false
-        
-        if self.userEnteredSeedWords.contains("") {
-            self.lblEnterAllSeeds.text = "Not all seeds are entered. Please, check input fields and enter all seeds."
-        } else {
-            self.lblEnterAllSeeds.text = "You entered an incorrect seed. Please check your words."
-        }
+    func deactivateConfirmButtonForError(){
+         self.btnConfirm.backgroundColor = UIColor.appColors.lightGray
         
         // reduce top spacing so that warning label and confirm button are centered in display
         self.tableViewFooterTopSpacingConstraint.constant = 10
@@ -151,15 +139,27 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
             self.tableViewFooter.layoutIfNeeded()
         }
     }
+    func activateConfirmButton() {
+        self.btnConfirm.backgroundColor = UIColor.appColors.decredGreen
+    }
     
     @IBAction func backButtonTap(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func onConfirm() {
-        let validatedSeed = self.validateSeed()
-        if validatedSeed.valid {
-            self.secureWallet(validatedSeed.seed)
+        self.lblEnterAllSeeds.isHidden = false
+        if self.userEnteredSeedWords.contains("") {
+            self.lblEnterAllSeeds.text = "Not all seeds are entered. Please, check input fields and enter all seeds."
+        }
+        else{
+            let validatedSeed = self.validateSeed()
+            if validatedSeed.valid {
+                self.secureWallet(validatedSeed.seed)
+            }
+            else {
+                self.lblEnterAllSeeds.text = "You entered an incorrect seed. Please check your words."
+            }
         }
     }
     
