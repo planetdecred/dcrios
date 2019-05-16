@@ -24,7 +24,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     var account: WalletAccounts?
     var tapGesture = UITapGestureRecognizer()
     var oldAddress = ""
-    var wallet = WalletLoader.wallet
+    var wallet = AppDelegate.walletLoader.wallet
     
     private var selectedAccount = ""
     

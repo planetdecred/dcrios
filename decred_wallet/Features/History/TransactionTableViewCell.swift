@@ -26,7 +26,7 @@ class TransactionTableViewCell: BaseTableViewCell {
     override func setData(_ data: Any?) {
         
         if let transaction = data as? Transaction {
-            let bestBlock =  WalletLoader.wallet?.getBestBlock()
+            let bestBlock =  AppDelegate.walletLoader.wallet?.getBestBlock()
             var confirmations = 0
             if(transaction.Height != -1){
                 confirmations = Int(bestBlock!) - transaction.Height

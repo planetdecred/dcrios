@@ -25,7 +25,8 @@ class StartScreenViewController: UIViewController {
             testnetLabel.isHidden = false
         }
         
-        let initWalletError = WalletLoader.instance.initWallet()
+        AppDelegate.walletLoader = WalletLoader()
+        let initWalletError = AppDelegate.walletLoader.initWallet()
         if initWalletError != nil {
             print("init wallet error: \(initWalletError!.localizedDescription)")
         }
@@ -44,7 +45,7 @@ class StartScreenViewController: UIViewController {
             self.startTimerWhenViewAppears = false
         }
         
-        if WalletLoader.instance.isWalletCreated {
+        if AppDelegate.walletLoader.isWalletCreated {
             self.label.text = "Opening wallet..."
         }
     }
@@ -58,7 +59,7 @@ class StartScreenViewController: UIViewController {
     }
     
     func loadMainScreen() {
-        if !WalletLoader.instance.isWalletCreated {
+        if !AppDelegate.walletLoader.isWalletCreated {
             self.displayWalletSetupScreen()
         }
         else if StartupPinOrPassword.pinOrPasswordIsSet() {
@@ -96,7 +97,7 @@ class StartScreenViewController: UIViewController {
             guard let this = self else { return }
             
             do {
-                try WalletLoader.wallet?.open(pinOrPassword.utf8Bits)
+                try AppDelegate.walletLoader.wallet?.open(pinOrPassword.utf8Bits)
                 DispatchQueue.main.async {
                     NavigationMenuViewController.setupMenuAndLaunchApp(isNewWallet: false)
                 }

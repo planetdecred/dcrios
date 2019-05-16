@@ -75,7 +75,7 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
             this.myBalances.removeAll()
             do {
                 var getAccountError: NSError?
-                let strAccount = WalletLoader.wallet?.getAccounts(0, error: &getAccountError)
+                let strAccount = AppDelegate.walletLoader.wallet?.getAccounts(0, error: &getAccountError)
                 if getAccountError != nil {
                     throw getAccountError!
                 }
@@ -133,7 +133,7 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
         } else{
             headerView.arrowDirection.setImage(UIImage.init(named: "arrow-1"), for: .normal)
         }
-        headerView.syncing(status: !WalletLoader.isSynced)
+        headerView.syncing(status: !AppDelegate.walletLoader.isSynced)
         
         return headerView
     }

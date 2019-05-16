@@ -15,6 +15,7 @@ import Crashlytics
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
+    static var walletLoader: WalletLoader = WalletLoader()
     
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // setup crash reporting for testnet build only
@@ -39,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillTerminate(_: UIApplication) {
-        WalletLoader.wallet?.shutdown(true)
+        AppDelegate.walletLoader.wallet?.shutdown(true)
     }
 }
 

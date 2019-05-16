@@ -19,7 +19,7 @@ class WalletSetupBaseViewController: UIViewController {
         
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let this = self else { return }
-            guard let wallet = WalletLoader.wallet else { return }
+            guard let wallet = AppDelegate.walletLoader.wallet else { return }
             
             do {
                 try wallet.createWallet(pinOrPassword, seedMnemonic: seed)

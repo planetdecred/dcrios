@@ -54,7 +54,7 @@ struct SpendingPinOrPassword {
         
         DispatchQueue.global(qos: .userInitiated).async {
             do {
-                try WalletLoader.wallet?.changePrivatePassphrase(oldPrivatePass, newPass: newPrivatePass)
+                try AppDelegate.walletLoader.wallet?.changePrivatePassphrase(oldPrivatePass, newPass: newPrivatePass)
                 DispatchQueue.main.async {
                     progressHud.dismiss()
                     UserDefaults.standard.setValue(securityType, forKey: GlobalConstants.SettingsKeys.SpendingPassphraseSecurityType)

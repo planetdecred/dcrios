@@ -7,6 +7,7 @@
 //
 
 protocol SyncProgressListenerProtocol {
+    func onStarted()
     func onPeerConnectedOrDisconnected(_ numberOfConnectedPeers: Int32)
     func onHeadersFetchProgress(_ progressReport: HeadersFetchProgressReport)
     func onAddressDiscoveryProgress(_ progressReport: AddressDiscoveryProgressReport)
@@ -32,6 +33,8 @@ class Syncer: NSObject {
     var currentSyncOp: SyncOp?
     var currentSyncOpProgress: Any?
     
+    var shouldRestartSync: Bool = false
+    
     var connectedPeersCount: Int32 = 0
     var connectedPeers: String {
         if self.connectedPeersCount == 1 {
@@ -42,18 +45,34 @@ class Syncer: NSObject {
     }
     
     func registerEstimatedSyncProgressListener() {
-        WalletLoader.wallet?.addEstimatedSyncProgressListener(self)
+        AppDelegate.walletLoader.wallet?.addEstimatedSyncProgressListener(self, logEstimatedProgress: true)
     }
     
     func beginSync() {
         self.currentSyncOp = nil
         self.currentSyncOpProgress = nil
         
+        self.shouldRestartSync = false
+        
         do {
             let userSetSPVPeerIPs = UserDefaults.standard.string(forKey: GlobalConstants.SettingsKeys.SPVPeerIP) ?? ""
-            try WalletLoader.wallet?.spvSync(userSetSPVPeerIPs)
+            try AppDelegate.walletLoader.wallet?.spvSync(userSetSPVPeerIPs)
+            
+            self.forEachSyncListener({ syncListener in syncListener.onStarted() })
         } catch (let syncError) {
             AppDelegate.shared.showOkAlert(message: syncError.localizedDescription, title: "Sync error")
+        }
+    }
+    
+    func restartSync() {
+        self.shouldRestartSync = true
+        self.currentSyncOp = nil
+        self.currentSyncOpProgress = nil
+        AppDelegate.walletLoader.wallet?.cancelSync()
+        
+        if self.currentSyncOp == SyncOp.Done || self.currentSyncOp == SyncOp.Canceled || self.currentSyncOp == SyncOp.Errored {
+            // sync not in progress, restart now
+            self.beginSync()
         }
     }
     
@@ -145,6 +164,10 @@ extension Syncer: DcrlibwalletEstimatedSyncProgressJsonListenerProtocol {
         self.currentSyncOp = .Canceled
         self.currentSyncOpProgress = nil
         self.forEachSyncListener({ syncListener in syncListener.onSyncCanceled() })
+        
+        if self.shouldRestartSync {
+            self.beginSync()
+        }
     }
     
     func onSyncEndedWithError(_ err: String?) {
@@ -152,6 +175,10 @@ extension Syncer: DcrlibwalletEstimatedSyncProgressJsonListenerProtocol {
         self.currentSyncOp = .Errored
         self.currentSyncOpProgress = err!
         self.forEachSyncListener({ syncListener in syncListener.onSyncEndedWithError(err!) })
+        
+        if self.shouldRestartSync {
+            self.beginSync()
+        }
     }
     
     func decodeProgressReport<T: Decodable>(_ reportJson: String?, for reportType: T.Type, _ handleProgressReport: (_ progressReport: T) -> Void) {

@@ -36,7 +36,7 @@ class AccountsHeaderView: UIView {
     var spendableBalance: NSDecimalNumber = 0.0 {
         willSet {
             DispatchQueue.main.async {[weak self] in
-                if WalletLoader.isSynced {
+                if AppDelegate.walletLoader.isSynced {
                     let spendableTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(hex: "#8997A5")]
                     let spendableTextattr =  NSMutableAttributedString(string: "Spendable ", attributes: spendableTextAttributes)
                     let amount = Utils.getAttributedString(str: "\(newValue)", siz: 9.0, TexthexColor: self!.spendableColor)
