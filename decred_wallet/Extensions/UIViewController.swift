@@ -90,12 +90,11 @@ extension UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    func showOkAlert(message: String, title: String? = nil, onPressOk: (() -> Void)? = nil) {
+    func showOkAlert(message: String, title: String? = nil, okText: String? = "OK", onPressOk: (() -> Void)? = nil) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
-        let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+        let okAction = UIAlertAction(title: okText, style: .default) { _ in
             onPressOk?()
-//            alert.dismiss(animated: true, completion: nil)
         }
         alert.addAction(okAction)
         

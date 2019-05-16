@@ -42,7 +42,7 @@ class Syncer: NSObject {
     }
     
     func registerEstimatedSyncProgressListener() {
-        WalletLoader.wallet?.addEstimatedSyncProgressListener(self)
+        WalletLoader.wallet?.addEstimatedSyncProgressListener(self, logEstimatedProgress: true)
     }
     
     func beginSync() {
