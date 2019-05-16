@@ -37,6 +37,7 @@ class TransactionHistoryViewController: UIViewController {
         initFilterBtn()
         self.tableView.addSubview(self.refreshControl)
         self.tableView.register(UINib(nibName: TransactionTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: TransactionTableViewCell.identifier)
+        self.tableView.tableFooterView = UIView.init()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -57,6 +58,7 @@ class TransactionHistoryViewController: UIViewController {
         }
         self.visible = true
         if (self.FromMenu){
+            refreshControl.programaticallyBeginRefreshing(in: self.tableView)
             prepareRecent()
             FromMenu = true
         }
@@ -75,23 +77,32 @@ class TransactionHistoryViewController: UIViewController {
     
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
         self.prepareRecent()
-        refreshControl.endRefreshing()
+        
     }
     
     func prepareRecent(){
         self.mainContens.removeAll()
         self.Filtercontent.removeAll()
-        DispatchQueue.global(qos: .background).async { [weak self] in
-            guard let this = self else { return }
+        DispatchQueue.global(qos: .background).async {
             do {
                 var getTxsError: NSError?
                 // use limit = 0 to return all transactions
                 let jsonResponse = AppDelegate.walletLoader.wallet?.getTransactions(0, error: &getTxsError)
                 if getTxsError != nil {
+                    DispatchQueue.main.async {
+                        self.refreshControl.endRefreshing()
+                    }
                     throw getTxsError!
                 }
-                this.onResult(jsonResponse)
+                self.onResult(jsonResponse)
+                DispatchQueue.main.async {
+                    self.refreshControl.endRefreshing()
+                }
+
             } catch let Error {
+                DispatchQueue.main.async {
+                    self.refreshControl.endRefreshing()
+                }
                 print(Error)
             }
         }
@@ -238,3 +249,4 @@ extension TransactionHistoryViewController: UITableViewDataSource, UITableViewDe
         return cell
     }
 }
+
