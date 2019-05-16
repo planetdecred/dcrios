@@ -19,7 +19,7 @@ class OverviewViewController: UIViewController {
     var recentTransactions = [Transaction]()
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        if identifier == "embedSyncProgressVC" && WalletLoader.isSynced {
+        if identifier == "embedSyncProgressVC" && AppDelegate.walletLoader.isSynced {
             return false
         }
         return true
@@ -32,7 +32,7 @@ class OverviewViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        if WalletLoader.isSynced {
+        if AppDelegate.walletLoader.isSynced {
             self.initializeOverviewContent()
         }
     }
@@ -46,8 +46,8 @@ class OverviewViewController: UIViewController {
         self.syncProgressViewContainer.removeFromSuperview()
         self.syncProgressViewContainer = nil
         
-        WalletLoader.instance.notification.registerListener(for: "\(self)", newTxistener: self)
-        WalletLoader.instance.notification.registerListener(for: "\(self)", confirmedTxListener: self)
+        AppDelegate.walletLoader.notification.registerListener(for: "\(self)", newTxistener: self)
+        AppDelegate.walletLoader.notification.registerListener(for: "\(self)", confirmedTxListener: self)
         
         self.fetchingBalanceIndicator.loadGif(name: "progress bar-1s-200px")
         self.updateCurrentBalance()
@@ -71,7 +71,7 @@ class OverviewViewController: UIViewController {
             self.fetchingBalanceIndicator.superview?.isHidden = false
             
             do {
-                let totalWalletAmount = try WalletLoader.wallet?.totalWalletBalance()
+                let totalWalletAmount = try AppDelegate.walletLoader.wallet?.totalWalletBalance()
                 let totalAmountRoundedOff = (Decimal(totalWalletAmount!) as NSDecimalNumber).round(8)
                 
                 self.totalBalanceLabel.attributedText = Utils.getAttributedString(str: "\(totalAmountRoundedOff)", siz: 17.0, TexthexColor: GlobalConstants.Colors.TextAmount)
@@ -93,7 +93,7 @@ class OverviewViewController: UIViewController {
             do {
                 var getTransactionsError: NSError?
                 let maxDisplayItems = round(self.recentActivityTableView.frame.size.height / TransactionTableViewCell.height())
-                let transactionsJson = WalletLoader.wallet?.getTransactions(Int32(maxDisplayItems), error: &getTransactionsError)
+                let transactionsJson = AppDelegate.walletLoader.wallet?.getTransactions(Int32(maxDisplayItems), error: &getTransactionsError)
                 if getTransactionsError != nil {
                     throw getTransactionsError!
                 }

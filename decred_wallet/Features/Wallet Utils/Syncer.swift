@@ -32,6 +32,8 @@ class Syncer: NSObject {
     var currentSyncOp: SyncOp?
     var currentSyncOpProgress: Any?
     
+    var restartSyncOnCanceled: Bool = false
+    
     var connectedPeersCount: Int32 = 0
     var connectedPeers: String {
         if self.connectedPeersCount == 1 {
@@ -42,18 +44,32 @@ class Syncer: NSObject {
     }
     
     func registerEstimatedSyncProgressListener() {
-        WalletLoader.wallet?.addEstimatedSyncProgressListener(self)
+        AppDelegate.walletLoader.wallet?.addEstimatedSyncProgressListener(self, logEstimatedProgress: true)
     }
     
     func beginSync() {
         self.currentSyncOp = nil
         self.currentSyncOpProgress = nil
+        self.restartSyncOnCanceled = false
         
         do {
             let userSetSPVPeerIPs = UserDefaults.standard.string(forKey: GlobalConstants.SettingsKeys.SPVPeerIP) ?? ""
-            try WalletLoader.wallet?.spvSync(userSetSPVPeerIPs)
+            try AppDelegate.walletLoader.wallet?.spvSync(userSetSPVPeerIPs)
         } catch (let syncError) {
             AppDelegate.shared.showOkAlert(message: syncError.localizedDescription, title: "Sync error")
+        }
+    }
+    
+    func restartSync() {
+        if self.currentSyncOp == SyncOp.Done || self.currentSyncOp == SyncOp.Canceled || self.currentSyncOp == SyncOp.Errored {
+            // sync not in progress, restart now
+            AppDelegate.walletLoader.wallet?.cancelSync()
+            self.beginSync()
+        } else {
+            self.restartSyncOnCanceled = true
+            AppDelegate.walletLoader.wallet?.cancelSync()
+            self.currentSyncOp = nil
+            self.currentSyncOpProgress = nil
         }
     }
     
@@ -145,6 +161,10 @@ extension Syncer: DcrlibwalletEstimatedSyncProgressJsonListenerProtocol {
         self.currentSyncOp = .Canceled
         self.currentSyncOpProgress = nil
         self.forEachSyncListener({ syncListener in syncListener.onSyncCanceled() })
+        
+        if self.restartSyncOnCanceled {
+            self.beginSync()
+        }
     }
     
     func onSyncEndedWithError(_ err: String?) {

@@ -21,6 +21,24 @@ class SyncProgressViewController: UIViewController {
     var afterSyncCompletes: (() -> Void)?
     
     override func viewDidLoad() {
+        self.resetSyncViews()
+        
+        self.currentSyncActionReportLabel.addGestureRecognizer(self.hideDetailedSyncReportTapGesture())
+        self.connectedPeersLabel.addGestureRecognizer(self.hideDetailedSyncReportTapGesture())
+        
+        self.currentSyncActionReportLabel.addGestureRecognizer(self.showOrHideDebugSyncReportLongPressGesture())
+        self.debugSyncInfoLabel.addGestureRecognizer(self.showOrHideDebugSyncReportLongPressGesture())
+        
+        if GlobalConstants.App.IsTestnet {
+            self.netType = "testnet"
+        } else {
+            self.netType = Utils.infoForKey(GlobalConstants.Strings.NetType)
+        }
+        
+        AppDelegate.walletLoader.syncer.registerSyncProgressListener(for: "\(self)", self)
+    }
+    
+    func resetSyncViews() {
         self.syncHeaderLabel.text = "Loading..."
         
         self.generalSyncProgressBar.isHidden = true
@@ -31,24 +49,12 @@ class SyncProgressViewController: UIViewController {
         
         self.currentSyncActionReportLabel.text = ""
         self.currentSyncActionReportLabel.isHidden = true
-        self.currentSyncActionReportLabel.addGestureRecognizer(self.hideDetailedSyncReportTapGesture())
-        self.currentSyncActionReportLabel.addGestureRecognizer(self.showOrHideDebugSyncReportLongPressGesture())
         
         self.debugSyncInfoLabel.text = ""
         self.debugSyncInfoLabel.isHidden = true
-        self.debugSyncInfoLabel.addGestureRecognizer(self.showOrHideDebugSyncReportLongPressGesture())
         
         self.connectedPeersLabel.text = ""
         self.connectedPeersLabel.isHidden = true
-        self.connectedPeersLabel.addGestureRecognizer(self.hideDetailedSyncReportTapGesture())
-        
-        if GlobalConstants.App.IsTestnet {
-            self.netType = "testnet"
-        } else {
-            self.netType = Utils.infoForKey(GlobalConstants.Strings.NetType)
-        }
-        
-        WalletLoader.instance.syncer.registerSyncProgressListener(for: "\(self)", self)
     }
     
     @IBAction func onTapShowDetailedSync(_ sender: Any) {
@@ -147,15 +153,17 @@ extension SyncProgressViewController: SyncProgressListenerProtocol {
     }
     
     func onSyncCompleted() {
-        WalletLoader.instance.syncer.deRegisterSyncProgressListener(for: "\(self)")
+        AppDelegate.walletLoader.syncer.deRegisterSyncProgressListener(for: "\(self)")
         self.afterSyncCompletes?()
     }
     
     func onSyncCanceled() {
+        self.resetSyncViews()
         self.syncHeaderLabel.text = "Synchronization canceled"
     }
     
     func onSyncEndedWithError(_ error: String) {
+        self.resetSyncViews()
         self.syncHeaderLabel.text = "Synchronization error"
     }
     

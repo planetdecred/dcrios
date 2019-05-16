@@ -41,12 +41,12 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        dcrlibwallet = WalletLoader.wallet
+        dcrlibwallet = AppDelegate.walletLoader.wallet
         self.address.delegate = self
         self.signature.delegate = self
         self.message.delegate = self
         
-        if WalletLoader.isSynced {
+        if AppDelegate.walletLoader.isSynced {
             self.toggleView()
         }
     }
@@ -55,7 +55,7 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
         super.viewWillAppear(animated)
         self.setupNavigationBar(withTitle: "Security")
 
-        if !WalletLoader.isSynced {
+        if !AppDelegate.walletLoader.isSynced {
             syncInfoLabel.isHidden = false
             return
         }

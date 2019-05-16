@@ -22,7 +22,7 @@ class TransactiontOutputDetailsCell: UITableViewCell {
         
         var walletOutputIndices = [Int]()
         
-        let wallet = WalletLoader.wallet
+        let wallet = AppDelegate.walletLoader.wallet
         
         for (_, credit) in credits.enumerated() {
             walletOutputIndices.append(Int(credit.Index))

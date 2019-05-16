@@ -78,7 +78,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         self.currencyAmount2.delegate = self
         self.pasteBtn.layer.cornerRadius = 4
         self.pasteBtn.layer.shadowOffset = CGSize(width: 0, height: 2.0)
-        wallet = WalletLoader.wallet
+        wallet = AppDelegate.walletLoader.wallet
         NotificationCenter.default.addObserver(self, selector: #selector(willResignActive), name: UIApplication.willEnterForegroundNotification, object: nil)
         self.walletAddress.delegate = self
         removedBtn = false
@@ -249,7 +249,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     }
     
     @IBAction private func sendFund(_ sender: Any) {
-        guard WalletLoader.isSynced else {
+        guard AppDelegate.walletLoader.isSynced else {
             sendNtwkErrtext.text = "Please wait for network synchronization."
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 self.sendNtwkErrtext.text = " "
@@ -257,7 +257,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             return
         }
         
-        guard WalletLoader.instance.syncer.connectedPeersCount > 0 else {
+        guard AppDelegate.walletLoader.syncer.connectedPeersCount > 0 else {
             sendNtwkErrtext.text = "Not connected to the network."
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 self.sendNtwkErrtext.text = " "
@@ -324,7 +324,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     }
     
     private func signTransaction(sendAll: Bool?, password:String) {
-        guard WalletLoader.instance.syncer.connectedPeersCount > 0 else {
+        guard AppDelegate.walletLoader.syncer.connectedPeersCount > 0 else {
             sendNtwkErrtext.text = "Not connected to the network."
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 self.sendNtwkErrtext.text = " "
@@ -708,7 +708,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                             let tmp2 = Decimal(tmp)
                             self.currencyAmount2.text = "\((((self.exchangeRateGloabal as Decimal) * tmp2)as NSDecimalNumber).round(2))"
                         }
-                        if WalletLoader.isSynced {
+                        if AppDelegate.walletLoader.isSynced {
                              self.amountErrorText.text = "Not enough funds"
                         }
                         else{
@@ -796,7 +796,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                         print((tmp2 ) / (self.exchangeRateGloabal as Decimal))
                         print("currency")
                         self.tfAmount.text = "\(((tmp2 ) / (self.exchangeRateGloabal as Decimal) as NSDecimalNumber).round(8))"
-                        if WalletLoader.isSynced {
+                        if AppDelegate.walletLoader.isSynced {
                             self.amountErrorText.text = "Not enough funds"
                         }
                         else{

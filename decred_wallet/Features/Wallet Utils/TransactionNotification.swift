@@ -28,7 +28,7 @@ class TransactionNotification: NSObject {
     var newTxHashes: [String] = [String]()
     
     func startListeningForNotifications() {
-        WalletLoader.wallet?.transactionNotification(self)
+        AppDelegate.walletLoader.wallet?.transactionNotification(self)
     }
     
     func registerListener(for identifier: String, newBlockListener: NewBlockNotificationProtocol) {

@@ -43,7 +43,7 @@ class TransactionHistoryViewController: UIViewController {
         super.viewWillAppear(animated)
         self.setupNavigationBar(withTitle: "History")
 
-        if WalletLoader.isSynced {
+        if AppDelegate.walletLoader.isSynced {
             print(" wallet is synced on history")
             self.syncLabel.isHidden = true
             self.tableView.isHidden = false
@@ -51,7 +51,7 @@ class TransactionHistoryViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        if !WalletLoader.isSynced {
+        if !AppDelegate.walletLoader.isSynced {
             print(" wallet not synced on history")
             return
         }
@@ -86,7 +86,7 @@ class TransactionHistoryViewController: UIViewController {
             do {
                 var getTxsError: NSError?
                 // use limit = 0 to return all transactions
-                let jsonResponse = WalletLoader.wallet?.getTransactions(0, error: &getTxsError)
+                let jsonResponse = AppDelegate.walletLoader.wallet?.getTransactions(0, error: &getTxsError)
                 if getTxsError != nil {
                     throw getTxsError!
                 }

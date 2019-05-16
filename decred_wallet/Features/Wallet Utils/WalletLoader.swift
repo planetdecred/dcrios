@@ -9,18 +9,14 @@
 import Foundation
 
 class WalletLoader: NSObject {
-    static let instance: WalletLoader = WalletLoader()
-    
     var wallet: DcrlibwalletLibWallet?
-    var syncer: Syncer = Syncer()
-    var notification: TransactionNotification = TransactionNotification()
+    var syncer: Syncer
+    var notification: TransactionNotification
     
-    public class var wallet: DcrlibwalletLibWallet? {
-        return instance.wallet
-    }
-    
-    public class var isSynced: Bool {
-        return instance.syncer.currentSyncOp == SyncOp.Done
+    override init() {
+        syncer = Syncer()
+        notification = TransactionNotification()
+        super.init()
     }
     
     func initWallet() -> NSError? {
@@ -30,6 +26,10 @@ class WalletLoader: NSObject {
         self.wallet = DcrlibwalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrlibwallet/", "bdb", netType!, &initWalletError)
         
         return initWalletError
+    }
+    
+    var isSynced: Bool {
+        return self.syncer.currentSyncOp == SyncOp.Done
     }
     
     var isWalletCreated: Bool {
@@ -48,7 +48,7 @@ class WalletLoader: NSObject {
 extension DcrlibwalletLibWallet {
     func totalWalletBalance() throws -> Double {
         var getAccountsError: NSError?
-        let accountsJson = WalletLoader.wallet?.getAccounts(0, error: &getAccountsError)
+        let accountsJson = AppDelegate.walletLoader.wallet?.getAccounts(0, error: &getAccountsError)
         if getAccountsError != nil {
             throw getAccountsError!
         }

@@ -28,8 +28,8 @@ class NavigationMenuViewController: UIViewController {
     
     static func setupMenuAndLaunchApp(isNewWallet: Bool) {
         // wallet is open, setup sync listener and start notification listener
-        WalletLoader.instance.syncer.registerEstimatedSyncProgressListener()
-        WalletLoader.instance.notification.startListeningForNotifications()
+        AppDelegate.walletLoader.syncer.registerEstimatedSyncProgressListener()
+        AppDelegate.walletLoader.notification.startListeningForNotifications()
         
         let navMenu = Storyboards.NavigationMenu.instantiateViewController(for: self)
         navMenu.isNewWallet = isNewWallet
@@ -133,18 +133,24 @@ extension NavigationMenuViewController: SyncProgressListenerProtocol {
     func startSync() {
         self.resetSyncViews()
         self.syncStatusLabel.text = "Connecting to peers."
-        WalletLoader.instance.syncer.registerSyncProgressListener(for: "\(self)", self)
-        WalletLoader.instance.syncer.beginSync()
+        AppDelegate.walletLoader.syncer.registerSyncProgressListener(for: "\(self)", self)
+        AppDelegate.walletLoader.syncer.beginSync()
     }
     
     @objc func restartSync() {
-        WalletLoader.instance.wallet?.cancelSync()
-//        self.startSync()
+        AppDelegate.walletLoader.syncer.restartSync()
+        
+        if self.refreshBestBlockAgeTimer != nil {
+            self.refreshBestBlockAgeTimer?.invalidate()
+        }
+        
+        self.resetSyncViews()
+        self.syncStatusLabel.text = "Restarting sync..."
     }
     
     func onPeerConnectedOrDisconnected(_ numberOfConnectedPeers: Int32) {
-        if WalletLoader.isSynced {
-            self.syncStatusLabel.text = "Synced with \(WalletLoader.instance.syncer.connectedPeers)"
+        if AppDelegate.walletLoader.isSynced {
+            self.syncStatusLabel.text = "Synced with \(AppDelegate.walletLoader.syncer.connectedPeers)"
         }
     }
     
@@ -186,21 +192,21 @@ extension NavigationMenuViewController: SyncProgressListenerProtocol {
         self.syncInProgressIndicator.stopAnimating()
         self.syncInProgressIndicator.isHidden = true
         
-        self.syncStatusLabel.text = "Synced with \(WalletLoader.instance.syncer.connectedPeers)"
+        self.syncStatusLabel.text = "Synced with \(AppDelegate.walletLoader.syncer.connectedPeers)"
         self.syncStatusLabel.superview?.backgroundColor = UIColor(hex: "#2DD8A3")
         
         self.syncOperationProgressBar.isHidden = true
         
         self.updateLatestBlockInfo()
         
-        WalletLoader.instance.notification.registerListener(for: "\(self)", newBlockListener: self)
-        WalletLoader.instance.notification.registerListener(for: "\(self)", newTxistener: self)
+        AppDelegate.walletLoader.notification.registerListener(for: "\(self)", newBlockListener: self)
+        AppDelegate.walletLoader.notification.registerListener(for: "\(self)", newTxistener: self)
     }
     
     func onSyncCanceled() {
         self.resetSyncViews()
         self.syncStatusLabel.text = "Sync canceled. Tap to restart."
-        self.syncStatusLabel.superview?.backgroundColor = UIColor.yellow
+        self.syncStatusLabel.superview?.backgroundColor = UIColor.red
     }
     
     func onSyncEndedWithError(_ error: String) {
@@ -231,7 +237,7 @@ extension NavigationMenuViewController: NewBlockNotificationProtocol, NewTransac
             self.refreshBestBlockAgeTimer?.invalidate()
         }
         
-        self.bestBlockLabel.text = "Latest Block: \(WalletLoader.wallet!.getBestBlock())"
+        self.bestBlockLabel.text = "Latest Block: \(AppDelegate.walletLoader.wallet!.getBestBlock())"
         self.setBestBlockAge()
         
         self.refreshBestBlockAgeTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) {_ in
@@ -240,7 +246,7 @@ extension NavigationMenuViewController: NewBlockNotificationProtocol, NewTransac
     }
     
     func setBestBlockAge() {
-        let bestBlockAge = Int64(Date().timeIntervalSince1970) - WalletLoader.wallet!.getBestBlockTimeStamp()
+        let bestBlockAge = Int64(Date().timeIntervalSince1970) - AppDelegate.walletLoader.wallet!.getBestBlockTimeStamp()
         
         switch bestBlockAge {
         case Int64.min...0:
@@ -276,7 +282,7 @@ extension NavigationMenuViewController: NewBlockNotificationProtocol, NewTransac
     }
     
     func updateBalance() {
-        let totalWalletBalance = try? WalletLoader.wallet?.totalWalletBalance()
+        let totalWalletBalance = try? AppDelegate.walletLoader.wallet?.totalWalletBalance()
         let totalAmountRoundedOff = (Decimal(totalWalletBalance ?? 0) as NSDecimalNumber).round(8)
         self.totalBalanceAmountLabel.attributedText = Utils.getAttributedString(str: "\(totalAmountRoundedOff)", siz: 12.0, TexthexColor: GlobalConstants.Colors.TextAmount)
     }
