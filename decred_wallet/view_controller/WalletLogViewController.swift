@@ -14,7 +14,9 @@ class WalletLogViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Wallet Log"
+         let progressHud = Utils.showProgressHud(withText: "Loading log...")
         self.logTextView.text = WalletLogViewController.readLog()
+        progressHud.dismiss()
     }
     
     private static func readLog() -> String {
