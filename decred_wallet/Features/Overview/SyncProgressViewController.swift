@@ -96,6 +96,10 @@ class SyncProgressViewController: UIViewController {
 }
 
 extension SyncProgressViewController: SyncProgressListenerProtocol {
+    func onStarted() {
+        self.syncHeaderLabel.text = "Loading..."
+    }
+    
     func onPeerConnectedOrDisconnected(_ numberOfConnectedPeers: Int32) {
         var connectedPeers: String
         if numberOfConnectedPeers == 1 {

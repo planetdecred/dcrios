@@ -118,8 +118,8 @@ class NavigationMenuViewController: UIViewController {
         self.syncOperationProgressBar.progress = 0
         self.syncOperationProgressBar.isHidden = false
         
-        self.bestBlockLabel.text = ""
-        self.bestBlockAgeLabel.text = ""
+        self.bestBlockLabel.text = " " // use whitespace so view don't get 0 height
+        self.bestBlockAgeLabel.text = " " // use whitespace so view don't get 0 height
     }
     
     func changeActivePage(to menuItem: MenuItem) {
@@ -132,7 +132,6 @@ class NavigationMenuViewController: UIViewController {
 extension NavigationMenuViewController: SyncProgressListenerProtocol {
     func startSync() {
         self.resetSyncViews()
-        self.syncStatusLabel.text = "Connecting to peers."
         AppDelegate.walletLoader.syncer.registerSyncProgressListener(for: "\(self)", self)
         AppDelegate.walletLoader.syncer.beginSync()
     }
@@ -146,6 +145,10 @@ extension NavigationMenuViewController: SyncProgressListenerProtocol {
         
         self.resetSyncViews()
         self.syncStatusLabel.text = "Restarting sync..."
+    }
+    
+    func onStarted() {
+        self.syncStatusLabel.text = "Connecting to peers."
     }
     
     func onPeerConnectedOrDisconnected(_ numberOfConnectedPeers: Int32) {
@@ -205,8 +208,7 @@ extension NavigationMenuViewController: SyncProgressListenerProtocol {
     
     func onSyncCanceled() {
         self.resetSyncViews()
-        self.syncStatusLabel.text = "Sync canceled. Tap to restart."
-        self.syncStatusLabel.superview?.backgroundColor = UIColor.red
+        self.syncStatusLabel.text = "Sync canceled."
     }
     
     func onSyncEndedWithError(_ error: String) {

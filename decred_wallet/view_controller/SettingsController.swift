@@ -242,14 +242,13 @@ class SettingsController: UITableViewController  {
     func handleDeleteWallet(pass: String){
         let progressHud = Utils.showProgressHud(withText: "Deleting wallet...")
         let wallet = AppDelegate.walletLoader.wallet!
+        
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let this = self else { return }
             
             do {
-                let passData = (pass as NSString).data(using: String.Encoding.utf8.rawValue)!
-                wallet.cancelSync()
-                try wallet.unlock(passData)
-                try wallet.close()
+                try wallet.unlock(pass.utf8Bits)
+                wallet.shutdown(true)
 
                 let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
                 let walletDir = paths[0].appendingPathComponent("dcrlibwallet")
