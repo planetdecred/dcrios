@@ -21,11 +21,7 @@
         <!--Navigation Menu View Controller-->
         <scene sceneID="RcB-vQ-KbB">
             <objects>
-                <viewController storyboardIdentifier="NavigationMenuViewController" id="21d-aB-q0n" customClass="NavigationMenuViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="JIy-vl-juc"/>
-                        <viewControllerLayoutGuide type="bottom" id="Yrk-EO-Tzc"/>
-                    </layoutGuides>
+                <viewController storyboardIdentifier="NavigationMenuViewController" id="21d-aB-q0n" customClass="NavigationMenuViewController" customModule="decred_wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Q68-T0-QTV">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -149,15 +145,15 @@
                         </subviews>
                         <color key="backgroundColor" red="0.97647058823529409" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="EtP-5T-OJx" firstAttribute="trailing" secondItem="NQW-hZ-Kda" secondAttribute="trailing" id="89x-07-wzP"/>
-                            <constraint firstItem="EtP-5T-OJx" firstAttribute="leading" secondItem="NQW-hZ-Kda" secondAttribute="leading" id="UGd-Eo-fio"/>
+                            <constraint firstItem="EtP-5T-OJx" firstAttribute="trailing" secondItem="xYc-Mi-sAe" secondAttribute="trailing" id="89x-07-wzP"/>
+                            <constraint firstItem="EtP-5T-OJx" firstAttribute="leading" secondItem="xYc-Mi-sAe" secondAttribute="leading" id="UGd-Eo-fio"/>
                             <constraint firstItem="b2k-sG-2bd" firstAttribute="width" relation="lessThanOrEqual" secondItem="Q68-T0-QTV" secondAttribute="width" constant="-20" id="cvt-eI-V1M"/>
-                            <constraint firstItem="Yrk-EO-Tzc" firstAttribute="top" secondItem="EtP-5T-OJx" secondAttribute="bottom" id="dkq-GK-Fmg"/>
-                            <constraint firstItem="b2k-sG-2bd" firstAttribute="leading" secondItem="NQW-hZ-Kda" secondAttribute="leading" constant="10" id="g7F-4v-zdm"/>
-                            <constraint firstItem="b2k-sG-2bd" firstAttribute="top" secondItem="JIy-vl-juc" secondAttribute="bottom" id="gsm-M1-gdc"/>
+                            <constraint firstItem="xYc-Mi-sAe" firstAttribute="bottom" secondItem="EtP-5T-OJx" secondAttribute="bottom" id="dkq-GK-Fmg"/>
+                            <constraint firstItem="b2k-sG-2bd" firstAttribute="leading" secondItem="xYc-Mi-sAe" secondAttribute="leading" constant="10" id="g7F-4v-zdm"/>
+                            <constraint firstItem="b2k-sG-2bd" firstAttribute="top" secondItem="xYc-Mi-sAe" secondAttribute="top" id="gsm-M1-gdc"/>
                             <constraint firstItem="EtP-5T-OJx" firstAttribute="top" secondItem="b2k-sG-2bd" secondAttribute="bottom" constant="10" id="vvG-Rq-LJd"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="NQW-hZ-Kda"/>
+                        <viewLayoutGuide key="safeArea" id="xYc-Mi-sAe"/>
                     </view>
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>

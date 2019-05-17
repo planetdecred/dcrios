@@ -5,7 +5,7 @@
 //  Created by Wisdom Arerosuoghene on 14/05/2019.
 //  Copyright © 2019 The Decred developers. All rights reserved.
 //
-
+import Dcrlibwallet
 import UserNotifications
 
 protocol NewBlockNotificationProtocol {

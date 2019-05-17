@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BLx-jo-l82">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BLx-jo-l82">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -21,7 +20,7 @@
         <!--Right View Controller-->
         <scene sceneID="bvR-W9-qnC">
             <objects>
-                <viewController storyboardIdentifier="RightViewController" id="In8-Mc-X7I" customClass="RightViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RightViewController" id="In8-Mc-X7I" customClass="RightViewController" customModule="decred_wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Uwi-SA-NOq"/>
                         <viewControllerLayoutGuide type="bottom" id="wFn-Mp-0fQ"/>
@@ -39,7 +38,6 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="0.94509803921568625" green="0.97254901960784312" blue="0.9137254901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <viewLayoutGuide key="safeArea" id="j4P-Yu-Gbe"/>
                     </view>
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
@@ -51,7 +49,11 @@
         <!--Help View Controller-->
         <scene sceneID="KmC-zu-2VC">
             <objects>
-                <viewController storyboardIdentifier="HelpViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="W0n-B7-KjY" customClass="HelpViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HelpViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="W0n-B7-KjY" customClass="HelpViewController" customModule="decred_wallet" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="PrI-zG-xl5"/>
+                        <viewControllerLayoutGuide type="bottom" id="fjK-mu-Ueq"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="w9N-kl-PBo">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -88,7 +90,6 @@
                             <constraint firstItem="lue-Jf-2pX" firstAttribute="width" secondItem="w9N-kl-PBo" secondAttribute="width" multiplier="0.2" id="ruE-aZ-xlD"/>
                             <constraint firstItem="g3T-GI-lU4" firstAttribute="width" secondItem="w9N-kl-PBo" secondAttribute="width" multiplier="0.9" id="yYc-Sh-SyV"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="ysL-uD-J9N"/>
                     </view>
                     <connections>
                         <outlet property="linkBtn" destination="g3T-GI-lU4" id="mCu-tb-Rfs"/>
@@ -101,7 +102,11 @@
         <!--Add Acount View Controller-->
         <scene sceneID="Zdm-x4-gsR">
             <objects>
-                <viewController storyboardIdentifier="addaccount" id="oZ5-dq-itK" customClass="AddAcountViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="addaccount" id="oZ5-dq-itK" customClass="AddAcountViewController" customModule="decred_wallet" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="J9T-CS-TKg"/>
+                        <viewControllerLayoutGuide type="bottom" id="CkP-ir-LHb"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="5eF-E0-YtW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -179,10 +184,9 @@
                             <constraint firstItem="3fY-ne-PU1" firstAttribute="height" secondItem="5eF-E0-YtW" secondAttribute="height" multiplier="0.06" id="h16-mm-X9y"/>
                             <constraint firstItem="9vy-aP-AN1" firstAttribute="top" secondItem="omU-f5-HkH" secondAttribute="bottom" constant="18" id="i8u-je-6es"/>
                             <constraint firstItem="3fY-ne-PU1" firstAttribute="centerX" secondItem="5eF-E0-YtW" secondAttribute="centerX" id="ib6-g4-Qxc"/>
-                            <constraint firstItem="omU-f5-HkH" firstAttribute="top" secondItem="24k-yr-wrq" secondAttribute="top" id="xAt-ge-JMS"/>
+                            <constraint firstItem="omU-f5-HkH" firstAttribute="top" secondItem="J9T-CS-TKg" secondAttribute="bottom" id="xAt-ge-JMS"/>
                             <constraint firstItem="uEE-xL-XMv" firstAttribute="centerX" secondItem="5eF-E0-YtW" secondAttribute="centerX" constant="2.5" id="yZF-re-WTQ"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="24k-yr-wrq"/>
                     </view>
                     <connections>
                         <outlet property="accountName" destination="f24-xl-TCh" id="1ed-ao-GxU"/>
@@ -198,7 +202,7 @@
         <!--Receive View Controller-->
         <scene sceneID="adq-KJ-u5Z">
             <objects>
-                <viewController storyboardIdentifier="ReceiveViewController" id="pwN-Wv-Ioh" customClass="ReceiveViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ReceiveViewController" id="pwN-Wv-Ioh" customClass="ReceiveViewController" customModule="decred_wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="QEC-CO-vAa"/>
                         <viewControllerLayoutGuide type="bottom" id="4w6-Ph-vE3"/>
@@ -231,7 +235,7 @@
                                                 <color key="textColor" red="0.035294117647058823" green="0.078431372549019607" blue="0.25098039215686274" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fvx-Vc-1a6" customClass="DropMenuButton" customModule="DecredWallet" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fvx-Vc-1a6" customClass="DropMenuButton" customModule="decred_wallet" customModuleProvider="target">
                                                 <rect key="frame" x="72.5" y="0.0" width="257.5" height="36"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="19"/>
@@ -288,10 +292,9 @@
                         <constraints>
                             <constraint firstItem="CjE-tq-m7A" firstAttribute="top" secondItem="QEC-CO-vAa" secondAttribute="bottom" constant="10" id="Agf-mR-3KO"/>
                             <constraint firstItem="CjE-tq-m7A" firstAttribute="width" secondItem="IWZ-ke-U66" secondAttribute="width" constant="-20" id="WJs-xa-GIE"/>
-                            <constraint firstItem="CjE-tq-m7A" firstAttribute="centerX" secondItem="jg0-hE-iYI" secondAttribute="centerX" id="cJn-S8-X6u"/>
+                            <constraint firstItem="CjE-tq-m7A" firstAttribute="centerX" secondItem="IWZ-ke-U66" secondAttribute="centerX" id="cJn-S8-X6u"/>
                             <constraint firstItem="4w6-Ph-vE3" firstAttribute="top" secondItem="CjE-tq-m7A" secondAttribute="bottom" id="hgI-ty-nKs"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="jg0-hE-iYI"/>
                     </view>
                     <navigationItem key="navigationItem" id="Wve-YG-p0e"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -316,7 +319,7 @@
         <!--Settings Controller-->
         <scene sceneID="E8C-IB-Uk6">
             <objects>
-                <tableViewController storyboardIdentifier="SettingsController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="D9F-Sd-24p" customClass="SettingsController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="SettingsController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="D9F-Sd-24p" customClass="SettingsController" customModule="decred_wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" bouncesZoom="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="3Wp-X3-OIp">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -821,7 +824,11 @@
         <!--Security Menu View Controller-->
         <scene sceneID="vdv-Qf-mQT">
             <objects>
-                <viewController storyboardIdentifier="SecurityMenuViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hNg-Pd-45z" customClass="SecurityMenuViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SecurityMenuViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hNg-Pd-45z" customClass="SecurityMenuViewController" customModule="decred_wallet" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8kT-Yd-i6y"/>
+                        <viewControllerLayoutGuide type="bottom" id="W2H-1v-XCm"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="IeE-Z3-mFO">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -956,7 +963,7 @@
                             <constraint firstItem="cap-yH-2og" firstAttribute="top" secondItem="cRM-40-aiT" secondAttribute="bottom" constant="8" id="1JZ-vq-66Q"/>
                             <constraint firstItem="HP0-79-po5" firstAttribute="top" secondItem="rgi-ar-oMn" secondAttribute="bottom" constant="8.5" id="3ua-sc-Ieh"/>
                             <constraint firstItem="c3I-SS-oAy" firstAttribute="centerX" secondItem="IeE-Z3-mFO" secondAttribute="centerX" id="7CN-iA-Xv4"/>
-                            <constraint firstItem="fru-Ch-cQ2" firstAttribute="top" secondItem="ber-9p-Onc" secondAttribute="top" constant="30" id="7aC-59-h1v"/>
+                            <constraint firstItem="fru-Ch-cQ2" firstAttribute="top" secondItem="8kT-Yd-i6y" secondAttribute="bottom" constant="30" id="7aC-59-h1v"/>
                             <constraint firstItem="WqJ-Eu-i0x" firstAttribute="centerX" secondItem="IeE-Z3-mFO" secondAttribute="centerX" id="85q-iT-WOJ"/>
                             <constraint firstItem="cRM-40-aiT" firstAttribute="width" secondItem="IFU-7z-oAE" secondAttribute="width" id="8qQ-GI-sCe"/>
                             <constraint firstItem="fru-Ch-cQ2" firstAttribute="width" secondItem="IeE-Z3-mFO" secondAttribute="width" multiplier="0.9" id="ACk-NP-Oh3"/>
@@ -991,12 +998,11 @@
                             <constraint firstItem="cap-yH-2og" firstAttribute="width" secondItem="IeE-Z3-mFO" secondAttribute="width" multiplier="0.9" id="pII-Z8-f8R"/>
                             <constraint firstItem="cap-yH-2og" firstAttribute="height" secondItem="IeE-Z3-mFO" secondAttribute="height" multiplier="0.09" constant="-9.1199999999999974" id="qhm-bQ-0CD"/>
                             <constraint firstItem="GMd-aT-QoX" firstAttribute="width" secondItem="IFU-7z-oAE" secondAttribute="width" id="rVd-L8-i07"/>
-                            <constraint firstItem="ber-9p-Onc" firstAttribute="trailing" secondItem="jxY-jc-rWO" secondAttribute="trailing" constant="16" id="rbP-LM-uol"/>
+                            <constraint firstAttribute="trailing" secondItem="jxY-jc-rWO" secondAttribute="trailing" constant="16" id="rbP-LM-uol"/>
                             <constraint firstItem="jcp-5t-P8E" firstAttribute="top" secondItem="cap-yH-2og" secondAttribute="bottom" constant="-1.5" id="x7q-MZ-Xgl"/>
                             <constraint firstItem="IFU-7z-oAE" firstAttribute="centerX" secondItem="IeE-Z3-mFO" secondAttribute="centerX" id="xDU-yf-sXt"/>
                             <constraint firstItem="MKK-zr-stK" firstAttribute="top" secondItem="fru-Ch-cQ2" secondAttribute="bottom" id="yjQ-7P-o5F"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="ber-9p-Onc"/>
                     </view>
                     <connections>
                         <outlet property="HeaderInfo" destination="MKK-zr-stK" id="hKT-r4-bVH"/>
@@ -1022,7 +1028,11 @@
         <!--Certificate View Controller-->
         <scene sceneID="6nh-mZ-Xhx">
             <objects>
-                <viewController id="fV9-F9-h7o" customClass="certificateViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="fV9-F9-h7o" customClass="certificateViewController" customModule="decred_wallet" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="27D-oQ-jMz"/>
+                        <viewControllerLayoutGuide type="bottom" id="4Nc-ZT-SkG"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="w7z-7i-27N">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1058,14 +1068,13 @@
                             <constraint firstItem="bPN-YR-Qki" firstAttribute="trailing" secondItem="w7z-7i-27N" secondAttribute="trailingMargin" id="D8z-M1-MBa"/>
                             <constraint firstItem="bPN-YR-Qki" firstAttribute="leading" secondItem="Cu9-M6-uYC" secondAttribute="leading" id="DCa-Mv-loh"/>
                             <constraint firstItem="Cu9-M6-uYC" firstAttribute="top" secondItem="bPN-YR-Qki" secondAttribute="bottom" constant="15" id="DZb-tz-kUY"/>
-                            <constraint firstItem="HAH-VN-n7n" firstAttribute="bottom" secondItem="3Y9-cM-yL2" secondAttribute="bottom" constant="280" id="HfO-zr-iEC"/>
+                            <constraint firstItem="4Nc-ZT-SkG" firstAttribute="top" secondItem="3Y9-cM-yL2" secondAttribute="bottom" constant="280" id="HfO-zr-iEC"/>
                             <constraint firstItem="Cu9-M6-uYC" firstAttribute="trailing" secondItem="3Y9-cM-yL2" secondAttribute="trailing" id="S5l-KC-kjY"/>
                             <constraint firstItem="Cu9-M6-uYC" firstAttribute="leading" secondItem="3Y9-cM-yL2" secondAttribute="leading" id="UCk-lf-TYh"/>
                             <constraint firstItem="bPN-YR-Qki" firstAttribute="trailing" secondItem="Cu9-M6-uYC" secondAttribute="trailing" id="aF5-R4-t3N"/>
                             <constraint firstItem="3Y9-cM-yL2" firstAttribute="top" secondItem="Cu9-M6-uYC" secondAttribute="bottom" constant="8" symbolic="YES" id="iyU-Pe-C8C"/>
-                            <constraint firstItem="bPN-YR-Qki" firstAttribute="top" secondItem="HAH-VN-n7n" secondAttribute="top" constant="20" id="uXM-s2-jaN"/>
+                            <constraint firstItem="bPN-YR-Qki" firstAttribute="top" secondItem="27D-oQ-jMz" secondAttribute="bottom" constant="20" id="uXM-s2-jaN"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="HAH-VN-n7n"/>
                     </view>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <splitViewDetailSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -1081,6 +1090,10 @@
         <scene sceneID="T1Z-xm-Luy">
             <objects>
                 <viewController storyboardIdentifier="ConfirmToSendFundViewPINController" id="wsz-Ml-THI" customClass="ConfirmToSendFundViewPINController" customModule="DecredWallet" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="e0s-OP-9cj"/>
+                        <viewControllerLayoutGuide type="bottom" id="Jyv-KV-Dxo"/>
+                    </layoutGuides>
                     <view key="view" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" id="nvU-Z6-GeI">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1187,29 +1200,28 @@
                                     <constraint firstAttribute="bottom" secondItem="z8u-C6-Djx" secondAttribute="bottom" id="1Ld-TV-9Zg"/>
                                     <constraint firstAttribute="height" constant="180" id="1OS-cL-KPY"/>
                                     <constraint firstAttribute="bottom" secondItem="z8u-C6-Djx" secondAttribute="bottom" id="1wN-te-Y6a"/>
-                                    <constraint firstItem="Gyu-38-VAD" firstAttribute="leading" secondItem="mhO-le-7DW" secondAttribute="leading" id="50d-0N-UYN"/>
+                                    <constraint firstItem="Gyu-38-VAD" firstAttribute="leading" secondItem="w3o-Gu-357" secondAttribute="leading" id="50d-0N-UYN"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="180" id="5d0-OH-JYf"/>
                                     <constraint firstItem="z8u-C6-Djx" firstAttribute="centerX" secondItem="w3o-Gu-357" secondAttribute="centerX" id="B8w-hu-jK5"/>
                                     <constraint firstItem="dPx-ZI-D15" firstAttribute="centerX" secondItem="w3o-Gu-357" secondAttribute="centerX" id="BeM-rG-21b"/>
-                                    <constraint firstItem="O29-L9-SYX" firstAttribute="trailing" secondItem="mhO-le-7DW" secondAttribute="trailing" id="I6Y-c4-ccV"/>
+                                    <constraint firstItem="O29-L9-SYX" firstAttribute="trailing" secondItem="w3o-Gu-357" secondAttribute="trailing" id="I6Y-c4-ccV"/>
                                     <constraint firstItem="FE2-ZA-Akw" firstAttribute="top" secondItem="hKD-mF-CbF" secondAttribute="bottom" id="NDR-2X-ksA"/>
-                                    <constraint firstItem="FE2-ZA-Akw" firstAttribute="trailing" secondItem="mhO-le-7DW" secondAttribute="trailing" id="Oau-hL-4Nm"/>
+                                    <constraint firstItem="FE2-ZA-Akw" firstAttribute="trailing" secondItem="w3o-Gu-357" secondAttribute="trailing" id="Oau-hL-4Nm"/>
                                     <constraint firstItem="O29-L9-SYX" firstAttribute="top" secondItem="Gyu-38-VAD" secondAttribute="bottom" id="QVM-Ma-SXx"/>
-                                    <constraint firstItem="hKD-mF-CbF" firstAttribute="trailing" secondItem="mhO-le-7DW" secondAttribute="trailing" id="TV5-uV-MjY"/>
-                                    <constraint firstItem="O29-L9-SYX" firstAttribute="leading" secondItem="mhO-le-7DW" secondAttribute="leading" id="XnU-h6-sJ8"/>
+                                    <constraint firstItem="hKD-mF-CbF" firstAttribute="trailing" secondItem="w3o-Gu-357" secondAttribute="trailing" id="TV5-uV-MjY"/>
+                                    <constraint firstItem="O29-L9-SYX" firstAttribute="leading" secondItem="w3o-Gu-357" secondAttribute="leading" id="XnU-h6-sJ8"/>
                                     <constraint firstItem="FE2-ZA-Akw" firstAttribute="centerX" secondItem="w3o-Gu-357" secondAttribute="centerX" id="aaD-WU-vsP"/>
-                                    <constraint firstItem="Gyu-38-VAD" firstAttribute="trailing" secondItem="mhO-le-7DW" secondAttribute="trailing" id="hoL-B5-YEN"/>
-                                    <constraint firstItem="hKD-mF-CbF" firstAttribute="top" secondItem="mhO-le-7DW" secondAttribute="top" constant="8" id="i5K-jD-xUq"/>
+                                    <constraint firstItem="Gyu-38-VAD" firstAttribute="trailing" secondItem="w3o-Gu-357" secondAttribute="trailing" id="hoL-B5-YEN"/>
+                                    <constraint firstItem="hKD-mF-CbF" firstAttribute="top" secondItem="w3o-Gu-357" secondAttribute="top" constant="8" id="i5K-jD-xUq"/>
                                     <constraint firstItem="Gyu-38-VAD" firstAttribute="top" secondItem="dPx-ZI-D15" secondAttribute="bottom" id="q48-Li-tXN"/>
-                                    <constraint firstItem="mhO-le-7DW" firstAttribute="trailing" secondItem="dPx-ZI-D15" secondAttribute="trailing" id="qvL-Kk-qtf"/>
+                                    <constraint firstAttribute="trailing" secondItem="dPx-ZI-D15" secondAttribute="trailing" id="qvL-Kk-qtf"/>
                                     <constraint firstItem="dPx-ZI-D15" firstAttribute="centerX" secondItem="w3o-Gu-357" secondAttribute="centerX" id="rlc-BN-30J"/>
                                     <constraint firstItem="dPx-ZI-D15" firstAttribute="top" secondItem="FE2-ZA-Akw" secondAttribute="bottom" id="vLG-AH-PoY"/>
-                                    <constraint firstItem="z8u-C6-Djx" firstAttribute="trailing" secondItem="mhO-le-7DW" secondAttribute="trailing" id="wo8-sU-xJj"/>
-                                    <constraint firstItem="hKD-mF-CbF" firstAttribute="leading" secondItem="mhO-le-7DW" secondAttribute="leading" id="xBW-Gp-Y5Z"/>
-                                    <constraint firstItem="FE2-ZA-Akw" firstAttribute="leading" secondItem="mhO-le-7DW" secondAttribute="leading" id="ym5-Ts-p3S"/>
+                                    <constraint firstItem="z8u-C6-Djx" firstAttribute="trailing" secondItem="w3o-Gu-357" secondAttribute="trailing" id="wo8-sU-xJj"/>
+                                    <constraint firstItem="hKD-mF-CbF" firstAttribute="leading" secondItem="w3o-Gu-357" secondAttribute="leading" id="xBW-Gp-Y5Z"/>
+                                    <constraint firstItem="FE2-ZA-Akw" firstAttribute="leading" secondItem="w3o-Gu-357" secondAttribute="leading" id="ym5-Ts-p3S"/>
                                     <constraint firstAttribute="width" constant="300" id="yud-kG-FL9"/>
                                 </constraints>
-                                <viewLayoutGuide key="safeArea" id="mhO-le-7DW"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="5"/>
@@ -1228,7 +1240,6 @@
                             <constraint firstItem="w3o-Gu-357" firstAttribute="centerX" secondItem="nvU-Z6-GeI" secondAttribute="centerX" id="Qbc-Mm-6tA"/>
                             <constraint firstItem="w3o-Gu-357" firstAttribute="centerY" secondItem="nvU-Z6-GeI" secondAttribute="centerY" id="oIC-4W-lUf"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="C3s-cf-vji"/>
                     </view>
                     <connections>
                         <outlet property="Destaddress" destination="Gyu-38-VAD" id="62c-PD-P6j"/>
@@ -1248,7 +1259,7 @@
         <!--Server Set Table View Controller-->
         <scene sceneID="dWF-N1-sg0">
             <objects>
-                <tableViewController id="KPf-Vc-5eO" customClass="ServerSetTableViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="KPf-Vc-5eO" customClass="ServerSetTableViewController" customModule="decred_wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Vvb-X5-M8d">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1318,7 +1329,7 @@
         <!--Network Mode Table View Controller-->
         <scene sceneID="eRR-1R-0HC">
             <objects>
-                <tableViewController storyboardIdentifier="networkmode" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HwO-Ms-2bE" customClass="NetworkModeTableViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="networkmode" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HwO-Ms-2bE" customClass="NetworkModeTableViewController" customModule="decred_wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="hE3-xS-Acx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1382,7 +1393,11 @@
         <!--Wallet Log View Controller-->
         <scene sceneID="Z5w-DS-0qO">
             <objects>
-                <viewController id="YSv-gj-0dD" customClass="WalletLogViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="YSv-gj-0dD" customClass="WalletLogViewController" customModule="decred_wallet" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="96j-Va-bVA"/>
+                        <viewControllerLayoutGuide type="bottom" id="xBR-2k-0G1"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="lau-kp-LI6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1396,12 +1411,11 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="x2y-Tw-HzA" firstAttribute="leading" secondItem="3R2-AH-qzU" secondAttribute="leading" constant="8" id="H6H-fK-iyV"/>
-                            <constraint firstItem="3R2-AH-qzU" firstAttribute="bottom" secondItem="x2y-Tw-HzA" secondAttribute="bottom" constant="8" id="Vlw-yD-xMK"/>
-                            <constraint firstItem="3R2-AH-qzU" firstAttribute="trailing" secondItem="x2y-Tw-HzA" secondAttribute="trailing" constant="8" id="a3O-AV-WWx"/>
-                            <constraint firstItem="x2y-Tw-HzA" firstAttribute="top" secondItem="3R2-AH-qzU" secondAttribute="top" constant="8" id="uzq-eG-n2F"/>
+                            <constraint firstItem="x2y-Tw-HzA" firstAttribute="leading" secondItem="lau-kp-LI6" secondAttribute="leading" constant="8" id="H6H-fK-iyV"/>
+                            <constraint firstItem="xBR-2k-0G1" firstAttribute="top" secondItem="x2y-Tw-HzA" secondAttribute="bottom" constant="8" id="Vlw-yD-xMK"/>
+                            <constraint firstAttribute="trailing" secondItem="x2y-Tw-HzA" secondAttribute="trailing" constant="8" id="a3O-AV-WWx"/>
+                            <constraint firstItem="x2y-Tw-HzA" firstAttribute="top" secondItem="96j-Va-bVA" secondAttribute="bottom" constant="8" id="uzq-eG-n2F"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="3R2-AH-qzU"/>
                     </view>
                     <connections>
                         <outlet property="logTextView" destination="x2y-Tw-HzA" id="vjh-sD-KQJ"/>
@@ -1414,7 +1428,11 @@
         <!--Start Screen View Controller-->
         <scene sceneID="PGy-QW-K8H">
             <objects>
-                <viewController storyboardIdentifier="StartScreenViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BLx-jo-l82" customClass="StartScreenViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StartScreenViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BLx-jo-l82" customClass="StartScreenViewController" customModule="decred_wallet" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="6l6-ug-aLI"/>
+                        <viewControllerLayoutGuide type="bottom" id="u8k-lY-6JX"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="EO2-Pa-A0e">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1470,7 +1488,6 @@
                             <constraint firstItem="dYR-FH-u7X" firstAttribute="top" secondItem="Je2-ms-0XC" secondAttribute="bottom" constant="8" id="pGj-xI-0R9"/>
                             <constraint firstItem="hRj-cn-ZPx" firstAttribute="top" secondItem="dYR-FH-u7X" secondAttribute="bottom" constant="5.5" id="wPF-85-8eR"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="Vu3-b8-9c3"/>
                     </view>
                     <connections>
                         <outlet property="label" destination="w3H-Un-Z5W" id="2PH-vS-iWb"/>
@@ -1490,7 +1507,7 @@
         <!--Peer Set Table View Controller-->
         <scene sceneID="CDq-Z7-nHX">
             <objects>
-                <tableViewController id="OWA-i4-gJj" customClass="PeerSetTableViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="OWA-i4-gJj" customClass="PeerSetTableViewController" customModule="decred_wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Zdl-iy-TBy">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1560,7 +1577,11 @@
         <!--Confirm To Send Fund View Controller-->
         <scene sceneID="4e7-6w-vZ3">
             <objects>
-                <viewController storyboardIdentifier="ConfirmToSendFundViewController" id="wZi-pX-SJm" customClass="ConfirmToSendFundViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ConfirmToSendFundViewController" id="wZi-pX-SJm" customClass="ConfirmToSendFundViewController" customModule="decred_wallet" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="F7P-Ru-SrX"/>
+                        <viewControllerLayoutGuide type="bottom" id="A13-Md-lay"/>
+                    </layoutGuides>
                     <view key="view" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" id="lEP-UP-o7U">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1667,33 +1688,32 @@
                                     <constraint firstItem="s9I-wT-Rd0" firstAttribute="top" secondItem="N0c-te-OYd" secondAttribute="bottom" id="3BO-mO-nhQ"/>
                                     <constraint firstItem="DDk-dj-478" firstAttribute="width" secondItem="bB8-JN-6mS" secondAttribute="width" multiplier="0.8" id="69z-cd-lTQ"/>
                                     <constraint firstItem="DDk-dj-478" firstAttribute="centerX" secondItem="bB8-JN-6mS" secondAttribute="centerX" id="7c3-BP-NxG"/>
-                                    <constraint firstItem="l5b-HS-2FO" firstAttribute="trailing" secondItem="YQs-4i-vdZ" secondAttribute="trailing" id="7g8-DV-TPA"/>
-                                    <constraint firstItem="801-yS-uV3" firstAttribute="trailing" secondItem="l5b-HS-2FO" secondAttribute="trailing" id="7pt-rD-KLC"/>
+                                    <constraint firstAttribute="trailing" secondItem="YQs-4i-vdZ" secondAttribute="trailing" id="7g8-DV-TPA"/>
+                                    <constraint firstItem="801-yS-uV3" firstAttribute="trailing" secondItem="bB8-JN-6mS" secondAttribute="trailing" id="7pt-rD-KLC"/>
                                     <constraint firstAttribute="bottom" secondItem="801-yS-uV3" secondAttribute="bottom" id="8WT-2H-dgs"/>
-                                    <constraint firstItem="l5b-HS-2FO" firstAttribute="trailing" secondItem="6he-C2-Cu2" secondAttribute="trailing" id="BQt-dk-BQC"/>
+                                    <constraint firstAttribute="trailing" secondItem="6he-C2-Cu2" secondAttribute="trailing" id="BQt-dk-BQC"/>
                                     <constraint firstItem="801-yS-uV3" firstAttribute="top" secondItem="DDk-dj-478" secondAttribute="bottom" constant="15" id="ECN-o5-Z5r"/>
                                     <constraint firstItem="N0c-te-OYd" firstAttribute="top" secondItem="YQs-4i-vdZ" secondAttribute="bottom" id="HNo-KU-VG5"/>
                                     <constraint firstItem="6he-C2-Cu2" firstAttribute="centerX" secondItem="bB8-JN-6mS" secondAttribute="centerX" id="KuQ-CE-ce9"/>
                                     <constraint firstItem="N0c-te-OYd" firstAttribute="top" secondItem="YQs-4i-vdZ" secondAttribute="bottom" id="N2P-vK-Q52"/>
-                                    <constraint firstItem="s9I-wT-Rd0" firstAttribute="leading" secondItem="l5b-HS-2FO" secondAttribute="leading" id="SQJ-cY-6Dv"/>
-                                    <constraint firstItem="l5b-HS-2FO" firstAttribute="trailing" secondItem="s9I-wT-Rd0" secondAttribute="trailing" id="a4q-pV-lTi"/>
-                                    <constraint firstItem="l5b-HS-2FO" firstAttribute="trailing" secondItem="bag-fX-egC" secondAttribute="trailing" id="avc-i3-auC"/>
+                                    <constraint firstItem="s9I-wT-Rd0" firstAttribute="leading" secondItem="bB8-JN-6mS" secondAttribute="leading" id="SQJ-cY-6Dv"/>
+                                    <constraint firstAttribute="trailing" secondItem="s9I-wT-Rd0" secondAttribute="trailing" id="a4q-pV-lTi"/>
+                                    <constraint firstAttribute="trailing" secondItem="bag-fX-egC" secondAttribute="trailing" id="avc-i3-auC"/>
                                     <constraint firstAttribute="height" constant="230" id="dhc-xB-7gS"/>
-                                    <constraint firstItem="l5b-HS-2FO" firstAttribute="trailing" secondItem="N0c-te-OYd" secondAttribute="trailing" id="ef3-ZS-KtN"/>
-                                    <constraint firstItem="YQs-4i-vdZ" firstAttribute="leading" secondItem="l5b-HS-2FO" secondAttribute="leading" id="fuC-Ye-XwO"/>
+                                    <constraint firstAttribute="trailing" secondItem="N0c-te-OYd" secondAttribute="trailing" id="ef3-ZS-KtN"/>
+                                    <constraint firstItem="YQs-4i-vdZ" firstAttribute="leading" secondItem="bB8-JN-6mS" secondAttribute="leading" id="fuC-Ye-XwO"/>
                                     <constraint firstAttribute="bottom" secondItem="801-yS-uV3" secondAttribute="bottom" id="gGJ-f1-tJG"/>
-                                    <constraint firstItem="YQs-4i-vdZ" firstAttribute="top" secondItem="l5b-HS-2FO" secondAttribute="top" constant="8" id="k9u-C7-WyM"/>
+                                    <constraint firstItem="YQs-4i-vdZ" firstAttribute="top" secondItem="bB8-JN-6mS" secondAttribute="top" constant="8" id="k9u-C7-WyM"/>
                                     <constraint firstAttribute="width" constant="300" id="lBc-qH-8EK"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="230" id="mHg-DO-KM9"/>
-                                    <constraint firstItem="N0c-te-OYd" firstAttribute="leading" secondItem="l5b-HS-2FO" secondAttribute="leading" id="mkz-JH-NNT"/>
-                                    <constraint firstItem="6he-C2-Cu2" firstAttribute="leading" secondItem="l5b-HS-2FO" secondAttribute="leading" id="oNU-qC-JVr"/>
+                                    <constraint firstItem="N0c-te-OYd" firstAttribute="leading" secondItem="bB8-JN-6mS" secondAttribute="leading" id="mkz-JH-NNT"/>
+                                    <constraint firstItem="6he-C2-Cu2" firstAttribute="leading" secondItem="bB8-JN-6mS" secondAttribute="leading" id="oNU-qC-JVr"/>
                                     <constraint firstItem="6he-C2-Cu2" firstAttribute="top" secondItem="s9I-wT-Rd0" secondAttribute="bottom" id="pGI-E6-iS4"/>
-                                    <constraint firstItem="bag-fX-egC" firstAttribute="leading" secondItem="l5b-HS-2FO" secondAttribute="leading" id="pM2-mD-cnc"/>
-                                    <constraint firstItem="801-yS-uV3" firstAttribute="leading" secondItem="l5b-HS-2FO" secondAttribute="leading" id="vJa-wp-ipR"/>
+                                    <constraint firstItem="bag-fX-egC" firstAttribute="leading" secondItem="bB8-JN-6mS" secondAttribute="leading" id="pM2-mD-cnc"/>
+                                    <constraint firstItem="801-yS-uV3" firstAttribute="leading" secondItem="bB8-JN-6mS" secondAttribute="leading" id="vJa-wp-ipR"/>
                                     <constraint firstItem="YQs-4i-vdZ" firstAttribute="centerX" secondItem="bB8-JN-6mS" secondAttribute="centerX" id="vJt-UY-iht"/>
                                     <constraint firstItem="6he-C2-Cu2" firstAttribute="top" secondItem="s9I-wT-Rd0" secondAttribute="bottom" id="vM3-r6-b6R"/>
                                 </constraints>
-                                <viewLayoutGuide key="safeArea" id="l5b-HS-2FO"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="5"/>
@@ -1712,7 +1732,6 @@
                             <constraint firstItem="bB8-JN-6mS" firstAttribute="centerX" secondItem="lEP-UP-o7U" secondAttribute="centerX" id="die-ec-o6W"/>
                             <constraint firstItem="bB8-JN-6mS" firstAttribute="centerY" secondItem="lEP-UP-o7U" secondAttribute="centerY" id="yQA-Wq-8Oc"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="osM-aR-Ssx"/>
                     </view>
                     <connections>
                         <outlet property="accountLabel" destination="bag-fX-egC" id="4MF-b5-Ucs"/>
@@ -1730,7 +1749,7 @@
         <!--Account View Controller-->
         <scene sceneID="dnl-tR-kvs">
             <objects>
-                <viewController storyboardIdentifier="AccountViewController" id="3g1-Gv-gpJ" customClass="AccountViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AccountViewController" id="3g1-Gv-gpJ" customClass="AccountViewController" customModule="decred_wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4bf-AZ-g2X"/>
                         <viewControllerLayoutGuide type="bottom" id="OIc-gl-RFd"/>
@@ -1752,11 +1771,10 @@
                         <color key="backgroundColor" red="0.89411764709999997" green="0.91372549020000005" blue="0.91372549020000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="OIc-gl-RFd" firstAttribute="top" secondItem="jaL-ac-7qU" secondAttribute="bottom" id="1U8-Ex-HMC"/>
-                            <constraint firstItem="jaL-ac-7qU" firstAttribute="leading" secondItem="ZZo-Bh-pEZ" secondAttribute="leading" id="ic5-KJ-VQx"/>
-                            <constraint firstItem="ZZo-Bh-pEZ" firstAttribute="trailing" secondItem="jaL-ac-7qU" secondAttribute="trailing" id="rVX-eM-uI0"/>
+                            <constraint firstItem="jaL-ac-7qU" firstAttribute="leading" secondItem="7Si-AZ-Cbr" secondAttribute="leading" id="ic5-KJ-VQx"/>
+                            <constraint firstAttribute="trailing" secondItem="jaL-ac-7qU" secondAttribute="trailing" id="rVX-eM-uI0"/>
                             <constraint firstItem="jaL-ac-7qU" firstAttribute="top" secondItem="4bf-AZ-g2X" secondAttribute="bottom" id="xYC-VM-7TD"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="ZZo-Bh-pEZ"/>
                     </view>
                     <navigationItem key="navigationItem" id="e5O-6o-Qhe"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -1772,7 +1790,11 @@
         <!--Wifi Confirmation Controller-->
         <scene sceneID="MfV-xT-sfg">
             <objects>
-                <viewController storyboardIdentifier="WifiSyncView" id="KBi-SW-SuJ" customClass="WifiConfirmationController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WifiSyncView" id="KBi-SW-SuJ" customClass="WifiConfirmationController" customModule="decred_wallet" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="F9C-2k-wiY"/>
+                        <viewControllerLayoutGuide type="bottom" id="p1I-a2-rWz"/>
+                    </layoutGuides>
                     <view key="view" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" id="TvA-2t-I3M">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1839,17 +1861,16 @@
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="ObM-d7-4VB" secondAttribute="bottom" id="CAC-pJ-foR"/>
                                     <constraint firstAttribute="bottom" secondItem="ObM-d7-4VB" secondAttribute="bottom" id="Jol-gX-Sev"/>
-                                    <constraint firstItem="ObM-d7-4VB" firstAttribute="trailing" secondItem="maV-yT-iXH" secondAttribute="trailing" id="MAv-Fa-Edw"/>
-                                    <constraint firstItem="EC2-r9-YLV" firstAttribute="leading" secondItem="maV-yT-iXH" secondAttribute="leading" constant="19" id="N91-uj-DK3"/>
-                                    <constraint firstItem="maV-yT-iXH" firstAttribute="trailing" secondItem="EC2-r9-YLV" secondAttribute="trailing" constant="19" id="PLO-Qf-M44"/>
-                                    <constraint firstItem="ObM-d7-4VB" firstAttribute="leading" secondItem="maV-yT-iXH" secondAttribute="leading" id="VOB-fU-GXA"/>
+                                    <constraint firstItem="ObM-d7-4VB" firstAttribute="trailing" secondItem="Rp3-Lc-hBt" secondAttribute="trailing" id="MAv-Fa-Edw"/>
+                                    <constraint firstItem="EC2-r9-YLV" firstAttribute="leading" secondItem="Rp3-Lc-hBt" secondAttribute="leading" constant="19" id="N91-uj-DK3"/>
+                                    <constraint firstAttribute="trailing" secondItem="EC2-r9-YLV" secondAttribute="trailing" constant="19" id="PLO-Qf-M44"/>
+                                    <constraint firstItem="ObM-d7-4VB" firstAttribute="leading" secondItem="Rp3-Lc-hBt" secondAttribute="leading" id="VOB-fU-GXA"/>
                                     <constraint firstAttribute="width" constant="300" id="WM9-0d-YDo"/>
-                                    <constraint firstItem="EC2-r9-YLV" firstAttribute="top" secondItem="maV-yT-iXH" secondAttribute="top" constant="20" id="bMl-C6-vSj"/>
+                                    <constraint firstItem="EC2-r9-YLV" firstAttribute="top" secondItem="Rp3-Lc-hBt" secondAttribute="top" constant="20" id="bMl-C6-vSj"/>
                                     <constraint firstAttribute="height" constant="140" id="hpy-MM-gWj"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="140" id="niU-ff-9Os"/>
                                     <constraint firstItem="ObM-d7-4VB" firstAttribute="top" secondItem="EC2-r9-YLV" secondAttribute="bottom" constant="8" id="tNz-DD-fjq"/>
                                 </constraints>
-                                <viewLayoutGuide key="safeArea" id="maV-yT-iXH"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="5"/>
@@ -1868,7 +1889,6 @@
                             <constraint firstItem="Rp3-Lc-hBt" firstAttribute="centerX" secondItem="TvA-2t-I3M" secondAttribute="centerX" id="eyd-le-IdU"/>
                             <constraint firstItem="Rp3-Lc-hBt" firstAttribute="centerY" secondItem="TvA-2t-I3M" secondAttribute="centerY" id="qzd-UN-C0f"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="9rd-6q-A6i"/>
                     </view>
                     <connections>
                         <outlet property="msgContent" destination="Rp3-Lc-hBt" id="ca0-fH-2Bp"/>
@@ -1881,7 +1901,7 @@
         <!--Currency Option Table View Controller-->
         <scene sceneID="4Bp-Vb-o0d">
             <objects>
-                <tableViewController storyboardIdentifier="CurrencyConversion" useStoryboardIdentifierAsRestorationIdentifier="YES" id="haa-rs-KeR" customClass="CurrencyOptionTableViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="CurrencyConversion" useStoryboardIdentifierAsRestorationIdentifier="YES" id="haa-rs-KeR" customClass="CurrencyOptionTableViewController" customModule="decred_wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="flG-a2-h9J">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1945,7 +1965,11 @@
         <!--Send View Controller-->
         <scene sceneID="Jhn-vV-6fZ">
             <objects>
-                <viewController storyboardIdentifier="SendViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="qTZ-86-G1m" customClass="SendViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SendViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="qTZ-86-G1m" customClass="SendViewController" customModule="decred_wallet" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="g25-kr-M7Z"/>
+                        <viewControllerLayoutGuide type="bottom" id="k8E-Ze-WJl"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="1WK-aW-uTW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1980,7 +2004,7 @@
                                                 <color key="textColor" red="0.3803921569" green="0.45098039220000002" blue="0.52549019610000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bjm-51-opK" customClass="DropMenuButton" customModule="DecredWallet" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bjm-51-opK" customClass="DropMenuButton" customModule="decred_wallet" customModuleProvider="target">
                                                 <rect key="frame" x="86" y="0.0" width="222.5" height="40"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
@@ -2032,7 +2056,7 @@
                                                 <color key="textColor" red="0.3803921569" green="0.45098039220000002" blue="0.52549019610000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OOo-FP-t3v" customClass="DropMenuButton" customModule="DecredWallet" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OOo-FP-t3v" customClass="DropMenuButton" customModule="decred_wallet" customModuleProvider="target">
                                                 <rect key="frame" x="86" y="0.0" width="222.5" height="33"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
@@ -2142,7 +2166,7 @@
                                                                         <color key="textColor" red="0.3803921569" green="0.45098039220000002" blue="0.52549019610000003" alpha="0.32167701199999998" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="0.00" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FhZ-tr-W0x" customClass="AmountTextfield" customModule="DecredWallet" customModuleProvider="target">
+                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="0.00" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FhZ-tr-W0x" customClass="AmountTextfield" customModule="decred_wallet" customModuleProvider="target">
                                                                         <rect key="frame" x="91" y="0.0" width="140.5" height="35"/>
                                                                         <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -2169,7 +2193,7 @@
                                                                         <color key="textColor" red="0.3803921569" green="0.45098039220000002" blue="0.52549019610000003" alpha="0.32167701199999998" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="0.00" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hva-1O-379" customClass="AmountTextfield" customModule="DecredWallet" customModuleProvider="target">
+                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="0.00" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hva-1O-379" customClass="AmountTextfield" customModule="decred_wallet" customModuleProvider="target">
                                                                         <rect key="frame" x="91" y="0.0" width="140.5" height="0.0"/>
                                                                         <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -2432,27 +2456,26 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="KTm-PY-LTu" firstAttribute="leading" secondItem="O1W-HY-yKC" secondAttribute="leading" constant="19" id="0Z7-3D-hff"/>
+                            <constraint firstItem="KTm-PY-LTu" firstAttribute="leading" secondItem="1WK-aW-uTW" secondAttribute="leading" constant="19" id="0Z7-3D-hff"/>
                             <constraint firstItem="KTm-PY-LTu" firstAttribute="width" secondItem="1WK-aW-uTW" secondAttribute="width" multiplier="0.5" id="CK9-UW-CWN"/>
-                            <constraint firstItem="KTm-PY-LTu" firstAttribute="top" secondItem="O1W-HY-yKC" secondAttribute="top" constant="25" id="DPA-Zm-wTj"/>
+                            <constraint firstItem="KTm-PY-LTu" firstAttribute="top" secondItem="g25-kr-M7Z" secondAttribute="bottom" constant="25" id="DPA-Zm-wTj"/>
                             <constraint firstItem="Rcm-sb-kGw" firstAttribute="top" secondItem="KTm-PY-LTu" secondAttribute="bottom" constant="5" id="Ey8-vi-sDY"/>
-                            <constraint firstItem="BOd-bC-0lI" firstAttribute="leading" secondItem="O1W-HY-yKC" secondAttribute="leading" constant="16" id="HNU-je-EqR"/>
+                            <constraint firstItem="BOd-bC-0lI" firstAttribute="leading" secondItem="1WK-aW-uTW" secondAttribute="leading" constant="16" id="HNU-je-EqR"/>
                             <constraint firstItem="XLJ-82-9gE" firstAttribute="width" secondItem="1WK-aW-uTW" secondAttribute="width" multiplier="0.9" id="HaQ-Il-DSo"/>
                             <constraint firstItem="BOd-bC-0lI" firstAttribute="top" secondItem="CZ0-r1-1hh" secondAttribute="bottom" constant="8" id="Mgv-on-su2"/>
                             <constraint firstItem="CZ0-r1-1hh" firstAttribute="top" secondItem="Rcm-sb-kGw" secondAttribute="bottom" constant="18" id="O2o-pR-VQK"/>
-                            <constraint firstItem="O1W-HY-yKC" firstAttribute="trailing" secondItem="CZ0-r1-1hh" secondAttribute="trailing" constant="16" id="XF9-iu-1aW"/>
+                            <constraint firstAttribute="trailing" secondItem="CZ0-r1-1hh" secondAttribute="trailing" constant="16" id="XF9-iu-1aW"/>
                             <constraint firstItem="Rcm-sb-kGw" firstAttribute="width" secondItem="1WK-aW-uTW" secondAttribute="width" multiplier="0.9" id="c1n-qo-QAl"/>
-                            <constraint firstItem="CZ0-r1-1hh" firstAttribute="leading" secondItem="O1W-HY-yKC" secondAttribute="leading" constant="16" id="cWn-qt-pbC"/>
+                            <constraint firstItem="CZ0-r1-1hh" firstAttribute="leading" secondItem="1WK-aW-uTW" secondAttribute="leading" constant="16" id="cWn-qt-pbC"/>
                             <constraint firstItem="XLJ-82-9gE" firstAttribute="centerX" secondItem="1WK-aW-uTW" secondAttribute="centerX" id="ddx-gT-m12"/>
-                            <constraint firstItem="O1W-HY-yKC" firstAttribute="trailing" secondItem="fuy-kc-qm5" secondAttribute="trailing" constant="16" id="eHz-oX-1nd"/>
-                            <constraint firstItem="O1W-HY-yKC" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="KTm-PY-LTu" secondAttribute="trailing" symbolic="YES" id="gdu-Th-Zdd"/>
+                            <constraint firstAttribute="trailing" secondItem="fuy-kc-qm5" secondAttribute="trailing" constant="16" id="eHz-oX-1nd"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="KTm-PY-LTu" secondAttribute="trailing" symbolic="YES" id="gdu-Th-Zdd"/>
                             <constraint firstItem="Rcm-sb-kGw" firstAttribute="centerX" secondItem="1WK-aW-uTW" secondAttribute="centerX" id="hJ1-30-pAA"/>
-                            <constraint firstItem="fuy-kc-qm5" firstAttribute="leading" secondItem="O1W-HY-yKC" secondAttribute="leading" constant="16" id="jL7-rK-MY6"/>
-                            <constraint firstItem="O1W-HY-yKC" firstAttribute="trailing" secondItem="BOd-bC-0lI" secondAttribute="trailing" constant="16" id="mfL-lc-tLi"/>
+                            <constraint firstItem="fuy-kc-qm5" firstAttribute="leading" secondItem="1WK-aW-uTW" secondAttribute="leading" constant="16" id="jL7-rK-MY6"/>
+                            <constraint firstAttribute="trailing" secondItem="BOd-bC-0lI" secondAttribute="trailing" constant="16" id="mfL-lc-tLi"/>
                             <constraint firstItem="XLJ-82-9gE" firstAttribute="top" secondItem="fuy-kc-qm5" secondAttribute="bottom" constant="8" id="nDO-kN-VAw"/>
                             <constraint firstItem="fuy-kc-qm5" firstAttribute="top" secondItem="BOd-bC-0lI" secondAttribute="bottom" constant="3" id="r7T-HS-nbE"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="O1W-HY-yKC"/>
                     </view>
                     <connections>
                         <outlet property="BalanceAfter" destination="Nfa-jt-D2Q" id="yOJ-av-ioG"/>

@@ -14,30 +14,16 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DDA3E26920292EF900C83D18"
-               BuildableName = "DecredWallet.app"
-               BlueprintName = "Decred Wallet"
-               ReferencedContainer = "container:decred_wallet.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "NO"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DDA3E27D20292EF900C83D18"
-               BuildableName = "Decred WalletTests.xctest"
-               BlueprintName = "Decred WalletTests"
+               BlueprintIdentifier = "B3B4698E228F0C2D00A68EDD"
+               BuildableName = "decred_wallet.app"
+               BlueprintName = "decred_wallet"
                ReferencedContainer = "container:decred_wallet.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
-      buildConfiguration = "testnet"
+      buildConfiguration = "Testnet Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
@@ -46,9 +32,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DDA3E26920292EF900C83D18"
-            BuildableName = "DecredWallet.app"
-            BlueprintName = "Decred Wallet"
+            BlueprintIdentifier = "B3B4698E228F0C2D00A68EDD"
+            BuildableName = "decred_wallet.app"
+            BlueprintName = "decred_wallet"
             ReferencedContainer = "container:decred_wallet.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -56,7 +42,7 @@
       </AdditionalOptions>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "testnet"
+      buildConfiguration = "Testnet Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -69,37 +55,17 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DDA3E26920292EF900C83D18"
-            BuildableName = "DecredWallet.app"
-            BlueprintName = "Decred Wallet"
+            BlueprintIdentifier = "B3B4698E228F0C2D00A68EDD"
+            BuildableName = "decred_wallet.app"
+            BlueprintName = "decred_wallet"
             ReferencedContainer = "container:decred_wallet.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
-         <AdditionalOption
-            key = "MallocStackLogging"
-            value = ""
-            isEnabled = "YES">
-         </AdditionalOption>
-         <AdditionalOption
-            key = "DYLD_INSERT_LIBRARIES"
-            value = "/usr/lib/libgmalloc.dylib"
-            isEnabled = "YES">
-         </AdditionalOption>
-         <AdditionalOption
-            key = "PrefersMallocStackLoggingLite"
-            value = ""
-            isEnabled = "YES">
-         </AdditionalOption>
-         <AdditionalOption
-            key = "MallocScribble"
-            value = ""
-            isEnabled = "YES">
-         </AdditionalOption>
       </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
-      buildConfiguration = "testnet"
+      buildConfiguration = "Testnet Release"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
@@ -108,18 +74,18 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DDA3E26920292EF900C83D18"
-            BuildableName = "DecredWallet.app"
-            BlueprintName = "Decred Wallet"
+            BlueprintIdentifier = "B3B4698E228F0C2D00A68EDD"
+            BuildableName = "decred_wallet.app"
+            BlueprintName = "decred_wallet"
             ReferencedContainer = "container:decred_wallet.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
-      buildConfiguration = "testnet">
+      buildConfiguration = "Testnet Debug">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "testnet"
+      buildConfiguration = "Testnet Release"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

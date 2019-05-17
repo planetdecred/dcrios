@@ -5,6 +5,7 @@
 //  Created by Wisdom Arerosuoghene on 13/05/2019.
 //  Copyright © 2019 The Decred developers. All rights reserved.
 //
+import Foundation
 
 protocol GeneralSyncProgressProtocol {
     var totalSyncProgress: Int32 { get }

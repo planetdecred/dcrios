@@ -5,6 +5,8 @@
 //  Created by Wisdom Arerosuoghene on 13/05/2019.
 //  Copyright © 2019 The Decred developers. All rights reserved.
 //
+import Foundation
+import Dcrlibwallet
 
 protocol SyncProgressListenerProtocol {
     func onStarted()
