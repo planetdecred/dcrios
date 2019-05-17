@@ -58,7 +58,7 @@ class TransactionHistoryViewController: UIViewController {
         }
         self.visible = true
         if (self.FromMenu){
-            refreshControl.programaticallyBeginRefreshing(in: self.tableView)
+            refreshControl.showLoader(in: self.tableView)
             prepareRecent()
             FromMenu = true
         }
@@ -77,7 +77,6 @@ class TransactionHistoryViewController: UIViewController {
     
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
         self.prepareRecent()
-        
     }
     
     func prepareRecent(){
@@ -89,16 +88,12 @@ class TransactionHistoryViewController: UIViewController {
                 // use limit = 0 to return all transactions
                 let jsonResponse = AppDelegate.walletLoader.wallet?.getTransactions(0, error: &getTxsError)
                 if getTxsError != nil {
-                    DispatchQueue.main.async {
-                        self.refreshControl.endRefreshing()
-                    }
                     throw getTxsError!
                 }
                 self.onResult(jsonResponse)
                 DispatchQueue.main.async {
                     self.refreshControl.endRefreshing()
                 }
-
             } catch let Error {
                 DispatchQueue.main.async {
                     self.refreshControl.endRefreshing()
@@ -175,7 +170,6 @@ class TransactionHistoryViewController: UIViewController {
                 this.btnFilter.setTitle("All (".appending(String(this.Filtercontent.count)).appending(")"), for: .normal)
                 this.tableView.reloadData()
             }
-            
         }
     }
     
@@ -198,8 +192,6 @@ class TransactionHistoryViewController: UIViewController {
         if(ReceiveCount != 0){
             self.btnFilter.items.append("Received (".appending(String(ReceiveCount)).appending(")"))
             filtertitle.append(2)
-            
-            
         }
         if(yourselfCount != 0){
             self.btnFilter.items.append("Yourself (".appending(String(yourselfCount)).appending(")"))
@@ -249,4 +241,3 @@ extension TransactionHistoryViewController: UITableViewDataSource, UITableViewDe
         return cell
     }
 }
-

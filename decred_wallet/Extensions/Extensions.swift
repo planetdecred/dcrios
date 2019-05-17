@@ -71,8 +71,9 @@ extension Date {
 }
 
 extension UIRefreshControl {
-    func programaticallyBeginRefreshing(in tableView: UITableView) {
-        beginRefreshing()
+    //display loading indicator without the aid of user swipping down tableview
+    func showLoader(in tableView: UITableView) {
+        self.beginRefreshing()
         let offsetPoint = CGPoint.init(x: 0, y: -frame.size.height)
         tableView.setContentOffset(offsetPoint, animated: true)
     }

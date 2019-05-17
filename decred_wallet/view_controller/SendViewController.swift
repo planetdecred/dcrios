@@ -356,10 +356,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                     DispatchQueue.main.async {
                         progressHud.dismiss()
                         self.transactionSucceeded(hash: result?.hexEncodedString())
-                        return
                     }
-                    return
-                    
                 } catch let error {
                     progressHud.dismiss()
                     self.showAlert(message: error.localizedDescription, titles: "Error")
