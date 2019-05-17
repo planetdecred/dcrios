@@ -69,7 +69,7 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
                                      height: window.origin.y + window.height - keyboardSize.height)
             
             // adjust focus seed word input just above the keyboard
-            self.tableView.contentInset = UIEdgeInsets(top: 0,left: 0,bottom: 10,right: 0)
+            self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
         }
     }
     
@@ -80,7 +80,7 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
                                      y: self.view.frame.origin.y,
                                      width: self.view.frame.width,
                                      height: window.origin.y + window.height)
-             self.tableView.contentInset = UIEdgeInsets(top: 0,left: 0,bottom: 0,right: 0)
+             self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         }
     }
     
