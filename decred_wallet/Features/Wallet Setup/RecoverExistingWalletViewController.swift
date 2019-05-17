@@ -68,7 +68,7 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
                                      width: self.view.frame.width,
                                      height: window.origin.y + window.height - keyboardSize.height)
             
-            // adjust focus seed word input just above the keyboard
+            // add space at the bottom of table so that the seed word input fields do not touch the keyboard
             self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
         }
     }
@@ -80,6 +80,8 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
                                      y: self.view.frame.origin.y,
                                      width: self.view.frame.width,
                                      height: window.origin.y + window.height)
+            
+            // remove space at the bottom of table that was added when keyboard was displayed
              self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         }
     }
@@ -124,9 +126,9 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
         }
         
         if self.validateSeed().valid {
-            self.activateConfirmButton()
+            self.btnConfirm.backgroundColor = UIColor.appColors.decredGreen
         } else {
-            self.deactivateConfirmButtonForError()
+            self.btnConfirm.backgroundColor = UIColor.appColors.lightGray
         }
     }
     
@@ -137,29 +139,24 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
         
         self.tableView.scrollToRow(at: tableIndexPath, at: .bottom, animated: true)
     }
-    
-    func activateConfirmButton() {
-        self.btnConfirm.backgroundColor = UIColor.appColors.decredGreen
-    }
-    
-    func deactivateConfirmButtonForError() {
-         self.btnConfirm.backgroundColor = UIColor.appColors.lightGray
-    }
+
     
     @IBAction func backButtonTap(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
-    
-    @IBAction func onConfirm() {
+    func displayErrorLabel(){
         self.lblEnterAllSeeds.isHidden = false
-        
         // reduce top spacing so that warning label and confirm button are centered in display
         self.tableViewFooterTopSpacingConstraint.constant = 10
+    }
+    
+    @IBAction func onConfirm() {
         UIView.animate(withDuration: 0.5) {
             self.tableViewFooter.layoutIfNeeded()
         }
         
         if self.userEnteredSeedWords.contains("") {
+            self.displayErrorLabel()
             self.lblEnterAllSeeds.text = "Not all seeds are entered. Please, check input fields and enter all seeds."
         }
         else{
@@ -168,6 +165,7 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
                 self.secureWallet(validatedSeed.seed)
             }
             else {
+                 self.displayErrorLabel()
                 self.lblEnterAllSeeds.text = "You entered an incorrect seed. Please check your words."
             }
         }
