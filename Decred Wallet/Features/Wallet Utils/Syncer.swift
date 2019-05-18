@@ -29,11 +29,15 @@ enum SyncOp {
     case Errored
 }
 
-class Syncer: NSObject {
+class Syncer: NSObject, AppLifeCycleDelegate {
     var syncListeners = [String : SyncProgressListenerProtocol]()
     
     var currentSyncOp: SyncOp?
     var currentSyncOpProgress: Any?
+    
+    var syncCompletedCanceledOrErrored: Bool {
+        return self.currentSyncOp == SyncOp.Done || self.currentSyncOp == SyncOp.Canceled || self.currentSyncOp == SyncOp.Errored
+    }
     
     var shouldRestartSync: Bool = false
     
@@ -61,6 +65,9 @@ class Syncer: NSObject {
             try AppDelegate.walletLoader.wallet?.spvSync(userSetSPVPeerIPs)
             
             self.forEachSyncListener({ syncListener in syncListener.onStarted() })
+            
+            // Listen for changes to app state, specifically when the app becomes active after being suspended previously.
+            AppDelegate.shared.registerLifeCylceDelegate(self, for: "\(self)")
         } catch (let syncError) {
             AppDelegate.shared.showOkAlert(message: syncError.localizedDescription, title: "Sync error")
         }
@@ -72,7 +79,7 @@ class Syncer: NSObject {
         self.currentSyncOpProgress = nil
         AppDelegate.walletLoader.wallet?.cancelSync()
         
-        if self.currentSyncOp == SyncOp.Done || self.currentSyncOp == SyncOp.Canceled || self.currentSyncOp == SyncOp.Errored {
+        if self.syncCompletedCanceledOrErrored {
             // sync not in progress, restart now
             self.beginSync()
         }
@@ -119,6 +126,16 @@ class Syncer: NSObject {
                 callback(syncListener)
             }
         }
+    }
+
+    func applicationEnteredForegroundFromSuspendedState(_ lastActiveTime: Date) {
+        if self.syncCompletedCanceledOrErrored {
+            // sync is not currently active, no need to update sync estimation parameters
+            return
+        }
+        
+        let totalInactiveSeconds = Date().timeIntervalSince(lastActiveTime)
+        AppDelegate.walletLoader.wallet?.syncInactive(forPeriod: Int64(totalInactiveSeconds))
     }
 }
 
