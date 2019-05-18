@@ -57,6 +57,7 @@ class TransactionHistoryViewController: UIViewController {
         }
         self.visible = true
         if (self.FromMenu){
+            refreshControl.showLoader(in: self.tableView)
             prepareRecent()
             FromMenu = true
         }
@@ -75,14 +76,12 @@ class TransactionHistoryViewController: UIViewController {
     
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
         self.prepareRecent()
-        refreshControl.endRefreshing()
     }
     
     func prepareRecent(){
         self.mainContens.removeAll()
         self.Filtercontent.removeAll()
-        DispatchQueue.global(qos: .background).async { [weak self] in
-            guard let this = self else { return }
+        DispatchQueue.global(qos: .background).async {
             do {
                 var getTxsError: NSError?
                 // use limit = 0 to return all transactions
@@ -90,8 +89,14 @@ class TransactionHistoryViewController: UIViewController {
                 if getTxsError != nil {
                     throw getTxsError!
                 }
-                this.onResult(jsonResponse)
+                self.onResult(jsonResponse)
+                DispatchQueue.main.async {
+                    self.refreshControl.endRefreshing()
+                }
             } catch let Error {
+                DispatchQueue.main.async {
+                    self.refreshControl.endRefreshing()
+                }
                 print(Error)
             }
         }
@@ -164,7 +169,6 @@ class TransactionHistoryViewController: UIViewController {
                 this.btnFilter.setTitle("All (".appending(String(this.Filtercontent.count)).appending(")"), for: .normal)
                 this.tableView.reloadData()
             }
-            
         }
     }
     
@@ -187,8 +191,6 @@ class TransactionHistoryViewController: UIViewController {
         if(ReceiveCount != 0){
             self.btnFilter.items.append("Received (".appending(String(ReceiveCount)).appending(")"))
             filtertitle.append(2)
-            
-            
         }
         if(yourselfCount != 0){
             self.btnFilter.items.append("Yourself (".appending(String(yourselfCount)).appending(")"))

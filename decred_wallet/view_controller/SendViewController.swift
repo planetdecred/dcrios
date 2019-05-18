@@ -346,6 +346,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         DispatchQueue.main.async {
             let amount = Double((self.tfAmount.text)!)! * 100000000
             let account = (self.selectedAccount?.Number)!
+            let progressHud = Utils.showProgressHud(withText: "Sending Transaction...")
             DispatchQueue.global(qos: .userInitiated).async {[unowned self] in
                 do {
                     
@@ -353,12 +354,11 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                     let result = try self.wallet?.sendTransaction(password.data(using: .utf8), destAddr: walletAddress, amount: Int64(amount) , srcAccount: account , requiredConfs: isShouldBeConfirmed ? 0 : 2, sendAll: sendAll ?? false)
                     
                     DispatchQueue.main.async {
+                        progressHud.dismiss()
                         self.transactionSucceeded(hash: result?.hexEncodedString())
-                        return
                     }
-                    return
-                    
                 } catch let error {
+                    progressHud.dismiss()
                     self.showAlert(message: error.localizedDescription, titles: "Error")
                 }
             }

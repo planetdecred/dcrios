@@ -69,3 +69,12 @@ extension Date {
         self = Date(timeIntervalSince1970: TimeInterval(milliseconds) / 1000)
     }
 }
+
+extension UIRefreshControl {
+    //display loading indicator without the aid of user swipping down tableview
+    func showLoader(in tableView: UITableView) {
+        self.beginRefreshing()
+        let offsetPoint = CGPoint.init(x: 0, y: -frame.size.height)
+        tableView.setContentOffset(offsetPoint, animated: true)
+    }
+}
