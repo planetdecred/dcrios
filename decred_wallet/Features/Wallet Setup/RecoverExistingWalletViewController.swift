@@ -69,7 +69,7 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
                                      height: window.origin.y + window.height - keyboardSize.height)
             
             // add space at the bottom of table so that the seed word input fields do not touch the keyboard
-            self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
+            self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
         }
     }
     
@@ -111,12 +111,14 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
     
     func seedWordEntered(for wordIndex: Int, seedWord: String, moveToNextField: Bool) {
         self.userEnteredSeedWords[wordIndex] = seedWord
-        self.lblEnterAllSeeds.isHidden = true
         
-        // increase top spacing so that confirm button is centered in display
-        self.tableViewFooterTopSpacingConstraint.constant = 30
-        UIView.animate(withDuration: 0.5) {
-            self.tableViewFooter.layoutIfNeeded()
+        if (self.lblEnterAllSeeds.isHidden == false) {
+            self.lblEnterAllSeeds.isHidden = true
+            // increase top spacing so that confirm button is centered in display
+            self.tableViewFooterTopSpacingConstraint.constant = 30
+            UIView.animate(withDuration: 0.5) {
+                self.tableViewFooter.layoutIfNeeded()
+            }
         }
         
         if wordIndex < 32 && moveToNextField {
@@ -136,14 +138,12 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
         let tableIndexPath = IndexPath(row: tableRowIndex, section: 0)
         let nextSeedWordCell = self.tableView.cellForRow(at: tableIndexPath) as? RecoveryWalletSeedWordCell
         nextSeedWordCell?.seedWordAutoComplete.becomeFirstResponder()
-        
-        self.tableView.scrollToRow(at: tableIndexPath, at: .bottom, animated: true)
     }
 
-    
     @IBAction func backButtonTap(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
+    
     func displayErrorLabel(){
         self.lblEnterAllSeeds.isHidden = false
         // reduce top spacing so that warning label and confirm button are centered in display
@@ -151,13 +151,8 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
     }
     
     @IBAction func onConfirm() {
-        UIView.animate(withDuration: 0.5) {
-            self.tableViewFooter.layoutIfNeeded()
-        }
-        
         if self.userEnteredSeedWords.contains("") {
-            self.displayErrorLabel()
-            self.lblEnterAllSeeds.text = "Not all seeds are entered. Please, check input fields and enter all seeds."
+            self.displaySeedError("Not all seeds are entered. Please, check input fields and enter all seeds.")
         }
         else{
             let validatedSeed = self.validateSeed()
@@ -165,10 +160,17 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
                 self.secureWallet(validatedSeed.seed)
             }
             else {
-                 self.displayErrorLabel()
-                self.lblEnterAllSeeds.text = "You entered an incorrect seed. Please check your words."
+                self.displaySeedError("You entered an incorrect seed. Please check your words.")
             }
         }
+    }
+    
+    func displaySeedError(_ errorMessage: String) {
+        self.lblEnterAllSeeds.isHidden = false
+        
+        // reduce top spacing so that warning label and confirm button are centered in display
+        self.tableViewFooterTopSpacingConstraint.constant = 10
+        self.lblEnterAllSeeds.text = errorMessage
     }
     
     @objc func longPressConfirm() {
