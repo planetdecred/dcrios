@@ -19,8 +19,11 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
     var validSeedWords: [String] = []
     var userEnteredSeedWords = [String](repeating: "", count: 33)
     
+    // following code will only be included if compiling for testnet
+    #if IsTestnet
     private var testSeed = "reform aftermath printer warranty gremlin paragraph beehive stethoscope regain disruptive regain Bradbury chisel October trouble forever Algol applicant island infancy physique paragraph woodlark hydraulic snapshot backwater ratchet surrender revenge customer retouch intention minnow"
     private var useTestSeed: Bool = false
+    #endif
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,10 +41,10 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
         self.wordSelectionDropDownContainer.layer.borderColor = UIColor.appColors.lightGray.cgColor
         
         // long press to proceed with test seed, only on testnet
-        if GlobalConstants.App.IsTestnet {
-            let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressConfirm))
-            btnConfirm.addGestureRecognizer(longGesture)
-        }
+        #if IsTestnet
+        let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressConfirm))
+        btnConfirm.addGestureRecognizer(longGesture)
+        #endif
     }
     
     deinit {
@@ -166,6 +169,8 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
         self.invalidSeedLabel.isHidden = false
     }
     
+    // following code will only be included if compiling for testnet
+    #if IsTestnet
     @objc func longPressConfirm() {
         if self.useTestSeed {
             return
@@ -173,6 +178,7 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
         self.useTestSeed = true
         self.secureWallet(self.testSeed)
     }
+    #endif
     
     func secureWallet(_ seed: String) {
         let securityVC = SecurityViewController.instantiate()

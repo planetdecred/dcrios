@@ -22,7 +22,7 @@ class StartScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if GlobalConstants.App.IsTestnet {
+        if BuildConfig.IsTestNet {
             testnetLabel.isHidden = false
         }
         

@@ -100,8 +100,4 @@ struct Utils {
         
         return NSMutableAttributedString(string: tmpString.appending(" DCR") as String)
     }
-    
-    static func infoForKey(_ key: String) -> String? {
-        return (Bundle.main.infoDictionary?[key] as? String)?.replacingOccurrences(of: "\\", with: "")
-    }
 }

@@ -9,8 +9,12 @@ import CoreData
 import Dcrlibwallet
 import SlideMenuControllerSwift
 import UserNotifications
+
+// compile-time preprocessor, following code will only be added if compiling for testnet
+#if IsTestnet
 import Fabric
 import Crashlytics
+#endif
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,10 +22,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     static var walletLoader: WalletLoader = WalletLoader()
     
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // setup crash reporting for testnet build only
-        if GlobalConstants.App.IsTestnet {
-            Fabric.with([Crashlytics.self])
-        }
+        // compile-time preprocessor, following code will only be added if compiling for testnet
+        #if IsTestnet
+        Fabric.with([Crashlytics.self])
+        print("crashlytics set up on testnet")
+        #endif
         
         UNUserNotificationCenter.current().delegate = self
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge , .sound]) { (granted, error) in
@@ -55,6 +60,18 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 extension AppDelegate {
     class var shared: AppDelegate {
         return UIApplication.shared.delegate as! AppDelegate
+    }
+    
+    class var compileDate: Date {
+        let bundleName = Bundle.main.infoDictionary!["CFBundleName"] as? String ?? "Info.plist"
+        
+        if let infoPath = Bundle.main.path(forResource: bundleName, ofType: nil),
+            let infoAttr = try? FileManager.default.attributesOfItem(atPath: infoPath),
+            let infoDate = infoAttr[FileAttributeKey.creationDate] as? Date {
+            return infoDate
+        }
+        
+        return Date()
     }
     
     func setAndDisplayRootViewController(_ vc: UIViewController) {

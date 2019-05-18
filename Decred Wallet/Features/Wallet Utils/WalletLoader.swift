@@ -10,6 +10,8 @@ import Foundation
 import Dcrlibwallet
 
 class WalletLoader: NSObject {
+    static let appDataDir = NSHomeDirectory() + "/Documents/dcrlibwallet"
+    
     var wallet: DcrlibwalletLibWallet?
     var syncer: Syncer
     var notification: TransactionNotification
@@ -21,10 +23,8 @@ class WalletLoader: NSObject {
     }
     
     func initWallet() -> NSError? {
-        let netType = Utils.infoForKey(GlobalConstants.Strings.NetType)
-        
         var initWalletError: NSError?
-        self.wallet = DcrlibwalletNewLibWallet(NSHomeDirectory() + "/Documents/dcrlibwallet/", "bdb", netType!, &initWalletError)
+        self.wallet = DcrlibwalletNewLibWallet(WalletLoader.appDataDir, "bdb", BuildConfig.NetType, &initWalletError)
         
         return initWalletError
     }

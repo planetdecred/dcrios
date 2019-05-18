@@ -83,11 +83,10 @@ class TransactionTableViewCell: BaseTableViewCell {
             } else if (transaction.Type.lowercased() == "ticket_purchase") {
                 self.dataText.text = " Ticket"
                 self.dataImage?.image = UIImage(named: "immature")
-                let ticketMaturity = Int(Utils.infoForKey("TicketMaturity")!)!
                 if (confirmations < requireConfirmation){
                     self.status.textColor = UIColor(hex:"#3d659c")
                     self.status.text = "Pending"
-                } else if (confirmations > ticketMaturity) {
+                } else if (confirmations > BuildConfig.TicketMaturity) {
                     let statusText = "Confirmed / Live"
                     let range = (statusText as NSString).range(of: "/")
                     let attributedString = NSMutableAttributedString(string: statusText)

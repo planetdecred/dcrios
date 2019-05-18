@@ -48,7 +48,7 @@ class NavigationMenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if GlobalConstants.App.IsTestnet {
+        if BuildConfig.IsTestNet {
             decredHeaderLogo?.image = UIImage(named: "logo-testnet")
         }
         

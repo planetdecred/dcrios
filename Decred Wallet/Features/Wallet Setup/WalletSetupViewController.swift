@@ -21,22 +21,10 @@ class WalletSetupViewController: WalletSetupBaseViewController {
         createWallet.text = "Create a New \n Wallet"
         restoreWallet.text = "Restore Existing \n Wallet"
         infoText.text = "Create or recover your wallet and \nstart managing your decred."
-        
-        var compileDate: Date {
-            let bundleName = Bundle.main.infoDictionary!["CFBundleName"] as? String ?? "Info.plist"
-            
-            if let infoPath = Bundle.main.path(forResource: bundleName, ofType: nil),
-                let infoAttr = try? FileManager.default.attributesOfItem(atPath: infoPath),
-                let infoDate = infoAttr[FileAttributeKey.creationDate] as? Date {
-                return infoDate
-            }
-            
-            return Date()
-        }
     
         let dateformater = DateFormatter()
         dateformater.dateFormat = "yyyy-MM-dd"
-        let netType = GlobalConstants.App.IsTestnet ? "testnet" : Utils.infoForKey(GlobalConstants.Strings.NetType)!
-        build?.text = "build \(netType) " + dateformater.string(from: compileDate)
+        let netType = BuildConfig.IsTestNet ? "testnet" : BuildConfig.NetType
+        build?.text = "build \(netType) " + dateformater.string(from: AppDelegate.compileDate)
     }
 }

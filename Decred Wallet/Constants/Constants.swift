@@ -10,12 +10,6 @@ import Foundation
 import UIKit
 
 struct GlobalConstants {
-    struct App {
-        static var IsTestnet: Bool {
-            return Bool(Utils.infoForKey(GlobalConstants.Strings.IS_TESTNET)!)!
-        }
-    }
-    
     struct SettingsKeys {
         static let IsStartupSecuritySet = "startup_security_set"
         static let StartupSecurityType = "startup_security_type"

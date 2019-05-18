@@ -24,10 +24,8 @@ class WalletLogViewController: UIViewController {
     }
     
     private func readLog() -> String {
-        let netType = Utils.infoForKey(GlobalConstants.Strings.NetType)!
-        let logPath = NSHomeDirectory()+"/Documents/dcrlibwallet/\(netType)/dcrlibwallet.log"
-        
         do {
+            let logPath = "\(WalletLoader.appDataDir)/\(BuildConfig.NetType)/dcrlibwallet.log"
             let logContent = try String(contentsOf: URL(fileURLWithPath: logPath))
             let logEntries = logContent.split(separator: "\n")
             if logEntries.count > 500 {

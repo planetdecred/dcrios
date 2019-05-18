@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		90D92CC00BD5D9DFA2B26DE6 /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABCADD99AF2E986CC915F7D8 /* Pods_Decred_Wallet.framework */; };
+		7D66B4CA3456FF02B98D7834 /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A4F4B4098858CBBF8CB6882 /* Pods_Decred_Wallet.framework */; };
+		B39BDC4D228F798300F3FB55 /* BuildConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39BDC4C228F798300F3FB55 /* BuildConfig.swift */; };
 		B3B46993228F0C2E00A68EDD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46992228F0C2E00A68EDD /* AppDelegate.swift */; };
 		B3B46998228F0C2E00A68EDD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3B46996228F0C2E00A68EDD /* Main.storyboard */; };
 		B3B4699A228F0C2E00A68EDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3B46999228F0C2E00A68EDD /* Assets.xcassets */; };
@@ -81,7 +82,6 @@
 		B3B46A40228F0F6700A68EDD /* bg-button.png in Resources */ = {isa = PBXBuildFile; fileRef = B3B46A3C228F0F6700A68EDD /* bg-button.png */; };
 		B3B46A41228F0F6700A68EDD /* dcr-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = B3B46A3D228F0F6700A68EDD /* dcr-logo.png */; };
 		B3B46A42228F0F6700A68EDD /* progress bar-1s-200px.gif in Resources */ = {isa = PBXBuildFile; fileRef = B3B46A3E228F0F6700A68EDD /* progress bar-1s-200px.gif */; };
-		B3B46A85228F0F7D00A68EDD /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46A47228F0F7B00A68EDD /* UIApplication.swift */; };
 		B3B46A86228F0F7D00A68EDD /* DropMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46A49228F0F7B00A68EDD /* DropMenuButton.swift */; };
 		B3B46A87228F0F7D00A68EDD /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46A4A228F0F7B00A68EDD /* Data.swift */; };
 		B3B46A88228F0F7D00A68EDD /* UIIMage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46A4B228F0F7B00A68EDD /* UIIMage.swift */; };
@@ -132,12 +132,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1A9AD3D953D67328ACD9BD02 /* Pods-Decred Wallet.testnet debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.testnet debug.xcconfig"; path = "Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.testnet debug.xcconfig"; sourceTree = "<group>"; };
-		254BAB0B762982CE1554D68E /* Pods-Decred Wallet.mainnet debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.mainnet debug.xcconfig"; path = "Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.mainnet debug.xcconfig"; sourceTree = "<group>"; };
-		30BEBD287BA8AEC67DDB6E7D /* Pods-Decred Wallet.testnet release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.testnet release.xcconfig"; path = "Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.testnet release.xcconfig"; sourceTree = "<group>"; };
-		57D9619A45DA671B36B7EAFD /* Pods-Decred Wallet.mainnet release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.mainnet release.xcconfig"; path = "Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.mainnet release.xcconfig"; sourceTree = "<group>"; };
-		ABCADD99AF2E986CC915F7D8 /* Pods_Decred_Wallet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Decred_Wallet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B30A37CA228F3A6100F78629 /* mainnet.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = mainnet.xcconfig; sourceTree = "<group>"; };
+		2C755EB65E4A1B41AAD1FB0C /* Pods-Decred Wallet.mainnet release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.mainnet release.xcconfig"; path = "Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.mainnet release.xcconfig"; sourceTree = "<group>"; };
+		50964E5F67D24E0B58B8D3B5 /* Pods-Decred Wallet.testnet release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.testnet release.xcconfig"; path = "Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.testnet release.xcconfig"; sourceTree = "<group>"; };
+		5A4F4B4098858CBBF8CB6882 /* Pods_Decred_Wallet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Decred_Wallet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6FE71B33B4D10159ABF72715 /* Pods-Decred Wallet.testnet debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.testnet debug.xcconfig"; path = "Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.testnet debug.xcconfig"; sourceTree = "<group>"; };
+		B39BDC4C228F798300F3FB55 /* BuildConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildConfig.swift; sourceTree = "<group>"; };
 		B3B4698F228F0C2D00A68EDD /* Decred Wallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Decred Wallet.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3B46992228F0C2E00A68EDD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3B46997228F0C2E00A68EDD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -167,8 +166,6 @@
 		B3B469C0228F0F2600A68EDD /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B3B469C1228F0F2600A68EDD /* wordlist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = wordlist.txt; sourceTree = "<group>"; };
 		B3B469C3228F0F2600A68EDD /* JsonEntities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonEntities.swift; sourceTree = "<group>"; };
-		B3B469C4228F0F2600A68EDD /* ObserverProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObserverProxy.h; sourceTree = "<group>"; };
-		B3B469C5228F0F2600A68EDD /* decred_wallet-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "decred_wallet-Bridging-Header.h"; sourceTree = "<group>"; };
 		B3B469C7228F0F2600A68EDD /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		B3B469C8228F0F2600A68EDD /* UITableViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableViewExtension.swift; sourceTree = "<group>"; };
 		B3B469C9228F0F2600A68EDD /* TextFieldDoneButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldDoneButton.swift; sourceTree = "<group>"; };
@@ -215,7 +212,6 @@
 		B3B46A3C228F0F6700A68EDD /* bg-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-button.png"; sourceTree = "<group>"; };
 		B3B46A3D228F0F6700A68EDD /* dcr-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dcr-logo.png"; sourceTree = "<group>"; };
 		B3B46A3E228F0F6700A68EDD /* progress bar-1s-200px.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "progress bar-1s-200px.gif"; sourceTree = "<group>"; };
-		B3B46A47228F0F7B00A68EDD /* UIApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		B3B46A49228F0F7B00A68EDD /* DropMenuButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropMenuButton.swift; sourceTree = "<group>"; };
 		B3B46A4A228F0F7B00A68EDD /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		B3B46A4B228F0F7B00A68EDD /* UIIMage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIIMage.swift; sourceTree = "<group>"; };
@@ -256,7 +252,6 @@
 		B3B46A7E228F0F7C00A68EDD /* SingleInstance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleInstance.swift; sourceTree = "<group>"; };
 		B3B46A7F228F0F7C00A68EDD /* Storyboards.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storyboards.swift; sourceTree = "<group>"; };
 		B3B46A80228F0F7C00A68EDD /* splashLoader.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = splashLoader.gif; sourceTree = "<group>"; };
-		B3B46A81228F0F7C00A68EDD /* testnet.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = testnet.xcconfig; sourceTree = "<group>"; };
 		B3B46AB9228F102800A68EDD /* Dcrlibwallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Dcrlibwallet.framework; path = libs/Dcrlibwallet.framework; sourceTree = "<group>"; };
 		B3B46ABD228F120700A68EDD /* TransactiontOutputDetailsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactiontOutputDetailsCell.swift; sourceTree = "<group>"; };
 		B3B46ABE228F120700A68EDD /* TransactiontInputDetails.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactiontInputDetails.xib; sourceTree = "<group>"; };
@@ -264,6 +259,7 @@
 		B3B46AC0228F120700A68EDD /* TransactionDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionDetailCell.xib; sourceTree = "<group>"; };
 		B3B46AC1228F120700A68EDD /* TransactionDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionDetailCell.swift; sourceTree = "<group>"; };
 		B3B46AC2228F120700A68EDD /* TransactiontInputDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactiontInputDetails.swift; sourceTree = "<group>"; };
+		F985372327D0001C8FDF95F1 /* Pods-Decred Wallet.mainnet debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.mainnet debug.xcconfig"; path = "Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.mainnet debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -272,7 +268,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3B46ABA228F102800A68EDD /* Dcrlibwallet.framework in Frameworks */,
-				90D92CC00BD5D9DFA2B26DE6 /* Pods_Decred_Wallet.framework in Frameworks */,
+				7D66B4CA3456FF02B98D7834 /* Pods_Decred_Wallet.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,7 +279,7 @@
 			isa = PBXGroup;
 			children = (
 				B3B46AB9228F102800A68EDD /* Dcrlibwallet.framework */,
-				ABCADD99AF2E986CC915F7D8 /* Pods_Decred_Wallet.framework */,
+				5A4F4B4098858CBBF8CB6882 /* Pods_Decred_Wallet.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -291,10 +287,10 @@
 		8F7CDB697B0BC7D598AC1F98 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				254BAB0B762982CE1554D68E /* Pods-Decred Wallet.mainnet debug.xcconfig */,
-				1A9AD3D953D67328ACD9BD02 /* Pods-Decred Wallet.testnet debug.xcconfig */,
-				57D9619A45DA671B36B7EAFD /* Pods-Decred Wallet.mainnet release.xcconfig */,
-				30BEBD287BA8AEC67DDB6E7D /* Pods-Decred Wallet.testnet release.xcconfig */,
+				F985372327D0001C8FDF95F1 /* Pods-Decred Wallet.mainnet debug.xcconfig */,
+				6FE71B33B4D10159ABF72715 /* Pods-Decred Wallet.testnet debug.xcconfig */,
+				2C755EB65E4A1B41AAD1FB0C /* Pods-Decred Wallet.mainnet release.xcconfig */,
+				50964E5F67D24E0B58B8D3B5 /* Pods-Decred Wallet.testnet release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -337,9 +333,6 @@
 				B3B46A80228F0F7C00A68EDD /* splashLoader.gif */,
 				B3B46A4E228F0F7B00A68EDD /* splashLogo.gif */,
 				B3B46A7F228F0F7C00A68EDD /* Storyboards.swift */,
-				B30A37CA228F3A6100F78629 /* mainnet.xcconfig */,
-				B3B46A81228F0F7C00A68EDD /* testnet.xcconfig */,
-				B3B46A47228F0F7B00A68EDD /* UIApplication.swift */,
 				B3B46A4F228F0F7B00A68EDD /* Utils.swift */,
 				B3B469AE228F0F2600A68EDD /* ImageHeaderView.xib */,
 				B3B46992228F0C2E00A68EDD /* AppDelegate.swift */,
@@ -347,6 +340,7 @@
 				B3B46999228F0C2E00A68EDD /* Assets.xcassets */,
 				B3B4699B228F0C2E00A68EDD /* LaunchScreen.storyboard */,
 				B3B4699E228F0C2E00A68EDD /* Info.plist */,
+				B39BDC4C228F798300F3FB55 /* BuildConfig.swift */,
 			);
 			path = "Decred Wallet";
 			sourceTree = "<group>";
@@ -427,8 +421,6 @@
 			isa = PBXGroup;
 			children = (
 				B3B469C3228F0F2600A68EDD /* JsonEntities.swift */,
-				B3B469C4228F0F2600A68EDD /* ObserverProxy.h */,
-				B3B469C5228F0F2600A68EDD /* decred_wallet-Bridging-Header.h */,
 			);
 			path = DcrdConnection;
 			sourceTree = "<group>";
@@ -664,12 +656,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B3B469A1228F0C2E00A68EDD /* Build configuration list for PBXNativeTarget "Decred Wallet" */;
 			buildPhases = (
-				9F51A3920AA75269667D3C97 /* [CP] Check Pods Manifest.lock */,
+				D0FA5F3FB0FB6649BF6048E9 /* [CP] Check Pods Manifest.lock */,
 				B3B4698B228F0C2D00A68EDD /* Sources */,
 				B3B4698C228F0C2D00A68EDD /* Frameworks */,
 				B3B4698D228F0C2D00A68EDD /* Resources */,
-				4F78FCD610D2365C6A93DE7C /* [CP] Embed Pods Frameworks */,
 				B30A37D0228F59B900F78629 /* ShellScript */,
+				69DC3A9F8E3ECEB9BD1810A3 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -763,7 +755,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		4F78FCD610D2365C6A93DE7C /* [CP] Embed Pods Frameworks */ = {
+		69DC3A9F8E3ECEB9BD1810A3 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -789,7 +781,24 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9F51A3920AA75269667D3C97 /* [CP] Check Pods Manifest.lock */ = {
+		B30A37D0228F59B900F78629 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 7e7665339b679dfd7ad19ebb8e859867ade8ca99 295d819cb24910fa414d5e1216b56f2a5730cb0d910f1d6739d0390346d0a69a\n";
+		};
+		D0FA5F3FB0FB6649BF6048E9 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -811,23 +820,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B30A37D0228F59B900F78629 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/run\" 7e7665339b679dfd7ad19ebb8e859867ade8ca99 295d819cb24910fa414d5e1216b56f2a5730cb0d910f1d6739d0390346d0a69a\n";
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -835,7 +827,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3B46A85228F0F7D00A68EDD /* UIApplication.swift in Sources */,
 				B3B46A10228F0F2700A68EDD /* UIView.swift in Sources */,
 				B3B469FE228F0F2700A68EDD /* Button.swift in Sources */,
 				B3B46A2A228F0F2700A68EDD /* WalletSetupBaseViewController.swift in Sources */,
@@ -851,6 +842,7 @@
 				B3B46AC9228F120700A68EDD /* TransactiontInputDetails.swift in Sources */,
 				B3B46A99228F0F7D00A68EDD /* certificateViewController.swift in Sources */,
 				B3B46A9E228F0F7D00A68EDD /* ReceiveViewController.swift in Sources */,
+				B39BDC4D228F798300F3FB55 /* BuildConfig.swift in Sources */,
 				B3B46A9F228F0F7D00A68EDD /* WalletLogViewController.swift in Sources */,
 				B3B46A25228F0F2700A68EDD /* TransactionHistoryViewController.swift in Sources */,
 				B3B46AC8228F120700A68EDD /* TransactionDetailCell.swift in Sources */,
@@ -943,7 +935,6 @@
 /* Begin XCBuildConfiguration section */
 		B30A37CC228F3AE100F78629 /* Testnet Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B3B46A81228F0F7C00A68EDD /* testnet.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1006,11 +997,11 @@
 		};
 		B30A37CD228F3AE100F78629 /* Testnet Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1A9AD3D953D67328ACD9BD02 /* Pods-Decred Wallet.testnet debug.xcconfig */;
+			baseConfigurationReference = 6FE71B33B4D10159ABF72715 /* Pods-Decred Wallet.testnet debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "${APP_ICON}";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconTestnet;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8PU6UQXE68;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1021,8 +1012,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.dcrios.decredwallet;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.decred.dcrios.testnet3;
+				PRODUCT_NAME = "$(TARGET_NAME) Testnet";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1030,7 +1021,6 @@
 		};
 		B30A37CE228F3AF000F78629 /* Testnet Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B3B46A81228F0F7C00A68EDD /* testnet.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1087,11 +1077,11 @@
 		};
 		B30A37CF228F3AF000F78629 /* Testnet Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 30BEBD287BA8AEC67DDB6E7D /* Pods-Decred Wallet.testnet release.xcconfig */;
+			baseConfigurationReference = 50964E5F67D24E0B58B8D3B5 /* Pods-Decred Wallet.testnet release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "${APP_ICON}";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconTestnet;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8PU6UQXE68;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1102,8 +1092,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.dcrios.decredwallet;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.decred.dcrios.testnet3;
+				PRODUCT_NAME = "$(TARGET_NAME) Testnet";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1111,7 +1101,6 @@
 		};
 		B3B4699F228F0C2E00A68EDD /* Mainnet Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B30A37CA228F3A6100F78629 /* mainnet.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1173,7 +1162,6 @@
 		};
 		B3B469A0228F0C2E00A68EDD /* Mainnet Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B30A37CA228F3A6100F78629 /* mainnet.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1229,11 +1217,11 @@
 		};
 		B3B469A2228F0C2E00A68EDD /* Mainnet Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 254BAB0B762982CE1554D68E /* Pods-Decred Wallet.mainnet debug.xcconfig */;
+			baseConfigurationReference = F985372327D0001C8FDF95F1 /* Pods-Decred Wallet.mainnet debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "${APP_ICON}";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8PU6UQXE68;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1244,7 +1232,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.dcrios.decredwallet;
+				PRODUCT_BUNDLE_IDENTIFIER = com.decred.dcrios.mainnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1253,11 +1241,11 @@
 		};
 		B3B469A3228F0C2E00A68EDD /* Mainnet Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 57D9619A45DA671B36B7EAFD /* Pods-Decred Wallet.mainnet release.xcconfig */;
+			baseConfigurationReference = 2C755EB65E4A1B41AAD1FB0C /* Pods-Decred Wallet.mainnet release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "${APP_ICON}";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8PU6UQXE68;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1268,7 +1256,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.dcrios.decredwallet;
+				PRODUCT_BUNDLE_IDENTIFIER = com.decred.dcrios.mainnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

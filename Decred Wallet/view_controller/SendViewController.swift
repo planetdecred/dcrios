@@ -559,7 +559,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                 self.showDefaultAccount()
             }
             
-            if GlobalConstants.App.IsTestnet {
+            if BuildConfig.IsTestNet {
                 self.openLink(urlString: "https://testnet.dcrdata.org/tx/" + hashe! )
             }else{
                 self.openLink(urlString: "https://mainnet.dcrdata.org/tx/" + hashe! )

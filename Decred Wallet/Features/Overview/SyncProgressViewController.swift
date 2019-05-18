@@ -29,11 +29,7 @@ class SyncProgressViewController: UIViewController {
         self.currentSyncActionReportLabel.addGestureRecognizer(self.showOrHideDebugSyncReportLongPressGesture())
         self.debugSyncInfoLabel.addGestureRecognizer(self.showOrHideDebugSyncReportLongPressGesture())
         
-        if GlobalConstants.App.IsTestnet {
-            self.netType = "testnet"
-        } else {
-            self.netType = Utils.infoForKey(GlobalConstants.Strings.NetType)
-        }
+        self.netType = BuildConfig.IsTestNet ? "testnet" : BuildConfig.NetType
         
         AppDelegate.walletLoader.syncer.registerSyncProgressListener(for: "\(self)", self)
     }
