@@ -144,12 +144,6 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
         self.navigationController?.popViewController(animated: true)
     }
     
-    func displayErrorLabel(){
-        self.lblEnterAllSeeds.isHidden = false
-        // reduce top spacing so that warning label and confirm button are centered in display
-        self.tableViewFooterTopSpacingConstraint.constant = 10
-    }
-    
     @IBAction func onConfirm() {
         if self.userEnteredSeedWords.contains("") {
             self.displaySeedError("Not all seeds are entered. Please, check input fields and enter all seeds.")
@@ -170,6 +164,9 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
         
         // reduce top spacing so that warning label and confirm button are centered in display
         self.tableViewFooterTopSpacingConstraint.constant = 10
+        UIView.animate(withDuration: 0.5) {
+            self.tableViewFooter.layoutIfNeeded()
+        }
         self.lblEnterAllSeeds.text = errorMessage
     }
     
