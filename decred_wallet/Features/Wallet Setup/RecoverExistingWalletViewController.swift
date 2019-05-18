@@ -145,7 +145,7 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
     @IBAction func onConfirm() {
         if self.userEnteredSeedWords.contains("") {
             self.displaySeedError("Not all seeds are entered. Please, check input fields and enter all seeds.")
-        } else{
+        } else {
             let validatedSeed = self.validateSeed()
             if validatedSeed.valid {
                 self.secureWallet(validatedSeed.seed)

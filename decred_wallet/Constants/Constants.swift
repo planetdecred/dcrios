@@ -30,7 +30,6 @@ struct GlobalConstants {
         static let orangeColor = UIColor(hex: "fd714a")
         static let navigationBarColor = UIColor(hex: "689F38")
         static let lightGrey = UIColor(red: 236.0/255.0, green: 238.0/255.0, blue: 241.0/255.0, alpha: 1.0)
-        static let BorderlightGrey = UIColor(red:222/255, green:225/255, blue:227/255, alpha: 1)
         static let lightBlue =  UIColor(red: 206.0/255.0, green: 238.0/255.0, blue: 250.0/255.0, alpha: 1.0)
         static let separaterGrey = UIColor(red: 224/255, green: 224/255, blue: 224/255, alpha: 1.0)
         static let greenishGrey = UIColor(hex: "F1F8E9")
