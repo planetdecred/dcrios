@@ -36,7 +36,7 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
         
         //set border for dropdown list
         self.wordSelectionDropDownContainer.layer.borderWidth = 1
-        self.wordSelectionDropDownContainer.layer.borderColor = UIColor.gray.cgColor
+        self.wordSelectionDropDownContainer.layer.borderColor = GlobalConstants.Colors.BorderlightGrey.cgColor
         
         // long press to proceed with test seed, only on testnet
         if GlobalConstants.App.IsTestnet {
