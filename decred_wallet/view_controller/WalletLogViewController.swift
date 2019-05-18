@@ -12,11 +12,13 @@ import JGProgressHUD
 class WalletLogViewController: UIViewController {
     @IBOutlet weak var logTextView: UITextView!
     var progressHud = JGProgressHUD(style: .light)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Wallet Log"
-       self.progressHud = Utils.showProgressHud(withText: "Loading log...")
+        self.progressHud = Utils.showProgressHud(withText: "Loading log...")
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         self.logTextView.text = readLog()
     }
