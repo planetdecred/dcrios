@@ -296,7 +296,6 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
     
     func openLink(urlString: String) {
         if let url = URL(string: urlString) {
-            var viewController: SFSafariViewController
             let viewController = SFSafariViewController(url: url)
             viewController.delegate = self as SFSafariViewControllerDelegate
             self.navigationController?.pushViewController(viewController, animated: true)
