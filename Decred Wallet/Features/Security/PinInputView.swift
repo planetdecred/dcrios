@@ -17,6 +17,7 @@ class PinInputView: UIView {
     
     var pin: String = "" {
         didSet {
+            self.subviews.forEach{ $0.removeFromSuperview() }
             self.setNeedsDisplay()
         }
     }
@@ -39,7 +40,6 @@ class PinInputView: UIView {
     
     override func draw(_ frame: CGRect) {
         self.layer.sublayers?.removeAll()
-        self.subviews.forEach{ $0.removeFromSuperview() }
         self.drawCells(in: frame)
     }
     
@@ -54,8 +54,6 @@ class PinInputView: UIView {
     func drawPinLabel(in frame: CGRect) {
         // Set the label bounds to resolve any ambiguity. Using UILabel() without proper bounds causes the app to crash.
         let pinLabel = UILabel(frame: frame)
-        // Prevent autolayout constraints from setting conflicting attributes to the label.
-        pinLabel.translatesAutoresizingMaskIntoConstraints = false
         
         pinLabel.text = String(pin.count)
         pinLabel.textAlignment = .center
