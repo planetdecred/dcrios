@@ -76,14 +76,24 @@ class RequestPinViewController: SecurityBaseViewController {
             self.pinInputView.clear()
             self.headerText.text = "Confirm \(self.securityFor) PIN"
             self.prgsPinStrength.progress = 0
+            
+            // We are confirming pin, hide the pin strength meter.
+            self.pinStrengthLabel.isHidden = true
+            self.prgsPinStrength.isHidden = true
         }
         else if requestPinConfirmation && pinToConfirm != pinInputView.pin {
             self.pinToConfirm = ""
             self.headerText.text = "PINs did not match. Try again"
+            
+            // Reset the input
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.headerText.text = "Create \(self.securityFor) PIN"
                 self.pinInputView.clear()
                 self.prgsPinStrength.progress = 0
+                
+                // We're re-requesting input, show the strength meter
+                self.pinStrengthLabel.isHidden = false
+                self.prgsPinStrength.isHidden = false
             }
         } else {
             // only quit VC if not part of the SecurityVC tabs
