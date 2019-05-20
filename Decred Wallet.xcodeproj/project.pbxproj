@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7D66B4CA3456FF02B98D7834 /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A4F4B4098858CBBF8CB6882 /* Pods_Decred_Wallet.framework */; };
 		B39BDC4D228F798300F3FB55 /* BuildConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39BDC4C228F798300F3FB55 /* BuildConfig.swift */; };
+		B3A3EF8622936BFE00008A4E /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A3EF8522936BFE00008A4E /* Reachability.swift */; };
 		B3B46993228F0C2E00A68EDD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46992228F0C2E00A68EDD /* AppDelegate.swift */; };
 		B3B46998228F0C2E00A68EDD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3B46996228F0C2E00A68EDD /* Main.storyboard */; };
 		B3B4699A228F0C2E00A68EDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3B46999228F0C2E00A68EDD /* Assets.xcassets */; };
@@ -137,6 +138,7 @@
 		5A4F4B4098858CBBF8CB6882 /* Pods_Decred_Wallet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Decred_Wallet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FE71B33B4D10159ABF72715 /* Pods-Decred Wallet.testnet debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.testnet debug.xcconfig"; path = "Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.testnet debug.xcconfig"; sourceTree = "<group>"; };
 		B39BDC4C228F798300F3FB55 /* BuildConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildConfig.swift; sourceTree = "<group>"; };
+		B3A3EF8522936BFE00008A4E /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		B3B4698F228F0C2D00A68EDD /* Decred Wallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Decred Wallet.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3B46992228F0C2E00A68EDD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3B46997228F0C2E00A68EDD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -295,6 +297,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		B3A3EF8422936BEF00008A4E /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				B3A3EF8522936BFE00008A4E /* Reachability.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		B3B46986228F0C2D00A68EDD = {
 			isa = PBXGroup;
 			children = (
@@ -316,6 +326,7 @@
 		B3B46991228F0C2E00A68EDD /* Decred Wallet */ = {
 			isa = PBXGroup;
 			children = (
+				B3A3EF8422936BEF00008A4E /* Network */,
 				B3B469A4228F0F0700A68EDD /* Accounts */,
 				B3B469BF228F0F2600A68EDD /* Constants */,
 				B3B469AC228F0F2600A68EDD /* Custom Views */,
@@ -859,6 +870,7 @@
 				B3B46A88228F0F7D00A68EDD /* UIIMage.swift in Sources */,
 				B3B46A11228F0F2700A68EDD /* UITableViewExtension.swift in Sources */,
 				B3B46A2E228F0F2700A68EDD /* MenuItem.swift in Sources */,
+				B3A3EF8622936BFE00008A4E /* Reachability.swift in Sources */,
 				B3B469FC228F0F2700A68EDD /* String.swift in Sources */,
 				B3B46A9D228F0F7D00A68EDD /* HelpViewController.swift in Sources */,
 				B3B46A9A228F0F7D00A68EDD /* SettingsController.swift in Sources */,

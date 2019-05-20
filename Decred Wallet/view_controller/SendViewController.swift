@@ -708,10 +708,9 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                             let tmp2 = Decimal(tmp)
                             self.currencyAmount2.text = "\((((self.exchangeRateGloabal as Decimal) * tmp2)as NSDecimalNumber).round(2))"
                         }
-                        if AppDelegate.walletLoader.isSynced {
+                        if AppDelegate.walletLoader.syncer.connectedPeersCount > 0 {
                              self.amountErrorText.text = "Not enough funds"
-                        }
-                        else{
+                        } else {
                              self.amountErrorText.text = "Not enough funds (or not connected)"
                         }
                         DispatchQueue.main.async {
@@ -796,10 +795,9 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                         print((tmp2 ) / (self.exchangeRateGloabal as Decimal))
                         print("currency")
                         self.tfAmount.text = "\(((tmp2 ) / (self.exchangeRateGloabal as Decimal) as NSDecimalNumber).round(8))"
-                        if AppDelegate.walletLoader.isSynced {
+                        if AppDelegate.walletLoader.syncer.connectedPeersCount > 0 {
                             self.amountErrorText.text = "Not enough funds"
-                        }
-                        else{
+                        } else {
                             self.amountErrorText.text = "Not enough funds (or not connected)"
                         }
                         DispatchQueue.main.async {

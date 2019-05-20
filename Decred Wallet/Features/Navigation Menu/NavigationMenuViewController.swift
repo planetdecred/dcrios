@@ -99,7 +99,10 @@ class NavigationMenuViewController: UIViewController {
         }
         
         syncConfirmationController.No = {
-            self.onSyncCanceled()
+            AppDelegate.walletLoader.syncer.assumeSyncCompleted()
+            self.onSyncCompleted()
+            self.syncStatusLabel.text = "Connect to WiFi to sync."
+            self.syncStatusLabel.superview?.backgroundColor = UIColor.red
         }
         
         AppDelegate.shared.window?.rootViewController?.present(syncConfirmationController, animated: true, completion: nil)

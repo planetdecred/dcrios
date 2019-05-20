@@ -120,6 +120,10 @@ class Syncer: NSObject, AppLifeCycleDelegate {
         self.syncListeners.removeValue(forKey: identifier)
     }
     
+    func assumeSyncCompleted() {
+        self.onSyncCompleted()
+    }
+    
     func forEachSyncListener(_ callback: @escaping (_ syncListener: SyncProgressListenerProtocol) -> Void) {
         DispatchQueue.main.async {
             for (_, syncListener) in self.syncListeners {
