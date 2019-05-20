@@ -61,11 +61,17 @@ class SecurityViewController: SecurityBaseViewController {
         tabController?.selectedIndex = 0
         btnPassword.backgroundColor = #colorLiteral(red: 0.9529411765, green: 0.9607843137, blue: 0.9647058824, alpha: 1)
         btnPin.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        // Set border widths for active and inactive tabs
+        btnPin.layer.borderWidth = 0
+        btnPassword.layer.borderWidth = 1.5
     }
     
     func activatePinTab() {
         tabController?.selectedIndex = 1
         btnPin.backgroundColor = #colorLiteral(red: 0.9529411765, green: 0.9607843137, blue: 0.9647058824, alpha: 1)
         btnPassword.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        // Set border widths for active and inactive tabs
+        btnPin.layer.borderWidth = 1.5
+        btnPassword.layer.borderWidth = 0
     }
 }
