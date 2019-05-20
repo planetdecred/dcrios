@@ -16,11 +16,75 @@ import Fabric
 import Crashlytics
 #endif
 
+protocol AppLifeCycleDelegate {
+    func applicationEnteredForegroundFromSuspendedState(_ lastActiveTime: Date)
+}
+
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder {
     var window: UIWindow?
+    var lifeCycleDelegates = [String : AppLifeCycleDelegate]()
+    
     static var walletLoader: WalletLoader = WalletLoader()
     
+    var lastActiveTimestamp: Double?
+    var shouldTrackLastActiveTime: Bool = false
+    
+    class var shared: AppDelegate {
+        return UIApplication.shared.delegate as! AppDelegate
+    }
+    
+    class var compileDate: Date {
+        let bundleName = Bundle.main.infoDictionary!["CFBundleName"] as? String ?? "Info.plist"
+        
+        if let infoPath = Bundle.main.path(forResource: bundleName, ofType: nil),
+            let infoAttr = try? FileManager.default.attributesOfItem(atPath: infoPath),
+            let infoDate = infoAttr[FileAttributeKey.creationDate] as? Date {
+            return infoDate
+        }
+        
+        return Date()
+    }
+    
+    func registerLifeCylceDelegate(_ delegate: AppLifeCycleDelegate, for identifier: String) {
+        self.lifeCycleDelegates[identifier] = delegate
+    }
+    
+    func deRegisterLifeCylceDelegate(for identifier: String) {
+        self.lifeCycleDelegates.removeValue(forKey: identifier)
+    }
+    
+    func updateLastActiveTime() {
+        // This method may be triggered immediately the app returns to foreground when `self.shouldTrackLastActiveTime == true`.
+        // Wait 2 seconds so that the `applicationWillEnterForeground` method is able set `self.shouldTrackLastActiveTime = false` before proceeding.
+        sleep(2)
+        
+        if self.shouldTrackLastActiveTime {
+            self.lastActiveTimestamp = Date().timeIntervalSince1970
+            // update last active time after 10 seconds
+            DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 10, execute: self.updateLastActiveTime)
+        }
+    }
+    
+    func setAndDisplayRootViewController(_ vc: UIViewController) {
+        self.window?.rootViewController = vc
+        self.window?.makeKeyAndVisible()
+    }
+    
+    func showOkAlert(message: String, title: String? = nil, onPressOk: (() -> Void)? = nil) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+            alert.dismiss(animated: true, completion: onPressOk)
+        }
+        alert.addAction(okAction)
+        
+        DispatchQueue.main.async {
+            self.window?.rootViewController?.present(alert, animated: true, completion: nil)
+        }
+    }
+}
+
+extension AppDelegate: UIApplicationDelegate {
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // compile-time preprocessor, following code will only be added if compiling for testnet
         #if IsTestnet
@@ -44,6 +108,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        self.shouldTrackLastActiveTime = true
+        self.updateLastActiveTime()
+    }
+    
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        self.shouldTrackLastActiveTime = false
+        
+        // `self.lastActiveTimestamp` is the last time this app executed code.
+        // If the app was suspended by the OS, `self.lastActiveTimestamp` time would not be recent.
+        if self.lastActiveTimestamp != nil {
+            let lastActiveTime = Date.init(timeIntervalSince1970: self.lastActiveTimestamp!)
+            self.lastActiveTimestamp = nil
+            
+            // Notify life cycle delegates if app was last active (i.e. suspended) 10 or more seconds ago.
+            if Date().timeIntervalSince(lastActiveTime) > 10 {
+                self.lifeCycleDelegates.values.forEach({ $0.applicationEnteredForegroundFromSuspendedState(lastActiveTime) })
+            }
+        }
+    }
+    
     func applicationWillTerminate(_: UIApplication) {
         AppDelegate.walletLoader.wallet?.shutdown(true)
     }
@@ -54,40 +139,5 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping
         (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.alert])
-    }
-}
-
-extension AppDelegate {
-    class var shared: AppDelegate {
-        return UIApplication.shared.delegate as! AppDelegate
-    }
-    
-    class var compileDate: Date {
-        let bundleName = Bundle.main.infoDictionary!["CFBundleName"] as? String ?? "Info.plist"
-        
-        if let infoPath = Bundle.main.path(forResource: bundleName, ofType: nil),
-            let infoAttr = try? FileManager.default.attributesOfItem(atPath: infoPath),
-            let infoDate = infoAttr[FileAttributeKey.creationDate] as? Date {
-            return infoDate
-        }
-        
-        return Date()
-    }
-    
-    func setAndDisplayRootViewController(_ vc: UIViewController) {
-        self.window?.rootViewController = vc
-        self.window?.makeKeyAndVisible()
-    }
-    
-    func showOkAlert(message: String, title: String? = nil, onPressOk: (() -> Void)? = nil) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default) { _ in
-            alert.dismiss(animated: true, completion: onPressOk)
-        }
-        alert.addAction(okAction)
-        
-        DispatchQueue.main.async {
-            self.window?.rootViewController?.present(alert, animated: true, completion: nil)
-        }
     }
 }
