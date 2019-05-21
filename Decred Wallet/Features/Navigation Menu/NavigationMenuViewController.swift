@@ -64,7 +64,7 @@ class NavigationMenuViewController: UIViewController {
         self.syncStatusLabel.superview?.addGestureRecognizer(tapToRestartSyncGesture)
         
         if self.isNewWallet {
-            self.showOkAlert(message: "\nYour 33 word seed is your wallet, keep it safe. Without it your funds cannot be recovered should your device be lost or destroyed.\n\nInitial wallet sync will take longer than usual. The wallet will connect to p2p nodes to download the blockchain headers, and will fetch only the blocks that you need while preserving your privacy.", title: "Welcome to Decred Wallet.", onPressOk: self.checkNetworkConnectionForSync)
+            NewWalletDialog.show(onDialogDismissed: self.checkNetworkConnectionForSync)
         } else {
             self.checkNetworkConnectionForSync()
         }
