@@ -26,6 +26,8 @@ class NavigationMenuViewController: UIViewController {
     var isNewWallet: Bool = false
     var currentMenuItem: MenuItem = MenuItem.overview
     
+    var restartSyncTriggered: Bool = false
+    
     static func setupMenuAndLaunchApp(isNewWallet: Bool) {
         // wallet is open, setup sync listener and start notification listener
         AppDelegate.walletLoader.syncer.registerEstimatedSyncProgressListener()
@@ -57,19 +59,34 @@ class NavigationMenuViewController: UIViewController {
         self.navMenuTableView.dataSource = self
         self.navMenuTableView.delegate = self
         
-        let tapToRestartSyncGesture = UITapGestureRecognizer(target: self, action:  #selector(self.restartSync))
+        let tapToRestartSyncGesture = UITapGestureRecognizer(target: self, action:  #selector(self.restartSyncTapListener))
         self.syncStatusLabel.superview?.addGestureRecognizer(tapToRestartSyncGesture)
         
         if self.isNewWallet {
-            self.showOkAlert(message: "\nYour 33 word seed is your wallet, keep it safe. Without it your funds cannot be recovered should your device be lost or destroyed.\n\nInitial wallet sync will take longer than usual. The wallet will connect to p2p nodes to download the blockchain headers, and will fetch only the blocks that you need while preserving your privacy.", title: "Welcome to Decred Wallet.", onPressOk: self.checkSyncPermission)
+            self.showOkAlert(message: "\nYour 33 word seed is your wallet, keep it safe. Without it your funds cannot be recovered should your device be lost or destroyed.\n\nInitial wallet sync will take longer than usual. The wallet will connect to p2p nodes to download the blockchain headers, and will fetch only the blocks that you need while preserving your privacy.", title: "Welcome to Decred Wallet.", onPressOk: self.checkNetworkConnectionForSync)
+        } else {
+            self.checkNetworkConnectionForSync()
+        }
+    }
+    
+    @objc func restartSyncTapListener() {
+        self.restartSyncTriggered = true
+        self.checkNetworkConnectionForSync()
+    }
+    
+    func checkNetworkConnectionForSync() {
+        if AppDelegate.shared.reachability.connection == .none {
+            self.showOkAlert(message: "Cannot sync without network connection.", title: "Internet connection required.", onPressOk: self.checkSyncPermission)
         } else {
             self.checkSyncPermission()
         }
     }
     
     func checkSyncPermission() {
-        let alwaysSync = UserDefaults.standard.bool(forKey: "always_sync")
-        if alwaysSync {
+        let networkConnection = AppDelegate.shared.reachability.connection
+        if networkConnection == .none {
+            self.syncNotStartedDueToNetwork()
+        } else if networkConnection == .wifi || Settings.syncOnCellular() {
             self.startSync()
         } else {
             self.requestPermissionToSync()
@@ -77,38 +94,38 @@ class NavigationMenuViewController: UIViewController {
     }
     
     func requestPermissionToSync() {
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let syncConfirmationController = mainStoryboard.instantiateViewController(withIdentifier: "WifiSyncView") as! WifiConfirmationController
+        let syncConfirmationDialog = Storyboards.Main.instantiateViewController(for: NoWifiSyncConfirmationDialog.self)
         
-        syncConfirmationController.modalTransitionStyle = .crossDissolve
-        syncConfirmationController.modalPresentationStyle = .overCurrentContext
+        syncConfirmationDialog.modalTransitionStyle = .crossDissolve
+        syncConfirmationDialog.modalPresentationStyle = .overCurrentContext
         
-        let tap = UITapGestureRecognizer(target: syncConfirmationController.view, action: #selector(syncConfirmationController.msgContent.endEditing(_:)))
+        let tap = UITapGestureRecognizer(target: syncConfirmationDialog.view, action: #selector(syncConfirmationDialog.dialogContent.endEditing(_:)))
         tap.cancelsTouchesInView = false
+        syncConfirmationDialog.view.addGestureRecognizer(tap)
         
-        syncConfirmationController.view.addGestureRecognizer(tap)
+        syncConfirmationDialog.No = {
+            self.syncNotStartedDueToNetwork()
+        }
         
-        syncConfirmationController.Always = {
-            UserDefaults.standard.set(true, forKey: "always_sync")
-            UserDefaults.standard.synchronize()
+        syncConfirmationDialog.Yes = {
             self.startSync()
         }
         
-        syncConfirmationController.Yes = {
+        syncConfirmationDialog.Always = {
+            Settings.setValue(true, for: Settings.Keys.SyncOnCellular)
             self.startSync()
         }
         
-        syncConfirmationController.No = {
-            AppDelegate.walletLoader.syncer.assumeSyncCompleted()
-            self.onSyncCompleted()
-            self.syncStatusLabel.text = "Connect to WiFi to sync."
-            self.syncStatusLabel.superview?.backgroundColor = UIColor.red
-        }
-        
-        AppDelegate.shared.window?.rootViewController?.present(syncConfirmationController, animated: true, completion: nil)
+        AppDelegate.shared.window?.rootViewController?.present(syncConfirmationDialog, animated: true, completion: nil)
+    }
+    
+    func syncNotStartedDueToNetwork() {
+        AppDelegate.walletLoader.syncer.assumeSyncCompleted()
+        self.onSyncCompleted()
+        self.syncStatusLabel.text = "Connect to WiFi to sync."
+        self.syncStatusLabel.superview?.backgroundColor = UIColor.red
     }
 
-    
     func resetSyncViews() {
         self.totalBalanceAmountLabel.text = ""
         
@@ -134,12 +151,17 @@ class NavigationMenuViewController: UIViewController {
 
 extension NavigationMenuViewController: SyncProgressListenerProtocol {
     func startSync() {
-        self.resetSyncViews()
-        AppDelegate.walletLoader.syncer.registerSyncProgressListener(for: "\(self)", self)
-        AppDelegate.walletLoader.syncer.beginSync()
+        if self.restartSyncTriggered {
+            self.restartSyncTriggered = false
+            self.restartSync()
+        } else {
+            self.resetSyncViews()
+            AppDelegate.walletLoader.syncer.registerSyncProgressListener(for: "\(self)", self)
+            AppDelegate.walletLoader.syncer.beginSync()
+        }
     }
     
-    @objc func restartSync() {
+    func restartSync() {
         AppDelegate.walletLoader.syncer.restartSync()
         
         if self.refreshBestBlockAgeTimer != nil {

@@ -108,11 +108,11 @@ struct StartupPinOrPassword {
                     progressHud.dismiss()
                     
                     if newPinOrPassword == nil {
-                        UserDefaults.standard.set(false, forKey: GlobalConstants.SettingsKeys.IsStartupSecuritySet)
-                        UserDefaults.standard.removeObject(forKey: GlobalConstants.SettingsKeys.StartupSecurityType)
+                        UserDefaults.standard.set(false, forKey: Settings.Keys.IsStartupSecuritySet)
+                        UserDefaults.standard.removeObject(forKey: Settings.Keys.StartupSecurityType)
                     } else {
-                        UserDefaults.standard.set(true, forKey: GlobalConstants.SettingsKeys.IsStartupSecuritySet)
-                        UserDefaults.standard.setValue(securityType, forKey: GlobalConstants.SettingsKeys.StartupSecurityType)
+                        UserDefaults.standard.set(true, forKey: Settings.Keys.IsStartupSecuritySet)
+                        UserDefaults.standard.setValue(securityType, forKey: Settings.Keys.StartupSecurityType)
                     }
                     
                     UserDefaults.standard.synchronize()
@@ -129,10 +129,10 @@ struct StartupPinOrPassword {
     }
     
     static func pinOrPasswordIsSet() -> Bool {
-        return UserDefaults.standard.bool(forKey: GlobalConstants.SettingsKeys.IsStartupSecuritySet)
+        return Settings.readValue(for: Settings.Keys.IsStartupSecuritySet)
     }
     
     static func currentSecurityType() -> String? {
-        return UserDefaults.standard.string(forKey: GlobalConstants.SettingsKeys.StartupSecurityType)
+        return Settings.readOptionalValue(for: Settings.Keys.StartupSecurityType)
     }
 }
