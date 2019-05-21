@@ -70,6 +70,7 @@ class SyncProgressViewController: UIViewController {
         UIView.animate(withDuration: 0.1, animations: { () -> Void in
             self.showDetailedSyncReportButton.isHidden = false
             self.currentSyncActionReportLabel.isHidden = true
+            self.debugSyncInfoLabel.isHidden = true
             self.connectedPeersLabel.isHidden = true
         })
     }
