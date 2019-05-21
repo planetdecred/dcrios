@@ -57,9 +57,9 @@ class Syncer: NSObject, AppLifeCycleDelegate {
     }
     
     func beginSync() {
+        self.networkLastActive = nil
         self.currentSyncOp = nil
         self.currentSyncOpProgress = nil
-        
         self.shouldRestartSync = false
         
         do {
@@ -76,14 +76,16 @@ class Syncer: NSObject, AppLifeCycleDelegate {
     }
     
     func restartSync() {
-        self.shouldRestartSync = true
-        self.currentSyncOp = nil
-        self.currentSyncOpProgress = nil
-        AppDelegate.walletLoader.wallet?.cancelSync()
-        
         if self.syncCompletedCanceledOrErrored {
             // sync not in progress, restart now
+            self.currentSyncOp = nil
+            self.currentSyncOpProgress = nil
             self.beginSync()
+        } else {
+            self.currentSyncOp = nil
+            self.currentSyncOpProgress = nil
+            self.shouldRestartSync = true
+            AppDelegate.walletLoader.wallet?.cancelSync()
         }
     }
     
@@ -223,7 +225,9 @@ extension Syncer: DcrlibwalletEstimatedSyncProgressJsonListenerProtocol {
         self.forEachSyncListener({ syncListener in syncListener.onSyncCanceled() })
         
         if self.shouldRestartSync {
-            self.beginSync()
+            DispatchQueue.main.async {
+                self.beginSync()
+            }
         }
     }
     

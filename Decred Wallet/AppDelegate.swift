@@ -58,7 +58,11 @@ class AppDelegate: UIResponder {
     }
     
     func listenForNetworkChanges() {
-        self.reachability = Reachability()
+        if self.reachability != nil {
+            self.reachability.stopNotifier()
+        }
+        
+        self.reachability = Reachability()!
         NotificationCenter.default.addObserver(self, selector: #selector(self.networkChanged(_:)), name: .reachabilityChanged, object: reachability)
         do {
             try reachability.startNotifier()
@@ -69,6 +73,7 @@ class AppDelegate: UIResponder {
     
     @objc func networkChanged(_ notification: Notification) {
         let reachability = notification.object as! Reachability
+        print("network changed to \(reachability.connection)")
         self.lifeCycleDelegates.values.forEach({ $0.networkChanged(reachability.connection) })
     }
     
@@ -150,6 +155,7 @@ extension AppDelegate: UIApplicationDelegate {
     }
     
     func applicationWillTerminate(_: UIApplication) {
+        self.reachability.stopNotifier()
         AppDelegate.walletLoader.wallet?.shutdown(true)
     }
 }

@@ -75,6 +75,9 @@ class NavigationMenuViewController: UIViewController {
     }
     
     func checkNetworkConnectionForSync() {
+        // Re-trigger app network change listener to ensure correct network status is determined.
+        AppDelegate.shared.listenForNetworkChanges()
+        
         if AppDelegate.shared.reachability.connection == .none {
             self.showOkAlert(message: "Cannot sync without network connection.", title: "Internet connection required.", onPressOk: self.checkSyncPermission)
         } else {
@@ -83,10 +86,9 @@ class NavigationMenuViewController: UIViewController {
     }
     
     func checkSyncPermission() {
-        let networkConnection = AppDelegate.shared.reachability.connection
-        if networkConnection == .none {
+        if AppDelegate.shared.reachability.connection == .none {
             self.syncNotStartedDueToNetwork()
-        } else if networkConnection == .wifi || Settings.syncOnCellular() {
+        } else if AppDelegate.shared.reachability.connection == .wifi || Settings.syncOnCellular() {
             self.startSync()
         } else {
             self.requestPermissionToSync()
@@ -120,10 +122,17 @@ class NavigationMenuViewController: UIViewController {
     }
     
     func syncNotStartedDueToNetwork() {
-        AppDelegate.walletLoader.syncer.assumeSyncCompleted()
-        self.onSyncCompleted()
-        self.syncStatusLabel.text = "Connect to WiFi to sync."
-        self.syncStatusLabel.superview?.backgroundColor = UIColor.red
+        AppDelegate.walletLoader.syncer.deRegisterSyncProgressListener(for: "\(self)")
+        AppDelegate.walletLoader.wallet?.cancelSync() // Cancel any previous/ongoing sync process.
+        
+        // Allow 0.5 seconds for sync cancellation to complete before setting up wallet.
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            AppDelegate.walletLoader.syncer.assumeSyncCompleted()
+            self.onSyncCompleted()
+            
+            self.syncStatusLabel.text = "Connect to WiFi to sync."
+            self.syncStatusLabel.superview?.backgroundColor = UIColor.red
+        }
     }
 
     func resetSyncViews() {
@@ -151,12 +160,13 @@ class NavigationMenuViewController: UIViewController {
 
 extension NavigationMenuViewController: SyncProgressListenerProtocol {
     func startSync() {
+        AppDelegate.walletLoader.syncer.registerSyncProgressListener(for: "\(self)", self)
+        
         if self.restartSyncTriggered {
             self.restartSyncTriggered = false
             self.restartSync()
         } else {
             self.resetSyncViews()
-            AppDelegate.walletLoader.syncer.registerSyncProgressListener(for: "\(self)", self)
             AppDelegate.walletLoader.syncer.beginSync()
         }
     }
@@ -166,6 +176,7 @@ extension NavigationMenuViewController: SyncProgressListenerProtocol {
         
         if self.refreshBestBlockAgeTimer != nil {
             self.refreshBestBlockAgeTimer?.invalidate()
+            self.refreshBestBlockAgeTimer = nil
         }
         
         self.resetSyncViews()
