@@ -22,6 +22,8 @@ class SettingsController: UITableViewController  {
     @IBOutlet weak var network_mode: UITableViewCell!
     @IBOutlet weak var Start_Pin_cell: UITableViewCell!
     
+    @IBOutlet weak var cellularSyncSwitch: UISwitch!
+    
     @IBOutlet weak var connect_peer_ip: UILabel!
     @IBOutlet weak var build: UILabel!
     @IBOutlet weak var version: UILabel!
@@ -114,6 +116,8 @@ class SettingsController: UITableViewController  {
         server_ip?.text = UserDefaults.standard.string(forKey: "pref_server_ip") ?? ""
         incoming_notification_switch?.setOn(UserDefaults.standard.bool(forKey: "pref_notification_switch"), animated: true)
         
+        self.cellularSyncSwitch.isOn = Settings.readValue(for: Settings.Keys.SyncOnCellular)
+        
         if (network_value == 0) {
             network_mode_subtitle?.text = "Simplified Payment Verification (SPV)"
         }else{
@@ -145,6 +149,7 @@ class SettingsController: UITableViewController  {
         UserDefaults.standard.set(incoming_notification_switch.isOn, forKey: "pref_notification_switch")
         UserDefaults.standard.set(spend_uncon_fund.isOn, forKey: "pref_spend_fund_switch")
         UserDefaults.standard.set(debu_msg.isOn, forKey: "pref_debug_switch")
+        UserDefaults.standard.set(self.cellularSyncSwitch.isOn, forKey: Settings.Keys.SyncOnCellular)
         UserDefaults.standard.synchronize()
         self.exitSettings()
     }
