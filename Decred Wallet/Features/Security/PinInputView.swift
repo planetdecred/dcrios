@@ -13,9 +13,11 @@ class PinInputView: UIView {
     static let circleBorderSizeFactor: CGFloat = 0.15
     static let maxNumberOfPinCircles = 5
     
-    var maxNumberOfDigits: Int = Int(LONG_LONG_MAX)
+    var maxNumberOfDigits: Int = Int(LONG_MAX)
+    
     var pin: String = "" {
         didSet {
+            self.subviews.forEach{ $0.removeFromSuperview() }
             self.setNeedsDisplay()
         }
     }
@@ -37,28 +39,23 @@ class PinInputView: UIView {
     }
     
     override func draw(_ frame: CGRect) {
+        self.layer.sublayers?.removeAll()
         self.drawCells(in: frame)
     }
     
     func drawCells(in frame: CGRect) {
-        // clear current views
-        self.layer.sublayers?.removeAll()
-        if self.subviews.count > 0 {
-            self.subviews[0].removeFromSuperview()
-        }
-        
         if pin.count > PinInputView.maxNumberOfPinCircles {
-            self.drawPinLabel()
+            self.drawPinLabel(in: frame)
         } else {
             self.drawPinCircles(in: frame)
         }
     }
     
-    func drawPinLabel() {
-        let pinDigitsCount = String(pin.count)
+    func drawPinLabel(in frame: CGRect) {
+        // Set the label bounds to resolve any ambiguity. Using UILabel() without proper bounds causes the app to crash.
+        let pinLabel = UILabel(frame: frame)
         
-        let pinLabel = UILabel()
-        pinLabel.text = String(pinDigitsCount)
+        pinLabel.text = String(pin.count)
         pinLabel.textAlignment = .center
         pinLabel.textColor = #colorLiteral(red: 0.2537069321, green: 0.8615272641, blue: 0.7028611302, alpha: 1)
         pinLabel.font = pinLabel.font.withSize(25)
