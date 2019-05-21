@@ -38,14 +38,26 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
         self.starttime = Int64(NSDate().timeIntervalSince1970)
     }
     
-    func setupExtraUI(){
-        tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.CopyImgAddress(_:)))
-        tapGesture.numberOfTapsRequired = 1
-        tapGesture.numberOfTouchesRequired = 1
-        imgWalletAddrQRCode.addGestureRecognizer(tapGesture)
-        imgWalletAddrQRCode.isUserInteractionEnabled = true
+    func setupExtraUI() {
+        self.imgWalletAddrQRCode.addGestureRecognizer(tapToCopyAddressGesture())
+        self.lblWalletAddress.addGestureRecognizer(tapToCopyAddressGesture())
         self.accountDropdown.backgroundColor = UIColor.white
-        
+    }
+    
+    func tapToCopyAddressGesture() -> UITapGestureRecognizer {
+        return UITapGestureRecognizer(target: self, action: #selector(self.copyAddress))
+    }
+    
+    @objc func copyAddress() {
+        DispatchQueue.main.async {
+            //Copy a string to the pasteboard.
+            UIPasteboard.general.string = self.lblWalletAddress.text!
+            
+            //Alert
+            let alertController = UIAlertController(title: "", message: "Wallet address copied", preferredStyle: UIAlertController.Style.alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -61,11 +73,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
         self.navigationItem.rightBarButtonItems = [barButton!, shareBtn ]
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
-    @objc func showMenu(sender: Any){
+    @objc func showMenu(sender: Any) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -89,14 +97,9 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
         self.getNextAddress(accountNumber: (self.myacc.Number))
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-    }
-    
     private func showFirstWalletAddressAndQRCode() {
-        
         self.account?.Acc.removeAll()
-        do{
+        do {
             var getAccountError: NSError?
             let strAccount = self.wallet?.getAccounts(0, error: &getAccountError)
             if getAccountError != nil {
@@ -123,26 +126,9 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
         }
     }
     
-    @IBAction func CopyImgAddress(_ sender: UITapGestureRecognizer) {
-        self.copyAddress()
-    }
-    
-    private func copyAddress() {
-        DispatchQueue.main.async {
-            //Copy a string to the pasteboard.
-            UIPasteboard.general.string = self.lblWalletAddress.text!
-            
-            //Alert
-            let alertController = UIAlertController(title: "", message: "Wallet address copied", preferredStyle: UIAlertController.Style.alert)
-            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-            self.present(alertController, animated: true, completion: nil)
-        }
-    }
-    
     private func populateWalletDropdownMenu() {
-        
         self.account?.Acc.removeAll()
-        do{
+        do {
             var getAccountError: NSError?
             let strAccount = self.wallet?.getAccounts(0, error: &getAccountError)
             if getAccountError != nil {

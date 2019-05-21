@@ -256,24 +256,18 @@
                                             <constraint firstAttribute="height" constant="1" id="7P5-K4-rt5"/>
                                         </constraints>
                                     </view>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="P2Q-l4-CRY">
+                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="P2Q-l4-CRY">
                                         <rect key="frame" x="0.0" y="112" width="355" height="355"/>
                                         <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="P2Q-l4-CRY" secondAttribute="height" multiplier="1:1" id="RAZ-q2-eSQ"/>
                                         </constraints>
-                                        <connections>
-                                            <outletCollection property="gestureRecognizers" destination="83B-mb-51W" appends="YES" id="5k8-Yq-9To"/>
-                                        </connections>
                                     </imageView>
                                     <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ad3-va-aFy">
                                         <rect key="frame" x="0.0" y="469" width="355" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.016995774582028389" green="0.48766422271728516" blue="0.99898439645767212" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
-                                        <connections>
-                                            <outletCollection property="gestureRecognizers" destination="83B-mb-51W" appends="YES" id="jAr-Dw-ZFj"/>
-                                        </connections>
                                     </label>
                                     <label opaque="NO" contentMode="left" text="(Copy on tap)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KIw-9c-4KG">
                                         <rect key="frame" x="0.0" y="491.5" width="355" height="21.5"/>
@@ -308,11 +302,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R0Q-i3-kfU" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="83B-mb-51W">
-                    <connections>
-                        <action selector="CopyImgAddress:" destination="pwN-Wv-Ioh" id="rEz-vV-Jnr"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-406" y="814"/>
         </scene>
@@ -1117,7 +1106,7 @@
         <!--Confirm To Send Fund ViewPIN Controller-->
         <scene sceneID="T1Z-xm-Luy">
             <objects>
-                <viewController storyboardIdentifier="ConfirmToSendFundViewPINController" id="wsz-Ml-THI" customClass="ConfirmToSendFundViewPINController" customModule="DecredWallet" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ConfirmToSendFundViewPINController" id="wsz-Ml-THI" customClass="ConfirmToSendFundViewPINController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="e0s-OP-9cj"/>
                         <viewControllerLayoutGuide type="bottom" id="Jyv-KV-Dxo"/>
