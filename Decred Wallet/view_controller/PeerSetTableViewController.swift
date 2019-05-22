@@ -43,7 +43,7 @@ class PeerSetTableViewController: UITableViewController {
         }
         else if isValidIP(s: peer_ip.text!){
             print("saving \(String(describing: peer_ip.text))")
-            Settings.setValue(peer_ip.text, for: Settings.Keys.SPVPeerIP)
+            Settings.setValue(peer_ip.text!, for: Settings.Keys.SPVPeerIP)
             self.navigationController?.popViewController(animated: true)
             return
             }
