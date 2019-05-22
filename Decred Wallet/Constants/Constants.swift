@@ -10,14 +10,6 @@ import Foundation
 import UIKit
 
 struct GlobalConstants {
-    struct SettingsKeys {
-        static let IsStartupSecuritySet = "startup_security_set"
-        static let StartupSecurityType = "startup_security_type"
-        static let SpendingPassphraseSecurityType = "spending_security_type"
-        
-        static let SPVPeerIP = "pref_peer_ip"
-    }
-    
     //MARK: - Colors
     // todo move to UIColor.swift
     struct Colors {

@@ -18,12 +18,15 @@ import Crashlytics
 
 protocol AppLifeCycleDelegate {
     func applicationEnteredForegroundFromSuspendedState(_ lastActiveTime: Date)
+    func networkChanged(_ connection: Reachability.Connection)
 }
 
 @UIApplicationMain
 class AppDelegate: UIResponder {
     var window: UIWindow?
     var lifeCycleDelegates = [String : AppLifeCycleDelegate]()
+    
+    var reachability: Reachability!
     
     static var walletLoader: WalletLoader = WalletLoader()
     
@@ -52,6 +55,26 @@ class AppDelegate: UIResponder {
     
     func deRegisterLifeCylceDelegate(for identifier: String) {
         self.lifeCycleDelegates.removeValue(forKey: identifier)
+    }
+    
+    func listenForNetworkChanges() {
+        if self.reachability != nil {
+            self.reachability.stopNotifier()
+        }
+        
+        self.reachability = Reachability()!
+        NotificationCenter.default.addObserver(self, selector: #selector(self.networkChanged(_:)), name: .reachabilityChanged, object: reachability)
+        do {
+            try reachability.startNotifier()
+        } catch {
+            print("Unable to start network change notifier.")
+        }
+    }
+    
+    @objc func networkChanged(_ notification: Notification) {
+        let reachability = notification.object as! Reachability
+        print("network changed to \(reachability.connection)")
+        self.lifeCycleDelegates.values.forEach({ $0.networkChanged(reachability.connection) })
     }
     
     func updateLastActiveTime() {
@@ -97,6 +120,8 @@ extension AppDelegate: UIApplicationDelegate {
             print("user authorized notifications: \(granted)")
         }
         
+        self.listenForNetworkChanges()
+        
         return true
     }
     
@@ -130,6 +155,7 @@ extension AppDelegate: UIApplicationDelegate {
     }
     
     func applicationWillTerminate(_: UIApplication) {
+        self.reachability.stopNotifier()
         AppDelegate.walletLoader.wallet?.shutdown(true)
     }
 }

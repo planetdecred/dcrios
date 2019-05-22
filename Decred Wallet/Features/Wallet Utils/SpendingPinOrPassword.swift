@@ -57,8 +57,7 @@ struct SpendingPinOrPassword {
                 try AppDelegate.walletLoader.wallet?.changePrivatePassphrase(oldPrivatePass, newPass: newPrivatePass)
                 DispatchQueue.main.async {
                     progressHud.dismiss()
-                    UserDefaults.standard.setValue(securityType, forKey: GlobalConstants.SettingsKeys.SpendingPassphraseSecurityType)
-                    UserDefaults.standard.synchronize()
+                    Settings.setValue(securityType, for: Settings.Keys.SpendingPassphraseSecurityType)
                 }
             } catch let error {
                 DispatchQueue.main.async {
@@ -70,6 +69,6 @@ struct SpendingPinOrPassword {
     }
     
     static func currentSecurityType() -> String? {
-        return UserDefaults.standard.string(forKey: GlobalConstants.SettingsKeys.SpendingPassphraseSecurityType)
+        return Settings.readOptionalValue(for: Settings.Keys.SpendingPassphraseSecurityType)
     }
 }

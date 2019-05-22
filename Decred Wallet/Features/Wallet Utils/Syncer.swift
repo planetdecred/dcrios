@@ -32,6 +32,8 @@ enum SyncOp {
 class Syncer: NSObject, AppLifeCycleDelegate {
     var syncListeners = [String : SyncProgressListenerProtocol]()
     
+    var networkLastActive: Date?
+    
     var currentSyncOp: SyncOp?
     var currentSyncOpProgress: Any?
     
@@ -55,13 +57,13 @@ class Syncer: NSObject, AppLifeCycleDelegate {
     }
     
     func beginSync() {
+        self.networkLastActive = nil
         self.currentSyncOp = nil
         self.currentSyncOpProgress = nil
-        
         self.shouldRestartSync = false
         
         do {
-            let userSetSPVPeerIPs = UserDefaults.standard.string(forKey: GlobalConstants.SettingsKeys.SPVPeerIP) ?? ""
+            let userSetSPVPeerIPs = Settings.readOptionalValue(for: Settings.Keys.SPVPeerIP) ?? ""
             try AppDelegate.walletLoader.wallet?.spvSync(userSetSPVPeerIPs)
             
             self.forEachSyncListener({ syncListener in syncListener.onStarted() })
@@ -74,14 +76,16 @@ class Syncer: NSObject, AppLifeCycleDelegate {
     }
     
     func restartSync() {
-        self.shouldRestartSync = true
-        self.currentSyncOp = nil
-        self.currentSyncOpProgress = nil
-        AppDelegate.walletLoader.wallet?.cancelSync()
-        
         if self.syncCompletedCanceledOrErrored {
             // sync not in progress, restart now
+            self.currentSyncOp = nil
+            self.currentSyncOpProgress = nil
             self.beginSync()
+        } else {
+            self.currentSyncOp = nil
+            self.currentSyncOpProgress = nil
+            self.shouldRestartSync = true
+            AppDelegate.walletLoader.wallet?.cancelSync()
         }
     }
     
@@ -120,6 +124,10 @@ class Syncer: NSObject, AppLifeCycleDelegate {
         self.syncListeners.removeValue(forKey: identifier)
     }
     
+    func assumeSyncCompleted() {
+        self.onSyncCompleted()
+    }
+    
     func forEachSyncListener(_ callback: @escaping (_ syncListener: SyncProgressListenerProtocol) -> Void) {
         DispatchQueue.main.async {
             for (_, syncListener) in self.syncListeners {
@@ -134,8 +142,40 @@ class Syncer: NSObject, AppLifeCycleDelegate {
             return
         }
         
-        let totalInactiveSeconds = Date().timeIntervalSince(lastActiveTime)
+        if AppDelegate.shared.reachability.connection == .none {
+            // No network connection as app enters foreground, but sync was in progress.
+            // Update network last active time and wait for network reconnection before accounting for total lost time.
+            if self.networkLastActive == nil || lastActiveTime.isBefore(self.networkLastActive!) {
+                self.networkLastActive = lastActiveTime
+            }
+            return
+        }
+        
+        var syncLastActive = lastActiveTime
+        if self.networkLastActive != nil && self.networkLastActive!.isBefore(lastActiveTime) {
+            // Use network last active time if network was lost before app went to sleep.
+            syncLastActive = self.networkLastActive!
+        }
+        
+        let totalInactiveSeconds = Date().timeIntervalSince(syncLastActive)
         AppDelegate.walletLoader.wallet?.syncInactive(forPeriod: Int64(totalInactiveSeconds))
+        self.networkLastActive = nil // Network is active at this point.
+    }
+
+    func networkChanged(_ connection: Reachability.Connection) {
+        if self.syncCompletedCanceledOrErrored {
+            // sync is not currently active, no need to worry about network changes
+            return
+        }
+        
+        if connection == .none {
+            self.networkLastActive = Date()
+        } else if self.networkLastActive != nil {
+            // network was active before, then got disconnected, subtract lost time from sync estimation parameters
+            let totalInactiveSeconds = Date().timeIntervalSince(self.networkLastActive!)
+            AppDelegate.walletLoader.wallet?.syncInactive(forPeriod: Int64(totalInactiveSeconds))
+            self.networkLastActive = nil // Network is active at this point.
+        }
     }
 }
 
@@ -185,7 +225,9 @@ extension Syncer: DcrlibwalletEstimatedSyncProgressJsonListenerProtocol {
         self.forEachSyncListener({ syncListener in syncListener.onSyncCanceled() })
         
         if self.shouldRestartSync {
-            self.beginSync()
+            DispatchQueue.main.async {
+                self.beginSync()
+            }
         }
     }
     
