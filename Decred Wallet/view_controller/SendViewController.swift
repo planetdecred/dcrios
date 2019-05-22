@@ -349,7 +349,6 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             let progressHud = Utils.showProgressHud(withText: "Sending Transaction...")
             DispatchQueue.global(qos: .userInitiated).async {[unowned self] in
                 do {
-                    
                     let isShouldBeConfirmed = UserDefaults.standard.bool(forKey: "pref_spend_fund_switch")
                     let result = try self.wallet?.sendTransaction(password.data(using: .utf8), destAddr: walletAddress, amount: Int64(amount) , srcAccount: account , requiredConfs: isShouldBeConfirmed ? 0 : 2, sendAll: sendAll ?? false)
                     
@@ -358,8 +357,10 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
                         self.transactionSucceeded(hash: result?.hexEncodedString())
                     }
                 } catch let error {
-                    progressHud.dismiss()
-                    self.showAlert(message: error.localizedDescription, titles: "Error")
+                    DispatchQueue.main.async {
+                        progressHud.dismiss()
+                        self.showAlert(message: error.localizedDescription, titles: "Error")
+                    }
                 }
             }
         }
@@ -371,7 +372,6 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
     }
     
     private func confirmSend(sendAll: Bool) {
-        
         let amountToSend = (tfAmount?.text)!
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
@@ -412,48 +412,42 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         DispatchQueue.main.async {
             self.present(confirmSendFundViewController, animated: true, completion: nil)
         }
-        return
     }
     
     private func confirmSendWithoutPin(sendAll: Bool, pin: String) {
-        let amountToSend = (tfAmount?.text)!
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        
-        let confirmSendFundViewController = storyboard.instantiateViewController(withIdentifier: "ConfirmToSendFundViewPINController") as! ConfirmToSendFundViewPINController
+        let confirmSendFundViewController = Storyboards.Main.instantiateViewController(for: ConfirmToSendFundViewPINController.self)
         confirmSendFundViewController.modalTransitionStyle = .crossDissolve
         confirmSendFundViewController.modalPresentationStyle = .overCurrentContext
         
         let tap = UITapGestureRecognizer(target: confirmSendFundViewController.view, action: #selector(confirmSendFundViewController.vContent.endEditing(_:)))
         tap.cancelsTouchesInView = false
-        
         confirmSendFundViewController.view.addGestureRecognizer(tap)
-        DispatchQueue.main.async {
-            if (self.toAddressContainer.isHidden){
-                let receiveAddress = self.wallet?.currentAddress((self.sendToAccount?.Number)!, error: nil)
-                confirmSendFundViewController.address = receiveAddress!
-                confirmSendFundViewController.account = (self.selectedAccount?.Name)!
-            }
-            else{
-                confirmSendFundViewController.accountName.isHidden = true
-                confirmSendFundViewController.address = self.walletAddress.text!
-            }
-            if !(self.conversionRowCont.isHidden){
-                confirmSendFundViewController.amount = "\(amountToSend) DCR ($\((self.currencyAmount2.text)!))"
-                confirmSendFundViewController.fee = "\((self.estimateFee.text)!) ($\((self.tempFee)))"
-            }
-            else{
-                confirmSendFundViewController.amount = "\(amountToSend) DCR"
-                confirmSendFundViewController.fee = "\((self.estimateFee.text)!) (\((self.estimateSize.text)!))"
-            }
+        
+        if (self.toAddressContainer.isHidden) {
+            let receiveAddress = self.wallet?.currentAddress((self.sendToAccount?.Number)!, error: nil)
+            confirmSendFundViewController.address = receiveAddress!
+            confirmSendFundViewController.account = (self.selectedAccount?.Name)!
+        } else {
+            confirmSendFundViewController.accountName.isHidden = true
+            confirmSendFundViewController.address = self.walletAddress.text!
         }
-        let tmp = pin
+        
+        let amountToSend = (self.tfAmount?.text)!
+        if !(self.conversionRowCont.isHidden) {
+            confirmSendFundViewController.amount = "\(amountToSend) DCR ($\((self.currencyAmount2.text)!))"
+            confirmSendFundViewController.fee = "\((self.estimateFee.text)!) ($\((self.tempFee)))"
+        } else {
+            confirmSendFundViewController.amount = "\(amountToSend) DCR"
+            confirmSendFundViewController.fee = "\((self.estimateFee.text)!) (\((self.estimateSize.text)!))"
+        }
+
         confirmSendFundViewController.confirm = { () in
-            self.signTransaction(sendAll: sendAll, password: tmp)
+            self.signTransaction(sendAll: sendAll, password: pin)
         }
+        
         DispatchQueue.main.async {
             self.present(confirmSendFundViewController, animated: true, completion: nil)
         }
-        return
     }
     
     @IBAction private func scanQRCodeAction(_ sender: UIButton) {
