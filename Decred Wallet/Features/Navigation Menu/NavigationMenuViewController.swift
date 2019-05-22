@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Dcrlibwallet
 import SlideMenuControllerSwift
 
 class NavigationMenuViewController: UIViewController {
@@ -193,8 +194,8 @@ extension NavigationMenuViewController: SyncProgressListenerProtocol {
         }
     }
     
-    func onHeadersFetchProgress(_ progressReport: HeadersFetchProgressReport) {
-        self.handleGeneralProgressReport(progressReport)
+    func onHeadersFetchProgress(_ progressReport: DcrlibwalletHeadersFetchProgressReport) {
+        self.handleGeneralProgressReport(progressReport.generalSyncProgress!)
         
         self.syncStatusLabel.text = "Fetching block headers."
         if progressReport.currentHeaderTimestamp != 0 {
@@ -205,23 +206,23 @@ extension NavigationMenuViewController: SyncProgressListenerProtocol {
         }
     }
     
-    func onAddressDiscoveryProgress(_ progressReport: AddressDiscoveryProgressReport) {
-        self.handleGeneralProgressReport(progressReport)
+    func onAddressDiscoveryProgress(_ progressReport: DcrlibwalletAddressDiscoveryProgressReport) {
+        self.handleGeneralProgressReport(progressReport.generalSyncProgress!)
         
         self.syncStatusLabel.text = "Discovering used addresses."
-        self.bestBlockLabel.text = "\(progressReport.totalSyncProgress)% completed, \(progressReport.totalTimeRemaining) left."
+        self.bestBlockLabel.text = "\(progressReport.generalSyncProgress!.totalSyncProgress)% completed, \(progressReport.generalSyncProgress!.totalTimeRemaining) left."
         self.bestBlockAgeLabel.text = ""
     }
     
-    func onHeadersRescanProgress(_ progressReport: HeadersRescanProgressReport) {
-        self.handleGeneralProgressReport(progressReport)
+    func onHeadersRescanProgress(_ progressReport: DcrlibwalletHeadersRescanProgressReport) {
+        self.handleGeneralProgressReport(progressReport.generalSyncProgress!)
         
         self.syncStatusLabel.text = "Scanning blocks."
-        self.bestBlockLabel.text = "\(progressReport.totalSyncProgress)% completed, \(progressReport.totalTimeRemaining) left."
+        self.bestBlockLabel.text = "\(progressReport.generalSyncProgress!.totalSyncProgress)% completed, \(progressReport.generalSyncProgress!.totalTimeRemaining) left."
         self.bestBlockAgeLabel.text = ""
     }
     
-    func handleGeneralProgressReport(_ generalProgress: GeneralSyncProgressProtocol) {
+    func handleGeneralProgressReport(_ generalProgress: DcrlibwalletGeneralSyncProgress) {
         self.syncOperationProgressBar.progress = Float(generalProgress.totalSyncProgress) / 100.0
     }
     
@@ -253,7 +254,7 @@ extension NavigationMenuViewController: SyncProgressListenerProtocol {
         self.syncStatusLabel.superview?.backgroundColor = UIColor.red
     }
     
-    func debug(_ totalTimeElapsed: Int64, _ totalTimeRemaining: Int64, _ currentStageTimeElapsed: Int64, _ currentStageTimeRemaining: Int64) {}
+    func debug(_ debugInfo: DcrlibwalletDebugInfo) {}
 }
 
 // Transaction notification callback to update best block info (on block attached) and balance (on new transaction).

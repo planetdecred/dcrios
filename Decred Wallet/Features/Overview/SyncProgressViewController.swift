@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Dcrlibwallet
 
 class SyncProgressViewController: UIViewController {
     @IBOutlet weak var syncHeaderLabel: UILabel!
@@ -106,8 +107,8 @@ extension SyncProgressViewController: SyncProgressListenerProtocol {
         self.connectedPeersLabel.text = "Syncing with \(connectedPeers) on \(self.netType!)."
     }
     
-    func onHeadersFetchProgress(_ progressReport: HeadersFetchProgressReport) {
-        self.handleGeneralProgressReport(progressReport)
+    func onHeadersFetchProgress(_ progressReport: DcrlibwalletHeadersFetchProgressReport) {
+        self.handleGeneralProgressReport(progressReport.generalSyncProgress!)
         
         var reportText = "Fetched \(progressReport.fetchedHeadersCount) of ~\(progressReport.totalHeadersToFetch) block headers.\n"
         reportText += "\(progressReport.headersFetchProgress)% through step 1 of 3."
@@ -118,8 +119,8 @@ extension SyncProgressViewController: SyncProgressListenerProtocol {
         self.currentSyncActionReportLabel.text = reportText
     }
     
-    func onAddressDiscoveryProgress(_ progressReport: AddressDiscoveryProgressReport) {
-        self.handleGeneralProgressReport(progressReport)
+    func onAddressDiscoveryProgress(_ progressReport: DcrlibwalletAddressDiscoveryProgressReport) {
+        self.handleGeneralProgressReport(progressReport.generalSyncProgress!)
         
         var reportText = "Discovering used addresses.\n"
         if progressReport.addressDiscoveryProgress > 100 {
@@ -131,8 +132,8 @@ extension SyncProgressViewController: SyncProgressListenerProtocol {
         self.currentSyncActionReportLabel.text = reportText
     }
     
-    func onHeadersRescanProgress(_ progressReport: HeadersRescanProgressReport) {
-        self.handleGeneralProgressReport(progressReport)
+    func onHeadersRescanProgress(_ progressReport: DcrlibwalletHeadersRescanProgressReport) {
+        self.handleGeneralProgressReport(progressReport.generalSyncProgress!)
         
         var reportText = "Scanning \(progressReport.currentRescanHeight) of \(progressReport.totalHeadersToScan) block headers.\n"
         reportText += "\(progressReport.rescanProgress)% through step 3 of 3."
@@ -140,7 +141,7 @@ extension SyncProgressViewController: SyncProgressListenerProtocol {
         self.currentSyncActionReportLabel.text = reportText
     }
     
-    func handleGeneralProgressReport(_ generalProgress: GeneralSyncProgressProtocol) {
+    func handleGeneralProgressReport(_ generalProgress: DcrlibwalletGeneralSyncProgress) {
         self.syncHeaderLabel.text = "Synchronizing"
         
         self.generalSyncProgressBar.isHidden = false
@@ -167,7 +168,7 @@ extension SyncProgressViewController: SyncProgressListenerProtocol {
         self.syncHeaderLabel.text = "Synchronization error"
     }
     
-    func debug(_ totalTimeElapsed: Int64, _ totalTimeRemaining: Int64, _ currentStageTimeElapsed: Int64, _ currentStageTimeRemaining: Int64) {
+    func debug(_ debugInfo: DcrlibwalletDebugInfo) {
         let timeFormatter = DateComponentsFormatter()
         timeFormatter.allowedUnits = [.day, .hour, .minute, .second]
         timeFormatter.unitsStyle = .abbreviated
@@ -177,14 +178,14 @@ extension SyncProgressViewController: SyncProgressListenerProtocol {
         }
         
         var debugSyncInfo = "All Times\n"
-        debugSyncInfo += "elapsed: \(formatTime(totalTimeElapsed))"
-        debugSyncInfo += " remain: \(formatTime(totalTimeRemaining))"
-        debugSyncInfo += " total: \(formatTime(totalTimeElapsed + totalTimeRemaining))\n"
+        debugSyncInfo += "elapsed: \(formatTime(debugInfo.totalTimeElapsed))"
+        debugSyncInfo += " remain: \(formatTime(debugInfo.totalTimeRemaining))"
+        debugSyncInfo += " total: \(formatTime(debugInfo.totalTimeElapsed + debugInfo.totalTimeRemaining))\n"
         
         debugSyncInfo += "Stage Times\n"
-        debugSyncInfo += "elapsed: \(formatTime(currentStageTimeElapsed))"
-        debugSyncInfo += " remain: \(formatTime(currentStageTimeRemaining))"
-        debugSyncInfo += " total: \(formatTime(currentStageTimeElapsed + currentStageTimeRemaining))"
+        debugSyncInfo += "elapsed: \(formatTime(debugInfo.currentStageTimeElapsed))"
+        debugSyncInfo += " remain: \(formatTime(debugInfo.currentStageTimeRemaining))"
+        debugSyncInfo += " total: \(formatTime(debugInfo.currentStageTimeElapsed + debugInfo.currentStageTimeRemaining))"
         
         self.debugSyncInfoLabel.text = debugSyncInfo
     }

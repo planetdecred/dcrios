@@ -79,7 +79,7 @@
 		B3B46A35228F0F2700A68EDD /* Syncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469F5228F0F2600A68EDD /* Syncer.swift */; };
 		B3B46A36228F0F2700A68EDD /* WalletLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469F6228F0F2600A68EDD /* WalletLoader.swift */; };
 		B3B46A37228F0F2700A68EDD /* SpendingPinOrPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469F7228F0F2600A68EDD /* SpendingPinOrPassword.swift */; };
-		B3B46A38228F0F2700A68EDD /* SyncDecodableDataTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469F8228F0F2600A68EDD /* SyncDecodableDataTypes.swift */; };
+		B3B46A38228F0F2700A68EDD /* Dcrlibwallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469F8228F0F2600A68EDD /* Dcrlibwallet.swift */; };
 		B3B46A39228F0F2700A68EDD /* StartupPinOrPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469F9228F0F2600A68EDD /* StartupPinOrPassword.swift */; };
 		B3B46A3F228F0F6700A68EDD /* bg-button@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B3B46A3B228F0F6700A68EDD /* bg-button@3x.png */; };
 		B3B46A40228F0F6700A68EDD /* bg-button.png in Resources */ = {isa = PBXBuildFile; fileRef = B3B46A3C228F0F6700A68EDD /* bg-button.png */; };
@@ -212,7 +212,7 @@
 		B3B469F5228F0F2600A68EDD /* Syncer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Syncer.swift; sourceTree = "<group>"; };
 		B3B469F6228F0F2600A68EDD /* WalletLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletLoader.swift; sourceTree = "<group>"; };
 		B3B469F7228F0F2600A68EDD /* SpendingPinOrPassword.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpendingPinOrPassword.swift; sourceTree = "<group>"; };
-		B3B469F8228F0F2600A68EDD /* SyncDecodableDataTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncDecodableDataTypes.swift; sourceTree = "<group>"; };
+		B3B469F8228F0F2600A68EDD /* Dcrlibwallet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Dcrlibwallet.swift; path = "../Features/Wallet Utils/Dcrlibwallet.swift"; sourceTree = "<group>"; };
 		B3B469F9228F0F2600A68EDD /* StartupPinOrPassword.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartupPinOrPassword.swift; sourceTree = "<group>"; };
 		B3B46A3B228F0F6700A68EDD /* bg-button@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-button@3x.png"; sourceTree = "<group>"; };
 		B3B46A3C228F0F6700A68EDD /* bg-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-button.png"; sourceTree = "<group>"; };
@@ -380,6 +380,7 @@
 		B3B469A7228F0F2600A68EDD /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				B3B469F8228F0F2600A68EDD /* Dcrlibwallet.swift */,
 				B3B469A8228F0F2600A68EDD /* UIColor.swift */,
 				B3B469A9228F0F2600A68EDD /* Extensions.swift */,
 				B3B469AA228F0F2600A68EDD /* String.swift */,
@@ -565,7 +566,6 @@
 				B3B469F5228F0F2600A68EDD /* Syncer.swift */,
 				B3B469F6228F0F2600A68EDD /* WalletLoader.swift */,
 				B3B469F7228F0F2600A68EDD /* SpendingPinOrPassword.swift */,
-				B3B469F8228F0F2600A68EDD /* SyncDecodableDataTypes.swift */,
 				B3B469F9228F0F2600A68EDD /* StartupPinOrPassword.swift */,
 			);
 			path = "Wallet Utils";
@@ -912,7 +912,7 @@
 				B3B46A39228F0F2700A68EDD /* StartupPinOrPassword.swift in Sources */,
 				B3B46A8F228F0F7D00A68EDD /* ConfirmToSendFundViewController.swift in Sources */,
 				B3B46A1E228F0F2700A68EDD /* RequestPasswordViewController.swift in Sources */,
-				B3B46A38228F0F2700A68EDD /* SyncDecodableDataTypes.swift in Sources */,
+				B3B46A38228F0F2700A68EDD /* Dcrlibwallet.swift in Sources */,
 				B3B46A36228F0F2700A68EDD /* WalletLoader.swift in Sources */,
 				B3B46AA7228F0F7D00A68EDD /* CurrencyOptionTableViewController.swift in Sources */,
 				B3B46A8D228F0F7D00A68EDD /* NoWifiSyncConfirmationDialog.swift in Sources */,

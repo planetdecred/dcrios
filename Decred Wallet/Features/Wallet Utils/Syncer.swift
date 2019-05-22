@@ -11,13 +11,13 @@ import Dcrlibwallet
 protocol SyncProgressListenerProtocol {
     func onStarted()
     func onPeerConnectedOrDisconnected(_ numberOfConnectedPeers: Int32)
-    func onHeadersFetchProgress(_ progressReport: HeadersFetchProgressReport)
-    func onAddressDiscoveryProgress(_ progressReport: AddressDiscoveryProgressReport)
-    func onHeadersRescanProgress(_ progressReport: HeadersRescanProgressReport)
+    func onHeadersFetchProgress(_ progressReport: DcrlibwalletHeadersFetchProgressReport)
+    func onAddressDiscoveryProgress(_ progressReport: DcrlibwalletAddressDiscoveryProgressReport)
+    func onHeadersRescanProgress(_ progressReport: DcrlibwalletHeadersRescanProgressReport)
     func onSyncCompleted()
     func onSyncCanceled()
     func onSyncEndedWithError(_ error: String)
-    func debug(_ totalTimeElapsed: Int64, _ totalTimeRemaining: Int64, _ currentStageTimeElapsed: Int64, _ currentStageTimeRemaining: Int64)
+    func debug(_ debugInfo: DcrlibwalletDebugInfo)
 }
 
 enum SyncOp {
@@ -53,7 +53,7 @@ class Syncer: NSObject, AppLifeCycleDelegate {
     }
     
     func registerEstimatedSyncProgressListener() {
-        AppDelegate.walletLoader.wallet?.addEstimatedSyncProgressListener(self, logEstimatedProgress: true)
+        AppDelegate.walletLoader.wallet?.add(self, logEstimatedProgress: true)
     }
     
     func beginSync() {
@@ -98,13 +98,13 @@ class Syncer: NSObject, AppLifeCycleDelegate {
         if self.currentSyncOp != nil {
             switch self.currentSyncOp! {
             case .FetchingHeaders:
-                listener.onHeadersFetchProgress(self.currentSyncOpProgress as! HeadersFetchProgressReport)
+                listener.onHeadersFetchProgress(self.currentSyncOpProgress as! DcrlibwalletHeadersFetchProgressReport)
                 
             case .DiscoveringAddresses:
-                listener.onAddressDiscoveryProgress(self.currentSyncOpProgress as! AddressDiscoveryProgressReport)
+                listener.onAddressDiscoveryProgress(self.currentSyncOpProgress as! DcrlibwalletAddressDiscoveryProgressReport)
                 
             case .RescanningHeaders:
-                listener.onHeadersRescanProgress(self.currentSyncOpProgress as! HeadersRescanProgressReport)
+                listener.onHeadersRescanProgress(self.currentSyncOpProgress as! DcrlibwalletHeadersRescanProgressReport)
                 
             case .Done:
                 listener.onSyncCompleted()
@@ -181,34 +181,28 @@ class Syncer: NSObject, AppLifeCycleDelegate {
 
 // Extension for receiving estimated sync progress report from dcrlibwallet sync process.
 // Progress report is decoded from the received Json string back to the original data format in the same dcrlibwallet background thread.
-extension Syncer: DcrlibwalletEstimatedSyncProgressJsonListenerProtocol {
+extension Syncer: DcrlibwalletEstimatedSyncProgressListenerProtocol {
     func onPeerConnectedOrDisconnected(_ numberOfConnectedPeers: Int32) {
         self.connectedPeersCount = numberOfConnectedPeers
         self.forEachSyncListener({ syncListener in syncListener.onPeerConnectedOrDisconnected(numberOfConnectedPeers) })
     }
     
-    func onHeadersFetchProgress(_ headersFetchProgressJson: String?) {
-        self.decodeProgressReport(headersFetchProgressJson, for: HeadersFetchProgressReport.self) { progressReport in
-            self.currentSyncOp = .FetchingHeaders
-            self.currentSyncOpProgress = progressReport
-            self.forEachSyncListener({ syncListener in syncListener.onHeadersFetchProgress(progressReport) })
-        }
+    func onHeadersFetchProgress(_ headersFetchProgress: DcrlibwalletHeadersFetchProgressReport?) {
+        self.currentSyncOp = .FetchingHeaders
+        self.currentSyncOpProgress = headersFetchProgress
+        self.forEachSyncListener({ syncListener in syncListener.onHeadersFetchProgress(headersFetchProgress!) })
     }
     
-    func onAddressDiscoveryProgress(_ addressDiscoveryProgressJson: String?) {
-        self.decodeProgressReport(addressDiscoveryProgressJson, for: AddressDiscoveryProgressReport.self) { progressReport in
-            self.currentSyncOp = .DiscoveringAddresses
-            self.currentSyncOpProgress = progressReport
-            self.forEachSyncListener({ syncListener in syncListener.onAddressDiscoveryProgress(progressReport) })
-        }
+    func onAddressDiscoveryProgress(_ addressDiscoveryProgress: DcrlibwalletAddressDiscoveryProgressReport?) {
+        self.currentSyncOp = .DiscoveringAddresses
+        self.currentSyncOpProgress = addressDiscoveryProgress
+        self.forEachSyncListener({ syncListener in syncListener.onAddressDiscoveryProgress(addressDiscoveryProgress!) })
     }
     
-    func onHeadersRescanProgress(_ headersRescanProgressJson: String?) {
-        self.decodeProgressReport(headersRescanProgressJson, for: HeadersRescanProgressReport.self) { progressReport in
-            self.currentSyncOp = .RescanningHeaders
-            self.currentSyncOpProgress = progressReport
-            self.forEachSyncListener({ syncListener in syncListener.onHeadersRescanProgress(progressReport) })
-        }
+    func onHeadersRescanProgress(_ headersRescanProgress: DcrlibwalletHeadersRescanProgressReport?) {
+        self.currentSyncOp = .RescanningHeaders
+        self.currentSyncOpProgress = headersRescanProgress
+        self.forEachSyncListener({ syncListener in syncListener.onHeadersRescanProgress(headersRescanProgress!) })
     }
     
     func onSyncCompleted() {
@@ -231,29 +225,20 @@ extension Syncer: DcrlibwalletEstimatedSyncProgressJsonListenerProtocol {
         }
     }
     
-    func onSyncEndedWithError(_ err: String?) {
+    func onSyncEndedWithError(_ err: Error?) {
         print("sync error: \(err!)")
         self.currentSyncOp = .Errored
-        self.currentSyncOpProgress = err!
-        self.forEachSyncListener({ syncListener in syncListener.onSyncEndedWithError(err!) })
+        self.currentSyncOpProgress = err!.localizedDescription
+        self.forEachSyncListener({ syncListener in syncListener.onSyncEndedWithError(err!.localizedDescription) })
         
         if self.shouldRestartSync {
             self.beginSync()
         }
     }
     
-    func decodeProgressReport<T: Decodable>(_ reportJson: String?, for reportType: T.Type, _ handleProgressReport: (_ progressReport: T) -> Void) {
-        do {
-            let progressReport = try JSONDecoder().decode(reportType, from: reportJson!.utf8Bits)
-            handleProgressReport(progressReport)
-        } catch (let error) {
-            print("sync progress json decode error: \(error.localizedDescription)")
-        }
-    }
-    
-    func debug(_ totalTimeElapsed: Int64, totalTimeRemaining: Int64, currentStageTimeElapsed: Int64, currentStageTimeRemaining: Int64) {
+    func debug(_ debugInfo: DcrlibwalletDebugInfo?) {
         self.forEachSyncListener({ syncListener in
-            syncListener.debug(totalTimeElapsed, totalTimeRemaining, currentStageTimeElapsed, currentStageTimeRemaining)
+            syncListener.debug(debugInfo!)
         })
     }
 }
