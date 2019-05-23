@@ -105,33 +105,40 @@ class TransactionHistoryViewController: UIViewController {
     func onResult(_ json: String?) {
         if (self.visible == false) {
             return
-        } else {
-            DispatchQueue.main.async { [weak self] in
-                guard let this = self else { return }
-                do {
-                    let transactions = try JSONDecoder().decode([Transaction].self, from: (json?.data(using: .utf8)!)!)
-                    if (transactions.count) > 0 {
-                        if (transactions.count > this.Filtercontent.count) {
-                            print(this.Filtercontent.count)
-                            this.Filtercontent.removeAll()
-                            
-                            this.mainContens = transactions
-                            this.Filtercontent = this.mainContens
-                            
-                            this.btnFilter.items.removeAll()
-                            this.updateDropdown()
-                            this.tableView.reloadData()
-                        }
-                    }
-                } catch let error {
-                    print("onresult error")
-                    print(error)
+        }
+        
+        DispatchQueue.main.async { [weak self] in
+            guard let this = self else { return }
+            do {
+                let transactions = try JSONDecoder().decode([Transaction].self, from: (json?.data(using: .utf8)!)!)
+                if transactions.count > 0 {
+                    this.tableView.backgroundView = nil
+                    this.tableView.separatorStyle = .singleLine
+                    
+                    this.Filtercontent.removeAll()
+                    
+                    this.mainContens = transactions
+                    this.Filtercontent = this.mainContens
+                    
+                    this.tableView.reloadData()
+                } else {
+                    let label = UILabel(frame: CGRect(x: 0, y: 0, width: this.tableView.bounds.size.width, height: this.tableView.bounds.size.height))
+                    label.text = "No Transactions"
+                    label.textAlignment = .center
+                    this.tableView.backgroundView = label
+                    this.tableView.separatorStyle = .none
                 }
+                
+                this.btnFilter.items.removeAll()
+                this.updateDropdown()
+            } catch let error {
+                print("onresult error")
+                print(error)
             }
         }
     }
     
-    func initFilterBtn(){
+    func initFilterBtn() {
         self.btnFilter.initMenu(filterMenu) { [weak self] index, value in
             guard let this = self else { return }
             
@@ -173,8 +180,7 @@ class TransactionHistoryViewController: UIViewController {
     }
     
     
-    func updateDropdown(){
-        
+    func updateDropdown() {
         let sentCount = self.mainContens.filter{$0.Direction == 0}.count
         let ReceiveCount = self.mainContens.filter{$0.Direction == 1}.count
         let yourselfCount = self.mainContens.filter{$0.Direction == 2}.count

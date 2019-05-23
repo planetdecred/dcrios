@@ -99,7 +99,18 @@ class OverviewViewController: UIViewController {
                 }
                 
                 self.recentTransactions = try JSONDecoder().decode([Transaction].self, from: transactionsJson!.utf8Bits)
-                self.recentActivityTableView.reloadData()
+                
+                if self.recentTransactions.count > 0 {
+                    self.recentActivityTableView.backgroundView = nil
+                    self.recentActivityTableView.separatorStyle = .singleLine
+                    self.recentActivityTableView.reloadData()
+                } else {
+                    let label = UILabel(frame: CGRect(x: 0, y: 0, width: self.recentActivityTableView.bounds.size.width, height: self.recentActivityTableView.bounds.size.height))
+                    label.text = "No Transactions"
+                    label.textAlignment = .center
+                    self.recentActivityTableView.backgroundView = label
+                    self.recentActivityTableView.separatorStyle = .none
+                }
             } catch let Error {
                 print(Error)
             }
