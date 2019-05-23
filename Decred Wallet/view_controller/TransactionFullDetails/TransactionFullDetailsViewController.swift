@@ -209,7 +209,7 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
             status = "Pending"
             textColor = #colorLiteral(red: 0.2392156863, green: 0.3960784314, blue: 0.6117647059, alpha: 1)
         } else {
-            if(UserDefaults.standard.bool(forKey: "pref_spend_fund_switch") || confirmations > 1) {
+            if (Settings.spendUnconfirmed || confirmations > 1) {
                 status = "Confirmed"
                 textColor = #colorLiteral(red: 0.2549019608, green: 0.7490196078, blue: 0.3254901961, alpha: 1)
             } else {

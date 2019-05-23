@@ -29,8 +29,7 @@ struct Utils {
     }
     
     static func spendable(account:WalletAccount) -> Decimal{
-        let bRequireConfirm = UserDefaults.standard.bool(forKey: "pref_spend_fund_switch")
-        let iRequireConfirm = (bRequireConfirm ) ? Int32(0) : Int32(2)
+        let iRequireConfirm = Settings.spendUnconfirmed ? Int32(0) : Int32(2)
         let int64Pointer = UnsafeMutablePointer<Int64>.allocate(capacity: 64)
         do {
             

@@ -89,7 +89,7 @@ class NavigationMenuViewController: UIViewController {
     func checkSyncPermission() {
         if AppDelegate.shared.reachability.connection == .none {
             self.syncNotStartedDueToNetwork()
-        } else if AppDelegate.shared.reachability.connection == .wifi || Settings.syncOnCellular() {
+        } else if AppDelegate.shared.reachability.connection == .wifi || Settings.syncOnCellular {
             self.startSync()
         } else {
             self.requestPermissionToSync()
@@ -321,7 +321,7 @@ extension NavigationMenuViewController: NewBlockNotificationProtocol, NewTransac
     }
     
     func updateBalance() {
-        let totalWalletBalance = try? AppDelegate.walletLoader.wallet?.totalWalletBalance()
+        let totalWalletBalance = AppDelegate.walletLoader.wallet?.totalWalletBalance()
         let totalAmountRoundedOff = (Decimal(totalWalletBalance ?? 0) as NSDecimalNumber).round(8)
         self.totalBalanceAmountLabel.attributedText = Utils.getAttributedString(str: "\(totalAmountRoundedOff)", siz: 12.0, TexthexColor: GlobalConstants.Colors.TextAmount)
     }

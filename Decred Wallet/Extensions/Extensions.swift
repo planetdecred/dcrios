@@ -18,6 +18,10 @@ extension NSDecimalNumber {
                                    raiseOnUnderflow: false,
                                    raiseOnDivideByZero: false))
     }
+    
+    var formattedWithSeparator: String {
+        return Formatter.withSeparator.string(for: self) ?? "\(self)"
+    }
 }
 
 extension UITableViewCell {
@@ -45,18 +49,19 @@ extension UIButton {
     }
 }
 
-extension BinaryInteger{
+extension BinaryInteger {
     var formattedWithSeparator: String {
-        return Formatter.withSeparator.string(for :self) ?? ","
+        return Formatter.withSeparator.string(for: self) ?? "\(self)"
     }
 }
 
-extension Formatter{
+extension Formatter {
     static let withSeparator: NumberFormatter = {
-            let formatter = NumberFormatter()
-            formatter.groupingSeparator = ","
-            formatter.numberStyle = .decimal
-            return formatter
+        let formatter = NumberFormatter()
+        formatter.groupingSeparator = ","
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = 8
+        return formatter
     }()
 }
 

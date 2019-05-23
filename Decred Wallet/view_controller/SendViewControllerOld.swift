@@ -13,7 +13,7 @@ import Dcrlibwallet
 import SafariServices
 
 
-class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDelegate, QRCodeReaderViewControllerDelegate {
+class SendViewControllerOld: UIViewController, UITextFieldDelegate,UITextPasteDelegate, QRCodeReaderViewControllerDelegate {
     var pinInput: String?
     
     @IBOutlet weak var pasteBtn: UIButton!
@@ -82,8 +82,8 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         NotificationCenter.default.addObserver(self, selector: #selector(willResignActive), name: UIApplication.willEnterForegroundNotification, object: nil)
         self.walletAddress.delegate = self
         removedBtn = false
-        let currency_value = UserDefaults.standard.integer(forKey: "currency")
-        if(currency_value == 1){
+
+        if Settings.currencyConversionOption == .Bittrex {
             GetExchangeRate()
         }
         self.showDefaultAccount()
@@ -295,9 +295,8 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
         DispatchQueue.global(qos: .userInitiated).async {
             do {
                 
-                let isShouldBeConfirmed = UserDefaults.standard.bool(forKey: "pref_spend_fund_switch")
                 let preparedTransaction: DcrlibwalletUnsignedTransaction?
-                preparedTransaction = try self.wallet?.constructTransaction(walletaddress, amount: amount, srcAccount: acountN , requiredConfirmations: isShouldBeConfirmed ? 0 : 2, sendAll: sendAll ?? false)
+                preparedTransaction = try self.wallet?.constructTransaction(walletaddress, amount: amount, srcAccount: acountN , requiredConfirmations: Settings.spendUnconfirmed ? 0 : 2, sendAll: sendAll ?? false)
                 
                 DispatchQueue.main.async { [weak self] in
                     guard let this = self else { return }
@@ -349,8 +348,7 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             let progressHud = Utils.showProgressHud(withText: "Sending Transaction...")
             DispatchQueue.global(qos: .userInitiated).async {[unowned self] in
                 do {
-                    let isShouldBeConfirmed = UserDefaults.standard.bool(forKey: "pref_spend_fund_switch")
-                    let result = try self.wallet?.sendTransaction(password.data(using: .utf8), destAddr: walletAddress, amount: Int64(amount) , srcAccount: account , requiredConfs: isShouldBeConfirmed ? 0 : 2, sendAll: sendAll ?? false)
+                    let result = try self.wallet?.sendTransaction(password.data(using: .utf8), destAddr: walletAddress, amount: Int64(amount) , srcAccount: account , requiredConfs: Settings.spendUnconfirmed ? 0 : 2, sendAll: sendAll ?? false)
                     
                     DispatchQueue.main.async {
                         progressHud.dismiss()
@@ -870,9 +868,9 @@ class SendViewController: UIViewController, UITextFieldDelegate,UITextPasteDeleg
             print(error)
         }
         
-        let defaultNumber = UserDefaults.standard.integer(forKey: "wallet_default")
+        let defaultWalletNumber: Int32? = Settings.readOptionalValue(for: Settings.Keys.DefaultWallet)
         
-        if let defaultAccount = account?.Acc.filter({ $0.Number == defaultNumber }).first {
+        if let defaultAccount = account?.Acc.filter({ $0.Number == defaultWalletNumber }).first {
             let tspendable = Utils.spendable(account: defaultAccount) as NSDecimalNumber
             
             accountDropdown.setTitle(

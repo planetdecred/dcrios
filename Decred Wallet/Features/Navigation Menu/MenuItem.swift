@@ -29,7 +29,7 @@ enum MenuItem: String, CaseIterable {
             return TransactionHistoryViewController(nibName: "TransactionHistoryViewController", bundle: nil).wrapInNavigationcontroller()
             
         case .send:
-            return Storyboards.Main.instantiateViewController(for: SendViewController.self).wrapInNavigationcontroller()
+            return Storyboards.Send.instantiateViewController(for: SendViewController.self).wrapInNavigationcontroller()
             
         case .receive:
             return Storyboards.Main.instantiateViewController(for: ReceiveViewController.self).wrapInNavigationcontroller()

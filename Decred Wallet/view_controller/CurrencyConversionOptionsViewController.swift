@@ -1,5 +1,5 @@
 //
-//  CurrencyOptionTableViewController.swift
+//  CurrencyConversionOptionsViewController.swift
 //  Decred Wallet
 //
 //  Created by Suleiman Abubakar on 30/03/2019.
@@ -8,24 +8,25 @@
 
 import UIKit
 
-class CurrencyOptionTableViewController: UITableViewController {
+enum CurrencyConversionOption: String, CaseIterable {
+    case None = "none"
+    case Bittrex = "bittrex"
+}
 
+class CurrencyConversionOptionsViewController: UITableViewController {
     @IBOutlet weak var none_cell: UITableViewCell!
     @IBOutlet weak var usd_cell: UITableViewCell!
-    let currency_value = UserDefaults.standard.integer(forKey: "currency")
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        
-    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if (currency_value == 0) {
+        switch Settings.currencyConversionOption {
+        case .None:
             none_cell.accessoryType = .checkmark
             none_cell.setSelected(true, animated: true)
             usd_cell.accessoryType = .none
-        } else if(currency_value == 1) {
+            
+        case .Bittrex:
             none_cell.accessoryType = .none
             usd_cell.accessoryType = .checkmark
             usd_cell.setSelected(true, animated: true)
@@ -38,12 +39,13 @@ class CurrencyOptionTableViewController: UITableViewController {
         none_cell.accessoryType = .none
         usd_cell.accessoryType = .none
         tableView.cellForRow(at: indexPath as IndexPath)?.accessoryType = .checkmark
-        UserDefaults.standard.set(indexPath.row, forKey: "currency")
-        UserDefaults.standard.synchronize()
+        
+        let selectedOption = CurrencyConversionOption.allCases[indexPath.row]
+        print("currency conversion option: \(selectedOption.rawValue)")
+        Settings.setValue(selectedOption.rawValue, for: Settings.Keys.CurrencyConversionOption)
     }
     
     override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         tableView.cellForRow(at: indexPath as IndexPath)?.accessoryType = .none
     }
-
 }

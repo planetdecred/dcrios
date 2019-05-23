@@ -32,14 +32,12 @@ class TransactionTableViewCell: BaseTableViewCell {
                 confirmations = Int(bestBlock!) - transaction.Height
                 confirmations += 1
             }
-            
-            let spendUnconfirmedFunds = UserDefaults.standard.bool(forKey: "pref_spend_fund_switch")
-            
+
             if (transaction.Height == -1) {
                 self.status.textColor = UIColor(hex:"#3d659c")
                 self.status.text = "Pending"
             } else {
-                if (spendUnconfirmedFunds || confirmations > 1) {
+                if (Settings.spendUnconfirmed || confirmations > 1) {
                     self.status.textColor = UIColor(hex:"#2DD8A3")
                     self.status.text = "Confirmed"
                 } else {
@@ -58,7 +56,7 @@ class TransactionTableViewCell: BaseTableViewCell {
             
             self.dateT.text = dateformater.string(from: Date2 as Date)
             let amount = Decimal(transaction.Amount / 100000000.00) as NSDecimalNumber
-            let requireConfirmation = spendUnconfirmedFunds ? 0 : 2
+            let requireConfirmation = Settings.spendUnconfirmed ? 0 : 2
             
             if (transaction.Type.lowercased() == "regular") {
                 if (transaction.Direction == 0) {

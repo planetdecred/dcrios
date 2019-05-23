@@ -122,14 +122,13 @@ class SettingsController: UITableViewController  {
     
     func loadDate() -> Void {
         let network_value = UserDefaults.standard.integer(forKey: "network_mode")
-        let currency_value = UserDefaults.standard.integer(forKey: "currency")
         version?.text = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String
         
         let dateformater = DateFormatter()
         dateformater.dateFormat = "yyyy-MM-dd"
         build?.text = dateformater.string(from: AppDelegate.compileDate as Date)
         debu_msg?.setOn((UserDefaults.standard.bool(forKey: "pref_debug_switch") ), animated: false)
-        spend_uncon_fund?.setOn(UserDefaults.standard.bool(forKey: "pref_spend_fund_switch"), animated: false)
+        spend_uncon_fund?.setOn(Settings.spendUnconfirmed, animated: false)
         connect_peer_ip?.text = Settings.readOptionalValue(for: Settings.Keys.SPVPeerIP) ?? ""
         server_ip?.text = UserDefaults.standard.string(forKey: "pref_server_ip") ?? ""
         incoming_notification_switch?.setOn(UserDefaults.standard.bool(forKey: "pref_notification_switch"), animated: true)
@@ -141,9 +140,11 @@ class SettingsController: UITableViewController  {
         }else{
             network_mode_subtitle?.text = "Remote Full Node"
         }
-        if (currency_value == 0) {
+        
+        switch Settings.currencyConversionOption {
+        case .None:
             currency_subtitle?.text = "None"
-        }else{
+        case .Bittrex:
             currency_subtitle?.text = "USD (bittrex)"
         }
     }

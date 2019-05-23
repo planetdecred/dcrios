@@ -45,16 +45,3 @@ class WalletLoader: NSObject {
         return walletExists.boolValue
     }
 }
-
-extension DcrlibwalletLibWallet {
-    func totalWalletBalance() throws -> Double {
-        var getAccountsError: NSError?
-        let accountsJson = AppDelegate.walletLoader.wallet?.getAccounts(0, error: &getAccountsError)
-        if getAccountsError != nil {
-            throw getAccountsError!
-        }
-        
-        let accounts = try JSONDecoder().decode(WalletAccounts.self, from: accountsJson!.utf8Bits)
-        return accounts.Acc.filter({ !$0.isHidden }).map({ $0.dcrTotalBalance }).reduce(0,+)
-    }
-}

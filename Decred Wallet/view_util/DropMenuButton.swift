@@ -14,6 +14,9 @@ typealias TapListener = ()->()
 class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
 {
     var items = [String]()
+    var selectedItemIndex: Int = -1
+    var selectedItem: String?
+    
     var table = UITableView()
     var act: CallBack?
     var listener: TapListener?
@@ -40,7 +43,7 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
         }
     }
     
-    func initMenu(_ items: [String], actions: CallBack?)
+    func initMenu(_ items: [String], actions: CallBack? = nil)
     {
         self.items = items
         act = actions
@@ -84,48 +87,6 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
         addTarget(self, action: #selector(DropMenuButton.showItems), for: .touchUpInside)
     }
     
-    func initMenu(_ items: [String])
-    {
-        self.items = items
-        
-        var resp = self as UIResponder
-        
-        while !(resp.isKind(of: UIViewController.self) || (resp.isKind(of: UITableViewCell.self))) && resp.next != nil
-        {
-            resp = resp.next!
-        }
-        
-        if let vc = resp as? UIViewController
-        {
-            superSuperView = vc.view
-        }
-        else if let vc = resp as? UITableViewCell
-        {
-            superSuperView = vc
-        }
-        
-        table = UITableView()
-        table.rowHeight = frame.height
-        table.delegate = self
-        table.dataSource = self
-        table.isUserInteractionEnabled = true
-        containerView.alpha = 0
-        table.separatorColor = UIColor.clear
-        containerView.addSubview(table)
-        superSuperView.addSubview(containerView)
-        
-        containerView.layer.borderWidth = 1.0
-        containerView.layer.borderColor = UIColor.lightGray.cgColor
-        containerView.backgroundColor = UIColor.red
-        containerView.clipsToBounds = false
-        containerView.layer.shadowOffset = CGSize(width: -5, height: 5)
-        containerView.layer.shadowRadius = 1
-        containerView.layer.shadowOpacity = 0.5
-        containerView.layer.shadowColor = UIColor.lightGray.cgColor
-        
-        addTarget(self, action: #selector(DropMenuButton.showItems), for: .touchUpInside)
-    }
-    
     func fixLayout()
     {
         let auxPoint2 = superSuperView.convert(frame.origin, from: superview)
@@ -150,6 +111,20 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
         fixLayout()
     }
     
+    func setSelectedItemIndex(_ index: Int) {
+        if index >= 0 && index < self.items.count {
+            self.selectedItemIndex = index
+            self.selectedItem = self.items[self.selectedItemIndex]
+            self.setTitle(self.selectedItem!, for: .normal)
+        } else {
+            self.selectedItemIndex = -1
+            self.selectedItem = nil
+            self.setTitle("", for: .normal)
+        }
+        
+        act?(self.selectedItemIndex, self.selectedItem ?? "")
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         return items.count
@@ -161,12 +136,8 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
         setTitle(items[(indexPath as NSIndexPath).row], for: UIControl.State.highlighted)
         setTitle(items[(indexPath as NSIndexPath).row], for: UIControl.State.selected)
         
-        act?(indexPath.row, items[indexPath.row])
-        
-       // let temp = items.remove(at: indexPath.row)
-        //items.insert(temp, at: 0)
-        
-        showItems()
+        self.setSelectedItemIndex(indexPath.row)
+        self.showItems()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
