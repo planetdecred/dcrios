@@ -20,8 +20,8 @@ class SecurityViewController: SecurityBaseViewController {
     var onUserEnteredPinOrPassword: ((_ pinOrPassword: String, _ securityType: String) -> Void)?
     
     var tabController: UITabBarController?
-    @IBOutlet weak var btnPin: UIButton!
-    @IBOutlet weak var btnPassword: UIButton!
+    @IBOutlet weak var btnPin: Button!
+    @IBOutlet weak var btnPassword: Button!
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "loadTabBarController" {
@@ -45,6 +45,8 @@ class SecurityViewController: SecurityBaseViewController {
             
             if self.initialSecurityType == SecurityViewController.SECURITY_TYPE_PIN {
                 self.activatePinTab()
+            }else{
+                self.activatePasswordTab()
             }
         }
     }
@@ -61,11 +63,21 @@ class SecurityViewController: SecurityBaseViewController {
         tabController?.selectedIndex = 0
         btnPassword.backgroundColor = #colorLiteral(red: 0.9529411765, green: 0.9607843137, blue: 0.9647058824, alpha: 1)
         btnPin.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        // Remove border from inactive and set on active        
+        btnPassword.border(at: "right")
+        btnPassword.border(at: "bottom")
+        btnPin.removeBorders()
+        
     }
     
     func activatePinTab() {
         tabController?.selectedIndex = 1
         btnPin.backgroundColor = #colorLiteral(red: 0.9529411765, green: 0.9607843137, blue: 0.9647058824, alpha: 1)
         btnPassword.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        // Remove border from inactive and set on active
+        btnPin.border(at: "left")
+        btnPin.border(at: "bottom")
+        btnPassword.removeBorders()
+        
     }
 }
