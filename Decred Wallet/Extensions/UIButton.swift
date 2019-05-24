@@ -27,7 +27,6 @@ extension UIButton {
         let borderLayer = CALayer()
         borderLayer.backgroundColor = UIColor.init(hex: colorHex).cgColor
         borderLayer.name = "\(borderPosition.rawValue) border"
-        print(borderLayer.name!)
         
         switch borderPosition {
         case .left:

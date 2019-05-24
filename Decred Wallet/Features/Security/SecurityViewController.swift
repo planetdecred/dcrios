@@ -42,7 +42,12 @@ class SecurityViewController: SecurityBaseViewController {
                 self.navigationController?.popViewController(animated: true)
                 self.onUserEnteredPinOrPassword?(pin, SecurityViewController.SECURITY_TYPE_PIN)
             }
-            
+        }
+    }
+    
+    override func viewDidLoad() {
+        // delay before activating initial tab to allow borders show properly
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             if self.initialSecurityType == SecurityViewController.SECURITY_TYPE_PIN {
                 self.activatePinTab()
             } else {
@@ -52,10 +57,12 @@ class SecurityViewController: SecurityBaseViewController {
     }
 
     @IBAction func onPasswordTab(_ sender: Any) {
+        guard self.tabController?.selectedIndex != 0 else { return }
         self.activatePasswordTab()
     }
     
     @IBAction func onPinTab(_ sender: Any) {
+        guard self.tabController?.selectedIndex != 1 else { return }
         self.activatePinTab()
     }
     
@@ -73,9 +80,9 @@ class SecurityViewController: SecurityBaseViewController {
         tabController?.selectedIndex = 1
         // activate pin button
         btnPin.backgroundColor = UIColor.appColors.offWhite
-        btnPin.addBorders(atPositions: [.right, .bottom])
+        btnPin.addBorders(atPositions: [.left, .bottom])
         // deactivate password button
         btnPassword.backgroundColor = UIColor.white
-        btnPassword.removeBorders(atPositions: .left, .bottom)
+        btnPassword.removeBorders(atPositions: .right, .bottom)
     }
 }
