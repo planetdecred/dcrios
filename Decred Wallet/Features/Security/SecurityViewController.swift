@@ -42,30 +42,47 @@ class SecurityViewController: SecurityBaseViewController {
                 self.navigationController?.popViewController(animated: true)
                 self.onUserEnteredPinOrPassword?(pin, SecurityViewController.SECURITY_TYPE_PIN)
             }
-            
+        }
+    }
+    
+    override func viewDidLoad() {
+        // delay before activating initial tab to allow borders show properly
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             if self.initialSecurityType == SecurityViewController.SECURITY_TYPE_PIN {
                 self.activatePinTab()
+            } else {
+                self.activatePasswordTab()
             }
         }
     }
 
     @IBAction func onPasswordTab(_ sender: Any) {
+        guard self.tabController?.selectedIndex != 0 else { return }
         self.activatePasswordTab()
     }
     
     @IBAction func onPinTab(_ sender: Any) {
+        guard self.tabController?.selectedIndex != 1 else { return }
         self.activatePinTab()
     }
     
     func activatePasswordTab() {
         tabController?.selectedIndex = 0
-        btnPassword.backgroundColor = #colorLiteral(red: 0.9529411765, green: 0.9607843137, blue: 0.9647058824, alpha: 1)
-        btnPin.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        // activate password button
+        btnPassword.backgroundColor = UIColor.appColors.offWhite
+        btnPassword.addBorders(atPositions: [.right, .bottom])
+        // deactivate pin button
+        btnPin.backgroundColor = UIColor.white
+        btnPin.removeBorders(atPositions: .left, .bottom)
     }
     
     func activatePinTab() {
         tabController?.selectedIndex = 1
-        btnPin.backgroundColor = #colorLiteral(red: 0.9529411765, green: 0.9607843137, blue: 0.9647058824, alpha: 1)
-        btnPassword.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        // activate pin button
+        btnPin.backgroundColor = UIColor.appColors.offWhite
+        btnPin.addBorders(atPositions: [.left, .bottom])
+        // deactivate password button
+        btnPassword.backgroundColor = UIColor.white
+        btnPassword.removeBorders(atPositions: .right, .bottom)
     }
 }

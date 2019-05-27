@@ -15,11 +15,12 @@ extension UIColor {
         static let decredBlue = UIColor.init(hex: "#2970FF")
         static let decredGreen = UIColor.init(hex: "#41BF53")
         static let decredOrange = UIColor.init(hex: "#ED6D47")
+        
         static let darkYellowWarning = UIColor.init(hex: "#E7C659")
         static let green = UIColor.init(hex: "#2DD8A3")
         static let lightGray = UIColor.init(hex: "#DEE1E3")
         static let lighterGray = UIColor.init(hex: "#C4CBD2")
-        static let offWhite = UIColor(hex:"#F9FAFA")
+        static let offWhite = UIColor(hex:"#F3F5F6")
         static let yellowWarning = UIColor.init(hex: "#FFC84E")
     }
     

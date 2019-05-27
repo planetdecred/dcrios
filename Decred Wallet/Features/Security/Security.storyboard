@@ -21,7 +21,7 @@
         <!--Security View Controller-->
         <scene sceneID="p1R-1g-0rC">
             <objects>
-                <viewController storyboardIdentifier="SecurityViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="oDz-Lc-3bI" customClass="SecurityViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SecurityViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="oDz-Lc-3bI" customClass="SecurityViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tpH-7I-N4D">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -106,7 +106,7 @@
         <!--Password Tab-->
         <scene sceneID="jUs-oj-blA">
             <objects>
-                <viewController title="Password Tab" id="2lq-jW-9IA" customClass="PasswordSetupViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Password Tab" id="2lq-jW-9IA" customClass="PasswordSetupViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wcl-lB-4xs">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="778"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -187,7 +187,7 @@
                                 <color key="progressTintColor" red="0.2274509804" green="0.84313725490000002" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="trackTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </progressView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zde-un-syx" customClass="Button" customModule="DecredWallet" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zde-un-syx" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                 <rect key="frame" x="157" y="379.5" width="100" height="40"/>
                                 <color key="backgroundColor" red="0.160430342" green="0.43735861780000002" blue="0.99941736459999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -252,7 +252,7 @@
         <!--Pin Tab-->
         <scene sceneID="y31-sl-O1Z">
             <objects>
-                <viewController storyboardIdentifier="RequestPinViewController" title="Pin Tab" useStoryboardIdentifierAsRestorationIdentifier="YES" id="SKa-iY-3vv" customClass="RequestPinViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RequestPinViewController" title="Pin Tab" useStoryboardIdentifierAsRestorationIdentifier="YES" id="SKa-iY-3vv" customClass="RequestPinViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MZP-zs-4TF">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="778"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -263,7 +263,7 @@
                                 <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4YA-nq-sBC" customClass="PinInputView" customModule="DecredWallet" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4YA-nq-sBC" customClass="PinInputView" customModule="Decred_Wallet" customModuleProvider="target">
                                 <rect key="frame" x="107" y="114.5" width="200" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -277,7 +277,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="nfT-VP-RET">
                                         <rect key="frame" x="0.0" y="0.0" width="230" height="70"/>
                                         <subviews>
-                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VkY-VB-EfN" customClass="Button" customModule="DecredWallet" customModuleProvider="target">
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VkY-VB-EfN" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -296,7 +296,7 @@
                                                     <action selector="onDigitButtonTapped:" destination="SKa-iY-3vv" eventType="touchUpInside" id="NiO-cX-5uH"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FAa-9F-leS" customClass="Button" customModule="DecredWallet" customModuleProvider="target">
+                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FAa-9F-leS" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                                 <rect key="frame" x="80" y="0.0" width="70" height="70"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -315,7 +315,7 @@
                                                     <action selector="onDigitButtonTapped:" destination="SKa-iY-3vv" eventType="touchUpInside" id="sJN-bN-hUP"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g6V-k1-rIe" customClass="Button" customModule="DecredWallet" customModuleProvider="target">
+                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g6V-k1-rIe" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                                 <rect key="frame" x="160" y="0.0" width="70" height="70"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -339,7 +339,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="gp1-Xh-rcu">
                                         <rect key="frame" x="0.0" y="80" width="230" height="70"/>
                                         <subviews>
-                                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RBw-iD-4xT" customClass="Button" customModule="DecredWallet" customModuleProvider="target">
+                                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RBw-iD-4xT" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -358,7 +358,7 @@
                                                     <action selector="onDigitButtonTapped:" destination="SKa-iY-3vv" eventType="touchUpInside" id="p1x-oF-0gm"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HUa-6W-AU4" customClass="Button" customModule="DecredWallet" customModuleProvider="target">
+                                            <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HUa-6W-AU4" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                                 <rect key="frame" x="80" y="0.0" width="70" height="70"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -377,7 +377,7 @@
                                                     <action selector="onDigitButtonTapped:" destination="SKa-iY-3vv" eventType="touchUpInside" id="PHj-mm-WBf"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dIl-Wu-lfq" customClass="Button" customModule="DecredWallet" customModuleProvider="target">
+                                            <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dIl-Wu-lfq" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                                 <rect key="frame" x="160" y="0.0" width="70" height="70"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -401,7 +401,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="YJB-HA-On3">
                                         <rect key="frame" x="0.0" y="160" width="230" height="70"/>
                                         <subviews>
-                                            <button opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xlE-sx-F3G" customClass="Button" customModule="DecredWallet" customModuleProvider="target">
+                                            <button opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xlE-sx-F3G" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -420,7 +420,7 @@
                                                     <action selector="onDigitButtonTapped:" destination="SKa-iY-3vv" eventType="touchUpInside" id="HSJ-fB-fZU"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jqz-Sh-6jK" customClass="Button" customModule="DecredWallet" customModuleProvider="target">
+                                            <button opaque="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jqz-Sh-6jK" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                                 <rect key="frame" x="80" y="0.0" width="70" height="70"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -439,7 +439,7 @@
                                                     <action selector="onDigitButtonTapped:" destination="SKa-iY-3vv" eventType="touchUpInside" id="kYp-hm-oJd"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Rg-I4-oi3" customClass="Button" customModule="DecredWallet" customModuleProvider="target">
+                                            <button opaque="NO" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Rg-I4-oi3" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                                 <rect key="frame" x="160" y="0.0" width="70" height="70"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -487,7 +487,7 @@
                                                     <constraint firstItem="oJu-xp-ivB" firstAttribute="centerY" secondItem="qpk-M8-lK5" secondAttribute="centerY" id="rqd-TP-t46"/>
                                                 </constraints>
                                             </view>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wem-EL-LbV" customClass="Button" customModule="DecredWallet" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wem-EL-LbV" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                                 <rect key="frame" x="80" y="0.0" width="70" height="70"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -506,7 +506,7 @@
                                                     <action selector="onDigitButtonTapped:" destination="SKa-iY-3vv" eventType="touchUpInside" id="H20-2G-kqZ"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="niT-WW-MSO" customClass="Button" customModule="DecredWallet" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="niT-WW-MSO" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                                 <rect key="frame" x="160" y="0.0" width="70" height="70"/>
                                                 <color key="backgroundColor" red="0.1766268909" green="0.84774124620000002" blue="0.63897907730000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
@@ -596,7 +596,7 @@
         <!--Request Password View Controller-->
         <scene sceneID="eQ3-8A-h7c">
             <objects>
-                <viewController storyboardIdentifier="RequestPasswordViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="6Qd-u2-5c2" customClass="RequestPasswordViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RequestPasswordViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="6Qd-u2-5c2" customClass="RequestPasswordViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="J2w-oC-WYz">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -626,7 +626,7 @@
                                     <constraint firstAttribute="height" constant="1" id="Jeg-OH-VGm"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EQX-z4-xep" customClass="Button" customModule="DecredWallet" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EQX-z4-xep" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                 <rect key="frame" x="157" y="201.5" width="100" height="40"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
