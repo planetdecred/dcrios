@@ -24,7 +24,7 @@
         <!--Overview View Controller-->
         <scene sceneID="twJ-Va-TWf">
             <objects>
-                <viewController storyboardIdentifier="OverviewViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HDe-ha-1OS" customClass="OverviewViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="OverviewViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HDe-ha-1OS" customClass="OverviewViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="H1c-ja-cqc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -75,7 +75,7 @@
                                         <color key="textColor" red="0.53725490200000003" green="0.59215686270000001" blue="0.64705882349999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="240" verticalHuggingPriority="240" horizontalCompressionResistancePriority="740" verticalCompressionResistancePriority="740" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dw3-gk-Jkv">
+                                    <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="240" verticalHuggingPriority="240" horizontalCompressionResistancePriority="740" verticalCompressionResistancePriority="740" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dw3-gk-Jkv">
                                         <rect key="frame" x="16" y="151.5" width="382" height="526.5"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="sectionIndexBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -87,7 +87,7 @@
                                             <constraint firstAttribute="height" constant="10" id="zRR-IG-AaA"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dWp-Iq-MQn" customClass="Button" customModule="DecredWallet" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dWp-Iq-MQn" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                         <rect key="frame" x="16" y="700" width="382" height="48"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="d5F-1R-ClX"/>
@@ -114,7 +114,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="F10-uT-MQe">
                                         <rect key="frame" x="16" y="754" width="382" height="48"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cX8-ED-v8b" customClass="Button" customModule="DecredWallet" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cX8-ED-v8b" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="183.5" height="48"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="48" id="I6u-cX-sxJ"/>
@@ -140,7 +140,7 @@
                                                     <action selector="showSendPage:" destination="HDe-ha-1OS" eventType="touchUpInside" id="8jt-eY-y9J"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="od8-oT-56L" customClass="Button" customModule="DecredWallet" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="od8-oT-56L" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                                 <rect key="frame" x="198.5" y="0.0" width="183.5" height="48"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="48" id="CvV-3X-Hn7"/>
@@ -207,7 +207,7 @@
         <!--Sync Progress View Controller-->
         <scene sceneID="lW2-Ua-5zO">
             <objects>
-                <viewController id="kPX-aZ-EXk" customClass="SyncProgressViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="kPX-aZ-EXk" customClass="SyncProgressViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iOf-IR-Zfl">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="818"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
