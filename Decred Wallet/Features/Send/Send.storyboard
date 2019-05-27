@@ -137,6 +137,9 @@
                                                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pWC-KD-gyh">
                                                                 <rect key="frame" x="361" y="1.5" width="33" height="33"/>
                                                                 <state key="normal" image="qr_code_filled"/>
+                                                                <connections>
+                                                                    <action selector="scanQrCodeTapped:" destination="QI0-Sp-Mco" eventType="touchUpInside" id="K0P-o4-Xar"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <constraints>
@@ -159,7 +162,7 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="dCp-0P-XTd">
                                                         <rect key="frame" x="10" y="216" width="394" height="47"/>
                                                         <subviews>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="240" horizontalCompressionResistancePriority="760" axis="vertical" distribution="fillEqually" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="gVD-v7-9Od">
+                                                            <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="240" axis="vertical" distribution="fillEqually" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="gVD-v7-9Od">
                                                                 <rect key="frame" x="0.0" y="0.0" width="325" height="47"/>
                                                                 <subviews>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="cHa-93-8da">
@@ -210,7 +213,7 @@
                                                                     </stackView>
                                                                 </subviews>
                                                             </stackView>
-                                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="260" horizontalCompressionResistancePriority="740" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gwT-NE-TAu">
+                                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="260" horizontalCompressionResistancePriority="760" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gwT-NE-TAu">
                                                                 <rect key="frame" x="331" y="0.0" width="63" height="47"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <state key="normal" title="SEND MAX">
@@ -333,19 +336,36 @@
                                                         <color key="textColor" red="0.92941176469999998" green="0.42745098040000001" blue="0.2784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e0G-3u-NZN">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yo6-bI-Tb7">
                                                         <rect key="frame" x="10" y="481.5" width="394" height="45"/>
-                                                        <color key="backgroundColor" red="0.90196078430000004" green="0.91764705879999997" blue="0.92941176469999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e0G-3u-NZN" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
+                                                                <rect key="frame" x="157" y="0.0" width="80" height="45"/>
+                                                                <color key="backgroundColor" red="0.90196078430000004" green="0.91764705879999997" blue="0.92941176469999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="80" id="pd5-l4-oNI"/>
+                                                                </constraints>
+                                                                <state key="normal" title="SEND">
+                                                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="0.61456549660000004" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                </state>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                        <real key="value" value="5"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
+                                                                <connections>
+                                                                    <action selector="sendButtonTapped:" destination="QI0-Sp-Mco" eventType="touchUpInside" id="pV1-Fe-aOF"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="45" id="xaq-ld-aiq"/>
+                                                            <constraint firstItem="e0G-3u-NZN" firstAttribute="centerX" secondItem="Yo6-bI-Tb7" secondAttribute="centerX" id="6A6-UD-RKY"/>
+                                                            <constraint firstAttribute="height" constant="45" id="AoT-Mv-xEM"/>
+                                                            <constraint firstItem="e0G-3u-NZN" firstAttribute="top" secondItem="Yo6-bI-Tb7" secondAttribute="top" id="ZLn-3g-Lio"/>
+                                                            <constraint firstAttribute="bottom" secondItem="e0G-3u-NZN" secondAttribute="bottom" id="wsd-c2-UE5"/>
                                                         </constraints>
-                                                        <state key="normal" title="SEND">
-                                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="0.61456549660000004" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="sendButtonTapped:" destination="QI0-Sp-Mco" eventType="touchUpInside" id="pV1-Fe-aOF"/>
-                                                        </connections>
-                                                    </button>
+                                                    </view>
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstItem="nTE-5s-q9a" firstAttribute="width" secondItem="BJ7-vY-Rh4" secondAttribute="width" id="95n-k4-0u4"/>
