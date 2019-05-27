@@ -43,7 +43,7 @@ class NavigationMenuViewController: UIViewController {
         )
         
         let deviceWidth = (AppDelegate.shared.window?.frame.width)!
-        slideMenuController.changeLeftViewWidth(deviceWidth * 0.8)
+        slideMenuController.changeLeftViewWidth(min(deviceWidth * 0.8, 300))
         
         AppDelegate.shared.setAndDisplayRootViewController(slideMenuController)
     }
@@ -97,7 +97,7 @@ class NavigationMenuViewController: UIViewController {
     }
     
     func requestPermissionToSync() {
-        let syncConfirmationDialog = Storyboards.Main.instantiateViewController(for: NoWifiSyncConfirmationDialog.self)
+        let syncConfirmationDialog = Storyboards.NavigationMenu.instantiateViewController(for: NoWifiSyncConfirmationDialog.self)
         
         syncConfirmationDialog.modalTransitionStyle = .crossDissolve
         syncConfirmationDialog.modalPresentationStyle = .overCurrentContext
