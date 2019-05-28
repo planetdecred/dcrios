@@ -425,23 +425,26 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rgi-fu-g0z">
-                                                    <rect key="frame" x="310" y="6.5" width="51" height="31"/>
-                                                </switch>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Incoming Transaction Notification" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pzh-cn-Gfa">
-                                                    <rect key="frame" x="16" y="6.5" width="286" height="31"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="3mx-5Q-Dts">
+                                                    <rect key="frame" x="16" y="0.0" width="343" height="43.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Incoming Transaction Notification" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="pzh-cn-Gfa">
+                                                            <rect key="frame" x="0.0" y="11.5" width="294" height="20.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rgi-fu-g0z">
+                                                            <rect key="frame" x="294" y="6.5" width="51" height="31"/>
+                                                        </switch>
+                                                    </subviews>
+                                                </stackView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="rgi-fu-g0z" firstAttribute="top" secondItem="pzh-cn-Gfa" secondAttribute="top" id="2YW-tH-UPE"/>
-                                                <constraint firstItem="pzh-cn-Gfa" firstAttribute="leading" secondItem="HWR-Qa-RHq" secondAttribute="leading" constant="16" id="5sR-fD-qSr"/>
-                                                <constraint firstItem="pzh-cn-Gfa" firstAttribute="centerY" secondItem="rgi-fu-g0z" secondAttribute="centerY" id="DHt-cn-YdA"/>
-                                                <constraint firstItem="rgi-fu-g0z" firstAttribute="leading" secondItem="pzh-cn-Gfa" secondAttribute="trailing" constant="8" id="riC-gK-FXG"/>
-                                                <constraint firstItem="pzh-cn-Gfa" firstAttribute="centerY" secondItem="HWR-Qa-RHq" secondAttribute="centerY" id="wRI-hZ-fOx"/>
-                                                <constraint firstItem="rgi-fu-g0z" firstAttribute="trailing" secondItem="HWR-Qa-RHq" secondAttribute="trailingMargin" id="xra-S4-2Cj"/>
+                                                <constraint firstItem="3mx-5Q-Dts" firstAttribute="top" secondItem="HWR-Qa-RHq" secondAttribute="top" id="38F-fy-Ka0"/>
+                                                <constraint firstAttribute="trailing" secondItem="3mx-5Q-Dts" secondAttribute="trailing" constant="16" id="KgW-qw-lLl"/>
+                                                <constraint firstItem="3mx-5Q-Dts" firstAttribute="leading" secondItem="HWR-Qa-RHq" secondAttribute="leading" constant="16" id="ag1-fa-oTS"/>
+                                                <constraint firstAttribute="bottom" secondItem="3mx-5Q-Dts" secondAttribute="bottom" id="slO-g5-bbb"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
