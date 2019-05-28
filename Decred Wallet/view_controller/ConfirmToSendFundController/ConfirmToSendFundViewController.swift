@@ -7,64 +7,97 @@
 import UIKit
 
 class ConfirmToSendFundViewController: UIViewController {
-    
-    @IBOutlet private weak var labelTitle: UILabel!
+    @IBOutlet weak var dialogBackground: UIView!
+    @IBOutlet weak var sendAmountLabel: UILabel!
     @IBOutlet weak var feeLabel: UILabel!
-    @IBOutlet weak var tfPassword: UITextField!
-    @IBOutlet weak var vContent: UIView!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var accountLabel: UILabel!
+    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var confirmSendButton: UIButton!
     
-    var amount: String = "" {
-        willSet (newValue) {
-            labelTitle?.text = "Sending \(newValue)"
-        }
+    var sendAmount: String?
+    var fee: String?
+    var destinationAddress: String?
+    var destinationAccount: String?
+    var sendTxConfirmed: ((String?) -> Void)?
+    
+    struct Amount {
+        var dcrValue: NSDecimalNumber
+        var usdValue: NSDecimalNumber?
     }
-    var fee: String = "" {
-        willSet (newValue) {
-            feeLabel?.text = "with a fee of \(newValue) "
+    
+    static func requestConfirmation(amountToSend: Amount, estimatedFee: Amount, destinationAddress: String, destinationAccount: String?, onConfirmed: ((String?) -> Void)?) {
+        let confirmVC = Storyboards.Send.instantiateViewController(for: self)
+        
+        confirmVC.sendAmount = "\(amountToSend.dcrValue.round(8).formattedWithSeparator) DCR"
+        if amountToSend.usdValue != nil {
+            confirmVC.sendAmount! += " ($\(amountToSend.usdValue!.round(4).formattedWithSeparator))"
         }
-    }
-    var address: String = "" {
-        willSet (newValue) {
-            addressLabel?.text = newValue
+        
+        confirmVC.fee = "\(estimatedFee.dcrValue.round(8).formattedWithSeparator) DCR"
+        if estimatedFee.usdValue != nil {
+            confirmVC.fee! += " ($\(estimatedFee.usdValue!.round(4).formattedWithSeparator))"
         }
+        
+        confirmVC.destinationAddress = destinationAddress
+        confirmVC.destinationAccount = destinationAccount
+        confirmVC.sendTxConfirmed = onConfirmed
+        
+        confirmVC.modalTransitionStyle = .crossDissolve
+        confirmVC.modalPresentationStyle = .overCurrentContext
+        AppDelegate.shared.window?.rootViewController?.present(confirmVC, animated: true, completion: nil)
     }
-    var account: String = "" {
-        willSet (newValue) {
-            accountLabel?.text = "to account \'\(newValue)\'"
-        }
-    }
-    var confirm: ((String)->Void)?
-    var cancel: (()->Void)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        labelTitle?.text = "Sending \(amount) "
-        feeLabel.text = "With a fee of \(fee) "
-        addressLabel.text = address
-        accountLabel.text = "to account \'\(account)\'"
-        let layer = view.layer
-        layer.frame = vContent.frame
+        
+        self.sendAmountLabel.text = "Sending \(self.sendAmount!)"
+        self.feeLabel.text = "with a fee of \(self.fee!)"
+        self.addressLabel.text = "to " + self.destinationAddress!
+        
+        if self.destinationAccount == nil {
+            self.accountLabel.isHidden = true
+        } else {
+            self.accountLabel.text = "to account \'\(self.destinationAccount!)\'"
+        }
+        
+        if SpendingPinOrPassword.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
+            self.passwordTextField.addTarget(self, action: #selector(self.passwordTextChanged), for: .editingChanged)
+        } else {
+            self.passwordTextField.isHidden = true
+            self.confirmSendButton.isEnabled = true
+        }
+        
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(self.view.endEditing(_:)))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
+        
+        let layer = self.view.layer
+        layer.frame = dialogBackground.frame
         layer.shadowColor = UIColor.gray.cgColor
         layer.shadowRadius = 30
         layer.shadowOpacity = 0.8
-        layer.shadowOffset = CGSize(width:0.0, height:40.0);
+        layer.shadowOffset = CGSize(width: 0, height: 40)
+    }
+    
+    @objc func passwordTextChanged() {
+        guard let password = self.passwordTextField.text, password.count > 0 else {
+            self.confirmSendButton.isEnabled = false
+            return
+        }
+        self.confirmSendButton.isEnabled = true
     }
 
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+    @IBAction private func cancelAction(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
     
-    
-    @IBAction private func cancelAction(_ sender: UIButton) {
-        dismiss(animated: true, completion: nil)
-        self.cancel?()
-    }
-    
     @IBAction private func confirmAction(_ sender: UIButton) {
-        self.confirm?(tfPassword.text ?? "")
-        dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
+        if SpendingPinOrPassword.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
+            self.sendTxConfirmed?(self.passwordTextField.text!)
+        } else {
+            self.sendTxConfirmed?(nil)
+        }
     }
 }

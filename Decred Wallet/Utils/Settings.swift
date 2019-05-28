@@ -49,7 +49,6 @@ class Settings {
     
     static var currencyConversionOption: CurrencyConversionOption {
         let selectedOption: String = Settings.readOptionalValue(for: Settings.Keys.CurrencyConversionOption) ?? ""
-        print("selected option: \(selectedOption)")
         return CurrencyConversionOption(rawValue: selectedOption) ?? .None
     }
 }
