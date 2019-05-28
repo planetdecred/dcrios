@@ -10,7 +10,7 @@ import UIKit
 import Dcrlibwallet
 import QRCodeReader
 
-class SendViewController: UIViewController {
+class SendViewController: UIViewController, QRCodeReaderViewControllerDelegate {
     @IBOutlet weak var sourceAccountDropdown: DropMenuButton!
     
     @IBOutlet weak var addressRecipientView: UIStackView!
@@ -227,8 +227,22 @@ class SendViewController: UIViewController {
     
     @IBAction func scanQrCodeTapped(_ sender: Any) {
         qrCodeReaderVC.completionBlock = { self.checkAddressFromQrCode(textScannedFromQRCode: $0?.value) }
+        qrCodeReaderVC.delegate = self
         qrCodeReaderVC.modalPresentationStyle = .formSheet
         self.present(qrCodeReaderVC, animated: true, completion: nil)
+    }
+    
+    func reader(_ reader: QRCodeReaderViewController, didScanResult result: QRCodeReaderResult) {
+        self.closeQrReader(reader)
+    }
+    
+    func readerDidCancel(_ reader: QRCodeReaderViewController) {
+        self.closeQrReader(reader)
+    }
+    
+    func closeQrReader(_ reader: QRCodeReaderViewController) {
+        reader.stopScanning()
+        dismiss(animated: true, completion: nil)
     }
     
     @IBAction func sendMaxTap(_ sender: Any) {
@@ -239,6 +253,12 @@ class SendViewController: UIViewController {
     }
     
     @IBAction func sendButtonTapped(_ sender: Any) {
+        if self.destinationAccountView.isHidden {
+            guard let destinationAddress = self.destinationAddressTextField.text, destinationAddress != "" else {
+                self.destinationErrorLabel.text = "Destination address cannot be empty."
+                return
+            }
+        }
         guard let dcrAmountString = self.dcrAmountTextField.text, dcrAmountString != "" else {
             self.sendAmountErrorLabel.text = "Amount cannot be zero."
             return

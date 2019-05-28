@@ -6,7 +6,7 @@
 // license that can be found in the LICENSE file.
 import UIKit
 
-class ConfirmToSendFundViewController: UIViewController {
+class ConfirmToSendFundViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var dialogBackground: UIView!
     @IBOutlet weak var sendAmountLabel: UILabel!
     @IBOutlet weak var feeLabel: UILabel!
@@ -80,6 +80,13 @@ class ConfirmToSendFundViewController: UIViewController {
         layer.shadowOffset = CGSize(width: 0, height: 40)
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if self.confirmSendButton.isEnabled {
+            self.confirmSend()
+        }
+        return self.confirmSendButton.isEnabled
+    }
+    
     @objc func passwordTextChanged() {
         guard let password = self.passwordTextField.text, password.count > 0 else {
             self.confirmSendButton.isEnabled = false
@@ -94,6 +101,10 @@ class ConfirmToSendFundViewController: UIViewController {
     
     @IBAction private func confirmAction(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
+        self.confirmSend()
+    }
+    
+    func confirmSend() {
         if SpendingPinOrPassword.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
             self.sendTxConfirmed?(self.passwordTextField.text!)
         } else {
