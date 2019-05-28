@@ -101,11 +101,11 @@ class ConfirmToSendFundViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction private func confirmAction(_ sender: UIButton) {
-        self.dismiss(animated: true, completion: nil)
         self.confirmSend()
     }
     
     func confirmSend() {
+        self.dismiss(animated: true, completion: nil)
         if SpendingPinOrPassword.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
             self.sendTxConfirmed?(self.passwordTextField.text!)
         } else {
