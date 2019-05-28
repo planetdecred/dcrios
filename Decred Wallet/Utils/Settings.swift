@@ -30,7 +30,7 @@ class Settings {
     }
     
     static func setValue(_ value: Any, for key: String) {
-        UserDefaults.standard.set(true, forKey: key)
+        UserDefaults.standard.set(value, forKey: key)
         UserDefaults.standard.synchronize()
     }
     

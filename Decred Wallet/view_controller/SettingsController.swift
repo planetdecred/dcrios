@@ -46,14 +46,26 @@ class SettingsController: UITableViewController  {
     }
     
     @objc func switchChanged(switchView: UISwitch) {
-        if switchView == self.spend_uncon_fund {
-            Settings.setValue(spend_uncon_fund.isOn, for: "pref_spend_fund_switch")
-        } else if switchView == self.incoming_notification_switch {
-            Settings.setValue(incoming_notification_switch.isOn, for: "pref_notification_switch")
-        } else if switchView == self.cellularSyncSwitch {
-            Settings.setValue(debu_msg.isOn, for: "pref_debug_switch")
-        } else if switchView == self.debu_msg {
-            Settings.setValue(self.cellularSyncSwitch.isOn, for: Settings.Keys.SyncOnCellular)
+        var fieldToUpdate: String?
+        switch switchView {
+        case self.spend_uncon_fund:
+            fieldToUpdate = "pref_spend_fund_switch"
+            
+        case self.incoming_notification_switch:
+            fieldToUpdate = "pref_notification_switch"
+            
+        case self.cellularSyncSwitch:
+            fieldToUpdate = Settings.Keys.SyncOnCellular
+            
+        case self.debu_msg:
+            fieldToUpdate = "pref_debug_switch"
+            
+        default:
+            return
+        }
+        
+        if fieldToUpdate != nil {
+            Settings.setValue(switchView.isOn, for: fieldToUpdate!)
         }
     }
     
