@@ -108,11 +108,11 @@ class SendViewController: UIViewController, QRCodeReaderViewControllerDelegate {
         self.destinationAddressTextField.text = ""
         self.checkClipboardForValidAddress()
         self.scanQrCodeButton.isHidden = false
-        self.destinationErrorLabel.text = " "
+        self.destinationErrorLabel.text = ""
         
         self.dcrAmountTextField.text = ""
         self.usdAmountTextField.text = ""
-        self.sendAmountErrorLabel.text = " "
+        self.sendAmountErrorLabel.text = ""
         
         self.estimatedFeeLabel.text = "0.00 DCR"
         self.estimatedTxSizeLabel.text = "0 bytes"
@@ -247,8 +247,18 @@ class SendViewController: UIViewController, QRCodeReaderViewControllerDelegate {
     
     @IBAction func sendMaxTap(_ sender: Any) {
         self.sendMaxAmount = true
+        self.sendAmountErrorLabel.text = ""
         let sourceAccountBalance = Decimal(self.walletAccounts[self.sourceAccountDropdown.selectedItemIndex].Balance!.dcrSpendable) as NSDecimalNumber
-        self.dcrAmountTextField.text = "\(sourceAccountBalance.round(8))"
+        
+        // Temporarily disable amount change callback and set total spendable balance in account as send amount.
+        self.updateAmountField(self.dcrAmountTextField, "\(sourceAccountBalance.round(8))", #selector(self.dcrAmountTextFieldChanged))
+        if self.exchangeRate != nil {
+            let usdAmount = sourceAccountBalance.multiplying(by: self.exchangeRate!)
+            self.updateAmountField(self.usdAmountTextField, "\(usdAmount.round(8))", #selector(self.usdAmountTextFieldChanged))
+        }
+        
+        // `displayTransactionSummary` will trigger `constructTransaction` to get the ACTUAL maximum sendable amount,
+        // and then set the calculated max amount in the amount fields.
         self.displayTransactionSummary()
     }
     
@@ -386,7 +396,7 @@ class SendViewController: UIViewController, QRCodeReaderViewControllerDelegate {
             }
         }
         
-        let sendAmountDcr = Double(self.dcrAmountTextField.text!)
+        let sendAmountDcr = self.sendMaxAmount ? 0 : Double(self.dcrAmountTextField.text!)
         let sendAmountAtom = DcrlibwalletAmountAtom(sendAmountDcr!)
         
         do {
@@ -397,7 +407,7 @@ class SendViewController: UIViewController, QRCodeReaderViewControllerDelegate {
                                                                              sendAll: self.sendMaxAmount)
             return (unsignedTx, destinationAddress!)
         } catch let error {
-            if error.localizedDescription == "insufficient_funds" {
+            if error.localizedDescription == "insufficient_balance" {
                 self.sendAmountErrorLabel.text = self.insufficientFundsErrorMessage
             } else {
                 print("send page -> construct tx error: \(error.localizedDescription)")
@@ -416,7 +426,7 @@ extension SendViewController {
             // switch to destination account view
             self.destinationAccountView.isHidden = false
             self.addressRecipientView.isHidden = true
-            self.destinationErrorLabel.text = " "
+            self.destinationErrorLabel.text = ""
             self.toggleSendButtonState(addressValid: true, amountValid: self.isValidAmount)
         } else {
             // switch to destination address view
@@ -475,7 +485,7 @@ extension SendViewController {
         self.checkClipboardForValidAddress()
         
         if destinationAddress == "" || addressValid {
-            self.destinationErrorLabel.text = " " // use whitespace so view does not collapse
+            self.destinationErrorLabel.text = ""
         } else {
             self.destinationErrorLabel.text = "Destination address is not valid."
         }
@@ -547,7 +557,13 @@ extension SendViewController {
         
         let sourceAccountBalance = self.walletAccounts[self.sourceAccountDropdown.selectedItemIndex].Balance!.dcrSpendable
         if self.sendMaxAmount {
-            self.dcrAmountTextField.text = "\(sourceAccountBalance - dcrFee)"
+            // Temporarily disable amount change callback and set the actual max spendable amount as send amount.
+            let maxAmount = Decimal(sourceAccountBalance - dcrFee) as NSDecimalNumber
+            self.updateAmountField(self.dcrAmountTextField, "\(maxAmount.round(8))", #selector(self.dcrAmountTextFieldChanged))
+            if self.exchangeRate != nil {
+                let usdAmount = maxAmount.multiplying(by: self.exchangeRate!)
+                self.updateAmountField(self.usdAmountTextField, "\(usdAmount.round(8))", #selector(self.usdAmountTextFieldChanged))
+            }
             self.balanceAfterSendingLabel.text = "0 DCR"
         } else {
             let sendAmount = Double(self.dcrAmountTextField.text!)
