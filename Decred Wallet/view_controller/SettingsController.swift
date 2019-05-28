@@ -38,6 +38,35 @@ class SettingsController: UITableViewController  {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadDate()
+        
+        self.spend_uncon_fund.addTarget(self, action: #selector(switchChanged), for: UIControl.Event.valueChanged)
+        self.incoming_notification_switch.addTarget(self, action: #selector(switchChanged), for: UIControl.Event.valueChanged)
+        self.cellularSyncSwitch.addTarget(self, action: #selector(switchChanged), for: UIControl.Event.valueChanged)
+        self.debu_msg.addTarget(self, action: #selector(switchChanged), for: UIControl.Event.valueChanged)
+    }
+    
+    @objc func switchChanged(switchView: UISwitch) {
+        var fieldToUpdate: String?
+        switch switchView {
+        case self.spend_uncon_fund:
+            fieldToUpdate = "pref_spend_fund_switch"
+            
+        case self.incoming_notification_switch:
+            fieldToUpdate = "pref_notification_switch"
+            
+        case self.cellularSyncSwitch:
+            fieldToUpdate = Settings.Keys.SyncOnCellular
+            
+        case self.debu_msg:
+            fieldToUpdate = "pref_debug_switch"
+            
+        default:
+            return
+        }
+        
+        if fieldToUpdate != nil {
+            Settings.setValue(switchView.isOn, for: fieldToUpdate!)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,8 +75,7 @@ class SettingsController: UITableViewController  {
         self.navigationController?.navigationBar.isHidden = false
         self.navigationController?.navigationBar.tintColor = UIColor.black
         self.navigationItem.title = "Settings"
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(exitSettings))
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
+        self.addLeftBarButtonWithImage(UIImage(named: "ic_menu_black_24dp")!)
         
         connect_peer_ip?.text = Settings.readOptionalValue(for: Settings.Keys.SPVPeerIP) ?? ""
         server_ip?.text = UserDefaults.standard.string(forKey: "pref_server_ip") ?? ""
@@ -79,16 +107,6 @@ class SettingsController: UITableViewController  {
         }
     }
     
-    @objc func exitSettings() -> Void {
-        if let navMenuController = self.navigationMenuViewController() {
-            navMenuController.changeActivePage(to: MenuItem.overview)
-        } else if self.isModal {
-            self.dismiss(animated: true, completion: nil)
-        } else {
-            self.navigationController?.popViewController(animated: true)
-        }
-    }
-    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         coordinator.animate(alongsideTransition: nil, completion: { (context: UIViewControllerTransitionCoordinatorContext!) -> Void in
@@ -105,7 +123,7 @@ class SettingsController: UITableViewController  {
     func loadDate() -> Void {
         let network_value = UserDefaults.standard.integer(forKey: "network_mode")
         let currency_value = UserDefaults.standard.integer(forKey: "currency")
-        version?.text = UserDefaults.standard.string(forKey: "app_version") ?? "Pre-release"
+        version?.text = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String
         
         let dateformater = DateFormatter()
         dateformater.dateFormat = "yyyy-MM-dd"
@@ -143,15 +161,6 @@ class SettingsController: UITableViewController  {
         }
         
         tableView.reloadData()
-    }
-    
-    @objc func save() -> Void {
-        UserDefaults.standard.set(incoming_notification_switch.isOn, forKey: "pref_notification_switch")
-        UserDefaults.standard.set(spend_uncon_fund.isOn, forKey: "pref_spend_fund_switch")
-        UserDefaults.standard.set(debu_msg.isOn, forKey: "pref_debug_switch")
-        UserDefaults.standard.set(self.cellularSyncSwitch.isOn, forKey: Settings.Keys.SyncOnCellular)
-        UserDefaults.standard.synchronize()
-        self.exitSettings()
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
