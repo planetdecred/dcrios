@@ -41,7 +41,6 @@ class CurrencyConversionOptionsViewController: UITableViewController {
         tableView.cellForRow(at: indexPath as IndexPath)?.accessoryType = .checkmark
         
         let selectedOption = CurrencyConversionOption.allCases[indexPath.row]
-        print("currency conversion option: \(selectedOption.rawValue)")
         Settings.setValue(selectedOption.rawValue, for: Settings.Keys.CurrencyConversionOption)
     }
     
