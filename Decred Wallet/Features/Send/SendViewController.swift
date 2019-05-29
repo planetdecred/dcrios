@@ -138,6 +138,7 @@ class SendViewController: UIViewController, QRCodeReaderViewControllerDelegate {
         
         switch Settings.currencyConversionOption {
         case .None:
+            self.exchangeRate = nil
             self.usdAmountTextField.superview?.isHidden = true
             self.exchangeRateLabel.superview?.isHidden = true
             break
