@@ -90,9 +90,9 @@ class SendViewController: UIViewController, QRCodeReaderViewControllerDelegate {
     
     var insufficientFundsErrorMessage: String {
         if AppDelegate.walletLoader.syncer.connectedPeersCount > 0 {
-            return "Not enough funds"
+            return "Not enough funds."
         } else {
-            return "Not enough funds (or not connected)"
+            return "Not enough funds (or not connected)."
         }
     }
     
