@@ -120,7 +120,6 @@ class SendViewController: UIViewController, QRCodeReaderViewControllerDelegate {
         self.estimatedTxSizeLabel.text = "0 bytes"
         self.balanceAfterSendingLabel.text = "0.00 DCR"
         
-        self.usdAmountTextField.superview?.isHidden = true
         self.fetchExchangeRate(nil)
         
         self.sendErrorLabel.isHidden = true
@@ -136,11 +135,13 @@ class SendViewController: UIViewController, QRCodeReaderViewControllerDelegate {
     @IBAction func fetchExchangeRate(_ sender: Any?) {
         self.exchangeRateErrorLabel.isHidden = true
         if self.exchangeRate == nil {
+            self.usdAmountTextField.superview?.isHidden = true
             self.exchangeRateLabel.superview?.isHidden = true
         }
         
         switch Settings.currencyConversionOption {
         case .None:
+            self.usdAmountTextField.superview?.isHidden = true
             self.exchangeRateLabel.superview?.isHidden = true
             break
             
@@ -154,6 +155,7 @@ class SendViewController: UIViewController, QRCodeReaderViewControllerDelegate {
         let currencyConversionOption = Settings.currencyConversionOption.rawValue
         
         guard let exchangeRate = exchangeRate else {
+            self.usdAmountTextField.superview?.isHidden = true
             self.exchangeRateLabel.superview?.isHidden = true
             self.exchangeRateErrorLabel.text = "\(currencyConversionOption) rate unavailable (tap to retry)"
             self.exchangeRateErrorLabel.isHidden = false
