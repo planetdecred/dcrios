@@ -28,7 +28,7 @@ class PasswordSetupViewController: SecurityBaseViewController, UITextFieldDelega
         self.tfConfirmPassword.addTarget(self, action: #selector(self.confirmPasswordTextFieldChange), for: .editingChanged)
         
         //Dispay keyboard for input
-        tfPassword.becomeFirstResponder()
+        self.tfPassword.becomeFirstResponder()
         
         // set textfield delegates to move to next field or submit password on return key press
         self.tfPassword.delegate = self
