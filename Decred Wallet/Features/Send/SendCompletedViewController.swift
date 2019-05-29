@@ -30,7 +30,7 @@ class SendCompletedViewController: UIViewController {
         super.viewDidLoad()
         
         self.labelTransactionHash.text = transactionHash
-        let copyTransactionHashOnTap = UITapGestureRecognizer(target: self.view, action: #selector(self.copyTxHash))
+        let copyTransactionHashOnTap = UITapGestureRecognizer(target: self, action: #selector(self.copyTxHash))
         self.labelTransactionHash.addGestureRecognizer(copyTransactionHashOnTap)
         
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(self.view.endEditing(_:)))

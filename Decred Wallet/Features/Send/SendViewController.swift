@@ -106,8 +106,6 @@ class SendViewController: UIViewController, QRCodeReaderViewControllerDelegate {
     }
     
     func resetViews() {
-        self.setupAccountDropdowns()
-        
         self.destinationAddressTextField.text = ""
         self.checkClipboardForValidAddress()
         self.scanQrCodeButton.isHidden = false
@@ -120,8 +118,6 @@ class SendViewController: UIViewController, QRCodeReaderViewControllerDelegate {
         self.estimatedFeeLabel.text = "0.00 DCR"
         self.estimatedTxSizeLabel.text = "0 bytes"
         self.balanceAfterSendingLabel.text = "0.00 DCR"
-        
-        self.fetchExchangeRate(nil)
         
         self.sendErrorLabel.isHidden = true
         self.toggleSendButtonState(addressValid: false, amountValid: false)
@@ -166,7 +162,7 @@ class SendViewController: UIViewController, QRCodeReaderViewControllerDelegate {
         self.exchangeRateLabel.text = exchangeRate.round(2).stringValue + " USD/DCR (\(currencyConversionOption))"
         self.exchangeRateLabel.superview?.isHidden = false
         self.usdAmountTextField.superview?.isHidden = false // show usd amount field AFTER fetching exchange rate
-        self.dcrAmountTextFieldChanged() // trigger dcr amount field changed to update usd amount field
+        self.dcrAmountTextFieldChanged(sendMax: self.sendMaxAmount) // trigger dcr amount field changed to update usd amount field
     }
     
     @objc func showOverflowMenu() {
@@ -226,7 +222,10 @@ class SendViewController: UIViewController, QRCodeReaderViewControllerDelegate {
         super.viewWillAppear(animated)
         self.setupNavigationBar(withTitle: "Send")
         self.navigationItem.rightBarButtonItems = [self.overflowNavBarButton]
+        
         self.checkClipboardForValidAddress()
+        self.setupAccountDropdowns()
+        self.fetchExchangeRate(nil)
     }
     
     @IBAction func pasteAddressButtonTapped(_ sender: Any) {
@@ -255,20 +254,15 @@ class SendViewController: UIViewController, QRCodeReaderViewControllerDelegate {
     }
     
     @IBAction func sendMaxTap(_ sender: Any) {
-        self.sendMaxAmount = true
-        self.sendAmountErrorLabel.text = ""
         let sourceAccountBalance = Decimal(self.walletAccounts[self.sourceAccountDropdown.selectedItemIndex].Balance!.dcrSpendable) as NSDecimalNumber
         
         // Temporarily disable amount change callback and set total spendable balance in account as send amount.
         self.updateAmountField(self.dcrAmountTextField, "\(sourceAccountBalance.round(8))", #selector(self.dcrAmountTextFieldChanged))
-        if self.exchangeRate != nil {
-            let usdAmount = sourceAccountBalance.multiplying(by: self.exchangeRate!)
-            self.updateAmountField(self.usdAmountTextField, "\(usdAmount.round(8))", #selector(self.usdAmountTextFieldChanged))
-        }
         
-        // `displayTransactionSummary` will trigger `constructTransaction` to get the ACTUAL maximum sendable amount,
-        // and then set the calculated max amount in the amount fields.
-        self.displayTransactionSummary()
+        // Manually trigger dcr amount changed callback to update usd amount field.
+        // That will also trigger `displayTransactionSummary` which will trigger `constructTransaction`
+        // to get the ACTUAL maximum sendable amount which will then be in the amount fields.
+        self.dcrAmountTextFieldChanged(sendMax: true)
     }
     
     @IBAction func sendButtonTapped(_ sender: Any) {
@@ -426,6 +420,8 @@ class SendViewController: UIViewController, QRCodeReaderViewControllerDelegate {
                                                                              sendAll: self.sendMaxAmount)
             return (unsignedTx, destinationAddress!)
         } catch let error {
+            // there's an error somewhere, disable send button
+            self.toggleSendButtonState(addressValid: false, amountValid: false)
             if error.localizedDescription == "insufficient_balance" {
                 self.sendAmountErrorLabel.text = self.insufficientFundsErrorMessage
             } else {
@@ -521,10 +517,13 @@ extension SendViewController {
  Send amount (dcr/usd) related code.
  */
 extension SendViewController {
-    @objc func dcrAmountTextFieldChanged() {
-        self.sendMaxAmount = false
-        self.displayTransactionSummary()
+    // Default value for sendMax is meant for use when this function is triggered as a result of user editing the dcr amount field.
+    // If manually triggering dcr amount field change, a sendMax value is required/important
+    // to ensure that a previously true value does not become false even though user did not edit the field directly.
+    @objc func dcrAmountTextFieldChanged(sendMax: Bool = false) {
+        self.sendMaxAmount = sendMax
         self.toggleSendButtonState(addressValid: self.isValidDestination, amountValid: self.isValidAmount)
+        self.displayTransactionSummary()
         
         let dcrAmountString = self.dcrAmountTextField.text ?? ""
         
@@ -539,8 +538,8 @@ extension SendViewController {
     
     @objc func usdAmountTextFieldChanged() {
         self.sendMaxAmount = false
-        self.displayTransactionSummary()
         self.toggleSendButtonState(addressValid: self.isValidDestination, amountValid: self.isValidAmount)
+        self.displayTransactionSummary()
         
         let usdAmountString = self.usdAmountTextField.text ?? ""
         
