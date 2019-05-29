@@ -29,7 +29,6 @@ class SettingsController: UITableViewController  {
     @IBOutlet weak var version: UILabel!
     @IBOutlet weak var server_ip: UILabel!
     
-    @IBOutlet weak var debu_msg: UISwitch!
     @IBOutlet weak var spend_uncon_fund: UISwitch!
     @IBOutlet weak var incoming_notification_switch: UISwitch!
     @IBOutlet weak var start_Pin: UISwitch!
@@ -42,7 +41,6 @@ class SettingsController: UITableViewController  {
         self.spend_uncon_fund.addTarget(self, action: #selector(switchChanged), for: UIControl.Event.valueChanged)
         self.incoming_notification_switch.addTarget(self, action: #selector(switchChanged), for: UIControl.Event.valueChanged)
         self.cellularSyncSwitch.addTarget(self, action: #selector(switchChanged), for: UIControl.Event.valueChanged)
-        self.debu_msg.addTarget(self, action: #selector(switchChanged), for: UIControl.Event.valueChanged)
     }
     
     @objc func switchChanged(switchView: UISwitch) {
@@ -56,9 +54,6 @@ class SettingsController: UITableViewController  {
             
         case self.cellularSyncSwitch:
             fieldToUpdate = Settings.Keys.SyncOnCellular
-            
-        case self.debu_msg:
-            fieldToUpdate = "pref_debug_switch"
             
         default:
             return
@@ -127,7 +122,6 @@ class SettingsController: UITableViewController  {
         let dateformater = DateFormatter()
         dateformater.dateFormat = "yyyy-MM-dd"
         build?.text = dateformater.string(from: AppDelegate.compileDate as Date)
-        debu_msg?.setOn((UserDefaults.standard.bool(forKey: "pref_debug_switch") ), animated: false)
         spend_uncon_fund?.setOn(Settings.spendUnconfirmed, animated: false)
         connect_peer_ip?.text = Settings.readOptionalValue(for: Settings.Keys.SPVPeerIP) ?? ""
         server_ip?.text = UserDefaults.standard.string(forKey: "pref_server_ip") ?? ""
