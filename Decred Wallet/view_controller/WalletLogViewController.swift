@@ -15,12 +15,26 @@ class WalletLogViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.removeNavigationBarItem()
         self.navigationItem.title = "Wallet Log"
         self.progressHud = Utils.showProgressHud(withText: "Loading log...")
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Copy", style: .plain, target: self, action: #selector(copyLog))
     }
     
     override func viewDidAppear(_ animated: Bool) {
         self.logTextView.text = readLog()
+    }
+    
+    @objc func copyLog() -> Void {
+        DispatchQueue.main.async {
+            //Copy a string to the pasteboard.
+            UIPasteboard.general.string = self.logTextView.text
+            
+            //Alert
+            let alertController = UIAlertController(title: "", message: "Wallet log copied", preferredStyle: UIAlertController.Style.alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+        }
     }
     
     private func readLog() -> String {
