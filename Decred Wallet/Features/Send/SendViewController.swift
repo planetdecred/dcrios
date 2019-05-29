@@ -11,6 +11,8 @@ import Dcrlibwallet
 import QRCodeReader
 
 class SendViewController: UIViewController, QRCodeReaderViewControllerDelegate {
+    static let instance = Storyboards.Send.instantiateViewController(for: SendViewController.self).wrapInNavigationcontroller()
+    
     @IBOutlet weak var sourceAccountDropdown: DropMenuButton!
     
     @IBOutlet weak var addressRecipientView: UIStackView!
