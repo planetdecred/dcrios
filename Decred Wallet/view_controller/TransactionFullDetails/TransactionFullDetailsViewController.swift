@@ -49,7 +49,6 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
         self.navigationItem.title = "Transaction Details"
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "left-arrow"), style: .done, target: self, action: #selector(backk))
        
@@ -61,6 +60,16 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         self.navigationItem.rightBarButtonItems = [barButton!]
         
         do {
+            if self.transaction == nil && self.transactionHash != nil {
+                let txHash = Data(fromHexEncodedString: self.transactionHash!)!
+                var getTxError: NSError?
+                let txJsonString = AppDelegate.walletLoader.wallet?.getTransaction(txHash, error: &getTxError)
+                if getTxError != nil {
+                    throw getTxError!
+                }
+                self.transaction = try JSONDecoder().decode(Transaction.self, from:(txJsonString!.utf8Bits))
+            }
+            
             if let data = Data(fromHexEncodedString: self.transaction.Hash) {
                 var decodeTxError: NSError?
                 let decodedTxJson = AppDelegate.walletLoader.wallet?.decodeTransaction(data, error: &decodeTxError)

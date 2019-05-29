@@ -364,7 +364,17 @@ class SendViewController: UIViewController, QRCodeReaderViewControllerDelegate {
     
     private func transactionSucceeded(_ txHash: String) {
         self.resetViews()
-        SendCompletedViewController.showSendCompletedDialog(for: txHash)
+        
+        SendCompletedViewController.showSendCompletedDialog(for: txHash) { showTxDetails in
+            let slideMenuController = self.slideMenuController()!
+            (slideMenuController.leftViewController as! NavigationMenuViewController).changeActivePage(to: .overview)
+            
+            if showTxDetails {
+                let txDetailsVC = Storyboards.TransactionFullDetailsViewController.instantiateViewController(for: TransactionFullDetailsViewController.self)
+                txDetailsVC.transactionHash = txHash
+                (slideMenuController.mainViewController as! UINavigationController).pushViewController(txDetailsVC, animated: true)
+            }
+        }
     }
     
     func toggleSendButtonState(addressValid: Bool, amountValid: Bool) {

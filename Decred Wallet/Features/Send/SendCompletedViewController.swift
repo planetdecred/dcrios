@@ -11,13 +11,16 @@ import SafariServices
 class SendCompletedViewController: UIViewController {
     var transactionHash: String!
     
+    @IBOutlet weak var dialogBackground: UIView!
     @IBOutlet weak var hashHeaderLabel: UILabel!
     @IBOutlet private weak var labelTransactionHash: UILabel!
-    @IBOutlet weak var vContent: UIView!
     
-    static func showSendCompletedDialog(for txHash: String) {
+    var dialogClosed: ((Bool) -> Void)!
+    
+    static func showSendCompletedDialog(for txHash: String, dialogClosed: @escaping (Bool) -> Void) {
         let sendCompletedVC = Storyboards.Send.instantiateViewController(for: self)
         sendCompletedVC.transactionHash = txHash
+        sendCompletedVC.dialogClosed = dialogClosed
         sendCompletedVC.modalTransitionStyle = .crossDissolve
         sendCompletedVC.modalPresentationStyle = .overCurrentContext
         AppDelegate.shared.window?.rootViewController?.present(sendCompletedVC, animated: true, completion: nil)
@@ -35,7 +38,7 @@ class SendCompletedViewController: UIViewController {
         self.view.addGestureRecognizer(tap)
         
         let layer = view.layer
-        layer.frame = vContent.frame
+        layer.frame = self.dialogBackground.frame
         layer.shadowColor = UIColor.gray.cgColor
         layer.shadowRadius = 30
         layer.shadowOpacity = 0.8
@@ -51,24 +54,14 @@ class SendCompletedViewController: UIViewController {
     }
     
     @IBAction func openAction(_ sender: UIButton) {
-        self.dismiss(animated: false, completion: self.showTxDetailsInBrowser)
-    }
-    
-    func showTxDetailsInBrowser() {
-        var urlString: String
-        if BuildConfig.IsTestNet {
-            urlString = "https://testnet.dcrdata.org/tx/" + self.transactionHash
-        } else {
-            urlString = "https://mainnet.dcrdata.org/tx/" + self.transactionHash
-        }
-        
-        if let url = URL(string: urlString) {
-            let safariViewController = SFSafariViewController(url: url)
-            AppDelegate.shared.window?.rootViewController?.present(safariViewController, animated: true)
+        self.dismiss(animated: true) {
+            self.dialogClosed(true)
         }
     }
     
     @IBAction func closeAction(_ sender: UIButton) {
-        self.dismiss(animated: false, completion: nil)
+        self.dismiss(animated: true) {
+            self.dialogClosed(false)
+        }
     }
 }
