@@ -40,6 +40,7 @@ class RequestPinViewController: SecurityBaseViewController {
             cancelBtn.isHidden = false
         }
         prgsPinStrength.layer.cornerRadius = 25
+        btnCommit.adjustsImageWhenHighlighted = false
     }
     
     @IBAction func onDigitButtonTapped(_ sender: Any) {
