@@ -35,7 +35,7 @@ class TransactionTableViewCell: BaseTableViewCell {
             
             let spendUnconfirmedFunds = UserDefaults.standard.bool(forKey: "pref_spend_fund_switch")
             
-            if (confirmations == -1) {
+            if (transaction.Height == -1) {
                 self.status.textColor = UIColor(hex:"#3d659c")
                 self.status.text = "Pending"
             } else {
