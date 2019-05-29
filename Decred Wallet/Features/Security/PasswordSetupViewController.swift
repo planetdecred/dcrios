@@ -27,7 +27,7 @@ class PasswordSetupViewController: SecurityBaseViewController, UITextFieldDelega
         // add editing changed target to check if password matches
         self.tfConfirmPassword.addTarget(self, action: #selector(self.confirmPasswordTextFieldChange), for: .editingChanged)
         
-        //Dispay keyboard for input
+        // display keyboard for input
         self.tfPassword.becomeFirstResponder()
         
         // set textfield delegates to move to next field or submit password on return key press
