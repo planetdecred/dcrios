@@ -82,6 +82,7 @@ class SendViewController: UIViewController, QRCodeReaderViewControllerDelegate {
         let sourceAccountBalance = self.walletAccounts[self.sourceAccountDropdown.selectedItemIndex].Balance!.dcrSpendable
         if dcrAmount!.doubleValue > sourceAccountBalance {
             self.sendAmountErrorLabel.text = self.insufficientFundsErrorMessage
+            return false
         }
         
         return true
