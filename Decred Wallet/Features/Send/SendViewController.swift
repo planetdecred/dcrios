@@ -134,11 +134,14 @@ class SendViewController: UIViewController, QRCodeReaderViewControllerDelegate {
     }
     
     @IBAction func fetchExchangeRate(_ sender: Any?) {
-        self.exchangeRateLabel.superview?.isHidden = true
         self.exchangeRateErrorLabel.isHidden = true
+        if self.exchangeRate == nil {
+            self.exchangeRateLabel.superview?.isHidden = true
+        }
         
         switch Settings.currencyConversionOption {
         case .None:
+            self.exchangeRateLabel.superview?.isHidden = true
             break
             
         case .Bittrex:
@@ -151,6 +154,7 @@ class SendViewController: UIViewController, QRCodeReaderViewControllerDelegate {
         let currencyConversionOption = Settings.currencyConversionOption.rawValue
         
         guard let exchangeRate = exchangeRate else {
+            self.exchangeRateLabel.superview?.isHidden = true
             self.exchangeRateErrorLabel.text = "\(currencyConversionOption) rate unavailable (tap to retry)"
             self.exchangeRateErrorLabel.isHidden = false
             return
