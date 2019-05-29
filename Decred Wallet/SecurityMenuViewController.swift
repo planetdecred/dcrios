@@ -17,7 +17,6 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var border2: UIView!
     @IBOutlet weak var border1: UIView!
     @IBOutlet weak var address: UITextField!
-    @IBOutlet weak var securityTxt: UILabel!
     @IBOutlet weak var addressError: UILabel!
     @IBOutlet weak var message: UITextField!
     @IBOutlet weak var messageError: UILabel!
@@ -324,7 +323,6 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
         self.border3.isHidden = !self.border3.isHidden
         self.signMsgBtn.isHidden = !self.signMsgBtn.isHidden
         self.copyBtn.isHidden = !self.copyBtn.isHidden
-        self.securityTxt.isHidden = !self.securityTxt.isHidden
         self.addressError.isHidden = !self.addressError.isHidden
         self.signatureError.isHidden = !self.signatureError.isHidden
         self.messageError.isHidden = !self.messageError.isHidden
