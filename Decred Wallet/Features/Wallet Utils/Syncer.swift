@@ -53,7 +53,8 @@ class Syncer: NSObject, AppLifeCycleDelegate {
     }
     
     func registerEstimatedSyncProgressListener() {
-        AppDelegate.walletLoader.wallet?.add(self, logEstimatedProgress: true)
+        AppDelegate.walletLoader.wallet?.enableSyncLogs()
+        try! AppDelegate.walletLoader.wallet?.add(self, uniqueIdentifier: "dcrios")
     }
     
     func beginSync() {
@@ -181,7 +182,7 @@ class Syncer: NSObject, AppLifeCycleDelegate {
 
 // Extension for receiving estimated sync progress report from dcrlibwallet sync process.
 // Progress report is decoded from the received Json string back to the original data format in the same dcrlibwallet background thread.
-extension Syncer: DcrlibwalletEstimatedSyncProgressListenerProtocol {
+extension Syncer: DcrlibwalletSyncProgressListenerProtocol {
     func onPeerConnectedOrDisconnected(_ numberOfConnectedPeers: Int32) {
         self.connectedPeersCount = numberOfConnectedPeers
         self.forEachSyncListener({ syncListener in syncListener.onPeerConnectedOrDisconnected(numberOfConnectedPeers) })
