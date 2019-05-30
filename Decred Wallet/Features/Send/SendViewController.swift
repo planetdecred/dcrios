@@ -233,24 +233,28 @@ class SendViewController: UIViewController {
     }
     
     @IBAction func sendMaxTap(_ sender: Any) {
-        let destinationAddress = self.getValidOrTemporaryDestinationAddress()
-        print("send max destination: \(destinationAddress!)")
-        let sourceAccount = self.walletAccounts[self.sourceAccountDropdown.selectedItemIndex].Number
-        let wallet = AppDelegate.walletLoader.wallet
-        
-        let maxSendableAmountResult = wallet!.estimateMaxSendAmount(destinationAddress,
-                                                                    srcAccount: sourceAccount,
-                                                                    requiredConfirmations: self.requiredConfirmations)
-        
-        if maxSendableAmountResult == nil || maxSendableAmountResult!.err != nil {
-            let errorMessage = maxSendableAmountResult?.err?.localizedDescription ?? "Error getting maximum sendable amount."
-            self.sendAmountErrorLabel.text = errorMessage
+        let sourceAccount = self.walletAccounts[self.sourceAccountDropdown.selectedItemIndex]
+        if sourceAccount.Balance?.Spendable == 0 {
+            // nothing to send
+            self.sendAmountErrorLabel.text = self.insufficientFundsErrorMessage
             return
         }
         
-        let maxSendableAmount = Decimal(maxSendableAmountResult!.amount) as NSDecimalNumber
-        self.dcrAmountTextField.text = "\(maxSendableAmount.round(8))"
-        self.dcrAmountTextFieldChanged(sendMax: true)
+        let destinationAddress = self.getValidOrTemporaryDestinationAddress()
+        let wallet = AppDelegate.walletLoader.wallet
+        
+        do {
+            let maxSendableAmount = try wallet!.estimateMaxSendAmount(destinationAddress,
+                                                                      srcAccount: sourceAccount.Number,
+                                                                      requiredConfirmations: self.requiredConfirmations)
+            
+            let maxSendableAmountDecimal = Decimal(maxSendableAmount.dcrValue) as NSDecimalNumber
+            self.dcrAmountTextField.text = "\(maxSendableAmountDecimal.round(8))"
+            self.dcrAmountTextFieldChanged(sendMax: true)
+        } catch let error {
+            print("get send max amount error: \(error.localizedDescription)")
+            self.sendAmountErrorLabel.text = "Error getting maximum sendable amount."
+        }
     }
     
     @IBAction func sendButtonTapped(_ sender: Any) {
@@ -378,14 +382,6 @@ class SendViewController: UIViewController {
     
     func constructTransaction(destinationAddress: String) -> DcrlibwalletUnsignedTransaction? {
         self.sendErrorLabel.isHidden = true
-        
-        var addressValid, amountValid: Bool
-        
-        defer {
-            // there's an error somewhere, disable send button
-            self.toggleSendButtonState(addressValid: false, amountValid: false)
-        }
-        
         if !self.isValidAmount { return nil }
         
         let sourceAccountNumber = self.walletAccounts[self.sourceAccountDropdown.selectedItemIndex].Number
