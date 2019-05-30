@@ -54,7 +54,9 @@ class Syncer: NSObject, AppLifeCycleDelegate {
     
     func registerEstimatedSyncProgressListener() {
         AppDelegate.walletLoader.wallet?.enableSyncLogs()
-        try! AppDelegate.walletLoader.wallet?.add(self, uniqueIdentifier: "dcrios")
+        // Following call should only throw an error if we attempt to add this sync progress listener multiple times.
+        // Safe to ignore such error since it implies that this sync listener is already registered.
+        try? AppDelegate.walletLoader.wallet?.add(self, uniqueIdentifier: "dcrios")
     }
     
     func beginSync() {
