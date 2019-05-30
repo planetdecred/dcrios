@@ -100,7 +100,7 @@
 		B3B46A8F228F0F7D00A68EDD /* ConfirmToSendFundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46A54228F0F7B00A68EDD /* ConfirmToSendFundViewController.swift */; };
 		B3B46A97228F0F7D00A68EDD /* TransactionFullDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46A5E228F0F7B00A68EDD /* TransactionFullDetailsViewController.swift */; };
 		B3B46A98228F0F7D00A68EDD /* TransactionFullDetailsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3B46A5F228F0F7B00A68EDD /* TransactionFullDetailsViewController.storyboard */; };
-		B3B46A99228F0F7D00A68EDD /* certificateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46A60228F0F7B00A68EDD /* certificateViewController.swift */; };
+		B3B46A99228F0F7D00A68EDD /* CertificateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46A60228F0F7B00A68EDD /* CertificateViewController.swift */; };
 		B3B46A9A228F0F7D00A68EDD /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46A61228F0F7B00A68EDD /* SettingsController.swift */; };
 		B3B46A9B228F0F7D00A68EDD /* PeerSetTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46A62228F0F7B00A68EDD /* PeerSetTableViewController.swift */; };
 		B3B46A9C228F0F7D00A68EDD /* ServerSetTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46A63228F0F7B00A68EDD /* ServerSetTableViewController.swift */; };
@@ -109,8 +109,6 @@
 		B3B46A9F228F0F7D00A68EDD /* WalletLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46A66228F0F7B00A68EDD /* WalletLogViewController.swift */; };
 		B3B46AA0228F0F7D00A68EDD /* SendCompletedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46A68228F0F7B00A68EDD /* SendCompletedViewController.swift */; };
 		B3B46AA6228F0F7D00A68EDD /* NetworkModeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46A6E228F0F7B00A68EDD /* NetworkModeTableViewController.swift */; };
-		B3B46AA7228F0F7D00A68EDD /* CurrencyConversionOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46A6F228F0F7B00A68EDD /* CurrencyConversionOptionsViewController.swift */; };
-		B3B46AA8228F0F7D00A68EDD /* NodeLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46A70228F0F7B00A68EDD /* NodeLogViewController.swift */; };
 		B3B46AA7228F0F7D00A68EDD /* CurrencyOptionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46A6F228F0F7B00A68EDD /* CurrencyOptionTableViewController.swift */; };
 		B3B46AA9228F0F7D00A68EDD /* AddAcountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46A71228F0F7B00A68EDD /* AddAcountViewController.swift */; };
 		B3B46AAA228F0F7D00A68EDD /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46A72228F0F7B00A68EDD /* AccountViewController.swift */; };
@@ -237,21 +235,18 @@
 		B3B46A54228F0F7B00A68EDD /* ConfirmToSendFundViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmToSendFundViewController.swift; sourceTree = "<group>"; };
 		B3B46A5E228F0F7B00A68EDD /* TransactionFullDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionFullDetailsViewController.swift; sourceTree = "<group>"; };
 		B3B46A5F228F0F7B00A68EDD /* TransactionFullDetailsViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TransactionFullDetailsViewController.storyboard; sourceTree = "<group>"; };
-		B3B46A60228F0F7B00A68EDD /* certificateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = certificateViewController.swift; path = ../../view_controller/certificateViewController.swift; sourceTree = "<group>"; };
-		B3B46A61228F0F7B00A68EDD /* SettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsController.swift; path = ../../view_controller/SettingsController.swift; sourceTree = "<group>"; };
-		B3B46A62228F0F7B00A68EDD /* PeerSetTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PeerSetTableViewController.swift; path = ../../view_controller/PeerSetTableViewController.swift; sourceTree = "<group>"; };
-		B3B46A63228F0F7B00A68EDD /* ServerSetTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServerSetTableViewController.swift; path = ../../view_controller/ServerSetTableViewController.swift; sourceTree = "<group>"; };
+		B3B46A60228F0F7B00A68EDD /* CertificateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateViewController.swift; sourceTree = "<group>"; };
+		B3B46A61228F0F7B00A68EDD /* SettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
+		B3B46A62228F0F7B00A68EDD /* PeerSetTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeerSetTableViewController.swift; sourceTree = "<group>"; };
+		B3B46A63228F0F7B00A68EDD /* ServerSetTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerSetTableViewController.swift; sourceTree = "<group>"; };
 		B3B46A64228F0F7B00A68EDD /* HelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		B3B46A65228F0F7B00A68EDD /* ReceiveViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiveViewController.swift; sourceTree = "<group>"; };
 		B3B46A66228F0F7B00A68EDD /* WalletLogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WalletLogViewController.swift; path = ../../view_controller/WalletLogViewController.swift; sourceTree = "<group>"; };
 		B3B46A68228F0F7B00A68EDD /* SendCompletedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendCompletedViewController.swift; sourceTree = "<group>"; };
-		B3B46A6E228F0F7B00A68EDD /* NetworkModeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkModeTableViewController.swift; sourceTree = "<group>"; };
-		B3B46A6F228F0F7B00A68EDD /* CurrencyConversionOptionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyConversionOptionsViewController.swift; sourceTree = "<group>"; };
-		B3B46A70228F0F7B00A68EDD /* NodeLogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeLogViewController.swift; sourceTree = "<group>"; };
-		B3B46A69228F0F7B00A68EDD /* SendCompletedViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SendCompletedViewController.storyboard; sourceTree = "<group>"; };
 		B3B46A6B228F0F7B00A68EDD /* SendViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendViewController.swift; sourceTree = "<group>"; };
 		B3B46A6E228F0F7B00A68EDD /* NetworkModeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkModeTableViewController.swift; path = ../../view_controller/NetworkModeTableViewController.swift; sourceTree = "<group>"; };
 		B3B46A6F228F0F7B00A68EDD /* CurrencyOptionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CurrencyOptionTableViewController.swift; path = ../../view_controller/CurrencyOptionTableViewController.swift; sourceTree = "<group>"; };
+		B3B46A70228F0F7B00A68EDD /* NodeLogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeLogViewController.swift; sourceTree = "<group>"; };
 		B3B46A71228F0F7B00A68EDD /* AddAcountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAcountViewController.swift; sourceTree = "<group>"; };
 		B3B46A72228F0F7B00A68EDD /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		B3B46A74228F0F7C00A68EDD /* TransactionHistoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionHistoryTableViewCell.swift; sourceTree = "<group>"; };
@@ -629,9 +624,8 @@
 				B3B46A65228F0F7B00A68EDD /* ReceiveViewController.swift */,
 				B3B46A66228F0F7B00A68EDD /* WalletLogViewController.swift */,
 				B3B46A6E228F0F7B00A68EDD /* NetworkModeTableViewController.swift */,
-				B3B46A6F228F0F7B00A68EDD /* CurrencyConversionOptionsViewController.swift */,
+				B3B46A6F228F0F7B00A68EDD /* CurrencyOptionTableViewController.swift */,
 				B3B46A70228F0F7B00A68EDD /* NodeLogViewController.swift */,
-				B3B46A67228F0F7B00A68EDD /* SendCompletedViewController */,
 				B3B46A6B228F0F7B00A68EDD /* SendViewController.swift */,
 				B3B46A71228F0F7B00A68EDD /* AddAcountViewController.swift */,
 				B3B46A72228F0F7B00A68EDD /* AccountViewController.swift */,
@@ -682,13 +676,10 @@
 			isa = PBXGroup;
 			children = (
 				DDAD5024229F718B00EDF91B /* Settings.storyboard */,
-				B3B46A60228F0F7B00A68EDD /* certificateViewController.swift */,
+				B3B46A60228F0F7B00A68EDD /* CertificateViewController.swift */,
 				B3B46A62228F0F7B00A68EDD /* PeerSetTableViewController.swift */,
 				B3B46A61228F0F7B00A68EDD /* SettingsController.swift */,
 				B3B46A63228F0F7B00A68EDD /* ServerSetTableViewController.swift */,
-				B3B46A66228F0F7B00A68EDD /* WalletLogViewController.swift */,
-				B3B46A6E228F0F7B00A68EDD /* NetworkModeTableViewController.swift */,
-				B3B46A6F228F0F7B00A68EDD /* CurrencyOptionTableViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -886,7 +877,7 @@
 				B3B46A28228F0F2700A68EDD /* RecoverExistingWalletViewController.swift in Sources */,
 				B3B46A86228F0F7D00A68EDD /* DropMenuButton.swift in Sources */,
 				B3B46AC9228F120700A68EDD /* TransactiontInputDetails.swift in Sources */,
-				B3B46A99228F0F7D00A68EDD /* certificateViewController.swift in Sources */,
+				B3B46A99228F0F7D00A68EDD /* CertificateViewController.swift in Sources */,
 				B3B46A9E228F0F7D00A68EDD /* ReceiveViewController.swift in Sources */,
 				B39BDC4D228F798300F3FB55 /* BuildConfig.swift in Sources */,
 				B3B46A9F228F0F7D00A68EDD /* WalletLogViewController.swift in Sources */,
@@ -937,7 +928,7 @@
 				B3B46A1E228F0F2700A68EDD /* RequestPasswordViewController.swift in Sources */,
 				B3B46A38228F0F2700A68EDD /* Dcrlibwallet.swift in Sources */,
 				B3B46A36228F0F2700A68EDD /* WalletLoader.swift in Sources */,
-				B3B46AA7228F0F7D00A68EDD /* CurrencyConversionOptionsViewController.swift in Sources */,
+				B3B46AA7228F0F7D00A68EDD /* CurrencyOptionTableViewController.swift in Sources */,
 				B3B46A8D228F0F7D00A68EDD /* NoWifiSyncConfirmationDialog.swift in Sources */,
 				B3B46AB1228F0F7D00A68EDD /* SeedCheckActiveCellView.swift in Sources */,
 				B3B46A30228F0F2700A68EDD /* NavigationMenuViewController.swift in Sources */,
