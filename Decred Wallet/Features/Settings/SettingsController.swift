@@ -29,7 +29,6 @@ class SettingsController: UITableViewController  {
     @IBOutlet weak var version: UILabel!
     @IBOutlet weak var server_ip: UILabel!
     
-    @IBOutlet weak var debu_msg: UISwitch!
     @IBOutlet weak var spend_uncon_fund: UISwitch!
     @IBOutlet weak var incoming_notification_switch: UISwitch!
     @IBOutlet weak var start_Pin: UISwitch!
@@ -42,23 +41,19 @@ class SettingsController: UITableViewController  {
         self.spend_uncon_fund.addTarget(self, action: #selector(switchChanged), for: UIControl.Event.valueChanged)
         self.incoming_notification_switch.addTarget(self, action: #selector(switchChanged), for: UIControl.Event.valueChanged)
         self.cellularSyncSwitch.addTarget(self, action: #selector(switchChanged), for: UIControl.Event.valueChanged)
-        self.debu_msg.addTarget(self, action: #selector(switchChanged), for: UIControl.Event.valueChanged)
     }
     
     @objc func switchChanged(switchView: UISwitch) {
         var fieldToUpdate: String?
         switch switchView {
         case self.spend_uncon_fund:
-            fieldToUpdate = "pref_spend_fund_switch"
+            fieldToUpdate = Settings.Keys.SpendUnconfirmed
             
         case self.incoming_notification_switch:
             fieldToUpdate = "pref_notification_switch"
             
         case self.cellularSyncSwitch:
             fieldToUpdate = Settings.Keys.SyncOnCellular
-            
-        case self.debu_msg:
-            fieldToUpdate = "pref_debug_switch"
             
         default:
             return
@@ -75,16 +70,20 @@ class SettingsController: UITableViewController  {
         self.navigationController?.navigationBar.isHidden = false
         self.navigationController?.navigationBar.tintColor = UIColor.black
         self.navigationItem.title = "Settings"
-        self.addLeftBarButtonWithImage(UIImage(named: "ic_menu_black_24dp")!)
+        
+        if self.isModal {
+            self.addNavigationBackButton()
+        } else {
+            self.addLeftBarButtonWithImage(UIImage(named: "ic_menu_black_24dp")!)
+        }
         
         connect_peer_ip?.text = Settings.readOptionalValue(for: Settings.Keys.SPVPeerIP) ?? ""
         server_ip?.text = UserDefaults.standard.string(forKey: "pref_server_ip") ?? ""
         
         loadDate()
         self.checkStartupSecurity()
-        
-        let network_value = UserDefaults.standard.integer(forKey: "network_mode")
-        if (network_value == 0) {
+
+        if Settings.networkMode == 0 {
             network_mode_subtitle?.text = "Simplified Payment Verification"
             self.certificate_cell.isUserInteractionEnabled = false
             self.server_cell.isUserInteractionEnabled = false
@@ -121,13 +120,11 @@ class SettingsController: UITableViewController  {
     }
     
     func loadDate() -> Void {
-        let network_value = UserDefaults.standard.integer(forKey: "network_mode")
         version?.text = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String
         
         let dateformater = DateFormatter()
         dateformater.dateFormat = "yyyy-MM-dd"
         build?.text = dateformater.string(from: AppDelegate.compileDate as Date)
-        debu_msg?.setOn((UserDefaults.standard.bool(forKey: "pref_debug_switch") ), animated: false)
         spend_uncon_fund?.setOn(Settings.spendUnconfirmed, animated: false)
         connect_peer_ip?.text = Settings.readOptionalValue(for: Settings.Keys.SPVPeerIP) ?? ""
         server_ip?.text = UserDefaults.standard.string(forKey: "pref_server_ip") ?? ""
@@ -135,9 +132,9 @@ class SettingsController: UITableViewController  {
         
         self.cellularSyncSwitch.isOn = Settings.readValue(for: Settings.Keys.SyncOnCellular)
         
-        if (network_value == 0) {
+        if Settings.networkMode == 0 {
             network_mode_subtitle?.text = "Simplified Payment Verification (SPV)"
-        }else{
+        } else {
             network_mode_subtitle?.text = "Remote Full Node"
         }
         
@@ -165,8 +162,17 @@ class SettingsController: UITableViewController  {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if !start_Pin.isOn && indexPath.section == 0 && indexPath.row == 2 {
-            return 0
+        if indexPath.section == 0 && indexPath.row == 2 {
+            // only show section 1, row 3 (change startup pin/password) if startup pin is on
+            return start_Pin.isOn ? 44 : 0
+        }
+        if indexPath.section == 1 && indexPath.row == 1 {
+            // only show section 2, row 2 (connect to peer) if network mode is SPV (0)
+            return Settings.networkMode == 0 ? 44 : 0
+        }
+        if indexPath.section == 1 && (indexPath.row == 2 || indexPath.row == 3) {
+            // only show section 2, rows 3 (server address) and 4 (certificate) if network mode is full node (1)
+            return Settings.networkMode == 1 ? 44 : 0
         }
         return 44
     }
@@ -288,6 +294,6 @@ class SettingsController: UITableViewController  {
     }
     
     static func instantiate() -> Self {
-        return Storyboards.Main.instantiateViewController(for: self)
+        return Storyboards.Settings.instantiateViewController(for: self)
     }
 }

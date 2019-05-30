@@ -8,7 +8,7 @@
 
 import UIKit
 
-class certificateViewController: UIViewController {
+class CertificateViewController: UIViewController {
     
     @IBOutlet weak var certificate: UITextView!
     override func viewDidLoad() {

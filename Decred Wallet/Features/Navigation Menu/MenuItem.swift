@@ -41,7 +41,7 @@ enum MenuItem: String, CaseIterable {
             return Storyboards.Main.instantiateViewController(for: SecurityMenuViewController.self).wrapInNavigationcontroller()
             
         case .settings:
-            return Storyboards.Main.instantiateViewController(for: SettingsController.self).wrapInNavigationcontroller()
+            return SettingsController.instantiate().wrapInNavigationcontroller()
             
         case .help:
             return Storyboards.Main.instantiateViewController(for: HelpViewController.self).wrapInNavigationcontroller()

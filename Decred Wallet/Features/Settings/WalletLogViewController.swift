@@ -15,12 +15,21 @@ class WalletLogViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.removeNavigationBarItem()
         self.navigationItem.title = "Wallet Log"
         self.progressHud = Utils.showProgressHud(withText: "Loading log...")
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Copy", style: .plain, target: self, action: #selector(copyLog))
     }
     
     override func viewDidAppear(_ animated: Bool) {
         self.logTextView.text = readLog()
+    }
+    
+    @objc func copyLog() -> Void {
+        DispatchQueue.main.async {
+            UIPasteboard.general.string = self.logTextView.text
+            self.showOkAlert(message: "Wallet log copied")
+        }
     }
     
     private func readLog() -> String {

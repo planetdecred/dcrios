@@ -41,7 +41,7 @@ class CreateNewWalletViewController: WalletSetupBaseViewController {
             this.drawSeed()
         }
         
-        backButton()
+        addNavigationBackButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
