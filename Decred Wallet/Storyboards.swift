@@ -18,6 +18,7 @@ enum Storyboards: String {
     case Send = "Send"
     case Settings = "Settings"
     case TransactionFullDetailsViewController = "TransactionFullDetailsViewController"
+    case SecurityMenu = "SecurityMenu"
     
     var instance: UIStoryboard {
         return UIStoryboard(name: self.rawValue, bundle: nil)
