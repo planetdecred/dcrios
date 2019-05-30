@@ -53,7 +53,10 @@ class Syncer: NSObject, AppLifeCycleDelegate {
     }
     
     func registerEstimatedSyncProgressListener() {
-        AppDelegate.walletLoader.wallet?.add(self, logEstimatedProgress: true)
+        AppDelegate.walletLoader.wallet?.enableSyncLogs()
+        // Following call should only throw an error if we attempt to add this sync progress listener multiple times.
+        // Safe to ignore such error since it implies that this sync listener is already registered.
+        try? AppDelegate.walletLoader.wallet?.add(self, uniqueIdentifier: "dcrios")
     }
     
     func beginSync() {
@@ -142,15 +145,6 @@ class Syncer: NSObject, AppLifeCycleDelegate {
             return
         }
         
-        if AppDelegate.shared.reachability.connection == .none {
-            // No network connection as app enters foreground, but sync was in progress.
-            // Update network last active time and wait for network reconnection before accounting for total lost time.
-            if self.networkLastActive == nil || lastActiveTime.isBefore(self.networkLastActive!) {
-                self.networkLastActive = lastActiveTime
-            }
-            return
-        }
-        
         var syncLastActive = lastActiveTime
         if self.networkLastActive != nil && self.networkLastActive!.isBefore(lastActiveTime) {
             // Use network last active time if network was lost before app went to sleep.
@@ -159,7 +153,12 @@ class Syncer: NSObject, AppLifeCycleDelegate {
         
         let totalInactiveSeconds = Date().timeIntervalSince(syncLastActive)
         AppDelegate.walletLoader.wallet?.syncInactive(forPeriod: Int64(totalInactiveSeconds))
-        self.networkLastActive = nil // Network is active at this point.
+        
+        if self.networkLastActive != nil && AppDelegate.shared.reachability.connection == .none {
+            // Reset network last active time to current time so that when network connection is restored,
+            // previously lost time (that was already accounted for above) would not be re-accounted for.
+            self.networkLastActive = Date()
+        }
     }
 
     func networkChanged(_ connection: Reachability.Connection) {
@@ -181,7 +180,7 @@ class Syncer: NSObject, AppLifeCycleDelegate {
 
 // Extension for receiving estimated sync progress report from dcrlibwallet sync process.
 // Progress report is decoded from the received Json string back to the original data format in the same dcrlibwallet background thread.
-extension Syncer: DcrlibwalletEstimatedSyncProgressListenerProtocol {
+extension Syncer: DcrlibwalletSyncProgressListenerProtocol {
     func onPeerConnectedOrDisconnected(_ numberOfConnectedPeers: Int32) {
         self.connectedPeersCount = numberOfConnectedPeers
         self.forEachSyncListener({ syncListener in syncListener.onPeerConnectedOrDisconnected(numberOfConnectedPeers) })
