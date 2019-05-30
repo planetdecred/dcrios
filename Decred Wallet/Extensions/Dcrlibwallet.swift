@@ -38,3 +38,25 @@ extension DcrlibwalletHeadersFetchProgressReport {
         }
     }
 }
+
+extension DcrlibwalletLibWallet {
+    func walletAccounts(confirmations: Int32) -> [WalletAccount] {
+        do {
+            var getAccountsError: NSError?
+            let accountsJson = self.getAccounts(confirmations, error: &getAccountsError)
+            if getAccountsError != nil {
+                throw getAccountsError!
+            }
+            
+            let accounts = try JSONDecoder().decode(WalletAccounts.self, from: accountsJson.utf8Bits)
+            return accounts.Acc
+        } catch let error {
+            print("Error fetching wallet accounts: \(error.localizedDescription)")
+            return [WalletAccount]()
+        }
+    }
+    
+    func totalWalletBalance(confirmations: Int32 = 0) -> Double {
+        return self.walletAccounts(confirmations: confirmations).filter({ !$0.isHidden }).map({ $0.dcrTotalBalance }).reduce(0,+)
+    }
+}

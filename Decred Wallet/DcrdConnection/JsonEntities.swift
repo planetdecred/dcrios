@@ -28,12 +28,11 @@ struct WalletAccount: Decodable {
     var ImportedKeyCount = 0
     
     func makeDefault() {
-        UserDefaults.standard.set(self.Number, forKey: "wallet_default")
+        Settings.setValue(self.Number, for: Settings.Keys.DefaultWallet)
     }
     
     var isDefault: Bool {
-        let defaultWalletNumber = UserDefaults.standard.integer(forKey: "wallet_default")
-        return defaultWalletNumber == self.Number
+        return Settings.readOptionalValue(for: Settings.Keys.DefaultWallet) == self.Number
     }
     
     var isHidden: Bool {

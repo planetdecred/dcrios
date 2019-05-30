@@ -49,7 +49,6 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
         self.navigationItem.title = "Transaction Details"
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "left-arrow"), style: .done, target: self, action: #selector(backk))
        
@@ -61,6 +60,16 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         self.navigationItem.rightBarButtonItems = [barButton!]
         
         do {
+            if self.transaction == nil && self.transactionHash != nil {
+                let txHash = Data(fromHexEncodedString: self.transactionHash!)!
+                var getTxError: NSError?
+                let txJsonString = AppDelegate.walletLoader.wallet?.getTransaction(txHash, error: &getTxError)
+                if getTxError != nil {
+                    throw getTxError!
+                }
+                self.transaction = try JSONDecoder().decode(Transaction.self, from:(txJsonString!.utf8Bits))
+            }
+            
             if let data = Data(fromHexEncodedString: self.transaction.Hash) {
                 var decodeTxError: NSError?
                 let decodedTxJson = AppDelegate.walletLoader.wallet?.decodeTransaction(data, error: &decodeTxError)
@@ -209,7 +218,7 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
             status = "Pending"
             textColor = #colorLiteral(red: 0.2392156863, green: 0.3960784314, blue: 0.6117647059, alpha: 1)
         } else {
-            if(UserDefaults.standard.bool(forKey: "pref_spend_fund_switch") || confirmations > 1) {
+            if (Settings.spendUnconfirmed || confirmations > 1) {
                 status = "Confirmed"
                 textColor = #colorLiteral(red: 0.2549019608, green: 0.7490196078, blue: 0.3254901961, alpha: 1)
             } else {

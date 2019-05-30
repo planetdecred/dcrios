@@ -70,16 +70,12 @@ class OverviewViewController: UIViewController {
             self.totalBalanceLabel.isHidden = true
             self.fetchingBalanceIndicator.superview?.isHidden = false
             
-            do {
-                let totalWalletAmount = try AppDelegate.walletLoader.wallet?.totalWalletBalance()
-                let totalAmountRoundedOff = (Decimal(totalWalletAmount!) as NSDecimalNumber).round(8)
-                
-                self.totalBalanceLabel.attributedText = Utils.getAttributedString(str: "\(totalAmountRoundedOff)", siz: 17.0, TexthexColor: GlobalConstants.Colors.TextAmount)
-                self.fetchingBalanceIndicator.superview?.isHidden = true
-                self.totalBalanceLabel.isHidden = false
-            } catch let error {
-                print(error)
-            }
+            let totalWalletAmount = AppDelegate.walletLoader.wallet?.totalWalletBalance()
+            let totalAmountRoundedOff = (Decimal(totalWalletAmount!) as NSDecimalNumber).round(8)
+            
+            self.totalBalanceLabel.attributedText = Utils.getAttributedString(str: "\(totalAmountRoundedOff)", siz: 17.0, TexthexColor: GlobalConstants.Colors.TextAmount)
+            self.fetchingBalanceIndicator.superview?.isHidden = true
+            self.totalBalanceLabel.isHidden = false
         }
     }
     
