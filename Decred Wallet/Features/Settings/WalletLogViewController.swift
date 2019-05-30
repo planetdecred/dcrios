@@ -27,13 +27,8 @@ class WalletLogViewController: UIViewController {
     
     @objc func copyLog() -> Void {
         DispatchQueue.main.async {
-            //Copy a string to the pasteboard.
             UIPasteboard.general.string = self.logTextView.text
-            
-            //Alert
-            let alertController = UIAlertController(title: "", message: "Wallet log copied", preferredStyle: UIAlertController.Style.alert)
-            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-            self.present(alertController, animated: true, completion: nil)
+            self.showOkAlert(message: "Wallet log copied")
         }
     }
     
