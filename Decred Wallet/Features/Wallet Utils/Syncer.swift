@@ -145,15 +145,6 @@ class Syncer: NSObject, AppLifeCycleDelegate {
             return
         }
         
-        if AppDelegate.shared.reachability.connection == .none {
-            // No network connection as app enters foreground, but sync was in progress.
-            // Update network last active time and wait for network reconnection before accounting for total lost time.
-            if self.networkLastActive == nil || lastActiveTime.isBefore(self.networkLastActive!) {
-                self.networkLastActive = lastActiveTime
-            }
-            return
-        }
-        
         var syncLastActive = lastActiveTime
         if self.networkLastActive != nil && self.networkLastActive!.isBefore(lastActiveTime) {
             // Use network last active time if network was lost before app went to sleep.
@@ -162,7 +153,12 @@ class Syncer: NSObject, AppLifeCycleDelegate {
         
         let totalInactiveSeconds = Date().timeIntervalSince(syncLastActive)
         AppDelegate.walletLoader.wallet?.syncInactive(forPeriod: Int64(totalInactiveSeconds))
-        self.networkLastActive = nil // Network is active at this point.
+        
+        if self.networkLastActive != nil && AppDelegate.shared.reachability.connection == .none {
+            // Reset network last active time to current time so that when network connection is restored,
+            // previously lost time (that was already accounted for above) would not be re-accounted for.
+            self.networkLastActive = Date()
+        }
     }
 
     func networkChanged(_ connection: Reachability.Connection) {
