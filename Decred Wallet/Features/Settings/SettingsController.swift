@@ -47,7 +47,7 @@ class SettingsController: UITableViewController  {
         var fieldToUpdate: String?
         switch switchView {
         case self.spend_uncon_fund:
-            fieldToUpdate = "pref_spend_fund_switch"
+            fieldToUpdate = Settings.Keys.SpendUnconfirmed
             
         case self.incoming_notification_switch:
             fieldToUpdate = "pref_notification_switch"
@@ -77,9 +77,8 @@ class SettingsController: UITableViewController  {
         
         loadDate()
         self.checkStartupSecurity()
-        
-        let network_value = UserDefaults.standard.integer(forKey: "network_mode")
-        if (network_value == 0) {
+
+        if Settings.networkMode == 0 {
             network_mode_subtitle?.text = "Simplified Payment Verification"
             self.certificate_cell.isUserInteractionEnabled = false
             self.server_cell.isUserInteractionEnabled = false
@@ -116,7 +115,6 @@ class SettingsController: UITableViewController  {
     }
     
     func loadDate() -> Void {
-        let network_value = UserDefaults.standard.integer(forKey: "network_mode")
         version?.text = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String
         
         let dateformater = DateFormatter()
@@ -129,9 +127,9 @@ class SettingsController: UITableViewController  {
         
         self.cellularSyncSwitch.isOn = Settings.readValue(for: Settings.Keys.SyncOnCellular)
         
-        if (network_value == 0) {
+        if Settings.networkMode == 0 {
             network_mode_subtitle?.text = "Simplified Payment Verification (SPV)"
-        }else{
+        } else {
             network_mode_subtitle?.text = "Remote Full Node"
         }
         
@@ -159,8 +157,17 @@ class SettingsController: UITableViewController  {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if !start_Pin.isOn && indexPath.section == 0 && indexPath.row == 2 {
-            return 0
+        if indexPath.section == 0 && indexPath.row == 2 {
+            // only show section 1, row 3 (change startup pin/password) if startup pin is on
+            return start_Pin.isOn ? 44 : 0
+        }
+        if indexPath.section == 1 && indexPath.row == 1 {
+            // only show section 2, row 2 (connect to peer) if network mode is SPV (0)
+            return Settings.networkMode == 0 ? 44 : 0
+        }
+        if indexPath.section == 1 && (indexPath.row == 2 || indexPath.row == 3) {
+            // only show section 2, rows 3 (server address) and 4 (certificate) if network mode is full node (1)
+            return Settings.networkMode == 1 ? 44 : 0
         }
         return 44
     }
@@ -282,6 +289,6 @@ class SettingsController: UITableViewController  {
     }
     
     static func instantiate() -> Self {
-        return Storyboards.Main.instantiateViewController(for: self)
+        return Storyboards.Settings.instantiateViewController(for: self)
     }
 }

@@ -145,7 +145,7 @@
 		B39BDC4C228F798300F3FB55 /* BuildConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildConfig.swift; sourceTree = "<group>"; };
 		B3A3EF8522936BFE00008A4E /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		B3A3EF87229375D100008A4E /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
-		B3A3EF8A22937B8800008A4E /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		B3A3EF8A22937B8800008A4E /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Settings.swift; path = ../../Utils/Settings.swift; sourceTree = "<group>"; };
 		B3A3EF8E2293A8E400008A4E /* NewWalletDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWalletDialog.swift; sourceTree = "<group>"; };
 		B3A3EF912295956300008A4E /* SendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendViewController.swift; sourceTree = "<group>"; };
 		B3A3EF932295970700008A4E /* Send.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Send.storyboard; sourceTree = "<group>"; };
@@ -317,7 +317,6 @@
 			isa = PBXGroup;
 			children = (
 				B3B46A4F228F0F7B00A68EDD /* Utils.swift */,
-				B3A3EF8A22937B8800008A4E /* Settings.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -669,6 +668,7 @@
 			isa = PBXGroup;
 			children = (
 				DDAD5024229F718B00EDF91B /* Settings.storyboard */,
+				B3A3EF8A22937B8800008A4E /* Settings.swift */,
 				B3B46A61228F0F7B00A68EDD /* SettingsController.swift */,
 				B3B46A6F228F0F7B00A68EDD /* CurrencyConversionOptionsViewController.swift */,
 				B3B46A6E228F0F7B00A68EDD /* NetworkModeTableViewController.swift */,

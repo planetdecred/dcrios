@@ -20,6 +20,7 @@ class Settings {
         
         static let SpendUnconfirmed = "pref_spend_unconfirmed"
         static let CurrencyConversionOption = "currency_conversion_option"
+        static let NetworkMode = "network_mode"
     }
     
     static func readValue<T>(for key: String) -> T {
@@ -50,5 +51,9 @@ class Settings {
     static var currencyConversionOption: CurrencyConversionOption {
         let selectedOption: String = Settings.readOptionalValue(for: Settings.Keys.CurrencyConversionOption) ?? ""
         return CurrencyConversionOption(rawValue: selectedOption) ?? .None
+    }
+    
+    static var networkMode: Int {
+        return Settings.readOptionalValue(for: Settings.Keys.NetworkMode) ?? 0
     }
 }
