@@ -155,7 +155,7 @@ class SendViewController: UIViewController, QRCodeReaderViewControllerDelegate {
         guard let exchangeRate = exchangeRate else {
             self.usdAmountTextField.superview?.isHidden = true
             self.exchangeRateLabel.superview?.isHidden = true
-            self.exchangeRateErrorLabel.text = "\(currencyConversionOption) rate unavailable (tap to retry)"
+            self.exchangeRateErrorLabel.text = "\(currencyConversionOption.withFirstLetterCapital) rate unavailable (tap to retry)."
             self.exchangeRateErrorLabel.isHidden = false
             return
         }

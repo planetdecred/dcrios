@@ -24,4 +24,8 @@ extension String {
     var length: Int {
         return self.count
     }
+    
+    var withFirstLetterCapital: String {
+        return prefix(1).uppercased() + self.lowercased().dropFirst()
+    }
 }
