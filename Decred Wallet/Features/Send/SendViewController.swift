@@ -69,13 +69,13 @@ class SendViewController: UIViewController, QRCodeReaderViewControllerDelegate {
         
         let decimalPointIndex = dcrAmountString.firstIndex(of: ".")
         if decimalPointIndex != nil && dcrAmountString[decimalPointIndex!...].count > 9 {
-            self.sendAmountErrorLabel.text = "Amount has more then 8 decimal places"
+            self.sendAmountErrorLabel.text = "Amount has more then 8 decimal places."
             return false
         }
         
         let dcrAmount = Decimal(string: dcrAmountString) as NSDecimalNumber?
         if dcrAmount == nil || dcrAmount!.doubleValue <= 0 {
-            self.sendAmountErrorLabel.text = "Invalid amount"
+            self.sendAmountErrorLabel.text = "Invalid amount."
             return false
         }
         
