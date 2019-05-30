@@ -54,7 +54,7 @@ extension UIViewController {
     /// Creates custom back butotn on ViewController. Hides default back button and createa a UIBarButtonItem instance on controller and sets to leftBartButtonItem property.
     ///
     /// - Parameter imageName: Name of the image to show. if nil is supplied "picture_done" is assumed, specific to Imaginamos
-    @discardableResult public func backButton() -> UIViewController {
+    @discardableResult public func addNavigationBackButton() -> UIViewController {
         let backArrowImage = #imageLiteral(resourceName: "left-arrow")
         navigationItem.hidesBackButton = true
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: backArrowImage, style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.navigateToBackScreen))

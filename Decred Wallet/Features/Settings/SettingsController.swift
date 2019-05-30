@@ -70,7 +70,12 @@ class SettingsController: UITableViewController  {
         self.navigationController?.navigationBar.isHidden = false
         self.navigationController?.navigationBar.tintColor = UIColor.black
         self.navigationItem.title = "Settings"
-        self.addLeftBarButtonWithImage(UIImage(named: "ic_menu_black_24dp")!)
+        
+        if self.isModal {
+            self.addNavigationBackButton()
+        } else {
+            self.addLeftBarButtonWithImage(UIImage(named: "ic_menu_black_24dp")!)
+        }
         
         connect_peer_ip?.text = Settings.readOptionalValue(for: Settings.Keys.SPVPeerIP) ?? ""
         server_ip?.text = UserDefaults.standard.string(forKey: "pref_server_ip") ?? ""
