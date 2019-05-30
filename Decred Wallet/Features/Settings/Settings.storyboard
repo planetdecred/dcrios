@@ -392,7 +392,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Rescan Blockchain" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eOS-CJ-QEb">
-                                                    <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="343" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -405,11 +405,11 @@
                                         <rect key="frame" x="0.0" y="839.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="P3v-pp-Ab2" id="lrZ-sQ-5Tp">
-                                            <rect key="frame" x="0.0" y="0.0" width="349" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Wallet Log" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="roe-vF-JdQ">
-                                                    <rect key="frame" x="15" y="0.0" width="325" height="43.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="324" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -420,33 +420,6 @@
                                         <connections>
                                             <segue destination="YSv-gj-0dD" kind="show" id="891-c5-g6R"/>
                                         </connections>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="cGS-0D-Yw9">
-                                        <rect key="frame" x="0.0" y="883.5" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cGS-0D-Yw9" id="NPL-q7-hGx">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8yy-Hu-jNf">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <inset key="titleEdgeInsets" minX="20" minY="10" maxX="0.0" maxY="0.0"/>
-                                                    <state key="normal" title="Delete Wallet">
-                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="deleteWallet:" destination="D9F-Sd-24p" eventType="touchUpInside" id="4tp-cf-fLu"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="8yy-Hu-jNf" firstAttribute="centerY" secondItem="NPL-q7-hGx" secondAttribute="centerY" id="TKr-Lp-lV0"/>
-                                                <constraint firstItem="8yy-Hu-jNf" firstAttribute="centerX" secondItem="NPL-q7-hGx" secondAttribute="centerX" id="c2o-rq-3qS"/>
-                                                <constraint firstItem="8yy-Hu-jNf" firstAttribute="height" secondItem="NPL-q7-hGx" secondAttribute="height" id="hXO-qk-3hN"/>
-                                                <constraint firstItem="8yy-Hu-jNf" firstAttribute="width" secondItem="NPL-q7-hGx" secondAttribute="width" id="t2O-Sf-lmX"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -482,6 +455,33 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9zL-3t-ck0" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="JjF-Qe-zu4"/>
+                <tableViewCell hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="cGS-0D-Yw9">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cGS-0D-Yw9" id="NPL-q7-hGx">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8yy-Hu-jNf">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <inset key="titleEdgeInsets" minX="20" minY="10" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Delete Wallet">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="deleteWallet:" destination="D9F-Sd-24p" eventType="touchUpInside" id="4tp-cf-fLu"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="8yy-Hu-jNf" firstAttribute="centerY" secondItem="NPL-q7-hGx" secondAttribute="centerY" id="TKr-Lp-lV0"/>
+                            <constraint firstItem="8yy-Hu-jNf" firstAttribute="centerX" secondItem="NPL-q7-hGx" secondAttribute="centerX" id="c2o-rq-3qS"/>
+                            <constraint firstItem="8yy-Hu-jNf" firstAttribute="height" secondItem="NPL-q7-hGx" secondAttribute="height" id="hXO-qk-3hN"/>
+                            <constraint firstItem="8yy-Hu-jNf" firstAttribute="width" secondItem="NPL-q7-hGx" secondAttribute="width" id="t2O-Sf-lmX"/>
+                        </constraints>
+                    </tableViewCellContentView>
+                </tableViewCell>
             </objects>
             <point key="canvasLocation" x="13.6" y="2149.4752623688159"/>
         </scene>
@@ -544,7 +544,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vl5-1Q-2jW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1054" y="2543"/>
+            <point key="canvasLocation" x="3294" y="2477"/>
         </scene>
         <!--Server Set Table View Controller-->
         <scene sceneID="dWF-N1-sg0">
@@ -572,7 +572,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Server ip" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hRb-Fa-rn9">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Server IP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hRb-Fa-rn9">
                                                     <rect key="frame" x="16" y="11.5" width="99" height="20.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="99" id="Kw5-qr-Y48"/>
@@ -614,7 +614,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4ig-mU-aHD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1370" y="1766"/>
+            <point key="canvasLocation" x="2276" y="2477"/>
         </scene>
         <!--Network Mode Table View Controller-->
         <scene sceneID="eRR-1R-0HC">
@@ -678,7 +678,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2vo-Ad-e4x" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-636" y="1700"/>
+            <point key="canvasLocation" x="2276" y="1718"/>
         </scene>
         <!--Wallet Log View Controller-->
         <scene sceneID="Z5w-DS-0qO">
@@ -713,7 +713,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bgv-pB-2R0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1775" y="2741"/>
+            <point key="canvasLocation" x="14" y="2917"/>
         </scene>
         <!--Peer Set Table View Controller-->
         <scene sceneID="CDq-Z7-nHX">
@@ -741,7 +741,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Peer ip" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FPv-Dh-YNo">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Peer IP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FPv-Dh-YNo">
                                                     <rect key="frame" x="16" y="11.5" width="99" height="20.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="99" id="Hrl-4L-yIa"/>
@@ -783,7 +783,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fs4-Jq-k15" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2498" y="2427"/>
+            <point key="canvasLocation" x="1174" y="2477"/>
         </scene>
         <!--Currency Option Table View Controller-->
         <scene sceneID="4Bp-Vb-o0d">
@@ -847,7 +847,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="95M-MY-Fee" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="878" y="2256"/>
+            <point key="canvasLocation" x="1174" y="1718"/>
         </scene>
     </scenes>
 </document>
