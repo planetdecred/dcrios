@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		7D66B4CA3456FF02B98D7834 /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A4F4B4098858CBBF8CB6882 /* Pods_Decred_Wallet.framework */; };
+		B36255B622A11A9500C62946 /* SecurityMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36255B422A11A9500C62946 /* SecurityMenuViewController.swift */; };
+		B36255B722A11A9500C62946 /* SecurityMenu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B36255B522A11A9500C62946 /* SecurityMenu.storyboard */; };
 		B36EFD362298617C002753B2 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36EFD352298617C002753B2 /* UIButton.swift */; };
 		B39BDC4D228F798300F3FB55 /* BuildConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39BDC4C228F798300F3FB55 /* BuildConfig.swift */; };
 		B3A3EF8622936BFE00008A4E /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A3EF8522936BFE00008A4E /* Reachability.swift */; };
@@ -134,7 +136,6 @@
 		B3B46AC9228F120700A68EDD /* TransactiontInputDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46AC2228F120700A68EDD /* TransactiontInputDetails.swift */; };
 		B3D21C9F2296E4F000609F23 /* ExchangeRates.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D21C9E2296E4F000609F23 /* ExchangeRates.swift */; };
 		DDAD5025229F718B00EDF91B /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDAD5024229F718B00EDF91B /* Settings.storyboard */; };
-		DDAD502D229FFE8200EDF91B /* SecurityMenu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDAD502C229FFE8200EDF91B /* SecurityMenu.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -142,6 +143,8 @@
 		50964E5F67D24E0B58B8D3B5 /* Pods-Decred Wallet.testnet release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.testnet release.xcconfig"; path = "Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.testnet release.xcconfig"; sourceTree = "<group>"; };
 		5A4F4B4098858CBBF8CB6882 /* Pods_Decred_Wallet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Decred_Wallet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FE71B33B4D10159ABF72715 /* Pods-Decred Wallet.testnet debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.testnet debug.xcconfig"; path = "Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.testnet debug.xcconfig"; sourceTree = "<group>"; };
+		B36255B422A11A9500C62946 /* SecurityMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecurityMenuViewController.swift; sourceTree = "<group>"; };
+		B36255B522A11A9500C62946 /* SecurityMenu.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SecurityMenu.storyboard; sourceTree = "<group>"; };
 		B36EFD352298617C002753B2 /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
 		B39BDC4C228F798300F3FB55 /* BuildConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildConfig.swift; sourceTree = "<group>"; };
 		B3A3EF8522936BFE00008A4E /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
@@ -270,7 +273,6 @@
 		B3B46AC2228F120700A68EDD /* TransactiontInputDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactiontInputDetails.swift; sourceTree = "<group>"; };
 		B3D21C9E2296E4F000609F23 /* ExchangeRates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRates.swift; sourceTree = "<group>"; };
 		DDAD5024229F718B00EDF91B /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
-		DDAD502C229FFE8200EDF91B /* SecurityMenu.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SecurityMenu.storyboard; sourceTree = "<group>"; };
 		F985372327D0001C8FDF95F1 /* Pods-Decred Wallet.mainnet debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.mainnet debug.xcconfig"; path = "Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.mainnet debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -305,6 +307,15 @@
 				50964E5F67D24E0B58B8D3B5 /* Pods-Decred Wallet.testnet release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		B36255B322A11A9500C62946 /* SecurityMenu */ = {
+			isa = PBXGroup;
+			children = (
+				B36255B422A11A9500C62946 /* SecurityMenuViewController.swift */,
+				B36255B522A11A9500C62946 /* SecurityMenu.storyboard */,
+			);
+			path = SecurityMenu;
 			sourceTree = "<group>";
 		};
 		B3A3EF8422936BEF00008A4E /* Network */ = {
@@ -369,6 +380,7 @@
 				B3B46A50228F0F7B00A68EDD /* view_controller */,
 				B3B46A48228F0F7B00A68EDD /* view_util */,
 				B3A3EF8922937B7500008A4E /* Utils */,
+				B3B46A7D228F0F7C00A68EDD /* SecurityMenuViewController.swift */,
 				B3B46A7E228F0F7C00A68EDD /* SingleInstance.swift */,
 				B3B46A80228F0F7C00A68EDD /* splashLoader.gif */,
 				B3B46A4E228F0F7B00A68EDD /* splashLogo.gif */,
@@ -501,8 +513,8 @@
 				B3B469E9228F0F2600A68EDD /* Navigation Menu */,
 				B3B469EF228F0F2600A68EDD /* Overview */,
 				B3A3EF902295955100008A4E /* Send */,
+				B36255B322A11A9500C62946 /* SecurityMenu */,
 				DDAD5023229F714600EDF91B /* Settings */,
-				DDAD502B229FFE3300EDF91B /* SecurityMenu */,
 				B3B469F3228F0F2600A68EDD /* Wallet Utils */,
 			);
 			path = Features;
@@ -680,13 +692,6 @@
 				B3B46A66228F0F7B00A68EDD /* WalletLogViewController.swift */,
 			);
 			path = Settings;
-		DDAD502B229FFE3300EDF91B /* SecurityMenu */ = {
-			isa = PBXGroup;
-			children = (
-				DDAD502C229FFE8200EDF91B /* SecurityMenu.storyboard */,
-				B3B46A7D228F0F7C00A68EDD /* SecurityMenuViewController.swift */,
-			);
-			path = SecurityMenu;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -753,10 +758,10 @@
 				B3B46A41228F0F6700A68EDD /* dcr-logo.png in Resources */,
 				B3B46A02228F0F2700A68EDD /* SourceSansPro-SemiBoldItalic.ttf in Resources */,
 				B3B46A0C228F0F2700A68EDD /* SourceSansPro-Italic.ttf in Resources */,
-				DDAD502D229FFE8200EDF91B /* SecurityMenu.storyboard in Resources */,
 				B3B46A40228F0F6700A68EDD /* bg-button.png in Resources */,
 				B3B46A3F228F0F6700A68EDD /* bg-button@3x.png in Resources */,
 				B3B46A01228F0F2700A68EDD /* SourceSansPro-BlackItalic.ttf in Resources */,
+				B36255B722A11A9500C62946 /* SecurityMenu.storyboard in Resources */,
 				B3B46A06228F0F2700A68EDD /* SourceSansPro-Light.ttf in Resources */,
 				B3B46A22228F0F2700A68EDD /* TransactionTableViewCell.xib in Resources */,
 				B3B46A04228F0F2700A68EDD /* SourceSansPro-Bold.ttf in Resources */,
@@ -947,6 +952,7 @@
 				B3B46A1C228F0F2700A68EDD /* PinInputView.swift in Sources */,
 				B3B46A0D228F0F2700A68EDD /* Constants.swift in Sources */,
 				B3B46A29228F0F2700A68EDD /* WalletSetupViewController.swift in Sources */,
+				B36255B622A11A9500C62946 /* SecurityMenuViewController.swift in Sources */,
 				B3B46AC4228F120700A68EDD /* TransactiontOutputDetailsCell.swift in Sources */,
 				B3B46A35228F0F2700A68EDD /* Syncer.swift in Sources */,
 				B3B46A0F228F0F2700A68EDD /* JsonEntities.swift in Sources */,
