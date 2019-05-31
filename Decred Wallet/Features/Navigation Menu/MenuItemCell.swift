@@ -12,6 +12,7 @@ open class MenuItemCell: UITableViewCell {
     @IBOutlet weak var activeMenuIndicator: UIView!
     @IBOutlet weak var menuIconImageView: UIImageView!
     @IBOutlet weak var menuTitleLabel: UILabel!
+    @IBOutlet weak var menuBackground: UIView!
     
     static let height: CGFloat = 60
     
@@ -24,11 +25,11 @@ open class MenuItemCell: UITableViewCell {
         self.menuIconImageView.image = menuItem.icon
         
         if isCurrentItem {
-            self.backgroundColor = UIColor.white
+            self.menuBackground.backgroundColor = UIColor.white
             self.activeMenuIndicator.isHidden = false
             self.menuTitleLabel.textColor = UIColor.black
         } else {
-            self.backgroundColor = UIColor.appColors.offWhite
+            self.menuBackground.backgroundColor = UIColor.appColors.lightOffWhite
             self.activeMenuIndicator.isHidden = true
             self.menuTitleLabel.textColor = UIColor.gray
         }

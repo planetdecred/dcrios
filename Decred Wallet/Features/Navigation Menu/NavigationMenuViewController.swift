@@ -54,6 +54,7 @@ class NavigationMenuViewController: UIViewController {
         if BuildConfig.IsTestNet {
             decredHeaderLogo?.image = UIImage(named: "logo-testnet")
         }
+        decredHeaderLogo.backgroundColor = UIColor.appColors.offWhite
         
         self.navMenuTableView.separatorColor = GlobalConstants.Colors.separaterGrey
         self.navMenuTableView.register(UINib(nibName: MenuItemCell.identifier, bundle: nil), forCellReuseIdentifier: MenuItemCell.identifier)
