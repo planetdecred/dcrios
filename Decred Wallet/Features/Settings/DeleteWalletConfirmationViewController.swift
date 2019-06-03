@@ -19,9 +19,6 @@ class DeleteWalletConfirmationViewController: UIViewController, UITextFieldDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.modalTransitionStyle = .crossDissolve
-        self.modalPresentationStyle = .overCurrentContext
-        
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(self.view.endEditing(_:)))
         tap.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tap)

@@ -447,7 +447,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="GYO-dh-yj3" kind="presentation" identifier="ShowDeleteWalletConfirmationDialog" id="YVG-mR-MqA"/>
+                                            <segue destination="GYO-dh-yj3" kind="presentation" identifier="ShowDeleteWalletConfirmationDialog" animates="NO" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="YVG-mR-MqA"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -864,11 +864,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lJv-DI-xo1">
-                                <rect key="frame" x="37.5" y="197.5" width="300" height="222.5"/>
+                                <rect key="frame" x="37.5" y="194" width="300" height="229.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="ThS-ek-T27">
-                                <rect key="frame" x="37.5" y="197.5" width="300" height="222.5"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="ThS-ek-T27">
+                                <rect key="frame" x="37.5" y="194" width="300" height="229.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Delete Wallet" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ru-3D-ysZ">
                                         <rect key="frame" x="12" y="12" width="276" height="20.5"/>
@@ -877,27 +877,20 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wGN-Vb-4w1">
-                                        <rect key="frame" x="12" y="38.5" width="276" height="101"/>
+                                        <rect key="frame" x="12" y="44.5" width="276" height="101"/>
                                         <string key="text">Are you sure you want to delete your wallet? Make sure you have your wallet seed saved or your coins moved before deleting. This will also clear all app settings to a default state.</string>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
-                                        <color key="textColor" red="0.37254901959999998" green="0.44705882349999998" blue="0.52549019610000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jjY-6s-Zks">
-                                        <rect key="frame" x="12" y="145.5" width="276" height="5"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="5" id="Z6U-tA-han"/>
-                                        </constraints>
-                                    </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="To confirm, enter your password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="HeM-rT-uvn">
-                                        <rect key="frame" x="12" y="156.5" width="276" height="18"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="To confirm, enter your password:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="HeM-rT-uvn">
+                                        <rect key="frame" x="12" y="157.5" width="276" height="18"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
-                                        <color key="textColor" red="0.37254901959999998" green="0.44705882349999998" blue="0.52549019610000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="H86-92-JuD">
-                                        <rect key="frame" x="12" y="180.5" width="276" height="30"/>
+                                        <rect key="frame" x="12" y="187.5" width="276" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
@@ -909,7 +902,7 @@
                                 <edgeInsets key="layoutMargins" top="12" left="12" bottom="12" right="12"/>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v6E-lM-qRz">
-                                <rect key="frame" x="37.5" y="420" width="300" height="50"/>
+                                <rect key="frame" x="37.5" y="423.5" width="300" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uOt-1V-xLA">
                                         <rect key="frame" x="0.0" y="10" width="150" height="30"/>
@@ -953,7 +946,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="ThS-ek-T27" firstAttribute="centerY" secondItem="Tcq-KN-erN" secondAttribute="centerY" constant="-25" id="1hI-mf-BvA"/>
                             <constraint firstItem="ThS-ek-T27" firstAttribute="centerX" secondItem="Tcq-KN-erN" secondAttribute="centerX" id="Eea-t7-Fmr"/>
