@@ -109,9 +109,7 @@ class SendViewController: UIViewController {
         self.usdAmountTextField.text = ""
         self.sendAmountErrorLabel.text = ""
         
-        self.estimatedFeeLabel.text = "0.00 DCR"
-        self.estimatedTxSizeLabel.text = "0 bytes"
-        self.balanceAfterSendingLabel.text = "0.00 DCR"
+        self.clearTxSummary()
         
         self.sendErrorLabel.isHidden = true
         self.toggleSendButtonState(addressValid: false, amountValid: false)
@@ -302,11 +300,16 @@ class SendViewController: UIViewController {
     }
     
     func prepareTxSummary(isSendAttempt: Bool, completion: (Double, String, DcrlibwalletTxFeeAndSize) -> Void) {
-        guard let dcrAmountString = self.dcrAmountTextField.text, dcrAmountString != "" else {
-            if isSendAttempt {
-                self.sendAmountErrorLabel.text = "Amount cannot be zero."
-            }
-            return
+        guard let dcrAmountString = self.dcrAmountTextField.text, dcrAmountString != "",
+            let sendAmountDcr = Double(dcrAmountString), sendAmountDcr > 0 else {
+                self.clearTxSummary()
+                if isSendAttempt {
+                    self.sendAmountErrorLabel.text = "Amount cannot be zero."
+                } else {
+                    // disable send button
+                    self.toggleSendButtonState(addressValid: false, amountValid: false)
+                }
+                return
         }
         
         guard let destinationAddress = self.getDestinationAddress(isSendAttempt: isSendAttempt) else {
@@ -319,7 +322,6 @@ class SendViewController: UIViewController {
         }
         
         do {
-            let sendAmountDcr = Double(dcrAmountString)!
             let sendAmountAtom = DcrlibwalletAmountAtom(sendAmountDcr)
             let sourceAccountNumber = self.walletAccounts[self.sourceAccountDropdown.selectedItemIndex].Number
             
