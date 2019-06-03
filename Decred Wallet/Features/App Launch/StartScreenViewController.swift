@@ -51,14 +51,6 @@ class StartScreenViewController: UIViewController {
         }
     }
     
-    @IBAction func animatedLogoTap(_ sender: Any) {
-        timer?.invalidate()
-        self.startTimerWhenViewAppears = true
-        
-        let settingsVC = SettingsController.instantiate().wrapInNavigationcontroller()
-        self.present(settingsVC, animated: true, completion: nil)
-    }
-    
     func loadMainScreen() {
         if !AppDelegate.walletLoader.isWalletCreated {
             self.displayWalletSetupScreen()
