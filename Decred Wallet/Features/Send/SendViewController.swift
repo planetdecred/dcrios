@@ -61,20 +61,26 @@ class SendViewController: UIViewController {
         self.sendAmountErrorLabel.text = ""
         guard let dcrAmountString = self.dcrAmountTextField.text, dcrAmountString != "" else { return false }
         
+        if dcrAmountString.components(separatedBy: ".").count > 2 ||
+            (usdAmountTextField.text ?? "").components(separatedBy: ".").count > 2 {
+            // more than 1 decimal place
+            self.sendAmountErrorLabel.text = "Invalid amount."
+            return false
+        }
+        
         let decimalPointIndex = dcrAmountString.firstIndex(of: ".")
         if decimalPointIndex != nil && dcrAmountString[decimalPointIndex!...].count > 9 {
             self.sendAmountErrorLabel.text = "Amount has more then 8 decimal places."
             return false
         }
         
-        let dcrAmount = Decimal(string: dcrAmountString) as NSDecimalNumber?
-        if dcrAmount == nil || dcrAmount!.doubleValue <= 0 {
+        guard let sendAmountDcr = Double(dcrAmountString), sendAmountDcr > 0 else {
             self.sendAmountErrorLabel.text = "Invalid amount."
             return false
         }
         
         let sourceAccountBalance = self.walletAccounts[self.sourceAccountDropdown.selectedItemIndex].Balance!.dcrSpendable
-        if dcrAmount!.doubleValue > sourceAccountBalance {
+        if sendAmountDcr > sourceAccountBalance {
             self.sendAmountErrorLabel.text = self.insufficientFundsErrorMessage
             return false
         }
@@ -548,34 +554,38 @@ extension SendViewController {
     // If manually triggering dcr amount field change, a sendMax value is required/important
     // to ensure that a previously true value does not become false even though user did not edit the field directly.
     @objc func dcrAmountTextFieldChanged(sendMax: Bool = false) {
-        self.sendMaxAmount = sendMax
-        self.toggleSendButtonState(addressValid: self.isValidDestination, amountValid: self.isValidAmount)
-        self.displayTransactionSummary()
+        defer {
+            self.toggleSendButtonState(addressValid: self.isValidDestination, amountValid: self.isValidAmount)
+            self.displayTransactionSummary()
+        }
         
+        self.sendMaxAmount = sendMax
         let dcrAmountString = self.dcrAmountTextField.text ?? ""
         
-        guard let dcrAmount = Decimal(string: dcrAmountString) as NSDecimalNumber?, let exchangeRate = self.exchangeRate else {
+        guard let dcrAmount = Double(dcrAmountString), let exchangeRate = self.exchangeRate else {
             self.updateAmountField(self.usdAmountTextField, "", #selector(self.usdAmountTextFieldChanged))
             return
         }
         
-        let usdAmount = dcrAmount.multiplying(by: exchangeRate)
+        let usdAmount = NSDecimalNumber(value: dcrAmount).multiplying(by: exchangeRate)
         self.updateAmountField(self.usdAmountTextField, "\(usdAmount.round(8))", #selector(self.usdAmountTextFieldChanged))
     }
     
     @objc func usdAmountTextFieldChanged() {
-        self.sendMaxAmount = false
-        self.toggleSendButtonState(addressValid: self.isValidDestination, amountValid: self.isValidAmount)
-        self.displayTransactionSummary()
+        defer {
+            self.toggleSendButtonState(addressValid: self.isValidDestination, amountValid: self.isValidAmount)
+            self.displayTransactionSummary()
+        }
         
+        self.sendMaxAmount = false
         let usdAmountString = self.usdAmountTextField.text ?? ""
         
-        guard let usdAmount = Decimal(string: usdAmountString) as NSDecimalNumber?, let exchangeRate = self.exchangeRate else {
+        guard let usdAmount = Double(usdAmountString), let exchangeRate = self.exchangeRate else {
             self.updateAmountField(self.dcrAmountTextField, "", #selector(self.dcrAmountTextFieldChanged))
             return
         }
         
-        let dcrAmount = usdAmount.dividing(by: exchangeRate)
+        let dcrAmount = NSDecimalNumber(value: usdAmount).dividing(by: exchangeRate)
         self.updateAmountField(self.dcrAmountTextField, "\(dcrAmount.round(8))", #selector(self.dcrAmountTextFieldChanged))
     }
     
