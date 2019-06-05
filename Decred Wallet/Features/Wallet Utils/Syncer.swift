@@ -88,7 +88,8 @@ class Syncer: NSObject, AppLifeCycleDelegate {
             self.currentSyncOp = nil
             self.currentSyncOpProgress = nil
             self.shouldRestartSync = true
-            AppDelegate.walletLoader.wallet?.cancelSync()
+            // Cancel ongoing sync without losing peers as we intend to restart the sync.
+            AppDelegate.walletLoader.wallet?.cancelSync(false)
         }
     }
     
