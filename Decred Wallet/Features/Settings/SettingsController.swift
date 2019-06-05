@@ -228,6 +228,7 @@ class SettingsController: UITableViewController  {
                 try AppDelegate.walletLoader.wallet?.delete(spendingPinOrPassword.utf8Bits)
                 DispatchQueue.main.async {
                     progressHud.dismiss()
+                    self.navigationMenuViewController()?.invalidateSyncTimer()
                     self.walletDeleted()
                 }
             } catch let error {
