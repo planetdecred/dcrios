@@ -79,6 +79,11 @@ class SendViewController: UIViewController {
             return false
         }
         
+        if sendAmountDcr > DcrlibwalletMaxAmountDcr {
+            self.sendAmountErrorLabel.text = "Amount more than maximum allowed."
+            return false
+        }
+        
         let sourceAccountBalance = self.walletAccounts[self.sourceAccountDropdown.selectedItemIndex].Balance!.dcrSpendable
         if sendAmountDcr > sourceAccountBalance {
             self.sendAmountErrorLabel.text = self.insufficientFundsErrorMessage
@@ -316,6 +321,14 @@ class SendViewController: UIViewController {
                     self.toggleSendButtonState(addressValid: false, amountValid: false)
                 }
                 return
+        }
+        
+        // Send amount must be less than or equal to max amount.
+        guard sendAmountDcr <= DcrlibwalletMaxAmountDcr else {
+            // clear tx summary and disable send button
+            self.clearTxSummary()
+            self.toggleSendButtonState(addressValid: false, amountValid: false)
+            return
         }
         
         guard let destinationAddress = self.getDestinationAddress(isSendAttempt: isSendAttempt) else {
