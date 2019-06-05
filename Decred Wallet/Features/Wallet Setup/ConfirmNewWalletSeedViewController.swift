@@ -82,21 +82,28 @@ extension ConfirmNewWalletSeedViewController: UITableViewDataSource{
         return 33
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
-        
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tripleSeedCell", for: indexPath) as? SeedConfirmTableViewCell
         cell?.setup(num: indexPath.row, seedWords: breakdownByThree(row: indexPath.row), selected:pickSelected(row: indexPath.row))
         
         cell?.onPick = {(index, seedWord) in
             self.selectedSeedWords[indexPath.row] = index
             self.enteredWords[indexPath.row] = seedWord
-            if indexPath.row < 32{
-                tableView.selectRow(at: IndexPath(row: indexPath.row + 1, section: 0), animated: true, scrollPosition: .middle)
-            }
+            
             self.btnConfirm.isEnabled = self.enteredWords.reduce(true, { (res, input) -> Bool in
                 return res && input != ""
             })
+            
+            if indexPath.row < 32 {
+                let nextRowIndex = IndexPath(row: indexPath.row + 1, section: 0)
+                if tableView.isCellCompletelyVisible(at: nextRowIndex) {
+                    tableView.selectRow(at: nextRowIndex, animated: true, scrollPosition: .none)
+                } else {
+                    tableView.selectRow(at: nextRowIndex, animated: true, scrollPosition: .bottom)
+                }
+            }
         }
+        
         return cell!
     }
     
