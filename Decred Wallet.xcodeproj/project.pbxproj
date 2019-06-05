@@ -10,8 +10,10 @@
 		7D66B4CA3456FF02B98D7834 /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A4F4B4098858CBBF8CB6882 /* Pods_Decred_Wallet.framework */; };
 		B36255B622A11A9500C62946 /* SecurityMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36255B422A11A9500C62946 /* SecurityMenuViewController.swift */; };
 		B36255B722A11A9500C62946 /* SecurityMenu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B36255B522A11A9500C62946 /* SecurityMenu.storyboard */; };
+		B3635B82229FE5870052EB4D /* QRImageScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3635B81229FE5870052EB4D /* QRImageScanner.swift */; };
 		B36EFD362298617C002753B2 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36EFD352298617C002753B2 /* UIButton.swift */; };
 		B377DB0722A5663700BDF56F /* DeleteWalletConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B377DB0622A5663700BDF56F /* DeleteWalletConfirmationViewController.swift */; };
+		B3967B3D22A75BD400E14432 /* UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3967B3C22A75BD400E14432 /* UITableView.swift */; };
 		B39BDC4D228F798300F3FB55 /* BuildConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39BDC4C228F798300F3FB55 /* BuildConfig.swift */; };
 		B3A3EF8622936BFE00008A4E /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A3EF8522936BFE00008A4E /* Reachability.swift */; };
 		B3A3EF88229375D100008A4E /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A3EF87229375D100008A4E /* Date.swift */; };
@@ -145,8 +147,10 @@
 		6FE71B33B4D10159ABF72715 /* Pods-Decred Wallet.testnet debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.testnet debug.xcconfig"; path = "Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.testnet debug.xcconfig"; sourceTree = "<group>"; };
 		B36255B422A11A9500C62946 /* SecurityMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecurityMenuViewController.swift; sourceTree = "<group>"; };
 		B36255B522A11A9500C62946 /* SecurityMenu.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SecurityMenu.storyboard; sourceTree = "<group>"; };
+		B3635B81229FE5870052EB4D /* QRImageScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRImageScanner.swift; sourceTree = "<group>"; };
 		B36EFD352298617C002753B2 /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
 		B377DB0622A5663700BDF56F /* DeleteWalletConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteWalletConfirmationViewController.swift; sourceTree = "<group>"; };
+		B3967B3C22A75BD400E14432 /* UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableView.swift; sourceTree = "<group>"; };
 		B39BDC4C228F798300F3FB55 /* BuildConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildConfig.swift; sourceTree = "<group>"; };
 		B3A3EF8522936BFE00008A4E /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		B3A3EF87229375D100008A4E /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
@@ -413,6 +417,7 @@
 				B3B469AB228F0F2600A68EDD /* UIViewController.swift */,
 				B3A3EF87229375D100008A4E /* Date.swift */,
 				B36EFD352298617C002753B2 /* UIButton.swift */,
+				B3967B3C22A75BD400E14432 /* UITableView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -421,6 +426,7 @@
 			isa = PBXGroup;
 			children = (
 				B3B469AD228F0F2600A68EDD /* Button.swift */,
+				B3635B81229FE5870052EB4D /* QRImageScanner.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -899,6 +905,7 @@
 				B3B46AB3228F0F7D00A68EDD /* ConfirmSeedViewCell.swift in Sources */,
 				B3B46A88228F0F7D00A68EDD /* UIIMage.swift in Sources */,
 				B3B46A11228F0F2700A68EDD /* UITableViewExtension.swift in Sources */,
+				B3635B82229FE5870052EB4D /* QRImageScanner.swift in Sources */,
 				B3B46A2E228F0F2700A68EDD /* MenuItem.swift in Sources */,
 				B3A3EF8622936BFE00008A4E /* Reachability.swift in Sources */,
 				B36EFD362298617C002753B2 /* UIButton.swift in Sources */,
@@ -945,6 +952,7 @@
 				B3B46A29228F0F2700A68EDD /* WalletSetupViewController.swift in Sources */,
 				B36255B622A11A9500C62946 /* SecurityMenuViewController.swift in Sources */,
 				B3B46AC4228F120700A68EDD /* TransactiontOutputDetailsCell.swift in Sources */,
+				B3967B3D22A75BD400E14432 /* UITableView.swift in Sources */,
 				B3B46A35228F0F2700A68EDD /* Syncer.swift in Sources */,
 				B3B46A0F228F0F2700A68EDD /* JsonEntities.swift in Sources */,
 				B3B46A17228F0F2700A68EDD /* ContouredButton.swift in Sources */,
