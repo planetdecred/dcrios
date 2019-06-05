@@ -40,7 +40,7 @@ class StartScreenViewController: UIViewController {
         
         // start timer to load main screen after specified interval
         if self.startTimerWhenViewAppears {
-            timer = Timer.scheduledTimer(withTimeInterval: self.animationDurationSeconds, repeats: false) {_ in
+            self.timer = Timer.scheduledTimer(withTimeInterval: self.animationDurationSeconds, repeats: false) {_ in
                 self.loadMainScreen()
             }
             self.startTimerWhenViewAppears = false
@@ -49,6 +49,14 @@ class StartScreenViewController: UIViewController {
         if AppDelegate.walletLoader.isWalletCreated {
             self.label.text = "Opening wallet..."
         }
+    }
+    
+    @IBAction func animatedLogoTap(_ sender: Any) {
+        self.timer?.invalidate()
+        self.startTimerWhenViewAppears = true
+        
+        let settingsVC = SettingsController.instantiate().wrapInNavigationcontroller()
+        self.present(settingsVC, animated: true, completion: nil)
     }
     
     func loadMainScreen() {

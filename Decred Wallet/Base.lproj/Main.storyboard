@@ -328,6 +328,10 @@
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="c0d-2Z-wlh">
                                         <rect key="frame" x="0.0" y="0.0" width="140" height="105"/>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="hk2-L0-l0m" appends="YES" id="j8f-h5-kvi"/>
+                                        </connections>
                                     </imageView>
                                 </subviews>
                                 <gestureRecognizers/>
@@ -373,6 +377,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="abl-tj-8Do" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer numberOfTapsRequired="2" id="hk2-L0-l0m">
+                    <connections>
+                        <action selector="animatedLogoTap:" destination="BLx-jo-l82" id="243-wN-MKT"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-858.39999999999998" y="-53.523238380809602"/>
         </scene>
