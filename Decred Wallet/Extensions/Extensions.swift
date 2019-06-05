@@ -24,23 +24,6 @@ extension NSDecimalNumber {
     }
 }
 
-extension UITableViewCell {
-    func blink() {
-        UITableViewCell.animate(
-            withDuration: 0.5,
-            delay: 0.0,
-            options: [.showHideTransitionViews, .autoreverse, .repeat],
-            animations: { [weak self] in self?.alpha = 0.0 },
-            completion: { [weak self] _ in self?.alpha = 1.0 }
-        )
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            [weak self] in
-            self?.layer.removeAllAnimations()
-        }
-    }
-}
-
 extension UIButton {
     func set(fontSize: CGFloat, name : String) {
         if let titleLabel = titleLabel {
