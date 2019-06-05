@@ -339,9 +339,6 @@
                                     <constraint firstItem="c0d-2Z-wlh" firstAttribute="width" secondItem="Je2-ms-0XC" secondAttribute="width" id="wgw-0S-EcR"/>
                                     <constraint firstItem="c0d-2Z-wlh" firstAttribute="centerX" secondItem="Je2-ms-0XC" secondAttribute="centerX" id="xe4-FG-X11"/>
                                 </constraints>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="ZUl-m5-HFt" appends="YES" id="EvI-uL-ERk"/>
-                                </connections>
                             </view>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="testnet" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hRj-cn-ZPx">
                                 <rect key="frame" x="158" y="350.5" width="59" height="20.5"/>
@@ -376,11 +373,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="abl-tj-8Do" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer numberOfTapsRequired="2" id="ZUl-m5-HFt">
-                    <connections>
-                        <action selector="animatedLogoTap:" destination="BLx-jo-l82" id="USm-5h-K0b"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-858.39999999999998" y="-53.523238380809602"/>
         </scene>

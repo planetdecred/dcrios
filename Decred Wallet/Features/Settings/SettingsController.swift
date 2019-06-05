@@ -178,109 +178,69 @@ class SettingsController: UITableViewController  {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (indexPath.section != 0) {
-            return
-        }
-        
-        switch indexPath.row {
-        case 0: // change spending pin/password
-            SpendingPinOrPassword.change(sender: self)
-            
-        case 1: // enable/disable startup pin/password
-            if (start_Pin.isOn) {
-                StartupPinOrPassword.clear(sender: self, completion: self.checkStartupSecurity)
-            } else {
-                StartupPinOrPassword.set(sender: self, completion: self.checkStartupSecurity)
-            }
-            
-        case 2: // change startup pin/password
-            StartupPinOrPassword.change(sender: self, completion: self.checkStartupSecurity)
-            
-        default:
-            break
-        }
-    }
-    
-    @IBAction func deleteWallet(_ sender: Any) {
-        if SpendingPinOrPassword.currentSecurityType() == "PASSWORD" {
-            let alert = UIAlertController(title: "Delete Wallet", message: "Please enter spending password of your wallet", preferredStyle: .alert)
-            alert.addTextField { textField in
-                textField.placeholder = "password"
-                textField.isSecureTextEntry = true
-            }
-
-            let okAction = UIAlertAction(title: "Proceed", style: .default) { _ in
-                let tfPasswd = alert.textFields![0] as UITextField
-                if (tfPasswd.text?.count)! > 0 {
-                    self.handleDeleteWallet(pass: tfPasswd.text!)
-                    alert.dismiss(animated: false, completion: nil)
-                } else {
-                    alert.dismiss(animated: false, completion: nil)
-                    self.showAlert(message: "Password can't be empty.", title: "invalid input")
-                }
-            }
-
-            let CancelAction = UIAlertAction(title: "Cancel", style: .default) { _ in
-                alert.dismiss(animated: false, completion: nil)
-            }
-            alert.addAction(CancelAction)
-            alert.addAction(okAction)
-
-            self.present(alert, animated: true, completion: nil)
-        } else {
-            let requestPinVC = RequestPinViewController.instantiate()
-            requestPinVC.securityFor = "Spending"
-            requestPinVC.showCancelButton = true
-            requestPinVC.onUserEnteredPin = { pin in
-                self.handleDeleteWallet(pass: pin)
-            }
-            self.present(requestPinVC, animated: true, completion: nil)
-        }
-    }
-    
-    private func showAlert(message: String? , title: String?) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default) { _ in
-            alert.dismiss(animated: true, completion: nil)
-        }
-        alert.addAction(okAction)
-        
-        DispatchQueue.main.async {
-            self.present(alert, animated: true, completion: nil)
-        }
-    }
-    
-    func handleDeleteWallet(pass: String){
-        let progressHud = Utils.showProgressHud(withText: "Deleting wallet...")
-        let wallet = AppDelegate.walletLoader.wallet!
-        
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            guard let this = self else { return }
-            
-            do {
-                try wallet.unlock(pass.utf8Bits)
-                wallet.shutdown(true)
-
-                let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-                let walletDir = paths[0].appendingPathComponent("dcrlibwallet")
-                try FileManager.default.removeItem(at: walletDir)
+        if indexPath.section == 0 {
+            switch indexPath.row {
+            case 0: // change spending pin/password
+                SpendingPinOrPassword.change(sender: self)
                 
-                DispatchQueue.main.async {
-                    progressHud.dismiss()
-                    this.walletDeleted()
+            case 1: // enable/disable startup pin/password
+                if (start_Pin.isOn) {
+                    StartupPinOrPassword.clear(sender: self, completion: self.checkStartupSecurity)
+                } else {
+                    StartupPinOrPassword.set(sender: self, completion: self.checkStartupSecurity)
                 }
-            } catch {
-                DispatchQueue.main.async {
-                    progressHud.dismiss()
-                    let alertController = UIAlertController(title: "", message: "Passphrase was not valid.", preferredStyle: UIAlertController.Style.alert)
-                    alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-                    this.present(alertController, animated: true, completion: nil)
+                
+            case 2: // change startup pin/password
+                StartupPinOrPassword.change(sender: self, completion: self.checkStartupSecurity)
+                
+            default:
+                break
+            }
+        } else if indexPath.section == 3 && indexPath.row == 0 {
+            // rescan blockchain
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowDeleteWalletConfirmationDialog" {
+            let deleteWalletDialog = segue.destination as! DeleteWalletConfirmationViewController
+            deleteWalletDialog.onDeleteWalletConfirmed = { password in
+                if password != nil {
+                    self.deleteWallet(spendingPinOrPassword: password!)
+                    return
                 }
+                
+                let requestPinVC = RequestPinViewController.instantiate()
+                requestPinVC.securityFor = "Spending"
+                requestPinVC.showCancelButton = true
+                requestPinVC.onUserEnteredPin = { pin in
+                    self.deleteWallet(spendingPinOrPassword: pin)
+                }
+                self.present(requestPinVC, animated: true, completion: nil)
             }
         }
     }
     
-    // Clears values stored in UserDefaults and restarts the app when wallet is deleted.
+    func deleteWallet(spendingPinOrPassword: String) {
+        let progressHud = Utils.showProgressHud(withText: "Deleting wallet...")
+        DispatchQueue.global(qos: .background).async {
+            do {
+                try AppDelegate.walletLoader.wallet?.delete(spendingPinOrPassword.utf8Bits)
+                DispatchQueue.main.async {
+                    progressHud.dismiss()
+                    self.walletDeleted()
+                }
+            } catch let error {
+                DispatchQueue.main.async {
+                    progressHud.dismiss()
+                }
+                print("delete wallet error: \(error.localizedDescription)")
+                self.showOkAlert(message: "Failed to delete wallet.", title: "Error")
+            }
+        }
+    }
+    
+    // Clear values stored in UserDefaults and restart the app when wallet is deleted.
     func walletDeleted() {
         UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
         UserDefaults.standard.synchronize()
