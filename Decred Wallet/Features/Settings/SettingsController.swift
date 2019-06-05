@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import JGProgressHUD
+import Dcrlibwallet
 
 class SettingsController: UITableViewController  {
     @IBOutlet weak var changeStartPINCell: UITableViewCell!
@@ -224,6 +225,23 @@ class SettingsController: UITableViewController  {
             }
         } else if indexPath.section == 3 && indexPath.row == 0 {
             // rescan blockchain
+            self.showOkAlert(message: "Are you sure? This could take some time.",
+                             title: "Rescan Blockchain",
+                             onPressOk: self.rescanBlocks,
+                             addCancelAction: true)
+        }
+    }
+    
+    func rescanBlocks() {
+        do {
+            try AppDelegate.walletLoader.wallet?.rescanBlocks()
+            self.displayToast("Check progress in navigation bar.")
+        } catch let error {
+            var errorMessage = error.localizedDescription
+            if errorMessage == DcrlibwalletErrInvalid {
+                errorMessage = "Wallet is already rescanning, check progress in navigation bar."
+            }
+            self.showOkAlert(message: errorMessage, title: "Rescan failed")
         }
     }
     

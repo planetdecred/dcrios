@@ -217,11 +217,18 @@ extension NavigationMenuViewController: SyncProgressListenerProtocol {
     }
     
     func onHeadersRescanProgress(_ progressReport: DcrlibwalletHeadersRescanProgressReport) {
-        self.handleGeneralProgressReport(progressReport.generalSyncProgress!)
-        
         self.syncStatusLabel.text = "Scanning blocks."
-        self.bestBlockLabel.text = "\(progressReport.generalSyncProgress!.totalSyncProgress)% completed, \(progressReport.generalSyncProgress!.totalTimeRemaining) left."
         self.bestBlockAgeLabel.text = ""
+        
+        if progressReport.generalSyncProgress == nil {
+            // generalSyncProgress is nil during rescan.
+            self.refreshBestBlockAgeTimer?.invalidate()
+            self.bestBlockLabel.text = "\(progressReport.rescanProgress)% completed, \(progressReport.timeRemaining) left."
+            return
+        }
+        
+        self.handleGeneralProgressReport(progressReport.generalSyncProgress!)
+        self.bestBlockLabel.text = "\(progressReport.generalSyncProgress!.totalSyncProgress)% completed, \(progressReport.generalSyncProgress!.totalTimeRemaining) left."
     }
     
     func handleGeneralProgressReport(_ generalProgress: DcrlibwalletGeneralSyncProgress) {
