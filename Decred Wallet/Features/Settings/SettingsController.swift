@@ -11,7 +11,6 @@ import JGProgressHUD
 
 class SettingsController: UITableViewController  {
     @IBOutlet weak var changeStartPINCell: UITableViewCell!
-    @IBOutlet weak var peer_cell: UIView!
     @IBOutlet weak var connectPeer_cell: UITableViewCell!
     @IBOutlet weak var server_cell: UITableViewCell!
     @IBOutlet weak var certificate_cell: UITableViewCell!
@@ -36,8 +35,6 @@ class SettingsController: UITableViewController  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadDate()
-        
         self.spend_uncon_fund.addTarget(self, action: #selector(switchChanged), for: UIControl.Event.valueChanged)
         self.incoming_notification_switch.addTarget(self, action: #selector(switchChanged), for: UIControl.Event.valueChanged)
         self.cellularSyncSwitch.addTarget(self, action: #selector(switchChanged), for: UIControl.Event.valueChanged)
@@ -80,7 +77,7 @@ class SettingsController: UITableViewController  {
         connect_peer_ip?.text = Settings.readOptionalValue(for: Settings.Keys.SPVPeerIP) ?? ""
         server_ip?.text = UserDefaults.standard.string(forKey: "pref_server_ip") ?? ""
         
-        loadDate()
+        loadSettingsData()
         self.checkStartupSecurity()
 
         if Settings.networkMode == 0 {
@@ -119,7 +116,7 @@ class SettingsController: UITableViewController  {
         })
     }
     
-    func loadDate() -> Void {
+    func loadSettingsData() -> Void {
         version?.text = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String
         
         let dateformater = DateFormatter()
@@ -162,18 +159,53 @@ class SettingsController: UITableViewController  {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0 && indexPath.row == 2 {
-            // only show section 1, row 3 (change startup pin/password) if startup pin is on
-            return start_Pin.isOn ? 44 : 0
+        let isWalletOpen = AppDelegate.walletLoader.wallet?.walletOpened() ?? false
+        
+        if indexPath.section == 0 {
+            switch indexPath.row {
+            case 0: // change spending pin/password, requires wallet to be opened.
+                return isWalletOpen ? 44 : 0
+                
+            case 1: // enable startup pin/password, requires wallet to be opened.
+                return isWalletOpen ? 44 : 0
+                
+            case 2: // change startup pin/password, requires wallet to be opened and startup pin to have been enabled previously.
+                return isWalletOpen && start_Pin.isOn ? 44 : 0
+                
+            default:
+                return 44
+            }
         }
-        if indexPath.section == 1 && indexPath.row == 1 {
-            // only show section 2, row 2 (connect to peer) if network mode is SPV (0)
-            return Settings.networkMode == 0 ? 44 : 0
+        
+        if indexPath.section == 1 {
+            switch indexPath.row {
+            case 1: // connect to peer, only show if network mode is SPV (0).
+                 return Settings.networkMode == 0 ? 44 : 0
+                
+            case 2, 3: // server address and certificate options, only show if network mode is full node (1).
+                return Settings.networkMode == 1 ? 44 : 0
+                
+            default:
+                return 44
+            }
         }
-        if indexPath.section == 1 && (indexPath.row == 2 || indexPath.row == 3) {
-            // only show section 2, rows 3 (server address) and 4 (certificate) if network mode is full node (1)
-            return Settings.networkMode == 1 ? 44 : 0
+        
+        if indexPath.section == 3 && indexPath.row == 2 {
+            // delete wallet option, temporarily hide
+            // todo -> remove this if statement once the delete wallet feature is completed without bugs.
+            return 0
         }
+        
+        if indexPath.section == 3 {
+            switch indexPath.row {
+            case 0, 2: // rescan blockchain and delete wallet options, requires wallet to be opened.
+                return isWalletOpen ? 44 : 0
+                
+            default:
+                return 44
+            }
+        }
+        
         return 44
     }
     
