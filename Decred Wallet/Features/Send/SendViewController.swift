@@ -206,6 +206,9 @@ class SendViewController: UIViewController {
             return "\(account.Name) [\(spendableBalance.round(8).formattedWithSeparator)]"
         })
         self.sourceAccountDropdown.initMenu(accountDropdownItems) { selectedAccountIndex, _ in
+            if self.sendMaxAmount {
+                self.calculateAndDisplayMaxSendableAmount()
+            }
             self.displayTransactionSummary()
         }
         self.destinationAccountDropdown.initMenu(accountDropdownItems)
@@ -242,6 +245,10 @@ class SendViewController: UIViewController {
     }
     
     @IBAction func sendMaxTap(_ sender: Any) {
+        self.calculateAndDisplayMaxSendableAmount()
+    }
+    
+    func calculateAndDisplayMaxSendableAmount() {
         let sourceAccount = self.walletAccounts[self.sourceAccountDropdown.selectedItemIndex]
         if sourceAccount.Balance?.Spendable == 0 {
             // nothing to send
