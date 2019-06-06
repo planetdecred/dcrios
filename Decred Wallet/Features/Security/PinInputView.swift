@@ -11,7 +11,7 @@ import UIKit
 class PinInputView: UIView {
     static let spacingBetweenPinCircles: CGFloat = 10.0
     static let circleBorderSizeFactor: CGFloat = 0.15
-    static let maxNumberOfPinCircles = 5
+    static let defaultCircleDiameter: CGFloat = 30.0
     
     var maxNumberOfDigits: Int = Int(LONG_MAX)
     
@@ -20,6 +20,17 @@ class PinInputView: UIView {
             self.subviews.forEach{ $0.removeFromSuperview() }
             self.setNeedsDisplay()
         }
+    }
+    
+    var pinCircleDiameter: CGFloat {
+        let eachCircleDiameter = self.frame.height * 0.8
+        return eachCircleDiameter > PinInputView.defaultCircleDiameter ? PinInputView.defaultCircleDiameter : eachCircleDiameter
+    }
+    
+    var totalWidthRequiredToDisplayAllPinCircles: CGFloat {
+        let totalPinCircleWidths = CGFloat(self.pin.count) * self.pinCircleDiameter
+        let totalSpaceBetweenPins = CGFloat(self.pin.count - 1) * PinInputView.spacingBetweenPinCircles
+        return totalPinCircleWidths + totalSpaceBetweenPins
     }
     
     func append(digit: Int) -> String {
@@ -44,7 +55,7 @@ class PinInputView: UIView {
     }
     
     func drawCells(in frame: CGRect) {
-        if pin.count > PinInputView.maxNumberOfPinCircles {
+        if self.totalWidthRequiredToDisplayAllPinCircles > frame.width {
             self.drawPinLabel(in: frame)
         } else {
             self.drawPinCircles(in: frame)
@@ -64,18 +75,10 @@ class PinInputView: UIView {
     }
     
     func drawPinCircles(in frame: CGRect) {
-        let maxWidthPerCircle = frame.width / CGFloat(PinInputView.maxNumberOfPinCircles)
-        
-        var eachCircleDiameter = frame.height * 0.8
-        if eachCircleDiameter > maxWidthPerCircle {
-            eachCircleDiameter = maxWidthPerCircle
-        }
+        let eachCircleDiameter = self.pinCircleDiameter
         
         // calculate x pos for first pin circle
-        let totalPinCircleWidths = CGFloat(self.pin.count) * eachCircleDiameter
-        let totalSpaceBetweenPins = CGFloat(self.pin.count - 1) * PinInputView.spacingBetweenPinCircles
-        let totalPinCircleWidthPlusSpacing = totalPinCircleWidths + totalSpaceBetweenPins
-        var nextXPos = (frame.width - totalPinCircleWidthPlusSpacing) / 2
+        var nextXPos = (frame.width - self.totalWidthRequiredToDisplayAllPinCircles) / 2
         
         for _ in 0..<pin.count {
             self.drawPinCircle(in: frame, xPos: nextXPos, diameter: eachCircleDiameter)
