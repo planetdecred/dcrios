@@ -199,8 +199,13 @@ extension Syncer: DcrlibwalletSyncProgressListenerProtocol {
     }
     
     func onHeadersRescanProgress(_ headersRescanProgress: DcrlibwalletHeadersRescanProgressReport?) {
-        self.currentSyncOp = .RescanningHeaders
-        self.currentSyncOpProgress = headersRescanProgress
+        if !AppDelegate.walletLoader.wallet!.isScanning() {
+            // Do not set current sync op for blocks rescan.
+            // Ideally, blocks rescan should notify a different callback than sync - rescan stage.
+            self.currentSyncOp = .RescanningHeaders
+            self.currentSyncOpProgress = headersRescanProgress
+        }
+        
         self.forEachSyncListener({ syncListener in syncListener.onHeadersRescanProgress(headersRescanProgress!) })
     }
     
