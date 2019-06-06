@@ -217,11 +217,18 @@ extension NavigationMenuViewController: SyncProgressListenerProtocol {
     }
     
     func onHeadersRescanProgress(_ progressReport: DcrlibwalletHeadersRescanProgressReport) {
-        self.handleGeneralProgressReport(progressReport.generalSyncProgress!)
-        
         self.syncStatusLabel.text = "Scanning blocks."
-        self.bestBlockLabel.text = "\(progressReport.generalSyncProgress!.totalSyncProgress)% completed, \(progressReport.generalSyncProgress!.totalTimeRemaining) left."
         self.bestBlockAgeLabel.text = ""
+        
+        if progressReport.generalSyncProgress == nil {
+            // generalSyncProgress is nil during rescan.
+            self.refreshBestBlockAgeTimer?.invalidate()
+            self.bestBlockLabel.text = "\(progressReport.rescanProgress)% completed, \(progressReport.timeRemaining) left."
+            return
+        }
+        
+        self.handleGeneralProgressReport(progressReport.generalSyncProgress!)
+        self.bestBlockLabel.text = "\(progressReport.generalSyncProgress!.totalSyncProgress)% completed, \(progressReport.generalSyncProgress!.totalTimeRemaining) left."
     }
     
     func handleGeneralProgressReport(_ generalProgress: DcrlibwalletGeneralSyncProgress) {
@@ -274,6 +281,10 @@ extension NavigationMenuViewController: NewBlockNotificationProtocol, NewTransac
     }
     
     func updateLatestBlockInfo() {
+        if AppDelegate.walletLoader.wallet!.isScanning() {
+            return
+        }
+        
         if self.refreshBestBlockAgeTimer != nil {
             self.refreshBestBlockAgeTimer?.invalidate()
         }
@@ -287,6 +298,10 @@ extension NavigationMenuViewController: NewBlockNotificationProtocol, NewTransac
     }
     
     func setBestBlockAge() {
+        if AppDelegate.walletLoader.wallet!.isScanning() {
+            return
+        }
+        
         let bestBlockAge = Int64(Date().timeIntervalSince1970) - AppDelegate.walletLoader.wallet!.getBestBlockTimeStamp()
         
         switch bestBlockAge {

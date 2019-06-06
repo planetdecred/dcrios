@@ -39,6 +39,16 @@ extension DcrlibwalletHeadersFetchProgressReport {
     }
 }
 
+extension DcrlibwalletHeadersRescanProgressReport {
+    var timeRemaining: String {
+        let minutes = self.rescanTimeRemaining / 60
+        if minutes > 0 {
+            return "\(minutes) min"
+        }
+        return "\(self.rescanTimeRemaining) sec"
+    }
+}
+
 extension DcrlibwalletLibWallet {
     func walletAccounts(confirmations: Int32) -> [WalletAccount] {
         do {
