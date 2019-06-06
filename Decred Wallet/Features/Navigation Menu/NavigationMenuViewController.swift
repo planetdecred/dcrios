@@ -338,10 +338,6 @@ extension NavigationMenuViewController: NewBlockNotificationProtocol, NewTransac
     }
     
     func updateBalance() {
-        if AppDelegate.walletLoader.wallet!.isScanning() {
-            return
-        }
-        
         let totalWalletBalance = AppDelegate.walletLoader.wallet?.totalWalletBalance()
         let totalAmountRoundedOff = (Decimal(totalWalletBalance ?? 0) as NSDecimalNumber).round(8)
         self.totalBalanceAmountLabel.attributedText = Utils.getAttributedString(str: "\(totalAmountRoundedOff)", siz: 12.0, TexthexColor: GlobalConstants.Colors.TextAmount)
