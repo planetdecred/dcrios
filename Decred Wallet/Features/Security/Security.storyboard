@@ -264,10 +264,9 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4YA-nq-sBC" customClass="PinInputView" customModule="Decred_Wallet" customModuleProvider="target">
-                                <rect key="frame" x="107" y="114.5" width="200" height="30"/>
+                                <rect key="frame" x="20.5" y="114.5" width="373" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="Obr-AI-6yX"/>
                                     <constraint firstAttribute="height" constant="30" id="tTh-ef-kAt"/>
                                 </constraints>
                             </view>
@@ -576,6 +575,7 @@
                             <constraint firstItem="1CY-jq-OSD" firstAttribute="centerX" secondItem="MZP-zs-4TF" secondAttribute="centerX" id="WKm-0f-0Jb"/>
                             <constraint firstItem="aau-sy-kMa" firstAttribute="top" secondItem="rJT-9u-LTj" secondAttribute="bottom" constant="6" id="gJ0-6h-YEL"/>
                             <constraint firstItem="CY7-XY-0kP" firstAttribute="leading" secondItem="hEG-La-4vV" secondAttribute="leading" constant="18" id="m4z-Wu-q6n"/>
+                            <constraint firstItem="4YA-nq-sBC" firstAttribute="width" secondItem="MZP-zs-4TF" secondAttribute="width" multiplier="0.9" id="wPN-Nu-cqq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="hEG-La-4vV"/>
                     </view>
