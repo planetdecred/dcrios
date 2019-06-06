@@ -193,8 +193,8 @@ class SettingsController: UITableViewController  {
         
         if indexPath.section == 3 {
             switch indexPath.row {
-            case 0, 2: // rescan blockchain and delete wallet options, temporarily hidden.
-                return  0
+            case 0, 2: // rescan blockchain and delete wallet options, requires wallet to be opened.
+                return isWalletOpen ? 44 : 0
                 
             default:
                 return 44
