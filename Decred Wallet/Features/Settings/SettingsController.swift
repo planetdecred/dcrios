@@ -233,6 +233,11 @@ class SettingsController: UITableViewController  {
     }
     
     func rescanBlocks() {
+        if AppDelegate.walletLoader.wallet!.isSyncing() {
+            self.showOkAlert(message: "Sync is in progress. Please wait for sync to complete.")
+            return
+        }
+        
         do {
             try AppDelegate.walletLoader.wallet?.rescanBlocks()
             self.displayToast("Check progress in navigation bar.")
