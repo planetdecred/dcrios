@@ -158,11 +158,9 @@ class NavigationMenuViewController: UIViewController {
         self.navMenuTableView.reloadData()
     }
     
-    func invalidateSyncTimer() {
-        if self.refreshBestBlockAgeTimer != nil {
+    func stopRefreshingBestBlockAge() {
             self.refreshBestBlockAgeTimer?.invalidate()
             self.refreshBestBlockAgeTimer = nil
-        }
     }
 }
 
@@ -182,7 +180,7 @@ extension NavigationMenuViewController: SyncProgressListenerProtocol {
     func restartSync() {
         AppDelegate.walletLoader.syncer.restartSync()
         
-        self.invalidateSyncTimer()
+        self.stopRefreshingBestBlockAge()
         
         self.resetSyncViews()
         self.syncStatusLabel.text = "Restarting sync..."

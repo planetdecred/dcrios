@@ -228,7 +228,6 @@ class SettingsController: UITableViewController  {
                 try AppDelegate.walletLoader.wallet?.delete(spendingPinOrPassword.utf8Bits)
                 DispatchQueue.main.async {
                     progressHud.dismiss()
-                    self.navigationMenuViewController()?.invalidateSyncTimer()
                     self.walletDeleted()
                 }
             } catch let error {
@@ -246,12 +245,10 @@ class SettingsController: UITableViewController  {
         UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
         UserDefaults.standard.synchronize()
         
-        UIApplication.shared.keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
-        
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-            let startScreen = Storyboards.Main.initialViewController()
-            appDelegate.setAndDisplayRootViewController(startScreen!)
-        }
+        // Stop calling wallet.bestBlockTimestamp() to update the best block age displayed on nav menu.
+        self.navigationMenuViewController()?.stopRefreshingBestBlockAge()
+        let startScreen = Storyboards.Main.initialViewController()
+        AppDelegate.shared.setAndDisplayRootViewController(startScreen!)
     }
     
     static func instantiate() -> Self {
