@@ -389,15 +389,15 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="Ueu-5f-GC2" style="IBUITableViewCellStyleDefault" id="Gix-aN-UGp">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="Ueu-5f-GC2" style="IBUITableViewCellStyleDefault" id="Gix-aN-UGp">
                                         <rect key="frame" x="0.0" y="739.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Gix-aN-UGp" id="V0j-jL-VA6">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="License" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ueu-5f-GC2">
-                                                    <rect key="frame" x="16" y="0.0" width="343" height="43.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="324" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -405,6 +405,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="Cns-Nt-A7b" kind="show" id="reF-Lt-yPv"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -455,7 +458,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Delete Wallet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dgz-JW-F6y">
-                                                    <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="343" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -988,10 +991,10 @@
             </objects>
             <point key="canvasLocation" x="1174" y="3262"/>
         </scene>
-        <!--View Controller-->
+        <!--License View Controller-->
         <scene sceneID="9s4-41-09s">
             <objects>
-                <viewController id="Cns-Nt-A7b" sceneMemberID="viewController">
+                <viewController id="Cns-Nt-A7b" customClass="LicenseViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="X29-bW-YZ2"/>
                         <viewControllerLayoutGuide type="bottom" id="yxq-Qp-yr1"/>
@@ -1001,9 +1004,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SHI-Ki-b6K">
-                                <rect key="frame" x="16" y="28" width="343" height="619"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <mutableString key="text">ISC License
+                                <string key="text">ISC License
 
 Copyright (c) 2018-2019 The Decred developers
 
@@ -1017,23 +1020,23 @@ MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
 ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
 WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
 ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
-OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.</mutableString>
+OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="SHI-Ki-b6K" firstAttribute="top" secondItem="X29-bW-YZ2" secondAttribute="bottom" constant="8" id="GqQ-kZ-FLw"/>
-                            <constraint firstItem="yxq-Qp-yr1" firstAttribute="top" secondItem="SHI-Ki-b6K" secondAttribute="bottom" constant="20" id="c8K-CQ-iXp"/>
-                            <constraint firstItem="SHI-Ki-b6K" firstAttribute="leading" secondItem="qhM-Z2-NsZ" secondAttribute="leadingMargin" id="f2j-Fj-U69"/>
-                            <constraint firstItem="SHI-Ki-b6K" firstAttribute="trailing" secondItem="qhM-Z2-NsZ" secondAttribute="trailingMargin" id="xlI-vb-jLR"/>
+                            <constraint firstItem="SHI-Ki-b6K" firstAttribute="centerY" secondItem="qhM-Z2-NsZ" secondAttribute="centerY" id="BWI-A0-LWk"/>
+                            <constraint firstItem="SHI-Ki-b6K" firstAttribute="width" secondItem="qhM-Z2-NsZ" secondAttribute="width" id="V7v-Dk-OZ8"/>
+                            <constraint firstItem="SHI-Ki-b6K" firstAttribute="centerX" secondItem="qhM-Z2-NsZ" secondAttribute="centerX" id="bkE-aE-cIt"/>
+                            <constraint firstItem="SHI-Ki-b6K" firstAttribute="height" secondItem="qhM-Z2-NsZ" secondAttribute="height" id="r9H-dR-4ME"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7cc-vA-GHv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1122" y="2803"/>
+            <point key="canvasLocation" x="-358" y="2858"/>
         </scene>
     </scenes>
 </document>
