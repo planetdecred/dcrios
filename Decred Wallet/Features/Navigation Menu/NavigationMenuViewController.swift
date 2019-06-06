@@ -124,7 +124,7 @@ class NavigationMenuViewController: UIViewController {
     
     func syncNotStartedDueToNetwork() {
         AppDelegate.walletLoader.syncer.deRegisterSyncProgressListener(for: "\(self)")
-        AppDelegate.walletLoader.wallet?.cancelSync(false) // Cancel any previous/ongoing sync process without losing peers.
+        AppDelegate.walletLoader.wallet?.cancelSync()
         
         // Allow 0.5 seconds for sync cancellation to complete before setting up wallet.
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -157,6 +157,11 @@ class NavigationMenuViewController: UIViewController {
         self.slideMenuController()?.changeMainViewController(self.currentMenuItem.viewController, close: true)
         self.navMenuTableView.reloadData()
     }
+    
+    func stopRefreshingBestBlockAge() {
+            self.refreshBestBlockAgeTimer?.invalidate()
+            self.refreshBestBlockAgeTimer = nil
+    }
 }
 
 extension NavigationMenuViewController: SyncProgressListenerProtocol {
@@ -175,10 +180,7 @@ extension NavigationMenuViewController: SyncProgressListenerProtocol {
     func restartSync() {
         AppDelegate.walletLoader.syncer.restartSync()
         
-        if self.refreshBestBlockAgeTimer != nil {
-            self.refreshBestBlockAgeTimer?.invalidate()
-            self.refreshBestBlockAgeTimer = nil
-        }
+        self.stopRefreshingBestBlockAge()
         
         self.resetSyncViews()
         self.syncStatusLabel.text = "Restarting sync..."

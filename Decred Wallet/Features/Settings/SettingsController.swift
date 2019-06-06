@@ -271,12 +271,11 @@ class SettingsController: UITableViewController  {
         UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
         UserDefaults.standard.synchronize()
         
-        UIApplication.shared.keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
+        // Stop calling wallet.bestBlockTimestamp() to update the best block age displayed on nav menu.
+        self.navigationMenuViewController()?.stopRefreshingBestBlockAge()
         
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-            let startScreen = Storyboards.Main.initialViewController()
-            appDelegate.setAndDisplayRootViewController(startScreen!)
-        }
+        let startScreen = Storyboards.Main.initialViewController()
+        AppDelegate.shared.setAndDisplayRootViewController(startScreen!)
     }
     
     static func instantiate() -> Self {
