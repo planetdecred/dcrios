@@ -281,6 +281,10 @@ extension NavigationMenuViewController: NewBlockNotificationProtocol, NewTransac
     }
     
     func updateLatestBlockInfo() {
+        if AppDelegate.walletLoader.wallet!.isScanning() {
+            return
+        }
+        
         if self.refreshBestBlockAgeTimer != nil {
             self.refreshBestBlockAgeTimer?.invalidate()
         }
@@ -294,6 +298,10 @@ extension NavigationMenuViewController: NewBlockNotificationProtocol, NewTransac
     }
     
     func setBestBlockAge() {
+        if AppDelegate.walletLoader.wallet!.isScanning() {
+            return
+        }
+        
         let bestBlockAge = Int64(Date().timeIntervalSince1970) - AppDelegate.walletLoader.wallet!.getBestBlockTimeStamp()
         
         switch bestBlockAge {
@@ -330,6 +338,10 @@ extension NavigationMenuViewController: NewBlockNotificationProtocol, NewTransac
     }
     
     func updateBalance() {
+        if AppDelegate.walletLoader.wallet!.isScanning() {
+            return
+        }
+        
         let totalWalletBalance = AppDelegate.walletLoader.wallet?.totalWalletBalance()
         let totalAmountRoundedOff = (Decimal(totalWalletBalance ?? 0) as NSDecimalNumber).round(8)
         self.totalBalanceAmountLabel.attributedText = Utils.getAttributedString(str: "\(totalAmountRoundedOff)", siz: 12.0, TexthexColor: GlobalConstants.Colors.TextAmount)
