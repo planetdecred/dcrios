@@ -21,6 +21,8 @@ class Settings {
         static let SpendUnconfirmed = "pref_spend_unconfirmed"
         static let CurrencyConversionOption = "currency_conversion_option"
         static let NetworkMode = "network_mode"
+        
+        static let LastTxHash = "last_tx_hash"
     }
     
     static func readValue<T>(for key: String) -> T {

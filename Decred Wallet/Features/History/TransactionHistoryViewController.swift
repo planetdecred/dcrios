@@ -69,73 +69,40 @@ class TransactionHistoryViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
         self.prepareRecent()
     }
     
-    func prepareRecent(){
+    func prepareRecent() {
         self.mainContens.removeAll()
         self.Filtercontent.removeAll()
-        DispatchQueue.global(qos: .background).async {
-            do {
-                var getTxsError: NSError?
-                // use limit = 0 to return all transactions
-                let jsonResponse = AppDelegate.walletLoader.wallet?.getTransactions(0, error: &getTxsError)
-                if getTxsError != nil {
-                    throw getTxsError!
-                }
-                self.onResult(jsonResponse)
-                DispatchQueue.main.async {
-                    self.refreshControl.endRefreshing()
-                }
-            } catch let Error {
-                DispatchQueue.main.async {
-                    self.refreshControl.endRefreshing()
-                }
-                print(Error)
+        
+        // use count = 0 to return all transactions
+        AppDelegate.walletLoader.wallet?.transactionHistory(count: 0) { transactions in
+            self.refreshControl.endRefreshing()
+            
+            if transactions == nil || transactions!.count == 0 {
+                self.showNoTransactions()
+                return
             }
+            
+            self.mainContens = transactions!
+            self.Filtercontent = self.mainContens
+    
+            self.tableView.backgroundView = nil
+            self.tableView.separatorStyle = .singleLine
+            self.tableView.reloadData()
+            
+            self.updateDropdown()
         }
     }
     
-    func onResult(_ json: String?) {
-        if (self.visible == false) {
-            return
-        }
-        
-        DispatchQueue.main.async { [weak self] in
-            guard let this = self else { return }
-            do {
-                let transactions = try JSONDecoder().decode([Transaction].self, from: (json?.data(using: .utf8)!)!)
-                if transactions.count > 0 {
-                    this.tableView.backgroundView = nil
-                    this.tableView.separatorStyle = .singleLine
-                    
-                    this.Filtercontent.removeAll()
-                    
-                    this.mainContens = transactions
-                    this.Filtercontent = this.mainContens
-                    
-                    this.tableView.reloadData()
-                } else {
-                    let label = UILabel(frame: CGRect(x: 0, y: 0, width: this.tableView.bounds.size.width, height: this.tableView.bounds.size.height))
-                    label.text = "No Transactions"
-                    label.textAlignment = .center
-                    this.tableView.backgroundView = label
-                    this.tableView.separatorStyle = .none
-                }
-                
-                this.btnFilter.items.removeAll()
-                this.updateDropdown()
-            } catch let error {
-                print("onresult error")
-                print(error)
-            }
-        }
+    func showNoTransactions() {
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: self.tableView.bounds.size.width, height: self.tableView.bounds.size.height))
+        label.text = "No Transactions"
+        label.textAlignment = .center
+        self.tableView.backgroundView = label
+        self.tableView.separatorStyle = .none
     }
     
     func initFilterBtn() {
@@ -186,29 +153,34 @@ class TransactionHistoryViewController: UIViewController {
         let yourselfCount = self.mainContens.filter{$0.Direction == 2}.count
         let stakeCount = self.mainContens.filter{$0.Type.lowercased() != "Regular".lowercased()}.count
         let coinbaseCount = self.mainContens.filter{$0.Type == GlobalConstants.Strings.COINBASE}.count
-        self.filtertitle.removeAll()
+        
+        
+        self.btnFilter.items.removeAll()
         self.btnFilter.setTitle("All (".appending(String(self.Filtercontent.count)).appending(")"), for: .normal)
         self.btnFilter.items.append("All (".appending(String(self.Filtercontent.count)).appending(")"))
+        
+        self.filtertitle.removeAll()
         self.filtertitle.append(0)
-        if(sentCount != 0){
+        
+        if sentCount != 0 {
             self.btnFilter.items.append("Sent (".appending(String(sentCount)).appending(")"))
-            filtertitle.append(1)
+            self.filtertitle.append(1)
         }
-        if(ReceiveCount != 0){
+        if ReceiveCount != 0 {
             self.btnFilter.items.append("Received (".appending(String(ReceiveCount)).appending(")"))
-            filtertitle.append(2)
+            self.filtertitle.append(2)
         }
-        if(yourselfCount != 0){
+        if yourselfCount != 0 {
             self.btnFilter.items.append("Yourself (".appending(String(yourselfCount)).appending(")"))
-            filtertitle.append(3)
+            self.filtertitle.append(3)
         }
-        if(stakeCount != 0){
+        if stakeCount != 0 {
             self.btnFilter.items.append("Stake (".appending(String(stakeCount)).appending(")"))
-            filtertitle.append(4)
+            self.filtertitle.append(4)
         }
-        if(coinbaseCount != 0){
+        if coinbaseCount != 0 {
             self.btnFilter.items.append("Coinbase (".appending(String(coinbaseCount)).appending(")"))
-            filtertitle.append(5)
+            self.filtertitle.append(5)
         }
     }
 }
@@ -224,6 +196,24 @@ extension TransactionHistoryViewController: UITableViewDataSource, UITableViewDe
         return TransactionTableViewCell.height()
     }
     
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: TransactionTableViewCell.identifier) as! TransactionTableViewCell
+        if self.Filtercontent.count != 0 {
+            let transaction = Filtercontent[indexPath.row]
+            cell.setData(transaction)
+            return cell
+        }
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if self.Filtercontent[indexPath.row].Animate {
+            cell.blink()
+        }
+        self.Filtercontent[indexPath.row].Animate = false
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let storyboard = UIStoryboard(name: "TransactionFullDetailsViewController", bundle: nil)
         let subContentsVC = storyboard.instantiateViewController(withIdentifier: "TransactionFullDetailsViewController") as! TransactionFullDetailsViewController
@@ -233,16 +223,5 @@ extension TransactionHistoryViewController: UITableViewDataSource, UITableViewDe
         self.FromMenu = false
         subContentsVC.transaction = self.Filtercontent[indexPath.row]
         self.navigationController?.pushViewController(subContentsVC, animated: true)
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = self.tableView.dequeueReusableCell(withIdentifier: TransactionTableViewCell.identifier) as! TransactionTableViewCell
-        if self.Filtercontent.count != 0{
-            let transaction = Filtercontent[indexPath.row]
-            cell.setData(transaction)
-            return cell
-        }
-        
-        return cell
     }
 }
