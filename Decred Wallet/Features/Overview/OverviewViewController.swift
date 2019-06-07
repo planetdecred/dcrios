@@ -150,8 +150,10 @@ extension OverviewViewController: NewTransactionNotificationProtocol, ConfirmedT
     }
     
     func onTransactionConfirmed(_ hash: String?, height: Int32) {
-        self.updateCurrentBalance()
-        self.loadRecentActivity()
+        DispatchQueue.main.async {
+            self.updateCurrentBalance()
+            self.loadRecentActivity()
+        }
     }
 }
 

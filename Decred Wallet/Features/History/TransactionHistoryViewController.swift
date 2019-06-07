@@ -3,7 +3,7 @@
 //  Decred Wallet
 //
 // Copyright (c) 2018-2019 The Decred developers
-// Use of this source code is governed by an ISC
+// Use of self source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
 import UIKit
@@ -34,9 +34,12 @@ class TransactionHistoryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        initFilterBtn()
+        self.initFilterBtn()
         self.tableView.addSubview(self.refreshControl)
         self.tableView.register(UINib(nibName: TransactionTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: TransactionTableViewCell.identifier)
+
+        AppDelegate.walletLoader.notification.registerListener(for: "\(self)", newTxistener: self)
+        AppDelegate.walletLoader.notification.registerListener(for: "\(self)", confirmedTxListener: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -58,7 +61,7 @@ class TransactionHistoryViewController: UIViewController {
         self.visible = true
         if (self.FromMenu){
             refreshControl.showLoader(in: self.tableView)
-            prepareRecent()
+            loadTransactions()
             FromMenu = true
         }
     }
@@ -70,10 +73,10 @@ class TransactionHistoryViewController: UIViewController {
     }
     
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
-        self.prepareRecent()
+        self.loadTransactions()
     }
     
-    func prepareRecent() {
+    func loadTransactions() {
         self.mainContens.removeAll()
         self.Filtercontent.removeAll()
         
@@ -87,13 +90,9 @@ class TransactionHistoryViewController: UIViewController {
             }
             
             self.mainContens = transactions!
-            self.Filtercontent = self.mainContens
-    
             self.tableView.backgroundView = nil
             self.tableView.separatorStyle = .singleLine
-            self.tableView.reloadData()
-            
-            self.updateDropdown()
+            self.reloadTxsForCurrentFilter()
         }
     }
     
@@ -107,57 +106,66 @@ class TransactionHistoryViewController: UIViewController {
     
     func initFilterBtn() {
         self.btnFilter.initMenu(filterMenu) { [weak self] index, value in
-            guard let this = self else { return }
-            
-            switch(self?.filtertitle[index]){
-            case 1:
-                // TODO: Remove after next dcrlibwallet update
-                this.Filtercontent = this.mainContens.filter{$0.Direction == 0 && $0.Type == GlobalConstants.Strings.REGULAR}
-                this.btnFilter.setTitle("Sent (".appending(String(this.Filtercontent.count)).appending(")"), for: .normal)
-                this.tableView.reloadData()
-                break
-            case 2:
-                // TODO: Remove after next dcrlibwallet update
-                this.Filtercontent = this.mainContens.filter{$0.Direction == 1 && $0.Type == GlobalConstants.Strings.REGULAR}
-                this.btnFilter.setTitle("Received (".appending(String(this.Filtercontent.count)).appending(")"), for: .normal)
-                this.tableView.reloadData()
-                break
-            case 3:
-                // TODO: Remove after next dcrlibwallet update
-                this.Filtercontent = this.mainContens.filter{$0.Direction == 2 && $0.Type == GlobalConstants.Strings.REGULAR}
-                this.btnFilter.setTitle("Yourself (".appending(String(this.Filtercontent.count)).appending(")"), for: .normal)
-                this.tableView.reloadData()
-                break
-            case 4:
-                this.Filtercontent = this.mainContens.filter{$0.Type == GlobalConstants.Strings.REVOCATION || $0.Type == GlobalConstants.Strings.TICKET_PURCHASE || $0.Type == GlobalConstants.Strings.VOTE}
-                this.btnFilter.setTitle("Staking (".appending(String(this.Filtercontent.count)).appending(")"), for: .normal)
-                this.tableView.reloadData()
-                break
-            case 5:
-                this.Filtercontent = this.mainContens.filter{$0.Type == GlobalConstants.Strings.COINBASE}
-                this.btnFilter.setTitle("Coinbase (".appending(String(this.Filtercontent.count)).appending(")"), for: .normal)
-                this.tableView.reloadData()
-                break
-            default:
-                this.Filtercontent = this.mainContens
-                this.btnFilter.setTitle("All (".appending(String(this.Filtercontent.count)).appending(")"), for: .normal)
-                this.tableView.reloadData()
-            }
+            self?.applyTxFilter(currentFilter: self!.filtertitle[index])
         }
     }
     
+    func reloadTxsForCurrentFilter() {
+        var currentFilterItem = 0
+        if self.btnFilter.selectedItemIndex >= 0 && self.filtertitle.count > self.btnFilter.selectedItemIndex {
+            currentFilterItem = self.filtertitle[self.btnFilter.selectedItemIndex]
+        }
+        self.updateFilterDropdownItems()
+        self.applyTxFilter(currentFilter: currentFilterItem)
+    }
     
-    func updateDropdown() {
+    func applyTxFilter(currentFilter: Int) {
+        switch currentFilter {
+        case 1:
+            // TODO: Remove after next dcrlibwallet update
+            self.Filtercontent = self.mainContens.filter{$0.Direction == 0 && $0.Type == GlobalConstants.Strings.REGULAR}
+            self.btnFilter.setTitle("Sent (".appending(String(self.Filtercontent.count)).appending(")"), for: .normal)
+            self.tableView.reloadData()
+            break
+        case 2:
+            // TODO: Remove after next dcrlibwallet update
+            self.Filtercontent = self.mainContens.filter{$0.Direction == 1 && $0.Type == GlobalConstants.Strings.REGULAR}
+            self.btnFilter.setTitle("Received (".appending(String(self.Filtercontent.count)).appending(")"), for: .normal)
+            self.tableView.reloadData()
+            break
+        case 3:
+            // TODO: Remove after next dcrlibwallet update
+            self.Filtercontent = self.mainContens.filter{$0.Direction == 2 && $0.Type == GlobalConstants.Strings.REGULAR}
+            self.btnFilter.setTitle("Yourself (".appending(String(self.Filtercontent.count)).appending(")"), for: .normal)
+            self.tableView.reloadData()
+            break
+        case 4:
+            self.Filtercontent = self.mainContens.filter{$0.Type == GlobalConstants.Strings.REVOCATION || $0.Type == GlobalConstants.Strings.TICKET_PURCHASE || $0.Type == GlobalConstants.Strings.VOTE}
+            self.btnFilter.setTitle("Staking (".appending(String(self.Filtercontent.count)).appending(")"), for: .normal)
+            self.tableView.reloadData()
+            break
+        case 5:
+            self.Filtercontent = self.mainContens.filter{$0.Type == GlobalConstants.Strings.COINBASE}
+            self.btnFilter.setTitle("Coinbase (".appending(String(self.Filtercontent.count)).appending(")"), for: .normal)
+            self.tableView.reloadData()
+            break
+        default:
+            self.Filtercontent = self.mainContens
+            self.btnFilter.setTitle("All (".appending(String(self.Filtercontent.count)).appending(")"), for: .normal)
+            self.tableView.reloadData()
+        }
+    }
+    
+    func updateFilterDropdownItems() {
         let sentCount = self.mainContens.filter{$0.Direction == 0}.count
         let ReceiveCount = self.mainContens.filter{$0.Direction == 1}.count
         let yourselfCount = self.mainContens.filter{$0.Direction == 2}.count
         let stakeCount = self.mainContens.filter{$0.Type.lowercased() != "Regular".lowercased()}.count
         let coinbaseCount = self.mainContens.filter{$0.Type == GlobalConstants.Strings.COINBASE}.count
         
-        
         self.btnFilter.items.removeAll()
-        self.btnFilter.setTitle("All (".appending(String(self.Filtercontent.count)).appending(")"), for: .normal)
-        self.btnFilter.items.append("All (".appending(String(self.Filtercontent.count)).appending(")"))
+        self.btnFilter.setTitle("All (".appending(String(self.mainContens.count)).appending(")"), for: .normal)
+        self.btnFilter.items.append("All (".appending(String(self.mainContens.count)).appending(")"))
         
         self.filtertitle.removeAll()
         self.filtertitle.append(0)
@@ -185,7 +193,32 @@ class TransactionHistoryViewController: UIViewController {
     }
 }
 
-// MARK: - Table Delegates
+extension TransactionHistoryViewController: NewTransactionNotificationProtocol, ConfirmedTransactionNotificationProtocol {
+    func onTransaction(_ transaction: String?) {
+        var tx = try! JSONDecoder().decode(Transaction.self, from:(transaction!.utf8Bits))
+        
+        if self.mainContens.contains(where: { $0.Hash == tx.Hash }) {
+            // duplicate notification, tx is already being displayed in table
+            return
+        }
+        
+        tx.Animate = true
+        self.mainContens.insert(tx, at: 0)
+        
+        // Save hash for this tx as last viewed tx hash.
+        Settings.setValue(tx.Hash, for: Settings.Keys.LastTxHash)
+        
+        DispatchQueue.main.async {
+            self.reloadTxsForCurrentFilter()
+        }
+    }
+    
+    func onTransactionConfirmed(_ hash: String?, height: Int32) {
+        DispatchQueue.main.async {
+            self.loadTransactions()
+        }
+    }
+}
 
 extension TransactionHistoryViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -208,10 +241,12 @@ extension TransactionHistoryViewController: UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if self.Filtercontent[indexPath.row].Animate {
-            cell.blink()
+        if self.Filtercontent.count > indexPath.row {
+            if self.Filtercontent[indexPath.row].Animate {
+                cell.blink()
+            }
+            self.Filtercontent[indexPath.row].Animate = false
         }
-        self.Filtercontent[indexPath.row].Animate = false
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
