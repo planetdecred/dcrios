@@ -24,23 +24,32 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
     var superSuperView = UIView()
     var containerView = UIView()
     
+    var isDropDownOpen: Bool {
+        return self.containerView.alpha == 1
+    }
+    
     @objc func showItems()
     {
         listener?()
         fixLayout()
         
-        if (containerView.alpha) == 0
-        {
-            self.alpha = 0
-            layer.zPosition = 1
-            containerView.alpha = 1
+        if self.isDropDownOpen {
+            self.hideDropDown()
+        } else {
+            self.showDropDown()
         }
-        else
-        {
-            self.alpha = 1
-            containerView.alpha = 0
-            layer.zPosition = 0
-        }
+    }
+    
+    func showDropDown() {
+        self.alpha = 0
+        layer.zPosition = 1
+        containerView.alpha = 1
+    }
+    
+    func hideDropDown() {
+        self.alpha = 1
+        containerView.alpha = 0
+        layer.zPosition = 0
     }
     
     func initMenu(_ items: [String], actions: CallBack? = nil)
