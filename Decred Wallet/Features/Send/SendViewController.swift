@@ -295,6 +295,10 @@ class SendViewController: UIViewController {
     }
     
     @IBAction func sendButtonTapped(_ sender: Any) {
+        self.attemptSend()
+    }
+    
+    func attemptSend() {
         guard AppDelegate.walletLoader.isSynced else {
             self.showSendError("Please wait for network synchronization.")
             return
@@ -417,7 +421,15 @@ class SendViewController: UIViewController {
             } catch let error {
                 DispatchQueue.main.async {
                     progressHud.dismiss()
-                    self.showOkAlert(message: error.localizedDescription, title: "Error")
+                    
+                    if error.localizedDescription != DcrlibwalletErrInvalidPassphrase {
+                        self.showOkAlert(message: error.localizedDescription, title: "Error")
+                        return
+                    }
+                    
+                    let securityType = SpendingPinOrPassword.currentSecurityType()!.lowercased()
+                    let errorMessage = "You entered an incorrect \(securityType). Try again?"
+                    self.showOkAlert(message: errorMessage, title: "Failed to send transaction", okText: "Retry", onPressOk: self.attemptSend, addCancelAction: true)
                 }
             }
         }
