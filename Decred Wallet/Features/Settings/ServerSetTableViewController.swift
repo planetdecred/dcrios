@@ -18,7 +18,7 @@ class ServerSetTableViewController: UITableViewController {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
         self.navigationItem.title = "Server Address"
-        server_ip?.text = UserDefaults.standard.string(forKey: "pref_server_ip") ?? ""
+        server_ip?.text = Settings.readOptionalValue(for: Settings.Keys.RemoteServerIP) ?? ""
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -34,14 +34,12 @@ class ServerSetTableViewController: UITableViewController {
     @objc func save() -> Void {
         // save here
         if (server_ip.text?.isEmpty)! || (server_ip.text)! == ""{
-            UserDefaults.standard.set("", forKey: "pref_server_ip")
-            UserDefaults.standard.synchronize()
+            Settings.setValue("", for: Settings.Keys.RemoteServerIP)
             self.navigationController?.popViewController(animated: true)
             return
         }
         else if isValidIP(s: server_ip.text!){
-            UserDefaults.standard.set(server_ip.text, forKey: "pref_server_ip")
-            UserDefaults.standard.synchronize()
+            Settings.setValue(server_ip.text!, for: Settings.Keys.RemoteServerIP)
             self.navigationController?.popViewController(animated: true)
             return
         }

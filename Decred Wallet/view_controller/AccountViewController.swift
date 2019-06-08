@@ -106,7 +106,7 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
         
         let headerView = AccountsHeaderView.loadNib()
         let data = myBalances[section]
-        let hidden = UserDefaults.standard.bool(forKey: "hidden\(data.number)" )
+        let hidden = UserDefaults.standard.bool(forKey: "\(Settings.Keys.HiddenWallet)\(data.number)")
         if !(hidden){
             headerView.title = data.title
             headerView.sethidden(status: false)

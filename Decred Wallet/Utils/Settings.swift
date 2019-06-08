@@ -14,11 +14,14 @@ class Settings {
         static let StartupSecurityType = "startup_security_type"
         static let SpendingPassphraseSecurityType = "spending_security_type"
         static let DefaultWallet = "default_wallet"
+        static let HiddenWallet = "hidden"
         
         static let SPVPeerIP = "pref_peer_ip"
+        static let RemoteServerIP = "pref_server_ip"
         static let SyncOnCellular = "always_sync"
         
         static let SpendUnconfirmed = "pref_spend_unconfirmed"
+        static let IncomingNotification = "pref_notification_switch"
         static let CurrencyConversionOption = "currency_conversion_option"
         static let NetworkMode = "network_mode"
     }
@@ -46,6 +49,10 @@ class Settings {
     
     static var spendUnconfirmed: Bool {
         return Settings.readValue(for: Settings.Keys.SpendUnconfirmed)
+    }
+    
+    static var incomingNotification: Bool {
+        return Settings.readValue(for: Settings.Keys.IncomingNotification)
     }
     
     static var currencyConversionOption: CurrencyConversionOption {

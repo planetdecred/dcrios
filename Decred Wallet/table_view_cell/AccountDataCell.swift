@@ -34,16 +34,14 @@ class AccountDataCell: UITableViewCell, AccountDetailsCellProtocol {
         super.setSelected(selected, animated: animated)
     }
     @IBAction func setHiddenAccount(_ sender: Any) {
-        UserDefaults.standard.set(hideAcount.isOn, forKey: "hidden\(accountTmp.Number)")
-        UserDefaults.standard.synchronize()
+        Settings.setValue(hideAcount.isOn, for: "\(Settings.Keys.HiddenWallet)\(accountTmp.Number)")
     }
     
     @IBAction func setDefault(_ sender: Any) {
         self.accountTmp.makeDefault()
         self.hideAcount.setOn(false, animated: true)
         self.hideAcount.isEnabled = false
-        UserDefaults.standard.set(false, forKey: "hidden\(accountTmp.Number)")
-        UserDefaults.standard.synchronize()
+        Settings.setValue(false, for: "\(Settings.Keys.HiddenWallet)\(accountTmp.Number)")
     }
     
     func setup(account: WalletAccount) {
@@ -62,18 +60,17 @@ class AccountDataCell: UITableViewCell, AccountDetailsCellProtocol {
             labelHDPathValue.text = "\(GlobalConstants.Strings.MAINNET_HD_PATH) \(account.Number)'"
         }
         
-        if (account.Number == INT_MAX) {
+        if account.Number == INT_MAX {
             defaultAccount.setOn(false, animated: false)
             defaultAccount.isEnabled = false
             hideAcount.setOn(false, animated: false)
             hideAcount.isEnabled = false
-        }else{
-            let hidden = UserDefaults.standard.bool(forKey: "hidden\(account.Number)")
+        }else {
+            let hidden = UserDefaults.standard.bool(forKey: "\(Settings.Keys.HiddenWallet)\(self.accountTmp.Number)")
             if (hidden){
                 hideAcount.setOn(true, animated: false)
                 hideAcount.isEnabled = true
-            }
-            else{
+            }else {
                 hideAcount.setOn(false, animated: false)
                 hideAcount.isEnabled = true
             }
