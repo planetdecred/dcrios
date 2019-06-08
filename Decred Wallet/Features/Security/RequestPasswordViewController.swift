@@ -20,6 +20,7 @@ class RequestPasswordViewController: SecurityBaseViewController, UITextFieldDele
         
         // set textfield delegates to move to next field or submit password on return key press
         self.tfPassword.delegate = self
+        self.tfPassword.becomeFirstResponder()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

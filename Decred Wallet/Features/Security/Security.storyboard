@@ -608,9 +608,12 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Zie-ps-sbG">
-                                <rect key="frame" x="103.5" y="160.5" width="207" height="21"/>
+                                <rect key="frame" x="103.5" y="160.5" width="207" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="Ybk-uV-FcG"/>
+                                </constraints>
                                 <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.34999999403953552" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PASSWORD" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2jE-lt-4zu">
@@ -620,14 +623,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sM1-Hd-GYJ">
-                                <rect key="frame" x="103.5" y="180.5" width="207" height="1"/>
+                                <rect key="frame" x="103.5" y="203.5" width="207" height="1"/>
                                 <color key="backgroundColor" red="0.13725490200000001" green="0.1215686275" blue="0.12549019610000001" alpha="0.25345141269999999" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="Jeg-OH-VGm"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EQX-z4-xep" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
-                                <rect key="frame" x="157" y="201.5" width="100" height="40"/>
+                                <rect key="frame" x="157" y="224.5" width="100" height="40"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="kDb-Kj-AAW"/>
@@ -657,7 +660,6 @@
                             <constraint firstItem="Zcu-Wj-jWf" firstAttribute="top" secondItem="jqG-KT-s6A" secondAttribute="top" constant="33" id="Oqj-Mc-Tjy"/>
                             <constraint firstItem="sM1-Hd-GYJ" firstAttribute="width" secondItem="Zie-ps-sbG" secondAttribute="width" id="PeT-QH-ckt"/>
                             <constraint firstItem="sM1-Hd-GYJ" firstAttribute="top" secondItem="Zie-ps-sbG" secondAttribute="bottom" constant="-1" id="T5j-bK-oY6"/>
-                            <constraint firstItem="sM1-Hd-GYJ" firstAttribute="top" secondItem="Zie-ps-sbG" secondAttribute="bottom" constant="-1" id="Tsl-Xm-zQB"/>
                             <constraint firstItem="Zie-ps-sbG" firstAttribute="width" secondItem="J2w-oC-WYz" secondAttribute="width" multiplier="0.5" id="Udt-la-0NB"/>
                             <constraint firstItem="Zie-ps-sbG" firstAttribute="top" secondItem="2jE-lt-4zu" secondAttribute="bottom" constant="20" id="VbW-eJ-aBV"/>
                             <constraint firstItem="sM1-Hd-GYJ" firstAttribute="centerX" secondItem="J2w-oC-WYz" secondAttribute="centerX" id="cRE-Hk-9IN"/>
@@ -674,7 +676,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O92-1k-iXz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7339" y="-457"/>
+            <point key="canvasLocation" x="7337.68115942029" y="-457.36607142857139"/>
         </scene>
     </scenes>
     <resources>
