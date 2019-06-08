@@ -48,7 +48,7 @@ class SettingsController: UITableViewController  {
             fieldToUpdate = Settings.Keys.SpendUnconfirmed
             
         case self.incoming_notification_switch:
-            fieldToUpdate = Settings.Keys.IncomingNotification
+            fieldToUpdate = Settings.Keys.incomingNotificationEnabled
             
         case self.cellularSyncSwitch:
             fieldToUpdate = Settings.Keys.SyncOnCellular

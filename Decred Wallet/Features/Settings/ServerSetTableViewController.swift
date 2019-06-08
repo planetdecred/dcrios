@@ -33,17 +33,16 @@ class ServerSetTableViewController: UITableViewController {
     
     @objc func save() -> Void {
         // save here
-        if (server_ip.text?.isEmpty)! || (server_ip.text)! == ""{
+        guard let ipAddress = server_ip.text, ipAddress != "" else {
             Settings.setValue("", for: Settings.Keys.RemoteServerIP)
             self.navigationController?.popViewController(animated: true)
             return
         }
-        else if isValidIP(s: server_ip.text!){
+        if isValidIP(s: server_ip.text!) {
             Settings.setValue(server_ip.text!, for: Settings.Keys.RemoteServerIP)
             self.navigationController?.popViewController(animated: true)
             return
-        }
-        else {
+        } else {
             self.showMessage(title: "Invalid input", userMessage: "please input a valid IP address", buttonTitle: "ok")
         }
     }

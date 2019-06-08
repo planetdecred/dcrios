@@ -34,14 +34,14 @@ class AccountDataCell: UITableViewCell, AccountDetailsCellProtocol {
         super.setSelected(selected, animated: animated)
     }
     @IBAction func setHiddenAccount(_ sender: Any) {
-        Settings.setValue(hideAcount.isOn, for: "\(Settings.Keys.HiddenWallet)\(accountTmp.Number)")
+        Settings.setValue(hideAcount.isOn, for: "\(Settings.Keys.HiddenWalletPrefix)\(accountTmp.Number)")
     }
     
     @IBAction func setDefault(_ sender: Any) {
         self.accountTmp.makeDefault()
         self.hideAcount.setOn(false, animated: true)
         self.hideAcount.isEnabled = false
-        Settings.setValue(false, for: "\(Settings.Keys.HiddenWallet)\(accountTmp.Number)")
+        Settings.setValue(false, for: "\(Settings.Keys.HiddenWalletPrefix)\(accountTmp.Number)")
     }
     
     func setup(account: WalletAccount) {
@@ -56,7 +56,7 @@ class AccountDataCell: UITableViewCell, AccountDetailsCellProtocol {
         
         if BuildConfig.IsTestNet {
             labelHDPathValue.text = "\(GlobalConstants.Strings.TESTNET_HD_PATH) \(account.Number)'"
-        }else {
+        } else {
             labelHDPathValue.text = "\(GlobalConstants.Strings.MAINNET_HD_PATH) \(account.Number)'"
         }
         
@@ -65,12 +65,12 @@ class AccountDataCell: UITableViewCell, AccountDetailsCellProtocol {
             defaultAccount.isEnabled = false
             hideAcount.setOn(false, animated: false)
             hideAcount.isEnabled = false
-        }else {
-            let hidden = UserDefaults.standard.bool(forKey: "\(Settings.Keys.HiddenWallet)\(self.accountTmp.Number)")
+        } else {
+            let hidden = UserDefaults.standard.bool(forKey: "\(Settings.Keys.HiddenWalletPrefix)\(account.Number)")
             if (hidden){
                 hideAcount.setOn(true, animated: false)
                 hideAcount.isEnabled = true
-            }else {
+            } else {
                 hideAcount.setOn(false, animated: false)
                 hideAcount.isEnabled = true
             }
@@ -79,7 +79,7 @@ class AccountDataCell: UITableViewCell, AccountDetailsCellProtocol {
                 defaultAccount.isEnabled = false
                 hideAcount.setOn(false, animated: false)
                 hideAcount.isEnabled = false
-            }else {
+            } else {
                 defaultAccount.setOn(false, animated: false)
                 defaultAccount.isEnabled = true
                 hideAcount.isEnabled = true
