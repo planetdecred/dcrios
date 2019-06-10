@@ -213,16 +213,28 @@ class SendViewController: UIViewController {
         }
         self.destinationAccountDropdown.initMenu(accountDropdownItems)
         
-        // select default account or first account
-        var selectedAccountIndex = 0
+        // select default account or first account, if there's no selection already
+        var defaultAccountIndex = 0
         for (index, account) in walletAccounts.enumerated() {
             if account.isDefault {
-                selectedAccountIndex = index
+                defaultAccountIndex = index
                 break
             }
         }
-        self.sourceAccountDropdown.setSelectedItemIndex(selectedAccountIndex)
-        self.destinationAccountDropdown.setSelectedItemIndex(selectedAccountIndex)
+        
+        let currentSourceAccountIndex = self.sourceAccountDropdown.selectedItemIndex
+        if currentSourceAccountIndex >= 0 && currentSourceAccountIndex < walletAccounts.count {
+            self.sourceAccountDropdown.setSelectedItemIndex(currentSourceAccountIndex)
+        } else {
+            self.sourceAccountDropdown.setSelectedItemIndex(defaultAccountIndex)
+        }
+        
+        let currentDestinationAccountIndex = self.destinationAccountDropdown.selectedItemIndex
+        if currentDestinationAccountIndex >= 0 && currentDestinationAccountIndex < walletAccounts.count {
+            self.destinationAccountDropdown.setSelectedItemIndex(currentDestinationAccountIndex)
+        } else {
+            self.destinationAccountDropdown.setSelectedItemIndex(defaultAccountIndex)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -233,6 +245,15 @@ class SendViewController: UIViewController {
         self.checkClipboardForValidAddress()
         self.setupAccountDropdowns()
         self.fetchExchangeRate(nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        if self.sourceAccountDropdown.isDropDownOpen {
+            self.sourceAccountDropdown.hideDropDown()
+        }
+        if self.destinationAccountDropdown.isDropDownOpen {
+            self.destinationAccountDropdown.hideDropDown()
+        }
     }
     
     @IBAction func pasteAddressButtonTapped(_ sender: Any) {
@@ -274,6 +295,10 @@ class SendViewController: UIViewController {
     }
     
     @IBAction func sendButtonTapped(_ sender: Any) {
+        self.attemptSend()
+    }
+    
+    func attemptSend() {
         guard AppDelegate.walletLoader.isSynced else {
             self.showSendError("Please wait for network synchronization.")
             return
@@ -396,7 +421,15 @@ class SendViewController: UIViewController {
             } catch let error {
                 DispatchQueue.main.async {
                     progressHud.dismiss()
-                    self.showOkAlert(message: error.localizedDescription, title: "Error")
+                    
+                    if error.localizedDescription != DcrlibwalletErrInvalidPassphrase {
+                        self.showOkAlert(message: error.localizedDescription, title: "Error")
+                        return
+                    }
+                    
+                    let securityType = SpendingPinOrPassword.currentSecurityType()!.lowercased()
+                    let errorMessage = "You entered an incorrect \(securityType). Try again?"
+                    self.showOkAlert(message: errorMessage, title: "Failed to send transaction", okText: "Retry", onPressOk: self.attemptSend, addCancelAction: true)
                 }
             }
         }
