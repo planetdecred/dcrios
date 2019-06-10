@@ -114,15 +114,13 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
             headerView.title = accountInfo.title.appending(" (hidden)")
             headerView.backgroundColor = UIColor(hex: "#FFFFFF")
         }
-            headerView.totalBalance = accountInfo.totalBalance
-            headerView.spendableBalance = accountInfo.spendableBalance
-            headerView.headerIndex = section
-            headerView.expandOrCollapseDetailsButton.tag = section
-            headerView.arrobool = accountInfo.isExpanded
-            headerView.expandOrCollapseDetailsButton.addTarget(self,action:#selector(toggleExpandedState(_:)),
-            for: .touchUpInside)
+        headerView.totalBalance = accountInfo.totalBalance
+        headerView.spendableBalance = accountInfo.spendableBalance
+        headerView.headerIndex = section
+        headerView.expandOrCollapseDetailsButton.tag = section
+        headerView.arrobool = accountInfo.isExpanded
+        headerView.expandOrCollapseDetailsButton.addTarget(self,action:#selector(toggleExpandedState(_:)),for: .touchUpInside)
    
-        
         if !accountInfo.isExpanded {
             headerView.arrowDirection.setImage(UIImage.init(named: "arrow"), for: .normal)
         } else {
