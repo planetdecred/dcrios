@@ -48,7 +48,7 @@ class SettingsController: UITableViewController  {
             fieldToUpdate = Settings.Keys.SpendUnconfirmed
             
         case self.incoming_notification_switch:
-            fieldToUpdate = Settings.Keys.incomingNotification
+            fieldToUpdate = Settings.Keys.IncomingNotification
             
         case self.cellularSyncSwitch:
             fieldToUpdate = Settings.Keys.SyncOnCellular
@@ -291,7 +291,7 @@ class SettingsController: UITableViewController  {
     
     // Clear values stored in UserDefaults and restart the app when wallet is deleted.
     func walletDeleted() {
-        Settings.removePersistentDomain(for: Bundle.main.bundleIdentifier!)
+        Settings.clear()
         
         // Stop calling wallet.bestBlockTimestamp() to update the best block age displayed on nav menu.
         self.navigationMenuViewController()?.stopRefreshingBestBlockAge()

@@ -16,7 +16,7 @@ protocol AccountDetailsCellProtocol {
 class AccountViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     // MARK: - Properties
     
-    var accountHeaderInfo: [AccountsData] = [AccountsData]()
+    var accountHeaders: [AccountHeader] = [AccountHeader]()
     var account: WalletAccounts?
     var visible = false
     
@@ -72,7 +72,7 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
         DispatchQueue.global(qos: .background).async { [weak self] in
             guard let this = self else { return }
             this.account?.Acc.removeAll()
-            this.accountHeaderInfo.removeAll()
+            this.accountHeaders.removeAll()
             do {
                 var getAccountError: NSError?
                 let strAccount = AppDelegate.walletLoader.wallet?.getAccounts(0, error: &getAccountError)
@@ -81,11 +81,11 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
                 }
                 
                 this.account = try JSONDecoder().decode(WalletAccounts.self, from: (strAccount?.data(using: .utf8))!)
-                this.accountHeaderInfo = {
+                this.accountHeaders = {
                     var colorCount = -1
                     return this.account!.Acc.map {
                         colorCount += 1
-                        return AccountsData(entity: $0, color: nil)
+                        return AccountHeader(entity: $0, color: nil)
                     }
                 }()
             } catch let error {
@@ -99,12 +99,12 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func numberOfSections(in _: UITableView) -> Int {
-        return accountHeaderInfo.count
+        return accountHeaders.count
     }
     
     func tableView(_: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = AccountsHeaderView.loadNib()
-        let accountInfo = accountHeaderInfo[section]
+        let accountInfo = accountHeaders[section]
         if !accountInfo.isHidden {
             headerView.title = accountInfo.title
             headerView.sethidden(status: false)
@@ -138,7 +138,7 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (accountHeaderInfo[section].isExpanded == true) ? 1 : 0
+        return (accountHeaders[section].isExpanded == true) ? 1 : 0
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -160,7 +160,7 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     @objc private func toggleExpandedState(_ sender: UIButton) {
-        accountHeaderInfo[sender.tag].isExpanded = !accountHeaderInfo[sender.tag].isExpanded
+        accountHeaders[sender.tag].isExpanded = !accountHeaders[sender.tag].isExpanded
         tableAccountData.reloadData()
     }
 }

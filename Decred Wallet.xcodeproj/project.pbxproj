@@ -25,7 +25,7 @@
 		B3B46998228F0C2E00A68EDD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3B46996228F0C2E00A68EDD /* Main.storyboard */; };
 		B3B4699A228F0C2E00A68EDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3B46999228F0C2E00A68EDD /* Assets.xcassets */; };
 		B3B4699D228F0C2E00A68EDD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3B4699B228F0C2E00A68EDD /* LaunchScreen.storyboard */; };
-		B3B469A6228F0F0700A68EDD /* AccountsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469A5228F0F0700A68EDD /* AccountsData.swift */; };
+		B3B469A6228F0F0700A68EDD /* AccountHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469A5228F0F0700A68EDD /* AccountHeader.swift */; };
 		B3B469FA228F0F2700A68EDD /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469A8228F0F2600A68EDD /* UIColor.swift */; };
 		B3B469FB228F0F2700A68EDD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469A9228F0F2600A68EDD /* Extensions.swift */; };
 		B3B469FC228F0F2700A68EDD /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469AA228F0F2600A68EDD /* String.swift */; };
@@ -165,7 +165,7 @@
 		B3B46999228F0C2E00A68EDD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B3B4699C228F0C2E00A68EDD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B3B4699E228F0C2E00A68EDD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B3B469A5228F0F0700A68EDD /* AccountsData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsData.swift; sourceTree = "<group>"; };
+		B3B469A5228F0F0700A68EDD /* AccountHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountHeader.swift; sourceTree = "<group>"; };
 		B3B469A8228F0F2600A68EDD /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		B3B469A9228F0F2600A68EDD /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		B3B469AA228F0F2600A68EDD /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -404,7 +404,7 @@
 		B3B469A4228F0F0700A68EDD /* Accounts */ = {
 			isa = PBXGroup;
 			children = (
-				B3B469A5228F0F0700A68EDD /* AccountsData.swift */,
+				B3B469A5228F0F0700A68EDD /* AccountHeader.swift */,
 			);
 			path = Accounts;
 			sourceTree = "<group>";
@@ -920,7 +920,7 @@
 				B3B46A14228F0F2700A68EDD /* AccountsHeaderView.swift in Sources */,
 				B3B46A1F228F0F2700A68EDD /* RequestPinViewController.swift in Sources */,
 				B377DB0722A5663700BDF56F /* DeleteWalletConfirmationViewController.swift in Sources */,
-				B3B469A6228F0F0700A68EDD /* AccountsData.swift in Sources */,
+				B3B469A6228F0F0700A68EDD /* AccountHeader.swift in Sources */,
 				B3A3EF88229375D100008A4E /* Date.swift in Sources */,
 				B3B46A21228F0F2700A68EDD /* SecurityBaseViewController.swift in Sources */,
 				B3A3EF922295956300008A4E /* SendViewController.swift in Sources */,

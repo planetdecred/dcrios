@@ -109,7 +109,7 @@ struct StartupPinOrPassword {
                     
                     if newPinOrPassword == nil {
                         Settings.setValue(false, for: Settings.Keys.IsStartupSecuritySet)
-                        Settings.removeObject(for: Settings.Keys.StartupSecurityType)
+                        Settings.clearValue(for: Settings.Keys.StartupSecurityType)
                     } else {
                         Settings.setValue(true, for: Settings.Keys.IsStartupSecuritySet)
                         Settings.setValue(securityType!, for: Settings.Keys.StartupSecurityType)

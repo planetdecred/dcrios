@@ -21,7 +21,7 @@ class Settings {
         static let SyncOnCellular = "always_sync"
         
         static let SpendUnconfirmed = "pref_spend_unconfirmed"
-        static let incomingNotification = "pref_notification_switch"
+        static let IncomingNotification = "pref_notification_switch"
         static let CurrencyConversionOption = "currency_conversion_option"
         static let NetworkMode = "network_mode"
     }
@@ -42,12 +42,12 @@ class Settings {
         UserDefaults.standard.synchronize()
     }
     
-    static func removePersistentDomain(for Name: String) {
-        UserDefaults.standard.removePersistentDomain(forName: Name)
+    static func clear() {
+        UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
         UserDefaults.standard.synchronize()
     }
     
-    static func removeObject(for key: String) {
+    static func clearValue(for key: String) {
         UserDefaults.standard.removeObject(forKey: key)
         UserDefaults.standard.synchronize()
     }
@@ -62,7 +62,7 @@ class Settings {
     }
     
     static var incomingNotificationEnabled: Bool {
-        return Settings.readValue(for: Settings.Keys.incomingNotification)
+        return Settings.readValue(for: Settings.Keys.IncomingNotification)
     }
     
     static var currencyConversionOption: CurrencyConversionOption {

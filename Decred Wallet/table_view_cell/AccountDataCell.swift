@@ -66,7 +66,7 @@ class AccountDataCell: UITableViewCell, AccountDetailsCellProtocol {
             hideAcount.setOn(false, animated: false)
             hideAcount.isEnabled = false
         } else {
-            if account.isDefault {
+            if account.isHidden {
                 hideAcount.setOn(true, animated: false)
                 hideAcount.isEnabled = true
             } else {
