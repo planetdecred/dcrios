@@ -85,32 +85,26 @@ class OverviewViewController: UIViewController {
     }
     
     func loadRecentActivity() {
-        DispatchQueue.main.async {
-            do {
-                var getTransactionsError: NSError?
-                let maxDisplayItems = round(self.recentActivityTableView.frame.size.height / TransactionTableViewCell.height())
-                let transactionsJson = AppDelegate.walletLoader.wallet?.getTransactions(Int32(maxDisplayItems), error: &getTransactionsError)
-                if getTransactionsError != nil {
-                    throw getTransactionsError!
-                }
-                
-                self.recentTransactions = try JSONDecoder().decode([Transaction].self, from: transactionsJson!.utf8Bits)
-                
-                if self.recentTransactions.count > 0 {
-                    self.recentActivityTableView.backgroundView = nil
-                    self.recentActivityTableView.separatorStyle = .singleLine
-                    self.recentActivityTableView.reloadData()
-                } else {
-                    let label = UILabel(frame: CGRect(x: 0, y: 0, width: self.recentActivityTableView.bounds.size.width, height: self.recentActivityTableView.bounds.size.height))
-                    label.text = "No Transactions"
-                    label.textAlignment = .center
-                    self.recentActivityTableView.backgroundView = label
-                    self.recentActivityTableView.separatorStyle = .none
-                }
-            } catch let Error {
-                print(Error)
+        let maxDisplayItems = round(self.recentActivityTableView.frame.size.height / TransactionTableViewCell.height())
+        AppDelegate.walletLoader.wallet?.transactionHistory(count: Int32(maxDisplayItems)) { transactions in
+            if transactions == nil || transactions!.count == 0 {
+                self.showNoTransactions()
+                return
             }
+            
+            self.recentTransactions = transactions!
+            self.recentActivityTableView.backgroundView = nil
+            self.recentActivityTableView.separatorStyle = .singleLine
+            self.recentActivityTableView.reloadData()
         }
+    }
+    
+    func showNoTransactions() {
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: self.recentActivityTableView.bounds.size.width, height: self.recentActivityTableView.bounds.size.height))
+        label.text = "No Transactions"
+        label.textAlignment = .center
+        self.recentActivityTableView.backgroundView = label
+        self.recentActivityTableView.separatorStyle = .none
     }
     
     @IBAction func showAllTransactionsButtonTap(_ sender: Any) {
@@ -141,6 +135,7 @@ extension OverviewViewController: NewTransactionNotificationProtocol, ConfirmedT
             return
         }
         
+        tx.Animate = true
         self.recentTransactions.insert(tx, at: 0)
         self.updateCurrentBalance()
         
@@ -150,14 +145,15 @@ extension OverviewViewController: NewTransactionNotificationProtocol, ConfirmedT
                 _ = self.recentTransactions.popLast()
             }
             
-            tx.Animate = true
             self.recentActivityTableView.reloadData()
         }
     }
     
     func onTransactionConfirmed(_ hash: String?, height: Int32) {
-        self.updateCurrentBalance()
-        self.loadRecentActivity()
+        DispatchQueue.main.async {
+            self.updateCurrentBalance()
+            self.loadRecentActivity()
+        }
     }
 }
 
@@ -175,6 +171,13 @@ extension OverviewViewController: UITableViewDelegate {
         txDetailsVC.transaction = self.recentTransactions[indexPath.row]
         self.navigationController?.pushViewController(txDetailsVC, animated: true)
     }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if self.recentTransactions[indexPath.row].Animate {
+            cell.blink()
+        }
+        self.recentTransactions[indexPath.row].Animate = false
+    }
 }
 
 extension OverviewViewController: UITableViewDataSource {
@@ -191,14 +194,5 @@ extension OverviewViewController: UITableViewDataSource {
         }
         
         return cell
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if self.recentTransactions.count > indexPath.row {
-            if self.recentTransactions[indexPath.row].Animate {
-                cell.blink()
-            }
-            self.recentTransactions[indexPath.row].Animate = false
-        }
     }
 }
