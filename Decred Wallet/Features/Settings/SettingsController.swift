@@ -48,7 +48,7 @@ class SettingsController: UITableViewController  {
             fieldToUpdate = Settings.Keys.SpendUnconfirmed
             
         case self.incoming_notification_switch:
-            fieldToUpdate = "pref_notification_switch"
+            fieldToUpdate = Settings.Keys.IncomingNotification
             
         case self.cellularSyncSwitch:
             fieldToUpdate = Settings.Keys.SyncOnCellular
@@ -76,7 +76,7 @@ class SettingsController: UITableViewController  {
         }
         
         connect_peer_ip?.text = Settings.readOptionalValue(for: Settings.Keys.SPVPeerIP) ?? ""
-        server_ip?.text = UserDefaults.standard.string(forKey: "pref_server_ip") ?? ""
+        server_ip?.text = Settings.readOptionalValue(for: Settings.Keys.RemoteServerIP) ?? ""
         
         loadSettingsData()
         self.checkStartupSecurity()
@@ -125,8 +125,8 @@ class SettingsController: UITableViewController  {
         build?.text = dateformater.string(from: AppDelegate.compileDate as Date)
         spend_uncon_fund?.setOn(Settings.spendUnconfirmed, animated: false)
         connect_peer_ip?.text = Settings.readOptionalValue(for: Settings.Keys.SPVPeerIP) ?? ""
-        server_ip?.text = UserDefaults.standard.string(forKey: "pref_server_ip") ?? ""
-        incoming_notification_switch?.setOn(UserDefaults.standard.bool(forKey: "pref_notification_switch"), animated: true)
+        server_ip?.text = Settings.readOptionalValue(for: Settings.Keys.RemoteServerIP) ?? ""
+        incoming_notification_switch?.setOn(Settings.incomingNotificationEnabled, animated: true)
         
         self.cellularSyncSwitch.isOn = Settings.readValue(for: Settings.Keys.SyncOnCellular)
         
@@ -291,8 +291,7 @@ class SettingsController: UITableViewController  {
     
     // Clear values stored in UserDefaults and restart the app when wallet is deleted.
     func walletDeleted() {
-        UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
-        UserDefaults.standard.synchronize()
+        Settings.clear()
         
         // Stop calling wallet.bestBlockTimestamp() to update the best block age displayed on nav menu.
         self.navigationMenuViewController()?.stopRefreshingBestBlockAge()

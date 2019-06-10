@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-struct AccountsData {
+struct AccountHeader {
     let color: UIColor?
     let spendableBalance: NSDecimalNumber
     let title: String
@@ -23,6 +23,10 @@ struct AccountsData {
         self.title = entity.Name
         self.number = entity.Number
         self.isExpanded = false
+    }
+    
+    var isHidden: Bool {
+        return Settings.readValue(for: "\(Settings.Keys.HiddenWalletPrefix)\(self.number)")
     }
 }
 

@@ -108,14 +108,13 @@ struct StartupPinOrPassword {
                     progressHud.dismiss()
                     
                     if newPinOrPassword == nil {
-                        UserDefaults.standard.set(false, forKey: Settings.Keys.IsStartupSecuritySet)
-                        UserDefaults.standard.removeObject(forKey: Settings.Keys.StartupSecurityType)
+                        Settings.setValue(false, for: Settings.Keys.IsStartupSecuritySet)
+                        Settings.clearValue(for: Settings.Keys.StartupSecurityType)
                     } else {
-                        UserDefaults.standard.set(true, forKey: Settings.Keys.IsStartupSecuritySet)
-                        UserDefaults.standard.setValue(securityType, forKey: Settings.Keys.StartupSecurityType)
+                        Settings.setValue(true, for: Settings.Keys.IsStartupSecuritySet)
+                        Settings.setValue(securityType!, for: Settings.Keys.StartupSecurityType)
                     }
                     
-                    UserDefaults.standard.synchronize()
                     completion?()
                 }
             } catch let error {

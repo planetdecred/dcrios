@@ -34,16 +34,14 @@ class AccountDataCell: UITableViewCell, AccountDetailsCellProtocol {
         super.setSelected(selected, animated: animated)
     }
     @IBAction func setHiddenAccount(_ sender: Any) {
-        UserDefaults.standard.set(hideAcount.isOn, forKey: "hidden\(accountTmp.Number)")
-        UserDefaults.standard.synchronize()
+        Settings.setValue(hideAcount.isOn, for: "\(Settings.Keys.HiddenWalletPrefix)\(accountTmp.Number)")
     }
     
     @IBAction func setDefault(_ sender: Any) {
         self.accountTmp.makeDefault()
         self.hideAcount.setOn(false, animated: true)
         self.hideAcount.isEnabled = false
-        UserDefaults.standard.set(false, forKey: "hidden\(accountTmp.Number)")
-        UserDefaults.standard.synchronize()
+        Settings.setValue(false, for: "\(Settings.Keys.HiddenWalletPrefix)\(accountTmp.Number)")
     }
     
     func setup(account: WalletAccount) {
@@ -58,31 +56,29 @@ class AccountDataCell: UITableViewCell, AccountDetailsCellProtocol {
         
         if BuildConfig.IsTestNet {
             labelHDPathValue.text = "\(GlobalConstants.Strings.TESTNET_HD_PATH) \(account.Number)'"
-        }else {
+        } else {
             labelHDPathValue.text = "\(GlobalConstants.Strings.MAINNET_HD_PATH) \(account.Number)'"
         }
         
-        if (account.Number == INT_MAX) {
+        if account.Number == INT_MAX {
             defaultAccount.setOn(false, animated: false)
             defaultAccount.isEnabled = false
             hideAcount.setOn(false, animated: false)
             hideAcount.isEnabled = false
-        }else{
-            let hidden = UserDefaults.standard.bool(forKey: "hidden\(account.Number)")
-            if (hidden){
+        } else {
+            if account.isHidden {
                 hideAcount.setOn(true, animated: false)
                 hideAcount.isEnabled = true
-            }
-            else{
+            } else {
                 hideAcount.setOn(false, animated: false)
                 hideAcount.isEnabled = true
             }
-            if (account.isDefault){
+            if account.isDefault {
                 defaultAccount.setOn(true, animated: false)
                 defaultAccount.isEnabled = false
                 hideAcount.setOn(false, animated: false)
                 hideAcount.isEnabled = false
-            }else {
+            } else {
                 defaultAccount.setOn(false, animated: false)
                 defaultAccount.isEnabled = true
                 hideAcount.isEnabled = true
@@ -90,7 +86,7 @@ class AccountDataCell: UITableViewCell, AccountDetailsCellProtocol {
         }
         
         if account.Balance?.ImmatureReward == 0 && account.Balance?.LockedByTickets == 0 &&
-            account.Balance?.VotingAuthority == 0 && account.Balance?.ImmatureStakeGeneration == 0{
+            account.Balance?.VotingAuthority == 0 && account.Balance?.ImmatureStakeGeneration == 0 {
             detailsStackView.isHidden = true
         }
         

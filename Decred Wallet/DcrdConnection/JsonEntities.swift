@@ -36,7 +36,8 @@ struct WalletAccount: Decodable {
     }
     
     var isHidden: Bool {
-        return UserDefaults.standard.bool(forKey: "hidden\(self.Number)")
+        return Settings.readValue(for: "\(Settings.Keys.HiddenWalletPrefix)\(self.Number)")
+
     }
     
     var dcrTotalBalance: Double {

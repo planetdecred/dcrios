@@ -14,11 +14,14 @@ class Settings {
         static let StartupSecurityType = "startup_security_type"
         static let SpendingPassphraseSecurityType = "spending_security_type"
         static let DefaultWallet = "default_wallet"
+        static let HiddenWalletPrefix = "hidden"
         
         static let SPVPeerIP = "pref_peer_ip"
+        static let RemoteServerIP = "pref_server_ip"
         static let SyncOnCellular = "always_sync"
         
         static let SpendUnconfirmed = "pref_spend_unconfirmed"
+        static let IncomingNotification = "pref_notification_switch"
         static let CurrencyConversionOption = "currency_conversion_option"
         static let NetworkMode = "network_mode"
         
@@ -41,6 +44,16 @@ class Settings {
         UserDefaults.standard.synchronize()
     }
     
+    static func clear() {
+        UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
+        UserDefaults.standard.synchronize()
+    }
+    
+    static func clearValue(for key: String) {
+        UserDefaults.standard.removeObject(forKey: key)
+        UserDefaults.standard.synchronize()
+    }
+    
     /** Computed properties to access commonly used settings. */
     static var syncOnCellular: Bool {
         return Settings.readValue(for: Settings.Keys.SyncOnCellular)
@@ -48,6 +61,10 @@ class Settings {
     
     static var spendUnconfirmed: Bool {
         return Settings.readValue(for: Settings.Keys.SpendUnconfirmed)
+    }
+    
+    static var incomingNotificationEnabled: Bool {
+        return Settings.readValue(for: Settings.Keys.IncomingNotification)
     }
     
     static var currencyConversionOption: CurrencyConversionOption {

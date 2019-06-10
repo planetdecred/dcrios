@@ -79,7 +79,7 @@ extension TransactionNotification: DcrlibwalletTransactionListenerProtocol {
             transactionNotificationListener.onTransaction(transaction)
         }
         
-        if UserDefaults.standard.bool(forKey: "pref_notification_switch") == true {
+        if Settings.incomingNotificationEnabled {
             self.newTxNotification(transaction)
         }
     }
