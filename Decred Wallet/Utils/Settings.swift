@@ -21,7 +21,7 @@ class Settings {
         static let SyncOnCellular = "always_sync"
         
         static let SpendUnconfirmed = "pref_spend_unconfirmed"
-        static let incomingNotificationEnabled = "pref_notification_switch"
+        static let incomingNotification = "pref_notification_switch"
         static let CurrencyConversionOption = "currency_conversion_option"
         static let NetworkMode = "network_mode"
     }
@@ -51,8 +51,8 @@ class Settings {
         return Settings.readValue(for: Settings.Keys.SpendUnconfirmed)
     }
     
-    static var incomingNotification: Bool {
-        return Settings.readValue(for: Settings.Keys.incomingNotificationEnabled)
+    static var incomingNotificationEnabled: Bool {
+        return Settings.readValue(for: Settings.Keys.incomingNotification)
     }
     
     static var currencyConversionOption: CurrencyConversionOption {

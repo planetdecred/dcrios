@@ -48,7 +48,7 @@ class SettingsController: UITableViewController  {
             fieldToUpdate = Settings.Keys.SpendUnconfirmed
             
         case self.incoming_notification_switch:
-            fieldToUpdate = Settings.Keys.incomingNotificationEnabled
+            fieldToUpdate = Settings.Keys.incomingNotification
             
         case self.cellularSyncSwitch:
             fieldToUpdate = Settings.Keys.SyncOnCellular
@@ -126,7 +126,7 @@ class SettingsController: UITableViewController  {
         spend_uncon_fund?.setOn(Settings.spendUnconfirmed, animated: false)
         connect_peer_ip?.text = Settings.readOptionalValue(for: Settings.Keys.SPVPeerIP) ?? ""
         server_ip?.text = Settings.readOptionalValue(for: Settings.Keys.RemoteServerIP) ?? ""
-        incoming_notification_switch?.setOn(Settings.incomingNotification, animated: true)
+        incoming_notification_switch?.setOn(Settings.incomingNotificationEnabled, animated: true)
         
         self.cellularSyncSwitch.isOn = Settings.readValue(for: Settings.Keys.SyncOnCellular)
         
