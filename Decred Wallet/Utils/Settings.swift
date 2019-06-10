@@ -42,6 +42,16 @@ class Settings {
         UserDefaults.standard.synchronize()
     }
     
+    static func removePersistentDomain(for Name: String) {
+        UserDefaults.standard.removePersistentDomain(forName: Name)
+        UserDefaults.standard.synchronize()
+    }
+    
+    static func removeObject(for key: String) {
+        UserDefaults.standard.removeObject(forKey: key)
+        UserDefaults.standard.synchronize()
+    }
+    
     /** Computed properties to access commonly used settings. */
     static var syncOnCellular: Bool {
         return Settings.readValue(for: Settings.Keys.SyncOnCellular)

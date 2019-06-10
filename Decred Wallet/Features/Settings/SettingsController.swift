@@ -291,8 +291,7 @@ class SettingsController: UITableViewController  {
     
     // Clear values stored in UserDefaults and restart the app when wallet is deleted.
     func walletDeleted() {
-        UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
-        UserDefaults.standard.synchronize()
+        Settings.removePersistentDomain(for: Bundle.main.bundleIdentifier!)
         
         // Stop calling wallet.bestBlockTimestamp() to update the best block age displayed on nav menu.
         self.navigationMenuViewController()?.stopRefreshingBestBlockAge()

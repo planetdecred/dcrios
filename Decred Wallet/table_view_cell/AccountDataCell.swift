@@ -66,15 +66,14 @@ class AccountDataCell: UITableViewCell, AccountDetailsCellProtocol {
             hideAcount.setOn(false, animated: false)
             hideAcount.isEnabled = false
         } else {
-            let hidden = UserDefaults.standard.bool(forKey: "\(Settings.Keys.HiddenWalletPrefix)\(account.Number)")
-            if (hidden){
+            if account.isDefault {
                 hideAcount.setOn(true, animated: false)
                 hideAcount.isEnabled = true
             } else {
                 hideAcount.setOn(false, animated: false)
                 hideAcount.isEnabled = true
             }
-            if (account.isDefault){
+            if account.isDefault {
                 defaultAccount.setOn(true, animated: false)
                 defaultAccount.isEnabled = false
                 hideAcount.setOn(false, animated: false)
@@ -87,7 +86,7 @@ class AccountDataCell: UITableViewCell, AccountDetailsCellProtocol {
         }
         
         if account.Balance?.ImmatureReward == 0 && account.Balance?.LockedByTickets == 0 &&
-            account.Balance?.VotingAuthority == 0 && account.Balance?.ImmatureStakeGeneration == 0{
+            account.Balance?.VotingAuthority == 0 && account.Balance?.ImmatureStakeGeneration == 0 {
             detailsStackView.isHidden = true
         }
         

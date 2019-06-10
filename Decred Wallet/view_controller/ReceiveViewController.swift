@@ -148,7 +148,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
             self.accountDropdown.backgroundColor = UIColor.white
         }
         
-        let accNames: [String] = (self.account?.Acc.filter({UserDefaults.standard.bool(forKey: "\(Settings.Keys.HiddenWalletPrefix)\($0.Number)")  != true && $0.Number != INT_MAX }).map({ $0.Name }))!
+        let accNames: [String] = (self.account?.Acc.filter({Settings.readValue(for: "\(Settings.Keys.HiddenWalletPrefix)\($0.Number)")  != true && $0.Number != INT_MAX }).map({ $0.Name }))!
         
         accountDropdown.initMenu(
             accNames

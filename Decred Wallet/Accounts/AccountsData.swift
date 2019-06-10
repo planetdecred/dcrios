@@ -24,6 +24,10 @@ struct AccountsData {
         self.number = entity.Number
         self.isExpanded = false
     }
+    
+    var isHidden: Bool {
+        return Settings.readValue(for: "\(Settings.Keys.HiddenWalletPrefix)\(self.number)")
+    }
 }
 
 struct TransactionDetails {
