@@ -86,4 +86,3 @@ class SecurityViewController: SecurityBaseViewController {
         btnPassword.removeBorders(atPositions: .bottom)
     }
 }
-
