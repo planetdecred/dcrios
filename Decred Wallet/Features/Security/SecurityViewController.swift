@@ -69,20 +69,21 @@ class SecurityViewController: SecurityBaseViewController {
     func activatePasswordTab() {
         tabController?.selectedIndex = 0
         // activate password button
-        btnPassword.backgroundColor = UIColor.appColors.offWhite
-        btnPassword.removeBorders(atPositions: .right, .bottom)
+        btnPassword.setTitleColor(UIColor.appColors.tabActive, for: .normal)
+        btnPassword.addBorder(atPosition: .bottom)
         // deactivate pin button
-        btnPin.backgroundColor = UIColor.white
-        btnPin.addBorders(atPositions: [.left, .bottom])
+        btnPin.setTitleColor(UIColor.appColors.tabInActive, for: .normal)
+        btnPin.removeBorders(atPositions: .bottom)
     }
     
     func activatePinTab() {
         tabController?.selectedIndex = 1
         // activate pin button
-        btnPin.backgroundColor = UIColor.appColors.offWhite
-        btnPin.removeBorders(atPositions: .left, .bottom)
+        btnPin.setTitleColor(UIColor.appColors.tabActive, for: .normal)
+        btnPin.addBorder(atPosition: .bottom)
         // deactivate password button
-        btnPassword.backgroundColor = UIColor.white
-        btnPassword.addBorders(atPositions: [.right, .bottom])
+        btnPassword.setTitleColor(UIColor.appColors.tabInActive, for: .normal)
+        btnPassword.removeBorders(atPositions: .bottom)
     }
 }
+
