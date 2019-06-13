@@ -25,6 +25,7 @@ extension UIColor {
         static let yellowWarning = UIColor.init(hex: "#FFC84E")
         static let tabActive = UIColor.init(hex: "#4e5f70")
         static let tabInActive = UIColor.init(hex: "#a4abb1")
+        static let highlightActive = UIColor.init(hex: "#a4abb1", alpha: 0.3)
     }
     
     convenience init(hex: String) {

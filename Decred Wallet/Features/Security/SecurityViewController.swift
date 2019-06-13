@@ -70,8 +70,10 @@ class SecurityViewController: SecurityBaseViewController {
         tabController?.selectedIndex = 0
         // activate password button
         btnPassword.setTitleColor(UIColor.appColors.tabActive, for: .normal)
+        btnPassword.setBackgroundColor(UIColor.appColors.highlightActive, for: .highlighted)
         btnPassword.addBorder(atPosition: .bottom)
         // deactivate pin button
+        btnPin.setBackgroundColor(UIColor.appColors.highlightActive, for: .highlighted)
         btnPin.setTitleColor(UIColor.appColors.tabInActive, for: .normal)
         btnPin.removeBorders(atPositions: .bottom)
     }
