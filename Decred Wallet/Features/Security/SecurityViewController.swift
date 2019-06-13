@@ -48,6 +48,8 @@ class SecurityViewController: SecurityBaseViewController {
     override func viewDidLoad() {
         // delay before activating initial tab to allow borders show properly
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+             self.btnPassword.setBackgroundColor(UIColor.appColors.lightTabInactive, for: .highlighted)
+             self.btnPin.setBackgroundColor(UIColor.appColors.lightTabInactive, for: .highlighted)
             if self.initialSecurityType == SecurityViewController.SECURITY_TYPE_PIN {
                 self.activatePinTab()
             } else {
@@ -67,24 +69,22 @@ class SecurityViewController: SecurityBaseViewController {
     }
     
     func activatePasswordTab() {
-        tabController?.selectedIndex = 0
+        self.tabController?.selectedIndex = 0
         // activate password button
-        btnPassword.setTitleColor(UIColor.appColors.tabActive, for: .normal)
-        btnPassword.setBackgroundColor(UIColor.appColors.highlightActive, for: .highlighted)
-        btnPassword.addBorder(atPosition: .bottom)
+        self.btnPassword.setTitleColor(UIColor.appColors.tabActive, for: .normal)
+        self.btnPassword.addBorder(atPosition: .bottom)
         // deactivate pin button
-        btnPin.setBackgroundColor(UIColor.appColors.highlightActive, for: .highlighted)
-        btnPin.setTitleColor(UIColor.appColors.tabInActive, for: .normal)
-        btnPin.removeBorders(atPositions: .bottom)
+        self.btnPin.setTitleColor(UIColor.appColors.tabInactive, for: .normal)
+        self.btnPin.removeBorders(atPositions: .bottom)
     }
     
     func activatePinTab() {
-        tabController?.selectedIndex = 1
+        self.tabController?.selectedIndex = 1
         // activate pin button
-        btnPin.setTitleColor(UIColor.appColors.tabActive, for: .normal)
-        btnPin.addBorder(atPosition: .bottom)
+        self.btnPin.setTitleColor(UIColor.appColors.tabActive, for: .normal)
+        self.btnPin.addBorder(atPosition: .bottom)
         // deactivate password button
-        btnPassword.setTitleColor(UIColor.appColors.tabInActive, for: .normal)
-        btnPassword.removeBorders(atPositions: .bottom)
+        self.btnPassword.setTitleColor(UIColor.appColors.tabInactive, for: .normal)
+        self.btnPassword.removeBorders(atPositions: .bottom)
     }
 }
