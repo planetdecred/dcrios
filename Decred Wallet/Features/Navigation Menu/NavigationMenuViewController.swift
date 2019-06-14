@@ -192,7 +192,7 @@ extension NavigationMenuViewController: SyncProgressListenerProtocol {
     
     func onPeerConnectedOrDisconnected(_ numberOfConnectedPeers: Int32) {
         if AppDelegate.walletLoader.isSynced {
-            self.syncStatusLabel.text = "\("syncedWith".localized)\( AppDelegate.walletLoader.syncer.connectedPeers)"
+            self.syncStatusLabel.text = String(format: "syncedWith".localized, AppDelegate.walletLoader.syncer.connectedPeers)
         }
     }
     
@@ -229,7 +229,7 @@ extension NavigationMenuViewController: SyncProgressListenerProtocol {
         }
         
         self.handleGeneralProgressReport(progressReport.generalSyncProgress!)
-        self.bestBlockLabel.text = "\(progressReport.generalSyncProgress!.totalSyncProgress)% \("completed".localized), \(progressReport.generalSyncProgress!.totalTimeRemaining) \("left".localized)."
+        self.bestBlockLabel.text = String(format: "totalSyncProgress".localized, progressReport.generalSyncProgress!.totalSyncProgress,progressReport.generalSyncProgress!.totalTimeRemaining)
     }
     
     func handleGeneralProgressReport(_ generalProgress: DcrlibwalletGeneralSyncProgress) {
@@ -242,7 +242,7 @@ extension NavigationMenuViewController: SyncProgressListenerProtocol {
         self.syncInProgressIndicator.stopAnimating()
         self.syncInProgressIndicator.isHidden = true
         
-        self.syncStatusLabel.text = "\("syncedWith".localized)\( AppDelegate.walletLoader.syncer.connectedPeers)"
+        self.syncStatusLabel.text = String(format: "syncedWith".localized, AppDelegate.walletLoader.syncer.connectedPeers)
         self.syncStatusLabel.superview?.backgroundColor = UIColor(hex: "#2DD8A3")
         
         self.syncOperationProgressBar.isHidden = true

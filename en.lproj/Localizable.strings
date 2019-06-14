@@ -11,7 +11,7 @@
 
 /*Security Prompt */
 "enterStartupPassword" = "Enter Startup Password";
-"incorrectSecurityType" = "You entered an incorrect %s. Try again?";
+"incorrectSecurityType" = "You entered an incorrect %@. Try again?";
 "error" = "Error";
 "retry" = "Retry";
 "oK" = "OK";
@@ -26,7 +26,7 @@
 "passwordsDoNotMatch" = "Passwords do not match";
 "passwordMatch" = "PASSWORDS MATCH";
 "passwordDoNotMatch" = "PASSWORDS DO NOT MATCH";
-"createPassword" = "Create %s Password";
+"createPassword" = "Create %@ Password";
 
 /* Request Password */
 "enterPassword" = "Enter Password";
@@ -40,19 +40,19 @@
 "passwordInvalid" = "Password entered was not valid.";
 
 /* Request PIN and PIN Setup */
-"createPIN" = "Create %s PIN";
-"enterPIN" = "Enter %s PIN";
-"confirmPIN" = "Confirm %s PIN";
+"createPIN" = "Create %@ PIN";
+"enterPIN" = "Enter %@ PIN";
+"confirmPIN" = "Confirm %@ PIN";
 "pinsDidNotMatch" = "PINs did not match. Try again";
 
 /* Change Spendind PIN/Password */
 "currentSpendingPassword" = "Enter Current Spending Password";
-"changingSpendingPIN/Pass" = "Changing spending %s...";
+"changingSpendingPIN/Pass" = "Changing spending %@...";
 
 /* Change Startup PIN/Password */
-"changingStartupPINPass" = "Changing startup %s..."
-"removingStartupPINPass" = "Removing startup %s..."
-"settingStartupPINPass" = "Setting startup %s...";
+"changingStartupPINPass" = "Changing startup %@...";
+"removingStartupPINPass" = "Removing startup %@...";
+"settingStartupPINPass" = "Setting startup %@...";
 
 /* Transaction List */
 "pending" = "Pending";
@@ -105,14 +105,14 @@
 "connectToWiFiToSync" = "Connect to WiFi to sync.";
 "restartingSync" = "Restarting sync...";
 "connectingToPeers" = "Connecting to peers.";
-"syncedWith" =  "Synced with ";
+"syncedWith" =  "Synced with %@";
 "fetchingBlockHeaders" = "Fetching block headers.";
 "blocksBehind" = "%d blocks behind.";
-"bestBlockAgeAgo" = "%s ago";
+"bestBlockAgeAgo" = "%@ ago";
 "discoveringUsedAddresses" = "Discovering used addresses.";
-"generalSyncProgressCompletedleft" = "%d completed, %s left.";
+"generalSyncProgressCompletedleft" = "%d completed, %@ left.";
 "scanningBlocks" = "Scanning blocks.";
-"rescanProgress" = "%d completed, %s left.";
+"rescanProgress" = "%d completed, %@ left.";
 "completed" = "completed";
 "left" = "left";
 "syncCanceled" = "Sync canceled.";
@@ -124,10 +124,10 @@
 "loading" = "Loading...";
 "numberOfConnectedPeers" = "%d peers";
 "numberOfConnectedPeer" = "%d peer";
-"syncingWithOnNet" = "Syncing with %s on %s.";
+"syncingWithOnNet" = "Syncing with %@ on %@.";
 "fetchedHeaders" = "Fetched %d of ~%d block headers.\n";
 "headersFetchProgress" = "%d through step 1 of 3.";
-"bestBlockAgebehind" = "\nYour wallet is %s behind.";
+"bestBlockAgebehind" = "\nYour wallet is %@ behind.";
 "addressDiscoveryProgressOver" = "%d (over) through step 2 of 3.";
 "addressDiscoveryProgressThrough" = "~%d through step 2 of 3.";
 "scanningTotalHeaders" = "Scanning %d of %d block headers.\n";
