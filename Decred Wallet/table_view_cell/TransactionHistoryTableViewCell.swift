@@ -40,14 +40,14 @@ class TransactionHistoryTableViewCell: BaseTableViewCell {
             
             if (confirm2 == -1) {
                 self.txtTrStatus.textColor = UIColor(hex:"#3d659c")
-                self.txtTrStatus.text = "Pending"
+                self.txtTrStatus.text = "pending".localized
             } else {
                 if (Settings.spendUnconfirmed || confirm2 > 1) {
                     self.txtTrStatus.textColor = UIColor(hex:"#2DD8A3")
-                    self.txtTrStatus.text = "Confirmed"
+                    self.txtTrStatus.text = "confirmed".localized
                 } else {
                     self.txtTrStatus.textColor = UIColor(hex:"#3d659c")
-                    self.txtTrStatus.text = "Pending"
+                    self.txtTrStatus.text = "pending".localized
                 }
             }
             
@@ -79,18 +79,18 @@ class TransactionHistoryTableViewCell: BaseTableViewCell {
                 }
             }
             else if(data.trans.Type.lowercased() == "vote".lowercased()){
-                self.txtAmount.text = "Vote"
+                self.txtAmount.text = "vote".localized
                 self.trImage?.image = UIImage(named: "vote")
             }
             else if (data.trans.Type.lowercased() == "Ticket Purchase".lowercased()) {
-                self.txtAmount.text = "Ticket"
+                self.txtAmount.text = "ticket".localized
                 self.trImage?.image = UIImage(named: "immature")
                 if (confirm2 < requireConfirmation){
                     self.txtTrStatus.textColor = UIColor(hex:"#3d659c")
-                    self.txtTrStatus.text = "Pending"
+                    self.txtTrStatus.text = "pending".localized
                 }
                 else if (confirm2 > 16){
-                    let stausText = "Confirmed / Live"
+                    let stausText = "confirmedLive".localized
                     let range = (stausText as NSString).range(of: "/")
                     let attributedString = NSMutableAttributedString(string: stausText)
                     attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black , range: range)
@@ -98,7 +98,7 @@ class TransactionHistoryTableViewCell: BaseTableViewCell {
                     self.txtTrStatus.attributedText = attributedString
                 }
                 else{
-                    let stausText = "Confirmed / Immature"
+                    let stausText = "confirmedImmature".localized
                     let range = (stausText as NSString).range(of: "/")
                     let attributedString = NSMutableAttributedString(string: stausText)
                     attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black , range: range)

@@ -47,9 +47,9 @@ class SendCompletedViewController: UIViewController {
     
     @objc func copyTxHash() {
         UIPasteboard.general.string = self.transactionHash
-        self.hashHeaderLabel.text = "HASH: (copied)"
+        self.hashHeaderLabel.text = "copyHash".localized
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            self.hashHeaderLabel.text = "HASH:"
+            self.hashHeaderLabel.text = "hash".localized
         }
     }
     

@@ -20,7 +20,7 @@ struct SpendingPinOrPassword {
         // show the appropriate vc to read current pin or password
         if self.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
             let requestPasswordVC = RequestPasswordViewController.instantiate()
-            requestPasswordVC.prompt = "Enter Current Spending Password"
+            requestPasswordVC.prompt = "currentSpendingPassword".localized
             requestPasswordVC.onUserEnteredPassword = afterUserEntersPinOrPassword
             vc.present(requestPasswordVC, animated: true)
         } else {
@@ -47,7 +47,7 @@ struct SpendingPinOrPassword {
     
     private static func changeWalletSpendingPassphrase(_ vc: UIViewController, current currentPassphrase: String, new newPassphrase: String, type securityType: String) {
         let newSecurityType = securityType.lowercased()
-        let progressHud = Utils.showProgressHud(withText: "Changing spending \(newSecurityType)...")
+        let progressHud = Utils.showProgressHud(withText: String(format: "changingSpendingPIN/Pass".localized, newSecurityType))
         
         let oldPrivatePass = (currentPassphrase as NSString).data(using: String.Encoding.utf8.rawValue)!
         let newPrivatePass = (newPassphrase as NSString).data(using: String.Encoding.utf8.rawValue)!
@@ -62,7 +62,7 @@ struct SpendingPinOrPassword {
             } catch let error {
                 DispatchQueue.main.async {
                     progressHud.dismiss()
-                    vc.showOkAlert(message: error.localizedDescription, title: "Error")
+                    vc.showOkAlert(message: error.localizedDescription, title: "error".localized)
                 }
             }
         }

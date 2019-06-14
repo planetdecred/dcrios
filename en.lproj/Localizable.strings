@@ -16,6 +16,10 @@
 "retry" = "Retry";
 "oK" = "OK";
 "tryAgain" = "Try again";
+"cancel" = "Cancel";
+"clearFields" =  "Clear fields";
+"copiedSuccessfully" = "Copied successfully.";
+"invalidRequest" = "Invalid request!";
 
 /* Password Setup */
 "emptyPasswordNotAllowed" = "Empty password not allowed";
@@ -26,12 +30,29 @@
 
 /* Request Password */
 "enterPassword" = "Enter Password";
+"promptSpendingPassword" = "Please enter spending password of your wallet.";
+"promptStartupPassword" = "Enter Current Startup Password.";
+"securityTypeNotSpecify" = "Security type not specified. Cannot proceed.";
+"password" = "password";
+"proceed" = "Proceed";
+"passwordEmpty" = "Password can't be empty.";
+"invalidInput" = "invalid input.";
+"passwordInvalid" = "Password entered was not valid.";
 
 /* Request PIN and PIN Setup */
 "createPIN" = "Create %s PIN";
 "enterPIN" = "Enter %s PIN";
 "confirmPIN" = "Confirm %s PIN";
 "pinsDidNotMatch" = "PINs did not match. Try again";
+
+/* Change Spendind PIN/Password */
+"currentSpendingPassword" = "Enter Current Spending Password";
+"changingSpendingPIN/Pass" = "Changing spending %s...";
+
+/* Change Startup PIN/Password */
+"changingStartupPINPass" = "Changing startup %s..."
+"removingStartupPINPass" = "Removing startup %s..."
+"settingStartupPINPass" = "Setting startup %s...";
 
 /* Transaction List */
 "pending" = "Pending";
@@ -122,8 +143,84 @@
 "stageTimes" = "Stage Times";
 
 /* Send view */
+"invalidamount" = "Invalid amount.";
+"amount8decimal" = "Amount has more than 8 decimal places.";
+"amountMaximumAllowed" = "Amount more than maximum allowed.";
+"notEnoughFunds" = "Not enough funds.";
+"notEnoughFundsNet" = "Not enough funds (or not connected).";
+"rateUnavailableTap"  = "rate unavailable (tap to retry).";
+"sendToAccount" = "Send to account";
+"sendToAddress" = "Send to address";
+"errorMaxSpendable" = "Error getting maximum spendable amount.";
+"plsWaitNetkSync" = "Please wait for network synchronization.";
+"notConnected" = "Not connected to the network.";
+"amountCantBeZero" = "Amount cannot be zero.";
+"unexpectedError" = "Unexpected error.";
+"sendingTransaction" = "Sending Transaction...";
+"failedTransaction" = "Failed to send transaction.";
+"walletAddressShort" = "Wallet address is too short.";
+"walletAddressLong" = "Wallet address is too long.";
+"invalidTesnetAddress" = "This is not a valid Decred testnet3 address.";
+"invalidMainnetAddress" = "This is not a valid Decred Mainnet address.";
+"invalidDestAddr" = "Destination address is not valid.";
+"emptyDestAddr" = "Destination address cannot be empty.";
 
+/* Confirm Send Fund */
+"sending" = "Sending";
+"withFee" = "with a fee of";
+"to" = "to ";
+"toAccount" = "to account ";
 
+/* Send Complete */
+"copyHash" = "HASH: (copied)";
+"hash" = "HASH:";
+
+/* Security Menu */
+"validOwnAddr" = "Address is valid and you own it.";
+"validNotOwnAddr" = "Address is valid and you do NOT own it.";
+"invalidAddr" = "Not a valid address.";
+"verifiedSignature" = "This signature verifies against the message and address.";
+"invalidSignature" = "This signature  does not verify against the message and address.";
+"signingMessage" = "Signing Message...";
+"address" = "Address";
+"message" = "Message";
+"signature" = "Signature";
+
+/* License */
+"license" = "License";
+
+/* Settings */
+"spv" = "Simplified Payment Verification (SPV)";
+"remoteFullNode" = "Remote Full Node";
+"none" = "None";
+"rescanConfirm" = "Are you sure? This could take some time.";
+"rescanBlockchain" = "Rescan Blockchain";
+"syncPreogressAlert" = "Sync is in progress. Please wait for sync to complete.";
+"syncToastMsg" = "Check progress in navigation bar.";
+"scanStartedAlready" = "Wallet is already rescanning, check progress in navigation bar.";
+"rescanFailed" = "Rescan failed";
+"deletingWallet" = "Deleting wallet...";
+"walletDeletfailed" = "Failed to delete wallet.";
+
+/* IP set */
+"connectToPeer" = "Connect to peer";
+"inputValidIP" = "Please input a valid IP address.";
+"serverAddress" = "Server Address";
+
+/* Certificate */
+"certificate" = "Certificate";
+
+/* Wallet Log */
+"walletLog" = "Wallet Log";
+"loadingLog" = "Loading log...";
+"copy" = "Copy";
+"walletLogCopied" = "Wallet log copied.";
+
+/* Transaction Notification */
+"newTransaction" = "New Transaction";
+"youReceived" = "You received";
+
+/* Account data cell */
 
 
 

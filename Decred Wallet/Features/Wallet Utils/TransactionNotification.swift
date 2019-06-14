@@ -58,8 +58,8 @@ class TransactionNotification: NSObject {
         
         if tx!.Fee == 0 {
             let notification = UNMutableNotificationContent()
-            notification.title = "New Transaction"
-            notification.body = "You received \(tx!.dcrAmount.round(8).description) DCR"
+            notification.title = "newTransaction".localized
+            notification.body = "\("You received".localized) \(tx!.dcrAmount.round(8).description) DCR"
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
             let request = UNNotificationRequest(identifier: "TxnIdentifier", content: notification, trigger: trigger)
             UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)

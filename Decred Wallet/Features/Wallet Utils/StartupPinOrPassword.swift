@@ -48,7 +48,7 @@ struct StartupPinOrPassword {
         // show the appropriate vc to read current pin or password
         if self.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
             let requestPasswordVC = RequestPasswordViewController.instantiate()
-            requestPasswordVC.prompt = "Enter Current Startup Password"
+            requestPasswordVC.prompt = "promptStartupPassword".localized
             requestPasswordVC.onUserEnteredPassword = afterUserEntersPinOrPassword
             vc.present(requestPasswordVC, animated: true)
         } else {
@@ -75,7 +75,7 @@ struct StartupPinOrPassword {
     static func changeWalletPublicPassphrase(_ vc: UIViewController, current currentPassword: String?, new newPinOrPassword: String?, type securityType: String? = nil, completion: (() -> Void)? = nil) {
         // cannot set new pin/password without a type specified
         if securityType == nil && newPinOrPassword != nil {
-            vc.showOkAlert(message: "Security type not specified. Cannot proceed.", title: "Invalid request!")
+            vc.showOkAlert(message: "securityTypeNotSpecify".localized, title: "invalidRequest".localized)
             return
         }
         
@@ -84,15 +84,15 @@ struct StartupPinOrPassword {
         if currentPassword == nil {
             // password was not previously configured, let's set it
             let newSecurityType = securityType!.lowercased()
-            progressHud = Utils.showProgressHud(withText: "Setting startup \(newSecurityType)...")
+            progressHud = Utils.showProgressHud(withText: String(format: "settingStartupPINPass".localized, newSecurityType))
         } else if newPinOrPassword == nil {
             // password was previously configured, but no new password is to be set
             let currentSecurityType = self.currentSecurityType()!.lowercased()
-            progressHud = Utils.showProgressHud(withText: "Removing startup \(currentSecurityType)...")
+            progressHud = Utils.showProgressHud(withText: String(format: "removingStartupPINPass".localized, currentSecurityType))
         } else {
             // password was previously configured, but we're to set a new one
             let newSecurityType = securityType!.lowercased()
-            progressHud = Utils.showProgressHud(withText: "Changing startup \(newSecurityType)...")
+            progressHud = Utils.showProgressHud(withText: String(format: "changingStartupPINPass".localized, newSecurityType))
         }
         
         let currentPublicPassphrase = currentPassword ?? self.defaultPublicPassphrase
@@ -120,7 +120,7 @@ struct StartupPinOrPassword {
             } catch let error {
                 DispatchQueue.main.async {
                     progressHud.dismiss()
-                    vc.showOkAlert(message: error.localizedDescription, title: "Error")
+                    vc.showOkAlert(message: error.localizedDescription, title: "error".localized)
                     completion?()
                 }
             }

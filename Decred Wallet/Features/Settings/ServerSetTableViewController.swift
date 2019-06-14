@@ -17,7 +17,7 @@ class ServerSetTableViewController: UITableViewController {
         self.navigationController?.navigationBar.tintColor = UIColor.blue
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
-        self.navigationItem.title = "Server Address"
+        self.navigationItem.title = "serverAddress".localized
         server_ip?.text = Settings.readOptionalValue(for: Settings.Keys.RemoteServerIP) ?? ""
     }
     
@@ -43,7 +43,7 @@ class ServerSetTableViewController: UITableViewController {
             self.navigationController?.popViewController(animated: true)
             return
         } else {
-            self.showMessage(title: "Invalid input", userMessage: "please input a valid IP address", buttonTitle: "ok")
+            self.showMessage(title: "invalidInput".localized, userMessage: "inputValidIP".localized, buttonTitle: "ok".localized)
         }
     }
     

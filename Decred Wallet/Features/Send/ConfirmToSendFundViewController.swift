@@ -51,14 +51,14 @@ class ConfirmToSendFundViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.sendAmountLabel.text = "Sending \(self.sendAmount!)"
-        self.feeLabel.text = "with a fee of \(self.fee!)"
-        self.addressLabel.text = "to " + self.destinationAddress!
+        self.sendAmountLabel.text = "\("Sending".localized) \(self.sendAmount!)"
+        self.feeLabel.text = "\("withFee".localized) \(self.fee!)"
+        self.addressLabel.text = "to".localized + self.destinationAddress!
         
         if self.destinationAccount == nil {
             self.accountLabel.isHidden = true
         } else {
-            self.accountLabel.text = "to account \'\(self.destinationAccount!)\'"
+            self.accountLabel.text = "\("toAaccount".localized) \'\(self.destinationAccount!)\'"
         }
         
         if SpendingPinOrPassword.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
