@@ -34,7 +34,7 @@ class PasswordSetupViewController: SecurityBaseViewController, UITextFieldDelega
         self.tfPassword.delegate = self
         self.tfConfirmPassword.delegate = self
         
-        self.headerText.text = "Create \(self.securityFor) Password"
+        self.headerText.text = String(format: "createPassword".localized, self.securityFor)
         self.lbMatchIndicator.text = " " // use empty space so label height isn't reduced
     }
     
@@ -55,10 +55,10 @@ class PasswordSetupViewController: SecurityBaseViewController, UITextFieldDelega
             self.lbMatchIndicator.text = " " // use empty space so label height isn't reduced
         } else if self.tfPassword.text == self.tfConfirmPassword.text {
             self.lbMatchIndicator.textColor = UIColor.appColors.green
-            self.lbMatchIndicator.text = "PASSWORDS MATCH"
+            self.lbMatchIndicator.text = "passwordMatch".localized
         } else {
             self.lbMatchIndicator.textColor = UIColor.appColors.yellowWarning
-            self.lbMatchIndicator.text = "PASSWORDS DO NOT MATCH"
+            self.lbMatchIndicator.text = "passwordDoNotMatch".localized
         }
     }
     
@@ -78,12 +78,12 @@ class PasswordSetupViewController: SecurityBaseViewController, UITextFieldDelega
     func validatePasswordsAndProceed() -> Bool {
         let password = self.tfPassword.text ?? ""
         if password.length == 0 {
-            self.showMessageDialog(title: "Error", message: "Empty password not allowed")
+            self.showMessageDialog(title: "error".localized, message: "emptyPasswordNotAllowed".localized)
             return false
         }
         
         if self.tfPassword.text != self.tfConfirmPassword.text {
-            self.showMessageDialog(title: "Error", message: "Passwords do not match")
+            self.showMessageDialog(title: "error".localized, message: "passwordsDoNotMatch".localized)
             return false
         }
         

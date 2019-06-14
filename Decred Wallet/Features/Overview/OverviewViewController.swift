@@ -39,7 +39,7 @@ class OverviewViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.setupNavigationBar(withTitle: "Overview")
+        self.setupNavigationBar(withTitle: "overview".localized)
     }
     
     func initializeOverviewContent() {
@@ -101,7 +101,7 @@ class OverviewViewController: UIViewController {
     
     func showNoTransactions() {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: self.recentActivityTableView.bounds.size.width, height: self.recentActivityTableView.bounds.size.height))
-        label.text = "No Transactions"
+        label.text = "noTransactions".localized
         label.textAlignment = .center
         self.recentActivityTableView.backgroundView = label
         self.recentActivityTableView.separatorStyle = .none

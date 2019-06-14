@@ -26,7 +26,7 @@ class TransactionHistoryViewController: UIViewController {
     var FromMenu = true
     var visible:Bool = false
     
-    var filterMenu = ["All"] as [String]
+    var filterMenu = ["all".localized] as [String]
     var filtertitle = [0] as [Int]
     
     var mainContens = [Transaction]()
@@ -44,7 +44,7 @@ class TransactionHistoryViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.setupNavigationBar(withTitle: "History")
+        self.setupNavigationBar(withTitle: "history".localized)
 
         if AppDelegate.walletLoader.isSynced {
             print(" wallet is synced on history")
@@ -98,7 +98,7 @@ class TransactionHistoryViewController: UIViewController {
     
     func showNoTransactions() {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: self.tableView.bounds.size.width, height: self.tableView.bounds.size.height))
-        label.text = "No Transactions"
+        label.text = "noTransactions".localized
         label.textAlignment = .center
         self.tableView.backgroundView = label
         self.tableView.separatorStyle = .none
@@ -124,24 +124,24 @@ class TransactionHistoryViewController: UIViewController {
         case 1:
             // TODO: Remove after next dcrlibwallet update
             self.Filtercontent = self.mainContens.filter{$0.Direction == 0 && $0.Type == GlobalConstants.Strings.REGULAR}
-            self.btnFilter.setTitle("Sent (".appending(String(self.Filtercontent.count)).appending(")"), for: .normal)
+            self.btnFilter.setTitle("sent".localized .appending("(").appending(String(self.Filtercontent.count)).appending(")"), for: .normal)
             self.tableView.reloadData()
             break
         case 2:
             // TODO: Remove after next dcrlibwallet update
             self.Filtercontent = self.mainContens.filter{$0.Direction == 1 && $0.Type == GlobalConstants.Strings.REGULAR}
-            self.btnFilter.setTitle("Received (".appending(String(self.Filtercontent.count)).appending(")"), for: .normal)
+            self.btnFilter.setTitle("received".localized .appending("(").appending(String(self.Filtercontent.count)).appending(")"), for: .normal)
             self.tableView.reloadData()
             break
         case 3:
             // TODO: Remove after next dcrlibwallet update
             self.Filtercontent = self.mainContens.filter{$0.Direction == 2 && $0.Type == GlobalConstants.Strings.REGULAR}
-            self.btnFilter.setTitle("Yourself (".appending(String(self.Filtercontent.count)).appending(")"), for: .normal)
+            self.btnFilter.setTitle("yourself".localized.appending("(").appending(String(self.Filtercontent.count)).appending(")"), for: .normal)
             self.tableView.reloadData()
             break
         case 4:
             self.Filtercontent = self.mainContens.filter{$0.Type == GlobalConstants.Strings.REVOCATION || $0.Type == GlobalConstants.Strings.TICKET_PURCHASE || $0.Type == GlobalConstants.Strings.VOTE}
-            self.btnFilter.setTitle("Staking (".appending(String(self.Filtercontent.count)).appending(")"), for: .normal)
+            self.btnFilter.setTitle("staking".localized.appending("(").appending(String(self.Filtercontent.count)).appending(")"), for: .normal)
             self.tableView.reloadData()
             break
         case 5:
@@ -151,7 +151,7 @@ class TransactionHistoryViewController: UIViewController {
             break
         default:
             self.Filtercontent = self.mainContens
-            self.btnFilter.setTitle("All (".appending(String(self.Filtercontent.count)).appending(")"), for: .normal)
+            self.btnFilter.setTitle("all".localized.appending("(").appending(String(self.Filtercontent.count)).appending(")"), for: .normal)
             self.tableView.reloadData()
         }
     }
@@ -164,26 +164,26 @@ class TransactionHistoryViewController: UIViewController {
         let coinbaseCount = self.mainContens.filter{$0.Type == GlobalConstants.Strings.COINBASE}.count
         
         self.btnFilter.items.removeAll()
-        self.btnFilter.setTitle("All (".appending(String(self.mainContens.count)).appending(")"), for: .normal)
-        self.btnFilter.items.append("All (".appending(String(self.mainContens.count)).appending(")"))
+        self.btnFilter.setTitle("all".localized.appending("(").appending(String(self.mainContens.count)).appending(")"), for: .normal)
+        self.btnFilter.items.append("all".localized.appending("(").appending(String(self.mainContens.count)).appending(")"))
         
         self.filtertitle.removeAll()
         self.filtertitle.append(0)
         
         if sentCount != 0 {
-            self.btnFilter.items.append("Sent (".appending(String(sentCount)).appending(")"))
+            self.btnFilter.items.append("sent".localized .appending("(").appending(String(sentCount)).appending(")"))
             self.filtertitle.append(1)
         }
         if ReceiveCount != 0 {
-            self.btnFilter.items.append("Received (".appending(String(ReceiveCount)).appending(")"))
+            self.btnFilter.items.append("received".localized .appending("(").appending(String(ReceiveCount)).appending(")"))
             self.filtertitle.append(2)
         }
         if yourselfCount != 0 {
-            self.btnFilter.items.append("Yourself (".appending(String(yourselfCount)).appending(")"))
+            self.btnFilter.items.append("yourself".localized.appending("(").appending(String(yourselfCount)).appending(")"))
             self.filtertitle.append(3)
         }
         if stakeCount != 0 {
-            self.btnFilter.items.append("Stake (".appending(String(stakeCount)).appending(")"))
+            self.btnFilter.items.append("staking".localized.appending("(").appending(String(stakeCount)).appending(")"))
             self.filtertitle.append(4)
         }
         if coinbaseCount != 0 {

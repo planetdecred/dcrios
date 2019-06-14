@@ -47,7 +47,7 @@ class StartScreenViewController: UIViewController {
         }
         
         if AppDelegate.walletLoader.isWalletCreated {
-            self.label.text = "Opening wallet..."
+            self.label.text = "openingWallet".localized
         }
     }
     
@@ -79,7 +79,7 @@ class StartScreenViewController: UIViewController {
     func promptForStartupPinOrPassword() {
         if StartupPinOrPassword.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
             let requestPasswordVC = RequestPasswordViewController.instantiate()
-            requestPasswordVC.prompt = "Enter Startup Password"
+            requestPasswordVC.prompt = "enterStartupPassword".localized
             requestPasswordVC.onUserEnteredPassword = self.unlockWalletAndStartApp
             self.present(requestPasswordVC, animated: true, completion: nil)
         }
@@ -92,7 +92,7 @@ class StartScreenViewController: UIViewController {
     }
     
     func unlockWalletAndStartApp(pinOrPassword: String) {
-        self.label.text = "Opening wallet..."
+        self.label.text = "openingWallet".localized
         
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let this = self else { return }
@@ -107,9 +107,9 @@ class StartScreenViewController: UIViewController {
                     var errorMessage = error.localizedDescription
                     if error.localizedDescription == DcrlibwalletErrInvalidPassphrase {
                         let securityType = StartupPinOrPassword.currentSecurityType()!.lowercased()
-                        errorMessage = "You entered an incorrect \(securityType). Try again?"
+                        errorMessage = String(format: "incorrectSecurityType".localized, securityType)
                     }
-                    this.showOkAlert(message: errorMessage, title: "Error", okText: "Retry", onPressOk: this.promptForStartupPinOrPassword)
+                    this.showOkAlert(message: errorMessage, title: "error".localized, okText: "retry".localized, onPressOk: this.promptForStartupPinOrPassword)
                 }
             }
         }

@@ -99,7 +99,7 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let seedWordCell = tableView.dequeueReusableCell(withIdentifier: "seedWordCell", for: indexPath) as! RecoveryWalletSeedWordCell
         
-        seedWordCell.lbSeedWordNum.text = "Word #\(indexPath.row + 1)"
+        seedWordCell.lbSeedWordNum.text = String(format: "correctWordIs".localized, indexPath.row + 1)
         seedWordCell.seedWordAutoComplete.text = self.userEnteredSeedWords[indexPath.row]
         seedWordCell.seedWordAutoComplete.resignFirstResponder()
         
@@ -148,13 +148,13 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
     
     @IBAction func onConfirm() {
         if self.userEnteredSeedWords.contains("") {
-            self.displaySeedError("Not all seeds are entered. Please, check input fields and enter all seeds.")
+            self.displaySeedError("notAllSeedsAreEntered".localized)
         } else {
             let validatedSeed = self.validateSeed()
             if validatedSeed.valid {
                 self.secureWallet(validatedSeed.seed)
             } else {
-                self.displaySeedError("You entered an incorrect seed. Please check your words.")
+                self.displaySeedError("incorrectSeedEntered".localized)
             }
         }
     }
@@ -195,8 +195,8 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
     }
     
     private func showError(_ error: String) {
-        let alert = UIAlertController(title: "Wallet recovery error", message: error, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "Try again", style: .default) { _ in
+        let alert = UIAlertController(title: "walletRecoveryError".localized, message: error, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "tryAgain".localized, style: .default) { _ in
             alert.dismiss(animated: true, completion: nil)
             self.clearSeedInputs()
         }

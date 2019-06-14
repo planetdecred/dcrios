@@ -28,4 +28,8 @@ extension String {
     var withFirstLetterCapital: String {
         return prefix(1).uppercased() + self.lowercased().dropFirst()
     }
+    
+    var localized: String {
+            return NSLocalizedString(self, comment: "")
+    }
 }

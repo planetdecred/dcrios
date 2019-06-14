@@ -16,7 +16,7 @@ class RequestPasswordViewController: SecurityBaseViewController, UITextFieldDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        lblPrompt.text = self.prompt ?? "Enter Password"
+        lblPrompt.text = self.prompt ?? "enterPassword".localized
         
         // set textfield delegates to move to next field or submit password on return key press
         self.tfPassword.delegate = self
