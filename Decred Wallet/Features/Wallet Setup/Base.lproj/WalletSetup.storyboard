@@ -719,9 +719,11 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="79.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bXX-Wt-JB0">
+                                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bXX-Wt-JB0">
                                                     <rect key="frame" x="14" y="30" width="96" height="40"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="96" id="Ld4-HJ-VQw"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="14"/>
                                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <state key="normal" title="Button">
@@ -754,10 +756,12 @@
                                                         <action selector="onSelectSeedWord:" destination="JPJ-vp-nRQ" eventType="touchUpInside" id="lon-jJ-u6f"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xxq-IO-CyR" customClass="ContouredButtonc">
+                                                <button opaque="NO" tag="2" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xxq-IO-CyR" customClass="ContouredButtonc">
                                                     <rect key="frame" x="304" y="30" width="96" height="40"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" red="0.92941176469999998" green="0.93725490199999995" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="96" id="SmC-IJ-IqH"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="14"/>
                                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <state key="normal" title="Button">
@@ -790,9 +794,11 @@
                                                         <action selector="onSelectSeedWord:" destination="JPJ-vp-nRQ" eventType="touchUpInside" id="ZNU-43-89S"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gie-DO-U3Z" customClass="ContouredButton" customModule="Decred_Wallet" customModuleProvider="target">
-                                                    <rect key="frame" x="161" y="30" width="96" height="40"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <button opaque="NO" tag="1" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gie-DO-U3Z" customClass="ContouredButton" customModule="Decred_Wallet" customModuleProvider="target">
+                                                    <rect key="frame" x="161" y="29" width="96" height="41"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="96" id="KY0-J5-MhI"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="14"/>
                                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <state key="normal" title="Button">
@@ -825,13 +831,30 @@
                                                         <action selector="onSelectSeedWord:" destination="JPJ-vp-nRQ" eventType="touchUpInside" id="fpa-iL-yf1"/>
                                                     </connections>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ni0-lE-d8R">
-                                                    <rect key="frame" x="96" y="6" width="222" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="w" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ni0-lE-d8R">
+                                                    <rect key="frame" x="96" y="6" width="222" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="222" id="t8f-xf-SQi"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="gie-DO-U3Z" firstAttribute="top" secondItem="ni0-lE-d8R" secondAttribute="bottom" constant="3" id="7DO-2X-V9f"/>
+                                                <constraint firstAttribute="bottom" secondItem="gie-DO-U3Z" secondAttribute="bottom" constant="9.5" id="8sM-Gz-N9w"/>
+                                                <constraint firstItem="ni0-lE-d8R" firstAttribute="top" secondItem="chv-s3-qaY" secondAttribute="top" constant="6" id="DTR-GD-qZl"/>
+                                                <constraint firstAttribute="trailing" secondItem="Xxq-IO-CyR" secondAttribute="trailing" constant="14" id="O9Z-km-krz"/>
+                                                <constraint firstAttribute="bottom" secondItem="gie-DO-U3Z" secondAttribute="bottom" constant="9.5" id="RWO-zb-vdn"/>
+                                                <constraint firstItem="Xxq-IO-CyR" firstAttribute="leading" secondItem="gie-DO-U3Z" secondAttribute="trailing" constant="47" id="RqY-Nj-cv7"/>
+                                                <constraint firstAttribute="bottom" secondItem="Xxq-IO-CyR" secondAttribute="bottom" constant="9.5" id="TvE-DC-2FF"/>
+                                                <constraint firstItem="ni0-lE-d8R" firstAttribute="centerX" secondItem="chv-s3-qaY" secondAttribute="centerX" id="hXY-JF-Ty1"/>
+                                                <constraint firstItem="gie-DO-U3Z" firstAttribute="leading" secondItem="bXX-Wt-JB0" secondAttribute="trailing" constant="51" id="j4q-hM-QVe"/>
+                                                <constraint firstItem="Xxq-IO-CyR" firstAttribute="top" secondItem="chv-s3-qaY" secondAttribute="top" constant="30" id="n60-yw-Zl7"/>
+                                                <constraint firstItem="bXX-Wt-JB0" firstAttribute="top" secondItem="chv-s3-qaY" secondAttribute="top" constant="30" id="nk4-eo-efJ"/>
+                                                <constraint firstItem="bXX-Wt-JB0" firstAttribute="leading" secondItem="chv-s3-qaY" secondAttribute="leading" constant="14" id="wtc-Z7-sNS"/>
+                                                <constraint firstAttribute="bottom" secondItem="bXX-Wt-JB0" secondAttribute="bottom" constant="9.5" id="yfX-gI-rQk"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.95294117649999999" green="0.96078431369999995" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>

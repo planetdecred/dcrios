@@ -53,7 +53,7 @@ struct StartupPinOrPassword {
             vc.present(requestPasswordVC, animated: true)
         } else {
             let requestPinVC = RequestPinViewController.instantiate()
-            requestPinVC.securityFor = "Current"
+            requestPinVC.securityFor = "current".localized
             requestPinVC.showCancelButton = true
             requestPinVC.onUserEnteredPin = afterUserEntersPinOrPassword
             vc.present(requestPinVC, animated: true, completion: nil)
