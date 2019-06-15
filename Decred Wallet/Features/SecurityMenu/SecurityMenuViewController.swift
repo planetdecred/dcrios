@@ -270,7 +270,7 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
         if SpendingPinOrPassword.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
             let alert = UIAlertController(title: "security".localized, message: "promptSpendingPassword".localized, preferredStyle: .alert)
             alert.addTextField { textField in
-                textField.placeholder = "password".localized
+                textField.placeholder = "password".localized.lowercased()
                 textField.isSecureTextEntry = true
             }
             

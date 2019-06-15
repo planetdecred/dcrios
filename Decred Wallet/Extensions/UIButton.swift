@@ -54,3 +54,12 @@ extension UIButton {
         }
     }
 }
+
+extension UIButton: XIBLocalizable {
+    @IBInspectable var xibLocKey: String? {
+        get { return nil }
+        set(key) {
+            setTitle(key?.localized, for: .normal)
+        }
+    }
+}

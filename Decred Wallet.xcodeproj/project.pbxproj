@@ -139,6 +139,7 @@
 		DD448F6E22B531330050312E /* AccountDataCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD448F7022B531330050312E /* AccountDataCell.xib */; };
 		DD448F7322B5315E0050312E /* TransactiontInputDetails.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD448F7522B5315E0050312E /* TransactiontInputDetails.xib */; };
 		DD448F7622B531680050312E /* TransactiontOutputDetailsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD448F7822B531680050312E /* TransactiontOutputDetailsCell.xib */; };
+		DDC7154D22B49CFD00A8FE6F /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC7154C22B49CFD00A8FE6F /* Label.swift */; };
 		DDD65AD722A935460027CDA8 /* LicenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD65AD622A935460027CDA8 /* LicenseViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -266,37 +267,22 @@
 		B3B46AC1228F120700A68EDD /* TransactionDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionDetailCell.swift; sourceTree = "<group>"; };
 		B3B46AC2228F120700A68EDD /* TransactiontInputDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactiontInputDetails.swift; sourceTree = "<group>"; };
 		B3D21C9E2296E4F000609F23 /* ExchangeRates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRates.swift; sourceTree = "<group>"; };
-		DD41737722B1B18F00580935 /* ru-RU */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ru-RU"; path = "ru-RU.lproj/Main.strings"; sourceTree = "<group>"; };
-		DD41737822B1B19000580935 /* ru-RU */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ru-RU"; path = "ru-RU.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		DD41737C22B1B31E00580935 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DD41737E22B1B32500580935 /* ru-RU */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ru-RU"; path = "ru-RU.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		DD448F3D22B52F280050312E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Security.storyboard; sourceTree = "<group>"; };
-		DD448F4022B52F720050312E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Security.strings; sourceTree = "<group>"; };
 		DD448F4222B52F920050312E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TransactionTableViewCell.xib; sourceTree = "<group>"; };
-		DD448F4522B52F9A0050312E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TransactionTableViewCell.strings; sourceTree = "<group>"; };
 		DD448F4722B52FF80050312E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/WalletSetup.storyboard; sourceTree = "<group>"; };
-		DD448F4A22B530030050312E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WalletSetup.strings; sourceTree = "<group>"; };
 		DD448F4C22B530250050312E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/NavigationMenu.storyboard; sourceTree = "<group>"; };
-		DD448F4F22B530310050312E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/NavigationMenu.strings; sourceTree = "<group>"; };
 		DD448F5122B5303C0050312E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MenuItemCell.xib; sourceTree = "<group>"; };
-		DD448F5422B530420050312E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MenuItemCell.strings; sourceTree = "<group>"; };
 		DD448F5622B5305B0050312E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Overview.storyboard; sourceTree = "<group>"; };
-		DD448F5922B530680050312E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Overview.strings; sourceTree = "<group>"; };
 		DD448F5B22B530840050312E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Send.storyboard; sourceTree = "<group>"; };
-		DD448F5E22B5308B0050312E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Send.strings; sourceTree = "<group>"; };
 		DD448F6022B5309D0050312E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/SecurityMenu.storyboard; sourceTree = "<group>"; };
-		DD448F6322B530A20050312E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/SecurityMenu.strings; sourceTree = "<group>"; };
 		DD448F6522B530B60050312E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Settings.storyboard; sourceTree = "<group>"; };
-		DD448F6822B530C00050312E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Settings.strings; sourceTree = "<group>"; };
 		DD448F6A22B530D20050312E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TransactionHistoryViewController.xib; sourceTree = "<group>"; };
-		DD448F6D22B530D70050312E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TransactionHistoryViewController.strings; sourceTree = "<group>"; };
 		DD448F6F22B531330050312E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/AccountDataCell.xib; sourceTree = "<group>"; };
-		DD448F7222B5313B0050312E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AccountDataCell.strings; sourceTree = "<group>"; };
 		DD448F7422B5315E0050312E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TransactiontInputDetails.xib; sourceTree = "<group>"; };
 		DD448F7722B531680050312E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TransactiontOutputDetailsCell.xib; sourceTree = "<group>"; };
-		DD448F7A22B5316D0050312E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TransactiontInputDetails.strings; sourceTree = "<group>"; };
-		DD448F7C22B531720050312E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TransactiontOutputDetailsCell.strings; sourceTree = "<group>"; };
-		DD448F7E22B5319F0050312E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		DDC7154C22B49CFD00A8FE6F /* Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
 		DDD65AD622A935460027CDA8 /* LicenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseViewController.swift; sourceTree = "<group>"; };
 		F985372327D0001C8FDF95F1 /* Pods-Decred Wallet.mainnet debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.mainnet debug.xcconfig"; path = "Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.mainnet debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -449,6 +435,7 @@
 			children = (
 				B3B469AD228F0F2600A68EDD /* Button.swift */,
 				B3635B81229FE5870052EB4D /* QRImageScanner.swift */,
+				DDC7154C22B49CFD00A8FE6F /* Label.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -901,6 +888,7 @@
 				B3B46A2A228F0F2700A68EDD /* WalletSetupBaseViewController.swift in Sources */,
 				B3B46A15228F0F2700A68EDD /* UIImageView.swift in Sources */,
 				B3B46A31228F0F2700A68EDD /* SyncProgressViewController.swift in Sources */,
+				DDC7154D22B49CFD00A8FE6F /* Label.swift in Sources */,
 				B3B46A19228F0F2700A68EDD /* StartScreenViewController.swift in Sources */,
 				B3B46A16228F0F2700A68EDD /* ImageHeaderView.swift in Sources */,
 				B3B46AA0228F0F7D00A68EDD /* SendCompletedViewController.swift in Sources */,
@@ -995,8 +983,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				B3B46997228F0C2E00A68EDD /* Base */,
-				DD41737722B1B18F00580935 /* ru-RU */,
-				DD448F7E22B5319F0050312E /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -1005,7 +991,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				B3B4699C228F0C2E00A68EDD /* Base */,
-				DD41737822B1B19000580935 /* ru-RU */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -1023,7 +1008,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				DD448F3D22B52F280050312E /* Base */,
-				DD448F4022B52F720050312E /* en */,
 			);
 			name = Security.storyboard;
 			sourceTree = "<group>";
@@ -1032,7 +1016,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				DD448F4222B52F920050312E /* Base */,
-				DD448F4522B52F9A0050312E /* en */,
 			);
 			name = TransactionTableViewCell.xib;
 			sourceTree = "<group>";
@@ -1041,7 +1024,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				DD448F4722B52FF80050312E /* Base */,
-				DD448F4A22B530030050312E /* en */,
 			);
 			name = WalletSetup.storyboard;
 			sourceTree = "<group>";
@@ -1050,7 +1032,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				DD448F4C22B530250050312E /* Base */,
-				DD448F4F22B530310050312E /* en */,
 			);
 			name = NavigationMenu.storyboard;
 			sourceTree = "<group>";
@@ -1059,7 +1040,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				DD448F5122B5303C0050312E /* Base */,
-				DD448F5422B530420050312E /* en */,
 			);
 			name = MenuItemCell.xib;
 			sourceTree = "<group>";
@@ -1068,7 +1048,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				DD448F5622B5305B0050312E /* Base */,
-				DD448F5922B530680050312E /* en */,
 			);
 			name = Overview.storyboard;
 			sourceTree = "<group>";
@@ -1077,7 +1056,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				DD448F5B22B530840050312E /* Base */,
-				DD448F5E22B5308B0050312E /* en */,
 			);
 			name = Send.storyboard;
 			sourceTree = "<group>";
@@ -1086,7 +1064,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				DD448F6022B5309D0050312E /* Base */,
-				DD448F6322B530A20050312E /* en */,
 			);
 			name = SecurityMenu.storyboard;
 			sourceTree = "<group>";
@@ -1095,7 +1072,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				DD448F6522B530B60050312E /* Base */,
-				DD448F6822B530C00050312E /* en */,
 			);
 			name = Settings.storyboard;
 			sourceTree = "<group>";
@@ -1104,7 +1080,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				DD448F6A22B530D20050312E /* Base */,
-				DD448F6D22B530D70050312E /* en */,
 			);
 			name = TransactionHistoryViewController.xib;
 			sourceTree = "<group>";
@@ -1113,7 +1088,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				DD448F6F22B531330050312E /* Base */,
-				DD448F7222B5313B0050312E /* en */,
 			);
 			name = AccountDataCell.xib;
 			sourceTree = "<group>";
@@ -1122,7 +1096,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				DD448F7422B5315E0050312E /* Base */,
-				DD448F7A22B5316D0050312E /* en */,
 			);
 			name = TransactiontInputDetails.xib;
 			sourceTree = "<group>";
@@ -1131,7 +1104,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				DD448F7722B531680050312E /* Base */,
-				DD448F7C22B531720050312E /* en */,
 			);
 			name = TransactiontOutputDetailsCell.xib;
 			sourceTree = "<group>";

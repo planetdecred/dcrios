@@ -28,10 +28,10 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Transaction(s)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wg8-gU-t3W">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wg8-gU-t3W">
                     <rect key="frame" x="23" y="29" width="186" height="45"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="186" id="Hgh-w9-fFB"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="186" id="Hgh-w9-fFB"/>
                         <constraint firstAttribute="height" constant="45" id="VMd-db-sBn"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
@@ -47,11 +47,11 @@
                 <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LZb-hI-JcZ" customClass="DropMenuButton" customModule="Decred_Wallet" customModuleProvider="target">
                     <rect key="frame" x="217" y="29" width="132" height="45"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="132" id="de2-Z0-6zu"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="132" id="de2-Z0-6zu"/>
                         <constraint firstAttribute="height" constant="45" id="x7o-03-zTf"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
-                    <state key="normal" title="ALL">
+                    <state key="normal">
                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
                 </button>
@@ -71,11 +71,14 @@
                     </constraints>
                     <viewLayoutGuide key="safeArea" id="vLj-Ra-9st"/>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Synchronizing" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YMV-O4-AW4">
-                    <rect key="frame" x="128" y="321" width="119" height="25.5"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YMV-O4-AW4" customClass="Label" customModule="Decred_Wallet" customModuleProvider="target">
+                    <rect key="frame" x="129" y="321" width="117" height="25.5"/>
                     <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="synchronizing"/>
+                    </userDefinedRuntimeAttributes>
                 </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -87,6 +90,7 @@
                 <constraint firstItem="PjH-in-6bf" firstAttribute="top" secondItem="LZb-hI-JcZ" secondAttribute="bottom" constant="5" id="Tiw-Bh-4nt"/>
                 <constraint firstItem="Tmy-DS-jlp" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Tpa-cy-I4w"/>
                 <constraint firstItem="rA7-jS-dhT" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="19" id="a1z-vY-gho"/>
+                <constraint firstItem="LZb-hI-JcZ" firstAttribute="leading" secondItem="wg8-gU-t3W" secondAttribute="trailing" constant="8" id="am4-As-xGd"/>
                 <constraint firstItem="YMV-O4-AW4" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="jY1-y8-0dV"/>
                 <constraint firstItem="wg8-gU-t3W" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="9" id="oOz-4W-vjL"/>
                 <constraint firstItem="LZb-hI-JcZ" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="9" id="rUj-7l-6cz"/>
@@ -94,7 +98,7 @@
                 <constraint firstItem="YMV-O4-AW4" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="uUI-gW-GTp"/>
                 <constraint firstItem="PjH-in-6bf" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.98" id="vaQ-eg-dTg"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="LZb-hI-JcZ" secondAttribute="trailing" constant="26" id="yGQ-Lw-d5P"/>
-                <constraint firstItem="wg8-gU-t3W" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="23" id="yK1-Xe-qea"/>
+                <constraint firstItem="wg8-gU-t3W" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="yK1-Xe-qea"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="23.199999999999999" y="51.724137931034484"/>

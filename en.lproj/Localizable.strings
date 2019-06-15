@@ -31,13 +31,15 @@
 "passwordMatch" = "PASSWORDS MATCH";
 "passwordDoNotMatch" = "PASSWORDS DO NOT MATCH";
 "createPassword" = "Create %@ Password";
+"passwordStrength" = "PASSWORD STRENGTH";
+"confirmPassword" = "CONFIRM PASSWORD";
 
 /* Request Password */
 "enterPassword" = "Enter Password";
 "promptSpendingPassword" = "Please enter spending password of your wallet.";
 "promptStartupPassword" = "Enter Current Startup Password.";
 "securityTypeNotSpecify" = "Security type not specified. Cannot proceed.";
-"password" = "password";
+"password" = "PASSWORD";
 "proceed" = "Proceed";
 "passwordEmpty" = "Password can't be empty.";
 "invalidInput" = "invalid input.";
@@ -48,6 +50,8 @@
 "enterPIN" = "Enter %@ PIN";
 "confirmPIN" = "Confirm %@ PIN";
 "pinsDidNotMatch" = "PINs did not match. Try again";
+"pin" = "PIN";
+"pinStrength" = "PIN STRENGTH";
 
 /* Change Spendind PIN/Password */
 "currentSpendingPassword" = "Enter Current Spending Password";
@@ -77,12 +81,17 @@
 
 /* Confirm NewWallet Seed */
 "seedDoesNotMatches" = "Seed does not matches. Try again, please";
+"seedPhraseVerification" = "Seed phrase verification...";
+"confirmSeedInfo" = "Please confirm your seed phrase by typing and selecting requested words accordingly.";
 
 /* Recover Existing Wallet */
 "correctWordIs" = "Word #%d";
 "notAllSeedsAreEntered" = "Not all seeds are entered. Please, check input fields and enter all seeds.";
 "incorrectSeedEntered" = "You entered an incorrect seed. Please check your words.";
 "walletRecoveryError" = "Wallet recovery error.";
+"seedRestoreheader" = "Seed Restore";
+"seedRestoreInfo" = "Start typing the word and then tap the current word from the suggestion list.";
+"confirm" = "CONFIRM";
 
 /* Drop Down Search Field */
 "tapToSelect" = "Tap to select the word";
@@ -91,6 +100,14 @@
 "createNewWallet" = "Create a New \n Wallet";
 "restoreExistingWallet" = "Restore Existing \n Wallet";
 "createOrRecoverWallet" = "Create or recover your wallet and \nstart managing your decred.";
+"wallet" = "Wallet";
+
+/* Create New Wallet(Seed display view) */
+"settingUpYourWallet" = "Setting up your wallet";
+"seedHeaderInfo" = "Write down this seed phrase and save it in a secure location. You will be asked to enter it on the next screen and if you ever need to restore your wallet.";
+"seedWarningInfo" = "Failure to keep this seed phrase can result in theft of your funds and inability to recover your wallet.";
+"ICopiedTheSeedPhrase" = "I COPIED THE SEED PHRASE";
+
 
 /* Wallet Setup Base */
 "settingUpWallet" ="Setting up wallet...";
@@ -153,6 +170,7 @@
 "remain" = " remain:";
 "total"  = " total:";
 "stageTimes" = "Stage Times";
+"synchronizing" = "Synchronizing"
 
 /* Send view */
 "invalidamount" = "Invalid amount.";

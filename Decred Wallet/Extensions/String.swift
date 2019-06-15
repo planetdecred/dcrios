@@ -28,8 +28,19 @@ extension String {
     var withFirstLetterCapital: String {
         return prefix(1).uppercased() + self.lowercased().dropFirst()
     }
-    
+}
+
+protocol Localizable {
+    var localized: String { get }
+}
+
+protocol XIBLocalizable {
+    var xibLocKey: String? { get set }
+}
+
+extension String: Localizable {
     var localized: String {
-            return NSLocalizedString(self, comment: "")
+        return NSLocalizedString(self, comment: "")
     }
 }
+
