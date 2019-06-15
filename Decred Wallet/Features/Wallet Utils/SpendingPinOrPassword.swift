@@ -35,7 +35,7 @@ struct SpendingPinOrPassword {
     private static func promptForNewPinOrPassword(_ vc: UIViewController, currentPinOrPassword: String) {
         // init secutity vc to use in getting new spending password or pin from user
         let securityVC = SecurityViewController.instantiate()
-        securityVC.securityFor = "Spending"
+        securityVC.securityFor = "spending".localized
         securityVC.initialSecurityType = self.currentSecurityType()
         
         securityVC.onUserEnteredPinOrPassword = { (newPinOrPassword, securityType) in

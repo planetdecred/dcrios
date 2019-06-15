@@ -332,7 +332,7 @@ class SendViewController: UIViewController {
                 }
                 
                 let requestPinVC = RequestPinViewController.instantiate()
-                requestPinVC.securityFor = "Spending"
+                requestPinVC.securityFor = "spending".localized
                 requestPinVC.showCancelButton = true
                 requestPinVC.onUserEnteredPin = { spendingPin in
                     self.finalizeSending(destinationAddress: destinationAddress, pinOrPassword: spendingPin)

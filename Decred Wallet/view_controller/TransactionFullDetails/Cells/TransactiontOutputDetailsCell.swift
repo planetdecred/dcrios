@@ -41,7 +41,7 @@ class TransactiontOutputDetailsCell: UITableViewCell {
             
             var address = decodedOutput.Addresses.count > 0 ? decodedOutput.Addresses[0] : ""
             var amount = Utils.getAttributedString(str: "\(decodedOutput.dcrAmount.round(8))", siz: 13, TexthexColor: GlobalConstants.Colors.TextAmount)
-            var title = " (external)"
+            var title = " (\("external".localizedLowercase))"
             
             switch(decodedOutput.ScriptType){
             case "nulldata":
@@ -96,8 +96,8 @@ class TransactiontOutputDetailsCell: UITableViewCell {
             //Copy a string to the pasteboard.
             UIPasteboard.general.string = sender.titleLabel?.text
             //Alert
-            let alertController = UIAlertController(title: "", message: "Address copied!", preferredStyle: UIAlertController.Style.alert)
-            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            let alertController = UIAlertController(title: "", message: "addrCopied".localized, preferredStyle: UIAlertController.Style.alert)
+            alertController.addAction(UIAlertAction(title: "oK".localized, style: UIAlertAction.Style.default, handler: nil))
             self.presentingController.present(alertController, animated: true, completion: nil)
         }
     }

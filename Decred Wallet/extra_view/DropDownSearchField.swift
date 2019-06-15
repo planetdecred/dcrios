@@ -135,7 +135,7 @@ class DropDownTableDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let footerHintLabel = UILabel(frame: CGRect(x: 1, y: 1, width: tableView.frame.width, height: self.footerHeight))
-        footerHintLabel.text = "Tap to select the word"
+        footerHintLabel.text = "tapToSelect".localized
         footerHintLabel.backgroundColor = UIColor.init(hex: "#DDDDDD")
         return footerHintLabel
     }

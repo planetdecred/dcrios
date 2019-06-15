@@ -294,7 +294,7 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
             self.present(alert, animated: true, completion: nil)
         }else{
             let requestPinVC = RequestPinViewController.instantiate()
-            requestPinVC.securityFor = "Spending"
+            requestPinVC.securityFor = "spending".localized
             requestPinVC.showCancelButton = true
             requestPinVC.onUserEnteredPin = { pin in
                 self.SignMsg(pass: pin)

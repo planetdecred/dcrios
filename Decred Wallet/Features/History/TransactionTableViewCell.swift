@@ -42,7 +42,7 @@ class TransactionTableViewCell: BaseTableViewCell {
                     self.status.text = "confirmed".localized
                 } else {
                     self.status.textColor = UIColor(hex:"#3d659c")
-                    self.status.text = "Pending"
+                    self.status.text = "pending".localized
                 }
             }
             

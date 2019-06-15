@@ -13,9 +13,9 @@ extension DcrlibwalletGeneralSyncProgress {
     var totalTimeRemaining: String {
         let minutes = self.totalTimeRemainingSeconds / 60
         if minutes > 0 {
-            return "\(minutes) min"
+            return String(format: "minRemaining".localized, minutes)
         }
-        return "\(self.totalTimeRemainingSeconds) sec"
+        return String(format: "secRemaining".localized, self.totalTimeRemainingSeconds)
     }
 }
 
@@ -30,11 +30,11 @@ extension DcrlibwalletHeadersFetchProgressReport {
         let daysBehind = Int64(round(hoursBehind / 24.0))
         
         if daysBehind < 1 {
-            return "<1 day"
+            return "lessThanOneday".localized
         } else if daysBehind == 1 {
-            return "1 day"
+            return "oneDay".localized
         } else {
-            return "\(daysBehind) days"
+            return String(format: "mutlipleDays".localized, daysBehind)
         }
     }
 }
@@ -43,9 +43,9 @@ extension DcrlibwalletHeadersRescanProgressReport {
     var timeRemaining: String {
         let minutes = self.rescanTimeRemaining / 60
         if minutes > 0 {
-            return "\(minutes) min"
+            return String(format: "minRemaining".localized, minutes)
         }
-        return "\(self.rescanTimeRemaining) sec"
+        return String(format: "secRemaining".localized, self.rescanTimeRemaining)
     }
 }
 

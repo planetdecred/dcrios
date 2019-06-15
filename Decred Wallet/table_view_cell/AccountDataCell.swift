@@ -52,7 +52,7 @@ class AccountDataCell: UITableViewCell, AccountDetailsCellProtocol {
         labelVotingAuthorityValue.text = "\(account.Balance?.dcrVotingAuthority ?? 0)"
         labelImmatureStakeGenerationValue.text = "\(account.Balance?.dcrImmatureStakeGeneration ?? 0)"
         labelAccountNoValue.text = "\(account.Number)"
-        labelKeysValue.text = "\(account.ExternalKeyCount) External, \(account.InternalKeyCount) Internal, \(account.ImportedKeyCount) Imported"
+        labelKeysValue.text = "\(account.ExternalKeyCount) \("external".localized), \(account.InternalKeyCount) \("internal".localized), \(account.ImportedKeyCount) \("imported".localized)"
         
         if BuildConfig.IsTestNet {
             labelHDPathValue.text = "\(GlobalConstants.Strings.TESTNET_HD_PATH) \(account.Number)'"

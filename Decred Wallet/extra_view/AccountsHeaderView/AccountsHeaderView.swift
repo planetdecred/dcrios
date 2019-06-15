@@ -38,7 +38,7 @@ class AccountsHeaderView: UIView {
             DispatchQueue.main.async {[weak self] in
                 if AppDelegate.walletLoader.isSynced {
                     let spendableTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(hex: "#8997A5")]
-                    let spendableTextattr =  NSMutableAttributedString(string: "Spendable ", attributes: spendableTextAttributes)
+                    let spendableTextattr =  NSMutableAttributedString(string: "\("Spendable".localized) ", attributes: spendableTextAttributes)
                     let amount = Utils.getAttributedString(str: "\(newValue)", siz: 9.0, TexthexColor: self!.spendableColor)
                     let combination = NSMutableAttributedString()
                     combination.append(spendableTextattr)
@@ -57,7 +57,7 @@ class AccountsHeaderView: UIView {
         if(status){
             syncIndicate.loadGif(name: "progress bar-1s-200px")
             let spendableTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(hex: "#8997A5")]
-            let spendableTextattr =  NSMutableAttributedString(string: "Spendable ", attributes: spendableTextAttributes)
+            let spendableTextattr =  NSMutableAttributedString(string: "\("Spendable".localized) ", attributes: spendableTextAttributes)
             let AmountText = "-"
             let amountTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(hex: "#2DD8A3")]
             let amountTextattr =  NSMutableAttributedString(string: AmountText, attributes: amountTextAttributes)

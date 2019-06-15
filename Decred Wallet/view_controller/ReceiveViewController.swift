@@ -30,7 +30,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.subheader.text = "Each time you request a payment, a new address is created to protect your privacy."
+        self.subheader.text = "recieveHeaderInfo".localized
         // TAP Gesture
         self.setupExtraUI()
                self.showFirstWalletAddressAndQRCode()
@@ -54,15 +54,15 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
             UIPasteboard.general.string = self.lblWalletAddress.text!
             
             //Alert
-            let alertController = UIAlertController(title: "", message: "Wallet address copied", preferredStyle: UIAlertController.Style.alert)
-            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            let alertController = UIAlertController(title: "", message: "walletAddrCopied".localized, preferredStyle: UIAlertController.Style.alert)
+            alertController.addAction(UIAlertAction(title: "oK".localized, style: UIAlertAction.Style.default, handler: nil))
             self.present(alertController, animated: true, completion: nil)
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setupNavigationBar(withTitle: "Receive")
+        setupNavigationBar(withTitle: "receive".localized)
         
         let shareBtn = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share))
         let generateAddressBtn = UIButton(type: .custom)
@@ -76,9 +76,9 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     @objc func showMenu(sender: Any) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil)
         
-        let generateNewAddressAction = UIAlertAction(title: "Generate new address", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        let generateNewAddressAction = UIAlertAction(title: "genNewAddr".localized, style: .default, handler: { (alert: UIAlertAction!) -> Void in
             self.generateNewAddress()
         })
         

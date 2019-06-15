@@ -20,6 +20,10 @@
 "clearFields" =  "Clear fields";
 "copiedSuccessfully" = "Copied successfully.";
 "invalidRequest" = "Invalid request!";
+"addrCopied" = "Address copied!";
+"preOutpointCopied" = "Previous outpoint copied!";
+"errorMsg" = "Error Message";
+"info" = "Info";
 
 /* Password Setup */
 "emptyPasswordNotAllowed" = "Empty password not allowed";
@@ -49,7 +53,7 @@
 "currentSpendingPassword" = "Enter Current Spending Password";
 "changingSpendingPIN/Pass" = "Changing spending %@...";
 
-/* Change Startup PIN/Password */
+/* Changing Startup PIN/Password */
 "changingStartupPINPass" = "Changing startup %@...";
 "removingStartupPINPass" = "Removing startup %@...";
 "settingStartupPINPass" = "Setting startup %@...";
@@ -79,6 +83,9 @@
 "notAllSeedsAreEntered" = "Not all seeds are entered. Please, check input fields and enter all seeds.";
 "incorrectSeedEntered" = "You entered an incorrect seed. Please check your words.";
 "walletRecoveryError" = "Wallet recovery error.";
+
+/* Drop Down Search Field */
+"tapToSelect" = "Tap to select the word";
 
 /* Wallet Setup */
 "createNewWallet" = "Create a New \n Wallet";
@@ -110,15 +117,20 @@
 "blocksBehind" = "%d blocks behind.";
 "bestBlockAgeAgo" = "%@ ago";
 "discoveringUsedAddresses" = "Discovering used addresses.";
-"generalSyncProgressCompletedleft" = "%d completed, %@ left.";
+"generalSyncProgressCompletedleft" = "%d%% completed, %@ left.";
 "scanningBlocks" = "Scanning blocks.";
-"rescanProgress" = "%d completed, %@ left.";
-"completed" = "completed";
-"left" = "left";
+"rescanProgress" = "%d%% completed, %@ left.";
 "syncCanceled" = "Sync canceled.";
 "syncError" = "Sync error.";
 "latestBlock" = "Latest Block: %d";
 "now" = "now";
+"secondsAgo" = "%ds ago";
+"minAgo" = "%dm ago";
+"hrsAgo" = "%dh ago";
+"daysAgo" = "%dd ago";
+"weeksAgo" = "%dw ago";
+"monthsAgo" = "%dmo ago";
+"yearsAgo" =  "%dy ago";
 
 /* Sync progress view */
 "loading" = "Loading...";
@@ -126,16 +138,16 @@
 "numberOfConnectedPeer" = "%d peer";
 "syncingWithOnNet" = "Syncing with %@ on %@.";
 "fetchedHeaders" = "Fetched %d of ~%d block headers.\n";
-"headersFetchProgress" = "%d through step 1 of 3.";
+"headersFetchProgress" = "%d%% through step 1 of 3.";
 "bestBlockAgebehind" = "\nYour wallet is %@ behind.";
 "addressDiscoveryProgressOver" = "%d (over) through step 2 of 3.";
-"addressDiscoveryProgressThrough" = "~%d through step 2 of 3.";
+"addressDiscoveryProgressThrough" = "~%d%% through step 2 of 3.";
 "scanningTotalHeaders" = "Scanning %d of %d block headers.\n";
 "stepThreeRescanProgress" = "%d through step 3 of 3.";
 "synchronizing" = "Synchronizing";
 "synchronizationCanceled" = "Synchronization canceled";
 "synchronizationError" = "Synchronization error";
-"syncTotalProgress" = "%d completed, %d remaining.";
+"syncTotalProgress" = "%d%% completed, %@ remaining.";
 "allTimes" = "All Times";
 "elapsed" = "elapsed:";
 "remain" = " remain:";
@@ -173,7 +185,7 @@
 
 /* Send Complete */
 "copyHash" = "HASH: (copied)";
-"hash" = "HASH:";
+"hash" = "HASH";
 
 /* Security Menu */
 "validOwnAddr" = "Address is valid and you own it.";
@@ -220,11 +232,48 @@
 "newTransaction" = "New Transaction";
 "youReceived" = "You received";
 
-/* Account data cell */
+/* Account Data Cell */
+"external" = "External";
+"internal" = "Internal";
+"imported" = "Imported";
 
+/* Account View */
+"hidden" = "hidden";
+"spendable" = "Spendable";
 
+/* Transaction Details */
+"transactionDetails" = "Transaction Details";
+"copyTransactionHash" = "Copy transaction hash";
+"copyRawTransaction" = "Copy raw transaction";
+"viewOnDcrdata" = "View on dcrdata";
+"copied" = "Copied";
+"ticketPurchase" = "Ticket Purchase";
+"date" = "Date";
+"status" = "Status";
+"amount" = "Amount";
+"fee" = "Fee";
+"type" = "Type";
+"confirmation" = "Confirmation";
+"lastBlockValid" = "Last Block Valid";
+"version" = "Version";
+"voteBits" =  "Vote Bits";
 
+/* Receive View */
+"recieveHeaderInfo" = "Each time you request a payment, a new address is created to protect your privacy.";
+"walletAddrCopied" = "Wallet address copied.";
+"genNewAddr" = "Generate new address";
 
+/* Add Account */
+"plsInputAccountName" = "Please input an account name";
+"creatingAccount" = "Creating account...";
 
+/* View controller sender */
+"spending" = "Spending";
+"startup" = "Startup";
 
-
+/* Dcrlibwallet extension */
+"lessThanOneday" = "<1 day";
+"oneDay" = "1 day";
+"mutlipleDays" = "%d days";
+"minRemaining" = "%d min";
+"secRemaining" = "%d sec";

@@ -85,7 +85,7 @@ class StartScreenViewController: UIViewController {
         }
         else {
             let requestPinVC = RequestPinViewController.instantiate()
-            requestPinVC.securityFor = "Startup"
+            requestPinVC.securityFor = "startup".localized
             requestPinVC.onUserEnteredPin = self.unlockWalletAndStartApp
             self.present(requestPinVC, animated: true, completion: nil)
         }

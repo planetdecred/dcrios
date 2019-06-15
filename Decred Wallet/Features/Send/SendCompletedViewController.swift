@@ -49,7 +49,7 @@ class SendCompletedViewController: UIViewController {
         UIPasteboard.general.string = self.transactionHash
         self.hashHeaderLabel.text = "copyHash".localized
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            self.hashHeaderLabel.text = "hash".localized
+            self.hashHeaderLabel.text = "\("hash".localized):"
         }
     }
     

@@ -63,7 +63,7 @@ struct StartupPinOrPassword {
     private static func setNewPinOrPassword(_ vc: UIViewController, currentPinOrPassword: String?, completion: (() -> Void)? = nil) {
         // init secutity vc to use in getting new password or pin from user
         let securityVC = SecurityViewController.instantiate()
-        securityVC.securityFor = "Startup"
+        securityVC.securityFor = "startup".localized
         securityVC.initialSecurityType = self.currentSecurityType()
         securityVC.onUserEnteredPinOrPassword = { newPinOrPassword, securityType in
             self.changeWalletPublicPassphrase(vc, current: currentPinOrPassword, new: newPinOrPassword, type: securityType, completion: completion)

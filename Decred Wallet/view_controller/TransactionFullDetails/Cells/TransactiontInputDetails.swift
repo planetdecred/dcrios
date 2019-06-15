@@ -47,7 +47,7 @@ class TransactiontInputDetails: UITableViewCell {
             }
             
             let amount = "\(decodedInput.dcrAmount.round(8))"
-            let title = " (external)"
+            let title = " (\("external".localizedLowercase))"
             
             var hash = decodedInput.PreviousTransactionHash
             if hash == "0000000000000000000000000000000000000000000000000000000000000000" {
@@ -95,8 +95,8 @@ class TransactiontInputDetails: UITableViewCell {
             //Copy a string to the pasteboard.
             UIPasteboard.general.string = sender.titleLabel?.text
             //Alert
-            let alertController = UIAlertController(title: "", message: "Previous outpoint copied!", preferredStyle: UIAlertController.Style.alert)
-            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            let alertController = UIAlertController(title: "", message: "preOutpointCopied".localized, preferredStyle: UIAlertController.Style.alert)
+            alertController.addAction(UIAlertAction(title: "oK".localized, style: UIAlertAction.Style.default, handler: nil))
             self.presentingController.present(alertController, animated: true, completion: nil)
         }
     }
