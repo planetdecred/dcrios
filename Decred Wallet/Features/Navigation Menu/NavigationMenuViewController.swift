@@ -124,7 +124,7 @@ class NavigationMenuViewController: UIViewController {
     
     func syncNotStartedDueToNetwork() {
         AppDelegate.walletLoader.syncer.deRegisterSyncProgressListener(for: "\(self)")
-        AppDelegate.walletLoader.wallet?.cancelSync()
+        AppDelegate.walletLoader.wallet?.cancelSync(true)
         
         // Allow 0.5 seconds for sync cancellation to complete before setting up wallet.
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {

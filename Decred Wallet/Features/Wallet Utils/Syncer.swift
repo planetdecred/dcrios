@@ -88,7 +88,7 @@ class Syncer: NSObject, AppLifeCycleDelegate {
             self.currentSyncOp = nil
             self.currentSyncOpProgress = nil
             self.shouldRestartSync = true
-            AppDelegate.walletLoader.wallet?.cancelSync()
+            AppDelegate.walletLoader.wallet?.cancelSync(true)
         }
     }
     

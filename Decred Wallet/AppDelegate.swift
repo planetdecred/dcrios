@@ -156,7 +156,7 @@ extension AppDelegate: UIApplicationDelegate {
     
     func applicationWillTerminate(_: UIApplication) {
         self.reachability.stopNotifier()
-        AppDelegate.walletLoader.wallet?.shutdown()
+        AppDelegate.walletLoader.wallet?.shutdown(true)
     }
 }
 
