@@ -14,6 +14,8 @@ class ConfirmToSendFundViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var accountLabel: UILabel!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var confirmSendButton: UIButton!
+    @IBOutlet weak var sendBtn: UIButton!
+    @IBOutlet weak var cancelBtn: UIButton!
     
     var sendAmount: String?
     var fee: String?
@@ -54,6 +56,9 @@ class ConfirmToSendFundViewController: UIViewController, UITextFieldDelegate {
         self.sendAmountLabel.text = "\("Sending".localized) \(self.sendAmount!)"
         self.feeLabel.text = "\("withFee".localized) \(self.fee!)"
         self.addressLabel.text = "to".localized + self.destinationAddress!
+        self.passwordTextField.placeholder = "passwordHint".localized
+        self.sendBtn.setTitle("send".localized.uppercased(), for: .normal)
+        self.cancelBtn.setTitle("cancel".localized.uppercased(), for: .normal)
         
         if self.destinationAccount == nil {
             self.accountLabel.isHidden = true

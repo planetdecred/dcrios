@@ -15,9 +15,6 @@ class SettingsController: UITableViewController  {
     @IBOutlet weak var connectPeer_cell: UITableViewCell!
     @IBOutlet weak var server_cell: UITableViewCell!
     @IBOutlet weak var certificate_cell: UITableViewCell!
-    @IBOutlet weak var serverAdd_label: UILabel!
-    @IBOutlet weak var connect_ip_label: UILabel!
-    @IBOutlet weak var certificat_label: UILabel!
     @IBOutlet weak var network_mode_subtitle: UILabel!
     @IBOutlet weak var network_mode: UITableViewCell!
     @IBOutlet weak var Start_Pin_cell: UITableViewCell!
@@ -34,11 +31,34 @@ class SettingsController: UITableViewController  {
     @IBOutlet weak var start_Pin: UISwitch!
     @IBOutlet weak var currency_subtitle: UILabel!
     
+    // settings title.
+    @IBOutlet weak var changeSpendingPinPassDesc: UILabel!
+    @IBOutlet weak var spendingPinPassInfo: UILabel!
+    @IBOutlet weak var startupPinPassDesc: UILabel!
+    @IBOutlet weak var changeStatupPinPassDesc: UILabel!
+    @IBOutlet weak var startupPinPassInfo: UILabel!
+    @IBOutlet weak var spendUnconfirmedFundDesc: UILabel!
+    @IBOutlet weak var incomingTxNotificationDesc: UILabel!
+    @IBOutlet weak var currencyConversionDesc: UILabel!
+    @IBOutlet weak var networkModeDesc: UILabel!
+    @IBOutlet weak var serverAddDesc: UILabel!
+    @IBOutlet weak var connectIpDesc: UILabel!
+    @IBOutlet weak var certificatDesc: UILabel!
+    @IBOutlet weak var syncOnWifiDesc: UILabel!
+    @IBOutlet weak var versionDesc: UILabel!
+    @IBOutlet weak var buildDateDesc: UILabel!
+    @IBOutlet weak var licenseDesc: UILabel!
+    @IBOutlet weak var rescanBlockChainDesc: UILabel!
+    @IBOutlet weak var walletLogDesc: UILabel!
+    @IBOutlet weak var deleteWalletDesc: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.spend_uncon_fund.addTarget(self, action: #selector(switchChanged), for: UIControl.Event.valueChanged)
         self.incoming_notification_switch.addTarget(self, action: #selector(switchChanged), for: UIControl.Event.valueChanged)
         self.cellularSyncSwitch.addTarget(self, action: #selector(switchChanged), for: UIControl.Event.valueChanged)
+        
+        self.setMenuTitle()
     }
     
     @objc func switchChanged(switchView: UISwitch) {
@@ -60,6 +80,28 @@ class SettingsController: UITableViewController  {
         if fieldToUpdate != nil {
             Settings.setValue(switchView.isOn, for: fieldToUpdate!)
         }
+    }
+    
+    func setMenuTitle(){
+        self.changeSpendingPinPassDesc.text = "changeSpendingPinPassDesc".localized
+        self.spendingPinPassInfo.text = "spendingPinPassInfo".localized
+        self.startupPinPassDesc.text = "startupPinPassDesc".localized
+        self.changeStatupPinPassDesc.text = "changeStatupPinPassDesc".localized
+        self.startupPinPassInfo.text = "startupPinPassInfo".localized
+        self.spendUnconfirmedFundDesc.text = "spendUnconfirmedFundDesc".localized
+        self.incomingTxNotificationDesc.text = "incomingTxNotificationDesc".localized
+        self.currencyConversionDesc.text = "currencyConversionDesc".localized
+        self.networkModeDesc.text = "networkModeDesc".localized
+        self.serverAddDesc.text = "serverAddDesc".localized
+        self.connectIpDesc.text = "connectIpDesc".localized
+        self.certificatDesc.text = "certificatDesc".localized
+        self.syncOnWifiDesc.text = "syncOnWifiDesc".localized
+        self.versionDesc.text = "versionDesc".localized
+        self.buildDateDesc.text = "buildDateDesc".localized
+        self.licenseDesc.text = "licenseDesc".localized
+        self.rescanBlockChainDesc.text = "rescanBlockChainDesc".localized
+        self.walletLogDesc.text = "walletLogDesc".localized
+        self.deleteWalletDesc.text = "deleteWalletDesc".localized
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -87,20 +129,20 @@ class SettingsController: UITableViewController  {
             self.server_cell.isUserInteractionEnabled = false
             self.connectPeer_cell.isUserInteractionEnabled = true
             self.server_ip.textColor = UIColor.lightGray
-            self.certificat_label.textColor = UIColor.lightGray
+            self.certificatDesc.textColor = UIColor.lightGray
             self.connect_peer_ip.textColor = UIColor.darkText
-            self.serverAdd_label.textColor = UIColor.lightGray
-            self.connect_ip_label.textColor = UIColor.darkText
+            self.serverAddDesc.textColor = UIColor.lightGray
+            self.connectIpDesc.textColor = UIColor.darkText
         } else {
             network_mode_subtitle?.text = "remoteFullNode".localized
             self.certificate_cell.isUserInteractionEnabled = true
             self.server_cell.isUserInteractionEnabled = true
             self.connectPeer_cell.isUserInteractionEnabled = false
             self.connect_peer_ip.textColor = UIColor.lightGray
-            self.certificat_label.textColor = UIColor.darkText
+            self.certificatDesc.textColor = UIColor.darkText
             self.server_ip.textColor = UIColor.darkText
-            self.serverAdd_label.textColor = UIColor.darkText
-            self.connect_ip_label.textColor = UIColor.lightGray
+            self.serverAddDesc.textColor = UIColor.darkText
+            self.connectIpDesc.textColor = UIColor.lightGray
         }
     }
     
@@ -157,6 +199,24 @@ class SettingsController: UITableViewController  {
         }
         
         tableView.reloadData()
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        let sectionName: String
+        switch section {
+        case 0:
+            sectionName = "general".localized.capitalized
+        case 1:
+            sectionName = "connection".localized.capitalized
+        case 2:
+            sectionName = "about".localized.capitalized
+        case 3:
+            sectionName = "debug".localized.capitalized
+        default:
+            sectionName = ""
+        }
+        return sectionName
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

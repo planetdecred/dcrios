@@ -11,12 +11,14 @@ import UIKit
 class CertificateViewController: UIViewController {
     
     @IBOutlet weak var certificate: UITextView!
+    @IBOutlet weak var certificateDesc: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
         self.navigationItem.title = "certificate".localized
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
-        // Do any additional setup after loading the view.
+        
+        self.certificateDesc.text = "\("certificate".localized):"
         
         loadCert()
     }

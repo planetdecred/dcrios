@@ -27,6 +27,10 @@ class NetworkModeTableViewController: UITableViewController {
         }
     }
     
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "networkModeDesc".localized.capitalized
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         spv_cell.accessoryType = .none
         remote_cell.accessoryType = .none

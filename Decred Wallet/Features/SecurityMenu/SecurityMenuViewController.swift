@@ -45,6 +45,10 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
         self.signature.delegate = self
         self.message.delegate = self
         
+        self.signature.placeholder = "signature".localized
+        self.address.placeholder = "address".localized
+        self.message.placeholder = "message".localized
+        
         if AppDelegate.walletLoader.isSynced {
             self.toggleView()
         }

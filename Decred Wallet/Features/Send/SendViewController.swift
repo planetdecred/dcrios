@@ -106,6 +106,8 @@ class SendViewController: UIViewController {
         self.dcrAmountTextField.addTarget(self, action: #selector(self.dcrAmountTextFieldChanged), for: .editingChanged)
         self.usdAmountTextField.addTarget(self, action: #selector(self.usdAmountTextFieldChanged), for: .editingChanged)
         
+        self.destinationAddressTextField.placeholder = "destAddr".localized
+        
         self.hideKeyboardOnTapAround()
         self.resetViews()
     }

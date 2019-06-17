@@ -19,7 +19,9 @@ class AddAcountViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.createBtn.layer.cornerRadius = 6
-        // Do any additional setup after loading the view.
+        self.accountName.placeholder = "accountName".localized
+        self.passphrase.placeholder = "privatePassphrase".localized
+        
         if SpendingPinOrPassword.currentSecurityType() != SecurityViewController.SECURITY_TYPE_PASSWORD {
             passphrase.isHidden = true
             createBtnTopConstraint.constant = -40

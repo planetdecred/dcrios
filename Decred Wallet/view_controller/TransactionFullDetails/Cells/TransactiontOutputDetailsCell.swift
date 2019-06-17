@@ -45,12 +45,12 @@ class TransactiontOutputDetailsCell: UITableViewCell {
             
             switch(decodedOutput.ScriptType){
             case "nulldata":
-                amount = NSAttributedString(string: "[null data]")
-                address = "[script]"
+                amount = NSAttributedString(string: "[\("nullData".localized)]")
+                address = "[\("script".localized)]"
                 title = ""
                 break
             case "stakegen":
-                address = "[stakegen]"
+                address = "[\("stakegen".localized)]"
                 break
             default:
                 break

@@ -13,6 +13,7 @@ class DeleteWalletConfirmationViewController: UIViewController, UITextFieldDeleg
     @IBOutlet weak var enterPasswordHint: UILabel!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var deleteButton: UIButton!
+    @IBOutlet weak var deleteWalletHeader: UILabel!
     
     var onDeleteWalletConfirmed: ((String?) -> Void)?
     
@@ -22,6 +23,9 @@ class DeleteWalletConfirmationViewController: UIViewController, UITextFieldDeleg
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(self.view.endEditing(_:)))
         tap.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tap)
+        
+        self.deleteWalletHeader.text = "\("deleteWalletDesc".localized)?"
+        
         
         if SpendingPinOrPassword.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
             self.passwordTextField.delegate = self
