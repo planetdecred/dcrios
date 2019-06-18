@@ -9,7 +9,7 @@ import Foundation
 import Dcrlibwallet
 
 protocol SyncProgressListenerProtocol {
-    func onStarted()
+    func onStarted(_ wasRestarted: Bool)
     func onPeerConnectedOrDisconnected(_ numberOfConnectedPeers: Int32)
     func onHeadersFetchProgress(_ progressReport: DcrlibwalletHeadersFetchProgressReport)
     func onAddressDiscoveryProgress(_ progressReport: DcrlibwalletAddressDiscoveryProgressReport)
@@ -33,6 +33,8 @@ class Syncer: NSObject, AppLifeCycleDelegate {
     var syncListeners = [String : SyncProgressListenerProtocol]()
     
     var networkLastActive: Date?
+    
+    var stalledSyncTracker: Timer?
     
     var currentSyncOp: SyncOp?
     var currentSyncOpProgress: Any?
@@ -61,15 +63,19 @@ class Syncer: NSObject, AppLifeCycleDelegate {
     
     func beginSync() {
         self.networkLastActive = nil
+        self.stalledSyncTracker?.invalidate()
+        self.stalledSyncTracker = nil
         self.currentSyncOp = nil
         self.currentSyncOpProgress = nil
+        
+        let isRestarting = self.shouldRestartSync
         self.shouldRestartSync = false
         
         do {
             let userSetSPVPeerIPs = Settings.readOptionalValue(for: Settings.Keys.SPVPeerIP) ?? ""
             try AppDelegate.walletLoader.wallet?.spvSync(userSetSPVPeerIPs)
             
-            self.forEachSyncListener({ syncListener in syncListener.onStarted() })
+            self.forEachSyncListener({ syncListener in syncListener.onStarted(isRestarting) })
             
             // Listen for changes to app state, specifically when the app becomes active after being suspended previously.
             AppDelegate.shared.registerLifeCylceDelegate(self, for: "\(self)")
@@ -79,6 +85,7 @@ class Syncer: NSObject, AppLifeCycleDelegate {
     }
     
     func restartSync() {
+        self.shouldRestartSync = true
         if self.syncCompletedCanceledOrErrored {
             // sync not in progress, restart now
             self.currentSyncOp = nil
@@ -87,8 +94,18 @@ class Syncer: NSObject, AppLifeCycleDelegate {
         } else {
             self.currentSyncOp = nil
             self.currentSyncOpProgress = nil
-            self.shouldRestartSync = true
             AppDelegate.walletLoader.wallet?.cancelSync()
+        }
+    }
+    
+    func restartSyncIfItStalls() {
+        // Create time to restart sync in 30 seconds. Timer will be auto-canceled and recreated if a sync update is received before the 30 seconds elapse.
+        self.stalledSyncTracker?.invalidate()
+        DispatchQueue.main.async {
+            self.stalledSyncTracker = Timer.scheduledTimer(withTimeInterval: 30, repeats: false) {_ in
+                self.restartSync()
+                self.stalledSyncTracker = nil
+            }
         }
     }
     
@@ -145,6 +162,11 @@ class Syncer: NSObject, AppLifeCycleDelegate {
             return
         }
         
+        // Sync was obviously stalled because the app went to sleep.
+        // Unset any previous timer set to track stalled sync since we'd account for this particular stalling below.
+        self.stalledSyncTracker?.invalidate()
+        self.stalledSyncTracker = nil
+        
         var syncLastActive = lastActiveTime
         if self.networkLastActive != nil && self.networkLastActive!.isBefore(lastActiveTime) {
             // Use network last active time if network was lost before app went to sleep.
@@ -170,7 +192,12 @@ class Syncer: NSObject, AppLifeCycleDelegate {
         if connection == .none {
             self.networkLastActive = Date()
         } else if self.networkLastActive != nil {
-            // network was active before, then got disconnected, subtract lost time from sync estimation parameters
+            // Network was active before, then got disconnected. So, sync must have stalled for a while.
+            // Unset any previous timer set to track stalled sync since we'd account for this particular stalling below.
+            self.stalledSyncTracker?.invalidate()
+            self.stalledSyncTracker = nil
+            
+            // Account for stalled sync by subtracting lost time from sync estimation parameters.
             let totalInactiveSeconds = Date().timeIntervalSince(self.networkLastActive!)
             AppDelegate.walletLoader.wallet?.syncInactive(forPeriod: Int64(totalInactiveSeconds))
             self.networkLastActive = nil // Network is active at this point.
@@ -187,12 +214,16 @@ extension Syncer: DcrlibwalletSyncProgressListenerProtocol {
     }
     
     func onHeadersFetchProgress(_ headersFetchProgress: DcrlibwalletHeadersFetchProgressReport?) {
+        self.restartSyncIfItStalls()
+        
         self.currentSyncOp = .FetchingHeaders
         self.currentSyncOpProgress = headersFetchProgress
         self.forEachSyncListener({ syncListener in syncListener.onHeadersFetchProgress(headersFetchProgress!) })
     }
     
     func onAddressDiscoveryProgress(_ addressDiscoveryProgress: DcrlibwalletAddressDiscoveryProgressReport?) {
+        self.restartSyncIfItStalls()
+        
         self.currentSyncOp = .DiscoveringAddresses
         self.currentSyncOpProgress = addressDiscoveryProgress
         self.forEachSyncListener({ syncListener in syncListener.onAddressDiscoveryProgress(addressDiscoveryProgress!) })
@@ -204,6 +235,7 @@ extension Syncer: DcrlibwalletSyncProgressListenerProtocol {
             // Ideally, blocks rescan should notify a different callback than sync - rescan stage.
             self.currentSyncOp = .RescanningHeaders
             self.currentSyncOpProgress = headersRescanProgress
+            self.restartSyncIfItStalls()
         }
         
         self.forEachSyncListener({ syncListener in syncListener.onHeadersRescanProgress(headersRescanProgress!) })
@@ -236,7 +268,9 @@ extension Syncer: DcrlibwalletSyncProgressListenerProtocol {
         self.forEachSyncListener({ syncListener in syncListener.onSyncEndedWithError(err!.localizedDescription) })
         
         if self.shouldRestartSync {
-            self.beginSync()
+            DispatchQueue.main.async {
+                self.beginSync()
+            }
         }
     }
     
