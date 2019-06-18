@@ -27,4 +27,17 @@ class WalletSetupViewController: WalletSetupBaseViewController {
         let netType = BuildConfig.IsTestNet ? "testnet" : BuildConfig.NetType
         build?.text = "build \(netType) " + dateformater.string(from: AppDelegate.compileDate)
     }
+    
+    // MARK:- Prepare for segue
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
+        if segue.identifier == DecredSegue.toNewWalletCreation.rawValue {
+            Settings.setValue(true, for: Settings.Keys.newWalletSetUp)
+        }
+
+        if segue.identifier == DecredSegue.toWalletRestore.rawValue {
+            Settings.setValue(false, for: Settings.Keys.newWalletSetUp)
+        }
+    }
 }

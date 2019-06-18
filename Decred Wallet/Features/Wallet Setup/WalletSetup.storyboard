@@ -21,7 +21,7 @@
         <!--Wallet Setup View Controller-->
         <scene sceneID="SNV-cX-ruz">
             <objects>
-                <viewController storyboardIdentifier="WalletSetupViewController" id="98H-rf-Dma" customClass="WalletSetupViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WalletSetupViewController" id="98H-rf-Dma" customClass="WalletSetupViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="npK-sR-9JI">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -50,7 +50,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="e18-Ja-BbW">
                                                 <rect key="frame" x="0.0" y="10.5" width="179" height="109"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Ns-Jr-ls2" customClass="KeyPadButton" customModule="DecredWallet" customModuleProvider="target">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Ns-Jr-ls2" customClass="KeyPadButton" customModule="Decred_Wallet" customModuleProvider="target">
                                                         <rect key="frame" x="62.5" y="0.0" width="54.5" height="54.5"/>
                                                         <color key="backgroundColor" red="0.92941176469999998" green="0.93725490199999995" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
@@ -71,7 +71,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
-                                                            <segue destination="gFt-pD-kVi" kind="show" id="7Sg-BI-PiE"/>
+                                                            <segue destination="gFt-pD-kVi" kind="show" identifier="toNewWalletCreation" id="7Sg-BI-PiE"/>
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create a New Wallet" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o7v-m1-uhB">
@@ -106,7 +106,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ZCV-TS-V98">
                                                 <rect key="frame" x="19" y="10.5" width="141" height="109"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WzT-LF-doE" customClass="KeyPadButton" customModule="DecredWallet" customModuleProvider="target">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WzT-LF-doE" customClass="KeyPadButton" customModule="Decred_Wallet" customModuleProvider="target">
                                                         <rect key="frame" x="43" y="0.0" width="54.5" height="54.5"/>
                                                         <color key="backgroundColor" red="0.92941176469999998" green="0.93725490199999995" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
@@ -127,7 +127,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
-                                                            <segue destination="JeB-dY-AWc" kind="show" id="7YZ-GJ-hcP"/>
+                                                            <segue destination="JeB-dY-AWc" kind="show" identifier="toWalletRestore" id="7YZ-GJ-hcP"/>
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Restore Existing Wallet" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3ui-eJ-rsh">
@@ -216,12 +216,12 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="958-W0-p93" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="kqc-Og-IdQ">
                     <connections>
-                        <segue destination="gFt-pD-kVi" kind="show" id="bTC-5f-N0z"/>
+                        <segue destination="gFt-pD-kVi" kind="show" identifier="toNewWalletCreation" id="bTC-5f-N0z"/>
                     </connections>
                 </tapGestureRecognizer>
                 <tapGestureRecognizer id="wQA-U0-fKq">
                     <connections>
-                        <segue destination="JeB-dY-AWc" kind="show" id="tpL-HT-Xj2"/>
+                        <segue destination="JeB-dY-AWc" kind="show" identifier="toWalletRestore" id="tpL-HT-Xj2"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -230,7 +230,7 @@
         <!--Create New Wallet View Controller-->
         <scene sceneID="VEO-lb-2KG">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="gFt-pD-kVi" customClass="CreateNewWalletViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="gFt-pD-kVi" customClass="CreateNewWalletViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bRB-df-uAa">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -601,7 +601,7 @@
         <!--Confirm New Wallet Seed View Controller-->
         <scene sceneID="8cr-QT-J7B">
             <objects>
-                <viewController id="Ixd-Bq-Lpi" customClass="ConfirmNewWalletSeedViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Ixd-Bq-Lpi" customClass="ConfirmNewWalletSeedViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vHM-cF-NNR">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -692,14 +692,14 @@
                                     <viewLayoutGuide key="safeArea" id="Ys2-oz-fUT"/>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="tripleSeedCell" id="JPJ-vp-nRQ" customClass="SeedConfirmTableViewCell" customModule="DecredWallet" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="tripleSeedCell" id="JPJ-vp-nRQ" customClass="SeedConfirmTableViewCell" customModule="Decred_Wallet" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="128" width="414" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JPJ-vp-nRQ" id="chv-s3-qaY" customClass="SeedCheckActiveCellView" customModule="DecredWallet" customModuleProvider="target">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JPJ-vp-nRQ" id="chv-s3-qaY" customClass="SeedCheckActiveCellView" customModule="Decred_Wallet" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="79.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bXX-Wt-JB0" customClass="ContouredButton" customModule="DecredWallet" customModuleProvider="target">
+                                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bXX-Wt-JB0" customClass="ContouredButton" customModule="Decred_Wallet" customModuleProvider="target">
                                                     <rect key="frame" x="14" y="30" width="96" height="40"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="14"/>
@@ -734,7 +734,7 @@
                                                         <action selector="onSelectSeedWord:" destination="JPJ-vp-nRQ" eventType="touchUpInside" id="lon-jJ-u6f"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xxq-IO-CyR" customClass="ContouredButton" customModule="DecredWallet" customModuleProvider="target">
+                                                <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xxq-IO-CyR" customClass="ContouredButton" customModule="Decred_Wallet" customModuleProvider="target">
                                                     <rect key="frame" x="304" y="30" width="96" height="40"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" red="0.92941176469999998" green="0.93725490199999995" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -770,7 +770,7 @@
                                                         <action selector="onSelectSeedWord:" destination="JPJ-vp-nRQ" eventType="touchUpInside" id="ZNU-43-89S"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gie-DO-U3Z" customClass="ContouredButton" customModule="DecredWallet" customModuleProvider="target">
+                                                <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gie-DO-U3Z" customClass="ContouredButton" customModule="Decred_Wallet" customModuleProvider="target">
                                                     <rect key="frame" x="161" y="30" width="96" height="40"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="14"/>
@@ -848,7 +848,7 @@
         <!--Recover Existing Wallet View Controller-->
         <scene sceneID="Akd-7l-74u">
             <objects>
-                <viewController id="JeB-dY-AWc" customClass="RecoverExistingWalletViewController" customModule="DecredWallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="JeB-dY-AWc" customClass="RecoverExistingWalletViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bRj-Cf-OQV">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -910,7 +910,7 @@
                                                     <color key="textColor" red="0.92941176469999998" green="0.42745098040000001" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z7B-hI-KRP" customClass="Button" customModule="DecredWallet" customModuleProvider="target">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z7B-hI-KRP" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                                     <rect key="frame" x="141" y="0.0" width="100" height="36"/>
                                                     <color key="backgroundColor" red="0.76862745099999996" green="0.79607843140000001" blue="0.82352941180000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
@@ -945,7 +945,7 @@
                                     </constraints>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="seedWordCell" rowHeight="36" id="13h-Vu-ejq" customClass="RecoveryWalletSeedWordCell" customModule="DecredWallet" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="seedWordCell" rowHeight="36" id="13h-Vu-ejq" customClass="RecoveryWalletSeedWordCell" customModule="Decred_Wallet" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="95" width="414" height="36"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="13h-Vu-ejq" id="jrq-WE-fY2">
@@ -964,7 +964,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jXR-IR-ia3">
                                                     <rect key="frame" x="69" y="3" width="329" height="30"/>
                                                     <subviews>
-                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="XmM-bN-iln" customClass="DropDownSearchField" customModule="DecredWallet" customModuleProvider="target">
+                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="XmM-bN-iln" customClass="DropDownSearchField" customModule="Decred_Wallet" customModuleProvider="target">
                                                             <rect key="frame" x="5" y="5" width="319" height="20"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="textColor"/>
@@ -1045,7 +1045,7 @@
         <image name="recover-wallet" width="54.5" height="54.5"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="7YZ-GJ-hcP"/>
-        <segue reference="bTC-5f-N0z"/>
+        <segue reference="tpL-HT-Xj2"/>
+        <segue reference="7Sg-BI-PiE"/>
     </inferredMetricsTieBreakers>
 </document>

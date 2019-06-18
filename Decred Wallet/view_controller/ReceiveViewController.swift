@@ -36,7 +36,8 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     var oldAddress = ""
     var wallet = AppDelegate.walletLoader.wallet
     let isSynced = AppDelegate.walletLoader.isSynced
-    
+    let isNewWalletSetup: Bool = Settings.readValue(for: Settings.Keys.newWalletSetUp)
+
     private var selectedAccount = ""
     
     override func viewDidLoad() {
@@ -47,7 +48,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
                self.showFirstWalletAddressAndQRCode()
         self.populateWalletDropdownMenu()
         self.starttime = Int64(NSDate().timeIntervalSince1970)
-        if isSynced {self.toggleView()}
+        self.toggleView()
         setUpConstraints()
     }
 
@@ -89,7 +90,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
         generateAddressBtn.frame = CGRect(x: 0, y: 0, width: 10, height: 51)
         barButton = UIBarButtonItem(customView: generateAddressBtn)
         self.navigationItem.rightBarButtonItems = [barButton!, shareBtn ]
-        syncInProgressLabel.isHidden = isSynced
+        configureProgressLabel()
     }
     
     @objc func showMenu(sender: Any) {
@@ -114,7 +115,19 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     // MARK: - Private instance methods
 
     private func toggleView() {
-        contentStackView.isHidden = !contentStackView.isHidden
+        if isNewWalletSetup && !isSynced {
+            contentStackView.isHidden = false
+        } else {
+            if isSynced {contentStackView.isHidden = !contentStackView.isHidden}
+        }
+    }
+
+    private func configureProgressLabel() {
+        if isNewWalletSetup && !isSynced {
+            syncInProgressLabel.isHidden = true
+        } else {
+            syncInProgressLabel.isHidden = isSynced
+        }
     }
 
     private func setUpConstraints() {
