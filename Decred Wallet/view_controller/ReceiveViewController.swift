@@ -15,9 +15,19 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
 
     @IBOutlet weak var subheader: UILabel!
     @IBOutlet weak var lblWalletAddress: UILabel!
+    @IBOutlet var contentStackView: UIStackView!
     
     private var barButton: UIBarButtonItem?
-    
+    private lazy var syncInProgressLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .darkGray
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        label.text = "Please wait for your wallet to finish synchronizing."
+        return label
+    }()
+
     var firstTrial = true
     var starttime: Int64 = 0
     var myacc: WalletAccount!
@@ -25,6 +35,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     var tapGesture = UITapGestureRecognizer()
     var oldAddress = ""
     var wallet = AppDelegate.walletLoader.wallet
+    let isSynced = AppDelegate.walletLoader.isSynced
     
     private var selectedAccount = ""
     
@@ -36,8 +47,15 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
                self.showFirstWalletAddressAndQRCode()
         self.populateWalletDropdownMenu()
         self.starttime = Int64(NSDate().timeIntervalSince1970)
+        if isSynced {self.toggleView()}
+        setUpConstraints()
     }
-    
+
+    override func loadView() {
+        super.loadView()
+        view.addSubview(syncInProgressLabel)
+    }
+
     func setupExtraUI() {
         self.imgWalletAddrQRCode.addGestureRecognizer(tapToCopyAddressGesture())
         self.lblWalletAddress.addGestureRecognizer(tapToCopyAddressGesture())
@@ -71,6 +89,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
         generateAddressBtn.frame = CGRect(x: 0, y: 0, width: 10, height: 51)
         barButton = UIBarButtonItem(customView: generateAddressBtn)
         self.navigationItem.rightBarButtonItems = [barButton!, shareBtn ]
+        syncInProgressLabel.isHidden = isSynced
     }
     
     @objc func showMenu(sender: Any) {
@@ -92,6 +111,18 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
         self.present(alertController, animated: true, completion: nil)
     }
     
+    // MARK: - Private instance methods
+
+    private func toggleView() {
+        contentStackView.isHidden = !contentStackView.isHidden
+    }
+
+    private func setUpConstraints() {
+        syncInProgressLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        syncInProgressLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        syncInProgressLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8).isActive = true
+    }
+
     private func generateNewAddress() {
         self.oldAddress = self.lblWalletAddress.text!
         self.getNextAddress(accountNumber: (self.myacc.Number))
