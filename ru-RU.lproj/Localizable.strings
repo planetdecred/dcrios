@@ -1,7 +1,398 @@
-/* 
-  Localizable.strings
-  Decred Wallet
+/*
+ Localizable.strings
+ Decred Wallet
+ 
+ Created by Suleiman Abubakar on 12/06/2019.
+ Copyright © 2019 Decred. All rights reserved.
+ */
 
-  Created by Suleiman Abubakar on 12/06/2019.
-  Copyright © 2019 Decred. All rights reserved.
-*/
+/* StartScreenViewController */
+"openingWallet" = "Открывается кошелёк…";
+
+/*Security Prompt */
+"enterStartupPassword" = "Enter Startup Password";
+"incorrectSecurityType" = "You entered an incorrect %@. Try again?";
+
+/* Pop Ups */
+"error" = "Error";
+"retry" = "ПОПРОБОВАТЬ ЕЩЁ РАЗ";
+"oK" = "ОК";
+"tryAgain" = "Try again";
+"cancel" = "Отменить";
+"clearFields" =  "Очистить всё";
+"copiedSuccessfully" = "Скопировано успешно.";
+"invalidRequest" = "Invalid request!";
+"addrCopied" = "Адрес скопирован в буфер обмена";
+"preOutpointCopied" = "Previous outpoint copied!";
+"errorMsg" = "Error Message";
+"info" = "Info";
+"delete" = "Удалить";
+
+/* Password Setup */
+"emptyPasswordNotAllowed" = "Empty password not allowed";
+"passwordsDoNotMatch" = "ПАРОЛИ НЕ СОВПАДАЮТ";
+"passwordMatch" = "ПАРОЛИ СОВПАДАЮТ";
+"passwordDoNotMatch" = "ПАРОЛИ НЕ СОВПАДАЮТ";
+"createPassword" = "Создайте %@ для расходов";
+"passwordStrength" = "НАДЁЖНОСТЬ ПАРОЛЯ";
+"confirmPassword" = "ПОДТВЕРДИТЕ ПАРОЛЬ";
+
+/* Request Password */
+"enterPassword" = "Enter Password";
+"promptSpendingPassword" = "Please enter spending password of your wallet.";
+"promptStartupPassword" = "Введите текущий пароль для шифрования.";
+"securityTypeNotSpecify" = "Security type not specified. Cannot proceed.";
+"password" = "ПАРОЛЬ";
+"proceed" = "Proceed";
+"passwordEmpty" = "Password can't be empty.";
+"invalidInput" = "invalid input.";
+"passwordInvalid" = "Введённый пароль недействителен.";
+
+/* Request PIN and PIN Setup */
+"createPIN" = "Создайте PIN для %@";
+"enterPIN" = "Enter %@ PIN"; "Введите PIN для %@";
+"confirmPIN" = "Подтвердите PIN для %@";
+"pinsDidNotMatch" = "PIN не совпадают. Попробуйте ещё раз";
+"pin" = "PIN";
+"pinStrength" = "НАДЁЖНОСТЬ PIN";
+
+/* Change Spending PIN/Password */
+"currentSpendingPassword" = "Введите текущий пароль для расходов";
+"changingSpendingPIN/Pass" = "Changing spending %@...";
+
+/* Changing Startup PIN/Password */
+"changingStartupPINPass" = "Changing startup %@...";
+"removingStartupPINPass" = "Removing startup %@...";
+"settingStartupPINPass" = "Setting startup %@...";
+
+/* Transaction List */
+"pending" = "В ожидании";
+"confirmed" = "Подтверждено";
+"vote" = " Голосовать";
+"ticket" = " Тикет";
+"confirmedLive" = "Подтвержденные / Активные";
+"confirmedImmature" = "Подтвержденные / Незрелые";
+"noTransactions" = "Нет транзакций";
+"sent" = "Sent";
+"received" = "Received";
+"yourself" = "Yourself";
+"staking" = "Staking";
+"all" = "All";
+
+/* CreateNewWalletViewController */
+
+/* Confirm NewWallet Seed */
+"seedDoesNotMatches" = "You entered an incorrect seed. Please check your words.";
+"seedPhraseVerification" = "Проверка сид-фразы…";
+"confirmSeedInfo" = "Пожалуйста, подтвердите ваш сид. Введите все слова и нажмите на каждом из них.";
+
+/* Recover Existing Wallet */
+"correctWordIs" = "Word #%d";
+"notAllSeedsAreEntered" = "Not all seeds are entered. Please, check input fields and enter all seeds.";
+"incorrectSeedEntered" = "You entered an incorrect seed. Please check your words.";
+"walletRecoveryError" = "Wallet recovery error.";
+"seedRestoreheader" = "Seed Restore";
+"seedRestoreInfo" = "Пожалуйста, подтвердите ваш сид. Введите все слова и нажмите на каждом из них..";
+"confirm" = "ПОДТВЕРДИТЬ";
+
+/* Drop Down Search Field */
+"tapToSelect" = "Нажмите, чтобы выбрать Word";
+
+/* Wallet Setup */
+"createNewWallet" = "Создать новый\n кошелёк";
+"restoreExistingWallet" = "Восстановить существующий\n кошелёк";
+"createOrRecoverWallet" = "Создайте или восстановите ваш кошелёк и начните управлять вашими decred.";
+"wallet" = "Кошелёк";
+
+/* Create New Wallet(Seed display view) */
+"settingUpYourWallet" = "НАСТРОЙКА КОШЕЛЬКА DECRED";
+"seedHeaderInfo" = "Запишите себе эту сид-фразу и храните её в надёжном месте. Вас попросят ввести эту фразу, в случае если у вас когда-либо возникнет необходимость восстановить ваш кошелёк.";
+"seedWarningInfo" = "Небрежное отношение к хранению сида может привести к краже всего вашего кошелька или к невозможности его восстановить.";
+"iCopiedTheSeedPhrase" = "Я скопировал/а сид-фразы.";
+
+/* Wallet Setup Base */
+"settingUpWallet" ="НАСТРОЙКА КОШЕЛЬКА DECRED...";
+"errorSettingUpWallet" = "Error setting up wallet.";
+
+/* Navigation Menu Items */
+"overview" = "Обзор";
+"history" = "История";
+"send" = "Отправить";
+"receive" = "Получить";
+"accounts" = "Аккаунты";
+"security" = "Безопасность";
+"settings" = "Настройки";
+"help" = "Справка";
+
+/* NavigationMenu / Sync progress */
+"cannotSyncWithoutNetworkConnection" = "Cannot sync without network connection.";
+"internetConnectionRequired" = "Internet connection required.";
+"connectToWiFiToSync" = "Connect to WiFi to sync.";
+"restartingSync" = "Restarting sync...";
+"connectingToPeers" = "Подключение к узлам";
+"syncedWith" =  "Synced with %@";
+"fetchingBlockHeaders" = "Получение заголовков";
+"blocksBehind" = "%d blocks behind.";
+"bestBlockAgeAgo" = "%@ ago";
+"discoveringUsedAddresses" = "Поиск использованных адресов.";
+"generalSyncProgressCompletedleft" = "%d%% completed, %@ left.";
+"scanningBlocks" = "Scanning blocks.";
+"rescanProgress" = "%d%% completed, %@ left.";
+"syncCanceled" = "Sync canceled.";
+"syncError" = "Sync error.";
+"latestBlock" = "Latest Block: %d";
+"now" = "сейчас";
+"secondsAgo" = "%ds ago";
+"minAgo" = "%dm ago";
+"hrsAgo" = "%dh ago";
+"daysAgo" = "%dd ago";
+"weeksAgo" = "%dw ago";
+"monthsAgo" = "%dmo ago";
+"yearsAgo" =  "%dy ago";
+"totalBalance" = "Общий баланс";
+
+/* Sync progress view */
+"loading" = "Загружается...";
+"numberOfConnectedPeers" = "%d peers";
+"numberOfConnectedPeer" = "%d peer";
+"syncingWithOnNet" = "Syncing with %@ on %@.";
+"fetchedHeaders" = "Fetched %d of ~%d block headers.\n";
+"headersFetchProgress" = "%d%% through step 1 of 3.";
+"bestBlockAgebehind" = "\nYour wallet is %@ behind.";
+"addressDiscoveryProgressOver" = "%d (over) through step 2 of 3.";
+"addressDiscoveryProgressThrough" = "~%d%% through step 2 of 3.";
+"scanningTotalHeaders" = "Scanning %d of %d block headers.\n";
+"stepThreeRescanProgress" = "%d through step 3 of 3.";
+"synchronizing" = "Synchronizing";
+"synchronizationCanceled" = "Synchronization canceled";
+"synchronizationError" = "Synchronization error";
+"syncTotalProgress" = "%d%% completed, %@ remaining.";
+"allTimes" = "All Times";
+"elapsed" = "elapsed:";
+"remain" = " remain:";
+"total"  = " total:";
+"stageTimes" = "Stage Times";
+"tapToViewInformation" = "Tap to view information";
+
+/* Send view */
+"invalidAmount" = "Сумма недействительна";
+"amount8Decimal" = "Сумма содержит более восьми десятичных знаков";
+"amountMaximumAllowed" = "Amount more than maximum allowed.";
+"notEnoughFunds" = "Недостаточно средств.";
+"notEnoughFundsNet" = "Not enough funds (or not connected).";
+"rateUnavailableTap"  = "Курс недоступен (попробовать ещё раз)";
+"sendToAccount" = "Отправить в аккаунт";
+"sendToAddress" = "Отправить на адрес";
+"errorMaxSpendable" = "Error getting maximum spendable amount.";
+"plsWaitNetkSync" = "Please wait for network synchronization.";
+"notConnected" = "Not connected to the network.";
+"amountCantBeZero" = "Сумма не может быть равной нулю.";
+"unexpectedError" = "Unexpected error.";
+"sendingTransaction" = "Осуществляется транзакция…";
+"failedTransaction" = "Не получилось осуществить транзакцию";
+"walletAddressShort" = "Адрес кошелька слишком короткий.";
+"walletAddressLong" = "Адрес кошелька слишком длинный.";
+"invalidTesnetAddress" = "This is not a valid Decred testnet3 address.";
+"invalidMainnetAddress" = "This is not a valid Decred Mainnet address.";
+"invalidDestAddr" = "Адрес назначения недействителен.";
+"emptyDestAddr" = "Поле «Адрес назначения» не может оставаться пустым.";
+"sendingDecred" = "Отправляется Decred";
+"from" = "Из:";
+"sendHeaderInfo" = "Для пересылки средств введите или отсканируйте адрес кошелька-получателя/и сумму в DCR.";
+"destAddr" = "Адрес назначения";
+"tapToPaste" = "Нажать, чтобы вставить";
+"sendInUSD" = "Отправить в USD:";
+"sendInDCR" = "Отправить в DCR";
+"sendMax" = "ПЕРЕСЛАТЬ МАКСИМУМ";
+"feeDesc" = "Комиссия:";
+"estimateSizeDesc" = "Оценить размер:";
+"balanceAfterDesc" = "Баланс после:";
+"exchangeRateDesc" = "Обменный курс:";
+
+/* Confirm Send Fund */
+"sending" = "Отправляется";
+"withFee" = "комиссия равна";
+"to" = "в ";
+"toAccount" = "в аккаунт ";
+"passwordHint" = "ПАРОЛЬ";
+
+/* Send Complete */
+"copyHash" = "ХЕШ: (скопирован)";
+"hash" = "Хеш";
+
+/* Security Menu */
+"validOwnAddr" = "Адрес действителен, и вы являетесь его владельцем.";
+"validNotOwnAddr" = "Адрес действителен, но вы НЕ являетесь его владельцем.";
+"invalidAddr" = "Недействительный адрес.";
+"verifiedSignature" = "Эта подпись сопоставляет с сообщением и адресом.";
+"invalidSignature" = "Эта подпись не сопоставляет с сообщением и адресом.";
+"signingMessage" = "Signing Message...";
+"address" = "Адрес";
+"message" = "Сообщение";
+"signature" = "Подпись";
+"signMessage" = "Подписать сообщение";
+"secureMenuSyncInfo" = "Пожалуйста, подождите, пока закончится синхронизация.";
+"secureMenuHeaderInfo" = "Тут вы можете проверить действительность адреса, подписывать сообщения (чтобы доказать, что адрес принадлежит вам) и для верификации подписей.";
+
+/* License */
+"license" = "лицензии";
+
+/* Settings */
+"spv" = "Упрощённая верификация платежа (SPV)";
+"remoteFullNode" = "Удалённая полная нода";
+"none" = "Ни один";
+"rescanConfirm" = "Вы уверены? Это может занять некоторое время.";
+"rescanBlockchain" = "Сканировать Blockchain ещё раз";
+"syncPreogressAlert" = "Sync is in progress. Please wait for sync to complete.";
+"syncToastMsg" = "Проверяйте статус в navigation bar.";
+"scanStartedAlready" = "Осуществляется повторное сканирование кошелька, проверяйте статус в navigation bar.";
+"rescanFailed" = "Rescan failed";
+"deletingWallet" = "Deleting wallet...";
+"walletDeletfailed" = "Failed to delete wallet.";
+"changeSpendingPinPassDesc" = "Измените PIN/ пароль для расходов";
+"spendingPinPassInfo" = "Требуется для отправки средств.";
+"startupPinPassDesc" = "PIN/пароль для шифрования";
+"changeStatupPinPassDesc" = "Изменить PIN/пароль для шифрования";
+"startupPinPassInfo" = "Требуется для входа в приложение.";
+"spendUnconfirmedFundDesc" = "Потратить неподтверждённые средства";
+"incomingTxNotificationDesc" = "Уведомления о входящих транзакциях";
+"currencyConversionDesc" = "Конвертация валют";
+"networkModeDesc" = "Режим сети";
+"serverAddDesc" = "Адрес сервера";
+"connectIpDesc" = "Подсоединиться к узлу";
+"certificatDesc" = "Сертификат";
+"syncOnWifiDesc" = "Sync when not on WiFi";
+"versionDesc" = "Версия";
+"buildDateDesc" = "Дата сборки";
+"licenseDesc" = "лицензии";
+"rescanBlockChainDesc" = "Повторно сканировать Блокчейн";
+"walletLogDesc" = "Лог кошелька";
+"deleteWalletDesc" = "Удалить кошелёк";
+"general" = "Основные";
+"connection" = "Соединение";
+"about" = "Информация";
+"debug" = "Debug";
+
+/* IP set */
+"connectToPeer" = "Подсоединиться к узлу";
+"inputValidIP" = "Адрес узла недействителен";
+"serverAddress" = "Адрес сервера";
+"inputValidServer" = "Удалённый адрес недействителен";
+
+/* Certificate */
+"certificate" = "Сертификат";
+"certificateInfo" = "вставить сертификат для dcrd";
+
+/* Wallet Log */
+"walletLog" = "Лог кошелька";
+"copy" = "Копировать";
+"walletLogCopied" = "Копирование лога кошелька завершено.";
+
+/* Transaction Notification */
+"newTransaction" = "Новая транзакция";
+"youReceived" = "Вы получили";
+
+/* Account Data Cell */
+"external" = "внешние";
+"internal" = "внутренние";
+"imported" = "импортированные";
+"nullData" = "null data";
+"script" = "скрипт";
+"stakegen" = "stakegen";
+
+/* Account View */
+"hidden" = "скрыто";
+"spendable" = "Расходуемый";
+
+/* Transaction Details */
+"transactionDetails" = "О транзакции";
+"copyTransactionHash" = "Copy transaction hash";
+"copyRawTransaction" = "Скопировать необработанную транзакцию";
+"viewOnDcrdata" = "просмотреть на dcrdata";
+"copied" = "скопирован";
+"ticketPurchase" = "Покупка билета";
+"date" = "Дата";
+"status" = "Статус";
+"amount" = "Сумма";
+"fee" = "Комиссия";
+"type" = "Тип";
+"confirmation" = "Подтверждение";
+"lastBlockValid" = "Последний валидный блок";
+"version" = "Версия";
+"voteBits" =  "Голосование по битам";
+"inputs" = "Информация на входе";
+"outputs" = "Информация на выходе";
+
+/* Receive View */
+"recieveHeaderInfo" = "Каждый раз, когда вы запрашиваете платёж, создаётся новый адрес в целях защиты ваших персональных данных.";
+"walletAddrCopied" = "Адрес скопирован в буфер обмена.";
+"genNewAddr" = "Сгенерировать новый адрес";
+
+/* Add Account */
+"plsInputAccountName" = "Введите название для вашего аккаунта";
+"creatingAccount" = "Создаётся аккаунт...";
+
+/* View controller sender */
+"spending" = "расходов";
+"startup" = "шифрования";
+"current" = "текущий";
+
+/* Dcrlibwallet extension */
+"lessThanOneday" = "<1 day";
+"oneDay" = "1 day";
+"mutlipleDays" = "%d days";
+"minRemaining" = "%d min";
+"secRemaining" = "%d sec";
+
+/* New Wallet Dialog */
+"newWalletMsg" = "Your 33 word seed is your wallet, keep it safe. Without it your funds cannot be recovered should your device be lost or destroyed.\n\nInitial wallet sync will take longer than usual. The wallet will connect to p2p nodes to download the blockchain headers, and will fetch only the blocks that you need while preserving your privacy.";
+"welcomeToDecredWallet" = "Welcome to Decred Wallet.";
+
+/*No Wifi Sync Connection */
+"notConnectedToWiFi" = "Not connected to WiFi.";
+"syncAnyways" = "Would you like to sync anyways?";
+"no" = "Нет";
+"yes" = "да";
+"always" = "Always";
+
+/* Overview */
+"currentTotalBalance" = "Текущий общий баланс";
+"recentActivity" = "Последние действия";
+"showAllTransactions" = "Показать все транзакции";
+
+/* Delete Wallet */
+"confirmDeleteInfo" = "Вы уверены, что хотите удалить ваш кошелёк? Убедитесь в том, что вы сохранили сид вашего кошелька и переместили ваши монеты перед удалением. Кроме того, все настройки приложения будут сброшены до состояния по умолчанию.";
+"confirmDeleteDesc" = "Чтобы подтвердить, введите ваш пароль:";
+
+/* Account Data cell */
+"details" = "Подробнее";
+"immatureRewards" = "Незрелые вознаграждения";
+"lockedByTickets" = "Заблокировано тикетами";
+"votingAuhtority" = "Право голоса";
+"immatureStakeGeneration" = "Несформированная генерация ставки";
+"properties" = "Свойства";
+"accountNumber" = "Номер аккаунта";
+"hDPath" = "Путь HD";
+"keys" = "Ключи";
+"walletSettings" = "Wallet Settings";
+"hideThisWallet" = "Скрыть этот аккаунт";
+"walletBalanceWillBeIgnored" = "Баланс аккаунта не будет принят во внимание.";
+"defaultWallet" = "Аккаунт по умолчанию";
+"makeWalletDefaultDesc" = "Сделать так, чтобы этот аккаунт использовался по умолчанию для всех исходящих и входящих транзакций.";
+
+/* Help */
+"forMoreInformationPleaseVisit" = "Для того, чтобы узнать больше, пожалуйста, посетите";
+
+/* Add Account */
+"addAccount" = "Добавить аккаунт";
+"addAccountInfo" = "Введите название аккаунта затем укажите вашу парольную фразу или PIN";
+"accountName" = "Название аккаунта";
+"createAccount" = "Создать аккаунт";
+"privatePassphrase" = "Личная парольная фраза";
+
+/* Recieve */
+"receivingDecred" = "Receiving Decred";
+"receiveHeaderInfo" = "Каждый раз, когда вы запрашиваете платёж, создаётся новый адрес в целях защиты ваших персональных данных";
+"accountDesc" = "Аккаунт:";
+"copyOnTap" = "(копировать нажатием)";
+

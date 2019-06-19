@@ -64,18 +64,18 @@ class SendViewController: UIViewController {
         if dcrAmountString.components(separatedBy: ".").count > 2 ||
             (usdAmountTextField.text ?? "").components(separatedBy: ".").count > 2 {
             // more than 1 decimal place
-            self.sendAmountErrorLabel.text = "invalidamount".localized
+            self.sendAmountErrorLabel.text = "invalidAmount".localized
             return false
         }
         
         let decimalPointIndex = dcrAmountString.firstIndex(of: ".")
         if decimalPointIndex != nil && dcrAmountString[decimalPointIndex!...].count > 9 {
-            self.sendAmountErrorLabel.text = "amount8decimal".localized
+            self.sendAmountErrorLabel.text = "amount8Decimal".localized
             return false
         }
         
         guard let sendAmountDcr = Double(dcrAmountString), sendAmountDcr > 0 else {
-            self.sendAmountErrorLabel.text = "Invalidamount".localized
+            self.sendAmountErrorLabel.text = "InvalidAmount".localized
             return false
         }
         

@@ -29,7 +29,7 @@
 "delete" = "Delete";
 
 /* Password Setup */
-"emptyPasswordNotAllowed" = "Empty password not allowed";
+"emptyPasswordNotAllowed" = "Password cannot be empty";
 "passwordsDoNotMatch" = "Passwords do not match";
 "passwordMatch" = "PASSWORDS MATCH";
 "passwordDoNotMatch" = "PASSWORDS DO NOT MATCH";
@@ -72,7 +72,6 @@
 "ticket" = " Ticket";
 "confirmedLive" = "Confirmed / Live";
 "confirmedImmature" = "Confirmed / Immature";
-"history" = "History";
 "noTransactions" = "No Transactions";
 "sent" = "Sent";
 "received" = "Received";
@@ -83,9 +82,9 @@
 /* CreateNewWalletViewController */
 
 /* Confirm NewWallet Seed */
-"seedDoesNotMatches" = "Seed does not matches. Try again, please";
+"seedDoesNotMatches" = "You entered an incorrect seed. Please check your words.";
 "seedPhraseVerification" = "Seed phrase verification...";
-"confirmSeedInfo" = "Please confirm your seed phrase by typing and selecting requested words accordingly.";
+"confirmSeedInfo" = "Each field contains only one correct word. Please confirm your seed by selecting the correct words.";
 
 /* Recover Existing Wallet */
 "correctWordIs" = "Word #%d";
@@ -93,7 +92,7 @@
 "incorrectSeedEntered" = "You entered an incorrect seed. Please check your words.";
 "walletRecoveryError" = "Wallet recovery error.";
 "seedRestoreheader" = "Seed Restore";
-"seedRestoreInfo" = "Start typing the word and then tap the current word from the suggestion list.";
+"seedRestoreInfo" = "Start typing the word and then tap the correct word from the suggestion list.";
 "confirm" = "CONFIRM";
 
 /* Drop Down Search Field */
@@ -106,13 +105,13 @@
 "wallet" = "Wallet";
 
 /* Create New Wallet(Seed display view) */
-"settingUpYourWallet" = "Setting up your wallet";
+"settingUpYourWallet" = "Setting Up Decred Wallet";
 "seedHeaderInfo" = "Write down this seed phrase and save it in a secure location. You will be asked to enter it on the next screen and if you ever need to restore your wallet.";
-"seedWarningInfo" = "Failure to keep this seed phrase can result in theft of your funds and inability to recover your wallet.";
+"seedWarningInfo" = "Failure to keep this seed safe can result in theft of your entire wallet or inability to recover your wallet.";
 "iCopiedTheSeedPhrase" = "I COPIED THE SEED PHRASE";
 
 /* Wallet Setup Base */
-"settingUpWallet" ="Setting up wallet...";
+"settingUpWallet" ="Setting up Decred wallet...";
 "errorSettingUpWallet" = "Error setting up wallet.";
 
 /* Navigation Menu Items */
@@ -173,12 +172,11 @@
 "remain" = " remain:";
 "total"  = " total:";
 "stageTimes" = "Stage Times";
-"synchronizing" = "Synchronizing";
 "tapToViewInformation" = "Tap to view information";
 
 /* Send view */
-"invalidamount" = "Invalid amount.";
-"amount8decimal" = "Amount has more than 8 decimal places.";
+"invalidAmount" = "Amount is not valid.";
+"amount8Decimal" = "Amount has more than 8 decimal places.";
 "amountMaximumAllowed" = "Amount more than maximum allowed.";
 "notEnoughFunds" = "Not enough funds.";
 "notEnoughFundsNet" = "Not enough funds (or not connected).";
@@ -227,7 +225,7 @@
 "validNotOwnAddr" = "Address is valid and you do NOT own it.";
 "invalidAddr" = "Not a valid address.";
 "verifiedSignature" = "This signature verifies against the message and address.";
-"invalidSignature" = "This signature  does not verify against the message and address.";
+"invalidSignature" = "This signature does not verify against the message and address.";
 "signingMessage" = "Signing Message...";
 "address" = "Address";
 "message" = "Message";
@@ -251,11 +249,11 @@
 "rescanFailed" = "Rescan failed";
 "deletingWallet" = "Deleting wallet...";
 "walletDeletfailed" = "Failed to delete wallet.";
-"changeSpendingPinPassDesc" = "Change SpendingPIN/Password";
+"changeSpendingPinPassDesc" = "Change Spending PIN/Password";
 "spendingPinPassInfo" = "Required to send funds.";
 "startupPinPassDesc" = "Startup PIN/Password";
 "changeStatupPinPassDesc" = "Change Startup PIN/Password";
-"startupPinPassInfo" = "Required to start app.";
+"startupPinPassInfo" = "Required to enter app.";
 "spendUnconfirmedFundDesc" = "Spend Unconfirmed Funds";
 "incomingTxNotificationDesc" = "Incoming Transaction Notification";
 "currencyConversionDesc" = "Currency Conversion";
@@ -267,7 +265,7 @@
 "versionDesc" = "Version";
 "buildDateDesc" = "Build Date";
 "licenseDesc" = "License";
-"rescanBlockChainDesc" = "";
+"rescanBlockChainDesc" = "Rescan Blockchain";
 "walletLogDesc" = "Wallet Log";
 "deleteWalletDesc" = "Delete Wallet";
 "general" = "General";
@@ -287,7 +285,6 @@
 
 /* Wallet Log */
 "walletLog" = "Wallet Log";
-"loadingLog" = "Loading log...";
 "copy" = "Copy";
 "walletLogCopied" = "Wallet log copied.";
 
@@ -328,11 +325,11 @@
 
 /* Receive View */
 "recieveHeaderInfo" = "Each time you request a payment, a new address is created to protect your privacy.";
-"walletAddrCopied" = "Wallet address copied.";
+"walletAddrCopied" = "Address copied to clipboard.";
 "genNewAddr" = "Generate new address";
 
 /* Add Account */
-"plsInputAccountName" = "Please input an account name";
+"plsInputAccountName" = "Enter a name for your account.";
 "creatingAccount" = "Creating account...";
 
 /* View controller sender */
@@ -371,17 +368,17 @@
 "details" = "Details";
 "immatureRewards" = "Immature Rewards";
 "lockedByTickets" = "Locked by tickets";
-"votingAuhtority" = "Voting Auhtority";
+"votingAuhtority" = "Voting Authority";
 "immatureStakeGeneration" = "Immature Stake Generation";
 "properties" = "Properties";
 "accountNumber" = "Account Number";
 "hDPath" = "HD Path";
 "keys" = "Keys";
 "walletSettings" = "Wallet Settings";
-"hideThisWallet" = "Hide This Wallet";
-"walletBalanceWillBeIgnored" = "Wallet balance will be ignored";
+"hideThisWallet" = "Hide This Account";
+"walletBalanceWillBeIgnored" = "Account balance will be ignored.";
 "defaultWallet" = "Default Wallet";
-"makeWalletDefaultDesc" = "Make this wallet default for all outgoing and incoming transactions.";
+"makeWalletDefaultDesc" = "Make this account default for all outgoing and incoming transactions.";
 
 /* Help */
 "forMoreInformationPleaseVisit" = "For more information please visit";
