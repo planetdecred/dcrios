@@ -36,7 +36,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     var oldAddress = ""
     var wallet = AppDelegate.walletLoader.wallet
     let isSynced = AppDelegate.walletLoader.isSynced
-    let isNewWalletSetup: Bool = Settings.readValue(for: Settings.Keys.newWalletSetUp)
+    let isNewWalletSetup: Bool = Settings.readValue(for: Settings.Keys.NewWalletSetUp)
 
     private var selectedAccount = ""
     
@@ -45,8 +45,6 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
         self.subheader.text = "Each time you request a payment, a new address is created to protect your privacy."
         // TAP Gesture
         self.setupExtraUI()
-               self.showFirstWalletAddressAndQRCode()
-        self.populateWalletDropdownMenu()
         self.starttime = Int64(NSDate().timeIntervalSince1970)
         self.toggleView()
         setUpConstraints()
@@ -90,7 +88,6 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
         generateAddressBtn.frame = CGRect(x: 0, y: 0, width: 10, height: 51)
         barButton = UIBarButtonItem(customView: generateAddressBtn)
         self.navigationItem.rightBarButtonItems = [barButton!, shareBtn ]
-        configureProgressLabel()
     }
     
     @objc func showMenu(sender: Any) {
@@ -115,17 +112,19 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     // MARK: - Private instance methods
 
     private func toggleView() {
+        let syncsCount: Int? = Settings.readOptionalValue(for: Settings.Keys.SyncsCount)
         if isNewWalletSetup && !isSynced {
+            self.showFirstWalletAddressAndQRCode()
+            self.populateWalletDropdownMenu()
             contentStackView.isHidden = false
-        } else {
-            if isSynced {contentStackView.isHidden = !contentStackView.isHidden}
-        }
-    }
-
-    private func configureProgressLabel() {
-        if isNewWalletSetup && !isSynced {
             syncInProgressLabel.isHidden = true
-        } else {
+        } else if !isSynced && syncsCount != 1 {
+            contentStackView.isHidden = true
+            syncInProgressLabel.isHidden = false
+        } else if isSynced {
+            self.showFirstWalletAddressAndQRCode()
+            self.populateWalletDropdownMenu()
+            contentStackView.isHidden = !contentStackView.isHidden
             syncInProgressLabel.isHidden = isSynced
         }
     }

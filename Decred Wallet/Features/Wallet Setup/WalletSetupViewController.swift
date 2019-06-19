@@ -29,15 +29,11 @@ class WalletSetupViewController: WalletSetupBaseViewController {
     }
     
     // MARK:- Prepare for segue
-
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
-        if segue.identifier == DecredSegue.toNewWalletCreation.rawValue {
-            Settings.setValue(true, for: Settings.Keys.newWalletSetUp)
-        }
-
-        if segue.identifier == DecredSegue.toWalletRestore.rawValue {
-            Settings.setValue(false, for: Settings.Keys.newWalletSetUp)
+        if segue.identifier == Segues.toNewWalletCreation.rawValue {
+            Settings.setValue(true, for: Settings.Keys.NewWalletSetUp)
+        } else if segue.identifier == Segues.toWalletRestore.rawValue {
+            Settings.setValue(false, for: Settings.Keys.NewWalletSetUp)
         }
     }
 }
