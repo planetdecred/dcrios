@@ -72,7 +72,7 @@ class SecurityViewController: SecurityBaseViewController {
         btnPassword.backgroundColor = UIColor.appColors.offWhite
         btnPassword.removeBorders(atPositions: .right, .bottom)
         // deactivate pin button
-        btnPassword.setTitleColor(UIColor.appColors.tabActive, for: .normal)
+        btnPassword.backgroundColor = UIColor.white
         btnPassword.addBorder(atPosition: .bottom)
     }
     
