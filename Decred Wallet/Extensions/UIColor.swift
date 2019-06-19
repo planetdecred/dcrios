@@ -23,8 +23,6 @@ extension UIColor {
         static let offWhite = UIColor(hex:"#F3F5F6")
         static let lightOffWhite = UIColor(hex: "#F9FBFA")
         static let yellowWarning = UIColor.init(hex: "#FFC84E")
-        static let tabActive = UIColor.init(hex: "#4e5f70")
-        static let tabInActive = UIColor.init(hex: "#a4abb1")
     }
     
     convenience init(hex: String) {
