@@ -48,8 +48,8 @@ class SecurityViewController: SecurityBaseViewController {
     override func viewDidLoad() {
         // delay before activating initial tab to allow borders show properly
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-             self.btnPassword.setBackgroundColor(UIColor.appColors.lightTabInactive, for: .highlighted)
-             self.btnPin.setBackgroundColor(UIColor.appColors.lightTabInactive, for: .highlighted)
+            self.btnPassword.setBackgroundColor(UIColor.appColors.transparentThinGray, for: .highlighted)
+            self.btnPin.setBackgroundColor(UIColor.appColors.transparentThinGray, for: .highlighted)
             if self.initialSecurityType == SecurityViewController.SECURITY_TYPE_PIN {
                 self.activatePinTab()
             } else {
@@ -71,20 +71,20 @@ class SecurityViewController: SecurityBaseViewController {
     func activatePasswordTab() {
         self.tabController?.selectedIndex = 0
         // activate password button
-        self.btnPassword.setTitleColor(UIColor.appColors.tabActive, for: .normal)
+        self.btnPassword.setTitleColor(UIColor.appColors.darkGray, for: .normal)
         self.btnPassword.addBorder(atPosition: .bottom)
         // deactivate pin button
-        self.btnPin.setTitleColor(UIColor.appColors.tabInactive, for: .normal)
+        self.btnPin.setTitleColor(UIColor.appColors.thinGray, for: .normal)
         self.btnPin.removeBorders(atPositions: .bottom)
     }
     
     func activatePinTab() {
         self.tabController?.selectedIndex = 1
         // activate pin button
-        self.btnPin.setTitleColor(UIColor.appColors.tabActive, for: .normal)
+        self.btnPin.setTitleColor(UIColor.appColors.darkGray, for: .normal)
         self.btnPin.addBorder(atPosition: .bottom)
         // deactivate password button
-        self.btnPassword.setTitleColor(UIColor.appColors.tabInactive, for: .normal)
+        self.btnPassword.setTitleColor(UIColor.appColors.thinGray, for: .normal)
         self.btnPassword.removeBorders(atPositions: .bottom)
     }
 }

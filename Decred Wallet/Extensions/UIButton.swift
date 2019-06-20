@@ -16,15 +16,15 @@ extension UIButton {
         case bottom
     }
     
-    func addBorders(atPositions borderPositions: [BorderPosition], colorHex: String = "#4e5f70", thickness: CGFloat = 1.7) {
+    func addBorders(atPositions borderPositions: [BorderPosition], color: UIColor = UIColor.appColors.darkGray, thickness: CGFloat = 1.7) {
         borderPositions.forEach({ borderPosition in
-            self.addBorder(atPosition: borderPosition, colorHex: colorHex, thickness: thickness)
+            self.addBorder(atPosition: borderPosition, color: color, thickness: thickness)
         })
     }
     
-    func addBorder(atPosition borderPosition: BorderPosition, colorHex: String = "#4e5f70", thickness: CGFloat = 1.7) {
+    func addBorder(atPosition borderPosition: BorderPosition, color: UIColor = UIColor.appColors.darkGray, thickness: CGFloat = 1.7) {
         let borderLayer = CALayer()
-        borderLayer.backgroundColor = UIColor.init(hex: colorHex).cgColor
+        borderLayer.backgroundColor = color.cgColor
         borderLayer.name = "\(borderPosition.rawValue) border"
         
         switch borderPosition {
