@@ -11,7 +11,7 @@ import Foundation
 class Settings {
     struct Keys {
         static let NewWalletSetUp = "new_wallet_set_up"
-        static let SyncsCount = "syncs_count"
+        static let InitialSyncCompleted = "initial_sync_complete"
         static let IsStartupSecuritySet = "startup_security_set"
         static let StartupSecurityType = "startup_security_type"
         static let SpendingPassphraseSecurityType = "spending_security_type"

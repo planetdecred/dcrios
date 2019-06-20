@@ -216,10 +216,10 @@ extension Syncer: DcrlibwalletSyncProgressListenerProtocol {
         self.forEachSyncListener({ syncListener in syncListener.onSyncCompleted() })
 
         let isNewWalletSetup: Bool = Settings.readValue(for: Settings.Keys.NewWalletSetUp)
-        if let syncsCount: Int = Settings.readOptionalValue(for: Settings.Keys.SyncsCount) {
-            if syncsCount < 1  && !isNewWalletSetup { Settings.setValue(1, for: Settings.Keys.SyncsCount) }
+        if let initialSyncCompleted: Bool = Settings.readOptionalValue(for: Settings.Keys.InitialSyncCompleted) {
+            if !initialSyncCompleted && !isNewWalletSetup { Settings.setValue(true, for: Settings.Keys.InitialSyncCompleted) }
         } else {
-            if !isNewWalletSetup {Settings.setValue(1, for: Settings.Keys.SyncsCount)}
+            if !isNewWalletSetup {Settings.setValue(true, for: Settings.Keys.InitialSyncCompleted)}
         }
     }
     

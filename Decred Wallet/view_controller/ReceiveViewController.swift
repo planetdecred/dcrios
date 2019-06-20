@@ -35,24 +35,22 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     var tapGesture = UITapGestureRecognizer()
     var oldAddress = ""
     var wallet = AppDelegate.walletLoader.wallet
-    let isSynced = AppDelegate.walletLoader.isSynced
-    let isNewWalletSetup: Bool = Settings.readValue(for: Settings.Keys.NewWalletSetUp)
 
     private var selectedAccount = ""
-    
+
+    override func loadView() {
+        super.loadView()
+        view.addSubview(syncInProgressLabel)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.subheader.text = "Each time you request a payment, a new address is created to protect your privacy."
         // TAP Gesture
         self.setupExtraUI()
         self.starttime = Int64(NSDate().timeIntervalSince1970)
-        self.toggleView()
-        setUpConstraints()
-    }
-
-    override func loadView() {
-        super.loadView()
-        view.addSubview(syncInProgressLabel)
+        setupSyncInProgressLabelConstraints()
+        checkSyncStatus()
     }
 
     func setupExtraUI() {
@@ -108,28 +106,24 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
 
         self.present(alertController, animated: true, completion: nil)
     }
-    
-    // MARK: - Private instance methods
 
-    private func toggleView() {
-        let syncsCount: Int? = Settings.readOptionalValue(for: Settings.Keys.SyncsCount)
-        if isNewWalletSetup && !isSynced {
+    private func checkSyncStatus() {
+        let isSynced = AppDelegate.walletLoader.isSynced
+        let isNewWalletSetup: Bool = Settings.readValue(for: Settings.Keys.NewWalletSetUp)
+        let initialSyncCompleted: Bool = Settings.readOptionalValue(for: Settings.Keys.InitialSyncCompleted) ?? false
+        if isSynced || isNewWalletSetup || initialSyncCompleted {
             self.showFirstWalletAddressAndQRCode()
             self.populateWalletDropdownMenu()
             contentStackView.isHidden = false
             syncInProgressLabel.isHidden = true
-        } else if !isSynced && syncsCount != 1 {
+        } else {
             contentStackView.isHidden = true
             syncInProgressLabel.isHidden = false
-        } else if isSynced {
-            self.showFirstWalletAddressAndQRCode()
-            self.populateWalletDropdownMenu()
-            contentStackView.isHidden = !contentStackView.isHidden
-            syncInProgressLabel.isHidden = isSynced
         }
     }
 
-    private func setUpConstraints() {
+    private func setupSyncInProgressLabelConstraints() {
+        /// This will position the label at the center of the view
         syncInProgressLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         syncInProgressLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         syncInProgressLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8).isActive = true
