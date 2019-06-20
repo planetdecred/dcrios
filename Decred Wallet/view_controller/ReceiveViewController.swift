@@ -50,6 +50,11 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
         self.setupExtraUI()
         self.starttime = Int64(NSDate().timeIntervalSince1970)
         setupSyncInProgressLabelConstraints()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupNavigationBar(withTitle: "Receive")
         checkSyncStatus()
     }
 
@@ -74,20 +79,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
             self.present(alertController, animated: true, completion: nil)
         }
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        setupNavigationBar(withTitle: "Receive")
-        
-        let shareBtn = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share))
-        let generateAddressBtn = UIButton(type: .custom)
-        generateAddressBtn.setImage(UIImage(named: "right-menu"), for: .normal)
-        generateAddressBtn.addTarget(self, action: #selector(showMenu), for: .touchUpInside)
-        generateAddressBtn.frame = CGRect(x: 0, y: 0, width: 10, height: 51)
-        barButton = UIBarButtonItem(customView: generateAddressBtn)
-        self.navigationItem.rightBarButtonItems = [barButton!, shareBtn ]
-    }
-    
+
     @objc func showMenu(sender: Any) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
@@ -116,6 +108,14 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
             self.populateWalletDropdownMenu()
             contentStackView.isHidden = false
             syncInProgressLabel.isHidden = true
+
+            let shareBtn = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share))
+            let generateAddressBtn = UIButton(type: .custom)
+            generateAddressBtn.setImage(UIImage(named: "right-menu"), for: .normal)
+            generateAddressBtn.addTarget(self, action: #selector(showMenu), for: .touchUpInside)
+            generateAddressBtn.frame = CGRect(x: 0, y: 0, width: 10, height: 51)
+            barButton = UIBarButtonItem(customView: generateAddressBtn)
+            self.navigationItem.rightBarButtonItems = [barButton!, shareBtn ]
         } else {
             contentStackView.isHidden = true
             syncInProgressLabel.isHidden = false

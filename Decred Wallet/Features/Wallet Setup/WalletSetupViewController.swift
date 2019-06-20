@@ -28,7 +28,6 @@ class WalletSetupViewController: WalletSetupBaseViewController {
         build?.text = "build \(netType) " + dateformater.string(from: AppDelegate.compileDate)
     }
     
-    // MARK:- Prepare for segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Segues.toNewWalletCreation.rawValue {
             Settings.setValue(true, for: Settings.Keys.NewWalletSetUp)
