@@ -46,10 +46,11 @@ class SecurityViewController: SecurityBaseViewController {
     }
     
     override func viewDidLoad() {
+        self.btnPassword.setBackgroundColor(UIColor.appColors.transparentThinGray, for: .highlighted)
+        self.btnPin.setBackgroundColor(UIColor.appColors.transparentThinGray, for: .highlighted)
+        
         // delay before activating initial tab to allow borders show properly
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            self.btnPassword.setBackgroundColor(UIColor.appColors.transparentThinGray, for: .highlighted)
-            self.btnPin.setBackgroundColor(UIColor.appColors.transparentThinGray, for: .highlighted)
             if self.initialSecurityType == SecurityViewController.SECURITY_TYPE_PIN {
                 self.activatePinTab()
             } else {
