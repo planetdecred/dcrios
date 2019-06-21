@@ -46,6 +46,9 @@ class SecurityViewController: SecurityBaseViewController {
     }
     
     override func viewDidLoad() {
+        self.btnPassword.setBackgroundColor(UIColor.appColors.transparentThinGray, for: .highlighted)
+        self.btnPin.setBackgroundColor(UIColor.appColors.transparentThinGray, for: .highlighted)
+        
         // delay before activating initial tab to allow borders show properly
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             if self.initialSecurityType == SecurityViewController.SECURITY_TYPE_PIN {
@@ -67,22 +70,22 @@ class SecurityViewController: SecurityBaseViewController {
     }
     
     func activatePasswordTab() {
-        tabController?.selectedIndex = 0
+        self.tabController?.selectedIndex = 0
         // activate password button
-        btnPassword.backgroundColor = UIColor.appColors.offWhite
-        btnPassword.removeBorders(atPositions: .right, .bottom)
+        self.btnPassword.setTitleColor(UIColor.appColors.darkGray, for: .normal)
+        self.btnPassword.addBorder(atPosition: .bottom)
         // deactivate pin button
-        btnPin.backgroundColor = UIColor.white
-        btnPin.addBorders(atPositions: [.left, .bottom])
+        self.btnPin.setTitleColor(UIColor.appColors.thinGray, for: .normal)
+        self.btnPin.removeBorders(atPositions: .bottom)
     }
     
     func activatePinTab() {
-        tabController?.selectedIndex = 1
+        self.tabController?.selectedIndex = 1
         // activate pin button
-        btnPin.backgroundColor = UIColor.appColors.offWhite
-        btnPin.removeBorders(atPositions: .left, .bottom)
+        self.btnPin.setTitleColor(UIColor.appColors.darkGray, for: .normal)
+        self.btnPin.addBorder(atPosition: .bottom)
         // deactivate password button
-        btnPassword.backgroundColor = UIColor.white
-        btnPassword.addBorders(atPositions: [.right, .bottom])
+        self.btnPassword.setTitleColor(UIColor.appColors.thinGray, for: .normal)
+        self.btnPassword.removeBorders(atPositions: .bottom)
     }
 }

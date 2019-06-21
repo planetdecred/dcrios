@@ -16,16 +16,15 @@ extension UIButton {
         case bottom
     }
     
-    
-    func addBorders(atPositions borderPositions: [BorderPosition], colorHex: String = "#333333", thickness: CGFloat = 1.7) {
+    func addBorders(atPositions borderPositions: [BorderPosition], color: UIColor = UIColor.appColors.darkGray, thickness: CGFloat = 1.7) {
         borderPositions.forEach({ borderPosition in
-            self.addBorder(atPosition: borderPosition, colorHex: colorHex, thickness: thickness)
+            self.addBorder(atPosition: borderPosition, color: color, thickness: thickness)
         })
     }
     
-    func addBorder(atPosition borderPosition: BorderPosition, colorHex: String = "#333333", thickness: CGFloat = 1.7) {
+    func addBorder(atPosition borderPosition: BorderPosition, color: UIColor = UIColor.appColors.darkGray, thickness: CGFloat = 1.7) {
         let borderLayer = CALayer()
-        borderLayer.backgroundColor = UIColor.init(hex: colorHex).cgColor
+        borderLayer.backgroundColor = color.cgColor
         borderLayer.name = "\(borderPosition.rawValue) border"
         
         switch borderPosition {
@@ -52,6 +51,18 @@ extension UIButton {
         if layersToRemove.count > 0 {
             layersToRemove.forEach({ $0.removeFromSuperlayer() })
             self.setNeedsLayout()
+        }
+    }
+    
+    func setBackgroundColor(_ color: UIColor, for state: UIControl.State) {
+        self.clipsToBounds = true  // add this to maintain corner radius
+        UIGraphicsBeginImageContext(CGSize(width: 1, height: 1))
+        if let context = UIGraphicsGetCurrentContext() {
+            context.setFillColor(color.cgColor)
+            context.fill(CGRect(x: 0, y: 0, width: 1, height: 1))
+            let colorImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            self.setBackgroundImage(colorImage, for: state)
         }
     }
 }
