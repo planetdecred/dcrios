@@ -246,6 +246,11 @@ extension Syncer: DcrlibwalletSyncProgressListenerProtocol {
         self.currentSyncOp = .Done
         self.currentSyncOpProgress = nil
         self.forEachSyncListener({ syncListener in syncListener.onSyncCompleted() })
+
+        let initialSyncCompleted: Bool? = Settings.readOptionalValue(for: Settings.Keys.InitialSyncCompleted)
+        if initialSyncCompleted == nil {
+            Settings.setValue(true, for: Settings.Keys.InitialSyncCompleted)
+        }
     }
     
     func onSyncCanceled() {

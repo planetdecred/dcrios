@@ -10,12 +10,14 @@ import Foundation
 
 class Settings {
     struct Keys {
+        static let NewWalletSetUp = "new_wallet_set_up"
+        static let InitialSyncCompleted = "initial_sync_complete"
         static let IsStartupSecuritySet = "startup_security_set"
         static let StartupSecurityType = "startup_security_type"
         static let SpendingPassphraseSecurityType = "spending_security_type"
         static let DefaultWallet = "default_wallet"
         static let HiddenWalletPrefix = "hidden"
-        
+
         static let SPVPeerIP = "pref_peer_ip"
         static let RemoteServerIP = "pref_server_ip"
         static let SyncOnCellular = "always_sync"
