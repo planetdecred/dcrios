@@ -24,7 +24,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
         label.textColor = .darkGray
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.text = "Please wait for your wallet to finish synchronizing."
+        label.text = "secureMenuSyncInfo".localized
         return label
     }()
 
@@ -54,7 +54,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setupNavigationBar(withTitle: "Receive")
+        setupNavigationBar(withTitle: "receive".localized)
         checkSyncStatus()
     }
 

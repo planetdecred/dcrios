@@ -95,7 +95,7 @@ class SyncProgressViewController: UIViewController {
 
 extension SyncProgressViewController: SyncProgressListenerProtocol {
     func onStarted(_ wasRestarted: Bool) {
-        self.syncHeaderLabel.text = wasRestarted ? "Restarting Synchronization" : "Starting Synchronization"
+        self.syncHeaderLabel.text = wasRestarted ? "restartingSynchronization".localized : "startingSynchronization".localized
     }
     
     func onPeerConnectedOrDisconnected(_ numberOfConnectedPeers: Int32) {
@@ -105,8 +105,7 @@ extension SyncProgressViewController: SyncProgressListenerProtocol {
         } else {
             connectedPeers = String(format: "numberOfConnectedPeers".localized, numberOfConnectedPeers)
         }
-        //self.connectedPeersLabel.text = String(format: "syncingWithOnNet".localized, connectedPeers, self.netType!)
-        self.connectedPeersLabel.text = "Syncing with \(connectedPeers) on \(self.netType!)."
+        self.connectedPeersLabel.text =  String(format: "syncingWithOnNet".localized, connectedPeers,self.netType!)
     }
     
     func onHeadersFetchProgress(_ progressReport: DcrlibwalletHeadersFetchProgressReport) {
@@ -115,8 +114,7 @@ extension SyncProgressViewController: SyncProgressListenerProtocol {
         var reportText = String(format: "fetchedHeaders".localized, progressReport.fetchedHeadersCount, progressReport.totalHeadersToFetch)
         reportText += String(format: "headersFetchProgress".localized, progressReport.headersFetchProgress)
         if progressReport.bestBlockAge != "" {
-            //reportText += String(format: "bestBlockAgebehind".localized, progressReport.bestBlockAge)
-            reportText += "\nYour wallet is \(progressReport.bestBlockAge) behind.";
+            reportText += String(format: "bestBlockAgebehind".localized, progressReport.bestBlockAge)
         }
         
         self.currentSyncActionReportLabel.text = reportText
