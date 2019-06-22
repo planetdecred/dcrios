@@ -94,8 +94,8 @@ class SyncProgressViewController: UIViewController {
 }
 
 extension SyncProgressViewController: SyncProgressListenerProtocol {
-    func onStarted() {
-        self.syncHeaderLabel.text = "loading".localized
+    func onStarted(_ wasRestarted: Bool) {
+        self.syncHeaderLabel.text = wasRestarted ? "Restarting Synchronization" : "Starting Synchronization"
     }
     
     func onPeerConnectedOrDisconnected(_ numberOfConnectedPeers: Int32) {

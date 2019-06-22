@@ -15,9 +15,19 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
 
     @IBOutlet weak var subheader: UILabel!
     @IBOutlet weak var lblWalletAddress: UILabel!
+    @IBOutlet var contentStackView: UIStackView!
     
     private var barButton: UIBarButtonItem?
-    
+    private lazy var syncInProgressLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .darkGray
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        label.text = "Please wait for your wallet to finish synchronizing."
+        return label
+    }()
+
     var firstTrial = true
     var starttime: Int64 = 0
     var myacc: WalletAccount!
@@ -25,19 +35,29 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     var tapGesture = UITapGestureRecognizer()
     var oldAddress = ""
     var wallet = AppDelegate.walletLoader.wallet
-    
+
     private var selectedAccount = ""
-    
+
+    override func loadView() {
+        super.loadView()
+        view.addSubview(syncInProgressLabel)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.subheader.text = "recieveHeaderInfo".localized
         // TAP Gesture
         self.setupExtraUI()
-               self.showFirstWalletAddressAndQRCode()
-        self.populateWalletDropdownMenu()
         self.starttime = Int64(NSDate().timeIntervalSince1970)
+        setupSyncInProgressLabelConstraints()
     }
-    
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupNavigationBar(withTitle: "Receive")
+        checkSyncStatus()
+    }
+
     func setupExtraUI() {
         self.imgWalletAddrQRCode.addGestureRecognizer(tapToCopyAddressGesture())
         self.lblWalletAddress.addGestureRecognizer(tapToCopyAddressGesture())
@@ -60,19 +80,6 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        setupNavigationBar(withTitle: "receive".localized)
-        
-        let shareBtn = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share))
-        let generateAddressBtn = UIButton(type: .custom)
-        generateAddressBtn.setImage(UIImage(named: "right-menu"), for: .normal)
-        generateAddressBtn.addTarget(self, action: #selector(showMenu), for: .touchUpInside)
-        generateAddressBtn.frame = CGRect(x: 0, y: 0, width: 10, height: 51)
-        barButton = UIBarButtonItem(customView: generateAddressBtn)
-        self.navigationItem.rightBarButtonItems = [barButton!, shareBtn ]
-    }
-    
     @objc func showMenu(sender: Any) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
@@ -91,7 +98,37 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
 
         self.present(alertController, animated: true, completion: nil)
     }
-    
+
+    private func checkSyncStatus() {
+        let isSynced = AppDelegate.walletLoader.isSynced
+        let isNewWalletSetup: Bool = Settings.readValue(for: Settings.Keys.NewWalletSetUp)
+        let initialSyncCompleted: Bool = Settings.readOptionalValue(for: Settings.Keys.InitialSyncCompleted) ?? false
+        if isSynced || isNewWalletSetup || initialSyncCompleted {
+            self.showFirstWalletAddressAndQRCode()
+            self.populateWalletDropdownMenu()
+            contentStackView.isHidden = false
+            syncInProgressLabel.isHidden = true
+
+            let shareBtn = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share))
+            let generateAddressBtn = UIButton(type: .custom)
+            generateAddressBtn.setImage(UIImage(named: "right-menu"), for: .normal)
+            generateAddressBtn.addTarget(self, action: #selector(showMenu), for: .touchUpInside)
+            generateAddressBtn.frame = CGRect(x: 0, y: 0, width: 10, height: 51)
+            barButton = UIBarButtonItem(customView: generateAddressBtn)
+            self.navigationItem.rightBarButtonItems = [barButton!, shareBtn ]
+        } else {
+            contentStackView.isHidden = true
+            syncInProgressLabel.isHidden = false
+        }
+    }
+
+    private func setupSyncInProgressLabelConstraints() {
+        /// This will position the label at the center of the view
+        syncInProgressLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        syncInProgressLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        syncInProgressLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8).isActive = true
+    }
+
     private func generateNewAddress() {
         self.oldAddress = self.lblWalletAddress.text!
         self.getNextAddress(accountNumber: (self.myacc.Number))

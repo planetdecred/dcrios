@@ -74,7 +74,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
-                                                            <segue destination="gFt-pD-kVi" kind="show" id="7Sg-BI-PiE"/>
+                                                            <segue destination="gFt-pD-kVi" kind="show" identifier="toNewWalletCreation" id="7Sg-BI-PiE"/>
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create a New Wallet" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o7v-m1-uhB">
@@ -130,7 +130,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
-                                                            <segue destination="JeB-dY-AWc" kind="show" id="7YZ-GJ-hcP"/>
+                                                            <segue destination="JeB-dY-AWc" kind="show" identifier="toWalletRestore" id="7YZ-GJ-hcP"/>
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Restore Existing Wallet" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3ui-eJ-rsh">
@@ -219,12 +219,12 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="958-W0-p93" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="kqc-Og-IdQ">
                     <connections>
-                        <segue destination="gFt-pD-kVi" kind="show" id="bTC-5f-N0z"/>
+                        <segue destination="gFt-pD-kVi" kind="show" identifier="toNewWalletCreation" id="bTC-5f-N0z"/>
                     </connections>
                 </tapGestureRecognizer>
                 <tapGestureRecognizer id="wQA-U0-fKq">
                     <connections>
-                        <segue destination="JeB-dY-AWc" kind="show" id="tpL-HT-Xj2"/>
+                        <segue destination="JeB-dY-AWc" kind="show" identifier="toWalletRestore" id="tpL-HT-Xj2"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -1071,7 +1071,7 @@
         <image name="recover-wallet" width="54.5" height="54.5"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="7YZ-GJ-hcP"/>
-        <segue reference="bTC-5f-N0z"/>
+        <segue reference="tpL-HT-Xj2"/>
+        <segue reference="7Sg-BI-PiE"/>
     </inferredMetricsTieBreakers>
 </document>
