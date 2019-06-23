@@ -126,6 +126,7 @@
 		B3B46AC9228F120700A68EDD /* TransactiontInputDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46AC2228F120700A68EDD /* TransactiontInputDetails.swift */; };
 		B3D21C9F2296E4F000609F23 /* ExchangeRates.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D21C9E2296E4F000609F23 /* ExchangeRates.swift */; };
 		DD41737B22B1B31E00580935 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DD41737D22B1B31E00580935 /* Localizable.strings */; };
+		DD4948EC22C0E400006A35F8 /* LocalizedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4948EB22C0E400006A35F8 /* LocalizedStrings.swift */; };
 		DD75148A22BA67B10070E4F6 /* TransactionHistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD75148922BA67B10070E4F6 /* TransactionHistoryViewController.xib */; };
 		DD8F9D3C22BE7A5600FF8594 /* Security.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD8F9D3B22BE7A5600FF8594 /* Security.storyboard */; };
 		DDC7154D22B49CFD00A8FE6F /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC7154C22B49CFD00A8FE6F /* Label.swift */; };
@@ -270,6 +271,7 @@
 		B3D21C9E2296E4F000609F23 /* ExchangeRates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRates.swift; sourceTree = "<group>"; };
 		DD41737C22B1B31E00580935 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DD41737E22B1B32500580935 /* ru-RU */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ru-RU"; path = "ru-RU.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		DD4948EB22C0E400006A35F8 /* LocalizedStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedStrings.swift; sourceTree = "<group>"; };
 		DD75148922BA67B10070E4F6 /* TransactionHistoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionHistoryViewController.xib; sourceTree = "<group>"; };
 		DD8F9D3B22BE7A5600FF8594 /* Security.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Security.storyboard; sourceTree = "<group>"; };
 		DDC7154C22B49CFD00A8FE6F /* Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
@@ -344,6 +346,7 @@
 			children = (
 				B3B46A4F228F0F7B00A68EDD /* Utils.swift */,
 				AD07C29322B927FA008F49F9 /* Segues.swift */,
+				DD4948EB22C0E400006A35F8 /* LocalizedStrings.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -916,6 +919,7 @@
 				B3B46A1D228F0F2700A68EDD /* PasswordSetupViewController.swift in Sources */,
 				B3B469FA228F0F2700A68EDD /* UIColor.swift in Sources */,
 				B3B469FD228F0F2700A68EDD /* UIViewController.swift in Sources */,
+				DD4948EC22C0E400006A35F8 /* LocalizedStrings.swift in Sources */,
 				B3B46A9B228F0F7D00A68EDD /* PeerSetTableViewController.swift in Sources */,
 				B3B46A89228F0F7D00A68EDD /* keyPadButton.swift in Sources */,
 				B3B46AB0228F0F7D00A68EDD /* AccountDataCell.swift in Sources */,
@@ -1073,7 +1077,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconTestnet;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = LYZ95J7356;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1156,7 +1160,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconTestnet;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = LYZ95J7356;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1300,7 +1304,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = LYZ95J7356;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1326,7 +1330,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = LYZ95J7356;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

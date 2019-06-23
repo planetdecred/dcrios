@@ -47,7 +47,7 @@ struct SpendingPinOrPassword {
     
     private static func changeWalletSpendingPassphrase(_ vc: UIViewController, current currentPassphrase: String, new newPassphrase: String, type securityType: String) {
         let newSecurityType = securityType.lowercased()
-        let progressHud = Utils.showProgressHud(withText: String(format: "changingSpendingPIN/Pass".localized, newSecurityType))
+        let progressHud = Utils.showProgressHud(withText: String(format: "changingSpendingPINPass".localized, newSecurityType))
         
         let oldPrivatePass = (currentPassphrase as NSString).data(using: String.Encoding.utf8.rawValue)!
         let newPrivatePass = (newPassphrase as NSString).data(using: String.Encoding.utf8.rawValue)!
