@@ -35,7 +35,7 @@ class SeedConfirmTableViewCell: UITableViewCell {
             buttons[selected]?.isSelected = true
         }
         seedWordNumber = num
-        lbWordTitle.text = String(format: "correctWordIs".localized, num + 1)
+        lbWordTitle.text = String(format: LocalizedStrings.correctWordIs, num + 1)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

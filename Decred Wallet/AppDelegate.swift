@@ -96,7 +96,7 @@ class AppDelegate: UIResponder {
     
     func showOkAlert(message: String, title: String? = nil, onPressOk: (() -> Void)? = nil) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "oK".localized, style: .default) { _ in
+        let okAction = UIAlertAction(title: LocalizedStrings.oK, style: .default) { _ in
             alert.dismiss(animated: true, completion: onPressOk)
         }
         alert.addAction(okAction)

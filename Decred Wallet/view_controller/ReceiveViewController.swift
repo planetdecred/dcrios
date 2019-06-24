@@ -24,7 +24,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
         label.textColor = .darkGray
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.text = "secureMenuSyncInfo".localized
+        label.text = LocalizedStrings.secureMenuSyncInfo
         return label
     }()
 
@@ -45,7 +45,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.subheader.text = "recieveHeaderInfo".localized
+        self.subheader.text = LocalizedStrings.recieveHeaderInfo
         // TAP Gesture
         self.setupExtraUI()
         self.starttime = Int64(NSDate().timeIntervalSince1970)
@@ -54,7 +54,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setupNavigationBar(withTitle: "receive".localized)
+        setupNavigationBar(withTitle: LocalizedStrings.receive)
         checkSyncStatus()
     }
 
@@ -74,8 +74,8 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
             UIPasteboard.general.string = self.lblWalletAddress.text!
             
             //Alert
-            let alertController = UIAlertController(title: "", message: "walletAddrCopied".localized, preferredStyle: UIAlertController.Style.alert)
-            alertController.addAction(UIAlertAction(title: "oK".localized, style: UIAlertAction.Style.default, handler: nil))
+            let alertController = UIAlertController(title: "", message: LocalizedStrings.walletAddrCopied, preferredStyle: UIAlertController.Style.alert)
+            alertController.addAction(UIAlertAction(title: LocalizedStrings.oK, style: UIAlertAction.Style.default, handler: nil))
             self.present(alertController, animated: true, completion: nil)
         }
     }
@@ -83,9 +83,9 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     @objc func showMenu(sender: Any) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        let cancelAction = UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: LocalizedStrings.cancel, style: .cancel, handler: nil)
         
-        let generateNewAddressAction = UIAlertAction(title: "genNewAddr".localized, style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        let generateNewAddressAction = UIAlertAction(title: LocalizedStrings.genNewAddr, style: .default, handler: { (alert: UIAlertAction!) -> Void in
             self.generateNewAddress()
         })
         

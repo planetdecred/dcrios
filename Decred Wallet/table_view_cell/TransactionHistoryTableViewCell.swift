@@ -40,14 +40,14 @@ class TransactionHistoryTableViewCell: BaseTableViewCell {
             
             if (confirm2 == -1) {
                 self.txtTrStatus.textColor = UIColor(hex:"#3d659c")
-                self.txtTrStatus.text = "pending".localized
+                self.txtTrStatus.text = LocalizedStrings.pending
             } else {
                 if (Settings.spendUnconfirmed || confirm2 > 1) {
                     self.txtTrStatus.textColor = UIColor(hex:"#2DD8A3")
-                    self.txtTrStatus.text = "confirmed".localized
+                    self.txtTrStatus.text = LocalizedStrings.confirmed
                 } else {
                     self.txtTrStatus.textColor = UIColor(hex:"#3d659c")
-                    self.txtTrStatus.text = "pending".localized
+                    self.txtTrStatus.text = LocalizedStrings.pending
                 }
             }
             
@@ -63,7 +63,7 @@ class TransactionHistoryTableViewCell: BaseTableViewCell {
             
             let tnt = Decimal(data.trans.Amount / 100000000.00) as NSDecimalNumber
             let requireConfirmation = Settings.spendUnconfirmed ? 0 : 2
-            if (data.trans.Type.lowercased() == "regular".lowercased()) {
+            if (data.trans.Type.lowercased() == "regular") {
                 if (data.trans.Direction == 0) {
                     self.txtAmount.attributedText = Utils.getAttributedString(str:"-".appending(tnt.round(8).description), siz: 13.0, TexthexColor: GlobalConstants.Colors.TextAmount)
                     self.trImage?.image = UIImage(named: "debit")
@@ -78,19 +78,19 @@ class TransactionHistoryTableViewCell: BaseTableViewCell {
                     self.trImage?.image = UIImage(named: "account")
                 }
             }
-            else if(data.trans.Type.lowercased() == "vote".lowercased()){
-                self.txtAmount.text = "vote".localized
+            else if(data.trans.Type.lowercased() == "vote"){
+                self.txtAmount.text = LocalizedStrings.vote
                 self.trImage?.image = UIImage(named: "vote")
             }
             else if (data.trans.Type.lowercased() == "Ticket Purchase".lowercased()) {
-                self.txtAmount.text = "ticket".localized
+                self.txtAmount.text = LocalizedStrings.ticket
                 self.trImage?.image = UIImage(named: "immature")
                 if (confirm2 < requireConfirmation){
                     self.txtTrStatus.textColor = UIColor(hex:"#3d659c")
-                    self.txtTrStatus.text = "pending".localized
+                    self.txtTrStatus.text = LocalizedStrings.pending
                 }
                 else if (confirm2 > 16){
-                    let stausText = "confirmedLive".localized
+                    let stausText = LocalizedStrings.confirmedLive
                     let range = (stausText as NSString).range(of: "/")
                     let attributedString = NSMutableAttributedString(string: stausText)
                     attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black , range: range)
@@ -98,7 +98,7 @@ class TransactionHistoryTableViewCell: BaseTableViewCell {
                     self.txtTrStatus.attributedText = attributedString
                 }
                 else{
-                    let stausText = "confirmedImmature".localized
+                    let stausText = LocalizedStrings.confirmedImmature
                     let range = (stausText as NSString).range(of: "/")
                     let attributedString = NSMutableAttributedString(string: stausText)
                     attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black , range: range)

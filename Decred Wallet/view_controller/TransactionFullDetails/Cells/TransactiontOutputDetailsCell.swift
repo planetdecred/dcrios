@@ -41,16 +41,16 @@ class TransactiontOutputDetailsCell: UITableViewCell {
             
             var address = decodedOutput.Addresses.count > 0 ? decodedOutput.Addresses[0] : ""
             var amount = Utils.getAttributedString(str: "\(decodedOutput.dcrAmount.round(8))", siz: 13, TexthexColor: GlobalConstants.Colors.TextAmount)
-            var title = " (\("external".localizedLowercase))"
+            var title = " (\(LocalizedStrings.external.lowercased()))"
             
             switch(decodedOutput.ScriptType){
             case "nulldata":
-                amount = NSAttributedString(string: "[\("nullData".localized)]")
-                address = "[\("script".localized)]"
+                amount = NSAttributedString(string: "[\(LocalizedStrings.nullData)]")
+                address = "[\(LocalizedStrings.script)]"
                 title = ""
                 break
             case "stakegen":
-                address = "[\("stakegen".localized)]"
+                address = "[\(LocalizedStrings.stakegen)]"
                 break
             default:
                 break
@@ -96,8 +96,8 @@ class TransactiontOutputDetailsCell: UITableViewCell {
             //Copy a string to the pasteboard.
             UIPasteboard.general.string = sender.titleLabel?.text
             //Alert
-            let alertController = UIAlertController(title: "", message: "addrCopied".localized, preferredStyle: UIAlertController.Style.alert)
-            alertController.addAction(UIAlertAction(title: "oK".localized, style: UIAlertAction.Style.default, handler: nil))
+            let alertController = UIAlertController(title: "", message: LocalizedStrings.addrCopied, preferredStyle: UIAlertController.Style.alert)
+            alertController.addAction(UIAlertAction(title: LocalizedStrings.oK, style: UIAlertAction.Style.default, handler: nil))
             self.presentingController.present(alertController, animated: true, completion: nil)
         }
     }

@@ -32,7 +32,7 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setupNavigationBar(withTitle: "account".localized)
+        setupNavigationBar(withTitle: LocalizedStrings.accounts)
         
         self.navigationItem.rightBarButtonItem?.accessibilityElementsHidden = true
     }
@@ -111,7 +111,7 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
             headerView.backgroundColor = UIColor(hex: "#000000")
         } else {
             headerView.sethidden(status: true)
-            headerView.title = accountInfo.title.appending(" (\("hidden".localized))")
+            headerView.title = accountInfo.title.appending(" (\(LocalizedStrings.hidden))")
             headerView.backgroundColor = UIColor(hex: "#FFFFFF")
         }
         headerView.totalBalance = accountInfo.totalBalance

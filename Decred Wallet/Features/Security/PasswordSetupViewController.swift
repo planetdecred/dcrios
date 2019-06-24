@@ -34,7 +34,7 @@ class PasswordSetupViewController: SecurityBaseViewController, UITextFieldDelega
         self.tfPassword.delegate = self
         self.tfConfirmPassword.delegate = self
         
-        self.headerText.text = String(format: "createPassword".localized, self.securityFor)
+        self.headerText.text = String(format: LocalizedStrings.createPassword, self.securityFor)
         self.lbMatchIndicator.text = " " // use empty space so label height isn't reduced
     }
     
@@ -55,10 +55,10 @@ class PasswordSetupViewController: SecurityBaseViewController, UITextFieldDelega
             self.lbMatchIndicator.text = " " // use empty space so label height isn't reduced
         } else if self.tfPassword.text == self.tfConfirmPassword.text {
             self.lbMatchIndicator.textColor = UIColor.appColors.green
-            self.lbMatchIndicator.text = "passwordMatch".localized
+            self.lbMatchIndicator.text = LocalizedStrings.passwordMatch
         } else {
             self.lbMatchIndicator.textColor = UIColor.appColors.yellowWarning
-            self.lbMatchIndicator.text = "passwordDoNotMatch".localized
+            self.lbMatchIndicator.text = LocalizedStrings.passwordDoNotMatch
         }
     }
     
@@ -78,12 +78,12 @@ class PasswordSetupViewController: SecurityBaseViewController, UITextFieldDelega
     func validatePasswordsAndProceed() -> Bool {
         let password = self.tfPassword.text ?? ""
         if password.length == 0 {
-            self.showMessageDialog(title: "error".localized, message: "emptyPasswordNotAllowed".localized)
+            self.showMessageDialog(title: LocalizedStrings.error, message: LocalizedStrings.emptyPasswordNotAllowed)
             return false
         }
         
         if self.tfPassword.text != self.tfConfirmPassword.text {
-            self.showMessageDialog(title: "error".localized, message: "passwordsDoNotMatch".localized)
+            self.showMessageDialog(title: LocalizedStrings.error, message: LocalizedStrings.passwordsDoNotMatch)
             return false
         }
         

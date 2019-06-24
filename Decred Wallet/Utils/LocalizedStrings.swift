@@ -174,8 +174,8 @@ struct LocalizedStrings {
     static let syncTotalProgress = NSLocalizedString("syncTotalProgress", comment: "")
     static let allTimes = NSLocalizedString("allTimes", comment: "")
     static let elapsed = NSLocalizedString("elapsed", comment: "")
-    static let remain = NSLocalizedString("remain:", comment: "")
-    static let total = NSLocalizedString("total:", comment: "")
+    static let remain = NSLocalizedString("remain", comment: "")
+    static let total = NSLocalizedString("total", comment: "")
     static let stageTimes = NSLocalizedString("stageTimes", comment: "")
     static let tapToViewInformation = NSLocalizedString("tapToViewInformation", comment: "")
     
@@ -202,7 +202,7 @@ struct LocalizedStrings {
     static let invalidDestAddr = NSLocalizedString("invalidDestAddr", comment: "")
     static let emptyDestAddr = NSLocalizedString("emptyDestAddr", comment: "")
     static let sendingDecred = NSLocalizedString("sendingDecred", comment: "")
-    static let from = NSLocalizedString("from:", comment: "")
+    static let from = NSLocalizedString("from", comment: "")
     static let sendHeaderInfo = NSLocalizedString("sendHeaderInfo", comment: "")
     static let destAddr = NSLocalizedString("destAddr", comment: "")
     static let tapToPaste = NSLocalizedString("tapToPaste", comment: "")
@@ -236,7 +236,7 @@ struct LocalizedStrings {
     static let message = NSLocalizedString("message", comment: "")
     static let signature = NSLocalizedString("signature", comment: "")
     static let signMessage = NSLocalizedString("signMessage", comment: "")
-    static let secureMenuSyncInfo = NSLocalizedString("signingMessage", comment: "")
+    static let secureMenuSyncInfo = NSLocalizedString("secureMenuSyncInfo", comment: "")
     static let secureMenuHeaderInfo = NSLocalizedString("secureMenuHeaderInfo", comment: "")
     
     /* License */
@@ -267,9 +267,7 @@ struct LocalizedStrings {
     static let connectIpDesc = NSLocalizedString("connectIpDesc", comment: "")
     static let certificatDesc = NSLocalizedString("certificatDesc", comment: "")
     static let syncOnWifiDesc = NSLocalizedString("syncOnWifiDesc", comment: "")
-    static let versionDesc = NSLocalizedString("versionDesc", comment: "")
     static let buildDateDesc = NSLocalizedString("buildDateDesc", comment: "")
-    static let licenseDesc = NSLocalizedString("licenseDesc", comment: "")
     static let rescanBlockChainDesc = NSLocalizedString("rescanBlockChainDesc", comment: "")
     static let walletLogDesc = NSLocalizedString("walletLogDesc", comment: "")
     static let deleteWalletDesc = NSLocalizedString("deleteWalletDesc", comment: "")
@@ -367,7 +365,7 @@ struct LocalizedStrings {
     
     /* Delete Wallet */
     static let confirmDeleteInfo = NSLocalizedString("confirmDeleteInfo", comment: "")
-    static let confirmDeleteDesc = NSLocalizedString("To confirm, enter your password:", comment: "")
+    static let confirmDeleteDesc = NSLocalizedString("confirmDeleteDesc", comment: "")
     
     /* Account Data cell */
     static let details = NSLocalizedString("details", comment: "")

@@ -13,7 +13,7 @@ class SecurityViewController: SecurityBaseViewController {
     static let SECURITY_TYPE_PIN = "PIN"
     
     // "Password" or "Pin" will be appended to the title depending on what tab is activated
-    var securityFor = "spending".localized // or Startup
+    var securityFor = LocalizedStrings.spending // or Startup
     var initialSecurityType: String? // determines which tab will be displayed first
     
     // This will be triggered after a pin or password is provided by the user.

@@ -71,7 +71,7 @@ extension UIButton: XIBLocalizable {
     @IBInspectable var xibLocKey: String? {
         get { return nil }
         set(key) {
-            setTitle(key?.localized, for: .normal)
+            setTitle(key?.getLocalizedString, for: .normal)
         }
     }
 }

@@ -47,7 +47,7 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationItem.title = "transactionDetails".localized
+        self.navigationItem.title = LocalizedStrings.transactionDetails
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "left-arrow"), style: .done, target: self, action: #selector(backk))
        
         let optionsMenuButton = UIButton(type: .custom)
@@ -89,17 +89,17 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
     @objc func showMenu(sender: UIBarButtonItem){
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        let cancelAction = UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: LocalizedStrings.cancel, style: .cancel, handler: nil)
         
-        let copyTxHash = UIAlertAction(title: "copyTransactionHash".localized, style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        let copyTxHash = UIAlertAction(title: LocalizedStrings.copyTransactionHash, style: .default, handler: { (alert: UIAlertAction!) -> Void in
             self.copyText(text: self.transaction.Hash)
         })
         
-        let copyRawTx = UIAlertAction(title: "copyRawTransaction".localized, style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        let copyRawTx = UIAlertAction(title: LocalizedStrings.copyRawTransaction, style: .default, handler: { (alert: UIAlertAction!) -> Void in
             self.copyText(text: self.transaction.Raw)
         })
         
-        let viewOnDcrdata = UIAlertAction(title: "viewOnDcrdata".localized, style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        let viewOnDcrdata = UIAlertAction(title: LocalizedStrings.viewOnDcrdata, style: .default, handler: { (alert: UIAlertAction!) -> Void in
             self.openLink(urlString: "https://testnet.dcrdata.org/tx/\(self.transaction.Hash)")
         })
         
@@ -188,8 +188,8 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
             UIPasteboard.general.string = text
             
             //Alert
-            let alertController = UIAlertController(title: "", message: "copied".localized, preferredStyle: UIAlertController.Style.alert)
-            alertController.addAction(UIAlertAction(title: "oK".localized, style: UIAlertAction.Style.default, handler: nil))
+            let alertController = UIAlertController(title: "", message: LocalizedStrings.copied, preferredStyle: UIAlertController.Style.alert)
+            alertController.addAction(UIAlertAction(title: LocalizedStrings.oK, style: UIAlertAction.Style.default, handler: nil))
             self.present(alertController, animated: true, completion: nil)
         }
     }
@@ -203,7 +203,7 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
     fileprivate func wrap(transaction:Transaction?){
         
         var confirmations: Int32 = 0
-        var status = "pending".localized
+        var status = LocalizedStrings.pending
         let textColor: UIColor?
         
         if(transaction!.Height != -1){
@@ -213,14 +213,14 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         
         let height = transaction?.Height
         if (height == -1) {
-            status = "pending".localized
+            status = LocalizedStrings.pending
             textColor = #colorLiteral(red: 0.2392156863, green: 0.3960784314, blue: 0.6117647059, alpha: 1)
         } else {
             if (Settings.spendUnconfirmed || confirmations > 1) {
-                status = "confirmed".localized
+                status = LocalizedStrings.confirmed
                 textColor = #colorLiteral(red: 0.2549019608, green: 0.7490196078, blue: 0.3254901961, alpha: 1)
             } else {
-                status = "pending".localized
+                status = LocalizedStrings.pending
                 textColor = #colorLiteral(red: 0.2392156863, green: 0.3960784314, blue: 0.6117647059, alpha: 1)
             }
         }
@@ -230,7 +230,7 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         
         var txType: String
         if transaction?.Type.lowercased() == "ticket_purchase" {
-            txType = "ticketPurchase".localized
+            txType = LocalizedStrings.ticketPurchase
         }else{
             let first = String((transaction?.Type.prefix(1))!).capitalized
             let other = String((transaction?.Type.dropFirst())!).lowercased()
@@ -240,37 +240,37 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         
         details = [
             TransactionDetails(
-                title: "date".localized,
+                title: LocalizedStrings.date,
                 value: NSMutableAttributedString(string: "\(format(timestamp: transaction?.Timestamp))"),
                 textColor: nil
             ),
             TransactionDetails(
-                title: "status".localized,
+                title: LocalizedStrings.status,
                 value: NSMutableAttributedString(string:status),
                 textColor: textColor
             ),
             TransactionDetails(
-                title: "amount".localized,
+                title: LocalizedStrings.amount,
                 value: Utils.getAttributedString(str: "\(amount.round(8))", siz: 13, TexthexColor: GlobalConstants.Colors.TextAmount),
                 textColor: nil
             ),
             TransactionDetails(
-                title: "fee".localized,
+                title: LocalizedStrings.fee,
                 value: Utils.getAttributedString(str: "\(fee.round(8))", siz: 13, TexthexColor: GlobalConstants.Colors.TextAmount),
                 textColor: nil
             ),
             TransactionDetails(
-                title: "type".localized,
+                title: LocalizedStrings.type,
                 value: NSMutableAttributedString(string: "\(txType)"),
                 textColor: nil
             ),
             TransactionDetails(
-                title: "confirmation".localized,
+                title: LocalizedStrings.confirmation,
                 value: NSMutableAttributedString(string:"\(confirmations)"),
                 textColor: nil
             ),
             TransactionDetails(
-                title: "hash".localized,
+                title: LocalizedStrings.hash,
                 value: NSMutableAttributedString(string:(transaction?.Hash)!),
                 textColor: #colorLiteral(red: 0.1607843137, green: 0.4392156863, blue: 1, alpha: 1)
             )
@@ -279,21 +279,21 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         if(transaction?.Type.lowercased() == "vote"){
             
             let lastBlockValid = TransactionDetails(
-                title: "lastBlockValid".localized,
+                title: LocalizedStrings.lastBlockValid,
                 value: NSMutableAttributedString(string: String(describing: (decodedTransaction?.LastBlockValid.string)!)),
                 textColor: nil
             )
             details.append(lastBlockValid)
             
             let voteVersion = TransactionDetails(
-                title: "version".localized,
+                title: LocalizedStrings.version,
                 value: NSAttributedString(string: String(describing: (decodedTransaction?.VoteVersion)!)),
                 textColor: nil
             )
             details.append(voteVersion)
             
             let voteBits = TransactionDetails(
-                title:"voteBits".localized,
+                title:LocalizedStrings.voteBits,
                 value: NSAttributedString(string: String(describing: (decodedTransaction?.VoteBits)!)),
                 textColor: nil
             )

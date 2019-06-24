@@ -16,9 +16,9 @@ class WalletLogViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.removeNavigationBarItem()
-        self.navigationItem.title = "walletLog".localized
-        self.progressHud = Utils.showProgressHud(withText: "loading".localized)
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "copy".localized, style: .plain, target: self, action: #selector(copyLog))
+        self.navigationItem.title = LocalizedStrings.walletLog
+        self.progressHud = Utils.showProgressHud(withText: LocalizedStrings.loading)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: LocalizedStrings.copy, style: .plain, target: self, action: #selector(copyLog))
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -28,7 +28,7 @@ class WalletLogViewController: UIViewController {
     @objc func copyLog() -> Void {
         DispatchQueue.main.async {
             UIPasteboard.general.string = self.logTextView.text
-            self.showOkAlert(message: "walletLogCopied".localized)
+            self.showOkAlert(message: LocalizedStrings.walletLogCopied)
         }
     }
     

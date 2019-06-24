@@ -15,10 +15,10 @@ class CertificateViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
-        self.navigationItem.title = "certificate".localized
+        self.navigationItem.title = LocalizedStrings.certificate
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
         
-        self.certificateDesc.text = "\("certificate".localized):"
+        self.certificateDesc.text = "\(LocalizedStrings.certificate):"
         
         loadCert()
     }

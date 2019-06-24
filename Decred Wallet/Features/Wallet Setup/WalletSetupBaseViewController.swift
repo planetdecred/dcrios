@@ -15,7 +15,7 @@ class WalletSetupBaseViewController: UIViewController {
     }
     
     func finalizeWalletSetup(_ seed: String, _ pinOrPassword: String, _ securityType: String) {
-        let progressHud = Utils.showProgressHud(withText: "settingUpWallet".localized)
+        let progressHud = Utils.showProgressHud(withText: LocalizedStrings.settingUpWallet)
         
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let this = self else { return }
@@ -33,7 +33,7 @@ class WalletSetupBaseViewController: UIViewController {
             } catch let error {
                 DispatchQueue.main.async {
                     progressHud.dismiss()
-                    this.showOkAlert(message: error.localizedDescription, title: "errorSettingUpWallet".localized)
+                    this.showOkAlert(message: error.localizedDescription, title: LocalizedStrings.errorSettingUpWallet)
                 }
             }
         }

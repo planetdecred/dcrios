@@ -21,7 +21,7 @@ open class MenuItemCell: UITableViewCell {
     }
     
     func render(_ menuItem: MenuItem, isCurrentItem: Bool = false) {
-        self.menuTitleLabel.text = menuItem.rawValue.lowercased().localized
+        self.menuTitleLabel.text = menuItem.rawValue.lowercased().getLocalizedString
         self.menuIconImageView.image = menuItem.icon
         
         if isCurrentItem {

@@ -48,9 +48,9 @@ class Syncer: NSObject, AppLifeCycleDelegate {
     var connectedPeersCount: Int32 = 0
     var connectedPeers: String {
         if self.connectedPeersCount == 1 {
-            return String(format: "numberOfConnectedPeer".localized, connectedPeersCount)
+            return String(format: LocalizedStrings.numberOfConnectedPeer, connectedPeersCount)
         } else {
-            return String(format: "numberOfConnectedPeers".localized, connectedPeersCount)
+            return String(format: LocalizedStrings.numberOfConnectedPeers, connectedPeersCount)
         }
     }
     
@@ -80,7 +80,7 @@ class Syncer: NSObject, AppLifeCycleDelegate {
             // Listen for changes to app state, specifically when the app becomes active after being suspended previously.
             AppDelegate.shared.registerLifeCylceDelegate(self, for: "\(self)")
         } catch (let syncError) {
-            AppDelegate.shared.showOkAlert(message: syncError.localizedDescription, title: "syncError".localized)
+            AppDelegate.shared.showOkAlert(message: syncError.localizedDescription, title: LocalizedStrings.syncError)
         }
     }
     

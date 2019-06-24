@@ -83,25 +83,25 @@ class SettingsController: UITableViewController  {
     }
     
     func setMenuTitle(){
-        self.changeSpendingPinPassDesc.text = "changeSpendingPinPassDesc".localized
-        self.spendingPinPassInfo.text = "spendingPinPassInfo".localized
-        self.startupPinPassDesc.text = "startupPinPassDesc".localized
-        self.changeStatupPinPassDesc.text = "changeStatupPinPassDesc".localized
-        self.startupPinPassInfo.text = "startupPinPassInfo".localized
-        self.spendUnconfirmedFundDesc.text = "spendUnconfirmedFundDesc".localized
-        self.incomingTxNotificationDesc.text = "incomingTxNotificationDesc".localized
-        self.currencyConversionDesc.text = "currencyConversionDesc".localized
-        self.networkModeDesc.text = "networkModeDesc".localized
-        self.serverAddDesc.text = "serverAddDesc".localized
-        self.connectIpDesc.text = "connectIpDesc".localized
-        self.certificatDesc.text = "certificatDesc".localized
-        self.syncOnWifiDesc.text = "syncOnWifiDesc".localized
-        self.versionDesc.text = "versionDesc".localized
-        self.buildDateDesc.text = "buildDateDesc".localized
-        self.licenseDesc.text = "licenseDesc".localized
-        self.rescanBlockChainDesc.text = "rescanBlockChainDesc".localized
-        self.walletLogDesc.text = "walletLogDesc".localized
-        self.deleteWalletDesc.text = "deleteWalletDesc".localized
+        self.changeSpendingPinPassDesc.text = LocalizedStrings.changeSpendingPinPassDesc
+        self.spendingPinPassInfo.text = LocalizedStrings.spendingPinPassInfo
+        self.startupPinPassDesc.text = LocalizedStrings.startupPinPassDesc
+        self.changeStatupPinPassDesc.text = LocalizedStrings.changeStatupPinPassDesc
+        self.startupPinPassInfo.text = LocalizedStrings.startupPinPassInfo
+        self.spendUnconfirmedFundDesc.text = LocalizedStrings.spendUnconfirmedFundDesc
+        self.incomingTxNotificationDesc.text = LocalizedStrings.incomingTxNotificationDesc
+        self.currencyConversionDesc.text = LocalizedStrings.currencyConversionDesc
+        self.networkModeDesc.text = LocalizedStrings.networkModeDesc
+        self.serverAddDesc.text = LocalizedStrings.serverAddDesc
+        self.connectIpDesc.text = LocalizedStrings.connectIpDesc
+        self.certificatDesc.text = LocalizedStrings.certificatDesc
+        self.syncOnWifiDesc.text = LocalizedStrings.syncOnWifiDesc
+        self.versionDesc.text = LocalizedStrings.version
+        self.buildDateDesc.text = LocalizedStrings.buildDateDesc
+        self.licenseDesc.text = LocalizedStrings.license
+        self.rescanBlockChainDesc.text = LocalizedStrings.rescanBlockChainDesc
+        self.walletLogDesc.text = LocalizedStrings.walletLogDesc
+        self.deleteWalletDesc.text = LocalizedStrings.deleteWalletDesc
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -109,7 +109,7 @@ class SettingsController: UITableViewController  {
         
         self.navigationController?.navigationBar.isHidden = false
         self.navigationController?.navigationBar.tintColor = UIColor.black
-        self.navigationItem.title = "settings".localized
+        self.navigationItem.title = LocalizedStrings.settings
         
         if self.isModal {
             self.addNavigationBackButton()
@@ -124,7 +124,7 @@ class SettingsController: UITableViewController  {
         self.checkStartupSecurity()
 
         if Settings.networkMode == 0 {
-            network_mode_subtitle?.text = "spv".localized
+            network_mode_subtitle?.text = LocalizedStrings.spv
             self.certificate_cell.isUserInteractionEnabled = false
             self.server_cell.isUserInteractionEnabled = false
             self.connectPeer_cell.isUserInteractionEnabled = true
@@ -134,7 +134,7 @@ class SettingsController: UITableViewController  {
             self.serverAddDesc.textColor = UIColor.lightGray
             self.connectIpDesc.textColor = UIColor.darkText
         } else {
-            network_mode_subtitle?.text = "remoteFullNode".localized
+            network_mode_subtitle?.text = LocalizedStrings.remoteFullNode
             self.certificate_cell.isUserInteractionEnabled = true
             self.server_cell.isUserInteractionEnabled = true
             self.connectPeer_cell.isUserInteractionEnabled = false
@@ -173,14 +173,14 @@ class SettingsController: UITableViewController  {
         self.cellularSyncSwitch.isOn = Settings.readValue(for: Settings.Keys.SyncOnCellular)
         
         if Settings.networkMode == 0 {
-            network_mode_subtitle?.text = "spv".localized
+            network_mode_subtitle?.text = LocalizedStrings.spv
         } else {
-            network_mode_subtitle?.text = "remoteFullNode".localized
+            network_mode_subtitle?.text = LocalizedStrings.remoteFullNode
         }
         
         switch Settings.currencyConversionOption {
         case .None:
-            currency_subtitle?.text = "none".localized
+            currency_subtitle?.text = LocalizedStrings.none
         case .Bittrex:
             currency_subtitle?.text = "USD (bittrex)"
         }
@@ -206,13 +206,13 @@ class SettingsController: UITableViewController  {
         let sectionName: String
         switch section {
         case 0:
-            sectionName = "general".localized.capitalized
+            sectionName = LocalizedStrings.general.capitalized
         case 1:
-            sectionName = "connection".localized.capitalized
+            sectionName = LocalizedStrings.connection.capitalized
         case 2:
-            sectionName = "about".localized.capitalized
+            sectionName = LocalizedStrings.about.capitalized
         case 3:
-            sectionName = "debug".localized.capitalized
+            sectionName = LocalizedStrings.debug.capitalized
         default:
             sectionName = ""
         }
@@ -285,8 +285,8 @@ class SettingsController: UITableViewController  {
             }
         } else if indexPath.section == 3 && indexPath.row == 0 {
             // rescan blockchain
-            self.showOkAlert(message: "rescanConfirm".localized,
-                             title: "rescanBlockchain".localized,
+            self.showOkAlert(message: LocalizedStrings.rescanConfirm,
+                             title: LocalizedStrings.rescanBlockchain,
                              onPressOk: self.rescanBlocks,
                              addCancelAction: true)
         }
@@ -294,19 +294,19 @@ class SettingsController: UITableViewController  {
     
     func rescanBlocks() {
         if AppDelegate.walletLoader.wallet!.isSyncing() {
-            self.showOkAlert(message: "syncPreogressAlert".localized)
+            self.showOkAlert(message: LocalizedStrings.syncPreogressAlert)
             return
         }
         
         do {
             try AppDelegate.walletLoader.wallet?.rescanBlocks()
-            self.displayToast("syncToastMsg".localized)
+            self.displayToast(LocalizedStrings.syncToastMsg)
         } catch let error {
             var errorMessage = error.localizedDescription
             if errorMessage == DcrlibwalletErrInvalid {
-                errorMessage = "scanStartedAlready".localized
+                errorMessage = LocalizedStrings.scanStartedAlready
             }
-            self.showOkAlert(message: errorMessage, title: "rescanFailed".localized)
+            self.showOkAlert(message: errorMessage, title: LocalizedStrings.rescanFailed)
         }
     }
     
@@ -320,7 +320,7 @@ class SettingsController: UITableViewController  {
                 }
                 
                 let requestPinVC = RequestPinViewController.instantiate()
-                requestPinVC.securityFor = "spending".localized
+                requestPinVC.securityFor = LocalizedStrings.spending
                 requestPinVC.showCancelButton = true
                 requestPinVC.onUserEnteredPin = { pin in
                     self.deleteWallet(spendingPinOrPassword: pin)
@@ -331,7 +331,7 @@ class SettingsController: UITableViewController  {
     }
     
     func deleteWallet(spendingPinOrPassword: String) {
-        let progressHud = Utils.showProgressHud(withText: "deletingWallet".localized)
+        let progressHud = Utils.showProgressHud(withText: LocalizedStrings.deletingWallet)
         DispatchQueue.global(qos: .background).async {
             do {
                 try AppDelegate.walletLoader.wallet?.delete(spendingPinOrPassword.utf8Bits)
@@ -344,7 +344,7 @@ class SettingsController: UITableViewController  {
                     progressHud.dismiss()
                 }
                 print("delete wallet error: \(error.localizedDescription)")
-                self.showOkAlert(message: "walletDeletfailed".localized, title: "error".localized)
+                self.showOkAlert(message: LocalizedStrings.walletDeletfailed, title: LocalizedStrings.error)
             }
         }
     }

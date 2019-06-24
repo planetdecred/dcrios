@@ -28,7 +28,7 @@ class NetworkModeTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "networkModeDesc".localized.capitalized
+        return LocalizedStrings.networkModeDesc.capitalized
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -31,7 +31,7 @@ extension String {
 }
 
 protocol Localizable {
-    var localized: String { get }
+    var getLocalizedString: String { get }
 }
 
 protocol XIBLocalizable {
@@ -39,7 +39,7 @@ protocol XIBLocalizable {
 }
 
 extension String: Localizable {
-    var localized: String {
+    var getLocalizedString: String {
         return NSLocalizedString(self, comment: "")
     }
 }

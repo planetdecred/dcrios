@@ -14,6 +14,6 @@ class LicenseViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = "license".localized
+        self.navigationItem.title = LocalizedStrings.license
     }
 }

@@ -29,9 +29,9 @@ class RequestPinViewController: SecurityBaseViewController {
     
     override func viewDidLoad() {
         if self.requestPinConfirmation {
-            self.headerText.text = String(format: "createPIN".localized, self.securityFor)
+            self.headerText.text = String(format: LocalizedStrings.createPIN, self.securityFor)
         } else {
-            self.headerText.text = String(format: "enterPIN".localized, self.securityFor)
+            self.headerText.text = String(format: LocalizedStrings.enterPIN, self.securityFor)
             self.pinStrengthLabel.isHidden = true
             self.prgsPinStrength.isHidden = true
         }
@@ -75,7 +75,7 @@ class RequestPinViewController: SecurityBaseViewController {
         if self.requestPinConfirmation && pinToConfirm == "" {
             self.pinToConfirm = self.pinInputView.pin
             self.pinInputView.clear()
-            self.headerText.text = String(format: "confirmPIN".localized, self.securityFor)
+            self.headerText.text = String(format: LocalizedStrings.confirmPIN, self.securityFor)
             self.prgsPinStrength.progress = 0
             
             // We are confirming pin, hide the pin strength meter.
@@ -84,11 +84,11 @@ class RequestPinViewController: SecurityBaseViewController {
         }
         else if requestPinConfirmation && pinToConfirm != pinInputView.pin {
             self.pinToConfirm = ""
-            self.headerText.text = "pinsDidNotMatch".localized
+            self.headerText.text = LocalizedStrings.pinsDidNotMatch
             
             // Reset the input
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                self.headerText.text = String(format: "createPIN".localized, self.securityFor)
+                self.headerText.text = String(format: LocalizedStrings.createPIN, self.securityFor)
                 self.pinInputView.clear()
                 self.prgsPinStrength.progress = 0
                 

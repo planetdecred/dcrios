@@ -53,17 +53,17 @@ class ConfirmToSendFundViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.sendAmountLabel.text = "\("Sending".localized) \(self.sendAmount!)"
-        self.feeLabel.text = "\("withFee".localized) \(self.fee!)"
-        self.addressLabel.text = "to".localized + self.destinationAddress!
-        self.passwordTextField.placeholder = "passwordHint".localized
-        self.sendBtn.setTitle("send".localized.uppercased(), for: .normal)
-        self.cancelBtn.setTitle("cancel".localized.uppercased(), for: .normal)
+        self.sendAmountLabel.text = "\(LocalizedStrings.sending) \(self.sendAmount!)"
+        self.feeLabel.text = "\(LocalizedStrings.withFee) \(self.fee!)"
+        self.addressLabel.text = LocalizedStrings.to + self.destinationAddress!
+        self.passwordTextField.placeholder = LocalizedStrings.passwordHint
+        self.sendBtn.setTitle(LocalizedStrings.send.uppercased(), for: .normal)
+        self.cancelBtn.setTitle(LocalizedStrings.cancel.uppercased(), for: .normal)
         
         if self.destinationAccount == nil {
             self.accountLabel.isHidden = true
         } else {
-            self.accountLabel.text = "\("toAaccount".localized) \'\(self.destinationAccount!)\'"
+            self.accountLabel.text = "\(LocalizedStrings.toAccount) \'\(self.destinationAccount!)\'"
         }
         
         if SpendingPinOrPassword.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {

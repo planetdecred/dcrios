@@ -18,9 +18,9 @@ class WalletSetupViewController: WalletSetupBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        createWallet.text = "createNewWallet".localized
-        restoreWallet.text = "restoreExistingWallet".localized
-        infoText.text = "createOrRecoverWallet".localized
+        createWallet.text = LocalizedStrings.createNewWallet
+        restoreWallet.text = LocalizedStrings.restoreExistingWallet
+        infoText.text = LocalizedStrings.createOrRecoverWallet
     
         let dateformater = DateFormatter()
         dateformater.dateFormat = "yyyy-MM-dd"

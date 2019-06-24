@@ -40,19 +40,19 @@ open class BaseTableViewCell : UITableViewCell {
         
         if let menuText = data as? String {
             self.textLabel?.text = menuText
-            if (menuText == "overview".localized) {
+            if (menuText == LocalizedStrings.overview) {
                 self.imageView?.image = UIImage(named: "overview")
-            } else if (menuText == "account".localized) {
+            } else if (menuText == LocalizedStrings.accounts) {
                 self.imageView?.image = UIImage(named: "account")
-            } else if (menuText == "send".localized) {
+            } else if (menuText == LocalizedStrings.send) {
                 self.imageView?.image = UIImage(named: "send")
-            } else if (menuText == "receive".localized) {
+            } else if (menuText == LocalizedStrings.receive) {
                 self.imageView?.image = UIImage(named: "receive")
-            } else if (menuText == "settings".localized) {
+            } else if (menuText == LocalizedStrings.settings) {
                 self.imageView?.image = UIImage(named: "settings")
-            } else if (menuText == "security".localized) {
+            } else if (menuText == LocalizedStrings.security) {
                 self.imageView?.image = UIImage(named: "left")
-            } else if (menuText == "history".localized) {
+            } else if (menuText == LocalizedStrings.history) {
                 self.imageView?.image = UIImage(named: "history")
             }
         }

@@ -17,7 +17,7 @@ class PeerSetTableViewController: UITableViewController {
         self.removeNavigationBarItem()
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
-        self.navigationItem.title = "connectToPeer".localized
+        self.navigationItem.title = LocalizedStrings.connectToPeer
         // Do any additional setup after loading the view.
         peer_ip?.text = Settings.readOptionalValue(for: Settings.Keys.SPVPeerIP) ?? ""
     }
@@ -48,7 +48,7 @@ class PeerSetTableViewController: UITableViewController {
             return
             }
         else {
-            self.showMessage(title: "invalidInput".localized, userMessage: "inputValidIP".localized, buttonTitle: "ok".localized)
+            self.showMessage(title: LocalizedStrings.invalidInput, userMessage: LocalizedStrings.inputValidIP, buttonTitle: LocalizedStrings.oK)
         }
     }
     

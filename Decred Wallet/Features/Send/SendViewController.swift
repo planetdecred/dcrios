@@ -64,23 +64,23 @@ class SendViewController: UIViewController {
         if dcrAmountString.components(separatedBy: ".").count > 2 ||
             (usdAmountTextField.text ?? "").components(separatedBy: ".").count > 2 {
             // more than 1 decimal place
-            self.sendAmountErrorLabel.text = "invalidAmount".localized
+            self.sendAmountErrorLabel.text = LocalizedStrings.invalidAmount
             return false
         }
         
         let decimalPointIndex = dcrAmountString.firstIndex(of: ".")
         if decimalPointIndex != nil && dcrAmountString[decimalPointIndex!...].count > 9 {
-            self.sendAmountErrorLabel.text = "amount8Decimal".localized
+            self.sendAmountErrorLabel.text = LocalizedStrings.amount8Decimal
             return false
         }
         
         guard let sendAmountDcr = Double(dcrAmountString), sendAmountDcr > 0 else {
-            self.sendAmountErrorLabel.text = "InvalidAmount".localized
+            self.sendAmountErrorLabel.text = LocalizedStrings.invalidAmount
             return false
         }
         
         if sendAmountDcr > DcrlibwalletMaxAmountDcr {
-            self.sendAmountErrorLabel.text = "amountMaximumAllowed".localized
+            self.sendAmountErrorLabel.text = LocalizedStrings.amountMaximumAllowed
             return false
         }
         
@@ -95,9 +95,9 @@ class SendViewController: UIViewController {
     
     var insufficientFundsErrorMessage: String {
         if AppDelegate.walletLoader.syncer.connectedPeersCount > 0 {
-            return "notEnoughFunds".localized
+            return LocalizedStrings.notEnoughFunds
         } else {
-            return "notEnoughFundsNet".localized
+            return LocalizedStrings.notEnoughFundsNet
         }
     }
     
@@ -106,7 +106,7 @@ class SendViewController: UIViewController {
         self.dcrAmountTextField.addTarget(self, action: #selector(self.dcrAmountTextFieldChanged), for: .editingChanged)
         self.usdAmountTextField.addTarget(self, action: #selector(self.usdAmountTextFieldChanged), for: .editingChanged)
         
-        self.destinationAddressTextField.placeholder = "destAddr".localized
+        self.destinationAddressTextField.placeholder = LocalizedStrings.destAddr
         
         self.hideKeyboardOnTapAround()
         self.resetViews()
@@ -160,7 +160,7 @@ class SendViewController: UIViewController {
         guard let exchangeRate = exchangeRate else {
             self.usdAmountTextField.superview?.isHidden = true
             self.exchangeRateLabel.superview?.isHidden = true
-            self.exchangeRateErrorLabel.text = "\(currencyConversionOption.withFirstLetterCapital) \("rateUnavailableTap".localized)"
+            self.exchangeRateErrorLabel.text = "\(currencyConversionOption.withFirstLetterCapital) \(LocalizedStrings.rateUnavailableTap)"
             self.exchangeRateErrorLabel.isHidden = false
             return
         }
@@ -174,18 +174,18 @@ class SendViewController: UIViewController {
     @objc func showOverflowMenu() {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        let alternateSendOption = self.destinationAccountView.isHidden ? "sendToAccount".localized : "sendToAddress".localized
+        let alternateSendOption = self.destinationAccountView.isHidden ? LocalizedStrings.sendToAccount : LocalizedStrings.sendToAddress
         let alternateSendAction = UIAlertAction(title: alternateSendOption, style: .default) { _ in
             self.toggleDestinationAddressAccount()
         }
         alertController.addAction(alternateSendAction)
         
-        let resetAction = UIAlertAction(title:"clearFields".localized, style: .default) { _ in
+        let resetAction = UIAlertAction(title: LocalizedStrings.clearFields, style: .default) { _ in
             self.resetViews()
         }
         alertController.addAction(resetAction)
         
-        let cancelAction = UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: LocalizedStrings.cancel, style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
         
         // iPads show alert controller as pop ups which requires an anchor point to display.
@@ -241,7 +241,7 @@ class SendViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.setupNavigationBar(withTitle: "send".localized)
+        self.setupNavigationBar(withTitle: LocalizedStrings.send)
         self.navigationItem.rightBarButtonItems = [self.overflowNavBarButton]
         
         self.checkClipboardForValidAddress()
@@ -292,7 +292,7 @@ class SendViewController: UIViewController {
             self.dcrAmountTextFieldChanged(sendMax: true)
         } catch let error {
             print("get send max amount error: \(error.localizedDescription)")
-            self.sendAmountErrorLabel.text = "errorMaxSpendable".localized
+            self.sendAmountErrorLabel.text = LocalizedStrings.errorMaxSpendable
         }
     }
     
@@ -302,11 +302,11 @@ class SendViewController: UIViewController {
     
     func attemptSend() {
         guard AppDelegate.walletLoader.isSynced else {
-            self.showSendError("plsWaitNetkSync".localized)
+            self.showSendError(LocalizedStrings.plsWaitNetkSync)
             return
         }
         guard AppDelegate.walletLoader.syncer.connectedPeersCount > 0 else {
-            self.showSendError("notConnected".localized)
+            self.showSendError(LocalizedStrings.notConnected)
             return
         }
         
@@ -334,7 +334,7 @@ class SendViewController: UIViewController {
                 }
                 
                 let requestPinVC = RequestPinViewController.instantiate()
-                requestPinVC.securityFor = "spending".localized
+                requestPinVC.securityFor = LocalizedStrings.spending
                 requestPinVC.showCancelButton = true
                 requestPinVC.onUserEnteredPin = { spendingPin in
                     self.finalizeSending(destinationAddress: destinationAddress, pinOrPassword: spendingPin)
@@ -349,7 +349,7 @@ class SendViewController: UIViewController {
             let sendAmountDcr = Double(dcrAmountString), sendAmountDcr > 0 else {
                 self.clearTxSummary()
                 if isSendAttempt {
-                    self.sendAmountErrorLabel.text = "amountCantBeZero".localized
+                    self.sendAmountErrorLabel.text = LocalizedStrings.amountCantBeZero
                 } else {
                     // disable send button
                     self.toggleSendButtonState(addressValid: false, amountValid: false)
@@ -394,7 +394,7 @@ class SendViewController: UIViewController {
             } else {
                 print("get tx fee/size error: \(error.localizedDescription)")
                 if isSendAttempt {
-                    self.showSendError("unexpectedError".localized)
+                    self.showSendError(LocalizedStrings.unexpectedError)
                 }
             }
         }
@@ -406,7 +406,7 @@ class SendViewController: UIViewController {
         let sendAmountDcr = Double(self.dcrAmountTextField.text!)
         let sendAmountAtom = DcrlibwalletAmountAtom(sendAmountDcr!)
         
-        let progressHud = Utils.showProgressHud(withText: "sendingTransaction".localized)
+        let progressHud = Utils.showProgressHud(withText: LocalizedStrings.sendingTransaction)
         DispatchQueue.global(qos: .userInitiated).async {[unowned self] in
             do {
                 let hash = try AppDelegate.walletLoader.wallet!.sendTransaction(sendAmountAtom,
@@ -425,13 +425,13 @@ class SendViewController: UIViewController {
                     progressHud.dismiss()
                     
                     if error.localizedDescription != DcrlibwalletErrInvalidPassphrase {
-                        self.showOkAlert(message: error.localizedDescription, title: "error".localized)
+                        self.showOkAlert(message: error.localizedDescription, title: LocalizedStrings.error)
                         return
                     }
                     
                     let securityType = SpendingPinOrPassword.currentSecurityType()!.lowercased()
-                    let errorMessage = String(format: "incorrectSecurityType".localized, securityType)
-                    self.showOkAlert(message: errorMessage, title: "failedTransaction".localized, okText: "retry".localized, onPressOk: self.attemptSend, addCancelAction: true)
+                    let errorMessage = String(format: LocalizedStrings.incorrectSecurityType, securityType)
+                    self.showOkAlert(message: errorMessage, title: LocalizedStrings.failedTransaction, okText: LocalizedStrings.retry, onPressOk: self.attemptSend, addCancelAction: true)
                 }
             }
         }
@@ -502,11 +502,11 @@ extension SendViewController {
         }
         
         if capturedText.count < 25 {
-            self.invalidAddressFromQrCode(errorMessage: "walletAddressShort".localized)
+            self.invalidAddressFromQrCode(errorMessage: LocalizedStrings.walletAddressShort)
             return
         }
         if capturedText.count > 36 {
-            self.invalidAddressFromQrCode(errorMessage: "walletAddressLong".localized)
+            self.invalidAddressFromQrCode(errorMessage: LocalizedStrings.walletAddressLong)
             return
         }
         
@@ -514,13 +514,13 @@ extension SendViewController {
             if capturedText.starts(with: "T") {
                 self.destinationAddressTextField.text = capturedText
             } else {
-                self.invalidAddressFromQrCode(errorMessage: "invalidTesnetAddress".localized)
+                self.invalidAddressFromQrCode(errorMessage: LocalizedStrings.invalidTesnetAddress)
             }
         } else {
             if capturedText.starts(with: "D") {
                 self.destinationAddressTextField.text = capturedText
             } else {
-                self.invalidAddressFromQrCode(errorMessage: "invalidMainnetAddress".localized)
+                self.invalidAddressFromQrCode(errorMessage: LocalizedStrings.invalidMainnetAddress)
             }
         }
     }
@@ -541,7 +541,7 @@ extension SendViewController {
         if destinationAddress == "" || addressValid {
             self.destinationErrorLabel.text = ""
         } else {
-            self.destinationErrorLabel.text = "invalidDestAddr".localized
+            self.destinationErrorLabel.text = LocalizedStrings.invalidDestAddr
         }
     }
     
@@ -574,7 +574,7 @@ extension SendViewController {
         // Sending to address, ensure that destinationAddressTextField.text is not nil and it's not empty string either.
         guard let destinationAddress = self.destinationAddressTextField.text, destinationAddress != "" else {
             if displayErrorOnUI {
-                self.destinationErrorLabel.text = "emptyDestAddr".localized
+                self.destinationErrorLabel.text = LocalizedStrings.emptyDestAddr
             }
             return nil
         }
@@ -582,7 +582,7 @@ extension SendViewController {
         // Also ensure that destinationAddressTextField.text is a valid address.
         guard AppDelegate.walletLoader.wallet!.isAddressValid(destinationAddress) else {
             if displayErrorOnUI {
-                self.destinationErrorLabel.text = "invalidDestAddr".localized
+                self.destinationErrorLabel.text = LocalizedStrings.invalidDestAddr
             }
             return nil
         }
