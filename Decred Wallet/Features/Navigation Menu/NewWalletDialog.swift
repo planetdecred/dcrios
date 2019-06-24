@@ -2,9 +2,9 @@
 //  NewWalletDialog.swift
 //  Decred Wallet
 //
-//  Created by Wisdom Arerosuoghene on 21/05/2019.
-//  Copyright © 2019 Decred. All rights reserved.
-//
+// Copyright (c) 2018-2019 The Decred developers
+// Use of this source code is governed by an ISC
+// license that can be found in the LICENSE file.
 
 import UIKit
 

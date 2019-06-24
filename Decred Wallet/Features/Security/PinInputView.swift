@@ -1,6 +1,6 @@
 //
-//  PinMarksView.swift
-//  
+//  UIColor.swift
+//  Decred Wallet
 //
 // Copyright (c) 2018-2019 The Decred developers
 // Use of this source code is governed by an ISC
