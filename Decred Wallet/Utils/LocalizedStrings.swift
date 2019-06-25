@@ -268,7 +268,6 @@ struct LocalizedStrings {
     static let certificatDesc = NSLocalizedString("certificatDesc", comment: "")
     static let syncOnWifiDesc = NSLocalizedString("syncOnWifiDesc", comment: "")
     static let buildDateDesc = NSLocalizedString("buildDateDesc", comment: "")
-    static let rescanBlockChainDesc = NSLocalizedString("rescanBlockChainDesc", comment: "")
     static let walletLogDesc = NSLocalizedString("walletLogDesc", comment: "")
     static let deleteWalletDesc = NSLocalizedString("deleteWalletDesc", comment: "")
     static let general = NSLocalizedString("general", comment: "")

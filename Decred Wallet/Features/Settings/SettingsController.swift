@@ -100,7 +100,7 @@ class SettingsController: UITableViewController  {
         self.versionDesc.text = LocalizedStrings.version
         self.buildDateDesc.text = LocalizedStrings.buildDateDesc
         self.licenseDesc.text = LocalizedStrings.license
-        self.rescanBlockChainDesc.text = LocalizedStrings.rescanBlockChainDesc
+        self.rescanBlockChainDesc.text = LocalizedStrings.rescanBlockchain
         self.walletLogDesc.text = LocalizedStrings.walletLogDesc
         self.deleteWalletDesc.text = LocalizedStrings.deleteWalletDesc
     }
