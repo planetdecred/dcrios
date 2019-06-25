@@ -97,7 +97,7 @@ class SendViewController: UIViewController {
         if AppDelegate.walletLoader.syncer.connectedPeersCount > 0 {
             return LocalizedStrings.notEnoughFunds
         } else {
-            return LocalizedStrings.notEnoughFundsNet
+            return LocalizedStrings.notEnoughFundsOrNotConnected
         }
     }
     
@@ -302,7 +302,7 @@ class SendViewController: UIViewController {
     
     func attemptSend() {
         guard AppDelegate.walletLoader.isSynced else {
-            self.showSendError(LocalizedStrings.plsWaitNetkSync)
+            self.showSendError(LocalizedStrings.pleaseWaitNetworkSync)
             return
         }
         guard AppDelegate.walletLoader.syncer.connectedPeersCount > 0 else {

@@ -26,7 +26,6 @@ class DeleteWalletConfirmationViewController: UIViewController, UITextFieldDeleg
         
         self.deleteWalletHeader.text = "\(LocalizedStrings.deleteWalletDesc)?"
         
-        
         if SpendingPinOrPassword.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
             self.passwordTextField.delegate = self
             self.passwordTextField.addTarget(self, action: #selector(self.passwordTextChanged), for: .editingChanged)

@@ -9,8 +9,8 @@
 import UIKit
 
 @IBDesignable
-class Label: UILabel , XIBLocalizable {
-    @IBInspectable var xibLocKey: String? {
+class Label: UILabel, XIBLocalizable {
+    @IBInspectable var xibLocalizedStringKey: String? {
         get { return nil }
         set(key) {
             text = key?.getLocalizedString
@@ -18,3 +18,4 @@ class Label: UILabel , XIBLocalizable {
         }
     }
 }
+

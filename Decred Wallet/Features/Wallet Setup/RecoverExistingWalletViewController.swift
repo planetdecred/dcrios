@@ -100,7 +100,7 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let seedWordCell = tableView.dequeueReusableCell(withIdentifier: "seedWordCell", for: indexPath) as! RecoveryWalletSeedWordCell
         
-        seedWordCell.lbSeedWordNum.text = String(format: LocalizedStrings.correctWordIs, indexPath.row + 1)
+        seedWordCell.lbSeedWordNum.text = String(format: LocalizedStrings.word, indexPath.row + 1)
         seedWordCell.seedWordAutoComplete.text = self.userEnteredSeedWords[indexPath.row]
         seedWordCell.seedWordAutoComplete.resignFirstResponder()
         

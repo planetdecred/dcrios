@@ -16,7 +16,7 @@
 /* Pop Ups */
 "error" = "Error";
 "retry" = "Retry";
-"oK" = "OK";
+"ok" = "OK";
 "tryAgain" = "Try again";
 "cancel" = "Cancel";
 "clearFields" =  "Clear fields";
@@ -82,12 +82,12 @@
 /* CreateNewWalletViewController */
 
 /* Confirm NewWallet Seed */
-"seedDoesNotMatches" = "You entered an incorrect seed. Please check your words.";
+"seedDoesNotMatch" = "You entered an incorrect seed. Please check your words.";
 "seedPhraseVerification" = "Seed phrase verification...";
 "confirmSeedInfo" = "Each field contains only one correct word. Please confirm your seed by selecting the correct words.";
 
 /* Recover Existing Wallet */
-"correctWordIs" = "Word #%d";
+"word" = "Word #%d";
 "notAllSeedsAreEntered" = "Not all seeds are entered. Please, check input fields and enter all seeds.";
 "incorrectSeedEntered" = "You entered an incorrect seed. Please check your words.";
 "walletRecoveryError" = "Wallet recovery error.";
@@ -181,12 +181,12 @@
 "amount8Decimal" = "Amount has more than 8 decimal places.";
 "amountMaximumAllowed" = "Amount more than maximum allowed.";
 "notEnoughFunds" = "Not enough funds.";
-"notEnoughFundsNet" = "Not enough funds (or not connected).";
+"notEnoughFundsOrNotConnected" = "Not enough funds (or not connected).";
 "rateUnavailableTap"  = "rate unavailable (tap to retry).";
 "sendToAccount" = "Send to account";
 "sendToAddress" = "Send to address";
 "errorMaxSpendable" = "Error getting maximum spendable amount.";
-"plsWaitNetkSync" = "Please wait for network synchronization.";
+"pleaseWaitNetworkSync" = "Please wait for network synchronization.";
 "notConnected" = "Not connected to the network.";
 "amountCantBeZero" = "Amount cannot be zero.";
 "unexpectedError" = "Unexpected error.";
@@ -219,7 +219,7 @@
 "passwordHint" = "Password";
 
 /* Send Complete */
-"copyHash" = "HASH: (copied)";
+"hashCopied" = "HASH: (copied)";
 "hash" = "HASH";
 
 /* Security Menu */
@@ -245,12 +245,12 @@
 "none" = "None";
 "rescanConfirm" = "Are you sure? This could take some time.";
 "rescanBlockchain" = "Rescan Blockchain";
-"syncPreogressAlert" = "Sync is in progress. Please wait for sync to complete.";
-"syncToastMsg" = "Check progress in navigation bar.";
+"syncProgressAlert" = "Sync is in progress. Please wait for sync to complete.";
+"scanInProgress" = "Check progress in navigation bar.";
 "scanStartedAlready" = "Wallet is already rescanning, check progress in navigation bar.";
 "rescanFailed" = "Rescan failed";
 "deletingWallet" = "Deleting wallet...";
-"walletDeletfailed" = "Failed to delete wallet.";
+"deleteWalletFailed" = "Failed to delete wallet.";
 "changeSpendingPinPassDesc" = "Change Spending PIN/Password";
 "spendingPinPassInfo" = "Required to send funds.";
 "startupPinPassDesc" = "Startup PIN/Password";
@@ -329,7 +329,7 @@
 "genNewAddr" = "Generate new address";
 
 /* Add Account */
-"plsInputAccountName" = "Enter a name for your account.";
+"inputAccountName" = "Enter a name for your account.";
 "creatingAccount" = "Creating account...";
 
 /* View controller sender */

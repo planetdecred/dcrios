@@ -187,7 +187,7 @@ extension NavigationMenuViewController: SyncProgressListenerProtocol {
     }
     
     func onStarted(_ wasRestarted: Bool) {
-        self.syncStatusLabel.text = wasRestarted ? LocalizedStrings.restartingSync: LocalizedStrings.connectingToPeers
+        self.syncStatusLabel.text = wasRestarted ? LocalizedStrings.restartingSync : LocalizedStrings.connectingToPeers
     }
     
     func onPeerConnectedOrDisconnected(_ numberOfConnectedPeers: Int32) {

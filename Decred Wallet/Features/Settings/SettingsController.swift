@@ -203,21 +203,18 @@ class SettingsController: UITableViewController  {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
-        let sectionName: String
         switch section {
         case 0:
-            sectionName = LocalizedStrings.general.capitalized
+            return LocalizedStrings.general.capitalized
         case 1:
-            sectionName = LocalizedStrings.connection.capitalized
+            return LocalizedStrings.connection.capitalized
         case 2:
-            sectionName = LocalizedStrings.about.capitalized
+            return LocalizedStrings.about.capitalized
         case 3:
-            sectionName = LocalizedStrings.debug.capitalized
+            return LocalizedStrings.debug.capitalized
         default:
-            sectionName = ""
+            return ""
         }
-        return sectionName
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -295,13 +292,13 @@ class SettingsController: UITableViewController  {
     
     func rescanBlocks() {
         if AppDelegate.walletLoader.wallet!.isSyncing() {
-            self.showOkAlert(message: LocalizedStrings.syncPreogressAlert)
+            self.showOkAlert(message: LocalizedStrings.syncProgressAlert)
             return
         }
         
         do {
             try AppDelegate.walletLoader.wallet?.rescanBlocks()
-            self.displayToast(LocalizedStrings.syncToastMsg)
+            self.displayToast(LocalizedStrings.scanInProgress)
         } catch let error {
             var errorMessage = error.localizedDescription
             if errorMessage == DcrlibwalletErrInvalid {
@@ -345,7 +342,7 @@ class SettingsController: UITableViewController  {
                     progressHud.dismiss()
                 }
                 print("delete wallet error: \(error.localizedDescription)")
-                self.showOkAlert(message: LocalizedStrings.walletDeletfailed, title: LocalizedStrings.error)
+                self.showOkAlert(message: LocalizedStrings.deleteWalletFailed, title: LocalizedStrings.error)
             }
         }
     }

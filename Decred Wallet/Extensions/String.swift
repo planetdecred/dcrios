@@ -36,7 +36,7 @@ protocol Localizable {
 }
 
 protocol XIBLocalizable {
-    var xibLocKey: String? { get set }
+    var xibLocalizedStringKey: String? { get set }
 }
 
 extension String: Localizable {

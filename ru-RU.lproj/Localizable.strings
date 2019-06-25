@@ -16,7 +16,7 @@
 /* Pop Ups */
 "error" = "Error";
 "retry" = "ПОПРОБОВАТЬ ЕЩЁ РАЗ";
-"oK" = "ОК";
+"ok" = "ОК";
 "tryAgain" = "Try again";
 "cancel" = "Отменить";
 "clearFields" =  "Очистить всё";
@@ -82,12 +82,12 @@
 /* CreateNewWalletViewController */
 
 /* Confirm NewWallet Seed */
-"seedDoesNotMatches" = "You entered an incorrect seed. Please check your words.";
+"seedDoesNotMatch" = "You entered an incorrect seed. Please check your words.";
 "seedPhraseVerification" = "Проверка сид-фразы…";
 "confirmSeedInfo" = "Пожалуйста, подтвердите ваш сид. Введите все слова и нажмите на каждом из них.";
 
 /* Recover Existing Wallet */
-"correctWordIs" = "Word #%d";
+"word" = "Word #%d";
 "notAllSeedsAreEntered" = "Not all seeds are entered. Please, check input fields and enter all seeds.";
 "incorrectSeedEntered" = "You entered an incorrect seed. Please check your words.";
 "walletRecoveryError" = "Wallet recovery error.";
@@ -181,12 +181,12 @@
 "amount8Decimal" = "Сумма содержит более восьми десятичных знаков";
 "amountMaximumAllowed" = "Amount more than maximum allowed.";
 "notEnoughFunds" = "Недостаточно средств.";
-"notEnoughFundsNet" = "Not enough funds (or not connected).";
+"notEnoughFundsOrNotConnected" = "Not enough funds (or not connected).";
 "rateUnavailableTap"  = "Курс недоступен (попробовать ещё раз)";
 "sendToAccount" = "Отправить в аккаунт";
 "sendToAddress" = "Отправить на адрес";
 "errorMaxSpendable" = "Error getting maximum spendable amount.";
-"plsWaitNetkSync" = "Please wait for network synchronization.";
+"pleaseWaitNetworkSync" = "Please wait for network synchronization.";
 "notConnected" = "Not connected to the network.";
 "amountCantBeZero" = "Сумма не может быть равной нулю.";
 "unexpectedError" = "Unexpected error.";
@@ -219,7 +219,7 @@
 "passwordHint" = "ПАРОЛЬ";
 
 /* Send Complete */
-"copyHash" = "ХЕШ: (скопирован)";
+"hashCopied" = "ХЕШ: (скопирован)";
 "hash" = "Хеш";
 
 /* Security Menu */
@@ -245,12 +245,12 @@
 "none" = "Ни один";
 "rescanConfirm" = "Вы уверены? Это может занять некоторое время.";
 "rescanBlockchain" = "Сканировать Blockchain ещё раз";
-"syncPreogressAlert" = "Sync is in progress. Please wait for sync to complete.";
-"syncToastMsg" = "Проверяйте статус в navigation bar.";
+"syncProgressAlert" = "Sync is in progress. Please wait for sync to complete.";
+"scanInProgress" = "Проверяйте статус в navigation bar.";
 "scanStartedAlready" = "Осуществляется повторное сканирование кошелька, проверяйте статус в navigation bar.";
 "rescanFailed" = "Rescan failed";
 "deletingWallet" = "Deleting wallet...";
-"walletDeletfailed" = "Failed to delete wallet.";
+"deleteWalletFailed" = "Failed to delete wallet.";
 "changeSpendingPinPassDesc" = "Измените PIN/ пароль для расходов";
 "spendingPinPassInfo" = "Требуется для отправки средств.";
 "startupPinPassDesc" = "PIN/пароль для шифрования";
@@ -329,7 +329,7 @@
 "genNewAddr" = "Сгенерировать новый адрес";
 
 /* Add Account */
-"plsInputAccountName" = "Введите название для вашего аккаунта";
+"inputAccountName" = "Введите название для вашего аккаунта";
 "creatingAccount" = "Создаётся аккаунт...";
 
 /* View controller sender */

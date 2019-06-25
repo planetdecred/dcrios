@@ -40,7 +40,7 @@
                                                     <color key="titleColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="password"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="password"/>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="onPasswordTab:" destination="oDz-Lc-3bI" eventType="touchUpInside" id="Djs-C0-rE0"/>
@@ -54,7 +54,7 @@
                                                     <color key="titleColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="pin"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="pin"/>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="onPinTab:" destination="oDz-Lc-3bI" eventType="touchUpInside" id="DSY-Jd-bXa"/>
@@ -134,7 +134,7 @@
                                 <color key="textColor" red="0.76862745099999996" green="0.79607843140000001" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="password"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="password"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <textField opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zDA-08-WIe">
@@ -160,7 +160,7 @@
                                 <color key="textColor" red="0.76862745099999996" green="0.79607843140000001" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="confirmPassword"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="confirmPassword"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <textField opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Usc-E0-8T2">
@@ -191,7 +191,7 @@
                                 <color key="textColor" red="0.76862745099999996" green="0.79607843140000001" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="passwordStrength"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="passwordStrength"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <progressView contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mgJ-Mp-brz">
@@ -216,7 +216,7 @@
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                         <real key="value" value="3"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="oK"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="oK"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="onOkTapped:" destination="2lq-jW-9IA" eventType="touchUpInside" id="JZN-yw-Tfg"/>
@@ -563,7 +563,7 @@
                                 <color key="textColor" red="0.76862745099999996" green="0.79607843140000001" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="pinStrength"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="pinStrength"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CY7-XY-0kP" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
@@ -577,7 +577,7 @@
                                     <color key="titleColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="cancel"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="cancel"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="onCancelButtonTapped:" destination="SKa-iY-3vv" eventType="touchUpInside" id="feC-Z5-0ZR"/>
@@ -631,7 +631,7 @@
                                 <color key="textColor" red="0.043137254899999998" green="0.1137254902" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="enterStartupPassword"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="enterStartupPassword"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Zie-ps-sbG">
@@ -649,7 +649,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="password"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="password"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sM1-Hd-GYJ">
@@ -674,7 +674,7 @@
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                         <real key="value" value="3"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="oK"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="oK"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="OKAction:" destination="6Qd-u2-5c2" eventType="touchUpInside" id="dtk-SU-HTX"/>

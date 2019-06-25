@@ -96,7 +96,7 @@ class TransactiontInputDetails: UITableViewCell {
             UIPasteboard.general.string = sender.titleLabel?.text
             //Alert
             let alertController = UIAlertController(title: "", message: LocalizedStrings.preOutpointCopied, preferredStyle: UIAlertController.Style.alert)
-            alertController.addAction(UIAlertAction(title: LocalizedStrings.oK, style: UIAlertAction.Style.default, handler: nil))
+            alertController.addAction(UIAlertAction(title: LocalizedStrings.ok, style: UIAlertAction.Style.default, handler: nil))
             self.presentingController.present(alertController, animated: true, completion: nil)
         }
     }

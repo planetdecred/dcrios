@@ -30,7 +30,7 @@ class AddAcountViewController: UIViewController {
     
     @IBAction func createFnc(_ sender: Any) {
         if (accountName.text?.length)! < 1{
-            Info(msg: LocalizedStrings.plsInputAccountName)
+            Info(msg: LocalizedStrings.inputAccountName)
             return
         }
         
@@ -93,14 +93,14 @@ class AddAcountViewController: UIViewController {
     
     func showError(error:Error){
         let alert = UIAlertController(title: LocalizedStrings.errorMsg, message: error.localizedDescription, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: LocalizedStrings.oK, style: .default)
+        let okAction = UIAlertAction(title: LocalizedStrings.ok, style: .default)
         alert.addAction(okAction)
         present(alert, animated: true, completion: nil)
     }
     
     func Info(msg:String){
         let alert = UIAlertController(title: LocalizedStrings.info, message: msg, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: LocalizedStrings.oK, style: .default)
+        let okAction = UIAlertAction(title: LocalizedStrings.ok, style: .default)
         alert.addAction(okAction)
         present(alert, animated: true, completion: nil)
     }

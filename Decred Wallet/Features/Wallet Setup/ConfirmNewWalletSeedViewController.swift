@@ -38,7 +38,7 @@ class ConfirmNewWalletSeedViewController: WalletSetupBaseViewController {
         if seedIsValid {
             self.secureWallet()
         } else {
-            self.showError(error: LocalizedStrings.seedDoesNotMatches)
+            self.showError(error: LocalizedStrings.seedDoesNotMatch)
         }
     }
     
@@ -53,7 +53,7 @@ class ConfirmNewWalletSeedViewController: WalletSetupBaseViewController {
     
     private func showError(error:String){
         let alert = UIAlertController(title: LocalizedStrings.error, message: error, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: LocalizedStrings.oK, style: .default) { (action) in
+        let okAction = UIAlertAction(title: LocalizedStrings.ok, style: .default) { (action) in
             alert.dismiss(animated: true, completion: {self.navigationController?.popToRootViewController(animated: true)})
         }
         alert.addAction(okAction)

@@ -48,7 +48,7 @@ class PeerSetTableViewController: UITableViewController {
             return
             }
         else {
-            self.showMessage(title: LocalizedStrings.invalidInput, userMessage: LocalizedStrings.inputValidIP, buttonTitle: LocalizedStrings.oK)
+            self.showMessage(title: LocalizedStrings.invalidInput, userMessage: LocalizedStrings.inputValidIP, buttonTitle: LocalizedStrings.ok)
         }
     }
     

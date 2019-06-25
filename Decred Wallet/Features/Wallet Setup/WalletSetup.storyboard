@@ -36,16 +36,16 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VFy-a7-cZx" customClass="Label" customModule="Decred_Wallet" customModuleProvider="target">
-                                <rect key="frame" x="20.5" y="273" width="373" height="25.5"/>
+                                <rect key="frame" x="20.5" y="273" width="373" height="0.0"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="20"/>
                                 <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="wallet"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="wallet"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="PNX-hd-8QC">
-                                <rect key="frame" x="20.5" y="397" width="373" height="130"/>
+                                <rect key="frame" x="20.5" y="371.5" width="373" height="130"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="834-8m-d73">
                                         <rect key="frame" x="0.0" y="0.0" width="179" height="130"/>
@@ -180,7 +180,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create or recover your wallet and start managing your decred" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8zf-Wa-Bz1">
-                                <rect key="frame" x="20.5" y="306" width="373" height="36"/>
+                                <rect key="frame" x="20.5" y="280.5" width="373" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -244,7 +244,7 @@
                                 <color key="textColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="seedHeaderInfo"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="seedHeaderInfo"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FJZ-aX-oXk">
@@ -274,7 +274,7 @@
                                         <color key="textColor" red="0.92941176469999998" green="0.42745098040000001" blue="0.2784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="seedWarningInfo"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="seedWarningInfo"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                 </subviews>
@@ -301,7 +301,7 @@
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="iCopiedTheSeedPhrase"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="iCopiedTheSeedPhrase"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <segue destination="Ixd-Bq-Lpi" kind="show" id="nY0-Is-tDq"/>
@@ -320,7 +320,7 @@
                                 <color key="textColor" red="0.043137254899999998" green="0.1137254902" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="settingUpYourWallet"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="settingUpYourWallet"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
                         </subviews>
@@ -647,7 +647,7 @@
                                             <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                             <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="seedPhraseVerification"/>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="seedPhraseVerification"/>
                                             </userDefinedRuntimeAttributes>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VUi-H7-kYa" customClass="Label" customModule="Decred_Wallet" customModuleProvider="target">
@@ -659,7 +659,7 @@
                                             <color key="textColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                             <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="confirmSeedInfo"/>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="confirmSeedInfo"/>
                                             </userDefinedRuntimeAttributes>
                                         </label>
                                     </subviews>
@@ -692,7 +692,7 @@
                                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                     <integer key="value" value="5"/>
                                                 </userDefinedRuntimeAttribute>
-                                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="confirm"/>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="confirm"/>
                                             </userDefinedRuntimeAttributes>
                                             <connections>
                                                 <action selector="onConfirm:" destination="Ixd-Bq-Lpi" eventType="touchUpInside" id="ptz-ZI-iuR"/>
@@ -898,7 +898,7 @@
                                                             <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                             <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="seedRestoreheader"/>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="seedRestoreheader"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                     </subviews>
@@ -909,7 +909,7 @@
                                                     <color key="textColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="seedRestoreInfo"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="seedRestoreInfo"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                             </subviews>
@@ -954,7 +954,7 @@
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                             <real key="value" value="5"/>
                                                         </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="confirm"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="confirm"/>
                                                     </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <action selector="onConfirm" destination="JeB-dY-AWc" eventType="touchUpInside" id="8W4-q7-CGn"/>

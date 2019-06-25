@@ -309,7 +309,7 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
     
     private func showAlert(message: String? , titles: String?) {
         let alert = UIAlertController(title: titles, message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: LocalizedStrings.oK, style: .default) { _ in
+        let okAction = UIAlertAction(title: LocalizedStrings.ok, style: .default) { _ in
             alert.dismiss(animated: true, completion: nil)
         }
         alert.addAction(okAction)
@@ -357,7 +357,7 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
                 DispatchQueue.main.async {
                     self!.progressHud?.dismiss()
                     let alertController = UIAlertController(title: "", message: LocalizedStrings.passwordInvalid, preferredStyle: UIAlertController.Style.alert)
-                    alertController.addAction(UIAlertAction(title: LocalizedStrings.oK, style: UIAlertAction.Style.default, handler: nil))
+                    alertController.addAction(UIAlertAction(title: LocalizedStrings.ok, style: UIAlertAction.Style.default, handler: nil))
                     this.present(alertController, animated: true, completion: nil)
                 }
             }
@@ -387,7 +387,7 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
             
             //Alert
             let alertController = UIAlertController(title: "", message: LocalizedStrings.copiedSuccessfully, preferredStyle: UIAlertController.Style.alert)
-            alertController.addAction(UIAlertAction(title: LocalizedStrings.oK, style: UIAlertAction.Style.default, handler: nil))
+            alertController.addAction(UIAlertAction(title: LocalizedStrings.ok, style: UIAlertAction.Style.default, handler: nil))
             self.present(alertController, animated: true, completion: nil)
         }
     }
