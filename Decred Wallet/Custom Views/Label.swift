@@ -9,7 +9,7 @@
 import UIKit
 
 @IBDesignable
-class Label: UILabel, XIBLocalizable {
+extension UILabel {
     @IBInspectable var xibLocalizedStringKey: String? {
         get { return nil }
         set(key) {

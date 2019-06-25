@@ -67,7 +67,7 @@ extension UIButton {
     }
 }
 
-extension UIButton: XIBLocalizable {
+extension UIButton {
     @IBInspectable var xibLocalizedStringKey: String? {
         get { return nil }
         set(key) {

@@ -31,17 +31,8 @@ extension String {
     }
 }
 
-protocol Localizable {
-    var getLocalizedString: String { get }
-}
-
-protocol XIBLocalizable {
-    var xibLocalizedStringKey: String? { get set }
-}
-
-extension String: Localizable {
+extension String {
     var getLocalizedString: String {
         return NSLocalizedString(self, comment: "")
     }
 }
-
