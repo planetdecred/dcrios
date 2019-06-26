@@ -8,7 +8,6 @@
 
 import UIKit
 
-@IBDesignable
 extension UILabel {
     @IBInspectable var xibLocalizedStringKey: String? {
         get { return nil }
