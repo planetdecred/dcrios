@@ -74,7 +74,7 @@ extension DcrlibwalletLibWallet {
         DispatchQueue.global(qos: .userInteractive).async {
             do {
                 var getTransactionsError: NSError?
-                let transactionsJson = AppDelegate.walletLoader.wallet?.getTransactions(count, error: &getTransactionsError)
+                let transactionsJson = AppDelegate.walletLoader.wallet?.getTransactions(count, txFilter: DcrlibwalletTxFilterAll, error: &getTransactionsError)
                 if getTransactionsError != nil {
                     throw getTransactionsError!
                 }
