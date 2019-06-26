@@ -31,7 +31,7 @@ class SettingsController: UITableViewController  {
     @IBOutlet weak var incoming_notification_switch: UISwitch!
     @IBOutlet weak var start_Pin: UISwitch!
     @IBOutlet weak var currency_subtitle: UILabel!
-    @IBOutlet weak var certificatLabel: UILabel!
+    @IBOutlet weak var certificateLabel: UILabel!
     @IBOutlet weak var serverAddressLabel: UILabel!
     @IBOutlet weak var connectIpDesc: UILabel!
     
@@ -88,7 +88,7 @@ class SettingsController: UITableViewController  {
             self.server_cell.isUserInteractionEnabled = false
             self.connectPeer_cell.isUserInteractionEnabled = true
             self.server_ip.textColor = UIColor.lightGray
-            self.certificatLabel.textColor = UIColor.lightGray
+            self.certificateLabel.textColor = UIColor.lightGray
             self.connect_peer_ip.textColor = UIColor.darkText
             self.serverAddressLabel.textColor = UIColor.lightGray
             self.connectIpDesc.textColor = UIColor.darkText
@@ -98,7 +98,7 @@ class SettingsController: UITableViewController  {
             self.server_cell.isUserInteractionEnabled = true
             self.connectPeer_cell.isUserInteractionEnabled = false
             self.connect_peer_ip.textColor = UIColor.lightGray
-            self.certificatLabel.textColor = UIColor.darkText
+            self.certificateLabel.textColor = UIColor.darkText
             self.server_ip.textColor = UIColor.darkText
             self.serverAddressLabel.textColor = UIColor.darkText
             self.connectIpDesc.textColor = UIColor.lightGray
