@@ -23,7 +23,7 @@
 "copiedSuccessfully" = "Copied successfully.";
 "invalidRequest" = "Invalid request!";
 "addrCopied" = "Address copied!";
-"preOutpointCopied" = "Previous outpoint copied!";
+"previousOutpointCopied" = "Previous outpoint copied!";
 "errorMsg" = "Error Message";
 "info" = "Info";
 "delete" = "Delete";
@@ -41,7 +41,7 @@
 "enterPassword" = "Enter Password";
 "promptSpendingPassword" = "Please enter spending password of your wallet.";
 "promptStartupPassword" = "Enter Current Startup Password.";
-"securityTypeNotSpecify" = "Security type not specified. Cannot proceed.";
+"securityTypeNotSpecified" = "Security type not specified. Cannot proceed.";
 "password" = "PASSWORD";
 "proceed" = "Proceed";
 "passwordEmpty" = "Password can't be empty.";
@@ -56,8 +56,8 @@
 "pin" = "PIN";
 "pinStrength" = "PIN STRENGTH";
 
-/* Change Spendind PIN/Password */
-"currentSpendingPassword" = "Enter Current Spending Password";
+/* Change Spending PIN/Password */
+"enterCurrentSpendingPassword" = "Enter Current Spending Password";
 "changingSpendingPINPass" = "Changing spending %@...";
 
 /* Changing Startup PIN/Password */
@@ -87,11 +87,11 @@
 "confirmSeedInfo" = "Each field contains only one correct word. Please confirm your seed by selecting the correct words.";
 
 /* Recover Existing Wallet */
-"word" = "Word #%d";
+"wordNumber" = "Word #%d";
 "notAllSeedsAreEntered" = "Not all seeds are entered. Please, check input fields and enter all seeds.";
 "incorrectSeedEntered" = "You entered an incorrect seed. Please check your words.";
 "walletRecoveryError" = "Wallet recovery error.";
-"seedRestoreheader" = "Seed Restore";
+"seedRestoreHeader" = "Seed Restore";
 "seedRestoreInfo" = "Start typing the word and then tap the correct word from the suggestion list.";
 "confirm" = "CONFIRM";
 
@@ -157,7 +157,7 @@
 "loading" = "Loading...";
 "numberOfConnectedPeers" = "%d peers";
 "numberOfConnectedPeer" = "%d peer";
-"syncingWithOnNet" = "Syncing with %@ on %@.";
+"syncingWithPeersOnNetwork" = "Syncing with %@ on %@.";
 "fetchedHeaders" = "Fetched %d of ~%d block headers.\n";
 "headersFetchProgress" = "%d%% through step 1 of 3.";
 "bestBlockAgebehind" = "\nYour wallet is %@ behind.";
@@ -185,7 +185,7 @@
 "rateUnavailableTap"  = "rate unavailable (tap to retry).";
 "sendToAccount" = "Send to account";
 "sendToAddress" = "Send to address";
-"errorMaxSpendable" = "Error getting maximum spendable amount.";
+"errorGettingMaxSpendable" = "Error getting maximum spendable amount.";
 "pleaseWaitNetworkSync" = "Please wait for network synchronization.";
 "notConnected" = "Not connected to the network.";
 "amountCantBeZero" = "Amount cannot be zero.";
@@ -207,9 +207,9 @@
 "sendInDCR" = "Send in DCR:";
 "sendMax" = "SEND MAX";
 "feeDesc" = "Fee:";
-"estimateSizeDesc" = "Estimate Size:";
-"balanceAfterDesc" = "Balance After:";
-"exchangeRateDesc" = "Exchange Rate:";
+"estimateSize" = "Estimate Size:";
+"balanceAfter" = "Balance After:";
+"exchangeRate" = "Exchange Rate:";
 
 /* Confirm Send Fund */
 "sending" = "Sending";
@@ -251,22 +251,22 @@
 "rescanFailed" = "Rescan failed";
 "deletingWallet" = "Deleting wallet...";
 "deleteWalletFailed" = "Failed to delete wallet.";
-"changeSpendingPinPassDesc" = "Change Spending PIN/Password";
+"changeSpendingPinPass" = "Change Spending PIN/Password";
 "spendingPinPassInfo" = "Required to send funds.";
-"startupPinPassDesc" = "Startup PIN/Password";
-"changeStatupPinPassDesc" = "Change Startup PIN/Password";
+"startupPinPass" = "Startup PIN/Password";
+"changeStatupPinPass" = "Change Startup PIN/Password";
 "startupPinPassInfo" = "Required to enter app.";
-"spendUnconfirmedFundDesc" = "Spend Unconfirmed Funds";
-"incomingTxNotificationDesc" = "Incoming Transaction Notification";
-"currencyConversionDesc" = "Currency Conversion";
-"networkModeDesc" = "Network Mode";
-"serverAddDesc" = "Server Address";
+"spendUnconfirmedFund" = "Spend Unconfirmed Funds";
+"incomingTxNotification" = "Incoming Transaction Notification";
+"currencyConversion" = "Currency Conversion";
+"networkMode" = "Network Mode";
+"serverAddress" = "Server Address";
 "connectIpDesc" = "Connect to Peer";
-"certificatDesc" = "Certificate";
+"certificate" = "Certificate";
 "syncOnWifiDesc" = "Sync when not on WiFi";
-"buildDateDesc" = "Build Date";
-"walletLogDesc" = "Wallet Log";
-"deleteWalletDesc" = "Delete Wallet";
+"buildDate" = "Build Date";
+"walletLog" = "Wallet Log";
+"deleteWallet" = "Delete Wallet";
 "general" = "General";
 "connection" = "Connection";
 "about" = "About";
@@ -274,16 +274,13 @@
 
 /* IP set */
 "connectToPeer" = "Connect to peer";
-"inputValidIP" = "Peer address is invalid";
-"serverAddress" = "Server Address";
-"inputValidServer" = "Remote address is invalid";
+"peerAddressIsInvalid" = "Peer address is invalid";
+"remoteAddressIsInvalid" = "Remote address is invalid";
 
 /* Certificate */
-"certificate" = "Certificate";
 "certificateInfo" = "Paste the certificate for dcrd";
 
 /* Wallet Log */
-"walletLog" = "Wallet Log";
 "copy" = "Copy";
 "walletLogCopied" = "Wallet log copied.";
 

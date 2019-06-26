@@ -43,7 +43,7 @@ class ServerSetTableViewController: UITableViewController {
             self.navigationController?.popViewController(animated: true)
             return
         } else {
-            self.showMessage(title: LocalizedStrings.invalidInput, userMessage: LocalizedStrings.inputValidServer, buttonTitle: LocalizedStrings.ok)
+            self.showMessage(title: LocalizedStrings.invalidInput, userMessage: LocalizedStrings.remoteAddressIsInvalid, buttonTitle: LocalizedStrings.ok)
         }
     }
     

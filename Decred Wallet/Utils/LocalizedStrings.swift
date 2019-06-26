@@ -26,7 +26,7 @@ struct LocalizedStrings {
     static let copiedSuccessfully = NSLocalizedString("copiedSuccessfully", comment: "")
     static let invalidRequest = NSLocalizedString("invalidRequest", comment: "")
     static let addrCopied = NSLocalizedString("addrCopied", comment: "")
-    static let preOutpointCopied = NSLocalizedString("preOutpointCopied", comment: "")
+    static let previousOutpointCopied = NSLocalizedString("previousOutpointCopied", comment: "")
     static let errorMsg = NSLocalizedString("errorMsg", comment: "")
     static let info = NSLocalizedString("info", comment: "")
     static let delete = NSLocalizedString("delete", comment: "")
@@ -44,7 +44,7 @@ struct LocalizedStrings {
     static let enterPassword = NSLocalizedString("enterPassword", comment: "")
     static let promptSpendingPassword = NSLocalizedString("promptSpendingPassword", comment: "")
     static let promptStartupPassword = NSLocalizedString("promptStartupPassword", comment: "")
-    static let securityTypeNotSpecify = NSLocalizedString("securityTypeNotSpecify", comment: "")
+    static let securityTypeNotSpecified = NSLocalizedString("securityTypeNotSpecified", comment: "")
     static let password = NSLocalizedString("password", comment: "")
     static let proceed = NSLocalizedString("proceed", comment: "")
     static let passwordEmpty = NSLocalizedString("passwordEmpty", comment: "")
@@ -60,7 +60,7 @@ struct LocalizedStrings {
     static let pinStrength = NSLocalizedString("pinStrength", comment: "")
     
     /* Change Spendind PIN/Password */
-    static let currentSpendingPassword = NSLocalizedString("currentSpendingPassword", comment: "")
+    static let enterCurrentSpendingPassword = NSLocalizedString("enterCurrentSpendingPassword", comment: "")
     static let changingSpendingPINPass = NSLocalizedString("changingSpendingPINPass", comment: "")
     
     /* Changing Startup PIN/Password */
@@ -90,11 +90,11 @@ struct LocalizedStrings {
     static let confirmSeedInfo = NSLocalizedString("confirmSeedInfo", comment: "")
     
     /* Recover Existing Wallet */
-    static let word = NSLocalizedString("word", comment: "")
+    static let wordNumber = NSLocalizedString("wordNumber", comment: "")
     static let notAllSeedsAreEntered = NSLocalizedString("notAllSeedsAreEntered", comment: "")
     static let incorrectSeedEntered = NSLocalizedString("incorrectSeedEntered", comment: "")
     static let walletRecoveryError = NSLocalizedString("walletRecoveryError", comment: "")
-    static let seedRestoreheader = NSLocalizedString("seedRestoreheader", comment: "")
+    static let seedRestoreHeader = NSLocalizedString("seedRestoreHeader", comment: "")
     static let seedRestoreInfo = NSLocalizedString("seedRestoreInfo", comment: "")
     static let confirm = NSLocalizedString("confirm", comment: "")
     
@@ -160,7 +160,7 @@ struct LocalizedStrings {
     static let loading = NSLocalizedString("loading", comment: "")
     static let numberOfConnectedPeers = NSLocalizedString("numberOfConnectedPeers", comment: "")
     static let numberOfConnectedPeer = NSLocalizedString("numberOfConnectedPeer", comment: "")
-    static let syncingWithOnNet = NSLocalizedString("syncingWithOnNet", comment: "")
+    static let syncingWithPeersOnNetwork = NSLocalizedString("syncingWithPeersOnNetwork", comment: "")
     static let fetchedHeaders = NSLocalizedString("fetchedHeaders", comment: "")
     static let headersFetchProgress = NSLocalizedString("headersFetchProgress", comment: "")
     static let bestBlockAgebehind = NSLocalizedString("bestBlockAgebehind", comment: "")
@@ -188,7 +188,7 @@ struct LocalizedStrings {
     static let rateUnavailableTap  = NSLocalizedString("rateUnavailableTap", comment: "")
     static let sendToAccount = NSLocalizedString("sendToAccount", comment: "")
     static let sendToAddress = NSLocalizedString("sendToAddress", comment: "")
-    static let errorMaxSpendable = NSLocalizedString("errorMaxSpendable", comment: "")
+    static let errorGettingMaxSpendable = NSLocalizedString("errorMaxSpendable", comment: "")
     static let pleaseWaitNetworkSync = NSLocalizedString("pleaseWaitNetworkSync", comment: "")
     static let notConnected = NSLocalizedString("notConnected", comment: "")
     static let amountCantBeZero = NSLocalizedString("amountCantBeZero", comment: "")
@@ -210,9 +210,9 @@ struct LocalizedStrings {
     static let sendInDCR = NSLocalizedString("sendInDCR", comment: "")
     static let sendMax = NSLocalizedString("sendMax", comment: "")
     static let feeDesc = NSLocalizedString("feeDesc", comment: "")
-    static let estimateSizeDesc = NSLocalizedString("estimateSizeDesc", comment: "")
-    static let balanceAfterDesc = NSLocalizedString("balanceAfterDesc", comment: "")
-    static let exchangeRateDesc = NSLocalizedString("exchangeRateDesc", comment: "")
+    static let estimateSize = NSLocalizedString("estimateSize", comment: "")
+    static let balanceAfter = NSLocalizedString("balanceAfter", comment: "")
+    static let exchangeRate = NSLocalizedString("exchangeRate", comment: "")
     
     /* Confirm Send Fund */
     static let sending = NSLocalizedString("sending", comment: "")
@@ -254,22 +254,22 @@ struct LocalizedStrings {
     static let rescanFailed = NSLocalizedString("rescanFailed", comment: "")
     static let deletingWallet = NSLocalizedString("deletingWallet", comment: "")
     static let deleteWalletFailed = NSLocalizedString("deleteWalletFailed", comment: "")
-    static let changeSpendingPinPassDesc = NSLocalizedString("changeSpendingPinPassDesc", comment: "")
+    static let changeSpendingPinPass = NSLocalizedString("changeSpendingPinPass", comment: "")
     static let spendingPinPassInfo = NSLocalizedString("spendingPinPassInfo", comment: "")
-    static let startupPinPassDesc = NSLocalizedString("startupPinPassDesc", comment: "")
-    static let changeStatupPinPassDesc = NSLocalizedString("changeStatupPinPassDesc", comment: "")
+    static let startupPinPass = NSLocalizedString("startupPinPass", comment: "")
+    static let changeStatupPinPass = NSLocalizedString("changeStatupPinPass", comment: "")
     static let startupPinPassInfo = NSLocalizedString("startupPinPassInfo", comment: "")
-    static let spendUnconfirmedFundDesc = NSLocalizedString("spendUnconfirmedFundDesc", comment: "")
-    static let incomingTxNotificationDesc = NSLocalizedString("incomingTxNotificationDesc", comment: "")
-    static let currencyConversionDesc = NSLocalizedString("currencyConversionDesc", comment: "")
-    static let networkModeDesc = NSLocalizedString("networkModeDesc", comment: "")
-    static let serverAddDesc = NSLocalizedString("serverAddDesc", comment: "")
+    static let spendUnconfirmedFund = NSLocalizedString("spendUnconfirmedFund", comment: "")
+    static let incomingTxNotification = NSLocalizedString("incomingTxNotification", comment: "")
+    static let currencyConversion = NSLocalizedString("currencyConversion", comment: "")
+    static let networkMode = NSLocalizedString("networkMode", comment: "")
+    static let serverAddress = NSLocalizedString("serverAddress", comment: "")
     static let connectIpDesc = NSLocalizedString("connectIpDesc", comment: "")
-    static let certificatDesc = NSLocalizedString("certificatDesc", comment: "")
+    static let certificate = NSLocalizedString("certificate", comment: "")
     static let syncOnWifiDesc = NSLocalizedString("syncOnWifiDesc", comment: "")
-    static let buildDateDesc = NSLocalizedString("buildDateDesc", comment: "")
-    static let walletLogDesc = NSLocalizedString("walletLogDesc", comment: "")
-    static let deleteWalletDesc = NSLocalizedString("deleteWalletDesc", comment: "")
+    static let buildDate = NSLocalizedString("buildDate", comment: "")
+    static let walletLog = NSLocalizedString("walletLog", comment: "")
+    static let deleteWallet = NSLocalizedString("deleteWallet", comment: "")
     static let general = NSLocalizedString("general", comment: "")
     static let connection = NSLocalizedString("connection", comment: "")
     static let about = NSLocalizedString("about", comment: "")
@@ -277,16 +277,13 @@ struct LocalizedStrings {
     
     /* IP set */
     static let connectToPeer = NSLocalizedString("connectToPeer", comment: "")
-    static let inputValidIP = NSLocalizedString("inputValidIP", comment: "")
-    static let serverAddress = NSLocalizedString("serverAddress", comment: "")
-    static let inputValidServer = NSLocalizedString("inputValidServer", comment: "")
+    static let peerAddressIsInvalid = NSLocalizedString("peerAddressIsInvalid", comment: "")
+    static let remoteAddressIsInvalid = NSLocalizedString("remoteAddressIsInvalid", comment: "")
     
     /* Certificate */
-    static let certificate = NSLocalizedString("certificate", comment: "")
     static let certificateInfo = NSLocalizedString("certificateInfo", comment: "")
     
     /* Wallet Log */
-    static let walletLog = NSLocalizedString("walletLog", comment: "")
     static let copy = NSLocalizedString("copy", comment: "")
     static let walletLogCopied = NSLocalizedString("walletLogCopied", comment: "")
     

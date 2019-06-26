@@ -24,14 +24,6 @@ extension NSDecimalNumber {
     }
 }
 
-extension UIButton {
-    func set(fontSize: CGFloat, name : String) {
-        if let titleLabel = titleLabel {
-            titleLabel.font = UIFont(name: name, size: fontSize)
-        }
-    }
-}
-
 extension BinaryInteger {
     var formattedWithSeparator: String {
         return Formatter.withSeparator.string(for: self) ?? "\(self)"

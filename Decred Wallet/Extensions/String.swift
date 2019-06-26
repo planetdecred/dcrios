@@ -30,9 +30,3 @@ extension String {
         return prefix(1).uppercased() + self.lowercased().dropFirst()
     }
 }
-
-extension String {
-    var getLocalizedString: String {
-        return NSLocalizedString(self, comment: "")
-    }
-}

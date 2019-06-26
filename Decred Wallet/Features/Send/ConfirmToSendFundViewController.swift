@@ -59,8 +59,6 @@ class ConfirmToSendFundViewController: UIViewController, UITextFieldDelegate {
         self.feeLabel.text = "\(LocalizedStrings.withFee) \(self.fee!)"
         self.addressLabel.text = LocalizedStrings.to + self.destinationAddress!
         self.passwordTextField.placeholder = LocalizedStrings.passwordHint
-        self.sendBtn.setTitle(LocalizedStrings.send.uppercased(), for: .normal)
-        self.cancelBtn.setTitle(LocalizedStrings.cancel.uppercased(), for: .normal)
         
         if self.destinationAccount == nil {
             self.accountLabel.isHidden = true

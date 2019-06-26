@@ -105,7 +105,7 @@ extension SyncProgressViewController: SyncProgressListenerProtocol {
         } else {
             connectedPeers = String(format: LocalizedStrings.numberOfConnectedPeers, numberOfConnectedPeers)
         }
-        self.connectedPeersLabel.text =  String(format: LocalizedStrings.syncingWithOnNet, connectedPeers,self.netType!)
+        self.connectedPeersLabel.text =  String(format: LocalizedStrings.syncingWithPeersOnNetwork, connectedPeers, self.netType!)
     }
     
     func onHeadersFetchProgress(_ progressReport: DcrlibwalletHeadersFetchProgressReport) {
@@ -125,9 +125,9 @@ extension SyncProgressViewController: SyncProgressListenerProtocol {
         
         var reportText = "\(LocalizedStrings.discoveringUsedAddresses)\n"
         if progressReport.addressDiscoveryProgress > 100 {
-            reportText += String(format: LocalizedStrings.addressDiscoveryProgressOver,progressReport.addressDiscoveryProgress)
+            reportText += String(format: LocalizedStrings.addressDiscoveryProgressOver, progressReport.addressDiscoveryProgress)
         } else {
-            reportText += String(format: LocalizedStrings.addressDiscoveryProgressThrough,progressReport.addressDiscoveryProgress)
+            reportText += String(format: LocalizedStrings.addressDiscoveryProgressThrough, progressReport.addressDiscoveryProgress)
         }
         
         self.currentSyncActionReportLabel.text = reportText
@@ -136,7 +136,7 @@ extension SyncProgressViewController: SyncProgressListenerProtocol {
     func onHeadersRescanProgress(_ progressReport: DcrlibwalletHeadersRescanProgressReport) {
         self.handleGeneralProgressReport(progressReport.generalSyncProgress!)
         
-        var reportText = String(format: LocalizedStrings.scanningTotalHeaders, progressReport.currentRescanHeight,progressReport.totalHeadersToScan)
+        var reportText = String(format: LocalizedStrings.scanningTotalHeaders, progressReport.currentRescanHeight, progressReport.totalHeadersToScan)
         reportText += String(format: LocalizedStrings.stepThreeRescanProgress, progressReport.rescanProgress)
         
         self.currentSyncActionReportLabel.text = reportText
@@ -148,7 +148,7 @@ extension SyncProgressViewController: SyncProgressListenerProtocol {
         self.generalSyncProgressBar.isHidden = false
         self.generalSyncProgressBar.progress = Float(generalProgress.totalSyncProgress) / 100.0
         
-        self.generalSyncProgressLabel.text = String(format: LocalizedStrings.syncTotalProgress, generalProgress.totalSyncProgress,generalProgress.totalTimeRemaining)
+        self.generalSyncProgressLabel.text = String(format: LocalizedStrings.syncTotalProgress, generalProgress.totalSyncProgress, generalProgress.totalTimeRemaining)
         
         // Display "show details" button if details are not being shown currently.
         self.showDetailedSyncReportButton.isHidden = !self.currentSyncActionReportLabel.isHidden

@@ -292,7 +292,7 @@ class SendViewController: UIViewController {
             self.dcrAmountTextFieldChanged(sendMax: true)
         } catch let error {
             print("get send max amount error: \(error.localizedDescription)")
-            self.sendAmountErrorLabel.text = LocalizedStrings.errorMaxSpendable
+            self.sendAmountErrorLabel.text = LocalizedStrings.errorGettingMaxSpendable
         }
     }
     

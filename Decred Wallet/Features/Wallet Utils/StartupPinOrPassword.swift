@@ -75,7 +75,7 @@ struct StartupPinOrPassword {
     static func changeWalletPublicPassphrase(_ vc: UIViewController, current currentPassword: String?, new newPinOrPassword: String?, type securityType: String? = nil, completion: (() -> Void)? = nil) {
         // cannot set new pin/password without a type specified
         if securityType == nil && newPinOrPassword != nil {
-            vc.showOkAlert(message: LocalizedStrings.securityTypeNotSpecify, title: LocalizedStrings.invalidRequest)
+            vc.showOkAlert(message: LocalizedStrings.securityTypeNotSpecified, title: LocalizedStrings.invalidRequest)
             return
         }
         

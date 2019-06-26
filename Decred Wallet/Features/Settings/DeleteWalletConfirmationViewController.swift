@@ -24,7 +24,7 @@ class DeleteWalletConfirmationViewController: UIViewController, UITextFieldDeleg
         tap.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tap)
         
-        self.deleteWalletHeader.text = "\(LocalizedStrings.deleteWalletDesc)?"
+        self.deleteWalletHeader.text = "\(LocalizedStrings.deleteWallet)?"
         
         if SpendingPinOrPassword.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
             self.passwordTextField.delegate = self

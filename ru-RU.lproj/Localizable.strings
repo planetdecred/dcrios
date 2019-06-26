@@ -23,7 +23,7 @@
 "copiedSuccessfully" = "Скопировано успешно.";
 "invalidRequest" = "Invalid request!";
 "addrCopied" = "Адрес скопирован в буфер обмена";
-"preOutpointCopied" = "Previous outpoint copied!";
+"previousOutpointCopied" = "Previous outpoint copied!";
 "errorMsg" = "Error Message";
 "info" = "Info";
 "delete" = "Удалить";
@@ -41,7 +41,7 @@
 "enterPassword" = "Enter Password";
 "promptSpendingPassword" = "Please enter spending password of your wallet.";
 "promptStartupPassword" = "Введите текущий пароль для шифрования.";
-"securityTypeNotSpecify" = "Security type not specified. Cannot proceed.";
+"securityTypeNotSpecified" = "Security type not specified. Cannot proceed.";
 "password" = "ПАРОЛЬ";
 "proceed" = "Proceed";
 "passwordEmpty" = "Password can't be empty.";
@@ -57,7 +57,7 @@
 "pinStrength" = "НАДЁЖНОСТЬ PIN";
 
 /* Change Spending PIN/Password */
-"currentSpendingPassword" = "Введите текущий пароль для расходов";
+"enterCurrentSpendingPassword" = "Введите текущий пароль для расходов";
 "changingSpendingPINPass" = "Changing spending %@...";
 
 /* Changing Startup PIN/Password */
@@ -87,7 +87,7 @@
 "confirmSeedInfo" = "Пожалуйста, подтвердите ваш сид. Введите все слова и нажмите на каждом из них.";
 
 /* Recover Existing Wallet */
-"word" = "Word #%d";
+"wordNumber" = "Word #%d";
 "notAllSeedsAreEntered" = "Not all seeds are entered. Please, check input fields and enter all seeds.";
 "incorrectSeedEntered" = "You entered an incorrect seed. Please check your words.";
 "walletRecoveryError" = "Wallet recovery error.";
@@ -157,7 +157,7 @@
 "loading" = "Загружается...";
 "numberOfConnectedPeers" = "%d peers";
 "numberOfConnectedPeer" = "%d peer";
-"syncingWithOnNet" = "Syncing with %@ on %@.";
+"syncingWithPeersOnNetwork" = "Syncing with %@ on %@.";
 "fetchedHeaders" = "Fetched %d of ~%d block headers.\n";
 "headersFetchProgress" = "%d%% through step 1 of 3.";
 "bestBlockAgebehind" = "\nYour wallet is %@ behind.";
@@ -185,7 +185,7 @@
 "rateUnavailableTap"  = "Курс недоступен (попробовать ещё раз)";
 "sendToAccount" = "Отправить в аккаунт";
 "sendToAddress" = "Отправить на адрес";
-"errorMaxSpendable" = "Error getting maximum spendable amount.";
+"errorGettingMaxSpendable" = "Error getting maximum spendable amount.";
 "pleaseWaitNetworkSync" = "Please wait for network synchronization.";
 "notConnected" = "Not connected to the network.";
 "amountCantBeZero" = "Сумма не может быть равной нулю.";
@@ -207,7 +207,7 @@
 "sendInDCR" = "Отправить в DCR";
 "sendMax" = "ПЕРЕСЛАТЬ МАКСИМУМ";
 "feeDesc" = "Комиссия:";
-"estimateSizeDesc" = "Оценить размер:";
+"estimateSize" = "Оценить размер:";
 "balanceAfterDesc" = "Баланс после:";
 "exchangeRateDesc" = "Обменный курс:";
 
@@ -251,22 +251,22 @@
 "rescanFailed" = "Rescan failed";
 "deletingWallet" = "Deleting wallet...";
 "deleteWalletFailed" = "Failed to delete wallet.";
-"changeSpendingPinPassDesc" = "Измените PIN/ пароль для расходов";
+"changeSpendingPinPass" = "Измените PIN/ пароль для расходов";
 "spendingPinPassInfo" = "Требуется для отправки средств.";
-"startupPinPassDesc" = "PIN/пароль для шифрования";
-"changeStatupPinPassDesc" = "Изменить PIN/пароль для шифрования";
+"startupPinPass" = "PIN/пароль для шифрования";
+"changeStatupPinPass" = "Изменить PIN/пароль для шифрования";
 "startupPinPassInfo" = "Требуется для входа в приложение.";
-"spendUnconfirmedFundDesc" = "Потратить неподтверждённые средства";
-"incomingTxNotificationDesc" = "Уведомления о входящих транзакциях";
-"currencyConversionDesc" = "Конвертация валют";
-"networkModeDesc" = "Режим сети";
-"serverAddDesc" = "Адрес сервера";
+"spendUnconfirmedFund" = "Потратить неподтверждённые средства";
+"incomingTxNotification" = "Уведомления о входящих транзакциях";
+"currencyConversion" = "Конвертация валют";
+"networkMode" = "Режим сети";
+"serverAddress" = "Адрес сервера";
 "connectIpDesc" = "Подсоединиться к узлу";
-"certificatDesc" = "Сертификат";
+"certificate" = "Сертификат";
 "syncOnWifiDesc" = "Sync when not on WiFi";
-"buildDateDesc" = "Дата сборки";
-"walletLogDesc" = "Лог кошелька";
-"deleteWalletDesc" = "Удалить кошелёк";
+"buildDate" = "Дата сборки";
+"walletLog" = "Лог кошелька";
+"deleteWallet" = "Удалить кошелёк";
 "general" = "Основные";
 "connection" = "Соединение";
 "about" = "Информация";
@@ -274,16 +274,13 @@
 
 /* IP set */
 "connectToPeer" = "Подсоединиться к узлу";
-"inputValidIP" = "Адрес узла недействителен";
-"serverAddress" = "Адрес сервера";
-"inputValidServer" = "Удалённый адрес недействителен";
+"peerAddressIsInvalid" = "Адрес узла недействителен";
+"remoteAddressIsInvalid" = "Удалённый адрес недействителен";
 
 /* Certificate */
-"certificate" = "Сертификат";
 "certificateInfo" = "вставить сертификат для dcrd";
 
 /* Wallet Log */
-"walletLog" = "Лог кошелька";
 "copy" = "Копировать";
 "walletLogCopied" = "Копирование лога кошелька завершено.";
 

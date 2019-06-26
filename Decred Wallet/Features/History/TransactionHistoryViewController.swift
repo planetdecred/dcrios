@@ -124,7 +124,7 @@ class TransactionHistoryViewController: UIViewController {
         case 1:
             // TODO: Remove after next dcrlibwallet update
             self.Filtercontent = self.mainContens.filter{$0.Direction == 0 && $0.Type == GlobalConstants.Strings.REGULAR}
-            self.btnFilter.setTitle(LocalizedStrings.sent .appending("(").appending(String(self.Filtercontent.count)).appending(")"), for: .normal)
+            self.btnFilter.setTitle(LocalizedStrings.sent.appending(" (").appending(String(self.Filtercontent.count)).appending(")"), for: .normal)
             self.tableView.reloadData()
             break
         case 2:
@@ -136,12 +136,12 @@ class TransactionHistoryViewController: UIViewController {
         case 3:
             // TODO: Remove after next dcrlibwallet update
             self.Filtercontent = self.mainContens.filter{$0.Direction == 2 && $0.Type == GlobalConstants.Strings.REGULAR}
-            self.btnFilter.setTitle(LocalizedStrings.yourself.appending("(").appending(String(self.Filtercontent.count)).appending(")"), for: .normal)
+            self.btnFilter.setTitle(LocalizedStrings.yourself.appending(" (").appending(String(self.Filtercontent.count)).appending(")"), for: .normal)
             self.tableView.reloadData()
             break
         case 4:
             self.Filtercontent = self.mainContens.filter{$0.Type == GlobalConstants.Strings.REVOCATION || $0.Type == GlobalConstants.Strings.TICKET_PURCHASE || $0.Type == GlobalConstants.Strings.VOTE}
-            self.btnFilter.setTitle(LocalizedStrings.staking.appending("(").appending(String(self.Filtercontent.count)).appending(")"), for: .normal)
+            self.btnFilter.setTitle(LocalizedStrings.staking.appending(" (").appending(String(self.Filtercontent.count)).appending(")"), for: .normal)
             self.tableView.reloadData()
             break
         case 5:
@@ -151,7 +151,7 @@ class TransactionHistoryViewController: UIViewController {
             break
         default:
             self.Filtercontent = self.mainContens
-            self.btnFilter.setTitle(LocalizedStrings.all.appending("(").appending(String(self.Filtercontent.count)).appending(")"), for: .normal)
+            self.btnFilter.setTitle(LocalizedStrings.all.appending(" (").appending(String(self.Filtercontent.count)).appending(")"), for: .normal)
             self.tableView.reloadData()
         }
     }
@@ -164,26 +164,26 @@ class TransactionHistoryViewController: UIViewController {
         let coinbaseCount = self.mainContens.filter{$0.Type == GlobalConstants.Strings.COINBASE}.count
         
         self.btnFilter.items.removeAll()
-        self.btnFilter.setTitle(LocalizedStrings.all.appending("(").appending(String(self.mainContens.count)).appending(")"), for: .normal)
-        self.btnFilter.items.append(LocalizedStrings.all.appending("(").appending(String(self.mainContens.count)).appending(")"))
+        self.btnFilter.setTitle(LocalizedStrings.all.appending(" (").appending(String(self.mainContens.count)).appending(")"), for: .normal)
+        self.btnFilter.items.append(LocalizedStrings.all.appending(" (").appending(String(self.mainContens.count)).appending(")"))
         
         self.filtertitle.removeAll()
         self.filtertitle.append(0)
         
         if sentCount != 0 {
-            self.btnFilter.items.append(LocalizedStrings.sent .appending("(").appending(String(sentCount)).appending(")"))
+            self.btnFilter.items.append(LocalizedStrings.sent .appending(" (").appending(String(sentCount)).appending(")"))
             self.filtertitle.append(1)
         }
         if ReceiveCount != 0 {
-            self.btnFilter.items.append(LocalizedStrings.received .appending("(").appending(String(ReceiveCount)).appending(")"))
+            self.btnFilter.items.append(LocalizedStrings.received .appending(" (").appending(String(ReceiveCount)).appending(")"))
             self.filtertitle.append(2)
         }
         if yourselfCount != 0 {
-            self.btnFilter.items.append(LocalizedStrings.yourself.appending("(").appending(String(yourselfCount)).appending(")"))
+            self.btnFilter.items.append(LocalizedStrings.yourself.appending(" (").appending(String(yourselfCount)).appending(")"))
             self.filtertitle.append(3)
         }
         if stakeCount != 0 {
-            self.btnFilter.items.append(LocalizedStrings.staking.appending("(").appending(String(stakeCount)).appending(")"))
+            self.btnFilter.items.append(LocalizedStrings.staking.appending(" (").appending(String(stakeCount)).appending(")"))
             self.filtertitle.append(4)
         }
         if coinbaseCount != 0 {

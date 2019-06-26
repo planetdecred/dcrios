@@ -212,7 +212,7 @@ extension NavigationMenuViewController: SyncProgressListenerProtocol {
         self.handleGeneralProgressReport(progressReport.generalSyncProgress!)
         
         self.syncStatusLabel.text = LocalizedStrings.discoveringUsedAddresses
-        self.bestBlockLabel.text = String(format: LocalizedStrings.generalSyncProgressCompletedleft, progressReport.generalSyncProgress!.totalSyncProgress,progressReport.generalSyncProgress!.totalTimeRemaining)
+        self.bestBlockLabel.text = String(format: LocalizedStrings.generalSyncProgressCompletedleft, progressReport.generalSyncProgress!.totalSyncProgress, progressReport.generalSyncProgress!.totalTimeRemaining)
         self.bestBlockAgeLabel.text = ""
     }
     
@@ -223,11 +223,11 @@ extension NavigationMenuViewController: SyncProgressListenerProtocol {
         if progressReport.generalSyncProgress == nil {
             // generalSyncProgress is nil during rescan.
             self.refreshBestBlockAgeTimer?.invalidate()
-            self.bestBlockLabel.text = String(format: LocalizedStrings.rescanProgress, progressReport.rescanProgress,progressReport.timeRemaining)
+            self.bestBlockLabel.text = String(format: LocalizedStrings.rescanProgress, progressReport.rescanProgress, progressReport.timeRemaining)
             return
         }
         self.handleGeneralProgressReport(progressReport.generalSyncProgress!)
-        self.bestBlockLabel.text = String(format: LocalizedStrings.syncTotalProgress, progressReport.generalSyncProgress!.totalSyncProgress,progressReport.generalSyncProgress!.totalTimeRemaining)
+        self.bestBlockLabel.text = String(format: LocalizedStrings.syncTotalProgress, progressReport.generalSyncProgress!.totalSyncProgress, progressReport.generalSyncProgress!.totalTimeRemaining)
     }
     
     func handleGeneralProgressReport(_ generalProgress: DcrlibwalletGeneralSyncProgress) {
@@ -312,27 +312,27 @@ extension NavigationMenuViewController: NewBlockNotificationProtocol, NewTransac
             
         case Utils.TimeInSeconds.Minute..<Utils.TimeInSeconds.Hour:
             let minutes = bestBlockAge / Utils.TimeInSeconds.Minute
-            self.bestBlockAgeLabel.text = String(format: LocalizedStrings.minAgo , minutes)
+            self.bestBlockAgeLabel.text = String(format: LocalizedStrings.minAgo, minutes)
             
         case Utils.TimeInSeconds.Hour..<Utils.TimeInSeconds.Day:
             let hours = bestBlockAge / Utils.TimeInSeconds.Hour
-            self.bestBlockAgeLabel.text = String(format: LocalizedStrings.hrsAgo , hours)
+            self.bestBlockAgeLabel.text = String(format: LocalizedStrings.hrsAgo, hours)
             
         case Utils.TimeInSeconds.Day..<Utils.TimeInSeconds.Week:
             let days = bestBlockAge / Utils.TimeInSeconds.Day
-            self.bestBlockAgeLabel.text = String(format: LocalizedStrings.daysAgo , days)
+            self.bestBlockAgeLabel.text = String(format: LocalizedStrings.daysAgo, days)
             
         case Utils.TimeInSeconds.Week..<Utils.TimeInSeconds.Month:
             let weeks = bestBlockAge / Utils.TimeInSeconds.Week
-            self.bestBlockAgeLabel.text = String(format: LocalizedStrings.weeksAgo , weeks)
+            self.bestBlockAgeLabel.text = String(format: LocalizedStrings.weeksAgo, weeks)
             
         case Utils.TimeInSeconds.Month..<Utils.TimeInSeconds.Year:
             let months = bestBlockAge / Utils.TimeInSeconds.Month
-            self.bestBlockAgeLabel.text = String(format: LocalizedStrings.monthsAgo , months)
+            self.bestBlockAgeLabel.text = String(format: LocalizedStrings.monthsAgo, months)
             
         default:
             let years = bestBlockAge / Utils.TimeInSeconds.Year
-            self.bestBlockAgeLabel.text = String(format: LocalizedStrings.yearsAgo , years)
+            self.bestBlockAgeLabel.text = String(format: LocalizedStrings.yearsAgo, years)
         }
     }
     

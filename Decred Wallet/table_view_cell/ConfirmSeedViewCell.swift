@@ -24,7 +24,7 @@ class ConfirmSeedViewCell: UITableViewCell, UITextFieldDelegate {
         self.seed = seed
         self.wordNum = wordNum
         
-        lbWordNum.text = "\(LocalizedStrings.word)\(wordNum + 1)"
+        lbWordNum.text = "\(LocalizedStrings.wordNumber)\(wordNum + 1)"
         
         tfSeedWord.delegate = self
         tfSeedWord.text = word ?? ""

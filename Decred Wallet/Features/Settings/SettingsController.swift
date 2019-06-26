@@ -33,25 +33,25 @@ class SettingsController: UITableViewController  {
     @IBOutlet weak var currency_subtitle: UILabel!
     
     // settings title.
-    @IBOutlet weak var changeSpendingPinPassDesc: UILabel!
+    @IBOutlet weak var changeSpendingPinPassLabel: UILabel!
     @IBOutlet weak var spendingPinPassInfo: UILabel!
-    @IBOutlet weak var startupPinPassDesc: UILabel!
-    @IBOutlet weak var changeStatupPinPassDesc: UILabel!
+    @IBOutlet weak var startupPinPassLabel: UILabel!
+    @IBOutlet weak var changeStatupPinPassLabel: UILabel!
     @IBOutlet weak var startupPinPassInfo: UILabel!
-    @IBOutlet weak var spendUnconfirmedFundDesc: UILabel!
-    @IBOutlet weak var incomingTxNotificationDesc: UILabel!
-    @IBOutlet weak var currencyConversionDesc: UILabel!
-    @IBOutlet weak var networkModeDesc: UILabel!
-    @IBOutlet weak var serverAddDesc: UILabel!
+    @IBOutlet weak var spendUnconfirmedFundLabel: UILabel!
+    @IBOutlet weak var incomingTxNotificationLabel: UILabel!
+    @IBOutlet weak var currencyConversionLabel: UILabel!
+    @IBOutlet weak var networkModeLabel: UILabel!
+    @IBOutlet weak var serverAddressLabel: UILabel!
     @IBOutlet weak var connectIpDesc: UILabel!
-    @IBOutlet weak var certificatDesc: UILabel!
-    @IBOutlet weak var syncOnWifiDesc: UILabel!
-    @IBOutlet weak var versionDesc: UILabel!
-    @IBOutlet weak var buildDateDesc: UILabel!
-    @IBOutlet weak var licenseDesc: UILabel!
-    @IBOutlet weak var rescanBlockChainDesc: UILabel!
-    @IBOutlet weak var walletLogDesc: UILabel!
-    @IBOutlet weak var deleteWalletDesc: UILabel!
+    @IBOutlet weak var certificatLabel: UILabel!
+    @IBOutlet weak var syncOnWifiLabel: UILabel!
+    @IBOutlet weak var versionLabel: UILabel!
+    @IBOutlet weak var buildDateLabel: UILabel!
+    @IBOutlet weak var licenseLabel: UILabel!
+    @IBOutlet weak var rescanBlockChainLabel: UILabel!
+    @IBOutlet weak var walletLogLabel: UILabel!
+    @IBOutlet weak var deleteWalletLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,25 +84,25 @@ class SettingsController: UITableViewController  {
     }
     
     func setMenuTitle(){
-        self.changeSpendingPinPassDesc.text = LocalizedStrings.changeSpendingPinPassDesc
+        self.changeSpendingPinPassLabel.text = LocalizedStrings.changeSpendingPinPass
         self.spendingPinPassInfo.text = LocalizedStrings.spendingPinPassInfo
-        self.startupPinPassDesc.text = LocalizedStrings.startupPinPassDesc
-        self.changeStatupPinPassDesc.text = LocalizedStrings.changeStatupPinPassDesc
+        self.startupPinPassLabel.text = LocalizedStrings.startupPinPass
+        self.changeStatupPinPassLabel.text = LocalizedStrings.changeStatupPinPass
         self.startupPinPassInfo.text = LocalizedStrings.startupPinPassInfo
-        self.spendUnconfirmedFundDesc.text = LocalizedStrings.spendUnconfirmedFundDesc
-        self.incomingTxNotificationDesc.text = LocalizedStrings.incomingTxNotificationDesc
-        self.currencyConversionDesc.text = LocalizedStrings.currencyConversionDesc
-        self.networkModeDesc.text = LocalizedStrings.networkModeDesc
-        self.serverAddDesc.text = LocalizedStrings.serverAddDesc
+        self.spendUnconfirmedFundLabel.text = LocalizedStrings.spendUnconfirmedFund
+        self.incomingTxNotificationLabel.text = LocalizedStrings.incomingTxNotification
+        self.currencyConversionLabel.text = LocalizedStrings.currencyConversion
+        self.networkModeLabel.text = LocalizedStrings.networkMode
+        self.serverAddressLabel.text = LocalizedStrings.serverAddress
         self.connectIpDesc.text = LocalizedStrings.connectIpDesc
-        self.certificatDesc.text = LocalizedStrings.certificatDesc
-        self.syncOnWifiDesc.text = LocalizedStrings.syncOnWifiDesc
-        self.versionDesc.text = LocalizedStrings.version
-        self.buildDateDesc.text = LocalizedStrings.buildDateDesc
-        self.licenseDesc.text = LocalizedStrings.license
-        self.rescanBlockChainDesc.text = LocalizedStrings.rescanBlockchain
-        self.walletLogDesc.text = LocalizedStrings.walletLogDesc
-        self.deleteWalletDesc.text = LocalizedStrings.deleteWalletDesc
+        self.certificatLabel.text = LocalizedStrings.certificate
+        self.syncOnWifiLabel.text = LocalizedStrings.syncOnWifiDesc
+        self.versionLabel.text = LocalizedStrings.version
+        self.buildDateLabel.text = LocalizedStrings.buildDate
+        self.licenseLabel.text = LocalizedStrings.license
+        self.rescanBlockChainLabel.text = LocalizedStrings.rescanBlockchain
+        self.walletLogLabel.text = LocalizedStrings.walletLog
+        self.deleteWalletLabel.text = LocalizedStrings.deleteWallet
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -130,9 +130,9 @@ class SettingsController: UITableViewController  {
             self.server_cell.isUserInteractionEnabled = false
             self.connectPeer_cell.isUserInteractionEnabled = true
             self.server_ip.textColor = UIColor.lightGray
-            self.certificatDesc.textColor = UIColor.lightGray
+            self.certificatLabel.textColor = UIColor.lightGray
             self.connect_peer_ip.textColor = UIColor.darkText
-            self.serverAddDesc.textColor = UIColor.lightGray
+            self.serverAddressLabel.textColor = UIColor.lightGray
             self.connectIpDesc.textColor = UIColor.darkText
         } else {
             network_mode_subtitle?.text = LocalizedStrings.remoteFullNode
@@ -140,9 +140,9 @@ class SettingsController: UITableViewController  {
             self.server_cell.isUserInteractionEnabled = true
             self.connectPeer_cell.isUserInteractionEnabled = false
             self.connect_peer_ip.textColor = UIColor.lightGray
-            self.certificatDesc.textColor = UIColor.darkText
+            self.certificatLabel.textColor = UIColor.darkText
             self.server_ip.textColor = UIColor.darkText
-            self.serverAddDesc.textColor = UIColor.darkText
+            self.serverAddressLabel.textColor = UIColor.darkText
             self.connectIpDesc.textColor = UIColor.lightGray
         }
     }

@@ -1,5 +1,5 @@
 //
-//  Label.swift
+//  UILabel.swift
 //  Decred Wallet
 //
 // Copyright (c) 2018-2019 The Decred developers
@@ -13,7 +13,7 @@ extension UILabel {
     @IBInspectable var xibLocalizedStringKey: String? {
         get { return nil }
         set(key) {
-            text = key?.getLocalizedString
+            self.text = NSLocalizedString(key!, comment: "")
             self.setNeedsLayout()
         }
     }

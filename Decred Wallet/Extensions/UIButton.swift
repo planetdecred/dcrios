@@ -65,13 +65,17 @@ extension UIButton {
             self.setBackgroundImage(colorImage, for: state)
         }
     }
-}
-
-extension UIButton {
+    
     @IBInspectable var xibLocalizedStringKey: String? {
         get { return nil }
         set(key) {
-            setTitle(key?.getLocalizedString, for: .normal)
+            setTitle(NSLocalizedString(key!, comment: ""), for: .normal)
+        }
+    }
+    
+    func set(fontSize: CGFloat, name : String) {
+        if let titleLabel = titleLabel {
+            titleLabel.font = UIFont(name: name, size: fontSize)
         }
     }
 }

@@ -36,7 +36,7 @@ class CurrencyConversionOptionsViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return LocalizedStrings.currencyConversionDesc.capitalized
+        return LocalizedStrings.currencyConversion.capitalized
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -341,7 +341,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pre-release" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E5I-QX-JBY">
-                                                    <rect key="frame" x="254" y="8" width="113" height="27.5"/>
+                                                    <rect key="frame" x="479" y="8" width="113" height="27.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="113" id="m5i-SU-Vpj"/>
                                                     </constraints>
@@ -368,7 +368,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eMj-Ry-6VY">
-                                                    <rect key="frame" x="191" y="16.5" width="176" height="20"/>
+                                                    <rect key="frame" x="416" y="16.5" width="176" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="176" id="z30-iK-TqZ"/>
                                                     </constraints>
@@ -486,39 +486,39 @@
                     <connections>
                         <outlet property="Start_Pin_cell" destination="fQb-dI-sZt" id="RAk-Ui-4ke"/>
                         <outlet property="build" destination="eMj-Ry-6VY" id="rkV-4Z-Hcx"/>
-                        <outlet property="buildDateDesc" destination="dt2-jZ-le3" id="7rh-tR-emj"/>
+                        <outlet property="buildDateLabel" destination="dt2-jZ-le3" id="7rh-tR-emj"/>
                         <outlet property="cellularSyncSwitch" destination="M8i-z0-RGC" id="CVQ-DC-EFS"/>
-                        <outlet property="certificatDesc" destination="8A3-fg-Xci" id="KBz-HL-7AJ"/>
+                        <outlet property="certificatLabel" destination="8A3-fg-Xci" id="KBz-HL-7AJ"/>
                         <outlet property="certificate_cell" destination="UrQ-98-bH8" id="77y-qY-rUO"/>
-                        <outlet property="changeSpendingPinPassDesc" destination="Wd9-e3-AzE" id="PyV-rV-YFJ"/>
+                        <outlet property="changeSpendingPinPassLabel" destination="Wd9-e3-AzE" id="PyV-rV-YFJ"/>
                         <outlet property="changeStartPINCell" destination="CCv-sw-rUR" id="iZt-ET-rna"/>
-                        <outlet property="changeStatupPinPassDesc" destination="nxc-vF-Pnq" id="9fd-Th-you"/>
+                        <outlet property="changeStatupPinPassLabel" destination="nxc-vF-Pnq" id="9fd-Th-you"/>
                         <outlet property="connectIpDesc" destination="wHH-qq-PBK" id="ZRI-xF-cdL"/>
                         <outlet property="connectPeer_cell" destination="lvw-Xe-R2c" id="aex-WQ-Dce"/>
                         <outlet property="connect_peer_ip" destination="uLU-Vj-txe" id="A20-Zt-14h"/>
-                        <outlet property="currencyConversionDesc" destination="k8K-gU-jrJ" id="fzj-yd-E5L"/>
+                        <outlet property="currencyConversionLabel" destination="k8K-gU-jrJ" id="fzj-yd-E5L"/>
                         <outlet property="currency_subtitle" destination="GEO-eE-V3Q" id="rOx-K8-X77"/>
-                        <outlet property="deleteWalletDesc" destination="dgz-JW-F6y" id="5T2-wU-5q5"/>
-                        <outlet property="incomingTxNotificationDesc" destination="pzh-cn-Gfa" id="Mrb-eW-HRq"/>
+                        <outlet property="deleteWalletLabel" destination="dgz-JW-F6y" id="5T2-wU-5q5"/>
+                        <outlet property="incomingTxNotificationLabel" destination="pzh-cn-Gfa" id="Mrb-eW-HRq"/>
                         <outlet property="incoming_notification_switch" destination="rgi-fu-g0z" id="cji-in-bx5"/>
-                        <outlet property="licenseDesc" destination="Ueu-5f-GC2" id="YX4-Mx-uBR"/>
-                        <outlet property="networkModeDesc" destination="Paa-f6-2UZ" id="5Yj-xa-gHh"/>
+                        <outlet property="licenseLabel" destination="Ueu-5f-GC2" id="YX4-Mx-uBR"/>
+                        <outlet property="networkModeLabel" destination="Paa-f6-2UZ" id="5Yj-xa-gHh"/>
                         <outlet property="network_mode" destination="eSv-EL-74K" id="G1h-gV-jsn"/>
                         <outlet property="network_mode_subtitle" destination="Kbd-Mq-WpQ" id="3hd-Yy-R7Q"/>
-                        <outlet property="rescanBlockChainDesc" destination="eOS-CJ-QEb" id="EX7-s0-QN1"/>
-                        <outlet property="serverAddDesc" destination="w04-oJ-Mp8" id="k9V-ud-tpd"/>
+                        <outlet property="rescanBlockChainLabel" destination="eOS-CJ-QEb" id="EX7-s0-QN1"/>
+                        <outlet property="serverAddressLabel" destination="w04-oJ-Mp8" id="k9V-ud-tpd"/>
                         <outlet property="server_cell" destination="Y85-zR-vrJ" id="HRa-5r-fCO"/>
                         <outlet property="server_ip" destination="H1Z-BM-alh" id="Af0-5y-JMQ"/>
-                        <outlet property="spendUnconfirmedFundDesc" destination="F64-Lf-DD2" id="slY-g0-YQy"/>
+                        <outlet property="spendUnconfirmedFundLabel" destination="F64-Lf-DD2" id="slY-g0-YQy"/>
                         <outlet property="spend_uncon_fund" destination="UQm-nI-5Hn" id="EF9-wH-PWU"/>
                         <outlet property="spendingPinPassInfo" destination="Lik-cy-oHE" id="F4Z-eD-hkX"/>
                         <outlet property="start_Pin" destination="HzW-fb-ioM" id="tbB-cX-aRx"/>
-                        <outlet property="startupPinPassDesc" destination="p0C-nw-9cA" id="K9u-lP-dAN"/>
                         <outlet property="startupPinPassInfo" destination="9X5-1C-snC" id="j8l-d9-xr6"/>
-                        <outlet property="syncOnWifiDesc" destination="IT5-mf-NS0" id="6Tu-nW-kmQ"/>
+                        <outlet property="startupPinPassLabel" destination="p0C-nw-9cA" id="K9u-lP-dAN"/>
+                        <outlet property="syncOnWifiLabel" destination="IT5-mf-NS0" id="6Tu-nW-kmQ"/>
                         <outlet property="version" destination="E5I-QX-JBY" id="1hb-iT-fVG"/>
-                        <outlet property="versionDesc" destination="GPe-xT-vF2" id="gdk-e6-HEZ"/>
-                        <outlet property="walletLogDesc" destination="roe-vF-JdQ" id="55O-6Z-AuD"/>
+                        <outlet property="versionLabel" destination="GPe-xT-vF2" id="gdk-e6-HEZ"/>
+                        <outlet property="walletLogLabel" destination="roe-vF-JdQ" id="55O-6Z-AuD"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9zL-3t-ck0" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -551,6 +551,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="certificate"/>
+                                </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Paste the certificate for dcrd" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Y9-cM-yL2">
                                 <rect key="frame" x="16" y="280" width="343" height="43"/>
@@ -584,7 +587,6 @@
                     <splitViewDetailSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="certificate" destination="Cu9-M6-uYC" id="WQz-aJ-9aQ"/>
-                        <outlet property="certificateDesc" destination="bPN-YR-Qki" id="S2L-GU-1jf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vl5-1Q-2jW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -599,7 +601,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VCY-pO-tw4">
+                        <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VCY-pO-tw4">
                             <rect key="frame" x="0.0" y="44" width="375" height="53"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.92156862745098034" green="0.92156862745098034" blue="0.92156862745098034" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -617,8 +619,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hRb-Fa-rn9">
-                                                    <rect key="frame" x="16" y="12.5" width="99" height="19"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Server Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hRb-Fa-rn9">
+                                                    <rect key="frame" x="16" y="11.5" width="99" height="20.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="99" id="Kw5-qr-Y48"/>
                                                     </constraints>
@@ -630,7 +632,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" highlighted="YES" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="0.0.0.0" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="094-ad-QB6">
-                                                    <rect key="frame" x="123" y="12.5" width="236" height="19"/>
+                                                    <rect key="frame" x="123" y="11.5" width="236" height="20.5"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
@@ -771,7 +773,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="BmE-qE-Ifv">
+                        <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="BmE-qE-Ifv">
                             <rect key="frame" x="0.0" y="44" width="375" height="53"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.92156862750000001" green="0.92156862750000001" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -959,7 +961,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v6E-lM-qRz">
                                 <rect key="frame" x="37.5" y="423.5" width="300" height="50"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uOt-1V-xLA" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uOt-1V-xLA">
                                         <rect key="frame" x="0.0" y="10" width="150" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="yY0-zF-W0F"/>
@@ -975,7 +977,7 @@
                                             <action selector="cancelDeleteWalletOperation:" destination="GYO-dh-yj3" eventType="touchUpInside" id="p89-XS-IVy"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gJ7-H4-7Se" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gJ7-H4-7Se">
                                         <rect key="frame" x="150" y="10" width="150" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="s5t-KS-l46"/>

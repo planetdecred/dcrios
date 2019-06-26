@@ -1,5 +1,5 @@
 //
-//  UIColor.swift
+//  Dcrlibwallet.swift
 //  Decred Wallet
 //
 // Copyright (c) 2018-2019 The Decred developers

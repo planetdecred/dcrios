@@ -20,7 +20,7 @@ struct SpendingPinOrPassword {
         // show the appropriate vc to read current pin or password
         if self.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
             let requestPasswordVC = RequestPasswordViewController.instantiate()
-            requestPasswordVC.prompt = LocalizedStrings.currentSpendingPassword
+            requestPasswordVC.prompt = LocalizedStrings.enterCurrentSpendingPassword
             requestPasswordVC.onUserEnteredPassword = afterUserEntersPinOrPassword
             vc.present(requestPasswordVC, animated: true)
         } else {
