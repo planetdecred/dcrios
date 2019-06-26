@@ -31,35 +31,15 @@ class SettingsController: UITableViewController  {
     @IBOutlet weak var incoming_notification_switch: UISwitch!
     @IBOutlet weak var start_Pin: UISwitch!
     @IBOutlet weak var currency_subtitle: UILabel!
-    
-    // settings title.
-    @IBOutlet weak var changeSpendingPinPassLabel: UILabel!
-    @IBOutlet weak var spendingPinPassInfo: UILabel!
-    @IBOutlet weak var startupPinPassLabel: UILabel!
-    @IBOutlet weak var changeStatupPinPassLabel: UILabel!
-    @IBOutlet weak var startupPinPassInfo: UILabel!
-    @IBOutlet weak var spendUnconfirmedFundLabel: UILabel!
-    @IBOutlet weak var incomingTxNotificationLabel: UILabel!
-    @IBOutlet weak var currencyConversionLabel: UILabel!
-    @IBOutlet weak var networkModeLabel: UILabel!
+    @IBOutlet weak var certificatLabel: UILabel!
     @IBOutlet weak var serverAddressLabel: UILabel!
     @IBOutlet weak var connectIpDesc: UILabel!
-    @IBOutlet weak var certificatLabel: UILabel!
-    @IBOutlet weak var syncOnWifiLabel: UILabel!
-    @IBOutlet weak var versionLabel: UILabel!
-    @IBOutlet weak var buildDateLabel: UILabel!
-    @IBOutlet weak var licenseLabel: UILabel!
-    @IBOutlet weak var rescanBlockChainLabel: UILabel!
-    @IBOutlet weak var walletLogLabel: UILabel!
-    @IBOutlet weak var deleteWalletLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.spend_uncon_fund.addTarget(self, action: #selector(switchChanged), for: UIControl.Event.valueChanged)
         self.incoming_notification_switch.addTarget(self, action: #selector(switchChanged), for: UIControl.Event.valueChanged)
         self.cellularSyncSwitch.addTarget(self, action: #selector(switchChanged), for: UIControl.Event.valueChanged)
-        
-        self.setMenuTitle()
     }
     
     @objc func switchChanged(switchView: UISwitch) {
@@ -81,28 +61,6 @@ class SettingsController: UITableViewController  {
         if fieldToUpdate != nil {
             Settings.setValue(switchView.isOn, for: fieldToUpdate!)
         }
-    }
-    
-    func setMenuTitle(){
-        self.changeSpendingPinPassLabel.text = LocalizedStrings.changeSpendingPinPass
-        self.spendingPinPassInfo.text = LocalizedStrings.spendingPinPassInfo
-        self.startupPinPassLabel.text = LocalizedStrings.startupPinPass
-        self.changeStatupPinPassLabel.text = LocalizedStrings.changeStatupPinPass
-        self.startupPinPassInfo.text = LocalizedStrings.startupPinPassInfo
-        self.spendUnconfirmedFundLabel.text = LocalizedStrings.spendUnconfirmedFund
-        self.incomingTxNotificationLabel.text = LocalizedStrings.incomingTxNotification
-        self.currencyConversionLabel.text = LocalizedStrings.currencyConversion
-        self.networkModeLabel.text = LocalizedStrings.networkMode
-        self.serverAddressLabel.text = LocalizedStrings.serverAddress
-        self.connectIpDesc.text = LocalizedStrings.connectIpDesc
-        self.certificatLabel.text = LocalizedStrings.certificate
-        self.syncOnWifiLabel.text = LocalizedStrings.syncOnWifiDesc
-        self.versionLabel.text = LocalizedStrings.version
-        self.buildDateLabel.text = LocalizedStrings.buildDate
-        self.licenseLabel.text = LocalizedStrings.license
-        self.rescanBlockChainLabel.text = LocalizedStrings.rescanBlockchain
-        self.walletLogLabel.text = LocalizedStrings.walletLog
-        self.deleteWalletLabel.text = LocalizedStrings.deleteWallet
     }
     
     override func viewWillAppear(_ animated: Bool) {
