@@ -77,10 +77,10 @@ class TransactionTableViewCell: BaseTableViewCell {
                     self.dataImage?.image = UIImage(named: "account")
                 }
             } else if(transaction.Type.lowercased() == "vote") {
-                self.dataText.text = LocalizedStrings.vote
+                self.dataText.text = " \(LocalizedStrings.vote)"
                 self.dataImage?.image = UIImage(named: "vote")
             } else if (transaction.Type.lowercased() == "ticket_purchase") {
-                self.dataText.text = LocalizedStrings.ticket
+                self.dataText.text = " \(LocalizedStrings.ticket)"
                 self.dataImage?.image = UIImage(named: "immature")
                 if (confirmations < requireConfirmation){
                     self.status.textColor = UIColor(hex:"#3d659c")

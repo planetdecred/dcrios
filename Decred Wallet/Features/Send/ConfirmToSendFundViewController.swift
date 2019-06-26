@@ -16,8 +16,6 @@ class ConfirmToSendFundViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var accountLabel: UILabel!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var confirmSendButton: UIButton!
-    @IBOutlet weak var sendBtn: UIButton!
-    @IBOutlet weak var cancelBtn: UIButton!
     
     var sendAmount: String?
     var fee: String?

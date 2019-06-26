@@ -130,7 +130,7 @@ class TransactionHistoryViewController: UIViewController {
         case 2:
             // TODO: Remove after next dcrlibwallet update
             self.Filtercontent = self.mainContens.filter{$0.Direction == 1 && $0.Type == GlobalConstants.Strings.REGULAR}
-            self.btnFilter.setTitle(LocalizedStrings.received .appending("(").appending(String(self.Filtercontent.count)).appending(")"), for: .normal)
+            self.btnFilter.setTitle(LocalizedStrings.received.appending(" (").appending(String(self.Filtercontent.count)).appending(")"), for: .normal)
             self.tableView.reloadData()
             break
         case 3:
@@ -171,11 +171,11 @@ class TransactionHistoryViewController: UIViewController {
         self.filtertitle.append(0)
         
         if sentCount != 0 {
-            self.btnFilter.items.append(LocalizedStrings.sent .appending(" (").appending(String(sentCount)).appending(")"))
+            self.btnFilter.items.append(LocalizedStrings.sent.appending(" (").appending(String(sentCount)).appending(")"))
             self.filtertitle.append(1)
         }
         if ReceiveCount != 0 {
-            self.btnFilter.items.append(LocalizedStrings.received .appending(" (").appending(String(ReceiveCount)).appending(")"))
+            self.btnFilter.items.append(LocalizedStrings.received.appending(" (").appending(String(ReceiveCount)).appending(")"))
             self.filtertitle.append(2)
         }
         if yourselfCount != 0 {

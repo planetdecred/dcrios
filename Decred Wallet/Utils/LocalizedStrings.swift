@@ -224,6 +224,8 @@ struct LocalizedStrings {
     /* Send Complete */
     static let hashCopied = NSLocalizedString("hashCopied", comment: "")
     static let hash = NSLocalizedString("hash", comment: "")
+    static let view = NSLocalizedString("view", comment: "");
+    static let transactionSuccessful = NSLocalizedString("transactionSuccessful", comment: "");
     
     /* Security Menu */
     static let validOwnAddr = NSLocalizedString("validOwnAddr", comment: "")

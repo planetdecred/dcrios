@@ -75,4 +75,8 @@ enum MenuItem: String, CaseIterable {
             return UIImage(named: "help")
         }
     }
+    
+    var displayTitle: String {
+        return NSLocalizedString(self.rawValue.lowercased(), comment: "")
+    }
 }

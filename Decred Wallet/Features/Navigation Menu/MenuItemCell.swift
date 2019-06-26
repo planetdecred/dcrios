@@ -22,7 +22,7 @@ open class MenuItemCell: UITableViewCell {
     }
     
     func render(_ menuItem: MenuItem, isCurrentItem: Bool = false) {
-        self.menuTitleLabel.text = NSLocalizedString(menuItem.rawValue.lowercased(), comment: "")
+        self.menuTitleLabel.text = menuItem.displayTitle
         self.menuIconImageView.image = menuItem.icon
         
         if isCurrentItem {

@@ -180,13 +180,13 @@ extension SyncProgressViewController: SyncProgressListenerProtocol {
         
         var debugSyncInfo = "\(LocalizedStrings.allTimes)\n"
         debugSyncInfo += "\(LocalizedStrings.elapsed): \(formatTime(debugInfo.totalTimeElapsed))"
-        debugSyncInfo += "\(LocalizedStrings.remain): \(formatTime(debugInfo.totalTimeRemaining))"
-        debugSyncInfo += "\(LocalizedStrings.total): \(formatTime(debugInfo.totalTimeElapsed + debugInfo.totalTimeRemaining))\n"
+        debugSyncInfo += " \(LocalizedStrings.remain): \(formatTime(debugInfo.totalTimeRemaining))"
+        debugSyncInfo += " \(LocalizedStrings.total): \(formatTime(debugInfo.totalTimeElapsed + debugInfo.totalTimeRemaining))\n"
         
         debugSyncInfo += "\(LocalizedStrings.stageTimes)\n"
         debugSyncInfo += "\(LocalizedStrings.elapsed): \(formatTime(debugInfo.currentStageTimeElapsed))"
-        debugSyncInfo += "\(LocalizedStrings.remain): \(formatTime(debugInfo.currentStageTimeRemaining))"
-        debugSyncInfo += "\(LocalizedStrings.total): \(formatTime(debugInfo.currentStageTimeElapsed + debugInfo.currentStageTimeRemaining))"
+        debugSyncInfo += " \(LocalizedStrings.remain): \(formatTime(debugInfo.currentStageTimeRemaining))"
+        debugSyncInfo += " \(LocalizedStrings.total): \(formatTime(debugInfo.currentStageTimeElapsed + debugInfo.currentStageTimeRemaining))"
         
         self.debugSyncInfoLabel.text = debugSyncInfo
     }
