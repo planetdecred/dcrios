@@ -5,6 +5,7 @@
 // Copyright (c) 2018-2019 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
+
 import Foundation
 import UIKit
 import JGProgressHUD
@@ -15,9 +16,6 @@ class SettingsController: UITableViewController  {
     @IBOutlet weak var connectPeer_cell: UITableViewCell!
     @IBOutlet weak var server_cell: UITableViewCell!
     @IBOutlet weak var certificate_cell: UITableViewCell!
-    @IBOutlet weak var serverAdd_label: UILabel!
-    @IBOutlet weak var connect_ip_label: UILabel!
-    @IBOutlet weak var certificat_label: UILabel!
     @IBOutlet weak var network_mode_subtitle: UILabel!
     @IBOutlet weak var network_mode: UITableViewCell!
     @IBOutlet weak var Start_Pin_cell: UITableViewCell!
@@ -33,6 +31,9 @@ class SettingsController: UITableViewController  {
     @IBOutlet weak var incoming_notification_switch: UISwitch!
     @IBOutlet weak var start_Pin: UISwitch!
     @IBOutlet weak var currency_subtitle: UILabel!
+    @IBOutlet weak var certificateLabel: UILabel!
+    @IBOutlet weak var serverAddressLabel: UILabel!
+    @IBOutlet weak var connectIpDesc: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,7 +68,7 @@ class SettingsController: UITableViewController  {
         
         self.navigationController?.navigationBar.isHidden = false
         self.navigationController?.navigationBar.tintColor = UIColor.black
-        self.navigationItem.title = "Settings"
+        self.navigationItem.title = LocalizedStrings.settings
         
         if self.isModal {
             self.addNavigationBackButton()
@@ -82,25 +83,25 @@ class SettingsController: UITableViewController  {
         self.checkStartupSecurity()
 
         if Settings.networkMode == 0 {
-            network_mode_subtitle?.text = "Simplified Payment Verification"
+            network_mode_subtitle?.text = LocalizedStrings.spv
             self.certificate_cell.isUserInteractionEnabled = false
             self.server_cell.isUserInteractionEnabled = false
             self.connectPeer_cell.isUserInteractionEnabled = true
             self.server_ip.textColor = UIColor.lightGray
-            self.certificat_label.textColor = UIColor.lightGray
+            self.certificateLabel.textColor = UIColor.lightGray
             self.connect_peer_ip.textColor = UIColor.darkText
-            self.serverAdd_label.textColor = UIColor.lightGray
-            self.connect_ip_label.textColor = UIColor.darkText
+            self.serverAddressLabel.textColor = UIColor.lightGray
+            self.connectIpDesc.textColor = UIColor.darkText
         } else {
-            network_mode_subtitle?.text = "Remote Full Node"
+            network_mode_subtitle?.text = LocalizedStrings.remoteFullNode
             self.certificate_cell.isUserInteractionEnabled = true
             self.server_cell.isUserInteractionEnabled = true
             self.connectPeer_cell.isUserInteractionEnabled = false
             self.connect_peer_ip.textColor = UIColor.lightGray
-            self.certificat_label.textColor = UIColor.darkText
+            self.certificateLabel.textColor = UIColor.darkText
             self.server_ip.textColor = UIColor.darkText
-            self.serverAdd_label.textColor = UIColor.darkText
-            self.connect_ip_label.textColor = UIColor.lightGray
+            self.serverAddressLabel.textColor = UIColor.darkText
+            self.connectIpDesc.textColor = UIColor.lightGray
         }
     }
     
@@ -131,14 +132,14 @@ class SettingsController: UITableViewController  {
         self.cellularSyncSwitch.isOn = Settings.readValue(for: Settings.Keys.SyncOnCellular)
         
         if Settings.networkMode == 0 {
-            network_mode_subtitle?.text = "Simplified Payment Verification (SPV)"
+            network_mode_subtitle?.text = LocalizedStrings.spv
         } else {
-            network_mode_subtitle?.text = "Remote Full Node"
+            network_mode_subtitle?.text = LocalizedStrings.remoteFullNode
         }
         
         switch Settings.currencyConversionOption {
         case .None:
-            currency_subtitle?.text = "None"
+            currency_subtitle?.text = LocalizedStrings.none
         case .Bittrex:
             currency_subtitle?.text = "USD (bittrex)"
         }
@@ -157,6 +158,21 @@ class SettingsController: UITableViewController  {
         }
         
         tableView.reloadData()
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            return LocalizedStrings.general.capitalized
+        case 1:
+            return LocalizedStrings.connection.capitalized
+        case 2:
+            return LocalizedStrings.about.capitalized
+        case 3:
+            return LocalizedStrings.debug.capitalized
+        default:
+            return ""
+        }
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -225,8 +241,8 @@ class SettingsController: UITableViewController  {
             }
         } else if indexPath.section == 3 && indexPath.row == 0 {
             // rescan blockchain
-            self.showOkAlert(message: "Are you sure? This could take some time.",
-                             title: "Rescan Blockchain",
+            self.showOkAlert(message: LocalizedStrings.rescanConfirm,
+                             title: LocalizedStrings.rescanBlockchain,
                              onPressOk: self.rescanBlocks,
                              addCancelAction: true)
         }
@@ -234,19 +250,19 @@ class SettingsController: UITableViewController  {
     
     func rescanBlocks() {
         if AppDelegate.walletLoader.wallet!.isSyncing() {
-            self.showOkAlert(message: "Sync is in progress. Please wait for sync to complete.")
+            self.showOkAlert(message: LocalizedStrings.syncProgressAlert)
             return
         }
         
         do {
             try AppDelegate.walletLoader.wallet?.rescanBlocks()
-            self.displayToast("Check progress in navigation bar.")
+            self.displayToast(LocalizedStrings.scanInProgress)
         } catch let error {
             var errorMessage = error.localizedDescription
             if errorMessage == DcrlibwalletErrInvalid {
-                errorMessage = "Wallet is already rescanning, check progress in navigation bar."
+                errorMessage = LocalizedStrings.scanStartedAlready
             }
-            self.showOkAlert(message: errorMessage, title: "Rescan failed")
+            self.showOkAlert(message: errorMessage, title: LocalizedStrings.rescanFailed)
         }
     }
     
@@ -260,7 +276,7 @@ class SettingsController: UITableViewController  {
                 }
                 
                 let requestPinVC = RequestPinViewController.instantiate()
-                requestPinVC.securityFor = "Spending"
+                requestPinVC.securityFor = LocalizedStrings.spending
                 requestPinVC.showCancelButton = true
                 requestPinVC.onUserEnteredPin = { pin in
                     self.deleteWallet(spendingPinOrPassword: pin)
@@ -271,7 +287,7 @@ class SettingsController: UITableViewController  {
     }
     
     func deleteWallet(spendingPinOrPassword: String) {
-        let progressHud = Utils.showProgressHud(withText: "Deleting wallet...")
+        let progressHud = Utils.showProgressHud(withText: LocalizedStrings.deletingWallet)
         DispatchQueue.global(qos: .background).async {
             do {
                 try AppDelegate.walletLoader.wallet?.delete(spendingPinOrPassword.utf8Bits)
@@ -284,7 +300,7 @@ class SettingsController: UITableViewController  {
                     progressHud.dismiss()
                 }
                 print("delete wallet error: \(error.localizedDescription)")
-                self.showOkAlert(message: "Failed to delete wallet.", title: "Error")
+                self.showOkAlert(message: LocalizedStrings.deleteWalletFailed, title: LocalizedStrings.error)
             }
         }
     }

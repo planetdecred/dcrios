@@ -2,9 +2,10 @@
 //  Syncer.swift
 //  Decred Wallet
 //
-//  Created by Wisdom Arerosuoghene on 13/05/2019.
-//  Copyright © 2019 The Decred developers. All rights reserved.
-//
+// Copyright (c) 2018-2019 The Decred developers
+// Use of this source code is governed by an ISC
+// license that can be found in the LICENSE file.
+
 import Foundation
 import Dcrlibwallet
 
@@ -48,9 +49,9 @@ class Syncer: NSObject, AppLifeCycleDelegate {
     var connectedPeersCount: Int32 = 0
     var connectedPeers: String {
         if self.connectedPeersCount == 1 {
-            return "\(self.connectedPeersCount) peer"
+            return String(format: LocalizedStrings.numberOfConnectedPeer, connectedPeersCount)
         } else {
-            return "\(self.connectedPeersCount) peers"
+            return String(format: LocalizedStrings.numberOfConnectedPeers, connectedPeersCount)
         }
     }
     
@@ -80,7 +81,7 @@ class Syncer: NSObject, AppLifeCycleDelegate {
             // Listen for changes to app state, specifically when the app becomes active after being suspended previously.
             AppDelegate.shared.registerLifeCylceDelegate(self, for: "\(self)")
         } catch (let syncError) {
-            AppDelegate.shared.showOkAlert(message: syncError.localizedDescription, title: "Sync error")
+            AppDelegate.shared.showOkAlert(message: syncError.localizedDescription, title: LocalizedStrings.syncError)
         }
     }
     

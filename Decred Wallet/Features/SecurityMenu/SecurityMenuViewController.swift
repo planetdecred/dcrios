@@ -45,6 +45,10 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
         self.signature.delegate = self
         self.message.delegate = self
         
+        self.signature.placeholder = LocalizedStrings.signature
+        self.address.placeholder = LocalizedStrings.address
+        self.message.placeholder = LocalizedStrings.message
+        
         if AppDelegate.walletLoader.isSynced {
             self.toggleView()
         }
@@ -52,7 +56,7 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.setupNavigationBar(withTitle: "Security")
+        self.setupNavigationBar(withTitle: LocalizedStrings.security)
 
         if !AppDelegate.walletLoader.isSynced {
             syncInfoLabel.isHidden = false
@@ -76,9 +80,9 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
     @objc func showMenu(){
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: LocalizedStrings.cancel, style: .cancel, handler: nil)
         
-        let clearField = UIAlertAction(title: "Clear fields", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        let clearField = UIAlertAction(title: LocalizedStrings.clearFields, style: .default, handler: { (alert: UIAlertAction!) -> Void in
             self.clearAllFields()
             
         })
@@ -126,16 +130,16 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
             if (dcrlibwallet.isAddressValid(updatedString)) {
                 if(dcrlibwallet.haveAddress(updatedString)){
                     self.addressError.textColor = UIColor(hex: "#007AFF")
-                    self.addressError.text = "Address is valid and you own it."
+                    self.addressError.text = LocalizedStrings.validOwnAddr
                     addressPass = true
                 } else {
                     self.addressError.textColor = UIColor.red
-                    self.addressError.text = "Address is valid and you do NOT own it."
+                    self.addressError.text = LocalizedStrings.validNotOwnAddr
                     addressPass = false
                 }
             } else {
                 self.addressError.textColor = UIColor.red
-                self.addressError.text = "Not a valid address."
+                self.addressError.text = LocalizedStrings.invalidAddr
                 addressPass = false
             }
             
@@ -231,7 +235,7 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
             do{
                 try dcrlibwallet.verifyMessage(addressd, message: message, signatureBase64: signatured, ret0_: retV)
                 if (retV[0]).boolValue {
-                    self.signatureError.text = "This signature verifies against the message and address."
+                    self.signatureError.text = LocalizedStrings.verifiedSignature
                     self.signatureError.textColor = UIColor(hex: "#007AFF")
                     self.signMsgBtn.isEnabled = false
                     self.sigPass = true
@@ -239,7 +243,7 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
                     self.signMsgBtn.setTitleColor(UIColor(hex: "#434343"), for: .normal)
                     return
                 } else {
-                    self.signatureError.text = "This signature  does not verify against the message and address."
+                    self.signatureError.text = LocalizedStrings.invalidSignature
                     self.signatureError.textColor = UIColor.red
                     self.signMsgBtn.isEnabled = false
                     self.sigPass = false
@@ -254,10 +258,10 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
                 self.sigPass = false
                 self.signMsgBtn.backgroundColor = UIColor(hex: "#F2F4F3")
                 self.signMsgBtn.setTitleColor(UIColor(hex: "#434343"), for: .normal)
-                self.signatureError.text = "This signature  does not verify against the message and address."
+                self.signatureError.text = LocalizedStrings.invalidSignature
             }
         } else {
-            self.signatureError.text = "This signature  does not verify against the message and address."
+            self.signatureError.text = LocalizedStrings.invalidSignature
             self.signatureError.textColor = UIColor.red
             self.signMsgBtn.isEnabled = false
             self.signMsgBtn.backgroundColor = UIColor(hex: "#F2F4F3")
@@ -268,24 +272,24 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
     
     private func askPassword() {
         if SpendingPinOrPassword.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
-            let alert = UIAlertController(title: "Security", message: "Please enter spending password of your wallet", preferredStyle: .alert)
+            let alert = UIAlertController(title: LocalizedStrings.security, message: LocalizedStrings.promptSpendingPassword, preferredStyle: .alert)
             alert.addTextField { textField in
-                textField.placeholder = "password"
+                textField.placeholder = LocalizedStrings.password.lowercased()
                 textField.isSecureTextEntry = true
             }
             
-            let okAction = UIAlertAction(title: "Proceed", style: .default) { _ in
+            let okAction = UIAlertAction(title: LocalizedStrings.proceed, style: .default) { _ in
                 let tfPasswd = alert.textFields![0] as UITextField
                 if (tfPasswd.text?.count)! > 0 {
                     self.SignMsg(pass: tfPasswd.text!)
                     alert.dismiss(animated: false, completion: nil)
                 } else {
                     alert.dismiss(animated: false, completion: nil)
-                    self.showAlert(message: "Password can't be empty.", titles: "invalid input")
+                    self.showAlert(message: LocalizedStrings.passwordEmpty, titles: LocalizedStrings.invalidInput)
                 }
             }
             
-            let CancelAction = UIAlertAction(title: "Cancel", style: .default) { _ in
+            let CancelAction = UIAlertAction(title: LocalizedStrings.cancel, style: .default) { _ in
                 alert.dismiss(animated: false, completion: nil)
             }
             alert.addAction(CancelAction)
@@ -294,7 +298,7 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
             self.present(alert, animated: true, completion: nil)
         }else{
             let requestPinVC = RequestPinViewController.instantiate()
-            requestPinVC.securityFor = "Spending"
+            requestPinVC.securityFor = LocalizedStrings.spending
             requestPinVC.showCancelButton = true
             requestPinVC.onUserEnteredPin = { pin in
                 self.SignMsg(pass: pin)
@@ -305,7 +309,7 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
     
     private func showAlert(message: String? , titles: String?) {
         let alert = UIAlertController(title: titles, message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+        let okAction = UIAlertAction(title: LocalizedStrings.ok, style: .default) { _ in
             alert.dismiss(animated: true, completion: nil)
         }
         alert.addAction(okAction)
@@ -331,7 +335,7 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
     
     func SignMsg(pass:String) {
         
-        progressHud = Utils.showProgressHud(withText: "Signing Message...")
+        progressHud = Utils.showProgressHud(withText: LocalizedStrings.signingMessage)
         
         let address = self.address.text
         let message = self.message.text
@@ -352,8 +356,8 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
             } catch {
                 DispatchQueue.main.async {
                     self!.progressHud?.dismiss()
-                    let alertController = UIAlertController(title: "", message: "Password entered was not valid.", preferredStyle: UIAlertController.Style.alert)
-                    alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+                    let alertController = UIAlertController(title: "", message: LocalizedStrings.passwordInvalid, preferredStyle: UIAlertController.Style.alert)
+                    alertController.addAction(UIAlertAction(title: LocalizedStrings.ok, style: UIAlertAction.Style.default, handler: nil))
                     this.present(alertController, animated: true, completion: nil)
                 }
             }
@@ -378,12 +382,12 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
     private func copyData(){
         DispatchQueue.main.async {
             //Copy a string to the pasteboard.
-            let info = "Address: \(self.address.text ?? "") \nMessage: \(self.message.text ?? "") \nSignature: \(self.signature.text ?? "")"
+            let info = "\(LocalizedStrings.address): \(self.address.text ?? "") \n\(LocalizedStrings.message): \(self.message.text ?? "") \n\(LocalizedStrings.signature): \(self.signature.text ?? "")"
             UIPasteboard.general.string = info
             
             //Alert
-            let alertController = UIAlertController(title: "", message: "Copied successfully.", preferredStyle: UIAlertController.Style.alert)
-            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            let alertController = UIAlertController(title: "", message: LocalizedStrings.copiedSuccessfully, preferredStyle: UIAlertController.Style.alert)
+            alertController.addAction(UIAlertAction(title: LocalizedStrings.ok, style: UIAlertAction.Style.default, handler: nil))
             self.present(alertController, animated: true, completion: nil)
         }
     }

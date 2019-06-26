@@ -1,9 +1,11 @@
+//
 //  ConfirmToSendFundViewController.swift
 //  Decred Wallet
 //
 // Copyright (c) 2018-2019 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
+
 import UIKit
 
 class ConfirmToSendFundViewController: UIViewController, UITextFieldDelegate {
@@ -51,14 +53,15 @@ class ConfirmToSendFundViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.sendAmountLabel.text = "Sending \(self.sendAmount!)"
-        self.feeLabel.text = "with a fee of \(self.fee!)"
-        self.addressLabel.text = "to " + self.destinationAddress!
+        self.sendAmountLabel.text = "\(LocalizedStrings.sending) \(self.sendAmount!)"
+        self.feeLabel.text = "\(LocalizedStrings.withFee) \(self.fee!)"
+        self.addressLabel.text = LocalizedStrings.to + self.destinationAddress!
+        self.passwordTextField.placeholder = LocalizedStrings.passwordHint
         
         if self.destinationAccount == nil {
             self.accountLabel.isHidden = true
         } else {
-            self.accountLabel.text = "to account \'\(self.destinationAccount!)\'"
+            self.accountLabel.text = "\(LocalizedStrings.toAccount) \'\(self.destinationAccount!)\'"
         }
         
         if SpendingPinOrPassword.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {

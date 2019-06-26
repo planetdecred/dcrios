@@ -2,9 +2,9 @@
 //  SyncProgressViewController.swift
 //  Decred Wallet
 //
-//  Created by Wisdom Arerosuoghene on 14/05/2019.
-//  Copyright © 2019 The Decred developers. All rights reserved.
-//
+// Copyright (c) 2018-2019 The Decred developers
+// Use of this source code is governed by an ISC
+// license that can be found in the LICENSE file.
 
 import UIKit
 import Dcrlibwallet
@@ -36,7 +36,7 @@ class SyncProgressViewController: UIViewController {
     }
     
     func resetSyncViews() {
-        self.syncHeaderLabel.text = "Loading..."
+        self.syncHeaderLabel.text = LocalizedStrings.loading
         
         self.generalSyncProgressBar.isHidden = true
         self.generalSyncProgressBar.progress = 0.0
@@ -95,26 +95,26 @@ class SyncProgressViewController: UIViewController {
 
 extension SyncProgressViewController: SyncProgressListenerProtocol {
     func onStarted(_ wasRestarted: Bool) {
-        self.syncHeaderLabel.text = wasRestarted ? "Restarting Synchronization" : "Starting Synchronization"
+        self.syncHeaderLabel.text = wasRestarted ? LocalizedStrings.restartingSynchronization : LocalizedStrings.startingSynchronization
     }
     
     func onPeerConnectedOrDisconnected(_ numberOfConnectedPeers: Int32) {
         var connectedPeers: String
         if numberOfConnectedPeers == 1 {
-            connectedPeers = "\(numberOfConnectedPeers) peer"
+            connectedPeers = String(format: LocalizedStrings.numberOfConnectedPeer, numberOfConnectedPeers)
         } else {
-            connectedPeers = "\(numberOfConnectedPeers) peers"
+            connectedPeers = String(format: LocalizedStrings.numberOfConnectedPeers, numberOfConnectedPeers)
         }
-        self.connectedPeersLabel.text = "Syncing with \(connectedPeers) on \(self.netType!)."
+        self.connectedPeersLabel.text =  String(format: LocalizedStrings.syncingWithPeersOnNetwork, connectedPeers, self.netType!)
     }
     
     func onHeadersFetchProgress(_ progressReport: DcrlibwalletHeadersFetchProgressReport) {
         self.handleGeneralProgressReport(progressReport.generalSyncProgress!)
         
-        var reportText = "Fetched \(progressReport.fetchedHeadersCount) of ~\(progressReport.totalHeadersToFetch) block headers.\n"
-        reportText += "\(progressReport.headersFetchProgress)% through step 1 of 3."
+        var reportText = String(format: LocalizedStrings.fetchedHeaders, progressReport.fetchedHeadersCount, progressReport.totalHeadersToFetch)
+        reportText += String(format: LocalizedStrings.headersFetchProgress, progressReport.headersFetchProgress)
         if progressReport.bestBlockAge != "" {
-            reportText += "\nYour wallet is \(progressReport.bestBlockAge) behind."
+            reportText += String(format: LocalizedStrings.bestBlockAgebehind, progressReport.bestBlockAge)
         }
         
         self.currentSyncActionReportLabel.text = reportText
@@ -123,11 +123,11 @@ extension SyncProgressViewController: SyncProgressListenerProtocol {
     func onAddressDiscoveryProgress(_ progressReport: DcrlibwalletAddressDiscoveryProgressReport) {
         self.handleGeneralProgressReport(progressReport.generalSyncProgress!)
         
-        var reportText = "Discovering used addresses.\n"
+        var reportText = "\(LocalizedStrings.discoveringUsedAddresses)\n"
         if progressReport.addressDiscoveryProgress > 100 {
-            reportText += "\(progressReport.addressDiscoveryProgress)% (over) through step 2 of 3."
+            reportText += String(format: LocalizedStrings.addressDiscoveryProgressOver, progressReport.addressDiscoveryProgress)
         } else {
-            reportText += "~\(progressReport.addressDiscoveryProgress)% through step 2 of 3."
+            reportText += String(format: LocalizedStrings.addressDiscoveryProgressThrough, progressReport.addressDiscoveryProgress)
         }
         
         self.currentSyncActionReportLabel.text = reportText
@@ -136,19 +136,19 @@ extension SyncProgressViewController: SyncProgressListenerProtocol {
     func onHeadersRescanProgress(_ progressReport: DcrlibwalletHeadersRescanProgressReport) {
         self.handleGeneralProgressReport(progressReport.generalSyncProgress!)
         
-        var reportText = "Scanning \(progressReport.currentRescanHeight) of \(progressReport.totalHeadersToScan) block headers.\n"
-        reportText += "\(progressReport.rescanProgress)% through step 3 of 3."
+        var reportText = String(format: LocalizedStrings.scanningTotalHeaders, progressReport.currentRescanHeight, progressReport.totalHeadersToScan)
+        reportText += String(format: LocalizedStrings.stepThreeRescanProgress, progressReport.rescanProgress)
         
         self.currentSyncActionReportLabel.text = reportText
     }
     
     func handleGeneralProgressReport(_ generalProgress: DcrlibwalletGeneralSyncProgress) {
-        self.syncHeaderLabel.text = "Synchronizing"
+        self.syncHeaderLabel.text = LocalizedStrings.synchronizing
         
         self.generalSyncProgressBar.isHidden = false
         self.generalSyncProgressBar.progress = Float(generalProgress.totalSyncProgress) / 100.0
         
-        self.generalSyncProgressLabel.text = "\(generalProgress.totalSyncProgress)% completed, \(generalProgress.totalTimeRemaining) remaining."
+        self.generalSyncProgressLabel.text = String(format: LocalizedStrings.syncTotalProgress, generalProgress.totalSyncProgress, generalProgress.totalTimeRemaining)
         
         // Display "show details" button if details are not being shown currently.
         self.showDetailedSyncReportButton.isHidden = !self.currentSyncActionReportLabel.isHidden
@@ -161,12 +161,12 @@ extension SyncProgressViewController: SyncProgressListenerProtocol {
     
     func onSyncCanceled() {
         self.resetSyncViews()
-        self.syncHeaderLabel.text = "Synchronization canceled"
+        self.syncHeaderLabel.text = LocalizedStrings.synchronizationCanceled
     }
     
     func onSyncEndedWithError(_ error: String) {
         self.resetSyncViews()
-        self.syncHeaderLabel.text = "Synchronization error"
+        self.syncHeaderLabel.text = LocalizedStrings.synchronizationError
     }
     
     func debug(_ debugInfo: DcrlibwalletDebugInfo) {
@@ -178,15 +178,15 @@ extension SyncProgressViewController: SyncProgressListenerProtocol {
             return timeFormatter.string(from: TimeInterval(time))!
         }
         
-        var debugSyncInfo = "All Times\n"
-        debugSyncInfo += "elapsed: \(formatTime(debugInfo.totalTimeElapsed))"
-        debugSyncInfo += " remain: \(formatTime(debugInfo.totalTimeRemaining))"
-        debugSyncInfo += " total: \(formatTime(debugInfo.totalTimeElapsed + debugInfo.totalTimeRemaining))\n"
+        var debugSyncInfo = "\(LocalizedStrings.allTimes)\n"
+        debugSyncInfo += "\(LocalizedStrings.elapsed): \(formatTime(debugInfo.totalTimeElapsed))"
+        debugSyncInfo += " \(LocalizedStrings.remain): \(formatTime(debugInfo.totalTimeRemaining))"
+        debugSyncInfo += " \(LocalizedStrings.total): \(formatTime(debugInfo.totalTimeElapsed + debugInfo.totalTimeRemaining))\n"
         
-        debugSyncInfo += "Stage Times\n"
-        debugSyncInfo += "elapsed: \(formatTime(debugInfo.currentStageTimeElapsed))"
-        debugSyncInfo += " remain: \(formatTime(debugInfo.currentStageTimeRemaining))"
-        debugSyncInfo += " total: \(formatTime(debugInfo.currentStageTimeElapsed + debugInfo.currentStageTimeRemaining))"
+        debugSyncInfo += "\(LocalizedStrings.stageTimes)\n"
+        debugSyncInfo += "\(LocalizedStrings.elapsed): \(formatTime(debugInfo.currentStageTimeElapsed))"
+        debugSyncInfo += " \(LocalizedStrings.remain): \(formatTime(debugInfo.currentStageTimeRemaining))"
+        debugSyncInfo += " \(LocalizedStrings.total): \(formatTime(debugInfo.currentStageTimeElapsed + debugInfo.currentStageTimeRemaining))"
         
         self.debugSyncInfoLabel.text = debugSyncInfo
     }

@@ -2,9 +2,10 @@
 //  TransactionNotification.swift
 //  Decred Wallet
 //
-//  Created by Wisdom Arerosuoghene on 14/05/2019.
-//  Copyright © 2019 The Decred developers. All rights reserved.
-//
+// Copyright (c) 2018-2019 The Decred developers
+// Use of this source code is governed by an ISC
+// license that can be found in the LICENSE file.
+
 import Dcrlibwallet
 import UserNotifications
 
@@ -58,8 +59,8 @@ class TransactionNotification: NSObject {
         
         if tx!.Fee == 0 {
             let notification = UNMutableNotificationContent()
-            notification.title = "New Transaction"
-            notification.body = "You received \(tx!.dcrAmount.round(8).description) DCR"
+            notification.title = LocalizedStrings.newTransaction
+            notification.body = "\(LocalizedStrings.youReceived) \(tx!.dcrAmount.round(8).description) DCR"
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
             let request = UNNotificationRequest(identifier: "TxnIdentifier", content: notification, trigger: trigger)
             UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)

@@ -6,7 +6,6 @@
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
-
 import UIKit
 
 class SeedConfirmTableViewCell: UITableViewCell {
@@ -35,7 +34,7 @@ class SeedConfirmTableViewCell: UITableViewCell {
             buttons[selected]?.isSelected = true
         }
         seedWordNumber = num
-        lbWordTitle.text = "Word #\(num + 1)"
+        lbWordTitle.text = String(format: LocalizedStrings.wordNumber, num + 1)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

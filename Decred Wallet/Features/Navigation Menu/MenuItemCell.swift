@@ -5,6 +5,7 @@
 // Copyright (c) 2018-2019 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
+
 import Foundation
 import UIKit
 
@@ -21,7 +22,7 @@ open class MenuItemCell: UITableViewCell {
     }
     
     func render(_ menuItem: MenuItem, isCurrentItem: Bool = false) {
-        self.menuTitleLabel.text = menuItem.rawValue
+        self.menuTitleLabel.text = menuItem.displayTitle
         self.menuIconImageView.image = menuItem.icon
         
         if isCurrentItem {

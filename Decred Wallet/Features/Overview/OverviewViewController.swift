@@ -2,9 +2,9 @@
 //  OverviewViewControllerr.swift
 //  Decred Wallet
 //
-//  Created by Wisdom Arerosuoghene on 11/05/2019.
-//  Copyright © 2019 The Decred developers. All rights reserved.
-//
+// Copyright (c) 2018-2019 The Decred developers
+// Use of this source code is governed by an ISC
+// license that can be found in the LICENSE file.
 
 import UIKit
 
@@ -39,7 +39,7 @@ class OverviewViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.setupNavigationBar(withTitle: "Overview")
+        self.setupNavigationBar(withTitle: LocalizedStrings.overview)
     }
     
     func initializeOverviewContent() {
@@ -101,7 +101,7 @@ class OverviewViewController: UIViewController {
     
     func showNoTransactions() {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: self.recentActivityTableView.bounds.size.width, height: self.recentActivityTableView.bounds.size.height))
-        label.text = "No Transactions"
+        label.text = LocalizedStrings.noTransactions
         label.textAlignment = .center
         self.recentActivityTableView.backgroundView = label
         self.recentActivityTableView.separatorStyle = .none

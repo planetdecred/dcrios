@@ -2,9 +2,9 @@
 //  PrivatePassphrase.swift
 //  Decred Wallet
 //
-//  Created by Wisdom Arerosuoghene on 27/04/2019.
-//  Copyright © 2019 The Decred developers. All rights reserved.
-//
+// Copyright (c) 2018-2019 The Decred developers
+// Use of this source code is governed by an ISC
+// license that can be found in the LICENSE file.
 
 import Foundation
 import UIKit
@@ -20,12 +20,12 @@ struct SpendingPinOrPassword {
         // show the appropriate vc to read current pin or password
         if self.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
             let requestPasswordVC = RequestPasswordViewController.instantiate()
-            requestPasswordVC.prompt = "Enter Current Spending Password"
+            requestPasswordVC.prompt = LocalizedStrings.enterCurrentSpendingPassword
             requestPasswordVC.onUserEnteredPassword = afterUserEntersPinOrPassword
             vc.present(requestPasswordVC, animated: true)
         } else {
             let requestPinVC = RequestPinViewController.instantiate()
-            requestPinVC.securityFor = "Current"
+            requestPinVC.securityFor = LocalizedStrings.current
             requestPinVC.showCancelButton = true
             requestPinVC.onUserEnteredPin = afterUserEntersPinOrPassword
             vc.present(requestPinVC, animated: true)
@@ -35,7 +35,7 @@ struct SpendingPinOrPassword {
     private static func promptForNewPinOrPassword(_ vc: UIViewController, currentPinOrPassword: String) {
         // init secutity vc to use in getting new spending password or pin from user
         let securityVC = SecurityViewController.instantiate()
-        securityVC.securityFor = "Spending"
+        securityVC.securityFor = LocalizedStrings.spending
         securityVC.initialSecurityType = self.currentSecurityType()
         
         securityVC.onUserEnteredPinOrPassword = { (newPinOrPassword, securityType) in
@@ -47,7 +47,7 @@ struct SpendingPinOrPassword {
     
     private static func changeWalletSpendingPassphrase(_ vc: UIViewController, current currentPassphrase: String, new newPassphrase: String, type securityType: String) {
         let newSecurityType = securityType.lowercased()
-        let progressHud = Utils.showProgressHud(withText: "Changing spending \(newSecurityType)...")
+        let progressHud = Utils.showProgressHud(withText: String(format: LocalizedStrings.changingSpendingPINPass, newSecurityType))
         
         let oldPrivatePass = (currentPassphrase as NSString).data(using: String.Encoding.utf8.rawValue)!
         let newPrivatePass = (newPassphrase as NSString).data(using: String.Encoding.utf8.rawValue)!
@@ -62,7 +62,7 @@ struct SpendingPinOrPassword {
             } catch let error {
                 DispatchQueue.main.async {
                     progressHud.dismiss()
-                    vc.showOkAlert(message: error.localizedDescription, title: "Error")
+                    vc.showOkAlert(message: error.localizedDescription, title: LocalizedStrings.error)
                 }
             }
         }

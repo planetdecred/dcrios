@@ -2,9 +2,9 @@
 //  Extensions.swift
 //  Decred Wallet
 //
-//  Created by Wisdom Arerosuoghene on 10/05/2019.
-//  Copyright © 2019 The Decred developers. All rights reserved.
-//
+// Copyright (c) 2018-2019 The Decred developers
+// Use of this source code is governed by an ISC
+// license that can be found in the LICENSE file.
 
 import UIKit
 
@@ -21,14 +21,6 @@ extension NSDecimalNumber {
     
     var formattedWithSeparator: String {
         return Formatter.withSeparator.string(for: self) ?? "\(self)"
-    }
-}
-
-extension UIButton {
-    func set(fontSize: CGFloat, name : String) {
-        if let titleLabel = titleLabel {
-            titleLabel.font = UIFont(name: name, size: fontSize)
-        }
     }
 }
 

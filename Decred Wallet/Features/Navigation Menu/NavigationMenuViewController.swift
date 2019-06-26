@@ -2,9 +2,9 @@
 //  NavigationMenuViewController.swift
 //  Decred Wallet
 //
-//  Created by Wisdom Arerosuoghene on 11/05/2019.
-//  Copyright © 2019 The Decred developers. All rights reserved.
-//
+// Copyright (c) 2018-2019 The Decred developers
+// Use of this source code is governed by an ISC
+// license that can be found in the LICENSE file.
 
 import UIKit
 import Dcrlibwallet
@@ -80,7 +80,7 @@ class NavigationMenuViewController: UIViewController {
         AppDelegate.shared.listenForNetworkChanges()
         
         if AppDelegate.shared.reachability.connection == .none {
-            self.showOkAlert(message: "Cannot sync without network connection.", title: "Internet connection required.", onPressOk: self.checkSyncPermission)
+            self.showOkAlert(message: LocalizedStrings.cannotSyncWithoutNetworkConnection, title: LocalizedStrings.internetConnectionRequired, onPressOk: self.checkSyncPermission)
         } else {
             self.checkSyncPermission()
         }
@@ -131,7 +131,7 @@ class NavigationMenuViewController: UIViewController {
             AppDelegate.walletLoader.syncer.assumeSyncCompleted()
             self.onSyncCompleted()
             
-            self.syncStatusLabel.text = "Connect to WiFi to sync."
+            self.syncStatusLabel.text = LocalizedStrings.connectToWiFiToSync
             self.syncStatusLabel.superview?.backgroundColor = UIColor.red
         }
     }
@@ -183,27 +183,27 @@ extension NavigationMenuViewController: SyncProgressListenerProtocol {
         self.stopRefreshingBestBlockAge()
         
         self.resetSyncViews()
-        self.syncStatusLabel.text = "Restarting sync..."
+        self.syncStatusLabel.text = LocalizedStrings.restartingSync
     }
     
     func onStarted(_ wasRestarted: Bool) {
-        self.syncStatusLabel.text = wasRestarted ? "Restarting sync..." : "Connecting to peers."
+        self.syncStatusLabel.text = wasRestarted ? LocalizedStrings.restartingSync : LocalizedStrings.connectingToPeers
     }
     
     func onPeerConnectedOrDisconnected(_ numberOfConnectedPeers: Int32) {
         if AppDelegate.walletLoader.isSynced {
-            self.syncStatusLabel.text = "Synced with \(AppDelegate.walletLoader.syncer.connectedPeers)"
+            self.syncStatusLabel.text = String(format: LocalizedStrings.syncedWith, AppDelegate.walletLoader.syncer.connectedPeers)
         }
     }
     
     func onHeadersFetchProgress(_ progressReport: DcrlibwalletHeadersFetchProgressReport) {
         self.handleGeneralProgressReport(progressReport.generalSyncProgress!)
         
-        self.syncStatusLabel.text = "Fetching block headers."
+        self.syncStatusLabel.text = LocalizedStrings.fetchingBlockHeaders
         if progressReport.currentHeaderTimestamp != 0 {
-            self.bestBlockLabel.text = "\(progressReport.totalHeadersToFetch - progressReport.fetchedHeadersCount) blocks behind."
+            self.bestBlockLabel.text = String(format: LocalizedStrings.blocksBehind, progressReport.totalHeadersToFetch - progressReport.fetchedHeadersCount)
             if progressReport.bestBlockAge != "" {
-                self.bestBlockAgeLabel.text = "\(progressReport.bestBlockAge) ago"
+                self.bestBlockAgeLabel.text = String(format: LocalizedStrings.bestBlockAgeAgo, progressReport.bestBlockAge)
             }
         }
     }
@@ -211,24 +211,23 @@ extension NavigationMenuViewController: SyncProgressListenerProtocol {
     func onAddressDiscoveryProgress(_ progressReport: DcrlibwalletAddressDiscoveryProgressReport) {
         self.handleGeneralProgressReport(progressReport.generalSyncProgress!)
         
-        self.syncStatusLabel.text = "Discovering used addresses."
-        self.bestBlockLabel.text = "\(progressReport.generalSyncProgress!.totalSyncProgress)% completed, \(progressReport.generalSyncProgress!.totalTimeRemaining) left."
+        self.syncStatusLabel.text = LocalizedStrings.discoveringUsedAddresses
+        self.bestBlockLabel.text = String(format: LocalizedStrings.generalSyncProgressCompletedleft, progressReport.generalSyncProgress!.totalSyncProgress, progressReport.generalSyncProgress!.totalTimeRemaining)
         self.bestBlockAgeLabel.text = ""
     }
     
     func onHeadersRescanProgress(_ progressReport: DcrlibwalletHeadersRescanProgressReport) {
-        self.syncStatusLabel.text = "Scanning blocks."
+        self.syncStatusLabel.text = LocalizedStrings.scanningBlocks
         self.bestBlockAgeLabel.text = ""
         
         if progressReport.generalSyncProgress == nil {
             // generalSyncProgress is nil during rescan.
             self.refreshBestBlockAgeTimer?.invalidate()
-            self.bestBlockLabel.text = "\(progressReport.rescanProgress)% completed, \(progressReport.timeRemaining) left."
+            self.bestBlockLabel.text = String(format: LocalizedStrings.rescanProgress, progressReport.rescanProgress, progressReport.timeRemaining)
             return
         }
-        
         self.handleGeneralProgressReport(progressReport.generalSyncProgress!)
-        self.bestBlockLabel.text = "\(progressReport.generalSyncProgress!.totalSyncProgress)% completed, \(progressReport.generalSyncProgress!.totalTimeRemaining) left."
+        self.bestBlockLabel.text = String(format: LocalizedStrings.syncTotalProgress, progressReport.generalSyncProgress!.totalSyncProgress, progressReport.generalSyncProgress!.totalTimeRemaining)
     }
     
     func handleGeneralProgressReport(_ generalProgress: DcrlibwalletGeneralSyncProgress) {
@@ -241,7 +240,7 @@ extension NavigationMenuViewController: SyncProgressListenerProtocol {
         self.syncInProgressIndicator.stopAnimating()
         self.syncInProgressIndicator.isHidden = true
         
-        self.syncStatusLabel.text = "Synced with \(AppDelegate.walletLoader.syncer.connectedPeers)"
+        self.syncStatusLabel.text = String(format: LocalizedStrings.syncedWith, AppDelegate.walletLoader.syncer.connectedPeers)
         self.syncStatusLabel.superview?.backgroundColor = UIColor(hex: "#2DD8A3")
         
         self.syncOperationProgressBar.isHidden = true
@@ -254,12 +253,12 @@ extension NavigationMenuViewController: SyncProgressListenerProtocol {
     
     func onSyncCanceled() {
         self.resetSyncViews()
-        self.syncStatusLabel.text = "Sync canceled."
+        self.syncStatusLabel.text = LocalizedStrings.syncCanceled
     }
     
     func onSyncEndedWithError(_ error: String) {
         self.resetSyncViews()
-        self.syncStatusLabel.text = "Sync error."
+        self.syncStatusLabel.text = LocalizedStrings.syncError
         self.syncStatusLabel.superview?.backgroundColor = UIColor.red
     }
     
@@ -289,7 +288,7 @@ extension NavigationMenuViewController: NewBlockNotificationProtocol, NewTransac
             self.refreshBestBlockAgeTimer?.invalidate()
         }
         
-        self.bestBlockLabel.text = "Latest Block: \(AppDelegate.walletLoader.wallet!.getBestBlock())"
+        self.bestBlockLabel.text = String(format: LocalizedStrings.latestBlock, AppDelegate.walletLoader.wallet!.getBestBlock())
         self.setBestBlockAge()
         
         self.refreshBestBlockAgeTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) {_ in
@@ -306,34 +305,34 @@ extension NavigationMenuViewController: NewBlockNotificationProtocol, NewTransac
         
         switch bestBlockAge {
         case Int64.min...0:
-            self.bestBlockAgeLabel.text = "now"
+            self.bestBlockAgeLabel.text = LocalizedStrings.now
             
         case 0..<Utils.TimeInSeconds.Minute:
-            self.bestBlockAgeLabel.text = "\(bestBlockAge)s ago"
+            self.bestBlockAgeLabel.text = String(format: LocalizedStrings.secondsAgo, bestBlockAge)
             
         case Utils.TimeInSeconds.Minute..<Utils.TimeInSeconds.Hour:
             let minutes = bestBlockAge / Utils.TimeInSeconds.Minute
-            self.bestBlockAgeLabel.text = "\(minutes)m ago"
+            self.bestBlockAgeLabel.text = String(format: LocalizedStrings.minAgo, minutes)
             
         case Utils.TimeInSeconds.Hour..<Utils.TimeInSeconds.Day:
             let hours = bestBlockAge / Utils.TimeInSeconds.Hour
-            self.bestBlockAgeLabel.text = "\(hours)h ago"
+            self.bestBlockAgeLabel.text = String(format: LocalizedStrings.hrsAgo, hours)
             
         case Utils.TimeInSeconds.Day..<Utils.TimeInSeconds.Week:
             let days = bestBlockAge / Utils.TimeInSeconds.Day
-            self.bestBlockAgeLabel.text = "\(days)d ago"
+            self.bestBlockAgeLabel.text = String(format: LocalizedStrings.daysAgo, days)
             
         case Utils.TimeInSeconds.Week..<Utils.TimeInSeconds.Month:
             let weeks = bestBlockAge / Utils.TimeInSeconds.Week
-            self.bestBlockAgeLabel.text = "\(weeks)w ago"
+            self.bestBlockAgeLabel.text = String(format: LocalizedStrings.weeksAgo, weeks)
             
         case Utils.TimeInSeconds.Month..<Utils.TimeInSeconds.Year:
             let months = bestBlockAge / Utils.TimeInSeconds.Month
-            self.bestBlockAgeLabel.text = "\(months)mo ago"
+            self.bestBlockAgeLabel.text = String(format: LocalizedStrings.monthsAgo, months)
             
         default:
             let years = bestBlockAge / Utils.TimeInSeconds.Year
-            self.bestBlockAgeLabel.text = "\(years)y ago"
+            self.bestBlockAgeLabel.text = String(format: LocalizedStrings.yearsAgo, years)
         }
     }
     

@@ -2,9 +2,9 @@
 //  PublicPassphrase.swift
 //  Decred Wallet
 //
-//  Created by Wisdom Arerosuoghene on 27/04/2019.
-//  Copyright © 2019 The Decred developers. All rights reserved.
-//
+// Copyright (c) 2018-2019 The Decred developers
+// Use of this source code is governed by an ISC
+// license that can be found in the LICENSE file.
 
 import Foundation
 import UIKit
@@ -48,12 +48,12 @@ struct StartupPinOrPassword {
         // show the appropriate vc to read current pin or password
         if self.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
             let requestPasswordVC = RequestPasswordViewController.instantiate()
-            requestPasswordVC.prompt = "Enter Current Startup Password"
+            requestPasswordVC.prompt = LocalizedStrings.promptStartupPassword
             requestPasswordVC.onUserEnteredPassword = afterUserEntersPinOrPassword
             vc.present(requestPasswordVC, animated: true)
         } else {
             let requestPinVC = RequestPinViewController.instantiate()
-            requestPinVC.securityFor = "Current"
+            requestPinVC.securityFor = LocalizedStrings.current
             requestPinVC.showCancelButton = true
             requestPinVC.onUserEnteredPin = afterUserEntersPinOrPassword
             vc.present(requestPinVC, animated: true, completion: nil)
@@ -63,7 +63,7 @@ struct StartupPinOrPassword {
     private static func setNewPinOrPassword(_ vc: UIViewController, currentPinOrPassword: String?, completion: (() -> Void)? = nil) {
         // init secutity vc to use in getting new password or pin from user
         let securityVC = SecurityViewController.instantiate()
-        securityVC.securityFor = "Startup"
+        securityVC.securityFor = LocalizedStrings.startup
         securityVC.initialSecurityType = self.currentSecurityType()
         securityVC.onUserEnteredPinOrPassword = { newPinOrPassword, securityType in
             self.changeWalletPublicPassphrase(vc, current: currentPinOrPassword, new: newPinOrPassword, type: securityType, completion: completion)
@@ -75,7 +75,7 @@ struct StartupPinOrPassword {
     static func changeWalletPublicPassphrase(_ vc: UIViewController, current currentPassword: String?, new newPinOrPassword: String?, type securityType: String? = nil, completion: (() -> Void)? = nil) {
         // cannot set new pin/password without a type specified
         if securityType == nil && newPinOrPassword != nil {
-            vc.showOkAlert(message: "Security type not specified. Cannot proceed.", title: "Invalid request!")
+            vc.showOkAlert(message: LocalizedStrings.securityTypeNotSpecified, title: LocalizedStrings.invalidRequest)
             return
         }
         
@@ -84,15 +84,15 @@ struct StartupPinOrPassword {
         if currentPassword == nil {
             // password was not previously configured, let's set it
             let newSecurityType = securityType!.lowercased()
-            progressHud = Utils.showProgressHud(withText: "Setting startup \(newSecurityType)...")
+            progressHud = Utils.showProgressHud(withText: String(format: LocalizedStrings.settingStartupPINPass, newSecurityType))
         } else if newPinOrPassword == nil {
             // password was previously configured, but no new password is to be set
             let currentSecurityType = self.currentSecurityType()!.lowercased()
-            progressHud = Utils.showProgressHud(withText: "Removing startup \(currentSecurityType)...")
+            progressHud = Utils.showProgressHud(withText: String(format: LocalizedStrings.removingStartupPINPass, currentSecurityType))
         } else {
             // password was previously configured, but we're to set a new one
             let newSecurityType = securityType!.lowercased()
-            progressHud = Utils.showProgressHud(withText: "Changing startup \(newSecurityType)...")
+            progressHud = Utils.showProgressHud(withText: String(format: LocalizedStrings.changingStartupPINPass, newSecurityType))
         }
         
         let currentPublicPassphrase = currentPassword ?? self.defaultPublicPassphrase
@@ -120,7 +120,7 @@ struct StartupPinOrPassword {
             } catch let error {
                 DispatchQueue.main.async {
                     progressHud.dismiss()
-                    vc.showOkAlert(message: error.localizedDescription, title: "Error")
+                    vc.showOkAlert(message: error.localizedDescription, title: LocalizedStrings.error)
                     completion?()
                 }
             }

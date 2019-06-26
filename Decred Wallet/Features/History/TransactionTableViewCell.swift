@@ -5,6 +5,7 @@
 // Copyright (c) 2018-2019 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
+
 import Foundation
 import UIKit
 
@@ -35,14 +36,14 @@ class TransactionTableViewCell: BaseTableViewCell {
 
             if (transaction.Height == -1) {
                 self.status.textColor = UIColor(hex:"#3d659c")
-                self.status.text = "Pending"
+                self.status.text = LocalizedStrings.pending
             } else {
                 if (Settings.spendUnconfirmed || confirmations > 1) {
                     self.status.textColor = UIColor(hex:"#2DD8A3")
-                    self.status.text = "Confirmed"
+                    self.status.text = LocalizedStrings.confirmed
                 } else {
                     self.status.textColor = UIColor(hex:"#3d659c")
-                    self.status.text = "Pending"
+                    self.status.text = LocalizedStrings.pending
                 }
             }
             
@@ -76,16 +77,16 @@ class TransactionTableViewCell: BaseTableViewCell {
                     self.dataImage?.image = UIImage(named: "account")
                 }
             } else if(transaction.Type.lowercased() == "vote") {
-                self.dataText.text = " Vote"
+                self.dataText.text = " \(LocalizedStrings.vote)"
                 self.dataImage?.image = UIImage(named: "vote")
             } else if (transaction.Type.lowercased() == "ticket_purchase") {
-                self.dataText.text = " Ticket"
+                self.dataText.text = " \(LocalizedStrings.ticket)"
                 self.dataImage?.image = UIImage(named: "immature")
                 if (confirmations < requireConfirmation){
                     self.status.textColor = UIColor(hex:"#3d659c")
-                    self.status.text = "Pending"
+                    self.status.text = LocalizedStrings.pending
                 } else if (confirmations > BuildConfig.TicketMaturity) {
-                    let statusText = "Confirmed / Live"
+                    let statusText = LocalizedStrings.confirmedLive
                     let range = (statusText as NSString).range(of: "/")
                     let attributedString = NSMutableAttributedString(string: statusText)
                     attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black , range: range)
@@ -93,7 +94,7 @@ class TransactionTableViewCell: BaseTableViewCell {
                     self.status.attributedText = attributedString
                     self.dataImage?.image = UIImage(named: "live")
                 } else {
-                    let statusText = "Confirmed / Immature"
+                    let statusText = LocalizedStrings.confirmedImmature
                     let range = (statusText as NSString).range(of: "/")
                     let attributedString = NSMutableAttributedString(string: statusText)
                     attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black , range: range)

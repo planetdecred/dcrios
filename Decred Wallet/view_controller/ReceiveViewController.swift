@@ -1,6 +1,6 @@
 //  ReceiveViewController.swift
 //  Decred Wallet
-
+//
 // Copyright (c) 2018-2019 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
@@ -24,7 +24,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
         label.textColor = .darkGray
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.text = "Please wait for your wallet to finish synchronizing."
+        label.text = LocalizedStrings.secureMenuSyncInfo
         return label
     }()
 
@@ -45,7 +45,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.subheader.text = "Each time you request a payment, a new address is created to protect your privacy."
+        self.subheader.text = LocalizedStrings.recieveHeaderInfo
         // TAP Gesture
         self.setupExtraUI()
         self.starttime = Int64(NSDate().timeIntervalSince1970)
@@ -54,7 +54,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setupNavigationBar(withTitle: "Receive")
+        setupNavigationBar(withTitle: LocalizedStrings.receive)
         checkSyncStatus()
     }
 
@@ -74,18 +74,18 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
             UIPasteboard.general.string = self.lblWalletAddress.text!
             
             //Alert
-            let alertController = UIAlertController(title: "", message: "Wallet address copied", preferredStyle: UIAlertController.Style.alert)
-            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            let alertController = UIAlertController(title: "", message: LocalizedStrings.walletAddrCopied, preferredStyle: UIAlertController.Style.alert)
+            alertController.addAction(UIAlertAction(title: LocalizedStrings.ok, style: UIAlertAction.Style.default, handler: nil))
             self.present(alertController, animated: true, completion: nil)
         }
     }
-
+    
     @objc func showMenu(sender: Any) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: LocalizedStrings.cancel, style: .cancel, handler: nil)
         
-        let generateNewAddressAction = UIAlertAction(title: "Generate new address", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        let generateNewAddressAction = UIAlertAction(title: LocalizedStrings.genNewAddr, style: .default, handler: { (alert: UIAlertAction!) -> Void in
             self.generateNewAddress()
         })
         

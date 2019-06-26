@@ -19,7 +19,9 @@ class AddAcountViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.createBtn.layer.cornerRadius = 6
-        // Do any additional setup after loading the view.
+        self.accountName.placeholder = LocalizedStrings.accountName
+        self.passphrase.placeholder = LocalizedStrings.privatePassphrase
+        
         if SpendingPinOrPassword.currentSecurityType() != SecurityViewController.SECURITY_TYPE_PASSWORD {
             passphrase.isHidden = true
             createBtnTopConstraint.constant = -40
@@ -28,7 +30,7 @@ class AddAcountViewController: UIViewController {
     
     @IBAction func createFnc(_ sender: Any) {
         if (accountName.text?.length)! < 1{
-            Info(msg: "Please input an account name")
+            Info(msg: LocalizedStrings.inputAccountName)
             return
         }
         
@@ -38,7 +40,7 @@ class AddAcountViewController: UIViewController {
                 addAccountWithoutPin()
             }else{
                 let requestPinVC = RequestPinViewController.instantiate()
-                requestPinVC.securityFor = "Spending"
+                requestPinVC.securityFor = LocalizedStrings.spending
                 requestPinVC.showCancelButton = true
                 requestPinVC.onUserEnteredPin = { pin in
                     self.addAccountWithPin(pin: pin as NSString)
@@ -64,7 +66,7 @@ class AddAcountViewController: UIViewController {
     private func addAccount(passphrase: Data){
         let progressHud = JGProgressHUD(style: .light)
         progressHud.shadow = JGProgressHUDShadow(color: .black, offset: .zero, radius: 5.0, opacity: 0.2)
-        progressHud.textLabel.text = "Creating account..."
+        progressHud.textLabel.text = LocalizedStrings.creatingAccount
         progressHud.show(in: self.view)
         
         let accountName = self.accountName.text!
@@ -90,15 +92,15 @@ class AddAcountViewController: UIViewController {
     }
     
     func showError(error:Error){
-        let alert = UIAlertController(title: "Error Message", message: error.localizedDescription, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default)
+        let alert = UIAlertController(title: LocalizedStrings.errorMsg, message: error.localizedDescription, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: LocalizedStrings.ok, style: .default)
         alert.addAction(okAction)
         present(alert, animated: true, completion: nil)
     }
     
     func Info(msg:String){
-        let alert = UIAlertController(title: "Info", message: msg, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default)
+        let alert = UIAlertController(title: LocalizedStrings.info, message: msg, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: LocalizedStrings.ok, style: .default)
         alert.addAction(okAction)
         present(alert, animated: true, completion: nil)
     }

@@ -1,9 +1,11 @@
+//
 //  TransactiontOutputDetailsTableViewCell.swift
 //  Decred Wallet
-
+//
 // Copyright (c) 2018-2019 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
+
 import UIKit
 
 class TransactiontOutputDetailsCell: UITableViewCell {
@@ -41,16 +43,16 @@ class TransactiontOutputDetailsCell: UITableViewCell {
             
             var address = decodedOutput.Addresses.count > 0 ? decodedOutput.Addresses[0] : ""
             var amount = Utils.getAttributedString(str: "\(decodedOutput.dcrAmount.round(8))", siz: 13, TexthexColor: GlobalConstants.Colors.TextAmount)
-            var title = " (external)"
+            var title = " (\(LocalizedStrings.external.lowercased()))"
             
             switch(decodedOutput.ScriptType){
             case "nulldata":
-                amount = NSAttributedString(string: "[null data]")
-                address = "[script]"
+                amount = NSAttributedString(string: "[\(LocalizedStrings.nullData)]")
+                address = "[\(LocalizedStrings.script)]"
                 title = ""
                 break
             case "stakegen":
-                address = "[stakegen]"
+                address = "[\(LocalizedStrings.stakegen)]"
                 break
             default:
                 break
@@ -96,8 +98,8 @@ class TransactiontOutputDetailsCell: UITableViewCell {
             //Copy a string to the pasteboard.
             UIPasteboard.general.string = sender.titleLabel?.text
             //Alert
-            let alertController = UIAlertController(title: "", message: "Address copied!", preferredStyle: UIAlertController.Style.alert)
-            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            let alertController = UIAlertController(title: "", message: LocalizedStrings.addrCopied, preferredStyle: UIAlertController.Style.alert)
+            alertController.addAction(UIAlertAction(title: LocalizedStrings.ok, style: UIAlertAction.Style.default, handler: nil))
             self.presentingController.present(alertController, animated: true, completion: nil)
         }
     }

@@ -2,9 +2,9 @@
 //  DeleteWalletConfirmationViewController.swift
 //  Decred Wallet
 //
-//  Created by Wisdom Arerosuoghene on 03/06/2019.
-//  Copyright © 2019 Decred. All rights reserved.
-//
+// Copyright (c) 2018-2019 The Decred developers
+// Use of this source code is governed by an ISC
+// license that can be found in the LICENSE file.
 
 import UIKit
 
@@ -13,6 +13,7 @@ class DeleteWalletConfirmationViewController: UIViewController, UITextFieldDeleg
     @IBOutlet weak var enterPasswordHint: UILabel!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var deleteButton: UIButton!
+    @IBOutlet weak var deleteWalletHeader: UILabel!
     
     var onDeleteWalletConfirmed: ((String?) -> Void)?
     
@@ -22,6 +23,8 @@ class DeleteWalletConfirmationViewController: UIViewController, UITextFieldDeleg
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(self.view.endEditing(_:)))
         tap.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tap)
+        
+        self.deleteWalletHeader.text = "\(LocalizedStrings.deleteWallet)?"
         
         if SpendingPinOrPassword.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
             self.passwordTextField.delegate = self

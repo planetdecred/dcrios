@@ -1,6 +1,6 @@
 //  AccountViewController.swift
 //  Decred Wallet
-
+//
 // Copyright (c) 2018-2019 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
@@ -32,7 +32,7 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setupNavigationBar(withTitle: "Account")
+        setupNavigationBar(withTitle: LocalizedStrings.accounts)
         
         self.navigationItem.rightBarButtonItem?.accessibilityElementsHidden = true
     }
@@ -111,7 +111,7 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
             headerView.backgroundColor = UIColor(hex: "#000000")
         } else {
             headerView.sethidden(status: true)
-            headerView.title = accountInfo.title.appending(" (hidden)")
+            headerView.title = accountInfo.title.appending(" (\(LocalizedStrings.hidden))")
             headerView.backgroundColor = UIColor(hex: "#FFFFFF")
         }
         headerView.totalBalance = accountInfo.totalBalance

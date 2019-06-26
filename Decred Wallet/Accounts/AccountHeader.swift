@@ -1,3 +1,4 @@
+//
 //  AccountsData.swift
 //  Decred Wallet
 //

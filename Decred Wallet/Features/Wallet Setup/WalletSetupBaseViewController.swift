@@ -2,9 +2,9 @@
 //  WalletSetupBaseController.swift
 //  Decred Wallet
 //
-//  Created by Wisdom Arerosuoghene on 25/04/2019.
-//  Copyright © 2019 The Decred developers. All rights reserved.
-//
+// Copyright (c) 2018-2019 The Decred developers
+// Use of this source code is governed by an ISC
+// license that can be found in the LICENSE file.
 
 import Foundation
 import UIKit
@@ -15,7 +15,7 @@ class WalletSetupBaseViewController: UIViewController {
     }
     
     func finalizeWalletSetup(_ seed: String, _ pinOrPassword: String, _ securityType: String) {
-        let progressHud = Utils.showProgressHud(withText: "Setting up wallet...")
+        let progressHud = Utils.showProgressHud(withText: LocalizedStrings.settingUpWallet)
         
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let this = self else { return }
@@ -33,7 +33,7 @@ class WalletSetupBaseViewController: UIViewController {
             } catch let error {
                 DispatchQueue.main.async {
                     progressHud.dismiss()
-                    this.showOkAlert(message: error.localizedDescription, title: "Error setting up wallet")
+                    this.showOkAlert(message: error.localizedDescription, title: LocalizedStrings.errorSettingUpWallet)
                 }
             }
         }

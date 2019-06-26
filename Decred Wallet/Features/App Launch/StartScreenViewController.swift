@@ -47,7 +47,7 @@ class StartScreenViewController: UIViewController {
         }
         
         if AppDelegate.walletLoader.isWalletCreated {
-            self.label.text = "Opening wallet..."
+            self.label.text = LocalizedStrings.openingWallet
         }
     }
     
@@ -79,20 +79,20 @@ class StartScreenViewController: UIViewController {
     func promptForStartupPinOrPassword() {
         if StartupPinOrPassword.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
             let requestPasswordVC = RequestPasswordViewController.instantiate()
-            requestPasswordVC.prompt = "Enter Startup Password"
+            requestPasswordVC.prompt = LocalizedStrings.enterStartupPassword
             requestPasswordVC.onUserEnteredPassword = self.unlockWalletAndStartApp
             self.present(requestPasswordVC, animated: true, completion: nil)
         }
         else {
             let requestPinVC = RequestPinViewController.instantiate()
-            requestPinVC.securityFor = "Startup"
+            requestPinVC.securityFor = LocalizedStrings.startup
             requestPinVC.onUserEnteredPin = self.unlockWalletAndStartApp
             self.present(requestPinVC, animated: true, completion: nil)
         }
     }
     
     func unlockWalletAndStartApp(pinOrPassword: String) {
-        self.label.text = "Opening wallet..."
+        self.label.text = LocalizedStrings.openingWallet
         
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let this = self else { return }
@@ -107,9 +107,9 @@ class StartScreenViewController: UIViewController {
                     var errorMessage = error.localizedDescription
                     if error.localizedDescription == DcrlibwalletErrInvalidPassphrase {
                         let securityType = StartupPinOrPassword.currentSecurityType()!.lowercased()
-                        errorMessage = "You entered an incorrect \(securityType). Try again?"
+                        errorMessage = String(format: LocalizedStrings.incorrectSecurityInfo, securityType)
                     }
-                    this.showOkAlert(message: errorMessage, title: "Error", okText: "Retry", onPressOk: this.promptForStartupPinOrPassword)
+                    this.showOkAlert(message: errorMessage, title: LocalizedStrings.error, okText: LocalizedStrings.retry, onPressOk: this.promptForStartupPinOrPassword)
                 }
             }
         }

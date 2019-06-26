@@ -1,3 +1,4 @@
+//
 //  AppDelegate.swift
 //  Decred Wallet
 //
@@ -96,7 +97,7 @@ class AppDelegate: UIResponder {
     
     func showOkAlert(message: String, title: String? = nil, onPressOk: (() -> Void)? = nil) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+        let okAction = UIAlertAction(title: LocalizedStrings.ok, style: .default) { _ in
             alert.dismiss(animated: true, completion: onPressOk)
         }
         alert.addAction(okAction)

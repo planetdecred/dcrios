@@ -5,6 +5,7 @@
 // Copyright (c) 2018-2019 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
+
 import UIKit
 import Dcrlibwallet
 
@@ -99,7 +100,7 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let seedWordCell = tableView.dequeueReusableCell(withIdentifier: "seedWordCell", for: indexPath) as! RecoveryWalletSeedWordCell
         
-        seedWordCell.lbSeedWordNum.text = "Word #\(indexPath.row + 1)"
+        seedWordCell.lbSeedWordNum.text = String(format: LocalizedStrings.wordNumber, indexPath.row + 1)
         seedWordCell.seedWordAutoComplete.text = self.userEnteredSeedWords[indexPath.row]
         seedWordCell.seedWordAutoComplete.resignFirstResponder()
         
@@ -148,13 +149,13 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
     
     @IBAction func onConfirm() {
         if self.userEnteredSeedWords.contains("") {
-            self.displaySeedError("Not all seeds are entered. Please, check input fields and enter all seeds.")
+            self.displaySeedError(LocalizedStrings.notAllSeedsAreEntered)
         } else {
             let validatedSeed = self.validateSeed()
             if validatedSeed.valid {
                 self.secureWallet(validatedSeed.seed)
             } else {
-                self.displaySeedError("You entered an incorrect seed. Please check your words.")
+                self.displaySeedError(LocalizedStrings.incorrectSeedEntered)
             }
         }
     }
@@ -195,8 +196,8 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
     }
     
     private func showError(_ error: String) {
-        let alert = UIAlertController(title: "Wallet recovery error", message: error, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "Try again", style: .default) { _ in
+        let alert = UIAlertController(title: LocalizedStrings.walletRecoveryError, message: error, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: LocalizedStrings.tryAgain, style: .default) { _ in
             alert.dismiss(animated: true, completion: nil)
             self.clearSeedInputs()
         }

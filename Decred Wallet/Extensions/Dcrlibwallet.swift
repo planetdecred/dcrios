@@ -2,9 +2,9 @@
 //  Dcrlibwallet.swift
 //  Decred Wallet
 //
-//  Created by Wisdom Arerosuoghene on 13/05/2019.
-//  Copyright © 2019 The Decred developers. All rights reserved.
-//
+// Copyright (c) 2018-2019 The Decred developers
+// Use of this source code is governed by an ISC
+// license that can be found in the LICENSE file.
 
 import Foundation
 import Dcrlibwallet
@@ -13,9 +13,9 @@ extension DcrlibwalletGeneralSyncProgress {
     var totalTimeRemaining: String {
         let minutes = self.totalTimeRemainingSeconds / 60
         if minutes > 0 {
-            return "\(minutes) min"
+            return String(format: LocalizedStrings.minRemaining, minutes)
         }
-        return "\(self.totalTimeRemainingSeconds) sec"
+        return String(format: LocalizedStrings.secRemaining, self.totalTimeRemainingSeconds)
     }
 }
 
@@ -30,11 +30,11 @@ extension DcrlibwalletHeadersFetchProgressReport {
         let daysBehind = Int64(round(hoursBehind / 24.0))
         
         if daysBehind < 1 {
-            return "<1 day"
+            return LocalizedStrings.lessThanOneday
         } else if daysBehind == 1 {
-            return "1 day"
+            return LocalizedStrings.oneDay
         } else {
-            return "\(daysBehind) days"
+            return String(format: LocalizedStrings.mutlipleDays, daysBehind)
         }
     }
 }
@@ -43,9 +43,9 @@ extension DcrlibwalletHeadersRescanProgressReport {
     var timeRemaining: String {
         let minutes = self.rescanTimeRemaining / 60
         if minutes > 0 {
-            return "\(minutes) min"
+            return String(format: LocalizedStrings.minRemaining, minutes)
         }
-        return "\(self.rescanTimeRemaining) sec"
+        return String(format: LocalizedStrings.secRemaining, self.rescanTimeRemaining)
     }
 }
 
