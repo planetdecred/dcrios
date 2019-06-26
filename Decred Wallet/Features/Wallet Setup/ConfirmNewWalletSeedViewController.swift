@@ -109,12 +109,10 @@ extension ConfirmNewWalletSeedViewController: UITableViewDelegate, UITableViewDa
         let cell = tableView.dequeueReusableCell(withIdentifier: "tripleSeedCell", for: indexPath) as? SeedConfirmTableViewCell
         
         let userSelection = self.selectedWords[indexPath.row]
-        print(indexPath.row, userSelection)
         cell?.setup(num: indexPath.row, seedWords: seedWordsGroupedByThree[indexPath.row], selectedWord: userSelection)
         
         cell?.onPick = {(index, seedWord) in
             self.selectedWords[indexPath.row] = seedWord
-            print(indexPath.row, seedWord)
             
             self.btnConfirm.isEnabled = self.selectedWords.reduce(true, { (res, input) -> Bool in
                 return res && input != ""
