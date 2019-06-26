@@ -14,7 +14,7 @@ struct LocalizedStrings {
     
     /*Security Prompt */
     static let enterStartupPassword = NSLocalizedString("enterStartupPassword", comment: "")
-    static let incorrectSecurityType = NSLocalizedString("incorrectSecurityType", comment: "")
+    static let incorrectSecurityInfo = NSLocalizedString("incorrectSecurityInfo", comment: "")
     
     /* Pop Ups */
     static let error = NSLocalizedString("error", comment: "")

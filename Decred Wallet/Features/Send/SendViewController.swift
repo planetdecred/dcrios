@@ -430,7 +430,7 @@ class SendViewController: UIViewController {
                     }
                     
                     let securityType = SpendingPinOrPassword.currentSecurityType()!.lowercased()
-                    let errorMessage = String(format: LocalizedStrings.incorrectSecurityType, securityType)
+                    let errorMessage = String(format: LocalizedStrings.incorrectSecurityInfo, securityType)
                     self.showOkAlert(message: errorMessage, title: LocalizedStrings.failedTransaction, okText: LocalizedStrings.retry, onPressOk: self.attemptSend, addCancelAction: true)
                 }
             }

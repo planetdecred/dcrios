@@ -107,7 +107,7 @@ class StartScreenViewController: UIViewController {
                     var errorMessage = error.localizedDescription
                     if error.localizedDescription == DcrlibwalletErrInvalidPassphrase {
                         let securityType = StartupPinOrPassword.currentSecurityType()!.lowercased()
-                        errorMessage = String(format: LocalizedStrings.incorrectSecurityType, securityType)
+                        errorMessage = String(format: LocalizedStrings.incorrectSecurityInfo, securityType)
                     }
                     this.showOkAlert(message: errorMessage, title: LocalizedStrings.error, okText: LocalizedStrings.retry, onPressOk: this.promptForStartupPinOrPassword)
                 }
