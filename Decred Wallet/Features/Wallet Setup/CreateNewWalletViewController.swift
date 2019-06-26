@@ -85,7 +85,7 @@ class CreateNewWalletViewController: WalletSetupBaseViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let confirmSeedVC = segue.destination as! ConfirmNewWalletSeedViewController
-        confirmSeedVC.seedToVerify = self.seed
+        confirmSeedVC.prepareSeedForVerification(seedToVerify: self.seed)
     }
     
     @IBAction func backAction(_ sender: UIButton) {
