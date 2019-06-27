@@ -87,7 +87,7 @@ class RequestPinViewController: SecurityBaseViewController {
             self.headerText.text = LocalizedStrings.pinsDidNotMatch
             
             // Reset the input
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 self.headerText.text = String(format: LocalizedStrings.createPIN, self.securityFor)
                 self.pinInputView.clear()
                 self.prgsPinStrength.progress = 0
