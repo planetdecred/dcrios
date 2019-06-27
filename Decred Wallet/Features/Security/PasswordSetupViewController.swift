@@ -83,7 +83,7 @@ class PasswordSetupViewController: SecurityBaseViewController, UITextFieldDelega
         }
         
         if self.tfPassword.text != self.tfConfirmPassword.text {
-            self.showMessageDialog(title: LocalizedStrings.error, message: LocalizedStrings.passwordsDoNotMatch)
+            self.showMessageDialog(title: LocalizedStrings.error, message: LocalizedStrings.passwordDoNotMatch)
             return false
         }
         

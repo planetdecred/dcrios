@@ -45,7 +45,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.subheader.text = LocalizedStrings.recieveHeaderInfo
+        self.subheader.text = LocalizedStrings.receiveHeaderInfo
         // TAP Gesture
         self.setupExtraUI()
         self.starttime = Int64(NSDate().timeIntervalSince1970)

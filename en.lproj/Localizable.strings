@@ -9,28 +9,45 @@
 /* StartScreenViewController */
 "openingWallet" = "Opening wallet...";
 
-/*Security Prompt */
+/* Wallet Setup */
+"createNewWallet" = "Create a New \n Wallet";
+"restoreExistingWallet" = "Restore Existing \n Wallet";
+"createOrRecoverWallet" = "Create or recover your wallet and \nstart managing your decred.";
+"wallet" = "Wallet";
+
+/* Create New Wallet(Seed display view) */
+"settingUpYourWallet" = "Setting Up Decred Wallet";
+"seedHeaderInfo" = "Write down this seed phrase and save it in a secure location. You will be asked to enter it on the next screen and if you ever need to restore your wallet.";
+"seedWarningInfo" = "Failure to keep this seed safe can result in theft of your entire wallet or inability to recover your wallet.";
+"iCopiedTheSeedPhrase" = "I COPIED THE SEED PHRASE";
+
+/* Confirm NewWallet Seed */
+"seedDoesNotMatch" = "You entered an incorrect seed. Please check your words.";
+"seedPhraseVerification" = "Seed phrase verification...";
+"confirmSeedInfo" = "Each field contains only one correct word. Please confirm your seed by selecting the correct words.";
+
+/* Recover Existing Wallet */
+"wordNumber" = "Word #%d";
+"notAllSeedsAreEntered" = "Not all seeds are entered. Please, check input fields and enter all seeds.";
+"incorrectSeedEntered" = "You entered an incorrect seed. Please check your words.";
+"walletRecoveryError" = "Wallet recovery error.";
+"seedRestoreHeader" = "Seed Restore";
+"seedRestoreInfo" = "Start typing the word and then tap the correct word from the suggestion list.";
+"confirm" = "CONFIRM";
+
+/* Drop Down Search Field */
+"tapToSelect" = "Tap to select the word";
+
+/* Wallet Setup Base */
+"settingUpWallet" ="Setting up Decred wallet...";
+"errorSettingUpWallet" = "Error setting up wallet.";
+
+/* Security Prompt */
 "enterStartupPassword" = "Enter Startup Password";
 "incorrectSecurityInfo" = "You entered an incorrect %@. Try again?";
 
-/* Pop Ups */
-"error" = "Error";
-"retry" = "Retry";
-"ok" = "OK";
-"tryAgain" = "Try again";
-"cancel" = "Cancel";
-"clearFields" =  "Clear fields";
-"copiedSuccessfully" = "Copied successfully.";
-"invalidRequest" = "Invalid request!";
-"addrCopied" = "Address copied!";
-"previousOutpointCopied" = "Previous outpoint copied!";
-"errorMsg" = "Error Message";
-"info" = "Info";
-"delete" = "Delete";
-
 /* Password Setup */
 "emptyPasswordNotAllowed" = "Password cannot be empty";
-"passwordsDoNotMatch" = "Passwords do not match";
 "passwordMatch" = "PASSWORDS MATCH";
 "passwordDoNotMatch" = "PASSWORDS DO NOT MATCH";
 "createPassword" = "Create %@ Password";
@@ -65,65 +82,6 @@
 "removingStartupPINPass" = "Removing startup %@...";
 "settingStartupPINPass" = "Setting startup %@...";
 
-/* Transaction List */
-"pending" = "Pending";
-"confirmed" = "Confirmed";
-"vote" = "Vote";
-"ticket" = "Ticket";
-"confirmedLive" = "Confirmed / Live";
-"confirmedImmature" = "Confirmed / Immature";
-"noTransactions" = "No Transactions";
-"sent" = "Sent";
-"received" = "Received";
-"yourself" = "Yourself";
-"staking" = "Staking";
-"all" = "All";
-
-/* CreateNewWalletViewController */
-
-/* Confirm NewWallet Seed */
-"seedDoesNotMatch" = "You entered an incorrect seed. Please check your words.";
-"seedPhraseVerification" = "Seed phrase verification...";
-"confirmSeedInfo" = "Each field contains only one correct word. Please confirm your seed by selecting the correct words.";
-
-/* Recover Existing Wallet */
-"wordNumber" = "Word #%d";
-"notAllSeedsAreEntered" = "Not all seeds are entered. Please, check input fields and enter all seeds.";
-"incorrectSeedEntered" = "You entered an incorrect seed. Please check your words.";
-"walletRecoveryError" = "Wallet recovery error.";
-"seedRestoreHeader" = "Seed Restore";
-"seedRestoreInfo" = "Start typing the word and then tap the correct word from the suggestion list.";
-"confirm" = "CONFIRM";
-
-/* Drop Down Search Field */
-"tapToSelect" = "Tap to select the word";
-
-/* Wallet Setup */
-"createNewWallet" = "Create a New \n Wallet";
-"restoreExistingWallet" = "Restore Existing \n Wallet";
-"createOrRecoverWallet" = "Create or recover your wallet and \nstart managing your decred.";
-"wallet" = "Wallet";
-
-/* Create New Wallet(Seed display view) */
-"settingUpYourWallet" = "Setting Up Decred Wallet";
-"seedHeaderInfo" = "Write down this seed phrase and save it in a secure location. You will be asked to enter it on the next screen and if you ever need to restore your wallet.";
-"seedWarningInfo" = "Failure to keep this seed safe can result in theft of your entire wallet or inability to recover your wallet.";
-"iCopiedTheSeedPhrase" = "I COPIED THE SEED PHRASE";
-
-/* Wallet Setup Base */
-"settingUpWallet" ="Setting up Decred wallet...";
-"errorSettingUpWallet" = "Error setting up wallet.";
-
-/* Navigation Menu Items */
-"overview" = "Overview";
-"history" = "History";
-"send" = "Send";
-"receive" = "Receive";
-"accounts" = "Accounts";
-"security" = "Security";
-"settings" = "Settings";
-"help" = "Help";
-
 /* NavigationMenu / Sync progress */
 "cannotSyncWithoutNetworkConnection" = "Cannot sync without network connection.";
 "internetConnectionRequired" = "Internet connection required.";
@@ -153,6 +111,13 @@
 "restartingSynchronization" = "Restarting Synchronization";
 "startingSynchronization" = "Starting Synchronization";
 
+/* No Wifi Sync Connection */
+"notConnectedToWiFi" = "Not connected to WiFi.";
+"syncAnyways" = "Would you like to sync anyways?";
+"no" = "No";
+"yes" = "Yes";
+"always" = "Always";
+
 /* Sync progress view */
 "loading" = "Loading...";
 "numberOfConnectedPeers" = "%d peers";
@@ -175,6 +140,64 @@
 "total"  = "total:";
 "stageTimes" = "Stage Times";
 "tapToViewInformation" = "Tap for more information";
+
+/* Navigation Menu Items */
+"overview" = "Overview";
+"history" = "History";
+"send" = "Send";
+"receive" = "Receive";
+"accounts" = "Accounts";
+"security" = "Security";
+"settings" = "Settings";
+"help" = "Help";
+
+/* New Wallet Dialog */
+"newWalletMsg" = "Your 33 word seed is your wallet, keep it safe. Without it your funds cannot be recovered should your device be lost or destroyed.\n\nInitial wallet sync will take longer than usual. The wallet will connect to p2p nodes to download the blockchain headers, and will fetch only the blocks that you need while preserving your privacy.";
+"welcomeToDecredWallet" = "Welcome to Decred Wallet.";
+
+/* Overview */
+"currentTotalBalance" = "Current Total Balance";
+"recentActivity" = "Recent Activity";
+"showAllTransactions" = "Show All Transactions";
+
+/* Transaction List/ History */
+"pending" = "Pending";
+"confirmed" = "Confirmed";
+"vote" = "Vote";
+"ticket" = "Ticket";
+"confirmedLive" = "Confirmed / Live";
+"confirmedImmature" = "Confirmed / Immature";
+"noTransactions" = "No Transactions";
+"sent" = "Sent";
+"received" = "Received";
+"yourself" = "Yourself";
+"staking" = "Staking";
+"all" = "All";
+
+/* Transaction Details */
+"transactionDetails" = "Transaction Details";
+"copyTransactionHash" = "Copy transaction hash";
+"copyRawTransaction" = "Copy raw transaction";
+"viewOnDcrdata" = "View on dcrdata";
+"copied" = "Copied";
+"ticketPurchase" = "Ticket Purchase";
+"date" = "Date";
+"status" = "Status";
+"amount" = "Amount";
+"fee" = "Fee";
+"type" = "Type";
+"confirmation" = "Confirmation";
+"lastBlockValid" = "Last Block Valid";
+"version" = "Version";
+"voteBits" =  "Vote Bits";
+"inputs" = "Inputs";
+"outputs" = "Outputs";
+"external" = "External";
+"internal" = "Internal";
+"imported" = "Imported";
+"nullData" = "null data";
+"script" = "script";
+"stakegen" = "stakegen";
 
 /* Send view */
 "invalidAmount" = "Amount is not valid.";
@@ -224,143 +247,17 @@
 "view" = "VIEW";
 "transactionSuccessful" = "Transaction Was Successful";
 
-/* Security Menu */
-"validOwnAddr" = "Address is valid and you own it.";
-"validNotOwnAddr" = "Address is valid and you do NOT own it.";
-"invalidAddr" = "Not a valid address.";
-"verifiedSignature" = "This signature verifies against the message and address.";
-"invalidSignature" = "This signature does not verify against the message and address.";
-"signingMessage" = "Signing Message...";
-"address" = "Address";
-"message" = "Message";
-"signature" = "Signature";
-"signMessage" = "Sign Message";
-"secureMenuSyncInfo" = "Please wait for your wallet to finish synchronizing.";
-"secureMenuHeaderInfo" = "Here you can verify the validity of an address, sign messages to prove your ownership of an address, and verify signatures.";
-
-/* License */
-"license" = "License";
-
-/* Settings */
-"spv" = "Simplified Payment Verification (SPV)";
-"remoteFullNode" = "Remote Full Node";
-"none" = "None";
-"rescanConfirm" = "Are you sure? This could take some time.";
-"rescanBlockchain" = "Rescan Blockchain";
-"syncProgressAlert" = "Sync is in progress. Please wait for sync to complete.";
-"scanInProgress" = "Check progress in navigation bar.";
-"scanStartedAlready" = "Wallet is already rescanning, check progress in navigation bar.";
-"rescanFailed" = "Rescan failed";
-"deletingWallet" = "Deleting wallet...";
-"deleteWalletFailed" = "Failed to delete wallet.";
-"changeSpendingPinPass" = "Change Spending PIN/Password";
-"spendingPinPassInfo" = "Required to send funds.";
-"startupPinPass" = "Startup PIN/Password";
-"changeStatupPinPass" = "Change Startup PIN/Password";
-"startupPinPassInfo" = "Required to enter app.";
-"spendUnconfirmedFund" = "Spend Unconfirmed Funds";
-"incomingTxNotification" = "Incoming Transaction Notification";
-"currencyConversion" = "Currency Conversion";
-"networkMode" = "Network Mode";
-"serverAddress" = "Server Address";
-"connectIpDesc" = "Connect to Peer";
-"certificate" = "Certificate";
-"syncOnWifiDesc" = "Sync when not on WiFi";
-"buildDate" = "Build Date";
-"walletLog" = "Wallet Log";
-"deleteWallet" = "Delete Wallet";
-"general" = "General";
-"connection" = "Connection";
-"about" = "About";
-"debug" = "Debug";
-
-/* IP set */
-"connectToPeer" = "Connect to peer";
-"peerAddressIsInvalid" = "Peer address is invalid";
-"remoteAddressIsInvalid" = "Remote address is invalid";
-
-/* Certificate */
-"certificateInfo" = "Paste the certificate for dcrd";
-
-/* Wallet Log */
-"copy" = "Copy";
-"walletLogCopied" = "Wallet log copied.";
-
-/* Transaction Notification */
-"newTransaction" = "New Transaction";
-"youReceived" = "You received";
-
-/* Account Data Cell */
-"external" = "External";
-"internal" = "Internal";
-"imported" = "Imported";
-"nullData" = "null data";
-"script" = "script";
-"stakegen" = "stakegen";
+/* Recieve */
+"receivingDecred" = "Receive Funds";
+"receiveHeaderInfo" = "Each time you request a payment, a new address is created to protect your privacy.";
+"accountDesc" = "Account:";
+"copyOnTap" = "(Copy on tap)";
+"walletAddrCopied" = "Address copied to clipboard.";
+"genNewAddr" = "Generate new address";
 
 /* Account View */
 "hidden" = "hidden";
 "spendable" = "Spendable";
-
-/* Transaction Details */
-"transactionDetails" = "Transaction Details";
-"copyTransactionHash" = "Copy transaction hash";
-"copyRawTransaction" = "Copy raw transaction";
-"viewOnDcrdata" = "View on dcrdata";
-"copied" = "Copied";
-"ticketPurchase" = "Ticket Purchase";
-"date" = "Date";
-"status" = "Status";
-"amount" = "Amount";
-"fee" = "Fee";
-"type" = "Type";
-"confirmation" = "Confirmation";
-"lastBlockValid" = "Last Block Valid";
-"version" = "Version";
-"voteBits" =  "Vote Bits";
-"inputs" = "Inputs";
-"outputs" = "Outputs";
-
-/* Receive View */
-"recieveHeaderInfo" = "Each time you request a payment, a new address is created to protect your privacy.";
-"walletAddrCopied" = "Address copied to clipboard.";
-"genNewAddr" = "Generate new address";
-
-/* Add Account */
-"inputAccountName" = "Enter a name for your account.";
-"creatingAccount" = "Creating account...";
-
-/* View controller sender */
-"spending" = "Spending";
-"startup" = "Startup";
-"current" = "Current";
-
-/* Dcrlibwallet extension */
-"lessThanOneday" = "<1 day";
-"oneDay" = "1 day";
-"mutlipleDays" = "%d days";
-"minRemaining" = "%d min";
-"secRemaining" = "%d sec";
-
-/* New Wallet Dialog */
-"newWalletMsg" = "Your 33 word seed is your wallet, keep it safe. Without it your funds cannot be recovered should your device be lost or destroyed.\n\nInitial wallet sync will take longer than usual. The wallet will connect to p2p nodes to download the blockchain headers, and will fetch only the blocks that you need while preserving your privacy.";
-"welcomeToDecredWallet" = "Welcome to Decred Wallet.";
-
-/*No Wifi Sync Connection */
-"notConnectedToWiFi" = "Not connected to WiFi.";
-"syncAnyways" = "Would you like to sync anyways?";
-"no" = "No";
-"yes" = "Yes";
-"always" = "Always";
-
-/* Overview */
-"currentTotalBalance" = "Current Total Balance";
-"recentActivity" = "Recent Activity";
-"showAllTransactions" = "Show All Transactions";
-
-/* Delete Wallet */
-"confirmDeleteInfo" = "Are you sure you want to delete your wallet? Make sure you have your wallet seed saved or your coins moved before deleting. This will also clear all app settings to a default state.";
-"confirmDeleteDesc" = "To confirm, enter your password:";
 
 /* Account Data cell */
 "details" = "Details";
@@ -378,18 +275,111 @@
 "defaultWallet" = "Default Account";
 "makeWalletDefaultDesc" = "Make this account default for all outgoing and incoming transactions.";
 
-/* Help */
-"forMoreInformationPleaseVisit" = "For more information please visit";
-
 /* Add Account */
+"inputAccountName" = "Enter a name for your account.";
+"creatingAccount" = "Creating account...";
 "addAccount" = "Add Account";
 "addAccountInfo" = "Input your new account name and enter your private passphrase";
 "accountName" = "Account Name";
 "createAccount" = "Create Account";
 "privatePassphrase" = "Private Passphrase";
 
-/* Recieve */
-"receivingDecred" = "Receive Funds";
-"receiveHeaderInfo" = "Each time you request a payment, a new address is created to protect your privacy.";
-"accountDesc" = "Account:";
-"copyOnTap" = "(Copy on tap)";
+/* Security Menu */
+"validOwnAddr" = "Address is valid and you own it.";
+"validNotOwnAddr" = "Address is valid and you do NOT own it.";
+"invalidAddr" = "Not a valid address.";
+"verifiedSignature" = "This signature verifies against the message and address.";
+"invalidSignature" = "This signature does not verify against the message and address.";
+"signingMessage" = "Signing Message...";
+"address" = "Address";
+"message" = "Message";
+"signature" = "Signature";
+"signMessage" = "Sign Message";
+"secureMenuSyncInfo" = "Please wait for your wallet to finish synchronizing.";
+"secureMenuHeaderInfo" = "Here you can verify the validity of an address, sign messages to prove your ownership of an address, and verify signatures.";
+
+/* Help */
+"forMoreInformationPleaseVisit" = "For more information please visit";
+
+/* Settings */
+"changeSpendingPinPass" = "Change Spending PIN/Password";
+"spendingPinPassInfo" = "Required to send funds.";
+"startupPinPass" = "Startup PIN/Password";
+"changeStatupPinPass" = "Change Startup PIN/Password";
+"startupPinPassInfo" = "Required to enter app.";
+"spendUnconfirmedFund" = "Spend Unconfirmed Funds";
+"incomingTxNotification" = "Incoming Transaction Notification";
+"currencyConversion" = "Currency Conversion";
+"networkMode" = "Network Mode";
+"serverAddress" = "Server Address";
+"connectIpDesc" = "Connect to Peer";
+"certificate" = "Certificate";
+"syncOnWifiDesc" = "Sync when not on WiFi";
+"buildDate" = "Build Date";
+"walletLog" = "Wallet Log";
+"deleteWallet" = "Delete Wallet";
+"spv" = "Simplified Payment Verification (SPV)";
+"remoteFullNode" = "Remote Full Node";
+"none" = "None";
+"rescanConfirm" = "Are you sure? This could take some time.";
+"rescanBlockchain" = "Rescan Blockchain";
+"syncProgressAlert" = "Sync is in progress. Please wait for sync to complete.";
+"scanInProgress" = "Check progress in navigation bar.";
+"scanStartedAlready" = "Wallet is already rescanning, check progress in navigation bar.";
+"rescanFailed" = "Rescan failed";
+"deletingWallet" = "Deleting wallet...";
+"deleteWalletFailed" = "Failed to delete wallet.";
+"general" = "General";
+"connection" = "Connection";
+"about" = "About";
+"debug" = "Debug";
+
+/* IP set */
+"connectToPeer" = "Connect to peer";
+"peerAddressIsInvalid" = "Peer address is invalid";
+"remoteAddressIsInvalid" = "Remote address is invalid";
+
+/* Certificate */
+"certificateInfo" = "Paste the certificate for dcrd"
+
+/* License */
+"license" = "License";
+
+/* Wallet Log */
+"copy" = "Copy";
+"walletLogCopied" = "Wallet log copied.";
+
+/* Delete Wallet */
+"confirmDeleteInfo" = "Are you sure you want to delete your wallet? Make sure you have your wallet seed saved or your coins moved before deleting. This will also clear all app settings to a default state.";
+"confirmDeleteDesc" = "To confirm, enter your password:";
+
+/* Transaction Notification */
+"newTransaction" = "New Transaction";
+"youReceived" = "You received";
+
+/* View controller sender */
+"spending" = "Spending";
+"startup" = "Startup";
+"current" = "Current";
+
+/* Dcrlibwallet extension */
+"lessThanOneday" = "<1 day";
+"oneDay" = "1 day";
+"mutlipleDays" = "%d days";
+"minRemaining" = "%d min";
+"secRemaining" = "%d sec";
+
+/* Pop Ups */
+"error" = "Error";
+"retry" = "Retry";
+"ok" = "OK";
+"tryAgain" = "Try again";
+"cancel" = "Cancel";
+"clearFields" =  "Clear fields";
+"copiedSuccessfully" = "Copied successfully.";
+"invalidRequest" = "Invalid request!";
+"addrCopied" = "Address copied!";
+"previousOutpointCopied" = "Previous outpoint copied!";
+"errorMsg" = "Error Message";
+"info" = "Info";
+"delete" = "Delete";

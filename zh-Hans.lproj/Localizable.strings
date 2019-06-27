@@ -9,28 +9,45 @@
 /* StartScreenViewController */
 "openingWallet" = "正在打开钱包…";
 
-/*Security Prompt */
+/* Wallet Setup */
+"createNewWallet" = "创建新钱包";
+"restoreExistingWallet" = "恢复现有钱包";
+"createOrRecoverWallet" = "创建或恢复钱包并开始管理您的decred。";
+"wallet" = "钱包";
+
+/* Create New Wallet(Seed display view) */
+"settingUpYourWallet" = "设置Decred钱包";
+"seedHeaderInfo" = "请将种子写下并安全保存。在下个页面及以后需要恢复钱包时都需要输入种子。";
+"seedWarningInfo" = "如果不能保证种子单词的安全可能会导致钱包被盗或无法恢复。";
+"iCopiedTheSeedPhrase" = "我已复制种子单词";
+
+/* Confirm NewWallet Seed */
+"seedDoesNotMatches" = "您输入的种子不正确。请检查输入的单词。";
+"seedPhraseVerification" = "确认种子。。。";
+"confirmSeedInfo" = "每个空格只有一个正确单词。请选择正确的单词以确认您的种子。";
+
+/* Recover Existing Wallet */
+"word" = "单词 #%d";
+"notAllSeedsAreEntered" = "没有输入完单词。请检查输入栏并填写所有单词。";
+"incorrectSeedEntered" = "您输入的种子不正确。请检查输入的单词。";
+"walletRecoveryError" = "Wallet recovery error.";
+"seedRestoreHeader" = "恢复种子";
+"seedRestoreInfo" = "开始输入单词并在建议列表中点击正确的单词。";
+"confirm" = "确认";
+
+/* Drop Down Search Field */
+"tapToSelect" = "点击选择单词。";
+
+/* Wallet Setup Base */
+"settingUpWallet" ="设置Decred钱包。。。";
+"errorSettingUpWallet" = "Error setting up wallet.";
+
+/* Security Prompt */
 "enterStartupPassword" = "输入启动密码";
 "incorrectSecurityInfo" = "You entered an incorrect %@. Try again?";
 
-/* Pop Ups */
-"error" = "错误";
-"retry" = "重试";
-"ok" = "OK";
-"tryAgain" = "再试一次";
-"cancel" = "取消";
-"clearFields" =  "清除";
-"copiedSuccessfully" = "复制成功";
-"invalidRequest" = "Invalid request!";
-"addrCopied" = "地址已复制到剪贴板";
-"previousOutpointCopied" = "Previous outpoint copied!";
-"errorMsg" = "错误信息";
-"info" = "信息";
-"delete" = "删除";
-
 /* Password Setup */
 "emptyPasswordNotAllowed" = "密码不能为空";
-"passwordsDoNotMatch" = "密码不匹配";
 "passwordMatch" = "密码匹配";
 "passwordDoNotMatch" = "密码不匹配";
 "createPassword" = "创建%@密码";
@@ -65,65 +82,6 @@
 "removingStartupPINPass" = "移除启动%@。。。";
 "settingStartupPINPass" = "设置启动%@。。。";
 
-/* Transaction List */
-"pending" = "等待";
-"confirmed" = "已确认";
-"vote" = " 已投票";
-"ticket" = " 票";
-"confirmedLive" = "已确认 / 成熟";
-"confirmedImmature" = "已确认 / 未成熟";
-"noTransactions" = "没有交易";
-"sent" = "发送";
-"received" = "已接收";
-"yourself" = "自身";
-"staking" = "权益投票";
-"all" = "All";
-
-/* CreateNewWalletViewController */
-
-/* Confirm NewWallet Seed */
-"seedDoesNotMatches" = "您输入的种子不正确。请检查输入的单词。";
-"seedPhraseVerification" = "确认种子。。。";
-"confirmSeedInfo" = "每个空格只有一个正确单词。请选择正确的单词以确认您的种子。";
-
-/* Recover Existing Wallet */
-"word" = "单词 #%d";
-"notAllSeedsAreEntered" = "没有输入完单词。请检查输入栏并填写所有单词。";
-"incorrectSeedEntered" = "您输入的种子不正确。请检查输入的单词。";
-"walletRecoveryError" = "Wallet recovery error.";
-"seedRestoreHeader" = "恢复种子";
-"seedRestoreInfo" = "开始输入单词并在建议列表中点击正确的单词。";
-"confirm" = "确认";
-
-/* Drop Down Search Field */
-"tapToSelect" = "点击选择单词。";
-
-/* Wallet Setup */
-"createNewWallet" = "创建新钱包";
-"restoreExistingWallet" = "恢复现有钱包";
-"createOrRecoverWallet" = "创建或恢复钱包并开始管理您的decred。";
-"wallet" = "钱包";
-
-/* Create New Wallet(Seed display view) */
-"settingUpYourWallet" = "设置Decred钱包";
-"seedHeaderInfo" = "请将种子写下并安全保存。在下个页面及以后需要恢复钱包时都需要输入种子。";
-"seedWarningInfo" = "如果不能保证种子单词的安全可能会导致钱包被盗或无法恢复。";
-"iCopiedTheSeedPhrase" = "我已复制种子单词";
-
-/* Wallet Setup Base */
-"settingUpWallet" ="设置Decred钱包。。。";
-"errorSettingUpWallet" = "Error setting up wallet.";
-
-/* Navigation Menu Items */
-"overview" = "概览";
-"history" = "历史";
-"send" = "发送";
-"receive" = "接收";
-"accounts" = "账户";
-"security" = "安全";
-"settings" = "设置";
-"help" = "帮助";
-
 /* NavigationMenu / Sync progress */
 "cannotSyncWithoutNetworkConnection" = "Cannot sync without network connection.";
 "internetConnectionRequired" = "Internet connection required.";
@@ -153,6 +111,13 @@
 "restartingSynchronization" = "Restarting Synchronization";
 "startingSynchronization" = "正在开始同步…";
 
+/* No Wifi Sync Connection */
+"notConnectedToWiFi" = "未连接WiFi";
+"syncAnyways" = "是否继续同步？";
+"no" = "否";
+"yes" = "是";
+"always" = "总是";
+
 /* Sync progress view */
 "loading" = "加载中。。。";
 "numberOfConnectedPeers" = "%d节点";
@@ -175,6 +140,64 @@
 "total"  = "总共:";
 "stageTimes" = "阶段耗时";
 "tapToViewInformation" = "点击获取更多信息";
+
+/* Navigation Menu Items */
+"overview" = "概览";
+"history" = "历史";
+"send" = "发送";
+"receive" = "接收";
+"accounts" = "账户";
+"security" = "安全";
+"settings" = "设置";
+"help" = "帮助";
+
+/* New Wallet Dialog */
+"newWalletMsg" = "您的33个单词种子在您的钱包中，请确保它的安全。如果没有种子您将无法在您的设备丢失或损坏的情况下恢复钱包。\n\n初始化钱包同步会比一般情况下花费更长时间。";
+"welcomeToDecredWallet" = "欢迎使用Decred钱包.";
+
+/* Overview */
+"currentTotalBalance" = "总余额";
+"recentActivity" = "近期活动";
+"showAllTransactions" = "显示所有交易";
+
+/* Transaction List/ History */
+"pending" = "等待";
+"confirmed" = "已确认";
+"vote" = " 已投票";
+"ticket" = " 票";
+"confirmedLive" = "已确认 / 成熟";
+"confirmedImmature" = "已确认 / 未成熟";
+"noTransactions" = "没有交易";
+"sent" = "发送";
+"received" = "已接收";
+"yourself" = "自身";
+"staking" = "权益投票";
+"all" = "All";
+
+/* Transaction Details */
+"transactionDetails" = "交易详情";
+"copyTransactionHash" = "复制事务哈希";
+"copyRawTransaction" = "复制原始交易数据";
+"viewOnDcrdata" = "在 dcrdata 查看";
+"copied" = "复制";
+"ticketPurchase" = "购买选票";
+"date" = "日期";
+"status" = "状态";
+"amount" = "金额";
+"fee" = "费用";
+"type" = "类别";
+"confirmation" = "确认";
+"lastBlockValid" = "最新区块有效";
+"version" = "版本";
+"voteBits" =  "投票 Bits";
+"inputs" = "输入";
+"outputs" = "输出";
+"external" = "外部";
+"internal" = "内部";
+"imported" = "导入";
+"nullData" = "空数据";
+"script" = "脚本";
+"stakegen" = "stakegen";
 
 /* Send view */
 "invalidAmount" = "金额不正确.";
@@ -224,143 +247,17 @@
 "view" = "查看";
 "transactionSuccessful" = "交易成功";
 
-/* Security Menu */
-"validOwnAddr" = "地址是正确并属于您的。";
-"validNotOwnAddr" = "地址是正确的但是不属于您。";
-"invalidAddr" = "无效地址.";
-"verifiedSignature" = "这个签名可以验证这个消息和地址。";
-"invalidSignature" = "这个签名不能验证这个消息和地址。";
-"signingMessage" = "Signing Message...";
-"address" = "地址";
-"message" = "消息";
-"signature" = "签名";
-"signMessage" = "签署消息";
-"secureMenuSyncInfo" = "请等待钱包完成同步.";
-"secureMenuHeaderInfo" = "此功能可以验证一个地址的合法性，签名消息以证明地址的所有权，和验证签名。";
-
-/* License */
-"license" = "执照";
-
-/* Settings */
-"spv" = "简单支付验证 (SPV)";
-"remoteFullNode" = "远程全节点";
-"none" = "None";
-"rescanConfirm" = "您确定吗？这将会花费一些时间。";
-"rescanBlockchain" = "重新扫描区块";
-"syncProgressAlert" = "Sync is in progress. Please wait for sync to complete.";
-"scanInProgress" = "在导航栏查看进度。";
-"scanStartedAlready" = "钱包正在重新扫描中，具体进度请查看导航栏。";
-"rescanFailed" = "Rescan failed";
-"deletingWallet" = "正在删除钱包…";
-"deleteWalletFailed" = "Failed to delete wallet.";
-"changeSpendingPinPassDesc" = "更改支付PIN码/密码";
-"spendingPinPassInfo" = "请求发送资金";
-"startupPinPassDesc" = "启动PIN码或密码";
-"changeStatupPinPassDesc" = "更改启动PIN码或密码";
-"startupPinPassInfo" = "请求进入app.";
-"spendUnconfirmedFundDesc" = "发送未确认资金";
-"incomingTxNotificationDesc" = "传入交易通知";
-"currencyConversionDesc" = "货币转换";
-"networkMode" = "网络模式";
-"serverAddress" = "服务器地址";
-"connectIpDesc" = "连接到节点";
-"certificate" = "证书";
-"syncOnWifiDesc" = "未连接WiFi时同步";
-"buildDate" = "Build Date";
-"walletLog" = "钱包日志";
-"deleteWallet" = "删除钱包";
-"general" = "常规";
-"connection" = "连接";
-"about" = "信息";
-"debug" = "Debug";
-
-/* IP set */
-"connectToPeer" = "连接到节点";
-"peerAddressIsInvalid" = "节点地址不正确";
-"remoteAddressIsInvalid" = "远程节点地址无效";
-
-/* Certificate */
-"certificateInfo" = "为dcrd粘贴证书";
-
-/* Wallet Log */
-"copy" = "复制";
-"walletLogCopied" = "钱包日志复制成功";
-
-/* Transaction Notification */
-"newTransaction" = "新的交易";
-"youReceived" = "您收到";
-
-/* Account Data Cell */
-"external" = "外部";
-"internal" = "内部";
-"imported" = "导入";
-"nullData" = "空数据";
-"script" = "脚本";
-"stakegen" = "stakegen";
+/* Recieve */
+"receivingDecred" = "接收资金";
+"receiveHeaderInfo" = "每次请求支付都会生成一个新地址以保护您的隐私。";
+"accountDesc" = "账户:";
+"copyOnTap" = "(点击复制)";
+"walletAddrCopied" = "地址已复制到剪贴板.";
+"genNewAddr" = "生成新地址";
 
 /* Account View */
 "hidden" = "隐藏";
 "spendable" = "可用资金";
-
-/* Transaction Details */
-"transactionDetails" = "交易详情";
-"copyTransactionHash" = "复制事务哈希";
-"copyRawTransaction" = "复制原始交易数据";
-"viewOnDcrdata" = "在 dcrdata 查看";
-"copied" = "复制";
-"ticketPurchase" = "购买选票";
-"date" = "日期";
-"status" = "状态";
-"amount" = "金额";
-"fee" = "费用";
-"type" = "类别";
-"confirmation" = "确认";
-"lastBlockValid" = "最新区块有效";
-"version" = "版本";
-"voteBits" =  "投票 Bits";
-"inputs" = "输入";
-"outputs" = "输出";
-
-/* Receive View */
-"recieveHeaderInfo" = "每次请求支付都会生成一个新地址以保护您的隐私。";
-"walletAddrCopied" = "地址已复制到剪贴板.";
-"genNewAddr" = "生成新地址";
-
-/* Add Account */
-"inputAccountName" = "输入账户名字.";
-"creatingAccount" = "创建账户中…";
-
-/* View controller sender */
-"spending" = "支付";
-"startup" = "启动";
-"current" = "当前";
-
-/* Dcrlibwallet extension */
-"lessThanOneday" = "<1 天";
-"oneDay" = "1 天";
-"mutlipleDays" = "%d 天";
-"minRemaining" = "%d 分钟";
-"secRemaining" = "%d sec";
-
-/* New Wallet Dialog */
-"newWalletMsg" = "您的33个单词种子在您的钱包中，请确保它的安全。如果没有种子您将无法在您的设备丢失或损坏的情况下恢复钱包。\n\n初始化钱包同步会比一般情况下花费更长时间。";
-"welcomeToDecredWallet" = "欢迎使用Decred钱包.";
-
-/*No Wifi Sync Connection */
-"notConnectedToWiFi" = "未连接WiFi";
-"syncAnyways" = "是否继续同步？";
-"no" = "否";
-"yes" = "是";
-"always" = "总是";
-
-/* Overview */
-"currentTotalBalance" = "总余额";
-"recentActivity" = "近期活动";
-"showAllTransactions" = "显示所有交易";
-
-/* Delete Wallet */
-"confirmDeleteInfo" = "您确定删除钱包吗？请确保您已保存钱包种子或已在删除前转移您的币。此操作将恢复默认应用设置。";
-"confirmDeleteDesc" = "确认输入正确密码:";
 
 /* Account Data cell */
 "details" = "详情";
@@ -378,18 +275,111 @@
 "defaultWallet" = "默认账号";
 "makeWalletDefaultDesc" = "将本账户设定为默认发送及接受交易账户";
 
-/* Help */
-"forMoreInformationPleaseVisit" = "查看更多内容请浏览";
-
 /* Add Account */
+"inputAccountName" = "输入账户名字.";
+"creatingAccount" = "创建账户中…";
 "addAccount" = "添加账户";
 "addAccountInfo" = "输入新账户名及密码";
 "accountName" = "账户名";
 "createAccount" = "创建账户";
 "privatePassphrase" = "密码";
 
-/* Recieve */
-"receivingDecred" = "接收资金";
-"receiveHeaderInfo" = "每次请求支付都会生成一个新地址以保护您的隐私。";
-"accountDesc" = "账户:";
-"copyOnTap" = "(点击复制)";
+/* Security Menu */
+"validOwnAddr" = "地址是正确并属于您的。";
+"validNotOwnAddr" = "地址是正确的但是不属于您。";
+"invalidAddr" = "无效地址.";
+"verifiedSignature" = "这个签名可以验证这个消息和地址。";
+"invalidSignature" = "这个签名不能验证这个消息和地址。";
+"signingMessage" = "Signing Message...";
+"address" = "地址";
+"message" = "消息";
+"signature" = "签名";
+"signMessage" = "签署消息";
+"secureMenuSyncInfo" = "请等待钱包完成同步.";
+"secureMenuHeaderInfo" = "此功能可以验证一个地址的合法性，签名消息以证明地址的所有权，和验证签名。";
+
+/* Help */
+"forMoreInformationPleaseVisit" = "查看更多内容请浏览";
+
+/* Settings */
+"changeSpendingPinPassDesc" = "更改支付PIN码/密码";
+"spendingPinPassInfo" = "请求发送资金";
+"startupPinPassDesc" = "启动PIN码或密码";
+"changeStatupPinPassDesc" = "更改启动PIN码或密码";
+"startupPinPassInfo" = "请求进入app.";
+"spendUnconfirmedFundDesc" = "发送未确认资金";
+"incomingTxNotificationDesc" = "传入交易通知";
+"currencyConversionDesc" = "货币转换";
+"networkMode" = "网络模式";
+"serverAddress" = "服务器地址";
+"connectIpDesc" = "连接到节点";
+"certificate" = "证书";
+"syncOnWifiDesc" = "未连接WiFi时同步";
+"buildDate" = "Build Date";
+"walletLog" = "钱包日志";
+"deleteWallet" = "删除钱包";
+"spv" = "简单支付验证 (SPV)";
+"remoteFullNode" = "远程全节点";
+"none" = "None";
+"rescanConfirm" = "您确定吗？这将会花费一些时间。";
+"rescanBlockchain" = "重新扫描区块";
+"syncProgressAlert" = "Sync is in progress. Please wait for sync to complete.";
+"scanInProgress" = "在导航栏查看进度。";
+"scanStartedAlready" = "钱包正在重新扫描中，具体进度请查看导航栏。";
+"rescanFailed" = "Rescan failed";
+"deletingWallet" = "正在删除钱包…";
+"deleteWalletFailed" = "Failed to delete wallet.";
+"general" = "常规";
+"connection" = "连接";
+"about" = "信息";
+"debug" = "Debug";
+
+/* IP set */
+"connectToPeer" = "连接到节点";
+"peerAddressIsInvalid" = "节点地址不正确";
+"remoteAddressIsInvalid" = "远程节点地址无效";
+
+/* Certificate */
+"certificateInfo" = "为dcrd粘贴证书";
+
+/* License */
+"license" = "执照";
+
+/* Wallet Log */
+"copy" = "复制";
+"walletLogCopied" = "钱包日志复制成功";
+
+/* Delete Wallet */
+"confirmDeleteInfo" = "您确定删除钱包吗？请确保您已保存钱包种子或已在删除前转移您的币。此操作将恢复默认应用设置。";
+"confirmDeleteDesc" = "确认输入正确密码:";
+
+/* Transaction Notification */
+"newTransaction" = "新的交易";
+"youReceived" = "您收到";
+
+/* View controller sender */
+"spending" = "支付";
+"startup" = "启动";
+"current" = "当前";
+
+/* Dcrlibwallet extension */
+"lessThanOneday" = "<1 天";
+"oneDay" = "1 天";
+"mutlipleDays" = "%d 天";
+"minRemaining" = "%d 分钟";
+"secRemaining" = "%d sec";
+
+/* Pop Ups */
+"error" = "错误";
+"retry" = "重试";
+"ok" = "OK";
+"tryAgain" = "再试一次";
+"cancel" = "取消";
+"clearFields" =  "清除";
+"copiedSuccessfully" = "复制成功";
+"invalidRequest" = "Invalid request!";
+"addrCopied" = "地址已复制到剪贴板";
+"previousOutpointCopied" = "Previous outpoint copied!";
+"errorMsg" = "错误信息";
+"info" = "信息";
+"delete" = "删除";
