@@ -123,7 +123,11 @@ extension ConfirmNewWalletSeedViewController: UITableViewDelegate, UITableViewDa
                 if tableView.isCellCompletelyVisible(at: nextRowIndex) {
                     tableView.selectRow(at: nextRowIndex, animated: true, scrollPosition: .none)
                 } else {
-                    tableView.selectRow(at: nextRowIndex, animated: true, scrollPosition: .bottom)
+                    if indexPath.row == 31 {
+                        tableView.selectRow(at: nextRowIndex, animated: true, scrollPosition: .middle)
+                    } else {
+                        tableView.selectRow(at: nextRowIndex, animated: true, scrollPosition: .bottom)
+                    }
                 }
             }
         }
