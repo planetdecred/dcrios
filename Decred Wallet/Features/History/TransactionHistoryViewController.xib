@@ -28,15 +28,6 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wg8-gU-t3W">
-                    <rect key="frame" x="159" y="29" width="50" height="45"/>
-                    <constraints>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="Hgh-w9-fFB"/>
-                        <constraint firstAttribute="height" constant="45" id="VMd-db-sBn"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <button opaque="NO" contentMode="scaleAspectFit" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LZb-hI-JcZ" customClass="DropMenuButton" customModule="Decred_Wallet" customModuleProvider="target">
                     <rect key="frame" x="227" y="29" width="132" height="45"/>
                     <constraints>
@@ -85,15 +76,12 @@
                 <constraint firstItem="Tmy-DS-jlp" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="L6H-r1-7HS"/>
                 <constraint firstItem="PjH-in-6bf" firstAttribute="top" secondItem="LZb-hI-JcZ" secondAttribute="bottom" constant="5" id="Tiw-Bh-4nt"/>
                 <constraint firstItem="Tmy-DS-jlp" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Tpa-cy-I4w"/>
-                <constraint firstItem="LZb-hI-JcZ" firstAttribute="leading" secondItem="wg8-gU-t3W" secondAttribute="trailing" constant="18" id="am4-As-xGd"/>
                 <constraint firstItem="YMV-O4-AW4" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="jY1-y8-0dV"/>
-                <constraint firstItem="wg8-gU-t3W" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="9" id="oOz-4W-vjL"/>
                 <constraint firstItem="LZb-hI-JcZ" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="9" id="rUj-7l-6cz"/>
                 <constraint firstItem="PjH-in-6bf" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="tdr-p2-QDy"/>
                 <constraint firstItem="YMV-O4-AW4" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="uUI-gW-GTp"/>
                 <constraint firstItem="PjH-in-6bf" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.98" id="vaQ-eg-dTg"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="LZb-hI-JcZ" secondAttribute="trailing" constant="16" id="yGQ-Lw-d5P"/>
-                <constraint firstItem="wg8-gU-t3W" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="yK1-Xe-qea"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="23.199999999999999" y="51.724137931034484"/>
