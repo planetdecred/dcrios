@@ -100,10 +100,22 @@ class Syncer: NSObject, AppLifeCycleDelegate {
     }
     
     func restartSyncIfItStalls() {
-        // Create time to restart sync in 30 seconds. Timer will be auto-canceled and recreated if a sync update is received before the 30 seconds elapse.
+        // Cancel any previously set sync-restart timer.
         self.stalledSyncTracker?.invalidate()
+        
+        if self.syncCompletedCanceledOrErrored {
+            // Sync not in progress, no need to "watch" for stalling.
+            return
+        }
+        
+        // Setup timer to restart sync in 30 seconds.
+        // This timer would/should be canceled/invalidated if a sync update is received before the set interval (30 seconds).
         DispatchQueue.main.async {
             self.stalledSyncTracker = Timer.scheduledTimer(withTimeInterval: 30, repeats: false) {_ in
+                if self.syncCompletedCanceledOrErrored {
+                    // Sync not in progress, no need to restart.
+                    return
+                }
                 self.restartSync()
                 self.stalledSyncTracker = nil
             }
