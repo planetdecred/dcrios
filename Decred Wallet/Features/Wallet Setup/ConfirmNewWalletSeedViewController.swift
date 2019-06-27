@@ -123,12 +123,12 @@ extension ConfirmNewWalletSeedViewController: UITableViewDelegate, UITableViewDa
                 if tableView.isCellCompletelyVisible(at: nextRowIndex) {
                     tableView.selectRow(at: nextRowIndex, animated: true, scrollPosition: .none)
                 } else {
-                    if indexPath.row == 31 {
-                        tableView.selectRow(at: nextRowIndex, animated: true, scrollPosition: .middle)
-                    } else {
-                        tableView.selectRow(at: nextRowIndex, animated: true, scrollPosition: .bottom)
-                    }
+                    tableView.selectRow(at: nextRowIndex, animated: true, scrollPosition: .bottom)
                 }
+            } else {
+                // Last row, scroll to middle so that the "Confirm" button below the table will appear.
+                let lastRowIndex = IndexPath(row: 32, section: 0)
+                tableView.selectRow(at: lastRowIndex, animated: true, scrollPosition: .middle)
             }
         }
         
