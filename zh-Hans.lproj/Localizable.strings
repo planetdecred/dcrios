@@ -11,7 +11,7 @@
 
 /*Security Prompt */
 "enterStartupPassword" = "输入启动密码";
-"incorrectSecurityType" = "You entered an incorrect %@. Try again?";
+"incorrectSecurityInfo" = "You entered an incorrect %@. Try again?";
 
 /* Pop Ups */
 "error" = "错误";
@@ -23,7 +23,7 @@
 "copiedSuccessfully" = "复制成功";
 "invalidRequest" = "Invalid request!";
 "addrCopied" = "地址已复制到剪贴板";
-"preOutpointCopied" = "Previous outpoint copied!";
+"previousOutpointCopied" = "Previous outpoint copied!";
 "errorMsg" = "错误信息";
 "info" = "信息";
 "delete" = "删除";
@@ -41,7 +41,7 @@
 "enterPassword" = "输入密码";
 "promptSpendingPassword" = "输入支付密码";
 "promptStartupPassword" = "输入当前启动密码";
-"securityTypeNotSpecify" = "Security type not specified. Cannot proceed.";
+"securityTypeNotSpecified" = "Security type not specified. Cannot proceed.";
 "password" = "密码";
 "proceed" = "前";
 "passwordEmpty" = "密码不能为空。";
@@ -56,8 +56,8 @@
 "pin" = "PIN码";
 "pinStrength" = "PIN码强度";
 
-/* Change Spendind PIN/Password */
-"currentSpendingPassword" = "输入当前支付密码";
+/* Change Spending PIN/Password */
+"enterCurrentSpendingPassword" = "输入当前支付密码";
 "changingSpendingPIN/Pass" = "正在更换支付%@。。。";
 
 /* Changing Startup PIN/Password */
@@ -91,7 +91,7 @@
 "notAllSeedsAreEntered" = "没有输入完单词。请检查输入栏并填写所有单词。";
 "incorrectSeedEntered" = "您输入的种子不正确。请检查输入的单词。";
 "walletRecoveryError" = "Wallet recovery error.";
-"seedRestoreheader" = "恢复种子";
+"seedRestoreHeader" = "恢复种子";
 "seedRestoreInfo" = "开始输入单词并在建议列表中点击正确的单词。";
 "confirm" = "确认";
 
@@ -157,7 +157,7 @@
 "loading" = "加载中。。。";
 "numberOfConnectedPeers" = "%d节点";
 "numberOfConnectedPeer" = "%d节点";
-"syncingWithOnNet" = "在测与%@同步%@";
+"syncingWithPeersOnNetwork" = "在测与%@同步%@";
 "fetchedHeaders" = "已获取 %d of ~%d 区块头部。\n";
 "headersFetchProgress" = "%d%% 当前步骤 1 of 3。" ;
 "bestBlockAgebehind" = "\n您的钱包落后 %@。";
@@ -171,8 +171,8 @@
 "syncTotalProgress" = "已完成 %d%%, 剩余 %@";
 "allTimes" = "总耗时";
 "elapsed" = "已过去:";
-"remain" = " 剩余:";
-"total"  = " 总共:";
+"remain" = "剩余:";
+"total"  = "总共:";
 "stageTimes" = "阶段耗时";
 "tapToViewInformation" = "点击获取更多信息";
 
@@ -185,7 +185,7 @@
 "rateUnavailableTap"  = "费率不可用（点击重试).";
 "sendToAccount" = "发送到账户";
 "sendToAddress" = "发送到地址";
-"errorMaxSpendable" = "Error getting maximum spendable amount.";
+"errorGettingMaxSpendable" = "Error getting maximum spendable amount.";
 "pleaseWaitNetworkSync" = "请等待网络同步。";
 "notConnected" = "网络未连接";
 "amountCantBeZero" = "Amount cannot be zero.";
@@ -207,9 +207,9 @@
 "sendInDCR" = "使用DCR计价发送:";
 "sendMax" = "发送所有资金";
 "feeDesc" = "费用:";
-"estimateSizeDesc" = "预计大小:";
-"balanceAfterDesc" = "发送后余额:";
-"exchangeRateDesc" = "交易所汇率:";
+"estimateSize" = "预计大小:";
+"balanceAfter" = "发送后余额:";
+"exchangeRate" = "交易所汇率:";
 
 /* Confirm Send Fund */
 "sending" = "发送中";
@@ -221,6 +221,8 @@
 /* Send Complete */
 "hashCopied" = "哈希值: (复制)";
 "hash" = "哈希值";
+"view" = "查看";
+"transactionSuccessful" = "交易成功";
 
 /* Security Menu */
 "validOwnAddr" = "地址是正确并属于您的。";
@@ -259,15 +261,14 @@
 "spendUnconfirmedFundDesc" = "发送未确认资金";
 "incomingTxNotificationDesc" = "传入交易通知";
 "currencyConversionDesc" = "货币转换";
-"networkModeDesc" = "网络模式";
-"serverAddDesc" = "服务器地址";
+"networkMode" = "网络模式";
+"serverAddress" = "服务器地址";
 "connectIpDesc" = "连接到节点";
-"certificatDesc" = "证书";
+"certificate" = "证书";
 "syncOnWifiDesc" = "未连接WiFi时同步";
-"buildDateDesc" = "Build Date";
-"rescanBlockChainDesc" = "重新扫描区块";
-"walletLogDesc" = "钱包日志";
-"deleteWalletDesc" = "删除钱包";
+"buildDate" = "Build Date";
+"walletLog" = "钱包日志";
+"deleteWallet" = "删除钱包";
 "general" = "常规";
 "connection" = "连接";
 "about" = "信息";
@@ -275,16 +276,13 @@
 
 /* IP set */
 "connectToPeer" = "连接到节点";
-"inputValidIP" = "节点地址不正确";
-"serverAddress" = "服务器地址";
-"inputValidServer" = "远程节点地址无效";
+"peerAddressIsInvalid" = "节点地址不正确";
+"remoteAddressIsInvalid" = "远程节点地址无效";
 
 /* Certificate */
-"certificate" = "证书";
 "certificateInfo" = "为dcrd粘贴证书";
 
 /* Wallet Log */
-"walletLog" = "钱包日志";
 "copy" = "复制";
 "walletLogCopied" = "钱包日志复制成功";
 
