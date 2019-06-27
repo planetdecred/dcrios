@@ -125,6 +125,10 @@ extension ConfirmNewWalletSeedViewController: UITableViewDelegate, UITableViewDa
                 } else {
                     tableView.selectRow(at: nextRowIndex, animated: true, scrollPosition: .bottom)
                 }
+            } else {
+                // Last row, scroll to middle so that the "Confirm" button below the table will appear.
+                let lastRowIndex = IndexPath(row: 32, section: 0)
+                tableView.selectRow(at: lastRowIndex, animated: true, scrollPosition: .middle)
             }
         }
         
