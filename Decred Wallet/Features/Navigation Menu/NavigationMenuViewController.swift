@@ -251,9 +251,9 @@ extension NavigationMenuViewController: SyncProgressListenerProtocol {
         AppDelegate.walletLoader.notification.registerListener(for: "\(self)", newTxistener: self)
     }
     
-    func onSyncCanceled() {
+    func onSyncCanceled(_ willRestart: Bool) {
         self.resetSyncViews()
-        self.syncStatusLabel.text = LocalizedStrings.syncCanceled
+        self.syncStatusLabel.text = willRestart ? LocalizedStrings.restartingSync : LocalizedStrings.syncCanceled
     }
     
     func onSyncEndedWithError(_ error: String) {
