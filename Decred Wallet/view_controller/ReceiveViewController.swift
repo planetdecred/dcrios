@@ -216,14 +216,16 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
             guard let ciImage = img.ciImage, let cgImage = CIContext(options: nil).createCGImage(ciImage, from: ciImage.extent) else {return}
             img = UIImage(cgImage: cgImage)
         }
-
+        
         let activityController = UIActivityViewController(activityItems: [img], applicationActivities: nil)
-        activityController.completionWithItemsHandler = { (nil, completed, _, error) in
-
+         //check ipad
+        if (UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad) {
+            if (activityController.responds(to: #selector(getter: UIViewController.popoverPresentationController))) {
+                activityController.popoverPresentationController?.sourceView = super.view
+            }
         }
-        present(activityController, animated: true){
-
-        }
+        
+        self.present(activityController, animated: true, completion: nil)
     }
     
     private func getAddress(accountNumber : Int32) {
