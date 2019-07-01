@@ -11,21 +11,46 @@ import Dcrlibwallet
 import JGProgressHUD
 
 class ConfirmNewWalletSeedViewController: WalletSetupBaseViewController {
-    var seedToVerify: String?
-    var selectedSeedWords: [Int] = []
-    var allWords: [String] = []
-    var enteredWords: [String] = []
+    var seedWordsGroupedByThree: [[String]] = []
+    var selectedWords: [String] = []
     
     @IBOutlet weak var btnConfirm: UIButton!
     @IBOutlet var vActiveCellView: SeedCheckActiveCellView!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        allWords = loadSeedWordsList()
-        for _ in 0...32 {
-            selectedSeedWords.append(-1)
-            enteredWords.append("")
+    func prepareSeedForVerification(seedToVerify: String) {
+        let allSeedWords = loadSeedWordsList()
+        let validSeedWords = seedToVerify.split{$0 == " "}.map(String.init)
+        
+        for seedIndex in 0...32 {
+            let seedWordsGrouped = self.breakdownByThree(allSeedWords, validSeedWordToInclude: validSeedWords[seedIndex])
+            self.seedWordsGroupedByThree.append(seedWordsGrouped)
+            self.selectedWords.append("")
         }
+    }
+    
+    private func breakdownByThree(_ allSeedWords: [String], validSeedWordToInclude: String) -> [String] {
+        var suggestionsWithFake: [String] = ["", "", ""]
+        let trueSeedIndex = Int.random(in: 0...2)
+        suggestionsWithFake[trueSeedIndex] = validSeedWordToInclude
+        
+        let fakeWordsArray = allSeedWords.filter({
+            return ($0.lowercased() != validSeedWordToInclude.lowercased())
+        })
+        
+        var fakeWordsSet = Array(Set(fakeWordsArray))
+        let fake1 = Int.random(in: 0...(fakeWordsSet.count) - 1)
+        var fakes = [fakeWordsSet.remove(at: fake1)]
+        let fake2 = Int.random(in: 0...(fakeWordsSet.count) - 1)
+        fakes.append(fakeWordsSet.remove(at: fake2))
+        var fakeIndex = 0
+        for i in 0...2 {
+            if i != trueSeedIndex {
+                suggestionsWithFake[i] = fakes[fakeIndex]
+                fakeIndex += 1
+            }
+        }
+        
+        return  suggestionsWithFake
     }
     
     @IBAction func backbtn(_ sender: Any) {
@@ -33,7 +58,7 @@ class ConfirmNewWalletSeedViewController: WalletSetupBaseViewController {
     }
     
     @IBAction func onConfirm(_ sender: Any) {
-        let seed = enteredWords.joined(separator: " ")
+        let seed = selectedWords.joined(separator: " ")
         let seedIsValid = DcrlibwalletVerifySeed(seed)
         if seedIsValid {
             self.secureWallet()
@@ -43,7 +68,7 @@ class ConfirmNewWalletSeedViewController: WalletSetupBaseViewController {
     }
     
     func secureWallet() {
-        let seed = enteredWords.joined(separator: " ")
+        let seed = selectedWords.joined(separator: " ")
         let securityVC = SecurityViewController.instantiate()
         securityVC.onUserEnteredPinOrPassword = { (pinOrPassword, securityType) in
             self.finalizeWalletSetup(seed, pinOrPassword, securityType)
@@ -67,31 +92,29 @@ class ConfirmNewWalletSeedViewController: WalletSetupBaseViewController {
     }
 }
 
-extension ConfirmNewWalletSeedViewController: UITableViewDelegate{
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.beginUpdates()
-        tableView.endUpdates()
-    }
+extension ConfirmNewWalletSeedViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
-}
-
-extension ConfirmNewWalletSeedViewController: UITableViewDataSource{
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 33
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tripleSeedCell", for: indexPath) as? SeedConfirmTableViewCell
-        cell?.setup(num: indexPath.row, seedWords: breakdownByThree(row: indexPath.row), selected:pickSelected(row: indexPath.row))
+        
+        let userSelection = self.selectedWords[indexPath.row]
+        cell?.setup(num: indexPath.row, seedWords: seedWordsGroupedByThree[indexPath.row], selectedWord: userSelection)
         
         cell?.onPick = {(index, seedWord) in
-            self.selectedSeedWords[indexPath.row] = index
-            self.enteredWords[indexPath.row] = seedWord
+            self.selectedWords[indexPath.row] = seedWord
             
-            self.btnConfirm.isEnabled = self.enteredWords.reduce(true, { (res, input) -> Bool in
+            self.btnConfirm.isEnabled = self.selectedWords.reduce(true, { (res, input) -> Bool in
                 return res && input != ""
             })
             
@@ -102,48 +125,13 @@ extension ConfirmNewWalletSeedViewController: UITableViewDataSource{
                 } else {
                     tableView.selectRow(at: nextRowIndex, animated: true, scrollPosition: .bottom)
                 }
+            } else {
+                // Last row, scroll to middle so that the "Confirm" button below the table will appear.
+                let lastRowIndex = IndexPath(row: 32, section: 0)
+                tableView.selectRow(at: lastRowIndex, animated: true, scrollPosition: .middle)
             }
         }
         
         return cell!
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    private func breakdownByThree(row:Int) -> [String]{
-        let seed = seedToVerify?.split{$0 == " "}.map(String.init)
-        
-        var suggestionsWithFake: [String] = ["","",""]
-        let trueSeedIndex = Int.random(in: 0...2)
-        let trueSeed = seed?[row]
-        suggestionsWithFake[trueSeedIndex] = trueSeed ?? "dummy"
-        
-        let fakeWordsArray = allWords.filter({
-            return ($0.lowercased() != trueSeed?.lowercased())
-        })
-        var fakeWordsSet = Array(Set(fakeWordsArray))
-        let fake1 = Int.random(in: 0...(fakeWordsSet.count) - 1)
-        var fakes = [fakeWordsSet.remove(at: fake1)]
-        let fake2 = Int.random(in: 0...(fakeWordsSet.count) - 1)
-        fakes.append(fakeWordsSet.remove(at: fake2))
-        var fakeIndex = 0
-        for i in 0...2 {
-            if i != trueSeedIndex {
-                    suggestionsWithFake[i] = fakes[fakeIndex]
-                    fakeIndex += 1
-            }
-        }
-        
-        return  suggestionsWithFake
-    }
-    
-    private func pickSelected(row: Int) -> Int{
-        if selectedSeedWords.count > row {
-            return selectedSeedWords[row]
-        } else {
-            return -1
-        }
     }
 }

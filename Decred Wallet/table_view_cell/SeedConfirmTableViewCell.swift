@@ -22,17 +22,16 @@ class SeedConfirmTableViewCell: UITableViewCell {
         super.awakeFromNib()
     }
     
-    func setup(num:Int, seedWords:[String], selected: Int){
+    func setup(num: Int, seedWords: [String], selectedWord: String) {
         btnSeed1.setTitle(seedWords[0], for: .normal)
         btnSeed2.setTitle(seedWords[1], for: .normal)
         btnSeed3.setTitle(seedWords[2], for: .normal)
         
         let buttons = [btnSeed1, btnSeed2, btnSeed3]
-        let _ = buttons.map({$0?.isSelected = false})
+        let _ = buttons.map({ button in
+            button?.isSelected = button?.title(for: .normal) == selectedWord
+        })
         
-        if (selected >= 0) {
-            buttons[selected]?.isSelected = true
-        }
         seedWordNumber = num
         lbWordTitle.text = String(format: LocalizedStrings.wordNumber, num + 1)
     }

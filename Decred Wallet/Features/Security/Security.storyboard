@@ -119,7 +119,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="778"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create Security Password" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c3o-om-jRL">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create Security Password" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="c3o-om-jRL">
                                 <rect key="frame" x="101.5" y="74" width="211" height="25.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
                                 <color key="textColor" red="0.039215686270000001" green="0.08235294118" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
@@ -274,7 +274,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="778"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create Security Password" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2fO-bK-2of">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create Security Password" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="2fO-bK-2of">
                                 <rect key="frame" x="101.5" y="74" width="211" height="25.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
                                 <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -567,18 +567,14 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CY7-XY-0kP">
-                                <rect key="frame" x="18" y="74" width="57" height="25.5"/>
+                                <rect key="frame" x="25" y="77" width="20" height="20"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="25.5" id="5Fp-uK-zr1"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="57" id="YB1-FN-aRH"/>
+                                    <constraint firstAttribute="height" constant="20" id="5Fp-uK-zr1"/>
+                                    <constraint firstAttribute="width" constant="20" id="YB1-FN-aRH"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
-                                <state key="normal" title="Cancel">
+                                <state key="normal" image="cancel">
                                     <color key="titleColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="cancel"/>
-                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="onCancelButtonTapped:" destination="SKa-iY-3vv" eventType="touchUpInside" id="feC-Z5-0ZR"/>
                                 </connections>
@@ -598,7 +594,7 @@
                             <constraint firstItem="1CY-jq-OSD" firstAttribute="centerX" secondItem="MZP-zs-4TF" secondAttribute="centerX" id="WKm-0f-0Jb"/>
                             <constraint firstItem="2fO-bK-2of" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="CY7-XY-0kP" secondAttribute="trailing" constant="8" symbolic="YES" id="XFZ-FH-rbi"/>
                             <constraint firstItem="aau-sy-kMa" firstAttribute="top" secondItem="rJT-9u-LTj" secondAttribute="bottom" constant="6" id="gJ0-6h-YEL"/>
-                            <constraint firstItem="CY7-XY-0kP" firstAttribute="leading" secondItem="hEG-La-4vV" secondAttribute="leading" constant="18" id="m4z-Wu-q6n"/>
+                            <constraint firstItem="CY7-XY-0kP" firstAttribute="leading" secondItem="hEG-La-4vV" secondAttribute="leading" constant="25" id="m4z-Wu-q6n"/>
                             <constraint firstItem="4YA-nq-sBC" firstAttribute="width" secondItem="MZP-zs-4TF" secondAttribute="width" multiplier="0.9" id="wPN-Nu-cqq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="hEG-La-4vV"/>
@@ -615,7 +611,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ubd-bg-fVZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6269.6000000000004" y="-22.488755622188908"/>
+            <point key="canvasLocation" x="6180" y="-108"/>
         </scene>
         <!--Request Password View Controller-->
         <scene sceneID="eQ3-8A-h7c">
@@ -712,6 +708,7 @@
     </scenes>
     <resources>
         <image name="backspace" width="73" height="46.5"/>
+        <image name="cancel" width="256" height="256"/>
         <image name="img-checkmark" width="42" height="44"/>
     </resources>
 </document>
