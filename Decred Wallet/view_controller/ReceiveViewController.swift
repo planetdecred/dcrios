@@ -216,14 +216,14 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
             guard let ciImage = img.ciImage, let cgImage = CIContext(options: nil).createCGImage(ciImage, from: ciImage.extent) else {return}
             img = UIImage(cgImage: cgImage)
         }
-
+        
         let activityController = UIActivityViewController(activityItems: [img], applicationActivities: nil)
-        activityController.completionWithItemsHandler = { (nil, completed, _, error) in
-
+        
+        if let popoverPresentationController = activityController.popoverPresentationController {
+            popoverPresentationController.barButtonItem = barButton
         }
-        present(activityController, animated: true){
-
-        }
+        
+        self.present(activityController, animated: true, completion: nil)
     }
     
     private func getAddress(accountNumber : Int32) {
