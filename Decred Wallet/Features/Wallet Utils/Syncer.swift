@@ -16,7 +16,7 @@ protocol SyncProgressListenerProtocol {
     func onAddressDiscoveryProgress(_ progressReport: DcrlibwalletAddressDiscoveryProgressReport)
     func onHeadersRescanProgress(_ progressReport: DcrlibwalletHeadersRescanProgressReport)
     func onSyncCompleted()
-    func onSyncCanceled()
+    func onSyncCanceled(_ willRestart: Bool)
     func onSyncEndedWithError(_ error: String)
     func debug(_ debugInfo: DcrlibwalletDebugInfo)
 }
@@ -44,8 +44,6 @@ class Syncer: NSObject, AppLifeCycleDelegate {
         return self.currentSyncOp == SyncOp.Done || self.currentSyncOp == SyncOp.Canceled || self.currentSyncOp == SyncOp.Errored
     }
     
-    var shouldRestartSync: Bool = false
-    
     var connectedPeersCount: Int32 = 0
     var connectedPeers: String {
         if self.connectedPeersCount == 1 {
@@ -62,48 +60,54 @@ class Syncer: NSObject, AppLifeCycleDelegate {
         try? AppDelegate.walletLoader.wallet?.add(self, uniqueIdentifier: "dcrios")
     }
     
-    func beginSync() {
+    func resetSyncData() {
         self.networkLastActive = nil
         self.stalledSyncTracker?.invalidate()
         self.stalledSyncTracker = nil
         self.currentSyncOp = nil
         self.currentSyncOpProgress = nil
+    }
+    
+    func beginSync() {
+        // Listen for changes to app state, specifically when the app becomes active after being suspended previously.
+        AppDelegate.shared.registerLifeCylceDelegate(self, for: "\(self)")
         
-        let isRestarting = self.shouldRestartSync
-        self.shouldRestartSync = false
+        self.resetSyncData()
         
         do {
             let userSetSPVPeerIPs = Settings.readOptionalValue(for: Settings.Keys.SPVPeerIP) ?? ""
             try AppDelegate.walletLoader.wallet?.spvSync(userSetSPVPeerIPs)
-            
-            self.forEachSyncListener({ syncListener in syncListener.onStarted(isRestarting) })
-            
-            // Listen for changes to app state, specifically when the app becomes active after being suspended previously.
-            AppDelegate.shared.registerLifeCylceDelegate(self, for: "\(self)")
+          
+            self.forEachSyncListener({ syncListener in syncListener.onStarted(false) })
         } catch (let syncError) {
             AppDelegate.shared.showOkAlert(message: syncError.localizedDescription, title: LocalizedStrings.syncError)
         }
     }
     
     func restartSync() {
-        self.shouldRestartSync = true
-        if self.syncCompletedCanceledOrErrored {
-            // sync not in progress, restart now
-            self.currentSyncOp = nil
-            self.currentSyncOpProgress = nil
-            self.beginSync()
-        } else {
-            self.currentSyncOp = nil
-            self.currentSyncOpProgress = nil
-            AppDelegate.walletLoader.wallet?.cancelSync()
+        self.resetSyncData()
+        do {
+            let userSetSPVPeerIPs = Settings.readOptionalValue(for: Settings.Keys.SPVPeerIP) ?? ""
+            try AppDelegate.walletLoader.wallet?.restartSpvSync(userSetSPVPeerIPs)
+            
+            self.forEachSyncListener({ syncListener in syncListener.onStarted(true) })
+        } catch (let syncError) {
+            AppDelegate.shared.showOkAlert(message: syncError.localizedDescription, title: LocalizedStrings.syncError)
         }
     }
     
     func restartSyncIfItStalls() {
-        // Create time to restart sync in 30 seconds. Timer will be auto-canceled and recreated if a sync update is received before the 30 seconds elapse.
+        // Cancel any previously set sync-restart timer.
         self.stalledSyncTracker?.invalidate()
+        
+        // Setup new timer to restart sync in 30 seconds.
+        // This timer would/should be canceled/invalidated if a sync update is received before the set interval (30 seconds).
         DispatchQueue.main.async {
             self.stalledSyncTracker = Timer.scheduledTimer(withTimeInterval: 30, repeats: false) {_ in
+                if self.syncCompletedCanceledOrErrored {
+                    // Sync not in progress, no need to restart.
+                    return
+                }
                 self.restartSync()
                 self.stalledSyncTracker = nil
             }
@@ -131,7 +135,7 @@ class Syncer: NSObject, AppLifeCycleDelegate {
                 listener.onSyncCompleted()
                 
             case .Canceled:
-                listener.onSyncCanceled()
+                listener.onSyncCanceled(false)
                 
             case .Errored:
                 listener.onSyncEndedWithError(self.currentSyncOpProgress as! String)
@@ -215,7 +219,9 @@ extension Syncer: DcrlibwalletSyncProgressListenerProtocol {
     }
     
     func onHeadersFetchProgress(_ headersFetchProgress: DcrlibwalletHeadersFetchProgressReport?) {
-        self.restartSyncIfItStalls()
+        if !self.syncCompletedCanceledOrErrored {
+            self.restartSyncIfItStalls()
+        }
         
         self.currentSyncOp = .FetchingHeaders
         self.currentSyncOpProgress = headersFetchProgress
@@ -223,7 +229,9 @@ extension Syncer: DcrlibwalletSyncProgressListenerProtocol {
     }
     
     func onAddressDiscoveryProgress(_ addressDiscoveryProgress: DcrlibwalletAddressDiscoveryProgressReport?) {
-        self.restartSyncIfItStalls()
+        if !self.syncCompletedCanceledOrErrored {
+            self.restartSyncIfItStalls()
+        }
         
         self.currentSyncOp = .DiscoveringAddresses
         self.currentSyncOpProgress = addressDiscoveryProgress
@@ -231,12 +239,15 @@ extension Syncer: DcrlibwalletSyncProgressListenerProtocol {
     }
     
     func onHeadersRescanProgress(_ headersRescanProgress: DcrlibwalletHeadersRescanProgressReport?) {
+        // Do not set current sync op for blocks rescan.
+        // Ideally, blocks rescan should notify a different callback than sync - rescan stage.
         if !AppDelegate.walletLoader.wallet!.isScanning() {
-            // Do not set current sync op for blocks rescan.
-            // Ideally, blocks rescan should notify a different callback than sync - rescan stage.
             self.currentSyncOp = .RescanningHeaders
             self.currentSyncOpProgress = headersRescanProgress
-            self.restartSyncIfItStalls()
+            
+            if !self.syncCompletedCanceledOrErrored {
+                self.restartSyncIfItStalls()
+            }
         }
         
         self.forEachSyncListener({ syncListener in syncListener.onHeadersRescanProgress(headersRescanProgress!) })
@@ -244,6 +255,11 @@ extension Syncer: DcrlibwalletSyncProgressListenerProtocol {
     
     func onSyncCompleted() {
         print("sync completed")
+        
+        // Unset any previous timer set to track stalled sync.
+        self.stalledSyncTracker?.invalidate()
+        self.stalledSyncTracker = nil
+        
         self.currentSyncOp = .Done
         self.currentSyncOpProgress = nil
         self.forEachSyncListener({ syncListener in syncListener.onSyncCompleted() })
@@ -254,30 +270,28 @@ extension Syncer: DcrlibwalletSyncProgressListenerProtocol {
         }
     }
     
-    func onSyncCanceled() {
+    func onSyncCanceled(_ willRestart: Bool) {
         print("sync canceled")
+        
+        // Unset any previous timer set to track stalled sync.
+        self.stalledSyncTracker?.invalidate()
+        self.stalledSyncTracker = nil
+        
         self.currentSyncOp = .Canceled
         self.currentSyncOpProgress = nil
-        self.forEachSyncListener({ syncListener in syncListener.onSyncCanceled() })
-        
-        if self.shouldRestartSync {
-            DispatchQueue.main.async {
-                self.beginSync()
-            }
-        }
+        self.forEachSyncListener({ syncListener in syncListener.onSyncCanceled(willRestart) })
     }
     
     func onSyncEndedWithError(_ err: Error?) {
         print("sync error: \(err!)")
+        
+        // Unset any previous timer set to track stalled sync.
+        self.stalledSyncTracker?.invalidate()
+        self.stalledSyncTracker = nil
+        
         self.currentSyncOp = .Errored
         self.currentSyncOpProgress = err!.localizedDescription
         self.forEachSyncListener({ syncListener in syncListener.onSyncEndedWithError(err!.localizedDescription) })
-        
-        if self.shouldRestartSync {
-            DispatchQueue.main.async {
-                self.beginSync()
-            }
-        }
     }
     
     func debug(_ debugInfo: DcrlibwalletDebugInfo?) {
