@@ -58,7 +58,7 @@ class PasswordSetupViewController: SecurityBaseViewController, UITextFieldDelega
             self.lbMatchIndicator.text = LocalizedStrings.passwordMatch
         } else {
             self.lbMatchIndicator.textColor = UIColor.appColors.yellowWarning
-            self.lbMatchIndicator.text = LocalizedStrings.passwordDoNotMatch
+            self.lbMatchIndicator.text = LocalizedStrings.passwordsDoNotMatch
         }
     }
     
@@ -83,7 +83,7 @@ class PasswordSetupViewController: SecurityBaseViewController, UITextFieldDelega
         }
         
         if self.tfPassword.text != self.tfConfirmPassword.text {
-            self.showMessageDialog(title: LocalizedStrings.error, message: LocalizedStrings.passwordDoNotMatch)
+            self.showMessageDialog(title: LocalizedStrings.error, message: LocalizedStrings.passwordsDoNotMatch)
             return false
         }
         
