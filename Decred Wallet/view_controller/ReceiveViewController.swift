@@ -218,11 +218,9 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
         }
         
         let activityController = UIActivityViewController(activityItems: [img], applicationActivities: nil)
-         //check ipad
-        if (UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad) {
-            if (activityController.responds(to: #selector(getter: UIViewController.popoverPresentationController))) {
-                activityController.popoverPresentationController?.sourceView = super.view
-            }
+        
+        if let popoverPresentationController = activityController.popoverPresentationController {
+            popoverPresentationController.barButtonItem = barButton
         }
         
         self.present(activityController, animated: true, completion: nil)
