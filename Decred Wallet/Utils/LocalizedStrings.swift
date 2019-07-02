@@ -52,7 +52,7 @@ struct LocalizedStrings {
     /* Password Setup */
     static let emptyPasswordNotAllowed = NSLocalizedString("emptyPasswordNotAllowed", comment: "")
     static let passwordMatch = NSLocalizedString("passwordMatch", comment: "")
-    static let passwordDoNotMatch = NSLocalizedString("passwordDoNotMatch", comment: "")
+    static let passwordsDoNotMatch = NSLocalizedString("passwordsDoNotMatch", comment: "")
     static let createPassword = NSLocalizedString("createPassword", comment: "")
     static let passwordStrength = NSLocalizedString("passwordStrength", comment: "")
     static let confirmPassword = NSLocalizedString("confirmPassword", comment: "")
