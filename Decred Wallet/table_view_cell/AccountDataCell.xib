@@ -20,7 +20,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="1.5" translatesAutoresizingMaskIntoConstraints="NO" id="x3z-we-xl8">
-                        <rect key="frame" x="0.0" y="0.0" width="428" height="795.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="428" height="805.5"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="1.5" translatesAutoresizingMaskIntoConstraints="NO" id="lRb-Qt-uyj">
                                 <rect key="frame" x="0.0" y="0.0" width="428" height="256"/>
@@ -254,6 +254,9 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Keys" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C6g-uY-FAM">
                                         <rect key="frame" x="13" y="41" width="33" height="18"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="33" id="T8B-ql-1D5"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" red="0.34589058160000002" green="0.43587446210000003" blue="0.51868551969999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -261,8 +264,8 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="keys"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="341 External, 500 Internal, 0 Imported" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jCo-Ke-0mq">
-                                        <rect key="frame" x="160" y="10" width="260" height="80"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jCo-Ke-0mq">
+                                        <rect key="frame" x="101" y="10" width="319" height="80"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" red="0.34589058160000002" green="0.43587446210000003" blue="0.51868551969999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -272,14 +275,17 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="jCo-Ke-0mq" firstAttribute="top" secondItem="r5f-ba-Is7" secondAttribute="top" constant="10" id="D70-bF-czT"/>
+                                    <constraint firstItem="jCo-Ke-0mq" firstAttribute="leading" secondItem="C6g-uY-FAM" secondAttribute="trailing" constant="55" id="EzR-G3-biU"/>
+                                    <constraint firstItem="C6g-uY-FAM" firstAttribute="top" secondItem="r5f-ba-Is7" secondAttribute="top" constant="41" id="Gvi-Xh-gtc"/>
                                     <constraint firstItem="C6g-uY-FAM" firstAttribute="leading" secondItem="r5f-ba-Is7" secondAttribute="leading" constant="13" id="NQX-lx-P8s"/>
                                     <constraint firstItem="jCo-Ke-0mq" firstAttribute="centerY" secondItem="r5f-ba-Is7" secondAttribute="centerY" id="Vbh-gV-CU1"/>
                                     <constraint firstItem="C6g-uY-FAM" firstAttribute="centerY" secondItem="jCo-Ke-0mq" secondAttribute="centerY" id="u4V-OF-kpn"/>
                                     <constraint firstAttribute="trailing" secondItem="jCo-Ke-0mq" secondAttribute="trailing" constant="8" id="vG7-lN-Uag"/>
+                                    <constraint firstItem="C6g-uY-FAM" firstAttribute="centerY" secondItem="r5f-ba-Is7" secondAttribute="centerY" id="w1R-KH-e1c"/>
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="ZBh-P7-Sq1">
-                                <rect key="frame" x="0.0" y="613.5" width="428" height="182"/>
+                                <rect key="frame" x="0.0" y="613.5" width="428" height="192"/>
                                 <subviews>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bf1-q3-JNV">
                                         <rect key="frame" x="0.0" y="0.0" width="428" height="40"/>
@@ -303,10 +309,10 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="asn-Re-j0f">
-                                        <rect key="frame" x="0.0" y="40" width="428" height="66"/>
+                                        <rect key="frame" x="0.0" y="40" width="428" height="76"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hide This Wallet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EQg-zn-PAe">
-                                                <rect key="frame" x="13" y="10" width="107.5" height="17"/>
+                                                <rect key="frame" x="13" y="12" width="107.5" height="17"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                                 <color key="textColor" red="0.34589058160000002" green="0.43587446210000003" blue="0.51868551969999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -316,14 +322,17 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="4D3-65-ZT2">
-                                                <rect key="frame" x="371" y="17.5" width="51" height="31"/>
+                                                <rect key="frame" x="371" y="22.5" width="51" height="31"/>
                                                 <connections>
                                                     <action selector="setHiddenAccount:" destination="KGk-i7-Jjw" eventType="valueChanged" id="LeZ-oz-XMP"/>
                                                 </connections>
                                             </switch>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wallet balance will be ignored" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cK4-wr-Yg4">
-                                                <rect key="frame" x="13" y="27" width="168.5" height="14.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wallet balance will be ignoredWallet balance will be ignoredWallet balance will be ignoredWallet balance will be ignored" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cK4-wr-Yg4">
+                                                <rect key="frame" x="13" y="27" width="350" height="38"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="38" id="5Zv-61-PDs"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" red="0.77254901960784317" green="0.792156862745098" blue="0.82352941176470584" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -335,16 +344,17 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="4D3-65-ZT2" secondAttribute="trailing" constant="8" id="6Qy-Wv-pex"/>
+                                            <constraint firstAttribute="bottom" secondItem="cK4-wr-Yg4" secondAttribute="bottom" constant="11" id="ByZ-Wv-RAI"/>
+                                            <constraint firstItem="4D3-65-ZT2" firstAttribute="leading" secondItem="cK4-wr-Yg4" secondAttribute="trailing" constant="8" symbolic="YES" id="LMe-Ok-sF6"/>
                                             <constraint firstItem="4D3-65-ZT2" firstAttribute="centerY" secondItem="asn-Re-j0f" secondAttribute="centerY" id="Qgg-P1-YoN"/>
                                             <constraint firstItem="EQg-zn-PAe" firstAttribute="leading" secondItem="asn-Re-j0f" secondAttribute="leading" constant="13" id="TZf-ei-jeR"/>
-                                            <constraint firstItem="EQg-zn-PAe" firstAttribute="top" secondItem="asn-Re-j0f" secondAttribute="top" constant="10" id="Ugb-iw-dhf"/>
-                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="cK4-wr-Yg4" secondAttribute="bottom" constant="1" id="bMY-HT-7Jr"/>
-                                            <constraint firstItem="cK4-wr-Yg4" firstAttribute="leading" secondItem="EQg-zn-PAe" secondAttribute="leading" id="scq-kb-lQ4"/>
-                                            <constraint firstItem="cK4-wr-Yg4" firstAttribute="top" secondItem="EQg-zn-PAe" secondAttribute="bottom" id="uXg-Nf-vTB"/>
+                                            <constraint firstItem="EQg-zn-PAe" firstAttribute="top" secondItem="asn-Re-j0f" secondAttribute="top" constant="12" id="Ugb-iw-dhf"/>
+                                            <constraint firstItem="cK4-wr-Yg4" firstAttribute="top" secondItem="asn-Re-j0f" secondAttribute="top" constant="27" id="ive-Ec-EAE"/>
+                                            <constraint firstItem="cK4-wr-Yg4" firstAttribute="leading" secondItem="EQg-zn-PAe" secondAttribute="leading" id="yYg-R7-k4Y"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q05-nd-HLC">
-                                        <rect key="frame" x="0.0" y="106" width="428" height="76"/>
+                                        <rect key="frame" x="0.0" y="116" width="428" height="76"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Default Wallet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R7y-ew-Pi8">
                                                 <rect key="frame" x="13" y="12" width="93" height="17"/>
@@ -362,11 +372,9 @@
                                                     <action selector="setDefault:" destination="KGk-i7-Jjw" eventType="valueChanged" id="J8L-7Q-wcV"/>
                                                 </connections>
                                             </switch>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y6i-EG-Jvu">
-                                                <rect key="frame" x="13" y="29" width="206.5" height="29"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Make this wallet default for all outgoing and incoming transactions." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y6i-EG-Jvu">
+                                                <rect key="frame" x="13" y="29" width="350" height="39"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                <string key="text">Make this wallet default for all
-outgoing and incoming transactions.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" red="0.77254901960784317" green="0.792156862745098" blue="0.82352941176470584" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -380,9 +388,10 @@ outgoing and incoming transactions.</string>
                                             <constraint firstItem="R7y-ew-Pi8" firstAttribute="leading" secondItem="Q05-nd-HLC" secondAttribute="leading" constant="13" id="MPS-Ta-0nA"/>
                                             <constraint firstAttribute="trailing" secondItem="pQl-43-ryM" secondAttribute="trailing" constant="8" id="NTl-1R-CMY"/>
                                             <constraint firstItem="R7y-ew-Pi8" firstAttribute="top" secondItem="Q05-nd-HLC" secondAttribute="top" constant="12" id="NrY-sP-niN"/>
-                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="y6i-EG-Jvu" secondAttribute="bottom" constant="17" id="PLY-V7-fTH"/>
+                                            <constraint firstAttribute="bottom" secondItem="y6i-EG-Jvu" secondAttribute="bottom" constant="8" id="PLY-V7-fTH"/>
                                             <constraint firstItem="y6i-EG-Jvu" firstAttribute="leading" secondItem="R7y-ew-Pi8" secondAttribute="leading" id="ZrC-z2-wG6"/>
                                             <constraint firstItem="y6i-EG-Jvu" firstAttribute="top" secondItem="R7y-ew-Pi8" secondAttribute="bottom" id="m3N-Vj-j46"/>
+                                            <constraint firstItem="pQl-43-ryM" firstAttribute="leading" secondItem="y6i-EG-Jvu" secondAttribute="trailing" constant="8" id="tGo-2z-JeM"/>
                                             <constraint firstItem="pQl-43-ryM" firstAttribute="centerY" secondItem="Q05-nd-HLC" secondAttribute="centerY" id="uNQ-IA-oVN"/>
                                         </constraints>
                                     </view>
@@ -413,7 +422,7 @@ outgoing and incoming transactions.</string>
                 <outlet property="labelLockedByTicketsValue" destination="4sf-cX-FHj" id="Kqb-yI-SXR"/>
                 <outlet property="labelVotingAuthorityValue" destination="fsB-Tb-OtA" id="FtT-3A-CCn"/>
             </connections>
-            <point key="canvasLocation" x="-410" y="-117.5"/>
+            <point key="canvasLocation" x="-411.19999999999999" y="-118.29085457271366"/>
         </tableViewCell>
     </objects>
 </document>
