@@ -12,30 +12,47 @@ struct LocalizedStrings {
     /* StartScreenViewController */
     static let openingWallet = NSLocalizedString("openingWallet", comment: "")
     
+    /* Wallet Setup */
+    static let createNewWallet = NSLocalizedString("createNewWallet", comment: "")
+    static let restoreExistingWallet = NSLocalizedString("restoreExistingWallet", comment: "")
+    static let createOrRecoverWallet = NSLocalizedString("createOrRecoverWallet", comment: "")
+    static let wallet = NSLocalizedString("wallet", comment: "")
+    
+    /* Create New Wallet(Seed display view) */
+    static let settingUpYourWallet = NSLocalizedString("settingUpYourWallet", comment: "")
+    static let seedHeaderInfo = NSLocalizedString("seedHeaderInfo", comment: "")
+    static let seedWarningInfo = NSLocalizedString("seedWarningInfo", comment: "")
+    static let iCopiedTheSeedPhrase = NSLocalizedString("iCopiedTheSeedPhrase", comment: "")
+    
+    /* Confirm NewWallet Seed */
+    static let seedDoesNotMatch = NSLocalizedString("seedDoesNotMatch", comment: "")
+    static let seedPhraseVerification = NSLocalizedString("seedPhraseVerification", comment: "")
+    static let confirmSeedInfo = NSLocalizedString("confirmSeedInfo", comment: "")
+    
+    /* Recover Existing Wallet */
+    static let wordNumber = NSLocalizedString("wordNumber", comment: "")
+    static let notAllSeedsAreEntered = NSLocalizedString("notAllSeedsAreEntered", comment: "")
+    static let incorrectSeedEntered = NSLocalizedString("incorrectSeedEntered", comment: "")
+    static let walletRecoveryError = NSLocalizedString("walletRecoveryError", comment: "")
+    static let seedRestoreHeader = NSLocalizedString("seedRestoreHeader", comment: "")
+    static let seedRestoreInfo = NSLocalizedString("seedRestoreInfo", comment: "")
+    static let confirm = NSLocalizedString("confirm", comment: "")
+    
+    /* Drop Down Search Field */
+    static let tapToSelect = NSLocalizedString("tapToSelect", comment: "")
+    
+    /* Wallet Setup Base */
+    static let settingUpWallet = NSLocalizedString("settingUpWallet", comment: "")
+    static let errorSettingUpWallet = NSLocalizedString("errorSettingUpWallet", comment: "")
+    
     /*Security Prompt */
     static let enterStartupPassword = NSLocalizedString("enterStartupPassword", comment: "")
     static let incorrectSecurityInfo = NSLocalizedString("incorrectSecurityInfo", comment: "")
     
-    /* Pop Ups */
-    static let error = NSLocalizedString("error", comment: "")
-    static let retry = NSLocalizedString("retry", comment: "")
-    static let ok = NSLocalizedString("ok", comment: "")
-    static let tryAgain = NSLocalizedString("tryAgain", comment: "")
-    static let cancel = NSLocalizedString("cancel", comment: "")
-    static let clearFields =  NSLocalizedString("clearFields", comment: "")
-    static let copiedSuccessfully = NSLocalizedString("copiedSuccessfully", comment: "")
-    static let invalidRequest = NSLocalizedString("invalidRequest", comment: "")
-    static let addrCopied = NSLocalizedString("addrCopied", comment: "")
-    static let previousOutpointCopied = NSLocalizedString("previousOutpointCopied", comment: "")
-    static let errorMsg = NSLocalizedString("errorMsg", comment: "")
-    static let info = NSLocalizedString("info", comment: "")
-    static let delete = NSLocalizedString("delete", comment: "")
-    
     /* Password Setup */
     static let emptyPasswordNotAllowed = NSLocalizedString("emptyPasswordNotAllowed", comment: "")
-    static let passwordsDoNotMatch = NSLocalizedString("passwordsDoNotMatch", comment: "")
     static let passwordMatch = NSLocalizedString("passwordMatch", comment: "")
-    static let passwordDoNotMatch = NSLocalizedString("passwordDoNotMatch", comment: "")
+    static let passwordsDoNotMatch = NSLocalizedString("passwordsDoNotMatch", comment: "")
     static let createPassword = NSLocalizedString("createPassword", comment: "")
     static let passwordStrength = NSLocalizedString("passwordStrength", comment: "")
     static let confirmPassword = NSLocalizedString("confirmPassword", comment: "")
@@ -68,65 +85,6 @@ struct LocalizedStrings {
     static let removingStartupPINPass = NSLocalizedString("removingStartupPINPass", comment: "")
     static let settingStartupPINPass = NSLocalizedString("settingStartupPINPass", comment: "")
     
-    /* Transaction List */
-    static let pending = NSLocalizedString("pending", comment: "")
-    static let confirmed = NSLocalizedString("confirmed", comment: "")
-    static let vote = NSLocalizedString("vote", comment: "")
-    static let ticket = NSLocalizedString("ticket", comment: "")
-    static let confirmedLive = NSLocalizedString("confirmedLive", comment: "")
-    static let confirmedImmature = NSLocalizedString("confirmedImmature", comment: "")
-    static let noTransactions = NSLocalizedString("noTransactions", comment: "")
-    static let sent = NSLocalizedString("sent", comment: "")
-    static let received = NSLocalizedString("received", comment: "")
-    static let yourself = NSLocalizedString("yourself", comment: "")
-    static let staking = NSLocalizedString("staking", comment: "")
-    static let all = NSLocalizedString("all", comment: "")
-    
-    /* CreateNewWalletViewController */
-    
-    /* Confirm NewWallet Seed */
-    static let seedDoesNotMatch = NSLocalizedString("seedDoesNotMatch", comment: "")
-    static let seedPhraseVerification = NSLocalizedString("seedPhraseVerification", comment: "")
-    static let confirmSeedInfo = NSLocalizedString("confirmSeedInfo", comment: "")
-    
-    /* Recover Existing Wallet */
-    static let wordNumber = NSLocalizedString("wordNumber", comment: "")
-    static let notAllSeedsAreEntered = NSLocalizedString("notAllSeedsAreEntered", comment: "")
-    static let incorrectSeedEntered = NSLocalizedString("incorrectSeedEntered", comment: "")
-    static let walletRecoveryError = NSLocalizedString("walletRecoveryError", comment: "")
-    static let seedRestoreHeader = NSLocalizedString("seedRestoreHeader", comment: "")
-    static let seedRestoreInfo = NSLocalizedString("seedRestoreInfo", comment: "")
-    static let confirm = NSLocalizedString("confirm", comment: "")
-    
-    /* Drop Down Search Field */
-    static let tapToSelect = NSLocalizedString("tapToSelect", comment: "")
-    
-    /* Wallet Setup */
-    static let createNewWallet = NSLocalizedString("createNewWallet", comment: "")
-    static let restoreExistingWallet = NSLocalizedString("restoreExistingWallet", comment: "")
-    static let createOrRecoverWallet = NSLocalizedString("createOrRecoverWallet", comment: "")
-    static let wallet = NSLocalizedString("wallet", comment: "")
-    
-    /* Create New Wallet(Seed display view) */
-    static let settingUpYourWallet = NSLocalizedString("settingUpYourWallet", comment: "")
-    static let seedHeaderInfo = NSLocalizedString("seedHeaderInfo", comment: "")
-    static let seedWarningInfo = NSLocalizedString("seedWarningInfo", comment: "")
-    static let iCopiedTheSeedPhrase = NSLocalizedString("iCopiedTheSeedPhrase", comment: "")
-    
-    /* Wallet Setup Base */
-    static let settingUpWallet = NSLocalizedString("settingUpWallet", comment: "")
-    static let errorSettingUpWallet = NSLocalizedString("errorSettingUpWallet", comment: "")
-    
-    /* Navigation Menu Items */
-    static let overview = NSLocalizedString("overview", comment: "")
-    static let history = NSLocalizedString("history", comment: "")
-    static let send = NSLocalizedString("send", comment: "")
-    static let receive = NSLocalizedString("receive", comment: "")
-    static let accounts = NSLocalizedString("accounts", comment: "")
-    static let security = NSLocalizedString("security", comment: "")
-    static let settings = NSLocalizedString("settings", comment: "")
-    static let help = NSLocalizedString("help", comment: "")
-    
     /* NavigationMenu / Sync progress */
     static let cannotSyncWithoutNetworkConnection = NSLocalizedString("cannotSyncWithoutNetworkConnection", comment: "")
     static let internetConnectionRequired = NSLocalizedString("internetConnectionRequired", comment: "")
@@ -156,6 +114,13 @@ struct LocalizedStrings {
     static let restartingSynchronization = NSLocalizedString("restartingSynchronization", comment: "")
     static let startingSynchronization = NSLocalizedString("startingSynchronization", comment: "")
     
+    /*No Wifi Sync Connection */
+    static let notConnectedToWiFi = NSLocalizedString("notConnectedToWiFi", comment: "")
+    static let syncAnyways = NSLocalizedString("syncAnyways", comment: "")
+    static let no = NSLocalizedString("no", comment: "")
+    static let yes = NSLocalizedString("yes", comment: "")
+    static let always = NSLocalizedString("always", comment: "")
+    
     /* Sync progress view */
     static let loading = NSLocalizedString("loading", comment: "")
     static let numberOfConnectedPeers = NSLocalizedString("numberOfConnectedPeers", comment: "")
@@ -178,6 +143,64 @@ struct LocalizedStrings {
     static let total = NSLocalizedString("total", comment: "")
     static let stageTimes = NSLocalizedString("stageTimes", comment: "")
     static let tapToViewInformation = NSLocalizedString("tapToViewInformation", comment: "")
+    
+    /* Navigation Menu Items */
+    static let overview = NSLocalizedString("overview", comment: "")
+    static let history = NSLocalizedString("history", comment: "")
+    static let send = NSLocalizedString("send", comment: "")
+    static let receive = NSLocalizedString("receive", comment: "")
+    static let accounts = NSLocalizedString("accounts", comment: "")
+    static let security = NSLocalizedString("security", comment: "")
+    static let settings = NSLocalizedString("settings", comment: "")
+    static let help = NSLocalizedString("help", comment: "")
+    
+    /* New Wallet Dialog */
+    static let newWalletMsg = NSLocalizedString("newWalletMsg", comment: "")
+    static let welcomeToDecredWallet = NSLocalizedString("welcomeToDecredWallet", comment: "")
+    
+    /* Overview */
+    static let currentTotalBalance = NSLocalizedString("currentTotalBalance", comment: "")
+    static let recentActivity = NSLocalizedString("recentActivity", comment: "")
+    static let showAllTransactions = NSLocalizedString("showAllTransactions", comment: "")
+    
+    /* Transaction List/ History */
+    static let pending = NSLocalizedString("pending", comment: "")
+    static let confirmed = NSLocalizedString("confirmed", comment: "")
+    static let vote = NSLocalizedString("vote", comment: "")
+    static let ticket = NSLocalizedString("ticket", comment: "")
+    static let confirmedLive = NSLocalizedString("confirmedLive", comment: "")
+    static let confirmedImmature = NSLocalizedString("confirmedImmature", comment: "")
+    static let noTransactions = NSLocalizedString("noTransactions", comment: "")
+    static let sent = NSLocalizedString("sent", comment: "")
+    static let received = NSLocalizedString("received", comment: "")
+    static let yourself = NSLocalizedString("yourself", comment: "")
+    static let staking = NSLocalizedString("staking", comment: "")
+    static let all = NSLocalizedString("all", comment: "")
+    
+    /* Transaction Details */
+    static let transactionDetails = NSLocalizedString("transactionDetails", comment: "")
+    static let copyTransactionHash = NSLocalizedString("copyTransactionHash", comment: "")
+    static let copyRawTransaction = NSLocalizedString("copyRawTransaction", comment: "")
+    static let viewOnDcrdata = NSLocalizedString("viewOnDcrdata", comment: "")
+    static let copied = NSLocalizedString("copied", comment: "")
+    static let ticketPurchase = NSLocalizedString("ticketPurchase", comment: "")
+    static let date = NSLocalizedString("date", comment: "")
+    static let status = NSLocalizedString("status", comment: "")
+    static let amount = NSLocalizedString("amount", comment: "")
+    static let fee = NSLocalizedString("fee", comment: "")
+    static let type = NSLocalizedString("type", comment: "")
+    static let confirmation = NSLocalizedString("confirmation", comment: "")
+    static let lastBlockValid = NSLocalizedString("lastBlockValid", comment: "")
+    static let version = NSLocalizedString("version", comment: "")
+    static let voteBits = NSLocalizedString("voteBits", comment: "")
+    static let inputs = NSLocalizedString("inputs", comment: "")
+    static let outputs = NSLocalizedString("outputs", comment: "")
+    static let external = NSLocalizedString("external", comment: "")
+    static let `internal` = NSLocalizedString("internal", comment: "")
+    static let imported = NSLocalizedString("imported", comment: "")
+    static let nullData = NSLocalizedString("nullData", comment: "")
+    static let script = NSLocalizedString("script", comment: "")
+    static let stakegen = NSLocalizedString("stakegen", comment: "")
     
     /* Send view */
     static let invalidAmount = NSLocalizedString("invalidAmount", comment: "")
@@ -227,143 +250,17 @@ struct LocalizedStrings {
     static let view = NSLocalizedString("view", comment: "");
     static let transactionSuccessful = NSLocalizedString("transactionSuccessful", comment: "");
     
-    /* Security Menu */
-    static let validOwnAddr = NSLocalizedString("validOwnAddr", comment: "")
-    static let validNotOwnAddr = NSLocalizedString("validNotOwnAddr", comment: "")
-    static let invalidAddr = NSLocalizedString("invalidAddr", comment: "")
-    static let verifiedSignature = NSLocalizedString("verifiedSignature", comment: "")
-    static let invalidSignature = NSLocalizedString("invalidSignature", comment: "")
-    static let signingMessage = NSLocalizedString("signingMessage", comment: "")
-    static let address = NSLocalizedString("address", comment: "")
-    static let message = NSLocalizedString("message", comment: "")
-    static let signature = NSLocalizedString("signature", comment: "")
-    static let signMessage = NSLocalizedString("signMessage", comment: "")
-    static let secureMenuSyncInfo = NSLocalizedString("secureMenuSyncInfo", comment: "")
-    static let secureMenuHeaderInfo = NSLocalizedString("secureMenuHeaderInfo", comment: "")
-    
-    /* License */
-    static let license = NSLocalizedString("license", comment: "")
-    
-    /* Settings */
-    static let spv = NSLocalizedString("spv", comment: "")
-    static let remoteFullNode = NSLocalizedString("remoteFullNode", comment: "")
-    static let none = NSLocalizedString("none", comment: "")
-    static let rescanConfirm = NSLocalizedString("rescanConfirm", comment: "")
-    static let rescanBlockchain = NSLocalizedString("rescanBlockchain", comment: "")
-    static let syncProgressAlert = NSLocalizedString("syncProgressAlert", comment: "")
-    static let scanInProgress = NSLocalizedString("scanInProgress", comment: "")
-    static let scanStartedAlready = NSLocalizedString("scanStartedAlready", comment: "")
-    static let rescanFailed = NSLocalizedString("rescanFailed", comment: "")
-    static let deletingWallet = NSLocalizedString("deletingWallet", comment: "")
-    static let deleteWalletFailed = NSLocalizedString("deleteWalletFailed", comment: "")
-    static let changeSpendingPinPass = NSLocalizedString("changeSpendingPinPass", comment: "")
-    static let spendingPinPassInfo = NSLocalizedString("spendingPinPassInfo", comment: "")
-    static let startupPinPass = NSLocalizedString("startupPinPass", comment: "")
-    static let changeStatupPinPass = NSLocalizedString("changeStatupPinPass", comment: "")
-    static let startupPinPassInfo = NSLocalizedString("startupPinPassInfo", comment: "")
-    static let spendUnconfirmedFund = NSLocalizedString("spendUnconfirmedFund", comment: "")
-    static let incomingTxNotification = NSLocalizedString("incomingTxNotification", comment: "")
-    static let currencyConversion = NSLocalizedString("currencyConversion", comment: "")
-    static let networkMode = NSLocalizedString("networkMode", comment: "")
-    static let serverAddress = NSLocalizedString("serverAddress", comment: "")
-    static let connectIpDesc = NSLocalizedString("connectIpDesc", comment: "")
-    static let certificate = NSLocalizedString("certificate", comment: "")
-    static let syncOnWifiDesc = NSLocalizedString("syncOnWifiDesc", comment: "")
-    static let buildDate = NSLocalizedString("buildDate", comment: "")
-    static let walletLog = NSLocalizedString("walletLog", comment: "")
-    static let deleteWallet = NSLocalizedString("deleteWallet", comment: "")
-    static let general = NSLocalizedString("general", comment: "")
-    static let connection = NSLocalizedString("connection", comment: "")
-    static let about = NSLocalizedString("about", comment: "")
-    static let debug = NSLocalizedString("debug", comment: "")
-    
-    /* IP set */
-    static let connectToPeer = NSLocalizedString("connectToPeer", comment: "")
-    static let peerAddressIsInvalid = NSLocalizedString("peerAddressIsInvalid", comment: "")
-    static let remoteAddressIsInvalid = NSLocalizedString("remoteAddressIsInvalid", comment: "")
-    
-    /* Certificate */
-    static let certificateInfo = NSLocalizedString("certificateInfo", comment: "")
-    
-    /* Wallet Log */
-    static let copy = NSLocalizedString("copy", comment: "")
-    static let walletLogCopied = NSLocalizedString("walletLogCopied", comment: "")
-    
-    /* Transaction Notification */
-    static let newTransaction = NSLocalizedString("newTransaction", comment: "")
-    static let youReceived = NSLocalizedString("youReceived", comment: "")
-    
-    /* Account Data Cell */
-    static let external = NSLocalizedString("external", comment: "")
-    static let `internal` = NSLocalizedString("internal", comment: "")
-    static let imported = NSLocalizedString("imported", comment: "")
-    static let nullData = NSLocalizedString("nullData", comment: "")
-    static let script = NSLocalizedString("script", comment: "")
-    static let stakegen = NSLocalizedString("stakegen", comment: "")
+    /* Recieve */
+    static let receivingDecred = NSLocalizedString("receivingDecred", comment: "")
+    static let receiveHeaderInfo = NSLocalizedString("receiveHeaderInfo", comment: "")
+    static let accountDesc = NSLocalizedString("accountDesc", comment: "")
+    static let copyOnTap = NSLocalizedString("copyOnTap", comment: "")
+    static let walletAddrCopied = NSLocalizedString("walletAddrCopied", comment: "")
+    static let genNewAddr = NSLocalizedString("genNewAddr", comment: "")
     
     /* Account View */
     static let hidden = NSLocalizedString("hidden", comment: "")
     static let spendable = NSLocalizedString("spendable", comment: "")
-    
-    /* Transaction Details */
-    static let transactionDetails = NSLocalizedString("transactionDetails", comment: "")
-    static let copyTransactionHash = NSLocalizedString("copyTransactionHash", comment: "")
-    static let copyRawTransaction = NSLocalizedString("copyRawTransaction", comment: "")
-    static let viewOnDcrdata = NSLocalizedString("viewOnDcrdata", comment: "")
-    static let copied = NSLocalizedString("copied", comment: "")
-    static let ticketPurchase = NSLocalizedString("ticketPurchase", comment: "")
-    static let date = NSLocalizedString("date", comment: "")
-    static let status = NSLocalizedString("status", comment: "")
-    static let amount = NSLocalizedString("amount", comment: "")
-    static let fee = NSLocalizedString("fee", comment: "")
-    static let type = NSLocalizedString("type", comment: "")
-    static let confirmation = NSLocalizedString("confirmation", comment: "")
-    static let lastBlockValid = NSLocalizedString("lastBlockValid", comment: "")
-    static let version = NSLocalizedString("version", comment: "")
-    static let voteBits = NSLocalizedString("voteBits", comment: "")
-    static let inputs = NSLocalizedString("inputs", comment: "")
-    static let outputs = NSLocalizedString("outputs", comment: "")
-    
-    /* Receive View */
-    static let recieveHeaderInfo = NSLocalizedString("recieveHeaderInfo", comment: "")
-    static let walletAddrCopied = NSLocalizedString("walletAddrCopied", comment: "")
-    static let genNewAddr = NSLocalizedString("genNewAddr", comment: "")
-    
-    /* Add Account */
-    static let inputAccountName = NSLocalizedString("inputAccountName", comment: "")
-    static let creatingAccount = NSLocalizedString("creatingAccount", comment: "")
-    
-    /* View controller sender */
-    static let spending = NSLocalizedString("spending", comment: "")
-    static let startup = NSLocalizedString("startup", comment: "")
-    static let current = NSLocalizedString("current", comment: "")
-    
-    /* Dcrlibwallet extension */
-    static let lessThanOneday = NSLocalizedString("lessThanOneday", comment: "")
-    static let oneDay = NSLocalizedString("oneDay", comment: "")
-    static let mutlipleDays = NSLocalizedString("mutlipleDays", comment: "")
-    static let minRemaining = NSLocalizedString("minRemaining", comment: "")
-    static let secRemaining = NSLocalizedString("secRemaining", comment: "")
-    
-    /* New Wallet Dialog */
-    static let newWalletMsg = NSLocalizedString("newWalletMsg", comment: "")
-    static let welcomeToDecredWallet = NSLocalizedString("welcomeToDecredWallet", comment: "")
-    
-    /*No Wifi Sync Connection */
-    static let notConnectedToWiFi = NSLocalizedString("notConnectedToWiFi", comment: "")
-    static let syncAnyways = NSLocalizedString("syncAnyways", comment: "")
-    static let no = NSLocalizedString("no", comment: "")
-    static let yes = NSLocalizedString("yes", comment: "")
-    static let always = NSLocalizedString("always", comment: "")
-    
-    /* Overview */
-    static let currentTotalBalance = NSLocalizedString("currentTotalBalance", comment: "")
-    static let recentActivity = NSLocalizedString("recentActivity", comment: "")
-    static let showAllTransactions = NSLocalizedString("showAllTransactions", comment: "")
-    
-    /* Delete Wallet */
-    static let confirmDeleteInfo = NSLocalizedString("confirmDeleteInfo", comment: "")
-    static let confirmDeleteDesc = NSLocalizedString("confirmDeleteDesc", comment: "")
     
     /* Account Data cell */
     static let details = NSLocalizedString("details", comment: "")
@@ -381,19 +278,112 @@ struct LocalizedStrings {
     static let defaultWallet = NSLocalizedString("defaultWallet", comment: "")
     static let makeWalletDefaultDesc = NSLocalizedString("makeWalletDefaultDesc", comment: "")
     
-    /* Help */
-    static let forMoreInformationPleaseVisit = NSLocalizedString("forMoreInformationPleaseVisit", comment: "")
-    
     /* Add Account */
+    static let inputAccountName = NSLocalizedString("inputAccountName", comment: "")
+    static let creatingAccount = NSLocalizedString("creatingAccount", comment: "")
     static let addAccount = NSLocalizedString("addAccount", comment: "")
     static let addAccountInfo = NSLocalizedString("addAccountInfo", comment: "")
     static let accountName = NSLocalizedString("accountName", comment: "")
     static let createAccount = NSLocalizedString("createAccount", comment: "")
     static let privatePassphrase = NSLocalizedString("privatePassphrase", comment: "")
     
-    /* Recieve */
-    static let receivingDecred = NSLocalizedString("receivingDecred", comment: "")
-    static let receiveHeaderInfo = NSLocalizedString("receiveHeaderInfo", comment: "")
-    static let accountDesc = NSLocalizedString("accountDesc", comment: "")
-    static let copyOnTap = NSLocalizedString("copyOnTap", comment: "")
+    /* Security Menu */
+    static let validOwnAddr = NSLocalizedString("validOwnAddr", comment: "")
+    static let validNotOwnAddr = NSLocalizedString("validNotOwnAddr", comment: "")
+    static let invalidAddr = NSLocalizedString("invalidAddr", comment: "")
+    static let verifiedSignature = NSLocalizedString("verifiedSignature", comment: "")
+    static let invalidSignature = NSLocalizedString("invalidSignature", comment: "")
+    static let signingMessage = NSLocalizedString("signingMessage", comment: "")
+    static let address = NSLocalizedString("address", comment: "")
+    static let message = NSLocalizedString("message", comment: "")
+    static let signature = NSLocalizedString("signature", comment: "")
+    static let signMessage = NSLocalizedString("signMessage", comment: "")
+    static let secureMenuSyncInfo = NSLocalizedString("secureMenuSyncInfo", comment: "")
+    static let secureMenuHeaderInfo = NSLocalizedString("secureMenuHeaderInfo", comment: "")
+    
+    /* Help */
+    static let forMoreInformationPleaseVisit = NSLocalizedString("forMoreInformationPleaseVisit", comment: "")
+    
+    /* Settings */
+    static let changeSpendingPinPass = NSLocalizedString("changeSpendingPinPass", comment: "")
+    static let spendingPinPassInfo = NSLocalizedString("spendingPinPassInfo", comment: "")
+    static let startupPinPass = NSLocalizedString("startupPinPass", comment: "")
+    static let changeStatupPinPass = NSLocalizedString("changeStatupPinPass", comment: "")
+    static let startupPinPassInfo = NSLocalizedString("startupPinPassInfo", comment: "")
+    static let spendUnconfirmedFund = NSLocalizedString("spendUnconfirmedFund", comment: "")
+    static let incomingTxNotification = NSLocalizedString("incomingTxNotification", comment: "")
+    static let currencyConversion = NSLocalizedString("currencyConversion", comment: "")
+    static let networkMode = NSLocalizedString("networkMode", comment: "")
+    static let serverAddress = NSLocalizedString("serverAddress", comment: "")
+    static let connectIpDesc = NSLocalizedString("connectIpDesc", comment: "")
+    static let certificate = NSLocalizedString("certificate", comment: "")
+    static let syncOnWifiDesc = NSLocalizedString("syncOnWifiDesc", comment: "")
+    static let buildDate = NSLocalizedString("buildDate", comment: "")
+    static let walletLog = NSLocalizedString("walletLog", comment: "")
+    static let deleteWallet = NSLocalizedString("deleteWallet", comment: "")
+    static let spv = NSLocalizedString("spv", comment: "")
+    static let remoteFullNode = NSLocalizedString("remoteFullNode", comment: "")
+    static let none = NSLocalizedString("none", comment: "")
+    static let rescanConfirm = NSLocalizedString("rescanConfirm", comment: "")
+    static let rescanBlockchain = NSLocalizedString("rescanBlockchain", comment: "")
+    static let syncProgressAlert = NSLocalizedString("syncProgressAlert", comment: "")
+    static let scanInProgress = NSLocalizedString("scanInProgress", comment: "")
+    static let scanStartedAlready = NSLocalizedString("scanStartedAlready", comment: "")
+    static let rescanFailed = NSLocalizedString("rescanFailed", comment: "")
+    static let deletingWallet = NSLocalizedString("deletingWallet", comment: "")
+    static let deleteWalletFailed = NSLocalizedString("deleteWalletFailed", comment: "")
+    static let general = NSLocalizedString("general", comment: "")
+    static let connection = NSLocalizedString("connection", comment: "")
+    static let about = NSLocalizedString("about", comment: "")
+    static let debug = NSLocalizedString("debug", comment: "")
+    
+    /* IP set */
+    static let connectToPeer = NSLocalizedString("connectToPeer", comment: "")
+    static let peerAddressIsInvalid = NSLocalizedString("peerAddressIsInvalid", comment: "")
+    static let remoteAddressIsInvalid = NSLocalizedString("remoteAddressIsInvalid", comment: "")
+    
+    /* Certificate */
+    static let certificateInfo = NSLocalizedString("certificateInfo", comment: "")
+    
+    /* License */
+    static let license = NSLocalizedString("license", comment: "")
+    
+    /* Wallet Log */
+    static let copy = NSLocalizedString("copy", comment: "")
+    static let walletLogCopied = NSLocalizedString("walletLogCopied", comment: "")
+    
+    /* Delete Wallet */
+    static let confirmDeleteInfo = NSLocalizedString("confirmDeleteInfo", comment: "")
+    static let confirmDeleteDesc = NSLocalizedString("confirmDeleteDesc", comment: "")
+    
+    /* Transaction Notification */
+    static let newTransaction = NSLocalizedString("newTransaction", comment: "")
+    static let youReceived = NSLocalizedString("youReceived", comment: "")
+    
+    /* View controller sender */
+    static let spending = NSLocalizedString("spending", comment: "")
+    static let startup = NSLocalizedString("startup", comment: "")
+    static let current = NSLocalizedString("current", comment: "")
+    
+    /* Dcrlibwallet extension */
+    static let lessThanOneday = NSLocalizedString("lessThanOneday", comment: "")
+    static let oneDay = NSLocalizedString("oneDay", comment: "")
+    static let mutlipleDays = NSLocalizedString("mutlipleDays", comment: "")
+    static let minRemaining = NSLocalizedString("minRemaining", comment: "")
+    static let secRemaining = NSLocalizedString("secRemaining", comment: "")
+    
+    /* Pop Ups */
+    static let error = NSLocalizedString("error", comment: "")
+    static let retry = NSLocalizedString("retry", comment: "")
+    static let ok = NSLocalizedString("ok", comment: "")
+    static let tryAgain = NSLocalizedString("tryAgain", comment: "")
+    static let cancel = NSLocalizedString("cancel", comment: "")
+    static let clearFields =  NSLocalizedString("clearFields", comment: "")
+    static let copiedSuccessfully = NSLocalizedString("copiedSuccessfully", comment: "")
+    static let invalidRequest = NSLocalizedString("invalidRequest", comment: "")
+    static let addrCopied = NSLocalizedString("addrCopied", comment: "")
+    static let previousOutpointCopied = NSLocalizedString("previousOutpointCopied", comment: "")
+    static let errorMsg = NSLocalizedString("errorMsg", comment: "")
+    static let info = NSLocalizedString("info", comment: "")
+    static let delete = NSLocalizedString("delete", comment: "")
 }
