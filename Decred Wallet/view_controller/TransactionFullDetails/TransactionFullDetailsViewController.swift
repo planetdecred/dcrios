@@ -100,7 +100,11 @@ class TransactionFullDetailsViewController: UIViewController, UITableViewDataSou
         })
         
         let viewOnDcrdata = UIAlertAction(title: LocalizedStrings.viewOnDcrdata, style: .default, handler: { (alert: UIAlertAction!) -> Void in
-            self.openLink(urlString: "https://testnet.dcrdata.org/tx/\(self.transaction.Hash)")
+             if BuildConfig.IsTestNet {
+                self.openLink(urlString: "https://testnet.dcrdata.org/tx/\(self.transaction.Hash)")
+             } else {
+                self.openLink(urlString: "https://mainnet.dcrdata.org/tx/\(self.transaction.Hash)")
+            }
         })
         
         alertController.addAction(cancelAction)
