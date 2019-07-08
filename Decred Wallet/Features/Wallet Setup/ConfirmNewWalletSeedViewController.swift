@@ -10,14 +10,22 @@ import UIKit
 import Dcrlibwallet
 import JGProgressHUD
 
-class ConfirmNewWalletSeedViewController: WalletSetupBaseViewController {
+class ConfirmNewWalletSeedViewController: UIViewController {
+    static func instantiate() -> Self {
+        return Storyboards.WalletSetup.instantiateViewController(for: self)
+    }
+    
     var seedWordsGroupedByThree: [[String]] = []
     var selectedWords: [String] = []
     
     @IBOutlet weak var btnConfirm: UIButton!
     @IBOutlet var vActiveCellView: SeedCheckActiveCellView!
     
-    var callback: ((String?)->())?
+    var isSeedBackedUp: ((String?)->())?
+    
+    override func viewDidLoad() {
+        self.navigationController?.navigationBar.isHidden = true
+    }
     
     func prepareSeedForVerification(seedToVerify: String) {
         let allSeedWords = loadSeedWordsList()
@@ -56,6 +64,7 @@ class ConfirmNewWalletSeedViewController: WalletSetupBaseViewController {
     }
     
     @IBAction func backbtn(_ sender: Any) {
+        self.navigationController?.navigationBar.isHidden = false
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -65,7 +74,7 @@ class ConfirmNewWalletSeedViewController: WalletSetupBaseViewController {
         if seedIsValid {
             Settings.setValue(true, for: Settings.Keys.SeedBackedUp)
             Settings.clearValue(for: Settings.Keys.Seed)
-            callback?(seed)
+            isSeedBackedUp?(seed)
             self.navigationController?.popViewController(animated: true)
         } else {
             self.showError(error: LocalizedStrings.seedDoesNotMatch)

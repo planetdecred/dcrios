@@ -77,13 +77,12 @@ class OverviewViewController: UIViewController {
     // backup seed action
     @objc func backupSeedAction() {
         let confirmSeedVC = ConfirmNewWalletSeedViewController.instantiate()
-        confirmSeedVC.prepareSeedForVerification(seedToVerify: Settings.Keys.Seed)
-        confirmSeedVC.callback = { seed in
-            self.backupWallet.isHidden = true
+        confirmSeedVC.prepareSeedForVerification(seedToVerify: Settings.readValue(for: Settings.Keys.Seed))
+        confirmSeedVC.isSeedBackedUp = { seed in
             self.backupViewSpacing.isHidden = false
+            self.backupWallet.isHidden = true
         }
         self.navigationController?.pushViewController(confirmSeedVC, animated: true)
-        print("ok")
     }
 
     func updateCurrentBalance() {

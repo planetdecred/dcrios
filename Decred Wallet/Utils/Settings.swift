@@ -59,8 +59,8 @@ class Settings {
     }
     
     /** Computed properties to access commonly used settings. */
-    static var spendUnconfirmed: Bool {
-        return Settings.readValue(for: Settings.Keys.SpendUnconfirmed)
+    static var newWalletSetUp: Bool {
+        return Settings.readValue(for: Settings.Keys.NewWalletSetUp)
     }
     
     static var seedBackedUp: Bool {
@@ -71,8 +71,8 @@ class Settings {
         return Settings.readValue(for: Settings.Keys.SyncOnCellular)
     }
     
-    static var newWalletSetUp: Bool {
-        return Settings.readValue(for: Settings.Keys.NewWalletSetUp)
+    static var spendUnconfirmed: Bool {
+        return Settings.readValue(for: Settings.Keys.SpendUnconfirmed)
     }
     
     static var incomingNotificationEnabled: Bool {
