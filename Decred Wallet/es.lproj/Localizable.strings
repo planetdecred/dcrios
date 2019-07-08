@@ -1,0 +1,385 @@
+//
+//  Localizable.strings
+//  Decred Wallet
+//
+// Copyright (c) 2018-2019 The Decred developers
+// Use of this source code is governed by an ISC
+// license that can be found in the LICENSE file.
+
+/* StartScreenViewController */
+"openingWallet" = "Abriendo la cartera…";
+
+/* Wallet Setup */
+"createNewWallet" = "Crear una nueva \n cartera";
+"restoreExistingWallet" = "Restaurar cartera \n existente";
+"createOrRecoverWallet" = "Crea o restaura tu billetera y empieza a gestionar tu decred.";
+"wallet" = "Cartera";
+
+/* Create New Wallet(Seed display view) */
+"settingUpYourWallet" = "Configurando Cartera Decred";
+"seedHeaderInfo" = "Escriba esta frase semilla que aparece abajo y guárdela en un lugar seguro. Se le pedirá que lo ingrese en la siguiente pantalla y si alguna vez necesita restaurar su billetara.";
+"seedWarningInfo" = "El no mantener esta semilla segura puede resultar en el robo de su billetera completa o la incapacidad de recuperarla.";
+"iCopiedTheSeedPhrase" = "He copiado la frase semilla";
+
+/* Confirm NewWallet Seed */
+"seedDoesNotMatch" = "Has ingresado una semilla incorrecta. Por favor, revísa tus palabras.";
+"seedPhraseVerification" = "Verificación de la frase semilla...";
+"confirmSeedInfo" = "Cada campo contiene una sola palabra correcta. Por favor confirme su semilla seleccionando las palabras correctas.";
+
+/* Recover Existing Wallet */
+"wordNumber" = "Palabra #%d";
+"notAllSeedsAreEntered" = "No todas las semillas han sido introducidas. Por favor, verifica los campos y vuelve a ingresar las semillas.";
+"incorrectSeedEntered" = "Has ingresado una semilla incorrecta. Por favor, revísa tus palabras.";
+"walletRecoveryError" = "Wallet recovery error.";
+"seedRestoreHeader" = "Restauración de semillas";
+"seedRestoreInfo" = "Comience a escribir la palabra correcta y luego toque la palabra de la lista de sugerencias.";
+"confirm" = "Confirmar";
+
+/* Drop Down Search Field */
+"tapToSelect" = "Toque para seleccionar la palabra";
+
+/* Wallet Setup Base */
+"settingUpWallet" ="Configurando Cartera Decred...";
+"errorSettingUpWallet" = "Error setting up wallet.";
+
+/* Security Prompt */
+"enterStartupPassword" = "Ingresa una contraseña de inicio";
+"incorrectSecurityInfo" = "Has ingresado una %@ incorrecta. Inténtelo de nuevo?";
+
+/* Password Setup */
+"emptyPasswordNotAllowed" = "Password cannot be empty";
+"passwordMatch" = "LAS CONTRASEÑAS COINCIDEN";
+"passwordsDoNotMatch" = "LAS CONTRASEÑAS NO COINCIDEN";
+"createPassword" = "Crear contraseña de %@";
+"passwordStrength" = "Nivel de seguridad de la contraseña";
+"confirmPassword" = "CONFIRMAR CONTRASEÑA";
+
+/* Request Password */
+"enterPassword" = "Ingresa la contraseña";
+"promptSpendingPassword" = "Please enter spending password of your wallet.";
+"promptStartupPassword" = "Ingresa la contraseña de inicio actual.";
+"securityTypeNotSpecified" = "Security type not specified. Cannot proceed.";
+"password" = "CONTRASEÑA";
+"proceed" = "Proceed";
+"passwordEmpty" = "Password can't be empty.";
+"invalidInput" = "invalid input.";
+"passwordInvalid" = "La contraseña ingresada no es válida.";
+
+/* Request PIN and PIN Setup */
+"createPIN" = "Crear PIN de %@";
+"enterPIN" = "Ingresa el PIN de %@";
+"confirmPIN" = "Confirmar el PIN de %@";
+"pinsDidNotMatch" = "Los PIN no coinciden. Inténtelo de nuevo";
+"pin" = "PIN";
+"pinStrength" = "Nivel de seguridad del PIN";
+
+/* Change Spending PIN/Password */
+"enterCurrentSpendingPassword" = "Ingresa la contraseña de gasto actual";
+"changingSpendingPINPass" = "Cambiando %@ de gasto...";
+
+/* Changing Startup PIN/Password */
+"changingStartupPINPass" = "Cambiando %@ de inicio...";
+"removingStartupPINPass" = "Eliminando %@ de inicio...";
+"settingStartupPINPass" = "Configurando %@ de inicio..." ;
+
+/* NavigationMenu / Sync progress */
+"cannotSyncWithoutNetworkConnection" = "Cannot sync without network connection.";
+"internetConnectionRequired" = "Internet connection required.";
+"connectToWiFiToSync" = "Conectar al WiFi para sincronizar.";
+"restartingSync" = "Restarting sync...";
+"connectingToPeers" = "Conectando a los pares.";
+"syncedWith" =  "Sincronizado %@";
+"fetchingBlockHeaders" = "Recogiendo encabezados del bloque.";
+"blocksBehind" = "%d Bloques detras.";
+"bestBlockAgeAgo" = "%@ atrás";
+"discoveringUsedAddresses" = "Descubriendo direcciones usadas.";
+"generalSyncProgressCompletedleft" = "%d%% completadas, %@ restantes.";
+"scanningBlocks" = "Escanendo bloques.";
+"rescanProgress" = "%d%% completadas, %@ restantes.";
+"syncCanceled" = "Sync canceled.";
+"syncError" = "Sync error.";
+"latestBlock" = "Útimo bloque: %d";
+"now" = "Ahora";
+"secondsAgo" = "%ds atrás";
+"minAgo" = "%dm atrás";
+"hrsAgo" = "%dh atrás";
+"daysAgo" = "%dd atrás";
+"weeksAgo" = "%dw atrás";
+"monthsAgo" = "%dmo atrás";
+"yearsAgo" =  "%dy atrás";
+"totalBalance" = "Saldo Total";
+"restartingSynchronization" = "Restarting Synchronization";
+"startingSynchronization" = "Starting Synchronization";
+
+/* No Wifi Sync Connection */
+"notConnectedToWiFi" = "No conectado al WiFi.";
+"syncAnyways" = "¿Te gustaría sincronizar de todos modos?";
+"no" = "No";
+"yes" = "Si";
+"always" = "Siempre";
+
+/* Sync progress view */
+"loading" = "Cargando...";
+"numberOfConnectedPeers" = "%d pares";
+"numberOfConnectedPeer" = "%d par";
+"syncingWithPeersOnNetwork" = "Sincronizando con %@ en la red %@.";
+"fetchedHeaders" = "Extraido %d de ~%d encabezado de bloques.\n";
+"headersFetchProgress" = "%d%% Hasta el paso 1 de 3.";
+"bestBlockAgebehind" = "\nTu billetera esta %@ detrás.";
+"addressDiscoveryProgressOver" = "~%d%% (terminado) hasta el paso 2 de 3.";
+"addressDiscoveryProgressThrough" = "~%d%% hasta el paso 2 de 3.";
+"scanningTotalHeaders" = "Escaneando %d de %d Encabezado de bloques.\n";
+"stepThreeRescanProgress" = "%d%% Hata el paso 3 de 3.";
+"synchronizing" = "Sincronizando";
+"synchronizationCanceled" = "Synchronization canceled";
+"synchronizationError" = "Synchronization error";
+"syncTotalProgress" = "%d%% completadas, %@ restante.";
+"allTimes" = "Todo el tiempo";
+"elapsed" = "elapsed:";
+"remain" = "queda:";
+"total"  = "total:";
+"stageTimes" = "Stage Times";
+"tapToViewInformation" = "Pulsa para más información.";
+
+/* Navigation Menu Items */
+"overview" = "Resumen";
+"history" = "Transacciones";
+"send" = "Enviar";
+"receive" = "Recibir";
+"accounts" = "Cuenta";
+"security" = "Security";
+"settings" = "Configuraciones";
+"help" = "Ayuda";
+
+/* New Wallet Dialog */
+"newWalletMsg" = "Tu semilla de 33 palabras es tu billetera, manténla segura. Sin ella, tus fondos no pueden recuperarse si tu dispositivo se pierde o se destruye. \n\nLa sincronización inicial de la billetera llevará más tiempo de lo habitual. La billetera se conectará a los nodos p2p para descargar los encabezados de la cadena de bloques, y buscará solo los bloques que necesite, preservando su privacidad.";
+"welcomeToDecredWallet" = "Bienvenido a La Billetera DECRED.";
+
+/* Overview */
+"currentTotalBalance" = "Saldo total actual";
+"recentActivity" = "Actividad reciente";
+"showAllTransactions" = "Mostrar todas las transacciones";
+
+/* Transaction List/ History */
+"pending" = "Pendiente";
+"confirmed" = "Confirmad";
+"vote" = "Votar";
+"ticket" = "Ticket";
+"confirmedLive" = "Confirmada / En vivo";
+"confirmedImmature" = "Confirmada/ temprana";
+"noTransactions" = "Sin Transacciones";
+"sent" = "Enviado";
+"received" = "Recibido";
+"yourself" = "Usted mismo";
+"staking" = "Participando";
+"all" = "Todo";
+
+/* Transaction Details */
+"transactionDetails" = "Detalles de la transacción";
+"copyTransactionHash" = "Toque esto para para copiar la parte alta de la transacción";
+"copyRawTransaction" = "copiar el hex sin procesar";
+"viewOnDcrdata" = "ver en dcrdata";
+"copied" = "copiado";
+"ticketPurchase" = "Ticket de compra";
+"date" = "Fecha";
+"status" = "Estado";
+"amount" = "Monto";
+"fee" = "Tarifa";
+"type" = "Tipo";
+"confirmation" = "Confirmación";
+"lastBlockValid" = "Último Bloque Válido";
+"version" = "Versión";
+"voteBits" =  "Bits de votación";
+"inputs" = "Entradas";
+"outputs" = "Salidas";
+"external" = "Externo";
+"internal" = "interno";
+"imported" = "importado";
+"nullData" = "null data";
+"script" = "script";
+"stakegen" = "stakegen";
+
+/* Send view */
+"invalidAmount" = "El monto no es válido.";
+"amount8Decimal" = "El monto tiene más de 8 decimales.";
+"amountMaximumAllowed" = "Amount more than maximum allowed.";
+"notEnoughFunds" = "No hay fondos suficientes.";
+"notEnoughFundsOrNotConnected" = "No hay fondos suficientes(o no se encuentra conectado).";
+"rateUnavailableTap"  = "Tasa de cambio no disponible (pulsa para reintentar).";
+"sendToAccount" = "Enviar a la cuenta";
+"sendToAddress" = "Enviar a la dirección";
+"errorGettingMaxSpendable" = "Error getting maximum spendable amount.";
+"pleaseWaitNetworkSync" = "Por favor espera la sincronización de la red.";
+"notConnected" = "No conectado a la red.";
+"amountCantBeZero" = "El monto no puede ser cero.";
+"unexpectedError" = "Unexpected error.";
+"sendingTransaction" = "Enviando transacción…";
+"failedTransaction" = "Error al enviar la transacción.";
+"walletAddressShort" = "La dirección de la billetera es demasiado corta.";
+"walletAddressLong" = "La dirección de la billetera es demasiado larga.";
+"invalidTesnetAddress" = "Esta no es una dirección válida Decred testnet3.";
+"invalidMainnetAddress" = "Esta no es una dirección válida de la red principal DECRED (mainnet).";
+"invalidDestAddr" = "La dirección de destino no es válida.";
+"emptyDestAddr" = "La dirección de destino no puede estar vácia.";
+"sendingDecred" = "Enviar Fondos";
+"from" = "De:";
+"sendHeaderInfo" = "Ingresa o escanea la dirección de la billetera de destino y la cantidad de DCR para enviar fondos.";
+"destAddr" = "Direccíón del destinatario";
+"tapToPaste" = "Toque para pegar";
+"sendInUSD" = "Enviar en USD";
+"sendInDCR" = "Enviar en DCR:";
+"sendMax" = "ENVIAR MÁXIMO";
+"feeDesc" = "Tarifa:";
+"estimateSize" = "Tamaño estimado:";
+"balanceAfter" = "Saldo de la cuenta (después de operación):";
+"exchangeRate" = "Tasa de cambio:";
+
+/* Confirm Send Fund */
+"sending" = "Enviando";
+"withFee" = "Tarifa de";
+"to" = "para ";
+"toAccount" = "a la cuenta ";
+"passwordHint" = "CONTRASEÑA";
+
+/* Send Complete */
+"hashCopied" = "HASH: (copiado)";
+"hash" = "HASH";
+"view" = "VER";
+"transactionSuccessful" = "La transacción fue exitosa";
+
+/* Recieve */
+"receivingDecred" = "Recibir Fondos";
+"receiveHeaderInfo" = "Cada vez que solicite un pago, se crea una nueva direcciòn para proteger su privacidad.";
+"accountDesc" = "Cuenta:";
+"copyOnTap" = "(Toque para copiar)";
+"walletAddrCopied" = "Dirección copiada al portapapeles.";
+"genNewAddr" = "Generar nueva direccìòn";
+
+/* Account View */
+"hidden" = "Oculto";
+"spendable" = "Gastable";
+
+/* Account Data cell */
+"details" = "Detalles";
+"immatureRewards" = "Recompensas tempranas";
+"lockedByTickets" = "Bloqueado por Tickets";
+"votingAuhtority" = "Votaciones";
+"immatureStakeGeneration" = "Generación temprana de participación";
+"properties" = "Propiedades";
+"accountNumber" = "Número de cuenta";
+"hDPath" = "HD Path";
+"keys" = "Llaves";
+"walletSettings" = "Ajustes de cuenta";
+"hideThisWallet" = "Ocultar esta cuenta";
+"walletBalanceWillBeIgnored" = "El balance de la cuenta será ignorado.";
+"defaultWallet" = "Cuenta por defecto";
+"makeWalletDefaultDesc" = "Hacer esta cuenta predeterminada para todas las transacciones de entrada y salida.";
+
+/* Add Account */
+"inputAccountName" = "Ingrese un nombre para su cuenta.";
+"creatingAccount" = "Creando cuenta…";
+"addAccount" = "Añadir cuenta";
+"addAccountInfo" = "Ingrese su nuevo nombre de cuenta e ingrese su frase de contraseña.";
+"accountName" = "Nombre de la cuenta";
+"createAccount" = "Crear Cuenta";
+"privatePassphrase" = "Frase de contraseña privada";
+
+/* Security Menu */
+"validOwnAddr" = "La dirección es válida y usted la posee.";
+"validNotOwnAddr" = "Address is valid and you do NOT own it.";
+"invalidAddr" = "No es una dirección válida.";
+"verifiedSignature" = "Esta firma verifica mensaje y dirección.";
+"invalidSignature" = "Esta firma no verifica mensaje y dirección.";
+"signingMessage" = "Signing Message...";
+"address" = "Dirección";
+"message" = "Mensaje";
+"signature" = "Firma";
+"signMessage" = "Firmar Mensaje";
+"secureMenuSyncInfo" = "Por favor, espera a que tu billetera termine de sincronizar.";
+"secureMenuHeaderInfo" = "Aquí puedes verificar la válidez de una dirección, firmar mensajes para demostrar su titularidad y verificar firmas.";
+
+/* Help */
+"forMoreInformationPleaseVisit" = "Para más información por favor visita";
+
+/* Settings */
+"changeSpendingPinPass" = "Cambiar PIN/Contraseña de gasto";
+"spendingPinPassInfo" = "Requerido para enviar fondos.";
+"startupPinPass" = "PIN/Contraseña de inicio";
+"changeStatupPinPass" = "Cambiar PIN/Contraseña de inicio";
+"startupPinPassInfo" = "Requerido para ingresar a la app.";
+"spendUnconfirmedFund" = "Spend Unconfirmed Funds";
+"incomingTxNotification" = "Notificaciones de transacciones entrantes";
+"currencyConversion" = "Conversión actual";
+"networkMode" = "Modo de Red";
+"serverAddress" = "Dirección del servidor";
+"connectIpDesc" = "Conectado al par";
+"certificate" = "Certificado";
+"syncOnWifiDesc" = "Sincronizar cuando no esté conectado a una red WiFi";
+"buildDate" = "Fecha de creación";
+"walletLog" = "Registro de la billetera";
+"deleteWallet" = "Eliminar la billetera";
+"spv" = "Verificación de Pago Simplificada (VPS)";
+"remoteFullNode" = "Nodo completo remoto";
+"none" = "Ninguno";
+"rescanConfirm" = "¿Estas seguro? Esto podría tomar algo de tiempo.";
+"rescanBlockchain" = "volver a escanear el bloque";
+"syncProgressAlert" = "Sync is in progress. Please wait for sync to complete.";
+"scanInProgress" = "Ver progreso en la barra de navegación.";
+"scanStartedAlready" = "La billetera ya está reexplorando, verifique el progreso en la barra de navegación.";
+"rescanFailed" = "Rescan failed";
+"deletingWallet" = "Eliminando la billetera…";
+"deleteWalletFailed" = "Failed to delete wallet.";
+"general" = "General";
+"connection" = "Conexión";
+"about" = "About";
+"debug" = "Debug";
+
+/* IP set */
+"connectToPeer" = "Conectado al par";
+"peerAddressIsInvalid" = "Dirección del par inválida";
+"remoteAddressIsInvalid" = "Dirección remota inválida";
+
+/* Certificate */
+"certificateInfo" = "Pegar el certificado para dcrd";
+
+/* License */
+"license" = "Licencia";
+
+/* Wallet Log */
+"copy" = "Copiar";
+"walletLogCopied" = "Registro de la billetera copiado exitosamente.";
+
+/* Delete Wallet */
+"confirmDeleteInfo" = "¿Esta seguro de querer eliminar la billetera? Asegura de tener guardado las semillas de tu billetera o de mover tus DCR antes de eliminar la billetera. Esto támbien eliminará las configuraciones a un estado por defecto.";
+"confirmDeleteDesc" = "Para confirmar, ingresa tu contraseña:";
+
+/* Transaction Notification */
+"newTransaction" = "Nueva Transacción";
+"youReceived" = "Usted recibió";
+
+/* View controller sender */
+"spending" = "gasto";
+"startup" = "inicio";
+"current" = "actual";
+
+/* Dcrlibwallet extension */
+"lessThanOneday" = "<1 día";
+"oneDay" = "1 día";
+"mutlipleDays" = "%d días";
+"minRemaining" = "%d min";
+"secRemaining" = "%d segundos";
+
+/* Pop Ups */
+"error" = "Error";
+"retry" = "REINTENTAR";
+"ok" = "De acuerdo";
+"tryAgain" = "Inténtelo de nuevo";
+"cancel" = "Cancelar";
+"clearFields" =  "Eliminar campos";
+"copiedSuccessfully" = "Copiado exitosamente.";
+"invalidRequest" = "Invalid request!";
+"addrCopied" = "Dirección copiada!";
+"previousOutpointCopied" = "Previous outpoint copied!";
+"errorMsg" = "Error Message";
+"info" = "Información";
+"delete" = "Eliminar";
