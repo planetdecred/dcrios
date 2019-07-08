@@ -81,11 +81,15 @@ class CreateNewWalletViewController: WalletSetupBaseViewController {
         outerStackView.center.x = self.view.center.x
         seedContainer.setNeedsLayout()
     }
+    
     // MARK: - Navigation
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let confirmSeedVC = segue.destination as! ConfirmNewWalletSeedViewController
-        confirmSeedVC.prepareSeedForVerification(seedToVerify: self.seed)
+    @IBAction func secureWallet(_ sender: Any) {
+        let securityVC = SecurityViewController.instantiate()
+        securityVC.onUserEnteredPinOrPassword = { (pinOrPassword, securityType) in
+            self.finalizeWalletSetup(self.seed, pinOrPassword, securityType)
+        }
+        self.navigationController?.pushViewController(securityVC, animated: true)
     }
     
     @IBAction func backAction(_ sender: UIButton) {

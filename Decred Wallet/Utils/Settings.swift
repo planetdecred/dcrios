@@ -11,6 +11,8 @@ import Foundation
 class Settings {
     struct Keys {
         static let NewWalletSetUp = "new_wallet_set_up"
+        static let SeedBackedUp = "seed_backed_up"
+        static let Seed = "seed"
         static let InitialSyncCompleted = "initial_sync_complete"
         static let IsStartupSecuritySet = "startup_security_set"
         static let StartupSecurityType = "startup_security_type"
@@ -57,12 +59,20 @@ class Settings {
     }
     
     /** Computed properties to access commonly used settings. */
+    static var spendUnconfirmed: Bool {
+        return Settings.readValue(for: Settings.Keys.SpendUnconfirmed)
+    }
+    
+    static var seedBackedUp: Bool {
+        return Settings.readValue(for: Settings.Keys.SeedBackedUp)
+    }
+    
     static var syncOnCellular: Bool {
         return Settings.readValue(for: Settings.Keys.SyncOnCellular)
     }
     
-    static var spendUnconfirmed: Bool {
-        return Settings.readValue(for: Settings.Keys.SpendUnconfirmed)
+    static var newWalletSetUp: Bool {
+        return Settings.readValue(for: Settings.Keys.NewWalletSetUp)
     }
     
     static var incomingNotificationEnabled: Bool {
@@ -77,4 +87,5 @@ class Settings {
     static var networkMode: Int {
         return Settings.readOptionalValue(for: Settings.Keys.NetworkMode) ?? 0
     }
+    
 }

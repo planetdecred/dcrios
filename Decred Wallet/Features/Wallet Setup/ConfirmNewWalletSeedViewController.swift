@@ -17,6 +17,8 @@ class ConfirmNewWalletSeedViewController: WalletSetupBaseViewController {
     @IBOutlet weak var btnConfirm: UIButton!
     @IBOutlet var vActiveCellView: SeedCheckActiveCellView!
     
+    var callback: ((String?)->())?
+    
     func prepareSeedForVerification(seedToVerify: String) {
         let allSeedWords = loadSeedWordsList()
         let validSeedWords = seedToVerify.split{$0 == " "}.map(String.init)
@@ -61,19 +63,13 @@ class ConfirmNewWalletSeedViewController: WalletSetupBaseViewController {
         let seed = selectedWords.joined(separator: " ")
         let seedIsValid = DcrlibwalletVerifySeed(seed)
         if seedIsValid {
-            self.secureWallet()
+            Settings.setValue(true, for: Settings.Keys.SeedBackedUp)
+            Settings.clearValue(for: Settings.Keys.Seed)
+            callback?(seed)
+            self.navigationController?.popViewController(animated: true)
         } else {
             self.showError(error: LocalizedStrings.seedDoesNotMatch)
         }
-    }
-    
-    func secureWallet() {
-        let seed = selectedWords.joined(separator: " ")
-        let securityVC = SecurityViewController.instantiate()
-        securityVC.onUserEnteredPinOrPassword = { (pinOrPassword, securityType) in
-            self.finalizeWalletSetup(seed, pinOrPassword, securityType)
-        }
-        self.navigationController?.pushViewController(securityVC, animated: true)
     }
     
     private func showError(error:String){

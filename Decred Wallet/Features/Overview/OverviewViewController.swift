@@ -15,6 +15,8 @@ class OverviewViewController: UIViewController {
     @IBOutlet weak var fetchingBalanceIndicator: UIImageView!
     @IBOutlet weak var totalBalanceLabel: UILabel!
     @IBOutlet weak var recentActivityTableView: UITableView!
+    @IBOutlet weak var backupWallet: UIView!
+    @IBOutlet weak var backupViewSpacing: UIView!
     
     var recentTransactions = [Transaction]()
     
@@ -49,6 +51,13 @@ class OverviewViewController: UIViewController {
         AppDelegate.walletLoader.notification.registerListener(for: "\(self)", newTxistener: self)
         AppDelegate.walletLoader.notification.registerListener(for: "\(self)", confirmedTxListener: self)
         
+        if !Settings.seedBackedUp {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(backupSeedAction))
+            self.backupWallet.addGestureRecognizer(tapGesture)
+            self.backupWallet.isHidden = false
+            self.backupViewSpacing.isHidden = true
+        }
+    
         self.fetchingBalanceIndicator.loadGif(name: "progress bar-1s-200px")
         self.updateCurrentBalance()
         
@@ -65,6 +74,18 @@ class OverviewViewController: UIViewController {
         self.overviewPageContentView.isHidden = false
     }
     
+    // backup seed action
+    @objc func backupSeedAction() {
+        let confirmSeedVC = ConfirmNewWalletSeedViewController.instantiate()
+        confirmSeedVC.prepareSeedForVerification(seedToVerify: Settings.Keys.Seed)
+        confirmSeedVC.callback = { seed in
+            self.backupWallet.isHidden = true
+            self.backupViewSpacing.isHidden = false
+        }
+        self.navigationController?.pushViewController(confirmSeedVC, animated: true)
+        print("ok")
+    }
+
     func updateCurrentBalance() {
         DispatchQueue.main.async {
             self.totalBalanceLabel.isHidden = true
@@ -145,6 +166,7 @@ extension OverviewViewController: NewTransactionNotificationProtocol, ConfirmedT
                 _ = self.recentTransactions.popLast()
             }
             
+            self.recentActivityTableView.backgroundView = .none
             self.recentActivityTableView.reloadData()
         }
     }

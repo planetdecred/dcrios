@@ -28,6 +28,14 @@ class WalletSetupBaseViewController: UIViewController {
                 DispatchQueue.main.async {
                     progressHud.dismiss()
                     Settings.setValue(securityType, for: Settings.Keys.SpendingPassphraseSecurityType)
+                    
+                    if Settings.newWalletSetUp {
+                        Settings.setValue(seed, for: Settings.Keys.Seed)
+                        Settings.setValue(false, for: Settings.Keys.SeedBackedUp)
+                    } else {
+                        Settings.setValue(true, for: Settings.Keys.SeedBackedUp)
+                    }
+                    
                     NavigationMenuViewController.setupMenuAndLaunchApp(isNewWallet: true)
                 }
             } catch let error {
