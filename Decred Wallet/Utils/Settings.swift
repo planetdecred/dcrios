@@ -87,5 +87,4 @@ class Settings {
     static var networkMode: Int {
         return Settings.readOptionalValue(for: Settings.Keys.NetworkMode) ?? 0
     }
-    
 }
