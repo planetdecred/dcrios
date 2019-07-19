@@ -75,7 +75,7 @@ class ConfirmNewWalletSeedViewController: UIViewController {
             Settings.setValue(true, for: Settings.Keys.SeedBackedUp)
             Settings.clearValue(for: Settings.Keys.Seed)
             isSeedBackedUp?(seed)
-            self.navigationController?.popViewController(animated: true)
+            self.backbtn(sender)
         } else {
             self.showError(error: LocalizedStrings.seedDoesNotMatch)
         }
