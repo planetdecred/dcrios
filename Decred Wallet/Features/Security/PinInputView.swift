@@ -55,22 +55,21 @@ class PinInputView: UIView {
     }
     
     func drawCells(in frame: CGRect) {
-        if self.totalWidthRequiredToDisplayAllPinCircles > frame.width {
-            self.drawPinLabel(in: frame)
+        if (pin.count > PinInputView.maxNumberOfPinCircles) {
+            self.drawPinLabel(frame: frame)
         } else {
             self.drawPinCircles(in: frame)
         }
     }
     
-    func drawPinLabel(in frame: CGRect) {
-        // Set the label bounds to resolve any ambiguity. Using UILabel() without proper bounds causes the app to crash.
-        let pinLabel = UILabel(frame: frame)
-        
-        pinLabel.text = String(pin.count)
+    func drawPinLabel(frame: CGRect) {
+        let pinDigitsCount = String(pin.count)
+        let pinLabel = UILabel(frame: frame) // Set the label bounds to resolve any ambiguity. Using UILabel() without proper bounds causes the app to crash as the label is unaware of where it should be positioned or what it should look like.
+        pinLabel.translatesAutoresizingMaskIntoConstraints = false // Neccesarry to prevent autolayout constraints from setting conflicting attributes to the label
+        pinLabel.text = pinDigitsCount
         pinLabel.textAlignment = .center
         pinLabel.textColor = #colorLiteral(red: 0.2537069321, green: 0.8615272641, blue: 0.7028611302, alpha: 1)
         pinLabel.font = pinLabel.font.withSize(25)
-        
         self.addSubview(pinLabel)
     }
     
@@ -99,7 +98,6 @@ class PinInputView: UIView {
         circleShape.fillColor = #colorLiteral(red: 0.2537069321, green: 0.8615272641, blue: 0.7028611302, alpha: 1).cgColor
         circleShape.strokeColor = UIColor.white.cgColor
         circleShape.lineWidth = diameter * PinInputView.circleBorderSizeFactor
-        
         self.layer.addSublayer(circleShape)
     }
 }
