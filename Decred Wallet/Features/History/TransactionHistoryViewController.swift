@@ -19,18 +19,17 @@ class TransactionHistoryViewController: UIViewController {
         return refreshControl
     }()
     
-    @IBOutlet weak var syncLabel: UILabel!
     
+    @IBOutlet weak var syncLabel: UILabel!
     @IBOutlet var tableView: UITableView!
     @IBOutlet var btnFilter: DropMenuButton!
+    
     var FromMenu = true
     var visible:Bool = false
     
     var filterMenu = [LocalizedStrings.all] as [String]
-    var filtertitle = [0] as [Int]
     
-    var mainContens = [Transaction]()
-    var Filtercontent = [Transaction]()
+    var transactions = [Transaction]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,24 +75,24 @@ class TransactionHistoryViewController: UIViewController {
         self.loadTransactions()
     }
     
-    func loadTransactions() {
-        self.mainContens.removeAll()
-        self.Filtercontent.removeAll()
-        
-        // use count = 0 to return all transactions
-        AppDelegate.walletLoader.wallet?.transactionHistory(count: 0) { transactions in
-            self.refreshControl.endRefreshing()
-            
-            if transactions == nil || transactions!.count == 0 {
-                self.showNoTransactions()
-                return
-            }
-            
-            self.mainContens = transactions!
-            self.tableView.backgroundView = nil
-            self.tableView.separatorStyle = .singleLine
-            self.reloadTxsForCurrentFilter()
+    func loadTransactions(filter: Int? = 0) {
+        self.transactions.removeAll()
+        var error: NSError?
+        let allTransactions = AppDelegate.walletLoader.wallet?.getTransactions(0, txFilter: Int32(filter!), error: &error)
+        if error != nil{
+            print(error!.localizedDescription)
         }
+        
+        if allTransactions == nil || allTransactions!.count == 0{
+            self.showNoTransactions()
+            return
+        }
+        
+        self.transactions = try! JSONDecoder().decode([Transaction].self, from: allTransactions!.data(using: .utf8)!)
+        self.tableView.backgroundView = nil
+        self.tableView.separatorStyle = .singleLine
+        self.refreshControl.endRefreshing()
+        self.updateFilterDropdownItems()
     }
     
     func showNoTransactions() {
@@ -106,54 +105,18 @@ class TransactionHistoryViewController: UIViewController {
     
     func initFilterBtn() {
         self.btnFilter.initMenu(filterMenu) { [weak self] index, value in
-            self?.applyTxFilter(currentFilter: self!.filtertitle[index])
+            self?.applyTxFilter(currentFilter: index)
         }
     }
     
     func reloadTxsForCurrentFilter() {
-        var currentFilterItem = 0
-        if self.btnFilter.selectedItemIndex >= 0 && self.filtertitle.count > self.btnFilter.selectedItemIndex {
-            currentFilterItem = self.filtertitle[self.btnFilter.selectedItemIndex]
-        }
-        self.updateFilterDropdownItems()
-        self.applyTxFilter(currentFilter: currentFilterItem)
+        self.applyTxFilter(currentFilter: self.btnFilter.selectedItemIndex)
     }
     
     func applyTxFilter(currentFilter: Int) {
-        switch currentFilter {
-        case 1:
-            // TODO: Remove after next dcrlibwallet update
-            self.Filtercontent = self.mainContens.filter{$0.Direction == 0 && $0.Type == GlobalConstants.Strings.REGULAR}
-            self.btnFilter.setTitle(LocalizedStrings.sent.appending(" (").appending(String(self.Filtercontent.count)).appending(")"), for: .normal)
-            self.tableView.reloadData()
-            break
-        case 2:
-            // TODO: Remove after next dcrlibwallet update
-            self.Filtercontent = self.mainContens.filter{$0.Direction == 1 && $0.Type == GlobalConstants.Strings.REGULAR}
-            self.btnFilter.setTitle(LocalizedStrings.received.appending(" (").appending(String(self.Filtercontent.count)).appending(")"), for: .normal)
-            self.tableView.reloadData()
-            break
-        case 3:
-            // TODO: Remove after next dcrlibwallet update
-            self.Filtercontent = self.mainContens.filter{$0.Direction == 2 && $0.Type == GlobalConstants.Strings.REGULAR}
-            self.btnFilter.setTitle(LocalizedStrings.yourself.appending(" (").appending(String(self.Filtercontent.count)).appending(")"), for: .normal)
-            self.tableView.reloadData()
-            break
-        case 4:
-            self.Filtercontent = self.mainContens.filter{$0.Type == GlobalConstants.Strings.REVOCATION || $0.Type == GlobalConstants.Strings.TICKET_PURCHASE || $0.Type == GlobalConstants.Strings.VOTE}
-            self.btnFilter.setTitle(LocalizedStrings.staking.appending(" (").appending(String(self.Filtercontent.count)).appending(")"), for: .normal)
-            self.tableView.reloadData()
-            break
-        case 5:
-            self.Filtercontent = self.mainContens.filter{$0.Type == GlobalConstants.Strings.COINBASE}
-            self.btnFilter.setTitle("Coinbase (".appending(String(self.Filtercontent.count)).appending(")"), for: .normal)
-            self.tableView.reloadData()
-            break
-        default:
-            self.Filtercontent = self.mainContens
-            self.btnFilter.setTitle(LocalizedStrings.all.appending(" (").appending(String(self.Filtercontent.count)).appending(")"), for: .normal)
-            self.tableView.reloadData()
-        }
+        refreshControl.showLoader(in: self.tableView)
+        self.loadTransactions(filter: currentFilter)
+        self.tableView.reloadData()
     }
     
     func updateFilterDropdownItems() {
@@ -164,31 +127,22 @@ class TransactionHistoryViewController: UIViewController {
         let coinbaseCount = self.mainContens.filter{$0.Type == GlobalConstants.Strings.COINBASE}.count
         
         self.btnFilter.items.removeAll()
-        self.btnFilter.setTitle(LocalizedStrings.all.appending(" (").appending(String(self.mainContens.count)).appending(")"), for: .normal)
-        self.btnFilter.items.append(LocalizedStrings.all.appending(" (").appending(String(self.mainContens.count)).appending(")"))
-        
-        self.filtertitle.removeAll()
-        self.filtertitle.append(0)
+        self.btnFilter.items.append(LocalizedStrings.all)
         
         if sentCount != 0 {
-            self.btnFilter.items.append(LocalizedStrings.sent.appending(" (").appending(String(sentCount)).appending(")"))
-            self.filtertitle.append(1)
+            self.btnFilter.items.append(LocalizedStrings.sent.appending("(\(sentCount))"))
         }
         if ReceiveCount != 0 {
-            self.btnFilter.items.append(LocalizedStrings.received.appending(" (").appending(String(ReceiveCount)).appending(")"))
-            self.filtertitle.append(2)
+            self.btnFilter.items.append(LocalizedStrings.received.appending("(\(ReceiveCount))"))
         }
         if yourselfCount != 0 {
-            self.btnFilter.items.append(LocalizedStrings.yourself.appending(" (").appending(String(yourselfCount)).appending(")"))
-            self.filtertitle.append(3)
+            self.btnFilter.items.append(LocalizedStrings.yourself.appending("(\(yourselfCount))"))
         }
         if stakeCount != 0 {
-            self.btnFilter.items.append(LocalizedStrings.staking.appending(" (").appending(String(stakeCount)).appending(")"))
-            self.filtertitle.append(4)
+            self.btnFilter.items.append(LocalizedStrings.staking.appending("(\(stakeCount))"))
         }
         if coinbaseCount != 0 {
-            self.btnFilter.items.append("Coinbase (".appending(String(coinbaseCount)).appending(")"))
-            self.filtertitle.append(5)
+            self.btnFilter.items.append("Coinbase (\(coinbaseCount))")
         }
     }
 }
