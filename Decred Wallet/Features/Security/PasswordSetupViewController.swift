@@ -9,14 +9,11 @@
 import UIKit
 
 class PasswordSetupViewController: SecurityBaseViewController, UITextFieldDelegate {
+    @IBOutlet weak var headerText: UILabel!
     @IBOutlet weak var tfPassword: UITextField!
     @IBOutlet weak var tfConfirmPassword: UITextField!
     @IBOutlet weak var lbMatchIndicator: UILabel!
     @IBOutlet weak var pbPasswordStrength: UIProgressView!
-    
-    @IBOutlet weak var passwordCount: UILabel!
-    @IBOutlet weak var passwordLabel: UILabel!
-    
     
     var securityFor: String = "" // expects "Spending", "Startup" or other security section
     var onUserEnteredPassword: ((_ password: String) -> Void)?
@@ -24,8 +21,6 @@ class PasswordSetupViewController: SecurityBaseViewController, UITextFieldDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardOnTapAround()
-        
-        self.setupInterface()
         
         // calculate password strength when password changes; and check if password matches
         self.tfPassword.addTarget(self, action: #selector(self.passwordTextFieldChange), for: .editingChanged)
@@ -39,7 +34,7 @@ class PasswordSetupViewController: SecurityBaseViewController, UITextFieldDelega
         self.tfPassword.delegate = self
         self.tfConfirmPassword.delegate = self
         
-//        self.headerText.text = String(format: LocalizedStrings.createPassword, self.securityFor)
+        self.headerText.text = String(format: LocalizedStrings.createPassword, self.securityFor)
         self.lbMatchIndicator.text = " " // use empty space so label height isn't reduced
     }
     
@@ -103,10 +98,5 @@ class PasswordSetupViewController: SecurityBaseViewController, UITextFieldDelega
         
         self.onUserEnteredPassword?(self.tfPassword.text!)
         return true
-    }
-    
-    private func setupInterface(){
-        tfPassword.layer.cornerRadius = 7
-        tfConfirmPassword.layer.cornerRadius = 7
     }
 }

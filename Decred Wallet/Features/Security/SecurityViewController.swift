@@ -12,9 +12,6 @@ class SecurityViewController: SecurityBaseViewController {
     static let SECURITY_TYPE_PASSWORD = "PASSWORD"
     static let SECURITY_TYPE_PIN = "PIN"
     
-    
-    @IBOutlet weak var currentTitle: UILabel!
-    
     // "Password" or "Pin" will be appended to the title depending on what tab is activated
     var securityFor = LocalizedStrings.spending // or Startup
     var initialSecurityType: String? // determines which tab will be displayed first
@@ -49,8 +46,8 @@ class SecurityViewController: SecurityBaseViewController {
     }
     
     override func viewDidLoad() {
-//        self.btnPassword.setBackgroundColor(UIColor.appColors.transparentThinGray, for: .highlighted)
-//        self.btnPin.setBackgroundColor(UIColor.appColors.transparentThinGray, for: .highlighted)
+        self.btnPassword.setBackgroundColor(UIColor.appColors.transparentThinGray, for: .highlighted)
+        self.btnPin.setBackgroundColor(UIColor.appColors.transparentThinGray, for: .highlighted)
         
         // delay before activating initial tab to allow borders show properly
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
@@ -73,22 +70,22 @@ class SecurityViewController: SecurityBaseViewController {
     }
     
     func activatePasswordTab() {
-        tabController?.selectedIndex = 0
-
-        // Add border below password tab and remove border below PIN tab
-        btnPassword.addBorder(atPosition: .bottom, color: UIColor.appColors.decredBlue, thickness: 1.3)
-        btnPassword.setTitleColor(UIColor.appColors.decredBlue, for: .normal)
-        btnPin.removeBorders(atPositions: .bottom)
-        btnPin.setTitleColor(UIColor.appColors.textDark, for: .normal)
+        self.tabController?.selectedIndex = 0
+        // activate password button
+        self.btnPassword.setTitleColor(UIColor.appColors.darkGray, for: .normal)
+        self.btnPassword.addBorder(atPosition: .bottom)
+        // deactivate pin button
+        self.btnPin.setTitleColor(UIColor.appColors.thinGray, for: .normal)
+        self.btnPin.removeBorders(atPositions: .bottom)
     }
     
     func activatePinTab() {
-        tabController?.selectedIndex = 1
-        
-        // Add below PIN tab and remove border below PIN tab
-        btnPin.addBorder(atPosition: .bottom, color: UIColor.appColors.decredBlue, thickness: 1.3)
-        btnPin.setTitleColor(UIColor.appColors.decredBlue, for: .normal)
-        btnPassword.removeBorders(atPositions: .bottom)
-        btnPassword.setTitleColor(UIColor.appColors.textDark, for: .normal)
+        self.tabController?.selectedIndex = 1
+        // activate pin button
+        self.btnPin.setTitleColor(UIColor.appColors.darkGray, for: .normal)
+        self.btnPin.addBorder(atPosition: .bottom)
+        // deactivate password button
+        self.btnPassword.setTitleColor(UIColor.appColors.thinGray, for: .normal)
+        self.btnPassword.removeBorders(atPositions: .bottom)
     }
 }
