@@ -11,21 +11,30 @@ import UIKit
 
 class WalletSetupViewController: WalletSetupBaseViewController {
     @IBOutlet weak var infoText: UILabel!
-    @IBOutlet weak var restoreWallet: UILabel!
-    @IBOutlet weak var createWallet: UILabel!
-    @IBOutlet weak var build: UILabel!
+    
+    @IBOutlet weak var createWalletBtn: UIButton!
+    @IBOutlet weak var restoreWalletBtn: UIButton!
+    
+    // Action on create wallet tap
+    @IBAction func createTapped(_ sender: UIButton){
+        performSegue(withIdentifier: "toNewWalletCreation", sender: self)
+    }
+    
+    // Action on restore wallet tap
+    @IBAction func restoreTapped(_ sender: UIButton){
+        performSegue(withIdentifier: "toWalletRestore", sender: self)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        createWallet.text = LocalizedStrings.createNewWallet
-        restoreWallet.text = LocalizedStrings.restoreExistingWallet
-        infoText.text = LocalizedStrings.createOrRecoverWallet
-    
-        let dateformater = DateFormatter()
-        dateformater.dateFormat = "yyyy-MM-dd"
-        let netType = BuildConfig.IsTestNet ? "testnet" : BuildConfig.NetType
-        build?.text = "build \(netType) " + dateformater.string(from: AppDelegate.compileDate)
+        
+        createWalletBtn.layer.cornerRadius = 7
+        restoreWalletBtn.layer.cornerRadius = 7
+        
+        createWalletBtn.titleLabel?.text = LocalizedStrings.createNewWallet
+        restoreWalletBtn.titleLabel?.text = LocalizedStrings.restoreExistingWallet
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
