@@ -10,33 +10,14 @@ import Foundation
 import UIKit
 
 class WalletSetupViewController: WalletSetupBaseViewController {
-    @IBOutlet weak var infoText: UILabel!
-    
-    @IBOutlet weak var createWalletBtn: UIButton!
-    @IBOutlet weak var restoreWalletBtn: UIButton!
-    
-    // Action on create wallet tap
-    @IBAction func createTapped(_ sender: UIButton){
-        performSegue(withIdentifier: "toNewWalletCreation", sender: self)
+    @IBAction func createWalletBtnTapped(_ sender: UIButton) {
+        performSegue(withIdentifier: Segues.toNewWalletCreation.rawValue, sender: self)
     }
     
-    // Action on restore wallet tap
-    @IBAction func restoreTapped(_ sender: UIButton){
-        performSegue(withIdentifier: "toWalletRestore", sender: self)
+    @IBAction func restoreWalletBtnTapped(_ sender: UIButton){
+        performSegue(withIdentifier: Segues.toWalletRestore.rawValue, sender: self)
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        
-        createWalletBtn.layer.cornerRadius = 7
-        restoreWalletBtn.layer.cornerRadius = 7
-        
-        createWalletBtn.titleLabel?.text = LocalizedStrings.createNewWallet
-        restoreWalletBtn.titleLabel?.text = LocalizedStrings.restoreExistingWallet
-        
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Segues.toNewWalletCreation.rawValue {
             Settings.setValue(true, for: Settings.Keys.NewWalletSetUp)

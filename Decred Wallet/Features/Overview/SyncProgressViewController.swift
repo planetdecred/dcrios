@@ -9,7 +9,6 @@
 import UIKit
 import Dcrlibwallet
 
-
 class SyncProgressViewController: UIViewController {
     @IBOutlet weak var syncHeaderLabel: UILabel!
     @IBOutlet weak var generalSyncProgressBar: UIProgressView!
