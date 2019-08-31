@@ -127,7 +127,6 @@
 		DD4948EC22C0E400006A35F8 /* LocalizedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4948EB22C0E400006A35F8 /* LocalizedStrings.swift */; };
 		DD75148A22BA67B10070E4F6 /* TransactionHistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD75148922BA67B10070E4F6 /* TransactionHistoryViewController.xib */; };
 		DD8F9D3C22BE7A5600FF8594 /* Security.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD8F9D3B22BE7A5600FF8594 /* Security.storyboard */; };
-		DDAD5025229F718B00EDF91B /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDAD5024229F718B00EDF91B /* Settings.storyboard */; };
 		DDCF259222B89D96005FCBB9 /* WalletSetup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDCF259122B89D96005FCBB9 /* WalletSetup.storyboard */; };
 		DDCF259422B8A269005FCBB9 /* TransactionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDCF259322B8A269005FCBB9 /* TransactionTableViewCell.xib */; };
 		DDCF259622B8A309005FCBB9 /* NavigationMenu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDCF259522B8A309005FCBB9 /* NavigationMenu.storyboard */; };
@@ -274,7 +273,6 @@
 		DD4948EB22C0E400006A35F8 /* LocalizedStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedStrings.swift; sourceTree = "<group>"; };
 		DD75148922BA67B10070E4F6 /* TransactionHistoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionHistoryViewController.xib; sourceTree = "<group>"; };
 		DD8F9D3B22BE7A5600FF8594 /* Security.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Security.storyboard; sourceTree = "<group>"; };
-		DDAD5024229F718B00EDF91B /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		DDCF259122B89D96005FCBB9 /* WalletSetup.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = WalletSetup.storyboard; sourceTree = "<group>"; };
 		DDCF259322B8A269005FCBB9 /* TransactionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionTableViewCell.xib; sourceTree = "<group>"; };
 		DDCF259522B8A309005FCBB9 /* NavigationMenu.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NavigationMenu.storyboard; sourceTree = "<group>"; };
@@ -699,7 +697,6 @@
 			isa = PBXGroup;
 			children = (
 				DDCF25A022B8A3D4005FCBB9 /* Settings.storyboard */,
-				DDAD5024229F718B00EDF91B /* Settings.storyboard */,
 				DDD65AD622A935460027CDA8 /* LicenseViewController.swift */,
 				B3A3EF8A22937B8800008A4E /* Settings.swift */,
 				B3B46A61228F0F7B00A68EDD /* SettingsController.swift */,
@@ -801,7 +798,6 @@
 				DDCF259822B8A32E005FCBB9 /* MenuItemCell.xib in Resources */,
 				DDCF25A922B8A488005FCBB9 /* Main.storyboard in Resources */,
 				DDCF259C22B8A362005FCBB9 /* Send.storyboard in Resources */,
-				DDAD5025229F718B00EDF91B /* Settings.storyboard in Resources */,
 				B3B46AB7228F0F7D00A68EDD /* splashLoader.gif in Resources */,
 				DDCF259A22B8A347005FCBB9 /* Overview.storyboard in Resources */,
 				DD8F9D3C22BE7A5600FF8594 /* Security.storyboard in Resources */,
@@ -908,8 +904,6 @@
 				DD3DF86622C3F0BD00E168AB /* UILabel.swift in Sources */,
 				B3B46A99228F0F7D00A68EDD /* CertificateViewController.swift in Sources */,
 				DDD65AD722A935460027CDA8 /* LicenseViewController.swift in Sources */,
-				B3B46A99228F0F7D00A68EDD /* CertificateViewController.swift in Sources */,
-				DDD65AD722A935460027CDA8 /* LicenseViewController.swift in Sources */,
 				B3B46A9E228F0F7D00A68EDD /* ReceiveViewController.swift in Sources */,
 				B39BDC4D228F798300F3FB55 /* BuildConfig.swift in Sources */,
 				B3B46A9F228F0F7D00A68EDD /* WalletLogViewController.swift in Sources */,
@@ -941,7 +935,6 @@
 				B3B46A14228F0F2700A68EDD /* AccountsHeaderView.swift in Sources */,
 				B3B46A1F228F0F2700A68EDD /* RequestPinViewController.swift in Sources */,
 				B377DB0722A5663700BDF56F /* DeleteWalletConfirmationViewController.swift in Sources */,
-				B3B469A6228F0F0700A68EDD /* AccountHeader.swift in Sources */,
 				B3B469A6228F0F0700A68EDD /* AccountHeader.swift in Sources */,
 				B3A3EF88229375D100008A4E /* Date.swift in Sources */,
 				B3B46A21228F0F2700A68EDD /* SecurityBaseViewController.swift in Sources */,
