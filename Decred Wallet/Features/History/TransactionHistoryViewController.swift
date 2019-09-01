@@ -30,6 +30,12 @@ class TransactionHistoryViewController: UIViewController {
     var filterMenu = [LocalizedStrings.all] as [String]
     
     var transactions = [Transaction]()
+    var filteredItems = [Transaction](){
+        didSet{
+            tableView.reloadData()
+        }
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,31 +60,33 @@ class TransactionHistoryViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         if !AppDelegate.walletLoader.isSynced {
-            print(" wallet not synced on history")
+            print("wallet not synced on history")
             return
         }
         self.visible = true
         if (self.FromMenu){
             refreshControl.showLoader(in: self.tableView)
-            loadTransactions()
+//            loadTransactions()
             FromMenu = true
         }
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        self.visible = false
-        dismiss(animated: true, completion: nil)
+    func initFilterBtn() {
+        self.btnFilter.initMenu(filterMenu) { [weak self] index, value in
+            self?.applyTxFilter(currentFilter: index)
+        }
     }
     
-    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
-        self.loadTransactions()
+    func applyTxFilter(currentFilter: Int) {
+        refreshControl.showLoader(in: self.tableView)
+        loadTransactions(filter: currentFilter)
+        self.tableView.reloadData()
     }
     
-    func loadTransactions(filter: Int? = 0) {
+    func loadTransactions(filter: Int = 0) {
         self.transactions.removeAll()
         var error: NSError?
-        let allTransactions = AppDelegate.walletLoader.wallet?.getTransactions(0, txFilter: Int32(filter!), error: &error)
+        let allTransactions = AppDelegate.walletLoader.wallet?.getTransactions(0, txFilter: Int32(0), error: &error)
         if error != nil{
             print(error!.localizedDescription)
         }
@@ -89,11 +97,26 @@ class TransactionHistoryViewController: UIViewController {
         }
         
         self.transactions = try! JSONDecoder().decode([Transaction].self, from: allTransactions!.data(using: .utf8)!)
+        if filter != 0{
+            filteredItems = self.transactions.filter{$0.Direction == filter}
+        }
         self.tableView.backgroundView = nil
         self.tableView.separatorStyle = .singleLine
         self.refreshControl.endRefreshing()
         self.updateFilterDropdownItems()
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.visible = false
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        self.reloadTxsForCurrentFilter()
+    }
+    
+    
     
     func showNoTransactions() {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: self.tableView.bounds.size.width, height: self.tableView.bounds.size.height))
@@ -103,21 +126,14 @@ class TransactionHistoryViewController: UIViewController {
         self.tableView.separatorStyle = .none
     }
     
-    func initFilterBtn() {
-        self.btnFilter.initMenu(filterMenu) { [weak self] index, value in
-            self?.applyTxFilter(currentFilter: index)
-        }
-    }
+    
     
     func reloadTxsForCurrentFilter() {
         self.applyTxFilter(currentFilter: self.btnFilter.selectedItemIndex)
     }
     
-    func applyTxFilter(currentFilter: Int) {
-        refreshControl.showLoader(in: self.tableView)
-        self.loadTransactions(filter: currentFilter)
-        self.tableView.reloadData()
-    }
+    
+    
     
     func updateFilterDropdownItems() {
         let sentCount = self.mainContens.filter{$0.Direction == 0}.count
@@ -176,7 +192,7 @@ extension TransactionHistoryViewController: NewTransactionNotificationProtocol, 
 
 extension TransactionHistoryViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Filtercontent.count
+        return (self.filteredItems.count != 0) ? self.filteredItems.count : self.transactions.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -185,22 +201,12 @@ extension TransactionHistoryViewController: UITableViewDataSource, UITableViewDe
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: TransactionTableViewCell.identifier) as! TransactionTableViewCell
-        if self.Filtercontent.count != 0 {
-            let transaction = Filtercontent[indexPath.row]
-            cell.setData(transaction)
+        guard filteredItems.count == 0 else {
+            cell.setData(filteredItems[indexPath.row])
             return cell
         }
-        
+        cell.setData(transactions[indexPath.row])
         return cell
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if self.Filtercontent.count > indexPath.row {
-            if self.Filtercontent[indexPath.row].Animate {
-                cell.blink()
-            }
-            self.Filtercontent[indexPath.row].Animate = false
-        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
