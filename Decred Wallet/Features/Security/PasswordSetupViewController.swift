@@ -22,6 +22,15 @@ class PasswordSetupViewController: SecurityBaseViewController, UITextFieldDelega
     @IBOutlet weak var passwordErrorLabel: UILabel!
     @IBOutlet weak var confirmErrorLabel: UILabel!
     
+    @IBOutlet weak var passwordCountLabel: UILabel!
+    @IBOutlet weak var confirmCountLabel: UILabel!
+    
+    @IBOutlet weak var cancelBtn: UIButton!
+    @IBOutlet weak var createBtn: UIButton!
+    
+    @IBOutlet weak var passwordErrorLabel: UILabel!
+    @IBOutlet weak var confirmErrorLabel: UILabel!
+    
     var securityFor: String = "" // expects "Spending", "Startup" or other security section
     var onUserEnteredPassword: ((_ password: String) -> Void)?
     
