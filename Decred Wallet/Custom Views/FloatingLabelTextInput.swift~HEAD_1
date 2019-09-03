@@ -93,7 +93,7 @@ class FloatingLabelTextInput: UITextField {
     }
     
     func addViewPasswordButton() {
-        self.button.setImage(UIImage(named: "ic_reveal"), for: .normal)
+        self.button.setImage(UIImage(named: "icon-eye"), for: .normal)
         self.button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
         self.button.frame = CGRect(x: CGFloat(self.frame.size.width - 22), y: CGFloat(16), width: CGFloat(22), height: CGFloat(16))
         rightView = button
@@ -104,7 +104,7 @@ class FloatingLabelTextInput: UITextField {
     @objc func enablePasswordVisibilityToggle() {
         isSecureTextEntry.toggle()
         if isSecureTextEntry{
-            self.button.setImage(UIImage(named: "ic_reveal"), for: .normal)
+            self.button.setImage(UIImage(named: "icon-eye"), for: .normal)
         }else{
             self.button.setImage(UIImage(named: "ic_conceal_24px"), for: .normal)
         }

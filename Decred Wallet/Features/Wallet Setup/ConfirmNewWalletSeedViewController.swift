@@ -74,7 +74,7 @@ class ConfirmNewWalletSeedViewController: WalletSetupBaseViewController {
             self.finalizeWalletSetup(seed, pinOrPassword, securityType)
         }
         securityVC.modalPresentationStyle = .pageSheet
-        present(securityVC, animated: true)
+        self.present(securityVC, animated: true)
     }
     
     private func showError(error:String){

@@ -49,7 +49,6 @@ class SecurityViewController: SecurityBaseViewController {
     }
     
     override func viewDidLoad() {
-        
         // delay before activating initial tab to allow borders show properly
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             if self.initialSecurityType == SecurityViewController.SECURITY_TYPE_PIN {
@@ -63,9 +62,6 @@ class SecurityViewController: SecurityBaseViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         view.layer.backgroundColor = UIColor.white.cgColor
-//        view.layer.cornerRadius = 8
-//        view.layoutIfNeeded()
-//        view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 48.0).isActive = true
     }
 
     @IBAction func onPasswordTab(_ sender: Any) {
