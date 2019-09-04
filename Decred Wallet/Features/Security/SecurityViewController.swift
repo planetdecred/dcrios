@@ -58,6 +58,14 @@ class SecurityViewController: SecurityBaseViewController {
             }
         }
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        view.layer.backgroundColor = UIColor.white.cgColor
+        view.layer.cornerRadius = 8
+        view.layoutIfNeeded()
+        view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 48.0).isActive = true
+    }
 
     @IBAction func onPasswordTab(_ sender: Any) {
         guard self.tabController?.selectedIndex != 0 else { return }
@@ -72,8 +80,8 @@ class SecurityViewController: SecurityBaseViewController {
     func activatePasswordTab() {
         self.tabController?.selectedIndex = 0
         // activate password button
-        self.btnPassword.setTitleColor(UIColor.appColors.darkGray, for: .normal)
-        self.btnPassword.addBorder(atPosition: .bottom)
+        self.btnPassword.setTitleColor(UIColor.appColors.decredBlue, for: .normal)
+        self.btnPassword.addBorder(atPosition: .bottom, color: UIColor.appColors.decredBlue)
         // deactivate pin button
         self.btnPin.setTitleColor(UIColor.appColors.thinGray, for: .normal)
         self.btnPin.removeBorders(atPositions: .bottom)
@@ -82,8 +90,8 @@ class SecurityViewController: SecurityBaseViewController {
     func activatePinTab() {
         self.tabController?.selectedIndex = 1
         // activate pin button
-        self.btnPin.setTitleColor(UIColor.appColors.darkGray, for: .normal)
-        self.btnPin.addBorder(atPosition: .bottom)
+        self.btnPin.setTitleColor(UIColor.appColors.decredBlue, for: .normal)
+        self.btnPin.addBorder(atPosition: .bottom, color: UIColor.appColors.decredBlue)
         // deactivate password button
         self.btnPassword.setTitleColor(UIColor.appColors.thinGray, for: .normal)
         self.btnPassword.removeBorders(atPositions: .bottom)
