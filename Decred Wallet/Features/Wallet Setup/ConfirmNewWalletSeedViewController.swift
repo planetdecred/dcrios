@@ -70,13 +70,11 @@ class ConfirmNewWalletSeedViewController: WalletSetupBaseViewController {
     func secureWallet() {
         let seed = selectedWords.joined(separator: " ")
         let securityVC = SecurityViewController.instantiate()
-//        securityVC.modalPresentationStyle = .overCurrentContext
         securityVC.onUserEnteredPinOrPassword = { (pinOrPassword, securityType) in
             self.finalizeWalletSetup(seed, pinOrPassword, securityType)
         }
-        
+        securityVC.modalPresentationStyle = .pageSheet
         present(securityVC, animated: true)
-//        self.navigationController?.pushViewController(securityVC, animated: true)
     }
     
     private func showError(error:String){

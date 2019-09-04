@@ -11,6 +11,7 @@ target 'Decred Wallet' do
   pod 'QRCodeReader.swift'
   pod 'Fabric'
   pod 'Crashlytics'
-  pod 'Signals'
 
+  # Signals Library for reactiveness
+  pod 'Signals', '~> 6.0'
 end

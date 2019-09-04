@@ -49,8 +49,6 @@ class SecurityViewController: SecurityBaseViewController {
     }
     
     override func viewDidLoad() {
-//        self.btnPassword.setBackgroundColor(UIColor.appColors.transparentThinGray, for: .highlighted)
-//        self.btnPin.setBackgroundColor(UIColor.appColors.transparentThinGray, for: .highlighted)
         
         // delay before activating initial tab to allow borders show properly
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
@@ -65,14 +63,15 @@ class SecurityViewController: SecurityBaseViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         view.layer.backgroundColor = UIColor.white.cgColor
-        view.layer.cornerRadius = 8
-        view.layoutIfNeeded()
-        view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 48.0).isActive = true
+//        view.layer.cornerRadius = 8
+//        view.layoutIfNeeded()
+//        view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 48.0).isActive = true
     }
 
     @IBAction func onPasswordTab(_ sender: Any) {
         guard self.tabController?.selectedIndex != 0 else { return }
         self.activatePasswordTab()
+        
     }
     
     @IBAction func onPinTab(_ sender: Any) {
@@ -88,6 +87,9 @@ class SecurityViewController: SecurityBaseViewController {
         btnPassword.setTitleColor(UIColor.appColors.decredBlue, for: .normal)
         btnPin.removeBorders(atPositions: .bottom)
         btnPin.setTitleColor(UIColor.appColors.textDark, for: .normal)
+        
+        self.currentTitle.text = "Create a \(self.securityFor) password";
+        
     }
     
     func activatePinTab() {
@@ -98,5 +100,7 @@ class SecurityViewController: SecurityBaseViewController {
         btnPin.setTitleColor(UIColor.appColors.decredBlue, for: .normal)
         btnPassword.removeBorders(atPositions: .bottom)
         btnPassword.setTitleColor(UIColor.appColors.textDark, for: .normal)
+        
+        self.currentTitle.text = "Create a \(self.securityFor) PIN";
     }
 }
