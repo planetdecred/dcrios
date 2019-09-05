@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		2506406E2304A2DE0028A9AC /* Dcrlibwallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2506406D2304A2DE0028A9AC /* Dcrlibwallet.framework */; };
 		B164982429AEDD7AF8C8782C /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9714AB438E597D403032748 /* Pods_Decred_Wallet.framework */; };
+		25566C8B23210F0D009A713A /* UIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25566C8A23210F0D009A713A /* UIStackView.swift */; };
+		7D66B4CA3456FF02B98D7834 /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A4F4B4098858CBBF8CB6882 /* Pods_Decred_Wallet.framework */; };
+		AD07C29422B927FA008F49F9 /* Segues.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD07C29322B927FA008F49F9 /* Segues.swift */; };
 		B36255B622A11A9500C62946 /* SecurityMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36255B422A11A9500C62946 /* SecurityMenuViewController.swift */; };
 		B3635B82229FE5870052EB4D /* QRImageScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3635B81229FE5870052EB4D /* QRImageScanner.swift */; };
 		B36EFD362298617C002753B2 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36EFD352298617C002753B2 /* UIButton.swift */; };
@@ -71,7 +74,6 @@
 		B3B46A2C228F0F2700A68EDD /* MenuItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469EA228F0F2600A68EDD /* MenuItemCell.swift */; };
 		B3B46A2E228F0F2700A68EDD /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469EC228F0F2600A68EDD /* MenuItem.swift */; };
 		B3B46A30228F0F2700A68EDD /* NavigationMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469EE228F0F2600A68EDD /* NavigationMenuViewController.swift */; };
-		B3B46A31228F0F2700A68EDD /* SyncProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469F0228F0F2600A68EDD /* SyncProgressViewController.swift */; };
 		B3B46A32228F0F2700A68EDD /* OverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469F1228F0F2600A68EDD /* OverviewViewController.swift */; };
 		B3B46A34228F0F2700A68EDD /* TransactionNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469F4228F0F2600A68EDD /* TransactionNotification.swift */; };
 		B3B46A35228F0F2700A68EDD /* Syncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469F5228F0F2600A68EDD /* Syncer.swift */; };
@@ -145,6 +147,12 @@
 		6A0625AB1C6ACD2EC77F544F /* Pods-Decred Wallet.mainnet debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.mainnet debug.xcconfig"; path = "Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.mainnet debug.xcconfig"; sourceTree = "<group>"; };
 		A9714AB438E597D403032748 /* Pods_Decred_Wallet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Decred_Wallet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B107091A1D996651AB5D8891 /* Pods-Decred Wallet.testnet debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.testnet debug.xcconfig"; path = "Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.testnet debug.xcconfig"; sourceTree = "<group>"; };
+		25566C8A23210F0D009A713A /* UIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackView.swift; sourceTree = "<group>"; };
+		2C755EB65E4A1B41AAD1FB0C /* Pods-Decred Wallet.mainnet release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.mainnet release.xcconfig"; path = "Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.mainnet release.xcconfig"; sourceTree = "<group>"; };
+		50964E5F67D24E0B58B8D3B5 /* Pods-Decred Wallet.testnet release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.testnet release.xcconfig"; path = "Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.testnet release.xcconfig"; sourceTree = "<group>"; };
+		5A4F4B4098858CBBF8CB6882 /* Pods_Decred_Wallet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Decred_Wallet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6FE71B33B4D10159ABF72715 /* Pods-Decred Wallet.testnet debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.testnet debug.xcconfig"; path = "Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.testnet debug.xcconfig"; sourceTree = "<group>"; };
+		AD07C29322B927FA008F49F9 /* Segues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Segues.swift; sourceTree = "<group>"; };
 		B36255B422A11A9500C62946 /* SecurityMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecurityMenuViewController.swift; sourceTree = "<group>"; };
 		B3635B81229FE5870052EB4D /* QRImageScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRImageScanner.swift; sourceTree = "<group>"; };
 		B36EFD352298617C002753B2 /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
@@ -209,7 +217,6 @@
 		B3B469EA228F0F2600A68EDD /* MenuItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItemCell.swift; sourceTree = "<group>"; };
 		B3B469EC228F0F2600A68EDD /* MenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
 		B3B469EE228F0F2600A68EDD /* NavigationMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationMenuViewController.swift; sourceTree = "<group>"; };
-		B3B469F0228F0F2600A68EDD /* SyncProgressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncProgressViewController.swift; sourceTree = "<group>"; };
 		B3B469F1228F0F2600A68EDD /* OverviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverviewViewController.swift; sourceTree = "<group>"; };
 		B3B469F4228F0F2600A68EDD /* TransactionNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionNotification.swift; sourceTree = "<group>"; };
 		B3B469F5228F0F2600A68EDD /* Syncer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Syncer.swift; sourceTree = "<group>"; };
@@ -422,6 +429,7 @@
 				B3A3EF87229375D100008A4E /* Date.swift */,
 				B36EFD352298617C002753B2 /* UIButton.swift */,
 				B3967B3C22A75BD400E14432 /* UITableView.swift */,
+				25566C8A23210F0D009A713A /* UIStackView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -594,7 +602,6 @@
 			children = (
 				DDCF259922B8A346005FCBB9 /* Overview.storyboard */,
 				B3B469F1228F0F2600A68EDD /* OverviewViewController.swift */,
-				B3B469F0228F0F2600A68EDD /* SyncProgressViewController.swift */,
 			);
 			path = Overview;
 			sourceTree = "<group>";
@@ -881,7 +888,6 @@
 				B3B469FE228F0F2700A68EDD /* Button.swift in Sources */,
 				B3B46A2A228F0F2700A68EDD /* WalletSetupBaseViewController.swift in Sources */,
 				B3B46A15228F0F2700A68EDD /* UIImageView.swift in Sources */,
-				B3B46A31228F0F2700A68EDD /* SyncProgressViewController.swift in Sources */,
 				B3B46A19228F0F2700A68EDD /* StartScreenViewController.swift in Sources */,
 				B3B46AA0228F0F7D00A68EDD /* SendCompletedViewController.swift in Sources */,
 				B3B46A20228F0F2700A68EDD /* PinPasswordStrength.swift in Sources */,
@@ -913,6 +919,7 @@
 				B3B46AB3228F0F7D00A68EDD /* ConfirmSeedViewCell.swift in Sources */,
 				B3B46A88228F0F7D00A68EDD /* UIIMage.swift in Sources */,
 				B3B46A11228F0F2700A68EDD /* UITableViewExtension.swift in Sources */,
+				25566C8B23210F0D009A713A /* UIStackView.swift in Sources */,
 				B3635B82229FE5870052EB4D /* QRImageScanner.swift in Sources */,
 				B3B46A2E228F0F2700A68EDD /* MenuItem.swift in Sources */,
 				B3A3EF8622936BFE00008A4E /* Reachability.swift in Sources */,
@@ -1065,7 +1072,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconTestnet;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 3VF3KBAZJF;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1148,7 +1155,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconTestnet;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 3VF3KBAZJF;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1292,7 +1299,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 3VF3KBAZJF;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1318,7 +1325,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 3VF3KBAZJF;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1349,7 +1356,7 @@
 				B30A37CE228F3AF000F78629 /* Testnet Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Mainnet Release";
+			defaultConfigurationName = "Testnet Release";
 		};
 		B3B469A1228F0C2E00A68EDD /* Build configuration list for PBXNativeTarget "Decred Wallet" */ = {
 			isa = XCConfigurationList;
@@ -1360,7 +1367,7 @@
 				B30A37CF228F3AF000F78629 /* Testnet Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Mainnet Release";
+			defaultConfigurationName = "Testnet Release";
 		};
 /* End XCConfigurationList section */
 	};

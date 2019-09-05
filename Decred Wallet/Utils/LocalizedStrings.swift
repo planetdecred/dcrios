@@ -112,6 +112,8 @@ struct LocalizedStrings {
     static let totalBalance = NSLocalizedString("totalBalance", comment: "")
     static let restartingSynchronization = NSLocalizedString("restartingSynchronization", comment: "")
     static let startingSynchronization = NSLocalizedString("startingSynchronization", comment: "")
+    static let syncProgressComplete = NSLocalizedString("syncProgressComplete", comment: "")
+    static let syncStageDescription = NSLocalizedString("syncStageDescription", comment: "")
     
     /*No Wifi Sync Connection */
     static let notConnectedToWiFi = NSLocalizedString("notConnectedToWiFi", comment: "")
@@ -126,12 +128,8 @@ struct LocalizedStrings {
     static let numberOfConnectedPeer = NSLocalizedString("numberOfConnectedPeer", comment: "")
     static let syncingWithPeersOnNetwork = NSLocalizedString("syncingWithPeersOnNetwork", comment: "")
     static let fetchedHeaders = NSLocalizedString("fetchedHeaders", comment: "")
-    static let headersFetchProgress = NSLocalizedString("headersFetchProgress", comment: "")
     static let bestBlockAgebehind = NSLocalizedString("bestBlockAgebehind", comment: "")
-    static let addressDiscoveryProgressOver = NSLocalizedString("addressDiscoveryProgressOver", comment: "")
-    static let addressDiscoveryProgressThrough = NSLocalizedString("addressDiscoveryProgressThrough", comment: "")
     static let scanningTotalHeaders = NSLocalizedString("scanningTotalHeaders", comment: "")
-    static let stepThreeRescanProgress = NSLocalizedString("stepThreeRescanProgress", comment: "")
     static let synchronizing = NSLocalizedString("synchronizing", comment: "")
     static let synchronizationCanceled = NSLocalizedString("synchronizationCanceled", comment: "")
     static let synchronizationError = NSLocalizedString("synchronizationError", comment: "")
@@ -142,6 +140,19 @@ struct LocalizedStrings {
     static let total = NSLocalizedString("total", comment: "")
     static let stageTimes = NSLocalizedString("stageTimes", comment: "")
     static let tapToViewInformation = NSLocalizedString("tapToViewInformation", comment: "")
+    static let walletSynced = NSLocalizedString("walletSynced", comment: "")
+    static let walletNotSynced = NSLocalizedString("walletNotSynced", comment: "")
+    static let online = NSLocalizedString("online", comment: "")
+    static let offline = NSLocalizedString("offline", comment: "")
+    static let connectedTo = NSLocalizedString("connectedTo", comment: "")
+    static let latestBlockAge = NSLocalizedString("latestBlockAge", comment: "")
+    static let showDetails = NSLocalizedString("showDetails", comment: "")
+    static let hideDetails = NSLocalizedString("hideDetails", comment: "")
+    static let syncTimeLeft = NSLocalizedString("syncTimeLeft", comment: "")
+    static let syncSteps = NSLocalizedString("syncSteps", comment: "")
+    static let blockHeadersFetched = NSLocalizedString("blockHeadersFetched", comment: "")
+    static let connectedPeersCount = NSLocalizedString("connectedPeersCount", comment: "")
+    static let syncingProgress = NSLocalizedString("syncingProgress", comment: "")
     
     /* Navigation Menu Items */
     static let overview = NSLocalizedString("overview", comment: "")
@@ -161,6 +172,9 @@ struct LocalizedStrings {
     static let currentTotalBalance = NSLocalizedString("currentTotalBalance", comment: "")
     static let recentActivity = NSLocalizedString("recentActivity", comment: "")
     static let showAllTransactions = NSLocalizedString("showAllTransactions", comment: "")
+    static let backupSeedPhrase = NSLocalizedString("backupSeedPhrase", comment: "")
+    static let backupWarningText = NSLocalizedString("backupWarningText", comment: "")
+    static let walletStatus = NSLocalizedString("walletStatus", comment: "")
     
     /* Transaction List/ History */
     static let pending = NSLocalizedString("pending", comment: "")

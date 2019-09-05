@@ -93,6 +93,8 @@
 "bestBlockAgeAgo" = "%@ ago";
 "discoveringUsedAddresses" = "Discovering used addresses.";
 "generalSyncProgressCompletedleft" = "%d%% completed, %@ left.";
+"syncProgressComplete" = "%d%%";
+"syncStageDescription" = "%@ - %d%%";
 "scanningBlocks" = "Scanning blocks.";
 "rescanProgress" = "%d%% completed, %@ left.";
 "syncCanceled" = "Sync canceled.";
@@ -109,6 +111,8 @@
 "totalBalance" = "Total Balance";
 "restartingSynchronization" = "Restarting Synchronization";
 "startingSynchronization" = "Starting Synchronization";
+"fetchedHeaders" = "%d of ~%d ";
+"bestBlockAgebehind" = "%@ behind";
 
 /* No Wifi Sync Connection */
 "notConnectedToWiFi" = "Not connected to WiFi.";
@@ -122,13 +126,8 @@
 "numberOfConnectedPeers" = "%d peers";
 "numberOfConnectedPeer" = "%d peer";
 "syncingWithPeersOnNetwork" = "Syncing with %@ on %@.";
-"fetchedHeaders" = "Fetched %d of ~%d block headers.\n";
-"headersFetchProgress" = "%d%% through step 1 of 3.";
-"bestBlockAgebehind" = "\nYour wallet is %@ behind.";
-"addressDiscoveryProgressOver" = "~%d%% (over) through step 2 of 3.";
-"addressDiscoveryProgressThrough" = "~%d%% through step 2 of 3.";
+"fetchedHeaders" = "%d of ~%d";
 "scanningTotalHeaders" = "Scanning %d of %d block headers.\n";
-"stepThreeRescanProgress" = "%d%% through step 3 of 3.";
 "synchronizing" = "Synchronizing";
 "synchronizationCanceled" = "Synchronization canceled";
 "synchronizationError" = "Synchronization error";
@@ -139,6 +138,19 @@
 "total"  = "total:";
 "stageTimes" = "Stage Times";
 "tapToViewInformation" = "Tap for more information";
+"walletSynced" = "Synced";
+"walletNotSynced" = "Not Synced";
+"online" = "Online";
+"offline" = "Offline";
+"connectedTo" = "Connected to %d peers";
+"latestBlockAge" = "Latest block %d% :- %@";
+"showDetails" = "Show details";
+"hideDetails" = "Hide details";
+"syncTimeLeft" = "%@ left";
+"syncSteps" = "Step %d%/3";
+"blockHeadersFetched" = "Block headers fetched";
+"connectedPeersCount" = "Connected peers count";
+"syncingProgress" = "Syncing progress";
 
 /* Navigation Menu Items */
 "overview" = "Overview";
@@ -158,6 +170,9 @@
 "currentTotalBalance" = "Current Total Balance";
 "recentActivity" = "Recent Activity";
 "showAllTransactions" = "Show All Transactions";
+"backupSeedPhrase" = "Backup seed phrase";
+"backupWarningText" = "Verify your seed phrase backup so you can recover your funds when needed.";
+"walletStatus" = "Wallet Status";
 
 /* Transaction List/ History */
 "pending" = "Pending";

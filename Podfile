@@ -11,5 +11,5 @@ target 'Decred Wallet' do
   pod 'QRCodeReader.swift'
   pod 'Fabric'
   pod 'Crashlytics'
-
+  pod 'Signals'
 end
