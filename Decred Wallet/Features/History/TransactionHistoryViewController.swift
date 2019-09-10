@@ -24,8 +24,8 @@ class TransactionHistoryViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     @IBOutlet var btnFilter: DropMenuButton!
     
-    var filterMenu = [LocalizedStrings.all] as [String]
-    var filters = [0] as [Int]
+    var filterMenu = [LocalizedStrings.all]
+    var filters = [0]
       
     var transactions = [Transaction]()
     var filteredItems = [Transaction](){
