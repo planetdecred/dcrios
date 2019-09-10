@@ -6,7 +6,7 @@
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
-import Foundation
+import UIKit
 import Dcrlibwallet
 
 protocol SyncProgressListenerProtocol {
@@ -39,6 +39,7 @@ class Syncer: NSObject, AppLifeCycleDelegate {
     
     var currentSyncOp: SyncOp?
     var currentSyncOpProgress: Any?
+    var backgroundTask: UIBackgroundTaskIdentifier = .invalid
     
     var syncCompletedCanceledOrErrored: Bool {
         return self.currentSyncOp == SyncOp.Done || self.currentSyncOp == SyncOp.Canceled || self.currentSyncOp == SyncOp.Errored
@@ -52,7 +53,14 @@ class Syncer: NSObject, AppLifeCycleDelegate {
             return String(format: LocalizedStrings.numberOfConnectedPeers, connectedPeersCount)
         }
     }
-    
+
+    override init() {
+        super.init()
+        NotificationCenter.default
+            .addObserver(self, selector: #selector(reinstateBackgroundTask),
+                         name: UIApplication.didBecomeActiveNotification, object: nil)
+    }
+
     func registerEstimatedSyncProgressListener() {
         AppDelegate.walletLoader.wallet?.enableSyncLogs()
         // Following call should only throw an error if we attempt to add this sync progress listener multiple times.
@@ -188,6 +196,19 @@ class Syncer: NSObject, AppLifeCycleDelegate {
         }
     }
 
+    func applicationWillTerminate() {
+        if backgroundTask != .invalid {
+            endBackgroundTask()
+        }
+    }
+
+    func applicationWillEnterBackground() {
+        if currentSyncOp != .Done {
+            print("Background task started at: ", Date())
+            registerBackgroundTask()
+        }
+    }
+
     func networkChanged(_ connection: Reachability.Connection) {
         if self.syncCompletedCanceledOrErrored {
             // sync is not currently active, no need to worry about network changes
@@ -207,6 +228,29 @@ class Syncer: NSObject, AppLifeCycleDelegate {
             AppDelegate.walletLoader.wallet?.syncInactive(forPeriod: Int64(totalInactiveSeconds))
             self.networkLastActive = nil // Network is active at this point.
         }
+    }
+
+    @objc private func reinstateBackgroundTask() {
+        if backgroundTask ==  .invalid {
+            registerBackgroundTask()
+        }
+    }
+
+    private func registerBackgroundTask() {
+        backgroundTask = UIApplication.shared.beginBackgroundTask { [weak self] in
+            self?.endBackgroundTask()
+        }
+        assert(backgroundTask != .invalid)
+    }
+
+    private func endBackgroundTask() {
+        print("Background task ended at: ", Date())
+        UIApplication.shared.endBackgroundTask(backgroundTask)
+        backgroundTask = .invalid
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 }
 
