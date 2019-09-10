@@ -20,6 +20,8 @@ import Crashlytics
 protocol AppLifeCycleDelegate {
     func applicationEnteredForegroundFromSuspendedState(_ lastActiveTime: Date)
     func networkChanged(_ connection: Reachability.Connection)
+    func applicationWillTerminate()
+    func applicationWillEnterBackground()
 }
 
 @UIApplicationMain
@@ -135,10 +137,11 @@ extension AppDelegate: UIApplicationDelegate {
     }
     
     func applicationDidEnterBackground(_ application: UIApplication) {
+        lifeCycleDelegates.forEach {$0.value.applicationWillEnterBackground()}
         self.shouldTrackLastActiveTime = true
         self.updateLastActiveTime()
     }
-    
+
     func applicationWillEnterForeground(_ application: UIApplication) {
         self.shouldTrackLastActiveTime = false
         
@@ -156,6 +159,7 @@ extension AppDelegate: UIApplicationDelegate {
     }
     
     func applicationWillTerminate(_: UIApplication) {
+        lifeCycleDelegates.forEach {$0.value.applicationWillTerminate()}
         self.reachability.stopNotifier()
         AppDelegate.walletLoader.wallet?.shutdown()
     }
