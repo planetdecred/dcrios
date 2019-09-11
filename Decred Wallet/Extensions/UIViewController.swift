@@ -18,11 +18,8 @@ extension UIViewController {
     func wrapInNavigationcontroller() -> UINavigationController {
         return UINavigationController(rootViewController: self)
     }
-    
-    func navigationMenuViewController() -> NavigationMenuViewController? {
-        return self.slideMenuController()?.leftViewController as? NavigationMenuViewController
-    }
-    
+   
+    // TODO: remove to deprecate slidemenu
     func setupNavigationBar(withTitle title: String) {
         self.navigationController?.navigationBar.tintColor = UIColor.black
         self.navigationItem.title = title

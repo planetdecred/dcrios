@@ -42,7 +42,7 @@ open class BaseTableViewCell : UITableViewCell {
             self.textLabel?.text = menuText
             if (menuText == LocalizedStrings.overview) {
                 self.imageView?.image = UIImage(named: "overview")
-            } else if (menuText == LocalizedStrings.accounts) {
+            } else if (menuText == LocalizedStrings.wallets) {
                 self.imageView?.image = UIImage(named: "account")
             } else if (menuText == LocalizedStrings.send) {
                 self.imageView?.image = UIImage(named: "send")

@@ -106,22 +106,22 @@ class OverviewViewController: UIViewController {
     }
     
     @IBAction func showAllTransactionsButtonTap(_ sender: Any) {
-        self.navigateToMenu(.history)
+//        self.navigateToMenu(.history)
     }
     
     @IBAction func showSendPage(_ sender: Any) {
-        self.navigateToMenu(.send)
+//        self.navigateToMenu(.send)
     }
     
     @IBAction func showReceivePage(_ sender: Any) {
-        self.navigateToMenu(.receive)
+//        self.navigateToMenu(.receive)
     }
     
-    func navigateToMenu(_ menuItem: MenuItem) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
-            self.navigationMenuViewController()?.changeActivePage(to: menuItem)
-        }
-    }
+//    func navigateToMenu(_ menuItem: MenuItem) {
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+//            self.navigationMenuViewController()?.changeActivePage(to: menuItem)
+//        }
+//    }
 }
 
 extension OverviewViewController: NewTransactionNotificationProtocol, ConfirmedTransactionNotificationProtocol {

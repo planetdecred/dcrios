@@ -32,7 +32,7 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setupNavigationBar(withTitle: LocalizedStrings.accounts)
+        setupNavigationBar(withTitle: LocalizedStrings.wallets)
         
         self.navigationItem.rightBarButtonItem?.accessibilityElementsHidden = true
     }
