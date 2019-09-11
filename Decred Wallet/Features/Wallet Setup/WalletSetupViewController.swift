@@ -10,18 +10,10 @@ import Foundation
 import UIKit
 
 class WalletSetupViewController: WalletSetupBaseViewController {
-    @IBAction func createWalletBtnTapped(_ sender: UIButton) {
-        performSegue(withIdentifier: Segues.toNewWalletCreation.rawValue, sender: self)
-    }
-    
-    @IBAction func restoreWalletBtnTapped(_ sender: UIButton){
-        performSegue(withIdentifier: Segues.toWalletRestore.rawValue, sender: self)
-    }
-
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == Segues.toNewWalletCreation.rawValue {
+        if segue.identifier == "toNewWalletCreation" {
             Settings.setValue(true, for: Settings.Keys.NewWalletSetUp)
-        } else if segue.identifier == Segues.toWalletRestore.rawValue {
+        } else if segue.identifier == "toWalletRestore" {
             Settings.setValue(false, for: Settings.Keys.NewWalletSetUp)
         }
     }

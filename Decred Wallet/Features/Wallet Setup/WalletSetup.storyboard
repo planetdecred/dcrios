@@ -53,7 +53,7 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="restoreExistingWallet"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="restoreWalletBtnTapped:" destination="98H-rf-Dma" eventType="touchUpInside" id="U81-Iu-tWQ"/>
+                                    <segue destination="JeB-dY-AWc" kind="show" identifier="toWalletRestore" id="hbN-rC-DoE"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ni8-A4-7rx" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
@@ -76,7 +76,7 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="createNewWallet"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="createWalletBtnTapped:" destination="98H-rf-Dma" eventType="touchUpInside" id="hNA-Gj-qRg"/>
+                                    <segue destination="gFt-pD-kVi" kind="show" identifier="toNewWalletCreation" id="NCg-1B-qSc"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="decredWord" translatesAutoresizingMaskIntoConstraints="NO" id="HXi-ld-N24">
@@ -119,16 +119,6 @@
                     <navigationItem key="navigationItem" id="YrP-qI-hFg"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="958-W0-p93" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="kqc-Og-IdQ">
-                    <connections>
-                        <segue destination="gFt-pD-kVi" kind="show" identifier="toNewWalletCreation" id="bTC-5f-N0z"/>
-                    </connections>
-                </tapGestureRecognizer>
-                <tapGestureRecognizer id="wQA-U0-fKq">
-                    <connections>
-                        <segue destination="JeB-dY-AWc" kind="show" identifier="toWalletRestore" id="tpL-HT-Xj2"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1036" y="-177"/>
         </scene>
