@@ -28,8 +28,8 @@ class TransactionHistoryViewController: UIViewController {
     var filters = [0]
       
     var transactions = [Transaction]()
-    var filteredItems = [Transaction](){
-        didSet{
+    var filteredItems = [Transaction]() {
+        didSet {
             self.tableView.reloadData()
         }
     }
@@ -76,7 +76,7 @@ class TransactionHistoryViewController: UIViewController {
         refreshControl.showLoader(in: self.tableView)
         filteredItems.removeAll()
         
-        switch currentFilter{
+        switch currentFilter {
         case 1:
             self.filterActive = true
             self.filteredItems = self.transactions.filter{$0.Direction == 0 && $0.Type == GlobalConstants.Strings.REGULAR}
@@ -115,11 +115,11 @@ class TransactionHistoryViewController: UIViewController {
         var error: NSError?
         
         let allTransactions = AppDelegate.walletLoader.wallet?.getTransactions(0, txFilter: Int32(0), error: &error)
-        if error != nil{
+        if error != nil {
             print(error!.localizedDescription)
         }
         
-        if allTransactions == nil || allTransactions!.count == 0{
+        if allTransactions == nil || allTransactions!.count == 0 {
             self.showNoTransactions()
             return
         }
@@ -246,9 +246,9 @@ extension TransactionHistoryViewController: UITableViewDataSource, UITableViewDe
         let storyboard = UIStoryboard(name: "TransactionFullDetailsViewController", bundle: nil)
         let subContentsVC = storyboard.instantiateViewController(withIdentifier: "TransactionFullDetailsViewController") as! TransactionFullDetailsViewController
         
-        if filterActive{
+        if filterActive {
             subContentsVC.transaction = self.filteredItems[indexPath.row]
-        }else{
+        }else {
             subContentsVC.transaction = self.transactions[indexPath.row]
         }
         self.navigationController?.pushViewController(subContentsVC, animated: true)
