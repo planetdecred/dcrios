@@ -8,6 +8,11 @@
 
 import UIKit
 
+enum Filter: Int{
+    case all = 0
+    
+}
+
 class TransactionHistoryViewController: UIViewController {
     var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -42,8 +47,8 @@ class TransactionHistoryViewController: UIViewController {
         self.tableView.addSubview(self.refreshControl)
         self.tableView.register(UINib(nibName: TransactionTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: TransactionTableViewCell.identifier)
         
-        AppDelegate.walletLoader.notification.registerListener(for: "(\(self)", newTxistener: self)
-        AppDelegate.walletLoader.notification.registerListener(for: "(\(self)", confirmedTxListener: self)
+        AppDelegate.walletLoader.notification.registerListener(for: "\(self)", newTxistener: self)
+        AppDelegate.walletLoader.notification.registerListener(for: "\(self)", confirmedTxListener: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
