@@ -11,7 +11,11 @@ import Dcrlibwallet
 
 enum Filter: Int{
     case all = 0
-    
+    case received
+    case sent
+    case transferred
+    case tickets
+    case coinbase
 }
 
 class TransactionHistoryViewController: UIViewController {
@@ -74,42 +78,38 @@ class TransactionHistoryViewController: UIViewController {
     
     func initFilterBtn() {
         self.btnFilter.initMenu(self.filterMenu) { [weak self] index, value in
-            self?.applyTxFilter(currentFilter: self!.filters[index])
+            self?.applyTxFilter(currentFilter: Filter(rawValue: self!.filters[index])!)
         }
     }
     
-    func applyTxFilter(currentFilter: Int) {
+    func applyTxFilter(currentFilter: Filter) {
         refreshControl.showLoader(in: self.tableView)
         filteredItems.removeAll()
         
+        self.filterActive = currentFilter != .all
+        
         switch currentFilter {
-        case 1:
-            self.filterActive = true
+        case .sent:
             self.filteredItems = self.transactions.filter{$0.Direction == DcrlibwalletTxDirectionSent && $0.Type == GlobalConstants.Strings.REGULAR}
             self.btnFilter.setTitle(LocalizedStrings.sent.appending("(\(self.filteredItems.count))"), for: .normal)
             break
-        case 2:
-            self.filterActive = true
+        case .received:
             self.filteredItems = self.transactions.filter{$0.Direction == DcrlibwalletTxDirectionReceived && $0.Type == DcrlibwalletTxTypeRegular}
             self.btnFilter.setTitle(LocalizedStrings.received.appending("(\(self.filteredItems.count))"), for: .normal)
             break
-        case 3:
-            self.filterActive = true
+        case .transferred:
             self.filteredItems = self.transactions.filter{$0.Direction == DcrlibwalletTxDirectionTransferred && $0.Type == DcrlibwalletTxTypeRegular}
             self.btnFilter.setTitle(LocalizedStrings.yourself.appending("(\(self.filteredItems.count))"), for: .normal)
             break
-        case 4:
-            self.filterActive = true
+        case .tickets:
             self.filteredItems = self.transactions.filter{$0.Type == GlobalConstants.Strings.REVOCATION || $0.Type == GlobalConstants.Strings.TICKET_PURCHASE || $0.Type == GlobalConstants.Strings.VOTE}
             self.btnFilter.setTitle(LocalizedStrings.staking.appending("(\(self.filteredItems.count))"), for: .normal)
             break
-        case 5:
-            self.filterActive = true
+        case .coinbase:
             self.filteredItems = self.transactions.filter{$0.Type == GlobalConstants.Strings.COINBASE}
             self.btnFilter.setTitle("COINBASE (\(self.filteredItems.count))", for: .normal)
             break
         default:
-            self.filterActive = false
             self.btnFilter.setTitle(LocalizedStrings.all.appending("(\(self.transactions.count))"), for: .normal)
             break
         }
@@ -162,7 +162,7 @@ class TransactionHistoryViewController: UIViewController {
         if self.btnFilter.selectedItemIndex >= 0 && self.filters.count > self.btnFilter.selectedItemIndex {
             currentFilterItem = self.filters[self.btnFilter.selectedItemIndex]
         }
-        self.applyTxFilter(currentFilter: currentFilterItem)
+        self.applyTxFilter(currentFilter: Filter(rawValue: currentFilterItem)!)
     }
     
     func updateFilterDropdownItems() {
