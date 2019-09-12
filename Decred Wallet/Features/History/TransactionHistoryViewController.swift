@@ -7,6 +7,7 @@
 // license that can be found in the LICENSE file.
 
 import UIKit
+import Dcrlibwallet
 
 enum Filter: Int{
     case all = 0
@@ -84,17 +85,17 @@ class TransactionHistoryViewController: UIViewController {
         switch currentFilter {
         case 1:
             self.filterActive = true
-            self.filteredItems = self.transactions.filter{$0.Direction == 0 && $0.Type == GlobalConstants.Strings.REGULAR}
+            self.filteredItems = self.transactions.filter{$0.Direction == DcrlibwalletTxDirectionSent && $0.Type == GlobalConstants.Strings.REGULAR}
             self.btnFilter.setTitle(LocalizedStrings.sent.appending("(\(self.filteredItems.count))"), for: .normal)
             break
         case 2:
             self.filterActive = true
-            self.filteredItems = self.transactions.filter{$0.Direction == 1 && $0.Type == GlobalConstants.Strings.REGULAR}
+            self.filteredItems = self.transactions.filter{$0.Direction == DcrlibwalletTxDirectionReceived && $0.Type == DcrlibwalletTxTypeRegular}
             self.btnFilter.setTitle(LocalizedStrings.received.appending("(\(self.filteredItems.count))"), for: .normal)
             break
         case 3:
             self.filterActive = true
-            self.filteredItems = self.transactions.filter{$0.Direction == 2 && $0.Type == GlobalConstants.Strings.REGULAR}
+            self.filteredItems = self.transactions.filter{$0.Direction == DcrlibwalletTxDirectionTransferred && $0.Type == DcrlibwalletTxTypeRegular}
             self.btnFilter.setTitle(LocalizedStrings.yourself.appending("(\(self.filteredItems.count))"), for: .normal)
             break
         case 4:
@@ -119,7 +120,7 @@ class TransactionHistoryViewController: UIViewController {
         self.transactions.removeAll()
         var error: NSError?
         
-        let allTransactions = AppDelegate.walletLoader.wallet?.getTransactions(0, txFilter: Int32(0), error: &error)
+        let allTransactions = AppDelegate.walletLoader.wallet?.getTransactions(0, txFilter: DcrlibwalletTxFilterAll, error: &error)
         if error != nil {
             print(error!.localizedDescription)
         }
@@ -165,9 +166,9 @@ class TransactionHistoryViewController: UIViewController {
     }
     
     func updateFilterDropdownItems() {
-        let sentCount = self.transactions.filter{$0.Direction == 0}.count
-        let ReceiveCount = self.transactions.filter{$0.Direction == 1}.count
-        let yourselfCount = self.transactions.filter{$0.Direction == 2}.count
+        let sentCount = self.transactions.filter{$0.Direction == DcrlibwalletTxDirectionSent}.count
+        let ReceiveCount = self.transactions.filter{$0.Direction == DcrlibwalletTxDirectionReceived}.count
+        let yourselfCount = self.transactions.filter{$0.Direction == DcrlibwalletTxDirectionTransferred}.count
         let stakeCount = self.transactions.filter{$0.Type.lowercased() != "Regular".lowercased()}.count
         let coinbaseCount = self.transactions.filter{$0.Type == GlobalConstants.Strings.COINBASE}.count
         
