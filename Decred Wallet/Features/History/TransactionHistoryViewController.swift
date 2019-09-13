@@ -26,7 +26,7 @@ class TransactionHistoryViewController: UIViewController {
     @IBOutlet var btnFilter: DropMenuButton!
     
     var filterMenu = [LocalizedStrings.all]
-    var filters = [0]
+    var filters: [Int32] = [0]
     
     var transactions = [Transaction]()
     var filteredItems = [Transaction]() {
@@ -68,7 +68,7 @@ class TransactionHistoryViewController: UIViewController {
     
     func initFilterBtn() {
         self.btnFilter.initMenu(self.filterMenu) { [weak self] index, value in
-            self?.applyTxFilter(currentFilter: Filter(rawValue: self!.filters[index])!)
+            self?.applyTxFilter(currentFilter: DcrlibwalletTxFilterAll)
         }
     }
     
@@ -95,7 +95,7 @@ class TransactionHistoryViewController: UIViewController {
             self.filteredItems = self.transactions.filter{$0.Type == DcrlibwalletTxTypeRevocation || $0.Type == DcrlibwalletTxTypeTicketPurchase || $0.Type == DcrlibwalletTxTypeVote }
             self.btnFilter.setTitle(LocalizedStrings.staking.appending("(\(self.filteredItems.count))"), for: .normal)
             break
-        case DcrlibwalletTxTypeCoinBase:
+        case DcrlibwalletTxFilterCoinBase:
             self.filteredItems = self.transactions.filter{$0.Type == DcrlibwalletTxTypeCoinBase}
             self.btnFilter.setTitle("COINBASE (\(self.filteredItems.count))", for: .normal)
             break
@@ -173,8 +173,8 @@ class TransactionHistoryViewController: UIViewController {
             self.btnFilter.items.append(LocalizedStrings.sent.appending("(\(sentCount))"))
             self.filters.append(1)
         }
-        if ReceiveCount != 0 {
-            self.btnFilter.items.append(LocalizedStrings.received.appending("(\(ReceiveCount))"))
+        if receiveCount != 0 {
+            self.btnFilter.items.append(LocalizedStrings.received.appending("(\(receiveCount))"))
             self.filters.append(2)
         }
         if yourselfCount != 0 {
