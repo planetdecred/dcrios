@@ -9,15 +9,6 @@
 import UIKit
 import Dcrlibwallet
 
-enum Filter: Int {
-    case all = 0
-    case received
-    case sent
-    case transferred
-    case tickets
-    case coinbase
-}
-
 class TransactionHistoryViewController: UIViewController {
     var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -36,7 +27,7 @@ class TransactionHistoryViewController: UIViewController {
     
     var filterMenu = [LocalizedStrings.all]
     var filters = [0]
-      
+    
     var transactions = [Transaction]()
     var filteredItems = [Transaction]() {
         didSet {
@@ -81,30 +72,30 @@ class TransactionHistoryViewController: UIViewController {
         }
     }
     
-    func applyTxFilter(currentFilter: Filter) {
+    func applyTxFilter(currentFilter: Int32) {
         refreshControl.showLoader(in: self.tableView)
         filteredItems.removeAll()
         
-        self.filterActive = currentFilter != .all
+        self.filterActive = currentFilter != DcrlibwalletTxFilterAll
         
         switch currentFilter {
-        case .sent:
-            self.filteredItems = self.transactions.filter{$0.Direction == DcrlibwalletTxDirectionSent && $0.Type == GlobalConstants.Strings.REGULAR}
+        case DcrlibwalletTxDirectionSent:
+            self.filteredItems = self.transactions.filter{$0.Direction == DcrlibwalletTxDirectionSent && $0.Type == DcrlibwalletTxTypeRegular}
             self.btnFilter.setTitle(LocalizedStrings.sent.appending("(\(self.filteredItems.count))"), for: .normal)
             break
-        case .received:
+        case DcrlibwalletTxDirectionReceived:
             self.filteredItems = self.transactions.filter{$0.Direction == DcrlibwalletTxDirectionReceived && $0.Type == DcrlibwalletTxTypeRegular}
             self.btnFilter.setTitle(LocalizedStrings.received.appending("(\(self.filteredItems.count))"), for: .normal)
             break
-        case .transferred:
+        case DcrlibwalletTxDirectionTransferred:
             self.filteredItems = self.transactions.filter{$0.Direction == DcrlibwalletTxDirectionTransferred && $0.Type == DcrlibwalletTxTypeRegular}
             self.btnFilter.setTitle(LocalizedStrings.yourself.appending("(\(self.filteredItems.count))"), for: .normal)
             break
-        case .tickets:
+        case DcrlibwalletTxFilterStaking:
             self.filteredItems = self.transactions.filter{$0.Type == DcrlibwalletTxTypeRevocation || $0.Type == DcrlibwalletTxTypeTicketPurchase || $0.Type == DcrlibwalletTxTypeVote }
             self.btnFilter.setTitle(LocalizedStrings.staking.appending("(\(self.filteredItems.count))"), for: .normal)
             break
-        case .coinbase:
+        case DcrlibwalletTxTypeCoinBase:
             self.filteredItems = self.transactions.filter{$0.Type == DcrlibwalletTxTypeCoinBase}
             self.btnFilter.setTitle("COINBASE (\(self.filteredItems.count))", for: .normal)
             break
@@ -157,26 +148,26 @@ class TransactionHistoryViewController: UIViewController {
     }
     
     func reloadTxsForCurrentFilter() {
-        var currentFilterItem = 0
+        var currentFilterItem = DcrlibwalletTxFilterAll
         if self.btnFilter.selectedItemIndex >= 0 && self.filters.count > self.btnFilter.selectedItemIndex {
             currentFilterItem = self.filters[self.btnFilter.selectedItemIndex]
         }
-        self.applyTxFilter(currentFilter: Filter(rawValue: currentFilterItem)!)
+        self.applyTxFilter(currentFilter: currentFilterItem)
     }
     
     func updateFilterDropdownItems() {
         let sentCount = self.transactions.filter{$0.Direction == DcrlibwalletTxDirectionSent}.count
-        let ReceiveCount = self.transactions.filter{$0.Direction == DcrlibwalletTxDirectionReceived}.count
+        let receiveCount = self.transactions.filter{$0.Direction == DcrlibwalletTxDirectionReceived}.count
         let yourselfCount = self.transactions.filter{$0.Direction == DcrlibwalletTxDirectionTransferred}.count
         let stakeCount = self.transactions.filter{$0.Type.lowercased() != "Regular".lowercased()}.count
-        let coinbaseCount = self.transactions.filter{$0.Type == GlobalConstants.Strings.COINBASE}.count
+        let coinbaseCount = self.transactions.filter{$0.Type == DcrlibwalletTxTypeCoinBase}.count
         
         self.btnFilter.items.removeAll()
         self.btnFilter.setTitle(LocalizedStrings.all.appending("(\(self.transactions.count))"), for: .normal)
         self.btnFilter.items.append(LocalizedStrings.all.appending("(\(self.transactions.count))"))
         
         self.filters.removeAll()
-        self.filters.append(0)
+        self.filters.append(DcrlibwalletTxFilterAll)
         
         if sentCount != 0 {
             self.btnFilter.items.append(LocalizedStrings.sent.appending("(\(sentCount))"))
@@ -253,7 +244,7 @@ extension TransactionHistoryViewController: UITableViewDataSource, UITableViewDe
         
         if filterActive {
             subContentsVC.transaction = self.filteredItems[indexPath.row]
-        }else {
+        } else {
             subContentsVC.transaction = self.transactions[indexPath.row]
         }
         self.navigationController?.pushViewController(subContentsVC, animated: true)
