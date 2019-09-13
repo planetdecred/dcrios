@@ -42,6 +42,7 @@ class TransactionHistoryViewController: UIViewController {
         self.initFilterBtn()
         self.tableView.addSubview(self.refreshControl)
         self.tableView.register(UINib(nibName: TransactionTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: TransactionTableViewCell.identifier)
+        
         AppDelegate.walletLoader.notification.registerListener(for: "\(self)", newTxistener: self)
         AppDelegate.walletLoader.notification.registerListener(for: "\(self)", confirmedTxListener: self)
     }
