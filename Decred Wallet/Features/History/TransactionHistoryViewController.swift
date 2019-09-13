@@ -9,7 +9,7 @@
 import UIKit
 import Dcrlibwallet
 
-enum Filter: Int{
+enum Filter: Int {
     case all = 0
     case received
     case sent
@@ -51,7 +51,6 @@ class TransactionHistoryViewController: UIViewController {
         self.initFilterBtn()
         self.tableView.addSubview(self.refreshControl)
         self.tableView.register(UINib(nibName: TransactionTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: TransactionTableViewCell.identifier)
-        
         AppDelegate.walletLoader.notification.registerListener(for: "\(self)", newTxistener: self)
         AppDelegate.walletLoader.notification.registerListener(for: "\(self)", confirmedTxListener: self)
     }
@@ -102,11 +101,11 @@ class TransactionHistoryViewController: UIViewController {
             self.btnFilter.setTitle(LocalizedStrings.yourself.appending("(\(self.filteredItems.count))"), for: .normal)
             break
         case .tickets:
-            self.filteredItems = self.transactions.filter{$0.Type == GlobalConstants.Strings.REVOCATION || $0.Type == GlobalConstants.Strings.TICKET_PURCHASE || $0.Type == GlobalConstants.Strings.VOTE}
+            self.filteredItems = self.transactions.filter{$0.Type == DcrlibwalletTxTypeRevocation || $0.Type == DcrlibwalletTxTypeTicketPurchase || $0.Type == DcrlibwalletTxTypeVote }
             self.btnFilter.setTitle(LocalizedStrings.staking.appending("(\(self.filteredItems.count))"), for: .normal)
             break
         case .coinbase:
-            self.filteredItems = self.transactions.filter{$0.Type == GlobalConstants.Strings.COINBASE}
+            self.filteredItems = self.transactions.filter{$0.Type == DcrlibwalletTxTypeCoinBase}
             self.btnFilter.setTitle("COINBASE (\(self.filteredItems.count))", for: .normal)
             break
         default:
