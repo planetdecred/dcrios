@@ -54,13 +54,6 @@ class Syncer: NSObject, AppLifeCycleDelegate {
         }
     }
 
-    override init() {
-        super.init()
-        NotificationCenter.default
-            .addObserver(self, selector: #selector(reinstateBackgroundTask),
-                         name: UIApplication.didBecomeActiveNotification, object: nil)
-    }
-
     func registerEstimatedSyncProgressListener() {
         AppDelegate.walletLoader.wallet?.enableSyncLogs()
         // Following call should only throw an error if we attempt to add this sync progress listener multiple times.
@@ -197,13 +190,18 @@ class Syncer: NSObject, AppLifeCycleDelegate {
     }
 
     func applicationWillTerminate() {
+        print("app terminated")
         if backgroundTask != .invalid {
             endBackgroundTask()
         }
     }
 
     func applicationWillEnterBackground() {
-        if currentSyncOp != .Done {
+        // Making sure we deregister any previous background task before registering a new one.
+        // Especially when the user is switching between background and foreground states many times while sync is in progress
+        endBackgroundTask()
+        if !syncCompletedCanceledOrErrored && backgroundTask == .invalid {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
             print("Background task started at: ", Date())
             registerBackgroundTask()
         }
@@ -230,12 +228,6 @@ class Syncer: NSObject, AppLifeCycleDelegate {
         }
     }
 
-    @objc private func reinstateBackgroundTask() {
-        if backgroundTask ==  .invalid {
-            registerBackgroundTask()
-        }
-    }
-
     private func registerBackgroundTask() {
         backgroundTask = UIApplication.shared.beginBackgroundTask { [weak self] in
             self?.endBackgroundTask()
@@ -244,13 +236,12 @@ class Syncer: NSObject, AppLifeCycleDelegate {
     }
 
     private func endBackgroundTask() {
-        print("Background task ended at: ", Date())
-        UIApplication.shared.endBackgroundTask(backgroundTask)
-        backgroundTask = .invalid
-    }
-
-    deinit {
-        NotificationCenter.default.removeObserver(self)
+        if backgroundTask != .invalid {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            print("Background task ended at: ", Date())
+            UIApplication.shared.endBackgroundTask(backgroundTask)
+            backgroundTask = .invalid
+        }
     }
 }
 
@@ -312,6 +303,7 @@ extension Syncer: DcrlibwalletSyncProgressListenerProtocol {
         if initialSyncCompleted == nil {
             Settings.setValue(true, for: Settings.Keys.InitialSyncCompleted)
         }
+        endBackgroundTask()
     }
     
     func onSyncCanceled(_ willRestart: Bool) {
