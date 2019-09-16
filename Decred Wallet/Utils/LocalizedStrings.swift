@@ -174,6 +174,7 @@ struct LocalizedStrings {
     static let received = NSLocalizedString("received", comment: "")
     static let yourself = NSLocalizedString("yourself", comment: "")
     static let staking = NSLocalizedString("staking", comment: "")
+    static let coinbase = NSLocalizedString("coinbase", comment: "")
     static let all = NSLocalizedString("all", comment: "")
     
     /* Transaction Details */
