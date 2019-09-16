@@ -132,15 +132,6 @@ class TransactionHistoryViewController: UIViewController {
         self.reloadTxsForCurrentFilter()
     }
     
-    func showNoTransactions() {
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: self.tableView.bounds.size.width, height: self.tableView.bounds.size.height))
-        label.text = LocalizedStrings.noTransactions
-        label.textAlignment = .center
-        self.refreshControl.endRefreshing()
-        self.tableView.backgroundView = label
-        self.tableView.separatorStyle = .none
-    }
-    
     func reloadTxsForCurrentFilter() {
         var currentFilterItem = DcrlibwalletTxFilterAll
         if self.transactionFilterDropDown.selectedItemIndex >= 0 && self.filters.count > self.transactionFilterDropDown.selectedItemIndex {
@@ -183,6 +174,16 @@ class TransactionHistoryViewController: UIViewController {
             self.transactionFilterDropDown.items.append("Coinbase (\(coinbaseCount))")
             self.filters.append(DcrlibwalletTxFilterCoinBase)
         }
+    }
+    
+    func showNoTransactions() {
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: self.tableView.bounds.size.width, height: self.tableView.bounds.size.height))
+        label.text = LocalizedStrings.noTransactions
+        label.textAlignment = .center
+        
+        self.refreshControl.endRefreshing()
+        self.tableView.backgroundView = label
+        self.tableView.separatorStyle = .none
     }
 }
 
