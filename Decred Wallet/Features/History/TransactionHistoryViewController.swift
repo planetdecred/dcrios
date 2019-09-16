@@ -34,8 +34,6 @@ class TransactionHistoryViewController: UIViewController {
         }
     }
     
-    var filterActive: Bool = false
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -95,9 +93,7 @@ class TransactionHistoryViewController: UIViewController {
     
     func applyTxFilter(currentFilter: Int32) {
         refreshControl.showLoader(in: self.tableView)
-        filteredTransactions.removeAll()
-        
-        self.filterActive = currentFilter != DcrlibwalletTxFilterAll
+        self.filteredTransactions.removeAll()
         
         switch currentFilter {
         case DcrlibwalletTxDirectionSent:
@@ -240,7 +236,7 @@ extension TransactionHistoryViewController: UITableViewDataSource, UITableViewDe
         let storyboard = UIStoryboard(name: "TransactionFullDetailsViewController", bundle: nil)
         let transactionDetailVC = storyboard.instantiateViewController(withIdentifier: "TransactionFullDetailsViewController") as! TransactionFullDetailsViewController
         
-        if filterActive {
+        if self.filteredTransactions.count > 0 {
             transactionDetailVC.transaction = self.filteredTransactions[indexPath.row]
         } else {
             transactionDetailVC.transaction = self.allTransactions[indexPath.row]
