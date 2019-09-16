@@ -70,38 +70,40 @@ extension DcrlibwalletLibWallet {
         return self.walletAccounts(confirmations: confirmations).filter({ !$0.isHidden }).map({ $0.dcrTotalBalance }).reduce(0,+)
     }
     
-    func transactionHistory(count: Int32, completion: @escaping ([Transaction]?) -> Void) {
-        DispatchQueue.global(qos: .userInteractive).async {
-            do {
-                var getTransactionsError: NSError?
-                let transactionsJson = AppDelegate.walletLoader.wallet?.getTransactions(count, txFilter: DcrlibwalletTxFilterAll, error: &getTransactionsError)
-                if getTransactionsError != nil {
-                    throw getTransactionsError!
-                }
-                var transactions = try JSONDecoder().decode([Transaction].self, from: transactionsJson!.utf8Bits)
-                
-                // Check if there are new transactions since last time wallet history was displayed.
-                let lastTxHash = Settings.readOptionalValue(for: Settings.Keys.LastTxHash) ?? ""
-                for i in 0..<transactions.count {
-                    if transactions[i].Hash == lastTxHash {
-                        // We've hit the last viewed tx. No need to animate this tx or futher txs.
-                        break
-                    }
-                    transactions[i].Animate = true
-                }
-                
-                // Save hash for tx index 0 as last viewed tx hash.
-                Settings.setValue(transactions[0].Hash, for: Settings.Keys.LastTxHash)
-                
-                DispatchQueue.main.async {
-                    completion(transactions)
-                }
-            } catch let error {
-                print("tx history error: \(error.localizedDescription)")
-                DispatchQueue.main.async {
-                    completion(nil)
-                }
-            }
+    func transactionHistory(offset: Int32, count: Int32 = 0, filter: Int32 = DcrlibwalletTxFilterAll) -> [Transaction]? {
+        guard let wallet = AppDelegate.walletLoader.wallet else {
+            return nil
         }
+        
+        var error: NSError?
+        let allTransactionsJson = wallet.getTransactions(offset, limit: count, txFilter: filter, error: &error)
+        if error != nil {
+            print("wallet.getTransactions error:", error!.localizedDescription)
+            return nil
+        }
+        
+        var transactions: [Transaction]?
+        do {
+            transactions = try JSONDecoder().decode([Transaction].self, from: allTransactionsJson.data(using: .utf8)!)
+        } catch let error {
+            print("decode allTransactionsJson error:", error.localizedDescription)
+        }
+        
+        if transactions != nil {
+            // Check if there are new transactions since last time wallet history was displayed.
+            let lastTxHash = Settings.readOptionalValue(for: Settings.Keys.LastTxHash) ?? ""
+            for i in 0..<transactions!.count {
+                if transactions![i].Hash == lastTxHash {
+                    // We've hit the last viewed tx. No need to animate this tx or futher txs.
+                    break
+                }
+                transactions![i].Animate = true
+            }
+            
+            // Save hash for tx index 0 as last viewed tx hash.
+            Settings.setValue(transactions![0].Hash, for: Settings.Keys.LastTxHash)
+        }
+        
+        return transactions
     }
 }

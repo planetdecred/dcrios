@@ -85,18 +85,16 @@ class OverviewViewController: UIViewController {
     }
     
     func loadRecentActivity() {
-        let maxDisplayItems = round(self.recentActivityTableView.frame.size.height / TransactionTableViewCell.height())
-        AppDelegate.walletLoader.wallet?.transactionHistory(count: Int32(maxDisplayItems)) { transactions in
-            if transactions == nil || transactions!.count == 0 {
-                self.showNoTransactions()
-                return
-            }
-            
-            self.recentTransactions = transactions!
-            self.recentActivityTableView.backgroundView = nil
-            self.recentActivityTableView.separatorStyle = .singleLine
-            self.recentActivityTableView.reloadData()
+        let maxDisplayItems = Int32(round(self.recentActivityTableView.frame.size.height / TransactionTableViewCell.height()))
+        guard let txs = AppDelegate.walletLoader.wallet?.transactionHistory(offset: 0, count: maxDisplayItems), txs.count > 0 else {
+            self.showNoTransactions()
+            return
         }
+        
+        self.recentTransactions = txs
+        self.recentActivityTableView.backgroundView = nil
+        self.recentActivityTableView.separatorStyle = .singleLine
+        self.recentActivityTableView.reloadData()
     }
     
     func showNoTransactions() {
@@ -167,7 +165,7 @@ extension OverviewViewController: UITableViewDelegate {
             return
         }
         
-        let txDetailsVC = Storyboards.TransactionFullDetailsViewController.instantiateViewController(for: TransactionFullDetailsViewController.self)
+        let txDetailsVC = Storyboards.TransactionDetails.instantiateViewController(for: TransactionDetailsViewController.self)
         txDetailsVC.transaction = self.recentTransactions[indexPath.row]
         self.navigationController?.pushViewController(txDetailsVC, animated: true)
     }

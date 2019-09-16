@@ -1,4 +1,4 @@
-//  TransactiontInputDetails.swift
+//  TransactiontInputDetailsCell.swift
 //  Decred Wallet
 //
 // Copyright (c) 2018-2019 The Decred developers
@@ -6,54 +6,30 @@
 // license that can be found in the LICENSE file.
 import UIKit
 
-class TransactiontInputDetails: UITableViewCell {
-    
+class TransactiontInputDetailsCell: UITableViewCell {
     @IBOutlet weak var viewCotainer: UIView!
     @IBOutlet weak var debitsStack: UIStackView!
     @IBOutlet weak var alcDebitStackHeight: NSLayoutConstraint!
     
     var expandOrCollapse: (() -> Void)?
     
-    var presentingController: TransactionFullDetailsViewController!
+    var presentingController: TransactionDetailsViewController!
     
-    func setup(with debits:[Debit], decodedInputs: [DecodedInput], presentingController: TransactionFullDetailsViewController){
-        debitsStack.subviews.forEach({ $0.removeFromSuperview() }) // this stack view comes with previous items when this function is called again
+    func setup(_ inputs: [TxInput], presentingController: TransactionDetailsViewController) {
         self.presentingController = presentingController
         
-        var walletInputIndices = [Int]()
+        // this stack view comes with previous items when this function is called again
+        debitsStack.subviews.forEach({ $0.removeFromSuperview() })
         
-        for (_, debit) in debits.enumerated() {
-            
-            walletInputIndices.append(Int(debit.Index))
-        
-            let decodedInput = decodedInputs[Int(debit.Index)]
-        
-            var hash = decodedInput.PreviousTransactionHash
+        for (_, input) in inputs.enumerated() {
+            var hash = input.PreviousTransactionHash
             if hash == "0000000000000000000000000000000000000000000000000000000000000000" {
                 hash = "Stakebase: 0000"
             }
-            hash = "\(hash):\(decodedInput.PreviousTransactionIndex)"
+            hash = "\(hash):\(input.PreviousTransactionIndex)"
             
-            let amount = "\(debit.dcrAmount.round(8))"
-            let title = " (\(debit.AccountName))"
-            
-            self.addSubrow(with: amount, title: title, subTitle: hash)
-        }
-        
-        for (i, decodedInput) in decodedInputs.enumerated() {
-            
-            if walletInputIndices.contains(i) {
-                continue
-            }
-            
-            let amount = "\(decodedInput.dcrAmount.round(8))"
-            let title = " (\(LocalizedStrings.external.lowercased()))"
-            
-            var hash = decodedInput.PreviousTransactionHash
-            if hash == "0000000000000000000000000000000000000000000000000000000000000000" {
-                hash = "Stakebase: 0000"
-            }
-            hash = "\(hash):\(decodedInput.PreviousTransactionIndex)"
+            let amount = "\(input.dcrAmount.round(8))"
+            let title = " (\(input.AccountName))"
             
             self.addSubrow(with: amount, title: title, subTitle: hash)
         }
@@ -67,7 +43,6 @@ class TransactiontInputDetails: UITableViewCell {
     }
     
     private func addSubrow(with amount: String, title: String, subTitle: String) {
-        
         let subrow = UIView(frame: CGRect(x:0.0, y:0.0, width: self.frame.size.width, height:45.0))
         let amountLabel = UILabel(frame: CGRect(x:5.0, y:1.0, width: self.frame.size.width, height: 22.0))
         let subTitleLabel = UIButton(frame: CGRect(x: 5.0, y: 23, width: self.frame.size.width, height: 22.0))
@@ -90,7 +65,7 @@ class TransactiontInputDetails: UITableViewCell {
         debitsStack.addArrangedSubview(subrow)
     }
     
-    @objc func buttonClicked(sender : UIButton){
+    @objc func buttonClicked(sender : UIButton) {
         DispatchQueue.main.async {
             //Copy a string to the pasteboard.
             UIPasteboard.general.string = sender.titleLabel?.text

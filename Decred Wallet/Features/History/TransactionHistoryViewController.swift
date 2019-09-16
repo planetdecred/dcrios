@@ -58,30 +58,17 @@ class TransactionHistoryViewController: UIViewController {
         self.allTransactions.removeAll()
         self.refreshControl.showLoader(in: self.transactionsTableView)
         
-        defer {
-            if self.allTransactions.isEmpty {
-                self.transactionsTableView.backgroundView = self.noTxsLabel
-                self.transactionsTableView.separatorStyle = .none
-                self.refreshControl.endRefreshing()
-            } else {
-                self.transactionsTableView.backgroundView = nil
-                self.transactionsTableView.separatorStyle = .singleLine
-                self.setupTxFilterAndDisplayAllTxs()
-            }
-        }
-        
-        var error: NSError?
-        let allTransactionsJson = AppDelegate.walletLoader.wallet?.getTransactions(0, txFilter: DcrlibwalletTxFilterAll, error: &error)
-        if error != nil {
-            print("wallet.getTransactions error:", error!.localizedDescription)
+        guard let txs = AppDelegate.walletLoader.wallet?.transactionHistory(offset: 0), txs.count > 0 else {
+            self.transactionsTableView.backgroundView = self.noTxsLabel
+            self.transactionsTableView.separatorStyle = .none
+            self.refreshControl.endRefreshing()
             return
         }
         
-        do {
-            self.allTransactions = try JSONDecoder().decode([Transaction].self, from: allTransactionsJson!.data(using: .utf8)!)
-        } catch let error {
-            print("decode allTransactionsJson error:", error.localizedDescription)
-        }
+        self.allTransactions = txs
+        self.transactionsTableView.backgroundView = nil
+        self.transactionsTableView.separatorStyle = .singleLine
+        self.setupTxFilterAndDisplayAllTxs()
     }
     
     func setupTxFilterAndDisplayAllTxs() {
@@ -189,10 +176,8 @@ extension TransactionHistoryViewController: NewTransactionNotificationProtocol, 
     }
     
     func onTransactionConfirmed(_ hash: String?, height: Int32) {
-        DispatchQueue.main.async {
-            // todo: why reloading all transactions because 1 tx was confirmed??
-            self.loadAllTransactions()
-        }
+        // all tx statuses will be updated when table rows are reloaded.
+        self.transactionsTableView.reloadData()
     }
 }
 
@@ -216,8 +201,7 @@ extension TransactionHistoryViewController: UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let storyboard = UIStoryboard(name: "TransactionFullDetailsViewController", bundle: nil)
-        let transactionDetailVC = storyboard.instantiateViewController(withIdentifier: "TransactionFullDetailsViewController") as! TransactionFullDetailsViewController
+        let transactionDetailVC = Storyboards.TransactionDetails.instantiateViewController(for: TransactionDetailsViewController.self)
         
         if self.filteredTransactions.count > 0 {
             transactionDetailVC.transaction = self.filteredTransactions[indexPath.row]

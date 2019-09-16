@@ -17,7 +17,7 @@ enum Storyboards: String {
     case Overview = "Overview"
     case Send = "Send"
     case Settings = "Settings"
-    case TransactionFullDetailsViewController = "TransactionFullDetailsViewController"
+    case TransactionDetails = "TransactionDetails"
     case SecurityMenu = "SecurityMenu"
     
     var instance: UIStoryboard {
