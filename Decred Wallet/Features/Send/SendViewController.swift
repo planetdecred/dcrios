@@ -280,14 +280,14 @@ class SendViewController: UIViewController {
         }
         
         let destinationAddress = self.getDestinationAddress(isSendAttempt: false)
-        let wallet = AppDelegate.walletLoader.wallet
+        let wallet = AppDelegate.walletLoader.wallet!
         
         do {
-            let maxSendableAmount = try wallet!.estimateMaxSendAmount(sourceAccount.Number,
-                                                                      toAddress: destinationAddress,
-                                                                      requiredConfirmations: self.requiredConfirmations)
+            let newTx = wallet.newUnsignedTx(sourceAccount.Number, requiredConfirmations: self.requiredConfirmations)
+            newTx?.addSendDestination(destinationAddress, atomAmount: 0, sendMax: true)
+            let maxSendableAmount = try newTx?.estimateMaxSendAmount()
             
-            let maxSendableAmountDecimal = Decimal(maxSendableAmount.dcrValue) as NSDecimalNumber
+            let maxSendableAmountDecimal = Decimal(maxSendableAmount!.dcrValue) as NSDecimalNumber
             self.dcrAmountTextField.text = "\(maxSendableAmountDecimal.round(8))"
             self.dcrAmountTextFieldChanged(sendMax: true)
         } catch let error {
@@ -378,12 +378,14 @@ class SendViewController: UIViewController {
             let sendAmountAtom = DcrlibwalletAmountAtom(sendAmountDcr)
             let sourceAccountNumber = self.walletAccounts[self.sourceAccountDropdown.selectedItemIndex].Number
             
-            let txFeeAndSize = try AppDelegate.walletLoader.wallet!.calculateNewTxFeeAndSize(sendAmountAtom,
-                                                                                             fromAccount: sourceAccountNumber,
-                                                                                             toAddress: destinationAddress,
-                                                                                             requiredConfirmations: self.requiredConfirmations,
-                                                                                             spendAllFundsInAccount: self.sendMaxAmount)
-            completion(sendAmountDcr, destinationAddress, txFeeAndSize)
+            let newTx = AppDelegate.walletLoader.wallet!.newUnsignedTx(sourceAccountNumber,
+                                                                       requiredConfirmations: self.requiredConfirmations)
+            newTx?.addSendDestination(destinationAddress,
+                                      atomAmount: sendAmountAtom,
+                                      sendMax: self.sendMaxAmount)
+            
+            let txFeeAndSize = try newTx?.estimateFeeAndSize()
+            completion(sendAmountDcr, destinationAddress, txFeeAndSize!)
         } catch let error {
             // there's an error somewhere, clear tx summary and disable send button
             self.clearTxSummary()
@@ -409,16 +411,17 @@ class SendViewController: UIViewController {
         let progressHud = Utils.showProgressHud(withText: LocalizedStrings.sendingTransaction)
         DispatchQueue.global(qos: .userInitiated).async {[unowned self] in
             do {
-                let hash = try AppDelegate.walletLoader.wallet!.sendTransaction(sendAmountAtom,
-                                                                                fromAccount: sourceAccountNumber,
-                                                                                toAddress: destinationAddress,
-                                                                                requiredConfirmations: self.requiredConfirmations,
-                                                                                spendAllFundsInAccount: self.sendMaxAmount,
-                                                                                privatePassphrase: pinOrPassword.utf8Bits)
+                let newTx = AppDelegate.walletLoader.wallet!.newUnsignedTx(sourceAccountNumber,
+                                                                           requiredConfirmations: self.requiredConfirmations)
+                newTx?.addSendDestination(destinationAddress,
+                                          atomAmount: sendAmountAtom,
+                                          sendMax: self.sendMaxAmount)
+                
+                let hash = try newTx?.broadcast(pinOrPassword.utf8Bits)
                 
                 DispatchQueue.main.async {
                     progressHud.dismiss()
-                    self.transactionSucceeded(hash.hexEncodedString())
+                    self.transactionSucceeded(hash!.hexEncodedString())
                 }
             } catch let error {
                 DispatchQueue.main.async {
