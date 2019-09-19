@@ -230,6 +230,7 @@ class Syncer: NSObject, AppLifeCycleDelegate {
 
     private func registerBackgroundTask() {
         backgroundTask = UIApplication.shared.beginBackgroundTask { [weak self] in
+            print("Background task expired")
             self?.endBackgroundTask()
         }
         assert(backgroundTask != .invalid)
