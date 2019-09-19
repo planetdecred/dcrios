@@ -189,13 +189,6 @@ class Syncer: NSObject, AppLifeCycleDelegate {
         }
     }
 
-    func applicationWillTerminate() {
-        print("app terminated")
-        if backgroundTask != .invalid {
-            endBackgroundTask()
-        }
-    }
-
     func applicationWillEnterBackground() {
         // Making sure we deregister any previous background task before registering a new one.
         // Especially when the user is switching between background and foreground states many times while sync is in progress
@@ -204,6 +197,13 @@ class Syncer: NSObject, AppLifeCycleDelegate {
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
             print("Background task started at: ", Date())
             registerBackgroundTask()
+        }
+    }
+
+    func applicationWillTerminate() {
+        print("app terminated")
+        if backgroundTask != .invalid {
+            endBackgroundTask()
         }
     }
 

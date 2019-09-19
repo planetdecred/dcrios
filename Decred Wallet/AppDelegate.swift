@@ -19,9 +19,9 @@ import Crashlytics
 
 protocol AppLifeCycleDelegate {
     func applicationEnteredForegroundFromSuspendedState(_ lastActiveTime: Date)
-    func networkChanged(_ connection: Reachability.Connection)
-    func applicationWillTerminate()
     func applicationWillEnterBackground()
+    func applicationWillTerminate()
+    func networkChanged(_ connection: Reachability.Connection)
 }
 
 @UIApplicationMain
