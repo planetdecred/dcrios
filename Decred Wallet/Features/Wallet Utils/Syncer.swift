@@ -6,7 +6,7 @@
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
-import Foundation
+import UIKit
 import Dcrlibwallet
 
 protocol SyncProgressListenerProtocol {
@@ -39,6 +39,7 @@ class Syncer: NSObject, AppLifeCycleDelegate {
     
     var currentSyncOp: SyncOp?
     var currentSyncOpProgress: Any?
+    var backgroundTask: UIBackgroundTaskIdentifier = .invalid
     
     var syncCompletedCanceledOrErrored: Bool {
         return self.currentSyncOp == SyncOp.Done || self.currentSyncOp == SyncOp.Canceled || self.currentSyncOp == SyncOp.Errored
@@ -52,7 +53,7 @@ class Syncer: NSObject, AppLifeCycleDelegate {
             return String(format: LocalizedStrings.numberOfConnectedPeers, connectedPeersCount)
         }
     }
-    
+
     func registerEstimatedSyncProgressListener() {
         AppDelegate.walletLoader.wallet?.enableSyncLogs()
         // Following call should only throw an error if we attempt to add this sync progress listener multiple times.
@@ -188,6 +189,24 @@ class Syncer: NSObject, AppLifeCycleDelegate {
         }
     }
 
+    func applicationWillEnterBackground() {
+        // Making sure we deregister any previous background task before registering a new one.
+        // Especially when the user is switching between background and foreground states many times while sync is in progress
+        endBackgroundTask()
+        if !syncCompletedCanceledOrErrored && backgroundTask == .invalid {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            print("Background task started at: ", Date())
+            registerBackgroundTask()
+        }
+    }
+
+    func applicationWillTerminate() {
+        print("app terminated")
+        if backgroundTask != .invalid {
+            endBackgroundTask()
+        }
+    }
+
     func networkChanged(_ connection: Reachability.Connection) {
         if self.syncCompletedCanceledOrErrored {
             // sync is not currently active, no need to worry about network changes
@@ -206,6 +225,23 @@ class Syncer: NSObject, AppLifeCycleDelegate {
             let totalInactiveSeconds = Date().timeIntervalSince(self.networkLastActive!)
             AppDelegate.walletLoader.wallet?.syncInactive(forPeriod: Int64(totalInactiveSeconds))
             self.networkLastActive = nil // Network is active at this point.
+        }
+    }
+
+    private func registerBackgroundTask() {
+        backgroundTask = UIApplication.shared.beginBackgroundTask { [weak self] in
+            print("Background task expired")
+            self?.endBackgroundTask()
+        }
+        assert(backgroundTask != .invalid)
+    }
+
+    private func endBackgroundTask() {
+        if backgroundTask != .invalid {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            print("Background task ended at: ", Date())
+            UIApplication.shared.endBackgroundTask(backgroundTask)
+            backgroundTask = .invalid
         }
     }
 }
@@ -268,6 +304,7 @@ extension Syncer: DcrlibwalletSyncProgressListenerProtocol {
         if initialSyncCompleted == nil {
             Settings.setValue(true, for: Settings.Keys.InitialSyncCompleted)
         }
+        endBackgroundTask()
     }
     
     func onSyncCanceled(_ willRestart: Bool) {
