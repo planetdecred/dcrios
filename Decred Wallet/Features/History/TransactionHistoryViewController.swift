@@ -58,7 +58,7 @@ class TransactionHistoryViewController: UIViewController {
         self.allTransactions.removeAll()
         self.refreshControl.showLoader(in: self.transactionsTableView)
         
-        guard let txs = AppDelegate.walletLoader.wallet?.transactionHistory(offset: 0), txs.count > 0 else {
+        guard let txs = AppDelegate.walletLoader.wallet?.transactionHistory(offset: 0), !txs.isEmpty else {
             self.transactionsTableView.backgroundView = self.noTxsLabel
             self.transactionsTableView.separatorStyle = .none
             self.refreshControl.endRefreshing()
@@ -203,10 +203,10 @@ extension TransactionHistoryViewController: UITableViewDataSource, UITableViewDe
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let transactionDetailVC = Storyboards.TransactionDetails.instantiateViewController(for: TransactionDetailsViewController.self)
         
-        if self.filteredTransactions.count > 0 {
-            transactionDetailVC.transaction = self.filteredTransactions[indexPath.row]
-        } else {
+        if self.filteredTransactions.isEmpty {
             transactionDetailVC.transaction = self.allTransactions[indexPath.row]
+        } else {
+            transactionDetailVC.transaction = self.filteredTransactions[indexPath.row]
         }
         
         self.navigationController?.pushViewController(transactionDetailVC, animated: true)
