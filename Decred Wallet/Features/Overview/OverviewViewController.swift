@@ -85,18 +85,16 @@ class OverviewViewController: UIViewController {
     }
     
     func loadRecentActivity() {
-        let maxDisplayItems = round(self.recentActivityTableView.frame.size.height / TransactionTableViewCell.height())
-        AppDelegate.walletLoader.wallet?.transactionHistory(count: Int32(maxDisplayItems)) { transactions in
-            if transactions == nil || transactions!.count == 0 {
-                self.showNoTransactions()
-                return
-            }
-            
-            self.recentTransactions = transactions!
-            self.recentActivityTableView.backgroundView = nil
-            self.recentActivityTableView.separatorStyle = .singleLine
-            self.recentActivityTableView.reloadData()
+        let maxDisplayItems = Int32(round(self.recentActivityTableView.frame.size.height / TransactionTableViewCell.height()))
+        guard let txs = AppDelegate.walletLoader.wallet?.transactionHistory(offset: 0, count: maxDisplayItems), txs.count > 0 else {
+            self.showNoTransactions()
+            return
         }
+        
+        self.recentTransactions = txs
+        self.recentActivityTableView.backgroundView = nil
+        self.recentActivityTableView.separatorStyle = .singleLine
+        self.recentActivityTableView.reloadData()
     }
     
     func showNoTransactions() {
@@ -130,12 +128,12 @@ extension OverviewViewController: NewTransactionNotificationProtocol, ConfirmedT
     func onTransaction(_ transaction: String?) {
         var tx = try! JSONDecoder().decode(Transaction.self, from:(transaction!.utf8Bits))
         
-        if self.recentTransactions.contains(where: { $0.Hash == tx.Hash }) {
+        if self.recentTransactions.contains(where: { $0.hash == tx.hash }) {
             // duplicate notification, tx is already being displayed in table
             return
         }
         
-        tx.Animate = true
+        tx.animate = true
         self.recentTransactions.insert(tx, at: 0)
         self.updateCurrentBalance()
         
@@ -167,16 +165,16 @@ extension OverviewViewController: UITableViewDelegate {
             return
         }
         
-        let txDetailsVC = Storyboards.TransactionFullDetailsViewController.instantiateViewController(for: TransactionFullDetailsViewController.self)
+        let txDetailsVC = Storyboards.TransactionDetails.instantiateViewController(for: TransactionDetailsViewController.self)
         txDetailsVC.transaction = self.recentTransactions[indexPath.row]
         self.navigationController?.pushViewController(txDetailsVC, animated: true)
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if self.recentTransactions[indexPath.row].Animate {
+        if self.recentTransactions[indexPath.row].animate {
             cell.blink()
         }
-        self.recentTransactions[indexPath.row].Animate = false
+        self.recentTransactions[indexPath.row].animate = false
     }
 }
 

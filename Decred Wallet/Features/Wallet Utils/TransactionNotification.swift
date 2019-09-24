@@ -52,12 +52,12 @@ class TransactionNotification: NSObject {
     
     func newTxNotification(_ transaction: String?) {
         let tx = try? JSONDecoder().decode(Transaction.self, from:(transaction!.utf8Bits))
-        if tx == nil || self.newTxHashes.contains(tx!.Hash) {
+        if tx == nil || self.newTxHashes.contains(tx!.hash) {
             return
         }
-        self.newTxHashes.append(tx!.Hash)
+        self.newTxHashes.append(tx!.hash)
         
-        if tx!.Fee == 0 {
+        if tx!.fee == 0 {
             let notification = UNMutableNotificationContent()
             notification.title = LocalizedStrings.newTransaction
             notification.body = "\(LocalizedStrings.youReceived) \(tx!.dcrAmount.round(8).description) DCR"

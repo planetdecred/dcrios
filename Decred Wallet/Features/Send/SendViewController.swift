@@ -445,7 +445,7 @@ class SendViewController: UIViewController {
             (slideMenuController.leftViewController as! NavigationMenuViewController).changeActivePage(to: .overview)
             
             if showTxDetails {
-                let txDetailsVC = Storyboards.TransactionFullDetailsViewController.instantiateViewController(for: TransactionFullDetailsViewController.self)
+                let txDetailsVC = Storyboards.TransactionDetails.instantiateViewController(for: TransactionDetailsViewController.self)
                 txDetailsVC.transactionHash = txHash
                 (slideMenuController.mainViewController as! UINavigationController).pushViewController(txDetailsVC, animated: true)
             }

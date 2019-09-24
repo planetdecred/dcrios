@@ -99,4 +99,11 @@ struct Utils {
         
         return NSMutableAttributedString(string: tmpString.appending(" DCR") as String)
     }
+    
+    static func formatDateTime(timestamp: Int64) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM dd, yyyy / hh:mm:ss a"
+        let date = Date(timeIntervalSince1970: Double(timestamp))
+        return formatter.string(from: date)
+    }
 }
