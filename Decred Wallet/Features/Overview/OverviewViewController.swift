@@ -128,12 +128,12 @@ extension OverviewViewController: NewTransactionNotificationProtocol, ConfirmedT
     func onTransaction(_ transaction: String?) {
         var tx = try! JSONDecoder().decode(Transaction.self, from:(transaction!.utf8Bits))
         
-        if self.recentTransactions.contains(where: { $0.Hash == tx.Hash }) {
+        if self.recentTransactions.contains(where: { $0.hash == tx.hash }) {
             // duplicate notification, tx is already being displayed in table
             return
         }
         
-        tx.Animate = true
+        tx.animate = true
         self.recentTransactions.insert(tx, at: 0)
         self.updateCurrentBalance()
         
@@ -171,10 +171,10 @@ extension OverviewViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if self.recentTransactions[indexPath.row].Animate {
+        if self.recentTransactions[indexPath.row].animate {
             cell.blink()
         }
-        self.recentTransactions[indexPath.row].Animate = false
+        self.recentTransactions[indexPath.row].animate = false
     }
 }
 

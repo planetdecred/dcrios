@@ -93,15 +93,15 @@ extension DcrlibwalletLibWallet {
             // Check if there are new transactions since last time wallet history was displayed.
             let lastTxHash = Settings.readOptionalValue(for: Settings.Keys.LastTxHash) ?? ""
             for i in 0..<transactions!.count {
-                if transactions![i].Hash == lastTxHash {
+                if transactions![i].hash == lastTxHash {
                     // We've hit the last viewed tx. No need to animate this tx or futher txs.
                     break
                 }
-                transactions![i].Animate = true
+                transactions![i].animate = true
             }
             
             // Save hash for tx index 0 as last viewed tx hash.
-            Settings.setValue(transactions![0].Hash, for: Settings.Keys.LastTxHash)
+            Settings.setValue(transactions![0].hash, for: Settings.Keys.LastTxHash)
         }
         
         return transactions

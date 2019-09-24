@@ -22,14 +22,14 @@ class TransactiontInputDetailsCell: UITableViewCell {
         debitsStack.subviews.forEach({ $0.removeFromSuperview() })
         
         for (_, input) in inputs.enumerated() {
-            var hash = input.PreviousTransactionHash
+            var hash = input.previousTransactionHash
             if hash == "0000000000000000000000000000000000000000000000000000000000000000" {
                 hash = "Stakebase: 0000"
             }
-            hash = "\(hash):\(input.PreviousTransactionIndex)"
+            hash = "\(hash):\(input.previousTransactionIndex)"
             
             let amount = "\(input.dcrAmount.round(8))"
-            let title = " (\(input.AccountName))"
+            let title = " (\(input.accountName))"
             
             self.addSubrow(with: amount, title: title, subTitle: hash)
         }

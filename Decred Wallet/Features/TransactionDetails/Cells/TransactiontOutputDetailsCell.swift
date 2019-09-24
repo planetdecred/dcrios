@@ -29,12 +29,12 @@ class TransactiontOutputDetailsCell: UITableViewCell {
                 siz: 13,
                 TexthexColor: GlobalConstants.Colors.TextAmount
             )
-            var address = output.Address
+            var address = output.address
             
-            var title = output.AccountNumber >= 0 ? output.AccountName: LocalizedStrings.external.lowercased()
+            var title = output.accountNumber >= 0 ? output.accountName: LocalizedStrings.external.lowercased()
             title = " (\(title))"
             
-            switch (output.ScriptType) {
+            switch (output.scriptType) {
             case "nulldata":
                 amount = NSAttributedString(string: "[\(LocalizedStrings.nullData)]")
                 address = "[\(LocalizedStrings.script)]"

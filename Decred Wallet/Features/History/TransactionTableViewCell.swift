@@ -26,15 +26,15 @@ class TransactionTableViewCell: BaseTableViewCell {
     override func setData(_ data: Any?) {
         if let transaction = data as? Transaction {
             var confirmations: Int32 = 0
-            if transaction.BlockHeight != -1 {
-                confirmations = AppDelegate.walletLoader.wallet!.getBestBlock() - Int32(transaction.BlockHeight) + 1
+            if transaction.blockHeight != -1 {
+                confirmations = AppDelegate.walletLoader.wallet!.getBestBlock() - Int32(transaction.blockHeight) + 1
             }
             
             let isConfirmed = Settings.spendUnconfirmed || confirmations > 1
             self.status.text = isConfirmed ? LocalizedStrings.confirmed : LocalizedStrings.pending
             self.status.textColor = isConfirmed ? UIColor(hex:"#2DD8A3") : UIColor(hex:"#3d659c")
             
-            let Date2 = NSDate.init(timeIntervalSince1970: TimeInterval(transaction.Timestamp) )
+            let Date2 = NSDate.init(timeIntervalSince1970: TimeInterval(transaction.timestamp) )
             let dateformater = DateFormatter()
             dateformater.locale = Locale(identifier: "en_US_POSIX")
             dateformater.dateFormat = "MMM dd, yyyy hh:mma"
@@ -45,27 +45,27 @@ class TransactionTableViewCell: BaseTableViewCell {
             self.dateT.text = dateformater.string(from: Date2 as Date)
             let requireConfirmation = Settings.spendUnconfirmed ? 0 : 2
             
-            if transaction.Type == DcrlibwalletTxTypeRegular {
-                if transaction.Direction == DcrlibwalletTxDirectionSent {
+            if transaction.type == DcrlibwalletTxTypeRegular {
+                if transaction.direction == DcrlibwalletTxDirectionSent {
                     let attributedString = NSMutableAttributedString(string: "-")
                     attributedString.append(Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 13.0, TexthexColor: GlobalConstants.Colors.TextAmount))
                     self.dataText.attributedText = attributedString
                     self.dataImage?.image = UIImage(named: "debit")
-                } else if transaction.Direction == DcrlibwalletTxDirectionReceived {
+                } else if transaction.direction == DcrlibwalletTxDirectionReceived {
                     let attributedString = NSMutableAttributedString(string: " ")
                     attributedString.append(Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 13.0, TexthexColor: GlobalConstants.Colors.TextAmount))
                     self.dataText.attributedText = attributedString
                     self.dataImage?.image = UIImage(named: "credit")
-                } else if transaction.Direction == DcrlibwalletTxDirectionTransferred {
+                } else if transaction.direction == DcrlibwalletTxDirectionTransferred {
                     let attributedString = NSMutableAttributedString(string: " ")
                     attributedString.append(Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 13.0, TexthexColor: GlobalConstants.Colors.TextAmount))
                     self.dataText.attributedText = attributedString
                     self.dataImage?.image = UIImage(named: "account")
                 }
-            } else if transaction.Type == DcrlibwalletTxTypeVote {
+            } else if transaction.type == DcrlibwalletTxTypeVote {
                 self.dataText.text = " \(LocalizedStrings.vote)"
                 self.dataImage?.image = UIImage(named: "vote")
-            } else if transaction.Type == DcrlibwalletTxTypeTicketPurchase {
+            } else if transaction.type == DcrlibwalletTxTypeTicketPurchase {
                 self.dataText.text = " \(LocalizedStrings.ticket)"
                 self.dataImage?.image = UIImage(named: "immature")
                 

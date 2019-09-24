@@ -10,105 +10,135 @@ import Foundation
 import Dcrlibwallet
 
 struct Transaction: Codable {
-    var Hash: String
-    var `Type`: String
-    var Hex: String
-    var Timestamp: Int64
-    var BlockHeight: Int32
+    var hash: String
+    var type: String
+    var hex: String
+    var timestamp: Int64
+    var blockHeight: Int32
     
-    var Version: Int32
-    var LockTime: Int32
-    var Expiry: Int32
-    var Fee: Int64
+    var version: Int32
+    var lockTime: Int32
+    var expiry: Int32
+    var fee: Int64
     
-    var Direction: Int32
-    var Amount: Int64
-    var Inputs: [TxInput]
-    var Outputs: [TxOutput]
+    var direction: Int32
+    var amount: Int64
+    var inputs: [TxInput]
+    var outputs: [TxOutput]
     
     // Vote Info
-    var VoteVersion: Int32
-    var LastBlockValid: Bool
-    var VoteBits: String
+    var voteVersion: Int32
+    var lastBlockValid: Bool
+    var voteBits: String
     
-    @nonobjc var Animate: Bool
+    @nonobjc var animate: Bool
+    
+    private enum CodingKeys : String, CodingKey {
+        case hash, type, hex, timestamp
+        case blockHeight = "block_height"
+        
+        case version
+        case lockTime = "lock_time"
+        case expiry, fee
+        
+        case direction, amount, inputs, outputs
+        
+        case voteVersion = "vote_version"
+        case lastBlockValid = "last_block_valid"
+        case voteBits = "vote_bits"
+    }
     
     init(from decoder: Decoder) throws {
         let values = try! decoder.container(keyedBy: CodingKeys.self)
-        self.Hash = try! values.decode(String.self, forKey: .Hash)
-        self.Type = try! values.decode(String.self, forKey: .Type)
-        self.Hex = try! values.decode(String.self, forKey: .Hex)
-        self.Timestamp = try! values.decode(Int64.self, forKey: .Timestamp)
-        self.BlockHeight = try! values.decode(Int32.self, forKey: .BlockHeight)
+        self.hash = try! values.decode(String.self, forKey: .hash)
+        self.type = try! values.decode(String.self, forKey: .type)
+        self.hex = try! values.decode(String.self, forKey: .hex)
+        self.timestamp = try! values.decode(Int64.self, forKey: .timestamp)
+        self.blockHeight = try! values.decode(Int32.self, forKey: .blockHeight)
         
-        self.Version = try! values.decode(Int32.self, forKey: .Version)
-        self.LockTime = try! values.decode(Int32.self, forKey: .LockTime)
-        self.Expiry = try! values.decode(Int32.self, forKey: .Expiry)
-        self.Fee = try! values.decode(Int64.self, forKey: .Fee)
+        self.version = try! values.decode(Int32.self, forKey: .version)
+        self.lockTime = try! values.decode(Int32.self, forKey: .lockTime)
+        self.expiry = try! values.decode(Int32.self, forKey: .expiry)
+        self.fee = try! values.decode(Int64.self, forKey: .fee)
         
-        self.Direction = try! values.decode(Int32.self, forKey: .Direction)
-        self.Amount = try! values.decode(Int64.self, forKey: .Amount)
-        self.Inputs = try! values.decode([TxInput].self, forKey: .Inputs)
-        self.Outputs = try! values.decode([TxOutput].self, forKey: .Outputs)
+        self.direction = try! values.decode(Int32.self, forKey: .direction)
+        self.amount = try! values.decode(Int64.self, forKey: .amount)
+        self.inputs = try! values.decode([TxInput].self, forKey: .inputs)
+        self.outputs = try! values.decode([TxOutput].self, forKey: .outputs)
         
-        self.VoteVersion = try! values.decode(Int32.self, forKey: .VoteVersion)
-        self.LastBlockValid = try! values.decode(Bool.self, forKey: .LastBlockValid)
-        self.VoteBits = try! values.decode(String.self, forKey: .VoteBits)
+        self.voteVersion = try! values.decode(Int32.self, forKey: .voteVersion)
+        self.lastBlockValid = try! values.decode(Bool.self, forKey: .lastBlockValid)
+        self.voteBits = try! values.decode(String.self, forKey: .voteBits)
         
-        self.Animate = false
+        self.animate = false
     }
     
     var dcrAmount: NSDecimalNumber {
-        return Decimal(DcrlibwalletAmountCoin(self.Amount)) as NSDecimalNumber
+        return Decimal(DcrlibwalletAmountCoin(self.amount)) as NSDecimalNumber
     }
     
     var dcrFee: NSDecimalNumber {
-        return Decimal(DcrlibwalletAmountCoin(self.Fee)) as NSDecimalNumber
+        return Decimal(DcrlibwalletAmountCoin(self.fee)) as NSDecimalNumber
     }
 }
 
 struct TxInput: Codable {
-    var PreviousTransactionHash: String
-    var PreviousTransactionIndex: Int32
-    var Amount: Int64
-    var AccountName: String
+    var previousTransactionHash: String
+    var previousTransactionIndex: Int32
+    var amount: Int64
+    var accountName: String
+    
+    private enum CodingKeys : String, CodingKey {
+        case previousTransactionHash = "previous_transaction_hash"
+        case previousTransactionIndex = "previous_transaction_index"
+        case amount
+        case accountName = "account_name"
+    }
     
     init(from decoder: Decoder) throws {
         let values = try! decoder.container(keyedBy: CodingKeys.self)
-        self.PreviousTransactionHash = try! values.decode(String.self, forKey: .PreviousTransactionHash)
-        self.PreviousTransactionIndex = try! values.decode(Int32.self, forKey: .PreviousTransactionIndex)
-        self.Amount = try! values.decode(Int64.self, forKey: .Amount)
-        self.AccountName = try! values.decode(String.self, forKey: .AccountName)
+        self.previousTransactionHash = try! values.decode(String.self, forKey: .previousTransactionHash)
+        self.previousTransactionIndex = try! values.decode(Int32.self, forKey: .previousTransactionIndex)
+        self.amount = try! values.decode(Int64.self, forKey: .amount)
+        self.accountName = try! values.decode(String.self, forKey: .accountName)
     }
     
     var dcrAmount: NSDecimalNumber {
-        return Decimal(DcrlibwalletAmountCoin(self.Amount)) as NSDecimalNumber
+        return Decimal(DcrlibwalletAmountCoin(self.amount)) as NSDecimalNumber
     }
 }
 
 struct TxOutput: Codable {
-    var Index: Int32
-    var Amount: Int64
-    var Version: Int32
-    var ScriptType: String
-    var Address: String
-    var Internal: Bool
-    var AccountName: String
-    var AccountNumber: Int32
+    var index: Int32
+    var amount: Int64
+    var version: Int32
+    var scriptType: String
+    var address: String
+    var `internal`: Bool
+    var accountName: String
+    var accountNumber: Int32
+    
+    private enum CodingKeys : String, CodingKey {
+        case index, amount, version
+        case scriptType = "script_type"
+        case address, `internal`
+        case accountName = "account_name"
+        case accountNumber = "account_number"
+    }
     
     init(from decoder: Decoder) throws {
         let values = try! decoder.container(keyedBy: CodingKeys.self)
-        self.Index = try! values.decode(Int32.self, forKey: .Index)
-        self.Amount = try! values.decode(Int64.self, forKey: .Amount)
-        self.Version = try! values.decode(Int32.self, forKey: .Version)
-        self.ScriptType = try! values.decode(String.self, forKey: .ScriptType)
-        self.Address = try! values.decode(String.self, forKey: .Address)
-        self.Internal = try! values.decode(Bool.self, forKey: .Internal)
-        self.AccountName = try! values.decode(String.self, forKey: .AccountName)
-        self.AccountNumber = try! values.decode(Int32.self, forKey: .AccountNumber)
+        self.index = try! values.decode(Int32.self, forKey: .index)
+        self.amount = try! values.decode(Int64.self, forKey: .amount)
+        self.version = try! values.decode(Int32.self, forKey: .version)
+        self.scriptType = try! values.decode(String.self, forKey: .scriptType)
+        self.address = try! values.decode(String.self, forKey: .address)
+        self.internal = try! values.decode(Bool.self, forKey: .internal)
+        self.accountName = try! values.decode(String.self, forKey: .accountName)
+        self.accountNumber = try! values.decode(Int32.self, forKey: .accountNumber)
     }
     
     var dcrAmount: NSDecimalNumber {
-        return Decimal(DcrlibwalletAmountCoin(self.Amount)) as NSDecimalNumber
+        return Decimal(DcrlibwalletAmountCoin(self.amount)) as NSDecimalNumber
     }
 }

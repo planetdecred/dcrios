@@ -75,31 +75,31 @@ class TransactionHistoryViewController: UIViewController {
         var filterOptions = [LocalizedStrings.all.appending(" (\(self.allTransactions.count))")]
         self.transactionFilters = [DcrlibwalletTxFilterAll]
         
-        let sentCount = self.allTransactions.filter{$0.Direction == DcrlibwalletTxDirectionSent}.count
+        let sentCount = self.allTransactions.filter{$0.direction == DcrlibwalletTxDirectionSent}.count
         if sentCount != 0 {
             filterOptions.append(LocalizedStrings.sent.appending(" (\(sentCount))"))
             self.transactionFilters.append(DcrlibwalletTxFilterSent)
         }
         
-        let receiveCount = self.allTransactions.filter{$0.Direction == DcrlibwalletTxDirectionReceived}.count
+        let receiveCount = self.allTransactions.filter{$0.direction == DcrlibwalletTxDirectionReceived}.count
         if receiveCount != 0 {
             filterOptions.append(LocalizedStrings.received.appending(" (\(receiveCount))"))
             self.transactionFilters.append(DcrlibwalletTxFilterReceived)
         }
         
-        let yourselfCount = self.allTransactions.filter{$0.Direction == DcrlibwalletTxDirectionTransferred}.count
+        let yourselfCount = self.allTransactions.filter{$0.direction == DcrlibwalletTxDirectionTransferred}.count
         if yourselfCount != 0 {
             filterOptions.append(LocalizedStrings.yourself.appending(" (\(yourselfCount))"))
             self.transactionFilters.append(DcrlibwalletTxFilterSent)
         }
         
-        let stakeCount = self.allTransactions.filter{$0.Type != DcrlibwalletTxTypeRegular}.count
+        let stakeCount = self.allTransactions.filter{$0.type != DcrlibwalletTxTypeRegular}.count
         if stakeCount != 0 {
             filterOptions.append(LocalizedStrings.staking.appending(" (\(stakeCount))"))
             self.transactionFilters.append(DcrlibwalletTxFilterStaking)
         }
         
-        let coinbaseCount = self.allTransactions.filter{$0.Type == DcrlibwalletTxTypeCoinBase}.count
+        let coinbaseCount = self.allTransactions.filter{$0.type == DcrlibwalletTxTypeCoinBase}.count
         if coinbaseCount != 0 {
             filterOptions.append(LocalizedStrings.coinbase.appending(" (\(coinbaseCount))"))
             self.transactionFilters.append(DcrlibwalletTxFilterCoinBase)
@@ -129,23 +129,23 @@ class TransactionHistoryViewController: UIViewController {
         
         switch currentFilter {
         case DcrlibwalletTxFilterSent:
-            self.filteredTransactions = self.allTransactions.filter{$0.Direction == DcrlibwalletTxDirectionSent && $0.Type == DcrlibwalletTxTypeRegular}
+            self.filteredTransactions = self.allTransactions.filter{$0.direction == DcrlibwalletTxDirectionSent && $0.type == DcrlibwalletTxTypeRegular}
             break
             
         case DcrlibwalletTxFilterReceived:
-            self.filteredTransactions = self.allTransactions.filter{$0.Direction == DcrlibwalletTxDirectionReceived && $0.Type == DcrlibwalletTxTypeRegular}
+            self.filteredTransactions = self.allTransactions.filter{$0.direction == DcrlibwalletTxDirectionReceived && $0.type == DcrlibwalletTxTypeRegular}
             break
             
         case DcrlibwalletTxFilterTransferred:
-            self.filteredTransactions = self.allTransactions.filter{$0.Direction == DcrlibwalletTxDirectionTransferred && $0.Type == DcrlibwalletTxTypeRegular}
+            self.filteredTransactions = self.allTransactions.filter{$0.direction == DcrlibwalletTxDirectionTransferred && $0.type == DcrlibwalletTxTypeRegular}
             break
             
         case DcrlibwalletTxFilterStaking:
-            self.filteredTransactions = self.allTransactions.filter{$0.Type == DcrlibwalletTxTypeRevocation || $0.Type == DcrlibwalletTxTypeTicketPurchase || $0.Type == DcrlibwalletTxTypeVote }
+            self.filteredTransactions = self.allTransactions.filter{$0.type == DcrlibwalletTxTypeRevocation || $0.type == DcrlibwalletTxTypeTicketPurchase || $0.type == DcrlibwalletTxTypeVote }
             break
             
         case DcrlibwalletTxFilterCoinBase:
-            self.filteredTransactions = self.allTransactions.filter{$0.Type == DcrlibwalletTxTypeCoinBase}
+            self.filteredTransactions = self.allTransactions.filter{$0.type == DcrlibwalletTxTypeCoinBase}
             break
             
         default:
@@ -159,16 +159,16 @@ extension TransactionHistoryViewController: NewTransactionNotificationProtocol, 
     func onTransaction(_ transaction: String?) {
         var tx = try! JSONDecoder().decode(Transaction.self, from:(transaction!.utf8Bits))
         
-        if self.allTransactions.contains(where: { $0.Hash == tx.Hash }) {
+        if self.allTransactions.contains(where: { $0.hash == tx.hash }) {
             // duplicate notification, tx is already being displayed in table
             return
         }
         
-        tx.Animate = true
+        tx.animate = true
         self.allTransactions.insert(tx, at: 0)
         
         // Save hash for this tx as last viewed tx hash.
-        Settings.setValue(tx.Hash, for: Settings.Keys.LastTxHash)
+        Settings.setValue(tx.hash, for: Settings.Keys.LastTxHash)
         
         DispatchQueue.main.async {
             self.reloadTxsForCurrentFilter()

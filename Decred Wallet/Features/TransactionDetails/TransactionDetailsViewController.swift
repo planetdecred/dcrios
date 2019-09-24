@@ -5,6 +5,7 @@
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 import UIKit
+import Dcrlibwallet
 import SafariServices
 
 class TransactionDetailsViewController: UIViewController, SFSafariViewControllerDelegate  {
@@ -68,8 +69,8 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
     
     fileprivate func prepareTransactionDetails() {
         var confirmations: Int32 = 0
-        if self.transaction.BlockHeight != -1 {
-            confirmations = AppDelegate.walletLoader.wallet!.getBestBlock() - Int32(self.transaction.BlockHeight) + 1
+        if self.transaction.blockHeight != -1 {
+            confirmations = AppDelegate.walletLoader.wallet!.getBestBlock() - Int32(self.transaction.blockHeight) + 1
         }
         
         let isConfirmed = Settings.spendUnconfirmed || confirmations > 1
@@ -90,7 +91,7 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
         generalTxDetails = [
             TransactionDetails(
                 title: LocalizedStrings.date,
-                value: NSMutableAttributedString(string: Utils.formatDateTime(timestamp: self.transaction.Timestamp)),
+                value: NSMutableAttributedString(string: Utils.formatDateTime(timestamp: self.transaction.timestamp)),
                 textColor: nil
             ),
             TransactionDetails(
@@ -110,7 +111,7 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
             ),
             TransactionDetails(
                 title: LocalizedStrings.type,
-                value: NSMutableAttributedString(string: self.transaction.Type),
+                value: NSMutableAttributedString(string: self.transaction.type),
                 textColor: nil
             ),
             TransactionDetails(
@@ -120,29 +121,29 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
             ),
             TransactionDetails(
                 title: LocalizedStrings.hash,
-                value: NSMutableAttributedString(string: self.transaction.Hash),
+                value: NSMutableAttributedString(string: self.transaction.hash),
                 textColor: #colorLiteral(red: 0.1607843137, green: 0.4392156863, blue: 1, alpha: 1)
             )
         ]
         
-        if self.transaction.Type.lowercased() == "vote" {
+        if self.transaction.type == DcrlibwalletTxTypeVote {
             let lastBlockValid = TransactionDetails(
                 title: LocalizedStrings.lastBlockValid,
-                value: NSMutableAttributedString(string: String(describing: self.transaction.LastBlockValid)),
+                value: NSMutableAttributedString(string: String(describing: self.transaction.lastBlockValid)),
                 textColor: nil
             )
             generalTxDetails.append(lastBlockValid)
             
             let voteVersion = TransactionDetails(
                 title: LocalizedStrings.version,
-                value: NSAttributedString(string: "\(self.transaction.VoteVersion)"),
+                value: NSAttributedString(string: "\(self.transaction.voteVersion)"),
                 textColor: nil
             )
             generalTxDetails.append(voteVersion)
             
             let voteBits = TransactionDetails(
                 title:LocalizedStrings.voteBits,
-                value: NSAttributedString(string: self.transaction.VoteBits),
+                value: NSAttributedString(string: self.transaction.voteBits),
                 textColor: nil
             )
             generalTxDetails.append(voteBits)
@@ -159,18 +160,18 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
         let cancelAction = UIAlertAction(title: LocalizedStrings.cancel, style: .cancel, handler: nil)
         
         let copyTxHash = UIAlertAction(title: LocalizedStrings.copyTransactionHash, style: .default, handler: { (alert: UIAlertAction!) -> Void in
-            self.copyText(self.transaction.Hash)
+            self.copyText(self.transaction.hash)
         })
         
         let copyRawTx = UIAlertAction(title: LocalizedStrings.copyRawTransaction, style: .default, handler: { (alert: UIAlertAction!) -> Void in
-            self.copyText(self.transaction.Hex)
+            self.copyText(self.transaction.hex)
         })
         
         let viewOnDcrdata = UIAlertAction(title: LocalizedStrings.viewOnDcrdata, style: .default, handler: { (alert: UIAlertAction!) -> Void in
              if BuildConfig.IsTestNet {
-                self.openLink(urlString: "https://testnet.dcrdata.org/tx/\(self.transaction.Hash)")
+                self.openLink(urlString: "https://testnet.dcrdata.org/tx/\(self.transaction.hash)")
              } else {
-                self.openLink(urlString: "https://mainnet.dcrdata.org/tx/\(self.transaction.Hash)")
+                self.openLink(urlString: "https://mainnet.dcrdata.org/tx/\(self.transaction.hash)")
             }
         })
         
@@ -241,7 +242,7 @@ extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDe
             
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TransactiontInputDetailsCell") as! TransactiontInputDetailsCell
-            cell.setup(transaction.Inputs, presentingController: self)
+            cell.setup(transaction.inputs, presentingController: self)
             cell.expandOrCollapse = { [weak self] in
                 self?.tableTransactionDetails.reloadData()
             }
@@ -249,7 +250,7 @@ extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDe
             
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TransactiontOutputDetailsCell") as! TransactiontOutputDetailsCell
-            cell.setup(transaction.Outputs, presentingController: self)
+            cell.setup(transaction.outputs, presentingController: self)
             cell.expandOrCollapse = { [weak self] in
                 self?.tableTransactionDetails.reloadData()
             }
@@ -262,7 +263,7 @@ extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDe
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 && indexPath.row == 6 {
-            self.copyText(self.transaction.Hash)
+            self.copyText(self.transaction.hash)
         }
     }
 }
