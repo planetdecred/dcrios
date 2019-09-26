@@ -122,9 +122,9 @@
 "numberOfConnectedPeers" = "%d peers";
 "numberOfConnectedPeer" = "%d peer";
 "syncingWithPeersOnNetwork" = "Syncing with %@ on %@.";
-"fetchedHeaders" = "Fetched %d of ~%d block headers.\n";
+"fetchedHeaders" = "%d of ~%d";
 "headersFetchProgress" = "%d%% through step 1 of 3.";
-"bestBlockAgebehind" = "\nYour wallet is %@ behind.";
+"bestBlockAgebehind" = "%@ behind.";
 "addressDiscoveryProgressOver" = "~%d%% (over) through step 2 of 3.";
 "addressDiscoveryProgressThrough" = "~%d%% through step 2 of 3.";
 "scanningTotalHeaders" = "Scanning %d of %d block headers.\n";
@@ -139,9 +139,13 @@
 "total"  = "total:";
 "stageTimes" = "Stage Times";
 "tapToViewInformation" = "Tap for more information";
-"walletStatus" = "Wallet Status";
-"walletSynced" = "Synced";
-"walletNotSynced" = "Not Synced";
+"syncStageDescription" = "%@ - %d%%";
+"latestBlockAge" = "Latest block %d% :- %@";
+"blockHeadersFetched" = "Block headers fetched";
+"syncProgressComplete" = "%d%%";
+"syncTimeLeft" = "%@ left";
+"syncSteps" = "Step %d/3";
+"syncingProgress" = "Syncing progress";
 
 /* Navigation Menu Items */
 "overview" = "Overview";
@@ -157,6 +161,20 @@
 "currentTotalBalance" = "Current Total Balance";
 "recentActivity" = "Recent Activity";
 "showAllTransactions" = "Show All Transactions";
+"backupSeedPhrase" = "Back up seed phrase";
+"walletStatus" = "Wallet Status";
+"walletSynced" = "Synced";
+"walletNotSynced" = "Not Synced";
+"backupWarningText" = "Verify your seed phrase backup so you \n can recover your funds when needed.";
+"connectedTo" = "Connected to %d peers";
+"online" = "online";
+"offline" = "Offline";
+"showDetails" = "Show details";
+"hideDetails" = "Hide details";
+"connectedPeersCount" = "Connected peers count";
+"peers" = "peers";
+"seeAll" = "See all";
+
 
 /* Transaction List/ History */
 "pending" = "Pending";
@@ -165,7 +183,7 @@
 "ticket" = "Ticket";
 "confirmedLive" = "Confirmed / Live";
 "confirmedImmature" = "Confirmed / Immature";
-"noTransactions" = "No Transactions";
+"noTransactions" = "No transactions yet";
 "sent" = "Sent";
 "received" = "Received";
 "yourself" = "Yourself";
