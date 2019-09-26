@@ -252,6 +252,98 @@ class OverviewViewController: UIViewController{
         if AppDelegate.walletLoader.wallet?.isSyncing() == false{
             return
         }
+        let blockAge = self.setBestBlockAge()
+        let bestBlock = AppDelegate.walletLoader.wallet!.getBestBlock()
+        self.latestBlockLabel.text = String(format: LocalizedStrings.latestBlockAge, bestBlock, blockAge)
+        self.showSyncDetailsButton.isHidden = true
+        self.updateRecentActivity()
+    }
+    
+    @objc func handleShowSyncToggle() {
+        if self.syncToggle {
+            self.syncToggle = false
+        }else{
+            self.syncToggle = true
+        }
+    }
+    
+    // Show sync details on user click "show details" button while syncing
+    func handleShowSyncDetails() {
+        let component = self.syncDetailsComponent()
+        let position = self.syncStatusSection.arrangedSubviews.index(before: self.syncStatusSection.arrangedSubviews.endIndex)
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.3) {
+                self.syncStatusSection.insertArrangedSubview(component.view, at: position)
+                component.view.heightAnchor.constraint(equalToConstant: 188).isActive = true
+                component.view.topAnchor.constraint(equalTo: self.syncProgressView.bottomAnchor).isActive = true
+                self.syncStatusSection.bottomAnchor.constraint(equalTo: self.syncStatusSection.safeAreaLayoutGuide.bottomAnchor, constant: -2).isActive = true
+                NSLayoutConstraint.activate(component.constraints)
+            }
+        }
+        self.showSyncDetailsButton.setTitle(LocalizedStrings.hideDetails, for: .normal)
+    }
+    // Hide sync details on "hide details" button click or on sync completion
+    func handleHideSyncDetails() {
+        if self.syncStatusSection.arrangedSubviews.indices.contains(2) {
+            UIView.animate(withDuration: 4.3){
+                self.syncStatusSection.arrangedSubviews[2].removeFromSuperview()
+            }
+        }
+        showSyncDetailsButton.setTitle(LocalizedStrings.showDetails, for: .normal)
+    }
+    
+    // Sync details view
+    func syncDetailsComponent() -> (view: UIView, constraints: [NSLayoutConstraint]) {
+        // containing view for details
+        let detailsContainerView = UIView(frame: CGRect.zero)
+        detailsContainerView.layer.backgroundColor = UIColor.white.cgColor
+        detailsContainerView.translatesAutoresizingMaskIntoConstraints = false
+        // Inner component holding full details
+        let detailsView = UIView(frame: CGRect.zero), stepsLabel = UILabel(frame: CGRect.zero), stepDetailLabel = UILabel(frame: CGRect.zero), headersFetchedLabel = UILabel(frame: CGRect.zero), headersFetchedCount = UILabel(frame: CGRect.zero), syncProgressLabel = UILabel(frame: CGRect.zero), syncProgressCount = UILabel(frame: CGRect.zero), numberOfPeersLabel = UILabel(frame: CGRect.zero), numberOfPeersCount = UILabel(frame: CGRect.zero)
+        detailsView.layer.backgroundColor = UIColor.init(hex: "#f3f5f6").cgColor
+        detailsView.layer.cornerRadius = 8
+        detailsView.translatesAutoresizingMaskIntoConstraints = false
+        detailsView.clipsToBounds = true
+        // Current step indicator
+        stepsLabel.font = UIFont(name: "Source Sans Pro", size: 13)
+        stepsLabel.text = String(format: LocalizedStrings.syncSteps, 0)
+        stepsLabel.translatesAutoresizingMaskIntoConstraints = false
+        stepsLabel.clipsToBounds = true
+        // Current step action/progress
+        stepDetailLabel.font = UIFont(name: "Source Sans Pro", size: 14)
+        stepDetailLabel.text = ""
+        stepDetailLabel.translatesAutoresizingMaskIntoConstraints = false
+        stepDetailLabel.clipsToBounds = true
+        // fetched headers text
+        headersFetchedLabel.font = UIFont(name: "Source Sans Pro", size: 14)
+        headersFetchedLabel.text = LocalizedStrings.blockHeadersFetched
+        headersFetchedLabel.translatesAutoresizingMaskIntoConstraints = false
+        headersFetchedLabel.clipsToBounds = true
+        // Fetched headers count
+        headersFetchedCount.font = UIFont(name: "Source Sans Pro", size: 14)
+        headersFetchedCount.text = ""
+        headersFetchedCount.translatesAutoresizingMaskIntoConstraints = false
+        headersFetchedCount.clipsToBounds = true
+        // Syncing progress text
+        syncProgressLabel.font = UIFont(name: "Source Sans Pro", size: 14)
+        syncProgressLabel.text = LocalizedStrings.syncingProgress
+        syncProgressLabel.translatesAutoresizingMaskIntoConstraints = false
+        syncProgressLabel.clipsToBounds = true
+        // block age behind
+        syncProgressCount.font = UIFont(name: "Source Sans Pro", size: 14)
+        syncProgressCount.text = ""
+        syncProgressCount.translatesAutoresizingMaskIntoConstraints = false
+        syncProgressCount.clipsToBounds = true
+        // Connected peers
+        numberOfPeersLabel.font = UIFont(name: "Source Sans Pro", size: 14)
+        numberOfPeersLabel.text = LocalizedStrings.connectedPeersCount
+        numberOfPeersLabel.translatesAutoresizingMaskIntoConstraints = false
+        numberOfPeersLabel.clipsToBounds = true
+        // show connected peers count
+        numberOfPeersCount.font = UIFont(name: "Source Sans Pro", size: 14)
+        numberOfPeersCount.text = "0"
+        numberOfPeersCount.translatesAutoresizingMaskIntoConstraints = false
+        numberOfPeersCount.clipsToBounds = true
         
         UIView.animate(withDuration: 0.2) {
             self.latestBlockLabel.isHidden = true
