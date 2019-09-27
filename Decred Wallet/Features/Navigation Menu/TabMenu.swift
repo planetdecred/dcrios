@@ -9,7 +9,7 @@
 import UIKit
 import Signals
 
-struct TabMenuItem{
+struct TabMenuItem {
     var title: String!
     var icon: UIImage!
     var controller: UIViewController!
@@ -21,7 +21,7 @@ struct TabMenuItem{
     }
 }
 
-class TabMenu: UIView{    
+class TabMenu: UIView {    
     var itemTapped: Signal = Signal<Int>()
     var activeItem: Int = 0
     
@@ -90,6 +90,7 @@ class TabMenu: UIView{
             titleLabel.widthAnchor.constraint(equalTo: barItem.widthAnchor),
             titleLabel.topAnchor.constraint(equalTo: iconView.bottomAnchor, constant: 4),
         ]
+        NSLayoutConstraint.activate(constraints)
         barItem.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleTap)))
         return barItem
     }

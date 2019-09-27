@@ -1,5 +1,5 @@
 //
-//  FloatingButtons.swift
+//  NavMenuFloatingButtons.swift
 //  Decred Wallet
 //
 // Copyright (c) 2018-2019 The Decred developers
@@ -9,7 +9,7 @@
 import UIKit
 import Signals
 
-class FloatingButtons: UIView {
+class NavMenuFloatingButtons: UIView {
     
     let sendButton = UIButton(type: .custom)
     let receiveButton = UIButton(type: .custom)
@@ -19,18 +19,18 @@ class FloatingButtons: UIView {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) not implemented")
+        super.init(coder: aDecoder)
     }
     
     convenience init() {
         self.init(frame: CGRect.zero)
-        layer.backgroundColor = UIColor.appColors.decredBlue.cgColor
-        layer.cornerRadius = 24
+        self.layer.backgroundColor = UIColor.appColors.decredBlue.cgColor
+        self.layer.cornerRadius = 24
         self.createButtons()
     }
     
     private func createButtons() {
-        self.sendButton.setImage(UIImage(named: "menu/ic_send_24px"), for: .normal)
+        self.sendButton.setImage(UIImage(named: "nav_menu/ic_send"), for: .normal)
         self.sendButton.setTitle(LocalizedStrings.send.localizedCapitalized, for: .normal)
         self.sendButton.set(fontSize: 17, name: "Source Sans Pro")
         self.sendButton.imageEdgeInsets = UIEdgeInsets(top: 12, left: 8, bottom: 12, right: 24)
@@ -39,10 +39,10 @@ class FloatingButtons: UIView {
         self.sendButton.clipsToBounds = true
         self.sendButton.addTarget(self, action: #selector(self.sendTapped), for: .touchUpInside)
 
-        self.receiveButton.setImage(UIImage(named: "menu/ic_receive_24px"), for: .normal)
+        self.receiveButton.setImage(UIImage(named: "nav_menu/ic_receive"), for: .normal)
         self.receiveButton.setTitle(LocalizedStrings.receive.localizedCapitalized, for: .normal)
         self.receiveButton.set(fontSize: 17, name: "Source Sans Pro")
-        self.receiveButton.imageEdgeInsets = UIEdgeInsets(top: 12, left: 8, bottom: 12, right: 24)
+        self.receiveButton.imageEdgeInsets = UIEdgeInsets(top: 12, left: 10, bottom: 12, right: 22)
         self.receiveButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)
         self.receiveButton.translatesAutoresizingMaskIntoConstraints = false
         self.receiveButton.clipsToBounds = true
@@ -59,33 +59,34 @@ class FloatingButtons: UIView {
         
         let constraints = [
             self.heightAnchor.constraint(equalToConstant: 48),
+            
             self.sendButton.heightAnchor.constraint(equalTo: self.heightAnchor),
-            self.sendButton.widthAnchor.constraint(equalToConstant: 118),
+            self.sendButton.widthAnchor.constraint(equalToConstant: 120),
             self.sendButton.topAnchor.constraint(equalTo: self.topAnchor),
             self.sendButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5),
             
             self.receiveButton.heightAnchor.constraint(equalTo: self.heightAnchor),
-            self.receiveButton.widthAnchor.constraint(equalToConstant: 118),
+            self.receiveButton.widthAnchor.constraint(equalToConstant: 120),
             self.receiveButton.topAnchor.constraint(equalTo: self.topAnchor),
-            self.receiveButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -4),
+            self.receiveButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5),
             
-            separator.heightAnchor.constraint(equalToConstant: 24),
-            separator.widthAnchor.constraint(equalToConstant: 1.8),
-            separator.topAnchor.constraint(equalTo: self.topAnchor, constant: 12),
+            separator.heightAnchor.constraint(equalTo: self.heightAnchor, constant: 0.5),
+            separator.widthAnchor.constraint(equalToConstant: 1),
+            separator.topAnchor.constraint(equalTo: self.topAnchor, constant: 0.25),
             separator.centerXAnchor.constraint(equalTo: self.centerXAnchor),
         ]
         NSLayoutConstraint.activate(constraints)
     }
     
     @objc func sendTapped(_ sender: UIButton) {
-        let view = SendViewController.instance
-        view.modalPresentationStyle = .overFullScreen
-        self.window?.rootViewController?.present(view, animated: true)
+        let sendVC = SendViewController.instance
+        sendVC.modalPresentationStyle = .overFullScreen
+        self.window?.rootViewController?.present(sendVC, animated: true)
     }
     
     @objc func receiveTapped(_ sender: UIButton) {
-        let view = ReceiveViewController()
-        view.modalPresentationStyle = .overFullScreen
-        self.window?.rootViewController?.present(view, animated: true)
+        let receiveVC = Storyboards.Main.instantiateViewController(for: ReceiveViewController.self).wrapInNavigationcontroller()
+        receiveVC.modalPresentationStyle = .overFullScreen
+        self.window?.rootViewController?.present(receiveVC, animated: true)
     }
 }
