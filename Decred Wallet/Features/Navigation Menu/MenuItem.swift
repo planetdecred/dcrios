@@ -14,7 +14,8 @@ enum MenuItem: String, CaseIterable {
     case accounts = "Accounts"
     case more = "More"
     
-    // Each menu item's VC is wrapped in a navigation controller to enable the display of a navigation bar on each page and to allow each page perform VC navigations using `self.navigationController?.pushViewController`.
+    // Each menu item's VC is wrapped in a navigation controller to enable the display of a navigation bar on each page
+    // and to allow each page perform VC navigations using `self.navigationController?.pushViewController`.
     var viewController: UIViewController {
         switch self {
         case .overview:
