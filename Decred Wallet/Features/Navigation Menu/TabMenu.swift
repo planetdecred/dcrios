@@ -9,18 +9,6 @@
 import UIKit
 import Signals
 
-struct TabMenuItem {
-    var title: String!
-    var icon: UIImage!
-    var controller: UIViewController!
-    
-    public init(title: String, icon: UIImage, controller: UIViewController) {
-        self.title = title
-        self.icon = icon
-        self.controller = controller
-    }
-}
-
 class TabMenu: UIView {    
     var itemTapped: Signal = Signal<Int>()
     var activeItem: Int = 0
@@ -33,7 +21,7 @@ class TabMenu: UIView {
         fatalError("init(coder:) not implemented")
     }
     
-    convenience init(items: [TabMenuItem], frame: CGRect) {
+    convenience init(items: [MenuItem], frame: CGRect) {
         self.init(frame: frame)
         layer.backgroundColor = UIColor.white.cgColor
         
@@ -57,20 +45,20 @@ class TabMenu: UIView {
         self.activateTab(viewId: self.activeItem)
     }
     
-    func createTabItem(item: TabMenuItem) -> UIView {
+    func createTabItem(item: MenuItem) -> UIView {
         let barItem = UIView(frame: CGRect.zero)
         
         let titleLabel = UILabel(frame: CGRect.zero)
         let iconView = UIImageView(frame: CGRect.zero)
 
         titleLabel.font = UIFont(name: "Source Sans Pro", size: 13)
-        titleLabel.text = item.title
+        titleLabel.text = item.displayTitle
         titleLabel.textColor = UIColor.appColors.darkGray
         titleLabel.textAlignment = .center
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.clipsToBounds = true
         
-        iconView.image = item.icon.withRenderingMode(.automatic)
+        iconView.image = item.icon!.withRenderingMode(.automatic)
         iconView.translatesAutoresizingMaskIntoConstraints = false
         iconView.clipsToBounds = true
         

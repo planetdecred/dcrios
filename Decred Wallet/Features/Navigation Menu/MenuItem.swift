@@ -11,7 +11,7 @@ import UIKit
 enum MenuItem: String, CaseIterable {
     case overview = "Overview"
     case transactions = "Transactions"
-    case accounts = "Accounts"
+    case accounts = "Wallets"
     case more = "More"
     
     // Each menu item's VC is wrapped in a navigation controller to enable the display of a navigation bar on each page
@@ -29,6 +29,22 @@ enum MenuItem: String, CaseIterable {
         
         case .more:
             return Storyboards.Overview.instantiateViewController(for: OverviewViewController.self).wrapInNavigationcontroller() // Change this when settings view controller is ready
+        }
+    }
+    
+    var icon: UIImage? {
+        switch self {
+            case .overview:
+                return UIImage(named: "nav_menu/ic_overview")
+            
+            case .transactions:
+                return UIImage(named: "nav_menu/ic_transactions")
+            
+            case .accounts:
+                return UIImage(named: "nav_menu/ic_accounts")
+            
+            case .more:
+                return  UIImage(named: "nav_menu/ic_menu")
         }
     }
 

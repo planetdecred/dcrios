@@ -24,12 +24,7 @@ class NavigationMenuBaseController: UITabBarController {
     }
     
     func loadTabBar() {
-        let tabItems: [TabMenuItem] = [
-            TabMenuItem(title: LocalizedStrings.overview, icon: UIImage(named: "nav_menu/ic_overview")!, controller: MenuItem.overview.viewController),
-            TabMenuItem(title: LocalizedStrings.transactions, icon: UIImage(named: "nav_menu/ic_transactions")!, controller: MenuItem.transactions.viewController),
-            TabMenuItem(title: LocalizedStrings.wallets, icon: UIImage(named: "nav_menu/ic_accounts")!, controller: MenuItem.accounts.viewController),
-            TabMenuItem(title: LocalizedStrings.more, icon: UIImage(named: "nav_menu/ic_menu")!, controller: MenuItem.more.viewController),
-        ]
+        let tabItems: [MenuItem] = [.overview, .transactions, .accounts, .more]
         
         self.setupCustomTabMenu(tabItems){ (controllers) in
             self.viewControllers = controllers
@@ -52,7 +47,7 @@ class NavigationMenuBaseController: UITabBarController {
         NSLayoutConstraint.activate(constraints)
     }
     
-    func setupCustomTabMenu(_ withItems: [TabMenuItem], completion: @escaping ([UIViewController]) -> Void) {
+    func setupCustomTabMenu(_ withItems: [MenuItem], completion: @escaping ([UIViewController]) -> Void) {
         let frame = tabBar.frame
         var controllers = [UIViewController]()
         
@@ -70,7 +65,7 @@ class NavigationMenuBaseController: UITabBarController {
         ])
         
         for i in 0 ..< withItems.count {
-            controllers.append(withItems[i].controller)
+            controllers.append(withItems[i].viewController)
         }
         
         self.customTabBar.itemTapped.subscribe(with: self){ (index) in
