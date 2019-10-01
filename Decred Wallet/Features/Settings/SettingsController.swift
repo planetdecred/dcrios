@@ -309,9 +309,6 @@ class SettingsController: UITableViewController  {
     func walletDeleted() {
         Settings.clear()
         
-        // Stop calling wallet.bestBlockTimestamp() to update the best block age displayed on nav menu.
-//        self.navigationMenuViewController()?.stopRefreshingBestBlockAge()
-        
         let startScreen = Storyboards.Main.initialViewController()
         AppDelegate.shared.setAndDisplayRootViewController(startScreen!)
     }
