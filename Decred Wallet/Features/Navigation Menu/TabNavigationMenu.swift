@@ -1,5 +1,5 @@
 //
-//  TabMenu.swift
+//  TabNavigationMenu.swift
 //  Decred Wallet
 //
 // Copyright (c) 2018-2019 The Decred developers
@@ -9,7 +9,7 @@
 import UIKit
 import Signals
 
-class TabMenu: UIView {    
+class TabNavigationMenu: UIView {    
     var itemTapped: Signal = Signal<Int>()
     var activeItem: Int = 0
     
@@ -23,7 +23,7 @@ class TabMenu: UIView {
     
     convenience init(items: [MenuItem], frame: CGRect) {
         self.init(frame: frame)
-        layer.backgroundColor = UIColor.white.cgColor
+        self.layer.backgroundColor = UIColor.white.cgColor
         
         for i in 0 ..< items.count {
             let itemView = self.createTabItem(item: items[i])
@@ -45,42 +45,43 @@ class TabMenu: UIView {
         self.activateTab(viewId: self.activeItem)
     }
     
+    // Create a custom nav menu item
     func createTabItem(item: MenuItem) -> UIView {
-        let barItem = UIView(frame: CGRect.zero)
+        let tabBarItem = UIView(frame: CGRect.zero)
         
-        let titleLabel = UILabel(frame: CGRect.zero)
-        let iconView = UIImageView(frame: CGRect.zero)
-
-        titleLabel.font = UIFont(name: "Source Sans Pro", size: 13)
-        titleLabel.text = item.displayTitle
-        titleLabel.textColor = UIColor.appColors.darkGray
-        titleLabel.textAlignment = .center
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.clipsToBounds = true
+        let itemTitleLabel = UILabel(frame: CGRect.zero)
+        let itemIconView = UIImageView(frame: CGRect.zero)
         
-        iconView.image = item.icon!.withRenderingMode(.automatic)
-        iconView.translatesAutoresizingMaskIntoConstraints = false
-        iconView.clipsToBounds = true
+        itemTitleLabel.font = UIFont(name: "Source Sans Pro", size: 13)
+        itemTitleLabel.text = item.displayTitle
+        itemTitleLabel.textColor = UIColor.appColors.darkGray
+        itemTitleLabel.textAlignment = .center
+        itemTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        itemTitleLabel.clipsToBounds = true
         
-        barItem.layer.backgroundColor = UIColor.white.cgColor
-        barItem.addSubview(iconView)
-        barItem.addSubview(titleLabel)
-        barItem.translatesAutoresizingMaskIntoConstraints = false
-        barItem.clipsToBounds = true
-
+        itemIconView.image = item.icon!.withRenderingMode(.automatic)
+        itemIconView.translatesAutoresizingMaskIntoConstraints = false
+        itemIconView.clipsToBounds = true
+        
+        tabBarItem.layer.backgroundColor = UIColor.white.cgColor
+        tabBarItem.addSubview(itemIconView)
+        tabBarItem.addSubview(itemTitleLabel)
+        tabBarItem.translatesAutoresizingMaskIntoConstraints = false
+        tabBarItem.clipsToBounds = true
+        
         let constraints = [
-            iconView.heightAnchor.constraint(equalToConstant: 25),
-            iconView.widthAnchor.constraint(equalToConstant: 25),
-            iconView.centerXAnchor.constraint(equalTo: barItem.centerXAnchor),
-            iconView.topAnchor.constraint(equalTo: barItem.topAnchor, constant: 8),
-            iconView.leadingAnchor.constraint(equalTo: barItem.leadingAnchor, constant: 35),
-            titleLabel.heightAnchor.constraint(equalToConstant: 13),
-            titleLabel.widthAnchor.constraint(equalTo: barItem.widthAnchor),
-            titleLabel.topAnchor.constraint(equalTo: iconView.bottomAnchor, constant: 4),
+            itemIconView.heightAnchor.constraint(equalToConstant: 25), // Fixed height for our tab item
+            itemIconView.widthAnchor.constraint(equalToConstant: 25), // Fixed width for our tab item
+            itemIconView.centerXAnchor.constraint(equalTo: tabBarItem.centerXAnchor),
+            itemIconView.topAnchor.constraint(equalTo: tabBarItem.topAnchor, constant: 8), // Position menu item icon 8pts from the top of it's parent view
+            itemIconView.leadingAnchor.constraint(equalTo: tabBarItem.leadingAnchor, constant: 35),
+            itemTitleLabel.heightAnchor.constraint(equalToConstant: 13), // Fixed height for title label
+            itemTitleLabel.widthAnchor.constraint(equalTo: tabBarItem.widthAnchor), // Position label full width across tab bar item
+            itemTitleLabel.topAnchor.constraint(equalTo: itemIconView.bottomAnchor, constant: 4), // Position title label 4pts below item icon
         ]
         NSLayoutConstraint.activate(constraints)
-        barItem.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleTap)))
-        return barItem
+        tabBarItem.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleTap))) // Each item should be able to trigger and action on tap
+        return tabBarItem
     }
     
     @objc func handleTap(_ gesture: UIGestureRecognizer) {
@@ -118,7 +119,7 @@ class TabMenu: UIView {
                 tab.setNeedsLayout()
                 tab.layoutIfNeeded()
             })
-            self.itemTapped => viewId            
+            self.itemTapped => viewId // Fire a Signal event on tap so listening views can react to tap
         }
         self.activeItem = viewId
     }

@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2574F27B2328EA5500A72AD5 /* TabMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2574F27A2328EA5500A72AD5 /* TabMenu.swift */; };
+		2569B20123436D0E0070D9A2 /* Dcrlibwallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2569B20023436D0E0070D9A2 /* Dcrlibwallet.framework */; };
+		2574F27B2328EA5500A72AD5 /* TabNavigationMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2574F27A2328EA5500A72AD5 /* TabNavigationMenu.swift */; };
 		2574F27D232908EC00A72AD5 /* NavigationMenuBaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2574F27C232908EC00A72AD5 /* NavigationMenuBaseController.swift */; };
-		25A0A7C1233E4FCC001064D5 /* Dcrlibwallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25A0A7C0233E4FCC001064D5 /* Dcrlibwallet.framework */; };
 		25E63F4E23312B2C009CD53E /* NavMenuFloatingButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E63F4D23312B2B009CD53E /* NavMenuFloatingButtons.swift */; };
 		B164982429AEDD7AF8C8782C /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9714AB438E597D403032748 /* Pods_Decred_Wallet.framework */; };
 		B35C55D8232FED610006A765 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35C55D7232FED610006A765 /* Transaction.swift */; };
@@ -107,7 +107,6 @@
 		B3B46AA9228F0F7D00A68EDD /* AddAcountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46A71228F0F7B00A68EDD /* AddAcountViewController.swift */; };
 		B3B46AAA228F0F7D00A68EDD /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46A72228F0F7B00A68EDD /* AccountViewController.swift */; };
 		B3B46AAC228F0F7D00A68EDD /* RecoveryWalletSeedWordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46A75228F0F7C00A68EDD /* RecoveryWalletSeedWordCell.swift */; };
-		B3B46AAD228F0F7D00A68EDD /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46A76228F0F7C00A68EDD /* BaseTableViewCell.swift */; };
 		B3B46AAF228F0F7D00A68EDD /* SeedConfirmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46A78228F0F7C00A68EDD /* SeedConfirmTableViewCell.swift */; };
 		B3B46AB0228F0F7D00A68EDD /* AccountDataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46A79228F0F7C00A68EDD /* AccountDataCell.swift */; };
 		B3B46AB1228F0F7D00A68EDD /* SeedCheckActiveCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46A7A228F0F7C00A68EDD /* SeedCheckActiveCellView.swift */; };
@@ -141,9 +140,9 @@
 		23F5A25CDDC0ADF47F98ED95 /* Pods-Decred Wallet.mainnet release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.mainnet release.xcconfig"; path = "Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.mainnet release.xcconfig"; sourceTree = "<group>"; };
 		2506406D2304A2DE0028A9AC /* Dcrlibwallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Dcrlibwallet.framework; path = libs/Dcrlibwallet.framework; sourceTree = "<group>"; };
 		2543694B233E39F200E848AC /* Dcrlibwallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Dcrlibwallet.framework; path = ../../../../Downloads/Dcrlibwallet.framework/Dcrlibwallet.framework; sourceTree = "<group>"; };
-		2574F27A2328EA5500A72AD5 /* TabMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabMenu.swift; sourceTree = "<group>"; };
+		2569B20023436D0E0070D9A2 /* Dcrlibwallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Dcrlibwallet.framework; path = "Decred Wallet/libs/Dcrlibwallet.framework"; sourceTree = "<group>"; };
+		2574F27A2328EA5500A72AD5 /* TabNavigationMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabNavigationMenu.swift; sourceTree = "<group>"; };
 		2574F27C232908EC00A72AD5 /* NavigationMenuBaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationMenuBaseController.swift; sourceTree = "<group>"; };
-		25A0A7C0233E4FCC001064D5 /* Dcrlibwallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Dcrlibwallet.framework; sourceTree = "<group>"; };
 		25E63F4D23312B2B009CD53E /* NavMenuFloatingButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavMenuFloatingButtons.swift; sourceTree = "<group>"; };
 		6A0625AB1C6ACD2EC77F544F /* Pods-Decred Wallet.mainnet debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.mainnet debug.xcconfig"; path = "Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.mainnet debug.xcconfig"; sourceTree = "<group>"; };
 		A9714AB438E597D403032748 /* Pods_Decred_Wallet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Decred_Wallet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -245,7 +244,6 @@
 		B3B46A71228F0F7B00A68EDD /* AddAcountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAcountViewController.swift; sourceTree = "<group>"; };
 		B3B46A72228F0F7B00A68EDD /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		B3B46A75228F0F7C00A68EDD /* RecoveryWalletSeedWordCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecoveryWalletSeedWordCell.swift; sourceTree = "<group>"; };
-		B3B46A76228F0F7C00A68EDD /* BaseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		B3B46A78228F0F7C00A68EDD /* SeedConfirmTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeedConfirmTableViewCell.swift; sourceTree = "<group>"; };
 		B3B46A79228F0F7C00A68EDD /* AccountDataCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountDataCell.swift; sourceTree = "<group>"; };
 		B3B46A7A228F0F7C00A68EDD /* SeedCheckActiveCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeedCheckActiveCellView.swift; sourceTree = "<group>"; };
@@ -286,27 +284,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2569B20123436D0E0070D9A2 /* Dcrlibwallet.framework in Frameworks */,
 				B164982429AEDD7AF8C8782C /* Pods_Decred_Wallet.framework in Frameworks */,
-				25A0A7C1233E4FCC001064D5 /* Dcrlibwallet.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		25A0A7BB233E4D75001064D5 /* libs */ = {
-			isa = PBXGroup;
-			children = (
-				25A0A7C0233E4FCC001064D5 /* Dcrlibwallet.framework */,
-			);
-			path = libs;
-			sourceTree = "<group>";
-		};
 		452B0148672C448C74CB5C1E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				2506406D2304A2DE0028A9AC /* Dcrlibwallet.framework */,
 				2543694B233E39F200E848AC /* Dcrlibwallet.framework */,
+				2569B20023436D0E0070D9A2 /* Dcrlibwallet.framework */,
 				A9714AB438E597D403032748 /* Pods_Decred_Wallet.framework */,
 			);
 			name = Frameworks;
@@ -381,7 +372,6 @@
 		B3B46991228F0C2E00A68EDD /* Decred Wallet */ = {
 			isa = PBXGroup;
 			children = (
-				25A0A7BB233E4D75001064D5 /* libs */,
 				DD41737D22B1B31E00580935 /* Localizable.strings */,
 				B3A3EF8422936BEF00008A4E /* Network */,
 				B3B469A4228F0F0700A68EDD /* Accounts */,
@@ -589,7 +579,7 @@
 			isa = PBXGroup;
 			children = (
 				B3B469EC228F0F2600A68EDD /* MenuItem.swift */,
-				2574F27A2328EA5500A72AD5 /* TabMenu.swift */,
+				2574F27A2328EA5500A72AD5 /* TabNavigationMenu.swift */,
 				2574F27C232908EC00A72AD5 /* NavigationMenuBaseController.swift */,
 				25E63F4D23312B2B009CD53E /* NavMenuFloatingButtons.swift */,
 			);
@@ -667,7 +657,6 @@
 			isa = PBXGroup;
 			children = (
 				B3B46A75228F0F7C00A68EDD /* RecoveryWalletSeedWordCell.swift */,
-				B3B46A76228F0F7C00A68EDD /* BaseTableViewCell.swift */,
 				B3B46A78228F0F7C00A68EDD /* SeedConfirmTableViewCell.swift */,
 				B3B46A79228F0F7C00A68EDD /* AccountDataCell.swift */,
 				DDCF25A222B8A417005FCBB9 /* AccountDataCell.xib */,
@@ -785,7 +774,6 @@
 				B3B46A01228F0F2700A68EDD /* SourceSansPro-BlackItalic.ttf in Resources */,
 				B3B46A06228F0F2700A68EDD /* SourceSansPro-Light.ttf in Resources */,
 				B3B46A04228F0F2700A68EDD /* SourceSansPro-Bold.ttf in Resources */,
-				DDCF25A522B8A43F005FCBB9 /* TransactiontInputDetailsCell.xib in Resources */,
 				DDCF25A522B8A43F005FCBB9 /* TransactiontInputDetailsCell.xib in Resources */,
 				B3B46A0B228F0F2700A68EDD /* SourceSansPro-ExtraLightItalic.ttf in Resources */,
 				B3B46A07228F0F2700A68EDD /* SourceSansPro-Black.ttf in Resources */,
@@ -940,8 +928,7 @@
 				B3B46A27228F0F2700A68EDD /* ConfirmNewWalletSeedViewController.swift in Sources */,
 				B3B46A87228F0F7D00A68EDD /* Data.swift in Sources */,
 				B3B46AB6228F0F7D00A68EDD /* Storyboards.swift in Sources */,
-				B3B46AAD228F0F7D00A68EDD /* BaseTableViewCell.swift in Sources */,
-				2574F27B2328EA5500A72AD5 /* TabMenu.swift in Sources */,
+				2574F27B2328EA5500A72AD5 /* TabNavigationMenu.swift in Sources */,
 				B3B46A37228F0F2700A68EDD /* SpendingPinOrPassword.swift in Sources */,
 				B3B46AA9228F0F7D00A68EDD /* AddAcountViewController.swift in Sources */,
 				B3B46AAC228F0F7D00A68EDD /* RecoveryWalletSeedWordCell.swift in Sources */,
@@ -1075,8 +1062,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/libs",
-					"$(PROJECT_DIR)/Decred\\ Wallet/libs",
-					"$(PROJECT_DIR)/Decred\\ Wallet/libs",
 				);
 				INFOPLIST_FILE = "Decred Wallet/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1160,8 +1145,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/libs",
-					"$(PROJECT_DIR)/Decred\\ Wallet/libs",
-					"$(PROJECT_DIR)/Decred\\ Wallet/libs",
 				);
 				INFOPLIST_FILE = "Decred Wallet/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1306,8 +1289,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/libs",
-					"$(PROJECT_DIR)/Decred\\ Wallet/libs",
-					"$(PROJECT_DIR)/Decred\\ Wallet/libs",
 				);
 				INFOPLIST_FILE = "Decred Wallet/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1334,8 +1315,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/libs",
-					"$(PROJECT_DIR)/Decred\\ Wallet/libs",
-					"$(PROJECT_DIR)/Decred\\ Wallet/libs",
 				);
 				INFOPLIST_FILE = "Decred Wallet/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (

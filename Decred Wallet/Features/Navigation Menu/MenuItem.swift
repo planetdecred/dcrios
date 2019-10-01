@@ -11,7 +11,7 @@ import UIKit
 enum MenuItem: String, CaseIterable {
     case overview = "Overview"
     case transactions = "Transactions"
-    case accounts = "Wallets"
+    case wallets = "Wallets"
     case more = "More"
     
     // Each menu item's VC is wrapped in a navigation controller to enable the display of a navigation bar on each page
@@ -24,11 +24,11 @@ enum MenuItem: String, CaseIterable {
         case .transactions:
             return TransactionHistoryViewController(nibName: "TransactionHistoryViewController", bundle: nil).wrapInNavigationcontroller()
         
-        case .accounts:
+        case .wallets:
             return Storyboards.Main.instantiateViewController(for: AccountViewController.self).wrapInNavigationcontroller()
         
         case .more:
-            return Storyboards.Overview.instantiateViewController(for: OverviewViewController.self).wrapInNavigationcontroller() // Change this when settings view controller is ready
+            return Storyboards.Overview.instantiateViewController(for: SettingsController.self).wrapInNavigationcontroller() // TODO: Change to correct "more" controller.
         }
     }
     
@@ -40,8 +40,8 @@ enum MenuItem: String, CaseIterable {
             case .transactions:
                 return UIImage(named: "nav_menu/ic_transactions")
             
-            case .accounts:
-                return UIImage(named: "nav_menu/ic_accounts")
+            case .wallets:
+                return UIImage(named: "nav_menu/ic_wallet")
             
             case .more:
                 return  UIImage(named: "nav_menu/ic_menu")

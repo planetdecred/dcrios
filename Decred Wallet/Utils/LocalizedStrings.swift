@@ -149,6 +149,10 @@ struct LocalizedStrings {
     static let wallets = NSLocalizedString("wallets", comment: "")
     static let more = NSLocalizedString("more", comment: "")
     
+    /* Navigation Menu Floating Bar */
+    static let send = NSLocalizedString("send", comment: "")
+    static let receive = NSLocalizedString("receive", comment: "")
+    
     /* New Wallet Dialog */
     static let newWalletMsg = NSLocalizedString("newWalletMsg", comment: "")
     static let welcomeToDecredWallet = NSLocalizedString("welcomeToDecredWallet", comment: "")
@@ -383,9 +387,7 @@ struct LocalizedStrings {
     static let info = NSLocalizedString("info", comment: "")
     static let delete = NSLocalizedString("delete", comment: "")
 
-    /* Other words(used but not on specific views) */
-    static let send = NSLocalizedString("send", comment: "")
-    static let receive = NSLocalizedString("receive", comment: "")
+    /* More Tab */
     static let security = NSLocalizedString("security", comment: "")
     static let history = NSLocalizedString("history", comment: "")
     static let settings = NSLocalizedString("settings", comment: "")

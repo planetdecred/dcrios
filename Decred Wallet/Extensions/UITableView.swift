@@ -6,6 +6,7 @@
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
+import Foundation
 import UIKit
 
 extension UITableView {
@@ -15,13 +16,21 @@ extension UITableView {
             return false
         }
         
-        // Only return true if cell is fully displayed, i.e. cell top + cell height <= table height.
+        // Only return true if cell is@objc  fully displayed, i.e. cell top + cell height <= table height.
         let cellScrollPos = cell.frame.origin.y - self.contentOffset.y
         return cellScrollPos + cell.frame.height <= self.frame.height
     }
 }
 
 extension UITableViewCell {
+    class var identifier: String {
+        return String.className(self)
+    }
+    
+    @objc open class func height() -> CGFloat {
+        return 48
+    }
+
     func blink() {
         UITableViewCell.animate(
             withDuration: 0.5,

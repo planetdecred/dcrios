@@ -444,13 +444,10 @@ class SendViewController: UIViewController {
         self.resetViews()
         
         SendCompletedViewController.showSendCompletedDialog(for: txHash) { showTxDetails in
-//            let slideMenuController = self.slideMenuController()!
-//            (slideMenuController.leftViewController as! NavigationMenuViewController).changeActivePage(to: .overview)
-            
             if showTxDetails {
                 let txDetailsVC = Storyboards.TransactionDetails.instantiateViewController(for: TransactionDetailsViewController.self)
-//                txDetailsVC.transactionHash = txHash
-//                (slideMenuController.mainViewController as! UINavigationController).pushViewController(txDetailsVC, animated: true)
+                txDetailsVC.modalPresentationStyle = .overCurrentContext
+                self.present(txDetailsVC, animated: true)
             }
         }
     }
