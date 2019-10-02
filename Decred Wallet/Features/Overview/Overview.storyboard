@@ -9,6 +9,11 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Overview View Controller-->
         <scene sceneID="twJ-Va-TWf">
@@ -18,11 +23,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="Zw5-BT-lXr">
+                            <scrollView clipsSubviews="YES" contentMode="scaleToFill" directionalLockEnabled="YES" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="Zw5-BT-lXr">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9pQ-ul-Ay3">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="881"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_decred01_24px" translatesAutoresizingMaskIntoConstraints="NO" id="OBN-3h-dW5">
                                                 <rect key="frame" x="24" y="60" width="24" height="24"/>
@@ -109,26 +114,20 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="Zw5-BT-lXr" secondAttribute="bottom" id="GqE-gf-3fE"/>
                             <constraint firstItem="Zw5-BT-lXr" firstAttribute="top" secondItem="fOh-bl-3Dk" secondAttribute="top" id="QjL-Cj-Jrc"/>
-                            <constraint firstAttribute="bottom" secondItem="Zw5-BT-lXr" secondAttribute="bottom" id="dAv-Ix-jCa"/>
-                            <constraint firstItem="Zw5-BT-lXr" firstAttribute="trailing" secondItem="eVM-Qf-iws" secondAttribute="trailing" id="gCo-vu-n1u"/>
-                            <constraint firstItem="OBN-3h-dW5" firstAttribute="top" secondItem="9pQ-ul-Ay3" secondAttribute="top" constant="60" id="koK-g6-PIy"/>
-                            <constraint firstItem="gDq-VE-yDy" firstAttribute="top" secondItem="9pQ-ul-Ay3" secondAttribute="top" constant="62" id="pUy-f3-m0E"/>
-                            <constraint firstItem="Zw5-BT-lXr" firstAttribute="leading" secondItem="eVM-Qf-iws" secondAttribute="leading" id="pa7-3v-9CU"/>
+                            <constraint firstItem="Zw5-BT-lXr" firstAttribute="trailing" secondItem="fOh-bl-3Dk" secondAttribute="trailing" id="gCo-vu-n1u"/>
+                            <constraint firstItem="Zw5-BT-lXr" firstAttribute="leading" secondItem="fOh-bl-3Dk" secondAttribute="leading" id="pa7-3v-9CU"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="eVM-Qf-iws"/>
                     </view>
                     <connections>
-                        <outlet property="backupSeedPhrase" destination="bke-5i-43H" id="cJp-Ai-TGK"/>
-                        <outlet property="backupWarningText" destination="wEe-jI-LkD" id="na0-bw-rgD"/>
                         <outlet property="balanceLabel" destination="GGm-T7-QFh" id="T9m-pz-bA0"/>
                         <outlet property="connectedPeersLabel" destination="buX-P1-OJJ" id="KFN-K9-uyO"/>
-                        <outlet property="currentBalanceLabel" destination="hkg-8t-e9s" id="U8J-5l-Mji"/>
                         <outlet property="latestBlockLabel" destination="DFV-Mc-l57" id="9P6-Rt-AWs"/>
-                        <outlet property="logoImage" destination="OBN-3h-dW5" id="2XT-GM-Bat"/>
                         <outlet property="onlineStatusIndicator" destination="DPr-59-QRc" id="OzA-q2-pDF"/>
                         <outlet property="onlineStatusLabel" destination="uE8-QO-nVX" id="yFJ-a2-V5l"/>
-                        <outlet property="recentActivityLabel" destination="AD5-IZ-0UZ" id="yZM-RB-qlh"/>
+                        <outlet property="parentScrollView" destination="Zw5-BT-lXr" id="ieg-Zd-hb3"/>
                         <outlet property="recentActivityLabelView" destination="GYV-OM-Zd8" id="Pd7-2f-Pay"/>
                         <outlet property="recentActivitySection" destination="5q4-Lv-hMT" id="n1D-Sk-5FB"/>
                         <outlet property="recentTransactionsTableView" destination="Uml-9Z-LNk" id="IbJ-gZ-bIL"/>
@@ -139,7 +138,6 @@
                         <outlet property="syncStatusImage" destination="dcE-h1-hW5" id="t7U-FL-Z3m"/>
                         <outlet property="syncStatusLabel" destination="Iap-yC-H20" id="zD2-mL-SMb"/>
                         <outlet property="syncStatusSection" destination="wYT-RR-tW7" id="ADQ-2Y-T5e"/>
-                        <outlet property="walletStatusLabel" destination="Wyl-K9-sTO" id="Eog-bh-tnN"/>
                         <outlet property="walletStatusLabelView" destination="GkS-YP-86p" id="Aw5-ia-QJY"/>
                     </connections>
                 </viewController>

@@ -10,59 +10,26 @@ import UIKit
 import Dcrlibwallet
 import Signals
 
-class OverviewViewController: UIViewController{
-    // Heading & balance
-    @IBOutlet weak var logoImage: UIImageView!
-//    @IBOutlet weak var overViewLabel: UILabel! {
-//        didSet { self.overViewLabel.text = LocalizedStrings.overview }
-//    }
+class OverviewViewController: UIViewController {
+    
+    @IBOutlet weak var parentScrollView: UIScrollView! // Scroll view holding the entire contents of this view
     @IBOutlet weak var balanceLabel: UILabel! {
         didSet { self.balanceLabel.font = UIFont(name: "Source Sans Pro", size: 40) }
-    }
-    @IBOutlet weak var currentBalanceLabel: UILabel! {
-        didSet {
-            self.currentBalanceLabel.text = LocalizedStrings.currentTotalBalance
-            self.currentBalanceLabel.font = UIFont(name: "Source Sans Pro", size: 14)
-        }
     }
     
     // Backup phrase section (Top view)
     @IBOutlet weak var seedBackupSectionView: UIView!
     
-    @IBOutlet weak var backupSeedPhrase: UILabel! {
-        didSet{
-            self.backupSeedPhrase.font = UIFont(name: "Source Sans Pro", size: 16)
-            self.backupSeedPhrase.text = LocalizedStrings.backupSeedPhrase
-        }
-    }
-    
-    @IBOutlet weak var backupWarningText: UILabel! {
-        didSet { self.backupWarningText.font = UIFont(name: "Source Sans Pro", size: 14) }
-    }
-    
     // MARK: Transaction history section
     @IBOutlet weak var recentActivitySection: UIStackView!
     @IBOutlet weak var recentActivityLabelView: UIView!
-    @IBOutlet weak var recentActivityLabel: UILabel! {
-        didSet {
-            self.recentActivityLabel.text = LocalizedStrings.recentTransactions
-            self.recentActivityLabel.font = UIFont(name: "Source Sans Pro", size: 16)
-        }
-    }
+    
     @IBOutlet weak var recentTransactionsTableView: UITableView!
     @IBOutlet weak var showAllTransactionsButton: UIButton!
     
     // MARK: Sync status section
-    @IBOutlet weak var syncStatusSection: UIStackView! {
-        didSet { self.syncStatusSection.cornerRadius(18) }
-    }
+    @IBOutlet weak var syncStatusSection: UIStackView!
     @IBOutlet weak var walletStatusLabelView: UIView!
-    @IBOutlet weak var walletStatusLabel: UILabel! {
-        didSet {
-            self.walletStatusLabel.text = LocalizedStrings.walletStatus
-            self.walletStatusLabel.font = UIFont(name: "Source Sans Pro", size: 14)
-        }
-    }
     @IBOutlet weak var onlineStatusIndicator: UIView!
     @IBOutlet weak var onlineStatusLabel: UILabel! {
         didSet {
@@ -93,23 +60,27 @@ class OverviewViewController: UIViewController{
     var syncToggle: Bool = false {
         didSet{
             if syncToggle {
-                handleShowSyncDetails()
+                self.handleShowSyncDetails()
             }else{
-                handleHideSyncDetails()
+                self.handleHideSyncDetails()
             }
         }
     }
     var syncing: Bool = false {
         didSet {
             if self.syncing {
-                showSyncStatus()
+                self.showSyncStatus()
                 self.onlineStatusIndicator.backgroundColor = UIColor.appColors.decredGreen
                 self.onlineStatusLabel.text = LocalizedStrings.online
             }else{
-                hideSyncStatus()
+                self.hideSyncStatus()
             }
         }
     }
+    
+    // Navigation bar
+    let navBarTitle = UIView(frame: CGRect.zero) // Custom view because we will be embedding a image and label
+    var pageTitleLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -119,6 +90,7 @@ class OverviewViewController: UIViewController{
         self.setupInterface()
         
         self.seedBackupSectionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBackupWallet)))
+        
         self.showSyncDetailsButton.addTarget(self, action: #selector(self.handleShowSyncToggle), for: .touchUpInside)
         
         let pullToRefreshControl = UIRefreshControl()
@@ -127,12 +99,12 @@ class OverviewViewController: UIViewController{
         
         self.recentActivityLabelView.horizontalBorder(borderColor: UIColor(red: 0.24, green: 0.35, blue: 0.45, alpha: 0.5), yPosition: self.recentActivityLabelView.frame.maxY-1, borderHeight: 0.62)
         
+        self.parentScrollView.delegate = self
+        
         self.recentTransactionsTableView.registerCellNib(TransactionTableViewCell.self)
         self.recentTransactionsTableView.delegate = self
         self.recentTransactionsTableView.dataSource = self
         self.recentTransactionsTableView.addSubview(pullToRefreshControl)
-        
-        
         
         if AppDelegate.walletLoader.isSynced {
             self.updateRecentActivity()
@@ -145,15 +117,13 @@ class OverviewViewController: UIViewController{
     override func viewWillAppear(_ animated: Bool) {
         view.backgroundColor = UIColor(red: 0.95, green: 0.96, blue: 0.96, alpha: 1)
         super.viewWillAppear(animated)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+        
         DispatchQueue.main.async {
             self.recentActivitySection.layer.backgroundColor = UIColor.white.cgColor
             self.recentActivitySection.cornerRadius(18)
             self.syncStatusSection.layer.backgroundColor = UIColor.white.cgColor
             self.syncStatusSection.cornerRadius(18)
+            self.navigationController?.navigationBar.backgroundColor = UIColor.white
         }
     }
     
@@ -164,7 +134,6 @@ class OverviewViewController: UIViewController{
         self.seedBackupSectionView.layer.shadowOffset = CGSize(width: 8, height: 8)
         self.seedBackupSectionView.layer.shadowOpacity = 0.4
         
-        self.backupWarningText.text = LocalizedStrings.backupWarningText
         // Sync status section
         self.onlineStatusIndicator.layer.cornerRadius = 7
         self.onlineStatusIndicator.layer.backgroundColor = (AppDelegate.shared.reachability.connection != .none) ? UIColor.appColors.decredGreen.cgColor : UIColor.red.cgColor
@@ -190,7 +159,22 @@ class OverviewViewController: UIViewController{
         self.showAllTransactionsButton.setTitle(LocalizedStrings.showAllTransactions, for: .normal)
         self.showAllTransactionsButton.isHidden = (self.recentTransactions.count > 3) ? false : true
         
-        self.navigationController?.isNavigationBarHidden = true
+        self.navBarTitle.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 56)
+        
+        let logoImage = UIImageView(frame: CGRect(x: 24, y: 10, width: 24, height: 24))
+        logoImage.contentMode = .scaleAspectFit
+        logoImage.image = UIImage(named: "ic_decred")
+        logoImage.clipsToBounds = true
+        
+        self.pageTitleLabel = UILabel(frame: CGRect(x: 64, y: 10, width: 400, height: 20)) // position the overview label 64pts from the screens left edge and 10pts from the top of the navbar
+        self.pageTitleLabel.font = UIFont(name: "Source Sans Pro", size: 20)
+        self.pageTitleLabel.text = LocalizedStrings.overview
+        self.pageTitleLabel.clipsToBounds = true
+        
+        self.navBarTitle.addSubview(logoImage)
+        self.navBarTitle.addSubview(self.pageTitleLabel)
+        self.navigationItem.titleView = self.navBarTitle // set our navigation item to our custom navbar view
+        
         // Signals here
         self.peers.subscribe(with: self){ (peers) in
             self.connectedPeersLabel.text = String(format: LocalizedStrings.connectedTo, peers)
@@ -410,6 +394,8 @@ class OverviewViewController: UIViewController{
     
     // hide sync status progressbar and time
     func hideSyncStatus() {
+        // Sometimes sync details may be visible after hiding sync progress bar. we need to hide first it just in case
+        self.handleHideSyncDetails()
         if self.syncProgressView.subviews.count > 4 {
             DispatchQueue.main.async {
                 UIView.animate(withDuration: 0.3) {
@@ -432,6 +418,7 @@ class OverviewViewController: UIViewController{
         self.updateRecentActivity()
     }
     
+    // show or hide sync progress bar on "show/hide details" button click
     @objc func handleShowSyncToggle() {
         if self.syncToggle {
             self.syncToggle = false
@@ -455,6 +442,7 @@ class OverviewViewController: UIViewController{
         }
         self.showSyncDetailsButton.setTitle(LocalizedStrings.hideDetails, for: .normal)
     }
+    
     // Hide sync details on "hide details" button click or on sync completion
     func handleHideSyncDetails() {
         if self.syncStatusSection.arrangedSubviews.indices.contains(2) {
@@ -569,9 +557,6 @@ class OverviewViewController: UIViewController{
         
         // Subscribe to sync status changes for use in this component
         self.syncProgress.subscribe(with: self){ (progressReport, headersFetched) in
-            if progressReport != nil{
-                
-            }
             if headersFetched != nil{
                 DispatchQueue.main.async {
                     headersFetchedCount.text = String(format: LocalizedStrings.fetchedHeaders, headersFetched!.fetchedHeadersCount, headersFetched!.totalHeadersToFetch)
@@ -643,7 +628,7 @@ extension OverviewViewController: SyncProgressListenerProtocol {
     func onStarted(_ wasRestarted: Bool) {
         if (AppDelegate.walletLoader.wallet?.isSyncing() == true) {
             DispatchQueue.main.async {
-                self.syncStatusImage.image = UIImage(named: "ic_syncing_24px")
+                self.syncStatusImage.image = UIImage(named: "ic_syncing")
                 self.syncStatusLabel.text = wasRestarted ? LocalizedStrings.restartingSynchronization : LocalizedStrings.startingSynchronization
                 self.syncing = true
             }
@@ -717,5 +702,18 @@ extension OverviewViewController: UITableViewDataSource {
             cell.setData(tx)
         }
         return cell
+    }
+}
+
+extension OverviewViewController: UIScrollViewDelegate {
+    
+    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+        let actualPosition = scrollView.panGestureRecognizer.translation(in: scrollView.superview)
+        print("view position now: \(actualPosition)")
+        if (actualPosition.y > 0) {
+            self.pageTitleLabel.text = LocalizedStrings.overview
+        } else {
+            self.pageTitleLabel.attributedText = self.balanceLabel.attributedText!
+        }
     }
 }
