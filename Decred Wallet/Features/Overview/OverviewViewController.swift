@@ -13,9 +13,9 @@ import Signals
 class OverviewViewController: UIViewController{
     // Heading & balance
     @IBOutlet weak var logoImage: UIImageView!
-    @IBOutlet weak var overViewLabel: UILabel! {
-        didSet { self.overViewLabel.text = LocalizedStrings.overview }
-    }
+//    @IBOutlet weak var overViewLabel: UILabel! {
+//        didSet { self.overViewLabel.text = LocalizedStrings.overview }
+//    }
     @IBOutlet weak var balanceLabel: UILabel! {
         didSet { self.balanceLabel.font = UIFont(name: "Source Sans Pro", size: 40) }
     }
@@ -27,7 +27,7 @@ class OverviewViewController: UIViewController{
     }
     
     // Backup phrase section (Top view)
-    @IBOutlet weak var backupWarning: UIView!
+    @IBOutlet weak var seedBackupSectionView: UIView!
     
     @IBOutlet weak var backupSeedPhrase: UILabel! {
         didSet{
@@ -42,12 +42,10 @@ class OverviewViewController: UIViewController{
     
     // MARK: Transaction history section
     @IBOutlet weak var recentActivitySection: UIStackView!
-    @IBOutlet weak var recentActivityLabelView: UIView! {
-        didSet { self.recentActivityLabelView.horizontalBorder(borderColor: UIColor(red: 0.24, green: 0.35, blue: 0.45, alpha: 0.5), yPosition: self.recentActivityLabelView.frame.maxY-1, borderHeight: 0.62)}
-    }
+    @IBOutlet weak var recentActivityLabelView: UIView!
     @IBOutlet weak var recentActivityLabel: UILabel! {
         didSet {
-            self.recentActivityLabel.text = LocalizedStrings.recentActivity
+            self.recentActivityLabel.text = LocalizedStrings.recentTransactions
             self.recentActivityLabel.font = UIFont(name: "Source Sans Pro", size: 16)
         }
     }
@@ -120,17 +118,21 @@ class OverviewViewController: UIViewController{
         AppDelegate.walletLoader.syncer.registerEstimatedSyncProgressListener()
         self.setupInterface()
         
-        self.backupWarning.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBackupWallet)))
+        self.seedBackupSectionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBackupWallet)))
         self.showSyncDetailsButton.addTarget(self, action: #selector(self.handleShowSyncToggle), for: .touchUpInside)
         
         let pullToRefreshControl = UIRefreshControl()
         pullToRefreshControl.addTarget(self, action: #selector(self.handleRecentActivityTableRefresh(_:)), for: UIControl.Event.valueChanged)
         pullToRefreshControl.tintColor = UIColor.lightGray
         
+        self.recentActivityLabelView.horizontalBorder(borderColor: UIColor(red: 0.24, green: 0.35, blue: 0.45, alpha: 0.5), yPosition: self.recentActivityLabelView.frame.maxY-1, borderHeight: 0.62)
+        
         self.recentTransactionsTableView.registerCellNib(TransactionTableViewCell.self)
         self.recentTransactionsTableView.delegate = self
         self.recentTransactionsTableView.dataSource = self
         self.recentTransactionsTableView.addSubview(pullToRefreshControl)
+        
+        
         
         if AppDelegate.walletLoader.isSynced {
             self.updateRecentActivity()
@@ -156,11 +158,11 @@ class OverviewViewController: UIViewController{
     }
     
     private func setupInterface() {
-        self.backupWarning.layer.cornerRadius = 14
-        self.backupWarning.layer.shadowPath = UIBezierPath(roundedRect: self.backupWarning.bounds, cornerRadius: self.backupWarning.layer.cornerRadius).cgPath
-        self.backupWarning.layer.shadowColor = UIColor(displayP3Red: 0.04, green: 0.08, blue: 0.25, alpha: 0.04).cgColor
-        self.backupWarning.layer.shadowOffset = CGSize(width: 8, height: 8)
-        self.backupWarning.layer.shadowOpacity = 0.4
+        self.seedBackupSectionView.layer.cornerRadius = 14
+        self.seedBackupSectionView.layer.shadowPath = UIBezierPath(roundedRect: self.seedBackupSectionView.bounds, cornerRadius: self.seedBackupSectionView.layer.cornerRadius).cgPath
+        self.seedBackupSectionView.layer.shadowColor = UIColor(displayP3Red: 0.04, green: 0.08, blue: 0.25, alpha: 0.04).cgColor
+        self.seedBackupSectionView.layer.shadowOffset = CGSize(width: 8, height: 8)
+        self.seedBackupSectionView.layer.shadowOpacity = 0.4
         
         self.backupWarningText.text = LocalizedStrings.backupWarningText
         // Sync status section
@@ -205,18 +207,21 @@ class OverviewViewController: UIViewController{
     }
     
     func updateRecentActivity() {
-        AppDelegate.walletLoader.wallet?.transactionHistory(count: Int32(3)) { transactions in
-            if transactions == nil || transactions!.count == 0 {
-                self.showNoTransactions()
-                return
-            }
-            
-            DispatchQueue.main.async {
-                self.recentTransactions = transactions!
-                self.recentTransactionsTableView.backgroundView = nil
-                self.recentTransactionsTableView.separatorStyle = .singleLine
-                self.recentTransactionsTableView.reloadData()
-            }
+        // Fetch 5 most recent transactions
+        guard let transactions = AppDelegate.walletLoader.wallet?.transactionHistory(offset: Int32(0), count: Int32(5)) else {
+            self.showNoTransactions()
+            return
+        }
+        
+        if transactions.count == 0 {
+            self.showNoTransactions()
+            return
+        }
+        DispatchQueue.main.async {
+            self.recentTransactions = transactions
+            self.recentTransactionsTableView.backgroundView = nil
+            self.recentTransactionsTableView.separatorStyle = .singleLine
+            self.recentTransactionsTableView.reloadData()
         }
     }
     

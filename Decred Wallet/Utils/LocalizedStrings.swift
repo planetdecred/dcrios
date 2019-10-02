@@ -153,7 +153,7 @@ struct LocalizedStrings {
     
     /* Overview */
     static let currentTotalBalance = NSLocalizedString("currentTotalBalance", comment: "")
-    static let recentActivity = NSLocalizedString("recentActivity", comment: "")
+    static let recentTransactions = NSLocalizedString("recentTransactions", comment: "")
     static let showAllTransactions = NSLocalizedString("showAllTransactions", comment: "")
     static let backupSeedPhrase = NSLocalizedString("backupSeedPhrase", comment: "")
     static let walletStatus = NSLocalizedString("walletStatus", comment: "")
