@@ -101,13 +101,28 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
         let seedWordCell = tableView.dequeueReusableCell(withIdentifier: "seedWordCell", for: indexPath) as! RecoveryWalletSeedWordCell
         
         seedWordCell.lbSeedWordNum.text = String(format: LocalizedStrings.wordNumber, indexPath.row + 1)
+        seedWordCell.lbSeedWordNum.layer.borderColor = UIColor(hex: "#3d5873").cgColor
         seedWordCell.seedWordAutoComplete.text = self.userEnteredSeedWords[indexPath.row]
+        seedWordCell.cellBorder.layer.borderColor = UIColor(hex: "#e6eaed").cgColor
         seedWordCell.seedWordAutoComplete.resignFirstResponder()
         
         seedWordCell.setupAutoComplete(for: indexPath.row,
                                        filter: self.validSeedWords,
                                        dropDownListPlaceholder: self.wordSelectionDropDownContainer,
                                        onSeedEntered: self.seedWordEntered)
+        if indexPath.row == 0 {
+            seedWordCell.roundCorners(corners: [.topLeft, .topRight], radius: 20.0)
+            print("top corner")
+        }
+        else if indexPath.row == 32 {
+            seedWordCell.roundCorners(corners: [.bottomRight, .bottomLeft], radius: 20.0)
+            print("bottom corner")
+        }
+        else{
+            seedWordCell.roundCorners(corners: [.bottomRight, .bottomLeft, .topLeft, .topRight], radius: 0.0)
+            print("default")
+        }
+        
         
         return seedWordCell
     }
@@ -233,5 +248,13 @@ extension RecoverExistingWalletViewController: UIScrollViewDelegate {
         
         view.endEditing(true)
         self.wordSelectionDropDownContainer.isHidden = true
+    }
+}
+extension UIView {
+   func roundCorners(corners: UIRectCorner, radius: CGFloat) {
+        let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        let mask = CAShapeLayer()
+        mask.path = path.cgPath
+        layer.mask = mask
     }
 }

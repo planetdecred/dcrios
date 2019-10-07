@@ -47,6 +47,7 @@ class DropDownSearchField: UITextField, UITextFieldDelegate {
         self.dropDownTable?.register(UITableViewCell.self, forCellReuseIdentifier: (self.dropDownTableDataSource.cellIdentifier))
         self.dropDownTable?.dataSource = self.dropDownTableDataSource
         self.dropDownTable?.delegate = self.dropDownTableDataSource
+        self.dropDownTable?.separatorStyle = .none
         
         // listen for text editing event and filter words
         self.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)

@@ -11,6 +11,7 @@ import UIKit
 class RecoveryWalletSeedWordCell: UITableViewCell {
     @IBOutlet weak var lbSeedWordNum: UILabel!
     @IBOutlet weak var seedWordAutoComplete: DropDownSearchField!
+    @IBOutlet weak var cellBorder: UIView!
     
     private var validSeedWords: [String] = []
     private var fieldIndex: Int?
