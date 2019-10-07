@@ -112,36 +112,6 @@ class RequestPinViewController: SecurityBaseViewController {
         self.pinUpdated()
     }
     
-    func setupInterface(){
-        if self.requestPinConfirmation{
-            pinInputConfirm.isHidden = false
-            pinStrengthLabel.isHidden = false
-            pinErrorLabel.isHidden = false
-        
-            pinInputConfirm.layer.cornerRadius = 7
-            pinInputConfirm.isSecureTextEntry = true
-            pinInputConfirm.addViewPasswordButton()
-        }
-        
-        pinInput.layer.cornerRadius = 7
-        pinInput.isSecureTextEntry = true
-        pinInput.addViewPasswordButton()
-        pinInput.addTarget(self, action: #selector(self.pinTextChanged), for: .editingChanged)
-        
-        prgsPinStrength.layer.cornerRadius = 25
-        btnCommit.adjustsImageWhenHighlighted = false
-        btnCommit.layer.cornerRadius = 7
-    }
-    
-    @objc func pinTextChanged(){
-        if pinInput.text == ""{
-            pinCount.text = "\(0)"
-        }else{
-            pinCount.text = "\(pinInput.text!.count)"
-        }
-        self.pinUpdated()
-    }
-    
     @IBAction func onCancelButtonTapped(_ sender: Any) {
         self.dismissView()
     }
