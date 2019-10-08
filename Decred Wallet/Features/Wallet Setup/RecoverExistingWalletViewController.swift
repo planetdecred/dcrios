@@ -112,17 +112,13 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
                                        onSeedEntered: self.seedWordEntered)
         if indexPath.row == 0 {
             seedWordCell.roundCorners(corners: [.topLeft, .topRight], radius: 20.0)
-            print("top corner")
         }
         else if indexPath.row == 32 {
             seedWordCell.roundCorners(corners: [.bottomRight, .bottomLeft], radius: 20.0)
-            print("bottom corner")
         }
         else{
             seedWordCell.roundCorners(corners: [.bottomRight, .bottomLeft, .topLeft, .topRight], radius: 0.0)
-            print("default")
         }
-        
         
         return seedWordCell
     }
@@ -248,13 +244,5 @@ extension RecoverExistingWalletViewController: UIScrollViewDelegate {
         
         view.endEditing(true)
         self.wordSelectionDropDownContainer.isHidden = true
-    }
-}
-extension UIView {
-   func roundCorners(corners: UIRectCorner, radius: CGFloat) {
-        let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
-        let mask = CAShapeLayer()
-        mask.path = path.cgPath
-        layer.mask = mask
     }
 }
