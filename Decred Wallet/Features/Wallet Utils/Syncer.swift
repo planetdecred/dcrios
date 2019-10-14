@@ -197,6 +197,9 @@ class Syncer: NSObject, AppLifeCycleDelegate {
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
             print("Background task started at: ", Date())
             registerBackgroundTask()
+            if let progress = currentSyncOpProgress as? DcrlibwalletGeneralSyncProgress {
+                fireLocalBackgroundSyncNotification(with: progress)
+            }
         }
     }
 
@@ -242,6 +245,13 @@ class Syncer: NSObject, AppLifeCycleDelegate {
             print("Background task ended at: ", Date())
             UIApplication.shared.endBackgroundTask(backgroundTask)
             backgroundTask = .invalid
+        }
+    }
+
+    private func fireLocalBackgroundSyncNotification(with progress: DcrlibwalletGeneralSyncProgress) {
+        let message = String(format: LocalizedStrings.syncTotalProgress, progress.totalSyncProgress, progress.totalTimeRemaining)
+        if !syncCompletedCanceledOrErrored && UIApplication.shared.applicationState == .background {
+            NotificationsManager.shared.fireSyncInProgressNotification(with: message)
         }
     }
 }
