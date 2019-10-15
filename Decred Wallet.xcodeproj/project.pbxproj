@@ -14,6 +14,7 @@
 		25E63F4E23312B2C009CD53E /* NavMenuFloatingButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E63F4D23312B2B009CD53E /* NavMenuFloatingButtons.swift */; };
 		2506406E2304A2DE0028A9AC /* Dcrlibwallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2506406D2304A2DE0028A9AC /* Dcrlibwallet.framework */; };
 		AD24C23D2343E445009583C9 /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD24C23C2343E445009583C9 /* NotificationsManager.swift */; };
+		AD2F20CB2354AABB0084371C /* Dcrlibwallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD2F20CA2354AABB0084371C /* Dcrlibwallet.framework */; };
 		B164982429AEDD7AF8C8782C /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9714AB438E597D403032748 /* Pods_Decred_Wallet.framework */; };
 		B35C55D8232FED610006A765 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35C55D7232FED610006A765 /* Transaction.swift */; };
 		B36255B622A11A9500C62946 /* SecurityMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36255B422A11A9500C62946 /* SecurityMenuViewController.swift */; };
@@ -149,6 +150,7 @@
 		6A0625AB1C6ACD2EC77F544F /* Pods-Decred Wallet.mainnet debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.mainnet debug.xcconfig"; path = "Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.mainnet debug.xcconfig"; sourceTree = "<group>"; };
 		A9714AB438E597D403032748 /* Pods_Decred_Wallet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Decred_Wallet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD24C23C2343E445009583C9 /* NotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
+		AD2F20CA2354AABB0084371C /* Dcrlibwallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Dcrlibwallet.framework; sourceTree = "<group>"; };
 		B107091A1D996651AB5D8891 /* Pods-Decred Wallet.testnet debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.testnet debug.xcconfig"; path = "Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.testnet debug.xcconfig"; sourceTree = "<group>"; };
 		B35C55D7232FED610006A765 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		B36255B422A11A9500C62946 /* SecurityMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecurityMenuViewController.swift; sourceTree = "<group>"; };
@@ -288,6 +290,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				25751F532372C9460019F657 /* Dcrlibwallet.framework in Frameworks */,
+				AD2F20CB2354AABB0084371C /* Dcrlibwallet.framework in Frameworks */,
 				B164982429AEDD7AF8C8782C /* Pods_Decred_Wallet.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -299,6 +302,8 @@
 			isa = PBXGroup;
 			children = (
 				25751F522372C9460019F657 /* Dcrlibwallet.framework */,
+				2506406D2304A2DE0028A9AC /* Dcrlibwallet.framework */,
+				AD2F20CA2354AABB0084371C /* Dcrlibwallet.framework */,
 				A9714AB438E597D403032748 /* Pods_Decred_Wallet.framework */,
 			);
 			name = Frameworks;
@@ -1067,6 +1072,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/libs",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "Decred Wallet/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1150,6 +1156,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/libs",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "Decred Wallet/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1294,6 +1301,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/libs",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "Decred Wallet/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1320,6 +1328,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/libs",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "Decred Wallet/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (

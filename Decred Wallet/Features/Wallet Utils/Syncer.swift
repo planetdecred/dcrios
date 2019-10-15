@@ -198,7 +198,7 @@ class Syncer: NSObject, AppLifeCycleDelegate {
             print("Background task started at: ", Date())
             registerBackgroundTask()
             if let progress = currentSyncOpProgress as? DcrlibwalletGeneralSyncProgress {
-                fireLocalBackgroundSyncNotification(with: progress)
+                fireLocalBackgroundSyncNotificationIfInBackground(with: progress)
             }
         }
     }
@@ -245,13 +245,16 @@ class Syncer: NSObject, AppLifeCycleDelegate {
             print("Background task ended at: ", Date())
             UIApplication.shared.endBackgroundTask(backgroundTask)
             backgroundTask = .invalid
+            NotificationsManager.shared.removeSyncInprogressNotification()
         }
     }
 
-    private func fireLocalBackgroundSyncNotification(with progress: DcrlibwalletGeneralSyncProgress) {
+    private func fireLocalBackgroundSyncNotificationIfInBackground(with progress: DcrlibwalletGeneralSyncProgress) {
         let message = String(format: LocalizedStrings.syncTotalProgress, progress.totalSyncProgress, progress.totalTimeRemaining)
-        if !syncCompletedCanceledOrErrored && UIApplication.shared.applicationState == .background {
-            NotificationsManager.shared.fireSyncInProgressNotification(with: message)
+        DispatchQueue.main.async {
+            if !self.syncCompletedCanceledOrErrored && UIApplication.shared.applicationState == .background {
+                NotificationsManager.shared.fireSyncInProgressNotification(with: message)
+            }
         }
     }
 }
@@ -272,6 +275,9 @@ extension Syncer: DcrlibwalletSyncProgressListenerProtocol {
         self.currentSyncOp = .FetchingHeaders
         self.currentSyncOpProgress = headersFetchProgress
         self.forEachSyncListener({ syncListener in syncListener.onHeadersFetchProgress(headersFetchProgress!) })
+        if let headers = headersFetchProgress, let progress = headers.generalSyncProgress {
+            fireLocalBackgroundSyncNotificationIfInBackground(with: progress)
+        }
     }
     
     func onAddressDiscoveryProgress(_ addressDiscoveryProgress: DcrlibwalletAddressDiscoveryProgressReport?) {
@@ -282,6 +288,9 @@ extension Syncer: DcrlibwalletSyncProgressListenerProtocol {
         self.currentSyncOp = .DiscoveringAddresses
         self.currentSyncOpProgress = addressDiscoveryProgress
         self.forEachSyncListener({ syncListener in syncListener.onAddressDiscoveryProgress(addressDiscoveryProgress!) })
+        if let headers = addressDiscoveryProgress, let progress = headers.generalSyncProgress {
+            fireLocalBackgroundSyncNotificationIfInBackground(with: progress)
+        }
     }
     
     func onHeadersRescanProgress(_ headersRescanProgress: DcrlibwalletHeadersRescanProgressReport?) {
@@ -297,6 +306,9 @@ extension Syncer: DcrlibwalletSyncProgressListenerProtocol {
         }
         
         self.forEachSyncListener({ syncListener in syncListener.onHeadersRescanProgress(headersRescanProgress!) })
+        if let headers = headersRescanProgress, let progress = headers.generalSyncProgress {
+            fireLocalBackgroundSyncNotificationIfInBackground(with: progress)
+        }
     }
     
     func onSyncCompleted() {
