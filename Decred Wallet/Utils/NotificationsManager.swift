@@ -18,14 +18,17 @@ class NotificationsManager: NSObject, UNUserNotificationCenterDelegate {
     
     let notificationCenter = UNUserNotificationCenter.current()
     static let shared = NotificationsManager()
-    let authorizationOptions: UNAuthorizationOptions = [.alert]
+    let authorizationOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
     let presentationOptions: UNNotificationPresentationOptions = [.alert]
+
+    override init() {
+        super.init()
+        notificationCenter.delegate = self
+    }
 
     func requestAuthorization() {
         notificationCenter.requestAuthorization(options: authorizationOptions) { didAllow, error in
-            if !didAllow {
-                print("User has declined notifications")
-            }
+                print("user authorized notifications: \(didAllow)")
         }
     }
     

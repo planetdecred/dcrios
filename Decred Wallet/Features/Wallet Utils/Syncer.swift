@@ -240,12 +240,12 @@ class Syncer: NSObject, AppLifeCycleDelegate {
     }
 
     private func endBackgroundTask() {
+        NotificationsManager.shared.removeSyncInprogressNotification()
         if backgroundTask != .invalid {
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
             print("Background task ended at: ", Date())
             UIApplication.shared.endBackgroundTask(backgroundTask)
             backgroundTask = .invalid
-            NotificationsManager.shared.removeSyncInprogressNotification()
         }
     }
 
