@@ -2,7 +2,7 @@
 //  MenuItem.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2019 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -34,16 +34,16 @@ enum MenuItem: String, CaseIterable {
     
     var icon: UIImage? {
         switch self {
-            case .overview:
-                return UIImage(named: "nav_menu/ic_overview")
-            
-            case .transactions:
-                return UIImage(named: "nav_menu/ic_transactions")
-            
-            case .wallets:
-                return UIImage(named: "nav_menu/ic_wallet")
-            
-            case .more:
+        case .overview:
+            return UIImage(named: "nav_menu/ic_overview")
+        
+        case .transactions:
+            return UIImage(named: "nav_menu/ic_transactions")
+        
+        case .wallets:
+            return UIImage(named: "nav_menu/ic_wallet")
+        
+        case .more:
                 return  UIImage(named: "nav_menu/ic_menu")
         }
     }

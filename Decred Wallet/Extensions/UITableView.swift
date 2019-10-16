@@ -27,6 +27,8 @@ extension UITableViewCell {
         return String.className(self)
     }
     
+    // TODO: determine all call sites for this function, change them to provide their own height values and safely remove this later.
+    // https:\//github.com/raedahgroup/dcrios/pull/524/files#r334755540review
     @objc open class func height() -> CGFloat {
         return 48
     }

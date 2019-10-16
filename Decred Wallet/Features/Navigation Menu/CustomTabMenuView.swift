@@ -10,43 +10,42 @@ import UIKit
 
 class CustomTabMenuView: UIStackView {
     var itemTapped: ((_ index: Int) -> Void)?
-    var activeItem: Int = 0
+    var activeTabIndex: Int = 0
     
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
     
     required init(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) not implemented")
+        super.init(coder: aDecoder)
     }
     
-    convenience init(items: [MenuItem], frame: CGRect) {
+    convenience init(menuItems: [MenuItem], frame: CGRect) {
         self.init(frame: frame)
         self.axis = .horizontal
         self.layer.backgroundColor = UIColor.white.cgColor
         
-        for i in 0 ..< items.count {
-            let itemView = self.createTabItemButton(item: items[i])
+        for menuItem in menuItems {
+            let itemView = self.createTabItemButton(for: menuItem)
             itemView.translatesAutoresizingMaskIntoConstraints = false
             itemView.clipsToBounds = true
-
             self.addArrangedSubview(itemView)
         }
         
         self.setNeedsLayout()
         self.layoutIfNeeded()
-        self.activateTab(viewId: self.activeItem)
+        self.activateTab(viewId: self.activeTabIndex)
     }
     
     // Create a custom nav menu item
-    func createTabItemButton(item: MenuItem) -> UIView {
+    func createTabItemButton(for menuItem: MenuItem) -> UIView {
         let tabBarItem = UIView(frame: CGRect.zero)
         
         let itemTitleLabel = UILabel(frame: CGRect.zero)
         let itemIconView = UIImageView(frame: CGRect.zero)
         
         itemTitleLabel.font = UIFont(name: "Source Sans Pro", size: 13)
-        itemTitleLabel.text = item.displayTitle
+        itemTitleLabel.text = menuItem.displayTitle
         itemTitleLabel.numberOfLines = 0
         itemTitleLabel.adjustsFontSizeToFitWidth = true
         itemTitleLabel.textColor = UIColor.appColors.darkGray
@@ -54,7 +53,7 @@ class CustomTabMenuView: UIStackView {
         itemTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         itemTitleLabel.clipsToBounds = true
         
-        itemIconView.image = item.icon!.withRenderingMode(.automatic)
+        itemIconView.image = menuItem.icon!.withRenderingMode(.automatic)
         itemIconView.translatesAutoresizingMaskIntoConstraints = false
         itemIconView.clipsToBounds = true
         
@@ -70,6 +69,7 @@ class CustomTabMenuView: UIStackView {
             itemIconView.centerXAnchor.constraint(equalTo: tabBarItem.centerXAnchor),
             itemIconView.topAnchor.constraint(equalTo: tabBarItem.topAnchor, constant: 8), // Position menu item icon 8pts from the top of it's parent view
             itemIconView.leadingAnchor.constraint(equalTo: tabBarItem.leadingAnchor, constant: 35),
+            
             itemTitleLabel.heightAnchor.constraint(equalToConstant: 13), // Fixed height for title label
             itemTitleLabel.widthAnchor.constraint(equalTo: tabBarItem.widthAnchor), // Position label full width across tab bar item
             itemTitleLabel.topAnchor.constraint(equalTo: itemIconView.bottomAnchor, constant: 4), // Position title label 4pts below item icon
@@ -83,12 +83,12 @@ class CustomTabMenuView: UIStackView {
     
     @objc func handleMenuItemTap(_ gesture: UIGestureRecognizer) {
         let selectedItemIndex = self.subviews.firstIndex(of: gesture.view!)
-        self.switchTab(from: self.activeItem, to: selectedItemIndex!)
+        self.switchTab(from: self.activeTabIndex, to: selectedItemIndex!)
     }
     
-    public func switchTab(from: Int, to: Int) {
-        self.deactivateTab(viewId: from)
-        self.activateTab(viewId: to)
+    public func switchTab(from previousTabId: Int, to newTabId: Int) {
+        self.deactivateTab(viewId: previousTabId)
+        self.activateTab(viewId: newTabId)
     }
     
     func deactivateTab(viewId: Int) {
@@ -120,6 +120,6 @@ class CustomTabMenuView: UIStackView {
             })
             self.itemTapped?(viewId) // Send an item tapped event to listener
         }
-        self.activeItem = viewId
+        self.activeTabIndex = viewId
     }
 }

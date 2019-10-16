@@ -2,12 +2,11 @@
 //  NavMenuFloatingButtons.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2019 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
 import UIKit
-import Signals
 
 class NavMenuFloatingButtons: UIView {
     
@@ -26,6 +25,7 @@ class NavMenuFloatingButtons: UIView {
         self.init(frame: CGRect.zero)
         self.layer.backgroundColor = UIColor.appColors.decredBlue.cgColor
         self.layer.cornerRadius = 24
+        
         self.createButtons()
     }
     
@@ -53,8 +53,8 @@ class NavMenuFloatingButtons: UIView {
         separator.translatesAutoresizingMaskIntoConstraints = false
         separator.clipsToBounds = true
         
-        self.addSubview(sendButton)
-        self.addSubview(receiveButton)
+        self.addSubview(self.sendButton)
+        self.addSubview(self.receiveButton)
         self.addSubview(separator)
         
         let constraints = [
@@ -76,6 +76,8 @@ class NavMenuFloatingButtons: UIView {
             separator.centerXAnchor.constraint(equalTo: self.centerXAnchor),
         ]
         NSLayoutConstraint.activate(constraints)
+        self.layoutIfNeeded()
+        
     }
     
     @objc func sendTapped(_ sender: UIButton) {
