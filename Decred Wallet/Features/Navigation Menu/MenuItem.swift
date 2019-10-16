@@ -28,7 +28,7 @@ enum MenuItem: String, CaseIterable {
             return Storyboards.Main.instantiateViewController(for: AccountViewController.self).wrapInNavigationcontroller()
         
         case .more:
-            return Storyboards.Overview.instantiateViewController(for: SettingsController.self).wrapInNavigationcontroller() // TODO: Change to correct "more" controller.
+            return SettingsController.instantiate().wrapInNavigationcontroller()
         }
     }
     

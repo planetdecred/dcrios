@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2557E1892355C6FA00B6A1B7 /* NavigationMenuTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2557E1882355C6FA00B6A1B7 /* NavigationMenuTabBarController.swift */; };
+		2557E18B2355C9F000B6A1B7 /* CustomTabMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2557E18A2355C9F000B6A1B7 /* CustomTabMenuView.swift */; };
 		2569B20123436D0E0070D9A2 /* Dcrlibwallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2569B20023436D0E0070D9A2 /* Dcrlibwallet.framework */; };
-		2574F27B2328EA5500A72AD5 /* TabNavigationMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2574F27A2328EA5500A72AD5 /* TabNavigationMenu.swift */; };
-		2574F27D232908EC00A72AD5 /* NavigationMenuBaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2574F27C232908EC00A72AD5 /* NavigationMenuBaseController.swift */; };
 		25E63F4E23312B2C009CD53E /* NavMenuFloatingButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E63F4D23312B2B009CD53E /* NavMenuFloatingButtons.swift */; };
 		B164982429AEDD7AF8C8782C /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9714AB438E597D403032748 /* Pods_Decred_Wallet.framework */; };
 		B35C55D8232FED610006A765 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35C55D7232FED610006A765 /* Transaction.swift */; };
@@ -140,9 +140,9 @@
 		23F5A25CDDC0ADF47F98ED95 /* Pods-Decred Wallet.mainnet release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.mainnet release.xcconfig"; path = "Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.mainnet release.xcconfig"; sourceTree = "<group>"; };
 		2506406D2304A2DE0028A9AC /* Dcrlibwallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Dcrlibwallet.framework; path = libs/Dcrlibwallet.framework; sourceTree = "<group>"; };
 		2543694B233E39F200E848AC /* Dcrlibwallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Dcrlibwallet.framework; path = ../../../../Downloads/Dcrlibwallet.framework/Dcrlibwallet.framework; sourceTree = "<group>"; };
+		2557E1882355C6FA00B6A1B7 /* NavigationMenuTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationMenuTabBarController.swift; sourceTree = "<group>"; };
+		2557E18A2355C9F000B6A1B7 /* CustomTabMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabMenuView.swift; sourceTree = "<group>"; };
 		2569B20023436D0E0070D9A2 /* Dcrlibwallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Dcrlibwallet.framework; path = "Decred Wallet/libs/Dcrlibwallet.framework"; sourceTree = "<group>"; };
-		2574F27A2328EA5500A72AD5 /* TabNavigationMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabNavigationMenu.swift; sourceTree = "<group>"; };
-		2574F27C232908EC00A72AD5 /* NavigationMenuBaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationMenuBaseController.swift; sourceTree = "<group>"; };
 		25E63F4D23312B2B009CD53E /* NavMenuFloatingButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavMenuFloatingButtons.swift; sourceTree = "<group>"; };
 		6A0625AB1C6ACD2EC77F544F /* Pods-Decred Wallet.mainnet debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.mainnet debug.xcconfig"; path = "Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.mainnet debug.xcconfig"; sourceTree = "<group>"; };
 		A9714AB438E597D403032748 /* Pods_Decred_Wallet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Decred_Wallet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -579,9 +579,9 @@
 			isa = PBXGroup;
 			children = (
 				B3B469EC228F0F2600A68EDD /* MenuItem.swift */,
-				2574F27A2328EA5500A72AD5 /* TabNavigationMenu.swift */,
-				2574F27C232908EC00A72AD5 /* NavigationMenuBaseController.swift */,
 				25E63F4D23312B2B009CD53E /* NavMenuFloatingButtons.swift */,
+				2557E1882355C6FA00B6A1B7 /* NavigationMenuTabBarController.swift */,
+				2557E18A2355C9F000B6A1B7 /* CustomTabMenuView.swift */,
 			);
 			path = "Navigation Menu";
 			sourceTree = "<group>";
@@ -878,6 +878,7 @@
 				B3B46A19228F0F2700A68EDD /* StartScreenViewController.swift in Sources */,
 				B3B46AA0228F0F7D00A68EDD /* SendCompletedViewController.swift in Sources */,
 				B3B46A20228F0F2700A68EDD /* PinPasswordStrength.swift in Sources */,
+				2557E18B2355C9F000B6A1B7 /* CustomTabMenuView.swift in Sources */,
 				B3B46A24228F0F2700A68EDD /* TransactionTableViewCell.swift in Sources */,
 				B3D21C9F2296E4F000609F23 /* ExchangeRates.swift in Sources */,
 				B3B46A28228F0F2700A68EDD /* RecoverExistingWalletViewController.swift in Sources */,
@@ -889,6 +890,7 @@
 				B3B46A9E228F0F7D00A68EDD /* ReceiveViewController.swift in Sources */,
 				B39BDC4D228F798300F3FB55 /* BuildConfig.swift in Sources */,
 				B3B46A9F228F0F7D00A68EDD /* WalletLogViewController.swift in Sources */,
+				2557E1892355C6FA00B6A1B7 /* NavigationMenuTabBarController.swift in Sources */,
 				B3B46A25228F0F2700A68EDD /* TransactionHistoryViewController.swift in Sources */,
 				B3A3EF8B22937B8800008A4E /* Settings.swift in Sources */,
 				B3B46AC8228F120700A68EDD /* TransactionDetailCell.swift in Sources */,
@@ -923,12 +925,10 @@
 				B3B46A9C228F0F7D00A68EDD /* ServerSetTableViewController.swift in Sources */,
 				B3B46AAF228F0F7D00A68EDD /* SeedConfirmTableViewCell.swift in Sources */,
 				B3B46A8C228F0F7D00A68EDD /* Utils.swift in Sources */,
-				2574F27D232908EC00A72AD5 /* NavigationMenuBaseController.swift in Sources */,
 				B3B46A34228F0F2700A68EDD /* TransactionNotification.swift in Sources */,
 				B3B46A27228F0F2700A68EDD /* ConfirmNewWalletSeedViewController.swift in Sources */,
 				B3B46A87228F0F7D00A68EDD /* Data.swift in Sources */,
 				B3B46AB6228F0F7D00A68EDD /* Storyboards.swift in Sources */,
-				2574F27B2328EA5500A72AD5 /* TabNavigationMenu.swift in Sources */,
 				B3B46A37228F0F2700A68EDD /* SpendingPinOrPassword.swift in Sources */,
 				B3B46AA9228F0F7D00A68EDD /* AddAcountViewController.swift in Sources */,
 				B3B46AAC228F0F7D00A68EDD /* RecoveryWalletSeedWordCell.swift in Sources */,

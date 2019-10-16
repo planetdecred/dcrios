@@ -100,7 +100,7 @@ class StartScreenViewController: UIViewController {
             do {
                 try AppDelegate.walletLoader.wallet?.open(pinOrPassword.utf8Bits)
                 DispatchQueue.main.async {
-                    NavigationMenuBaseController.setupMenuAndLaunchApp(isNewWallet: false)
+                    NavigationMenuTabBarController.setupMenuAndLaunchApp(isNewWallet: false)
                 }
             } catch let error {
                 DispatchQueue.main.async {

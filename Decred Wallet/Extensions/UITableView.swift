@@ -16,7 +16,7 @@ extension UITableView {
             return false
         }
         
-        // Only return true if cell is@objc  fully displayed, i.e. cell top + cell height <= table height.
+        // Only return true if cell is fully displayed, i.e. cell top + cell height <= table height.
         let cellScrollPos = cell.frame.origin.y - self.contentOffset.y
         return cellScrollPos + cell.frame.height <= self.frame.height
     }
