@@ -504,6 +504,10 @@ class OverviewViewController: UIViewController {
             }
         })
     }
+    @IBAction func showBackupPage(_ sender: Any) {
+        let backupReminderVC = Storyboards.Backup.instantiateViewController(for: BackupReminderViewController.self)
+        self.navigationController?.pushViewController(backupReminderVC, animated: true)
+    }
 }
 
 extension OverviewViewController: NewTransactionNotificationProtocol, ConfirmedTransactionNotificationProtocol {

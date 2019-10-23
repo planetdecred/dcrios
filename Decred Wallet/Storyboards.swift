@@ -19,6 +19,7 @@ enum Storyboards: String {
     case Settings = "Settings"
     case TransactionDetails = "TransactionDetails"
     case SecurityMenu = "SecurityMenu"
+    case Backup = "Backup"
     
     var instance: UIStoryboard {
         return UIStoryboard(name: self.rawValue, bundle: nil)
