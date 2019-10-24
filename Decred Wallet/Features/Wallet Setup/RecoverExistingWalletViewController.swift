@@ -72,7 +72,7 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
                                      height: window.origin.y + window.height - keyboardSize.height)
             
             // add space at the bottom of table so that the seed word input fields do not touch the keyboard
-            self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
+            self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
         }
     }
     
@@ -111,10 +111,10 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
                                        dropDownListPlaceholder: self.wordSelectionDropDownContainer,
                                        onSeedEntered: self.seedWordEntered)
         if indexPath.row == 0 {
-            seedWordCell.roundCorners(corners: [.topLeft, .topRight], radius: 20.0)
+            seedWordCell.roundCorners(corners: [.topLeft, .topRight], radius: 10.0)
         }
         else if indexPath.row == 32 {
-            seedWordCell.roundCorners(corners: [.bottomRight, .bottomLeft], radius: 20.0)
+            seedWordCell.roundCorners(corners: [.bottomRight, .bottomLeft], radius: 10.0)
         }
         else{
             seedWordCell.roundCorners(corners: [.bottomRight, .bottomLeft, .topLeft, .topRight], radius: 0.0)

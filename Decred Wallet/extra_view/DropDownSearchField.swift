@@ -18,6 +18,7 @@ class DropDownSearchField: UITextField, UITextFieldDelegate {
     
     // callbacks for when user selects a word from dropdown or leaves input field without selecting a word
     var onTextChanged: (() -> Void)?
+    var onTextFocused: (() -> Void)?
     var onWordSelected:((_ selectedWord: String) -> Void)? {
         get {
             return self.dropDownTableDataSource.onWordSelected
@@ -42,6 +43,7 @@ class DropDownSearchField: UITextField, UITextFieldDelegate {
             width: Int(self.dropDownListPlaceholder!.frame.size.width),
             height: Int(self.dropDownTableDataSource.tableHeight())
         )
+
         self.dropDownTable = UITableView(frame: dropDownTableRect, style: .plain)
         
         self.dropDownTable?.register(UITableViewCell.self, forCellReuseIdentifier: (self.dropDownTableDataSource.cellIdentifier))
@@ -97,6 +99,10 @@ class DropDownSearchField: UITextField, UITextFieldDelegate {
         self.dropDownTable?.removeFromSuperview()
         self.onTextChanged?()
     }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self.onTextFocused?()
+    }
 }
 
 class DropDownTableDataSource: NSObject, UITableViewDataSource, UITableViewDelegate {
@@ -130,18 +136,7 @@ class DropDownTableDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
         return cell
     }
     
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return self.footerHeight
-    }
-    
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let footerHintLabel = UILabel(frame: CGRect(x: 1, y: 1, width: tableView.frame.width, height: self.footerHeight))
-        footerHintLabel.text = LocalizedStrings.tapToSelect
-        footerHintLabel.backgroundColor = UIColor.init(hex: "#DDDDDD")
-        return footerHintLabel
-    }
-    
     func tableHeight() -> CGFloat {
-        return (CGFloat(self.filteredWords.count) * self.cellHeight) + self.footerHeight
+        return (CGFloat(self.filteredWords.count) * self.cellHeight)
     }
 }

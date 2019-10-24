@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -778,7 +778,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="70" sectionHeaderHeight="1" sectionFooterHeight="1" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u2P-f0-vXF">
-                                <rect key="frame" x="8" y="72" width="398" height="641"/>
+                                <rect key="frame" x="8" y="72" width="398" height="663"/>
                                 <color key="backgroundColor" red="0.95294117647058818" green="0.96078431372549022" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="n5p-ex-Htd">
                                     <rect key="frame" x="0.0" y="0.0" width="398" height="36"/>
@@ -931,17 +931,17 @@
                                 </connections>
                             </tableView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ey3-HA-4Ob">
-                                <rect key="frame" x="24" y="399" width="366" height="44"/>
+                                <rect key="frame" x="24" y="422" width="366" height="180"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="8Jp-9Q-ryL"/>
+                                    <constraint firstAttribute="height" constant="180" id="8Jp-9Q-ryL"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zRB-hr-V1q">
-                                <rect key="frame" x="0.0" y="713" width="414" height="96"/>
+                                <rect key="frame" x="0.0" y="737" width="414" height="72"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q9a-Hz-dHy" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
-                                        <rect key="frame" x="43.5" y="24" width="327" height="48"/>
+                                        <rect key="frame" x="43.5" y="12" width="327" height="48"/>
                                         <color key="backgroundColor" red="0.76862745099999996" green="0.79607843140000001" blue="0.82352941180000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="jam-7K-PoQ"/>
@@ -970,7 +970,7 @@
                                 <constraints>
                                     <constraint firstItem="Q9a-Hz-dHy" firstAttribute="centerX" secondItem="zRB-hr-V1q" secondAttribute="centerX" id="2r7-cK-Mji"/>
                                     <constraint firstItem="Q9a-Hz-dHy" firstAttribute="centerY" secondItem="zRB-hr-V1q" secondAttribute="centerY" id="FN8-uf-das"/>
-                                    <constraint firstAttribute="height" constant="96" id="YhH-gR-XMS"/>
+                                    <constraint firstAttribute="height" constant="72" id="YhH-gR-XMS"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -985,9 +985,9 @@
                             <constraint firstItem="zRB-hr-V1q" firstAttribute="leading" secondItem="4MZ-vE-Jlo" secondAttribute="leading" id="cSC-vC-F3W"/>
                             <constraint firstItem="u2P-f0-vXF" firstAttribute="leading" secondItem="4MZ-vE-Jlo" secondAttribute="leading" constant="8" id="eeM-0K-oSw"/>
                             <constraint firstItem="Ey3-HA-4Ob" firstAttribute="leading" secondItem="4MZ-vE-Jlo" secondAttribute="leading" constant="24" id="grm-am-weK"/>
-                            <constraint firstItem="Ey3-HA-4Ob" firstAttribute="centerY" secondItem="bRj-Cf-OQV" secondAttribute="centerY" id="ilj-TZ-Iml"/>
+                            <constraint firstItem="Ey3-HA-4Ob" firstAttribute="centerY" secondItem="bRj-Cf-OQV" secondAttribute="centerY" constant="91" id="ilj-TZ-Iml"/>
                             <constraint firstItem="vrt-fD-2zA" firstAttribute="leading" secondItem="4MZ-vE-Jlo" secondAttribute="leading" id="lCg-LX-Qr4"/>
-                            <constraint firstItem="zRB-hr-V1q" firstAttribute="top" secondItem="u2P-f0-vXF" secondAttribute="bottom" id="lzh-kC-ja1"/>
+                            <constraint firstItem="zRB-hr-V1q" firstAttribute="top" secondItem="u2P-f0-vXF" secondAttribute="bottom" constant="2" id="lzh-kC-ja1"/>
                             <constraint firstItem="4MZ-vE-Jlo" firstAttribute="trailing" secondItem="u2P-f0-vXF" secondAttribute="trailing" constant="8" id="sil-Rn-mU2"/>
                             <constraint firstItem="u2P-f0-vXF" firstAttribute="top" secondItem="vrt-fD-2zA" secondAttribute="bottom" constant="8" symbolic="YES" id="vzf-jQ-sQ2"/>
                         </constraints>
