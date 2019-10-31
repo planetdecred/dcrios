@@ -17,11 +17,9 @@
 		257521D8233CBAF800F6F6E7 /* Dcrlibwallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 257521D7233CBAF800F6F6E7 /* Dcrlibwallet.framework */; };
 		2569B2072344AE550070D9A2 /* Dcrlibwallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2569B2062344AE550070D9A2 /* Dcrlibwallet.framework */; };
 		256CCAF7234640CF001208AE /* Dcrlibwallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2569B2032343A5860070D9A2 /* Dcrlibwallet.framework */; };
-		257521DA233CC32100F6F6E7 /* UIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257521D9233CC32100F6F6E7 /* UIStackView.swift */; };
-		32241E5AE6BE10B9439D9280 /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9714AB438E597D403032748 /* Pods_Decred_Wallet.framework */; };
-		B35C55D8232FED610006A765 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35C55D7232FED610006A765 /* Transaction.swift */; };
 		257521D8233CBAF800F6F6E7 /* Dcrlibwallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 257521D7233CBAF800F6F6E7 /* Dcrlibwallet.framework */; };
 		257521DA233CC32100F6F6E7 /* UIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257521D9233CC32100F6F6E7 /* UIStackView.swift */; };
+		25CB727F2369CF1300050DAA /* SyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CB727E2369CF1300050DAA /* SyncManager.swift */; };
 		32241E5AE6BE10B9439D9280 /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9714AB438E597D403032748 /* Pods_Decred_Wallet.framework */; };
 		B35C55D8232FED610006A765 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35C55D7232FED610006A765 /* Transaction.swift */; };
 		B36255B622A11A9500C62946 /* SecurityMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36255B422A11A9500C62946 /* SecurityMenuViewController.swift */; };
@@ -160,6 +158,7 @@
 		2569B2062344AE550070D9A2 /* Dcrlibwallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Dcrlibwallet.framework; path = "../../../../Downloads/Dcrlibwallet.framework 2/Dcrlibwallet.framework"; sourceTree = "<group>"; };
 		257521D7233CBAF800F6F6E7 /* Dcrlibwallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Dcrlibwallet.framework; sourceTree = "<group>"; };
 		257521D9233CC32100F6F6E7 /* UIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackView.swift; sourceTree = "<group>"; };
+		25CB727E2369CF1300050DAA /* SyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncManager.swift; sourceTree = "<group>"; };
 		6A0625AB1C6ACD2EC77F544F /* Pods-Decred Wallet.mainnet debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.mainnet debug.xcconfig"; path = "Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.mainnet debug.xcconfig"; sourceTree = "<group>"; };
 		A9714AB438E597D403032748 /* Pods_Decred_Wallet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Decred_Wallet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B107091A1D996651AB5D8891 /* Pods-Decred Wallet.testnet debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.testnet debug.xcconfig"; path = "Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.testnet debug.xcconfig"; sourceTree = "<group>"; };
@@ -314,6 +313,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		25CB727D2369881D00050DAA /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				257521D7233CBAF800F6F6E7 /* Dcrlibwallet.framework */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		452B0148672C448C74CB5C1E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -380,6 +387,7 @@
 				B3B46990228F0C2D00A68EDD /* Products */,
 				8F7CDB697B0BC7D598AC1F98 /* Pods */,
 				452B0148672C448C74CB5C1E /* Frameworks */,
+				25CB727D2369881D00050DAA /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -614,6 +622,7 @@
 			children = (
 				DDCF259922B8A346005FCBB9 /* Overview.storyboard */,
 				B3B469F1228F0F2600A68EDD /* OverviewViewController.swift */,
+				25CB727E2369CF1300050DAA /* SyncManager.swift */,
 			);
 			path = Overview;
 			sourceTree = "<group>";
@@ -930,6 +939,7 @@
 				B3B46A88228F0F7D00A68EDD /* UIIMage.swift in Sources */,
 				B3B46A11228F0F2700A68EDD /* UITableViewExtension.swift in Sources */,
 				B3635B82229FE5870052EB4D /* QRImageScanner.swift in Sources */,
+				25CB727F2369CF1300050DAA /* SyncManager.swift in Sources */,
 				B3B46A2E228F0F2700A68EDD /* MenuItem.swift in Sources */,
 				B3A3EF8622936BFE00008A4E /* Reachability.swift in Sources */,
 				B36EFD362298617C002753B2 /* UIButton.swift in Sources */,
