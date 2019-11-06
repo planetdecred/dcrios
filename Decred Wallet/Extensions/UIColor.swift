@@ -11,17 +11,15 @@ import UIKit
 
 extension UIColor {
     
-    struct Colors {
-        static let orangeColor = UIColor.init(hex: "fd714a")
-        static let navigationBarColor = UIColor.init(hex: "689F38")
-        static let lightGrey = UIColor(red: 236.0/255.0, green: 238.0/255.0, blue: 241.0/255.0, alpha: 1.0)
-        static let lightBlue =  UIColor(red: 206.0/255.0, green: 238.0/255.0, blue: 250.0/255.0, alpha: 1.0)
-        static let separaterGrey = UIColor(red: 224/255, green: 224/255, blue: 224/255, alpha: 1.0)
-        static let greenishGrey = UIColor.init(hex: "F1F8E9")
-        static let black = UIColor.init(hex: "000000")
-        static let TextAmount = UIColor.init(hex: "#091440")
-        static let displayAamount = UIColor.init(hex: "617386")
-    }
+    static let orangeColor = UIColor.init(hex: "fd714a")
+    static let navigationBarColor = UIColor.init(hex: "689F38")
+    static let lightGrey = UIColor(red: 236.0/255.0, green: 238.0/255.0, blue: 241.0/255.0, alpha: 1.0)
+    static let lightBlue =  UIColor(red: 206.0/255.0, green: 238.0/255.0, blue: 250.0/255.0, alpha: 1.0)
+    static let separaterGrey = UIColor(red: 224/255, green: 224/255, blue: 224/255, alpha: 1.0)
+    static let greenishGrey = UIColor.init(hex: "F1F8E9")
+    static let black = UIColor.init(hex: "000000")
+    static let TextAmount = UIColor.init(hex: "#091440")
+    static let displayAamount = UIColor.init(hex: "617386")
     
     struct appColors {
         // decred colors are from https://decred.org/brand/
