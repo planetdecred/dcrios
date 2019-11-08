@@ -69,8 +69,8 @@ class NavigationMenuTabBarController: UITabBarController {
         }
         
         var viewControllers = [UIViewController]()
-        for menuItem in 0 ..< menuItems.count {
-            viewControllers.append(menuItems[menuItem].viewController)
+        for menuItem in menuItems {
+            viewControllers.append(menuItem.viewController)
         }
         self.viewControllers = viewControllers
 
