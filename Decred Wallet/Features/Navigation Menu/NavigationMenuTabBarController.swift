@@ -43,6 +43,7 @@ class NavigationMenuTabBarController: UITabBarController {
         self.customTabBar = CustomTabMenuView(menuItems: menuItems, frame: tabBar.frame) // Draw and layout the tab navigation menu
         self.customTabBar.translatesAutoresizingMaskIntoConstraints = false // We are setting positioning constraints in the next line. best to ignore XCode generated constraints
         self.customTabBar.clipsToBounds = true
+        self.view.addSubview(self.customTabBar)
         
         // Positioning constraints to place the nav menu right where the tab bar should be
         NSLayoutConstraint.activate([
@@ -67,13 +68,8 @@ class NavigationMenuTabBarController: UITabBarController {
                 self.hideFloatingButtons()
             }
         }
+        self.viewControllers = menuItems.map({ $0.viewController })
         
-        var viewControllers = [UIViewController]()
-        for menuItem in menuItems {
-            viewControllers.append(menuItem.viewController)
-        }
-        self.viewControllers = viewControllers
-
         self.view.bringSubviewToFront(self.customTabBar) // Keep nav menu in front of any subviews
         self.view.layoutIfNeeded()
     }
