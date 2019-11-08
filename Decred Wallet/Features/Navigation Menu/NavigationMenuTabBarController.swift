@@ -39,9 +39,7 @@ class NavigationMenuTabBarController: UITabBarController {
         background.translatesAutoresizingMaskIntoConstraints = false
         background.clipsToBounds = true
         self.view.addSubview(background)
-        
-        self.customTabBar = CustomTabMenuView(menuItems: menuItems, frame: tabBar.frame) // Draw and layout the tab navigation menu
-        
+                
         self.customTabBar = CustomTabMenuView(menuItems: menuItems, frame: tabBar.frame) // Draw and layout the tab navigation menu
         self.customTabBar.translatesAutoresizingMaskIntoConstraints = false // We are setting positioning constraints in the next line. best to ignore XCode generated constraints
         self.customTabBar.clipsToBounds = true
