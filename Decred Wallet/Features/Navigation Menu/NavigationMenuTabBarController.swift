@@ -14,7 +14,6 @@ class NavigationMenuTabBarController: UITabBarController {
     lazy var floatingButtons: NavMenuFloatingButtons = {
         return NavMenuFloatingButtons()
     }()
-    let sync = SyncManager.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +38,7 @@ class NavigationMenuTabBarController: UITabBarController {
         background.translatesAutoresizingMaskIntoConstraints = false
         background.clipsToBounds = true
         self.view.addSubview(background)
-                
+        
         self.customTabBar = CustomTabMenuView(menuItems: menuItems, frame: tabBar.frame) // Draw and layout the tab navigation menu
         self.customTabBar.translatesAutoresizingMaskIntoConstraints = false // We are setting positioning constraints in the next line. best to ignore XCode generated constraints
         self.customTabBar.clipsToBounds = true
@@ -68,6 +67,7 @@ class NavigationMenuTabBarController: UITabBarController {
                 self.hideFloatingButtons()
             }
         }
+        
         self.viewControllers = menuItems.map({ $0.viewController })
         
         self.view.bringSubviewToFront(self.customTabBar) // Keep nav menu in front of any subviews
@@ -108,5 +108,6 @@ class NavigationMenuTabBarController: UITabBarController {
         let startView = NavigationMenuTabBarController()
         startView.isNewWallet = isNewWallet
         AppDelegate.shared.setAndDisplayRootViewController(startView)
+        AppDelegate.shared.syncManager.checkNetworkConnectionForSync() // Trigger sync
     }
 }

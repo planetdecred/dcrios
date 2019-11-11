@@ -57,9 +57,7 @@ class NavMenuFloatingButtons: UIView {
         self.addSubview(self.receiveButton)
         self.addSubview(separator)
         
-        let constraints = [
-            self.heightAnchor.constraint(equalToConstant: 48),
-            
+        let constraints = [           
             self.sendButton.heightAnchor.constraint(equalTo: self.heightAnchor),
             self.sendButton.widthAnchor.constraint(equalToConstant: 120),
             self.sendButton.topAnchor.constraint(equalTo: self.topAnchor),
@@ -70,9 +68,9 @@ class NavMenuFloatingButtons: UIView {
             self.receiveButton.topAnchor.constraint(equalTo: self.topAnchor),
             self.receiveButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5),
             
-            separator.heightAnchor.constraint(equalTo: self.heightAnchor, constant: 0.5),
+            separator.heightAnchor.constraint(equalToConstant: 24), // Height of 24pts from mockup
             separator.widthAnchor.constraint(equalToConstant: 1),
-            separator.topAnchor.constraint(equalTo: self.topAnchor, constant: 0.25),
+            separator.topAnchor.constraint(equalTo: self.topAnchor, constant: 12), // Position separator 12pts below floating buttons topAnchor
             separator.centerXAnchor.constraint(equalTo: self.centerXAnchor),
         ]
         NSLayoutConstraint.activate(constraints)

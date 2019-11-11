@@ -6,25 +6,16 @@
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
-import Foundation
+import UIKit
 import Dcrlibwallet
-import Signals
 
 class SyncManager: NSObject, SyncProgressListenerProtocol {
     static let shared = SyncManager()
-    
-    var syncing = Signal<(Bool, String?)>()
-    let syncProgress =  Signal<(DcrlibwalletGeneralSyncProgress?, DcrlibwalletHeadersFetchProgressReport?)>()
-    var peers = Signal<Int32>()
-    var syncStage = Signal<(Int, String)>()
-    var connectedToNetwork: ((_ status: Bool) -> Void)?
     
     override init() {
         super.init()
         AppDelegate.walletLoader.syncer.registerSyncProgressListener(for: "\(self)", self)
         AppDelegate.walletLoader.syncer.registerEstimatedSyncProgressListener()
-        self.connectedToNetwork?(false) // we assume wallet is offline on startup
-        self.checkNetworkConnectionForSync()
     }
     
     func checkNetworkConnectionForSync() {
@@ -36,7 +27,6 @@ class SyncManager: NSObject, SyncProgressListenerProtocol {
                 let noConnectionAlert = UIAlertController(title: LocalizedStrings.internetConnectionRequired, message: LocalizedStrings.cannotSyncWithoutNetworkConnection, preferredStyle: .alert)
                 noConnectionAlert.addAction(UIAlertAction(title: LocalizedStrings.ok, style: .default, handler: nil))
                 AppDelegate.shared.window?.rootViewController?.present(noConnectionAlert, animated: false, completion: self.checkSyncPermission)
-                self.connectedToNetwork?(false)
             }
         } else {
             self.checkSyncPermission()
@@ -82,15 +72,12 @@ class SyncManager: NSObject, SyncProgressListenerProtocol {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             AppDelegate.walletLoader.syncer.assumeSyncCompleted()
             self.onSyncEndedWithError(LocalizedStrings.connectToWiFiToSync)
-            self.connectedToNetwork?(false)
         }
     }
     
     func startSync(isRestarting: Bool = false) {
         AppDelegate.walletLoader.syncer.registerSyncProgressListener(for: "\(self)", self)
-        DispatchQueue.main.asyncAfter(deadline: .now()) {
-            self.connectedToNetwork?(true)
-        }
+        
         // We want to start sync after determining if we are restarting or not.
         if isRestarting {
             AppDelegate.walletLoader.syncer.restartSync()
@@ -100,53 +87,35 @@ class SyncManager: NSObject, SyncProgressListenerProtocol {
     }
     
     func onSyncEndedWithError(_ error: String) {
-        self.syncing => (false, LocalizedStrings.walletNotSynced)
         print("Sync ended with error: \(error)") // for debugging purpose
     }
     
     func onStarted(_ wasRestarted: Bool) {
-        if (AppDelegate.walletLoader.wallet?.isSyncing() == false) {
-            DispatchQueue.main.async {
-                let statusMessage = wasRestarted ? LocalizedStrings.restartingSynchronization : LocalizedStrings.startingSynchronization
-                self.syncing => (true, statusMessage)
-            }
-        }
+        
     }
     
     func onHeadersFetchProgress(_ progressReport: DcrlibwalletHeadersFetchProgressReport) {
-        let progress = Float(progressReport.headersFetchProgress) / 100.0
-        self.syncStage => (1, String(format: LocalizedStrings.syncStageDescription, LocalizedStrings.fetchingBlockHeaders, progress))
-        self.syncProgress => (progressReport.generalSyncProgress!, progressReport)
-        self.syncing => (true, LocalizedStrings.synchronizing)
+        // TODO: Generate signal event to notify listening views
     }
     
     func onAddressDiscoveryProgress(_ progressReport: DcrlibwalletAddressDiscoveryProgressReport) {
-        self.syncStage => (2, LocalizedStrings.discoveringUsedAddresses)
+        // TODO: Generate signal event to notify listening views
     }
     
     func onHeadersRescanProgress(_ progressReport: DcrlibwalletHeadersRescanProgressReport) {
-        if progressReport.generalSyncProgress == nil{
-            return
-        } else {
-            let progress = Float(progressReport.rescanProgress) / 100.0
-            self.syncProgress => (progressReport.generalSyncProgress!, nil)
-            self.syncStage => (3, String(format: LocalizedStrings.syncStageDescription, LocalizedStrings.scanningBlocks, progress))
-        }
+        // TODO: Generate signal event to notify listening views
     }
     
     func onSyncCompleted() {
-        if (AppDelegate.walletLoader.wallet?.isSynced() == true) {
-            AppDelegate.walletLoader.syncer.deRegisterSyncProgressListener(for: "\(self)")
-            self.syncing => (false, nil)
-        }
+        // TODO: Generate signal event to notify listening views
     }
     
     func onPeerConnectedOrDisconnected(_ numberOfConnectedPeers: Int32) {
-        self.peers => numberOfConnectedPeers
+        // TODO: Generate signal event to notify listening views
     }
     
     func onSyncCanceled(_ willRestart: Bool) {
-        self.syncing => (false, willRestart ? LocalizedStrings.restartingSynchronization : nil)
+        // TODO: Generate signal event to notify listening views
     }
     
     func debug(_ debugInfo: DcrlibwalletDebugInfo) {

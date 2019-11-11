@@ -23,6 +23,7 @@ class CustomTabMenuView: UIStackView {
     convenience init(menuItems: [MenuItem], frame: CGRect) {
         self.init(frame: frame)
         self.axis = .horizontal
+        self.distribution = .fillEqually
         self.layer.backgroundColor = UIColor.white.cgColor
         
         for menuItem in menuItems {
@@ -40,6 +41,9 @@ class CustomTabMenuView: UIStackView {
     // Create a custom nav menu item
     func createTabItemButton(for menuItem: MenuItem) -> UIView {
         let tabBarItem = UIView(frame: CGRect.zero)
+        tabBarItem.backgroundColor = UIColor.white
+        tabBarItem.translatesAutoresizingMaskIntoConstraints = false
+        tabBarItem.clipsToBounds = true
         
         let itemTitleLabel = UILabel(frame: CGRect.zero)
         let itemIconView = UIImageView(frame: CGRect.zero)
@@ -57,18 +61,14 @@ class CustomTabMenuView: UIStackView {
         itemIconView.translatesAutoresizingMaskIntoConstraints = false
         itemIconView.clipsToBounds = true
         
-        tabBarItem.layer.backgroundColor = UIColor.white.cgColor
         tabBarItem.addSubview(itemIconView)
         tabBarItem.addSubview(itemTitleLabel)
-        tabBarItem.translatesAutoresizingMaskIntoConstraints = false
-        tabBarItem.clipsToBounds = true
         
         let constraints = [
             itemIconView.heightAnchor.constraint(equalToConstant: 25), // Fixed height for our tab item icon
             itemIconView.widthAnchor.constraint(equalToConstant: 25), // Fixed width for our tab item icon
             itemIconView.centerXAnchor.constraint(equalTo: tabBarItem.centerXAnchor),
             itemIconView.topAnchor.constraint(equalTo: tabBarItem.topAnchor, constant: 8), // Position menu item icon 8pts from the top of it's parent view
-            itemIconView.leadingAnchor.constraint(equalTo: tabBarItem.leadingAnchor, constant: 35),
             
             itemTitleLabel.heightAnchor.constraint(equalToConstant: 13), // Fixed height for title label
             itemTitleLabel.widthAnchor.constraint(equalTo: tabBarItem.widthAnchor), // Position label full width across tab bar item
