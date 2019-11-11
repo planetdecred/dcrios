@@ -135,7 +135,7 @@
                                                 <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="19"/>
                                                 <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
-                                                <state key="normal" title="Send" image="send">
+                                                <state key="normal" title="Send" image="nav_menu/ic_send">
                                                     <color key="titleColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
@@ -162,7 +162,7 @@
                                                 <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
                                                 <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
-                                                <state key="normal" title="Receive" image="receive">
+                                                <state key="normal" title="Receive" image="nav_menu/ic_receive">
                                                     <color key="titleColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
@@ -326,8 +326,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="nav_menu/ic_receive" width="24" height="24"/>
+        <image name="nav_menu/ic_send" width="24" height="24"/>
         <image name="progress bar-1s-200px.gif" width="200" height="200"/>
-        <image name="receive" width="32" height="32"/>
-        <image name="send" width="32" height="32"/>
     </resources>
 </document>
