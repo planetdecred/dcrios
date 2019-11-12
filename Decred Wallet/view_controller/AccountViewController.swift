@@ -7,17 +7,17 @@
 
 import Foundation
 import UIKit
+import Dcrlibwallet
 
 protocol AccountDetailsCellProtocol {
-    func setup(account: WalletAccount)
-    
+    func setup(account: DcrlibwalletAccount)
 }
 
 class AccountViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     // MARK: - Properties
     
     var accountHeaders: [AccountHeader] = [AccountHeader]()
-    var account: WalletAccounts?
+    var accounts: [DcrlibwalletAccount]?
     var visible = false
     
     @IBOutlet var tableAccountData: UITableView!
@@ -71,25 +71,17 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
         
         DispatchQueue.global(qos: .background).async { [weak self] in
             guard let this = self else { return }
-            this.account?.Acc.removeAll()
             this.accountHeaders.removeAll()
-            do {
-                var getAccountError: NSError?
-                let strAccount = AppDelegate.walletLoader.wallet?.getAccounts(0, error: &getAccountError)
-                if getAccountError != nil {
-                    throw getAccountError!
-                }
-                
-                this.account = try JSONDecoder().decode(WalletAccounts.self, from: (strAccount?.data(using: .utf8))!)
+            
+            if let acc = AppDelegate.walletLoader.wallet?.walletAccounts(confirmations: 0) {
+                this.accounts = acc
                 this.accountHeaders = {
                     var colorCount = -1
-                    return this.account!.Acc.map {
+                    return acc.map {
                         colorCount += 1
                         return AccountHeader(entity: $0, color: nil)
                     }
                 }()
-            } catch let error {
-                print(error)
             }
             
             DispatchQueue.main.async {
@@ -140,9 +132,9 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let acct = account?.Acc[indexPath.section]
-        if acct?.Balance?.ImmatureReward == 0 && acct?.Balance?.LockedByTickets == 0 &&
-            acct?.Balance?.VotingAuthority == 0 && acct?.Balance?.ImmatureStakeGeneration == 0 {
+        let acct = accounts?[indexPath.section]
+        if acct?.balance?.immatureReward == 0 && acct?.balance?.lockedByTickets == 0 &&
+            acct?.balance?.votingAuthority == 0 && acct?.balance?.immatureStakeGeneration == 0 {
                 return 330
         }
         
@@ -151,8 +143,9 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(_ tableView: UITableView, cellForRowAt rowIndex: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AccountDataCell") as! AccountDetailsCellProtocol
-        let accTmp = account!.Acc[rowIndex.section]
-        cell.setup(account: (accTmp))
+        if let accTmp = accounts?[rowIndex.section] {
+            cell.setup(account: (accTmp))
+        }
         
         return cell as! UITableViewCell
     }

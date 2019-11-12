@@ -49,20 +49,70 @@ extension DcrlibwalletHeadersRescanProgressReport {
     }
 }
 
+
+extension DcrlibwalletBalance {
+    var dcrTotal: Double {
+        return Double(self.total / 100000000)
+    }
+
+    var dcrSpendable: Double {
+        return Double(self.spendable / 100000000)
+    }
+
+    var dcrImmatureReward: Double {
+        return Double(self.immatureReward / 100000000)
+    }
+
+    var dcrImmatureStakeGeneration: Double {
+        return Double(self.immatureStakeGeneration / 100000000)
+    }
+
+    var dcrLockedByTickets: Double {
+        return Double(self.lockedByTickets / 100000000)
+    }
+
+    var dcrVotingAuthority: Double {
+        return Double(self.votingAuthority / 100000000)
+    }
+
+    var dcrUnConfirmed: Double {
+        return Double(self.unConfirmed / 100000000)
+    }
+}
+
+extension DcrlibwalletAccount {
+    func makeDefault() {
+        Settings.setValue(self.number, for: Settings.Keys.DefaultWallet)
+    }
+    
+    var isDefault: Bool {
+        return Settings.readOptionalValue(for: Settings.Keys.DefaultWallet) == self.number
+    }
+    
+    var isHidden: Bool {
+        return Settings.readValue(for: "\(Settings.Keys.HiddenWalletPrefix)\(self.number)")
+    }
+    
+    var dcrTotalBalance: Double {
+        return Double(self.totalBalance) / 100000000.0
+    }
+}
+
 extension DcrlibwalletLibWallet {
-    func walletAccounts(confirmations: Int32) -> [WalletAccount] {
+    func walletAccounts(confirmations: Int32) -> [DcrlibwalletAccount] {
+        var accounts = [DcrlibwalletAccount]()
         do {
-            var getAccountsError: NSError?
-            let accountsJson = self.getAccounts(confirmations, error: &getAccountsError)
-            if getAccountsError != nil {
-                throw getAccountsError!
+            let accountsRaw = try self.getAccountsRaw(confirmations)
+            accountsRaw.iter = DcrlibwalletAccountIterator()
+            
+            while let account = accountsRaw.next() {
+                accounts.append(account)
             }
             
-            let accounts = try JSONDecoder().decode(WalletAccounts.self, from: accountsJson.utf8Bits)
-            return accounts.Acc
+            return accounts
         } catch let error {
             print("Error fetching wallet accounts: \(error.localizedDescription)")
-            return [WalletAccount]()
+            return accounts
         }
     }
     
