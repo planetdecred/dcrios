@@ -101,12 +101,12 @@ class NavigationMenuTabBarController: UITabBarController {
     }
     
     static func setupMenuAndLaunchApp(isNewWallet: Bool) {
-        // wallet is open, setup sync listener and start notification listener
-        AppDelegate.walletLoader.notification.startListeningForNotifications()
-        
         let startView = NavigationMenuTabBarController()
         startView.isNewWallet = isNewWallet
         AppDelegate.shared.setAndDisplayRootViewController(startView)
+        
+        AppDelegate.walletLoader.notification.startListeningForNotifications()// wallet is open, start notification listener
+        
         SyncManager.shared.checkNetworkConnectionForSync() // Trigger sync
     }
 }

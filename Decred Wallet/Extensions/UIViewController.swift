@@ -22,6 +22,7 @@ extension UIViewController {
     // TODO: remove to deprecate slidemenu
     func setupNavigationBar(withTitle title: String) {
         self.navigationController?.navigationBar.tintColor = UIColor.black
+        self.navigationItem.title = title
     }
     
     func removeNavigationBarItem() {
