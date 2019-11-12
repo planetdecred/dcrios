@@ -18,21 +18,11 @@ extension UIViewController {
     func wrapInNavigationcontroller() -> UINavigationController {
         return UINavigationController(rootViewController: self)
     }
-    
-    func navigationMenuViewController() -> NavigationMenuViewController? {
-        return self.slideMenuController()?.leftViewController as? NavigationMenuViewController
-    }
-    
+   
+    // TODO: remove to deprecate slidemenu
     func setupNavigationBar(withTitle title: String) {
         self.navigationController?.navigationBar.tintColor = UIColor.black
         self.navigationItem.title = title
-        
-        // setup slidemenucontroller (drawer icon and tap action)
-        self.addLeftBarButtonWithImage(UIImage(named: "ic_menu_black_24dp")!)
-        self.slideMenuController()?.removeLeftGestures()
-        self.slideMenuController()?.removeRightGestures()
-        self.slideMenuController()?.addLeftGestures()
-        self.slideMenuController()?.addRightGestures()
     }
     
     func removeNavigationBarItem() {

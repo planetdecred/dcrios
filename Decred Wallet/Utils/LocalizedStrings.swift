@@ -112,15 +112,6 @@ struct LocalizedStrings {
     static let totalBalance = NSLocalizedString("totalBalance", comment: "")
     static let restartingSynchronization = NSLocalizedString("restartingSynchronization", comment: "")
     static let startingSynchronization = NSLocalizedString("startingSynchronization", comment: "")
-    
-    /*No Wifi Sync Connection */
-    static let notConnectedToWiFi = NSLocalizedString("notConnectedToWiFi", comment: "")
-    static let syncAnyways = NSLocalizedString("syncAnyways", comment: "")
-    static let no = NSLocalizedString("no", comment: "")
-    static let yes = NSLocalizedString("yes", comment: "")
-    static let always = NSLocalizedString("always", comment: "")
-    
-    /* Sync progress view */
     static let loading = NSLocalizedString("loading", comment: "")
     static let numberOfConnectedPeers = NSLocalizedString("numberOfConnectedPeers", comment: "")
     static let numberOfConnectedPeer = NSLocalizedString("numberOfConnectedPeer", comment: "")
@@ -142,16 +133,22 @@ struct LocalizedStrings {
     static let total = NSLocalizedString("total", comment: "")
     static let stageTimes = NSLocalizedString("stageTimes", comment: "")
     static let tapToViewInformation = NSLocalizedString("tapToViewInformation", comment: "")
+    static let walletStatus = NSLocalizedString("walletStatus", comment: "")
+    static let walletSynced = NSLocalizedString("walletSynced", comment: "")
+    static let walletNotSynced = NSLocalizedString("walletNotSynced", comment: "")
+    
+    /*No Wifi Sync Connection */
+    static let notConnectedToWiFi = NSLocalizedString("notConnectedToWiFi", comment: "")
+    static let syncAnyways = NSLocalizedString("syncAnyways", comment: "")
+    static let no = NSLocalizedString("no", comment: "")
+    static let yes = NSLocalizedString("yes", comment: "")
+    static let always = NSLocalizedString("always", comment: "")
     
     /* Navigation Menu Items */
     static let overview = NSLocalizedString("overview", comment: "")
-    static let history = NSLocalizedString("history", comment: "")
-    static let send = NSLocalizedString("send", comment: "")
-    static let receive = NSLocalizedString("receive", comment: "")
-    static let accounts = NSLocalizedString("accounts", comment: "")
-    static let security = NSLocalizedString("security", comment: "")
-    static let settings = NSLocalizedString("settings", comment: "")
-    static let help = NSLocalizedString("help", comment: "")
+    static let transactions = NSLocalizedString("transactions", comment: "")
+    static let wallets = NSLocalizedString("wallets", comment: "")
+    static let more = NSLocalizedString("more", comment: "")
     
     /* New Wallet Dialog */
     static let newWalletMsg = NSLocalizedString("newWalletMsg", comment: "")
@@ -386,4 +383,15 @@ struct LocalizedStrings {
     static let errorMsg = NSLocalizedString("errorMsg", comment: "")
     static let info = NSLocalizedString("info", comment: "")
     static let delete = NSLocalizedString("delete", comment: "")
+    static let allowOnce = NSLocalizedString("allowOnce", comment: "")
+    static let alwaysAllow = NSLocalizedString("alwaysAllow", comment: "")
+    static let notNow = NSLocalizedString("notNow", comment: "")
+
+    /* Other text */
+    static let security = NSLocalizedString("security", comment: "")
+    static let send = NSLocalizedString("send", comment: "")
+    static let receive = NSLocalizedString("receive", comment: "")
+    static let history = NSLocalizedString("history", comment: "")
+    static let settings = NSLocalizedString("settings", comment: "")
+    static let help = NSLocalizedString("help", comment: "")
 }
