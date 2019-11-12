@@ -10,17 +10,8 @@ import Foundation
 import UIKit
 
 extension UIColor {
-    
-    static let orangeColor = UIColor.init(hex: "fd714a")
-    static let navigationBarColor = UIColor.init(hex: "689F38")
-    static let lightGrey = UIColor(red: 236.0/255.0, green: 238.0/255.0, blue: 241.0/255.0, alpha: 1.0)
-    static let lightBlue =  UIColor(red: 206.0/255.0, green: 238.0/255.0, blue: 250.0/255.0, alpha: 1.0)
-    static let separaterGrey = UIColor(red: 224/255, green: 224/255, blue: 224/255, alpha: 1.0)
-    static let greenishGrey = UIColor.init(hex: "F1F8E9")
-    static let black = UIColor.init(hex: "000000")
-    static let TextAmount = UIColor.init(hex: "#091440")
-    static let displayAamount = UIColor.init(hex: "617386")
-    
+    // todo: significantly fewer colors should be left here once the implementation of the new
+    // interface design is completed as the new design uses fewer colors generally.
     struct appColors {
         // decred colors are from https://decred.org/brand/
         static let decredBlue = UIColor.init(hex: "#2970FF")
@@ -37,6 +28,14 @@ extension UIColor {
         static let thinGray = UIColor.init(hex: "#a4abb1")
         static let darkGray = UIColor.init(hex: "#4e5f70")
         static let transparentThinGray = UIColor.init(hex: "#a4abb1", alpha: 0.3)
+        static let orangeColor = UIColor.init(hex: "fd714a")
+        static let navigationBarColor = UIColor.init(hex: "689F38")
+        static let lightGrey = UIColor(red: 236.0/255.0, green: 238.0/255.0, blue: 241.0/255.0, alpha: 1.0)
+        static let lightBlue =  UIColor(red: 206.0/255.0, green: 238.0/255.0, blue: 250.0/255.0, alpha: 1.0)
+        static let separatorGrey = UIColor(red: 224/255, green: 224/255, blue: 224/255, alpha: 1.0)
+        static let greenishGrey = UIColor.init(hex: "F1F8E9")
+        static let textAmount = UIColor.init(hex: "#091440")
+        static let displayAmount = UIColor.init(hex: "617386")
     }
     
     convenience init(hex: String) {

@@ -27,7 +27,7 @@ class TransactiontOutputDetailsCell: UITableViewCell {
             var amount = Utils.getAttributedString(
                 str: "\(output.dcrAmount.round(8))",
                 siz: 13,
-                TexthexColor: GlobalConstants.Colors.TextAmount
+                TexthexColor: UIColor.appColors.textAmount
             )
             var address = output.address
             

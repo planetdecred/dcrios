@@ -57,7 +57,7 @@ class TransactiontInputDetailsCell: UITableViewCell {
         subrow.addSubview(subTitleLabel)
         amountLabel.font = amountLabel.font.withSize(16)
         let combine = NSMutableAttributedString()
-        combine.append(Utils.getAttributedString(str: amount, siz: 13, TexthexColor: GlobalConstants.Colors.TextAmount))
+        combine.append(Utils.getAttributedString(str: amount, siz: 13, TexthexColor: UIColor.appColors.textAmount))
         combine.append(NSMutableAttributedString(string: title))
         amountLabel.attributedText = combine
         subTitleLabel.setTitle(subTitle, for: .normal)

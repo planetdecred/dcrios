@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-struct GlobalConstants {    
+struct GlobalConstants {
     struct Strings {
         static let VOTE = "VOTE"
         static let REVOCATION = "REVOCATION"
