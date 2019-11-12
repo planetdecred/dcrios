@@ -505,8 +505,10 @@ class OverviewViewController: UIViewController {
         })
     }
     @IBAction func showBackupPage(_ sender: Any) {
-        let backupReminderVC = Storyboards.Backup.instantiateViewController(for: BackupReminderViewController.self)
-        self.navigationController?.pushViewController(backupReminderVC, animated: true)
+        let backupReminderVC = Storyboards.Backup.instantiateViewController(for: BackupReminderViewController.self).wrapInNavigationcontroller()
+        
+        backupReminderVC.modalPresentationStyle = .overFullScreen
+        self.present(backupReminderVC, animated: true)
     }
 }
 

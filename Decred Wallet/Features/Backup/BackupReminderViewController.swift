@@ -83,8 +83,7 @@ class BackupReminderViewController: UIViewController {
     }
     
     @IBAction func backAction(_ sender: UIButton) {
-        navigationController?.isNavigationBarHidden = false
-        self.navigationController?.popViewController(animated: true)
+        navigateToBackScreen()
     }
     
    

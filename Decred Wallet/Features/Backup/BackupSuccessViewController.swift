@@ -14,7 +14,6 @@ class BackupSuccessViewController: UIViewController {
     }
 
     @IBAction func onBackToOverview(_ sender: Any) {
-        navigationController?.isNavigationBarHidden = false
-        self.navigationController?.popToRootViewController(animated: true)
+        navigateToBackScreen()
     }
 }
