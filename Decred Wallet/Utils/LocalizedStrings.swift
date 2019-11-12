@@ -136,7 +136,6 @@ struct LocalizedStrings {
     static let walletStatus = NSLocalizedString("walletStatus", comment: "")
     static let walletSynced = NSLocalizedString("walletSynced", comment: "")
     static let walletNotSynced = NSLocalizedString("walletNotSynced", comment: "")
-    static let syncStageDescription = NSLocalizedString("syncStageDescription", comment: "")
     
     /*No Wifi Sync Connection */
     static let notConnectedToWiFi = NSLocalizedString("notConnectedToWiFi", comment: "")

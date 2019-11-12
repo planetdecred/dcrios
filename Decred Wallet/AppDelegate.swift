@@ -31,9 +31,6 @@ class AppDelegate: UIResponder {
     
     var reachability: Reachability!
     
-    // We only want one instance of `SyncManager()` through out the lifecycle of the app accessible through AppDelegate.shared
-    var syncManager = SyncManager.shared
-    
     static var walletLoader: WalletLoader = WalletLoader()
     
     var lastActiveTimestamp: Double?

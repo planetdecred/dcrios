@@ -243,6 +243,9 @@ class SendViewController: UIViewController {
         super.viewWillAppear(animated)
         self.setupNavigationBar(withTitle: LocalizedStrings.send)
         self.navigationItem.rightBarButtonItems = [self.overflowNavBarButton]
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "left-arrow"),
+                                                                style: .done, target: self,
+                                                                action: #selector(navigateToBackScreen))
         
         self.checkClipboardForValidAddress()
         self.setupAccountDropdowns()
@@ -256,6 +259,7 @@ class SendViewController: UIViewController {
         if self.destinationAccountDropdown.isDropDownOpen {
             self.destinationAccountDropdown.hideDropDown()
         }
+        self.navigationItem.leftBarButtonItem = nil
     }
     
     @IBAction func pasteAddressButtonTapped(_ sender: Any) {
