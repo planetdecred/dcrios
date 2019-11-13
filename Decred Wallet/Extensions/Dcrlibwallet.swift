@@ -49,34 +49,33 @@ extension DcrlibwalletHeadersRescanProgressReport {
     }
 }
 
-
 extension DcrlibwalletBalance {
     var dcrTotal: Double {
-        return Double(self.total / 100000000)
+        return DcrlibwalletAmountCoin(self.total)
     }
 
     var dcrSpendable: Double {
-        return Double(self.spendable / 100000000)
+        return DcrlibwalletAmountCoin(self.spendable)
     }
 
     var dcrImmatureReward: Double {
-        return Double(self.immatureReward / 100000000)
+        return DcrlibwalletAmountCoin(self.immatureReward)
     }
 
     var dcrImmatureStakeGeneration: Double {
-        return Double(self.immatureStakeGeneration / 100000000)
+        return DcrlibwalletAmountCoin(self.immatureStakeGeneration)
     }
 
     var dcrLockedByTickets: Double {
-        return Double(self.lockedByTickets / 100000000)
+        return DcrlibwalletAmountCoin(self.lockedByTickets)
     }
 
     var dcrVotingAuthority: Double {
-        return Double(self.votingAuthority / 100000000)
+        return DcrlibwalletAmountCoin(self.votingAuthority)
     }
 
     var dcrUnConfirmed: Double {
-        return Double(self.unConfirmed / 100000000)
+        return DcrlibwalletAmountCoin(self.unConfirmed)
     }
 }
 
@@ -94,7 +93,7 @@ extension DcrlibwalletAccount {
     }
     
     var dcrTotalBalance: Double {
-        return Double(self.totalBalance) / 100000000.0
+        return DcrlibwalletAmountCoin(self.totalBalance)
     }
 }
 
@@ -106,12 +105,10 @@ extension DcrlibwalletLibWallet {
             while let account = accountsIterator.next() {
                 accounts.append(account)
             }
-            
-            return accounts
         } catch let error {
             print("Error fetching wallet accounts: \(error.localizedDescription)")
-            return accounts
         }
+        return accounts
     }
     
     func totalWalletBalance(confirmations: Int32 = 0) -> Double {
