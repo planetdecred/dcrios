@@ -12,7 +12,6 @@ class SecurityViewController: SecurityBaseViewController {
     static let SECURITY_TYPE_PASSWORD = "PASSWORD"
     static let SECURITY_TYPE_PIN = "PIN"
     
-    
     @IBOutlet weak var currentTitle: UILabel!
     
     // "Password" or "Pin" will be appended to the title depending on what tab is activated
@@ -67,7 +66,6 @@ class SecurityViewController: SecurityBaseViewController {
     @IBAction func onPasswordTab(_ sender: Any) {
         guard self.tabController?.selectedIndex != 0 else { return }
         self.activatePasswordTab()
-        
     }
     
     @IBAction func onPinTab(_ sender: Any) {
@@ -85,7 +83,6 @@ class SecurityViewController: SecurityBaseViewController {
         btnPin.setTitleColor(UIColor.appColors.textDark, for: .normal)
         
         self.currentTitle.text = "Create a \(self.securityFor) password";
-        
     }
     
     func activatePinTab() {
