@@ -5,6 +5,7 @@
 // Copyright (c) 2018-2019 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
+
 import UIKit
 
 class PasswordSetupViewController: SecurityBaseViewController, UITextFieldDelegate {
@@ -12,15 +13,6 @@ class PasswordSetupViewController: SecurityBaseViewController, UITextFieldDelega
     @IBOutlet weak var confirmPasswordInput: FloatingLabelTextInput!
     
     @IBOutlet weak var passwordStrengthIndicator: UIProgressView!
-    
-    @IBOutlet weak var passwordCountLabel: UILabel!
-    @IBOutlet weak var confirmCountLabel: UILabel!
-    
-    @IBOutlet weak var cancelBtn: UIButton!
-    @IBOutlet weak var createBtn: UIButton!
-    
-    @IBOutlet weak var passwordErrorLabel: UILabel!
-    @IBOutlet weak var confirmErrorLabel: UILabel!
     
     @IBOutlet weak var passwordCountLabel: UILabel!
     @IBOutlet weak var confirmCountLabel: UILabel!
