@@ -103,10 +103,10 @@ extension DcrlibwalletLibWallet {
         var accounts = [DcrlibwalletAccount]()
         do {
             let accountsRaw = try self.getAccountsRaw(confirmations)
-            accountsRaw.iter = DcrlibwalletAccountIterator()
-            
-            while let account = accountsRaw.next() {
-                accounts.append(account)
+            if let iter = accountsRaw.getAccountIterator() {
+                while let account = iter.next() {
+                    accounts.append(account)
+                }
             }
             
             return accounts
