@@ -9,10 +9,6 @@
 /* Begin PBXBuildFile section */
 		2557E1892355C6FA00B6A1B7 /* NavigationMenuTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2557E1882355C6FA00B6A1B7 /* NavigationMenuTabBarController.swift */; };
 		2557E18B2355C9F000B6A1B7 /* CustomTabMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2557E18A2355C9F000B6A1B7 /* CustomTabMenuView.swift */; };
-		2569B2072344AE550070D9A2 /* Dcrlibwallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2569B2062344AE550070D9A2 /* Dcrlibwallet.framework */; };
-		256CCAF7234640CF001208AE /* Dcrlibwallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2569B2032343A5860070D9A2 /* Dcrlibwallet.framework */; };
-		25751F532372C9460019F657 /* Dcrlibwallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25751F522372C9460019F657 /* Dcrlibwallet.framework */; };
-		257521D8233CBAF800F6F6E7 /* Dcrlibwallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 257521D7233CBAF800F6F6E7 /* Dcrlibwallet.framework */; };
 		257521DA233CC32100F6F6E7 /* UIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257521D9233CC32100F6F6E7 /* UIStackView.swift */; };
 		25A4331C2373D0330018FFCF /* SyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A4331B2373D0330018FFCF /* SyncManager.swift */; };
 		25E61632237D69750031FB52 /* SyncDetailsComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E61631237D69740031FB52 /* SyncDetailsComponent.swift */; };
@@ -146,10 +142,6 @@
 		23F5A25CDDC0ADF47F98ED95 /* Pods-Decred Wallet.mainnet release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.mainnet release.xcconfig"; path = "Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.mainnet release.xcconfig"; sourceTree = "<group>"; };
 		2557E1882355C6FA00B6A1B7 /* NavigationMenuTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationMenuTabBarController.swift; sourceTree = "<group>"; };
 		2557E18A2355C9F000B6A1B7 /* CustomTabMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabMenuView.swift; sourceTree = "<group>"; };
-		2569B2032343A5860070D9A2 /* Dcrlibwallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Dcrlibwallet.framework; path = libs/Dcrlibwallet.framework; sourceTree = "<group>"; };
-		2569B2062344AE550070D9A2 /* Dcrlibwallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Dcrlibwallet.framework; path = "../../../../Downloads/Dcrlibwallet.framework 2/Dcrlibwallet.framework"; sourceTree = "<group>"; };
-		25751F522372C9460019F657 /* Dcrlibwallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Dcrlibwallet.framework; path = libs/Dcrlibwallet.framework; sourceTree = "<group>"; };
-		257521D7233CBAF800F6F6E7 /* Dcrlibwallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Dcrlibwallet.framework; sourceTree = "<group>"; };
 		257521D9233CC32100F6F6E7 /* UIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackView.swift; sourceTree = "<group>"; };
 		25A4331B2373D0330018FFCF /* SyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncManager.swift; sourceTree = "<group>"; };
 		25E61631237D69740031FB52 /* SyncDetailsComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncDetailsComponent.swift; sourceTree = "<group>"; };
@@ -293,13 +285,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				25751F532372C9460019F657 /* Dcrlibwallet.framework in Frameworks */,
 				B164982429AEDD7AF8C8782C /* Pods_Decred_Wallet.framework in Frameworks */,
-				257521D8233CBAF800F6F6E7 /* Dcrlibwallet.framework in Frameworks */,
-				2569B2072344AE550070D9A2 /* Dcrlibwallet.framework in Frameworks */,
-				257521D8233CBAF800F6F6E7 /* Dcrlibwallet.framework in Frameworks */,
-				256CCAF7234640CF001208AE /* Dcrlibwallet.framework in Frameworks */,
-				32241E5AE6BE10B9439D9280 /* Pods_Decred_Wallet.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,7 +295,6 @@
 		25CB727D2369881D00050DAA /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
-				257521D7233CBAF800F6F6E7 /* Dcrlibwallet.framework */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -317,9 +302,6 @@
 		452B0148672C448C74CB5C1E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				25751F522372C9460019F657 /* Dcrlibwallet.framework */,
-				2569B2032343A5860070D9A2 /* Dcrlibwallet.framework */,
-				2569B2062344AE550070D9A2 /* Dcrlibwallet.framework */,
 				A9714AB438E597D403032748 /* Pods_Decred_Wallet.framework */,
 			);
 			name = Frameworks;

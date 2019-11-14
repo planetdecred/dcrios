@@ -15,7 +15,7 @@ class SyncManager: NSObject, SyncProgressListenerProtocol {
     
     var peers: Signal = Signal<Int32>()
     var syncStatus: Signal = Signal<(Bool, String?)>()
-    var syncProgress =  Signal<(DcrlibwalletGeneralSyncProgress?, DcrlibwalletHeadersFetchProgressReport?)>()
+    var syncProgress =  Signal<(DcrlibwalletGeneralSyncProgress?, Any?)>()
     
     // This is a custom listener for current sync operation/stage. the current sync operation can be deduced as a number
     // 1 => fetching headers. 2 => discovering address, 3 => rescanning headers
@@ -106,6 +106,7 @@ class SyncManager: NSObject, SyncProgressListenerProtocol {
     func onStarted(_ wasRestarted: Bool) {
         let statusMessage = wasRestarted ? LocalizedStrings.restartingSynchronization : LocalizedStrings.startingSynchronization
         self.syncStatus => (true, statusMessage)
+        self.peers => AppDelegate.walletLoader.syncer.connectedPeersCount
     }
     
     func onHeadersFetchProgress(_ progressReport: DcrlibwalletHeadersFetchProgressReport) {
@@ -113,10 +114,13 @@ class SyncManager: NSObject, SyncProgressListenerProtocol {
         self.syncStage => (1, String(format: LocalizedStrings.syncStageDescription, LocalizedStrings.fetchingBlockHeaders, progress))
         self.syncProgress => (progressReport.generalSyncProgress!, progressReport)
         self.syncStatus => (true, LocalizedStrings.synchronizing)
+        self.peers => AppDelegate.walletLoader.syncer.connectedPeersCount
     }
     
     func onAddressDiscoveryProgress(_ progressReport: DcrlibwalletAddressDiscoveryProgressReport) {
         self.syncStage => (2, LocalizedStrings.discoveringUsedAddresses)
+        self.syncProgress => (progressReport.generalSyncProgress!, progressReport)
+        self.peers => AppDelegate.walletLoader.syncer.connectedPeersCount
     }
     
     func onHeadersRescanProgress(_ progressReport: DcrlibwalletHeadersRescanProgressReport) {
@@ -126,6 +130,7 @@ class SyncManager: NSObject, SyncProgressListenerProtocol {
             let progress = Float(progressReport.rescanProgress) / 100.0
             self.syncProgress => (progressReport.generalSyncProgress!, nil)
             self.syncStage => (3, String(format: LocalizedStrings.syncStageDescription, LocalizedStrings.scanningBlocks, progress))
+            self.peers => AppDelegate.walletLoader.syncer.connectedPeersCount
         }
     }
     
@@ -133,6 +138,7 @@ class SyncManager: NSObject, SyncProgressListenerProtocol {
         if (AppDelegate.walletLoader.wallet?.isSynced() == true) {
             AppDelegate.walletLoader.syncer.deRegisterSyncProgressListener(for: "\(self)")
             self.syncStatus => (false, nil)
+            self.peers => AppDelegate.walletLoader.syncer.connectedPeersCount
         }
     }
     
@@ -142,9 +148,50 @@ class SyncManager: NSObject, SyncProgressListenerProtocol {
     
     func onSyncCanceled(_ willRestart: Bool) {
         self.syncStatus => (false, willRestart ? LocalizedStrings.restartingSynchronization : nil)
+        self.peers => AppDelegate.walletLoader.syncer.connectedPeersCount
     }
     
     func debug(_ debugInfo: DcrlibwalletDebugInfo) {
         // TODO: show full debug information on long press of show sync details button
+    }
+    
+    func setBestBlockAge() -> String {
+        if AppDelegate.walletLoader.wallet!.isScanning() {
+            return ""
+        }
+        
+        let bestBlockAge = Int64(Date().timeIntervalSince1970) - AppDelegate.walletLoader.wallet!.getBestBlockTimeStamp()
+        
+        switch bestBlockAge {
+        case Int64.min...0:
+            return LocalizedStrings.now
+            
+        case 0..<Utils.TimeInSeconds.Minute:
+            return String(format: LocalizedStrings.secondsAgo, bestBlockAge)
+            
+        case Utils.TimeInSeconds.Minute..<Utils.TimeInSeconds.Hour:
+            let minutes = bestBlockAge / Utils.TimeInSeconds.Minute
+            return String(format: LocalizedStrings.minAgo, minutes)
+            
+        case Utils.TimeInSeconds.Hour..<Utils.TimeInSeconds.Day:
+            let hours = bestBlockAge / Utils.TimeInSeconds.Hour
+            return String(format: LocalizedStrings.hrsAgo, hours)
+            
+        case Utils.TimeInSeconds.Day..<Utils.TimeInSeconds.Week:
+            let days = bestBlockAge / Utils.TimeInSeconds.Day
+            return String(format: LocalizedStrings.daysAgo, days)
+            
+        case Utils.TimeInSeconds.Week..<Utils.TimeInSeconds.Month:
+            let weeks = bestBlockAge / Utils.TimeInSeconds.Week
+            return String(format: LocalizedStrings.weeksAgo, weeks)
+            
+        case Utils.TimeInSeconds.Month..<Utils.TimeInSeconds.Year:
+            let months = bestBlockAge / Utils.TimeInSeconds.Month
+            return String(format: LocalizedStrings.monthsAgo, months)
+            
+        default:
+            let years = bestBlockAge / Utils.TimeInSeconds.Year
+            return String(format: LocalizedStrings.yearsAgo, years)
+        }
     }
 }

@@ -8,6 +8,7 @@
 
 import UIKit
 import Signals
+import Dcrlibwallet
 
 class SyncDetailsComponent: UIView {
     
@@ -163,13 +164,23 @@ class SyncDetailsComponent: UIView {
     
     func attachListeners() {
         // Subscribe to general sync progress changes for use in this component
-        self.syncManager.syncProgress.subscribe(with: self) { (progressReport, headersFetched) in
-            if headersFetched != nil{
+        // TODO: this only reacts to headersFetchprogress. needs to be refactored to react to address discovery and address rescan actions as well with values below
+        // let addressDiscoveryReport = currentOperationProgress as? DcrlibwalletAddressDiscoveryProgressReport
+        // let addressRescanReport = currentOperationProgress as? DcrlibwalletHeadersRescanProgressReport
+        self.syncManager.syncProgress.subscribePast(with: self) { (generalProgressReport, currentOperationProgress) in
+            
+            guard currentOperationProgress != nil else {
+                return
+            }
+            
+            let headersFetchedReport = currentOperationProgress as? DcrlibwalletHeadersFetchProgressReport // determine if report is headersFetched report
+            
+            if headersFetchedReport != nil {
                 DispatchQueue.main.async {
-                    self.headersFetchedCount.text = String(format: LocalizedStrings.fetchedHeaders, headersFetched!.fetchedHeadersCount, headersFetched!.totalHeadersToFetch)
+                    self.headersFetchedCount.text = String(format: LocalizedStrings.fetchedHeaders, headersFetchedReport!.fetchedHeadersCount, headersFetchedReport!.totalHeadersToFetch)
                     
-                    if headersFetched!.bestBlockAge != "" {
-                        self.ledgerAgeLabel.text = String(format: LocalizedStrings.bestBlockAgebehind, headersFetched!.bestBlockAge)
+                    if headersFetchedReport!.bestBlockAge != "" {
+                        self.ledgerAgeLabel.text = String(format: LocalizedStrings.bestBlockAgebehind, headersFetchedReport!.bestBlockAge)
                         self.ledgerAgeLabel.sizeToFit()
                     }
                 }
