@@ -50,6 +50,7 @@ class OverviewViewController: UIViewController {
         didSet {
             self.syncStatusLabel.text = (AppDelegate.walletLoader.isSynced == true) ? LocalizedStrings.walletSynced : LocalizedStrings.walletNotSynced
             self.syncStatusLabel.font = UIFont(name: "Source Sans Pro", size: 20)
+            self.syncStatusLabel.sizeToFit()
         }
     }
     @IBOutlet weak var latestBlockLabel: UILabel!
@@ -89,7 +90,7 @@ class OverviewViewController: UIViewController {
         
         // Setup delegates
         self.parentScrollView.tag = 2
-        self.parentScrollView.delegate = self // This is so we can update the navigation bar on user scroll. Our transactions tableview will hold a scrollview when populated and we want to differentiate that, hence this tag
+        self.parentScrollView.delegate = self // This is so we can update the navigation bar on user scroll. Our transactions tableView will also hold a scrollview when populated and we want to differentiate that, hence this tag
         
         if AppDelegate.walletLoader.isSynced {
             self.updateRecentActivity()
@@ -114,7 +115,10 @@ class OverviewViewController: UIViewController {
     }
     
     private func setupInterface() {
-        // Navigation bar and page title
+        /*
+            Custom navigation bar with logo image
+        */
+        
         let logoImage = UIImageView(frame: CGRect(x: 24, y: 10, width: 24, height: 24))
         logoImage.contentMode = .scaleAspectFit
         logoImage.image = UIImage(named: "ic_decred")
@@ -171,8 +175,9 @@ class OverviewViewController: UIViewController {
         pullToRefreshControl.tintColor = UIColor.lightGray
         self.recentTransactionsTableView.addSubview(pullToRefreshControl) // refresh control added
         
-        self.showAllTransactionsButton.setTitle(LocalizedStrings.showAllTransactions, for: .normal)
+        self.showAllTransactionsButton.setTitle(LocalizedStrings.seeAll, for: .normal)
         self.showAllTransactionsButton.isHidden = (self.recentTransactions.count > 3) ? false : true
+        self.showAllTransactionsButton.addTarget(self, action: #selector(self.showAllTransactions), for: .touchUpInside)
     }
     
     // Attach listeners to sync manager and react in this view
@@ -183,15 +188,20 @@ class OverviewViewController: UIViewController {
         }
         
         // Subscribe to changes in sync status
-        self.syncManager.syncing.subscribe(with: self) { (syncing, status) in
-            _ = syncing ? self.showSyncStatus() : self.hideSyncStatus()
+        self.syncManager.syncStatus.subscribe(with: self) { (syncing, status) in
+            if syncing {
+                self.showSyncStatus()
+            } else {
+                self.hideSyncStatus()
+            }
+            
             if status != nil {
                 self.syncStatusLabel.text = status
             }
         }
         
         // Monitor network changes and set offline/online indicator on wallet status section
-        self.syncManager.connectedToNetwork = { (status) in
+        self.syncManager.networkConnectionStatus = { (status) in
             self.onlineStatusIndicator.layer.backgroundColor = status ? UIColor.appColors.decredGreen.cgColor : UIColor.appColors.decredOrange.cgColor
             self.onlineStatusLabel.text = status ? LocalizedStrings.online : LocalizedStrings.offline
             
@@ -216,7 +226,7 @@ class OverviewViewController: UIViewController {
         }
         switch connected {
         case true:
-            let title = isSyncing ? LocalizedStrings.cancel : LocalizedStrings.disconnnect
+            let title = isSyncing ? LocalizedStrings.cancel : LocalizedStrings.disconnect
             self.syncConnectionButton.setTitle(title, for: .normal)
             self.syncConnectionButton.setImage(nil, for: .normal)
             break
@@ -270,9 +280,11 @@ class OverviewViewController: UIViewController {
     // show sync status with progress bar
     func showSyncStatus() {
         
-        if !(AppDelegate.walletLoader.wallet?.isSyncing())! {
+        // Confirm wallet is actually syncing and sync progressbar is not already shown
+        if !(AppDelegate.walletLoader.wallet?.isSyncing())! || self.syncProgressBarContainer.isDescendant(of: self.syncProgressView) {
             return
         }
+        
         let blockAge = self.setBestBlockAge()
         let bestBlock = AppDelegate.walletLoader.wallet!.getBestBlock()
         self.latestBlockLabel.text = String(format: LocalizedStrings.latestBlockAge, bestBlock, blockAge)
@@ -293,7 +305,7 @@ class OverviewViewController: UIViewController {
         
         // Progress bar
         let progressBar = UIProgressView(frame: CGRect.zero)
-        progressBar.layer.cornerRadius = 4 // Height will be 8pts, so a 4pts corner radius for semi-circle curve
+        progressBar.layer.cornerRadius = 4 // Because height is 8pts and we want a perfect semi circle curve
         progressBar.progressTintColor = UIColor.appColors.decredGreen
         progressBar.translatesAutoresizingMaskIntoConstraints = false
         progressBar.clipsToBounds = true
@@ -321,13 +333,16 @@ class OverviewViewController: UIViewController {
             self.syncProgressBarContainer.topAnchor.constraint(equalTo: self.syncStatusLabel.bottomAnchor, constant: 10), // position progress container 10pts below "Synchronizing" label
             self.syncProgressBarContainer.trailingAnchor.constraint(equalTo: self.syncProgressView.trailingAnchor, constant: 0.031), // Right margin of 31pts
             self.syncProgressBarContainer.leadingAnchor.constraint(equalTo: self.syncProgressView.leadingAnchor, constant: 56), // Left margin of 56pts
+            
             // Progress bar constraints
             progressBar.widthAnchor.constraint(equalTo: self.syncProgressBarContainer.widthAnchor), // Full width of parent view
             progressBar.heightAnchor.constraint(equalToConstant: 8), // Height of 8pts from mockup
             progressBar.topAnchor.constraint(equalTo: self.syncProgressBarContainer.topAnchor), // Glue progress bar to top of container view
+            
             //Pregress percentage constraints
             percentageLabel.topAnchor.constraint(equalTo: progressBar.bottomAnchor),// Position underneath progress bar
             percentageLabel.leadingAnchor.constraint(equalTo: self.syncProgressBarContainer.leadingAnchor), // No right margins
+            
             // Estimated time left constraints
             timeLeftLabel.trailingAnchor.constraint(equalTo: self.syncProgressBarContainer.trailingAnchor),
             timeLeftLabel.topAnchor.constraint(equalTo: progressBar.bottomAnchor),
@@ -360,35 +375,39 @@ class OverviewViewController: UIViewController {
     
     // Show sync details on user click "show details" button while syncing
     func handleShowSyncDetails() {
-        let component = self.syncDetailsComponent()
+        let detailsView = SyncDetailsComponent(frame: .zero)
+        detailsView.horizontalBorder(borderColor: UIColor.black, yPosition: 1, borderHeight: 0.9)
+        detailsView.translatesAutoresizingMaskIntoConstraints = false
+        detailsView.clipsToBounds = true
+        
         let position = self.syncStatusSection.arrangedSubviews.index(before: self.syncStatusSection.arrangedSubviews.endIndex)
+        
         DispatchQueue.main.async {
-            UIView.animate(withDuration: 0.3) {
-                self.syncStatusSection.insertArrangedSubview(component.view, at: position)
-                component.view.heightAnchor.constraint(equalToConstant: 188).isActive = true
-                component.view.topAnchor.constraint(equalTo: self.syncProgressView.bottomAnchor).isActive = true
-                self.syncStatusSection.bottomAnchor.constraint(equalTo: self.syncStatusSection.safeAreaLayoutGuide.bottomAnchor, constant: -2).isActive = true
-                NSLayoutConstraint.activate(component.constraints)
-            }
+            UIView.animate(withDuration: 1.0, delay: 0.0, options: [.curveEaseIn, .allowUserInteraction], animations: {
+                self.syncStatusSection.insertArrangedSubview(detailsView, at: position)
+                detailsView.heightAnchor.constraint(equalToConstant: 188).isActive = true
+                detailsView.widthAnchor.constraint(equalTo: self.syncProgressView.widthAnchor).isActive = true
+            })
+            
+            self.showSyncDetailsButton.setTitle(LocalizedStrings.hideDetails, for: .normal)
         }
-        self.showSyncDetailsButton.setTitle(LocalizedStrings.hideDetails, for: .normal)
     }
     
     // Hide sync details on "hide details" button click or on sync completion
     func handleHideSyncDetails() {
-        if (AppDelegate.walletLoader.wallet?.isSyncing() == true) { return }
+        if (AppDelegate.walletLoader.wallet?.isSyncing() == false) { return }
         
         if self.syncStatusSection.arrangedSubviews.indices.contains(2) {
-            UIView.animate(withDuration: 4.3){
+            UIView.animate(withDuration: 4.3, delay: 0.0, options: [.curveEaseOut, .allowUserInteraction], animations: {
                 self.syncStatusSection.arrangedSubviews[2].removeFromSuperview()
-            }
+            })
         }
         self.showSyncDetailsButton.setTitle(LocalizedStrings.showDetails, for: .normal)
     }
     
     // hide sync status progressbar and time on sync complete or cancelled
     func hideSyncStatus() {
-        // Sometimes sync details may be visible after hiding sync progress bar. we need to remove it first it just in case
+        // If the user had clicked on "Show sync details", sync details will be visible after hiding sync progress bar. we need to make sure it is removed first
         self.handleHideSyncDetails()
         
         DispatchQueue.main.async {
@@ -402,6 +421,7 @@ class OverviewViewController: UIViewController {
         self.latestBlockLabel.text = String(format: LocalizedStrings.latestBlockAge, bestBlock, blockAge)
         self.showSyncDetailsButton.isHidden = true
         
+        // We have hidden the progress bar and sync progress report. we need to update the wallet sync status text and indicator
         if (AppDelegate.walletLoader.wallet?.isSyncing() == false) {
             let syncStatusImageName = (AppDelegate.walletLoader.wallet?.isSynced())! ? "ic_checkmark" : "ic_crossmark"
             self.syncStatusImage.image = UIImage(named: syncStatusImageName)
@@ -410,140 +430,23 @@ class OverviewViewController: UIViewController {
             
         }
         
+        // Next we set the sync connection control button depending on whether or not the wallet synced successfully
         self.updateConnectionButton(connected: (AppDelegate.walletLoader.wallet?.isSynced())! ? true : false, isSyncing: false)
+        
         self.updateRecentActivity()
         self.updateCurrentBalance()
     }
     
-    // Sync details view. this component is generated on the fly only when the wallet is syncing
-    func syncDetailsComponent() -> (view: UIView, constraints: [NSLayoutConstraint]) {
-        // containing view for details
-        let detailsContainerView = UIView(frame: CGRect.zero)
-        detailsContainerView.layer.backgroundColor = UIColor.white.cgColor
-        detailsContainerView.translatesAutoresizingMaskIntoConstraints = false
-        // Inner component holding full details
-        let detailsView = UIView(frame: CGRect.zero), stepsLabel = UILabel(frame: CGRect.zero), stepDetailLabel = UILabel(frame: CGRect.zero), headersFetchedLabel = UILabel(frame: CGRect.zero), headersFetchedCount = UILabel(frame: CGRect.zero), syncProgressLabel = UILabel(frame: CGRect.zero), syncProgressCount = UILabel(frame: CGRect.zero), numberOfPeersLabel = UILabel(frame: CGRect.zero), numberOfPeersCount = UILabel(frame: CGRect.zero)
-        detailsView.layer.backgroundColor = UIColor.init(hex: "#f3f5f6").cgColor
-        detailsView.layer.cornerRadius = 8
-        detailsView.translatesAutoresizingMaskIntoConstraints = false
-        detailsView.clipsToBounds = true
-        // Current step indicator
-        stepsLabel.font = UIFont(name: "Source Sans Pro", size: 13)
-        stepsLabel.text = String(format: LocalizedStrings.syncSteps, 0)
-        stepsLabel.translatesAutoresizingMaskIntoConstraints = false
-        stepsLabel.clipsToBounds = true
-        // Current step action/progress
-        stepDetailLabel.font = UIFont(name: "Source Sans Pro", size: 14)
-        stepDetailLabel.translatesAutoresizingMaskIntoConstraints = false
-        stepDetailLabel.clipsToBounds = true
-        // fetched headers text
-        headersFetchedLabel.font = UIFont(name: "Source Sans Pro", size: 14)
-        headersFetchedLabel.text = LocalizedStrings.blockHeadersFetched
-        headersFetchedLabel.translatesAutoresizingMaskIntoConstraints = false
-        headersFetchedLabel.clipsToBounds = true
-        // Fetched headers count
-        headersFetchedCount.font = UIFont(name: "Source Sans Pro", size: 14)
-        headersFetchedCount.translatesAutoresizingMaskIntoConstraints = false
-        headersFetchedCount.clipsToBounds = true
-        // Syncing progress text
-        syncProgressLabel.font = UIFont(name: "Source Sans Pro", size: 14)
-        syncProgressLabel.text = LocalizedStrings.syncingProgress
-        syncProgressLabel.translatesAutoresizingMaskIntoConstraints = false
-        syncProgressLabel.clipsToBounds = true
-        // block age behind
-        syncProgressCount.font = UIFont(name: "Source Sans Pro", size: 14)
-        syncProgressCount.translatesAutoresizingMaskIntoConstraints = false
-        syncProgressCount.clipsToBounds = true
-        // Connected peers
-        numberOfPeersLabel.font = UIFont(name: "Source Sans Pro", size: 14)
-        numberOfPeersLabel.text = LocalizedStrings.connectedPeersCount
-        numberOfPeersLabel.translatesAutoresizingMaskIntoConstraints = false
-        numberOfPeersLabel.clipsToBounds = true
-        // show connected peers count
-        numberOfPeersCount.font = UIFont(name: "Source Sans Pro", size: 14)
-        numberOfPeersCount.text = "0"
-        numberOfPeersCount.translatesAutoresizingMaskIntoConstraints = false
-        numberOfPeersCount.clipsToBounds = true
-        
-        // Add them  to the detailsview
-        detailsView.addSubview(headersFetchedLabel)
-        detailsView.addSubview(headersFetchedCount) // %headersFetched% of %total header%
-        detailsView.addSubview(syncProgressLabel) // Syncing progress
-        detailsView.addSubview(syncProgressCount) // days behind count
-        detailsView.addSubview(numberOfPeersLabel) // Connected peers count label
-        detailsView.addSubview(numberOfPeersCount) // number of connected peers
-        
-        // Positioning constraints for full sync details. numbers are from mockup
-        let detailsViewConstraints = [
-            // View holding details data/text
-            detailsView.topAnchor.constraint(equalTo: detailsContainerView.topAnchor, constant: 46), // 46pts space from top of container from mockup
-            detailsView.heightAnchor.constraint(equalToConstant: 112), // 112pts height from mockup
-            detailsView.bottomAnchor.constraint(equalTo: detailsContainerView.bottomAnchor, constant: -20),
-            detailsView.leadingAnchor.constraint(equalTo: detailsContainerView.leadingAnchor, constant: 16),
-            detailsView.trailingAnchor.constraint(equalTo: detailsContainerView.trailingAnchor, constant: -16),
-            // Headers fetch progress
-            headersFetchedLabel.leadingAnchor.constraint(equalTo: detailsView.leadingAnchor, constant: 16),
-            headersFetchedLabel.topAnchor.constraint(equalTo: detailsView.topAnchor, constant: 17),
-            headersFetchedLabel.heightAnchor.constraint(equalToConstant: 16),
-            headersFetchedCount.trailingAnchor.constraint(equalTo: detailsView.trailingAnchor, constant: -16),
-            headersFetchedCount.topAnchor.constraint(equalTo: detailsView.topAnchor, constant: 17),
-            headersFetchedCount.heightAnchor.constraint(equalToConstant: 14),
-            // Wallet sync progress (i.e ledger current age or days behind)
-            syncProgressLabel.heightAnchor.constraint(equalToConstant: 16),
-            syncProgressLabel.leadingAnchor.constraint(equalTo: detailsView.leadingAnchor, constant: 16),
-            syncProgressLabel.topAnchor.constraint(equalTo: headersFetchedLabel.bottomAnchor, constant: 18),
-            syncProgressCount.topAnchor.constraint(equalTo: headersFetchedCount.bottomAnchor, constant: 16),
-            syncProgressCount.heightAnchor.constraint(equalToConstant: 16),
-            syncProgressCount.trailingAnchor.constraint(equalTo: detailsView.trailingAnchor, constant: -16),
-            // Number of peers currently connected
-            numberOfPeersLabel.heightAnchor.constraint(equalToConstant: 16),
-            numberOfPeersLabel.leadingAnchor.constraint(equalTo: detailsView.leadingAnchor, constant: 16),
-            numberOfPeersLabel.topAnchor.constraint(equalTo: syncProgressLabel.bottomAnchor, constant: 18),
-            numberOfPeersCount.topAnchor.constraint(equalTo: syncProgressCount.bottomAnchor, constant: 16),
-            numberOfPeersCount.trailingAnchor.constraint(equalTo: detailsView.trailingAnchor, constant: -16),
-            numberOfPeersCount.heightAnchor.constraint(equalToConstant: 15),
-            // Current sync step (1,2 or 3)
-            stepsLabel.heightAnchor.constraint(equalToConstant: 14),
-            stepsLabel.topAnchor.constraint(equalTo: detailsContainerView.topAnchor, constant: 16),
-            stepsLabel.leadingAnchor.constraint(equalTo: detailsContainerView.leadingAnchor, constant: 16),
-            stepDetailLabel.topAnchor.constraint(equalTo: detailsContainerView.topAnchor, constant: 16),
-            stepDetailLabel.trailingAnchor.constraint(equalTo: detailsContainerView.trailingAnchor, constant: -16),
-            stepDetailLabel.heightAnchor.constraint(equalToConstant: 16),
-        ]
-        
-        // Add all components to superview (details container)
-        detailsContainerView.addSubview(stepsLabel)
-        detailsContainerView.addSubview(stepDetailLabel)
-        detailsContainerView.addSubview(detailsView)
-        detailsContainerView.clipsToBounds = true
-        
-        // Subscribe to general sync progress changes for use in this component
-        self.syncManager.syncProgress.subscribe(with: self) { (progressReport, headersFetched) in
-            if headersFetched != nil{
-                DispatchQueue.main.async {
-                    headersFetchedCount.text = String(format: LocalizedStrings.fetchedHeaders, headersFetched!.fetchedHeadersCount, headersFetched!.totalHeadersToFetch)
-                    
-                    if headersFetched!.bestBlockAge != "" {
-                        syncProgressCount.text = String(format: LocalizedStrings.bestBlockAgebehind, headersFetched!.bestBlockAge)
-                        syncProgressCount.sizeToFit()
-                    }
-                }
+    @objc func showAllTransactions() {
+        // Our navigation controller is set as our root view controller, we need to access its already created instance
+        let navigation = AppDelegate.shared.window!.rootViewController as! NavigationMenuTabBarController
+        // Now we find our transactions controller index on the tab menu
+        navigation.viewControllers!.enumerated().forEach({
+            if ($0.element.children.first as? TransactionHistoryViewController) != nil {
+                navigation.navigateToTab(index: $0.offset) // Tab index found, navigate to it
+                return
             }
-        }
-        // Subscribe to connected peers changes and react in this component only
-        self.syncManager.peers.subscribe(with: self) { (peers) in
-            DispatchQueue.main.async {
-                numberOfPeersCount.text = String(peers)
-            }
-        }
-        // Subscribe to changes in synchronization stage and react in this component only
-        self.syncManager.syncStage.subscribe(with: self){ (stage, reportText) in
-            DispatchQueue.main.async {
-                stepsLabel.text = String(format: LocalizedStrings.syncSteps, stage)
-                stepDetailLabel.text = reportText
-            }
-        }
-        return (detailsContainerView, detailsViewConstraints)
+        })
     }
     
     func setBestBlockAge() -> String {

@@ -66,12 +66,19 @@ class NavigationMenuTabBarController: UITabBarController {
             } else {
                 self.hideFloatingButtons()
             }
+            
         }
         
         self.viewControllers = menuItems.map({ $0.viewController })
         
         self.view.bringSubviewToFront(self.customTabBar) // Keep nav menu in front of any subviews
         self.view.layoutIfNeeded()
+    }
+    
+    // Allow child viewControllers to trigger navigation to a tab
+    public func navigateToTab(index: Int) {
+        // A child view wants to trigger
+        self.customTabBar.switchTab(from: self.customTabBar.activeTabIndex, to: index)
     }
     
     public func showFloatingButtons() {
