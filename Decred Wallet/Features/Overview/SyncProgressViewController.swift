@@ -152,6 +152,8 @@ extension SyncProgressViewController: SyncProgressListenerProtocol {
         
         // Display "show details" button if details are not being shown currently.
         self.showDetailedSyncReportButton.isHidden = !self.currentSyncActionReportLabel.isHidden
+        // Update sync notification
+        
     }
     
     func onSyncCompleted() {
