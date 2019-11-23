@@ -58,20 +58,18 @@ class RecoveryWalletSeedWordCell: UITableViewCell {
     
     func setTextAppearance() {
         let currentText = self.seedWordAutoComplete.text ?? ""
-        if self.validSeedWords.contains(currentText) {
+        if self.validSeedWords.contains(currentText) || currentText == "" {
             // valid seed word, use normal text color and only show clear button if user focuses field
             self.seedWordAutoComplete.clearButtonMode = .whileEditing
-        } else if currentText != "" {
+            self.seedWordAutoComplete.textColor = UIColor(hex: "#3d5873")
+            self.lbSeedWordNum.layer.borderColor = UIColor(hex: "#3d5873").cgColor
+            self.cellBorder.layer.borderColor = UIColor(hex: "#e6eaed").cgColor
+        } else {
             // invalid seed word, use error text color and show clear button persistently
             self.seedWordAutoComplete.textColor = UIColor.appColors.decredOrange
             self.seedWordAutoComplete.clearButtonMode = .always
             lbSeedWordNum.layer.borderColor = UIColor.appColors.decredOrange.cgColor
                    cellBorder.layer.borderColor = UIColor.appColors.decredOrange.cgColor
-        }
-        else{
-             self.seedWordAutoComplete.textColor = UIColor(hex: "#3d5873")
-            lbSeedWordNum.layer.borderColor = UIColor(hex: "#3d5873").cgColor
-            cellBorder.layer.borderColor = UIColor(hex: "#e6eaed").cgColor
         }
     }
 }

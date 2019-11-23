@@ -12,10 +12,9 @@ import Dcrlibwallet
 class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet var tableView : UITableView!
     @IBOutlet weak var wordSelectionDropDownContainer: UIView!
-    @IBOutlet weak var tableViewFooter: UIStackView!
-    @IBOutlet weak var tableViewFooterTopSpacingConstraint: NSLayoutConstraint!
-    @IBOutlet weak var invalidSeedLabel: UILabel!
+    @IBOutlet weak var tableViewFooterHeightCont: NSLayoutConstraint!
     @IBOutlet weak var btnConfirm: UIButton!
+    var errorView:UIView!
     
     var validSeedWords: [String] = []
     var userEnteredSeedWords = [String](repeating: "", count: 33)
@@ -71,6 +70,9 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
                                      width: self.view.frame.width,
                                      height: window.origin.y + window.height - keyboardSize.height)
             
+            // hide the confirm button and allow the tableview occupy its height
+            self.tableViewFooterHeightCont.constant = 0
+            self.btnConfirm.isHidden = true
             // add space at the bottom of table so that the seed word input fields do not touch the keyboard
             self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
         }
@@ -84,8 +86,11 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
                                      width: self.view.frame.width,
                                      height: window.origin.y + window.height)
             
+           // display the confirm button and retain its height
+            self.tableViewFooterHeightCont.constant = 72
+            self.btnConfirm.isHidden = false
             // remove space at the bottom of table that was added when keyboard was displayed
-             self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         }
     }
     
@@ -126,14 +131,7 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
     func seedWordEntered(for wordIndex: Int, seedWord: String, moveToNextField: Bool) {
         self.userEnteredSeedWords[wordIndex] = seedWord
         
-        if (self.invalidSeedLabel.isHidden == false) {
-            self.invalidSeedLabel.isHidden = true
-            // increase top spacing so that confirm button is centered in display
-            self.tableViewFooterTopSpacingConstraint.constant = 30
-            UIView.animate(withDuration: 0.5) {
-                self.tableViewFooter.layoutIfNeeded()
-            }
-        }
+        self.dismissSeedError()
         
         if wordIndex < 32 && moveToNextField {
             self.focusSeedWordInput(at: wordIndex + 1)
@@ -171,16 +169,6 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
         }
     }
     
-    func displaySeedError(_ errorMessage: String) {
-        // reduce top spacing so that warning label and confirm button are centered in display
-        self.tableViewFooterTopSpacingConstraint.constant = 10
-        UIView.animate(withDuration: 0.5) {
-            self.tableViewFooter.layoutIfNeeded()
-        }
-        self.invalidSeedLabel.text = errorMessage
-        self.invalidSeedLabel.isHidden = false
-    }
-    
     // following code will only be included if compiling for testnet
     #if IsTestnet
     @objc func longPressConfirm() {
@@ -206,21 +194,62 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
         return (seed, seedValid)
     }
     
-    private func showError(_ error: String) {
-        let alert = UIAlertController(title: LocalizedStrings.walletRecoveryError, message: error, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: LocalizedStrings.tryAgain, style: .default) { _ in
-            alert.dismiss(animated: true, completion: nil)
-            self.clearSeedInputs()
-        }
-        alert.addAction(okAction)
-        self.present(alert, animated: true, completion: nil)
-    }
-    
     func clearSeedInputs() {
         self.userEnteredSeedWords = [String](repeating: "", count: 33)
         self.tableView.reloadData()
         self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
     }
+    
+    @objc private func dismissSeedError(){
+            NSObject.cancelPreviousPerformRequests(withTarget: self,
+                                                   selector: #selector(dismissSeedError),
+                                                   object: nil)
+            if errorView != nil{
+                self.errorView.removeFromSuperview()
+                self.errorView = nil
+            }
+        }
+
+    private func displaySeedError(_ error:String){
+
+        if errorView == nil{
+            errorView = UIView()
+            self.view.addSubview(errorView)
+
+            errorView.translatesAutoresizingMaskIntoConstraints = false
+            errorView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,constant: 8).isActive = true
+            errorView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor,constant: -8).isActive = true
+            errorView.topAnchor.constraint(equalTo: self.tableView.topAnchor,constant: 8).isActive = true
+
+            errorView.backgroundColor = UIColor.appColors.decredOrange
+            errorView.layer.cornerRadius = 7;
+           // errorView.layer.shadowColor = UIColor.appColors.shadowColor.cgColor
+            errorView.layer.shadowRadius = 4
+            errorView.layer.shadowOpacity = 0.24
+            errorView.layer.shadowOffset = CGSize(width: 0, height: 1)
+
+            let errorLabel = UILabel()
+            errorView.addSubview(errorLabel)
+            errorLabel.translatesAutoresizingMaskIntoConstraints = false
+            errorLabel.leadingAnchor.constraint(equalTo: errorView.leadingAnchor,constant: 10).isActive = true
+            errorLabel.trailingAnchor.constraint(equalTo: errorView.trailingAnchor,constant: -10).isActive = true
+            errorLabel.topAnchor.constraint(equalTo: errorView.topAnchor,constant: 5).isActive = true
+            errorLabel.bottomAnchor.constraint(equalTo: errorView.bottomAnchor,constant: -5).isActive = true
+            errorLabel.numberOfLines = 0
+            errorLabel.lineBreakMode = .byWordWrapping
+            errorLabel.textAlignment = .center
+            errorLabel.textColor = .white
+            errorLabel.font = UIFont(name: "SourceSansPro-Regular", size: 16)
+            errorLabel.text = error
+
+            let swipeUpGesture = UISwipeGestureRecognizer(target: self, action: #selector(dismissSeedError))
+            swipeUpGesture.direction = .up
+            errorView.addGestureRecognizer(swipeUpGesture)
+
+            self.perform(#selector(self.dismissSeedError), with: nil, afterDelay: 5)
+        }
+    }
+
 }
 
 extension RecoverExistingWalletViewController: UIScrollViewDelegate {
