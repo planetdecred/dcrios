@@ -25,10 +25,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic-logo-primary" translatesAutoresizingMaskIntoConstraints="NO" id="xDz-Fh-kaY">
-                                <rect key="frame" x="24" y="68" width="252" height="48"/>
+                                <rect key="frame" x="24" y="68" width="126" height="24"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Decred iOS Wallet" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8zf-Wa-Bz1">
-                                <rect key="frame" x="24" y="140" width="195.5" height="56"/>
+                                <rect key="frame" x="24" y="116" width="178" height="60.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="24"/>
                                 <color key="textColor" red="0.040000000000000001" green="0.080000000000000002" blue="0.25" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -181,14 +181,14 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LQE-gP-yYb">
-                                <rect key="frame" x="16" y="5" width="48" height="48"/>
+                                <rect key="frame" x="16" y="17" width="24" height="24"/>
                                 <state key="normal" image="left-arrow"/>
                                 <connections>
                                     <action selector="backAction:" destination="gFt-pD-kVi" eventType="touchUpInside" id="vch-KG-jBD"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Setting up your wallet" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LyD-5R-FcR">
-                                <rect key="frame" x="74" y="16" width="324" height="25.5"/>
+                                <rect key="frame" x="50" y="16" width="348" height="25.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <color key="textColor" red="0.043137254899999998" green="0.1137254902" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -946,14 +946,74 @@
                         <outlet property="tableView" destination="u2P-f0-vXF" id="cF0-FR-LwL"/>
                         <outlet property="tableViewFooterHeightCont" destination="YhH-gR-XMS" id="gRp-et-3uL"/>
                         <outlet property="wordSelectionDropDownContainer" destination="Ey3-HA-4Ob" id="2vT-U2-dsB"/>
+                        <segue destination="rCj-4a-fyv" kind="presentation" identifier="recoverySuccess" modalPresentationStyle="fullScreen" id="DPT-kd-39L"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wbz-wq-m0C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2227.536231884058" y="225.66964285714283"/>
         </scene>
+        <!--Recovery Success View Controller-->
+        <scene sceneID="zhr-iW-Arj">
+            <objects>
+                <viewController id="rCj-4a-fyv" customClass="RecoverySuccessViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="XQy-7q-Ld7">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Your wallet is successfully restored" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cTS-kD-rUc">
+                                <rect key="frame" x="24" y="433" width="366" height="30.5"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="24"/>
+                                <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="restoreSuccessTitle"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backup_success_icon" translatesAutoresizingMaskIntoConstraints="NO" id="gs1-9Q-nh3">
+                                <rect key="frame" x="175" y="345" width="64" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="64" id="Hg8-lr-OW0"/>
+                                    <constraint firstAttribute="height" constant="64" id="hpb-z3-QCu"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0ly-DH-gVy">
+                                <rect key="frame" x="24" y="804" width="366" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="Get started">
+                                    <color key="titleColor" red="0.16078431369999999" green="0.43921568630000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="getStarted"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="getStarted:" destination="rCj-4a-fyv" eventType="touchUpInside" id="jh8-yc-oHc"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.92941176469999998" green="0.93725490199999995" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="0ly-DH-gVy" firstAttribute="leading" secondItem="e0q-g6-IQc" secondAttribute="leading" constant="24" id="42h-50-bJG"/>
+                            <constraint firstItem="cTS-kD-rUc" firstAttribute="top" secondItem="gs1-9Q-nh3" secondAttribute="bottom" constant="24" id="AIa-zX-Aps"/>
+                            <constraint firstItem="cTS-kD-rUc" firstAttribute="centerX" secondItem="XQy-7q-Ld7" secondAttribute="centerX" id="G7e-mA-Lat"/>
+                            <constraint firstItem="e0q-g6-IQc" firstAttribute="bottom" secondItem="0ly-DH-gVy" secondAttribute="bottom" constant="24" id="QLb-ks-lPJ"/>
+                            <constraint firstItem="cTS-kD-rUc" firstAttribute="centerY" secondItem="XQy-7q-Ld7" secondAttribute="centerY" id="VyN-yb-0SH"/>
+                            <constraint firstItem="e0q-g6-IQc" firstAttribute="trailing" secondItem="cTS-kD-rUc" secondAttribute="trailing" constant="24" id="b5g-Dn-u4d"/>
+                            <constraint firstItem="gs1-9Q-nh3" firstAttribute="centerX" secondItem="XQy-7q-Ld7" secondAttribute="centerX" id="cEP-Y5-s3H"/>
+                            <constraint firstItem="cTS-kD-rUc" firstAttribute="leading" secondItem="e0q-g6-IQc" secondAttribute="leading" constant="24" id="ges-ip-nfd"/>
+                            <constraint firstItem="e0q-g6-IQc" firstAttribute="trailing" secondItem="0ly-DH-gVy" secondAttribute="trailing" constant="24" id="y2p-Yc-Bwg"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="e0q-g6-IQc"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="8e5-cM-siC"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bIC-am-SGs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3130" y="226"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="backup_success_icon" width="64" height="64"/>
         <image name="ic-add" width="24" height="24"/>
         <image name="ic-logo-primary" width="126" height="24"/>
         <image name="ic-restore" width="24" height="24"/>
