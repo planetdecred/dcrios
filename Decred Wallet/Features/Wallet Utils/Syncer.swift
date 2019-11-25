@@ -240,7 +240,7 @@ class Syncer: NSObject, AppLifeCycleDelegate {
     }
 
     private func endBackgroundTask() {
-        NotificationsManager.shared.removeSyncInprogressNotification()
+        NotificationsManager.shared.removeSyncInProgressNotification()
         if backgroundTask != .invalid {
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
             print("Background task ended at: ", Date())
@@ -250,11 +250,13 @@ class Syncer: NSObject, AppLifeCycleDelegate {
     }
 
     private func fireLocalBackgroundSyncNotificationIfInBackground(with progress: DcrlibwalletGeneralSyncProgress) {
-        let message = String(format: LocalizedStrings.syncTotalProgress, progress.totalSyncProgress, progress.totalTimeRemaining)
+        if self.syncCompletedCanceledOrErrored || UIApplication.shared.applicationState != .background {
+            return
+        }
+        
         DispatchQueue.main.async {
-            if !self.syncCompletedCanceledOrErrored && UIApplication.shared.applicationState == .background {
-                NotificationsManager.shared.fireSyncInProgressNotification(with: message)
-            }
+            let message = String(format: LocalizedStrings.syncTotalProgress, progress.totalSyncProgress, progress.totalTimeRemaining)
+            NotificationsManager.shared.fireSyncInProgressNotification(with: message)
         }
     }
 }

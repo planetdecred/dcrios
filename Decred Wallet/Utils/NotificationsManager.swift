@@ -44,23 +44,23 @@ class NotificationsManager: NSObject, UNUserNotificationCenterDelegate {
 
             guard !backgroundSyncNotification.isEmpty else {
                 // No background sync notification has been fired
-                self.postBackGroundSyncNotificationRequest(message: message)
+                self.postBackgroundSyncNotificationRequest(message: message)
                 return
             }
 
             // We can update the content in the notification center when the screen is locked
             DispatchQueue.main.async {
                 guard UIApplication.shared.isProtectedDataAvailable == false else {return}
-                self.postBackGroundSyncNotificationRequest(message: message)
+                self.postBackgroundSyncNotificationRequest(message: message)
             }
         }
     }
 
-    func removeSyncInprogressNotification() {
+    func removeSyncInProgressNotification() {
         notificationCenter.removeDeliveredNotifications(withIdentifiers: [NotificationCategory.syncInProgressNotification.rawValue])
     }
     
-    fileprivate func postBackGroundSyncNotificationRequest(message: String) {
+    fileprivate func postBackgroundSyncNotificationRequest(message: String) {
         let content = UNMutableNotificationContent()
         content.title = "Sync in Progress...."
         content.body = message
