@@ -151,7 +151,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
             if let firstWalletAddress = accNames.first {
                 self.selectedAccount = firstWalletAddress
                 self.accountDropdown.setTitle(self.selectedAccount, for: .normal)
-                self.getAddress(accountNumber: (self.myacc?.number)!)
+                self.getAddress(accountNumber: self.myacc!.number)
             }
         } else {
             print("no account")

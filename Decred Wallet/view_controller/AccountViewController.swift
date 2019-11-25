@@ -71,17 +71,12 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
         
         DispatchQueue.global(qos: .background).async { [weak self] in
             guard let this = self else { return }
+            this.accounts?.removeAll()
             this.accountHeaders.removeAll()
             
             if let acc = AppDelegate.walletLoader.wallet?.walletAccounts(confirmations: 0) {
                 this.accounts = acc
-                this.accountHeaders = {
-                    var colorCount = -1
-                    return acc.map {
-                        colorCount += 1
-                        return AccountHeader(entity: $0, color: nil)
-                    }
-                }()
+                this.accountHeaders = acc.map({ AccountHeader(entity: $0, color: nil) })
             }
             
             DispatchQueue.main.async {
