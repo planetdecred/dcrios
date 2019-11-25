@@ -36,6 +36,8 @@ struct LocalizedStrings {
     static let seedRestoreHeader = NSLocalizedString("seedRestoreHeader", comment: "")
     static let seedRestoreInfo = NSLocalizedString("seedRestoreInfo", comment: "")
     static let confirm = NSLocalizedString("confirm", comment: "")
+    static let success = NSLocalizedString("success", comment: "")
+    static let restore = NSLocalizedString("restore", comment: "")
     static let getStarted = NSLocalizedString("getStarted", comment: "")
     static let restoreSuccessTitle = NSLocalizedString("restoreSuccessTitle", comment: "")
     

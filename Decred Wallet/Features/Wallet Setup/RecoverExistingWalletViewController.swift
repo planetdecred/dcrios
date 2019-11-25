@@ -13,11 +13,14 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
     @IBOutlet var tableView : UITableView!
     @IBOutlet weak var wordSelectionDropDownContainer: UIView!
     @IBOutlet weak var tableViewFooterHeightCont: NSLayoutConstraint!
+    @IBOutlet weak var tableViewFooter: UIView!
     @IBOutlet weak var btnConfirm: UIButton!
     var errorView:UIView!
     
     var validSeedWords: [String] = []
     var userEnteredSeedWords = [String](repeating: "", count: 33)
+    var walletRestoredSuccessful = false
+    var validatedSeed = (seed: "", valid: false)
     
     // following code will only be included if compiling for testnet
     #if IsTestnet
@@ -39,6 +42,9 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
         // set border for dropdown list
         self.wordSelectionDropDownContainer.layer.borderWidth = 1
         self.wordSelectionDropDownContainer.layer.borderColor = UIColor.appColors.lightGray.cgColor
+        
+        // add drop shadow for better transition while scrolling the tableView
+        self.tableViewFooter.dropShadow(color: UIColor(hex: "#140000"), offSet: CGSize.zero )
         
         // long press to proceed with test seed, only on testnet
         #if IsTestnet
@@ -90,7 +96,7 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
             self.tableViewFooterHeightCont.constant = 72
             self.btnConfirm.isHidden = false
             // remove space at the bottom of table that was added when keyboard was displayed
-            self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
         }
     }
     
@@ -157,14 +163,23 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
     }
     
     @IBAction func onConfirm() {
-        if self.userEnteredSeedWords.contains("") {
-            self.displaySeedError(LocalizedStrings.notAllSeedsAreEntered)
+        if !walletRestoredSuccessful {
+                self.secureWallet(self.validatedSeed.seed)
         } else {
-            let validatedSeed = self.validateSeed()
-            if validatedSeed.valid {
-                self.secureWallet(validatedSeed.seed)
+            if self.userEnteredSeedWords.contains("") {
+                self.displaySeedError(LocalizedStrings.notAllSeedsAreEntered)
             } else {
-                self.displaySeedError(LocalizedStrings.incorrectSeedEntered)
+                self.validatedSeed = self.validateSeed()
+                if self.validatedSeed.valid {
+                    self.walletRestoredSuccessful = true
+                    self.tableView.isUserInteractionEnabled = false
+                    self.btnConfirm.setTitle(LocalizedStrings.success, for: .normal)
+                    self.btnConfirm.setTitleColor(UIColor.appColors.lightGreen, for: .normal)
+                    self.btnConfirm.setImage(.init(imageLiteralResourceName: "success_checked"), for: .normal)
+                    self.btnConfirm.backgroundColor = .white
+                } else {
+                    self.displaySeedError(LocalizedStrings.incorrectSeedEntered)
+                }
             }
         }
     }

@@ -26,7 +26,9 @@ extension UIColor {
         static let thinGray = UIColor.init(hex: "#a4abb1")
         static let darkGray = UIColor.init(hex: "#4e5f70")
         static let transparentThinGray = UIColor.init(hex: "#a4abb1", alpha: 0.3)
-        static let darkBlue = UIColor(hex: "#3d5873")
+        static let darkBlue = UIColor.init(hex: "#3d5873")
+        static let lightGreen = UIColor.init(hex: "#41be53")
+        static let darkText = UIColor.init(hex: "#091440")
     }
     
     convenience init(hex: String) {

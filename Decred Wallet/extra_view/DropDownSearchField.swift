@@ -107,7 +107,7 @@ class DropDownSearchField: UITextField, UITextFieldDelegate {
 
 class DropDownTableDataSource: NSObject, UITableViewDataSource, UITableViewDelegate {
     let cellIdentifier: String = "dropDownCell"
-    let cellHeight: CGFloat = 40
+    let cellHeight: CGFloat = 45
     let footerHeight: CGFloat = 22
     
     var filteredWords: [String] = []
@@ -132,7 +132,10 @@ class DropDownTableDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier, for: indexPath)
+        cell.contentView.layoutMargins.left = 54
         cell.textLabel?.text = self.filteredWords[indexPath.row]
+        cell.textLabel?.textColor = UIColor.appColors.darkText
+        cell.textLabel?.font = UIFont(name: "SourceSansPro-Regular", size: 16)
         return cell
     }
     

@@ -778,8 +778,9 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="70" sectionHeaderHeight="1" sectionFooterHeight="1" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u2P-f0-vXF">
-                                <rect key="frame" x="8" y="72" width="398" height="663"/>
+                                <rect key="frame" x="8" y="72" width="398" height="665"/>
                                 <color key="backgroundColor" red="0.95294117647058818" green="0.96078431372549022" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
+                                <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="8"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="n5p-ex-Htd">
                                     <rect key="frame" x="0.0" y="0.0" width="398" height="36"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -890,15 +891,15 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zRB-hr-V1q">
                                 <rect key="frame" x="0.0" y="737" width="414" height="72"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q9a-Hz-dHy" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
-                                        <rect key="frame" x="43.5" y="12" width="327" height="48"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q9a-Hz-dHy" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
+                                        <rect key="frame" x="35.5" y="12" width="343" height="48"/>
                                         <color key="backgroundColor" red="0.76862745099999996" green="0.79607843140000001" blue="0.82352941180000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="jam-7K-PoQ"/>
-                                            <constraint firstAttribute="width" constant="327" id="kys-vL-g2n"/>
+                                            <constraint firstAttribute="width" constant="343" id="kys-vL-g2n"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="8" maxY="0.0"/>
                                         <state key="normal" title="Restore">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
@@ -935,7 +936,7 @@
                             <constraint firstItem="4MZ-vE-Jlo" firstAttribute="bottom" relation="lessThanOrEqual" secondItem="u2P-f0-vXF" secondAttribute="bottom" constant="73" id="cXW-3S-mnY"/>
                             <constraint firstItem="u2P-f0-vXF" firstAttribute="leading" secondItem="4MZ-vE-Jlo" secondAttribute="leading" constant="8" id="eeM-0K-oSw"/>
                             <constraint firstItem="vrt-fD-2zA" firstAttribute="leading" secondItem="4MZ-vE-Jlo" secondAttribute="leading" id="lCg-LX-Qr4"/>
-                            <constraint firstItem="zRB-hr-V1q" firstAttribute="top" secondItem="u2P-f0-vXF" secondAttribute="bottom" constant="2" id="lzh-kC-ja1"/>
+                            <constraint firstItem="zRB-hr-V1q" firstAttribute="top" secondItem="u2P-f0-vXF" secondAttribute="bottom" id="lzh-kC-ja1"/>
                             <constraint firstItem="4MZ-vE-Jlo" firstAttribute="trailing" secondItem="u2P-f0-vXF" secondAttribute="trailing" constant="8" id="sil-Rn-mU2"/>
                             <constraint firstItem="u2P-f0-vXF" firstAttribute="top" secondItem="vrt-fD-2zA" secondAttribute="bottom" constant="8" symbolic="YES" id="vzf-jQ-sQ2"/>
                         </constraints>
@@ -944,6 +945,7 @@
                     <connections>
                         <outlet property="btnConfirm" destination="Q9a-Hz-dHy" id="FpN-JU-SJU"/>
                         <outlet property="tableView" destination="u2P-f0-vXF" id="cF0-FR-LwL"/>
+                        <outlet property="tableViewFooter" destination="zRB-hr-V1q" id="xLo-gK-RKm"/>
                         <outlet property="tableViewFooterHeightCont" destination="YhH-gR-XMS" id="gRp-et-3uL"/>
                         <outlet property="wordSelectionDropDownContainer" destination="Ey3-HA-4Ob" id="2vT-U2-dsB"/>
                         <segue destination="rCj-4a-fyv" kind="presentation" identifier="recoverySuccess" modalPresentationStyle="fullScreen" id="DPT-kd-39L"/>
