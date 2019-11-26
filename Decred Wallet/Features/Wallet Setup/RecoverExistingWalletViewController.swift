@@ -215,7 +215,7 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
         self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
     }
     
-    @objc private func dismissSeedError(){
+    @objc private func dismissSeedError() {
             NSObject.cancelPreviousPerformRequests(withTarget: self,
                                                    selector: #selector(dismissSeedError),
                                                    object: nil)
@@ -225,8 +225,7 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
             }
         }
 
-    private func displaySeedError(_ error:String){
-
+    private func displaySeedError(_ error:String) {
         if errorView == nil{
             errorView = UIView()
             self.view.addSubview(errorView)
@@ -264,7 +263,6 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
             self.perform(#selector(self.dismissSeedError), with: nil, afterDelay: 5)
         }
     }
-
 }
 
 extension RecoverExistingWalletViewController: UIScrollViewDelegate {

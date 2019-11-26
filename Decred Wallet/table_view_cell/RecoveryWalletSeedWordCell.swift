@@ -37,7 +37,6 @@ class RecoveryWalletSeedWordCell: UITableViewCell {
     
     func seedWordSelected(_ selectedWord: String) {
         self.seedWordAutoComplete.text = selectedWord
-       // self.setTextAppearance()
         self.onSeedEntered!(self.fieldIndex!, selectedWord, true)
         self.lbSeedWordNum.layer.borderColor = UIColor(hex: "#3d5873").cgColor
         self.cellBorder.layer.borderColor = UIColor(hex: "#e6eaed").cgColor
@@ -55,7 +54,6 @@ class RecoveryWalletSeedWordCell: UITableViewCell {
        // self.lbSeedWordNum.textColor = UIColor(hex: "#2970ff")
     }
     
-    
     func setTextAppearance() {
         let currentText = self.seedWordAutoComplete.text ?? ""
         if self.validSeedWords.contains(currentText) || currentText == "" {
@@ -68,8 +66,8 @@ class RecoveryWalletSeedWordCell: UITableViewCell {
             // invalid seed word, use error text color and show clear button persistently
             self.seedWordAutoComplete.textColor = UIColor.appColors.decredOrange
             self.seedWordAutoComplete.clearButtonMode = .always
-            lbSeedWordNum.layer.borderColor = UIColor.appColors.decredOrange.cgColor
-                   cellBorder.layer.borderColor = UIColor.appColors.decredOrange.cgColor
+            self.lbSeedWordNum.layer.borderColor = UIColor.appColors.decredOrange.cgColor
+            self.cellBorder.layer.borderColor = UIColor.appColors.decredOrange.cgColor
         }
     }
 }
