@@ -11,7 +11,6 @@ import Dcrlibwallet
 import SwiftRichString
 
 class BackupReminderViewController: UIViewController {
-    
     @IBOutlet weak var label1: UILabel!
     @IBOutlet weak var label2: UILabel!
     @IBOutlet weak var label3: UILabel!
@@ -27,7 +26,7 @@ class BackupReminderViewController: UIViewController {
         addStyleToLabels()
     }
     
-    private func addStyleToLabels(){
+    private func addStyleToLabels() {
         let normal = Style {
             $0.font = UIFont(name: "SourceSansPro-Regular", size: 16)
             $0.color = UIColor.appColors.darkBlue
@@ -48,10 +47,9 @@ class BackupReminderViewController: UIViewController {
             $0.color = UIColor.appColors.greenLabelColor
         }
         
-        let myGroup = StyleGroup(base: normal, [ "bold": bold, "orange": orange, "green": green ] )
+        let myGroup = StyleGroup(base: normal, [ "bold": bold, "orange": orange, "green": green ])
         
-        for label in [self.label1, self.label2, self.label3, self.label4, self.label5]
-        {
+        for label in [self.label1, self.label2, self.label3, self.label4, self.label5] {
             label?.attributedText = label?.text?.set(style: myGroup)
         }
     }
@@ -66,8 +64,7 @@ class BackupReminderViewController: UIViewController {
                 allChecked = allChecked && self.checkDict[i] == true
             }
             
-            if(allChecked)
-            {
+            if(allChecked) {
                 self.viewSeedBt?.isEnabled = true
             }
         }
@@ -85,6 +82,4 @@ class BackupReminderViewController: UIViewController {
     @IBAction func backAction(_ sender: UIButton) {
         navigateToBackScreen()
     }
-    
-   
 }

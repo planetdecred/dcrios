@@ -9,7 +9,6 @@
 import UIKit
 
 class BackupWriteDownTableViewCell: UITableViewCell {
-
     @IBOutlet weak var phaseLabel1: UILabel!
     @IBOutlet weak var phaseLabel2: UILabel!
     @IBOutlet weak var countLabel1: ContouredLabel!

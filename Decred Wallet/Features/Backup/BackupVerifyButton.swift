@@ -9,7 +9,6 @@
 import UIKit
 
 class BackupVerifyButton: UIButton {
-
     @IBInspectable var borderColor : UIColor = UIColor.appColors.lightGrayColor {
         didSet {
             setupView()
@@ -40,9 +39,7 @@ class BackupVerifyButton: UIButton {
         }
     }
     
-    
     fileprivate func setupView() {
-        
         if isSelected {
             layer.borderColor = selectedBorderColor.cgColor
         } else {

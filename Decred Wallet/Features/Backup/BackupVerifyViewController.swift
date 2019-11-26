@@ -16,12 +16,12 @@ class BackupVerifyViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var btnConfirm: Button!
     private var errorBanner: ErrorBanner?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addNavigationBackButton()
         self.errorBanner = ErrorBanner(parent: self)
     }
-    
     
     func prepareSeedForVerification(seedToVerify: String) {
         let allSeedWords = loadSeedWordsList()
@@ -85,11 +85,9 @@ class BackupVerifyViewController: UIViewController {
         let seedWords = try? String(contentsOfFile: seedWordsPath ?? "")
         return seedWords?.split{$0 == "\n"}.map(String.init) ?? []
     }
-    
 }
 
 extension BackupVerifyViewController: UITableViewDelegate, UITableViewDataSource {
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -115,8 +113,7 @@ extension BackupVerifyViewController: UITableViewDelegate, UITableViewDataSource
                                 && self.selectedWords[seedIndex] != ""
             }
             
-            if(allChecked)
-            {
+            if allChecked {
                 self.btnConfirm.isEnabled = true
             }
         }

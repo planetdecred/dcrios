@@ -1,5 +1,5 @@
 //
-//  ContouredButton.swift
+//  ContouredLabel.swift
 //  Decred Wallet
 //
 // Copyright (c) 2018-2019 The Decred developers
@@ -9,7 +9,6 @@
 import UIKit
 
 class ContouredLabel: UILabel {
-    
     @IBInspectable var borderColor: UIColor = UIColor.appColors.decredBlue {
         didSet {
             setupView()
@@ -29,7 +28,6 @@ class ContouredLabel: UILabel {
     }
     
     public override init(frame: CGRect) {
-        
         super.init(frame: frame)
         setupView()
     }
@@ -39,7 +37,6 @@ class ContouredLabel: UILabel {
     }
     
     fileprivate func setupView() {
-        
         layer.borderWidth = borderWidth
         layer.cornerRadius = borderRadius
         layer.borderColor = borderColor.cgColor

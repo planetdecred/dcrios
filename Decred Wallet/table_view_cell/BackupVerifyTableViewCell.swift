@@ -9,7 +9,6 @@
 import UIKit
 
 class BackupVerifyTableViewCell: UITableViewCell {
-    
     @IBOutlet weak var lbWordTitle: UILabel!
     @IBOutlet weak var lbWordCountLabel: ContouredLabel!
     @IBOutlet weak var btnSeed1: BackupVerifyButton!
@@ -38,12 +37,12 @@ class BackupVerifyTableViewCell: UITableViewCell {
         self.setWordTitle(selectedWord: selectedWord)
     }
     
-    private func setWordTitle(selectedWord: String){
+    private func setWordTitle(selectedWord: String) {
         self.lbWordTitle?.text = (selectedWord == "") ? "—" : selectedWord
         self.lbWordTitle?.textColor = (selectedWord == "") ? UIColor.appColors.mediumGrayColor : UIColor.appColors.darkBlue
     }
     
-    private func disableAllButtons(){
+    private func disableAllButtons() {
         btnSeed1.isSelected = false
         btnSeed2.isSelected = false
         btnSeed3.isSelected = false
