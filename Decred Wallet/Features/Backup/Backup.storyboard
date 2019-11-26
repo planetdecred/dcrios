@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -724,7 +724,7 @@
                                                     <rect key="frame" x="8" y="4" width="359" height="104"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="—" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dBA-VD-6l1">
-                                                            <rect key="frame" x="54" y="17" width="13" height="20.5"/>
+                                                            <rect key="frame" x="54" y="17" width="297" height="20.5"/>
                                                             <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
                                                             <color key="textColor" red="0.53725490196078429" green="0.59215686274509804" blue="0.6470588235294118" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -835,6 +835,7 @@
                                                         <constraint firstItem="Ryd-5s-qBx" firstAttribute="leading" secondItem="BW4-Ag-UnK" secondAttribute="leading" constant="16" id="eQx-tB-oTa"/>
                                                         <constraint firstItem="Ryd-5s-qBx" firstAttribute="top" secondItem="BW4-Ag-UnK" secondAttribute="top" constant="16" id="qQk-Dv-0A5"/>
                                                         <constraint firstItem="dBA-VD-6l1" firstAttribute="centerY" secondItem="Ryd-5s-qBx" secondAttribute="centerY" id="sXS-yl-ufm"/>
+                                                        <constraint firstAttribute="trailing" secondItem="dBA-VD-6l1" secondAttribute="trailing" constant="8" id="u0W-8D-OKG"/>
                                                         <constraint firstItem="dBA-VD-6l1" firstAttribute="leading" secondItem="Ryd-5s-qBx" secondAttribute="trailing" constant="8" id="vo5-On-9Kg"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
@@ -870,7 +871,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w6P-Kg-Hyj">
                                 <rect key="frame" x="0.0" y="565" width="375" height="82"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="miY-8h-rc7" customClass="LoaderButton" customModule="Decred_Wallet" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="miY-8h-rc7" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                         <rect key="frame" x="24" y="16" width="327" height="42"/>
                                         <color key="backgroundColor" red="0.16078431369999999" green="0.43921568630000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>

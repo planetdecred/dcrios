@@ -14,11 +14,12 @@ class BackupVerifyViewController: UIViewController {
     var seedWordsGroupedByThree: [[String]] = []
     var selectedWords: [String] = []
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var btnConfirm: LoaderButton!
-    var errorView:UIView!
+    @IBOutlet weak var btnConfirm: Button!
+    private var errorBanner: ErrorBanner?
     override func viewDidLoad() {
         super.viewDidLoad()
         addNavigationBackButton()
+        self.errorBanner = ErrorBanner(parent: self)
     }
     
     
@@ -63,7 +64,7 @@ class BackupVerifyViewController: UIViewController {
     }
     
     @IBAction func onConfirm(_ sender: Any) {
-        self.dismissError()
+        self.errorBanner?.dismiss()
         self.tableView?.isUserInteractionEnabled = false
         self.btnConfirm?.startLoading()
         let seed = selectedWords.joined(separator: " ")
@@ -75,57 +76,7 @@ class BackupVerifyViewController: UIViewController {
         if seedIsValid {
             self.performSegue(withIdentifier: "toBackupSuccess", sender: nil)
         } else {
-            self.showError(error: NSLocalizedString("FailedToVerify", comment: ""))
-        }
-    }
-    
-    @objc private func dismissError(){
-        NSObject.cancelPreviousPerformRequests(withTarget: self,
-                                               selector: #selector(dismissError),
-                                               object: nil)
-        if errorView != nil{
-            self.errorView.removeFromSuperview()
-            self.errorView = nil
-        }
-    }
-    
-    private func showError(error:String){
-        
-        if errorView == nil{
-            errorView = UIView()
-            self.view.addSubview(errorView)
-            
-            errorView.translatesAutoresizingMaskIntoConstraints = false
-            errorView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,constant: 8).isActive = true
-            errorView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor,constant: -8).isActive = true
-            errorView.topAnchor.constraint(equalTo: self.tableView.topAnchor,constant: 8).isActive = true
-
-            errorView.backgroundColor = UIColor.appColors.decredOrange
-            errorView.layer.cornerRadius = 7;
-            errorView.layer.shadowColor = UIColor.appColors.shadowColor.cgColor
-            errorView.layer.shadowRadius = 4
-            errorView.layer.shadowOpacity = 0.24
-            errorView.layer.shadowOffset = CGSize(width: 0, height: 1)
-            
-            let errorLabel = UILabel()
-            errorView.addSubview(errorLabel)
-            errorLabel.translatesAutoresizingMaskIntoConstraints = false
-            errorLabel.leadingAnchor.constraint(equalTo: errorView.leadingAnchor,constant: 10).isActive = true
-            errorLabel.trailingAnchor.constraint(equalTo: errorView.trailingAnchor,constant: -10).isActive = true
-            errorLabel.topAnchor.constraint(equalTo: errorView.topAnchor,constant: 5).isActive = true
-            errorLabel.bottomAnchor.constraint(equalTo: errorView.bottomAnchor,constant: -5).isActive = true
-            errorLabel.numberOfLines = 0
-            errorLabel.lineBreakMode = .byWordWrapping
-            errorLabel.textAlignment = .center
-            errorLabel.textColor = .white
-            errorLabel.font = UIFont(name: "SourceSansPro-Regular", size: 16)
-            errorLabel.text = error
-            
-            let swipeUpGesture = UISwipeGestureRecognizer(target: self, action: #selector(dismissError))
-            swipeUpGesture.direction = .up
-            errorView.addGestureRecognizer(swipeUpGesture)
-            
-            self.perform(#selector(self.dismissError), with: nil, afterDelay: 5)
+            self.errorBanner?.show(text: NSLocalizedString("FailedToVerify", comment: ""))
         }
     }
     
@@ -154,7 +105,7 @@ extension BackupVerifyViewController: UITableViewDelegate, UITableViewDataSource
         cell?.setup(num: indexPath.row, seedWords: seedWordsGroupedByThree[indexPath.row], selectedWord: userSelection)
         
         cell?.onPick = {(index, seedWord) in
-            self.dismissError()
+            self.errorBanner?.dismiss()
             self.selectedWords[indexPath.row] = seedWord
             
             var allChecked = true;
