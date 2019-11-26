@@ -145,7 +145,7 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
             self.view.endEditing(true)
         }
         
-        if self.validateSeed().valid {
+        if !self.userEnteredSeedWords.contains("") {
             self.btnConfirm.backgroundColor = UIColor.appColors.decredGreen
         } else {
             self.btnConfirm.backgroundColor = UIColor.appColors.lighterGray
@@ -163,7 +163,7 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
     }
     
     @IBAction func onConfirm() {
-        if !walletRestoredSuccessful {
+        if walletRestoredSuccessful {
                 self.secureWallet(self.validatedSeed.seed)
         } else {
             if self.userEnteredSeedWords.contains("") {
