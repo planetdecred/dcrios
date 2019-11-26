@@ -76,7 +76,7 @@ class BackupVerifyViewController: UIViewController {
         if seedIsValid {
             self.performSegue(withIdentifier: "toBackupSuccess", sender: nil)
         } else {
-            self.errorBanner?.show(text: NSLocalizedString("FailedToVerify", comment: ""))
+            self.errorBanner?.show(text: NSLocalizedString("failedToVerify", comment: ""))
         }
     }
     
