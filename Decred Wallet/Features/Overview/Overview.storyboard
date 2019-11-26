@@ -86,107 +86,21 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="240" verticalHuggingPriority="240" horizontalCompressionResistancePriority="740" verticalCompressionResistancePriority="740" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dw3-gk-Jkv">
-                                        <rect key="frame" x="0.0" y="151" width="414" height="527"/>
+                                        <rect key="frame" x="0.0" y="151" width="414" height="635"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="sectionIndexBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </tableView>
                                     <view contentMode="scaleToFill" horizontalHuggingPriority="300" verticalHuggingPriority="300" horizontalCompressionResistancePriority="700" verticalCompressionResistancePriority="700" translatesAutoresizingMaskIntoConstraints="NO" id="a78-px-sif">
-                                        <rect key="frame" x="16" y="684" width="382" height="10"/>
+                                        <rect key="frame" x="16" y="792" width="382" height="10"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="10" id="zRR-IG-AaA"/>
                                         </constraints>
                                         <edgeInsets key="layoutMargins" top="16" left="16" bottom="16" right="16"/>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dWp-Iq-MQn" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="700" width="382" height="48"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="48" id="d5F-1R-ClX"/>
-                                        </constraints>
-                                        <edgeInsets key="layoutMargins" top="16" left="16" bottom="16" right="16"/>
-                                        <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
-                                        <state key="normal" title="Show All Transactions">
-                                            <color key="titleColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                <real key="value" value="1.5"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="4"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                <color key="value" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="showAllTransactions"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="showAllTransactionsButtonTap:" destination="HDe-ha-1OS" eventType="touchUpInside" id="PaJ-C8-8K5"/>
-                                        </connections>
-                                    </button>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="F10-uT-MQe">
-                                        <rect key="frame" x="16" y="754" width="382" height="48"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cX8-ED-v8b" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="183.66666666666666" height="48"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="48" id="I6u-cX-sxJ"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="19"/>
-                                                <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
-                                                <state key="normal" title="Send" image="send">
-                                                    <color key="titleColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </state>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                        <color key="value" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                        <real key="value" value="1.5"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="4"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="send"/>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="showSendPage:" destination="HDe-ha-1OS" eventType="touchUpInside" id="8jt-eY-y9J"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="od8-oT-56L" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
-                                                <rect key="frame" x="198.66666666666663" y="0.0" width="183.33333333333337" height="48"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="48" id="CvV-3X-Hn7"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
-                                                <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
-                                                <state key="normal" title="Receive" image="receive">
-                                                    <color key="titleColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </state>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                        <real key="value" value="1.5"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="4"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                        <color key="value" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="receive"/>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="showReceivePage:" destination="HDe-ha-1OS" eventType="touchUpInside" id="mKn-cm-3W9"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                    </stackView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="hu2-il-P9f" firstAttribute="leading" secondItem="EJZ-78-Rgs" secondAttribute="leading" constant="16" id="3zn-RZ-pDi"/>
-                                    <constraint firstAttribute="trailing" secondItem="F10-uT-MQe" secondAttribute="trailing" constant="16" id="4hy-3W-63L"/>
                                     <constraint firstItem="dw3-gk-Jkv" firstAttribute="leading" secondItem="EJZ-78-Rgs" secondAttribute="leading" id="5G2-S2-Y0e"/>
                                     <constraint firstAttribute="trailing" secondItem="ZiD-3T-k8p" secondAttribute="trailing" constant="16" id="7ic-WD-wxZ"/>
                                     <constraint firstItem="ZiD-3T-k8p" firstAttribute="leading" secondItem="EJZ-78-Rgs" secondAttribute="leading" constant="16" id="CDG-WB-swW"/>
@@ -195,11 +109,8 @@
                                     <constraint firstItem="BUO-mV-7fe" firstAttribute="leading" secondItem="EJZ-78-Rgs" secondAttribute="leading" constant="16" id="Qag-ZT-tW3"/>
                                     <constraint firstItem="a78-px-sif" firstAttribute="leading" secondItem="EJZ-78-Rgs" secondAttribute="leading" constant="16" id="S3P-db-nN4"/>
                                     <constraint firstAttribute="trailing" secondItem="BUO-mV-7fe" secondAttribute="trailing" constant="16" id="Xqb-ek-80X"/>
-                                    <constraint firstItem="dWp-Iq-MQn" firstAttribute="leading" secondItem="EJZ-78-Rgs" secondAttribute="leading" constant="16" id="YUj-jS-iht"/>
                                     <constraint firstAttribute="trailing" secondItem="dw3-gk-Jkv" secondAttribute="trailing" id="b90-fx-kwf"/>
-                                    <constraint firstItem="F10-uT-MQe" firstAttribute="leading" secondItem="EJZ-78-Rgs" secondAttribute="leading" constant="16" id="dTx-B4-viW"/>
                                     <constraint firstAttribute="trailing" secondItem="ZOH-y6-JvL" secondAttribute="trailing" constant="16" id="dc8-gC-Q2q"/>
-                                    <constraint firstAttribute="trailing" secondItem="dWp-Iq-MQn" secondAttribute="trailing" constant="16" id="fwN-bA-ZQ5"/>
                                     <constraint firstAttribute="trailing" secondItem="Pxs-EK-SOE" secondAttribute="trailing" constant="16" id="h0t-co-idI"/>
                                     <constraint firstAttribute="trailing" secondItem="a78-px-sif" secondAttribute="trailing" constant="16" id="mtH-AV-zxI"/>
                                     <constraint firstAttribute="trailing" secondItem="hu2-il-P9f" secondAttribute="trailing" constant="16" id="qAY-bp-oZh"/>
@@ -327,7 +238,5 @@
     </scenes>
     <resources>
         <image name="progress bar-1s-200px.gif" width="200" height="200"/>
-        <image name="receive" width="32" height="32"/>
-        <image name="send" width="32" height="32"/>
     </resources>
 </document>

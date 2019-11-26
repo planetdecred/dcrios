@@ -9,7 +9,7 @@
 import UIKit
 import Dcrlibwallet
 
-class TransactionTableViewCell: BaseTableViewCell {
+class TransactionTableViewCell: UITableViewCell {
     @IBOutlet weak var dataImage: UIImageView!
     @IBOutlet weak var dataText: UILabel!
     @IBOutlet weak var status: UILabel!
@@ -23,7 +23,7 @@ class TransactionTableViewCell: BaseTableViewCell {
         return 60
     }
     
-    override func setData(_ data: Any?) {
+    func setData(_ data: Any?) {
         if let transaction = data as? Transaction {
             var confirmations: Int32 = 0
             if transaction.blockHeight != -1 {
