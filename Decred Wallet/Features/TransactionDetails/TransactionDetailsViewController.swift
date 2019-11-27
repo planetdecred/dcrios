@@ -171,7 +171,7 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
              if BuildConfig.IsTestNet {
                 self.openLink(urlString: "https://testnet.dcrdata.org/tx/\(self.transaction.hash)")
              } else {
-                self.openLink(urlString: "https://mainnet.dcrdata.org/tx/\(self.transaction.hash)")
+                self.openLink(urlString: "https://dcrdata.decred.org/tx/\(self.transaction.hash)")
             }
         })
         
