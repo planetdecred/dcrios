@@ -18,18 +18,6 @@ extension UIViewController {
     func wrapInNavigationcontroller() -> UINavigationController {
         return UINavigationController(rootViewController: self)
     }
-   
-    // TODO: remove to deprecate slidemenu
-    func setupNavigationBar(withTitle title: String) {
-        self.navigationController?.navigationBar.tintColor = UIColor.black
-        self.navigationItem.title = title
-    }
-    
-    func removeNavigationBarItem() {
-        self.navigationItem.leftBarButtonItem = nil
-        self.slideMenuController()?.removeLeftGestures()
-        self.slideMenuController()?.removeRightGestures()
-    }
     
     func hideKeyboardOnTapAround() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.hideKeyboard))

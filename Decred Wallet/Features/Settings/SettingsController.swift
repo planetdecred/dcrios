@@ -72,8 +72,6 @@ class SettingsController: UITableViewController  {
         
         if self.isModal {
             self.addNavigationBackButton()
-        } else {
-            self.addLeftBarButtonWithImage(UIImage(named: "ic_menu_black_24dp")!)
         }
         
         connect_peer_ip?.text = Settings.readOptionalValue(for: Settings.Keys.SPVPeerIP) ?? ""
@@ -107,15 +105,6 @@ class SettingsController: UITableViewController  {
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        coordinator.animate(alongsideTransition: nil, completion: { (context: UIViewControllerTransitionCoordinatorContext!) -> Void in
-            guard let vc = (self.slideMenuController()?.mainViewController as? UINavigationController)?.topViewController else {
-                return
-            }
-            if vc.isKind(of: SettingsController.self) {
-                self.slideMenuController()?.removeLeftGestures()
-                self.slideMenuController()?.removeRightGestures()
-            }
-        })
     }
     
     func loadSettingsData() -> Void {

@@ -241,7 +241,7 @@ class SendViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.setupNavigationBar(withTitle: LocalizedStrings.send)
+        self.navigationItem.title = LocalizedStrings.send
         self.navigationItem.rightBarButtonItems = [self.overflowNavBarButton]
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "left-arrow"),
                                                                 style: .done, target: self,

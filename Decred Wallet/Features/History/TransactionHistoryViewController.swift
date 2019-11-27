@@ -45,7 +45,7 @@ class TransactionHistoryViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.setupNavigationBar(withTitle: LocalizedStrings.history)
+        self.navigationItem.title = LocalizedStrings.history
 
         if AppDelegate.walletLoader.isSynced {
             self.syncInProgressLabel.isHidden = true

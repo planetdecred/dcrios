@@ -8,7 +8,6 @@
 
 import UIKit
 import Dcrlibwallet
-import SlideMenuControllerSwift
 
 class StartScreenViewController: UIViewController {
     @IBOutlet weak var label: UILabel!
@@ -56,6 +55,7 @@ class StartScreenViewController: UIViewController {
         self.startTimerWhenViewAppears = true
         
         let settingsVC = SettingsController.instantiate().wrapInNavigationcontroller()
+        settingsVC.modalPresentationStyle = .fullScreen
         self.present(settingsVC, animated: true, completion: nil)
     }
     
