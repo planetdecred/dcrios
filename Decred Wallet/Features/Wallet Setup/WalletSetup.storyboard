@@ -11,9 +11,6 @@
         <array key="SourceSansPro-Regular.ttf">
             <string>SourceSansPro-Regular</string>
         </array>
-        <array key="SourceSansPro-SemiBold.ttf">
-            <string>SourceSansPro-SemiBold</string>
-        </array>
     </customFonts>
     <scenes>
         <!--Wallet Setup View Controller-->
@@ -52,6 +49,9 @@
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="createNewWallet"/>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="createNewwallet:" destination="98H-rf-Dma" eventType="touchUpInside" id="WZR-ZK-udw"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L3O-72-qmd" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                 <rect key="frame" x="24" y="782" width="366" height="56"/>

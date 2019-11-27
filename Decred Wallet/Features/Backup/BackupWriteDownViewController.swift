@@ -18,14 +18,8 @@ class BackupWriteDownViewController: UIViewController,UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        var generateSeedError: NSError?
-        self.seed =  (DcrlibwalletGenerateSeed(&generateSeedError))
-        if generateSeedError != nil {
-            print("seed generate error: \(String(describing: generateSeedError?.localizedDescription))")
-        }
-        
-        arrWords = (seed.components(separatedBy: " "))
+        self.seed = Settings.readValue(for: Settings.Keys.Seed)
+        arrWords = (self.seed.components(separatedBy: " "))
         
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) { [weak self] in
             guard let this = self else { return }
