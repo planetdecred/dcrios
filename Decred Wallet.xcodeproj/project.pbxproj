@@ -25,7 +25,7 @@
 		AD24C23D2343E445009583C9 /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD24C23C2343E445009583C9 /* NotificationsManager.swift */; };
 		AD2F20CB2354AABB0084371C /* Dcrlibwallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD2F20CA2354AABB0084371C /* Dcrlibwallet.framework */; };
 		100C67FD2360C11B00A8921A /* BackupSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100C67FC2360C11B00A8921A /* BackupSuccessViewController.swift */; };
-		104ADA83238D28780041106F /* ErrorBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104ADA82238D28780041106F /* ErrorBanner.swift */; };
+		104ADA83238D28780041106F /* Banner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104ADA82238D28780041106F /* Banner.swift */; };
 		10551A092357045900EAB45F /* Backup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10551A082357045900EAB45F /* Backup.storyboard */; };
 		10551A0B235705AB00EAB45F /* BackupReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10551A0A235705AB00EAB45F /* BackupReminderViewController.swift */; };
 		10562CE2235A1D3B00FFCF99 /* BackupVerifyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10562CE1235A1D3B00FFCF99 /* BackupVerifyTableViewCell.swift */; };
@@ -169,7 +169,7 @@
 		10FABE5023C7307100BC201B /* FloatingPlaceholderBorderLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingPlaceholderBorderLayer.swift; sourceTree = "<group>"; };
 		10BA77982390059F00B67446 /* MenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemView.swift; sourceTree = "<group>"; };
 		100C67FC2360C11B00A8921A /* BackupSuccessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackupSuccessViewController.swift; sourceTree = "<group>"; };
-		104ADA82238D28780041106F /* ErrorBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorBanner.swift; sourceTree = "<group>"; };
+		104ADA82238D28780041106F /* Banner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Banner.swift; sourceTree = "<group>"; };
 		10551A082357045900EAB45F /* Backup.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Backup.storyboard; sourceTree = "<group>"; };
 		10551A0A235705AB00EAB45F /* BackupReminderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BackupReminderViewController.swift; path = "Decred Wallet/Features/Backup/BackupReminderViewController.swift"; sourceTree = SOURCE_ROOT; };
 		10562CE1235A1D3B00FFCF99 /* BackupVerifyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackupVerifyTableViewCell.swift; sourceTree = "<group>"; };
@@ -493,7 +493,7 @@
 				102AFAC323AA2B4D007E2EBD /* ProgressView.swift */,
 				B3B469AD228F0F2600A68EDD /* Button.swift */,
 				B3635B81229FE5870052EB4D /* QRImageScanner.swift */,
-				104ADA82238D28780041106F /* ErrorBanner.swift */,
+				104ADA82238D28780041106F /* Banner.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -954,7 +954,7 @@
 				10FABE4F23C7303E00BC201B /* FloatingPlaceholderTextView.swift in Sources */,
 				DD3DF86622C3F0BD00E168AB /* UILabel.swift in Sources */,
 				B3B46A99228F0F7D00A68EDD /* CertificateViewController.swift in Sources */,
-				104ADA83238D28780041106F /* ErrorBanner.swift in Sources */,
+				104ADA83238D28780041106F /* Banner.swift in Sources */,
 				DDD65AD722A935460027CDA8 /* LicenseViewController.swift in Sources */,
 				B3B46A9E228F0F7D00A68EDD /* ReceiveViewController.swift in Sources */,
 				10551A0B235705AB00EAB45F /* BackupReminderViewController.swift in Sources */,

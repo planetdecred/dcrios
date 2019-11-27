@@ -15,12 +15,12 @@ class BackupVerifyViewController: UIViewController {
     var selectedWords: [String] = []
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var btnConfirm: Button!
-    private var errorBanner: ErrorBanner?
+    private var banner: Banner?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         addNavigationBackButton()
-        self.errorBanner = ErrorBanner(parent: self)
+        self.banner = Banner(parent: self)
     }
     
     func prepareSeedForVerification(seedToVerify: String) {
@@ -64,7 +64,7 @@ class BackupVerifyViewController: UIViewController {
     }
     
     @IBAction func onConfirm(_ sender: Any) {
-        self.errorBanner?.dismiss()
+        self.banner?.dismiss()
         self.tableView?.isUserInteractionEnabled = false
         self.btnConfirm?.startLoading()
         let seed = selectedWords.joined(separator: " ")
@@ -78,7 +78,7 @@ class BackupVerifyViewController: UIViewController {
             Settings.clearValue(for: Settings.Keys.Seed)
             self.performSegue(withIdentifier: "toBackupSuccess", sender: nil)
         } else {
-            self.errorBanner?.show(text: NSLocalizedString("failedToVerify", comment: ""))
+            self.banner?.show(type:.error, text: NSLocalizedString("failedToVerify", comment: ""))
         }
     }
     
@@ -105,7 +105,7 @@ extension BackupVerifyViewController: UITableViewDelegate, UITableViewDataSource
         cell?.setup(num: indexPath.row, seedWords: seedWordsGroupedByThree[indexPath.row], selectedWord: userSelection)
         
         cell?.onPick = {(index, seedWord) in
-            self.errorBanner?.dismiss()
+            self.banner?.dismiss()
             self.selectedWords[indexPath.row] = seedWord
             
             var allChecked = true;

@@ -1,5 +1,5 @@
 //
-//  ErrorBanner.swift
+//  Banner.swift
 //  Decred Wallet
 //
 // Copyright (c) 2018-2019 The Decred developers
@@ -8,7 +8,12 @@
 
 import UIKit
 
-class ErrorBanner: UIView {
+enum BannerType: String {
+    case success
+    case error
+}
+
+class Banner: UIView {
     private var parent:UIViewController?
     
     init(parent: UIViewController) {
@@ -20,18 +25,19 @@ class ErrorBanner: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func show(text:String) {
+    public func show(type: BannerType, text:String) {
         guard let parent = self.parent else { return }
         if self.superview == parent.view { return }
 
         parent.view.addSubview(self)
         let guide = parent.view.safeAreaLayoutGuide
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.leadingAnchor.constraint(equalTo: parent.view.leadingAnchor,constant: 8).isActive = true
-        self.trailingAnchor.constraint(equalTo: parent.view.trailingAnchor,constant: -8).isActive = true
+        self.leadingAnchor.constraint(greaterThanOrEqualTo: parent.view.leadingAnchor,constant: 8).isActive = true
+        self.trailingAnchor.constraint(lessThanOrEqualTo: parent.view.trailingAnchor,constant: -8).isActive = true
         self.topAnchor.constraint(equalTo: guide.topAnchor,constant: 84).isActive = true
-
-        self.backgroundColor = UIColor.appColors.decredOrange
+        self.centerXAnchor.constraint(equalTo: parent.view.centerXAnchor).isActive = true
+        
+        self.backgroundColor = (type == .error) ? UIColor.appColors.decredOrange : UIColor.appColors.decredGreen
         self.layer.cornerRadius = 7;
         self.layer.shadowColor = UIColor.appColors.shadowColor.cgColor
         self.layer.shadowRadius = 4
