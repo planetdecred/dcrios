@@ -451,7 +451,7 @@ class SendViewController: UIViewController {
         SendCompletedViewController.showSendCompletedDialog(for: txHash) { showTxDetails in
             if showTxDetails {
                 let txDetailsVC = Storyboards.TransactionDetails.instantiateViewController(for: TransactionDetailsViewController.self)
-                txDetailsVC.modalPresentationStyle = .overCurrentContext
+                txDetailsVC.transactionHash = txHash
                 self.present(txDetailsVC, animated: true)
             }
         }
