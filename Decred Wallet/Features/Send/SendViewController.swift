@@ -241,7 +241,7 @@ class SendViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.setupNavigationBar(withTitle: LocalizedStrings.send)
+        self.navigationItem.title = LocalizedStrings.send
         self.navigationItem.rightBarButtonItems = [self.overflowNavBarButton]
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "left-arrow"),
                                                                 style: .done, target: self,
@@ -340,6 +340,7 @@ class SendViewController: UIViewController {
                 let requestPinVC = RequestPinViewController.instantiate()
                 requestPinVC.securityFor = LocalizedStrings.spending
                 requestPinVC.showCancelButton = true
+                requestPinVC.modalPresentationStyle = .fullScreen
                 requestPinVC.onUserEnteredPin = { spendingPin in
                     self.finalizeSending(destinationAddress: destinationAddress, pinOrPassword: spendingPin)
                 }
@@ -450,7 +451,7 @@ class SendViewController: UIViewController {
         SendCompletedViewController.showSendCompletedDialog(for: txHash) { showTxDetails in
             if showTxDetails {
                 let txDetailsVC = Storyboards.TransactionDetails.instantiateViewController(for: TransactionDetailsViewController.self)
-                txDetailsVC.modalPresentationStyle = .overCurrentContext
+                txDetailsVC.transactionHash = txHash
                 self.present(txDetailsVC, animated: true)
             }
         }

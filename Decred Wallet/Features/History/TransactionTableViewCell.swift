@@ -60,7 +60,7 @@ class TransactionTableViewCell: UITableViewCell {
                     let attributedString = NSMutableAttributedString(string: " ")
                     attributedString.append(Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 13.0, TexthexColor: GlobalConstants.Colors.TextAmount))
                     self.dataText.attributedText = attributedString
-                    self.dataImage?.image = UIImage(named: "account")
+                    self.dataImage?.image = UIImage(named: "fee")
                 }
             } else if transaction.type == DcrlibwalletTxTypeVote {
                 self.dataText.text = " \(LocalizedStrings.vote)"
