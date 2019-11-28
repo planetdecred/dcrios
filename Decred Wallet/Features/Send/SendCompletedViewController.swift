@@ -24,7 +24,7 @@ class SendCompletedViewController: UIViewController {
         sendCompletedVC.dialogClosed = dialogClosed
         sendCompletedVC.modalTransitionStyle = .crossDissolve
         sendCompletedVC.modalPresentationStyle = .overCurrentContext
-        AppDelegate.shared.window?.rootViewController?.present(sendCompletedVC, animated: true, completion: nil)
+        AppDelegate.shared.window?.rootViewController?.presentedViewController?.present(sendCompletedVC, animated: true, completion: nil)
     }
     
     override func viewDidLoad() {
