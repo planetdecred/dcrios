@@ -13,8 +13,4 @@ class BackupWriteDownTableViewCell: UITableViewCell {
     @IBOutlet weak var phaseLabel2: UILabel!
     @IBOutlet weak var countLabel1: ContouredLabel!
     @IBOutlet weak var countLabel2: ContouredLabel!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
 }

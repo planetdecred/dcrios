@@ -11,23 +11,25 @@ import Dcrlibwallet
 
 class BackupWriteDownViewController: UIViewController,UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
-    var seed: String! = ""
-    var arrWords = Array<String>()
     @IBOutlet weak var topCorneredView: UIView!
     @IBOutlet weak var bottomCorneredView: UIView!
-    
+    var seed: String! = ""
+    var arrWords = Array<String>()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.seed = Settings.readValue(for: Settings.Keys.Seed)
         arrWords = (self.seed.components(separatedBy: " "))
         
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) { [weak self] in
-            guard let this = self else { return }
-            this.tableView?.reloadData()
+            self?.tableView?.reloadData()
         }
         
+        setCorneredViews()
         addNavigationBackButton()
-        
+    }
+    
+    private func setCorneredViews() {
         topCorneredView.clipsToBounds = true
         topCorneredView.layer.cornerRadius = 14
         topCorneredView.layer.maskedCorners = [.layerMinXMinYCorner,.layerMaxXMinYCorner]
@@ -40,10 +42,6 @@ class BackupWriteDownViewController: UIViewController,UITableViewDataSource {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

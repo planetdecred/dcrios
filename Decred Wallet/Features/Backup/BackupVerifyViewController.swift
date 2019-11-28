@@ -27,7 +27,7 @@ class BackupVerifyViewController: UIViewController {
         let allSeedWords = loadSeedWordsList()
         let validSeedWords = seedToVerify.split{$0 == " "}.map(String.init)
         
-        for seedIndex in 0...32 {
+        for seedIndex in 0...validSeedWords.count - 1 {
             let seedWordsGrouped = self.breakdownByThree(allSeedWords, validSeedWordToInclude: validSeedWords[seedIndex])
             self.seedWordsGroupedByThree.append(seedWordsGrouped)
             self.selectedWords.append("")
@@ -73,7 +73,8 @@ class BackupVerifyViewController: UIViewController {
         self.tableView?.isUserInteractionEnabled = true
         self.btnConfirm?.stopLoading()
         
-        if seedIsValid && seed.elementsEqual(Settings.Keys.Seed) {
+        let savedSeed:String = Settings.readValue(for: Settings.Keys.Seed)
+        if seedIsValid && seed.elementsEqual(savedSeed) {
             Settings.setValue(true, for: Settings.Keys.SeedBackedUp)
             Settings.clearValue(for: Settings.Keys.Seed)
             self.performSegue(withIdentifier: "toBackupSuccess", sender: nil)
