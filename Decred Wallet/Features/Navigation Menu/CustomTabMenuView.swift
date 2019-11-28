@@ -39,14 +39,14 @@ class CustomTabMenuView: UIStackView {
     }
     
     // Create a custom nav menu item
-    func createTabItemButton(for menuItem: MenuItem) -> UIView {
-        let tabBarItem = UIView(frame: CGRect.zero)
+    func createTabItemButton(for menuItem: MenuItem) -> MenuItemView {
+        let tabBarItem = MenuItemView(frame: CGRect.zero)
+        tabBarItem.menuItem = menuItem
         tabBarItem.backgroundColor = UIColor.white
         tabBarItem.translatesAutoresizingMaskIntoConstraints = false
         tabBarItem.clipsToBounds = true
         
         let itemTitleLabel = UILabel(frame: CGRect.zero)
-        let itemIconView = UIImageView(frame: CGRect.zero)
         
         itemTitleLabel.font = UIFont(name: "Source Sans Pro", size: 13)
         itemTitleLabel.text = menuItem.displayTitle
@@ -57,22 +57,22 @@ class CustomTabMenuView: UIStackView {
         itemTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         itemTitleLabel.clipsToBounds = true
         
-        itemIconView.image = menuItem.icon!.withRenderingMode(.automatic)
-        itemIconView.translatesAutoresizingMaskIntoConstraints = false
-        itemIconView.clipsToBounds = true
+        tabBarItem.itemIconView.image = menuItem.inactive_icon!.withRenderingMode(.automatic)
+        tabBarItem.itemIconView.translatesAutoresizingMaskIntoConstraints = false
+        tabBarItem.itemIconView.clipsToBounds = true
         
-        tabBarItem.addSubview(itemIconView)
+        tabBarItem.addSubview(tabBarItem.itemIconView)
         tabBarItem.addSubview(itemTitleLabel)
         
         let constraints = [
-            itemIconView.heightAnchor.constraint(equalToConstant: 25), // Fixed height for our tab item icon
-            itemIconView.widthAnchor.constraint(equalToConstant: 25), // Fixed width for our tab item icon
-            itemIconView.centerXAnchor.constraint(equalTo: tabBarItem.centerXAnchor),
-            itemIconView.topAnchor.constraint(equalTo: tabBarItem.topAnchor, constant: 8), // Position menu item icon 8pts from the top of it's parent view
+            tabBarItem.itemIconView.heightAnchor.constraint(equalToConstant: 25), // Fixed height for our tab item icon
+            tabBarItem.itemIconView.widthAnchor.constraint(equalToConstant: 25), // Fixed width for our tab item icon
+            tabBarItem.itemIconView.centerXAnchor.constraint(equalTo: tabBarItem.centerXAnchor),
+            tabBarItem.itemIconView.topAnchor.constraint(equalTo: tabBarItem.topAnchor, constant: 8), // Position menu item icon 8pts from the top of it's parent view
             
             itemTitleLabel.heightAnchor.constraint(equalToConstant: 13), // Fixed height for title label
             itemTitleLabel.widthAnchor.constraint(equalTo: tabBarItem.widthAnchor), // Position label full width across tab bar item
-            itemTitleLabel.topAnchor.constraint(equalTo: itemIconView.bottomAnchor, constant: 4), // Position title label 4pts below item icon
+            itemTitleLabel.topAnchor.constraint(equalTo: tabBarItem.itemIconView.bottomAnchor, constant: 4), // Position title label 4pts below item icon
         ]
         NSLayoutConstraint.activate(constraints)
         
@@ -92,8 +92,9 @@ class CustomTabMenuView: UIStackView {
     }
     
     func deactivateTab(viewId: Int) {
-        let tab = self.subviews[viewId]
+        let tab = self.subviews[viewId] as! MenuItemView
         let layersToRemove = tab.layer.sublayers!.filter({ $0.name == "active border" })
+        tab.itemIconView.image = tab.menuItem!.inactive_icon!.withRenderingMode(.automatic)
         
         DispatchQueue.main.async {
             UIView.animate(withDuration: 0.4, delay: 0.0, options: [.curveEaseIn, .allowUserInteraction], animations: {
@@ -105,12 +106,13 @@ class CustomTabMenuView: UIStackView {
     }
     
     func activateTab(viewId: Int) {
-        let tab = self.subviews[viewId]
+        let tab = self.subviews[viewId] as! MenuItemView
         let borderWidth = tab.frame.size.width - 20
         let borderLayer = CALayer()
         borderLayer.backgroundColor = UIColor.appColors.decredGreen.cgColor
         borderLayer.name = "active border"
         borderLayer.frame = CGRect(x: 10, y: 0, width: borderWidth, height: 2)
+        tab.itemIconView.image = tab.menuItem!.active_icon!.withRenderingMode(.automatic)
         
         DispatchQueue.main.async {
             UIView.animate(withDuration: 0.8, delay: 0.0, options: [.curveEaseIn, .allowUserInteraction], animations: {
