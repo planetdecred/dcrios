@@ -6,6 +6,7 @@
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
+import Foundation
 import UIKit
 
 extension UITableView {
@@ -22,6 +23,16 @@ extension UITableView {
 }
 
 extension UITableViewCell {
+    class var identifier: String {
+        return String.className(self)
+    }
+    
+    // TODO: determine all call sites for this function, change them to provide their own height values and safely remove this later.
+    // https:\//github.com/raedahgroup/dcrios/pull/524/files#r334755540review
+    @objc open class func height() -> CGFloat {
+        return 48
+    }
+
     func blink() {
         UITableViewCell.animate(
             withDuration: 0.5,

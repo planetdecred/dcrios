@@ -55,7 +55,15 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupNavigationBar(withTitle: LocalizedStrings.receive)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "left-arrow"),
+                                                                style: .done, target: self,
+                                                                action: #selector(navigateToBackScreen))
         checkSyncStatus()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationItem.leftBarButtonItem = nil
     }
 
     func setupExtraUI() {

@@ -243,6 +243,9 @@ class SendViewController: UIViewController {
         super.viewWillAppear(animated)
         self.setupNavigationBar(withTitle: LocalizedStrings.send)
         self.navigationItem.rightBarButtonItems = [self.overflowNavBarButton]
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "left-arrow"),
+                                                                style: .done, target: self,
+                                                                action: #selector(navigateToBackScreen))
         
         self.checkClipboardForValidAddress()
         self.setupAccountDropdowns()
@@ -256,6 +259,7 @@ class SendViewController: UIViewController {
         if self.destinationAccountDropdown.isDropDownOpen {
             self.destinationAccountDropdown.hideDropDown()
         }
+        self.navigationItem.leftBarButtonItem = nil
     }
     
     @IBAction func pasteAddressButtonTapped(_ sender: Any) {
@@ -444,13 +448,10 @@ class SendViewController: UIViewController {
         self.resetViews()
         
         SendCompletedViewController.showSendCompletedDialog(for: txHash) { showTxDetails in
-            let slideMenuController = self.slideMenuController()!
-            (slideMenuController.leftViewController as! NavigationMenuViewController).changeActivePage(to: .overview)
-            
             if showTxDetails {
                 let txDetailsVC = Storyboards.TransactionDetails.instantiateViewController(for: TransactionDetailsViewController.self)
-                txDetailsVC.transactionHash = txHash
-                (slideMenuController.mainViewController as! UINavigationController).pushViewController(txDetailsVC, animated: true)
+                txDetailsVC.modalPresentationStyle = .overCurrentContext
+                self.present(txDetailsVC, animated: true)
             }
         }
     }
