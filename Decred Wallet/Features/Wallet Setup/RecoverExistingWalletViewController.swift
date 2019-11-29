@@ -19,8 +19,6 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
     
     var validSeedWords: [String] = []
     var userEnteredSeedWords = [String](repeating: "", count: 33)
-    var walletRestoredSuccessful = false
-    var validatedSeed = (seed: "", valid: false)
     
     // following code will only be included if compiling for testnet
     #if IsTestnet
@@ -166,23 +164,21 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
     }
     
     @IBAction func onConfirm() {
-        if walletRestoredSuccessful {
-                self.secureWallet(self.validatedSeed.seed)
+        if self.userEnteredSeedWords.contains("") {
+            self.errorBanner?.show(text: LocalizedStrings.notAllSeedsAreEntered)
         } else {
-            if self.userEnteredSeedWords.contains("") {
-                self.errorBanner?.show(text: LocalizedStrings.notAllSeedsAreEntered)
-            } else {
-                self.validatedSeed = self.validateSeed()
-                if self.validatedSeed.valid {
-                    self.walletRestoredSuccessful = true
+            let validatedSeed = self.validateSeed()
+            if validatedSeed.valid {
                     self.tableView.isUserInteractionEnabled = false
                     self.btnConfirm.setTitle(LocalizedStrings.success, for: .normal)
                     self.btnConfirm.setTitleColor(UIColor.appColors.lightGreen, for: .normal)
                     self.btnConfirm.setImage(.init(imageLiteralResourceName: "success_checked"), for: .normal)
                     self.btnConfirm.backgroundColor = .white
-                } else {
-                    self.errorBanner?.show(text: LocalizedStrings.incorrectSeedEntered)
-                }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        self.secureWallet(validatedSeed.seed)
+                    }
+            } else {
+                self.errorBanner?.show(text: LocalizedStrings.incorrectSeedEntered)
             }
         }
     }
