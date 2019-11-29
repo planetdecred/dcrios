@@ -17,7 +17,6 @@ class PasswordSetupViewController: SecurityBaseViewController, UITextFieldDelega
     @IBOutlet weak var passwordCountLabel: UILabel!
     @IBOutlet weak var confirmCountLabel: UILabel!
     
-    @IBOutlet weak var cancelBtn: UIButton!
     @IBOutlet weak var createBtn: UIButton!
     
     @IBOutlet weak var passwordErrorLabel: UILabel!
@@ -46,15 +45,11 @@ class PasswordSetupViewController: SecurityBaseViewController, UITextFieldDelega
     }
     
     private func setupInterface() {
-        self.passwordInput.layer.cornerRadius = 7
         self.passwordInput.isSecureTextEntry = true
         self.passwordInput.addViewPasswordButton()
         
-        self.confirmPasswordInput.layer.cornerRadius = 7
         self.confirmPasswordInput.isSecureTextEntry = true
         self.confirmPasswordInput.addViewPasswordButton()
-        
-        self.createBtn.layer.cornerRadius = 7
     }
     
     @objc func passwordTextFieldChange() {
@@ -62,9 +57,9 @@ class PasswordSetupViewController: SecurityBaseViewController, UITextFieldDelega
         self.passwordStrengthIndicator.progress = passwordStrength.strength
         self.passwordStrengthIndicator.progressTintColor = passwordStrength.color
         
-        if self.passwordInput.text == ""{
+        if self.passwordInput.text == "" {
             self.passwordCountLabel.text = "\(0)"
-        }else{
+        } else {
             self.passwordCountLabel.text = "\(self.passwordInput.text!.count)"
         }
         self.checkPasswordMatch()
@@ -75,13 +70,10 @@ class PasswordSetupViewController: SecurityBaseViewController, UITextFieldDelega
     }
     
     func checkPasswordMatch() {
-        createBtn.setBackgroundColor(UIColor.appColors.lightGray, for: .normal)
-        
         if self.confirmPasswordInput.text == "" {
             self.confirmErrorLabel.textColor = UIColor.appColors.orange
             self.confirmErrorLabel.text = LocalizedStrings.passwordsDoNotMatch
             self.createBtn.isEnabled = false
-            
         } else if self.passwordInput.text == self.confirmPasswordInput.text {
             self.confirmErrorLabel.textColor = UIColor.appColors.turquoise
             self.confirmErrorLabel.text = LocalizedStrings.passwordMatch
@@ -105,7 +97,7 @@ class PasswordSetupViewController: SecurityBaseViewController, UITextFieldDelega
     }
     
     @IBAction func cancelTapped(_sender: UIButton) {
-        self.dismiss(animated: true)
+        self.close()
     }
     
     @IBAction func createTapped(_ sender: UIButton) {

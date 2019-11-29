@@ -30,4 +30,47 @@ class Button: UIButton {
             self.setNeedsLayout()
         }
     }
+    
+    @IBInspectable var normalBackgroundColor: UIColor? {
+        didSet {
+            self.updateBackgroundColor()
+        }
+    }
+    
+    @IBInspectable var disabledBackgroundColor: UIColor? {
+        didSet {
+            self.updateBackgroundColor()
+        }
+    }
+    
+    override var isEnabled: Bool {
+        didSet {
+            self.updateBackgroundColor()
+        }
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.initView()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        self.initView()
+    }
+    
+    private func initView() {
+        if self.normalBackgroundColor == nil {
+            self.normalBackgroundColor = self.backgroundColor
+        }
+        if self.disabledBackgroundColor == nil {
+            self.disabledBackgroundColor = self.backgroundColor
+        }
+        self.updateBackgroundColor()
+    }
+    
+    private func updateBackgroundColor() {
+        self.backgroundColor = self.isEnabled ? self.normalBackgroundColor : self.disabledBackgroundColor
+        self.setNeedsLayout()
+    }
 }
