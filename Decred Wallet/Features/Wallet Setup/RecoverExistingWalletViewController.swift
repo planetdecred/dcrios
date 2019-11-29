@@ -115,9 +115,9 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
         let seedWordCell = tableView.dequeueReusableCell(withIdentifier: "seedWordCell", for: indexPath) as! RecoveryWalletSeedWordCell
         
         seedWordCell.lbSeedWordNum.text = String(format: LocalizedStrings.wordNumber, indexPath.row + 1)
-        seedWordCell.lbSeedWordNum.layer.borderColor = UIColor(hex: "#3d5873").cgColor
+        seedWordCell.lbSeedWordNum.layer.borderColor = UIColor.appColors.darkBlue.cgColor
         seedWordCell.seedWordAutoComplete.text = self.userEnteredSeedWords[indexPath.row]
-        seedWordCell.cellBorder.layer.borderColor = UIColor(hex: "#e6eaed").cgColor
+        seedWordCell.cellBorder.layer.borderColor = UIColor.appColors.faddedGray.cgColor
         seedWordCell.seedWordAutoComplete.resignFirstResponder()
         
         seedWordCell.setupAutoComplete(for: indexPath.row,
