@@ -250,11 +250,10 @@ class Syncer: NSObject, AppLifeCycleDelegate {
     }
 
     private func fireLocalBackgroundSyncNotificationIfInBackground(with progress: DcrlibwalletGeneralSyncProgress) {
-        if self.syncCompletedCanceledOrErrored || UIApplication.shared.applicationState != .background {
-            return
-        }
-        
-        DispatchQueue.main.async {
+         DispatchQueue.main.async {
+            if self.syncCompletedCanceledOrErrored || UIApplication.shared.applicationState != .background {
+                return
+            }
             let message = String(format: LocalizedStrings.syncTotalProgress, progress.totalSyncProgress, progress.totalTimeRemaining)
             NotificationsManager.shared.fireSyncInProgressNotification(with: message)
         }

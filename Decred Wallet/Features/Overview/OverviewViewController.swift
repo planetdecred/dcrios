@@ -39,7 +39,7 @@ class OverviewViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.setupNavigationBar(withTitle: LocalizedStrings.overview)
+        self.navigationItem.title = LocalizedStrings.overview
     }
     
     func initializeOverviewContent() {
