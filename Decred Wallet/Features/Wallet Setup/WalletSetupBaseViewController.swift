@@ -28,7 +28,12 @@ class WalletSetupBaseViewController: UIViewController {
                 DispatchQueue.main.async {
                     progressHud.dismiss()
                     Settings.setValue(securityType, for: Settings.Keys.SpendingPassphraseSecurityType)
-                    self?.performSegue(withIdentifier: "recoverySuccess", sender: nil)
+                    if Settings.isNewWalletSetup {
+                        NavigationMenuTabBarController.setupMenuAndLaunchApp(isNewWallet: Settings.isNewWalletSetup)
+                    } else {
+                        self?.performSegue(withIdentifier: "recoverySuccess", sender: nil)
+                    }
+                    
                 }
             } catch let error {
                 DispatchQueue.main.async {

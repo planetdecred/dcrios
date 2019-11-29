@@ -57,6 +57,10 @@ class Settings {
     }
     
     /** Computed properties to access commonly used settings. */
+    static var isNewWalletSetup: Bool {
+        return Settings.readValue(for: Settings.Keys.NewWalletSetUp)
+    }
+    
     static var syncOnCellular: Bool {
         return Settings.readValue(for: Settings.Keys.SyncOnCellular)
     }
