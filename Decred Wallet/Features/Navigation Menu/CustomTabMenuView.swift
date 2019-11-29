@@ -52,7 +52,7 @@ class CustomTabMenuView: UIStackView {
         itemTitleLabel.text = menuItem.displayTitle
         itemTitleLabel.numberOfLines = 0
         itemTitleLabel.adjustsFontSizeToFitWidth = true
-        itemTitleLabel.textColor = UIColor.appColors.darkGray
+        itemTitleLabel.textColor = UIColor.appColors.darkerGray
         itemTitleLabel.textAlignment = .center
         itemTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         itemTitleLabel.clipsToBounds = true

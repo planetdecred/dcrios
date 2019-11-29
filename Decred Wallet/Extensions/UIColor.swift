@@ -18,15 +18,20 @@ extension UIColor {
         
         static let darkYellowWarning = UIColor.init(hex: "#E7C659")
         static let green = UIColor.init(hex: "#2DD8A3")
-        static let lightGray = UIColor.init(hex: "#DEE1E3")
         static let lighterGray = UIColor.init(hex: "#C4CBD2")
         static let offWhite = UIColor(hex:"#F3F5F6")
         static let lightOffWhite = UIColor(hex: "#F9FBFA")
         static let yellowWarning = UIColor.init(hex: "#FFC84E")
         static let thinGray = UIColor.init(hex: "#a4abb1")
-        static let darkGray = UIColor.init(hex: "#4e5f70")
         static let transparentThinGray = UIColor.init(hex: "#a4abb1", alpha: 0.3)
-        static let textDark = UIColor.init(hex: "#596d81")
+        
+        // following are colors from new mockup color guide
+        // ultimately other color constants should end up being obsolete once
+        // the implementation of the new mockup is completed
+        static let darkBlue = UIColor.init(hex: "#091440")
+        static let darkerGray = UIColor.init(hex: "#596d81")
+        static let gray = UIColor.init(hex: "#C4CBD2")
+        static let lightGray = UIColor.init(hex: "#E6EAED")
     }
     
     convenience init(hex: String) {

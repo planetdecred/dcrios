@@ -8,88 +8,118 @@
 
 import UIKit
 
+@IBDesignable
 class FloatingLabelTextInput: UITextField {
-    var border = CALayer()
-    var floatingLabel: UILabel!
-    var floatingLabelHeight: CGFloat = 14
-    var button = UIButton(type: .custom)
+    @IBInspectable var borderWidth: CGFloat = 2 {
+        didSet {
+            self.layer.borderWidth = self.borderWidth
+            self.setNeedsLayout()
+        }
+    }
     
-    @IBInspectable
-    var _placeholder: String?
+    @IBInspectable var activeBorderColor: UIColor = UIColor.appColors.decredBlue
+    @IBInspectable var inactiveBorderColor: UIColor = UIColor.appColors.lightGray
     
-    @IBInspectable
-    var floatingLabelColor: UIColor = UIColor.appColors.decredBlue {
+    @IBInspectable var cornerRadius: CGFloat = 4 {
+        didSet {
+            self.layer.cornerRadius = self.cornerRadius
+            self.setNeedsLayout()
+        }
+    }
+    
+    @IBInspectable var floatingLabelColor: UIColor = UIColor.appColors.decredBlue {
         didSet {
             self.floatingLabel.textColor = floatingLabelColor
-            self.setNeedsDisplay()
+            self.setNeedsLayout()
         }
     }
     
-    @IBInspectable
-    var floatingLabelBackground: UIColor = UIColor.white.withAlphaComponent(1) {
-        didSet {
-            self.floatingLabel.backgroundColor = floatingLabelBackground
-            self.setNeedsDisplay()
-        }
-    }
-    
-    @IBInspectable
-    var floatingLabelFont: UIFont = UIFont(name: "Source Sans Pro", size: 14)! {
+    @IBInspectable var floatingLabelFont: UIFont = UIFont(name: "Source Sans Pro", size: 14)! {
         didSet {
             self.floatingLabel.font = floatingLabelFont
+            self.setNeedsLayout()
         }
+    }
+    
+    lazy var floatingLabel: UILabel = {
+        let floatingLabel = UILabel(frame: self.frame)
+        floatingLabel.backgroundColor = UIColor.white
+        floatingLabel.textColor = floatingLabelColor
+        floatingLabel.font = floatingLabelFont
+        floatingLabel.clipsToBounds = true
+        floatingLabel.translatesAutoresizingMaskIntoConstraints = false
+        floatingLabel.sizeToFit()
+        return floatingLabel
+    }()
+    
+    var button = UIButton(type: .custom)
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.initView()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.floatingLabel = UILabel(frame: CGRect.zero)
-        self._placeholder = (self._placeholder != nil) ? self._placeholder : placeholder
-        layer.borderWidth = 0.8
-        borderStyle = .roundedRect;
+        self.initView()
+    }
+    
+    private func initView() {
+        self.layer.cornerRadius = self.cornerRadius
+        self.layer.borderColor = self.inactiveBorderColor.cgColor
+        self.layer.borderWidth = self.borderWidth
         
-        self.addTarget(self, action: #selector(self.addFloatingLabel), for: .editingDidBegin)
-        self.addTarget(self, action: #selector(self.removeFloatingLabel), for: .editingDidEnd)
+        self.addTarget(self, action: #selector(self.editingBegan), for: .editingDidBegin)
+        self.addTarget(self, action: #selector(self.editingEnded), for: .editingDidEnd)
+        
+        if self.text != "" {
+            self.showFloatingLabel()
+        }
     }
     
-    // Add a floating label to the view on becoming first responder
-    @objc func addFloatingLabel() {
-        if self.text == "" {
-            self.floatingLabel.textColor = floatingLabelColor
-            self.floatingLabel.font = floatingLabelFont
-            self.floatingLabel.text = self._placeholder
-            self.floatingLabel.layer.backgroundColor = UIColor.white.cgColor
-            self.floatingLabel.translatesAutoresizingMaskIntoConstraints = false
-            self.floatingLabel.clipsToBounds = true
-            self.floatingLabel.frame = CGRect(x: 0, y: 0, width: floatingLabel.frame.width+4, height: floatingLabel.frame.height+2)
-            self.floatingLabel.textAlignment = .center
-            
-            let constraints = [
-                self.floatingLabel.heightAnchor.constraint(equalToConstant: floatingLabelHeight),
-                self.floatingLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
-                self.floatingLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -42),
-            ]
-            
-            UIView.animate(withDuration: 4.0) {
-                self.layer.borderColor = UIColor.appColors.decredBlue.cgColor
-                self.addSubview(self.floatingLabel)
-                NSLayoutConstraint.activate(constraints)
-            }
-            self.placeholder = ""
-        }
-        // Floating label may be stuck behind text input. we bring it forward as it was the last item added to the view heirachy
-        self.bringSubviewToFront(subviews.last!)
-        self.setNeedsDisplay()
+    @objc func editingBegan() {
+        self.layer.borderColor = UIColor.appColors.decredBlue.cgColor
+        self.showFloatingLabel()
     }
     
-    @objc func removeFloatingLabel() {
-        if self.text == "" {
-            UIView.animate(withDuration: 0.13) {
-                self.subviews.forEach{ $0.removeFromSuperview() }
-                self.setNeedsDisplay()
-            }
-            self.placeholder = self._placeholder
+    @objc func editingEnded() {
+        self.layer.borderColor = self.inactiveBorderColor.cgColor
+        self.hideFloatingLabel()
+    }
+    
+    func showFloatingLabel() {
+        if self.placeholder == "" {
+            // floating label already visible on view or
+            // no text to display in floating label
+            return
         }
-        layer.borderColor = UIColor.appColors.darkGray.cgColor
+        
+        self.floatingLabel.text = self.placeholder
+        self.placeholder = ""
+        
+        let constraints = [
+            self.floatingLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
+            self.floatingLabel.bottomAnchor.constraint(equalTo: self.topAnchor, constant: 8),
+        ]
+        
+        UIView.animate(withDuration: 4.0) {
+            self.addSubview(self.floatingLabel)
+            NSLayoutConstraint.activate(constraints)
+            self.setNeedsLayout()
+        }
+    }
+    
+    func hideFloatingLabel() {
+        if self.text != "" {
+            return
+        }
+        
+        self.placeholder = self.floatingLabel.text
+        
+        UIView.animate(withDuration: 0.13) {
+            self.subviews.first(where: { $0 is UILabel })?.removeFromSuperview()
+            self.setNeedsLayout()
+        }
     }
     
     func addViewPasswordButton() {
@@ -105,8 +135,8 @@ class FloatingLabelTextInput: UITextField {
         isSecureTextEntry.toggle()
         if isSecureTextEntry{
             self.button.setImage(UIImage(named: "ic_reveal"), for: .normal)
-        }else{
-            self.button.setImage(UIImage(named: "ic_conceal_24px"), for: .normal)
+        } else {
+            self.button.setImage(UIImage(named: "ic_conceal"), for: .normal)
         }
     }
 }

@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,19 +24,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AyE-8L-BDu">
-                                <rect key="frame" x="24" y="68" width="346" height="20"/>
-                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="19"/>
-                                <nil key="textColor"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create a spending password" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AyE-8L-BDu">
+                                <rect key="frame" x="24" y="68" width="366" height="25.5"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="20"/>
+                                <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="pw2-ld-DVo">
-                                <rect key="frame" x="0.0" y="96" width="414" height="48"/>
+                                <rect key="frame" x="0.0" y="101.5" width="414" height="48"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FZP-4b-65P">
                                         <rect key="frame" x="0.0" y="0.0" width="207" height="48"/>
-                                        <color key="backgroundColor" red="0.95294117649999999" green="0.96078431369999995" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                         <state key="normal" title="Password">
                                             <color key="titleColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
@@ -51,8 +49,8 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b4m-te-ci6">
                                         <rect key="frame" x="207" y="0.0" width="207" height="48"/>
-                                        <color key="backgroundColor" red="0.95294117647058818" green="0.96078431372549022" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                         <state key="normal" title="PIN">
                                             <color key="titleColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
@@ -69,23 +67,22 @@
                                 </constraints>
                             </stackView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yl8-6v-mJ9">
-                                <rect key="frame" x="0.0" y="144" width="414" height="719"/>
+                                <rect key="frame" x="0.0" y="149.5" width="414" height="713.5"/>
                                 <connections>
                                     <segue destination="XbJ-6W-YLg" kind="embed" identifier="loadTabBarController" id="zi6-tb-yQd"/>
                                 </connections>
                             </containerView>
                         </subviews>
-                        <color key="backgroundColor" red="0.95294117649999999" green="0.96078431369999995" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Yl8-6v-mJ9" firstAttribute="top" secondItem="pw2-ld-DVo" secondAttribute="bottom" id="0MZ-QI-6es"/>
                             <constraint firstItem="pw2-ld-DVo" firstAttribute="leading" secondItem="dho-lD-rH7" secondAttribute="leading" id="5Gj-FJ-nB6"/>
                             <constraint firstAttribute="bottomMargin" secondItem="Yl8-6v-mJ9" secondAttribute="bottom" constant="-1" id="Hvq-WT-smj"/>
                             <constraint firstItem="pw2-ld-DVo" firstAttribute="top" secondItem="AyE-8L-BDu" secondAttribute="bottom" constant="8" id="OIi-Rm-dAh"/>
-                            <constraint firstItem="dho-lD-rH7" firstAttribute="trailing" secondItem="AyE-8L-BDu" secondAttribute="trailing" constant="44" id="Rfu-mY-5s4"/>
+                            <constraint firstItem="dho-lD-rH7" firstAttribute="trailing" secondItem="AyE-8L-BDu" secondAttribute="trailing" constant="24" id="Rfu-mY-5s4"/>
                             <constraint firstItem="dho-lD-rH7" firstAttribute="trailing" secondItem="pw2-ld-DVo" secondAttribute="trailing" id="UTG-vj-C9o"/>
                             <constraint firstItem="Yl8-6v-mJ9" firstAttribute="leading" secondItem="pw2-ld-DVo" secondAttribute="leading" id="eYQ-eH-KAD"/>
                             <constraint firstItem="Yl8-6v-mJ9" firstAttribute="trailing" secondItem="pw2-ld-DVo" secondAttribute="trailing" id="g7F-J7-LbV"/>
-                            <constraint firstItem="pw2-ld-DVo" firstAttribute="top" secondItem="tpH-7I-N4D" secondAttribute="topMargin" constant="52" id="hm9-Dg-yLC"/>
                             <constraint firstItem="AyE-8L-BDu" firstAttribute="leading" secondItem="dho-lD-rH7" secondAttribute="leading" constant="24" id="l1F-o8-aNX"/>
                             <constraint firstItem="AyE-8L-BDu" firstAttribute="top" secondItem="dho-lD-rH7" secondAttribute="top" constant="24" id="vQQ-vX-af8"/>
                         </constraints>
@@ -94,7 +91,7 @@
                     <connections>
                         <outlet property="btnPassword" destination="FZP-4b-65P" id="k70-GQ-K7X"/>
                         <outlet property="btnPin" destination="b4m-te-ci6" id="nNQ-qG-I0q"/>
-                        <outlet property="currentTitle" destination="AyE-8L-BDu" id="ukO-gA-dFm"/>
+                        <outlet property="securityPromptLabel" destination="AyE-8L-BDu" id="ukO-gA-dFm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dvd-1h-Kar" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -125,25 +122,19 @@
             <objects>
                 <viewController title="Password Tab" id="2lq-jW-9IA" customClass="PasswordSetupViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wcl-lB-4xs">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="719"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="713.5"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Spending password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NMs-Wa-sVv" customClass="FloatingLabelTextInput" customModule="Decred_Wallet" customModuleProvider="target">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Spending password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NMs-Wa-sVv" customClass="FloatingLabelTextInput" customModule="Decred_Wallet" customModuleProvider="target">
                                 <rect key="frame" x="24" y="68" width="366" height="48"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="0es-Dm-pTI"/>
                                 </constraints>
-                                <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" textContentType="password"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
-                                        <color key="value" red="0.16" green="0.44" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password strength" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MQk-Si-pOx">
-                                <rect key="frame" x="24" y="140" width="124" height="20"/>
+                                <rect key="frame" x="24" y="140" width="123.5" height="20.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                 <color key="textColor" red="0.23999999999999999" green="0.34999999999999998" blue="0.45000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -168,14 +159,13 @@
                                 <color key="progressTintColor" red="0.2274509804" green="0.84313725490000002" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="trackTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </progressView>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Confirm spending password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fj4-AU-s5Z" customClass="FloatingLabelTextInput" customModule="Decred_Wallet" customModuleProvider="target">
-                                <rect key="frame" x="24" y="180" width="366" height="48"/>
-                                <nil key="textColor"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm spending password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fj4-AU-s5Z" customClass="FloatingLabelTextInput" customModule="Decred_Wallet" customModuleProvider="target">
+                                <rect key="frame" x="24" y="180.5" width="366" height="48"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" textContentType="password"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v6t-Bu-n8H">
-                                <rect key="frame" x="208" y="252" width="79" height="40"/>
+                                <rect key="frame" x="208" y="252.5" width="79" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="79" id="b1J-Cl-bBx"/>
                                     <constraint firstAttribute="height" constant="40" id="vKZ-vE-jty"/>
@@ -186,8 +176,8 @@
                                     <action selector="cancelTappedWith_sender:" destination="2lq-jW-9IA" eventType="touchUpInside" id="I6N-ue-lEk"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PwE-hW-lVm">
-                                <rect key="frame" x="311" y="252" width="79" height="40"/>
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PwE-hW-lVm" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
+                                <rect key="frame" x="311" y="252.5" width="79" height="40"/>
                                 <color key="backgroundColor" red="0.77000000000000002" green="0.80000000000000004" blue="0.81999999999999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Fi5-Lx-dDQ"/>
@@ -197,6 +187,17 @@
                                 <state key="normal" title="Create">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="normalBackgroundColor">
+                                        <color key="value" red="0.16078431369999999" green="0.43921568630000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="disabledBackgroundColor">
+                                        <color key="value" red="0.76862745099999996" green="0.79607843140000001" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="7"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="createTapped:" destination="2lq-jW-9IA" eventType="touchUpInside" id="LZT-L6-6Ms"/>
                                 </connections>
@@ -212,7 +213,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zxu-b3-Pxp">
-                                <rect key="frame" x="40" y="232" width="175" height="12"/>
+                                <rect key="frame" x="40" y="232.5" width="175" height="12"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="175" id="4EK-eq-gXB"/>
                                     <constraint firstAttribute="height" constant="12" id="FGe-Qa-vbG"/>
@@ -222,7 +223,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R4i-8R-w01">
-                                <rect key="frame" x="234" y="232" width="140" height="12"/>
+                                <rect key="frame" x="234" y="232.5" width="140" height="12"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="12" id="EsO-df-841"/>
                                     <constraint firstAttribute="width" constant="140" id="bdn-Mc-cWL"/>
@@ -263,7 +264,6 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 1" id="rzl-Y4-kRX"/>
                     <connections>
-                        <outlet property="cancelBtn" destination="v6t-Bu-n8H" id="6sX-jn-vQQ"/>
                         <outlet property="confirmCountLabel" destination="R4i-8R-w01" id="QA2-cO-ZPY"/>
                         <outlet property="confirmErrorLabel" destination="Zxu-b3-Pxp" id="HfF-aY-r0t"/>
                         <outlet property="confirmPasswordInput" destination="Fj4-AU-s5Z" id="Ikp-6r-fCv"/>
@@ -283,7 +283,7 @@
             <objects>
                 <viewController storyboardIdentifier="RequestPinViewController" title="Pin Tab" useStoryboardIdentifierAsRestorationIdentifier="YES" id="SKa-iY-3vv" customClass="RequestPinViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MZP-zs-4TF">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="719"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="713.5"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <progressView hidden="YES" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aau-sy-kMa">
@@ -300,7 +300,6 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="Sxd-tU-rGa"/>
                                 </constraints>
-                                <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="password"/>
                             </textField>
@@ -309,7 +308,6 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="ZfQ-O2-17x"/>
                                 </constraints>
-                                <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="password"/>
                             </textField>
@@ -353,7 +351,7 @@
                                 <color key="textColor" red="0.23999999999999999" green="0.34999999999999998" blue="0.45000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Irb-id-mc4">
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Irb-id-mc4" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                 <rect key="frame" x="311" y="252" width="79" height="40"/>
                                 <color key="backgroundColor" red="0.77000000000000002" green="0.80000000000000004" blue="0.81999999999999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -363,6 +361,17 @@
                                 <state key="normal" title="Create">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="normalBackgroundColor">
+                                        <color key="value" red="0.16078431372549018" green="0.4392156862745098" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="disabledBackgroundColor">
+                                        <color key="value" red="0.76862745098039209" green="0.79607843137254897" blue="0.82352941176470584" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="7"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="createTapped:" destination="SKa-iY-3vv" eventType="touchUpInside" id="2lr-60-Ru1"/>
                                 </connections>
@@ -407,7 +416,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 2" id="2n3-H2-ODn"/>
                     <connections>
-                        <outlet property="btnCommit" destination="Irb-id-mc4" id="9p9-9Y-iaP"/>
+                        <outlet property="btnSubmit" destination="Irb-id-mc4" id="9p9-9Y-iaP"/>
                         <outlet property="confirmPinErrorLabel" destination="HXY-HN-Slq" id="ch2-xq-Wb5"/>
                         <outlet property="pinCount" destination="TuL-zv-aYr" id="hkN-eJ-iui"/>
                         <outlet property="pinErrorLabel" destination="Ni6-BR-PU8" id="YKJ-RF-uh4"/>
@@ -443,7 +452,6 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="Ybk-uV-FcG"/>
                                 </constraints>
-                                <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
