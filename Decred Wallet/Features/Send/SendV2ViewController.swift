@@ -15,6 +15,10 @@ class SendV2ViewController: UIViewController {
     @IBOutlet var toOthersLayer: UIView!
     @IBOutlet var destinationAddressLabel: UILabel!
     @IBOutlet var destinationAddressContainerView: UIView!
+    @IBOutlet var destinationAdressTextField: UITextField!
+    @IBOutlet var invalidAddressLabel: UILabel!
+    @IBOutlet var notEnoughFundsLabel: UILabel!
+    @IBOutlet var amountContainerView: UIView!
     
     var overflowNavBarButton: UIBarButtonItem!
     var infoNavBarButton: UIBarButtonItem!
@@ -22,6 +26,7 @@ class SendV2ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpBarButtonItems()
+        setUpViews()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -48,6 +53,11 @@ class SendV2ViewController: UIViewController {
         navigationController?.navigationBar.tintColor = UIColor.black
         navigationItem.rightBarButtonItems = [overflowNavBarButton, infoNavBarButton]
         navigationItem.leftBarButtonItems = [cancelBarButtonItem, titleBarButtonItem]
+    }
+    
+    private func setUpViews() {
+        destinationAddressContainerView.layer.borderColor = UIColor.appColors.lighterGray.cgColor
+        amountContainerView.layer.borderColor = UIColor.appColors.lighterGray.cgColor
     }
     
     @objc func showOverflowMenu() {
@@ -81,11 +91,18 @@ class SendV2ViewController: UIViewController {
 extension SendV2ViewController: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-
         // Address field
         if textField.tag == 0 {
-            destinationAddressContainerView.layer.borderColor = UIColor.blue.cgColor
-            destinationAddressLabel.textColor = .blue
+            destinationAddressContainerView.layer.borderColor = UIColor.appColors.decredBlue.cgColor
+            destinationAddressLabel.textColor = UIColor.appColors.decredBlue
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        // Address field
+        if textField.tag == 0 {
+            destinationAddressContainerView.layer.borderColor = UIColor.appColors.lightGray.cgColor
+            destinationAddressLabel.textColor = UIColor.appColors.lighterGray
         }
     }
 }
