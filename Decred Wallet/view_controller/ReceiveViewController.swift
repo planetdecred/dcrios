@@ -54,7 +54,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setupNavigationBar(withTitle: LocalizedStrings.receive)
+        self.navigationItem.title = LocalizedStrings.receive
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "left-arrow"),
                                                                 style: .done, target: self,
                                                                 action: #selector(navigateToBackScreen))

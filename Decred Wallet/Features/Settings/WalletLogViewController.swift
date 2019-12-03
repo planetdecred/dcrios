@@ -15,7 +15,6 @@ class WalletLogViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.removeNavigationBarItem()
         self.navigationItem.title = LocalizedStrings.walletLog
         self.progressHud = Utils.showProgressHud(withText: LocalizedStrings.loading)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: LocalizedStrings.copy, style: .plain, target: self, action: #selector(copyLog))

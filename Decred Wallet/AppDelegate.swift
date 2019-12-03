@@ -6,9 +6,9 @@
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
+import UIKit
 import CoreData
 import Dcrlibwallet
-import SlideMenuControllerSwift
 import UserNotifications
 
 // compile-time preprocessor, following code will only be added if compiling for testnet

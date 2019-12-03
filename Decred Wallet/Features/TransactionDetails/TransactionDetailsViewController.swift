@@ -30,9 +30,6 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
         tableTransactionDetails.registerCellNib(TransactionDetailCell.self)
         tableTransactionDetails.registerCellNib(TransactiontInputDetailsCell.self)
         tableTransactionDetails.registerCellNib(TransactiontOutputDetailsCell.self)
-        
-        self.removeNavigationBarItem()
-        self.slideMenuController()?.removeLeftGestures()
     }
     
     override func viewWillAppear(_ animated: Bool) {
