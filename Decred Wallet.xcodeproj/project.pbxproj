@@ -45,6 +45,19 @@
 		25E63F4E23312B2C009CD53E /* NavMenuFloatingButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E63F4D23312B2B009CD53E /* NavMenuFloatingButtons.swift */; };
 		AD24C23D2343E445009583C9 /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD24C23C2343E445009583C9 /* NotificationsManager.swift */; };
 		AD5F581D2391049700DE3F54 /* SendV2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5F581C2391049700DE3F54 /* SendV2ViewController.swift */; };
+		ADDC42C1239599C700AD9363 /* WalletChooserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDC42C0239599C700AD9363 /* WalletChooserTableViewController.swift */; };
+		ADDC42C323959C8100AD9363 /* SlideInPresentationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDC42C223959C8100AD9363 /* SlideInPresentationManager.swift */; };
+		ADDC42C62395A7F900AD9363 /* WalletInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDC42C42395A7F900AD9363 /* WalletInfoTableViewCell.swift */; };
+		ADDC42C72395A7F900AD9363 /* WalletInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADDC42C52395A7F900AD9363 /* WalletInfoTableViewCell.xib */; };
+		ADDC42CA2396480400AD9363 /* ModalNavBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDC42C82396480400AD9363 /* ModalNavBarCell.swift */; };
+		ADDC42CF2396537D00AD9363 /* SimpleInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDC42CD2396537D00AD9363 /* SimpleInfoTableViewCell.swift */; };
+		ADDC42D02396537D00AD9363 /* SimpleInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADDC42CE2396537D00AD9363 /* SimpleInfoTableViewCell.xib */; };
+		ADDC42D22396562800AD9363 /* ModalNavBarCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADDC42D12396562800AD9363 /* ModalNavBarCell.xib */; };
+		ADDC42D5239656A800AD9363 /* WarningInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDC42D3239656A800AD9363 /* WarningInfoTableViewCell.swift */; };
+		ADDC42D6239656A800AD9363 /* WarningInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADDC42D4239656A800AD9363 /* WarningInfoTableViewCell.xib */; };
+		ADDC42D92396591500AD9363 /* SendingInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDC42D72396591500AD9363 /* SendingInfoTableViewCell.swift */; };
+		ADDC42DA2396591500AD9363 /* SendingInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADDC42D82396591500AD9363 /* SendingInfoTableViewCell.xib */; };
+		ADDC42DC23965C9000AD9363 /* ConfirmToSendViewCotroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDC42DB23965C9000AD9363 /* ConfirmToSendViewCotroller.swift */; };
 		B164982429AEDD7AF8C8782C /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9714AB438E597D403032748 /* Pods_Decred_Wallet.framework */; };
 		B32EB42E23EEA24000E43D4F /* AccountDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32EB42D23EEA24000E43D4F /* AccountDetailsViewController.swift */; };
 		B3456D2523D91CF600B04860 /* RoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3456D2423D91CF600B04860 /* RoundedView.swift */; };
@@ -207,6 +220,19 @@
 		A9714AB438E597D403032748 /* Pods_Decred_Wallet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Decred_Wallet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD24C23C2343E445009583C9 /* NotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
 		AD5F581C2391049700DE3F54 /* SendV2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendV2ViewController.swift; sourceTree = "<group>"; };
+		ADDC42C0239599C700AD9363 /* WalletChooserTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletChooserTableViewController.swift; sourceTree = "<group>"; };
+		ADDC42C223959C8100AD9363 /* SlideInPresentationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideInPresentationManager.swift; sourceTree = "<group>"; };
+		ADDC42C42395A7F900AD9363 /* WalletInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletInfoTableViewCell.swift; sourceTree = "<group>"; };
+		ADDC42C52395A7F900AD9363 /* WalletInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletInfoTableViewCell.xib; sourceTree = "<group>"; };
+		ADDC42C82396480400AD9363 /* ModalNavBarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalNavBarCell.swift; sourceTree = "<group>"; };
+		ADDC42CD2396537D00AD9363 /* SimpleInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleInfoTableViewCell.swift; sourceTree = "<group>"; };
+		ADDC42CE2396537D00AD9363 /* SimpleInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SimpleInfoTableViewCell.xib; sourceTree = "<group>"; };
+		ADDC42D12396562800AD9363 /* ModalNavBarCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ModalNavBarCell.xib; sourceTree = "<group>"; };
+		ADDC42D3239656A800AD9363 /* WarningInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarningInfoTableViewCell.swift; sourceTree = "<group>"; };
+		ADDC42D4239656A800AD9363 /* WarningInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WarningInfoTableViewCell.xib; sourceTree = "<group>"; };
+		ADDC42D72396591500AD9363 /* SendingInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendingInfoTableViewCell.swift; sourceTree = "<group>"; };
+		ADDC42D82396591500AD9363 /* SendingInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SendingInfoTableViewCell.xib; sourceTree = "<group>"; };
+		ADDC42DB23965C9000AD9363 /* ConfirmToSendViewCotroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmToSendViewCotroller.swift; sourceTree = "<group>"; };
 		B107091A1D996651AB5D8891 /* Pods-Decred Wallet.testnet debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.testnet debug.xcconfig"; path = "Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.testnet debug.xcconfig"; sourceTree = "<group>"; };
 		B32EB42D23EEA24000E43D4F /* AccountDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsViewController.swift; sourceTree = "<group>"; };
 		B3456D2423D91CF600B04860 /* RoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedView.swift; sourceTree = "<group>"; };
@@ -423,6 +449,23 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		ADDC42CC2396526A00AD9363 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				ADDC42C82396480400AD9363 /* ModalNavBarCell.swift */,
+				ADDC42D12396562800AD9363 /* ModalNavBarCell.xib */,
+				ADDC42C42395A7F900AD9363 /* WalletInfoTableViewCell.swift */,
+				ADDC42C52395A7F900AD9363 /* WalletInfoTableViewCell.xib */,
+				ADDC42CD2396537D00AD9363 /* SimpleInfoTableViewCell.swift */,
+				ADDC42CE2396537D00AD9363 /* SimpleInfoTableViewCell.xib */,
+				ADDC42D3239656A800AD9363 /* WarningInfoTableViewCell.swift */,
+				ADDC42D4239656A800AD9363 /* WarningInfoTableViewCell.xib */,
+				ADDC42D72396591500AD9363 /* SendingInfoTableViewCell.swift */,
+				ADDC42D82396591500AD9363 /* SendingInfoTableViewCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		B36255B322A11A9500C62946 /* SecurityMenu */ = {
 			isa = PBXGroup;
 			children = (
@@ -454,11 +497,15 @@
 		B3A3EF902295955100008A4E /* Send */ = {
 			isa = PBXGroup;
 			children = (
+				ADDC42CC2396526A00AD9363 /* Cells */,
 				DDCF259B22B8A361005FCBB9 /* Send.storyboard */,
 				B3A3EF912295956300008A4E /* SendViewController.swift */,
 				B3B46A54228F0F7B00A68EDD /* ConfirmToSendFundViewController.swift */,
 				B3B46A68228F0F7B00A68EDD /* SendCompletedViewController.swift */,
 				AD5F581C2391049700DE3F54 /* SendV2ViewController.swift */,
+				ADDC42C0239599C700AD9363 /* WalletChooserTableViewController.swift */,
+				ADDC42C223959C8100AD9363 /* SlideInPresentationManager.swift */,
+				ADDC42DB23965C9000AD9363 /* ConfirmToSendViewCotroller.swift */,
 			);
 			path = Send;
 			sourceTree = "<group>";
@@ -888,10 +935,14 @@
 				B3C0D4B223E0DB56002D984F /* CustomDialogs.storyboard in Resources */,
 				B3B46A41228F0F6700A68EDD /* dcr-logo.png in Resources */,
 				105836B923EACD390030FDF2 /* Receive.storyboard in Resources */,
+				ADDC42C72395A7F900AD9363 /* WalletInfoTableViewCell.xib in Resources */,
 				B3B46A02228F0F2700A68EDD /* SourceSansPro-SemiBoldItalic.ttf in Resources */,
 				100B122B23E9EEAC005636A7 /* Transactions.storyboard in Resources */,
 				B3B46A0C228F0F2700A68EDD /* SourceSansPro-Italic.ttf in Resources */,
 				DDCF259222B89D96005FCBB9 /* WalletSetup.storyboard in Resources */,
+				DDCF259422B8A269005FCBB9 /* TransactionTableViewCell.xib in Resources */,
+				ADDC42D02396537D00AD9363 /* SimpleInfoTableViewCell.xib in Resources */,
+				DDCF25A722B8A450005FCBB9 /* TransactiontOutputDetailsCell.xib in Resources */,
 				B3B46A40228F0F6700A68EDD /* bg-button.png in Resources */,
 				B3B46A3F228F0F6700A68EDD /* bg-button@3x.png in Resources */,
 				B3B46A01228F0F2700A68EDD /* SourceSansPro-BlackItalic.ttf in Resources */,
@@ -901,6 +952,7 @@
 				B3B46A0B228F0F2700A68EDD /* SourceSansPro-ExtraLightItalic.ttf in Resources */,
 				B3B46A07228F0F2700A68EDD /* SourceSansPro-Black.ttf in Resources */,
 				B3B4699D228F0C2E00A68EDD /* LaunchScreen.storyboard in Resources */,
+				ADDC42D22396562800AD9363 /* ModalNavBarCell.xib in Resources */,
 				B3B46A8B228F0F7D00A68EDD /* splashLogo.gif in Resources */,
 				DDCF25A922B8A488005FCBB9 /* Main.storyboard in Resources */,
 				DDCF259C22B8A362005FCBB9 /* Send.storyboard in Resources */,
@@ -916,6 +968,8 @@
 				DDCF25A122B8A3D4005FCBB9 /* Settings.storyboard in Resources */,
 				B3B46A05228F0F2700A68EDD /* SourceSansPro-LightItalic.ttf in Resources */,
 				100B122923E9EEAC005636A7 /* TransactionTableViewCell.xib in Resources */,
+				ADDC42DA2396591500AD9363 /* SendingInfoTableViewCell.xib in Resources */,
+				ADDC42D6239656A800AD9363 /* WarningInfoTableViewCell.xib in Resources */,
 				B3B46A08228F0F2700A68EDD /* SourceSansPro-ExtraLight.ttf in Resources */,
 				DDCF259E22B8A382005FCBB9 /* SecurityMenu.storyboard in Resources */,
 				B3B46A00228F0F2700A68EDD /* inconsolata_regular.ttf in Resources */,
@@ -1018,12 +1072,15 @@
 				B32EB42E23EEA24000E43D4F /* AccountDetailsViewController.swift in Sources */,
 				DD17D9CC23CE243D0017E41D /* RestoreExistingWalletViewController.swift in Sources */,
 				B39BDC4D228F798300F3FB55 /* BuildConfig.swift in Sources */,
+				ADDC42C62395A7F900AD9363 /* WalletInfoTableViewCell.swift in Sources */,
 				B3B46A9F228F0F7D00A68EDD /* WalletLogViewController.swift in Sources */,
 				2557E1892355C6FA00B6A1B7 /* NavigationMenuTabBarController.swift in Sources */,
 				102AFAC423AA2B4D007E2EBD /* ProgressView.swift in Sources */,
 				10C6611023EC587B00754DED /* AccountSelectorTableViewCell.swift in Sources */,
 				B3D474DF23E55B5D00B6E305 /* WalletSettings.swift in Sources */,
 				B3A3EF8B22937B8800008A4E /* Settings.swift in Sources */,
+				B3B46AC8228F120700A68EDD /* TransactionDetailCell.swift in Sources */,
+				ADDC42C1239599C700AD9363 /* WalletChooserTableViewController.swift in Sources */,
 				B3B46A1B228F0F2700A68EDD /* SecurityViewController.swift in Sources */,
 				102D724B23ED5271002DCAF2 /* TransactionDetailCell.swift in Sources */,
 				B3B46993228F0C2E00A68EDD /* AppDelegate.swift in Sources */,
@@ -1060,6 +1117,10 @@
 				10B7818223F066DA00AD2709 /* TransactionInputDetailCell.swift in Sources */,
 				B3B46A9A228F0F7D00A68EDD /* SettingsController.swift in Sources */,
 				10FABE4B23C72D6800BC201B /* FloatingPlaceholderInputProtocol.swift in Sources */,
+				B3B46A26228F0F2700A68EDD /* CreateNewWalletViewController.swift in Sources */,
+				257521DA233CC32100F6F6E7 /* UIStackView.swift in Sources */,
+				B3B46A14228F0F2700A68EDD /* AccountsHeaderView.swift in Sources */,
+				ADDC42D92396591500AD9363 /* SendingInfoTableViewCell.swift in Sources */,
 				B3B46A1F228F0F2700A68EDD /* RequestPinViewController.swift in Sources */,
 				10341E0A23CBBB700055DFDE /* SeedBackupVerifyTableViewCell.swift in Sources */,
 				B3B9432923E4D0B30088EC3E /* WalletSettingsViewController.swift in Sources */,
@@ -1071,7 +1132,10 @@
 				B3E727CA23DD4AE7003B06B4 /* WalletAccountTableViewCell.swift in Sources */,
 				B3E727CE23DE0FCC003B06B4 /* Wallet.swift in Sources */,
 				B3B46A9C228F0F7D00A68EDD /* ServerSetTableViewController.swift in Sources */,
+				ADDC42CA2396480400AD9363 /* ModalNavBarCell.swift in Sources */,
+				B3B46AAF228F0F7D00A68EDD /* SeedConfirmTableViewCell.swift in Sources */,
 				B3B46A8C228F0F7D00A68EDD /* Utils.swift in Sources */,
+				ADDC42CF2396537D00AD9363 /* SimpleInfoTableViewCell.swift in Sources */,
 				B3B46A34228F0F2700A68EDD /* TransactionNotification.swift in Sources */,
 				B3B46A87228F0F7D00A68EDD /* Data.swift in Sources */,
 				B3B46AB6228F0F7D00A68EDD /* Storyboard.swift in Sources */,
@@ -1101,11 +1165,16 @@
 				10341E0D23CBBB700055DFDE /* SeedBackupReminderViewController.swift in Sources */,
 				B34A2F9123E8ED1500B8BC01 /* MultiWalletSyncDetailsLoader.swift in Sources */,
 				10D9FB9623C3956300CBF216 /* FloatingPlaceholderLabel.swift in Sources */,
+				ADDC42C323959C8100AD9363 /* SlideInPresentationManager.swift in Sources */,
+				B3B46AC4228F120700A68EDD /* TransactiontOutputDetailsCell.swift in Sources */,
+				25E61632237D69750031FB52 /* SyncDetailsComponent.swift in Sources */,
+				ADDC42DC23965C9000AD9363 /* ConfirmToSendViewCotroller.swift in Sources */,
 				B3967B3D22A75BD400E14432 /* UITableView.swift in Sources */,
 				B3C0D4B623E0FBA5002D984F /* SimpleOkCancelDialog.swift in Sources */,
 				B3C0D4AF23DF9C45002D984F /* Security.swift in Sources */,
 				B3B46A17228F0F2700A68EDD /* ContouredButton.swift in Sources */,
 				B3B46A18228F0F2700A68EDD /* DropDownSearchField.swift in Sources */,
+				ADDC42D5239656A800AD9363 /* WarningInfoTableViewCell.swift in Sources */,
 				B3B46A97228F0F7D00A68EDD /* TransactionDetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

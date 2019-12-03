@@ -19,20 +19,55 @@ class SendV2ViewController: UIViewController {
     @IBOutlet var invalidAddressLabel: UILabel!
     @IBOutlet var notEnoughFundsLabel: UILabel!
     @IBOutlet var amountContainerView: UIView!
+    @IBOutlet var transactionFeeDetails: UIStackView!
+    @IBOutlet var amountContainerViewHeight: NSLayoutConstraint!
+    @IBOutlet var sourceWalletAmount: UILabel!
+    @IBOutlet var sourceWalletInfoLabel: UILabel!
+    @IBOutlet var receivingWalletInfoLabel: UILabel!
+    @IBOutlet var receivingWalletAmount: UILabel!
+    @IBOutlet var spendableAmountLabel: UILabel!
     
     var overflowNavBarButton: UIBarButtonItem!
     var infoNavBarButton: UIBarButtonItem!
+    var walletAccounts: [WalletAccount]?
+    var sourceWallet: WalletAccount?
+    var destinationWallet: WalletAccount?
+    var destinationAddress: String?
+
+    var requiredConfirmations: Int32 {
+        return Settings.spendUnconfirmed ? 0 : GlobalConstants.Wallet.defaultRequiredConfirmations
+    }
+
+    var insufficientFundsErrorMessage: String {
+        if AppDelegate.walletLoader.syncer.connectedPeersCount > 0 {
+            return LocalizedStrings.notEnoughFunds
+        } else {
+            return LocalizedStrings.notEnoughFundsOrNotConnected
+        }
+    }
+    lazy var slideInTransitioningDelegate = SlideInPresentationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpBarButtonItems()
         setUpViews()
+        loadAccounts()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
-    
+
+    private func loadAccounts() {
+        let walletAccounts = AppDelegate.walletLoader.wallet!.walletAccounts(confirmations: self.requiredConfirmations)
+            .filter({ !$0.isHidden && $0.Number != INT_MAX }) // remove hidden wallets from array
+        self.walletAccounts = walletAccounts
+        sourceWalletInfoLabel.text = walletAccounts[0].Name
+        sourceWallet = walletAccounts[0]
+        let spendableAmount = (Decimal(walletAccounts[0].Balance!.dcrSpendable) as NSDecimalNumber).round(8).formattedWithSeparator
+        spendableAmountLabel.text = "\(spendableAmount) DCR"
+    }
+
     private func setUpBarButtonItems() {
         let infoNavButton = UIButton(type: .custom)
         infoNavButton.setImage(UIImage(named: "ic-info"), for: .normal)
@@ -67,6 +102,10 @@ class SendV2ViewController: UIViewController {
         
     }
 
+    @IBAction func pasteDestinationAddress(_ sender: UIButton) {
+        
+    }
+
     @IBAction func sendToSelf(_ sender: Any) {
         UIView.animate(withDuration: 0.1,
                        delay: 0,
@@ -85,6 +124,49 @@ class SendV2ViewController: UIViewController {
                         self.toSelfLayer.isHidden = true
                         self.toOthersLayer.isHidden = false
         }, completion: nil)
+    }
+    
+    @IBAction func showHideTransactionFeeDetails(_ sender: UIButton) {
+        UIView.animate(withDuration: 0.2,
+                       delay: 0,
+                       options: .curveEaseIn,
+                       animations: {
+                        let isHidden = !self.transactionFeeDetails.isHidden
+                        let icon = isHidden ? UIImage(named: "ic-expand-more") : UIImage(named: "ic-expand-less")
+                        sender.setImage(icon, for: .normal)
+                        self.transactionFeeDetails.isHidden = isHidden
+                        self.amountContainerViewHeight.constant = isHidden ? (self.amountContainerViewHeight.constant - self.transactionFeeDetails.frame.height) : (self.amountContainerViewHeight.constant + self.transactionFeeDetails.frame.height)
+        }, completion: nil)
+    }
+    
+    @IBAction func selectSendingWallet(_ sender: UIButton) {
+        guard let wallets = walletAccounts else {return}
+        sender.setImage(UIImage(named: "arrorup"), for: .normal)
+        let vc = WalletChooserTableViewController(wallets: wallets, selected: nil)
+        vc.didSelectAccount = { (account: WalletAccount) -> () in
+            self.sourceWalletInfoLabel.text = account.Name
+            let amountInWalletText = (Decimal(account.Balance!.dcrTotal) as NSDecimalNumber).round(8).formattedWithSeparator
+            self.sourceWalletAmount.text = "\(amountInWalletText) DCR"
+            self.sourceWallet = account
+            sender.setImage(UIImage(named: "arrow-1"), for: UIControl.State.normal)
+        }
+        vc.modalPresentationStyle = .custom
+        present(vc, animated: true, completion: nil)
+    }
+    
+    @IBAction func selectReceivingWallet(_ sender: UIButton) {
+        guard let wallets = walletAccounts else {return}
+        sender.setImage(UIImage(named: "arrorup"), for: .normal)
+        let vc = WalletChooserTableViewController(wallets: wallets, selected: nil)
+        vc.didSelectAccount = { (account: WalletAccount) -> () in
+            self.receivingWalletInfoLabel.text = account.Name
+            let amountInWalletText = (Decimal(account.Balance!.dcrTotal) as NSDecimalNumber).round(8).formattedWithSeparator
+            self.receivingWalletAmount.text = "\(amountInWalletText) DCR"
+            self.destinationWallet = account
+            sender.setImage(UIImage.init(named: "arrow-1"), for: UIControl.State.normal)
+        }
+        vc.modalPresentationStyle = .custom
+        present(vc, animated: true, completion: nil)
     }
 }
 
