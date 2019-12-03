@@ -721,6 +721,9 @@
                                                                             <constraint firstAttribute="width" constant="30" id="zK0-yw-l3g"/>
                                                                         </constraints>
                                                                         <state key="normal" image="ic-scan"/>
+                                                                        <connections>
+                                                                            <action selector="scan:" destination="dO4-2A-HQd" eventType="touchUpInside" id="4cU-wi-Tg6"/>
+                                                                        </connections>
                                                                     </button>
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1147,9 +1150,9 @@
                                             <constraint firstAttribute="height" constant="16" id="Qp6-q4-sb0"/>
                                         </constraints>
                                     </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="keo-Xr-S5Y">
+                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="keo-Xr-S5Y">
                                         <rect key="frame" x="15" y="96" width="384" height="48"/>
-                                        <color key="backgroundColor" red="0.76862745098039209" green="0.80000000000000004" blue="0.81960784313725488" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.15686274510000001" green="0.43921568630000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="1ak-du-0R8"/>
                                         </constraints>
@@ -1203,6 +1206,7 @@
                         <outlet property="destinationAddressTextField" destination="6Fp-mM-yzg" id="cKF-C4-gIW"/>
                         <outlet property="destinationAdressTextField" destination="6Fp-mM-yzg" id="mUF-ws-uUx"/>
                         <outlet property="invalidAddressLabel" destination="K72-mC-KBc" id="RBn-qH-j7G"/>
+                        <outlet property="nextButton" destination="keo-Xr-S5Y" id="qsk-ZC-H70"/>
                         <outlet property="notEnoughFundsLabel" destination="YEa-84-cLx" id="GA9-Wf-1zN"/>
                         <outlet property="pasteButton" destination="LeC-Me-4Ok" id="jHN-kb-kEN"/>
                         <outlet property="receivingWalletAmount" destination="bRl-om-cMM" id="mFL-Qn-kua"/>

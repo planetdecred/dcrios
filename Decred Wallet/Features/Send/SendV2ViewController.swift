@@ -29,6 +29,7 @@ class SendV2ViewController: UIViewController {
     @IBOutlet var destinationAddressTextField: UITextField!
     @IBOutlet var pasteButton: UIButton!
     @IBOutlet var showHideTransactionFeeDetailsButton: UIButton!
+    @IBOutlet var nextButton: UIButton!
     
     var overflowNavBarButton: UIBarButtonItem!
     var infoNavBarButton: UIBarButtonItem!
@@ -36,6 +37,7 @@ class SendV2ViewController: UIViewController {
     var sourceWallet: WalletAccount?
     var destinationWallet: WalletAccount?
     var destinationAddress: String?
+    private lazy var qrImageScanner = QRImageScanner()
 
     var requiredConfirmations: Int32 {
         return Settings.spendUnconfirmed ? 0 : GlobalConstants.Wallet.defaultRequiredConfirmations
@@ -97,6 +99,41 @@ class SendV2ViewController: UIViewController {
         destinationAddressContainerView.layer.borderColor = UIColor.appColors.lighterGray.cgColor
         amountContainerView.layer.borderColor = UIColor.appColors.lighterGray.cgColor
         showHideTransactionFeeDetails(showHideTransactionFeeDetailsButton)
+        nextButton.setBackgroundColor(UIColor.appColors.lighterGray, for: .disabled)
+    }
+    
+    func checkAddressFromQrCode(textScannedFromQRCode: String?) {
+        guard var capturedText = textScannedFromQRCode else {
+            self.destinationAddressTextField.text = ""
+            return
+        }
+        
+        if capturedText.starts(with: "decred:") {
+            capturedText = capturedText.replacingOccurrences(of: "decred:", with: "")
+        }
+        
+        if capturedText.count < 25 {
+//            self.invalidAddressFromQrCode(errorMessage: LocalizedStrings.walletAddressShort)
+            return
+        }
+        if capturedText.count > 36 {
+//            self.invalidAddressFromQrCode(errorMessage: LocalizedStrings.walletAddressLong)
+            return
+        }
+        
+        if BuildConfig.IsTestNet {
+            if capturedText.starts(with: "T") {
+                self.destinationAddressTextField.text = capturedText
+            } else {
+//                self.invalidAddressFromQrCode(errorMessage: LocalizedStrings.invalidTesnetAddress)
+            }
+        } else {
+            if capturedText.starts(with: "D") {
+                self.destinationAddressTextField.text = capturedText
+            } else {
+//                self.invalidAddressFromQrCode(errorMessage: LocalizedStrings.invalidMainnetAddress)
+            }
+        }
     }
     
     @objc func showOverflowMenu() {
@@ -107,7 +144,8 @@ class SendV2ViewController: UIViewController {
     }
 
     @IBAction func pasteDestinationAddress(_ sender: UIButton) {
-        
+        destinationAddressTextField.text = UIPasteboard.general.string
+        destinationAddress = UIPasteboard.general.string
     }
 
     @IBAction func sendToSelf(_ sender: Any) {
@@ -171,6 +209,10 @@ class SendV2ViewController: UIViewController {
         }
         vc.modalPresentationStyle = .custom
         present(vc, animated: true, completion: nil)
+    }
+    
+    @IBAction func scan(_ sender: UIButton) {
+        self.qrImageScanner.scan(sender: self, onTextScanned: self.checkAddressFromQrCode)
     }
 }
 
