@@ -26,6 +26,9 @@ class SendV2ViewController: UIViewController {
     @IBOutlet var receivingWalletInfoLabel: UILabel!
     @IBOutlet var receivingWalletAmount: UILabel!
     @IBOutlet var spendableAmountLabel: UILabel!
+    @IBOutlet var destinationAddressTextField: UITextField!
+    @IBOutlet var pasteButton: UIButton!
+    @IBOutlet var showHideTransactionFeeDetailsButton: UIButton!
     
     var overflowNavBarButton: UIBarButtonItem!
     var infoNavBarButton: UIBarButtonItem!
@@ -93,6 +96,7 @@ class SendV2ViewController: UIViewController {
     private func setUpViews() {
         destinationAddressContainerView.layer.borderColor = UIColor.appColors.lighterGray.cgColor
         amountContainerView.layer.borderColor = UIColor.appColors.lighterGray.cgColor
+        showHideTransactionFeeDetails(showHideTransactionFeeDetailsButton)
     }
     
     @objc func showOverflowMenu() {
@@ -142,7 +146,7 @@ class SendV2ViewController: UIViewController {
     @IBAction func selectSendingWallet(_ sender: UIButton) {
         guard let wallets = walletAccounts else {return}
         sender.setImage(UIImage(named: "arrorup"), for: .normal)
-        let vc = WalletChooserTableViewController(wallets: wallets, selected: nil)
+        let vc = WalletChooserTableViewController(wallets: wallets, selected: sourceWallet)
         vc.didSelectAccount = { (account: WalletAccount) -> () in
             self.sourceWalletInfoLabel.text = account.Name
             let amountInWalletText = (Decimal(account.Balance!.dcrTotal) as NSDecimalNumber).round(8).formattedWithSeparator
@@ -157,7 +161,7 @@ class SendV2ViewController: UIViewController {
     @IBAction func selectReceivingWallet(_ sender: UIButton) {
         guard let wallets = walletAccounts else {return}
         sender.setImage(UIImage(named: "arrorup"), for: .normal)
-        let vc = WalletChooserTableViewController(wallets: wallets, selected: nil)
+        let vc = WalletChooserTableViewController(wallets: wallets, selected: destinationWallet)
         vc.didSelectAccount = { (account: WalletAccount) -> () in
             self.receivingWalletInfoLabel.text = account.Name
             let amountInWalletText = (Decimal(account.Balance!.dcrTotal) as NSDecimalNumber).round(8).formattedWithSeparator
@@ -177,6 +181,7 @@ extension SendV2ViewController: UITextFieldDelegate {
         if textField.tag == 0 {
             destinationAddressContainerView.layer.borderColor = UIColor.appColors.decredBlue.cgColor
             destinationAddressLabel.textColor = UIColor.appColors.decredBlue
+            pasteButton.isHidden = false
         }
     }
     
@@ -185,6 +190,7 @@ extension SendV2ViewController: UITextFieldDelegate {
         if textField.tag == 0 {
             destinationAddressContainerView.layer.borderColor = UIColor.appColors.lightGray.cgColor
             destinationAddressLabel.textColor = UIColor.appColors.lighterGray
+            pasteButton.isHidden = true
         }
     }
 }

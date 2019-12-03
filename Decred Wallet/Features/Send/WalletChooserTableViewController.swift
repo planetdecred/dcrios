@@ -101,6 +101,8 @@ extension WalletChooserTableViewController: UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)
+        cell?.accessoryType = .checkmark
         didSelectAccount?(walletAccounts[indexPath.section - 1])
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
             self.dismiss(animated: true, completion: nil)

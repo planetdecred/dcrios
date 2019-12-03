@@ -686,7 +686,7 @@
                                                                 <rect key="frame" x="10" y="52" width="364" height="60"/>
                                                                 <subviews>
                                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6Fp-mM-yzg">
-                                                                        <rect key="frame" x="15" y="21.5" width="261" height="17"/>
+                                                                        <rect key="frame" x="15" y="21.5" width="249" height="17"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="17" id="iSZ-HR-mlP"/>
                                                                         </constraints>
@@ -697,15 +697,8 @@
                                                                             <outlet property="delegate" destination="dO4-2A-HQd" id="L6g-hh-CkB"/>
                                                                         </connections>
                                                                     </textField>
-                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="34x-lL-2LM">
-                                                                        <rect key="frame" x="339" y="20" width="20" height="20"/>
-                                                                        <constraints>
-                                                                            <constraint firstAttribute="width" constant="20" id="RZT-wV-RgJ"/>
-                                                                            <constraint firstAttribute="height" constant="20" id="tWZ-4z-xpg"/>
-                                                                        </constraints>
-                                                                    </imageView>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LeC-Me-4Ok">
-                                                                        <rect key="frame" x="278" y="20" width="46" height="20"/>
+                                                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LeC-Me-4Ok">
+                                                                        <rect key="frame" x="266" y="20" width="46" height="20"/>
                                                                         <color key="backgroundColor" red="0.76862745099999996" green="0.80000000000000004" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="20" id="0DN-n9-V6c"/>
@@ -721,16 +714,24 @@
                                                                             <action selector="pasteDestinationAddress:" destination="dO4-2A-HQd" eventType="touchUpInside" id="1jW-Ox-ku3"/>
                                                                         </connections>
                                                                     </button>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vPU-rn-K6j">
+                                                                        <rect key="frame" x="314" y="15" width="30" height="30"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="30" id="jmk-mU-Br8"/>
+                                                                            <constraint firstAttribute="width" constant="30" id="zK0-yw-l3g"/>
+                                                                        </constraints>
+                                                                        <state key="normal" image="ic-scan"/>
+                                                                    </button>
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="trailing" secondItem="34x-lL-2LM" secondAttribute="trailing" constant="5" id="EBH-mr-ULD"/>
+                                                                    <constraint firstItem="vPU-rn-K6j" firstAttribute="leading" secondItem="LeC-Me-4Ok" secondAttribute="trailing" constant="2" id="A8e-Xc-1gh"/>
                                                                     <constraint firstAttribute="height" constant="60" id="EHs-Fe-lpe"/>
                                                                     <constraint firstItem="6Fp-mM-yzg" firstAttribute="leading" secondItem="eyh-XL-Jxx" secondAttribute="leading" constant="15" id="GJo-31-8Ph"/>
-                                                                    <constraint firstItem="34x-lL-2LM" firstAttribute="centerY" secondItem="eyh-XL-Jxx" secondAttribute="centerY" id="V5t-HV-sgW"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="vPU-rn-K6j" secondAttribute="trailing" constant="20" id="Z0d-Cs-1VP"/>
                                                                     <constraint firstItem="LeC-Me-4Ok" firstAttribute="centerY" secondItem="eyh-XL-Jxx" secondAttribute="centerY" id="aRX-yQ-yA2"/>
                                                                     <constraint firstItem="LeC-Me-4Ok" firstAttribute="leading" secondItem="6Fp-mM-yzg" secondAttribute="trailing" constant="2" id="jyg-g5-fVx"/>
-                                                                    <constraint firstItem="34x-lL-2LM" firstAttribute="leading" secondItem="LeC-Me-4Ok" secondAttribute="trailing" constant="15" id="vTK-4c-wQf"/>
+                                                                    <constraint firstItem="vPU-rn-K6j" firstAttribute="centerY" secondItem="LeC-Me-4Ok" secondAttribute="centerY" id="weG-ev-Od5"/>
                                                                     <constraint firstItem="6Fp-mM-yzg" firstAttribute="centerY" secondItem="eyh-XL-Jxx" secondAttribute="centerY" id="x9G-Xh-Gt4"/>
                                                                 </constraints>
                                                                 <userDefinedRuntimeAttributes>
@@ -959,7 +960,7 @@
                                                                             </label>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dBj-46-mFa">
                                                                                 <rect key="frame" x="45" y="0.0" width="40" height="36"/>
-                                                                                <state key="normal" image="ic-expand-less"/>
+                                                                                <state key="normal" image="ic-expand-more"/>
                                                                                 <connections>
                                                                                     <action selector="showHideTransactionFeeDetails:" destination="dO4-2A-HQd" eventType="touchUpInside" id="maS-Yr-XOR"/>
                                                                                 </connections>
@@ -1199,11 +1200,14 @@
                         <outlet property="amountContainerViewHeight" destination="aEi-tD-F8h" id="EzY-i2-bcc"/>
                         <outlet property="destinationAddressContainerView" destination="eyh-XL-Jxx" id="qmv-GH-yUT"/>
                         <outlet property="destinationAddressLabel" destination="w2h-b4-Yva" id="kPu-ti-Ldh"/>
+                        <outlet property="destinationAddressTextField" destination="6Fp-mM-yzg" id="cKF-C4-gIW"/>
                         <outlet property="destinationAdressTextField" destination="6Fp-mM-yzg" id="mUF-ws-uUx"/>
                         <outlet property="invalidAddressLabel" destination="K72-mC-KBc" id="RBn-qH-j7G"/>
                         <outlet property="notEnoughFundsLabel" destination="YEa-84-cLx" id="GA9-Wf-1zN"/>
+                        <outlet property="pasteButton" destination="LeC-Me-4Ok" id="jHN-kb-kEN"/>
                         <outlet property="receivingWalletAmount" destination="bRl-om-cMM" id="mFL-Qn-kua"/>
                         <outlet property="receivingWalletInfoLabel" destination="X7S-me-auO" id="b7C-ZR-I3O"/>
+                        <outlet property="showHideTransactionFeeDetailsButton" destination="dBj-46-mFa" id="gA7-Kv-egP"/>
                         <outlet property="sourceWalletAmount" destination="Ngj-pD-syW" id="2H2-gX-gy5"/>
                         <outlet property="sourceWalletInfoLabel" destination="OJn-Uy-T0v" id="2zo-GN-cLq"/>
                         <outlet property="spendableAmountLabel" destination="19F-SG-ciu" id="eo2-9M-aN8"/>
@@ -1520,7 +1524,8 @@
         <image name="ic_dropdown" width="24" height="24"/>
         <image name="dropdown-icon" width="15" height="15"/>
         <image name="ic-accounts" width="24" height="24"/>
-        <image name="ic-expand-less" width="36" height="36"/>
+        <image name="ic-expand-more" width="36" height="36"/>
+        <image name="ic-scan" width="24" height="24"/>
         <image name="ic-swap" width="24" height="24"/>
         <image name="img-tx-sent" width="125" height="125"/>
         <image name="paste" width="18.666666030883789" height="22.666666030883789"/>
