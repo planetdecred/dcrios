@@ -6,9 +6,9 @@
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
+import UIKit
 import CoreData
 import Dcrlibwallet
-import SlideMenuControllerSwift
 import UserNotifications
 
 // compile-time preprocessor, following code will only be added if compiling for testnet
@@ -117,12 +117,9 @@ extension AppDelegate: UIApplicationDelegate {
         Fabric.with([Crashlytics.self])
         print("crashlytics set up on testnet")
         #endif
-        
-        UNUserNotificationCenter.current().delegate = self
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge , .sound]) { (granted, error) in
-            print("user authorized notifications: \(granted)")
-        }
-        
+
+        NotificationsManager.shared.requestAuthorization()
+
         self.listenForNetworkChanges()
         
         return true
@@ -162,13 +159,5 @@ extension AppDelegate: UIApplicationDelegate {
         lifeCycleDelegates.forEach {$0.value.applicationWillTerminate()}
         self.reachability.stopNotifier()
         AppDelegate.walletLoader.wallet?.shutdown()
-    }
-}
-
-extension AppDelegate: UNUserNotificationCenterDelegate {
-    // handle notification display when app is in foreground
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping
-        (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.alert])
     }
 }

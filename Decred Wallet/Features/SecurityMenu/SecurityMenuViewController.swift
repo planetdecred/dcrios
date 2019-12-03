@@ -56,7 +56,7 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.setupNavigationBar(withTitle: LocalizedStrings.security)
+        self.navigationItem.title = LocalizedStrings.security
 
         if !AppDelegate.walletLoader.isSynced {
             syncInfoLabel.isHidden = false

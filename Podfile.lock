@@ -1,11 +1,10 @@
 PODS:
-  - Crashlytics (3.12.0):
-    - Fabric (~> 1.9.0)
-  - Fabric (1.9.0)
-  - JGProgressHUD (2.0.3)
+  - Crashlytics (3.14.0):
+    - Fabric (~> 1.10.2)
+  - Fabric (1.10.2)
+  - JGProgressHUD (2.0.4)
   - QRCodeReader.swift (10.1.0)
   - Signals (6.1.0)
-  - SlideMenuControllerSwift (4.0.0)
 
 DEPENDENCIES:
   - Crashlytics
@@ -13,34 +12,22 @@ DEPENDENCIES:
   - JGProgressHUD
   - QRCodeReader.swift
   - Signals
-  - SlideMenuControllerSwift (from `https://github.com/itswisdomagain/SlideMenuControllerSwift.git`, branch `swift5`)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  trunk:
     - Crashlytics
     - Fabric
     - JGProgressHUD
     - QRCodeReader.swift
     - Signals
 
-EXTERNAL SOURCES:
-  SlideMenuControllerSwift:
-    :branch: swift5
-    :git: https://github.com/itswisdomagain/SlideMenuControllerSwift.git
-
-CHECKOUT OPTIONS:
-  SlideMenuControllerSwift:
-    :commit: d61e2a3bfaf8b6c0727667add98e40571728503f
-    :git: https://github.com/itswisdomagain/SlideMenuControllerSwift.git
-
 SPEC CHECKSUMS:
-  Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
-  Fabric: f988e33c97f08930a413e08123064d2e5f68d655
-  JGProgressHUD: 12b20a8f4ffe05258f8635c1ab92816e451f904d
+  Crashlytics: 540b7e5f5da5a042647227a5e3ac51d85eed06df
+  Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
+  JGProgressHUD: 62658b14e72cccf179efc7a13bcb54d30b92fc22
   QRCodeReader.swift: 373a389fe9a22d513c879a32a6f647c58f4ef572
   Signals: f8e5c979e93c35273f8dfe55ee7f47213d3e8fe8
-  SlideMenuControllerSwift: f9ec1ad1a95d211324d25b15dcdbc94881596716
 
-PODFILE CHECKSUM: 7ea4509cf872a6a91be158aebc3a3bc9f1d2f60b
+PODFILE CHECKSUM: 086022aa9ff136d8b9736ceadc6a6e119c9b5f7a
 
 COCOAPODS: 1.8.3

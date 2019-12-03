@@ -47,7 +47,7 @@ class ConfirmToSendFundViewController: UIViewController, UITextFieldDelegate {
         
         confirmVC.modalTransitionStyle = .crossDissolve
         confirmVC.modalPresentationStyle = .overCurrentContext
-        AppDelegate.shared.window?.rootViewController?.present(confirmVC, animated: true, completion: nil)
+        AppDelegate.shared.window?.rootViewController?.presentedViewController?.present(confirmVC, animated: true, completion: nil)
     }
 
     override func viewDidLoad() {

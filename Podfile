@@ -6,7 +6,6 @@ target 'Decred Wallet' do
   use_frameworks!
 
   # use swift5 branch pending when cocoapods gets updated with official support for swift 5
-  pod 'SlideMenuControllerSwift', :git => 'https://github.com/itswisdomagain/SlideMenuControllerSwift.git', :branch => 'swift5'
   pod 'JGProgressHUD'
   pod 'QRCodeReader.swift'
   pod 'Fabric'

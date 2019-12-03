@@ -8,7 +8,6 @@
 
 import UIKit
 import Dcrlibwallet
-import SlideMenuControllerSwift
 
 class StartScreenViewController: UIViewController {
     @IBOutlet weak var label: UILabel!
@@ -56,6 +55,7 @@ class StartScreenViewController: UIViewController {
         self.startTimerWhenViewAppears = true
         
         let settingsVC = SettingsController.instantiate().wrapInNavigationcontroller()
+        settingsVC.modalPresentationStyle = .fullScreen
         self.present(settingsVC, animated: true, completion: nil)
     }
     
@@ -80,12 +80,14 @@ class StartScreenViewController: UIViewController {
         if StartupPinOrPassword.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
             let requestPasswordVC = RequestPasswordViewController.instantiate()
             requestPasswordVC.prompt = LocalizedStrings.enterStartupPassword
+            requestPasswordVC.modalPresentationStyle = .fullScreen
             requestPasswordVC.onUserEnteredPassword = self.unlockWalletAndStartApp
             self.present(requestPasswordVC, animated: true, completion: nil)
         }
         else {
             let requestPinVC = RequestPinViewController.instantiate()
             requestPinVC.securityFor = LocalizedStrings.startup
+            requestPinVC.modalPresentationStyle = .fullScreen
             requestPinVC.onUserEnteredPin = self.unlockWalletAndStartApp
             self.present(requestPinVC, animated: true, completion: nil)
         }
