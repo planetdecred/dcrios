@@ -54,7 +54,9 @@ class OverviewViewController: UIViewController {
     }
     
     @IBOutlet weak var syncConnectionButton: UIButton!
-    
+    @IBOutlet weak var recentTransactionsTableViewHeightContraint: NSLayoutConstraint!
+
+    let maxDisplayItems = 3
     // Container for our progress report bar & text.
     let syncProgressBarContainer = UIView(frame: CGRect.zero)
     
@@ -418,6 +420,7 @@ class OverviewViewController: UIViewController {
             self.recentTransactionsTableView.backgroundView = nil
             self.recentTransactionsTableView.separatorStyle = .singleLine
             self.recentTransactionsTableView.reloadData()
+            self.recentTransactionsTableViewHeightContraint.constant = TransactionTableViewCell.height() * CGFloat(min(self.recentTransactions.count, self.maxDisplayItems))
         }
     }
     
@@ -471,8 +474,7 @@ extension OverviewViewController: NewTransactionNotificationProtocol, ConfirmedT
         self.updateCurrentBalance()
         
         DispatchQueue.main.async {
-            let maxDisplayItems = 3
-            if self.recentTransactions.count > Int(maxDisplayItems) {
+            if self.recentTransactions.count > Int(self.maxDisplayItems) {
                 _ = self.recentTransactions.popLast()
             }
             self.recentTransactionsTableView.reloadData()
@@ -512,7 +514,7 @@ extension OverviewViewController: UITableViewDelegate, UITableViewDataSource {
         self.showAllTransactionsButton.isHidden = (self.recentTransactions.count > 3) ? false : true
         self.noTransactionsLabelView.isHidden = (self.recentTransactions.count > 0) ? true : false
         self.recentTransactionsTableView.isHidden = (self.recentTransactions.count > 0) ? false : true
-        return min(self.recentTransactions.count, 3)
+        return min(self.recentTransactions.count, self.maxDisplayItems)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
