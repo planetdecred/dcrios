@@ -162,7 +162,7 @@
                                                             <constraint firstAttribute="height" constant="46" id="mQO-Nu-7qa"/>
                                                         </constraints>
                                                     </view>
-                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Uml-9Z-LNk">
+                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="56" estimatedRowHeight="56" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Uml-9Z-LNk">
                                                         <rect key="frame" x="8" y="52" width="382" height="158"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
@@ -181,10 +181,8 @@
                                                     </button>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="I1c-Nz-mcy" firstAttribute="top" secondItem="Uml-9Z-LNk" secondAttribute="bottom" id="BqD-th-3nt"/>
-                                                    <constraint firstItem="Uml-9Z-LNk" firstAttribute="top" secondItem="GYV-OM-Zd8" secondAttribute="bottom" id="eIz-qH-wjJ"/>
                                                     <constraint firstItem="I1c-Nz-mcy" firstAttribute="top" secondItem="Uml-9Z-LNk" secondAttribute="bottom" id="eik-aK-jDi"/>
-                                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="262" id="mTf-uP-IQp"/>
+                                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="280" id="mTf-uP-IQp"/>
                                                 </constraints>
                                                 <edgeInsets key="layoutMargins" top="0.0" left="8" bottom="0.0" right="8"/>
                                             </stackView>

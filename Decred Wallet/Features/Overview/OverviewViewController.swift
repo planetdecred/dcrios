@@ -139,8 +139,7 @@ class OverviewViewController: UIViewController {
         self.syncStatusImage.image = AppDelegate.walletLoader.isSynced ? UIImage(named: "ic_checkmark") : UIImage(named: "ic_crossmark") // Initial sync status image
         
         let latestBlock = AppDelegate.walletLoader.wallet?.getBestBlock() ?? 0
-        let latestBlockAge = self.syncManager.setBestBlockAge()
-        self.latestBlockLabel.text = String(format: LocalizedStrings.latestBlockAge, latestBlock, latestBlockAge)
+        self.setLatestBlockLabel(latestBlock: latestBlock)
         self.connectedPeersLabel.text = String(format: LocalizedStrings.connectedTo, 0)
         
         self.showSyncDetailsButton.addBorder(atPosition: .top, color: UIColor.appColors.lightGray, thickness: 0.62)
@@ -172,11 +171,29 @@ class OverviewViewController: UIViewController {
         self.showAllTransactionsButton.addTarget(self, action: #selector(self.showAllTransactions), for: .touchUpInside)
     }
     
+    private func setLatestBlockLabel(latestBlock : __int32_t) {
+        
+               let latestBlockAge = self.syncManager.setBestBlockAge()
+               let latestBlockText = String(format: LocalizedStrings.latestBlockAge, latestBlock, latestBlockAge)
+
+               let range = (latestBlockText as NSString).range(of: "\(latestBlock)")
+               let range2 = (latestBlockText as NSString).range(of: "\(latestBlockAge)")
+               let attributedString = NSMutableAttributedString(string: latestBlockText)
+               attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.appColors.darkBlue, range: range)
+               attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.appColors.darkBlue , range: range2)
+        //self.latestBlockLabel.textColor = UIColor.orange
+               self.latestBlockLabel.attributedText = attributedString
+    }
+    
     // Attach listeners to sync manager and react in this view
     func attachSyncListeners() {
         // Subscribe to changes in number of connected peers
         self.syncManager.peers.subscribe(with: self) { (peers) in
-            self.connectedPeersLabel.text = String(format: LocalizedStrings.connectedTo, peers)
+            let connectedPeerText = String(format: LocalizedStrings.connectedTo, peers)
+            let range = (connectedPeerText as NSString).range(of: "\(peers)")
+            let attributedString = NSMutableAttributedString(string: connectedPeerText)
+        attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.appColors.darkBlue, range: range)
+            self.connectedPeersLabel.attributedText = attributedString
         }
         
         // Subscribe to changes in sync status
@@ -242,9 +259,8 @@ class OverviewViewController: UIViewController {
             return
         }
         
-        let blockAge = self.syncManager.setBestBlockAge()
         let bestBlock = AppDelegate.walletLoader.wallet!.getBestBlock()
-        self.latestBlockLabel.text = String(format: LocalizedStrings.latestBlockAge, bestBlock, blockAge)
+        self.setLatestBlockLabel(latestBlock: bestBlock)
         
         // Remove default latest block label so we an show the progress bar
         self.latestBlockLabel.isHidden = true
@@ -332,9 +348,8 @@ class OverviewViewController: UIViewController {
             self.connectedPeersLabel.isHidden = false
         }
         
-        let blockAge = self.syncManager.setBestBlockAge()
         let bestBlock = AppDelegate.walletLoader.wallet!.getBestBlock()
-        self.latestBlockLabel.text = String(format: LocalizedStrings.latestBlockAge, bestBlock, blockAge)
+        self.setLatestBlockLabel(latestBlock: bestBlock)
         self.showSyncDetailsButton.isHidden = true
         
         // We have hidden the progress bar and sync progress report. we need to update the wallet sync status text and indicator

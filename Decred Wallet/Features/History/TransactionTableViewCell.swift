@@ -13,7 +13,8 @@ class TransactionTableViewCell: UITableViewCell {
     @IBOutlet weak var dataImage: UIImageView!
     @IBOutlet weak var dataText: UILabel!
     @IBOutlet weak var status: UILabel!
-    @IBOutlet weak var dateT: UILabel!
+   // @IBOutlet weak var dateT: UILabel!
+    @IBOutlet weak var statusIcon: UIImageView!
     
     var count = 0
     
@@ -29,20 +30,20 @@ class TransactionTableViewCell: UITableViewCell {
             if transaction.blockHeight != -1 {
                 confirmations = AppDelegate.walletLoader.wallet!.getBestBlock() - Int32(transaction.blockHeight) + 1
             }
+            let Date2 = NSDate.init(timeIntervalSince1970: TimeInterval(transaction.timestamp) )
+                      let dateformater = DateFormatter()
+                      dateformater.locale = Locale(identifier: "en_US_POSIX")
+                      dateformater.dateFormat = "MMM dd"
+                      dateformater.string(from: Date2 as Date)
+                      
+                     // self.dateT.text = dateformater.string(from: Date2 as Date)
             
             let isConfirmed = Settings.spendUnconfirmed || confirmations > 1
-            self.status.text = isConfirmed ? LocalizedStrings.confirmed : LocalizedStrings.pending
-            self.status.textColor = isConfirmed ? UIColor(hex:"#2DD8A3") : UIColor(hex:"#3d659c")
+            self.status.text = isConfirmed ? dateformater.string(from: Date2 as Date) : LocalizedStrings.pending
+            self.status.textColor = isConfirmed ? UIColor(hex:"#596d81") : UIColor(hex:"#8997a5")
+            self.statusIcon.image = isConfirmed ? UIImage(named: "confirmed") : UIImage(named: "pending")
             
-            let Date2 = NSDate.init(timeIntervalSince1970: TimeInterval(transaction.timestamp) )
-            let dateformater = DateFormatter()
-            dateformater.locale = Locale(identifier: "en_US_POSIX")
-            dateformater.dateFormat = "MMM dd, yyyy hh:mma"
-            dateformater.amSymbol = "am"
-            dateformater.pmSymbol = "pm"
-            dateformater.string(from: Date2 as Date)
-            
-            self.dateT.text = dateformater.string(from: Date2 as Date)
+          
             let requireConfirmation = Settings.spendUnconfirmed ? 0 : 2
             
             if transaction.type == DcrlibwalletTxTypeRegular {
