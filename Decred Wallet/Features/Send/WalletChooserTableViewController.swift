@@ -23,7 +23,7 @@ class WalletChooserTableViewController: UIViewController {
     var walletAccounts: [WalletAccount]!
     var selectedAccount: WalletAccount?
 
-    var didSelectAccount: ((WalletAccount)-> Void)?
+    var didSelectAccount: ((WalletAccount?)-> Void)?
 
     init(wallets: [WalletAccount], selected: WalletAccount?) {
         super.init(nibName: nil, bundle: nil)
@@ -61,6 +61,7 @@ class WalletChooserTableViewController: UIViewController {
     }
     
     @objc func handleTap(gestureRecognizer: UITapGestureRecognizer) {
+        didSelectAccount?(nil)
         dismiss(animated: true)
     }
 }
@@ -72,6 +73,7 @@ extension WalletChooserTableViewController: UITableViewDataSource, UITableViewDe
                 return UITableViewCell()
             }
             cell.configure(with: "Sending Account") {
+                self.didSelectAccount?(nil)
                 self.dismiss(animated: true, completion: nil)
             }
             return cell

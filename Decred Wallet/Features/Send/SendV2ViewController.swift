@@ -185,12 +185,14 @@ class SendV2ViewController: UIViewController {
         guard let wallets = walletAccounts else {return}
         sender.setImage(UIImage(named: "arrorup"), for: .normal)
         let vc = WalletChooserTableViewController(wallets: wallets, selected: sourceWallet)
-        vc.didSelectAccount = { (account: WalletAccount) -> () in
-            self.sourceWalletInfoLabel.text = account.Name
-            let amountInWalletText = (Decimal(account.Balance!.dcrTotal) as NSDecimalNumber).round(8).formattedWithSeparator
-            self.sourceWalletAmount.text = "\(amountInWalletText) DCR"
-            self.sourceWallet = account
-            sender.setImage(UIImage(named: "arrow-1"), for: UIControl.State.normal)
+        vc.didSelectAccount = { (account: WalletAccount?) -> () in
+            if let account = account {
+                self.sourceWalletInfoLabel.text = account.Name
+                let amountInWalletText = (Decimal(account.Balance!.dcrTotal) as NSDecimalNumber).round(8).formattedWithSeparator
+                self.sourceWalletAmount.text = "\(amountInWalletText) DCR"
+                self.sourceWallet = account
+            }
+            sender.setImage(UIImage(named: "arrow-1"), for: .normal)
         }
         vc.modalPresentationStyle = .custom
         present(vc, animated: true, completion: nil)
@@ -200,12 +202,14 @@ class SendV2ViewController: UIViewController {
         guard let wallets = walletAccounts else {return}
         sender.setImage(UIImage(named: "arrorup"), for: .normal)
         let vc = WalletChooserTableViewController(wallets: wallets, selected: destinationWallet)
-        vc.didSelectAccount = { (account: WalletAccount) -> () in
-            self.receivingWalletInfoLabel.text = account.Name
-            let amountInWalletText = (Decimal(account.Balance!.dcrTotal) as NSDecimalNumber).round(8).formattedWithSeparator
-            self.receivingWalletAmount.text = "\(amountInWalletText) DCR"
-            self.destinationWallet = account
-            sender.setImage(UIImage.init(named: "arrow-1"), for: UIControl.State.normal)
+        vc.didSelectAccount = { (account: WalletAccount?) -> () in
+            if let account = account {
+                self.receivingWalletInfoLabel.text = account.Name
+                let amountInWalletText = (Decimal(account.Balance!.dcrTotal) as NSDecimalNumber).round(8).formattedWithSeparator
+                self.receivingWalletAmount.text = "\(amountInWalletText) DCR"
+                self.destinationWallet = account
+            }
+            sender.setImage(UIImage(named: "arrow-1"), for: .normal)
         }
         vc.modalPresentationStyle = .custom
         present(vc, animated: true, completion: nil)
