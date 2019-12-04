@@ -15,6 +15,10 @@ class SyncDetailsComponent: UIView {
     let syncManager: SyncManager = SyncManager.shared
     
     var container = UIView(frame: CGRect.zero)
+    
+    // Separator
+    let separator = UIView(frame: CGRect.zero)
+    
     // Sync Step
     let stepsLabel = UILabel(frame: CGRect.zero) // Current sync operation stage (1,2 or 3)
     let stepDetailLabel = UILabel(frame: CGRect.zero) // Current sync operation description
@@ -49,55 +53,68 @@ class SyncDetailsComponent: UIView {
     // Set component properties and their AutoLayout Constraints relative to each other
     func setupComponents() {
         // setup container holding details
-        self.container.layer.backgroundColor = UIColor.init(hex: "#f3f5f6").cgColor
+        self.container.layer.backgroundColor = UIColor.appColors.offWhite.cgColor
         self.container.layer.cornerRadius = 8
         self.container.translatesAutoresizingMaskIntoConstraints = false
         self.container.clipsToBounds = true
         
-        // Current step indicator
-        self.stepsLabel.font = UIFont(name: "Source Sans Pro", size: 13)
+        // setup separator
+        self.separator.backgroundColor = UIColor.appColors.borderGray
+        self.separator.translatesAutoresizingMaskIntoConstraints = false
+        self.separator.clipsToBounds = true
+        
+        // current step indicator
+        self.stepsLabel.font = UIFont(name: "Source Sans Pro", size: 14)
         self.stepsLabel.text = String(format: LocalizedStrings.syncSteps, 0)
         self.stepsLabel.translatesAutoresizingMaskIntoConstraints = false
         self.stepsLabel.clipsToBounds = true
+        self.stepsLabel.textColor = UIColor.appColors.textGray
         
-        // Current step action/progress
-        self.stepDetailLabel.font = UIFont(name: "Source Sans Pro", size: 14)
+        // current step action/progress
+        self.stepDetailLabel.font = UIFont(name: "Source Sans Pro", size: 16)
         self.stepDetailLabel.translatesAutoresizingMaskIntoConstraints = false
         self.stepDetailLabel.clipsToBounds = true
+        self.stepDetailLabel.textColor = UIColor.appColors.darkBlue
         
         // fetched headers text
         self.headersFetchedLabel.font = UIFont(name: "Source Sans Pro", size: 14)
         self.headersFetchedLabel.text = LocalizedStrings.blockHeadersFetched
         self.headersFetchedLabel.translatesAutoresizingMaskIntoConstraints = false
         self.headersFetchedLabel.clipsToBounds = true
+        self.headersFetchedLabel.textColor = UIColor.appColors.textGray
         
         // Fetched headers count
-        self.headersFetchedCount.font = UIFont(name: "Source Sans Pro", size: 14)
+        self.headersFetchedCount.font = UIFont(name: "Source Sans Pro", size: 16)
         self.headersFetchedCount.translatesAutoresizingMaskIntoConstraints = false
         self.headersFetchedCount.clipsToBounds = true
+        self.headersFetchedCount.textColor = UIColor.appColors.darkBlue
         
         // Syncing progress text
         self.syncProgressLabel.font = UIFont(name: "Source Sans Pro", size: 14)
         self.syncProgressLabel.text = LocalizedStrings.syncingProgress
         self.syncProgressLabel.translatesAutoresizingMaskIntoConstraints = false
         self.syncProgressLabel.clipsToBounds = true
+        self.syncProgressLabel.textColor = UIColor.appColors.textGray
         
         // block age behind
-        self.ledgerAgeLabel.font = UIFont(name: "Source Sans Pro", size: 14)
+        self.ledgerAgeLabel.font = UIFont(name: "Source Sans Pro", size: 16)
         self.ledgerAgeLabel.translatesAutoresizingMaskIntoConstraints = false
         self.ledgerAgeLabel.clipsToBounds = true
+        self.ledgerAgeLabel.textColor = UIColor.appColors.darkBlue
         
         // Connected peers
         self.numberOfPeersLabel.font = UIFont(name: "Source Sans Pro", size: 14)
         self.numberOfPeersLabel.text = LocalizedStrings.connectedPeersCount
         self.numberOfPeersLabel.translatesAutoresizingMaskIntoConstraints = false
         self.numberOfPeersLabel.clipsToBounds = true
+        self.numberOfPeersLabel.textColor = UIColor.appColors.textGray
         
         // show connected peers count
-        self.numberOfPeersCount.font = UIFont(name: "Source Sans Pro", size: 14)
+        self.numberOfPeersCount.font = UIFont(name: "Source Sans Pro", size: 16)
         self.numberOfPeersCount.text = "0"
         self.numberOfPeersCount.translatesAutoresizingMaskIntoConstraints = false
         self.numberOfPeersCount.clipsToBounds = true
+        self.numberOfPeersCount.textColor = UIColor.appColors.darkBlue
         
         // Add details to container
         self.container.addSubview(self.headersFetchedLabel)
@@ -137,11 +154,19 @@ class SyncDetailsComponent: UIView {
         ])
         
         // bring all the components together
+        self.addSubview(separator)
         self.addSubview(stepsLabel)
         self.addSubview(stepDetailLabel)
         self.addSubview(self.container)
         
         NSLayoutConstraint.activate([
+            
+            // separator contraints
+                       self.separator.heightAnchor.constraint(equalToConstant: 0.5),
+                       self.separator.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0),
+                       self.separator.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0),
+                       self.separator.topAnchor.constraint(equalTo: self.topAnchor, constant: 0),
+            
             // Current sync step (1,2 or 3)
             self.stepsLabel.heightAnchor.constraint(equalToConstant: 14),
             self.stepsLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),

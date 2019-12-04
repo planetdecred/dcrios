@@ -20,7 +20,7 @@ class TransactionTableViewCell: UITableViewCell {
     override func awakeFromNib() {}
     
     override class func height() -> CGFloat {
-        return 60
+        return 56
     }
     
     func setData(_ data: Any?) {

@@ -177,7 +177,9 @@ extension TransactionHistoryViewController: NewTransactionNotificationProtocol, 
     
     func onTransactionConfirmed(_ hash: String?, height: Int32) {
         // all tx statuses will be updated when table rows are reloaded.
-        self.transactionsTableView.reloadData()
+         DispatchQueue.main.async {
+            self.transactionsTableView.reloadData()
+        }
     }
 }
 

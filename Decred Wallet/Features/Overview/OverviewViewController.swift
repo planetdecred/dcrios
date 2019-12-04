@@ -286,9 +286,9 @@ class OverviewViewController: UIViewController {
         // Constraints to position progress view underneath "synchronizing label"
         let constraints: [NSLayoutConstraint] = [
             // Container contraints
-            self.syncProgressBarContainer.heightAnchor.constraint(equalToConstant: 32),
+            self.syncProgressBarContainer.heightAnchor.constraint(equalToConstant: 30),
             self.syncProgressBarContainer.topAnchor.constraint(equalTo: self.syncStatusLabel.bottomAnchor, constant: 10), // position progress container 10pts below "Synchronizing" label
-            self.syncProgressBarContainer.trailingAnchor.constraint(equalTo: self.syncProgressView.trailingAnchor, constant: 0.031), // Right margin of 31pts
+            self.syncProgressBarContainer.trailingAnchor.constraint(equalTo: self.syncProgressView.trailingAnchor, constant: -16), // Right margin of 16pts
             self.syncProgressBarContainer.leadingAnchor.constraint(equalTo: self.syncProgressView.leadingAnchor, constant: 56), // Left margin of 56pts
             
             // Progress bar constraints
@@ -456,7 +456,7 @@ extension OverviewViewController: NewTransactionNotificationProtocol, ConfirmedT
         self.updateCurrentBalance()
         
         DispatchQueue.main.async {
-            let maxDisplayItems = round(self.recentTransactionsTableView.frame.size.height / TransactionTableViewCell.height())
+            let maxDisplayItems = 3
             if self.recentTransactions.count > Int(maxDisplayItems) {
                 _ = self.recentTransactions.popLast()
             }
@@ -494,10 +494,10 @@ extension OverviewViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.showAllTransactionsButton.isHidden = (self.recentTransactions.count > 2) ? false : true
+        self.showAllTransactionsButton.isHidden = (self.recentTransactions.count > 3) ? false : true
         self.noTransactionsLabelView.isHidden = (self.recentTransactions.count > 0) ? true : false
         self.recentTransactionsTableView.isHidden = (self.recentTransactions.count > 0) ? false : true
-        return self.recentTransactions.count
+        return min(self.recentTransactions.count, 3)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
