@@ -504,17 +504,6 @@ class OverviewViewController: UIViewController {
             }
         })
     }
-    @IBAction func showBackupPage(_ sender: Any) {
-        // Should be modifed in Overview PR
-        if !Settings.seedBackedUp{
-            let backupReminderVC = Storyboards.Backup.instantiateViewController(for: BackupReminderViewController.self).wrapInNavigationcontroller()
-            
-            backupReminderVC.modalPresentationStyle = .overFullScreen
-            self.present(backupReminderVC, animated: true)
-        } else {
-            showOkAlert(message: "wallet already backed up")
-        }
-    }
 }
 
 extension OverviewViewController: NewTransactionNotificationProtocol, ConfirmedTransactionNotificationProtocol {
