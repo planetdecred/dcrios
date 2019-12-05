@@ -70,21 +70,20 @@ class PasswordSetupViewController: SecurityBaseViewController, UITextFieldDelega
     }
     
     func checkPasswordMatch() {
-        if self.confirmPasswordInput.text == "" {
-            self.confirmErrorLabel.textColor = UIColor.appColors.orange
-            self.confirmErrorLabel.text = LocalizedStrings.passwordsDoNotMatch
-            self.createBtn.isEnabled = false
-        } else if self.passwordInput.text == self.confirmPasswordInput.text {
-            self.confirmErrorLabel.textColor = UIColor.appColors.turquoise
-            self.confirmErrorLabel.text = LocalizedStrings.passwordMatch
-            self.createBtn.isEnabled = true
-            createBtn.setBackgroundColor(UIColor.appColors.darkBlue, for: .normal)
-        } else {
-            self.confirmErrorLabel.textColor = UIColor.appColors.orange
-            self.confirmErrorLabel.text = LocalizedStrings.passwordsDoNotMatch
-            self.createBtn.isEnabled = false
+        if self.passwordInput.text != "" && self.confirmPasswordInput.text != "" {
+            if self.passwordInput.text != self.confirmPasswordInput.text {
+                self.confirmErrorLabel.textColor = UIColor.appColors.orange
+                self.confirmCountLabel.textColor = UIColor.appColors.orange
+                self.confirmErrorLabel.text = LocalizedStrings.passwordsDoNotMatch
+                self.confirmPasswordInput.showError()
+                self.createBtn.isEnabled = false
+            } else {
+                self.confirmErrorLabel.text = ""
+                self.confirmCountLabel.textColor = self.passwordInput.textColor
+                self.confirmPasswordInput.hideError()
+                self.createBtn.isEnabled = true
+            }
         }
-        
         self.confirmCountLabel.text = (self.confirmPasswordInput.text != "") ? "\(self.confirmPasswordInput.text!.count)" : "0"
     }
     

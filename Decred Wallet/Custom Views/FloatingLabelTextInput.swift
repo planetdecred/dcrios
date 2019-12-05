@@ -22,7 +22,8 @@ class FloatingLabelTextInput: UITextField {
     let floatingLabelBottomPaddingActive:CGFloat = 8
     let floatingLabelColorNormal:UIColor = UIColor.appColors.bluishGray
     let floatingLabelColorActive:UIColor = UIColor.appColors.decredBlue
-
+    var isInErrorState:Bool = false
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.initView()
@@ -40,8 +41,8 @@ class FloatingLabelTextInput: UITextField {
         self.layer.addSublayer(border)
         
         self.initFloatedLabel()
-        self.addTarget(self, action: #selector(self.editingBegan), for: .editingDidBegin)
-        self.addTarget(self, action: #selector(self.editingEnded), for: .editingDidEnd)
+        self.addTarget(self, action: #selector(self.showFloatingLabel), for: .editingDidBegin)
+        self.addTarget(self, action: #selector(self.hideFloatingLabel), for: .editingDidEnd)
     }
     
     private func initFloatedLabel() {
@@ -68,28 +69,28 @@ class FloatingLabelTextInput: UITextField {
         border.frame = self.bounds
     }
     
-    @objc func editingBegan() {
-        border.borderColor = UIColor.appColors.decredBlue.cgColor
-        self.showFloatingLabel()
+    func showError() {
+        self.isInErrorState = true
+        showFloatingLabel()
     }
     
-    @objc func editingEnded() {
-        border.borderColor = self.inactiveBorderColor.cgColor
-        self.hideFloatingLabel()
+    func hideError() {
+        self.isInErrorState = false
+        showFloatingLabel()
     }
     
-    func showFloatingLabel() {
-        if self.text == "" {
-            UIView.animate(withDuration: 0.13) {
-                self.floatingLabelBottomConstraint?.constant = self.floatingLabelBottomPaddingActive
-                self.floatingLabel.textColor = self.floatingLabelColorActive
-                self.floatingLabel.font = UIFont(name: self.font!.familyName, size: 14)
-                self.layoutIfNeeded()
-            }
+    @objc func showFloatingLabel() {
+        border.borderColor = self.isInErrorState ? UIColor.appColors.decredOrange.cgColor : UIColor.appColors.decredBlue.cgColor
+        UIView.animate(withDuration: 0.13) {
+            self.floatingLabelBottomConstraint?.constant = self.floatingLabelBottomPaddingActive
+            self.floatingLabel.textColor = self.isInErrorState ? UIColor.appColors.decredOrange : self.floatingLabelColorActive
+            self.floatingLabel.font = UIFont(name: self.font!.familyName, size: 14)
+            self.layoutIfNeeded()
         }
     }
     
-    func hideFloatingLabel() {
+    @objc func hideFloatingLabel() {
+        border.borderColor = self.inactiveBorderColor.cgColor
         if self.text == "" {
             UIView.animate(withDuration: 0.13) {
                 self.floatingLabelBottomConstraint?.constant = self.floatingLabelBottomPaddingNormal
@@ -97,6 +98,8 @@ class FloatingLabelTextInput: UITextField {
                 self.floatingLabel.font = UIFont(name: self.font!.familyName, size: 16)
                 self.layoutIfNeeded()
             }
+        } else {
+            self.floatingLabel.textColor = self.floatingLabelColorNormal
         }
     }
     
