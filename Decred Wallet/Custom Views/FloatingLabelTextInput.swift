@@ -42,10 +42,6 @@ class FloatingLabelTextInput: UITextField {
         self.initFloatedLabel()
         self.addTarget(self, action: #selector(self.editingBegan), for: .editingDidBegin)
         self.addTarget(self, action: #selector(self.editingEnded), for: .editingDidEnd)
-        
-        if self.text != "" {
-            self.showFloatingLabel()
-        }
     }
     
     private func initFloatedLabel() {
