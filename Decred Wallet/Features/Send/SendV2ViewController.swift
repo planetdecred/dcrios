@@ -7,6 +7,7 @@
 // license that can be found in the LICENSE file.
 
 import UIKit
+import Dcrlibwallet
 
 class SendV2ViewController: UIViewController {
     static let instance = Storyboards.Send.instantiateViewController(for: SendV2ViewController.self).wrapInNavigationcontroller()
@@ -30,12 +31,20 @@ class SendV2ViewController: UIViewController {
     @IBOutlet var pasteButton: UIButton!
     @IBOutlet var showHideTransactionFeeDetailsButton: UIButton!
     @IBOutlet var nextButton: UIButton!
+    @IBOutlet var sendingAmountTextField: UITextField!
+    @IBOutlet var retryFechExchangeRateButton: UIButton!
+    
+    @IBOutlet var exchangeRateLabel: UILabel!
+    @IBOutlet var exchangeRateIconHeightConstraint: NSLayoutConstraint!
+    @IBOutlet var exchangeRateSeparatorView: UIView!
+    @IBOutlet var exchangeRateLabelContainerView: NSLayoutConstraint!
     
     var overflowNavBarButton: UIBarButtonItem!
     var infoNavBarButton: UIBarButtonItem!
     var walletAccounts: [WalletAccount]?
     var sourceWallet: WalletAccount?
     var destinationWallet: WalletAccount?
+    var exchangeRate: NSDecimalNumber?
     var destinationAddress: String?
     private lazy var qrImageScanner = QRImageScanner()
 
@@ -49,6 +58,50 @@ class SendV2ViewController: UIViewController {
         } else {
             return LocalizedStrings.notEnoughFundsOrNotConnected
         }
+    }
+    var shouldEnableSendButton: Bool {
+        if !toSelfLayer.isHidden {
+            guard destinationWallet != nil else {return false}
+            return isValidAmount
+        } else {
+            guard let address = destinationAddress, !address.isEmpty else {return false}
+            return isValidAmount
+        }
+    }
+    var isValidAmount: Bool {
+        self.notEnoughFundsLabel.text = ""
+        guard let dcrAmountString = self.sendingAmountTextField.text, dcrAmountString != "" else { return false }
+        
+        if dcrAmountString.components(separatedBy: ".").count > 2 {
+            // more than 1 decimal place
+            self.notEnoughFundsLabel.text = LocalizedStrings.invalidAmount
+            return false
+        }
+        
+        let decimalPointIndex = dcrAmountString.firstIndex(of: ".")
+        if decimalPointIndex != nil && dcrAmountString[decimalPointIndex!...].count > 9 {
+            self.notEnoughFundsLabel.text = LocalizedStrings.amount8Decimal
+            return false
+        }
+        
+        guard let sendAmountDcr = Double(dcrAmountString), sendAmountDcr > 0 else {
+            self.notEnoughFundsLabel.text = LocalizedStrings.invalidAmount
+            return false
+        }
+        
+        if sendAmountDcr > DcrlibwalletMaxAmountDcr {
+            self.notEnoughFundsLabel.text = LocalizedStrings.amountMaximumAllowed
+            return false
+        }
+        
+        guard let source = sourceWallet else {return false}
+        let sourceAccountBalance = source.Balance!.dcrSpendable
+        if sendAmountDcr > sourceAccountBalance {
+            self.notEnoughFundsLabel.text = self.insufficientFundsErrorMessage
+            return false
+        }
+        
+        return true
     }
     lazy var slideInTransitioningDelegate = SlideInPresentationManager()
     
@@ -70,9 +123,9 @@ class SendV2ViewController: UIViewController {
         sourceWalletInfoLabel.text = walletAccounts[0].Name
         sourceWallet = walletAccounts[0]
         let spendableAmount = (Decimal(walletAccounts[0].Balance!.dcrSpendable) as NSDecimalNumber).round(8).formattedWithSeparator
-        spendableAmountLabel.text = "\(spendableAmount) DCR"
+        spendableAmountLabel.text = "Spendable: \(spendableAmount) DCR"
     }
-
+    
     private func setUpBarButtonItems() {
         let infoNavButton = UIButton(type: .custom)
         infoNavButton.setImage(UIImage(named: "ic-info"), for: .normal)
@@ -94,7 +147,40 @@ class SendV2ViewController: UIViewController {
         navigationItem.rightBarButtonItems = [overflowNavBarButton, infoNavBarButton]
         navigationItem.leftBarButtonItems = [cancelBarButtonItem, titleBarButtonItem]
     }
+
+    private func fetchExchangeRate(_ sender: Any?) {
+        self.retryFechExchangeRateButton.isHidden = true
+        if self.exchangeRate == nil {
+            self.exchangeRateLabel.text = "O USD"
+        }
+        
+        switch Settings.currencyConversionOption {
+        case .None:
+            self.exchangeRate = nil
+            exchangeRateLabel.text = ""
+            exchangeRateIconHeightConstraint.constant = 0
+            exchangeRateSeparatorView.isHidden = true
+            exchangeRateLabelContainerView.constant = 0
+            break
+            
+        case .Bittrex:
+            ExchangeRates.Bittrex.fetch(callback: self.displayExchangeRate)
+        }
+    }
     
+    func displayExchangeRate(_ exchangeRate: NSDecimalNumber?) {
+        self.exchangeRate = exchangeRate
+        
+        guard let exchangeRate = exchangeRate, let dcrAmount = Double(sendingAmountTextField.text ?? "") else {
+            self.exchangeRateLabel.text = "Exchange rate not fetched"
+            self.exchangeRateLabel.textColor = .red
+            return
+        }
+        exchangeRateLabel.textColor = UIColor.appColors.lightGray
+        let usdAmount = NSDecimalNumber(value: dcrAmount).multiplying(by: exchangeRate)
+        self.exchangeRateLabel.text = "\(usdAmount.round(8)) USD"
+    }
+
     private func setUpViews() {
         destinationAddressContainerView.layer.borderColor = UIColor.appColors.lighterGray.cgColor
         amountContainerView.layer.borderColor = UIColor.appColors.lighterGray.cgColor
@@ -136,11 +222,35 @@ class SendV2ViewController: UIViewController {
         }
     }
     
+    func toggleSendButtonState(_ enabled: Bool) {
+        nextButton.isEnabled = enabled
+    }
+    
     @objc func showOverflowMenu() {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: LocalizedStrings.cancel, style: .cancel, handler: nil)
+        let clearFieldsAction = UIAlertAction(title: "Clear all fields", style: .default) { action in
+            self.clearFields()
+        }
+        alertController.addAction(cancelAction)
+        alertController.addAction(clearFieldsAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    @objc func clearFields() {
+        destinationWallet = nil
+        receivingWalletAmount.text = "Select account"
+        receivingWalletInfoLabel.text = ""
+        destinationAdressTextField.text = ""
+        invalidAddressLabel.text = ""
+        exchangeRateLabel.text = "0 USD"
     }
     
     @objc func showInfoAlert() {
-        
+        let alertController = UIAlertController(title: "Send DCR", message: "Input or scan the destination wallet address and the amount in DCR to send funds", preferredStyle: .alert)
+        let gotItAction = UIAlertAction(title: "Got it", style: .cancel, handler: nil)
+        alertController.addAction(gotItAction)
+        present(alertController, animated: true, completion: nil)
     }
 
     @IBAction func pasteDestinationAddress(_ sender: UIButton) {
@@ -210,6 +320,7 @@ class SendV2ViewController: UIViewController {
                 self.destinationWallet = account
             }
             sender.setImage(UIImage(named: "arrow-1"), for: .normal)
+            self.toggleSendButtonState(self.shouldEnableSendButton)
         }
         vc.modalPresentationStyle = .custom
         present(vc, animated: true, completion: nil)
@@ -237,6 +348,10 @@ extension SendV2ViewController: UITextFieldDelegate {
             destinationAddressContainerView.layer.borderColor = UIColor.appColors.lightGray.cgColor
             destinationAddressLabel.textColor = UIColor.appColors.lighterGray
             pasteButton.isHidden = true
+            self.toggleSendButtonState(self.shouldEnableSendButton)
+        } else if textField.tag == 1{
+            displayExchangeRate(self.exchangeRate)
+            self.toggleSendButtonState(self.shouldEnableSendButton)
         }
     }
 }
