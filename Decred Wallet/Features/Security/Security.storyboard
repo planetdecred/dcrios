@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -161,6 +161,9 @@
                             </progressView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm spending password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fj4-AU-s5Z" customClass="FloatingLabelTextInput" customModule="Decred_Wallet" customModuleProvider="target">
                                 <rect key="frame" x="24" y="180.5" width="366" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="q5y-pi-MzY"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" textContentType="password"/>
                             </textField>
@@ -235,7 +238,6 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Fj4-AU-s5Z" firstAttribute="width" secondItem="NMs-Wa-sVv" secondAttribute="width" id="3mV-yr-CLi"/>
                             <constraint firstItem="Fj4-AU-s5Z" firstAttribute="leading" secondItem="MQk-Si-pOx" secondAttribute="leading" id="7Yt-PX-CvM"/>
                             <constraint firstItem="afa-Zo-Kic" firstAttribute="top" secondItem="NMs-Wa-sVv" secondAttribute="bottom" constant="4" id="8wk-Ft-LS7"/>
                             <constraint firstItem="YVH-T5-DVQ" firstAttribute="trailing" secondItem="2Z3-SY-0XE" secondAttribute="trailing" constant="40" id="FKH-0T-tpO"/>
@@ -245,7 +247,6 @@
                             <constraint firstItem="v6t-Bu-n8H" firstAttribute="top" secondItem="R4i-8R-w01" secondAttribute="bottom" constant="8" id="W9r-lW-Knr"/>
                             <constraint firstItem="NMs-Wa-sVv" firstAttribute="leading" secondItem="YVH-T5-DVQ" secondAttribute="leading" constant="24" id="XAf-fC-SJC"/>
                             <constraint firstItem="YVH-T5-DVQ" firstAttribute="trailing" secondItem="NMs-Wa-sVv" secondAttribute="trailing" constant="24" id="Yoi-9Q-faE"/>
-                            <constraint firstItem="Fj4-AU-s5Z" firstAttribute="height" secondItem="NMs-Wa-sVv" secondAttribute="height" id="ZTE-Gz-LmK"/>
                             <constraint firstItem="Fj4-AU-s5Z" firstAttribute="top" secondItem="MQk-Si-pOx" secondAttribute="bottom" constant="20" id="akt-4s-HVa"/>
                             <constraint firstItem="YVH-T5-DVQ" firstAttribute="trailing" secondItem="PwE-hW-lVm" secondAttribute="trailing" constant="24" id="c0V-sb-AG4"/>
                             <constraint firstItem="NMs-Wa-sVv" firstAttribute="top" secondItem="YVH-T5-DVQ" secondAttribute="top" constant="24" id="cD4-To-48c"/>
@@ -259,6 +260,7 @@
                             <constraint firstItem="MQk-Si-pOx" firstAttribute="leading" secondItem="YVH-T5-DVQ" secondAttribute="leading" constant="24" id="vEt-aZ-09A"/>
                             <constraint firstItem="PwE-hW-lVm" firstAttribute="top" secondItem="R4i-8R-w01" secondAttribute="bottom" constant="8" id="xDJ-Yh-rSl"/>
                             <constraint firstItem="MQk-Si-pOx" firstAttribute="top" secondItem="afa-Zo-Kic" secondAttribute="bottom" constant="8" id="xT4-uy-IeS"/>
+                            <constraint firstItem="YVH-T5-DVQ" firstAttribute="trailing" secondItem="Fj4-AU-s5Z" secondAttribute="trailing" constant="24" id="yAU-Sj-hcd"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="YVH-T5-DVQ"/>
                     </view>

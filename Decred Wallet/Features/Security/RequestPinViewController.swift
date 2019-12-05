@@ -30,13 +30,17 @@ class RequestPinViewController: SecurityBaseViewController {
     @IBOutlet weak var btnSubmit: UIButton!
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         self.setupInterface()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         self.pinInput.becomeFirstResponder()
     }
     
     func setupInterface() {
         if self.requestPinConfirmation {
-            pinInputConfirm.layer.cornerRadius = 7
             pinInputConfirm.isSecureTextEntry = true
             pinInputConfirm.addViewPasswordButton()
             
@@ -45,7 +49,6 @@ class RequestPinViewController: SecurityBaseViewController {
             pinErrorLabel.isHidden = false
         }
         
-        pinInput.layer.cornerRadius = 7
         pinInput.isSecureTextEntry = true
         pinInput.addViewPasswordButton()
         
