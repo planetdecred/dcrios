@@ -23,7 +23,6 @@ class RequestPinViewController: SecurityBaseViewController {
     
     @IBOutlet weak var pinErrorLabel: UILabel!
     @IBOutlet weak var confirmPinErrorLabel: UILabel!
-    @IBOutlet weak var pinStrengthLabel: UILabel!
     @IBOutlet weak var pinCount: UILabel!
     @IBOutlet weak var prgsPinStrength: UIProgressView!
     
@@ -45,7 +44,6 @@ class RequestPinViewController: SecurityBaseViewController {
             pinInputConfirm.addViewPasswordButton()
             
             pinInputConfirm.isHidden = false
-            pinStrengthLabel.isHidden = false
             pinErrorLabel.isHidden = false
         }
         
@@ -69,7 +67,6 @@ class RequestPinViewController: SecurityBaseViewController {
             self.prgsPinStrength.progressTintColor = pinStrength.color
             self.prgsPinStrength.progress = pinStrength.strength
             prgsPinStrength.isHidden = false
-            pinStrengthLabel.isHidden = false
         }
         
         self.btnSubmit.isEnabled = isPinOk
@@ -83,7 +80,6 @@ class RequestPinViewController: SecurityBaseViewController {
             self.pinInputConfirm.becomeFirstResponder()
             
             // We are confirming pin, hide the pin strength meter.
-            self.pinStrengthLabel.isHidden = true
             self.prgsPinStrength.isHidden = true
             
         } else if self.requestPinConfirmation && pinInput.text != pinInputConfirm.text {
