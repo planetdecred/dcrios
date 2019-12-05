@@ -5,7 +5,6 @@
 // Copyright (c) 2018-2019 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
-
 import UIKit
 import JGProgressHUD
 import Dcrlibwallet
@@ -18,93 +17,99 @@ class RequestPinViewController: SecurityBaseViewController {
     
     var requestPinConfirmation = false
     
-    var pinToConfirm: String = ""
-    
-    @IBOutlet weak var cancelBtn: UIButton!
-    
-    @IBOutlet weak var headerText: UILabel!
-    @IBOutlet weak var pinInputView: PinInputView!
-    @IBOutlet weak var pinStrengthLabel: UILabel!
-    @IBOutlet weak var prgsPinStrength: UIProgressView!
+    var submitEnabled: Bool = false {
+        didSet {
+            if self.submitEnabled == true {
+                self.btnCommit.isEnabled = true
+                btnCommit.setBackgroundColor(UIColor.appColors.decredBlue, for: .normal)
+            }else {
+                self.btnCommit.isEnabled = false
+                btnCommit.setBackgroundColor(UIColor.appColors.darkGray, for: .normal)
+            }
+        }
+    }
+
     @IBOutlet weak var btnCommit: UIButton!
     
+    @IBOutlet weak var pinInput: FloatingLabelTextInput!
+    @IBOutlet weak var pinInputConfirm: FloatingLabelTextInput!
+    
+    @IBOutlet weak var pinErrorLabel: UILabel!
+    @IBOutlet weak var confirmPinErrorLabel: UILabel!
+    @IBOutlet weak var pinStrengthLabel: UILabel!
+    @IBOutlet weak var pinCount: UILabel!
+    @IBOutlet weak var prgsPinStrength: UIProgressView!
+    
     override func viewDidLoad() {
-        if self.requestPinConfirmation {
-            self.headerText.text = String(format: LocalizedStrings.createPIN, self.securityFor)
-        } else {
-            self.headerText.text = String(format: LocalizedStrings.enterPIN, self.securityFor)
-            self.pinStrengthLabel.isHidden = true
-            self.prgsPinStrength.isHidden = true
-        }
-        
-        if self.showCancelButton {
-            cancelBtn.isHidden = false
-        }
-        prgsPinStrength.layer.cornerRadius = 25
-        btnCommit.adjustsImageWhenHighlighted = false
+        self.setupInterface()
+        self.pinInput.becomeFirstResponder()
     }
     
-    @IBAction func onDigitButtonTapped(_ sender: Any) {
-        UIApplication.shared.beginIgnoringInteractionEvents()
-        let digit = (sender as! UIView).tag
-        let pin = self.pinInputView.append(digit: digit)
-        self.pinUpdated(pin: pin)
-        UIApplication.shared.endIgnoringInteractionEvents()
-    }
-    
-    @IBAction func onBackspaceTapped(_ sender: Any) {
-        UIApplication.shared.beginIgnoringInteractionEvents()
-        let pin = self.pinInputView.backspace()
-        self.pinUpdated(pin: pin)
-        UIApplication.shared.endIgnoringInteractionEvents()
-    }
-    
-    func pinUpdated(pin: String) {
-        if self.requestPinConfirmation {
-            let pinStrength = PinPasswordStrength.percentageStrength(of: pin)
-            self.prgsPinStrength.progressTintColor = pinStrength.color
-            self.prgsPinStrength.progress = pinStrength.strength
+    @objc func pinUpdated(){
+        if pinInput.text != "" && pinInput.text != nil {
+            if self.requestPinConfirmation{
+                let pinStrength = PinPasswordStrength.percentageStrength(of: pinInput.text!)
+                self.prgsPinStrength.progressTintColor = pinStrength.color
+                self.prgsPinStrength.progress = pinStrength.strength
+                prgsPinStrength.isHidden = false
+                pinStrengthLabel.isHidden = false
+            }
+            self.submitEnabled = pinInput.text!.count > 3
         }
-        self.btnCommit.isEnabled = pin.count > 0
     }
     
-    @IBAction func onOkButtonTapped(_ send: Any) {
-        if self.pinInputView.pin == "" {
-            return
-        }
-        
-        if self.requestPinConfirmation && pinToConfirm == "" {
-            self.pinToConfirm = self.pinInputView.pin
-            self.pinInputView.clear()
-            self.headerText.text = String(format: LocalizedStrings.confirmPIN, self.securityFor)
-            self.prgsPinStrength.progress = 0
+    @IBAction func createTapped(_ sender: UIButton) {
+        if self.requestPinConfirmation && (pinInputConfirm.text ?? "") == ""{
+            
+            // No confirmation was entered, ask for pin confirmation
+            confirmPinErrorLabel.text = "Please confirm your PIN"
+            self.pinInputConfirm.becomeFirstResponder()
             
             // We are confirming pin, hide the pin strength meter.
             self.pinStrengthLabel.isHidden = true
             self.prgsPinStrength.isHidden = true
-        }
-        else if requestPinConfirmation && pinToConfirm != pinInputView.pin {
-            self.pinToConfirm = ""
-            self.headerText.text = "PINs did not match. Try again"
             
-            // Reset the input
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                self.headerText.text = "Create \(self.securityFor) PIN"
-                self.pinInputView.clear()
-                self.prgsPinStrength.progress = 0
-                
-                // We're re-requesting input, show the strength meter
-                self.pinStrengthLabel.isHidden = false
-                self.prgsPinStrength.isHidden = false
-            }
-        } else {
-            // only quit VC if not part of the SecurityVC tabs
-            if self.tabBarController == nil {
+        }else if self.requestPinConfirmation && pinInput.text != pinInputConfirm.text{
+            confirmPinErrorLabel.isHidden = false
+            confirmPinErrorLabel.text = "PINs did not match. Try again"
+            pinInputConfirm.becomeFirstResponder()
+        }else{
+            if self.tabBarController == nil{
                 self.dismissView()
             }
             
-            self.onUserEnteredPin?(self.pinInputView.pin)
+            self.onUserEnteredPin!(pinInput.text!)
         }
+    }
+    
+    func setupInterface() {
+        if self.requestPinConfirmation {
+            pinInputConfirm.isHidden = false
+            pinStrengthLabel.isHidden = false
+            pinErrorLabel.isHidden = false
+        
+            pinInputConfirm.layer.cornerRadius = 7
+            pinInputConfirm.isSecureTextEntry = true
+            pinInputConfirm.addViewPasswordButton()
+        }
+        
+        pinInput.layer.cornerRadius = 7
+        pinInput.isSecureTextEntry = true
+        pinInput.addViewPasswordButton()
+        pinInput.addTarget(self, action: #selector(self.pinTextChanged), for: .editingChanged)
+        
+        prgsPinStrength.layer.cornerRadius = 25
+        btnCommit.adjustsImageWhenHighlighted = false
+        btnCommit.layer.cornerRadius = 7
+    }
+    
+    @objc func pinTextChanged(){
+        if pinInput.text == ""{
+            pinCount.text = "\(0)"
+        }else{
+            pinCount.text = "\(pinInput.text!.count)"
+        }
+        self.pinUpdated()
     }
     
     @IBAction func onCancelButtonTapped(_ sender: Any) {
