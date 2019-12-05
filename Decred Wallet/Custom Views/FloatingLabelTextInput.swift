@@ -12,7 +12,7 @@ import UIKit
 class FloatingLabelTextInput: UITextField {
     @IBInspectable var borderWidth: CGFloat = 2 {
         didSet {
-            self.layer.borderWidth = self.borderWidth
+            border.borderWidth = self.borderWidth
             self.setNeedsLayout()
         }
     }
@@ -22,7 +22,7 @@ class FloatingLabelTextInput: UITextField {
     
     @IBInspectable var cornerRadius: CGFloat = 4 {
         didSet {
-            self.layer.cornerRadius = self.cornerRadius
+            border.cornerRadius = self.cornerRadius
             self.setNeedsLayout()
         }
     }
@@ -42,17 +42,20 @@ class FloatingLabelTextInput: UITextField {
     }
     
     lazy var floatingLabel: UILabel = {
-        let floatingLabel = UILabel(frame: self.frame)
+        let floatingLabel = UIPaddedLabel(frame: self.frame)
         floatingLabel.backgroundColor = UIColor.white
         floatingLabel.textColor = floatingLabelColor
         floatingLabel.font = floatingLabelFont
         floatingLabel.clipsToBounds = true
         floatingLabel.translatesAutoresizingMaskIntoConstraints = false
         floatingLabel.sizeToFit()
+        floatingLabel.leftInset = 4
+        floatingLabel.rightInset = 4
         return floatingLabel
     }()
     
     var button = UIButton(type: .custom)
+    let border = CALayer()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -65,9 +68,10 @@ class FloatingLabelTextInput: UITextField {
     }
     
     private func initView() {
-        self.layer.cornerRadius = self.cornerRadius
-        self.layer.borderColor = self.inactiveBorderColor.cgColor
-        self.layer.borderWidth = self.borderWidth
+        border.cornerRadius = self.cornerRadius
+        border.borderColor = self.inactiveBorderColor.cgColor
+        border.borderWidth = self.borderWidth
+        self.layer.addSublayer(border)
         
         self.addTarget(self, action: #selector(self.editingBegan), for: .editingDidBegin)
         self.addTarget(self, action: #selector(self.editingEnded), for: .editingDidEnd)
@@ -77,13 +81,18 @@ class FloatingLabelTextInput: UITextField {
         }
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        border.frame = self.bounds
+    }
+    
     @objc func editingBegan() {
-        self.layer.borderColor = UIColor.appColors.decredBlue.cgColor
+        border.borderColor = UIColor.appColors.decredBlue.cgColor
         self.showFloatingLabel()
     }
     
     @objc func editingEnded() {
-        self.layer.borderColor = self.inactiveBorderColor.cgColor
+        border.borderColor = self.inactiveBorderColor.cgColor
         self.hideFloatingLabel()
     }
     
