@@ -836,7 +836,7 @@
                                                                                         <rect key="frame" x="0.0" y="0.0" width="279" height="21"/>
                                                                                         <nil key="textColor"/>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="29"/>
-                                                                                        <textInputTraits key="textInputTraits"/>
+                                                                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                                                                     </textField>
                                                                                 </subviews>
                                                                             </stackView>
@@ -1216,6 +1216,7 @@
                         <outlet property="receivingWalletAmount" destination="bRl-om-cMM" id="mFL-Qn-kua"/>
                         <outlet property="receivingWalletInfoLabel" destination="X7S-me-auO" id="b7C-ZR-I3O"/>
                         <outlet property="retryFechExchangeRateButton" destination="ivR-39-KpX" id="6mf-tV-ObG"/>
+                        <outlet property="scrollView" destination="HLI-V7-kcO" id="VOr-Eu-7XH"/>
                         <outlet property="sendingAmountTextField" destination="ThZ-OI-Q2c" id="HxY-J2-luE"/>
                         <outlet property="showHideTransactionFeeDetailsButton" destination="dBj-46-mFa" id="gA7-Kv-egP"/>
                         <outlet property="sourceWalletAmount" destination="Ngj-pD-syW" id="2H2-gX-gy5"/>

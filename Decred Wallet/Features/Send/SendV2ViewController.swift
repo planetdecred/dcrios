@@ -34,6 +34,7 @@ class SendV2ViewController: UIViewController {
     @IBOutlet var sendingAmountTextField: UITextField!
     @IBOutlet var retryFechExchangeRateButton: UIButton!
     
+    @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var exchangeRateLabel: UILabel!
     @IBOutlet var exchangeRateIconHeightConstraint: NSLayoutConstraint!
     @IBOutlet var exchangeRateSeparatorView: UIView!
@@ -110,12 +111,18 @@ class SendV2ViewController: UIViewController {
         setUpBarButtonItems()
         setUpViews()
         loadAccounts()
+        sendingAmountTextField.addDoneButton()
+        registerObserverForKeyboardNotification()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
 
+    deinit {
+        unregisterObserverForKeyboardNotification()
+    }
+    
     private func loadAccounts() {
         let walletAccounts = AppDelegate.walletLoader.wallet!.walletAccounts(confirmations: self.requiredConfirmations)
             .filter({ !$0.isHidden && $0.Number != INT_MAX }) // remove hidden wallets from array
@@ -180,7 +187,30 @@ class SendV2ViewController: UIViewController {
         let usdAmount = NSDecimalNumber(value: dcrAmount).multiplying(by: exchangeRate)
         self.exchangeRateLabel.text = "\(usdAmount.round(8)) USD"
     }
+    
+    func registerObserverForKeyboardNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    func unregisterObserverForKeyboardNotification() {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object:nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object:nil)
+    }
 
+    @objc func keyboardWillChange(_ notification: Notification) {
+        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue else {
+            return
+        }
+        let keyboardViewEndFrame = view.convert(keyboardSize, from: view.window)
+        if notification.name == UIResponder.keyboardWillHideNotification {
+            scrollView.contentInset = UIEdgeInsets.zero
+        } else {
+            scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardViewEndFrame.height, right: 0)
+        }
+        scrollView.scrollIndicatorInsets = scrollView.contentInset
+    }
+    
     private func setUpViews() {
         destinationAddressContainerView.layer.borderColor = UIColor.appColors.lighterGray.cgColor
         amountContainerView.layer.borderColor = UIColor.appColors.lighterGray.cgColor
@@ -332,7 +362,7 @@ class SendV2ViewController: UIViewController {
 }
 
 extension SendV2ViewController: UITextFieldDelegate {
-    
+
     func textFieldDidBeginEditing(_ textField: UITextField) {
         // Address field
         if textField.tag == 0 {
@@ -341,7 +371,7 @@ extension SendV2ViewController: UITextFieldDelegate {
             pasteButton.isHidden = false
         }
     }
-    
+
     func textFieldDidEndEditing(_ textField: UITextField) {
         // Address field
         if textField.tag == 0 {
@@ -353,5 +383,14 @@ extension SendV2ViewController: UITextFieldDelegate {
             displayExchangeRate(self.exchangeRate)
             self.toggleSendButtonState(self.shouldEnableSendButton)
         }
+    }
+
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        return true
+    }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
