@@ -163,12 +163,16 @@ struct LocalizedStrings {
     static let walletNotSynced = NSLocalizedString("walletNotSynced", comment: "")
     static let backupWarningText = NSLocalizedString("backupWarningText", comment: "")
     static let connectedTo = NSLocalizedString("connectedTo", comment: "")
+    static let noConnectedPeer = NSLocalizedString("noConnectedPeer", comment: "")
     static let online = NSLocalizedString("online", comment: "")
     static let offline = NSLocalizedString("offline", comment: "")
     static let showDetails = NSLocalizedString("showDetails", comment: "")
     static let hideDetails = NSLocalizedString("hideDetails", comment: "")
     static let connectedPeersCount = NSLocalizedString("connectedPeersCount", comment: "")
     static let peers = NSLocalizedString("peers", comment: "")
+    static let blockHeaderFetched = NSLocalizedString("blockHeaderFetched", comment: "")
+    static let blockHeaderScanned = NSLocalizedString("blockHeaderScanned", comment: "")
+    static let headersScannedProgress = NSLocalizedString("headersScannedProgress", comment: "")
     
     /* Transaction List/ History */
     static let pending = NSLocalizedString("pending", comment: "")

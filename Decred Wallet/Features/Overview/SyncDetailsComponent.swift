@@ -24,7 +24,7 @@ class SyncDetailsComponent: UIView {
     let stepDetailLabel = UILabel(frame: CGRect.zero) // Current sync operation description
     
     // Headers fetched
-    let headersFetchedLabel = UILabel(frame: CGRect.zero)
+    let stepStageProgressLabel = UILabel(frame: CGRect.zero)
     let headersFetchedCount = UILabel(frame: CGRect.zero)
     
     // General Sync Progress
@@ -77,11 +77,11 @@ class SyncDetailsComponent: UIView {
         self.stepDetailLabel.textColor = UIColor.appColors.darkBlue
         
         // fetched headers text
-        self.headersFetchedLabel.font = UIFont(name: "Source Sans Pro", size: 14)
-        self.headersFetchedLabel.text = LocalizedStrings.blockHeadersFetched
-        self.headersFetchedLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.headersFetchedLabel.clipsToBounds = true
-        self.headersFetchedLabel.textColor = UIColor.appColors.textGray
+        self.stepStageProgressLabel.font = UIFont(name: "Source Sans Pro", size: 14)
+        self.stepStageProgressLabel.text = LocalizedStrings.blockHeadersFetched
+        self.stepStageProgressLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.stepStageProgressLabel.clipsToBounds = true
+        self.stepStageProgressLabel.textColor = UIColor.appColors.textGray
         
         // Fetched headers count
         self.headersFetchedCount.font = UIFont(name: "Source Sans Pro", size: 16)
@@ -117,7 +117,7 @@ class SyncDetailsComponent: UIView {
         self.numberOfPeersCount.textColor = UIColor.appColors.darkBlue
         
         // Add details to container
-        self.container.addSubview(self.headersFetchedLabel)
+        self.container.addSubview(self.stepStageProgressLabel)
         self.container.addSubview(self.headersFetchedCount) // %headersFetched% of %total header%
         self.container.addSubview(self.syncProgressLabel) // Syncing progress
         self.container.addSubview(self.ledgerAgeLabel) // days behind count
@@ -127,9 +127,9 @@ class SyncDetailsComponent: UIView {
         // Positioning constraints for full sync details. numbers are from mockup
         NSLayoutConstraint.activate([
             // Headers fetch progress
-            self.headersFetchedLabel.leadingAnchor.constraint(equalTo: self.container.leadingAnchor, constant: 16),
-            self.headersFetchedLabel.topAnchor.constraint(equalTo: self.container.topAnchor, constant: 17),
-            self.headersFetchedLabel.heightAnchor.constraint(equalToConstant: 16),
+            self.stepStageProgressLabel.leadingAnchor.constraint(equalTo: self.container.leadingAnchor, constant: 16),
+            self.stepStageProgressLabel.topAnchor.constraint(equalTo: self.container.topAnchor, constant: 17),
+            self.stepStageProgressLabel.heightAnchor.constraint(equalToConstant: 16),
             
             self.headersFetchedCount.trailingAnchor.constraint(equalTo: self.container.trailingAnchor, constant: -16),
             self.headersFetchedCount.topAnchor.constraint(equalTo: self.container.topAnchor, constant: 17),
@@ -138,7 +138,7 @@ class SyncDetailsComponent: UIView {
             // Wallet sync progress (i.e ledger current age or days behind)
             self.syncProgressLabel.heightAnchor.constraint(equalToConstant: 16),
             self.syncProgressLabel.leadingAnchor.constraint(equalTo: self.container.leadingAnchor, constant: 16),
-            self.syncProgressLabel.topAnchor.constraint(equalTo: headersFetchedLabel.bottomAnchor, constant: 18),
+            self.syncProgressLabel.topAnchor.constraint(equalTo: stepStageProgressLabel.bottomAnchor, constant: 18),
             
             self.ledgerAgeLabel.topAnchor.constraint(equalTo: headersFetchedCount.bottomAnchor, constant: 16),
             self.ledgerAgeLabel.heightAnchor.constraint(equalToConstant: 16),
@@ -168,7 +168,7 @@ class SyncDetailsComponent: UIView {
                        self.separator.topAnchor.constraint(equalTo: self.topAnchor, constant: 0),
             
             // Current sync step (1,2 or 3)
-            self.stepsLabel.heightAnchor.constraint(equalToConstant: 14),
+            self.stepsLabel.heightAnchor.constraint(equalToConstant: 16),
             self.stepsLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
             self.stepsLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16), // left margin of 16pts
             
@@ -179,8 +179,8 @@ class SyncDetailsComponent: UIView {
             // position view holding details data/text
             self.container.heightAnchor.constraint(equalToConstant: 112), // Height of 112 from mockup
             self.container.topAnchor.constraint(equalTo: self.topAnchor, constant: 56), // 56pts space from top
-            self.container.widthAnchor.constraint(equalToConstant: 327), // A padding of 16pts is needed on both sides of this (16 * 2 = 32)
-            self.container.centerXAnchor.constraint(equalTo: self.centerXAnchor), // To maintain even right and left margins
+            self.container.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            self.container.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
         ])
         
         self.setNeedsLayout()
@@ -189,28 +189,63 @@ class SyncDetailsComponent: UIView {
     
     func attachListeners() {
         // Subscribe to general sync progress changes for use in this component
-        // TODO: this only reacts to headersFetchprogress. needs to be refactored to react to address discovery and address rescan actions as well with values below
-        // let addressDiscoveryReport = currentOperationProgress as? DcrlibwalletAddressDiscoveryProgressReport
-        // let addressRescanReport = currentOperationProgress as? DcrlibwalletHeadersRescanProgressReport
-        self.syncManager.syncProgress.subscribePast(with: self) { (generalProgressReport, currentOperationProgress) in
+        self.syncManager.syncProgress.subscribe(with: self) { (generalProgressReport, currentOperationProgress) in
             
             guard currentOperationProgress != nil else {
                 return
             }
-            
-            let headersFetchedReport = currentOperationProgress as? DcrlibwalletHeadersFetchProgressReport // determine if report is headersFetched report
-            
-            if headersFetchedReport != nil {
-                DispatchQueue.main.async {
-                    self.headersFetchedCount.text = String(format: LocalizedStrings.fetchedHeaders, headersFetchedReport!.fetchedHeadersCount, headersFetchedReport!.totalHeadersToFetch)
-                    
-                    if headersFetchedReport!.bestBlockAge != "" {
-                        self.ledgerAgeLabel.text = String(format: LocalizedStrings.bestBlockAgebehind, headersFetchedReport!.bestBlockAge)
+
+            switch (currentOperationProgress) {
+            case is DcrlibwalletHeadersFetchProgressReport:
+                let headersFetchedReport = currentOperationProgress as? DcrlibwalletHeadersFetchProgressReport
+                if headersFetchedReport != nil {
+                    DispatchQueue.main.async {
+                        self.stepStageProgressLabel.text = LocalizedStrings.blockHeadersFetched
+                        self.headersFetchedCount.text = String(format: LocalizedStrings.fetchedHeaders, headersFetchedReport!.fetchedHeadersCount, headersFetchedReport!.totalHeadersToFetch)
+                        self.stepDetailLabel.text = String(format: LocalizedStrings.headersFetchProgress, headersFetchedReport!.headersFetchProgress)
+                        if headersFetchedReport!.bestBlockAge != "" {
+                            self.syncProgressLabel.text = LocalizedStrings.syncingProgress
+                            self.ledgerAgeLabel.text = String(format: LocalizedStrings.bestBlockAgebehind, headersFetchedReport!.bestBlockAge)
+                            self.ledgerAgeLabel.sizeToFit()
+                        }
+                    }
+                }
+            case is DcrlibwalletAddressDiscoveryProgressReport:
+                let addressDiscoveryReport = currentOperationProgress as? DcrlibwalletAddressDiscoveryProgressReport
+                if addressDiscoveryReport != nil {
+                    let isOverHundred = addressDiscoveryReport!.addressDiscoveryProgress > 100
+                    let addressOverHundred = String(format: LocalizedStrings.addressDiscoveryProgressOver, addressDiscoveryReport!.addressDiscoveryProgress)
+                    let addressUnderHundred = String(format: LocalizedStrings.addressDiscoveryProgressThrough, addressDiscoveryReport!.addressDiscoveryProgress)
+                    let details = isOverHundred ? addressOverHundred: addressUnderHundred
+                    DispatchQueue.main.async {
+                        self.headersFetchedCount.text = details
+                        self.stepDetailLabel.text = "\(LocalizedStrings.discoveringUsedAddresses) \(addressDiscoveryReport!.addressDiscoveryProgress)%"
+                        self.stepStageProgressLabel.text = LocalizedStrings.discoveringUsedAddresses
+                        self.syncProgressLabel.text = ""
+                        self.ledgerAgeLabel.text = ""
                         self.ledgerAgeLabel.sizeToFit()
                     }
                 }
+                break
+            case is DcrlibwalletHeadersRescanProgressReport:
+                let addressRescanReport = currentOperationProgress as? DcrlibwalletHeadersRescanProgressReport
+                if addressRescanReport != nil {
+                    DispatchQueue.main.async {
+                        self.headersFetchedCount.text = String(format: LocalizedStrings.scanningTotalHeaders, addressRescanReport!.currentRescanHeight, addressRescanReport!.totalHeadersToScan)
+                        self.stepStageProgressLabel.text = LocalizedStrings.blockHeaderScanned
+                        self.stepDetailLabel.text = String(format: LocalizedStrings.headersScannedProgress, addressRescanReport!.rescanProgress)
+                        self.syncProgressLabel.text = ""
+                        self.ledgerAgeLabel.text = ""
+                        self.ledgerAgeLabel.sizeToFit()
+                        }
+                    }
+            case .none:
+                break
+            case .some(_):
+                break
             }
         }
+            
         // Subscribe to connected peers changes and react in this component only
         self.syncManager.peers.subscribe(with: self) { (peers) in
             DispatchQueue.main.async {
@@ -221,7 +256,6 @@ class SyncDetailsComponent: UIView {
         self.syncManager.syncStage.subscribe(with: self){ (stage, reportText) in
             DispatchQueue.main.async {
                 self.stepsLabel.text = String(format: LocalizedStrings.syncSteps, stage)
-                self.stepDetailLabel.text = reportText
             }
         }
     }

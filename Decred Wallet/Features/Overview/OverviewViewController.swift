@@ -57,6 +57,7 @@ class OverviewViewController: UIViewController {
     @IBOutlet weak var recentTransactionsTableViewHeightContraint: NSLayoutConstraint!
 
     let maxDisplayItems = 3
+    var refreshBestBlockAgeTimer: Timer?
     // Container for our progress report bar & text.
     let syncProgressBarContainer = UIView(frame: CGRect.zero)
     
@@ -87,11 +88,11 @@ class OverviewViewController: UIViewController {
         self.parentScrollView.delegate = self // This is so we can update the navigation bar on user scroll. Our transactions tableView will also hold a scrollview when populated and we want to differentiate that, hence this tag
         
         if AppDelegate.walletLoader.isSynced {
+            self.updateCurrentBalance()
             self.updateRecentActivity()
         }else{
             self.showNoTransactions()
         }
-        self.updateCurrentBalance()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -128,6 +129,8 @@ class OverviewViewController: UIViewController {
         self.navBarTitle.addSubview(self.pageTitleLabel)
         self.navigationItem.titleView = self.navBarTitle // set our navigation item to our custom navbar view
         
+        self.balanceLabel.attributedText = Utils.getAttributedString(str: "0", siz: 17.0, TexthexColor: GlobalConstants.Colors.TextAmount)
+        
         // Setup seed backup warning
         self.seedBackupSectionView.layer.cornerRadius = 14
         self.seedBackupSectionView.layer.shadowPath = UIBezierPath(roundedRect: self.seedBackupSectionView.bounds, cornerRadius: self.seedBackupSectionView.layer.cornerRadius).cgPath
@@ -142,7 +145,7 @@ class OverviewViewController: UIViewController {
         
         let latestBlock = AppDelegate.walletLoader.wallet?.getBestBlock() ?? 0
         self.setLatestBlockLabel(latestBlock: latestBlock)
-        self.connectedPeersLabel.text = String(format: LocalizedStrings.connectedTo, 0)
+        self.connectedPeersLabel.attributedText = NSMutableAttributedString(string: LocalizedStrings.noConnectedPeer)
         
         self.showSyncDetailsButton.addBorder(atPosition: .top, color: UIColor.appColors.lightGray, thickness: 0.62)
         self.showSyncDetailsButton.setTitle(LocalizedStrings.showDetails, for: .normal)
@@ -153,7 +156,7 @@ class OverviewViewController: UIViewController {
         self.syncConnectionButton.layer.borderWidth = 1
         self.syncConnectionButton.layer.borderColor = UIColor.appColors.lightGray.cgColor
         self.syncConnectionButton.layer.cornerRadius = 12 // Height is 24pts from mockup so we use use 12pts for rounded left & right edges
-//        self.syncConnectionButton.isHidden = true // initially hidden because we only want to show it while sync is active
+         self.syncConnectionButton.isHidden = true // initially hidden because we only want to show it while sync is active
         self.syncConnectionButton.addTarget(self, action: #selector(self.connectionToggle), for: .touchUpInside)
         
         // Transactions section setup
@@ -174,28 +177,27 @@ class OverviewViewController: UIViewController {
     }
     
     private func setLatestBlockLabel(latestBlock : __int32_t) {
-        
-               let latestBlockAge = self.syncManager.setBestBlockAge()
-               let latestBlockText = String(format: LocalizedStrings.latestBlockAge, latestBlock, latestBlockAge)
+        let latestBlockAge = self.syncManager.setBestBlockAge()
+        let latestBlockText = String(format: LocalizedStrings.latestBlockAge, latestBlock, latestBlockAge)
 
-               let range = (latestBlockText as NSString).range(of: "\(latestBlock)")
-               let range2 = (latestBlockText as NSString).range(of: "\(latestBlockAge)")
-               let attributedString = NSMutableAttributedString(string: latestBlockText)
-               attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.appColors.darkBlue, range: range)
+        let range = (latestBlockText as NSString).range(of: "\(latestBlock)")
+        let range2 = (latestBlockText as NSString).range(of: "\(latestBlockAge)")
+        let attributedString = NSMutableAttributedString(string: latestBlockText)
+        attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.appColors.darkBlue, range: range)
                attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.appColors.darkBlue , range: range2)
-        //self.latestBlockLabel.textColor = UIColor.orange
-               self.latestBlockLabel.attributedText = attributedString
+        self.latestBlockLabel.attributedText = attributedString
     }
     
     // Attach listeners to sync manager and react in this view
     func attachSyncListeners() {
+        
         // Subscribe to changes in number of connected peers
         self.syncManager.peers.subscribe(with: self) { (peers) in
             let connectedPeerText = String(format: LocalizedStrings.connectedTo, peers)
             let range = (connectedPeerText as NSString).range(of: "\(peers)")
             let attributedString = NSMutableAttributedString(string: connectedPeerText)
-        attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.appColors.darkBlue, range: range)
-            self.connectedPeersLabel.attributedText = attributedString
+            attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.appColors.darkBlue, range: range)
+            self.connectedPeersLabel.attributedText = peers > 0 ? attributedString: NSMutableAttributedString(string: LocalizedStrings.noConnectedPeer)
         }
         
         // Subscribe to changes in sync status
@@ -217,10 +219,15 @@ class OverviewViewController: UIViewController {
             self.onlineStatusLabel.text = status ? LocalizedStrings.online : LocalizedStrings.offline
             
             // We need to update sync connect/disconnect button
-            self.updateConnectionButton(connected: status)
+            self.updateConnectionButton(connected: status, isSyncing: (AppDelegate.walletLoader.wallet?.isSyncing())!)
+            
+            // We need to reset peer count
+            if status == false {
+                self.connectedPeersLabel.attributedText = NSMutableAttributedString(string: LocalizedStrings.noConnectedPeer)
+            }
         }
     }
-    
+ 
     // Show sync details on user click "show details" button while syncing
     func handleShowSyncDetails() {
         let detailsView = SyncDetailsComponent(frame: .zero)
@@ -236,21 +243,22 @@ class OverviewViewController: UIViewController {
                 detailsView.heightAnchor.constraint(equalToConstant: 188).isActive = true
                 detailsView.widthAnchor.constraint(equalTo: self.syncProgressView.widthAnchor).isActive = true
             })
-            
             self.showSyncDetailsButton.setTitle(LocalizedStrings.hideDetails, for: .normal)
         }
     }
     
     // Hide sync details on "hide details" button click or on sync completion
     func handleHideSyncDetails() {
-        if (AppDelegate.walletLoader.wallet?.isSyncing() == false) { return }
-        
-        if self.syncStatusSection.arrangedSubviews.indices.contains(2) {
-            UIView.animate(withDuration: 4.3, delay: 0.0, options: [.curveEaseOut, .allowUserInteraction], animations: {
-                self.syncStatusSection.arrangedSubviews[2].removeFromSuperview()
-            })
+        //if (AppDelegate.walletLoader.wallet?.isSyncing() == false) { return }
+        DispatchQueue.main.async {
+             // If the user had clicked on "Show sync details", sync details will be visible after hiding sync progress bar. we need to make sure it is removed first
+            if self.syncStatusSection.arrangedSubviews.indices.contains(3) {
+                UIView.animate(withDuration: 4.3, delay: 0.0, options: [.curveEaseOut, .allowUserInteraction], animations: {
+                    self.syncStatusSection.arrangedSubviews[2].removeFromSuperview()
+                })
+            }
+            self.showSyncDetailsButton?.setTitle(LocalizedStrings.showDetails, for: .normal)
         }
-        self.showSyncDetailsButton.setTitle(LocalizedStrings.showDetails, for: .normal)
     }
     
     // show sync status with progress bar
@@ -263,14 +271,9 @@ class OverviewViewController: UIViewController {
         
         let bestBlock = AppDelegate.walletLoader.wallet!.getBestBlock()
         self.setLatestBlockLabel(latestBlock: bestBlock)
-        
-        // Remove default latest block label so we an show the progress bar
+        // Remove default latest block label so we can show the progress bar
         self.latestBlockLabel.isHidden = true
         self.connectedPeersLabel.isHidden = true
-        
-        if self.showSyncDetailsButton.isHidden == true {
-            self.showSyncDetailsButton.isHidden = false
-        }
         
         self.syncStatusImage.image = UIImage(named: "ic_syncing")
         
@@ -284,6 +287,7 @@ class OverviewViewController: UIViewController {
         progressBar.progressTintColor = UIColor.appColors.decredGreen
         progressBar.translatesAutoresizingMaskIntoConstraints = false
         progressBar.clipsToBounds = true
+        progressBar.progress = Float(0)
         
         // Overall sync progress percentage
         let percentageLabel = UILabel(frame: CGRect.zero)
@@ -332,19 +336,24 @@ class OverviewViewController: UIViewController {
             timeLeftLabel.text = String(format: LocalizedStrings.syncTimeLeft, progressReport!.totalTimeRemaining)
             percentageLabel.text = String(format: LocalizedStrings.syncProgressComplete, progressReport!.totalSyncProgress)
             progressBar.progress = Float(progressReport!.totalSyncProgress) / 100.0
+            self.showSyncDetailsButton.isHidden = false
         }
         
         // We are syncing, update the connection toggle button to show "cancel"
         self.updateConnectionButton(connected: true, isSyncing: true)
-        self.updateRecentActivity()
     }
     
     // hide sync status progressbar and time on sync complete or cancelled
     func hideSyncStatus() {
-        // If the user had clicked on "Show sync details", sync details will be visible after hiding sync progress bar. we need to make sure it is removed first
-        self.handleHideSyncDetails()
-        
         DispatchQueue.main.async {
+             // If the user had clicked on "Show sync details", sync details will be visible after hiding sync progress bar. we need to make sure it is removed first
+            if self.syncStatusSection.arrangedSubviews.indices.contains(3) {
+                UIView.animate(withDuration: 4.3, delay: 0.0, options: [.curveEaseOut, .allowUserInteraction], animations: {
+                    self.syncStatusSection.arrangedSubviews[2].removeFromSuperview()
+                })
+            }
+            self.showSyncDetailsButton?.setTitle(LocalizedStrings.showDetails, for: .normal)
+            
             self.syncProgressBarContainer.removeFromSuperview()
             self.latestBlockLabel.isHidden = false
             self.connectedPeersLabel.isHidden = false
@@ -359,15 +368,17 @@ class OverviewViewController: UIViewController {
             let syncStatusImageName = (AppDelegate.walletLoader.wallet?.isSynced())! ? "ic_checkmark" : "ic_crossmark"
             self.syncStatusImage.image = UIImage(named: syncStatusImageName)
             self.syncStatusLabel.text = (AppDelegate.walletLoader.wallet?.isSynced())! ? LocalizedStrings.walletSynced : LocalizedStrings.walletNotSynced
+            self.updatingLatestBlockInfo(latestBlock: bestBlock)
             self.showSyncDetailsButton.isHidden = true
             
         }
         
         // Next we set the sync connection control button depending on whether or not the wallet synced successfully
         self.updateConnectionButton(connected: (AppDelegate.walletLoader.wallet?.isSynced())! ? true : false, isSyncing: false)
-        
-        self.updateRecentActivity()
-        self.updateCurrentBalance()
+        if AppDelegate.walletLoader.isSynced {
+            self.updateRecentActivity()
+            self.updateCurrentBalance()
+        }
     }
     
     @objc func handleRecentActivityTableRefresh(_ refreshControl: UIRefreshControl) {
@@ -401,6 +412,30 @@ class OverviewViewController: UIViewController {
     // Handle action of sync connect/reconnect/cancel button click based on sync/network status
     @objc func connectionToggle() {
         // TODO: implement action for connection change toggle button
+       
+        
+        switch self.syncConnectionButton.titleLabel?.text {
+        case LocalizedStrings.cancel:
+            if (AppDelegate.walletLoader.wallet?.isSynced())! {
+                return
+            }
+            AppDelegate.walletLoader.wallet?.cancelSync()
+            syncManager.onSyncCanceled(false)
+            self.updateConnectionButton(connected: (AppDelegate.walletLoader.wallet?.isSynced())!, isSyncing: (AppDelegate.walletLoader.wallet?.isSyncing())!)
+            break
+        case LocalizedStrings.disconnect:
+            AppDelegate.walletLoader.wallet?.cancelSync()
+            syncManager.onSyncCanceled(false)
+            self.updateConnectionButton(connected: (AppDelegate.walletLoader.wallet?.isSynced())!, isSyncing: (AppDelegate.walletLoader.wallet?.isSyncing())!)
+            break
+        case LocalizedStrings.reconnect:
+            self.stopBestBlockAgeUpdate()
+            self.syncManager.isResartingSync = true
+            self.syncManager.checkNetworkConnectionForSync()
+            break
+        default:
+            break
+        }
     }
     
     func updateRecentActivity() {
@@ -424,6 +459,25 @@ class OverviewViewController: UIViewController {
         }
     }
     
+    func updatingLatestBlockInfo(latestBlock : __int32_t) {
+          if AppDelegate.walletLoader.wallet!.isScanning() {return}
+          
+          if self.refreshBestBlockAgeTimer != nil {
+              self.refreshBestBlockAgeTimer?.invalidate()
+          }
+          
+          self.refreshBestBlockAgeTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) {_ in
+            DispatchQueue.main.async {
+              self.setLatestBlockLabel(latestBlock: latestBlock)
+            }
+          }
+      }
+    
+    func stopBestBlockAgeUpdate() {
+               self.refreshBestBlockAgeTimer?.invalidate()
+               self.refreshBestBlockAgeTimer = nil
+    }
+    
     func updateCurrentBalance() {
         DispatchQueue.main.async {
             let totalWalletAmount = AppDelegate.walletLoader.wallet?.totalWalletBalance()
@@ -440,11 +494,7 @@ class OverviewViewController: UIViewController {
     
     // Action for when show/hide sync details button is tapped
     @objc func handleShowSyncToggle() {
-        if self.syncToggle {
-            self.syncToggle = false
-        }else{
-            self.syncToggle = true
-        }
+        self.syncToggle = !self.syncToggle
     }
     
     @objc func showAllTransactions() {
@@ -484,6 +534,7 @@ extension OverviewViewController: NewTransactionNotificationProtocol, ConfirmedT
     func onTransactionConfirmed(_ hash: String?, height: Int32) {
         DispatchQueue.main.async {
             self.updateCurrentBalance()
+            self.recentTransactionsTableView.reloadData()
         }
     }
 }
