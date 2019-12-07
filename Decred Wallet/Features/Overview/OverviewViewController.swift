@@ -120,7 +120,7 @@ class OverviewViewController: UIViewController {
         logoImage.clipsToBounds = true
         
         self.pageTitleLabel = UILabel(frame: CGRect(x: 64, y: 10, width: 400, height: 20)) // position the overview label 64pts from the screens left edge and 10pts from the top of the navigation bar
-        self.pageTitleLabel.font = UIFont(name: "Source Sans Pro", size: 20)
+        self.pageTitleLabel.font = UIFont(name: "SourceSansPro-Regular", size: 20)
         self.pageTitleLabel.text = LocalizedStrings.overview
         self.pageTitleLabel.clipsToBounds = true
         
@@ -285,19 +285,22 @@ class OverviewViewController: UIViewController {
         let progressBar = UIProgressView(frame: CGRect.zero)
         progressBar.layer.cornerRadius = 4 // Because height is 8pts and we want a perfect semi circle curve
         progressBar.progressTintColor = UIColor.appColors.decredGreen
+        progressBar.trackTintColor = UIColor.appColors.borderGray
         progressBar.translatesAutoresizingMaskIntoConstraints = false
         progressBar.clipsToBounds = true
         progressBar.progress = Float(0)
         
         // Overall sync progress percentage
         let percentageLabel = UILabel(frame: CGRect.zero)
-        percentageLabel.font = UIFont(name: "Source Sans Pro", size: 16)
+        percentageLabel.font = UIFont(name: "SourceSansPro-Regular", size: 16)
+        percentageLabel.textColor = UIColor.appColors.darkBlue
         percentageLabel.translatesAutoresizingMaskIntoConstraints = false
         percentageLabel.clipsToBounds = true
         
         // Estimated time left to complete sync
         let timeLeftLabel = UILabel(frame: CGRect.zero)
-        timeLeftLabel.font = UIFont(name: "Source Sans Pro", size: 16)
+        timeLeftLabel.font = UIFont(name: "SourceSansPro-Regular", size: 16)
+        timeLeftLabel.textColor = UIColor.appColors.darkBlue
         timeLeftLabel.translatesAutoresizingMaskIntoConstraints = false
         timeLeftLabel.clipsToBounds = true
         
@@ -405,20 +408,14 @@ class OverviewViewController: UIViewController {
             self.syncConnectionButton.setImage(UIImage(named: "ic_rescan"), for: .normal)
             self.syncConnectionButton.imageView?.contentMode = .scaleAspectFit
             self.syncConnectionButton.setTitle(LocalizedStrings.reconnect, for: .normal)
-            break
         }
     }
     
     // Handle action of sync connect/reconnect/cancel button click based on sync/network status
     @objc func connectionToggle() {
         // TODO: implement action for connection change toggle button
-       
-        
         switch self.syncConnectionButton.titleLabel?.text {
         case LocalizedStrings.cancel:
-            if (AppDelegate.walletLoader.wallet?.isSynced())! {
-                return
-            }
             AppDelegate.walletLoader.wallet?.cancelSync()
             syncManager.onSyncCanceled(false)
             self.updateConnectionButton(connected: (AppDelegate.walletLoader.wallet?.isSynced())!, isSyncing: (AppDelegate.walletLoader.wallet?.isSyncing())!)

@@ -64,53 +64,53 @@ class SyncDetailsComponent: UIView {
         self.separator.clipsToBounds = true
         
         // current step indicator
-        self.stepsLabel.font = UIFont(name: "Source Sans Pro", size: 14)
+        self.stepsLabel.font = UIFont(name: "SourceSansPro-Regular", size: 14)
         self.stepsLabel.text = String(format: LocalizedStrings.syncSteps, 0)
         self.stepsLabel.translatesAutoresizingMaskIntoConstraints = false
         self.stepsLabel.clipsToBounds = true
         self.stepsLabel.textColor = UIColor.appColors.textGray
         
         // current step action/progress
-        self.stepDetailLabel.font = UIFont(name: "Source Sans Pro", size: 16)
+        self.stepDetailLabel.font = UIFont(name: "SourceSansPro-Regular", size: 15)
         self.stepDetailLabel.translatesAutoresizingMaskIntoConstraints = false
         self.stepDetailLabel.clipsToBounds = true
         self.stepDetailLabel.textColor = UIColor.appColors.darkBlue
         
         // fetched headers text
-        self.stepStageProgressLabel.font = UIFont(name: "Source Sans Pro", size: 14)
+        self.stepStageProgressLabel.font = UIFont(name: "SourceSansPro-Regular", size: 14)
         self.stepStageProgressLabel.text = LocalizedStrings.blockHeadersFetched
         self.stepStageProgressLabel.translatesAutoresizingMaskIntoConstraints = false
         self.stepStageProgressLabel.clipsToBounds = true
         self.stepStageProgressLabel.textColor = UIColor.appColors.textGray
         
         // Fetched headers count
-        self.headersFetchedCount.font = UIFont(name: "Source Sans Pro", size: 16)
+        self.headersFetchedCount.font = UIFont(name: "SourceSansPro-Regular", size: 16)
         self.headersFetchedCount.translatesAutoresizingMaskIntoConstraints = false
         self.headersFetchedCount.clipsToBounds = true
         self.headersFetchedCount.textColor = UIColor.appColors.darkBlue
         
         // Syncing progress text
-        self.syncProgressLabel.font = UIFont(name: "Source Sans Pro", size: 14)
+        self.syncProgressLabel.font = UIFont(name: "SourceSansPro-Regular", size: 14)
         self.syncProgressLabel.text = LocalizedStrings.syncingProgress
         self.syncProgressLabel.translatesAutoresizingMaskIntoConstraints = false
         self.syncProgressLabel.clipsToBounds = true
         self.syncProgressLabel.textColor = UIColor.appColors.textGray
         
         // block age behind
-        self.ledgerAgeLabel.font = UIFont(name: "Source Sans Pro", size: 16)
+        self.ledgerAgeLabel.font = UIFont(name: "SourceSansPro-Regular", size: 16)
         self.ledgerAgeLabel.translatesAutoresizingMaskIntoConstraints = false
         self.ledgerAgeLabel.clipsToBounds = true
         self.ledgerAgeLabel.textColor = UIColor.appColors.darkBlue
         
         // Connected peers
-        self.numberOfPeersLabel.font = UIFont(name: "Source Sans Pro", size: 14)
+        self.numberOfPeersLabel.font = UIFont(name: "SourceSansPro-Regular", size: 14)
         self.numberOfPeersLabel.text = LocalizedStrings.connectedPeersCount
         self.numberOfPeersLabel.translatesAutoresizingMaskIntoConstraints = false
         self.numberOfPeersLabel.clipsToBounds = true
         self.numberOfPeersLabel.textColor = UIColor.appColors.textGray
         
         // show connected peers count
-        self.numberOfPeersCount.font = UIFont(name: "Source Sans Pro", size: 16)
+        self.numberOfPeersCount.font = UIFont(name: "SourceSansPro-Regular", size: 16)
         self.numberOfPeersCount.text = "0"
         self.numberOfPeersCount.translatesAutoresizingMaskIntoConstraints = false
         self.numberOfPeersCount.clipsToBounds = true
@@ -189,7 +189,7 @@ class SyncDetailsComponent: UIView {
     
     func attachListeners() {
         // Subscribe to general sync progress changes for use in this component
-        self.syncManager.syncProgress.subscribe(with: self) { (generalProgressReport, currentOperationProgress) in
+        self.syncManager.syncProgress.subscribePast(with: self) { (generalProgressReport, currentOperationProgress) in
             
             guard currentOperationProgress != nil else {
                 return
@@ -203,6 +203,7 @@ class SyncDetailsComponent: UIView {
                         self.stepStageProgressLabel.text = LocalizedStrings.blockHeadersFetched
                         self.headersFetchedCount.text = String(format: LocalizedStrings.fetchedHeaders, headersFetchedReport!.fetchedHeadersCount, headersFetchedReport!.totalHeadersToFetch)
                         self.stepDetailLabel.text = String(format: LocalizedStrings.headersFetchProgress, headersFetchedReport!.headersFetchProgress)
+                        self.stepsLabel.text = String(format: LocalizedStrings.syncSteps, 1)
                         if headersFetchedReport!.bestBlockAge != "" {
                             self.syncProgressLabel.text = LocalizedStrings.syncingProgress
                             self.ledgerAgeLabel.text = String(format: LocalizedStrings.bestBlockAgebehind, headersFetchedReport!.bestBlockAge)
@@ -221,6 +222,7 @@ class SyncDetailsComponent: UIView {
                         self.headersFetchedCount.text = details
                         self.stepDetailLabel.text = "\(LocalizedStrings.discoveringUsedAddresses) \(addressDiscoveryReport!.addressDiscoveryProgress)%"
                         self.stepStageProgressLabel.text = LocalizedStrings.discoveringUsedAddresses
+                        self.stepsLabel.text = String(format: LocalizedStrings.syncSteps, 2)
                         self.syncProgressLabel.text = ""
                         self.ledgerAgeLabel.text = ""
                         self.ledgerAgeLabel.sizeToFit()
@@ -234,6 +236,7 @@ class SyncDetailsComponent: UIView {
                         self.headersFetchedCount.text = String(format: LocalizedStrings.scanningTotalHeaders, addressRescanReport!.currentRescanHeight, addressRescanReport!.totalHeadersToScan)
                         self.stepStageProgressLabel.text = LocalizedStrings.blockHeaderScanned
                         self.stepDetailLabel.text = String(format: LocalizedStrings.headersScannedProgress, addressRescanReport!.rescanProgress)
+                        self.stepsLabel.text = String(format: LocalizedStrings.syncSteps, 3)
                         self.syncProgressLabel.text = ""
                         self.ledgerAgeLabel.text = ""
                         self.ledgerAgeLabel.sizeToFit()
@@ -247,15 +250,9 @@ class SyncDetailsComponent: UIView {
         }
             
         // Subscribe to connected peers changes and react in this component only
-        self.syncManager.peers.subscribe(with: self) { (peers) in
+        self.syncManager.peers.subscribePast(with: self) { (peers) in
             DispatchQueue.main.async {
                 self.numberOfPeersCount.text = String(peers)
-            }
-        }
-        // Subscribe to changes in synchronization stage and react in this component only
-        self.syncManager.syncStage.subscribe(with: self){ (stage, reportText) in
-            DispatchQueue.main.async {
-                self.stepsLabel.text = String(format: LocalizedStrings.syncSteps, stage)
             }
         }
     }
