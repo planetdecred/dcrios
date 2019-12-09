@@ -73,7 +73,7 @@ class OverviewViewController: UIViewController {
             let totalWalletAmount = AppDelegate.walletLoader.wallet?.totalWalletBalance()
             let totalAmountRoundedOff = (Decimal(totalWalletAmount!) as NSDecimalNumber).round(8)
             
-            self.totalBalanceLabel.attributedText = Utils.getAttributedString(str: "\(totalAmountRoundedOff)", siz: 17.0, TexthexColor: GlobalConstants.Colors.TextAmount)
+            self.totalBalanceLabel.attributedText = Utils.getAttributedString(str: "\(totalAmountRoundedOff)", siz: 17.0, TexthexColor: UIColor.appColors.darkBlue)
             self.fetchingBalanceIndicator.superview?.isHidden = true
             self.totalBalanceLabel.isHidden = false
         }

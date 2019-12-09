@@ -10,12 +10,13 @@ import Foundation
 import UIKit
 
 extension UIColor {
+    // todo: significantly fewer colors should be left here once the implementation of the new
+    // interface design is completed as the new design uses fewer colors generally.
     struct appColors {
         // decred colors are from https://decred.org/brand/
         static let decredBlue = UIColor.init(hex: "#2970FF")
         static let decredGreen = UIColor.init(hex: "#41BF53")
         static let decredOrange = UIColor.init(hex: "#ED6D47")
-        
         static let darkYellowWarning = UIColor.init(hex: "#E7C659")
         static let green = UIColor.init(hex: "#2DD8A3")
         static let lightGray = UIColor.init(hex: "#DEE1E3")

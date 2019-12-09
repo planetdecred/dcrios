@@ -38,9 +38,9 @@ class RecoveryWalletSeedWordCell: UITableViewCell {
     func seedWordSelected(_ selectedWord: String) {
         self.seedWordAutoComplete.text = selectedWord
         self.onSeedEntered!(self.fieldIndex!, selectedWord, true)
-        self.lbSeedWordNum.layer.borderColor = UIColor.appColors.darkBlue.cgColor
+        self.lbSeedWordNum.layer.borderColor = UIColor.appColors.darkText.cgColor
         self.cellBorder.layer.borderColor = UIColor.appColors.faddedGray.cgColor
-        self.seedWordAutoComplete.textColor = UIColor.appColors.darkBlue
+        self.seedWordAutoComplete.textColor = UIColor.appColors.darkText
     }
     
     func textEditingEndedWithoutPickingSeedWord() {
@@ -57,10 +57,10 @@ class RecoveryWalletSeedWordCell: UITableViewCell {
         let currentText = self.seedWordAutoComplete.text ?? ""
         // validate and define text appearance
         let isValidWordOrEmptyString = self.validSeedWords.contains(currentText) || currentText.isEmpty
-        let lbSeedWordNumBorderColor = isValidWordOrEmptyString ? UIColor.appColors.darkBlue.cgColor: UIColor.appColors.decredOrange.cgColor
+        let lbSeedWordNumBorderColor = isValidWordOrEmptyString ? UIColor.appColors.darkText.cgColor: UIColor.appColors.decredOrange.cgColor
         let seedWordAutoCompleteClearButtonMode = isValidWordOrEmptyString ? UITextField.ViewMode.whileEditing : UITextField.ViewMode.always
         let cellBorderBorderColor = isValidWordOrEmptyString ? UIColor.appColors.faddedGray.cgColor: UIColor.appColors.decredOrange.cgColor
-        let seedWordAutoCompleteTextColor = isValidWordOrEmptyString ? UIColor.appColors.darkBlue: UIColor.appColors.decredOrange
+        let seedWordAutoCompleteTextColor = isValidWordOrEmptyString ? UIColor.appColors.darkText: UIColor.appColors.decredOrange
         
         self.lbSeedWordNum.layer.borderColor = lbSeedWordNumBorderColor
         self.seedWordAutoComplete.textColor = seedWordAutoCompleteTextColor

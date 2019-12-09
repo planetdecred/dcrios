@@ -113,7 +113,7 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
         let seedWordCell = tableView.dequeueReusableCell(withIdentifier: "seedWordCell", for: indexPath) as! RecoveryWalletSeedWordCell
         
         seedWordCell.lbSeedWordNum.text = String(format: LocalizedStrings.wordNumber, indexPath.row + 1)
-        seedWordCell.lbSeedWordNum.layer.borderColor = UIColor.appColors.darkBlue.cgColor
+        seedWordCell.lbSeedWordNum.layer.borderColor = UIColor.appColors.darkText.cgColor
         seedWordCell.seedWordAutoComplete.text = self.userEnteredSeedWords[indexPath.row]
         seedWordCell.cellBorder.layer.borderColor = UIColor.appColors.faddedGray.cgColor
         seedWordCell.seedWordAutoComplete.resignFirstResponder()
@@ -123,13 +123,13 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
                                        dropDownListPlaceholder: self.wordSelectionDropDownContainer,
                                        onSeedEntered: self.seedWordEntered)
         if indexPath.row == 0 {
-            seedWordCell.roundCorners(corners: [.topLeft, .topRight], radius: 10.0)
+            seedWordCell.setRoundCorners(corners: [.topLeft, .topRight], radius: 10.0)
         }
         else if indexPath.row == 32 {
-            seedWordCell.roundCorners(corners: [.bottomRight, .bottomLeft], radius: 10.0)
+            seedWordCell.setRoundCorners(corners: [.bottomRight, .bottomLeft], radius: 10.0)
         }
         else{
-            seedWordCell.roundCorners(corners: [.bottomRight, .bottomLeft, .topLeft, .topRight], radius: 0.0)
+            seedWordCell.setRoundCorners(corners: [.bottomRight, .bottomLeft, .topLeft, .topRight], radius: 0.0)
         }
         
         return seedWordCell
