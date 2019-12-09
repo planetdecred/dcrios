@@ -48,17 +48,17 @@ class TransactionTableViewCell: UITableViewCell {
             if transaction.type == DcrlibwalletTxTypeRegular {
                 if transaction.direction == DcrlibwalletTxDirectionSent {
                     let attributedString = NSMutableAttributedString(string: "-")
-                    attributedString.append(Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 13.0, TexthexColor: UIColor.appColors.darkerBlue))
+                    attributedString.append(Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 13.0, TexthexColor: UIColor.appColors.darkBlue))
                     self.dataText.attributedText = attributedString
                     self.dataImage?.image = UIImage(named: "debit")
                 } else if transaction.direction == DcrlibwalletTxDirectionReceived {
                     let attributedString = NSMutableAttributedString(string: " ")
-                    attributedString.append(Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 13.0, TexthexColor: UIColor.appColors.darkerBlue))
+                    attributedString.append(Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 13.0, TexthexColor: UIColor.appColors.darkBlue))
                     self.dataText.attributedText = attributedString
                     self.dataImage?.image = UIImage(named: "credit")
                 } else if transaction.direction == DcrlibwalletTxDirectionTransferred {
                     let attributedString = NSMutableAttributedString(string: " ")
-                    attributedString.append(Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 13.0, TexthexColor: UIColor.appColors.darkerBlue))
+                    attributedString.append(Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 13.0, TexthexColor: UIColor.appColors.darkBlue))
                     self.dataText.attributedText = attributedString
                     self.dataImage?.image = UIImage(named: "fee")
                 }
