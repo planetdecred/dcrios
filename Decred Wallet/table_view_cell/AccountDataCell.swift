@@ -6,6 +6,7 @@
 // license that can be found in the LICENSE file.
 
 import UIKit
+import Dcrlibwallet
 
 class AccountDataCell: UITableViewCell, AccountDetailsCellProtocol {
     
@@ -23,7 +24,7 @@ class AccountDataCell: UITableViewCell, AccountDetailsCellProtocol {
     @IBOutlet private weak var labelHDPathValue: UILabel!
     @IBOutlet private weak var labelKeysValue: UILabel!
     @IBOutlet weak var defaultAccount: UISwitch!
-    private var accountTmp: WalletAccount!
+    private var accountTmp: DcrlibwalletAccount!
     @IBOutlet weak var hideAcount: UISwitch!
     
     override func awakeFromNib() {
@@ -34,33 +35,33 @@ class AccountDataCell: UITableViewCell, AccountDetailsCellProtocol {
         super.setSelected(selected, animated: animated)
     }
     @IBAction func setHiddenAccount(_ sender: Any) {
-        Settings.setValue(hideAcount.isOn, for: "\(Settings.Keys.HiddenWalletPrefix)\(accountTmp.Number)")
+        Settings.setValue(hideAcount.isOn, for: "\(Settings.Keys.HiddenWalletPrefix)\(accountTmp.number)")
     }
     
     @IBAction func setDefault(_ sender: Any) {
         self.accountTmp.makeDefault()
         self.hideAcount.setOn(false, animated: true)
         self.hideAcount.isEnabled = false
-        Settings.setValue(false, for: "\(Settings.Keys.HiddenWalletPrefix)\(accountTmp.Number)")
+        Settings.setValue(false, for: "\(Settings.Keys.HiddenWalletPrefix)\(accountTmp.number)")
     }
     
-    func setup(account: WalletAccount) {
+    func setup(account: DcrlibwalletAccount) {
         self.accountTmp = account
         
-        labelImmatureRewardValue.text = "\(account.Balance?.dcrImmatureReward ?? 0)"
-        labelLockedByTicketsValue.text = "\(account.Balance?.dcrLockedByTickets ?? 0)"
-        labelVotingAuthorityValue.text = "\(account.Balance?.dcrVotingAuthority ?? 0)"
-        labelImmatureStakeGenerationValue.text = "\(account.Balance?.dcrImmatureStakeGeneration ?? 0)"
-        labelAccountNoValue.text = "\(account.Number)"
-        labelKeysValue.text = "\(account.ExternalKeyCount) \(LocalizedStrings.external), \(account.InternalKeyCount) \(LocalizedStrings.internal), \(account.ImportedKeyCount) \(LocalizedStrings.imported)"
+        labelImmatureRewardValue.text = "\(account.balance?.dcrImmatureReward ?? 0)"
+        labelLockedByTicketsValue.text = "\(account.balance?.dcrLockedByTickets ?? 0)"
+        labelVotingAuthorityValue.text = "\(account.balance?.dcrVotingAuthority ?? 0)"
+        labelImmatureStakeGenerationValue.text = "\(account.balance?.dcrImmatureStakeGeneration ?? 0)"
+        labelAccountNoValue.text = "\(account.number)"
+        labelKeysValue.text = "\(account.externalKeyCount) \(LocalizedStrings.external), \(account.internalKeyCount) \(LocalizedStrings.internal), \(account.importedKeyCount) \(LocalizedStrings.imported)"
         
         if BuildConfig.IsTestNet {
-            labelHDPathValue.text = "\(GlobalConstants.Strings.TESTNET_HD_PATH) \(account.Number)'"
+            labelHDPathValue.text = "\(GlobalConstants.Strings.TESTNET_HD_PATH) \(account.number)'"
         } else {
-            labelHDPathValue.text = "\(GlobalConstants.Strings.MAINNET_HD_PATH) \(account.Number)'"
+            labelHDPathValue.text = "\(GlobalConstants.Strings.MAINNET_HD_PATH) \(account.number)'"
         }
         
-        if account.Number == INT_MAX {
+        if account.number == INT_MAX {
             defaultAccount.setOn(false, animated: false)
             defaultAccount.isEnabled = false
             hideAcount.setOn(false, animated: false)
@@ -85,8 +86,8 @@ class AccountDataCell: UITableViewCell, AccountDetailsCellProtocol {
             }
         }
         
-        if account.Balance?.ImmatureReward == 0 && account.Balance?.LockedByTickets == 0 &&
-            account.Balance?.VotingAuthority == 0 && account.Balance?.ImmatureStakeGeneration == 0 {
+        if account.balance?.immatureReward == 0 && account.balance?.lockedByTickets == 0 &&
+            account.balance?.votingAuthority == 0 && account.balance?.immatureStakeGeneration == 0 {
             detailsStackView.isHidden = true
         }
         
