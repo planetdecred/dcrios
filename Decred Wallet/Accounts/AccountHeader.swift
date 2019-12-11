@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Dcrlibwallet
 
 struct AccountHeader {
     let color: UIColor?
@@ -17,12 +18,12 @@ struct AccountHeader {
     var isExpanded: Bool = false
     let number: Int32
     
-    init(entity: WalletAccount, color: UIColor?) {
+    init(entity: DcrlibwalletAccount, color: UIColor?) {
         self.color = color
         self.spendableBalance = (Utils.spendable(account: entity) as NSDecimalNumber).round(8)
-        self.totalBalance = Double((entity.Balance?.dcrTotal)!)
-        self.title = entity.Name
-        self.number = entity.Number
+        self.totalBalance = Double((entity.balance?.dcrTotal)!)
+        self.title = entity.name
+        self.number = entity.number
         self.isExpanded = false
     }
     

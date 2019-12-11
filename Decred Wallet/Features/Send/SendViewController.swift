@@ -41,7 +41,7 @@ class SendViewController: UIViewController {
     
     var overflowNavBarButton: UIBarButtonItem!
     
-    var walletAccounts: [WalletAccount]!
+    var walletAccounts: [DcrlibwalletAccount]!
     var exchangeRate: NSDecimalNumber?
     var sendMaxAmount: Bool = false
     
@@ -84,7 +84,7 @@ class SendViewController: UIViewController {
             return false
         }
         
-        let sourceAccountBalance = self.walletAccounts[self.sourceAccountDropdown.selectedItemIndex].Balance!.dcrSpendable
+        let sourceAccountBalance = self.walletAccounts[self.sourceAccountDropdown.selectedItemIndex].balance!.dcrSpendable
         if sendAmountDcr > sourceAccountBalance {
             self.sendAmountErrorLabel.text = self.insufficientFundsErrorMessage
             return false
@@ -199,13 +199,13 @@ class SendViewController: UIViewController {
     
     func setupAccountDropdowns() {
         let walletAccounts = AppDelegate.walletLoader.wallet!.walletAccounts(confirmations: self.requiredConfirmations)
-            .filter({ !$0.isHidden && $0.Number != INT_MAX }) // remove hidden wallets from array
+            .filter({ !$0.isHidden && $0.number != INT_MAX }) // remove hidden wallets from array
         self.walletAccounts = walletAccounts
         
         // convert accounts array to string array where each account is represented in the format: Account Name [#,###.###]
         let accountDropdownItems = walletAccounts.map({ (account) -> String in
-            let spendableBalance = Decimal(account.Balance!.dcrSpendable) as NSDecimalNumber
-            return "\(account.Name) [\(spendableBalance.round(8).formattedWithSeparator)]"
+            let spendableBalance = Decimal(account.balance!.dcrSpendable) as NSDecimalNumber
+            return "\(account.name) [\(spendableBalance.round(8).formattedWithSeparator)]"
         })
         self.sourceAccountDropdown.initMenu(accountDropdownItems) { selectedAccountIndex, _ in
             if self.sendMaxAmount {
@@ -277,7 +277,7 @@ class SendViewController: UIViewController {
     
     func calculateAndDisplayMaxSendableAmount() {
         let sourceAccount = self.walletAccounts[self.sourceAccountDropdown.selectedItemIndex]
-        if sourceAccount.Balance?.Spendable == 0 {
+        if sourceAccount.balance?.spendable == 0 {
             // nothing to send
             self.sendAmountErrorLabel.text = self.insufficientFundsErrorMessage
             return
@@ -287,7 +287,7 @@ class SendViewController: UIViewController {
         let wallet = AppDelegate.walletLoader.wallet!
         
         do {
-            let newTx = wallet.newUnsignedTx(sourceAccount.Number, requiredConfirmations: self.requiredConfirmations)
+            let newTx = wallet.newUnsignedTx(sourceAccount.number, requiredConfirmations: self.requiredConfirmations)
             newTx?.addSendDestination(destinationAddress, atomAmount: 0, sendMax: true)
             let maxSendableAmount = try newTx?.estimateMaxSendAmount()
             
@@ -324,7 +324,7 @@ class SendViewController: UIViewController {
             
             var destinationAccount: String?
             if !self.destinationAccountView.isHidden {
-                destinationAccount = self.walletAccounts[self.destinationAccountDropdown.selectedItemIndex].Name
+                destinationAccount = self.walletAccounts[self.destinationAccountDropdown.selectedItemIndex].name
             }
             
             let requestSendConfirmation = ConfirmToSendFundViewController.requestConfirmation
@@ -381,7 +381,7 @@ class SendViewController: UIViewController {
         
         do {
             let sendAmountAtom = DcrlibwalletAmountAtom(sendAmountDcr)
-            let sourceAccountNumber = self.walletAccounts[self.sourceAccountDropdown.selectedItemIndex].Number
+            let sourceAccountNumber = self.walletAccounts[self.sourceAccountDropdown.selectedItemIndex].number
             
             let newTx = AppDelegate.walletLoader.wallet!.newUnsignedTx(sourceAccountNumber,
                                                                        requiredConfirmations: self.requiredConfirmations)
@@ -408,7 +408,7 @@ class SendViewController: UIViewController {
     }
     
     func finalizeSending(destinationAddress: String, pinOrPassword: String) {
-        let sourceAccountNumber = self.walletAccounts[self.sourceAccountDropdown.selectedItemIndex].Number
+        let sourceAccountNumber = self.walletAccounts[self.sourceAccountDropdown.selectedItemIndex].number
 
         let sendAmountDcr = Double(self.dcrAmountTextField.text!)
         let sendAmountAtom = DcrlibwalletAmountAtom(sendAmountDcr!)
@@ -595,9 +595,9 @@ extension SendViewController {
         return destinationAddress
     }
     
-    func generateAddress(from account: WalletAccount) -> String? {
+    func generateAddress(from account: DcrlibwalletAccount) -> String? {
         var generateAddressError: NSError?
-        let destinationAddress = AppDelegate.walletLoader.wallet!.currentAddress(account.Number, error: &generateAddressError)
+        let destinationAddress = AppDelegate.walletLoader.wallet!.currentAddress(account.number, error: &generateAddressError)
         if generateAddressError != nil {
             print("send page -> generate address for destination account error: \(generateAddressError!.localizedDescription)")
             return nil
@@ -657,7 +657,7 @@ extension SendViewController {
     
     func displayTransactionSummary() {
         self.prepareTxSummary(isSendAttempt: false) { sendAmountDcr, _, txFeeAndSize in
-            let sourceAccountBalance = self.walletAccounts[self.sourceAccountDropdown.selectedItemIndex].Balance!.dcrSpendable
+            let sourceAccountBalance = self.walletAccounts[self.sourceAccountDropdown.selectedItemIndex].balance!.dcrSpendable
             let balanceAfterSending = Decimal(sourceAccountBalance - sendAmountDcr - txFeeAndSize.fee!.dcrValue) as NSDecimalNumber
             
             self.displayEstimatedFee(dcrFee: txFeeAndSize.fee!.dcrValue)

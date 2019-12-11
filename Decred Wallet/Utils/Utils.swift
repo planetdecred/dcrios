@@ -8,6 +8,7 @@
 
 import UIKit
 import JGProgressHUD
+import Dcrlibwallet
 
 struct Utils {
     struct TimeInSeconds {
@@ -27,12 +28,12 @@ struct Utils {
         return hud
     }
     
-    static func spendable(account:WalletAccount) -> Decimal{
+    static func spendable(account:DcrlibwalletAccount) -> Decimal{
         let iRequireConfirm = Settings.spendUnconfirmed ? Int32(0) : Int32(2)
         let int64Pointer = UnsafeMutablePointer<Int64>.allocate(capacity: 64)
         do {
             
-            try  AppDelegate.walletLoader.wallet?.spendable(forAccount: account.Number, requiredConfirmations: iRequireConfirm, ret0_: int64Pointer)
+            try  AppDelegate.walletLoader.wallet?.spendable(forAccount: account.number, requiredConfirmations: iRequireConfirm, ret0_: int64Pointer)
         } catch let error{
             print(error)
             return 0.0

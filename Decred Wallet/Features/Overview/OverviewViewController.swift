@@ -373,7 +373,6 @@ class OverviewViewController: UIViewController {
             self.syncStatusLabel.text = (AppDelegate.walletLoader.wallet?.isSynced())! ? LocalizedStrings.walletSynced : LocalizedStrings.walletNotSynced
             self.updatingLatestBlockInfo(latestBlock: bestBlock)
             self.showSyncDetailsButton.isHidden = true
-            
         }
         
         // Next we set the sync connection control button depending on whether or not the wallet synced successfully

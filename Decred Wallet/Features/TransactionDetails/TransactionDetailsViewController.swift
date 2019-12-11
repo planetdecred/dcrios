@@ -77,12 +77,12 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
         let txAmount = Utils.getAttributedString(
             str: "\(self.transaction.dcrAmount.round(8))",
             siz: 13,
-            TexthexColor: GlobalConstants.Colors.TextAmount
+            TexthexColor: UIColor.appColors.darkBlue
         )
         let txFee = Utils.getAttributedString(
             str: "\(self.transaction.dcrFee.round(8))",
             siz: 13,
-            TexthexColor: GlobalConstants.Colors.TextAmount
+            TexthexColor: UIColor.appColors.darkBlue
         )
         
         generalTxDetails = [

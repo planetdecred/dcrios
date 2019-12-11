@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Dcrlibwallet
 
 class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDelegate {
     
@@ -30,8 +31,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
 
     var firstTrial = true
     var starttime: Int64 = 0
-    var myacc: WalletAccount!
-    var account: WalletAccounts?
+    var myacc: DcrlibwalletAccount?
     var tapGesture = UITapGestureRecognizer()
     var oldAddress = ""
     var wallet = AppDelegate.walletLoader.wallet
@@ -139,32 +139,19 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
 
     private func generateNewAddress() {
         self.oldAddress = self.lblWalletAddress.text!
-        self.getNextAddress(accountNumber: (self.myacc.Number))
+        self.getNextAddress(accountNumber: (self.myacc?.number)!)
     }
     
     private func showFirstWalletAddressAndQRCode() {
-        self.account?.Acc.removeAll()
-        do {
-            var getAccountError: NSError?
-            let strAccount = self.wallet?.getAccounts(0, error: &getAccountError)
-            if getAccountError != nil {
-                throw getAccountError!
-            }
-            
-            self.account = try JSONDecoder().decode(WalletAccounts.self, from: (strAccount?.data(using: .utf8))!)
-        } catch let error{
-            print(error)
-        }
         
-        let acc = self.account?.Acc
-        if (acc != nil) {
-            let accNames: [String] = (self.account?.Acc.map({ $0.Name }))!
-            self.myacc = self.account?.Acc.first
+        if let acc = AppDelegate.walletLoader.wallet?.walletAccounts(confirmations: 0) {
+            let accNames: [String] = (acc.map({ $0.name }))
+            self.myacc = acc.first
             
             if let firstWalletAddress = accNames.first {
                 self.selectedAccount = firstWalletAddress
                 self.accountDropdown.setTitle(self.selectedAccount, for: .normal)
-                self.getAddress(accountNumber: (self.myacc.Number))
+                self.getAddress(accountNumber: self.myacc!.number)
             }
         } else {
             print("no account")
@@ -172,38 +159,28 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     }
     
     private func populateWalletDropdownMenu() {
-        self.account?.Acc.removeAll()
-        do {
-            var getAccountError: NSError?
-            let strAccount = self.wallet?.getAccounts(0, error: &getAccountError)
-            if getAccountError != nil {
-                throw getAccountError!
+
+        if let acc = AppDelegate.walletLoader.wallet?.walletAccounts(confirmations: 0) {
+           if let defaultAccount = acc.filter({ $0.isDefault}).first {
+                accountDropdown.setTitle(
+                    defaultAccount.name,
+                    for: UIControl.State.normal
+                )
+                self.accountDropdown.backgroundColor = UIColor.white
             }
-            self.account = try JSONDecoder().decode(WalletAccounts.self, from: (strAccount?.data(using: .utf8))!)
-        } catch let error{
-            print(error)
-        }
-        
-        if let defaultAccount = account?.Acc.filter({ $0.isDefault}).first {
             
-            accountDropdown.setTitle(
-                defaultAccount.Name,
-                for: UIControl.State.normal
-            )
-            self.accountDropdown.backgroundColor = UIColor.white
-        }
-        
-        let accNames: [String] = (self.account?.Acc.filter({!$0.isHidden && $0.Number != INT_MAX }).map({ $0.Name }))!
-        
-        accountDropdown.initMenu(
-            accNames
-        ) { [weak self] _, val in
-            guard let this = self else { return }
-            this.selectedAccount = val
-            if self?.account?.Acc.filter({ $0.Name == val }).first != nil {
-                print("value is \(val)")
-                self?.myacc = self?.account?.Acc.filter({ $0.Name == val }).map({ $0 }).first
-                self?.getAddress(accountNumber: (self?.myacc.Number)!)
+            let accNames: [String] = acc.filter({!$0.isHidden && $0.number != INT_MAX }).map({ $0.name })
+            
+            accountDropdown.initMenu(
+                accNames
+            ) { [weak self] _, val in
+                guard let this = self else { return }
+                this.selectedAccount = val
+                if acc.filter({ $0.name == val }).first != nil {
+                    print("value is \(val)")
+                    self?.myacc = acc.filter({ $0.name == val }).map({ $0 }).first
+                    self?.getAddress(accountNumber: (self?.myacc?.number)!)
+                }
             }
         }
     }
@@ -213,7 +190,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     }
     
     @objc func getNext(){
-        self.getNextAddress(accountNumber: self.myacc.Number)
+        self.getNextAddress(accountNumber: (self.myacc?.number)!)
     }
     
     func shareImgOnTap(){
