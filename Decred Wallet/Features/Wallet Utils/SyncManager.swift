@@ -108,7 +108,7 @@ class SyncManager: NSObject, SyncProgressListenerProtocol {
     }
     
     func onStarted(_ wasRestarted: Bool) {
-        let statusMessage = wasRestarted ? LocalizedStrings.restartingSynchronization : LocalizedStrings.startingSynchronization
+        let statusMessage = wasRestarted ? LocalizedStrings.restartingSync : LocalizedStrings.startingSynchronization
         self.syncStatus => (true, statusMessage)
         self.peers => AppDelegate.walletLoader.syncer.connectedPeersCount
         self.networkConnectionStatus?(true)
@@ -152,7 +152,7 @@ class SyncManager: NSObject, SyncProgressListenerProtocol {
     }
     
     func onSyncCanceled(_ willRestart: Bool) {
-        self.syncStatus => (false, willRestart ? LocalizedStrings.restartingSynchronization : nil)
+        self.syncStatus => (false, willRestart ? LocalizedStrings.restartingSync : nil)
         self.peers => AppDelegate.walletLoader.syncer.connectedPeersCount
         self.networkConnectionStatus?(false)
     }
