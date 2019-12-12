@@ -254,6 +254,8 @@ struct LocalizedStrings {
     static let copyOnTap = NSLocalizedString("copyOnTap", comment: "")
     static let walletAddrCopied = NSLocalizedString("walletAddrCopied", comment: "")
     static let genNewAddr = NSLocalizedString("genNewAddr", comment: "")
+    static let share = NSLocalizedString("share", comment: "")
+    static let receivingAccount = NSLocalizedString("receivingAccount", comment: "")
     
     /* Account View */
     static let hidden = NSLocalizedString("hidden", comment: "")
@@ -386,6 +388,9 @@ struct LocalizedStrings {
     static let allowOnce = NSLocalizedString("allowOnce", comment: "")
     static let alwaysAllow = NSLocalizedString("alwaysAllow", comment: "")
     static let notNow = NSLocalizedString("notNow", comment: "")
+    static let receiveDCR = NSLocalizedString("receiveDCR", comment: "")
+    static let gotIt = NSLocalizedString("gotIt", comment: "")
+    static let receiveDes = NSLocalizedString("receiveDes", comment: "")
 
     /* Other text */
     static let security = NSLocalizedString("security", comment: "")
