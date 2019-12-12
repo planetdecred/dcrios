@@ -1,5 +1,5 @@
 //
-//  UIPaddedLabel.swift
+//  PaddedLabel.swift
 //  Decred Wallet
 //
 // Copyright (c) 2019 The Decred developers

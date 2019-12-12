@@ -10,7 +10,7 @@ import UIKit
 
 class SecurityViewController: SecurityBaseViewController {
     static let SECURITY_TYPE_PASSWORD = "PASSWORD"
-    static let SECURITY_TYPE_PIN = "PIN"    
+    static let SECURITY_TYPE_PIN = "PIN"
     
     // "Password" or "Pin" will be appended to the title depending on what tab is activated
     var securityFor = LocalizedStrings.spending // or Startup
@@ -56,7 +56,7 @@ class SecurityViewController: SecurityBaseViewController {
             }
         }
     }
-    
+
     @IBAction func onPasswordTab(_ sender: Any) {
         guard self.tabController?.selectedIndex != 0 else { return }
         self.activatePasswordTab()
