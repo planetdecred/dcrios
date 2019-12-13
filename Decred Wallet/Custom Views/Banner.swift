@@ -14,7 +14,7 @@ enum BannerType: String {
 }
 
 class Banner: UIView {
-    private var parent:UIViewController?
+    private var parent: UIViewController?
     
     init(parent: UIViewController) {
         super.init(frame: .zero)
@@ -22,41 +22,40 @@ class Banner: UIView {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
     }
     
-    public func show(type: BannerType, text:String) {
+    public func show(type: BannerType, text: String) {
         guard let parent = self.parent else { return }
         if self.superview == parent.view { return }
 
         parent.view.addSubview(self)
-        let guide = parent.view.safeAreaLayoutGuide
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.leadingAnchor.constraint(greaterThanOrEqualTo: parent.view.leadingAnchor,constant: 8).isActive = true
-        self.trailingAnchor.constraint(lessThanOrEqualTo: parent.view.trailingAnchor,constant: -8).isActive = true
-        self.topAnchor.constraint(equalTo: guide.topAnchor,constant: 84).isActive = true
+        self.leadingAnchor.constraint(greaterThanOrEqualTo: parent.view.leadingAnchor, constant: 8).isActive = true
+        self.trailingAnchor.constraint(lessThanOrEqualTo: parent.view.trailingAnchor, constant: -8).isActive = true
+        self.topAnchor.constraint(equalTo: parent.view.safeAreaLayoutGuide.topAnchor, constant: 84).isActive = true
         self.centerXAnchor.constraint(equalTo: parent.view.centerXAnchor).isActive = true
         
         self.backgroundColor = (type == .error) ? UIColor.appColors.decredOrange : UIColor.appColors.decredGreen
         self.layer.cornerRadius = 7;
-        self.layer.shadowColor = UIColor.appColors.shadowColor.cgColor
+        self.layer.shadowColor = UIColor.appColors.darkBlue.cgColor
         self.layer.shadowRadius = 4
         self.layer.shadowOpacity = 0.24
         self.layer.shadowOffset = CGSize(width: 0, height: 1)
         
-        let errorLabel = UILabel()
-        self.addSubview(errorLabel)
-        errorLabel.translatesAutoresizingMaskIntoConstraints = false
-        errorLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 10).isActive = true
-        errorLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -10).isActive = true
-        errorLabel.topAnchor.constraint(equalTo: self.topAnchor,constant: 5).isActive = true
-        errorLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor,constant: -5).isActive = true
-        errorLabel.numberOfLines = 0
-        errorLabel.lineBreakMode = .byWordWrapping
-        errorLabel.textAlignment = .center
-        errorLabel.textColor = .white
-        errorLabel.font = UIFont(name: "SourceSansPro-Regular", size: 16)
-        errorLabel.text = text
+        let infoLabel = UILabel()
+        self.addSubview(infoLabel)
+        infoLabel.translatesAutoresizingMaskIntoConstraints = false
+        infoLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10).isActive = true
+        infoLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10).isActive = true
+        infoLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 5).isActive = true
+        infoLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5).isActive = true
+        infoLabel.numberOfLines = 0
+        infoLabel.lineBreakMode = .byWordWrapping
+        infoLabel.textAlignment = .center
+        infoLabel.textColor = .white
+        infoLabel.font = UIFont(name: "SourceSansPro-Regular", size: 16)
+        infoLabel.text = text
         
         let swipeUpGesture = UISwipeGestureRecognizer(target: self, action: #selector(dismiss))
         swipeUpGesture.direction = .up

@@ -9,7 +9,7 @@
 import UIKit
 
 class BackupVerifyButton: UIButton {
-    @IBInspectable var borderColor : UIColor = UIColor.appColors.lightGrayColor {
+    @IBInspectable var borderColor : UIColor = UIColor.appColors.thinnerGray {
         didSet {
             setupView()
         }

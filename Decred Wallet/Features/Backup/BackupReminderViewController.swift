@@ -11,17 +11,17 @@ import Dcrlibwallet
 import SwiftRichString
 
 class BackupReminderViewController: UIViewController {
-    @IBOutlet weak var label1: UILabel!
-    @IBOutlet weak var label2: UILabel!
-    @IBOutlet weak var label3: UILabel!
-    @IBOutlet weak var label4: UILabel!
-    @IBOutlet weak var label5: UILabel!
-    var checkDict: [Int: Bool] = [:]
-    @IBOutlet weak var viewSeedBt: Button!
+    @IBOutlet weak var labelSeedIsImportant: UILabel!
+    @IBOutlet weak var labelSeedPhraseisTheOnlyWay: UILabel!
+    @IBOutlet weak var labelStoreItInAPhysicalFormat: UILabel!
+    @IBOutlet weak var labelDoNotStoreItInAnyDigitalFormat: UILabel!
+    @IBOutlet weak var labelDoNotShowYourSeed: UILabel!
+    var checkedCheckBoxesDict: [Int: Bool] = [:]
+    @IBOutlet weak var viewSeedBtn: Button!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewSeedBt.isEnabled = false
+        viewSeedBtn.isEnabled = false
         addNavigationBackButton()
         addStyleToLabels()
     }
@@ -29,7 +29,7 @@ class BackupReminderViewController: UIViewController {
     private func addStyleToLabels() {
         let normal = Style {
             $0.font = UIFont(name: "SourceSansPro-Regular", size: 16)
-            $0.color = UIColor.appColors.darkBlue
+            $0.color = UIColor.appColors.grayishBlue
         }
 
         let bold = Style {
@@ -44,28 +44,29 @@ class BackupReminderViewController: UIViewController {
 
         let green = Style {
             $0.font = bold.font
-            $0.color = UIColor.appColors.greenLabelColor
+            $0.color = UIColor.appColors.decredGreen
         }
         
         let myGroup = StyleGroup(base: normal, [ "bold": bold, "orange": orange, "green": green ])
         
-        for label in [self.label1, self.label2, self.label3, self.label4, self.label5] {
+        for label in [self.labelSeedIsImportant, self.labelSeedPhraseisTheOnlyWay, self.labelStoreItInAPhysicalFormat, self.labelDoNotStoreItInAnyDigitalFormat, self.labelDoNotShowYourSeed] {
             label?.attributedText = label?.text?.set(style: myGroup)
         }
     }
     
     @IBAction func onCheck(_ sender: Any) {
-        if let checkbox = sender as? UIButton {
+        if let checkbox = sender as? Button {
             checkbox.setImage(UIImage(named: "backup_checkbox_checked"), for: .normal)
-            self.checkDict[checkbox.tag] = true
+            checkbox.borderWidth = 0
+            self.checkedCheckBoxesDict[checkbox.tag] = true
             
             var allChecked = true;
             for i in 1...5 {
-                allChecked = allChecked && self.checkDict[i] == true
+                allChecked = allChecked && self.checkedCheckBoxesDict[i] == true
             }
             
             if(allChecked) {
-                self.viewSeedBt?.isEnabled = true
+                self.viewSeedBtn?.isEnabled = true
             }
         }
     }

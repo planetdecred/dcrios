@@ -39,7 +39,7 @@ class BackupVerifyTableViewCell: UITableViewCell {
     
     private func setWordTitle(selectedWord: String) {
         self.lbWordTitle?.text = selectedWord.isEmpty ? "—" : selectedWord
-        self.lbWordTitle?.textColor = selectedWord.isEmpty ? UIColor.appColors.mediumGrayColor : UIColor.appColors.darkBlue
+        self.lbWordTitle?.textColor = selectedWord.isEmpty ? UIColor.appColors.mediumGray : UIColor.appColors.grayishBlue
     }
     
     private func disableAllButtons() {

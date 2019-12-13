@@ -64,13 +64,24 @@
                                                             <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="reminderLabel1"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
-                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tll-yN-0Ct">
+                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tll-yN-0Ct" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                                         <rect key="frame" x="24" y="33.5" width="32" height="32"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="32" id="ies-UQ-En1"/>
                                                             <constraint firstAttribute="height" constant="32" id="qif-jx-jYi"/>
                                                         </constraints>
-                                                        <state key="normal" image="backup_checkbox_default"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                <color key="value" red="0.90196078430000004" green="0.91764705879999997" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                <real key="value" value="2"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="16"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="onCheck:" destination="GcH-ey-TqQ" eventType="touchUpInside" id="oDl-Yv-eXd"/>
                                                         </connections>
@@ -104,13 +115,23 @@
                                                             <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="reminderLabel2"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
-                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="he1-xn-UNo">
+                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="he1-xn-UNo" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                                         <rect key="frame" x="24" y="33.5" width="32" height="32"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="32" id="Ehe-tc-4bV"/>
                                                             <constraint firstAttribute="height" constant="32" id="rzc-pn-1Mk"/>
                                                         </constraints>
-                                                        <state key="normal" image="backup_checkbox_default"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                <color key="value" red="0.90196078430000004" green="0.91764705879999997" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                <real key="value" value="2"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="16"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="onCheck:" destination="GcH-ey-TqQ" eventType="touchUpInside" id="tB3-oj-NDV"/>
                                                         </connections>
@@ -144,13 +165,23 @@
                                                             <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="reminderLabel3"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
-                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tpO-hh-rBk">
+                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tpO-hh-rBk" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                                         <rect key="frame" x="24" y="33.5" width="32" height="32"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="32" id="kuU-4L-5jh"/>
                                                             <constraint firstAttribute="height" constant="32" id="w9J-8S-6mz"/>
                                                         </constraints>
-                                                        <state key="normal" image="backup_checkbox_default"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                <color key="value" red="0.90196078430000004" green="0.91764705879999997" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                <real key="value" value="2"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="16"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="onCheck:" destination="GcH-ey-TqQ" eventType="touchUpInside" id="Bux-hn-3e4"/>
                                                         </connections>
@@ -184,13 +215,23 @@
                                                             <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="reminderLabel4"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
-                                                    <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I2B-dn-0eB">
+                                                    <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I2B-dn-0eB" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                                         <rect key="frame" x="24" y="33.5" width="32" height="32"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="32" id="A9z-eY-bFT"/>
                                                             <constraint firstAttribute="height" constant="32" id="M2G-KD-89d"/>
                                                         </constraints>
-                                                        <state key="normal" image="backup_checkbox_default"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                <color key="value" red="0.90196078430000004" green="0.91764705879999997" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                <real key="value" value="2"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="16"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="onCheck:" destination="GcH-ey-TqQ" eventType="touchUpInside" id="Wkw-3Y-n7o"/>
                                                         </connections>
@@ -224,13 +265,23 @@
                                                             <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="reminderLabel5"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
-                                                    <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VxP-Vs-q50">
+                                                    <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VxP-Vs-q50" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                                         <rect key="frame" x="24" y="33.5" width="32" height="32"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="32" id="QYt-2r-oLY"/>
                                                             <constraint firstAttribute="height" constant="32" id="gct-kV-54I"/>
                                                         </constraints>
-                                                        <state key="normal" image="backup_checkbox_default"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                <color key="value" red="0.90196078430000004" green="0.91764705879999997" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                <real key="value" value="2"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="16"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="onCheck:" destination="GcH-ey-TqQ" eventType="touchUpInside" id="2Vn-q9-guI"/>
                                                         </connections>
@@ -318,12 +369,12 @@
                         <viewLayoutGuide key="safeArea" id="ejz-8I-cKF"/>
                     </view>
                     <connections>
-                        <outlet property="label1" destination="A2X-9z-04I" id="K40-gj-52q"/>
-                        <outlet property="label2" destination="YOb-XB-LXG" id="yyR-wt-L1y"/>
-                        <outlet property="label3" destination="eUc-42-42V" id="Oza-lH-j6E"/>
-                        <outlet property="label4" destination="bxK-A6-4vU" id="FQI-Io-ajc"/>
-                        <outlet property="label5" destination="Fz8-2B-J8P" id="qGc-V2-Tbs"/>
-                        <outlet property="viewSeedBt" destination="h1P-IO-jWr" id="xUU-zN-DeB"/>
+                        <outlet property="labelDoNotShowYourSeed" destination="Fz8-2B-J8P" id="qGc-V2-Tbs"/>
+                        <outlet property="labelDoNotStoreItInAnyDigitalFormat" destination="bxK-A6-4vU" id="FQI-Io-ajc"/>
+                        <outlet property="labelSeedIsImportant" destination="A2X-9z-04I" id="K40-gj-52q"/>
+                        <outlet property="labelSeedPhraseisTheOnlyWay" destination="YOb-XB-LXG" id="yyR-wt-L1y"/>
+                        <outlet property="labelStoreItInAPhysicalFormat" destination="eUc-42-42V" id="Oza-lH-j6E"/>
+                        <outlet property="viewSeedBtn" destination="h1P-IO-jWr" id="xUU-zN-DeB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SrW-tp-orO" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1007,7 +1058,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="backup_checkbox_default" width="32" height="32"/>
         <image name="backup_success_icon" width="64" height="64"/>
         <image name="left-arrow" width="33" height="33"/>
     </resources>
