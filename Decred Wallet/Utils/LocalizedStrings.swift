@@ -406,4 +406,10 @@ struct LocalizedStrings {
     static let history = NSLocalizedString("history", comment: "")
     static let settings = NSLocalizedString("settings", comment: "")
     static let help = NSLocalizedString("help", comment: "")
+    
+    /* PIN setup*/
+    static let create = NSLocalizedString("create", comment: "")
+    static let next = NSLocalizedString("next", comment: "")
+    static let enterSpendingPIN = NSLocalizedString("enterSpendingPIN", comment: "")
+    static let enterSpendingPINAgain = NSLocalizedString("enterSpendingPINAgain", comment: "")
 }

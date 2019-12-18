@@ -43,6 +43,9 @@ class SecurityViewController: SecurityBaseViewController {
                 self.navigationController?.popViewController(animated: true)
                 self.onUserEnteredPinOrPassword?(pin, SecurityViewController.SECURITY_TYPE_PIN)
             }
+            pinTabVC?.onChangeHeaderText = { text in
+                self.securityPromptLabel.text = text
+            }
         }
     }
     

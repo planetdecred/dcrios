@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		10BA77992390059F00B67446 /* TabMenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BA77982390059F00B67446 /* TabMenuItemView.swift */; };
 		1085D1A523994F140035F416 /* UIPaddedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085D1A423994F140035F416 /* UIPaddedLabel.swift */; };
+		102AFAC423AA2B4D007E2EBD /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102AFAC323AA2B4D007E2EBD /* ProgressView.swift */; };
 		1085D1A523994F140035F416 /* PaddedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085D1A423994F140035F416 /* PaddedLabel.swift */; };
 		10BA77992390059F00B67446 /* MenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BA77982390059F00B67446 /* MenuItemView.swift */; };
 		2557E1892355C6FA00B6A1B7 /* NavigationMenuTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2557E1882355C6FA00B6A1B7 /* NavigationMenuTabBarController.swift */; };
@@ -67,7 +68,6 @@
 		B3B46A18228F0F2700A68EDD /* DropDownSearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469D0228F0F2600A68EDD /* DropDownSearchField.swift */; };
 		B3B46A19228F0F2700A68EDD /* StartScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469D3228F0F2600A68EDD /* StartScreenViewController.swift */; };
 		B3B46A1B228F0F2700A68EDD /* SecurityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469D6228F0F2600A68EDD /* SecurityViewController.swift */; };
-		B3B46A1C228F0F2700A68EDD /* PinInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469D7228F0F2600A68EDD /* PinInputView.swift */; };
 		B3B46A1D228F0F2700A68EDD /* PasswordSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469D8228F0F2600A68EDD /* PasswordSetupViewController.swift */; };
 		B3B46A1E228F0F2700A68EDD /* RequestPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469D9228F0F2600A68EDD /* RequestPasswordViewController.swift */; };
 		B3B46A1F228F0F2700A68EDD /* RequestPinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469DA228F0F2600A68EDD /* RequestPinViewController.swift */; };
@@ -147,6 +147,7 @@
 /* Begin PBXFileReference section */
 		10BA77982390059F00B67446 /* TabMenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabMenuItemView.swift; sourceTree = "<group>"; };
 		1085D1A423994F140035F416 /* UIPaddedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPaddedLabel.swift; sourceTree = "<group>"; };
+		102AFAC323AA2B4D007E2EBD /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 		1085D1A423994F140035F416 /* PaddedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedLabel.swift; sourceTree = "<group>"; };
 		10BA77982390059F00B67446 /* MenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemView.swift; sourceTree = "<group>"; };
 		23F5A25CDDC0ADF47F98ED95 /* Pods-Decred Wallet.mainnet release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.mainnet release.xcconfig"; path = "Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.mainnet release.xcconfig"; sourceTree = "<group>"; };
@@ -444,6 +445,7 @@
 				B3635B81229FE5870052EB4D /* QRImageScanner.swift */,
 				255EEE4D231EEC470080200D /* FloatingLabelTextInput.swift */,
 				1085D1A423994F140035F416 /* PaddedLabel.swift */,
+				102AFAC323AA2B4D007E2EBD /* ProgressView.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -905,6 +907,7 @@
 				B39BDC4D228F798300F3FB55 /* BuildConfig.swift in Sources */,
 				B3B46A9F228F0F7D00A68EDD /* WalletLogViewController.swift in Sources */,
 				2557E1892355C6FA00B6A1B7 /* NavigationMenuTabBarController.swift in Sources */,
+				102AFAC423AA2B4D007E2EBD /* ProgressView.swift in Sources */,
 				B3B46A25228F0F2700A68EDD /* TransactionHistoryViewController.swift in Sources */,
 				B3A3EF8B22937B8800008A4E /* Settings.swift in Sources */,
 				B3B46AC8228F120700A68EDD /* TransactionDetailCell.swift in Sources */,
