@@ -2,25 +2,13 @@
 //  ReceiveAccountListView.swift
 //  Decred Wallet
 //
-//  Created by HXMacMini on 2019/12/2.
-//  Copyright © 2019 Decred. All rights reserved.
+// Copyright (c) 2018-2019 The Decred developers
+// Use of this source code is governed by an ISC
+// license that can be found in the LICENSE file.
 //
 
 import UIKit
 import Dcrlibwallet
-
-extension UIView{
-    
-    //圆角 conrners: [.topLeft, .topRight, .bottomLeft, .bottomRight]
-    func addCorner(conrners: UIRectCorner , radius: CGFloat) {
-           
-        let maskPath = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: conrners, cornerRadii: CGSize(width: radius, height: radius))
-        let maskLayer = CAShapeLayer()
-        maskLayer.frame = self.bounds
-        maskLayer.path = maskPath.cgPath
-        self.layer.mask = maskLayer
-    }
-}
 
 class ReceiveAccountListView: UIView, UITableViewDelegate, UITableViewDataSource {
 
@@ -32,9 +20,7 @@ class ReceiveAccountListView: UIView, UITableViewDelegate, UITableViewDataSource
     var selectedAccount: ((DcrlibwalletAccount,String) -> ())?
     
     var hide: (() -> ())?
-
     override init(frame: CGRect) {
-
         super.init(frame: frame)
         
         self.listData = Array()
@@ -48,11 +34,15 @@ class ReceiveAccountListView: UIView, UITableViewDelegate, UITableViewDataSource
         let tapGes = UITapGestureRecognizer.init(target: self, action: #selector(hideView))
         tapView.addGestureRecognizer(tapGes)
         
-        
         self.bgView = UIView.init(frame: CGRect(x: 0, y: frame.height, width: frame.width, height: 300))
         self.bgView?.backgroundColor = UIColor.white
         self.addSubview(self.bgView!)
-        self.bgView?.addCorner(conrners: [.topLeft, .topRight], radius: 10.0)
+
+        let maskPath = UIBezierPath(roundedRect: self.bgView!.bounds, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: 10, height: 10))
+        let maskLayer = CAShapeLayer()
+        maskLayer.frame = self.bgView!.bounds
+        maskLayer.path = maskPath.cgPath
+        self.bgView?.layer.mask = maskLayer
         
         let closeBtn = UIButton.init(type: .custom)
         closeBtn.frame = CGRect(x: 8, y: 4.5, width: 40, height: 40)
@@ -70,7 +60,6 @@ class ReceiveAccountListView: UIView, UITableViewDelegate, UITableViewDataSource
         line.backgroundColor = .init(red: 0.9, green: 0.92, blue: 0.93, alpha: 1)
         self.bgView?.addSubview(line)
         
-        
         self.tableView = UITableView.init(frame: CGRect(x: 0, y: 50, width: frame.width, height: (self.bgView?.frame.height)!-50), style: .grouped)
         self.tableView?.backgroundColor = .white
         self.tableView?.delegate = self as UITableViewDelegate
@@ -85,27 +74,18 @@ class ReceiveAccountListView: UIView, UITableViewDelegate, UITableViewDataSource
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     func setAccount() {
-        
         let acc = AppDelegate.walletLoader.wallet?.walletAccounts(confirmations: 0)
         
         let defaultAccount = acc?.filter({ $0.isDefault}).first
-        
         if (defaultAccount != nil) {
-            
             let defaultAcc: [DcrlibwalletAccount] = [defaultAccount!]
-            
             self.listData?.append(defaultAcc)
             
             let walletAccountsArr: [DcrlibwalletAccount] = (acc?.filter({!$0.isHidden && $0.number != INT_MAX }))!
-            
             self.listData?.append(walletAccountsArr)
-            
         }else{
-            
            let walletAccountsArr: [DcrlibwalletAccount] = (acc?.filter({!$0.isHidden && $0.number != INT_MAX }))!
-           
            self.listData?.append(walletAccountsArr)
         }
         
@@ -113,42 +93,29 @@ class ReceiveAccountListView: UIView, UITableViewDelegate, UITableViewDataSource
     }
     
     //MARK: tableViewDelegate
-    
     func numberOfSections(in tableView: UITableView) -> Int {
-        
         return self.listData!.count
     }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         let walletAccountsArr: [DcrlibwalletAccount]? = self.listData![section]
         
         return walletAccountsArr!.count
     }
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    
         return 74
     }
-    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        
         return 30
     }
-    
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        
         return 0.1
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell:ReceiveAccountListCell = tableView.dequeueReusableCell(withIdentifier: "ReceiveAccountListCell", for: indexPath) as! ReceiveAccountListCell
         
         let cellBgView: UIView? = UIView.init()
         cellBgView?.backgroundColor = .white
         cell.selectedBackgroundView = cellBgView
-        
         
         let walletAccountsArr: [DcrlibwalletAccount] = (self.listData?[indexPath.section])!
         let  walletAccount = walletAccountsArr[indexPath.row]
@@ -157,11 +124,7 @@ class ReceiveAccountListView: UIView, UITableViewDelegate, UITableViewDataSource
         
         return cell
     }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        //tableView.deselectRow(at: indexPath, animated: true)
-        
         let walletAccountsArr: [DcrlibwalletAccount] = (self.listData?[indexPath.section])!
         let  walletAccount = walletAccountsArr[indexPath.row]
 
@@ -171,9 +134,7 @@ class ReceiveAccountListView: UIView, UITableViewDelegate, UITableViewDataSource
         
         self.hideView()
     }
-    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
         let header = UIView.init(frame: CGRect(x: 0, y: 0, width: 0, height: 30))
         header.backgroundColor = .white
         
@@ -185,34 +146,23 @@ class ReceiveAccountListView: UIView, UITableViewDelegate, UITableViewDataSource
         
         return header
     }
-    
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        
         return nil
     }
-    
     @objc func hideView() {
-        
         self.hide!()
-        
         UIView.animate(withDuration: 0.3, animations: {
-            
             self.bgView?.frame = CGRect(x: 0, y: self.frame.height, width: (self.bgView?.frame.width)!, height: (self.bgView?.frame.height)!)
         }, completion: { (isFinsh) in
             
             self.isHidden = true
         })
     }
-    
     func showView() {
-        
         self.isHidden = false
         UIView.animate(withDuration: 0.3, animations: {
-            
             self.bgView?.frame = CGRect(x: 0, y: self.frame.height-(self.bgView?.frame.height)!, width: (self.bgView?.frame.width)!, height: (self.bgView?.frame.height)!)
         }, completion: { (isFinsh) in
-            
         })
     }
-
 }
