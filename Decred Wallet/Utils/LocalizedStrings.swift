@@ -382,7 +382,7 @@ struct LocalizedStrings {
     static let syncOnWifiDesc = NSLocalizedString("syncOnWifiDesc", comment: "")
     static let buildDate = NSLocalizedString("buildDate", comment: "")
     static let walletLog = NSLocalizedString("walletLog", comment: "")
-    static let deleteWallet = NSLocalizedString("deleteWallet", comment: "")
+    static let removeWallet = NSLocalizedString("removeWallet", comment: "")
     static let spv = NSLocalizedString("spv", comment: "")
     static let remoteFullNode = NSLocalizedString("remoteFullNode", comment: "")
     static let none = NSLocalizedString("none", comment: "")
@@ -392,8 +392,8 @@ struct LocalizedStrings {
     static let scanInProgress = NSLocalizedString("scanInProgress", comment: "")
     static let scanStartedAlready = NSLocalizedString("scanStartedAlready", comment: "")
     static let rescanFailed = NSLocalizedString("rescanFailed", comment: "")
-    static let deletingWallet = NSLocalizedString("deletingWallet", comment: "")
-    static let deleteWalletFailed = NSLocalizedString("deleteWalletFailed", comment: "")
+    static let removingWallet = NSLocalizedString("removingWallet", comment: "")
+    static let removeWalletFailed = NSLocalizedString("removeWalletFailed", comment: "")
     static let general = NSLocalizedString("general", comment: "")
     static let connection = NSLocalizedString("connection", comment: "")
     static let about = NSLocalizedString("about", comment: "")
@@ -469,6 +469,8 @@ struct LocalizedStrings {
     static let history = NSLocalizedString("history", comment: "")
     static let settings = NSLocalizedString("settings", comment: "")
     static let help = NSLocalizedString("help", comment: "")
+    static let helpInfo = NSLocalizedString("helpInfo", comment: "")
+    static let notifications = NSLocalizedString("notifications", comment: "")
     
     /* Seed Backup */
     static let failedToVerify = NSLocalizedString("failedToVerify", comment: "")

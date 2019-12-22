@@ -23,6 +23,11 @@ enum Storyboard: String {
     case SeedBackup = "SeedBackup"
     case Settings = "Settings"
     case SecurityMenu = "SecurityMenu"
+    case More = "More"
+    case About = "About"
+    case Debug = "Debug"
+    case Help = "Help"
+    
     case CustomDialogs = "CustomDialogs"
     
     var instance: UIStoryboard {

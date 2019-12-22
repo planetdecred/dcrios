@@ -23,8 +23,6 @@ class SettingsController: UITableViewController  {
     @IBOutlet weak var cellularSyncSwitch: UISwitch!
     
     @IBOutlet weak var connect_peer_ip: UILabel!
-    @IBOutlet weak var build: UILabel!
-    @IBOutlet weak var version: UILabel!
     @IBOutlet weak var server_ip: UILabel!
     
     @IBOutlet weak var spend_uncon_fund: UISwitch!
@@ -68,8 +66,10 @@ class SettingsController: UITableViewController  {
         super.viewWillAppear(animated)
         
         self.navigationController?.navigationBar.isHidden = false
+        self.navigationController?.navigationBar.tintColor = UIColor.black
         self.navigationController?.navigationBar.topItem?.title = LocalizedStrings.settings
         self.navigationController?.navigationBar.topItem?.rightBarButtonItem = nil
+        self.navigationController?.navigationBar.barTintColor = UIColor.appColors.offWhite
         
         if self.isModal {
             let closeButton = UIBarButtonItem(image: UIImage(named: "ic_close"),
@@ -109,11 +109,6 @@ class SettingsController: UITableViewController  {
     }
     
     func loadSettingsData() -> Void {
-        version?.text = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String
-        
-        let dateformater = DateFormatter()
-        dateformater.dateFormat = "yyyy-MM-dd"
-        build?.text = dateformater.string(from: AppDelegate.compileDate as Date)
         spend_uncon_fund?.setOn(Settings.spendUnconfirmed, animated: false)
         connect_peer_ip?.text = Settings.readStringValue(for: DcrlibwalletSpvPersistentPeerAddressesConfigKey)
         server_ip?.text = "" // deprecated in v2
@@ -155,11 +150,11 @@ class SettingsController: UITableViewController  {
         case 0:
             return LocalizedStrings.general.capitalized
         case 1:
-            return LocalizedStrings.connection.capitalized
+            return LocalizedStrings.security.capitalized
         case 2:
-            return LocalizedStrings.about.capitalized
+            return LocalizedStrings.notifications.capitalized
         case 3:
-            return LocalizedStrings.debug.capitalized
+            return LocalizedStrings.connection.capitalized
         default:
             return ""
         }
@@ -168,7 +163,7 @@ class SettingsController: UITableViewController  {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let isWalletOpen = WalletLoader.shared.firstWallet?.walletOpened() ?? false
         
-        if indexPath.section == 0 {
+        if indexPath.section == 1 {
             switch indexPath.row {
             case 0: // change spending pin/password, requires wallet to be opened.
                 return isWalletOpen ? 44 : 0
@@ -184,7 +179,7 @@ class SettingsController: UITableViewController  {
             }
         }
         
-        if indexPath.section == 1 {
+        if indexPath.section == 3 {
             switch indexPath.row {
             case 1: // connect to peer, only show if network mode is SPV (0).
                  return Settings.networkMode == 0 ? 44 : 0
@@ -197,21 +192,11 @@ class SettingsController: UITableViewController  {
             }
         }
         
-        if indexPath.section == 3 {
-            switch indexPath.row {
-            case 0, 2: // rescan blockchain and delete wallet options, requires wallet to be opened.
-                return isWalletOpen ? 44 : 0
-                
-            default:
-                return 44
-            }
-        }
-        
         return 44
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 0 {
+        if indexPath.section == 1 {
             switch indexPath.row {
             case 0: // change spending pin/password
                 SpendingPinOrPassword.change(sender: self, walletID: WalletLoader.shared.firstWallet!.id_)
@@ -229,84 +214,6 @@ class SettingsController: UITableViewController  {
             default:
                 break
             }
-        } else if indexPath.section == 3 && indexPath.row == 0 {
-            // rescan blockchain
-            self.showOkAlert(message: LocalizedStrings.rescanConfirm,
-                             title: LocalizedStrings.rescanBlockchain,
-                             onPressOk: self.rescanBlocks,
-                             addCancelAction: true)
         }
-    }
-    
-    func rescanBlocks() {
-        if SyncManager.shared.isSyncing {
-            self.showOkAlert(message: LocalizedStrings.syncProgressAlert)
-            return
-        }
-        
-        do {
-            try WalletLoader.shared.multiWallet.rescanBlocks(WalletLoader.shared.firstWallet!.id_)
-            self.displayToast(LocalizedStrings.scanInProgress)
-        } catch let error {
-            var errorMessage = error.localizedDescription
-            if errorMessage == DcrlibwalletErrInvalid {
-                errorMessage = LocalizedStrings.scanStartedAlready
-            }
-            self.showOkAlert(message: errorMessage, title: LocalizedStrings.rescanFailed)
-        }
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "ShowDeleteWalletConfirmationDialog" {
-            let deleteWalletDialog = segue.destination as! DeleteWalletConfirmationViewController
-            deleteWalletDialog.onDeleteWalletConfirmed = { password in
-                if password != nil {
-                    self.deleteWallet(spendingPinOrPassword: password!, dialogDelegate: nil)
-                    return
-                }
-                
-                let spendingSecurityType = SpendingPinOrPassword.securityType(for: WalletLoader.shared.firstWallet!)
-                Security.spending(initialSecurityType: spendingSecurityType)
-                    .requestCurrentCode(sender: self) { pinOrPassword, _, dialogDelegate in
-                        
-                        self.deleteWallet(spendingPinOrPassword: pinOrPassword, dialogDelegate: dialogDelegate)
-                }
-            }
-        }
-    }
-    
-    func deleteWallet(spendingPinOrPassword: String, dialogDelegate: InputDialogDelegate?) {
-        let walletID = WalletLoader.shared.firstWallet!.id_
-        let progressHud = Utils.showProgressHud(withText: LocalizedStrings.deletingWallet)
-        
-        DispatchQueue.global(qos: .background).async {
-            do {
-                try WalletLoader.shared.multiWallet.delete(walletID, privPass: spendingPinOrPassword.utf8Bits)
-                DispatchQueue.main.async {
-                    progressHud.dismiss()
-                    dialogDelegate?.dismissDialog()
-                    self.walletDeleted()
-                }
-            } catch let error {
-                print("delete wallet error: \(error.localizedDescription)")
-                DispatchQueue.main.async {
-                    progressHud.dismiss()
-                    
-                    var errorMessage = LocalizedStrings.deleteWalletFailed
-                    if error.isInvalidPassphraseError {
-                        errorMessage = SpendingPinOrPassword.invalidSecurityCodeMessage(for: walletID)
-                    }
-                    dialogDelegate?.displayError(errorMessage: errorMessage)
-                }
-            }
-        }
-    }
-    
-    // Clear values stored in UserDefaults and restart the app when wallet is deleted.
-    func walletDeleted() {
-        Settings.clear()
-        
-        let startScreen = Storyboard.Main.initialViewController()
-        AppDelegate.shared.setAndDisplayRootViewController(startScreen!)
     }
 }
