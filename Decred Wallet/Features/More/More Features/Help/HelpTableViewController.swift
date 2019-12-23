@@ -17,22 +17,30 @@ class HelpTableViewController: UITableViewController  {
         super.viewWillAppear(animated)
         
         self.navigationController?.navigationBar.isHidden = false
-        self.navigationController?.navigationBar.tintColor = UIColor.black
+        self.navigationController?.navigationBar.tintColor = UIColor(hex: "#091440") //move to color file
         self.navigationController?.navigationBar.barTintColor = UIColor.appColors.offWhite
+        //Remove shadow from navigation bar
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
         
-        if self.isModal {
-            self.addNavigationBackButton()
+        self.addNavigationBackButton()
             
-            let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.help, style: .plain, target: self, action: nil)
+        let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.help, style: .plain, target: self, action: nil)
             barButtonTitle.tintColor = UIColor.black // UIColor.appColor.darkblue
             
-            self.navigationItem.leftBarButtonItems =  [(self.navigationItem.leftBarButtonItem)!, barButtonTitle]
-        }
+        self.navigationItem.leftBarButtonItems =  [(self.navigationItem.leftBarButtonItem)!, barButtonTitle]
         
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return LocalizedStrings.helpInfo
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int){
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.textColor = UIColor(hex: "#3d5873")// move to color file
+        header.textLabel?.text = LocalizedStrings.helpInfo
+        header.textLabel?.font = UIFont(name: "SourceSansPro-Regular", size: 16)
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

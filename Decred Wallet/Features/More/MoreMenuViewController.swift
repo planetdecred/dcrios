@@ -18,13 +18,17 @@ class MoreMenuViewController: UIViewController,UITableViewDataSource,UITableView
         style: .done, target: self,
         action: nil)
         let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.more, style: .plain, target: self, action: nil)
-        barButtonTitle.tintColor = UIColor.black // UIColor.appColor.darkblue
+        barButtonTitle.tintColor = UIColor(hex: "#091440") // UIColor.appColor.darkblue
         
         self.navigationItem.leftBarButtonItems = [emptyButton, emptyButton, barButtonImg, barButtonTitle]
+        //Remove shadow from navigation bar
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
     }
     
     func navigateMorePage(to menuItem: MoreMenuItem) {
-        self.tabBarController?.present(menuItem.viewController, animated: true, completion: nil)
+        //self.tabBarController?.present(menuItem.viewController, animated: true, completion: nil)
+        self.navigationController?.pushViewController(menuItem.viewController, animated: true)
        }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

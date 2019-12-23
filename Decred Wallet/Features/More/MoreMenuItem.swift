@@ -20,19 +20,19 @@ enum MoreMenuItem: String, CaseIterable {
     var viewController: UIViewController {
         switch self {
         case .settings:
-            return SettingsController.instantiate().wrapInNavigationcontroller()
+            return SettingsController.instantiate()
             
         case .security:
-            return Storyboards.SecurityMenu.instantiateViewController(for: SecurityMenuViewController.self).wrapInNavigationcontroller()
+            return Storyboards.SecurityMenu.instantiateViewController(for: SecurityMenuViewController.self)
             
         case .help:
-            return Storyboards.Help.instantiateViewController(for: HelpTableViewController.self).wrapInNavigationcontroller()
+            return Storyboards.Help.instantiateViewController(for: HelpTableViewController.self)
             
         case .about:
-            return Storyboards.About.instantiateViewController(for: AboutTableViewController.self).wrapInNavigationcontroller()
+            return Storyboards.About.instantiateViewController(for: AboutTableViewController.self)
             
         case.debug:
-            return Storyboards.Debug.instantiateViewController(for: DebugTableViewController.self).wrapInNavigationcontroller()
+            return Storyboards.Debug.instantiateViewController(for: DebugTableViewController.self)
         }
     }
     

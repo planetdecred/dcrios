@@ -19,23 +19,24 @@ class AboutTableViewController: UITableViewController  {
         super.viewWillAppear(animated)
         
         self.navigationController?.navigationBar.isHidden = false
-        self.navigationController?.navigationBar.tintColor = UIColor.black
+        self.navigationController?.navigationBar.tintColor = UIColor(hex: "#091440") //move to color file
         self.navigationController?.navigationBar.barTintColor = UIColor.appColors.offWhite
+        //Remove shadow from navigation bar
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
         
-        if self.isModal {
-            self.addNavigationBackButton()
+        self.addNavigationBackButton()
             
-            let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.about, style: .plain, target: self, action: nil)
-                   barButtonTitle.tintColor = UIColor.black // UIColor.appColor.darkblue
+        let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.about, style: .plain, target: self, action: nil)
+        barButtonTitle.tintColor = UIColor.black // UIColor.appColor.darkblue
             
-            self.navigationItem.leftBarButtonItems =  [(self.navigationItem.leftBarButtonItem)!, barButtonTitle]
-        }
+        self.navigationItem.leftBarButtonItems =  [(self.navigationItem.leftBarButtonItem)!, barButtonTitle]
         
         loadAboutData()
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0
+        return 16
     }
     
     func loadAboutData() -> Void {

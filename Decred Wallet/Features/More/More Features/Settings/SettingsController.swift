@@ -66,18 +66,20 @@ class SettingsController: UITableViewController  {
         super.viewWillAppear(animated)
         
         self.navigationController?.navigationBar.isHidden = false
-        self.navigationController?.navigationBar.tintColor = UIColor.black
+        self.navigationController?.navigationBar.tintColor = UIColor(hex: "#091440") //move to color file
         self.navigationController?.navigationBar.topItem?.title = LocalizedStrings.settings
         self.navigationController?.navigationBar.topItem?.rightBarButtonItem = nil
         self.navigationController?.navigationBar.barTintColor = UIColor.appColors.offWhite
         
-        if self.isModal {
-            let closeButton = UIBarButtonItem(image: UIImage(named: "ic_close"),
-                                              style: .done,
-                                              target: self,
-                                              action: #selector(self.dismissView))
-            self.navigationItem.leftBarButtonItem = closeButton
-        }
+        let closeButton = UIBarButtonItem(image: UIImage(named: "ic_close"),
+                                          style: .done,
+                                          target: self,
+                                          action: #selector(self.dismissView))
+        
+        let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.settings, style: .plain, target: self, action: nil)
+        barButtonTitle.tintColor = UIColor.black // UIColor.appColor.darkblue
+        
+        self.navigationItem.leftBarButtonItems =  [closeButton, barButtonTitle]
         
         connect_peer_ip?.text = Settings.readStringValue(for: DcrlibwalletSpvPersistentPeerAddressesConfigKey)
         server_ip?.text = "" // deprecated in v2
@@ -158,6 +160,12 @@ class SettingsController: UITableViewController  {
         default:
             return ""
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int){
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.textColor = UIColor(hex: "#3d5873")// move to color file
+        header.textLabel?.font = UIFont(name: "SourceSansPro-Regular", size: 14)
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

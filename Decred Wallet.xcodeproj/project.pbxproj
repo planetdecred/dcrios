@@ -165,6 +165,7 @@
 		DD6855BD238C808A006B8BF4 /* RestoreExistingWalletSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6855BC238C808A006B8BF4 /* RestoreExistingWalletSuccessViewController.swift */; };
 		DD75148A22BA67B10070E4F6 /* TransactionHistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD75148922BA67B10070E4F6 /* TransactionHistoryViewController.xib */; };
 		DD8F9D3C22BE7A5600FF8594 /* Security.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD8F9D3B22BE7A5600FF8594 /* Security.storyboard */; };
+		DDB7FE3623BD518A00B8F4F8 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB7FE3523BD518A00B8F4F8 /* Settings.swift */; };
 		DDCF259222B89D96005FCBB9 /* WalletSetup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDCF259122B89D96005FCBB9 /* WalletSetup.storyboard */; };
 		DDCF259A22B8A347005FCBB9 /* Overview.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDCF259922B8A346005FCBB9 /* Overview.storyboard */; };
 		DDCF259C22B8A362005FCBB9 /* Send.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDCF259B22B8A361005FCBB9 /* Send.storyboard */; };
@@ -346,6 +347,7 @@
 		DD6855BC238C808A006B8BF4 /* RestoreExistingWalletSuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreExistingWalletSuccessViewController.swift; sourceTree = "<group>"; };
 		DD75148922BA67B10070E4F6 /* TransactionHistoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionHistoryViewController.xib; sourceTree = "<group>"; };
 		DD8F9D3B22BE7A5600FF8594 /* Security.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Security.storyboard; sourceTree = "<group>"; };
+		DDB7FE3523BD518A00B8F4F8 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		DDCF259122B89D96005FCBB9 /* WalletSetup.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = WalletSetup.storyboard; sourceTree = "<group>"; };
 		DDCF259922B8A346005FCBB9 /* Overview.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Overview.storyboard; sourceTree = "<group>"; };
 		DDCF259B22B8A361005FCBB9 /* Send.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Send.storyboard; sourceTree = "<group>"; };
@@ -891,6 +893,7 @@
 			isa = PBXGroup;
 			children = (
 				DDCF25A022B8A3D4005FCBB9 /* Settings.storyboard */,
+				DDB7FE3523BD518A00B8F4F8 /* Settings.swift */,
 				B3B46A61228F0F7B00A68EDD /* SettingsController.swift */,
 				B3B46A6F228F0F7B00A68EDD /* CurrencyConversionOptionsViewController.swift */,
 				B3B46A6E228F0F7B00A68EDD /* NetworkModeTableViewController.swift */,
@@ -1198,6 +1201,9 @@
 				B3967B3D22A75BD400E14432 /* UITableView.swift in Sources */,
 				B3C0D4B623E0FBA5002D984F /* SimpleOkCancelDialog.swift in Sources */,
 				B3C0D4AF23DF9C45002D984F /* Security.swift in Sources */,
+				DDB7FE3623BD518A00B8F4F8 /* Settings.swift in Sources */,
+				B3B46A35228F0F2700A68EDD /* Syncer.swift in Sources */,
+				B3B46A0F228F0F2700A68EDD /* WalletAccount.swift in Sources */,
 				B3B46A17228F0F2700A68EDD /* ContouredButton.swift in Sources */,
 				B3B46A18228F0F2700A68EDD /* DropDownSearchField.swift in Sources */,
 				B3B46A97228F0F7D00A68EDD /* TransactionDetailsViewController.swift in Sources */,
