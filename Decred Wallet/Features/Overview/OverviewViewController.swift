@@ -129,7 +129,7 @@ class OverviewViewController: UIViewController {
         self.navBarTitle.addSubview(self.pageTitleLabel)
         self.navigationItem.titleView = self.navBarTitle // set our navigation item to our custom navbar view
         
-        self.balanceLabel.attributedText = Utils.getAttributedString(str: "0", siz: 17.0, TexthexColor: GlobalConstants.Colors.TextAmount)
+         self.balanceLabel.attributedText = Utils.getAttributedString(str: "0", siz: 17.0, TexthexColor: UIColor.appColors.darkBlue)
         
         // Setup seed backup warning
         self.seedBackupSectionView.layer.cornerRadius = 14
@@ -373,7 +373,6 @@ class OverviewViewController: UIViewController {
             self.syncStatusLabel.text = (AppDelegate.walletLoader.wallet?.isSynced())! ? LocalizedStrings.walletSynced : LocalizedStrings.walletNotSynced
             self.updatingLatestBlockInfo(latestBlock: bestBlock)
             self.showSyncDetailsButton.isHidden = true
-            
         }
         
         // Next we set the sync connection control button depending on whether or not the wallet synced successfully
@@ -479,7 +478,7 @@ class OverviewViewController: UIViewController {
         DispatchQueue.main.async {
             let totalWalletAmount = AppDelegate.walletLoader.wallet?.totalWalletBalance()
             let totalAmountRoundedOff = (Decimal(totalWalletAmount!) as NSDecimalNumber).round(8)
-            self.balanceLabel.attributedText = Utils.getAttributedString(str: "\(totalAmountRoundedOff)", siz: 17.0, TexthexColor: GlobalConstants.Colors.TextAmount)
+             self.balanceLabel.attributedText = Utils.getAttributedString(str: "\(totalAmountRoundedOff)", siz: 17.0, TexthexColor: UIColor.appColors.darkBlue)
         }
     }
     
