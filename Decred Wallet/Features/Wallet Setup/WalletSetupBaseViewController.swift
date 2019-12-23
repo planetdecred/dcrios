@@ -14,7 +14,7 @@ class WalletSetupBaseViewController: UIViewController {
         return Storyboards.WalletSetup.instantiateViewController(for: self)
     }
     
-    func finalizeWalletSetup(_ seed: String, _ pinOrPassword: String, _ securityType: String) {
+    func finalizeWalletSetup(_ seed: String, _ pinOrPassword: String, _ securityType: String, _ securityRequestVC: RequestBaseViewController?) {
         let progressHud = Utils.showProgressHud(withText: LocalizedStrings.settingUpWallet)
         
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in

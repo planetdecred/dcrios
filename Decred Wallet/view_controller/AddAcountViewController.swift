@@ -42,8 +42,9 @@ class AddAcountViewController: UIViewController {
                 let requestPinVC = RequestPinViewController.instantiate()
                 requestPinVC.securityFor = LocalizedStrings.spending
                 requestPinVC.showCancelButton = true
-                requestPinVC.onUserEnteredPin = { pin in
-                    self.addAccountWithPin(pin: pin as NSString)
+                requestPinVC.prompt = LocalizedStrings.confirmToCreate
+                requestPinVC.onUserEnteredCode = { (code:String, securityRequestVC:RequestBaseViewController?) in
+                    self.addAccountWithPin(pin: code as NSString, securityRequestVC: securityRequestVC)
                 }
                 present(requestPinVC, animated: true, completion: nil)
             }
@@ -54,16 +55,16 @@ class AddAcountViewController: UIViewController {
         let pass = passphrase.text
         if !pass!.isEmpty {
             let passphrase = (self.passphrase.text! as NSString).data(using: String.Encoding.utf8.rawValue)!
-            addAccount(passphrase: passphrase)
+            addAccount(passphrase: passphrase, securityRequestVC: nil)
         }
     }
     
-    private func addAccountWithPin(pin: NSString){
+    private func addAccountWithPin(pin: NSString, securityRequestVC:RequestBaseViewController?){
         let passphrase = pin.data(using: String.Encoding.utf8.rawValue)!
-        addAccount(passphrase: passphrase)
+        addAccount(passphrase: passphrase, securityRequestVC:securityRequestVC)
     }
     
-    private func addAccount(passphrase: Data){
+    private func addAccount(passphrase: Data, securityRequestVC:RequestBaseViewController?){
         let progressHud = JGProgressHUD(style: .light)
         progressHud.shadow = JGProgressHUDShadow(color: .black, offset: .zero, radius: 5.0, opacity: 0.2)
         progressHud.textLabel.text = LocalizedStrings.creatingAccount
@@ -76,12 +77,13 @@ class AddAcountViewController: UIViewController {
                 try AppDelegate.walletLoader.wallet?.nextAccount(accountName, privPass: passphrase)
                 DispatchQueue.main.async {
                     progressHud.dismiss()
+                    securityRequestVC?.dismissView()
                     self.dismiss(animated: true, completion: nil)
                 }
             }catch{
                 DispatchQueue.main.async {
                     progressHud.dismiss()
-                    self.showError(error: error)
+                    securityRequestVC?.showError(text: error.localizedDescription)
                 }
             }
         }

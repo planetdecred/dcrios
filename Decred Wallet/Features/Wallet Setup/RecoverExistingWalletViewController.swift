@@ -183,8 +183,8 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
     
     func secureWallet(_ seed: String) {
         let securityVC = SecurityViewController.instantiate()
-        securityVC.onUserEnteredPinOrPassword = { (pinOrPassword, securityType) in
-            self.finalizeWalletSetup(seed, pinOrPassword, securityType)
+        securityVC.onUserEnteredPinOrPassword = { (pinOrPassword, securityType, securityRequestVC) in
+            self.finalizeWalletSetup(seed, pinOrPassword, securityType, securityRequestVC)
         }
         self.navigationController?.pushViewController(securityVC, animated: true)
     }

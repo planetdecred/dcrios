@@ -27,6 +27,7 @@ class FloatingLabelTextInput: UITextField {
     var button = UIButton(type: .custom)
     
     var isActive:Bool = false
+    let padding = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -66,6 +67,10 @@ class FloatingLabelTextInput: UITextField {
             self.floatingLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
             self.floatingLabelBottomConstraint!
         ])
+    }
+    
+    func setPlaceHolder(text:String) {
+        self.floatingLabel.text = text
     }
     
     override func layoutSubviews() {
@@ -145,5 +150,17 @@ class FloatingLabelTextInput: UITextField {
         } else {
             self.button.setImage(UIImage(named: "ic_conceal"), for: .normal)
         }
+    }
+    
+    override func textRect(forBounds bounds: CGRect) -> CGRect {
+      return bounds.inset(by: padding)
+    }
+    
+    override func placeholderRect(forBounds bounds: CGRect) -> CGRect {
+      return bounds.inset(by: padding)
+    }
+    
+    override func editingRect(forBounds bounds: CGRect) -> CGRect {
+      return bounds.inset(by: padding)
     }
 }

@@ -7,43 +7,160 @@
 // license that can be found in the LICENSE file.
 import UIKit
 
-class RequestPasswordViewController: SecurityBaseViewController, UITextFieldDelegate {
-    @IBOutlet weak var lblPrompt: UILabel!
-    @IBOutlet weak var tfPassword: UITextField!
-    
-    var prompt: String?
-    var onUserEnteredPassword: ((_ password: String) -> Void)?
+class RequestPasswordViewController: RequestBaseViewController, UITextFieldDelegate {
+    @IBOutlet weak var passwordInput: FloatingLabelTextInput!
+    @IBOutlet weak var confirmPasswordInput: FloatingLabelTextInput?
+    @IBOutlet weak var passwordStrengthIndicator: ProgressView?
+    @IBOutlet weak var passwordCountLabel: UILabel?
+    @IBOutlet weak var confirmCountLabel: UILabel?
+    @IBOutlet weak var btnSubmit: Button!
+    @IBOutlet weak var btnCancel: UIButton!
+    @IBOutlet weak var passwordErrorLabel: UILabel!
+    @IBOutlet weak var confirmErrorLabel: UILabel?
+    @IBOutlet weak var headerLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        lblPrompt.text = self.prompt ?? LocalizedStrings.enterPassword
+        self.hideKeyboardOnTapAround()
+        self.setupInterface()
+    }
+    
+    private func setupInterface() {
+        self.passwordInput.setPlaceHolder(text: String(format: LocalizedStrings.passwordPlaceholder, self.securityFor))
+        self.passwordInput.isSecureTextEntry = true
+        self.passwordInput.addViewPasswordButton()
+        self.passwordInput.addTarget(self, action: #selector(self.passwordTextFieldChange), for: .editingChanged)
+        self.passwordInput.becomeFirstResponder()
+        self.passwordInput.delegate = self
         
-        // set textfield delegates to move to next field or submit password on return key press
-        self.tfPassword.delegate = self
-        self.tfPassword.becomeFirstResponder()
+        if !self.requestConfirmation {
+            self.passwordStrengthIndicator?.removeFromSuperview()
+            self.confirmPasswordInput?.removeFromSuperview()
+            self.confirmCountLabel?.removeFromSuperview()
+            self.confirmErrorLabel?.removeFromSuperview()
+            self.passwordCountLabel?.removeFromSuperview()
+        } else {
+            self.confirmPasswordInput?.setPlaceHolder(text: String(format: LocalizedStrings.confirmPasswordPlaceholder, self.securityFor.lowercased()))
+            self.confirmPasswordInput?.isSecureTextEntry = true
+            self.confirmPasswordInput?.addViewPasswordButton()
+            self.confirmPasswordInput?.delegate = self
+            self.confirmPasswordInput?.addTarget(self, action: #selector(self.confirmPasswordTextFieldChange), for: .editingChanged)
+        }
+        
+        if let prompt = self.prompt {
+            self.headerLabel?.text = prompt
+        } else {
+            self.headerLabel?.removeFromSuperview()
+        }
+        
+        if !self.showCancelButton {
+            self.btnCancel?.removeFromSuperview()
+        }
+        
+        if let submitBtnText = self.submitBtnText {
+            self.btnSubmit.setTitle(submitBtnText, for: .normal)
+        }
+    }
+    
+    @objc func passwordTextFieldChange() {
+        let password = self.passwordInput.text ?? ""
+        let passwordStrength = PinPasswordStrength.percentageStrength(of: password)
+        self.passwordStrengthIndicator?.progress = passwordStrength.strength
+        self.passwordStrengthIndicator?.progressTintColor = passwordStrength.color
+        self.passwordCountLabel?.text = (password == "") ? "\(0)" : "\(password.count)"
+        
+        if self.isInErrorState {
+            self.hideError()
+        }
+        
+        if self.requestConfirmation {
+            self.checkPasswordMatch()
+        } else {
+            self.btnSubmit.isEnabled = password != ""
+        }
+    }
+    
+    @objc func confirmPasswordTextFieldChange() {
+        self.checkPasswordMatch()
+    }
+    
+    func checkPasswordMatch() {
+        if let confirmPassword = self.confirmPasswordInput?.text {
+            if self.passwordInput.text != "" && confirmPassword != "" {
+                if self.passwordInput.text != confirmPassword {
+                    self.confirmErrorLabel?.textColor = UIColor.appColors.decredOrange
+                    self.confirmCountLabel?.textColor = UIColor.appColors.decredOrange
+                    self.confirmErrorLabel?.text = LocalizedStrings.passwordsDoNotMatch
+                    self.confirmPasswordInput?.showError()
+                    self.btnSubmit.isEnabled = false
+                } else {
+                    self.confirmErrorLabel?.text = ""
+                    self.confirmCountLabel?.textColor = UIColor.appColors.darkBluishGray
+                    self.confirmPasswordInput?.hideError()
+                    self.btnSubmit.isEnabled = true
+                }
+            }
+            self.confirmCountLabel?.text = (confirmPassword != "") ? "\(confirmPassword.count)" : "0"
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        return self.validatePasswordAndProceed()
+        if textField == self.passwordInput {
+            self.confirmPasswordInput?.becomeFirstResponder()
+            return true
+        }
+        return self.validatePasswordsAndProceed()
     }
     
-    @IBAction func OKAction(_ sender: Any) {
-        _ = self.validatePasswordAndProceed()
+    @IBAction func cancelTapped(_sender: UIButton) {
+        self.dismissView()
     }
     
-    func validatePasswordAndProceed() -> Bool {
-        let password = self.tfPassword.text ?? ""
-        if password.length == 0 {
-            return false
+    @IBAction func createTapped(_ sender: UIButton) {
+        btnSubmit.isEnabled = false
+        _ = self.validatePasswordsAndProceed()
+    }
+    
+    func validatePasswordsAndProceed() -> Bool {
+        let password = self.passwordInput.text ?? ""
+        
+        if self.requestConfirmation {
+            let confirmPassword = self.confirmPasswordInput?.text ?? ""
+            if password.length == 0 {
+                self.showMessageDialog(title: LocalizedStrings.error, message: LocalizedStrings.emptyPasswordNotAllowed)
+                btnSubmit.isEnabled = true
+                return false
+            }
+            if password != confirmPassword {
+                self.showMessageDialog(title: LocalizedStrings.error, message: LocalizedStrings.passwordsDoNotMatch)
+                btnSubmit.isEnabled = true
+                return false
+            }
         }
         
-        if self.isModal {
-            self.dismiss(animated: true, completion: nil)
-        } else {
-            self.navigationController?.popViewController(animated: true)
-        }
-        
-        self.onUserEnteredPassword?(password)
+        self.btnSubmit.startLoading()
+        self.btnCancel?.isEnabled = false
+        self.onUserEnteredCode?(password, self)
         return true
+    }
+    
+    override func showError(text: String) {
+        super.showError(text: text)
+        self.btnSubmit.stopLoading()
+        self.passwordInput.becomeFirstResponder()
+        self.btnCancel?.isEnabled = true
+        self.passwordInput.textColor = UIColor.appColors.decredOrange
+        self.passwordErrorLabel.textColor = UIColor.appColors.decredOrange
+        self.passwordErrorLabel.isHidden = false
+        self.passwordErrorLabel.text = text
+        self.passwordInput?.showError()
+    }
+    
+    override func hideError() {
+        super.hideError()
+        self.passwordInput.textColor = UIColor.appColors.darkBluishGray
+        self.passwordErrorLabel.textColor = UIColor.appColors.darkBluishGray
+        self.passwordErrorLabel.isHidden = true
+        self.passwordInput?.hideError()
     }
 }

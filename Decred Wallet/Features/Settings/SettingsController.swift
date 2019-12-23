@@ -256,36 +256,38 @@ class SettingsController: UITableViewController  {
             let deleteWalletDialog = segue.destination as! DeleteWalletConfirmationViewController
             deleteWalletDialog.onDeleteWalletConfirmed = { password in
                 if password != nil {
-                    self.deleteWallet(spendingPinOrPassword: password!)
+                    self.deleteWallet(spendingPinOrPassword: password!, securityRequestVC: nil)
                     return
                 }
                 
                 let requestPinVC = RequestPinViewController.instantiate()
                 requestPinVC.securityFor = LocalizedStrings.spending
                 requestPinVC.showCancelButton = true
-                requestPinVC.onUserEnteredPin = { pin in
-                    self.deleteWallet(spendingPinOrPassword: pin)
+                requestPinVC.prompt = LocalizedStrings.enterCurrentSpendingPIN
+                requestPinVC.onUserEnteredCode = {(code:String, securityRequestVC:RequestBaseViewController?) in
+                    self.deleteWallet(spendingPinOrPassword: code, securityRequestVC:securityRequestVC)
                 }
                 self.present(requestPinVC, animated: true, completion: nil)
             }
         }
     }
     
-    func deleteWallet(spendingPinOrPassword: String) {
+    func deleteWallet(spendingPinOrPassword: String, securityRequestVC:RequestBaseViewController?) {
         let progressHud = Utils.showProgressHud(withText: LocalizedStrings.deletingWallet)
         DispatchQueue.global(qos: .background).async {
             do {
                 try AppDelegate.walletLoader.wallet?.delete(spendingPinOrPassword.utf8Bits)
                 DispatchQueue.main.async {
                     progressHud.dismiss()
+                    securityRequestVC?.dismissView()
                     self.walletDeleted()
                 }
             } catch let error {
                 DispatchQueue.main.async {
                     progressHud.dismiss()
+                    securityRequestVC?.showError(text: LocalizedStrings.deleteWalletFailed)
                 }
                 print("delete wallet error: \(error.localizedDescription)")
-                self.showOkAlert(message: LocalizedStrings.deleteWalletFailed, title: LocalizedStrings.error)
             }
         }
     }

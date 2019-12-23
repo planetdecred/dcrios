@@ -340,9 +340,10 @@ class SendViewController: UIViewController {
                 let requestPinVC = RequestPinViewController.instantiate()
                 requestPinVC.securityFor = LocalizedStrings.spending
                 requestPinVC.showCancelButton = true
-                requestPinVC.modalPresentationStyle = .fullScreen
-                requestPinVC.onUserEnteredPin = { spendingPin in
-                    self.finalizeSending(destinationAddress: destinationAddress, pinOrPassword: spendingPin)
+                requestPinVC.prompt = LocalizedStrings.confirmToSend
+                requestPinVC.onUserEnteredCode = {(code:String, securityRequestVC:RequestBaseViewController?) in
+                    securityRequestVC?.dismissView()
+                    self.finalizeSending(destinationAddress: destinationAddress, pinOrPassword: code)
                 }
                 self.present(requestPinVC, animated: true, completion: nil)
             }

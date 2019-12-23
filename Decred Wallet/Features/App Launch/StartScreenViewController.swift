@@ -66,7 +66,7 @@ class StartScreenViewController: UIViewController {
         else if StartupPinOrPassword.pinOrPasswordIsSet() {
             self.promptForStartupPinOrPassword()
         } else {
-            self.unlockWalletAndStartApp(pinOrPassword: "public") // unlock wallet using default public passphrase
+            self.unlockWalletAndStartApp(pinOrPassword: "public", securityRequestVC: nil) // unlock wallet using default public passphrase
         }
     }
     
@@ -79,29 +79,34 @@ class StartScreenViewController: UIViewController {
     func promptForStartupPinOrPassword() {
         if StartupPinOrPassword.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
             let requestPasswordVC = RequestPasswordViewController.instantiate()
+            requestPasswordVC.securityFor = LocalizedStrings.startup
             requestPasswordVC.prompt = LocalizedStrings.enterStartupPassword
             requestPasswordVC.modalPresentationStyle = .fullScreen
-            requestPasswordVC.onUserEnteredPassword = self.unlockWalletAndStartApp
+            requestPasswordVC.submitBtnText = LocalizedStrings.unlock
+            requestPasswordVC.onUserEnteredCode = self.unlockWalletAndStartApp
+            requestPasswordVC.showCancelButton = false
             self.present(requestPasswordVC, animated: true, completion: nil)
         }
         else {
             let requestPinVC = RequestPinViewController.instantiate()
             requestPinVC.securityFor = LocalizedStrings.startup
             requestPinVC.modalPresentationStyle = .fullScreen
-            requestPinVC.onUserEnteredPin = self.unlockWalletAndStartApp
+            requestPinVC.onUserEnteredCode = self.unlockWalletAndStartApp
+            requestPinVC.prompt = LocalizedStrings.unlockWithStartupPIN
+            requestPinVC.submitBtnText = LocalizedStrings.unlock
+            requestPinVC.showCancelButton = false
             self.present(requestPinVC, animated: true, completion: nil)
         }
     }
     
-    func unlockWalletAndStartApp(pinOrPassword: String) {
+    func unlockWalletAndStartApp(pinOrPassword: String, securityRequestVC:RequestBaseViewController?) {
         self.label.text = LocalizedStrings.openingWallet
         
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            guard let this = self else { return }
-            
+        DispatchQueue.global(qos: .userInitiated).async {
             do {
                 try AppDelegate.walletLoader.wallet?.open(pinOrPassword.utf8Bits)
                 DispatchQueue.main.async {
+                    securityRequestVC?.dismissView()
                     NavigationMenuTabBarController.setupMenuAndLaunchApp(isNewWallet: false)
                 }
             } catch let error {
@@ -111,7 +116,7 @@ class StartScreenViewController: UIViewController {
                         let securityType = StartupPinOrPassword.currentSecurityType()!.lowercased()
                         errorMessage = String(format: LocalizedStrings.incorrectSecurityInfo, securityType)
                     }
-                    this.showOkAlert(message: errorMessage, title: LocalizedStrings.error, okText: LocalizedStrings.retry, onPressOk: this.promptForStartupPinOrPassword)
+                    securityRequestVC?.showError(text: errorMessage)
                 }
             }
         }

@@ -17,7 +17,9 @@ class SecurityViewController: SecurityBaseViewController {
     var initialSecurityType: String? // determines which tab will be displayed first
     
     // This will be triggered after a pin or password is provided by the user.
-    var onUserEnteredPinOrPassword: ((_ pinOrPassword: String, _ securityType: String) -> Void)?
+    var onUserEnteredPinOrPassword: ((_ code: String,
+                                      _ securityType: String,
+                                      _ securityRequestVC: RequestBaseViewController?) -> Void)?
     
     var tabController: UITabBarController?
     @IBOutlet weak var securityPromptLabel: UILabel!
@@ -29,22 +31,20 @@ class SecurityViewController: SecurityBaseViewController {
             self.tabController = segue.destination as? UITabBarController
             self.tabController?.tabBar.isHidden = true
             
-            let passwordTabVC = self.tabController?.viewControllers?.first as? PasswordSetupViewController
+            let passwordTabVC = self.tabController?.viewControllers?.first as? RequestPasswordViewController
             passwordTabVC?.securityFor = self.securityFor
-            passwordTabVC?.onUserEnteredPassword = { password in
-                self.navigationController?.popViewController(animated: true)
-                self.onUserEnteredPinOrPassword?(password, SecurityViewController.SECURITY_TYPE_PASSWORD)
+            passwordTabVC?.requestConfirmation = true
+            passwordTabVC?.showCancelButton = true
+            passwordTabVC?.onUserEnteredCode = { (code:String, securityRequestVC:RequestBaseViewController?) in
+                self.onUserEnteredPinOrPassword?(code, SecurityViewController.SECURITY_TYPE_PASSWORD, securityRequestVC)
             }
             
             let pinTabVC = self.tabController?.viewControllers?.last as? RequestPinViewController
             pinTabVC?.securityFor = self.securityFor
-            pinTabVC?.requestPinConfirmation = true
-            pinTabVC?.onUserEnteredPin = { pin in
-                self.navigationController?.popViewController(animated: true)
-                self.onUserEnteredPinOrPassword?(pin, SecurityViewController.SECURITY_TYPE_PIN)
-            }
-            pinTabVC?.onChangeHeaderText = { text in
-                self.securityPromptLabel.text = text
+            pinTabVC?.requestConfirmation = true
+            pinTabVC?.showCancelButton = true
+            pinTabVC?.onUserEnteredCode = { (code:String, securityRequestVC:RequestBaseViewController?) in
+                self.onUserEnteredPinOrPassword?(code, SecurityViewController.SECURITY_TYPE_PIN, securityRequestVC)
             }
         }
     }
@@ -81,7 +81,7 @@ class SecurityViewController: SecurityBaseViewController {
         btnPassword.setTitleColor(UIColor.appColors.darkerGray, for: .normal)
         btnPin.setTitleColor(UIColor.appColors.darkerGray, for: .normal)
         
-        self.securityPromptLabel.text = "Create a \(self.securityFor.lowercased()) password";
+        self.securityPromptLabel.text = String(format: LocalizedStrings.createPassword, self.securityFor.lowercased())
     }
     
     func activatePinTab() {
@@ -95,6 +95,6 @@ class SecurityViewController: SecurityBaseViewController {
         btnPin.setTitleColor(UIColor.appColors.darkerGray, for: .normal)
         btnPassword.setTitleColor(UIColor.appColors.thinGray, for: .normal)
         
-        self.securityPromptLabel.text = "Create a \(self.securityFor.lowercased()) PIN";
+        self.securityPromptLabel.text = String(format: LocalizedStrings.createPIN, self.securityFor.lowercased())
     }
 }

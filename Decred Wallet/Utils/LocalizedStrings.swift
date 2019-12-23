@@ -47,6 +47,8 @@ struct LocalizedStrings {
     /*Security Prompt */
     static let enterStartupPassword = NSLocalizedString("enterStartupPassword", comment: "")
     static let incorrectSecurityInfo = NSLocalizedString("incorrectSecurityInfo", comment: "")
+    static let unlockWithStartupPIN = NSLocalizedString("unlockWithStartupPIN", comment: "")
+    static let unlock = NSLocalizedString("unlock", comment: "")
     
     /* Password Setup */
     static let emptyPasswordNotAllowed = NSLocalizedString("emptyPasswordNotAllowed", comment: "")
@@ -55,11 +57,14 @@ struct LocalizedStrings {
     static let createPassword = NSLocalizedString("createPassword", comment: "")
     static let passwordStrength = NSLocalizedString("passwordStrength", comment: "")
     static let confirmPassword = NSLocalizedString("confirmPassword", comment: "")
+    static let passwordPlaceholder = NSLocalizedString("passwordPlaceholder", comment: "")
+    static let confirmPasswordPlaceholder = NSLocalizedString("confirmPasswordPlaceholder", comment: "")
     
     /* Request Password */
     static let enterPassword = NSLocalizedString("enterPassword", comment: "")
     static let promptSpendingPassword = NSLocalizedString("promptSpendingPassword", comment: "")
     static let promptStartupPassword = NSLocalizedString("promptStartupPassword", comment: "")
+    static let promptStartupPIN = NSLocalizedString("promptStartupPIN", comment: "")
     static let securityTypeNotSpecified = NSLocalizedString("securityTypeNotSpecified", comment: "")
     static let password = NSLocalizedString("password", comment: "")
     static let proceed = NSLocalizedString("proceed", comment: "")
@@ -77,6 +82,7 @@ struct LocalizedStrings {
     
     /* Change Spendind PIN/Password */
     static let enterCurrentSpendingPassword = NSLocalizedString("enterCurrentSpendingPassword", comment: "")
+    static let enterCurrentSpendingPIN = NSLocalizedString("enterCurrentSpendingPIN", comment: "")
     static let changingSpendingPINPass = NSLocalizedString("changingSpendingPINPass", comment: "")
     
     /* Changing Startup PIN/Password */
@@ -245,6 +251,7 @@ struct LocalizedStrings {
     static let estimateSize = NSLocalizedString("estimateSize", comment: "")
     static let balanceAfter = NSLocalizedString("balanceAfter", comment: "")
     static let exchangeRate = NSLocalizedString("exchangeRate", comment: "")
+    static let confirmToSend = NSLocalizedString("confirmToSend", comment: "")
     
     /* Confirm Send Fund */
     static let sending = NSLocalizedString("sending", comment: "")
@@ -270,6 +277,7 @@ struct LocalizedStrings {
     /* Account View */
     static let hidden = NSLocalizedString("hidden", comment: "")
     static let spendable = NSLocalizedString("spendable", comment: "")
+    static let confirmToCreate = NSLocalizedString("confirmToCreate", comment: "")
     
     /* Account Data cell */
     static let details = NSLocalizedString("details", comment: "")
@@ -410,6 +418,4 @@ struct LocalizedStrings {
     /* PIN setup*/
     static let create = NSLocalizedString("create", comment: "")
     static let next = NSLocalizedString("next", comment: "")
-    static let enterSpendingPIN = NSLocalizedString("enterSpendingPIN", comment: "")
-    static let enterSpendingPINAgain = NSLocalizedString("enterSpendingPINAgain", comment: "")
 }
