@@ -123,11 +123,11 @@
             <objects>
                 <viewController storyboardIdentifier="RequestPasswordViewController" title="Password Tab" id="2lq-jW-9IA" customClass="RequestPasswordViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wcl-lB-4xs">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="630"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="629.66666666666663"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="oLB-RB-SsP">
-                                <rect key="frame" x="24" y="68" width="327" height="537.66666666666663"/>
+                                <rect key="frame" x="24" y="68" width="327" height="313.33333333333331"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Ms-qN-4pQ">
                                         <rect key="frame" x="0.0" y="0.0" width="327" height="73.333333333333329"/>
@@ -162,7 +162,7 @@
                                         <rect key="frame" x="0.0" y="121.33333333333334" width="327" height="24"/>
                                         <subviews>
                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Wrong startup password. Please try again." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="afa-Zo-Kic">
-                                                <rect key="frame" x="16" y="4.3333333333333153" width="250" height="15.333333333333336"/>
+                                                <rect key="frame" x="16" y="5" width="250" height="14"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="250" id="fHR-is-0YA"/>
                                                 </constraints>
@@ -182,9 +182,11 @@
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
+                                            <constraint firstItem="afa-Zo-Kic" firstAttribute="top" secondItem="ewR-2e-MEM" secondAttribute="top" constant="5" id="03n-OZ-yIm"/>
                                             <constraint firstAttribute="trailing" secondItem="2Z3-SY-0XE" secondAttribute="trailing" constant="16" id="7cw-D7-3Ax"/>
                                             <constraint firstAttribute="bottom" secondItem="2Z3-SY-0XE" secondAttribute="bottom" constant="6" id="Jd0-5D-gxY"/>
                                             <constraint firstItem="2Z3-SY-0XE" firstAttribute="centerY" secondItem="ewR-2e-MEM" secondAttribute="centerY" id="hxM-AQ-M9a"/>
+                                            <constraint firstAttribute="bottom" secondItem="afa-Zo-Kic" secondAttribute="bottom" constant="5" id="moV-tK-7TJ"/>
                                             <constraint firstItem="2Z3-SY-0XE" firstAttribute="top" secondItem="ewR-2e-MEM" secondAttribute="top" constant="6" id="mqV-Me-z4U"/>
                                             <constraint firstItem="2Z3-SY-0XE" firstAttribute="leading" secondItem="afa-Zo-Kic" secondAttribute="trailing" constant="15" id="ui1-oG-7Ds"/>
                                             <constraint firstItem="afa-Zo-Kic" firstAttribute="leading" secondItem="ewR-2e-MEM" secondAttribute="leading" constant="16" id="vsb-SV-mF8"/>
@@ -253,7 +255,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EdM-JP-adU">
-                                        <rect key="frame" x="0.0" y="257.33333333333337" width="327" height="280.33333333333337"/>
+                                        <rect key="frame" x="0.0" y="257.33333333333331" width="327" height="56"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v6t-Bu-n8H">
                                                 <rect key="frame" x="161" y="16" width="79" height="40"/>
@@ -298,6 +300,7 @@
                                         <constraints>
                                             <constraint firstItem="PwE-hW-lVm" firstAttribute="top" secondItem="EdM-JP-adU" secondAttribute="top" constant="16" id="a3d-dx-5EF"/>
                                             <constraint firstAttribute="trailing" secondItem="PwE-hW-lVm" secondAttribute="trailing" id="obr-C3-S5x"/>
+                                            <constraint firstAttribute="bottom" secondItem="PwE-hW-lVm" secondAttribute="bottom" id="qbf-lk-mij"/>
                                             <constraint firstItem="v6t-Bu-n8H" firstAttribute="centerY" secondItem="PwE-hW-lVm" secondAttribute="centerY" id="sHo-J2-eQG"/>
                                             <constraint firstItem="PwE-hW-lVm" firstAttribute="leading" secondItem="v6t-Bu-n8H" secondAttribute="trailing" constant="8" id="x8R-z4-v8S"/>
                                         </constraints>
@@ -309,7 +312,6 @@
                         <constraints>
                             <constraint firstItem="oLB-RB-SsP" firstAttribute="leading" secondItem="YVH-T5-DVQ" secondAttribute="leading" constant="24" id="Hga-SS-MUm"/>
                             <constraint firstItem="YVH-T5-DVQ" firstAttribute="trailing" secondItem="oLB-RB-SsP" secondAttribute="trailing" constant="24" id="Kic-Oz-eUR"/>
-                            <constraint firstAttribute="bottom" secondItem="oLB-RB-SsP" secondAttribute="bottom" constant="24" id="Vq9-ld-HrD"/>
                             <constraint firstItem="oLB-RB-SsP" firstAttribute="top" secondItem="YVH-T5-DVQ" secondAttribute="top" constant="24" id="hTe-yC-yMw"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="YVH-T5-DVQ"/>
