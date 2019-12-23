@@ -82,7 +82,7 @@ struct Utils {
                 atrStr.append(NSMutableAttributedString(string: " DCR"))
                 stt = (stt?.appending(((" DCR")))) as NSString?
                 atrStr.addAttribute(NSAttributedString.Key.font,
-                                    value: UIFont(name: "Inconsolata-Regular", size: siz)!,
+                                    value: UIFont(name: "SourceSansPro-Regular", size: siz)!,
                                     range: NSRange(location:(dotRange?.location)!+3, length:(stt?.length)!-1 - ((dotRange?.location)!+2)))
                 
                 atrStr.addAttribute(NSAttributedString.Key.foregroundColor,
