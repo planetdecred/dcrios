@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Security Tools View Controller-->
+        <scene sceneID="nQ8-pY-upE">
+            <objects>
+                <viewController storyboardIdentifier="SecurityToolsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="131-eZ-dCu" customClass="SecurityToolsViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="otk-iB-xPq">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IYi-W1-Ylb">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" red="0.95294117649999999" green="0.96078431369999995" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="SecurityToolsItemCell" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SecurityToolsItemCell" rowHeight="68" id="gUk-MW-MOK" customClass="SecurityToolsItemCell" customModule="Decred_Wallet" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="68"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gUk-MW-MOK" id="HGG-JQ-x0O">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="68"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SdY-KO-Ylt">
+                                                    <rect key="frame" x="8" y="4" width="398" height="60"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                </view>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_location_pin" translatesAutoresizingMaskIntoConstraints="NO" id="ffK-bk-WGr">
+                                                    <rect key="frame" x="36" y="22" width="24" height="24"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="24" id="GyI-FH-c1t"/>
+                                                        <constraint firstAttribute="width" constant="24" id="cZq-ls-ya2"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Validate addresses" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r7R-20-n6C">
+                                                    <rect key="frame" x="76" y="25" width="124.5" height="18"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="18" id="W8l-eZ-Nnb"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                                    <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="SdY-KO-Ylt" secondAttribute="trailing" constant="8" id="0dF-A3-j6b"/>
+                                                <constraint firstItem="r7R-20-n6C" firstAttribute="centerY" secondItem="HGG-JQ-x0O" secondAttribute="centerY" id="841-z2-l50"/>
+                                                <constraint firstItem="SdY-KO-Ylt" firstAttribute="leading" secondItem="HGG-JQ-x0O" secondAttribute="leading" constant="8" id="Di0-as-CpX"/>
+                                                <constraint firstItem="SdY-KO-Ylt" firstAttribute="top" secondItem="HGG-JQ-x0O" secondAttribute="top" constant="4" id="Iyq-xm-u32"/>
+                                                <constraint firstItem="SdY-KO-Ylt" firstAttribute="centerY" secondItem="HGG-JQ-x0O" secondAttribute="centerY" id="Tcd-5O-bRc"/>
+                                                <constraint firstItem="r7R-20-n6C" firstAttribute="leading" secondItem="ffK-bk-WGr" secondAttribute="trailing" constant="16" id="ikn-BP-2Ud"/>
+                                                <constraint firstAttribute="bottom" secondItem="SdY-KO-Ylt" secondAttribute="bottom" constant="4" id="kZb-uK-Ma9"/>
+                                                <constraint firstItem="SdY-KO-Ylt" firstAttribute="centerX" secondItem="HGG-JQ-x0O" secondAttribute="centerX" id="p04-29-MRz"/>
+                                                <constraint firstItem="ffK-bk-WGr" firstAttribute="leading" secondItem="HGG-JQ-x0O" secondAttribute="leadingMargin" constant="16" id="srn-Gs-Yhe"/>
+                                                <constraint firstItem="ffK-bk-WGr" firstAttribute="centerY" secondItem="HGG-JQ-x0O" secondAttribute="centerY" id="uT6-SC-FWA"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.95294117649999999" green="0.96078431369999995" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <outlet property="securityToolsBackground" destination="SdY-KO-Ylt" id="DBG-Ek-cYQ"/>
+                                            <outlet property="securityToolsIconImageView" destination="ffK-bk-WGr" id="EVI-wF-m7Z"/>
+                                            <outlet property="securityToolsTitleLabel" destination="r7R-20-n6C" id="f67-do-8FF"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="131-eZ-dCu" id="BQF-Bh-2nW"/>
+                                    <outlet property="delegate" destination="131-eZ-dCu" id="sGD-ld-9f5"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.95294117649999999" green="0.96078431369999995" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="IYi-W1-Ylb" firstAttribute="centerY" secondItem="otk-iB-xPq" secondAttribute="centerY" id="2FL-7o-Ndt"/>
+                            <constraint firstItem="IYi-W1-Ylb" firstAttribute="height" secondItem="otk-iB-xPq" secondAttribute="height" id="YVT-Qr-gN2"/>
+                            <constraint firstItem="IYi-W1-Ylb" firstAttribute="centerX" secondItem="otk-iB-xPq" secondAttribute="centerX" id="arp-Le-rzH"/>
+                            <constraint firstItem="IYi-W1-Ylb" firstAttribute="width" secondItem="otk-iB-xPq" secondAttribute="width" id="ylU-0V-0S5"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="4yd-Hx-bcs"/>
+                    </view>
+                    <connections>
+                        <outlet property="SecurityToolsTableView" destination="IYi-W1-Ylb" id="yKg-Ix-ZCd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="f8Q-5X-oCH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-299" y="-71"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="ic_location_pin" width="24" height="24"/>
+    </resources>
+</document>

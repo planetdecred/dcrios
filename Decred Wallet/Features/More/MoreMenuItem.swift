@@ -23,7 +23,7 @@ enum MoreMenuItem: String, CaseIterable {
             return SettingsController.instantiate()
             
         case .security:
-            return Storyboards.SecurityMenu.instantiateViewController(for: SecurityMenuViewController.self)
+            return Storyboards.SecurityTools.instantiateViewController(for: SecurityToolsViewController.self)
             
         case .help:
             return Storyboards.Help.instantiateViewController(for: HelpTableViewController.self)

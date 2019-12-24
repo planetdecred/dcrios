@@ -164,6 +164,10 @@
 		DD5AB15023D612C800863362 /* HelpTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5AB14F23D612C800863362 /* HelpTableViewController.swift */; };
 		DD6855BD238C808A006B8BF4 /* RestoreExistingWalletSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6855BC238C808A006B8BF4 /* RestoreExistingWalletSuccessViewController.swift */; };
 		DD75148A22BA67B10070E4F6 /* TransactionHistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD75148922BA67B10070E4F6 /* TransactionHistoryViewController.xib */; };
+		DD89A04123B0842400C1ECE9 /* SecurityTools.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD89A04023B0842400C1ECE9 /* SecurityTools.storyboard */; };
+		DD89A04323B08CF800C1ECE9 /* SecurityToolsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD89A04223B08CF800C1ECE9 /* SecurityToolsViewController.swift */; };
+		DD89A04523B08FDD00C1ECE9 /* SecurityToolsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD89A04423B08FDD00C1ECE9 /* SecurityToolsItem.swift */; };
+		DD89A04723B091FF00C1ECE9 /* SecurityToolsItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD89A04623B091FF00C1ECE9 /* SecurityToolsItemCell.swift */; };
 		DD8F9D3C22BE7A5600FF8594 /* Security.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD8F9D3B22BE7A5600FF8594 /* Security.storyboard */; };
 		DDB7FE3623BD518A00B8F4F8 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB7FE3523BD518A00B8F4F8 /* Settings.swift */; };
 		DDCF259222B89D96005FCBB9 /* WalletSetup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDCF259122B89D96005FCBB9 /* WalletSetup.storyboard */; };
@@ -346,6 +350,10 @@
 		DD5AB14F23D612C800863362 /* HelpTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpTableViewController.swift; sourceTree = "<group>"; };
 		DD6855BC238C808A006B8BF4 /* RestoreExistingWalletSuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreExistingWalletSuccessViewController.swift; sourceTree = "<group>"; };
 		DD75148922BA67B10070E4F6 /* TransactionHistoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionHistoryViewController.xib; sourceTree = "<group>"; };
+		DD89A04023B0842400C1ECE9 /* SecurityTools.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SecurityTools.storyboard; sourceTree = "<group>"; };
+		DD89A04223B08CF800C1ECE9 /* SecurityToolsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityToolsViewController.swift; sourceTree = "<group>"; };
+		DD89A04423B08FDD00C1ECE9 /* SecurityToolsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityToolsItem.swift; sourceTree = "<group>"; };
+		DD89A04623B091FF00C1ECE9 /* SecurityToolsItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityToolsItemCell.swift; sourceTree = "<group>"; };
 		DD8F9D3B22BE7A5600FF8594 /* Security.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Security.storyboard; sourceTree = "<group>"; };
 		DDB7FE3523BD518A00B8F4F8 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		DDCF259122B89D96005FCBB9 /* WalletSetup.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = WalletSetup.storyboard; sourceTree = "<group>"; };
@@ -449,13 +457,17 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		B36255B322A11A9500C62946 /* SecurityMenu */ = {
+		B36255B322A11A9500C62946 /* Security Tools */ = {
 			isa = PBXGroup;
 			children = (
 				DDCF259D22B8A382005FCBB9 /* SecurityMenu.storyboard */,
 				B36255B422A11A9500C62946 /* SecurityMenuViewController.swift */,
+				DD89A04023B0842400C1ECE9 /* SecurityTools.storyboard */,
+				DD89A04223B08CF800C1ECE9 /* SecurityToolsViewController.swift */,
+				DD89A04423B08FDD00C1ECE9 /* SecurityToolsItem.swift */,
+				DD89A04623B091FF00C1ECE9 /* SecurityToolsItemCell.swift */,
 			);
-			path = SecurityMenu;
+			path = "Security Tools";
 			sourceTree = "<group>";
 		};
 		B37AD09F240885DC00C83D80 /* WalletAccountView */ = {
@@ -851,7 +863,7 @@
 			isa = PBXGroup;
 			children = (
 				DDAD5023229F714600EDF91B /* Settings */,
-				B36255B322A11A9500C62946 /* SecurityMenu */,
+				B36255B322A11A9500C62946 /* Security Tools */,
 				DD5AB15123D6210B00863362 /* About */,
 				DD5AB15223D6212F00863362 /* Debug */,
 				DD5AB15323D6214B00863362 /* Help */,
@@ -991,6 +1003,7 @@
 				DDCF259C22B8A362005FCBB9 /* Send.storyboard in Resources */,
 				10341E0C23CBBB700055DFDE /* SeedBackup.storyboard in Resources */,
 				DD36717723B44AB700D1ED67 /* More.storyboard in Resources */,
+				DD89A04123B0842400C1ECE9 /* SecurityTools.storyboard in Resources */,
 				B3B46AB7228F0F7D00A68EDD /* splashLoader.gif in Resources */,
 				DDCF259A22B8A347005FCBB9 /* Overview.storyboard in Resources */,
 				DD8F9D3C22BE7A5600FF8594 /* Security.storyboard in Resources */,
@@ -1148,6 +1161,7 @@
 				B36EFD362298617C002753B2 /* UIButton.swift in Sources */,
 				B3456D2523D91CF600B04860 /* RoundedView.swift in Sources */,
 				B3B469FC228F0F2700A68EDD /* String.swift in Sources */,
+				DD89A04323B08CF800C1ECE9 /* SecurityToolsViewController.swift in Sources */,
 				B3B46A9D228F0F7D00A68EDD /* HelpViewController.swift in Sources */,
 				10B7818223F066DA00AD2709 /* TransactionInputDetailCell.swift in Sources */,
 				B3B46A9A228F0F7D00A68EDD /* SettingsController.swift in Sources */,
@@ -1181,11 +1195,13 @@
 				10B7818523F0693C00AD2709 /* TransactionOutputDetailCell.swift in Sources */,
 				DD02AC6523969440004A73E3 /* MoreMenuItem.swift in Sources */,
 				B3B46AA7228F0F7D00A68EDD /* CurrencyConversionOptionsViewController.swift in Sources */,
+				DD89A04723B091FF00C1ECE9 /* SecurityToolsItemCell.swift in Sources */,
 				25E63F4E23312B2C009CD53E /* NavMenuFloatingButtons.swift in Sources */,
 				B3B46AB1228F0F7D00A68EDD /* SeedCheckActiveCellView.swift in Sources */,
 				B3B46A32228F0F2700A68EDD /* OverviewViewController.swift in Sources */,
 				10341E0723CBBB700055DFDE /* SeedBackupSuccessViewController.swift in Sources */,
 				DD5AB15023D612C800863362 /* HelpTableViewController.swift in Sources */,
+				DD89A04523B08FDD00C1ECE9 /* SecurityToolsItem.swift in Sources */,
 				B35C55D8232FED610006A765 /* Transaction.swift in Sources */,
 				B3B46A8A228F0F7D00A68EDD /* customUImage.swift in Sources */,
 				DD5AB14E23D4C12C00863362 /* DebugTableViewController.swift in Sources */,

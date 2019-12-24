@@ -351,7 +351,12 @@ struct LocalizedStrings {
     static let createAccount = NSLocalizedString("createAccount", comment: "")
     static let privatePassphrase = NSLocalizedString("privatePassphrase", comment: "")
     
-    /* Security Menu */
+    /* Security Tools */
+    static let securityTools = NSLocalizedString("securityTools", comment: "")
+    static let securityToolsInfo = NSLocalizedString("securityToolsInfo", comment: "")
+    static let validateAddresses = NSLocalizedString("validateAddresses", comment: "")
+    static let signMessage = NSLocalizedString("signMessage", comment: "")
+    static let verifyMessage = NSLocalizedString("verifyMessage", comment: "")
     static let validOwnAddr = NSLocalizedString("validOwnAddr", comment: "")
     static let validNotOwnAddr = NSLocalizedString("validNotOwnAddr", comment: "")
     static let invalidAddr = NSLocalizedString("invalidAddr", comment: "")
@@ -471,6 +476,7 @@ struct LocalizedStrings {
     static let help = NSLocalizedString("help", comment: "")
     static let helpInfo = NSLocalizedString("helpInfo", comment: "")
     static let notifications = NSLocalizedString("notifications", comment: "")
+    static let gotIt = NSLocalizedString("gotIt", comment: "")
     
     /* Seed Backup */
     static let failedToVerify = NSLocalizedString("failedToVerify", comment: "")

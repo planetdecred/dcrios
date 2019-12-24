@@ -24,7 +24,7 @@ open class MoreMenuItemCell: UITableViewCell {
     }
     
     func render(_ menuItem: MoreMenuItem) {
-        self.moreMenuTitleLabel.text = menuItem.rawValue
+        self.moreMenuTitleLabel.text = menuItem.displayTitle
         self.moreMenuIconImageView.image = menuItem.icon
     }
 }
