@@ -81,35 +81,6 @@
 "removingStartupPINPass" = "Eliminando %@ de inicio...";
 "settingStartupPINPass" = "Configurando %@ de inicio..." ;
 
-/* NavigationMenu / Sync progress */
-"cannotSyncWithoutNetworkConnection" = "Cannot sync without network connection.";
-"internetConnectionRequired" = "Internet connection required.";
-"connectToWiFiToSync" = "Conectar al WiFi para sincronizar.";
-"restartingSync" = "Restarting sync...";
-"connectingToPeers" = "Conectando a los pares.";
-"syncedWith" =  "Sincronizado %@";
-"fetchingBlockHeaders" = "Recogiendo encabezados del bloque.";
-"blocksBehind" = "%d Bloques detras.";
-"bestBlockAgeAgo" = "%@ atrás";
-"discoveringUsedAddresses" = "Descubriendo direcciones usadas.";
-"generalSyncProgressCompletedleft" = "%d%% completadas, %@ restantes.";
-"scanningBlocks" = "Escanendo bloques.";
-"rescanProgress" = "%d%% completadas, %@ restantes.";
-"syncCanceled" = "Sync canceled.";
-"syncError" = "Sync error.";
-"latestBlock" = "Útimo bloque: %d";
-"now" = "Ahora";
-"secondsAgo" = "%ds atrás";
-"minAgo" = "%dm atrás";
-"hrsAgo" = "%dh atrás";
-"daysAgo" = "%dd atrás";
-"weeksAgo" = "%dw atrás";
-"monthsAgo" = "%dmo atrás";
-"yearsAgo" =  "%dy atrás";
-"totalBalance" = "Saldo Total";
-"restartingSynchronization" = "Restarting Synchronization";
-"startingSynchronization" = "Starting Synchronization";
-
 /* No Wifi Sync Connection */
 "notConnectedToWiFi" = "No conectado al WiFi.";
 "syncAnyways" = "¿Te gustaría sincronizar de todos modos?";
@@ -119,29 +90,61 @@
 
 /* Sync progress view */
 "loading" = "Cargando...";
-"numberOfConnectedPeers" = "%d pares";
-"numberOfConnectedPeer" = "%d par";
-"syncingWithPeersOnNetwork" = "Sincronizando con %@ en la red %@.";
-"fetchedHeaders" = "Extraido %d de ~%d encabezado de bloques.\n";
-"headersFetchProgress" = "%d%% Hasta el paso 1 de 3.";
-"bestBlockAgebehind" = "\nTu billetera esta %@ detrás.";
-"addressDiscoveryProgressOver" = "~%d%% (terminado) hasta el paso 2 de 3.";
-"addressDiscoveryProgressThrough" = "~%d%% hasta el paso 2 de 3.";
-"scanningTotalHeaders" = "Escaneando %d de %d Encabezado de bloques.\n";
-"stepThreeRescanProgress" = "%d%% Hata el paso 3 de 3.";
-"synchronizing" = "Sincronizando";
+"numberOfConnectedPeers" = "%d peers";
+"numberOfConnectedPeer" = "%d peer";
+"fetchedHeaders" = "%d of %d";
+"headersFetchProgress" = "Fetching block headers. %d%%";
+"headersScannedProgress" = "Scanning block headers. %d%%";
+"bestBlockAgebehind" = "%@ behind";
+"blockHeaderScanned" = "Block header scanned";
+"addressDiscoveryProgressOver" = "~%d%% (over)";
+"addressDiscoveryProgressThrough" = "~%d%%";
+"scanningTotalHeaders" = "%d of %d";
+"synchronizing" = "Sincronizando...";
 "synchronizationCanceled" = "Synchronization canceled";
 "synchronizationError" = "Synchronization error";
-"syncTotalProgress" = "%d%% completadas, %@ restante.";
+"syncTotalProgress" = "%d%% completed, %@ remaining.";
 "allTimes" = "Todo el tiempo";
 "elapsed" = "elapsed:";
 "remain" = "queda:";
 "total"  = "total:";
-"stageTimes" = "Stage Times";
 "tapToViewInformation" = "Pulsa para más información.";
-"walletStatus" = "Wallet Status";
-"walletSynced" = "Synced";
-"walletNotSynced" = "Not Synced";
+"syncStageDescription" = "%@ - %d%%";
+"latestBlockAge" = "Latest block %d% :- %@";
+"blockHeadersFetched" = "Block headers fetched";
+"syncProgressComplete" = "%d%%";
+"syncTimeLeft" = "%@ left";
+"syncSteps" = "Step %d/3";
+"syncingProgress" = "Syncing progress";
+"cannotSyncWithoutNetworkConnection" = "Cannot sync without network connection.";
+"internetConnectionRequired" = "Internet connection required.";
+"connectToWiFiToSync" = "Connect to WiFi to sync.";
+"restartingSync" = "Restarting sync...";
+"connectingToPeers" = "Connecting to peers.";
+"syncedWith" =  "Synced with %@";
+"fetchingBlockHeaders" = "Fetching block headers.";
+"blocksBehind" = "%d blocks behind.";
+"bestBlockAgeAgo" = "%@ ago";
+"discoveringUsedAddresses" = "Discovering used addresses.";
+"generalSyncProgressCompletedleft" = "%d%% completed, %@ left.";
+"scanningBlocks" = "Scanning blocks.";
+"rescanProgress" = "%d%% completed, %@ left.";
+"syncCanceled" = "Sync canceled.";
+"syncError" = "Sync error.";
+"latestBlock" = "Latest Block: %d";
+"now" = "now";
+"secondsAgo" = "%ds ago";
+"minAgo" = "%dm ago";
+"hrsAgo" = "%dh ago";
+"daysAgo" = "%dd ago";
+"weeksAgo" = "%dw ago";
+"monthsAgo" = "%dmo ago";
+"yearsAgo" =  "%dy ago";
+"totalBalance" = "Total Balance";
+"restartingSynchronization" = "Restarting Synchronization";
+"startingSynchronization" = "Starting Sync...";
+"reconnect" = "Reconnect";
+"disconnect" = "Disconnect";
 
 /* Navigation Menu Items */
 "overview" = "Overview";
@@ -155,8 +158,22 @@
 
 /* Overview */
 "currentTotalBalance" = "Saldo total actual";
-"recentActivity" = "Actividad reciente";
-"showAllTransactions" = "Mostrar todas las transacciones";
+"recentTransactions" = "Recent Transactions";
+"seeAll" = "See all";
+"backupSeedPhrase" = "Back up seed phrase";
+"walletStatus" = "Wallet Status";
+"walletSynced" = "Synced";
+"walletNotSynced" = "Not Synced";
+"backupWarningText" = "Verify your seed phrase backup so you can recover your funds when needed.";
+"connectedTo" = "Connected to %d peers";
+"online" = "Online";
+"offline" = "Offline";
+"showDetails" = "Show details";
+"hideDetails" = "Hide details";
+"connectedPeersCount" = "Connected peers count";
+"noConnectedPeer" = "No connected peers.";
+"peers" = "peers";
+"seeAll" = "See all";
 
 /* Transaction List/ History */
 "pending" = "Pendiente";

@@ -81,35 +81,6 @@
 "removingStartupPINPass" = "Xóa %@ khởi động…" ;
 "settingStartupPINPass" = "Đặt %@ khởi động…";
 
-/* NavigationMenu / Sync progress */
-"cannotSyncWithoutNetworkConnection" = "Cannot sync without network connection.";
-"internetConnectionRequired" = "Internet connection required.";
-"connectToWiFiToSync" = "Kết nối với Wi-Fi để đồng bộ hóa.";
-"restartingSync" = "Restarting sync...";
-"connectingToPeers" = "Đang kết nối tới peers.";
-"syncedWith" =  "Đang đồng bộ hóa với %@";
-"fetchingBlockHeaders" = "Lấy tiêu đề khối.";
-"blocksBehind" = "%d khối phía sau.";
-"bestBlockAgeAgo" = "%@ Trước đây";
-"discoveringUsedAddresses" = "Khám phá các địa chỉ được sử dụng.";
-"generalSyncProgressCompletedleft" = "%d%% đã hoàn thành, %@ còn lại.";
-"scanningBlocks" = "Quét khối.";
-"rescanProgress" = "%d%% đã hoàn thành, %@ còn lại.";
-"syncCanceled" = "Sync canceled.";
-"syncError" = "Sync error.";
-"latestBlock" = "Khối cổ phần mới nhất: %d";
-"now" = "now";
-"secondsAgo" = "%ds trước đây";
-"minAgo" = "%dm trước đây";
-"hrsAgo" = "%dh trước đây";
-"daysAgo" = "%dd trước đây";
-"weeksAgo" = "%dw trước đây";
-"monthsAgo" = "%dmo trước đây";
-"yearsAgo" =  "%dy trước đây";
-"totalBalance" = "Tổng số dư";
-"restartingSynchronization" = "Restarting Synchronization";
-"startingSynchronization" = "Starting Synchronization";
-
 /* No Wifi Sync Connection */
 "notConnectedToWiFi" = "Không kết nối với WiFi.";
 "syncAnyways" = "Bạn có muốn đồng bộ hóa bằng mọi cách?";
@@ -118,30 +89,62 @@
 "always" = "Luôn luôn";
 
 /* Sync progress view */
-"loading" = "Đang tải...";
+"loading" = "Loading...";
 "numberOfConnectedPeers" = "%d peers";
 "numberOfConnectedPeer" = "%d peer";
-"syncingWithPeersOnNetwork" = "Đồng bộ hóa với các mạng ngang hàng (%@) trên mạng chính thức (%@).";
-"fetchedHeaders" = "Đã tìm nạp %d trong số ~%d tiêu đề khối.\n";
-"headersFetchProgress" = "%d%% qua bước 1 của 3.";
-"bestBlockAgebehind" = "\nVí của bạn chậm hơn %@.";
-"addressDiscoveryProgressOver" = "~%d%% (hơn) qua bước 2 trên 3.";
-"addressDiscoveryProgressThrough" = "~%d%% qua bước 2 trên 3.";
-"scanningTotalHeaders" = "Đang quét %d of %d tiêu đề khối.\n";
-"stepThreeRescanProgress" = "%d%% qua bước 3 của 3.";
-"synchronizing" = "Đang đồng bộ hoá";
+"fetchedHeaders" = "%d of %d";
+"headersFetchProgress" = "Fetching block headers. %d%%";
+"headersScannedProgress" = "Scanning block headers. %d%%";
+"bestBlockAgebehind" = "%@ behind";
+"blockHeaderScanned" = "Block header scanned";
+"addressDiscoveryProgressOver" = "~%d%% (over)";
+"addressDiscoveryProgressThrough" = "~%d%%";
+"scanningTotalHeaders" = "%d of %d";
+"synchronizing" = "Syncing...";
 "synchronizationCanceled" = "Synchronization canceled";
 "synchronizationError" = "Synchronization error";
-"syncTotalProgress" = "%d%% đã hoàn thành, %@ còn lại.";
+"syncTotalProgress" = "%d%% completed, %@ remaining.";
 "allTimes" = "Tất cả thời gian";
 "elapsed" = "đã trôi qua:";
 "remain" = "còn lại:";
 "total"  = "tổng cộng:";
-"stageTimes" = "Giai đoạn";
 "tapToViewInformation" = "Nhấn để biết thêm thông tin";
-"walletStatus" = "Wallet Status";
-"walletSynced" = "Synced";
-"walletNotSynced" = "Not Synced";
+"syncStageDescription" = "%@ - %d%%";
+"latestBlockAge" = "Latest block %d% :- %@";
+"blockHeadersFetched" = "Block headers fetched";
+"syncProgressComplete" = "%d%%";
+"syncTimeLeft" = "%@ left";
+"syncSteps" = "Step %d/3";
+"syncingProgress" = "Syncing progress";
+"cannotSyncWithoutNetworkConnection" = "Cannot sync without network connection.";
+"internetConnectionRequired" = "Internet connection required.";
+"connectToWiFiToSync" = "Connect to WiFi to sync.";
+"restartingSync" = "Restarting sync...";
+"connectingToPeers" = "Connecting to peers.";
+"syncedWith" =  "Synced with %@";
+"fetchingBlockHeaders" = "Fetching block headers.";
+"blocksBehind" = "%d blocks behind.";
+"bestBlockAgeAgo" = "%@ ago";
+"discoveringUsedAddresses" = "Discovering used addresses.";
+"generalSyncProgressCompletedleft" = "%d%% completed, %@ left.";
+"scanningBlocks" = "Scanning blocks.";
+"rescanProgress" = "%d%% completed, %@ left.";
+"syncCanceled" = "Sync canceled.";
+"syncError" = "Sync error.";
+"latestBlock" = "Latest Block: %d";
+"now" = "now";
+"secondsAgo" = "%ds ago";
+"minAgo" = "%dm ago";
+"hrsAgo" = "%dh ago";
+"daysAgo" = "%dd ago";
+"weeksAgo" = "%dw ago";
+"monthsAgo" = "%dmo ago";
+"yearsAgo" =  "%dy ago";
+"totalBalance" = "Total Balance";
+"restartingSynchronization" = "Restarting Synchronization";
+"startingSynchronization" = "Starting Sync...";
+"reconnect" = "Reconnect";
+"disconnect" = "Disconnect";
 
 /* Navigation Menu Items */
 "overview" = "Overview";
@@ -155,8 +158,22 @@
 
 /* Overview */
 "currentTotalBalance" = "Tổng số dư hiện tại";
-"recentActivity" = "Hoạt động gần đây";
-"showAllTransactions" = "Hiển thị tất cả các giao dịch";
+"recentTransactions" = "Recent Transactions";
+"seeAll" = "See all";
+"backupSeedPhrase" = "Back up seed phrase";
+"walletStatus" = "Wallet Status";
+"walletSynced" = "Synced";
+"walletNotSynced" = "Not Synced";
+"backupWarningText" = "Verify your seed phrase backup so you can recover your funds when needed.";
+"connectedTo" = "Connected to %d peers";
+"online" = "Online";
+"offline" = "Offline";
+"showDetails" = "Show details";
+"hideDetails" = "Hide details";
+"connectedPeersCount" = "Connected peers count";
+"noConnectedPeer" = "No connected peers.";
+"peers" = "peers";
+"seeAll" = "See all";
 
 /* Transaction List/ History */
 "pending" = "Đang chờ xử lý";
