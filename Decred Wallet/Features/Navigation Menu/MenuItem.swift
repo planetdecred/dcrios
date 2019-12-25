@@ -32,27 +32,19 @@ enum MenuItem: String, CaseIterable {
         }
     }
     
-    var active_icon: UIImage? {
-        return UIImage(named: "nav_menu_active/" + getIconName())
-    }
-    
-    var inactive_icon: UIImage? {
-        return UIImage(named: "nav_menu_inactive/" + getIconName())
-    }
-    
-    private func getIconName() -> String {
+    var icon: UIImage? {
         switch self {
         case .overview:
-            return "ic_overview"
+            return  UIImage(named: "nav_menu/ic_overview")
         
         case .transactions:
-            return "ic_transactions"
+            return  UIImage(named: "nav_menu/ic_transactions")
         
         case .wallets:
-            return "ic_wallet"
+            return  UIImage(named: "nav_menu/ic_wallet")
         
         case .more:
-            return "ic_menu"
+            return  UIImage(named: "nav_menu/ic_menu")
         }
     }
 

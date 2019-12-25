@@ -27,6 +27,7 @@ class NavigationMenuTabBarController: UITabBarController {
         let tabItems: [MenuItem] = [.overview, .transactions, .wallets, .more]
         self.setupCustomTabMenu(tabItems)
         self.selectedIndex = 0
+        self.showFloatingButtons() // show floating buttons since selected index is 0 by default
     }
     
     // Create our custom menu bar and display it right where the tab bar should be.
