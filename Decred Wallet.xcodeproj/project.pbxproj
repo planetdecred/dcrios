@@ -182,6 +182,7 @@
 		DDCF25A122B8A3D4005FCBB9 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDCF25A022B8A3D4005FCBB9 /* Settings.storyboard */; };
 		DDCF25A922B8A488005FCBB9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDCF25A822B8A487005FCBB9 /* Main.storyboard */; };
 		DDD65AD722A935460027CDA8 /* LicenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD65AD622A935460027CDA8 /* LicenseViewController.swift */; };
+		DDD7D20925C1BCCB0013BF0A /* Privacy.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDD7D20825C1BCCB0013BF0A /* Privacy.storyboard */; };
 		DDDF95CC23C11F760057AA7F /* VerifyMessage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDDF95CB23C11F760057AA7F /* VerifyMessage.storyboard */; };
 		DDDF95CE23C11F760057AA7F /* VerifyMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDF95CD23C11F760057AA7F /* VerifyMessageViewController.swift */; };
 		DDDF95D523C20AA70057AA7F /* SignMessage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDDF95D423C20AA70057AA7F /* SignMessage.storyboard */; };
@@ -377,6 +378,7 @@
 		DDCF25A022B8A3D4005FCBB9 /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		DDCF25A822B8A487005FCBB9 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		DDD65AD622A935460027CDA8 /* LicenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseViewController.swift; sourceTree = "<group>"; };
+		DDD7D20825C1BCCB0013BF0A /* Privacy.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Privacy.storyboard; sourceTree = "<group>"; };
 		DDDF95CB23C11F760057AA7F /* VerifyMessage.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = VerifyMessage.storyboard; sourceTree = "<group>"; };
 		DDDF95CD23C11F760057AA7F /* VerifyMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyMessageViewController.swift; sourceTree = "<group>"; };
 		DDDF95D423C20AA70057AA7F /* SignMessage.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignMessage.storyboard; sourceTree = "<group>"; };
@@ -684,6 +686,7 @@
 		B3B469D1228F0F2600A68EDD /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				DDD7D20725C1BCB70013BF0A /* Privacy */,
 				B3C0D4B023E0DB26002D984F /* Custom Dialogs */,
 				DD36717323B44A4B00D1ED67 /* More */,
 				B3B469D2228F0F2600A68EDD /* App Launch */,
@@ -942,6 +945,14 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		DDD7D20725C1BCB70013BF0A /* Privacy */ = {
+			isa = PBXGroup;
+			children = (
+				DDD7D20825C1BCCB0013BF0A /* Privacy.storyboard */,
+			);
+			path = Privacy;
+			sourceTree = "<group>";
+		};
 		DDDF95C823C11F300057AA7F /* Verify Message */ = {
 			isa = PBXGroup;
 			children = (
@@ -1073,6 +1084,7 @@
 				B3B46A42228F0F6700A68EDD /* progress bar-1s-200px.gif in Resources */,
 				B3B46A0E228F0F2700A68EDD /* wordlist.txt in Resources */,
 				B3E727C623DD4ABF003B06B4 /* WalletAccountTableViewCell.xib in Resources */,
+				DDD7D20925C1BCCB0013BF0A /* Privacy.storyboard in Resources */,
 				B3A8E80A23E593720094957B /* CheckableListOptionTableViewCell.xib in Resources */,
 				DDDF95D523C20AA70057AA7F /* SignMessage.storyboard in Resources */,
 				DD493C06247654BC00C0D772 /* WatchOnlyWalletTableViewCell.xib in Resources */,
