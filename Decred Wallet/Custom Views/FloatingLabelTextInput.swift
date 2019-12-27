@@ -22,7 +22,7 @@ class FloatingLabelTextInput: UITextField {
     let placeholderColorNormal:UIColor = UIColor.appColors.bluishGray
     var placeholderColorActive:UIColor = UIColor.appColors.decredBlue
     
-    var button = UIButton(type: .custom)
+    var pwdVisibilityToggleBtn = UIButton(type: .custom)
     
     let padding = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
     
@@ -139,21 +139,21 @@ class FloatingLabelTextInput: UITextField {
         }
     }
     
-    func addViewPasswordButton() {
-        self.button.setImage(UIImage(named: "ic_reveal"), for: .normal)
-        self.button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
-        self.button.frame = CGRect(x: CGFloat(self.frame.size.width - 22), y: CGFloat(16), width: CGFloat(22), height: CGFloat(16))
-        rightView = button
-        rightViewMode = .always
-        self.button.addTarget(self, action: #selector(self.enablePasswordVisibilityToggle), for: .touchUpInside)
+    func addTogglePasswordVisibilityButton() {
+        self.pwdVisibilityToggleBtn.setImage(UIImage(named: "ic_reveal"), for: .normal)
+        self.pwdVisibilityToggleBtn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
+        self.pwdVisibilityToggleBtn.frame = CGRect(x: CGFloat(self.frame.size.width - 22), y: CGFloat(16), width: CGFloat(22), height: CGFloat(16))
+        self.rightView = pwdVisibilityToggleBtn
+        self.rightViewMode = .always
+        self.pwdVisibilityToggleBtn.addTarget(self, action: #selector(self.enablePasswordVisibilityToggle), for: .touchUpInside)
     }
     
     @objc func enablePasswordVisibilityToggle() {
         isSecureTextEntry.toggle()
-        if isSecureTextEntry{
-            self.button.setImage(UIImage(named: "ic_reveal"), for: .normal)
+        if isSecureTextEntry {
+            self.pwdVisibilityToggleBtn.setImage(UIImage(named: "ic_reveal"), for: .normal)
         } else {
-            self.button.setImage(UIImage(named: "ic_conceal"), for: .normal)
+            self.pwdVisibilityToggleBtn.setImage(UIImage(named: "ic_conceal"), for: .normal)
         }
     }
     
