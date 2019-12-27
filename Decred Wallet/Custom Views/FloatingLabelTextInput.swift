@@ -18,9 +18,7 @@ class FloatingLabelTextInput: UITextField {
     let cornerRadius: CGFloat = 4
     
     var floatingPlaceholderLabel = PaddedLabel()
-    var placeholderLabelBottomConstraint:NSLayoutConstraint?
-    let placeholderLabelDefaultYPos:CGFloat = 33
-    let placeholderLabelFloatingYPos:CGFloat = 8
+    var placeholderLabelTopConstraint:NSLayoutConstraint?
     let placeholderColorNormal:UIColor = UIColor.appColors.bluishGray
     var placeholderColorActive:UIColor = UIColor.appColors.decredBlue
     
@@ -62,11 +60,12 @@ class FloatingLabelTextInput: UITextField {
         self.floatingPlaceholderLabel.text = self.placeholder
         self.placeholder = ""
         self.addSubview(self.floatingPlaceholderLabel)
+        self.layoutIfNeeded()
         
-        self.placeholderLabelBottomConstraint = self.floatingPlaceholderLabel.bottomAnchor.constraint(equalTo: self.topAnchor, constant: self.placeholderLabelDefaultYPos)
+        self.placeholderLabelTopConstraint = self.floatingPlaceholderLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: (self.frame.size.height - self.floatingPlaceholderLabel.frame.size.height) / 2)
         NSLayoutConstraint.activate([
-            self.floatingPlaceholderLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
-            self.placeholderLabelBottomConstraint!
+            self.floatingPlaceholderLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 12),
+            self.placeholderLabelTopConstraint!
         ])
     }
     
@@ -96,9 +95,10 @@ class FloatingLabelTextInput: UITextField {
     
     func showFloatingLabel() {
         UIView.animate(withDuration: 0.13) {
-            self.placeholderLabelBottomConstraint?.constant = self.placeholderLabelFloatingYPos
             self.floatingPlaceholderLabel.textColor = self.placeholderColorActive
             self.floatingPlaceholderLabel.font = UIFont(name: self.font!.familyName, size: 14)
+            self.layoutIfNeeded()
+            self.placeholderLabelTopConstraint?.constant = self.floatingPlaceholderLabel.frame.size.height / -2
             self.layoutIfNeeded()
         }
     }
@@ -106,9 +106,10 @@ class FloatingLabelTextInput: UITextField {
     func hideFloatingLabel() {
         if self.text == "" {
             UIView.animate(withDuration: 0.13) {
-                self.placeholderLabelBottomConstraint?.constant = self.placeholderLabelDefaultYPos
                 self.floatingPlaceholderLabel.textColor = self.placeholderColorNormal
                 self.floatingPlaceholderLabel.font = UIFont(name: self.font!.familyName, size: 16)
+                self.layoutIfNeeded()
+                self.placeholderLabelTopConstraint?.constant = (self.frame.size.height - self.floatingPlaceholderLabel.frame.size.height) / 2
                 self.layoutIfNeeded()
             }
         } else {
