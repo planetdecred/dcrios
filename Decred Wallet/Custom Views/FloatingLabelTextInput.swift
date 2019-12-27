@@ -10,23 +10,22 @@ import UIKit
 
 @IBDesignable
 class FloatingLabelTextInput: UITextField {
-    let border = CALayer()
+    let borderLayer = CALayer()
     let borderWidth: CGFloat = 2
     var activeBorderColor: UIColor = UIColor.appColors.decredBlue
     let inactiveBorderColor: UIColor = UIColor.appColors.lightGray
     
     let cornerRadius: CGFloat = 4
     
-    var floatingLabel = PaddedLabel()
-    var floatingLabelBottomConstraint:NSLayoutConstraint?
-    let floatingLabelBottomPaddingNormal:CGFloat = 33
-    let floatingLabelBottomPaddingActive:CGFloat = 8
-    let floatingLabelColorNormal:UIColor = UIColor.appColors.bluishGray
-    var floatingLabelColorActive:UIColor = UIColor.appColors.decredBlue
+    var floatingPlaceholderLabel = PaddedLabel()
+    var placeholderLabelBottomConstraint:NSLayoutConstraint?
+    let placeholderLabelDefaultYPos:CGFloat = 33
+    let placeholderLabelFloatingYPos:CGFloat = 8
+    let placeholderColorNormal:UIColor = UIColor.appColors.bluishGray
+    var placeholderColorActive:UIColor = UIColor.appColors.decredBlue
     
     var button = UIButton(type: .custom)
     
-    var isActive:Bool = false
     let padding = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
     
     override init(frame: CGRect) {
@@ -40,97 +39,102 @@ class FloatingLabelTextInput: UITextField {
     }
     
     private func initView() {
-        border.cornerRadius = self.cornerRadius
-        border.borderColor = self.inactiveBorderColor.cgColor
-        border.borderWidth = self.borderWidth
-        self.layer.addSublayer(border)
+        borderLayer.cornerRadius = self.cornerRadius
+        borderLayer.borderColor = self.inactiveBorderColor.cgColor
+        borderLayer.borderWidth = self.borderWidth
+        self.layer.addSublayer(borderLayer)
         
-        self.initFloatedLabel()
+        self.initFloatingPlaceholderLabel()
+        
         self.addTarget(self, action: #selector(self.editingBegan), for: .editingDidBegin)
         self.addTarget(self, action: #selector(self.editingEnded), for: .editingDidEnd)
     }
     
-    private func initFloatedLabel() {
-        self.floatingLabel.backgroundColor = UIColor.white
-        self.floatingLabel.textColor = self.floatingLabelColorNormal
-        self.floatingLabel.font = UIFont(name: self.font!.familyName, size: 16)
-        self.floatingLabel.clipsToBounds = true
-        self.floatingLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.floatingLabel.sizeToFit()
-        self.floatingLabel.leftPadding = 4
-        self.floatingLabel.rightPadding = 4
-        self.floatingLabel.text = self.placeholder
+    private func initFloatingPlaceholderLabel() {
+        self.floatingPlaceholderLabel.backgroundColor = UIColor.white
+        self.floatingPlaceholderLabel.textColor = self.placeholderColorNormal
+        self.floatingPlaceholderLabel.font = UIFont(name: self.font!.familyName, size: 16)
+        self.floatingPlaceholderLabel.clipsToBounds = true
+        self.floatingPlaceholderLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.floatingPlaceholderLabel.sizeToFit()
+        self.floatingPlaceholderLabel.leftPadding = 4
+        self.floatingPlaceholderLabel.rightPadding = 4
+        self.floatingPlaceholderLabel.text = self.placeholder
         self.placeholder = ""
-        self.addSubview(self.floatingLabel)
-        self.floatingLabelBottomConstraint = self.floatingLabel.bottomAnchor.constraint(equalTo: self.topAnchor, constant: self.floatingLabelBottomPaddingNormal)
+        self.addSubview(self.floatingPlaceholderLabel)
+        
+        self.placeholderLabelBottomConstraint = self.floatingPlaceholderLabel.bottomAnchor.constraint(equalTo: self.topAnchor, constant: self.placeholderLabelDefaultYPos)
         NSLayoutConstraint.activate([
-            self.floatingLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
-            self.floatingLabelBottomConstraint!
+            self.floatingPlaceholderLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
+            self.placeholderLabelBottomConstraint!
         ])
     }
     
-    func setPlaceHolder(text:String) {
-        self.floatingLabel.text = text
+    override var placeholder: String? {
+        didSet {
+            if placeholder != oldValue {
+                self.floatingPlaceholderLabel.text = oldValue
+                placeholder = ""
+            }
+        }
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        border.frame = self.bounds
+        borderLayer.frame = self.bounds
     }
     
     @objc func editingBegan() {
-        self.isActive = true
-        border.borderColor = self.activeBorderColor.cgColor
+        borderLayer.borderColor = self.activeBorderColor.cgColor
         self.showFloatingLabel()
     }
     
     @objc func editingEnded() {
-        self.isActive = false
-        border.borderColor = self.inactiveBorderColor.cgColor
+        borderLayer.borderColor = self.inactiveBorderColor.cgColor
         self.hideFloatingLabel()
+    }
+    
+    func showFloatingLabel() {
+        UIView.animate(withDuration: 0.13) {
+            self.placeholderLabelBottomConstraint?.constant = self.placeholderLabelFloatingYPos
+            self.floatingPlaceholderLabel.textColor = self.placeholderColorActive
+            self.floatingPlaceholderLabel.font = UIFont(name: self.font!.familyName, size: 14)
+            self.layoutIfNeeded()
+        }
+    }
+    
+    func hideFloatingLabel() {
+        if self.text == "" {
+            UIView.animate(withDuration: 0.13) {
+                self.placeholderLabelBottomConstraint?.constant = self.placeholderLabelDefaultYPos
+                self.floatingPlaceholderLabel.textColor = self.placeholderColorNormal
+                self.floatingPlaceholderLabel.font = UIFont(name: self.font!.familyName, size: 16)
+                self.layoutIfNeeded()
+            }
+        } else {
+            self.floatingPlaceholderLabel.textColor = self.placeholderColorNormal
+        }
     }
     
     func showError() {
         self.activeBorderColor = UIColor.appColors.decredOrange
-        self.floatingLabelColorActive = UIColor.appColors.decredOrange
+        self.placeholderColorActive = UIColor.appColors.decredOrange
         self.setBorderAndFloatingLabelColor()
     }
     
     func hideError() {
         self.activeBorderColor = UIColor.appColors.decredBlue
-        self.floatingLabelColorActive = UIColor.appColors.decredBlue
+        self.placeholderColorActive = UIColor.appColors.decredBlue
         self.setBorderAndFloatingLabelColor()
     }
     
     private func setBorderAndFloatingLabelColor() {
-        if self.isActive {
-            border.borderColor = self.activeBorderColor.cgColor
-            self.floatingLabel.textColor = self.floatingLabelColorActive
+        if self.isEditing {
+            borderLayer.borderColor = self.activeBorderColor.cgColor
+            self.floatingPlaceholderLabel.textColor = self.placeholderColorActive
         } else {
-            border.borderColor = self.inactiveBorderColor.cgColor
-            self.floatingLabel.textColor = self.floatingLabelColorNormal
-        }
-    }
-    
-    func showFloatingLabel() {
-        UIView.animate(withDuration: 0.13) {
-            self.floatingLabelBottomConstraint?.constant = self.floatingLabelBottomPaddingActive
-            self.floatingLabel.textColor = self.floatingLabelColorActive
-            self.floatingLabel.font = UIFont(name: self.font!.familyName, size: 14)
-            self.layoutIfNeeded()
-        }
-    }
-    
-    @objc func hideFloatingLabel() {
-        if self.text == "" {
-            UIView.animate(withDuration: 0.13) {
-                self.floatingLabelBottomConstraint?.constant = self.floatingLabelBottomPaddingNormal
-                self.floatingLabel.textColor = self.floatingLabelColorNormal
-                self.floatingLabel.font = UIFont(name: self.font!.familyName, size: 16)
-                self.layoutIfNeeded()
-            }
-        } else {
-            self.floatingLabel.textColor = self.floatingLabelColorNormal
+            borderLayer.borderColor = self.inactiveBorderColor.cgColor
+            self.floatingPlaceholderLabel.textColor = self.placeholderColorNormal
         }
     }
     

@@ -26,7 +26,7 @@ class RequestPasswordViewController: RequestBaseViewController, UITextFieldDeleg
     }
     
     private func setupInterface() {
-        self.passwordInput.setPlaceHolder(text: String(format: LocalizedStrings.passwordPlaceholder, self.securityFor))
+        self.passwordInput.placeholder = String(format: LocalizedStrings.passwordPlaceholder, self.securityFor)
         self.passwordInput.isSecureTextEntry = true
         self.passwordInput.addViewPasswordButton()
         self.passwordInput.addTarget(self, action: #selector(self.passwordTextFieldChange), for: .editingChanged)
@@ -40,7 +40,7 @@ class RequestPasswordViewController: RequestBaseViewController, UITextFieldDeleg
             self.confirmErrorLabel?.removeFromSuperview()
             self.passwordCountLabel?.removeFromSuperview()
         } else {
-            self.confirmPasswordInput?.setPlaceHolder(text: String(format: LocalizedStrings.confirmPasswordPlaceholder, self.securityFor.lowercased()))
+            self.confirmPasswordInput?.placeholder = String(format: LocalizedStrings.confirmPasswordPlaceholder, self.securityFor.lowercased())
             self.confirmPasswordInput?.isSecureTextEntry = true
             self.confirmPasswordInput?.addViewPasswordButton()
             self.confirmPasswordInput?.delegate = self
