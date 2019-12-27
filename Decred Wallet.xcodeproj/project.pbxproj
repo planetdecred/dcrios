@@ -164,6 +164,10 @@
 		DD5AB15023D612C800863362 /* HelpTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5AB14F23D612C800863362 /* HelpTableViewController.swift */; };
 		DD6855BD238C808A006B8BF4 /* RestoreExistingWalletSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6855BC238C808A006B8BF4 /* RestoreExistingWalletSuccessViewController.swift */; };
 		DD75148A22BA67B10070E4F6 /* TransactionHistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD75148922BA67B10070E4F6 /* TransactionHistoryViewController.xib */; };
+		DD81CBC323B39DF1009D3833 /* FloatingLabelTextInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD81CBC223B39DF1009D3833 /* FloatingLabelTextInput.swift */; };
+		DD81CBC523B39E6A009D3833 /* PaddedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD81CBC423B39E6A009D3833 /* PaddedLabel.swift */; };
+		DD81CBC823B3A219009D3833 /* ValidateAddresses.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD81CBC723B3A219009D3833 /* ValidateAddresses.storyboard */; };
+		DD81CBCA23B3A298009D3833 /* ValidateAddressesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD81CBC923B3A298009D3833 /* ValidateAddressesViewController.swift */; };
 		DD89A04123B0842400C1ECE9 /* SecurityTools.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD89A04023B0842400C1ECE9 /* SecurityTools.storyboard */; };
 		DD89A04323B08CF800C1ECE9 /* SecurityToolsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD89A04223B08CF800C1ECE9 /* SecurityToolsViewController.swift */; };
 		DD89A04523B08FDD00C1ECE9 /* SecurityToolsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD89A04423B08FDD00C1ECE9 /* SecurityToolsItem.swift */; };
@@ -350,6 +354,10 @@
 		DD5AB14F23D612C800863362 /* HelpTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpTableViewController.swift; sourceTree = "<group>"; };
 		DD6855BC238C808A006B8BF4 /* RestoreExistingWalletSuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreExistingWalletSuccessViewController.swift; sourceTree = "<group>"; };
 		DD75148922BA67B10070E4F6 /* TransactionHistoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionHistoryViewController.xib; sourceTree = "<group>"; };
+		DD81CBC223B39DF1009D3833 /* FloatingLabelTextInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingLabelTextInput.swift; sourceTree = "<group>"; };
+		DD81CBC423B39E6A009D3833 /* PaddedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedLabel.swift; sourceTree = "<group>"; };
+		DD81CBC723B3A219009D3833 /* ValidateAddresses.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ValidateAddresses.storyboard; sourceTree = "<group>"; };
+		DD81CBC923B3A298009D3833 /* ValidateAddressesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateAddressesViewController.swift; sourceTree = "<group>"; };
 		DD89A04023B0842400C1ECE9 /* SecurityTools.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SecurityTools.storyboard; sourceTree = "<group>"; };
 		DD89A04223B08CF800C1ECE9 /* SecurityToolsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityToolsViewController.swift; sourceTree = "<group>"; };
 		DD89A04423B08FDD00C1ECE9 /* SecurityToolsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityToolsItem.swift; sourceTree = "<group>"; };
@@ -460,6 +468,7 @@
 		B36255B322A11A9500C62946 /* Security Tools */ = {
 			isa = PBXGroup;
 			children = (
+				DD81CBC623B3A187009D3833 /* Validate Addresses */,
 				DDCF259D22B8A382005FCBB9 /* SecurityMenu.storyboard */,
 				B36255B422A11A9500C62946 /* SecurityMenuViewController.swift */,
 				DD89A04023B0842400C1ECE9 /* SecurityTools.storyboard */,
@@ -587,6 +596,8 @@
 				102AFAC323AA2B4D007E2EBD /* ProgressView.swift */,
 				B3456D2423D91CF600B04860 /* RoundedView.swift */,
 				10B7818823F096F300AD2709 /* SelfSizedTableView.swift */,
+				DD81CBC223B39DF1009D3833 /* FloatingLabelTextInput.swift */,
+				DD81CBC423B39E6A009D3833 /* PaddedLabel.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -901,6 +912,15 @@
 			path = Help;
 			sourceTree = "<group>";
 		};
+		DD81CBC623B3A187009D3833 /* Validate Addresses */ = {
+			isa = PBXGroup;
+			children = (
+				DD81CBC723B3A219009D3833 /* ValidateAddresses.storyboard */,
+				DD81CBC923B3A298009D3833 /* ValidateAddressesViewController.swift */,
+			);
+			path = "Validate Addresses";
+			sourceTree = "<group>";
+		};
 		DDAD5023229F714600EDF91B /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -997,6 +1017,8 @@
 				B3E727C423DD4A5F003B06B4 /* WalletInfoTableViewCell.xib in Resources */,
 				B3B46A0B228F0F2700A68EDD /* SourceSansPro-ExtraLightItalic.ttf in Resources */,
 				B3B46A07228F0F2700A68EDD /* SourceSansPro-Black.ttf in Resources */,
+				B3B46A13228F0F2700A68EDD /* AccountsHeaderView.xib in Resources */,
+				DD81CBC823B3A219009D3833 /* ValidateAddresses.storyboard in Resources */,
 				B3B4699D228F0C2E00A68EDD /* LaunchScreen.storyboard in Resources */,
 				B3B46A8B228F0F7D00A68EDD /* splashLogo.gif in Resources */,
 				DDCF25A922B8A488005FCBB9 /* Main.storyboard in Resources */,
@@ -1115,6 +1137,7 @@
 				10FABE4F23C7303E00BC201B /* FloatingPlaceholderTextView.swift in Sources */,
 				DD3DF86622C3F0BD00E168AB /* UILabel.swift in Sources */,
 				B3B46A99228F0F7D00A68EDD /* CertificateViewController.swift in Sources */,
+				DD81CBC323B39DF1009D3833 /* FloatingLabelTextInput.swift in Sources */,
 				DDD65AD722A935460027CDA8 /* LicenseViewController.swift in Sources */,
 				105836B823EACD390030FDF2 /* ReceiveViewController.swift in Sources */,
 				B3E727C823DD4AD7003B06B4 /* WalletInfoTableViewCell.swift in Sources */,
@@ -1151,6 +1174,7 @@
 				10BA77992390059F00B67446 /* TabMenuItemView.swift in Sources */,
 				DD5AB14C23D36F7E00863362 /* AboutTableViewController.swift in Sources */,
 				B3B46AB3228F0F7D00A68EDD /* ConfirmSeedViewCell.swift in Sources */,
+				DD81CBC523B39E6A009D3833 /* PaddedLabel.swift in Sources */,
 				B3B46A88228F0F7D00A68EDD /* UIIMage.swift in Sources */,
 				B3B46A11228F0F2700A68EDD /* UITableViewExtension.swift in Sources */,
 				B379BA6523E2A2F1002CA92E /* SingleToMultiWalletMigration.swift in Sources */,
@@ -1181,6 +1205,8 @@
 				B304B39423F202A400B81798 /* Settings.swift in Sources */,
 				B3B46A34228F0F2700A68EDD /* TransactionNotification.swift in Sources */,
 				B37AD0A524088A6700C83D80 /* WalletAccountView.swift in Sources */,
+				DD81CBCA23B3A298009D3833 /* ValidateAddressesViewController.swift in Sources */,
+				B3B46A27228F0F2700A68EDD /* ConfirmNewWalletSeedViewController.swift in Sources */,
 				B3B46A87228F0F7D00A68EDD /* Data.swift in Sources */,
 				B3B46AB6228F0F7D00A68EDD /* Storyboard.swift in Sources */,
 				B3B46A37228F0F2700A68EDD /* SpendingPinOrPassword.swift in Sources */,
@@ -1323,7 +1349,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconTestnet;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = LYZ95J7356;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1334,7 +1360,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.decred.dcrios.testnet3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.macsleven.dcrios.testnet3;
 				PRODUCT_NAME = "$(TARGET_NAME) Testnet";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -1406,7 +1432,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconTestnet;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = LYZ95J7356;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1417,7 +1443,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.decred.dcrios.testnet3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.macsleven.dcrios.testnet3;
 				PRODUCT_NAME = "$(TARGET_NAME) Testnet";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -1550,7 +1576,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = LYZ95J7356;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1561,7 +1587,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.decred.dcrios.mainnet;
+				PRODUCT_BUNDLE_IDENTIFIER = com.macsleven.dcrios.mainnet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -1576,7 +1602,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = LYZ95J7356;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

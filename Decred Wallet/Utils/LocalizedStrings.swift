@@ -355,6 +355,9 @@ struct LocalizedStrings {
     static let securityTools = NSLocalizedString("securityTools", comment: "")
     static let securityToolsInfo = NSLocalizedString("securityToolsInfo", comment: "")
     static let validateAddresses = NSLocalizedString("validateAddresses", comment: "")
+    static let validAddress = NSLocalizedString("validAddress", comment: "")
+    static let validate = NSLocalizedString("validate", comment: "")
+    // To be refactored
     static let signMessage = NSLocalizedString("signMessage", comment: "")
     static let verifyMessage = NSLocalizedString("verifyMessage", comment: "")
     static let validOwnAddr = NSLocalizedString("validOwnAddr", comment: "")
@@ -447,6 +450,7 @@ struct LocalizedStrings {
     static let secRemaining = NSLocalizedString("secRemaining", comment: "")
     
     /* Pop Ups */
+    static let clear = NSLocalizedString("clear", comment: "")
     static let error = NSLocalizedString("error", comment: "")
     static let retry = NSLocalizedString("retry", comment: "")
     static let ok = NSLocalizedString("ok", comment: "")

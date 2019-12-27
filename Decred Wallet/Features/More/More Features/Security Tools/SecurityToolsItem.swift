@@ -17,8 +17,8 @@ enum SecurityToolsItem: String, CaseIterable {
     // and to allow each page perform VC navigations using `self.navigationController?.pushViewController`.
     var viewController: UIViewController {
         switch self {
-        case .validateAddresses: break
-            //return Storyboards.ValidateAddresses.instantiateViewController(for: ValidateAddressesViewController.self)
+        case .validateAddresses:
+            return Storyboards.ValidateAddresses.instantiateViewController(for: ValidateAddressesViewController.self)
             
         case .signMessage: break
             //return Storyboards.SignMessage.instantiateViewController(for: SignMessageViewController.self)

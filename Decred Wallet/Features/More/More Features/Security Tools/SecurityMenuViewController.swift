@@ -50,7 +50,7 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
         self.message.placeholder = LocalizedStrings.message
         
         if SyncManager.shared.isSynced {
-            self.toggleView()
+            self.toggleView()// add this
         }
     }
     
