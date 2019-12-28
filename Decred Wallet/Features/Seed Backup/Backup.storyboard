@@ -749,14 +749,14 @@
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="tripleSeedCell" id="0ln-fz-Rh2" customClass="BackupVerifyTableViewCell" customModule="Decred_Wallet" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="72" width="375" height="112"/>
+                                        <rect key="frame" x="0.0" y="72" width="375" height="122"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0ln-fz-Rh2" id="kFS-6y-Kes">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="112"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="122"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BW4-Ag-UnK">
-                                                    <rect key="frame" x="8" y="4" width="359" height="104"/>
+                                                    <rect key="frame" x="8" y="4" width="359" height="114"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="—" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dBA-VD-6l1">
                                                             <rect key="frame" x="54" y="17" width="297" height="20.5"/>
@@ -783,13 +783,13 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="QCv-ZF-IeG">
-                                                            <rect key="frame" x="20" y="54" width="319" height="30"/>
+                                                            <rect key="frame" x="20" y="54" width="319" height="40"/>
                                                             <subviews>
-                                                                <button opaque="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wAT-8E-buh" customClass="BackupVerifyButton" customModule="Decred_Wallet" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="101" height="30"/>
+                                                                <button opaque="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wAT-8E-buh" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="101" height="40"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="height" constant="30" id="L1V-A7-AmO"/>
+                                                                        <constraint firstAttribute="height" constant="40" id="L1V-A7-AmO"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -805,15 +805,32 @@
                                                                     <state key="highlighted">
                                                                         <color key="titleColor" red="0.16078431372549018" green="0.4392156862745098" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                                     </state>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="color" keyPath="enabledBackgroundColor">
+                                                                            <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                        <userDefinedRuntimeAttribute type="color" keyPath="selectedBorderColor">
+                                                                            <color key="value" red="0.16078431369999999" green="0.43921568630000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                            <color key="value" red="0.90196078430000004" green="0.91764705879999997" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                            <real key="value" value="2"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                            <real key="value" value="8"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                    </userDefinedRuntimeAttributes>
                                                                     <connections>
                                                                         <action selector="onSelectSeedWord:" destination="0ln-fz-Rh2" eventType="touchUpInside" id="5rO-Ua-LTw"/>
                                                                     </connections>
                                                                 </button>
-                                                                <button opaque="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o01-1b-my9" customClass="BackupVerifyButton" customModule="Decred_Wallet" customModuleProvider="target">
-                                                                    <rect key="frame" x="109" y="0.0" width="101" height="30"/>
+                                                                <button opaque="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o01-1b-my9" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
+                                                                    <rect key="frame" x="109" y="0.0" width="101" height="40"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="height" constant="30" id="AGO-TQ-N47"/>
+                                                                        <constraint firstAttribute="height" constant="40" id="AGO-TQ-N47"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -829,15 +846,32 @@
                                                                     <state key="highlighted">
                                                                         <color key="titleColor" red="0.16078431369999999" green="0.43921568630000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                                     </state>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="color" keyPath="enabledBackgroundColor">
+                                                                            <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                            <color key="value" red="0.90196078430000004" green="0.91764705879999997" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                        <userDefinedRuntimeAttribute type="color" keyPath="selectedBorderColor">
+                                                                            <color key="value" red="0.16078431369999999" green="0.43921568630000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                            <real key="value" value="2"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                            <real key="value" value="8"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                    </userDefinedRuntimeAttributes>
                                                                     <connections>
                                                                         <action selector="onSelectSeedWord:" destination="0ln-fz-Rh2" eventType="touchUpInside" id="0XP-ow-Emm"/>
                                                                     </connections>
                                                                 </button>
-                                                                <button opaque="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RXu-b8-XU4" customClass="BackupVerifyButton" customModule="Decred_Wallet" customModuleProvider="target">
-                                                                    <rect key="frame" x="218" y="0.0" width="101" height="30"/>
+                                                                <button opaque="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RXu-b8-XU4" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
+                                                                    <rect key="frame" x="218" y="0.0" width="101" height="40"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="height" constant="30" id="LN5-CK-nfz"/>
+                                                                        <constraint firstAttribute="height" constant="40" id="LN5-CK-nfz"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -853,6 +887,23 @@
                                                                     <state key="highlighted">
                                                                         <color key="titleColor" red="0.16078431369999999" green="0.43921568630000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                                     </state>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="color" keyPath="enabledBackgroundColor">
+                                                                            <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                            <color key="value" red="0.90196078431372551" green="0.91764705882352937" blue="0.92941176470588238" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                        <userDefinedRuntimeAttribute type="color" keyPath="selectedBorderColor">
+                                                                            <color key="value" red="0.16078431369999999" green="0.43921568630000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                            <real key="value" value="2"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                            <real key="value" value="8"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                    </userDefinedRuntimeAttributes>
                                                                     <connections>
                                                                         <action selector="onSelectSeedWord:" destination="0ln-fz-Rh2" eventType="touchUpInside" id="xvf-dy-Tdi"/>
                                                                     </connections>
@@ -890,7 +941,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
-                                            <outlet property="btnSeed1" destination="wAT-8E-buh" id="FAe-sJ-bED"/>
+                                            <outlet property="btnSeed1" destination="wAT-8E-buh" id="CWL-pd-Ag6"/>
                                             <outlet property="btnSeed2" destination="o01-1b-my9" id="ZxO-XH-qUA"/>
                                             <outlet property="btnSeed3" destination="RXu-b8-XU4" id="N7t-If-XU2"/>
                                             <outlet property="lbWordCountLabel" destination="Ryd-5s-qBx" id="nne-tj-WJF"/>

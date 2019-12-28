@@ -27,7 +27,6 @@
 		100C67FD2360C11B00A8921A /* BackupSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100C67FC2360C11B00A8921A /* BackupSuccessViewController.swift */; };
 		104ADA83238D28780041106F /* Banner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104ADA82238D28780041106F /* Banner.swift */; };
 		10551A092357045900EAB45F /* Backup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10551A082357045900EAB45F /* Backup.storyboard */; };
-		106E2BD7235DE1F000C0171F /* BackupVerifyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106E2BD6235DE1F000C0171F /* BackupVerifyButton.swift */; };
 		10BA77992390059F00B67446 /* MenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BA77982390059F00B67446 /* MenuItemView.swift */; };
 		10C4E41323B78E2D00D5C366 /* Dcrlibwallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10C4E41223B78E2D00D5C366 /* Dcrlibwallet.framework */; };
 		10E11C6723B7717F00ACBC98 /* BackupVerifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E11C6523B7717E00ACBC98 /* BackupVerifyViewController.swift */; };
@@ -174,7 +173,6 @@
 		100C67FC2360C11B00A8921A /* BackupSuccessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackupSuccessViewController.swift; sourceTree = "<group>"; };
 		104ADA82238D28780041106F /* Banner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Banner.swift; sourceTree = "<group>"; };
 		10551A082357045900EAB45F /* Backup.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Backup.storyboard; sourceTree = "<group>"; };
-		106E2BD6235DE1F000C0171F /* BackupVerifyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupVerifyButton.swift; sourceTree = "<group>"; };
 		10BA77982390059F00B67446 /* MenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemView.swift; sourceTree = "<group>"; };
 		10C4E41223B78E2D00D5C366 /* Dcrlibwallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Dcrlibwallet.framework; path = libs/Dcrlibwallet.framework; sourceTree = "<group>"; };
 		10E11C6523B7717E00ACBC98 /* BackupVerifyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackupVerifyViewController.swift; sourceTree = "<group>"; };
@@ -349,12 +347,11 @@
 			children = (
 				10551A082357045900EAB45F /* Backup.storyboard */,
 				10E11C6623B7717F00ACBC98 /* BackupReminderViewController.swift */,
-				10E11C6523B7717E00ACBC98 /* BackupVerifyViewController.swift */,
 				10E6DCCB23585ED30053A40B /* BackupWriteDownViewController.swift */,
-				106E2BD6235DE1F000C0171F /* BackupVerifyButton.swift */,
+				10E11C6523B7717E00ACBC98 /* BackupVerifyViewController.swift */,
+				10E11C6923B773FC00ACBC98 /* BackupVerifyTableViewCell.swift */,
 				100C67FC2360C11B00A8921A /* BackupSuccessViewController.swift */,
 				10E6DCCD235892740053A40B /* BackupWriteDownTableViewCell.swift */,
-				10E11C6923B773FC00ACBC98 /* BackupVerifyTableViewCell.swift */,
 			);
 			path = "Seed Backup";
 			sourceTree = "<group>";
@@ -1043,7 +1040,6 @@
 				25E61632237D69750031FB52 /* SyncDetailsComponent.swift in Sources */,
 				10D9FB9623C3956300CBF216 /* FloatingPlaceholderLabel.swift in Sources */,
 				B3967B3D22A75BD400E14432 /* UITableView.swift in Sources */,
-				106E2BD7235DE1F000C0171F /* BackupVerifyButton.swift in Sources */,
 				B3B46A35228F0F2700A68EDD /* Syncer.swift in Sources */,
 				B3B46A17228F0F2700A68EDD /* ContouredButton.swift in Sources */,
 				B3B46A18228F0F2700A68EDD /* DropDownSearchField.swift in Sources */,

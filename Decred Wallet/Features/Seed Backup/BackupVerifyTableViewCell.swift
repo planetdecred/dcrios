@@ -11,9 +11,9 @@ import UIKit
 class BackupVerifyTableViewCell: UITableViewCell {
     @IBOutlet weak var lbWordTitle: UILabel!
     @IBOutlet weak var lbWordCountLabel: ContouredLabel!
-    @IBOutlet weak var btnSeed1: BackupVerifyButton!
-    @IBOutlet weak var btnSeed2: BackupVerifyButton!
-    @IBOutlet weak var btnSeed3: BackupVerifyButton!
+    @IBOutlet weak var btnSeed1: Button!
+    @IBOutlet weak var btnSeed2: Button!
+    @IBOutlet weak var btnSeed3: Button!
     
     var seedWordNumber:Int = 0
     var onPick:((Int, String)->Void)?
@@ -28,7 +28,7 @@ class BackupVerifyTableViewCell: UITableViewCell {
         btnSeed3.setTitle(seedWords[2], for: .normal)
 
         let buttons = [btnSeed1, btnSeed2, btnSeed3]
-        let _ = buttons.map({ button in
+        _ = buttons.map({ button in
             button?.isSelected = button?.title(for: .normal) == selectedWord
         })
 
@@ -48,11 +48,12 @@ class BackupVerifyTableViewCell: UITableViewCell {
         btnSeed3.isSelected = false
     }
     
-    @IBAction func onSelectSeedWord(_ sender: UIButton) {
-        disableAllButtons()
+    @IBAction func onSelectSeedWord(_ sender: Button) {
+        self.disableAllButtons()
         sender.isSelected = true
-        let selectedWord = sender.titleLabel?.text ?? ""
-        self.setWordTitle(selectedWord:selectedWord)
-        onPick?(sender.tag - 1, selectedWord)
+        if let selectedWord = sender.title(for: .normal) {
+            self.setWordTitle(selectedWord:selectedWord)
+            onPick?(sender.tag - 1, selectedWord)
+        }
     }
 }
