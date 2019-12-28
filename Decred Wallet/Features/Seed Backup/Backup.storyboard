@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -44,21 +44,15 @@
                                 <rect key="frame" x="0.0" y="66.5" width="375" height="510.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="y0o-5j-mVt">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="495"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="496.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nWu-DL-2Tv">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="99"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A2X-9z-04I">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The &lt;bold&gt;33-word seed phrase&lt;/bold&gt; is EXTREMELY IMPORTANT." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A2X-9z-04I">
                                                         <rect key="frame" x="80" y="12" width="245" height="75"/>
-                                                        <attributedString key="attributedText">
-                                                            <fragment content="The &lt;bold&gt;33-word seed phrase&lt;/bold&gt; is EXTREMELY IMPORTANT.">
-                                                                <attributes>
-                                                                    <font key="NSFont" size="16" name="SourceSansPro-Regular"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                        </attributedString>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                        <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="reminderLabel1"/>
@@ -100,16 +94,10 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TzD-lm-YlI">
                                                 <rect key="frame" x="0.0" y="99" width="375" height="99"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YOb-XB-LXG">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Seed phrase is &lt;bold&gt;the only way&lt;/bold&gt; to restore your wallet." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YOb-XB-LXG">
                                                         <rect key="frame" x="80" y="12" width="271" height="75"/>
-                                                        <attributedString key="attributedText">
-                                                            <fragment content="Seed phrase is &lt;bold&gt;the only way&lt;/bold&gt; to restore your wallet.">
-                                                                <attributes>
-                                                                    <font key="NSFont" size="16" name="SourceSansPro-Regular"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                        </attributedString>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                        <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="reminderLabel2"/>
@@ -148,25 +136,19 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N00-CI-ewZ">
-                                                <rect key="frame" x="0.0" y="198" width="375" height="99"/>
+                                                <rect key="frame" x="0.0" y="198" width="375" height="100.5"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eUc-42-42V">
-                                                        <rect key="frame" x="80" y="12" width="271" height="75"/>
-                                                        <attributedString key="attributedText">
-                                                            <fragment content="It is recommended to store your seed phrase in a &lt;green&gt;physical format&lt;/green&gt; (e.g. write down on a paper).">
-                                                                <attributes>
-                                                                    <font key="NSFont" size="16" name="SourceSansPro-Regular"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                        </attributedString>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="It is recommended to store your seed phrase in a &lt;green&gt;physical format&lt;/green&gt; (e.g. write down on a paper)." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eUc-42-42V">
+                                                        <rect key="frame" x="80" y="12" width="271" height="76.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                        <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="reminderLabel3"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tpO-hh-rBk" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
-                                                        <rect key="frame" x="24" y="33.5" width="32" height="32"/>
+                                                        <rect key="frame" x="24" y="34.5" width="32" height="32"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="32" id="kuU-4L-5jh"/>
                                                             <constraint firstAttribute="height" constant="32" id="w9J-8S-6mz"/>
@@ -198,18 +180,12 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dmY-pB-8pZ">
-                                                <rect key="frame" x="0.0" y="297" width="375" height="99"/>
+                                                <rect key="frame" x="0.0" y="298.5" width="375" height="99"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bxK-A6-4vU">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="It is highly discouraged to store your seed phrase in any &lt;orange&gt;digital format&lt;/orange&gt; (e.g. screenshot)." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bxK-A6-4vU">
                                                         <rect key="frame" x="80" y="12" width="271" height="75"/>
-                                                        <attributedString key="attributedText">
-                                                            <fragment content="It is highly discouraged to store your seed phrase in any &lt;orange&gt;digital format&lt;/orange&gt; (e.g. screenshot).">
-                                                                <attributes>
-                                                                    <font key="NSFont" size="16" name="SourceSansPro-Regular"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                        </attributedString>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                        <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="reminderLabel4"/>
@@ -248,18 +224,12 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="heZ-jl-maJ">
-                                                <rect key="frame" x="0.0" y="396" width="375" height="99"/>
+                                                <rect key="frame" x="0.0" y="397.5" width="375" height="99"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fz8-2B-J8P">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Anyone with your seed phrase &lt;orange&gt;can steal your funds&lt;/orange&gt;. DO NOT show it to anyone." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fz8-2B-J8P">
                                                         <rect key="frame" x="80" y="12" width="271" height="75"/>
-                                                        <attributedString key="attributedText">
-                                                            <fragment content="Anyone with your seed phrase &lt;orange&gt;can steal your funds&lt;/orange&gt;. DO NOT show it to anyone.">
-                                                                <attributes>
-                                                                    <font key="NSFont" size="16" name="SourceSansPro-Regular"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                        </attributedString>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                        <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="reminderLabel5"/>
@@ -315,7 +285,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fFW-IX-RE1">
                                 <rect key="frame" x="0.0" y="577" width="375" height="90"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h1P-IO-jWr" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h1P-IO-jWr" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                         <rect key="frame" x="24" y="24" width="327" height="42"/>
                                         <color key="backgroundColor" red="0.76862745098039209" green="0.79607843137254897" blue="0.82352941176470584" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -375,6 +345,11 @@
                         <outlet property="labelSeedPhraseisTheOnlyWay" destination="YOb-XB-LXG" id="yyR-wt-L1y"/>
                         <outlet property="labelStoreItInAPhysicalFormat" destination="eUc-42-42V" id="Oza-lH-j6E"/>
                         <outlet property="viewSeedBtn" destination="h1P-IO-jWr" id="xUU-zN-DeB"/>
+                        <outletCollection property="backupNoticeLabels" destination="A2X-9z-04I" collectionClass="NSMutableArray" id="yex-gw-ubo"/>
+                        <outletCollection property="backupNoticeLabels" destination="YOb-XB-LXG" collectionClass="NSMutableArray" id="xGj-nF-W41"/>
+                        <outletCollection property="backupNoticeLabels" destination="eUc-42-42V" collectionClass="NSMutableArray" id="JMt-qJ-3Q7"/>
+                        <outletCollection property="backupNoticeLabels" destination="bxK-A6-4vU" collectionClass="NSMutableArray" id="H0G-Cu-5iY"/>
+                        <outletCollection property="backupNoticeLabels" destination="Fz8-2B-J8P" collectionClass="NSMutableArray" id="Bex-tD-Itj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SrW-tp-orO" userLabel="First Responder" sceneMemberID="firstResponder"/>

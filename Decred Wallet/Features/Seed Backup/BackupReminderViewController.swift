@@ -2,7 +2,7 @@
 //  BackupReminderViewController.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2019 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -11,25 +11,19 @@ import Dcrlibwallet
 import SwiftRichString
 
 class BackupReminderViewController: UIViewController {
-    @IBOutlet weak var labelSeedIsImportant: UILabel!
-    @IBOutlet weak var labelSeedPhraseisTheOnlyWay: UILabel!
-    @IBOutlet weak var labelStoreItInAPhysicalFormat: UILabel!
-    @IBOutlet weak var labelDoNotStoreItInAnyDigitalFormat: UILabel!
-    @IBOutlet weak var labelDoNotShowYourSeed: UILabel!
+    @IBOutlet var backupNoticeLabels: Array<UILabel>?
     var checkedCheckBoxesDict: [Int: Bool] = [:]
     @IBOutlet weak var viewSeedBtn: Button!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewSeedBtn.isEnabled = false
-        addNavigationBackButton()
         addStyleToLabels()
     }
     
     private func addStyleToLabels() {
         let normal = Style {
             $0.font = UIFont(name: "SourceSansPro-Regular", size: 16)
-            $0.color = UIColor.appColors.grayishBlue
+            $0.color = UIColor.appColors.bluishGray
         }
 
         let bold = Style {
@@ -49,8 +43,10 @@ class BackupReminderViewController: UIViewController {
         
         let myGroup = StyleGroup(base: normal, [ "bold": bold, "orange": orange, "green": green ])
         
-        for label in [self.labelSeedIsImportant, self.labelSeedPhraseisTheOnlyWay, self.labelStoreItInAPhysicalFormat, self.labelDoNotStoreItInAnyDigitalFormat, self.labelDoNotShowYourSeed] {
-            label?.attributedText = label?.text?.set(style: myGroup)
+        if let backupNoticeLabels = self.backupNoticeLabels {
+            for label in backupNoticeLabels {
+                label.attributedText = label.text?.set(style: myGroup)
+            }
         }
     }
     
@@ -65,7 +61,7 @@ class BackupReminderViewController: UIViewController {
                 allChecked = allChecked && self.checkedCheckBoxesDict[i] == true
             }
             
-            if(allChecked) {
+            if allChecked {
                 self.viewSeedBtn?.isEnabled = true
             }
         }
@@ -74,10 +70,6 @@ class BackupReminderViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
     }
     
     @IBAction func backAction(_ sender: UIButton) {

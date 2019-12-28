@@ -27,11 +27,11 @@
 		100C67FD2360C11B00A8921A /* BackupSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100C67FC2360C11B00A8921A /* BackupSuccessViewController.swift */; };
 		104ADA83238D28780041106F /* Banner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104ADA82238D28780041106F /* Banner.swift */; };
 		10551A092357045900EAB45F /* Backup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10551A082357045900EAB45F /* Backup.storyboard */; };
-		10562CE2235A1D3B00FFCF99 /* BackupVerifyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10562CE1235A1D3B00FFCF99 /* BackupVerifyTableViewCell.swift */; };
 		106E2BD7235DE1F000C0171F /* BackupVerifyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106E2BD6235DE1F000C0171F /* BackupVerifyButton.swift */; };
 		10BA77992390059F00B67446 /* MenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BA77982390059F00B67446 /* MenuItemView.swift */; };
 		10E11C6723B7717F00ACBC98 /* BackupVerifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E11C6523B7717E00ACBC98 /* BackupVerifyViewController.swift */; };
 		10E11C6823B7717F00ACBC98 /* BackupReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E11C6623B7717F00ACBC98 /* BackupReminderViewController.swift */; };
+		10E11C6A23B773FC00ACBC98 /* BackupVerifyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E11C6923B773FC00ACBC98 /* BackupVerifyTableViewCell.swift */; };
 		10E6DCCC23585ED30053A40B /* BackupWriteDownViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E6DCCB23585ED30053A40B /* BackupWriteDownViewController.swift */; };
 		10E6DCCE235892740053A40B /* BackupWriteDownTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E6DCCD235892740053A40B /* BackupWriteDownTableViewCell.swift */; };
 		10FBDAD8235609850083E2E7 /* ContouredLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FBDAD7235609850083E2E7 /* ContouredLabel.swift */; };
@@ -173,11 +173,11 @@
 		100C67FC2360C11B00A8921A /* BackupSuccessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackupSuccessViewController.swift; sourceTree = "<group>"; };
 		104ADA82238D28780041106F /* Banner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Banner.swift; sourceTree = "<group>"; };
 		10551A082357045900EAB45F /* Backup.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Backup.storyboard; sourceTree = "<group>"; };
-		10562CE1235A1D3B00FFCF99 /* BackupVerifyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackupVerifyTableViewCell.swift; sourceTree = "<group>"; };
 		106E2BD6235DE1F000C0171F /* BackupVerifyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupVerifyButton.swift; sourceTree = "<group>"; };
 		10BA77982390059F00B67446 /* MenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemView.swift; sourceTree = "<group>"; };
 		10E11C6523B7717E00ACBC98 /* BackupVerifyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackupVerifyViewController.swift; sourceTree = "<group>"; };
 		10E11C6623B7717F00ACBC98 /* BackupReminderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackupReminderViewController.swift; sourceTree = "<group>"; };
+		10E11C6923B773FC00ACBC98 /* BackupVerifyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackupVerifyTableViewCell.swift; sourceTree = "<group>"; };
 		10E6DCCB23585ED30053A40B /* BackupWriteDownViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackupWriteDownViewController.swift; sourceTree = "<group>"; };
 		10E6DCCD235892740053A40B /* BackupWriteDownTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupWriteDownTableViewCell.swift; sourceTree = "<group>"; };
 		10FBDAD7235609850083E2E7 /* ContouredLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContouredLabel.swift; sourceTree = "<group>"; };
@@ -352,7 +352,7 @@
 				106E2BD6235DE1F000C0171F /* BackupVerifyButton.swift */,
 				100C67FC2360C11B00A8921A /* BackupSuccessViewController.swift */,
 				10E6DCCD235892740053A40B /* BackupWriteDownTableViewCell.swift */,
-				10562CE1235A1D3B00FFCF99 /* BackupVerifyTableViewCell.swift */,
+				10E11C6923B773FC00ACBC98 /* BackupVerifyTableViewCell.swift */,
 			);
 			path = "Seed Backup";
 			sourceTree = "<group>";
@@ -949,6 +949,7 @@
 				B3B46AA0228F0F7D00A68EDD /* SendCompletedViewController.swift in Sources */,
 				B3B46A20228F0F2700A68EDD /* PinPasswordStrength.swift in Sources */,
 				2557E18B2355C9F000B6A1B7 /* CustomTabMenuView.swift in Sources */,
+				10E11C6A23B773FC00ACBC98 /* BackupVerifyTableViewCell.swift in Sources */,
 				B3B46A24228F0F2700A68EDD /* TransactionTableViewCell.swift in Sources */,
 				B3D21C9F2296E4F000609F23 /* ExchangeRates.swift in Sources */,
 				B3B46A28228F0F2700A68EDD /* RecoverExistingWalletViewController.swift in Sources */,
@@ -991,7 +992,6 @@
 				B3B46A2E228F0F2700A68EDD /* MenuItem.swift in Sources */,
 				B3A3EF8622936BFE00008A4E /* Reachability.swift in Sources */,
 				B36EFD362298617C002753B2 /* UIButton.swift in Sources */,
-				10562CE2235A1D3B00FFCF99 /* BackupVerifyTableViewCell.swift in Sources */,
 				B3B469FC228F0F2700A68EDD /* String.swift in Sources */,
 				B3B46A9D228F0F7D00A68EDD /* HelpViewController.swift in Sources */,
 				B3B46A9A228F0F7D00A68EDD /* SettingsController.swift in Sources */,

@@ -106,4 +106,8 @@ struct Utils {
         let date = Date(timeIntervalSince1970: Double(timestamp))
         return formatter.string(from: date)
     }
+    
+    static func showBanner(parentVC: UIViewController?, type: BannerType, text: String) {
+        Banner().show(parentVC: parentVC, type: type, text: text)
+    }
 }

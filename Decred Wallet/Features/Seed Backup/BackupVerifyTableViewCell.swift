@@ -2,7 +2,7 @@
 //  BackupVerifyTableViewCell.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2019 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -39,7 +39,7 @@ class BackupVerifyTableViewCell: UITableViewCell {
     
     private func setWordTitle(selectedWord: String) {
         self.lbWordTitle?.text = selectedWord.isEmpty ? "—" : selectedWord
-        self.lbWordTitle?.textColor = selectedWord.isEmpty ? UIColor.appColors.mediumGray : UIColor.appColors.grayishBlue
+        self.lbWordTitle?.textColor = selectedWord.isEmpty ? UIColor.appColors.mediumGray : UIColor.appColors.bluishGray
     }
     
     private func disableAllButtons() {

@@ -2,7 +2,7 @@
 //  Banner.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2019 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -14,27 +14,15 @@ enum BannerType: String {
 }
 
 class Banner: UIView {
-    private var parent: UIViewController?
-    
-    init(parent: UIViewController) {
-        super.init(frame: .zero)
-        self.parent = parent
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
-    
-    public func show(type: BannerType, text: String) {
-        guard let parent = self.parent else { return }
-        if self.superview == parent.view { return }
-
-        parent.view.addSubview(self)
+    public func show(parentVC: UIViewController?, type: BannerType, text: String) {
+        guard let `parentVC` = parentVC else { return }
+        
+        parentVC.view.addSubview(self)
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.leadingAnchor.constraint(greaterThanOrEqualTo: parent.view.leadingAnchor, constant: 8).isActive = true
-        self.trailingAnchor.constraint(lessThanOrEqualTo: parent.view.trailingAnchor, constant: -8).isActive = true
-        self.topAnchor.constraint(equalTo: parent.view.safeAreaLayoutGuide.topAnchor, constant: 84).isActive = true
-        self.centerXAnchor.constraint(equalTo: parent.view.centerXAnchor).isActive = true
+        self.leadingAnchor.constraint(greaterThanOrEqualTo: parentVC.view.leadingAnchor, constant: 8).isActive = true
+        self.trailingAnchor.constraint(lessThanOrEqualTo: parentVC.view.trailingAnchor, constant: -8).isActive = true
+        self.topAnchor.constraint(equalTo: parentVC.view.safeAreaLayoutGuide.topAnchor, constant: 84).isActive = true
+        self.centerXAnchor.constraint(equalTo: parentVC.view.centerXAnchor).isActive = true
         
         self.backgroundColor = (type == .error) ? UIColor.appColors.decredOrange : UIColor.appColors.decredGreen
         self.layer.cornerRadius = 7;
@@ -68,9 +56,6 @@ class Banner: UIView {
         NSObject.cancelPreviousPerformRequests(withTarget: self,
                                                selector: #selector(dismiss),
                                                object: nil)
-        if let parent = self.parent,
-            self.superview == parent.view {
-            self.removeFromSuperview()
-        }
+        self.removeFromSuperview()
     }
 }

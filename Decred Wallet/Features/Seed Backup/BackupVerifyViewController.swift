@@ -2,7 +2,7 @@
 //  BackupVerifyViewController.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2019 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -20,7 +20,6 @@ class BackupVerifyViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addNavigationBackButton()
-        self.banner = Banner(parent: self)
     }
     
     func prepareSeedForVerification(seedToVerify: String) {
@@ -64,7 +63,6 @@ class BackupVerifyViewController: UIViewController {
     }
     
     @IBAction func onConfirm(_ sender: Any) {
-        self.banner?.dismiss()
         self.tableView?.isUserInteractionEnabled = false
         self.btnConfirm?.startLoading()
         let seed = selectedWords.joined(separator: " ")
@@ -79,7 +77,7 @@ class BackupVerifyViewController: UIViewController {
             Settings.clearValue(for: Settings.Keys.Seed)
             self.performSegue(withIdentifier: "toBackupSuccess", sender: nil)
         } else {
-            self.banner?.show(type:.error, text: NSLocalizedString("failedToVerify", comment: ""))
+            Utils.showBanner(parentVC: self, type:.error, text: NSLocalizedString("failedToVerify", comment: ""))
         }
     }
     
