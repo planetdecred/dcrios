@@ -14,6 +14,7 @@ class BackupReminderViewController: UIViewController {
     @IBOutlet var backupNoticeLabels: Array<UILabel>?
     var checkedCheckBoxesDict: [Int: Bool] = [:]
     @IBOutlet weak var viewSeedBtn: Button!
+    private var savedCheckboxBorderWidth: CGFloat = 2
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,18 +53,22 @@ class BackupReminderViewController: UIViewController {
     
     @IBAction func onCheck(_ sender: Any) {
         if let checkbox = sender as? Button {
-            checkbox.setImage(UIImage(named: "backup_checkbox_checked"), for: .normal)
-            checkbox.borderWidth = 0
-            self.checkedCheckBoxesDict[checkbox.tag] = true
+            if let checked = self.checkedCheckBoxesDict[checkbox.tag], checked {
+                checkbox.setImage(nil, for: .normal)
+                checkbox.borderWidth = self.savedCheckboxBorderWidth
+                self.checkedCheckBoxesDict[checkbox.tag] = false
+            } else {
+                checkbox.setImage(UIImage(named: "backup_checkbox_checked"), for: .normal)
+                self.savedCheckboxBorderWidth = checkbox.borderWidth
+                checkbox.borderWidth = 0
+                self.checkedCheckBoxesDict[checkbox.tag] = true
+            }
             
-            var allChecked = true;
+            var allChecked = true
             for i in 1...5 {
                 allChecked = allChecked && self.checkedCheckBoxesDict[i] == true
-            }
-            
-            if allChecked {
-                self.viewSeedBtn?.isEnabled = true
-            }
+            }            
+            self.viewSeedBtn?.isEnabled = allChecked
         }
     }
     
