@@ -147,20 +147,20 @@ class OverviewViewController: UIViewController {
         self.setLatestBlockLabel(latestBlock: latestBlock)
         self.connectedPeersLabel.attributedText = NSMutableAttributedString(string: LocalizedStrings.noConnectedPeer)
         
-        self.showSyncDetailsButton.addBorder(atPosition: .top, color: UIColor.appColors.lightGray, thickness: 0.62)
+        self.showSyncDetailsButton.addBorder(atPosition: .top, color: UIColor.appColors._lightGray, thickness: 0.62)
         self.showSyncDetailsButton.setTitle(LocalizedStrings.showDetails, for: .normal)
         self.showSyncDetailsButton.isHidden = true // Hide show details button till we determine sync status
         self.showSyncDetailsButton.addTarget(self, action: #selector(self.handleShowSyncToggle), for: .touchUpInside)
         
         // Sync network connect/disconnect/cancel button setup
         self.syncConnectionButton.layer.borderWidth = 1
-        self.syncConnectionButton.layer.borderColor = UIColor.appColors.lightGray.cgColor
+        self.syncConnectionButton.layer.borderColor = UIColor.appColors._lightGray.cgColor
         self.syncConnectionButton.layer.cornerRadius = 12 // Height is 24pts from mockup so we use use 12pts for rounded left & right edges
          self.syncConnectionButton.isHidden = true // initially hidden because we only want to show it while sync is active
         self.syncConnectionButton.addTarget(self, action: #selector(self.connectionToggle), for: .touchUpInside)
         
         // Transactions section setup
-        self.recentActivityLabelView.horizontalBorder(borderColor: UIColor.appColors.lightGray, yPosition: self.recentActivityLabelView.frame.maxY-7, borderHeight: 0.64)
+        self.recentActivityLabelView.horizontalBorder(borderColor: UIColor.appColors._lightGray, yPosition: self.recentActivityLabelView.frame.maxY-7, borderHeight: 0.64)
         self.recentTransactionsTableView.registerCellNib(TransactionTableViewCell.self)
         self.recentTransactionsTableView.delegate = self
         self.recentTransactionsTableView.dataSource = self
@@ -215,7 +215,7 @@ class OverviewViewController: UIViewController {
         
         // Monitor network changes and set offline/online indicator on wallet status section
         self.syncManager.networkConnectionStatus = { (status) in
-            self.onlineStatusIndicator.layer.backgroundColor = status ? UIColor.appColors.decredGreen.cgColor : UIColor.appColors.decredOrange.cgColor
+            self.onlineStatusIndicator.layer.backgroundColor = status ? UIColor.appColors.decredGreen.cgColor : UIColor.appColors.errorOrange.cgColor
             self.onlineStatusLabel.text = status ? LocalizedStrings.online : LocalizedStrings.offline
             
             // We need to update sync connect/disconnect button
@@ -285,7 +285,7 @@ class OverviewViewController: UIViewController {
         let progressBar = UIProgressView(frame: CGRect.zero)
         progressBar.layer.cornerRadius = 4 // Because height is 8pts and we want a perfect semi circle curve
         progressBar.progressTintColor = UIColor.appColors.decredGreen
-        progressBar.trackTintColor = UIColor.appColors.borderGray
+        progressBar.trackTintColor = UIColor.appColors.gray
         progressBar.translatesAutoresizingMaskIntoConstraints = false
         progressBar.clipsToBounds = true
         progressBar.progress = Float(0)
