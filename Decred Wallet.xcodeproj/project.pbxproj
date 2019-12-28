@@ -29,6 +29,7 @@
 		10551A092357045900EAB45F /* Backup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10551A082357045900EAB45F /* Backup.storyboard */; };
 		106E2BD7235DE1F000C0171F /* BackupVerifyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106E2BD6235DE1F000C0171F /* BackupVerifyButton.swift */; };
 		10BA77992390059F00B67446 /* MenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BA77982390059F00B67446 /* MenuItemView.swift */; };
+		10C4E41323B78E2D00D5C366 /* Dcrlibwallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10C4E41223B78E2D00D5C366 /* Dcrlibwallet.framework */; };
 		10E11C6723B7717F00ACBC98 /* BackupVerifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E11C6523B7717E00ACBC98 /* BackupVerifyViewController.swift */; };
 		10E11C6823B7717F00ACBC98 /* BackupReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E11C6623B7717F00ACBC98 /* BackupReminderViewController.swift */; };
 		10E11C6A23B773FC00ACBC98 /* BackupVerifyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E11C6923B773FC00ACBC98 /* BackupVerifyTableViewCell.swift */; };
@@ -175,6 +176,7 @@
 		10551A082357045900EAB45F /* Backup.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Backup.storyboard; sourceTree = "<group>"; };
 		106E2BD6235DE1F000C0171F /* BackupVerifyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupVerifyButton.swift; sourceTree = "<group>"; };
 		10BA77982390059F00B67446 /* MenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemView.swift; sourceTree = "<group>"; };
+		10C4E41223B78E2D00D5C366 /* Dcrlibwallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Dcrlibwallet.framework; path = libs/Dcrlibwallet.framework; sourceTree = "<group>"; };
 		10E11C6523B7717E00ACBC98 /* BackupVerifyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackupVerifyViewController.swift; sourceTree = "<group>"; };
 		10E11C6623B7717F00ACBC98 /* BackupReminderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackupReminderViewController.swift; sourceTree = "<group>"; };
 		10E11C6923B773FC00ACBC98 /* BackupVerifyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackupVerifyTableViewCell.swift; sourceTree = "<group>"; };
@@ -184,7 +186,6 @@
 		23F5A25CDDC0ADF47F98ED95 /* Pods-Decred Wallet.mainnet release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.mainnet release.xcconfig"; path = "Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.mainnet release.xcconfig"; sourceTree = "<group>"; };
 		2557E1882355C6FA00B6A1B7 /* NavigationMenuTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationMenuTabBarController.swift; sourceTree = "<group>"; };
 		2557E18A2355C9F000B6A1B7 /* CustomTabMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabMenuView.swift; sourceTree = "<group>"; };
-		25751F522372C9460019F657 /* Dcrlibwallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Dcrlibwallet.framework; path = libs/Dcrlibwallet.framework; sourceTree = "<group>"; };
 		257521D9233CC32100F6F6E7 /* UIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackView.swift; sourceTree = "<group>"; };
 		25A4331B2373D0330018FFCF /* SyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncManager.swift; sourceTree = "<group>"; };
 		25E61631237D69740031FB52 /* SyncDetailsComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncDetailsComponent.swift; sourceTree = "<group>"; };
@@ -325,6 +326,7 @@
 			files = (
 				25751F532372C9460019F657 /* Dcrlibwallet.framework in Frameworks */,
 				B164982429AEDD7AF8C8782C /* Pods_Decred_Wallet.framework in Frameworks */,
+				10C4E41323B78E2D00D5C366 /* Dcrlibwallet.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,7 +362,7 @@
 		452B0148672C448C74CB5C1E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				25751F522372C9460019F657 /* Dcrlibwallet.framework */,
+				10C4E41223B78E2D00D5C366 /* Dcrlibwallet.framework */,
 				A9714AB438E597D403032748 /* Pods_Decred_Wallet.framework */,
 			);
 			name = Frameworks;

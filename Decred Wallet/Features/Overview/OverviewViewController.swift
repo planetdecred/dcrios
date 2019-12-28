@@ -389,7 +389,10 @@ class OverviewViewController: UIViewController {
     }
     
     @objc func handleBackupWallet() {
-        // TODO: When implementing backup page
+        let backupReminderVC = Storyboards.Backup.instantiateViewController(for: BackupReminderViewController.self).wrapInNavigationcontroller()
+
+        backupReminderVC.modalPresentationStyle = .overFullScreen
+        self.present(backupReminderVC, animated: true)
     }
     
     // Update wallet network connection control button based on sync and network status
