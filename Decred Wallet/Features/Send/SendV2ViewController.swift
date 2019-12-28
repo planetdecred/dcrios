@@ -478,6 +478,7 @@ class SendV2ViewController: UIViewController {
         destinationAdressTextField.text = ""
         invalidAddressLabel.text = ""
         exchangeRateLabel.text = "0 USD"
+        exchangeRateLabel.textColor = UIColor.appColors.thinGray
     }
     
     @objc func showInfoAlert() {
