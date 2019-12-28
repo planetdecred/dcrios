@@ -422,9 +422,8 @@
                                     <rect key="frame" x="0.0" y="0.0" width="367" height="81"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Write down all 33 words in the correct order." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wrD-Ib-CJ2">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Write down all 33 words in the correct order." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wrD-Ib-CJ2">
                                             <rect key="frame" x="16" y="0.0" width="343" height="20.5"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                             <color key="textColor" red="0.23921568627450979" green="0.34509803921568627" blue="0.45098039215686275" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -432,9 +431,8 @@
                                                 <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="writeDownAll33Words"/>
                                             </userDefinedRuntimeAttributes>
                                         </label>
-                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KZd-PT-Vep">
-                                            <rect key="frame" x="0.0" y="36" width="359" height="46"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KZd-PT-Vep">
+                                            <rect key="frame" x="0.0" y="36.5" width="359" height="44.5"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your 33-word seed phrase" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LjX-FP-M6I">
                                                     <rect key="frame" x="16" y="16" width="335" height="17"/>
@@ -451,18 +449,32 @@
                                         </view>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="wrD-Ib-CJ2" firstAttribute="top" secondItem="VGj-E3-a6Z" secondAttribute="top" id="0n9-dj-ya4"/>
+                                        <constraint firstAttribute="trailing" secondItem="KZd-PT-Vep" secondAttribute="trailing" constant="8" id="3zO-gk-HIO"/>
+                                        <constraint firstItem="wrD-Ib-CJ2" firstAttribute="leading" secondItem="VGj-E3-a6Z" secondAttribute="leading" constant="16" id="GTn-Wx-3WC"/>
+                                        <constraint firstItem="KZd-PT-Vep" firstAttribute="leading" secondItem="VGj-E3-a6Z" secondAttribute="leading" id="MD7-Dy-9LQ"/>
+                                        <constraint firstItem="KZd-PT-Vep" firstAttribute="top" secondItem="wrD-Ib-CJ2" secondAttribute="bottom" constant="16" id="hJR-94-pkl"/>
+                                        <constraint firstAttribute="trailing" secondItem="wrD-Ib-CJ2" secondAttribute="trailing" constant="8" id="oZh-fm-687"/>
+                                        <constraint firstAttribute="bottom" secondItem="KZd-PT-Vep" secondAttribute="bottom" id="rM5-gg-uqd"/>
+                                    </constraints>
                                 </view>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="3gS-WD-NLH">
                                     <rect key="frame" x="0.0" y="167" width="367" height="24"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zaD-aF-TAu">
-                                            <rect key="frame" x="0.0" y="0.0" width="359" height="16"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zaD-aF-TAu">
+                                            <rect key="frame" x="0.0" y="0.0" width="359" height="24"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         </view>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="zaD-aF-TAu" secondAttribute="trailing" constant="8" id="6fP-d5-OLP"/>
+                                        <constraint firstItem="zaD-aF-TAu" firstAttribute="top" secondItem="3gS-WD-NLH" secondAttribute="top" id="TGY-2O-2aK"/>
+                                        <constraint firstItem="zaD-aF-TAu" firstAttribute="leading" secondItem="3gS-WD-NLH" secondAttribute="leading" id="Yis-w6-hCy"/>
+                                        <constraint firstAttribute="bottom" secondItem="zaD-aF-TAu" secondAttribute="bottom" id="nub-uS-46p"/>
+                                    </constraints>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="backupWriteDownTableViewCell" id="97R-Q2-uUC" customClass="BackupWriteDownTableViewCell" customModule="Decred_Wallet" customModuleProvider="target">
