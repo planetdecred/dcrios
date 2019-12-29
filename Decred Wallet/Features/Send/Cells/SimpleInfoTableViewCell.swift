@@ -10,15 +10,11 @@ import UIKit
 
 class SimpleInfoTableViewCell: UITableViewCell {
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
+    @IBOutlet var titleLabel: UILabel!
+    @IBOutlet var infoLabel: UILabel!
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    func configureWith(title: String?, and informtion: String?) {
+        titleLabel.text = title
+        infoLabel.text = informtion
     }
-    
 }

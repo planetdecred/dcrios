@@ -83,9 +83,9 @@ extension WalletChooserTableViewController: UITableViewDataSource, UITableViewDe
             }
             let wallet = walletAccounts[indexPath.section - 1]
             cell.configure(with: wallet)
-            if let unWrappedPreviouslySelectedAccount = selectedAccount, wallet.Number == unWrappedPreviouslySelectedAccount.Number {
-                cell.accessoryType = .checkmark
-            }
+//            if let unWrappedPreviouslySelectedAccount = selectedAccount, wallet.Number == unWrappedPreviouslySelectedAccount.Number {
+//                cell.accessoryType = .checkmark
+//            }
             return cell
         }
     }

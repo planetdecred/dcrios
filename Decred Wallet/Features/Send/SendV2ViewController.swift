@@ -41,8 +41,9 @@ class SendV2ViewController: UIViewController {
     @IBOutlet var exchangeRateIconHeightConstraint: NSLayoutConstraint!
     @IBOutlet var exchangeRateSeparatorView: UIView!
     @IBOutlet var exchangeRateLabelContainerView: NSLayoutConstraint!
+    @IBOutlet var totalCostLabel: UILabel!
     
-    @IBOutlet var transactionFeeLabel: UILabel!
+    @IBOutlet var transactionSizeLabel: UILabel!
     @IBOutlet var feeRateLabel: UILabel!
     @IBOutlet var processingTimeLabel: UILabel!
     
@@ -121,6 +122,7 @@ class SendV2ViewController: UIViewController {
         loadAccounts()
         sendingAmountTextField.addDoneButton()
         registerObserverForKeyboardNotification()
+        nextButton.isEnabled = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -164,6 +166,31 @@ class SendV2ViewController: UIViewController {
         navigationItem.leftBarButtonItems = [cancelBarButtonItem, titleBarButtonItem]
     }
 
+    @IBAction func proceedToConfirmSend(_ sender: Any) {
+        let vc = ConfirmToSendViewCotroller.instance
+//        self.prepareTxSummary(isSendAttempt: false) { sendAmountDcr, _, txFeeAndSize in
+//            guard let sourceAccountBalance = self.sourceWallet?.Balance!.dcrSpendable else {return}
+//            let textFeeSize = txFeeAndSize.fee?.dcrValue ?? 0.0
+//            let balanceAfterSending = Decimal(sourceAccountBalance - sendAmountDcr - textFeeSize) as NSDecimalNumber
+//            let balanceAfterSendingText = "\(balanceAfterSending.round(8).formattedWithSeparator) DCR"
+//            let totalCost = Decimal(sendAmountDcr + textFeeSize) as NSDecimalNumber
+//            let totalCostText = "\(totalCost) DCR"
+//            let transactionFeeText = estimatedFee(for: txFeeAndSize.fee?.dcrValue ?? 0.0)
+//            let details = SendingDetails.init(amount: sendAmountDcr,
+//                                              destinationAddress: self.destinationAddress,
+//                                              destinationWallet: self.destinationWallet,
+//                                              transactionFee: transactionFeeText,
+//                                              balanceAfterSend: balanceAfterSendingText,
+//                                              totalCost: totalCostText)
+//            vc.sendingDetails = details
+//            vc.modalPresentationStyle = .custom
+//            present(vc, animated: true, completion: nil)
+//        }
+        
+        vc.modalPresentationStyle = .custom
+        present(vc, animated: true, completion: nil)
+    }
+    
     private func fetchExchangeRate(_ sender: Any?) {
         self.retryFechExchangeRateButton.isHidden = true
         if self.exchangeRate == nil {
@@ -208,9 +235,9 @@ class SendV2ViewController: UIViewController {
     }
     
     func clearTxSummary() {
-//        self.estimatedFeeLabel.text = "0.00 DCR"
-//        self.estimatedTxSizeLabel.text = "0 bytes"
-//        self.balanceAfterSendingLabel.text = "0.00 DCR"
+        feeRateLabel.text = "0.00 DCR"
+        transactionSizeLabel.text = "0 bytes"
+        processingTimeLabel.text = "≈ -- blocks"
     }
     
     func getDestinationAddress(isSendAttempt: Bool) -> String? {
@@ -263,23 +290,29 @@ class SendV2ViewController: UIViewController {
         self.prepareTxSummary(isSendAttempt: false) { sendAmountDcr, _, txFeeAndSize in
             guard let sourceAccountBalance = self.sourceWallet?.Balance!.dcrSpendable else {return}
             let balanceAfterSending = Decimal(sourceAccountBalance - sendAmountDcr - txFeeAndSize.fee!.dcrValue) as NSDecimalNumber
+            let totalCost = Decimal(sendAmountDcr + txFeeAndSize.fee!.dcrValue) as NSDecimalNumber
             
             self.displayEstimatedFee(dcrFee: txFeeAndSize.fee!.dcrValue)
-            self.transactionFeeLabel.text = "\(txFeeAndSize.estimatedSignedSize) bytes"
+            self.transactionSizeLabel.text = "\(txFeeAndSize.estimatedSignedSize) bytes"
             self.balanceAfterSend.text = "\(balanceAfterSending.round(8).formattedWithSeparator) DCR"
+            self.totalCostLabel.text = "\(totalCost) DCR"
         }
     }
 
     func displayEstimatedFee(dcrFee: Double) {
-        guard let txFee = Decimal(dcrFee) as NSDecimalNumber? else {
-            self.feeRateLabel.text = "0.00 DCR"
+        feeRateLabel.text = estimatedFee(for: dcrFee)
+    }
+    
+    func estimatedFee(for amount: Double)-> String {
+        guard let txFee = Decimal(amount) as NSDecimalNumber? else {
+            return "0.00 DCR"
         }
         
         if self.exchangeRate == nil {
-            self.feeRateLabel.text = "\(txFee.formattedWithSeparator) DCR"
+            return "\(txFee.formattedWithSeparator) DCR"
         } else {
             let usdFee = exchangeRate!.multiplying(by: txFee).formattedWithSeparator
-            self.feeRateLabel.text = "\(txFee.formattedWithSeparator) DCR\n(\(usdFee) USD)"
+            return "\(txFee.formattedWithSeparator) DCR\n(\(usdFee) USD)"
         }
     }
 
