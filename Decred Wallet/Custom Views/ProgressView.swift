@@ -9,6 +9,7 @@
 import UIKit
 
 class ProgressView: UIProgressView {
+    // When increasing the height of UIProgressView with constraint, it does not affect the gray background. When you increase it from code with CGAffineTransformMakeScale function, the corner radius messing up. This is a workaround for this problem using UIBezierPath for drawing the rounded rectangle.
     override func layoutSubviews() {
         super.layoutSubviews()
 

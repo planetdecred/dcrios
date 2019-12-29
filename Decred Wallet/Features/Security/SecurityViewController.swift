@@ -19,7 +19,7 @@ class SecurityViewController: SecurityBaseViewController {
     // This will be triggered after a pin or password is provided by the user.
     var onUserEnteredPinOrPassword: ((_ code: String,
                                       _ securityType: String,
-                                      _ securityRequestVC: RequestBaseViewController?) -> Void)?
+                                      _ securityRequestVC: SecurityRequestBaseViewController?) -> Void)?
     
     var tabController: UITabBarController?
     @IBOutlet weak var securityPromptLabel: UILabel!
@@ -35,7 +35,7 @@ class SecurityViewController: SecurityBaseViewController {
             passwordTabVC?.securityFor = self.securityFor
             passwordTabVC?.requestConfirmation = true
             passwordTabVC?.showCancelButton = true
-            passwordTabVC?.onUserEnteredCode = { (code:String, securityRequestVC:RequestBaseViewController?) in
+            passwordTabVC?.onUserEnteredSecurityCode = { (code: String, securityRequestVC: SecurityRequestBaseViewController?) in
                 self.onUserEnteredPinOrPassword?(code, SecurityViewController.SECURITY_TYPE_PASSWORD, securityRequestVC)
             }
             
@@ -43,7 +43,7 @@ class SecurityViewController: SecurityBaseViewController {
             pinTabVC?.securityFor = self.securityFor
             pinTabVC?.requestConfirmation = true
             pinTabVC?.showCancelButton = true
-            pinTabVC?.onUserEnteredCode = { (code:String, securityRequestVC:RequestBaseViewController?) in
+            pinTabVC?.onUserEnteredSecurityCode = { (code: String, securityRequestVC: SecurityRequestBaseViewController?) in
                 self.onUserEnteredPinOrPassword?(code, SecurityViewController.SECURITY_TYPE_PIN, securityRequestVC)
             }
         }

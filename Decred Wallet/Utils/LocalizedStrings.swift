@@ -44,7 +44,7 @@ struct LocalizedStrings {
     static let settingUpWallet = NSLocalizedString("settingUpWallet", comment: "")
     static let errorSettingUpWallet = NSLocalizedString("errorSettingUpWallet", comment: "")
     
-    /*Security Prompt */
+    /* Security Prompt */
     static let enterStartupPassword = NSLocalizedString("enterStartupPassword", comment: "")
     static let incorrectSecurityInfo = NSLocalizedString("incorrectSecurityInfo", comment: "")
     static let unlockWithStartupPIN = NSLocalizedString("unlockWithStartupPIN", comment: "")
@@ -60,6 +60,10 @@ struct LocalizedStrings {
     static let passwordPlaceholder = NSLocalizedString("passwordPlaceholder", comment: "")
     static let confirmPasswordPlaceholder = NSLocalizedString("confirmPasswordPlaceholder", comment: "")
     
+    /* PIN setup*/
+    static let create = NSLocalizedString("create", comment: "")
+    static let next = NSLocalizedString("next", comment: "")
+
     /* Request Password */
     static let enterPassword = NSLocalizedString("enterPassword", comment: "")
     static let promptSpendingPassword = NSLocalizedString("promptSpendingPassword", comment: "")
@@ -83,7 +87,6 @@ struct LocalizedStrings {
     /* Change Spendind PIN/Password */
     static let enterCurrentSpendingPassword = NSLocalizedString("enterCurrentSpendingPassword", comment: "")
     static let enterCurrentSpendingPIN = NSLocalizedString("enterCurrentSpendingPIN", comment: "")
-    static let changingSpendingPINPass = NSLocalizedString("changingSpendingPINPass", comment: "")
     
     /* Changing Startup PIN/Password */
     static let changingStartupPINPass = NSLocalizedString("changingStartupPINPass", comment: "")
@@ -414,8 +417,4 @@ struct LocalizedStrings {
     static let history = NSLocalizedString("history", comment: "")
     static let settings = NSLocalizedString("settings", comment: "")
     static let help = NSLocalizedString("help", comment: "")
-    
-    /* PIN setup*/
-    static let create = NSLocalizedString("create", comment: "")
-    static let next = NSLocalizedString("next", comment: "")
 }

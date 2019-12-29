@@ -20,7 +20,7 @@ struct StartupPinOrPassword {
         }
         
         // pin/password was previously set, get the current pin/password before clearing
-        self.promptForCurrentPinOrPassword(vc, afterUserEntersPinOrPassword: { (currentPinOrPassword: String, securityRequestVC: RequestBaseViewController?) in
+        self.promptForCurrentPinOrPassword(vc, afterUserEntersPinOrPassword: { (currentPinOrPassword: String, securityRequestVC: SecurityRequestBaseViewController?) in
             self.changeWalletPublicPassphrase(vc, current: currentPinOrPassword, new: nil, securityRequestVC:securityRequestVC, completion: completion)
         })
     }
@@ -38,20 +38,20 @@ struct StartupPinOrPassword {
         }
         
         // pin/password was previously set, get the current pin/password before proceeding
-        self.promptForCurrentPinOrPassword(vc, afterUserEntersPinOrPassword: { (currentPinOrPassword: String, securityRequestVC: RequestBaseViewController?) in
+        self.promptForCurrentPinOrPassword(vc, afterUserEntersPinOrPassword: { (currentPinOrPassword: String, securityRequestVC: SecurityRequestBaseViewController?) in
             securityRequestVC?.dismissView()
             self.setNewPinOrPassword(vc, currentPinOrPassword: currentPinOrPassword, completion: completion)
         })
     }
     
-    static func promptForCurrentPinOrPassword(_ vc: UIViewController, afterUserEntersPinOrPassword: @escaping (String, RequestBaseViewController?) -> Void) {
+    static func promptForCurrentPinOrPassword(_ vc: UIViewController, afterUserEntersPinOrPassword: @escaping (String, SecurityRequestBaseViewController?) -> Void) {
         // show the appropriate vc to read current pin or password
         if self.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
             let requestPasswordVC = RequestPasswordViewController.instantiate()
             requestPasswordVC.securityFor = LocalizedStrings.current
             requestPasswordVC.prompt = LocalizedStrings.promptStartupPassword
             requestPasswordVC.showCancelButton = true
-            requestPasswordVC.onUserEnteredCode = afterUserEntersPinOrPassword
+            requestPasswordVC.onUserEnteredSecurityCode = afterUserEntersPinOrPassword
             requestPasswordVC.submitBtnText = LocalizedStrings.next
             vc.present(requestPasswordVC, animated: true)
         } else {
@@ -59,7 +59,7 @@ struct StartupPinOrPassword {
             requestPinVC.prompt = LocalizedStrings.promptStartupPIN
             requestPinVC.securityFor = LocalizedStrings.current
             requestPinVC.showCancelButton = true
-            requestPinVC.onUserEnteredCode = afterUserEntersPinOrPassword
+            requestPinVC.onUserEnteredSecurityCode = afterUserEntersPinOrPassword
             vc.present(requestPinVC, animated: true, completion: nil)
         }
     }
@@ -75,7 +75,7 @@ struct StartupPinOrPassword {
         vc.present(securityVC, animated: true, completion: nil)
     }
     
-    static func changeWalletPublicPassphrase(_ vc: UIViewController, current currentPassword: String?, new newPinOrPassword: String?, type securityType: String? = nil, securityRequestVC: RequestBaseViewController?, completion: (() -> Void)? = nil) {
+    static func changeWalletPublicPassphrase(_ vc: UIViewController, current currentPassword: String?, new newPinOrPassword: String?, type securityType: String? = nil, securityRequestVC: SecurityRequestBaseViewController?, completion: (() -> Void)? = nil) {
         // cannot set new pin/password without a type specified
         if securityType == nil && newPinOrPassword != nil {
             vc.showOkAlert(message: LocalizedStrings.securityTypeNotSpecified, title: LocalizedStrings.invalidRequest)

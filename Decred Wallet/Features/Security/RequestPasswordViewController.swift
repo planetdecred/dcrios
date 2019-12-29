@@ -7,17 +7,20 @@
 // license that can be found in the LICENSE file.
 import UIKit
 
-class RequestPasswordViewController: RequestBaseViewController, UITextFieldDelegate {
-    @IBOutlet weak var passwordInput: FloatingLabelTextInput!
-    @IBOutlet weak var confirmPasswordInput: FloatingLabelTextInput?
-    @IBOutlet weak var passwordStrengthIndicator: ProgressView?
-    @IBOutlet weak var passwordCountLabel: UILabel?
-    @IBOutlet weak var confirmCountLabel: UILabel?
-    @IBOutlet weak var btnSubmit: Button!
-    @IBOutlet weak var btnCancel: UIButton!
-    @IBOutlet weak var passwordErrorLabel: UILabel!
-    @IBOutlet weak var confirmErrorLabel: UILabel?
+class RequestPasswordViewController: SecurityRequestBaseViewController, UITextFieldDelegate {
     @IBOutlet weak var headerLabel: UILabel!
+    
+    @IBOutlet weak var passwordInput: FloatingLabelTextInput!
+    @IBOutlet weak var passwordErrorLabel: UILabel!
+    @IBOutlet weak var passwordCountLabel: UILabel?
+    @IBOutlet weak var passwordStrengthIndicator: ProgressView?
+    
+    @IBOutlet weak var confirmPasswordInput: FloatingLabelTextInput?
+    @IBOutlet weak var confirmErrorLabel: UILabel?
+    @IBOutlet weak var confirmCountLabel: UILabel?
+    
+    @IBOutlet weak var btnCancel: UIButton!
+    @IBOutlet weak var btnSubmit: Button!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,18 +36,18 @@ class RequestPasswordViewController: RequestBaseViewController, UITextFieldDeleg
         self.passwordInput.becomeFirstResponder()
         self.passwordInput.delegate = self
         
-        if !self.requestConfirmation {
-            self.passwordStrengthIndicator?.removeFromSuperview()
-            self.confirmPasswordInput?.removeFromSuperview()
-            self.confirmCountLabel?.removeFromSuperview()
-            self.confirmErrorLabel?.removeFromSuperview()
-            self.passwordCountLabel?.removeFromSuperview()
-        } else {
+        if self.requestConfirmation {
             self.confirmPasswordInput?.placeholder = String(format: LocalizedStrings.confirmPasswordPlaceholder, self.securityFor.lowercased())
             self.confirmPasswordInput?.isSecureTextEntry = true
             self.confirmPasswordInput?.addTogglePasswordVisibilityButton()
             self.confirmPasswordInput?.delegate = self
             self.confirmPasswordInput?.addTarget(self, action: #selector(self.confirmPasswordTextFieldChange), for: .editingChanged)
+        } else {
+            self.passwordStrengthIndicator?.removeFromSuperview()
+            self.confirmPasswordInput?.removeFromSuperview()
+            self.confirmCountLabel?.removeFromSuperview()
+            self.confirmErrorLabel?.removeFromSuperview()
+            self.passwordCountLabel?.removeFromSuperview()
         }
         
         if let prompt = self.prompt {
@@ -85,23 +88,23 @@ class RequestPasswordViewController: RequestBaseViewController, UITextFieldDeleg
     }
     
     func checkPasswordMatch() {
-        if let confirmPassword = self.confirmPasswordInput?.text {
-            if self.passwordInput.text != "" && confirmPassword != "" {
-                if self.passwordInput.text != confirmPassword {
-                    self.confirmErrorLabel?.textColor = UIColor.appColors.decredOrange
-                    self.confirmCountLabel?.textColor = UIColor.appColors.decredOrange
-                    self.confirmErrorLabel?.text = LocalizedStrings.passwordsDoNotMatch
-                    self.confirmPasswordInput?.showError()
-                    self.btnSubmit.isEnabled = false
-                } else {
-                    self.confirmErrorLabel?.text = ""
-                    self.confirmCountLabel?.textColor = UIColor.appColors.darkBluishGray
-                    self.confirmPasswordInput?.hideError()
-                    self.btnSubmit.isEnabled = true
-                }
+        let confirmPassword = self.confirmPasswordInput?.text ?? ""
+        if self.passwordInput.text != "" && confirmPassword != "" {
+            if self.passwordInput.text != confirmPassword {
+                self.confirmCountLabel?.textColor = UIColor.appColors.decredOrange
+                self.confirmErrorLabel?.text = LocalizedStrings.passwordsDoNotMatch
+                self.confirmErrorLabel?.isHidden = false
+                self.confirmPasswordInput?.showError()
+                self.btnSubmit.isEnabled = false
+            } else {
+                self.confirmErrorLabel?.text = ""
+                self.confirmCountLabel?.textColor = UIColor.appColors.darkBluishGray
+                self.confirmPasswordInput?.hideError()
+                self.confirmErrorLabel?.isHidden = true
+                self.btnSubmit.isEnabled = true
             }
-            self.confirmCountLabel?.text = (confirmPassword != "") ? "\(confirmPassword.count)" : "0"
         }
+        self.confirmCountLabel?.text = (confirmPassword != "") ? "\(confirmPassword.count)" : "0"
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -123,24 +126,26 @@ class RequestPasswordViewController: RequestBaseViewController, UITextFieldDeleg
     
     func validatePasswordsAndProceed() -> Bool {
         let password = self.passwordInput.text ?? ""
-        
+
+        if password.length == 0 {
+            self.showMessageDialog(title: LocalizedStrings.error, message: LocalizedStrings.emptyPasswordNotAllowed)
+            btnSubmit.isEnabled = false
+            return false
+        }
+
         if self.requestConfirmation {
             let confirmPassword = self.confirmPasswordInput?.text ?? ""
-            if password.length == 0 {
-                self.showMessageDialog(title: LocalizedStrings.error, message: LocalizedStrings.emptyPasswordNotAllowed)
-                btnSubmit.isEnabled = true
-                return false
-            }
             if password != confirmPassword {
                 self.showMessageDialog(title: LocalizedStrings.error, message: LocalizedStrings.passwordsDoNotMatch)
-                btnSubmit.isEnabled = true
+                btnSubmit.isEnabled = false
                 return false
             }
         }
         
-        self.btnSubmit.startLoading()
+        self.btnSubmit.isEnabled = false
         self.btnCancel?.isEnabled = false
-        self.onUserEnteredCode?(password, self)
+        self.btnSubmit.startLoading()
+        self.onUserEnteredSecurityCode?(password, self)
         return true
     }
     
@@ -149,8 +154,6 @@ class RequestPasswordViewController: RequestBaseViewController, UITextFieldDeleg
         self.btnSubmit.stopLoading()
         self.passwordInput.becomeFirstResponder()
         self.btnCancel?.isEnabled = true
-        self.passwordInput.textColor = UIColor.appColors.decredOrange
-        self.passwordErrorLabel.textColor = UIColor.appColors.decredOrange
         self.passwordErrorLabel.isHidden = false
         self.passwordErrorLabel.text = text
         self.passwordInput?.showError()
@@ -158,8 +161,6 @@ class RequestPasswordViewController: RequestBaseViewController, UITextFieldDeleg
     
     override func hideError() {
         super.hideError()
-        self.passwordInput.textColor = UIColor.appColors.darkBluishGray
-        self.passwordErrorLabel.textColor = UIColor.appColors.darkBluishGray
         self.passwordErrorLabel.isHidden = true
         self.passwordInput?.hideError()
     }

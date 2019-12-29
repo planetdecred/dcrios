@@ -11,25 +11,25 @@ import UIKit
 
 struct SpendingPinOrPassword {
     static func change(sender vc: UIViewController) {
-        self.promptForCurrentPinOrPassword(vc, afterUserEntersPinOrPassword: { (currentPinOrPassword: String, securityRequestVC: RequestBaseViewController?) in
+        self.promptForCurrentPinOrPassword(vc, afterUserEntersPinOrPassword: { (currentPinOrPassword: String, securityRequestVC: SecurityRequestBaseViewController?) in
             securityRequestVC?.dismissView()
             self.promptForNewPinOrPassword(vc, currentPinOrPassword: currentPinOrPassword)
         })
     }
     
-    private static func promptForCurrentPinOrPassword(_ vc: UIViewController, afterUserEntersPinOrPassword: @escaping (String, RequestBaseViewController?) -> Void) {
+    private static func promptForCurrentPinOrPassword(_ vc: UIViewController, afterUserEntersPinOrPassword: @escaping (String, SecurityRequestBaseViewController?) -> Void) {
         // show the appropriate vc to read current pin or password
         if self.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
             let requestPasswordVC = RequestPasswordViewController.instantiate()
             requestPasswordVC.securityFor = LocalizedStrings.current
             requestPasswordVC.prompt = LocalizedStrings.enterCurrentSpendingPassword
-            requestPasswordVC.onUserEnteredCode = afterUserEntersPinOrPassword
+            requestPasswordVC.onUserEnteredSecurityCode = afterUserEntersPinOrPassword
             vc.present(requestPasswordVC, animated: true)
         } else {
             let requestPinVC = RequestPinViewController.instantiate()
             requestPinVC.securityFor = LocalizedStrings.current
             requestPinVC.showCancelButton = true
-            requestPinVC.onUserEnteredCode = afterUserEntersPinOrPassword
+            requestPinVC.onUserEnteredSecurityCode = afterUserEntersPinOrPassword
             requestPinVC.prompt = LocalizedStrings.enterCurrentSpendingPIN
             vc.present(requestPinVC, animated: true)
         }
@@ -47,7 +47,7 @@ struct SpendingPinOrPassword {
         vc.present(securityVC, animated: true, completion: nil)
     }
     
-    private static func changeWalletSpendingPassphrase(_ vc: UIViewController, current currentPassphrase: String, new newPassphrase: String, type securityType: String, securityRequestVC: RequestBaseViewController?) {
+    private static func changeWalletSpendingPassphrase(_ vc: UIViewController, current currentPassphrase: String, new newPassphrase: String, type securityType: String, securityRequestVC: SecurityRequestBaseViewController?) {
         let oldPrivatePass = (currentPassphrase as NSString).data(using: String.Encoding.utf8.rawValue)!
         let newPrivatePass = (newPassphrase as NSString).data(using: String.Encoding.utf8.rawValue)!
         

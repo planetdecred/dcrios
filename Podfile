@@ -10,5 +10,5 @@ target 'Decred Wallet' do
   pod 'Fabric'
   pod 'Crashlytics'
   pod 'Signals'
-  
+
 end

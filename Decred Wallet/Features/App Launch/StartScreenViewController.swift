@@ -83,7 +83,7 @@ class StartScreenViewController: UIViewController {
             requestPasswordVC.prompt = LocalizedStrings.enterStartupPassword
             requestPasswordVC.modalPresentationStyle = .fullScreen
             requestPasswordVC.submitBtnText = LocalizedStrings.unlock
-            requestPasswordVC.onUserEnteredCode = self.unlockWalletAndStartApp
+            requestPasswordVC.onUserEnteredSecurityCode = self.unlockWalletAndStartApp
             requestPasswordVC.showCancelButton = false
             self.present(requestPasswordVC, animated: true, completion: nil)
         }
@@ -91,7 +91,7 @@ class StartScreenViewController: UIViewController {
             let requestPinVC = RequestPinViewController.instantiate()
             requestPinVC.securityFor = LocalizedStrings.startup
             requestPinVC.modalPresentationStyle = .fullScreen
-            requestPinVC.onUserEnteredCode = self.unlockWalletAndStartApp
+            requestPinVC.onUserEnteredSecurityCode = self.unlockWalletAndStartApp
             requestPinVC.prompt = LocalizedStrings.unlockWithStartupPIN
             requestPinVC.submitBtnText = LocalizedStrings.unlock
             requestPinVC.showCancelButton = false
@@ -99,7 +99,7 @@ class StartScreenViewController: UIViewController {
         }
     }
     
-    func unlockWalletAndStartApp(pinOrPassword: String, securityRequestVC:RequestBaseViewController?) {
+    func unlockWalletAndStartApp(pinOrPassword: String, securityRequestVC:SecurityRequestBaseViewController?) {
         self.label.text = LocalizedStrings.openingWallet
         
         DispatchQueue.global(qos: .userInitiated).async {

@@ -264,15 +264,15 @@ class SettingsController: UITableViewController  {
                 requestPinVC.securityFor = LocalizedStrings.spending
                 requestPinVC.showCancelButton = true
                 requestPinVC.prompt = LocalizedStrings.enterCurrentSpendingPIN
-                requestPinVC.onUserEnteredCode = {(code:String, securityRequestVC:RequestBaseViewController?) in
-                    self.deleteWallet(spendingPinOrPassword: code, securityRequestVC:securityRequestVC)
+                requestPinVC.onUserEnteredSecurityCode = {(code: String, securityRequestVC: SecurityRequestBaseViewController?) in
+                    self.deleteWallet(spendingPinOrPassword: code, securityRequestVC: securityRequestVC)
                 }
                 self.present(requestPinVC, animated: true, completion: nil)
             }
         }
     }
     
-    func deleteWallet(spendingPinOrPassword: String, securityRequestVC:RequestBaseViewController?) {
+    func deleteWallet(spendingPinOrPassword: String, securityRequestVC: SecurityRequestBaseViewController?) {
         let progressHud = Utils.showProgressHud(withText: LocalizedStrings.deletingWallet)
         DispatchQueue.global(qos: .background).async {
             do {

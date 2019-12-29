@@ -43,7 +43,7 @@ class AddAcountViewController: UIViewController {
                 requestPinVC.securityFor = LocalizedStrings.spending
                 requestPinVC.showCancelButton = true
                 requestPinVC.prompt = LocalizedStrings.confirmToCreate
-                requestPinVC.onUserEnteredCode = { (code:String, securityRequestVC:RequestBaseViewController?) in
+                requestPinVC.onUserEnteredSecurityCode = { (code:String, securityRequestVC:SecurityRequestBaseViewController?) in
                     self.addAccountWithPin(pin: code as NSString, securityRequestVC: securityRequestVC)
                 }
                 present(requestPinVC, animated: true, completion: nil)
@@ -59,12 +59,12 @@ class AddAcountViewController: UIViewController {
         }
     }
     
-    private func addAccountWithPin(pin: NSString, securityRequestVC:RequestBaseViewController?){
+    private func addAccountWithPin(pin: NSString, securityRequestVC:SecurityRequestBaseViewController?){
         let passphrase = pin.data(using: String.Encoding.utf8.rawValue)!
         addAccount(passphrase: passphrase, securityRequestVC:securityRequestVC)
     }
     
-    private func addAccount(passphrase: Data, securityRequestVC:RequestBaseViewController?){
+    private func addAccount(passphrase: Data, securityRequestVC:SecurityRequestBaseViewController?){
         let progressHud = JGProgressHUD(style: .light)
         progressHud.shadow = JGProgressHUDShadow(color: .black, offset: .zero, radius: 5.0, opacity: 0.2)
         progressHud.textLabel.text = LocalizedStrings.creatingAccount

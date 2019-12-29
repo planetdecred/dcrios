@@ -16,15 +16,29 @@ class FloatingLabelTextInput: UITextField {
     let inactiveBorderColor: UIColor = UIColor.appColors.lightGray
     
     let cornerRadius: CGFloat = 4
+    let floatingPlaceholderLabelNormalSize: CGFloat = 16
+    let floatingPlaceholderLabelSmallerSize: CGFloat = 14
     
     var floatingPlaceholderLabel = PaddedLabel()
-    var placeholderLabelTopConstraint:NSLayoutConstraint?
-    let placeholderColorNormal:UIColor = UIColor.appColors.bluishGray
-    var placeholderColorActive:UIColor = UIColor.appColors.decredBlue
+    var placeholderLabelTopConstraint: NSLayoutConstraint?
+    let placeholderColorNormal: UIColor = UIColor.appColors.bluishGray
+    var placeholderColorActive: UIColor = UIColor.appColors.decredBlue
     
-    var pwdVisibilityToggleBtn = UIButton(type: .custom)
+    lazy var pwdVisibilityToggleBtn: UIButton = {
+        return UIButton(type: .custom)
+    }()
     
-    let padding = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
+    let textPadding = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
+    
+    override var placeholder: String? {
+        didSet {
+            // compare new placeholder value against previous value to prevent recursion
+            if placeholder != oldValue {
+                self.floatingPlaceholderLabel.text = oldValue
+                placeholder = ""
+            }
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -51,31 +65,21 @@ class FloatingLabelTextInput: UITextField {
     private func initFloatingPlaceholderLabel() {
         self.floatingPlaceholderLabel.backgroundColor = UIColor.white
         self.floatingPlaceholderLabel.textColor = self.placeholderColorNormal
-        self.floatingPlaceholderLabel.font = UIFont(name: self.font!.familyName, size: 16)
+        self.floatingPlaceholderLabel.font = self.floatingPlaceholderLabel.font.withSize(self.floatingPlaceholderLabelNormalSize)
         self.floatingPlaceholderLabel.clipsToBounds = true
         self.floatingPlaceholderLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.floatingPlaceholderLabel.sizeToFit()
         self.floatingPlaceholderLabel.leftPadding = 4
         self.floatingPlaceholderLabel.rightPadding = 4
         self.floatingPlaceholderLabel.text = self.placeholder
         self.placeholder = ""
+        self.floatingPlaceholderLabel.sizeToFit()
         self.addSubview(self.floatingPlaceholderLabel)
-        self.layoutIfNeeded()
         
-        self.placeholderLabelTopConstraint = self.floatingPlaceholderLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: (self.frame.size.height - self.floatingPlaceholderLabel.frame.size.height) / 2)
+        self.placeholderLabelTopConstraint = self.floatingPlaceholderLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: (self.frame.size.height - self.floatingPlaceholderLabel.intrinsicContentSize.height) / 2)
         NSLayoutConstraint.activate([
             self.floatingPlaceholderLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 12),
             self.placeholderLabelTopConstraint!
         ])
-    }
-    
-    override var placeholder: String? {
-        didSet {
-            if placeholder != oldValue {
-                self.floatingPlaceholderLabel.text = oldValue
-                placeholder = ""
-            }
-        }
     }
     
     override func layoutSubviews() {
@@ -96,9 +100,8 @@ class FloatingLabelTextInput: UITextField {
     func showFloatingLabel() {
         UIView.animate(withDuration: 0.13) {
             self.floatingPlaceholderLabel.textColor = self.placeholderColorActive
-            self.floatingPlaceholderLabel.font = UIFont(name: self.font!.familyName, size: 14)
-            self.layoutIfNeeded()
-            self.placeholderLabelTopConstraint?.constant = self.floatingPlaceholderLabel.frame.size.height / -2
+            self.floatingPlaceholderLabel.font = self.floatingPlaceholderLabel.font.withSize(self.floatingPlaceholderLabelSmallerSize)
+            self.placeholderLabelTopConstraint?.constant = self.floatingPlaceholderLabel.intrinsicContentSize.height / -2
             self.layoutIfNeeded()
         }
     }
@@ -107,9 +110,8 @@ class FloatingLabelTextInput: UITextField {
         if self.text == "" {
             UIView.animate(withDuration: 0.13) {
                 self.floatingPlaceholderLabel.textColor = self.placeholderColorNormal
-                self.floatingPlaceholderLabel.font = UIFont(name: self.font!.familyName, size: 16)
-                self.layoutIfNeeded()
-                self.placeholderLabelTopConstraint?.constant = (self.frame.size.height - self.floatingPlaceholderLabel.frame.size.height) / 2
+                self.floatingPlaceholderLabel.font = self.floatingPlaceholderLabel.font.withSize(self.floatingPlaceholderLabelNormalSize)
+                self.placeholderLabelTopConstraint?.constant = (self.frame.size.height - self.floatingPlaceholderLabel.intrinsicContentSize.height) / 2
                 self.layoutIfNeeded()
             }
         } else {
@@ -158,14 +160,14 @@ class FloatingLabelTextInput: UITextField {
     }
     
     override func textRect(forBounds bounds: CGRect) -> CGRect {
-      return bounds.inset(by: padding)
+      return bounds.inset(by: textPadding)
     }
     
     override func placeholderRect(forBounds bounds: CGRect) -> CGRect {
-      return bounds.inset(by: padding)
+      return bounds.inset(by: textPadding)
     }
     
     override func editingRect(forBounds bounds: CGRect) -> CGRect {
-      return bounds.inset(by: padding)
+      return bounds.inset(by: textPadding)
     }
 }

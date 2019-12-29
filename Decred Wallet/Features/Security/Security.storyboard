@@ -369,15 +369,6 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Csj-Rf-u1l">
                                         <rect key="frame" x="0.0" y="74.333333333333329" width="327" height="79.999999999999986"/>
                                         <subviews>
-                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="16" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TuL-zv-aYr">
-                                                <rect key="frame" x="315" y="32.333333333333329" width="12" height="15.333333333333336"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="12" id="zJg-qR-fQV"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="12"/>
-                                                <color key="textColor" red="0.23921568627450979" green="0.34509803921568627" blue="0.45098039215686275" alpha="1" colorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Z10-H9-p32">
                                                 <rect key="frame" x="48" y="32.000000000000014" width="243" height="16"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -419,6 +410,15 @@
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="enterPIN"/>
                                                 </userDefinedRuntimeAttributes>
+                                            </label>
+                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="16" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TuL-zv-aYr">
+                                                <rect key="frame" x="315" y="32.333333333333329" width="12" height="15.333333333333336"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="12" id="zJg-qR-fQV"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="12"/>
+                                                <color key="textColor" red="0.23921568627450979" green="0.34509803921568627" blue="0.45098039215686275" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
                                             </label>
                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wrong startup PIN. Please try again." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Tx-gJ-gPY">
                                                 <rect key="frame" x="80.333333333333329" y="64.000000000000014" width="178.66666666666669" height="15.333333333333329"/>
@@ -468,6 +468,33 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4NJ-Il-VAc">
                                         <rect key="frame" x="0.0" y="164.33333333333334" width="327" height="88"/>
                                         <subviews>
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="05g-JX-ZBu">
+                                                <rect key="frame" x="-8" y="24" width="79" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="79" id="L6K-9T-VMW"/>
+                                                    <constraint firstAttribute="height" constant="40" id="ZwN-tw-69N"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="17"/>
+                                                <state key="normal" title="Back"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="back"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="onBack:" destination="SKa-iY-3vv" eventType="touchUpInside" id="dqh-Pu-H7D"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hE5-Xg-wZu">
+                                                <rect key="frame" x="174" y="24" width="79" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="KXs-Hw-JLO"/>
+                                                    <constraint firstAttribute="width" constant="79" id="vgu-tU-bpZ"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="17"/>
+                                                <state key="normal" title="Cancel"/>
+                                                <connections>
+                                                    <action selector="onCancelButtonTapped:" destination="SKa-iY-3vv" eventType="touchUpInside" id="Uoo-pY-Xi8"/>
+                                                </connections>
+                                            </button>
                                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Irb-id-mc4" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                                 <rect key="frame" x="261" y="24" width="66" height="40"/>
                                                 <color key="backgroundColor" red="0.77000000000000002" green="0.80000000000000004" blue="0.81999999999999995" alpha="1" colorSpace="calibratedRGB"/>
@@ -492,33 +519,6 @@
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="onSubmit:" destination="SKa-iY-3vv" eventType="touchUpInside" id="2lr-60-Ru1"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hE5-Xg-wZu">
-                                                <rect key="frame" x="174" y="24" width="79" height="40"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="40" id="KXs-Hw-JLO"/>
-                                                    <constraint firstAttribute="width" constant="79" id="vgu-tU-bpZ"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="17"/>
-                                                <state key="normal" title="Cancel"/>
-                                                <connections>
-                                                    <action selector="onCancelButtonTapped:" destination="SKa-iY-3vv" eventType="touchUpInside" id="Uoo-pY-Xi8"/>
-                                                </connections>
-                                            </button>
-                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="05g-JX-ZBu">
-                                                <rect key="frame" x="-8" y="24" width="79" height="40"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="79" id="L6K-9T-VMW"/>
-                                                    <constraint firstAttribute="height" constant="40" id="ZwN-tw-69N"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="17"/>
-                                                <state key="normal" title="Back"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="back"/>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="onBack:" destination="SKa-iY-3vv" eventType="touchUpInside" id="dqh-Pu-H7D"/>
                                                 </connections>
                                             </button>
                                         </subviews>
