@@ -74,10 +74,11 @@ class RequestPinViewController: SecurityRequestBaseViewController {
     }
     
     @objc func onPinTextChanged() {
-        let pinText = self.pinHiddenInput.text ?? ""
+        var pinText = self.pinHiddenInput.text ?? ""
         let isPinEmpty = pinText.count == 0
         
         if self.isInErrorState {
+            pinText = String(pinText.last!)
             self.pinHiddenInput.text = pinText
             self.hideError()
         }
@@ -149,7 +150,6 @@ class RequestPinViewController: SecurityRequestBaseViewController {
         self.pinHiddenInput.becomeFirstResponder()
         self.btnBack?.isEnabled = true
         self.btnCancel?.isEnabled = true
-        self.pinHiddenInput.text = ""
     }
     
     override func hideError() {
