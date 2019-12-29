@@ -75,7 +75,7 @@ class TabMenuItemView: UIView {
         self.iconView.alpha = 1.0
         
         let borderLayer = CALayer()
-        borderLayer.backgroundColor = UIColor.appColors.decredGreen.cgColor
+        borderLayer.backgroundColor = UIColor.appColors.green.cgColor
         borderLayer.name = "active border"
         borderLayer.frame = CGRect(x: 10, y: 0, width: topBorderWidth, height: 2)
         

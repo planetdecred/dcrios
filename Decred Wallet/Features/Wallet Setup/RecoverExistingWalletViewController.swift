@@ -39,7 +39,7 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
         
         // set border for dropdown list
         self.wordSelectionDropDownContainer.layer.borderWidth = 1
-        self.wordSelectionDropDownContainer.layer.borderColor = UIColor.appColors._lightGray.cgColor
+        self.wordSelectionDropDownContainer.layer.borderColor = UIColor.appColors.lightGray.cgColor
         
         // long press to proceed with test seed, only on testnet
         #if IsTestnet
@@ -131,7 +131,7 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
         }
         
         if self.validateSeed().valid {
-            self.btnConfirm.backgroundColor = UIColor.appColors.decredGreen
+            self.btnConfirm.backgroundColor = UIColor.appColors.green
         } else {
             self.btnConfirm.backgroundColor = UIColor.appColors.darkGray
         }

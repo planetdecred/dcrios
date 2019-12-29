@@ -52,7 +52,7 @@ class RecoveryWalletSeedWordCell: UITableViewCell {
             self.seedWordAutoComplete.clearButtonMode = .whileEditing
         } else if currentText != "" {
             // invalid seed word, use error text color and show clear button persistently
-            self.seedWordAutoComplete.textColor = UIColor.appColors.errorOrange
+            self.seedWordAutoComplete.textColor = UIColor.appColors.orange
             self.seedWordAutoComplete.clearButtonMode = .always
         }
     }

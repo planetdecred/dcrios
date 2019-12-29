@@ -57,7 +57,7 @@ class PasswordSetupViewController: SecurityBaseViewController, UITextFieldDelega
             self.lbMatchIndicator.textColor = UIColor.appColors.turquoise
             self.lbMatchIndicator.text = LocalizedStrings.passwordMatch
         } else {
-            self.lbMatchIndicator.textColor = UIColor.appColors.warningYellow
+            self.lbMatchIndicator.textColor = UIColor.appColors.yellow
             self.lbMatchIndicator.text = LocalizedStrings.passwordsDoNotMatch
         }
     }
