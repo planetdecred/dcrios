@@ -43,8 +43,8 @@ class AddAcountViewController: UIViewController {
                 requestPinVC.securityFor = LocalizedStrings.spending
                 requestPinVC.showCancelButton = true
                 requestPinVC.prompt = LocalizedStrings.confirmToCreate
-                requestPinVC.onUserEnteredSecurityCode = { (code:String, securityRequestVC:SecurityRequestBaseViewController?) in
-                    self.addAccountWithPin(pin: code as NSString, securityRequestVC: securityRequestVC)
+                requestPinVC.onUserEnteredSecurityCode = { (code:String, completionDelegate: SecurityRequestCompletionDelegate?) in
+                    self.addAccountWithPin(pin: code as NSString, completionDelegate: completionDelegate)
                 }
                 present(requestPinVC, animated: true, completion: nil)
             }
@@ -55,16 +55,16 @@ class AddAcountViewController: UIViewController {
         let pass = passphrase.text
         if !pass!.isEmpty {
             let passphrase = (self.passphrase.text! as NSString).data(using: String.Encoding.utf8.rawValue)!
-            addAccount(passphrase: passphrase, securityRequestVC: nil)
+            addAccount(passphrase: passphrase, completionDelegate: nil)
         }
     }
     
-    private func addAccountWithPin(pin: NSString, securityRequestVC:SecurityRequestBaseViewController?){
+    private func addAccountWithPin(pin: NSString, completionDelegate: SecurityRequestCompletionDelegate?){
         let passphrase = pin.data(using: String.Encoding.utf8.rawValue)!
-        addAccount(passphrase: passphrase, securityRequestVC:securityRequestVC)
+        addAccount(passphrase: passphrase, completionDelegate:completionDelegate)
     }
     
-    private func addAccount(passphrase: Data, securityRequestVC:SecurityRequestBaseViewController?){
+    private func addAccount(passphrase: Data, completionDelegate: SecurityRequestCompletionDelegate?){
         let progressHud = JGProgressHUD(style: .light)
         progressHud.shadow = JGProgressHUDShadow(color: .black, offset: .zero, radius: 5.0, opacity: 0.2)
         progressHud.textLabel.text = LocalizedStrings.creatingAccount
@@ -77,13 +77,13 @@ class AddAcountViewController: UIViewController {
                 try AppDelegate.walletLoader.wallet?.nextAccount(accountName, privPass: passphrase)
                 DispatchQueue.main.async {
                     progressHud.dismiss()
-                    securityRequestVC?.dismissView()
+                    completionDelegate?.securityCodeProcessed(true, nil)
                     self.dismiss(animated: true, completion: nil)
                 }
             }catch{
                 DispatchQueue.main.async {
                     progressHud.dismiss()
-                    securityRequestVC?.showError(text: error.localizedDescription)
+                    completionDelegate?.securityCodeProcessed(false, error.localizedDescription)
                 }
             }
         }

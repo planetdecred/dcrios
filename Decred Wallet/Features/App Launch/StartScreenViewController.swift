@@ -66,7 +66,7 @@ class StartScreenViewController: UIViewController {
         else if StartupPinOrPassword.pinOrPasswordIsSet() {
             self.promptForStartupPinOrPassword()
         } else {
-            self.unlockWalletAndStartApp(pinOrPassword: "public", securityRequestVC: nil) // unlock wallet using default public passphrase
+            self.unlockWalletAndStartApp(pinOrPassword: "public", completionDelegate: nil) // unlock wallet using default public passphrase
         }
     }
     
@@ -99,14 +99,14 @@ class StartScreenViewController: UIViewController {
         }
     }
     
-    func unlockWalletAndStartApp(pinOrPassword: String, securityRequestVC:SecurityRequestBaseViewController?) {
+    func unlockWalletAndStartApp(pinOrPassword: String, completionDelegate: SecurityRequestCompletionDelegate?) {
         self.label.text = LocalizedStrings.openingWallet
         
         DispatchQueue.global(qos: .userInitiated).async {
             do {
                 try AppDelegate.walletLoader.wallet?.open(pinOrPassword.utf8Bits)
                 DispatchQueue.main.async {
-                    securityRequestVC?.dismissView()
+                    completionDelegate?.securityCodeProcessed(true, nil)
                     NavigationMenuTabBarController.setupMenuAndLaunchApp(isNewWallet: false)
                 }
             } catch let error {
@@ -116,7 +116,7 @@ class StartScreenViewController: UIViewController {
                         let securityType = StartupPinOrPassword.currentSecurityType()!.lowercased()
                         errorMessage = String(format: LocalizedStrings.incorrectSecurityInfo, securityType)
                     }
-                    securityRequestVC?.showError(text: errorMessage)
+                    completionDelegate?.securityCodeProcessed(false, errorMessage)
                 }
             }
         }

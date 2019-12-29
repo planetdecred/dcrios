@@ -11,13 +11,13 @@ import UIKit
 
 struct SpendingPinOrPassword {
     static func change(sender vc: UIViewController) {
-        self.promptForCurrentPinOrPassword(vc, afterUserEntersPinOrPassword: { (currentPinOrPassword: String, securityRequestVC: SecurityRequestBaseViewController?) in
-            securityRequestVC?.dismissView()
+        self.promptForCurrentPinOrPassword(vc, afterUserEntersPinOrPassword: { (currentPinOrPassword: String, completionDelegate: SecurityRequestCompletionDelegate?) in
+            completionDelegate?.securityCodeProcessed(true, nil)
             self.promptForNewPinOrPassword(vc, currentPinOrPassword: currentPinOrPassword)
         })
     }
     
-    private static func promptForCurrentPinOrPassword(_ vc: UIViewController, afterUserEntersPinOrPassword: @escaping (String, SecurityRequestBaseViewController?) -> Void) {
+    private static func promptForCurrentPinOrPassword(_ vc: UIViewController, afterUserEntersPinOrPassword: @escaping (String, SecurityRequestCompletionDelegate?) -> Void) {
         // show the appropriate vc to read current pin or password
         if self.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
             let requestPasswordVC = RequestPasswordViewController.instantiate()
@@ -41,13 +41,13 @@ struct SpendingPinOrPassword {
         securityVC.securityFor = LocalizedStrings.spending
         securityVC.initialSecurityType = self.currentSecurityType()
         
-        securityVC.onUserEnteredPinOrPassword = { (newPinOrPassword, securityType, securityRequestVC) in
-            self.changeWalletSpendingPassphrase(vc, current: currentPinOrPassword, new: newPinOrPassword, type: securityType, securityRequestVC: securityRequestVC)
+        securityVC.onUserEnteredPinOrPassword = { (newPinOrPassword, securityType, completionDelegate) in
+            self.changeWalletSpendingPassphrase(vc, current: currentPinOrPassword, new: newPinOrPassword, type: securityType, completionDelegate: completionDelegate)
         }
         vc.present(securityVC, animated: true, completion: nil)
     }
     
-    private static func changeWalletSpendingPassphrase(_ vc: UIViewController, current currentPassphrase: String, new newPassphrase: String, type securityType: String, securityRequestVC: SecurityRequestBaseViewController?) {
+    private static func changeWalletSpendingPassphrase(_ vc: UIViewController, current currentPassphrase: String, new newPassphrase: String, type securityType: String, completionDelegate: SecurityRequestCompletionDelegate?) {
         let oldPrivatePass = (currentPassphrase as NSString).data(using: String.Encoding.utf8.rawValue)!
         let newPrivatePass = (newPassphrase as NSString).data(using: String.Encoding.utf8.rawValue)!
         
@@ -55,12 +55,12 @@ struct SpendingPinOrPassword {
             do {
                 try AppDelegate.walletLoader.wallet?.changePrivatePassphrase(oldPrivatePass, newPass: newPrivatePass)
                 DispatchQueue.main.async {
-                    securityRequestVC?.dismissView()
+                    completionDelegate?.securityCodeProcessed(true, nil)
                     Settings.setValue(securityType, for: Settings.Keys.SpendingPassphraseSecurityType)
                 }
             } catch let error {
                 DispatchQueue.main.async {
-                    securityRequestVC?.dismissView()
+                    completionDelegate?.securityCodeProcessed(true, nil)
                     vc.showOkAlert(message: error.localizedDescription, title: LocalizedStrings.error)
                 }
             }

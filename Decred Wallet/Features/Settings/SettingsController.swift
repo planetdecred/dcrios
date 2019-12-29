@@ -256,7 +256,7 @@ class SettingsController: UITableViewController  {
             let deleteWalletDialog = segue.destination as! DeleteWalletConfirmationViewController
             deleteWalletDialog.onDeleteWalletConfirmed = { password in
                 if password != nil {
-                    self.deleteWallet(spendingPinOrPassword: password!, securityRequestVC: nil)
+                    self.deleteWallet(spendingPinOrPassword: password!, completionDelegate: nil)
                     return
                 }
                 
@@ -264,28 +264,28 @@ class SettingsController: UITableViewController  {
                 requestPinVC.securityFor = LocalizedStrings.spending
                 requestPinVC.showCancelButton = true
                 requestPinVC.prompt = LocalizedStrings.enterCurrentSpendingPIN
-                requestPinVC.onUserEnteredSecurityCode = {(code: String, securityRequestVC: SecurityRequestBaseViewController?) in
-                    self.deleteWallet(spendingPinOrPassword: code, securityRequestVC: securityRequestVC)
+                requestPinVC.onUserEnteredSecurityCode = {(code: String, completionDelegate: SecurityRequestCompletionDelegate?) in
+                    self.deleteWallet(spendingPinOrPassword: code, completionDelegate: completionDelegate)
                 }
                 self.present(requestPinVC, animated: true, completion: nil)
             }
         }
     }
     
-    func deleteWallet(spendingPinOrPassword: String, securityRequestVC: SecurityRequestBaseViewController?) {
+    func deleteWallet(spendingPinOrPassword: String, completionDelegate: SecurityRequestCompletionDelegate?) {
         let progressHud = Utils.showProgressHud(withText: LocalizedStrings.deletingWallet)
         DispatchQueue.global(qos: .background).async {
             do {
                 try AppDelegate.walletLoader.wallet?.delete(spendingPinOrPassword.utf8Bits)
                 DispatchQueue.main.async {
                     progressHud.dismiss()
-                    securityRequestVC?.dismissView()
+                    completionDelegate?.securityCodeProcessed(true, nil)
                     self.walletDeleted()
                 }
             } catch let error {
                 DispatchQueue.main.async {
                     progressHud.dismiss()
-                    securityRequestVC?.showError(text: LocalizedStrings.deleteWalletFailed)
+                    completionDelegate?.securityCodeProcessed(false, LocalizedStrings.deleteWalletFailed)
                 }
                 print("delete wallet error: \(error.localizedDescription)")
             }

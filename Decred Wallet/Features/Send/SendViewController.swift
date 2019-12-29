@@ -341,8 +341,8 @@ class SendViewController: UIViewController {
                 requestPinVC.securityFor = LocalizedStrings.spending
                 requestPinVC.showCancelButton = true
                 requestPinVC.prompt = LocalizedStrings.confirmToSend
-                requestPinVC.onUserEnteredSecurityCode = {(code:String, securityRequestVC:SecurityRequestBaseViewController?) in
-                    securityRequestVC?.dismissView()
+                requestPinVC.onUserEnteredSecurityCode = {(code:String, completionDelegate: SecurityRequestCompletionDelegate?) in
+                    completionDelegate?.securityCodeProcessed(true, nil)
                     self.finalizeSending(destinationAddress: destinationAddress, pinOrPassword: code)
                 }
                 self.present(requestPinVC, animated: true, completion: nil)

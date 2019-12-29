@@ -19,7 +19,7 @@ class SecurityViewController: SecurityBaseViewController {
     // This will be triggered after a pin or password is provided by the user.
     var onUserEnteredPinOrPassword: ((_ code: String,
                                       _ securityType: String,
-                                      _ securityRequestVC: SecurityRequestBaseViewController?) -> Void)?
+                                      _ completionDelegate: SecurityRequestCompletionDelegate?) -> Void)?
     
     var tabController: UITabBarController?
     @IBOutlet weak var securityPromptLabel: UILabel!
@@ -35,16 +35,16 @@ class SecurityViewController: SecurityBaseViewController {
             passwordTabVC?.securityFor = self.securityFor
             passwordTabVC?.requestConfirmation = true
             passwordTabVC?.showCancelButton = true
-            passwordTabVC?.onUserEnteredSecurityCode = { (code: String, securityRequestVC: SecurityRequestBaseViewController?) in
-                self.onUserEnteredPinOrPassword?(code, SecurityViewController.SECURITY_TYPE_PASSWORD, securityRequestVC)
+            passwordTabVC?.onUserEnteredSecurityCode = { (code: String, completionDelegate: SecurityRequestCompletionDelegate?) in
+                self.onUserEnteredPinOrPassword?(code, SecurityViewController.SECURITY_TYPE_PASSWORD, completionDelegate)
             }
             
             let pinTabVC = self.tabController?.viewControllers?.last as? RequestPinViewController
             pinTabVC?.securityFor = self.securityFor
             pinTabVC?.requestConfirmation = true
             pinTabVC?.showCancelButton = true
-            pinTabVC?.onUserEnteredSecurityCode = { (code: String, securityRequestVC: SecurityRequestBaseViewController?) in
-                self.onUserEnteredPinOrPassword?(code, SecurityViewController.SECURITY_TYPE_PIN, securityRequestVC)
+            pinTabVC?.onUserEnteredSecurityCode = { (code: String, completionDelegate: SecurityRequestCompletionDelegate?) in
+                self.onUserEnteredPinOrPassword?(code, SecurityViewController.SECURITY_TYPE_PIN, completionDelegate)
             }
         }
     }
