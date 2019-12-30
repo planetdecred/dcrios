@@ -1,5 +1,5 @@
 //
-//  BackupSuccessViewController.swift
+//  SeedBackupSuccessViewController.swift
 //  Decred Wallet
 //
 // Copyright (c) 2019 The Decred developers
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BackupSuccessViewController: UIViewController {
+class SeedBackupSuccessViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }

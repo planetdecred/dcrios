@@ -1,5 +1,5 @@
 //
-//  BackupWriteDownViewController.swift
+//  SeedBackupWriteDownViewController.swift
 //  Decred Wallet
 //
 // Copyright (c) 2019 The Decred developers
@@ -9,7 +9,7 @@
 import UIKit
 import Dcrlibwallet
 
-class BackupWriteDownViewController: UIViewController,UITableViewDataSource {
+class SeedBackupWriteDownViewController: UIViewController,UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var topCorneredView: UIView!
     @IBOutlet weak var bottomCorneredView: UIView!
@@ -49,7 +49,7 @@ class BackupWriteDownViewController: UIViewController,UITableViewDataSource {
     }
      
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "backupWriteDownTableViewCell") as! BackupWriteDownTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "seedBackupWriteDownTableViewCell") as! SeedBackupWriteDownTableViewCell
 
         if self.arrWords.indices.contains(indexPath.row) {
             cell.countLabel1?.text = String(indexPath.row + 1)
@@ -72,7 +72,7 @@ class BackupWriteDownViewController: UIViewController,UITableViewDataSource {
      }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-         let verifySeedVC = segue.destination as! BackupVerifyViewController
+         let verifySeedVC = segue.destination as! SeedBackupVerifyViewController
          verifySeedVC.prepareSeedForVerification(seedToVerify: self.seed)
     }
 

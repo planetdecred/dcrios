@@ -1,5 +1,5 @@
 //
-//  BackupWriteDownViewController.swift
+//  SeedBackupWriteDownTableViewCell.swift
 //  Decred Wallet
 //
 // Copyright (c) 2019 The Decred developers
@@ -8,9 +8,9 @@
 
 import UIKit
 
-class BackupWriteDownTableViewCell: UITableViewCell {
+class SeedBackupWriteDownTableViewCell: UITableViewCell {
     @IBOutlet weak var phaseLabel1: UILabel!
     @IBOutlet weak var phaseLabel2: UILabel!
-    @IBOutlet weak var countLabel1: ContouredLabel!
-    @IBOutlet weak var countLabel2: ContouredLabel!
+    @IBOutlet weak var countLabel1: Label!
+    @IBOutlet weak var countLabel2: Label!
 }

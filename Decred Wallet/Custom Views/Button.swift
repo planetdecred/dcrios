@@ -109,6 +109,7 @@ class Button: UIButton {
 		self.layer.cornerRadius = self.cornerRadius
 
 		self.updateBackgroundColor()
+        self.setNeedsDisplay()
 	}
 
 	private func updateBackgroundColor() {

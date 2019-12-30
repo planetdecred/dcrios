@@ -1,14 +1,14 @@
 //
-//  ContouredLabel.swift
+//  Label.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2019 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
 import UIKit
 
-class ContouredLabel: UILabel {
+class Label: UILabel {
     @IBInspectable var borderColor: UIColor = UIColor.appColors.decredBlue {
         didSet {
             setupView()
@@ -34,11 +34,13 @@ class ContouredLabel: UILabel {
 
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        setupView()
     }
     
     fileprivate func setupView() {
         layer.borderWidth = borderWidth
         layer.cornerRadius = borderRadius
         layer.borderColor = borderColor.cgColor
+        self.setNeedsDisplay()
     }
 }

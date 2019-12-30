@@ -1,5 +1,5 @@
 //
-//  BackupVerifyTableViewCell.swift
+//  SeedBackupVerifyTableViewCell.swift
 //  Decred Wallet
 //
 // Copyright (c) 2019 The Decred developers
@@ -8,9 +8,9 @@
 
 import UIKit
 
-class BackupVerifyTableViewCell: UITableViewCell {
+class SeedBackupVerifyTableViewCell: UITableViewCell {
     @IBOutlet weak var lbWordTitle: UILabel!
-    @IBOutlet weak var lbWordCountLabel: ContouredLabel!
+    @IBOutlet weak var lbWordCountLabel: Label!
     @IBOutlet weak var btnSeed1: Button!
     @IBOutlet weak var btnSeed2: Button!
     @IBOutlet weak var btnSeed3: Button!

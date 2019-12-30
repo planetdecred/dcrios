@@ -1,5 +1,5 @@
 //
-//  BackupReminderViewController.swift
+//  SeedBackupReminderViewController.swift
 //  Decred Wallet
 //
 // Copyright (c) 2019 The Decred developers
@@ -10,18 +10,17 @@ import UIKit
 import Dcrlibwallet
 import SwiftRichString
 
-class BackupReminderViewController: UIViewController {
-    @IBOutlet var backupNoticeLabels: Array<UILabel>?
+class SeedBackupReminderViewController: UIViewController {
+    @IBOutlet var seedBackupNoticeLabels: Array<UILabel>?
     var checkedCheckBoxesDict: [Int: Bool] = [:]
     @IBOutlet weak var viewSeedBtn: Button!
-    private var savedCheckboxBorderWidth: CGFloat = 2
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addStyleToLabels()
+        styleSeedBackupNoticeLabels()
     }
     
-    private func addStyleToLabels() {
+    private func styleSeedBackupNoticeLabels() {
         let normal = Style {
             $0.font = UIFont(name: "SourceSansPro-Regular", size: 16)
             $0.color = UIColor.appColors.bluishGray
@@ -44,8 +43,8 @@ class BackupReminderViewController: UIViewController {
         
         let myGroup = StyleGroup(base: normal, [ "bold": bold, "orange": orange, "green": green ])
         
-        if let backupNoticeLabels = self.backupNoticeLabels {
-            for label in backupNoticeLabels {
+        if let seedBackupNoticeLabels = self.seedBackupNoticeLabels {
+            for label in seedBackupNoticeLabels {
                 label.attributedText = label.text?.set(style: myGroup)
             }
         }
@@ -55,11 +54,10 @@ class BackupReminderViewController: UIViewController {
         if let checkbox = sender as? Button {
             if let checked = self.checkedCheckBoxesDict[checkbox.tag], checked {
                 checkbox.setImage(nil, for: .normal)
-                checkbox.borderWidth = self.savedCheckboxBorderWidth
+                checkbox.borderWidth = 2
                 self.checkedCheckBoxesDict[checkbox.tag] = false
             } else {
-                checkbox.setImage(UIImage(named: "backup_checkbox_checked"), for: .normal)
-                self.savedCheckboxBorderWidth = checkbox.borderWidth
+                checkbox.setImage(UIImage(named: "seed_backup_checkbox_checked"), for: .normal)
                 checkbox.borderWidth = 0
                 self.checkedCheckBoxesDict[checkbox.tag] = true
             }

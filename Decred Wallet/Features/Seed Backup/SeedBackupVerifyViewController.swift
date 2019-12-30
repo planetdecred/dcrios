@@ -1,5 +1,5 @@
 //
-//  BackupVerifyViewController.swift
+//  SeedBackupVerifyViewController.swift
 //  Decred Wallet
 //
 // Copyright (c) 2019 The Decred developers
@@ -10,12 +10,11 @@ import UIKit
 import Dcrlibwallet
 import JGProgressHUD
 
-class BackupVerifyViewController: UIViewController {
+class SeedBackupVerifyViewController: UIViewController {
     var seedWordsGroupedByThree: [[String]] = []
     var selectedWords: [String] = []
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var btnConfirm: Button!
-    private var banner: Banner?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,7 +74,7 @@ class BackupVerifyViewController: UIViewController {
         if seedIsValid && seed.elementsEqual(savedSeed) {
             Settings.setValue(true, for: Settings.Keys.SeedBackedUp)
             Settings.clearValue(for: Settings.Keys.Seed)
-            self.performSegue(withIdentifier: "toBackupSuccess", sender: nil)
+            self.performSegue(withIdentifier: "toSeedBackupSuccess", sender: nil)
         } else {
             Utils.showBanner(parentVC: self, type:.error, text: NSLocalizedString("failedToVerify", comment: ""))
         }
@@ -88,7 +87,7 @@ class BackupVerifyViewController: UIViewController {
     }
 }
 
-extension BackupVerifyViewController: UITableViewDelegate, UITableViewDataSource {
+extension SeedBackupVerifyViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -98,13 +97,12 @@ extension BackupVerifyViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "tripleSeedCell", for: indexPath) as? BackupVerifyTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "tripleSeedCell", for: indexPath) as? SeedBackupVerifyTableViewCell
         
         let userSelection = self.selectedWords[indexPath.row]
         cell?.setup(num: indexPath.row, seedWords: seedWordsGroupedByThree[indexPath.row], selectedWord: userSelection)
         
         cell?.onPick = {(index, seedWord) in
-            self.banner?.dismiss()
             self.selectedWords[indexPath.row] = seedWord
             
             var allChecked = true;

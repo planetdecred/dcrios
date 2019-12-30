@@ -137,7 +137,7 @@ class OverviewViewController: UIViewController {
         self.seedBackupSectionView.layer.shadowColor = UIColor(displayP3Red: 0.04, green: 0.08, blue: 0.25, alpha: 0.04).cgColor
         self.seedBackupSectionView.layer.shadowOffset = CGSize(width: 8, height: 8)
         self.seedBackupSectionView.layer.shadowOpacity = 0.4
-        self.seedBackupSectionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBackupWallet))) // show wallet backup on tap
+        self.seedBackupSectionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBackupWalletSeed))) // show wallet backup on tap
         
         // Sync status section
         self.onlineStatusIndicator.layer.cornerRadius = 5 // Height/width is 10pts, we use half that (5pts) to make a perfect circle
@@ -388,8 +388,8 @@ class OverviewViewController: UIViewController {
         refreshControl.endRefreshing()
     }
     
-    @objc func handleBackupWallet() {
-        let backupReminderVC = Storyboards.Backup.instantiateViewController(for: BackupReminderViewController.self).wrapInNavigationcontroller()
+    @objc func handleBackupWalletSeed() {
+        let backupReminderVC = Storyboards.SeedBackup.instantiateViewController(for: SeedBackupReminderViewController.self).wrapInNavigationcontroller()
 
         backupReminderVC.modalPresentationStyle = .overFullScreen
         self.present(backupReminderVC, animated: true)
