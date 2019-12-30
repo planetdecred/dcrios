@@ -91,7 +91,7 @@ class RequestPasswordViewController: SecurityRequestBaseViewController, UITextFi
         let confirmPassword = self.confirmPasswordInput?.text ?? ""
         if self.passwordInput.text != "" && confirmPassword != "" {
             if self.passwordInput.text != confirmPassword {
-                self.confirmCountLabel?.textColor = UIColor.appColors.decredOrange
+                self.confirmCountLabel?.textColor = UIColor.appColors.orange
                 self.confirmErrorLabel?.text = LocalizedStrings.passwordsDoNotMatch
                 self.confirmErrorLabel?.isHidden = false
                 self.confirmPasswordInput?.showError()

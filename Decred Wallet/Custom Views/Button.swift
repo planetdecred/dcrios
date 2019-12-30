@@ -16,7 +16,7 @@ class Button: UIButton {
 		let loaderLabel = UILabel()
 		loaderLabel.translatesAutoresizingMaskIntoConstraints = false
 		loaderLabel.font = UIFont(name: "SourceSansPro-Regular", size: 18)
-		loaderLabel.textColor = UIColor.appColors.bluishGray
+		loaderLabel.textColor = UIColor.appColors.lightBluishGray
 		return loaderLabel
 	}()
 	lazy private var loaderIcon: UIImageView = {
@@ -61,7 +61,7 @@ class Button: UIButton {
 		}
 	}
 	
-	@IBInspectable var selectedBorderColor: UIColor = UIColor.appColors.decredBlue {
+	@IBInspectable var selectedBorderColor: UIColor = UIColor.appColors.lightBlue {
 		didSet {
 			setupView()
 		}
@@ -79,13 +79,13 @@ class Button: UIButton {
 		}
 	}
 	
-	@IBInspectable var enabledBackgroundColor: UIColor = UIColor.appColors.decredBlue {
+	@IBInspectable var enabledBackgroundColor: UIColor = UIColor.appColors.lightBlue {
 		didSet {
 			setupView()
 		}
 	}
 
-	@IBInspectable var disabledBackgroundColor : UIColor = UIColor.appColors.lighterGray {
+	@IBInspectable var disabledBackgroundColor : UIColor = UIColor.appColors.darkGray {
 		didSet {
 			setupView()
 		}

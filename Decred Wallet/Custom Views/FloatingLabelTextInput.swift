@@ -12,7 +12,7 @@ import UIKit
 class FloatingLabelTextInput: UITextField {
     let borderLayer = CALayer()
     let borderWidth: CGFloat = 2
-    var activeBorderColor: UIColor = UIColor.appColors.decredBlue
+    var activeBorderColor: UIColor = UIColor.appColors.lightBlue
     let inactiveBorderColor: UIColor = UIColor.appColors.lightGray
     
     let cornerRadius: CGFloat = 4
@@ -21,8 +21,8 @@ class FloatingLabelTextInput: UITextField {
     
     var floatingPlaceholderLabel = PaddedLabel()
     var placeholderLabelTopConstraint: NSLayoutConstraint?
-    let placeholderColorNormal: UIColor = UIColor.appColors.bluishGray
-    var placeholderColorActive: UIColor = UIColor.appColors.decredBlue
+    let placeholderColorNormal: UIColor = UIColor.appColors.lightBluishGray
+    var placeholderColorActive: UIColor = UIColor.appColors.lightBlue
     
     lazy var pwdVisibilityToggleBtn: UIButton = {
         return UIButton(type: .custom)
@@ -120,14 +120,14 @@ class FloatingLabelTextInput: UITextField {
     }
     
     func showError() {
-        self.activeBorderColor = UIColor.appColors.decredOrange
-        self.placeholderColorActive = UIColor.appColors.decredOrange
+        self.activeBorderColor = UIColor.appColors.orange
+        self.placeholderColorActive = UIColor.appColors.orange
         self.setBorderAndFloatingLabelColor()
     }
     
     func hideError() {
-        self.activeBorderColor = UIColor.appColors.decredBlue
-        self.placeholderColorActive = UIColor.appColors.decredBlue
+        self.activeBorderColor = UIColor.appColors.lightBlue
+        self.placeholderColorActive = UIColor.appColors.lightBlue
         self.setBorderAndFloatingLabelColor()
     }
     

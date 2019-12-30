@@ -74,12 +74,12 @@ class SecurityViewController: SecurityBaseViewController {
         tabController?.selectedIndex = 0
 
         // add border below password tab and remove border below PIN tab
-        btnPassword.addBorder(atPosition: .bottom, color: UIColor.appColors.darkerGray, thickness: 2)
+        btnPassword.addBorder(atPosition: .bottom, color: UIColor.appColors.lightBlue, thickness: 2)
         btnPin.removeBorders(atPositions: .bottom)
         
         // set active and inactive text colors
-        btnPassword.setTitleColor(UIColor.appColors.darkerGray, for: .normal)
-        btnPin.setTitleColor(UIColor.appColors.darkerGray, for: .normal)
+        btnPassword.setTitleColor(UIColor.appColors.lightBlue, for: .normal)
+        btnPin.setTitleColor(UIColor.appColors.bluishGray, for: .normal)
         
         self.securityPromptLabel.text = String(format: LocalizedStrings.createPassword, self.securityFor.lowercased())
     }
@@ -88,12 +88,12 @@ class SecurityViewController: SecurityBaseViewController {
         tabController?.selectedIndex = 1
         
         // add border below PIN tab and remove border below PIN tab
-        btnPin.addBorder(atPosition: .bottom, color: UIColor.appColors.darkerGray, thickness: 2)
+        btnPin.addBorder(atPosition: .bottom, color: UIColor.appColors.lightBlue, thickness: 2)
         btnPassword.removeBorders(atPositions: .bottom)
         
         // set active and inactive text colors
-        btnPin.setTitleColor(UIColor.appColors.darkerGray, for: .normal)
-        btnPassword.setTitleColor(UIColor.appColors.thinGray, for: .normal)
+        btnPin.setTitleColor(UIColor.appColors.lightBlue, for: .normal)
+        btnPassword.setTitleColor(UIColor.appColors.bluishGray, for: .normal)
         
         self.securityPromptLabel.text = String(format: LocalizedStrings.createPIN, self.securityFor.lowercased())
     }
