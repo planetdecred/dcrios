@@ -131,9 +131,9 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
         }
         
         if self.validateSeed().valid {
-            self.btnConfirm.backgroundColor = UIColor.appColors.decredGreen
+            self.btnConfirm.backgroundColor = UIColor.appColors.green
         } else {
-            self.btnConfirm.backgroundColor = UIColor.appColors.lighterGray
+            self.btnConfirm.backgroundColor = UIColor.appColors.darkGray
         }
     }
     

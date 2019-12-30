@@ -56,7 +56,7 @@ class TabMenuItemView: UIView {
         itemTitleLabel.text = menuItemTitle
         itemTitleLabel.numberOfLines = 0
         itemTitleLabel.adjustsFontSizeToFitWidth = true
-        itemTitleLabel.textColor = UIColor.appColors.darkGray
+        itemTitleLabel.textColor = UIColor.appColors.darkerGray
         itemTitleLabel.textAlignment = .center
         itemTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         itemTitleLabel.clipsToBounds = true
@@ -75,7 +75,7 @@ class TabMenuItemView: UIView {
         self.iconView.alpha = 1.0
         
         let borderLayer = CALayer()
-        borderLayer.backgroundColor = UIColor.appColors.decredGreen.cgColor
+        borderLayer.backgroundColor = UIColor.appColors.green.cgColor
         borderLayer.name = "active border"
         borderLayer.frame = CGRect(x: 10, y: 0, width: topBorderWidth, height: 2)
         

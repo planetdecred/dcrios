@@ -54,10 +54,10 @@ class PasswordSetupViewController: SecurityBaseViewController, UITextFieldDelega
         if self.tfConfirmPassword.text == "" {
             self.lbMatchIndicator.text = " " // use empty space so label height isn't reduced
         } else if self.tfPassword.text == self.tfConfirmPassword.text {
-            self.lbMatchIndicator.textColor = UIColor.appColors.green
+            self.lbMatchIndicator.textColor = UIColor.appColors.turquoise
             self.lbMatchIndicator.text = LocalizedStrings.passwordMatch
         } else {
-            self.lbMatchIndicator.textColor = UIColor.appColors.yellowWarning
+            self.lbMatchIndicator.textColor = UIColor.appColors.yellow
             self.lbMatchIndicator.text = LocalizedStrings.passwordsDoNotMatch
         }
     }
