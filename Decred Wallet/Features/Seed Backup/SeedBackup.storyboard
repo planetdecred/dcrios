@@ -44,15 +44,15 @@
                                 <rect key="frame" x="0.0" y="66.5" width="375" height="510.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="y0o-5j-mVt">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="496.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="508.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nWu-DL-2Tv">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="99"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The &lt;bold&gt;33-word seed phrase&lt;/bold&gt; is EXTREMELY IMPORTANT." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A2X-9z-04I">
                                                         <rect key="frame" x="80" y="12" width="245" height="75"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                        <nil key="textColor"/>
+                                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                                        <color key="textColor" red="0.23921568630000001" green="0.34509803919999998" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="reminderLabel1"/>
@@ -100,8 +100,8 @@
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Seed phrase is &lt;bold&gt;the only way&lt;/bold&gt; to restore your wallet." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YOb-XB-LXG">
                                                         <rect key="frame" x="80" y="12" width="271" height="75"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                        <nil key="textColor"/>
+                                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                                        <color key="textColor" red="0.23921568630000001" green="0.34509803919999998" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="reminderLabel2"/>
@@ -143,19 +143,19 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N00-CI-ewZ">
-                                                <rect key="frame" x="0.0" y="198" width="375" height="100.5"/>
+                                                <rect key="frame" x="0.0" y="198" width="375" height="103.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="It is recommended to store your seed phrase in a &lt;green&gt;physical format&lt;/green&gt; (e.g. write down on a paper)." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eUc-42-42V">
-                                                        <rect key="frame" x="80" y="12" width="271" height="76.5"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                        <nil key="textColor"/>
+                                                        <rect key="frame" x="80" y="12" width="271" height="79.5"/>
+                                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                                        <color key="textColor" red="0.23921568630000001" green="0.34509803919999998" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="reminderLabel3"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tpO-hh-rBk" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
-                                                        <rect key="frame" x="24" y="34.5" width="32" height="32"/>
+                                                        <rect key="frame" x="24" y="36" width="32" height="32"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="32" id="kuU-4L-5jh"/>
                                                             <constraint firstAttribute="height" constant="32" id="w9J-8S-6mz"/>
@@ -190,19 +190,19 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dmY-pB-8pZ">
-                                                <rect key="frame" x="0.0" y="298.5" width="375" height="99"/>
+                                                <rect key="frame" x="0.0" y="301.5" width="375" height="103.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="It is highly discouraged to store your seed phrase in any &lt;orange&gt;digital format&lt;/orange&gt; (e.g. screenshot)." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bxK-A6-4vU">
-                                                        <rect key="frame" x="80" y="12" width="271" height="75"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                        <nil key="textColor"/>
+                                                        <rect key="frame" x="80" y="12" width="271" height="79.5"/>
+                                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                                        <color key="textColor" red="0.23921568630000001" green="0.34509803919999998" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="reminderLabel4"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I2B-dn-0eB" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
-                                                        <rect key="frame" x="24" y="33.5" width="32" height="32"/>
+                                                        <rect key="frame" x="24" y="36" width="32" height="32"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="32" id="A9z-eY-bFT"/>
                                                             <constraint firstAttribute="height" constant="32" id="M2G-KD-89d"/>
@@ -237,19 +237,19 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="heZ-jl-maJ">
-                                                <rect key="frame" x="0.0" y="397.5" width="375" height="99"/>
+                                                <rect key="frame" x="0.0" y="405" width="375" height="103.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Anyone with your seed phrase &lt;orange&gt;can steal your funds&lt;/orange&gt;. DO NOT show it to anyone." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fz8-2B-J8P">
-                                                        <rect key="frame" x="80" y="12" width="271" height="75"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                        <nil key="textColor"/>
+                                                        <rect key="frame" x="80" y="12" width="271" height="79.5"/>
+                                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                                        <color key="textColor" red="0.23921568630000001" green="0.34509803919999998" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="reminderLabel5"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VxP-Vs-q50" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
-                                                        <rect key="frame" x="24" y="33.5" width="32" height="32"/>
+                                                        <rect key="frame" x="24" y="36" width="32" height="32"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="32" id="QYt-2r-oLY"/>
                                                             <constraint firstAttribute="height" constant="32" id="gct-kV-54I"/>

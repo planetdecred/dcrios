@@ -15,6 +15,12 @@ enum BannerType: String {
     case error
 }
 
+struct AttributedStringStyle {
+    var tag: String
+    var font: UIFont?
+    var color: UIColor?
+}
+
 struct Utils {
     struct TimeInSeconds {
         static let Minute: Int64 = 60
@@ -145,5 +151,27 @@ struct Utils {
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) { [weak banner] in
             banner?.removeFromSuperview()
         }
+    }
+    
+    static func styleAttributedString(_ inString: String, styles: [AttributedStringStyle]) -> NSMutableAttributedString {
+        let attrString = NSMutableAttributedString(string: inString, attributes:nil)
+        for style in styles {
+            let pattern = "<\\s*\(style.tag)[^>]*>(.*?)<\\s*\\/\\s*\(style.tag)>"
+            let regex = try? NSRegularExpression(pattern: pattern, options: [])
+            if let matches = regex?.matches(in: inString, options: [], range: NSMakeRange(0, inString.count)) {
+                for match in matches {
+                    if let color = style.color {
+                        attrString.addAttribute(NSAttributedString.Key.foregroundColor, value: color, range: match.range(at: 1))
+                    }
+                    if let font = style.font {
+                        attrString.addAttribute(NSAttributedString.Key.font, value: font, range: match.range(at: 1))
+                    }
+                }
+                for tagPattern in ["<\(style.tag)>" , "</\(style.tag)>"] {
+                    attrString.mutableString.replaceOccurrences(of: tagPattern, with: "", options: NSString.CompareOptions.caseInsensitive, range: NSRange(location: 0, length: attrString.length))
+                }
+            }
+        }
+        return attrString
     }
 }

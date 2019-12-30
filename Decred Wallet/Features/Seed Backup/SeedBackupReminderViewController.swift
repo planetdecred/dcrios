@@ -8,7 +8,6 @@
 
 import UIKit
 import Dcrlibwallet
-import SwiftRichString
 
 class SeedBackupReminderViewController: UIViewController {
     @IBOutlet var seedBackupNoticeLabels: Array<UILabel>?
@@ -21,31 +20,19 @@ class SeedBackupReminderViewController: UIViewController {
     }
     
     private func styleSeedBackupNoticeLabels() {
-        let normal = Style {
-            $0.font = UIFont(name: "SourceSansPro-Regular", size: 16)
-            $0.color = UIColor.appColors.darkBluishGray
-        }
-
-        let bold = Style {
-            $0.font = UIFont(name: "SourceSansPro-bold", size: 16)
-            $0.color = normal.color
-        }
-        
-        let orange = Style {
-            $0.font = bold.font
-            $0.color = UIColor.appColors.orange
-        }
-
-        let green = Style {
-            $0.font = bold.font
-            $0.color = UIColor.appColors.green
-        }
-        
-        let myGroup = StyleGroup(base: normal, [ "bold": bold, "orange": orange, "green": green ])
+        let attributedStringStyles = [ AttributedStringStyle(tag: "bold",
+                                                             font: UIFont(name: "SourceSansPro-bold", size: 16),
+                                                             color: UIColor.appColors.darkBluishGray),
+                                      AttributedStringStyle(tag: "orange",
+                                                            font: UIFont(name: "SourceSansPro-bold", size: 16),
+                                                            color: UIColor.appColors.orange),
+                                      AttributedStringStyle(tag: "green",
+                                                            font: UIFont(name: "SourceSansPro-bold", size: 16),
+                                                            color: UIColor.appColors.green) ]
         
         if let seedBackupNoticeLabels = self.seedBackupNoticeLabels {
             for label in seedBackupNoticeLabels {
-                label.attributedText = label.text?.set(style: myGroup)
+                label.attributedText = Utils.styleAttributedString(label.text!, styles: attributedStringStyles)
             }
         }
     }
