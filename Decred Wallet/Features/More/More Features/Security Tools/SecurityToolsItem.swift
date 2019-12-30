@@ -23,8 +23,8 @@ enum SecurityToolsItem: String, CaseIterable {
         case .signMessage: break
             //return Storyboards.SignMessage.instantiateViewController(for: SignMessageViewController.self)
             
-        case .verifyMessage: break
-           // return Storyboards.VerifyMessage.instantiateViewController(for: VerifyMessageViewController.self)
+        case .verifyMessage:
+            return Storyboards.VerifyMessage.instantiateViewController(for: VerifyMessageViewController.self)
         }
         return UIViewController()
     }

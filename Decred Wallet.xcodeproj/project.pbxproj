@@ -181,6 +181,8 @@
 		DDCF25A122B8A3D4005FCBB9 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDCF25A022B8A3D4005FCBB9 /* Settings.storyboard */; };
 		DDCF25A922B8A488005FCBB9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDCF25A822B8A487005FCBB9 /* Main.storyboard */; };
 		DDD65AD722A935460027CDA8 /* LicenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD65AD622A935460027CDA8 /* LicenseViewController.swift */; };
+		DDDF95CC23C11F760057AA7F /* VerifyMessage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDDF95CB23C11F760057AA7F /* VerifyMessage.storyboard */; };
+		DDDF95CE23C11F760057AA7F /* VerifyMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDF95CD23C11F760057AA7F /* VerifyMessageViewController.swift */; };
 		DDE2374623BA386C00C2A94F /* MoreMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE2374523BA386C00C2A94F /* MoreMenuViewController.swift */; };
 		DDE2374823BA386C00C2A94F /* MoreMenuItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE2374723BA386C00C2A94F /* MoreMenuItemCell.swift */; };
 /* End PBXBuildFile section */
@@ -371,6 +373,8 @@
 		DDCF25A022B8A3D4005FCBB9 /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		DDCF25A822B8A487005FCBB9 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		DDD65AD622A935460027CDA8 /* LicenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseViewController.swift; sourceTree = "<group>"; };
+		DDDF95CB23C11F760057AA7F /* VerifyMessage.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = VerifyMessage.storyboard; sourceTree = "<group>"; };
+		DDDF95CD23C11F760057AA7F /* VerifyMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyMessageViewController.swift; sourceTree = "<group>"; };
 		DDE2374523BA386C00C2A94F /* MoreMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreMenuViewController.swift; sourceTree = "<group>"; };
 		DDE2374723BA386C00C2A94F /* MoreMenuItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreMenuItemCell.swift; sourceTree = "<group>"; };
 		DDFB922722C8FF2D00F46FBE /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -468,6 +472,7 @@
 		B36255B322A11A9500C62946 /* Security Tools */ = {
 			isa = PBXGroup;
 			children = (
+				DDDF95C823C11F300057AA7F /* Verify Message */,
 				DD81CBC623B3A187009D3833 /* Validate Addresses */,
 				DDCF259D22B8A382005FCBB9 /* SecurityMenu.storyboard */,
 				B36255B422A11A9500C62946 /* SecurityMenuViewController.swift */,
@@ -936,6 +941,15 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		DDDF95C823C11F300057AA7F /* Verify Message */ = {
+			isa = PBXGroup;
+			children = (
+				DDDF95CB23C11F760057AA7F /* VerifyMessage.storyboard */,
+				DDDF95CD23C11F760057AA7F /* VerifyMessageViewController.swift */,
+			);
+			path = "Verify Message";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1020,6 +1034,7 @@
 				B3B46A13228F0F2700A68EDD /* AccountsHeaderView.xib in Resources */,
 				DD81CBC823B3A219009D3833 /* ValidateAddresses.storyboard in Resources */,
 				B3B4699D228F0C2E00A68EDD /* LaunchScreen.storyboard in Resources */,
+				DDDF95CC23C11F760057AA7F /* VerifyMessage.storyboard in Resources */,
 				B3B46A8B228F0F7D00A68EDD /* splashLogo.gif in Resources */,
 				DDCF25A922B8A488005FCBB9 /* Main.storyboard in Resources */,
 				DDCF259C22B8A362005FCBB9 /* Send.storyboard in Resources */,
@@ -1186,6 +1201,7 @@
 				B3456D2523D91CF600B04860 /* RoundedView.swift in Sources */,
 				B3B469FC228F0F2700A68EDD /* String.swift in Sources */,
 				DD89A04323B08CF800C1ECE9 /* SecurityToolsViewController.swift in Sources */,
+				DDDF95CE23C11F760057AA7F /* VerifyMessageViewController.swift in Sources */,
 				B3B46A9D228F0F7D00A68EDD /* HelpViewController.swift in Sources */,
 				10B7818223F066DA00AD2709 /* TransactionInputDetailCell.swift in Sources */,
 				B3B46A9A228F0F7D00A68EDD /* SettingsController.swift in Sources */,

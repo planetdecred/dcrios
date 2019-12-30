@@ -29,6 +29,7 @@ enum Storyboard: String {
     case Help = "Help"
     case SecurityTools = "SecurityTools"
     case ValidateAddresses = "ValidateAddresses"
+    case VerifyMessage = "VerifyMessage"
     
     case CustomDialogs = "CustomDialogs"
     

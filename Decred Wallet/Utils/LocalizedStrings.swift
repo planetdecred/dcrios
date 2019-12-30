@@ -357,18 +357,21 @@ struct LocalizedStrings {
     static let validateAddresses = NSLocalizedString("validateAddresses", comment: "")
     static let validAddress = NSLocalizedString("validAddress", comment: "")
     static let validate = NSLocalizedString("validate", comment: "")
-    // To be refactored
-    static let signMessage = NSLocalizedString("signMessage", comment: "")
+     static let invalidSignature = NSLocalizedString("invalidSignature", comment: "")
+    static let verifiedSignature = NSLocalizedString("verifiedSignature", comment: "")
+    static let verifyMsgHeaderInfo = NSLocalizedString("verifyMsgHeaderInfo", comment: "")
+    static let address = NSLocalizedString("address", comment: "")
+    static let message = NSLocalizedString("message", comment: "")
+    static let signature = NSLocalizedString("signature", comment: "")
     static let verifyMessage = NSLocalizedString("verifyMessage", comment: "")
     static let validOwnAddr = NSLocalizedString("validOwnAddr", comment: "")
     static let validNotOwnAddr = NSLocalizedString("validNotOwnAddr", comment: "")
     static let invalidAddr = NSLocalizedString("invalidAddr", comment: "")
-    static let verifiedSignature = NSLocalizedString("verifiedSignature", comment: "")
-    static let invalidSignature = NSLocalizedString("invalidSignature", comment: "")
+    static let verifyMessagepageInfo = NSLocalizedString("verifyMessagepageInfo", comment: "")
+
+    // To be refactored
+    static let signMessage = NSLocalizedString("signMessage", comment: "")
     static let signingMessage = NSLocalizedString("signingMessage", comment: "")
-    static let address = NSLocalizedString("address", comment: "")
-    static let message = NSLocalizedString("message", comment: "")
-    static let signature = NSLocalizedString("signature", comment: "")
     static let secureMenuSyncInfo = NSLocalizedString("secureMenuSyncInfo", comment: "")
     static let secureMenuHeaderInfo = NSLocalizedString("secureMenuHeaderInfo", comment: "")
     
