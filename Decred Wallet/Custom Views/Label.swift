@@ -9,7 +9,7 @@
 import UIKit
 
 class Label: UILabel {
-    @IBInspectable var borderColor: UIColor = UIColor.appColors.decredBlue {
+    @IBInspectable var borderColor: UIColor = UIColor.appColors.lightBlue {
         didSet {
             setupView()
         }

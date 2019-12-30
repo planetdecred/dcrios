@@ -23,7 +23,7 @@ class SeedBackupReminderViewController: UIViewController {
     private func styleSeedBackupNoticeLabels() {
         let normal = Style {
             $0.font = UIFont(name: "SourceSansPro-Regular", size: 16)
-            $0.color = UIColor.appColors.bluishGray
+            $0.color = UIColor.appColors.darkBluishGray
         }
 
         let bold = Style {
@@ -33,12 +33,12 @@ class SeedBackupReminderViewController: UIViewController {
         
         let orange = Style {
             $0.font = bold.font
-            $0.color = UIColor.appColors.decredOrange
+            $0.color = UIColor.appColors.orange
         }
 
         let green = Style {
             $0.font = bold.font
-            $0.color = UIColor.appColors.decredGreen
+            $0.color = UIColor.appColors.green
         }
         
         let myGroup = StyleGroup(base: normal, [ "bold": bold, "orange": orange, "green": green ])

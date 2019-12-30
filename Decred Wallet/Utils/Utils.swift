@@ -121,7 +121,7 @@ struct Utils {
         banner.topAnchor.constraint(equalTo: parentVC.view.safeAreaLayoutGuide.topAnchor, constant: 84).isActive = true
         banner.centerXAnchor.constraint(equalTo: parentVC.view.centerXAnchor).isActive = true
 
-        banner.backgroundColor = (type == .error) ? UIColor.appColors.decredOrange : UIColor.appColors.decredGreen
+        banner.backgroundColor = (type == .error) ? UIColor.appColors.orange : UIColor.appColors.green
         banner.layer.cornerRadius = 7;
         banner.layer.shadowColor = UIColor.appColors.darkBlue.cgColor
         banner.layer.shadowRadius = 4

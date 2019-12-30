@@ -39,7 +39,7 @@ class SeedBackupVerifyTableViewCell: UITableViewCell {
     
     private func setWordTitle(selectedWord: String) {
         self.lbWordTitle?.text = selectedWord.isEmpty ? "—" : selectedWord
-        self.lbWordTitle?.textColor = selectedWord.isEmpty ? UIColor.appColors.mediumGray : UIColor.appColors.bluishGray
+        self.lbWordTitle?.textColor = selectedWord.isEmpty ? UIColor.appColors.lightBluishGray : UIColor.appColors.darkBluishGray
     }
     
     private func disableAllButtons() {
