@@ -14,14 +14,14 @@ class SeedBackupVerifyTableViewCell: UITableViewCell {
     @IBOutlet weak var btnSeed1: Button!
     @IBOutlet weak var btnSeed2: Button!
     @IBOutlet weak var btnSeed3: Button!
-    
-    var seedWordNumber:Int = 0
-    var onPick:((Int, String)->Void)?
-    
+
+    var seedWordNumber: Int = 0
+    var onPick: ((Int, String) -> Void)?
+
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-    
+
     func setup(num: Int, seedWords: [String], selectedWord: String) {
         btnSeed1.setTitle(seedWords[0], for: .normal)
         btnSeed2.setTitle(seedWords[1], for: .normal)
@@ -36,23 +36,23 @@ class SeedBackupVerifyTableViewCell: UITableViewCell {
         lbWordCountLabel.text = String(num + 1)
         self.setWordTitle(selectedWord: selectedWord)
     }
-    
+
     private func setWordTitle(selectedWord: String) {
         self.lbWordTitle?.text = selectedWord.isEmpty ? "—" : selectedWord
         self.lbWordTitle?.textColor = selectedWord.isEmpty ? UIColor.appColors.lightBluishGray : UIColor.appColors.darkBluishGray
     }
-    
+
     private func disableAllButtons() {
         btnSeed1.isSelected = false
         btnSeed2.isSelected = false
         btnSeed3.isSelected = false
     }
-    
+
     @IBAction func onSelectSeedWord(_ sender: Button) {
         self.disableAllButtons()
         sender.isSelected = true
         if let selectedWord = sender.title(for: .normal) {
-            self.setWordTitle(selectedWord:selectedWord)
+            self.setWordTitle(selectedWord: selectedWord)
             onPick?(sender.tag - 1, selectedWord)
         }
     }

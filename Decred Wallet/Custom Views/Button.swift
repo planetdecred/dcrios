@@ -29,7 +29,7 @@ class Button: UIButton {
 		let loaderView = UIView()
 		loaderView.isHidden = true
 		self.addSubview(loaderView)
-		
+
 		loaderView.translatesAutoresizingMaskIntoConstraints = false
 		loaderView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
 		loaderView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
@@ -45,7 +45,7 @@ class Button: UIButton {
 		loaderLabel.leadingAnchor.constraint(equalTo: loaderIcon.trailingAnchor, constant: 10).isActive = true
 		loaderLabel.trailingAnchor.constraint(equalTo: loaderView.trailingAnchor).isActive = true
 		loaderLabel.centerYAnchor.constraint(equalTo: loaderIcon.centerYAnchor).isActive = true
-		
+
 		return loaderView
 	}()
 
@@ -109,7 +109,7 @@ class Button: UIButton {
 		self.layer.cornerRadius = self.cornerRadius
 
 		self.updateBackgroundColor()
-        self.setNeedsDisplay()
+		self.setNeedsDisplay()
 	}
 
 	private func updateBackgroundColor() {
@@ -125,7 +125,7 @@ class Button: UIButton {
 	public func startLoading() {
 		if self.isLoading { return }
 		self.isLoading = true
-		
+
 		DispatchQueue.main.async {
 			self.updateBackgroundColor()
 			self.originalButtonText = self.title(for: .normal)

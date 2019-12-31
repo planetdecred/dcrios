@@ -117,7 +117,7 @@ struct Utils {
         let date = Date(timeIntervalSince1970: Double(timestamp))
         return formatter.string(from: date)
     }
-    
+
     static func showBanner(parentVC: UIViewController, type: BannerType, text: String) {
         let banner = UIView()
         parentVC.view.addSubview(banner)
@@ -128,7 +128,7 @@ struct Utils {
         banner.centerXAnchor.constraint(equalTo: parentVC.view.centerXAnchor).isActive = true
 
         banner.backgroundColor = (type == .error) ? UIColor.appColors.orange : UIColor.appColors.green
-        banner.layer.cornerRadius = 7;
+        banner.layer.cornerRadius = 7
         banner.layer.shadowColor = UIColor.appColors.darkBlue.cgColor
         banner.layer.shadowRadius = 4
         banner.layer.shadowOpacity = 0.24
@@ -152,9 +152,9 @@ struct Utils {
             banner?.removeFromSuperview()
         }
     }
-    
+
     static func styleAttributedString(_ inString: String, styles: [AttributedStringStyle]) -> NSMutableAttributedString {
-        let attrString = NSMutableAttributedString(string: inString, attributes:nil)
+        let attrString = NSMutableAttributedString(string: inString, attributes: nil)
         for style in styles {
             let pattern = "<\\s*\(style.tag)[^>]*>(.*?)<\\s*\\/\\s*\(style.tag)>"
             let regex = try? NSRegularExpression(pattern: pattern, options: [])
@@ -167,7 +167,7 @@ struct Utils {
                         attrString.addAttribute(NSAttributedString.Key.font, value: font, range: match.range(at: 1))
                     }
                 }
-                for tagPattern in ["<\(style.tag)>" , "</\(style.tag)>"] {
+                for tagPattern in ["<\(style.tag)>", "</\(style.tag)>"] {
                     attrString.mutableString.replaceOccurrences(of: tagPattern, with: "", options: NSString.CompareOptions.caseInsensitive, range: NSRange(location: 0, length: attrString.length))
                 }
             }

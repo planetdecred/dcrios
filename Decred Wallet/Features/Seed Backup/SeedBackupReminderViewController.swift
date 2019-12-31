@@ -10,15 +10,15 @@ import UIKit
 import Dcrlibwallet
 
 class SeedBackupReminderViewController: UIViewController {
-    @IBOutlet var seedBackupNoticeLabels: Array<UILabel>?
+    @IBOutlet var seedBackupNoticeLabels: [UILabel]?
     var checkedCheckBoxesDict: [Int: Bool] = [:]
     @IBOutlet weak var viewSeedBtn: Button!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         styleSeedBackupNoticeLabels()
     }
-    
+
     private func styleSeedBackupNoticeLabels() {
         let attributedStringStyles = [ AttributedStringStyle(tag: "bold",
                                                              font: UIFont(name: "SourceSansPro-bold", size: 16),
@@ -29,14 +29,14 @@ class SeedBackupReminderViewController: UIViewController {
                                       AttributedStringStyle(tag: "green",
                                                             font: UIFont(name: "SourceSansPro-bold", size: 16),
                                                             color: UIColor.appColors.green) ]
-        
+
         if let seedBackupNoticeLabels = self.seedBackupNoticeLabels {
             for label in seedBackupNoticeLabels {
                 label.attributedText = Utils.styleAttributedString(label.text!, styles: attributedStringStyles)
             }
         }
     }
-    
+
     @IBAction func onCheck(_ sender: Any) {
         if let checkbox = sender as? Button {
             if let checked = self.checkedCheckBoxesDict[checkbox.tag], checked {
@@ -48,20 +48,20 @@ class SeedBackupReminderViewController: UIViewController {
                 checkbox.borderWidth = 0
                 self.checkedCheckBoxesDict[checkbox.tag] = true
             }
-            
+
             var allChecked = true
-            for i in 1...5 {
-                allChecked = allChecked && self.checkedCheckBoxesDict[i] == true
-            }            
+            for index in 1...5 {
+                allChecked = allChecked && self.checkedCheckBoxesDict[index] == true
+            }
             self.viewSeedBtn?.isEnabled = allChecked
         }
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
     }
-    
+
     @IBAction func backAction(_ sender: UIButton) {
         navigateToBackScreen()
     }

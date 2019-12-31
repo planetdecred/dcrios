@@ -9,18 +9,18 @@
 import UIKit
 import Dcrlibwallet
 
-class SeedBackupWriteDownViewController: UIViewController,UITableViewDataSource {
+class SeedBackupWriteDownViewController: UIViewController, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var topCorneredView: UIView!
     @IBOutlet weak var bottomCorneredView: UIView!
     var seed: String! = ""
-    var arrWords = Array<String>()
+    var arrWords = [String]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.seed = Settings.readValue(for: Settings.Keys.Seed)
         arrWords = (self.seed.components(separatedBy: " "))
-        
+
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) { [weak self] in
             self?.tableView?.reloadData()
         }
@@ -32,22 +32,22 @@ class SeedBackupWriteDownViewController: UIViewController,UITableViewDataSource 
     private func setCorneredViews() {
         topCorneredView.clipsToBounds = true
         topCorneredView.layer.cornerRadius = 14
-        topCorneredView.layer.maskedCorners = [.layerMinXMinYCorner,.layerMaxXMinYCorner]
-        
+        topCorneredView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+
         bottomCorneredView.clipsToBounds = true
         bottomCorneredView.layer.cornerRadius = 14
-        bottomCorneredView.layer.maskedCorners = [.layerMinXMaxYCorner,.layerMaxXMaxYCorner]
+        bottomCorneredView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return Int(ceil(Double(arrWords.count) / 2))
     }
-     
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "seedBackupWriteDownTableViewCell") as! SeedBackupWriteDownTableViewCell
 
@@ -63,7 +63,7 @@ class SeedBackupWriteDownViewController: UIViewController,UITableViewDataSource 
             cell.phaseLabel2?.text = self.arrWords[secoundColumnIndex]
             cell.countLabel2?.isHidden = false
             cell.phaseLabel2?.isHidden = false
-        }else {
+        } else {
             cell.countLabel2?.isHidden = true
             cell.phaseLabel2?.isHidden = true
         }

@@ -14,19 +14,19 @@ class Label: UILabel {
             setupView()
         }
     }
-    
+
     @IBInspectable var borderRadius: CGFloat = 30 {
         didSet {
             setupView()
         }
     }
-    
+
     @IBInspectable var borderWidth: CGFloat = 1 {
         didSet {
             setupView()
         }
     }
-    
+
     public override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
@@ -36,7 +36,7 @@ class Label: UILabel {
         super.init(coder: aDecoder)
         setupView()
     }
-    
+
     fileprivate func setupView() {
         layer.borderWidth = borderWidth
         layer.cornerRadius = borderRadius
