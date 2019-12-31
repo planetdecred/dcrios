@@ -20,15 +20,15 @@ class SecurityRequestBaseViewController: SecurityBaseViewController, SecurityReq
     var submitBtnText: String?
     var securityFor: String = "" // expects "Spending", "Startup" or other security section
     var onUserEnteredSecurityCode: ((_ code: String, _ completionDelegate: SecurityRequestCompletionDelegate?) -> Void)?
-    
+
     func showError(text: String) {
         self.isInErrorState = true
     }
-    
+
     func hideError() {
         self.isInErrorState = false
     }
-    
+
     func securityCodeProcessed(_ success: Bool, _ errorMessage: String?) {
         if success {
             self.dismissView()

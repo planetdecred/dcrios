@@ -11,39 +11,39 @@ import UIKit
 
 struct StartupPinOrPassword {
     static let defaultPublicPassphrase = "public"
-    
+
     static func clear(sender vc: UIViewController, completion: (() -> Void)? = nil) {
         if !self.pinOrPasswordIsSet() {
             // nothing to clear
             completion?()
             return
         }
-        
+
         // pin/password was previously set, get the current pin/password before clearing
         self.promptForCurrentPinOrPassword(vc, afterUserEntersPinOrPassword: { (currentPinOrPassword: String, completionDelegate: SecurityRequestCompletionDelegate?) in
             self.changeWalletPublicPassphrase(vc, current: currentPinOrPassword, new: nil, completionDelegate: completionDelegate, completion: completion)
         })
     }
-    
+
     // alias for set function
     static func change(sender vc: UIViewController, completion: (() -> Void)? = nil) {
         self.set(sender: vc, completion: completion)
     }
-    
+
     static func set(sender vc: UIViewController, completion: (() -> Void)? = nil) {
         if !self.pinOrPasswordIsSet() {
             // pin/password was not previously set
             self.setNewPinOrPassword(vc, currentPinOrPassword: nil, completion: completion)
             return
         }
-        
+
         // pin/password was previously set, get the current pin/password before proceeding
         self.promptForCurrentPinOrPassword(vc, afterUserEntersPinOrPassword: { (currentPinOrPassword: String, completionDelegate: SecurityRequestCompletionDelegate?) in
             completionDelegate?.securityCodeProcessed(true, nil)
             self.setNewPinOrPassword(vc, currentPinOrPassword: currentPinOrPassword, completion: completion)
         })
     }
-    
+
     static func promptForCurrentPinOrPassword(_ vc: UIViewController, afterUserEntersPinOrPassword: @escaping (String, SecurityRequestCompletionDelegate?) -> Void) {
         // show the appropriate vc to read current pin or password
         if self.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
@@ -63,7 +63,7 @@ struct StartupPinOrPassword {
             vc.present(requestPinVC, animated: true, completion: nil)
         }
     }
-    
+
     private static func setNewPinOrPassword(_ vc: UIViewController, currentPinOrPassword: String?, completion: (() -> Void)? = nil) {
         // init secutity vc to use in getting new password or pin from user
         let securityVC = SecurityViewController.instantiate()
@@ -74,23 +74,23 @@ struct StartupPinOrPassword {
         }
         vc.present(securityVC, animated: true, completion: nil)
     }
-    
+
     static func changeWalletPublicPassphrase(_ vc: UIViewController, current currentPassword: String?, new newPinOrPassword: String?, type securityType: String? = nil, completionDelegate: SecurityRequestCompletionDelegate?, completion: (() -> Void)? = nil) {
         // cannot set new pin/password without a type specified
         if securityType == nil && newPinOrPassword != nil {
             vc.showOkAlert(message: LocalizedStrings.securityTypeNotSpecified, title: LocalizedStrings.invalidRequest)
             return
         }
-        
+
         let currentPublicPassphrase = currentPassword ?? self.defaultPublicPassphrase
         let newPublicPassphrase = newPinOrPassword ?? self.defaultPublicPassphrase
-        
+
         DispatchQueue.global(qos: .userInitiated).async {
             do {
                 let oldPublicPass = (currentPublicPassphrase as NSString).data(using: String.Encoding.utf8.rawValue)!
                 let newPublicPass = (newPublicPassphrase as NSString).data(using: String.Encoding.utf8.rawValue)!
                 try AppDelegate.walletLoader.wallet?.changePublicPassphrase(oldPublicPass, newPass: newPublicPass)
-                
+
                 DispatchQueue.main.async {
                     if newPinOrPassword == nil {
                         Settings.setValue(false, for: Settings.Keys.IsStartupSecuritySet)
@@ -115,11 +115,11 @@ struct StartupPinOrPassword {
             }
         }
     }
-    
+
     static func pinOrPasswordIsSet() -> Bool {
         return Settings.readValue(for: Settings.Keys.IsStartupSecuritySet)
     }
-    
+
     static func currentSecurityType() -> String? {
         return Settings.readOptionalValue(for: Settings.Keys.StartupSecurityType)
     }

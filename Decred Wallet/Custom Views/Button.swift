@@ -48,7 +48,7 @@ class Button: UIButton {
 		
 		return loaderView
 	}()
-	
+
 	@IBInspectable var loaderTextStringKey: String = "" {
 		didSet {
 			loaderLabel.text = NSLocalizedString(loaderTextStringKey, comment: "")
@@ -60,25 +60,25 @@ class Button: UIButton {
 			setupView()
 		}
 	}
-	
+
 	@IBInspectable var selectedBorderColor: UIColor = UIColor.appColors.lightBlue {
 		didSet {
 			setupView()
 		}
 	}
-	
+
 	@IBInspectable var borderWidth: CGFloat = 0 {
 		didSet {
 			setupView()
 		}
 	}
-	
+
 	@IBInspectable var cornerRadius: CGFloat = 0 {
 		didSet {
 			setupView()
 		}
 	}
-	
+
 	@IBInspectable var enabledBackgroundColor: UIColor = UIColor.appColors.lightBlue {
 		didSet {
 			setupView()
@@ -96,21 +96,21 @@ class Button: UIButton {
 			setupView()
 		}
 	}
-	
+
 	override var isSelected: Bool {
 		didSet {
 			setupView()
 		}
 	}
-	
+
 	fileprivate func setupView() {
 		self.layer.borderColor = self.isSelected ? self.selectedBorderColor.cgColor : self.borderColor.cgColor
 		self.layer.borderWidth = self.borderWidth
-        self.layer.cornerRadius = self.cornerRadius
-		
+		self.layer.cornerRadius = self.cornerRadius
+
 		self.updateBackgroundColor()
 	}
-	
+
 	private func updateBackgroundColor() {
 		if self.isLoading {
 			self.backgroundColor = .clear
@@ -120,9 +120,9 @@ class Button: UIButton {
 			self.backgroundColor = self.disabledBackgroundColor
 		}
 	}
-	
+
 	public func startLoading() {
-        if self.isLoading { return }
+		if self.isLoading { return }
 		self.isLoading = true
 		
 		DispatchQueue.main.async {
@@ -131,7 +131,7 @@ class Button: UIButton {
 			self.setTitle("", for: .normal)
 			self.loaderView.isHidden = false
 			self.loaderIcon.layer.removeAllAnimations()
-			
+
 			let rotation = CABasicAnimation(keyPath: "transform.rotation.z")
 			rotation.toValue = NSNumber(value: Double.pi * 2)
 			rotation.duration = 1
@@ -140,11 +140,11 @@ class Button: UIButton {
 			self.loaderIcon.layer.add(rotation, forKey: "rotationAnimation")
 		}
 	}
-	
+
 	public func stopLoading() {
 		if !self.isLoading { return }
 		self.isLoading = false
-		
+
 		DispatchQueue.main.async {
 			self.updateBackgroundColor()
 			self.setTitle(self.originalButtonText, for: .normal)
