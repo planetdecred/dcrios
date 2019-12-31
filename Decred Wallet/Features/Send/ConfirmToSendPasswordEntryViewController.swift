@@ -11,6 +11,9 @@ import UIKit
 class ConfirmToSendPasswordEntryViewController: UIViewController {
     static let instance = Storyboards.Send.instantiateViewController(for: ConfirmToSendPasswordEntryViewController.self)
 
+    @IBOutlet var passwordEntryTextField: UITextField!
+    @IBOutlet var confirmToSendButton: UIButton!
+    @IBOutlet var spendingPasswordLabel: UILabel!
     @IBOutlet var passwordEntryContainerView: UIView!
     @IBOutlet var containerView: UIView!
     
@@ -27,6 +30,8 @@ class ConfirmToSendPasswordEntryViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(gestureRecognizer:)))
         backDropView.addGestureRecognizer(tapGesture)
         passwordEntryContainerView.layer.borderColor = UIColor.appColors.decredBlue.cgColor
+        passwordEntryTextField.addDoneButton()
+        confirmToSendButton.setBackgroundColor(UIColor.appColors.lightGray, for: UIControl.State.disabled)
     }
 
     @objc func handleTap(gestureRecognizer: UITapGestureRecognizer) {
@@ -34,11 +39,20 @@ class ConfirmToSendPasswordEntryViewController: UIViewController {
     }
     
     @IBAction func confirmPassword(_ sender: UIButton) {
+        
     }
 
     @IBAction func cancel(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
+    
+    @IBAction func showHidePassword(_ sender: UIButton) {
+        let showPassword = !passwordEntryTextField.isSecureTextEntry
+        let icon: UIImage? = showPassword ? UIImage(named: "ic-reveal") : UIImage(named: "ic-conceal")
+        sender.setImage(icon, for: .normal)
+        passwordEntryTextField.isSecureTextEntry = showPassword
+    }
+    
 }
 
 extension ConfirmToSendPasswordEntryViewController: UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning {
@@ -81,5 +95,17 @@ extension ConfirmToSendPasswordEntryViewController: UIViewControllerTransitionin
                 transitionContext.completeTransition(true)
             })
         }
+    }
+}
+
+extension ConfirmToSendPasswordEntryViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let text = (textField.text! as NSString).replacingCharacters(in: range, with: string)
+        if !text.isEmpty{
+            confirmToSendButton.isEnabled = true
+        } else {
+            confirmToSendButton.isEnabled = false
+        }
+        return true
     }
 }
