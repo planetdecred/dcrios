@@ -13,7 +13,7 @@ import JGProgressHUD
 class SeedBackupVerifyViewController: UIViewController {
     var seedWordsGroupedByThree: [[String]] = []
     var selectedWords: [String] = []
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var groupedSeedWordsTableView: UITableView!
     @IBOutlet weak var btnConfirm: Button!
     
     override func viewDidLoad() {
@@ -61,25 +61,27 @@ class SeedBackupVerifyViewController: UIViewController {
     }
 
     @IBAction func onConfirm(_ sender: Any) {
-        self.tableView?.isUserInteractionEnabled = false
-        self.btnConfirm?.startLoading()
-        let seed = selectedWords.joined(separator: " ")
-        let seedIsValid = DcrlibwalletVerifySeed(seed)
+        if self.btnConfirm!.isLoading { return } // prevent multiple click/tap attempts.
 
-        self.tableView?.isUserInteractionEnabled = true
-        self.btnConfirm?.stopLoading()
+        self.groupedSeedWordsTableView?.isUserInteractionEnabled = false
+        self.btnConfirm?.startLoading()
+        let userEnteredSeed = selectedWords.joined(separator: " ")
+        let seedIsValid = DcrlibwalletVerifySeed(userEnteredSeed)
 
         let savedSeed: String = Settings.readValue(for: Settings.Keys.Seed)
-        if seedIsValid && seed.elementsEqual(savedSeed) {
+        if seedIsValid && userEnteredSeed.elementsEqual(savedSeed) {
             Settings.setValue(true, for: Settings.Keys.SeedBackedUp)
             Settings.clearValue(for: Settings.Keys.Seed)
             self.performSegue(withIdentifier: "toSeedBackupSuccess", sender: nil)
         } else {
+            self.groupedSeedWordsTableView?.isUserInteractionEnabled = true
+            self.btnConfirm?.stopLoading()
             Utils.showBanner(parentVC: self, type: .error, text: NSLocalizedString("failedToVerify", comment: ""))
         }
     }
 
     private func loadSeedWordsList() -> [String] {
+        // todo: load seeds from dcrlibwallet using DcrlibwalletPGPWordList(), when it will be avaliable
         let seedWordsPath = Bundle.main.path(forResource: "wordlist", ofType: "txt")
         let seedWords = try? String(contentsOfFile: seedWordsPath ?? "")
         return seedWords?.split{ $0 == "\n"}.map(String.init) ?? []
@@ -99,16 +101,29 @@ extension SeedBackupVerifyViewController: UITableViewDelegate, UITableViewDataSo
         let cell = tableView.dequeueReusableCell(withIdentifier: "tripleSeedCell", for: indexPath) as? SeedBackupVerifyTableViewCell
 
         let userSelection = self.selectedWords[indexPath.row]
-        cell?.setup(num: indexPath.row, seedWords: seedWordsGroupedByThree[indexPath.row], selectedWord: userSelection)
+        cell?.setup(index: indexPath.row, seedWords: seedWordsGroupedByThree[indexPath.row], selectedWord: userSelection)
 
-        cell?.onPick = {(index, seedWord) in
-            self.selectedWords[indexPath.row] = seedWord
+        cell?.onSeedWordSelected = {(selectedWordIndex, selectedWord) in
+            self.selectedWords[indexPath.row] = selectedWord
 
             var allChecked = true
             for seedIndex in 0...32 {
                 allChecked = allChecked
                                 && self.selectedWords.indices.contains(seedIndex)
                                 && self.selectedWords[seedIndex] != ""
+            }
+
+            if indexPath.row < 32 {
+                let nextRowIndex = IndexPath(row: indexPath.row + 1, section: 0)
+                if tableView.isCellCompletelyVisible(at: nextRowIndex) {
+                    tableView.selectRow(at: nextRowIndex, animated: true, scrollPosition: .none)
+                } else {
+                    tableView.selectRow(at: nextRowIndex, animated: true, scrollPosition: .bottom)
+                }
+            } else {
+                // Last row, scroll to middle so that the "Confirm" button below the table will appear.
+                let lastRowIndex = IndexPath(row: 32, section: 0)
+                tableView.selectRow(at: lastRowIndex, animated: true, scrollPosition: .middle)
             }
 
             if allChecked {

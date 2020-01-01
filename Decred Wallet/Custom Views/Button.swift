@@ -11,7 +11,7 @@ import UIKit
 @IBDesignable
 class Button: UIButton {
 	private var originalButtonText: String?
-	private var isLoading: Bool = false
+	public var isLoading: Bool = false
 	lazy private var loaderLabel: UILabel = {
 		let loaderLabel = UILabel()
 		loaderLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -85,7 +85,7 @@ class Button: UIButton {
 		}
 	}
 
-	@IBInspectable var disabledBackgroundColor : UIColor = UIColor.appColors.darkGray {
+	@IBInspectable var disabledBackgroundColor: UIColor = UIColor.appColors.darkGray {
 		didSet {
 			setupView()
 		}

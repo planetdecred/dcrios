@@ -1,5 +1,5 @@
 //
-//  SeedBackupWriteDownViewController.swift
+//  SeedWordsDisplayViewController.swift
 //  Decred Wallet
 //
 // Copyright (c) 2019 The Decred developers
@@ -9,8 +9,8 @@
 import UIKit
 import Dcrlibwallet
 
-class SeedBackupWriteDownViewController: UIViewController, UITableViewDataSource {
-    @IBOutlet weak var tableView: UITableView!
+class SeedWordsDisplayViewController: UIViewController, UITableViewDataSource {
+    @IBOutlet weak var seedWordsTableView: UITableView!
     @IBOutlet weak var topCorneredView: UIView!
     @IBOutlet weak var bottomCorneredView: UIView!
     var seed: String! = ""
@@ -22,7 +22,7 @@ class SeedBackupWriteDownViewController: UIViewController, UITableViewDataSource
         arrWords = (self.seed.components(separatedBy: " "))
 
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) { [weak self] in
-            self?.tableView?.reloadData()
+            self?.seedWordsTableView?.reloadData()
         }
         
         setCorneredViews()
@@ -49,23 +49,23 @@ class SeedBackupWriteDownViewController: UIViewController, UITableViewDataSource
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "seedBackupWriteDownTableViewCell") as! SeedBackupWriteDownTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "seedWordsDisplayTableViewCell") as! SeedWordsDisplayTableViewCell
 
         if self.arrWords.indices.contains(indexPath.row) {
-            cell.countLabel1?.text = String(indexPath.row + 1)
-            cell.phaseLabel1?.text = self.arrWords[indexPath.row]
+            cell.serialNumberLbl1?.text = String(indexPath.row + 1)
+            cell.seedWordLbl1?.text = self.arrWords[indexPath.row]
         }
 
         let secoundColumnIndex = indexPath.row + Int(ceil(Double(arrWords.count) / 2))
 
         if self.arrWords.indices.contains(secoundColumnIndex) {
-            cell.countLabel2?.text = String(secoundColumnIndex + 1)
-            cell.phaseLabel2?.text = self.arrWords[secoundColumnIndex]
-            cell.countLabel2?.isHidden = false
-            cell.phaseLabel2?.isHidden = false
+            cell.serialNumberLbl2?.text = String(secoundColumnIndex + 1)
+            cell.seedWordLbl2?.text = self.arrWords[secoundColumnIndex]
+            cell.serialNumberLbl2?.isHidden = false
+            cell.seedWordLbl2?.isHidden = false
         } else {
-            cell.countLabel2?.isHidden = true
-            cell.phaseLabel2?.isHidden = true
+            cell.serialNumberLbl2?.isHidden = true
+            cell.seedWordLbl2?.isHidden = true
         }
 
         return cell
