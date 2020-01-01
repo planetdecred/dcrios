@@ -20,13 +20,12 @@ enum SecurityToolsItem: String, CaseIterable {
         case .validateAddresses:
             return Storyboards.ValidateAddresses.instantiateViewController(for: ValidateAddressesViewController.self)
             
-        case .signMessage: break
-            //return Storyboards.SignMessage.instantiateViewController(for: SignMessageViewController.self)
+        case .signMessage:
+            return Storyboards.SignMessage.instantiateViewController(for: SignMessageViewController.self)
             
         case .verifyMessage:
             return Storyboards.VerifyMessage.instantiateViewController(for: VerifyMessageViewController.self)
         }
-        return UIViewController()
     }
     
     var icon: UIImage? {

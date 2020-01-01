@@ -183,6 +183,8 @@
 		DDD65AD722A935460027CDA8 /* LicenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD65AD622A935460027CDA8 /* LicenseViewController.swift */; };
 		DDDF95CC23C11F760057AA7F /* VerifyMessage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDDF95CB23C11F760057AA7F /* VerifyMessage.storyboard */; };
 		DDDF95CE23C11F760057AA7F /* VerifyMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDF95CD23C11F760057AA7F /* VerifyMessageViewController.swift */; };
+		DDDF95D523C20AA70057AA7F /* SignMessage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDDF95D423C20AA70057AA7F /* SignMessage.storyboard */; };
+		DDDF95D723C20AA70057AA7F /* SignMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDF95D623C20AA70057AA7F /* SignMessageViewController.swift */; };
 		DDE2374623BA386C00C2A94F /* MoreMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE2374523BA386C00C2A94F /* MoreMenuViewController.swift */; };
 		DDE2374823BA386C00C2A94F /* MoreMenuItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE2374723BA386C00C2A94F /* MoreMenuItemCell.swift */; };
 /* End PBXBuildFile section */
@@ -375,6 +377,8 @@
 		DDD65AD622A935460027CDA8 /* LicenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseViewController.swift; sourceTree = "<group>"; };
 		DDDF95CB23C11F760057AA7F /* VerifyMessage.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = VerifyMessage.storyboard; sourceTree = "<group>"; };
 		DDDF95CD23C11F760057AA7F /* VerifyMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyMessageViewController.swift; sourceTree = "<group>"; };
+		DDDF95D423C20AA70057AA7F /* SignMessage.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignMessage.storyboard; sourceTree = "<group>"; };
+		DDDF95D623C20AA70057AA7F /* SignMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignMessageViewController.swift; sourceTree = "<group>"; };
 		DDE2374523BA386C00C2A94F /* MoreMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreMenuViewController.swift; sourceTree = "<group>"; };
 		DDE2374723BA386C00C2A94F /* MoreMenuItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreMenuItemCell.swift; sourceTree = "<group>"; };
 		DDFB922722C8FF2D00F46FBE /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -472,6 +476,7 @@
 		B36255B322A11A9500C62946 /* Security Tools */ = {
 			isa = PBXGroup;
 			children = (
+				DDDF95D323C20AA70057AA7F /* Sign Message */,
 				DDDF95C823C11F300057AA7F /* Verify Message */,
 				DD81CBC623B3A187009D3833 /* Validate Addresses */,
 				DDCF259D22B8A382005FCBB9 /* SecurityMenu.storyboard */,
@@ -950,6 +955,15 @@
 			path = "Verify Message";
 			sourceTree = "<group>";
 		};
+		DDDF95D323C20AA70057AA7F /* Sign Message */ = {
+			isa = PBXGroup;
+			children = (
+				DDDF95D423C20AA70057AA7F /* SignMessage.storyboard */,
+				DDDF95D623C20AA70057AA7F /* SignMessageViewController.swift */,
+			);
+			path = "Sign Message";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1066,6 +1080,8 @@
 				B3B46A0E228F0F2700A68EDD /* wordlist.txt in Resources */,
 				B3E727C623DD4ABF003B06B4 /* WalletAccountTableViewCell.xib in Resources */,
 				B3A8E80A23E593720094957B /* CheckableListOptionTableViewCell.xib in Resources */,
+				DD75148A22BA67B10070E4F6 /* TransactionHistoryViewController.xib in Resources */,
+				DDDF95D523C20AA70057AA7F /* SignMessage.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1189,6 +1205,7 @@
 				10BA77992390059F00B67446 /* TabMenuItemView.swift in Sources */,
 				DD5AB14C23D36F7E00863362 /* AboutTableViewController.swift in Sources */,
 				B3B46AB3228F0F7D00A68EDD /* ConfirmSeedViewCell.swift in Sources */,
+				DDDF95D723C20AA70057AA7F /* SignMessageViewController.swift in Sources */,
 				DD81CBC523B39E6A009D3833 /* PaddedLabel.swift in Sources */,
 				B3B46A88228F0F7D00A68EDD /* UIIMage.swift in Sources */,
 				B3B46A11228F0F2700A68EDD /* UITableViewExtension.swift in Sources */,

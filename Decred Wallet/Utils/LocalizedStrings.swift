@@ -368,8 +368,8 @@ struct LocalizedStrings {
     static let validNotOwnAddr = NSLocalizedString("validNotOwnAddr", comment: "")
     static let invalidAddr = NSLocalizedString("invalidAddr", comment: "")
     static let verifyMessagepageInfo = NSLocalizedString("verifyMessagepageInfo", comment: "")
-
-    // To be refactored
+     static let signMsgHeaderInfo = NSLocalizedString("signMsgHeaderInfo", comment: "")
+     static let signMsgPageInfo = NSLocalizedString("signMsgPageInfo", comment: "")
     static let signMessage = NSLocalizedString("signMessage", comment: "")
     static let signingMessage = NSLocalizedString("signingMessage", comment: "")
     static let secureMenuSyncInfo = NSLocalizedString("secureMenuSyncInfo", comment: "")

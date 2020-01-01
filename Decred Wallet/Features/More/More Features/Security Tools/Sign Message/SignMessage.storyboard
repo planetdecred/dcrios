@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+        <array key="SourceSansPro-SemiBold.ttf">
+            <string>SourceSansPro-SemiBold</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Sign Message View Controller-->
+        <scene sceneID="Mh8-U7-52s">
+            <objects>
+                <viewController storyboardIdentifier="SignMessageViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="pZu-No-Qw4" customClass="SignMessageViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="oWw-nx-UDE">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter an address and message to sign:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DuT-e4-IkJ">
+                                <rect key="frame" x="24" y="52" width="366" height="20.5"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                <color key="textColor" red="0.23921568630000001" green="0.34509803919999998" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="signMsgHeaderInfo"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aFK-qm-WUu">
+                                <rect key="frame" x="8" y="80.5" width="398" height="382"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Address" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="uo9-Nd-XO7" customClass="FloatingLabelTextInput" customModule="Decred_Wallet" customModuleProvider="target">
+                                        <rect key="frame" x="16" y="16" width="366" height="48"/>
+                                        <color key="tintColor" red="0.90196078430000004" green="0.91764705879999997" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="51a-Ty-9YV"/>
+                                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="72" id="Yfh-Bx-0VC"/>
+                                        </constraints>
+                                        <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                        <textInputTraits key="textInputTraits" textContentType="name"/>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rui-c2-kKR">
+                                        <rect key="frame" x="32" y="68" width="287" height="12"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="12" id="SNb-A5-lwi"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="12"/>
+                                        <color key="textColor" red="0.23921568630000001" green="0.34509803919999998" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Message" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="bdn-aC-Ba6" customClass="FloatingLabelTextInput" customModule="Decred_Wallet" customModuleProvider="target">
+                                        <rect key="frame" x="16" y="95" width="366" height="48"/>
+                                        <color key="tintColor" red="0.90196078430000004" green="0.91764705879999997" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="CTE-i4-RrA"/>
+                                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="72" id="OY4-Jl-hSM"/>
+                                        </constraints>
+                                        <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                        <textInputTraits key="textInputTraits" textContentType="name"/>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kcY-Jb-HDp">
+                                        <rect key="frame" x="32" y="151" width="287" height="12"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="12" id="sks-0r-k71"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="12"/>
+                                        <color key="textColor" red="0.23921568630000001" green="0.34509803919999998" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6g1-8p-Cop">
+                                        <rect key="frame" x="291" y="176" width="91" height="40"/>
+                                        <color key="backgroundColor" red="0.76862745099999996" green="0.79607843140000001" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="91" id="eTO-NK-KHg"/>
+                                            <constraint firstAttribute="height" constant="40" id="peT-Wb-97h"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
+                                        <state key="normal" title="Sign">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="4"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="sign"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="signMessage:" destination="pZu-No-Qw4" eventType="touchUpInside" id="HEI-0m-eds"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="heD-hd-RR5">
+                                        <rect key="frame" x="192" y="176" width="91" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="91" id="58m-pl-JB9"/>
+                                            <constraint firstAttribute="height" constant="40" id="jGa-r7-2ab"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
+                                        <state key="normal" title="Clear">
+                                            <color key="titleColor" red="0.16078431369999999" green="0.43921568630000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="clear"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="clearFields:" destination="pZu-No-Qw4" eventType="touchUpInside" id="40Y-6N-i4t"/>
+                                        </connections>
+                                    </button>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KDA-N3-Peu">
+                                        <rect key="frame" x="16" y="224" width="366" height="157"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ORW-OI-cbt">
+                                                <rect key="frame" x="0.0" y="8" width="366" height="1"/>
+                                                <color key="backgroundColor" red="0.76862745099999996" green="0.79607843140000001" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="1" id="GPX-Wn-YIj"/>
+                                                </constraints>
+                                            </view>
+                                            <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Signature" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="03Y-OX-tu2" customClass="FloatingLabelTextInput" customModule="Decred_Wallet" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="25.5" width="366" height="48"/>
+                                                <color key="tintColor" red="0.90196078430000004" green="0.91764705879999997" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="48" id="PeS-Jn-W1p"/>
+                                                </constraints>
+                                                <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                                <textInputTraits key="textInputTraits" textContentType="name"/>
+                                            </textField>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NVJ-CW-Kxs">
+                                                <rect key="frame" x="20" y="77.5" width="287" height="12"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="12" id="iZc-p1-7u2"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="12"/>
+                                                <color key="textColor" red="0.23921568630000001" green="0.34509803919999998" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3mx-lW-a2g">
+                                                <rect key="frame" x="275" y="99.5" width="91" height="40"/>
+                                                <color key="backgroundColor" red="0.76862745099999996" green="0.79607843140000001" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="91" id="COQ-fD-Nw5"/>
+                                                    <constraint firstAttribute="height" constant="40" id="jc2-VN-mp9"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
+                                                <state key="normal" title="Copy">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="4"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="copy"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="Copy:" destination="pZu-No-Qw4" eventType="touchUpInside" id="CAy-Xe-5BB"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="ORW-OI-cbt" secondAttribute="trailing" id="0TC-Wc-ZXk"/>
+                                            <constraint firstAttribute="height" constant="157" id="6jD-3y-qa4"/>
+                                            <constraint firstAttribute="trailing" secondItem="03Y-OX-tu2" secondAttribute="trailing" id="7Tc-Xp-elY"/>
+                                            <constraint firstAttribute="bottom" secondItem="3mx-lW-a2g" secondAttribute="bottom" constant="17.5" id="9KN-Hr-8Gt"/>
+                                            <constraint firstItem="NVJ-CW-Kxs" firstAttribute="leading" secondItem="KDA-N3-Peu" secondAttribute="leading" constant="20" id="CmQ-9i-dhJ"/>
+                                            <constraint firstItem="03Y-OX-tu2" firstAttribute="leading" secondItem="KDA-N3-Peu" secondAttribute="leading" id="Emw-jd-BGs"/>
+                                            <constraint firstItem="ORW-OI-cbt" firstAttribute="top" secondItem="KDA-N3-Peu" secondAttribute="top" constant="8" id="Jbd-VL-T4k"/>
+                                            <constraint firstItem="03Y-OX-tu2" firstAttribute="top" secondItem="ORW-OI-cbt" secondAttribute="bottom" constant="16.5" id="PeW-VB-yRW"/>
+                                            <constraint firstAttribute="trailing" secondItem="NVJ-CW-Kxs" secondAttribute="trailing" constant="59" id="XlV-wr-JeO"/>
+                                            <constraint firstAttribute="trailing" secondItem="3mx-lW-a2g" secondAttribute="trailing" id="a75-Rq-b69"/>
+                                            <constraint firstItem="ORW-OI-cbt" firstAttribute="leading" secondItem="KDA-N3-Peu" secondAttribute="leading" id="doF-Yu-z15"/>
+                                            <constraint firstItem="NVJ-CW-Kxs" firstAttribute="top" secondItem="03Y-OX-tu2" secondAttribute="bottom" constant="4" id="kLW-GK-tZc"/>
+                                            <constraint firstItem="3mx-lW-a2g" firstAttribute="top" secondItem="NVJ-CW-Kxs" secondAttribute="bottom" constant="10" id="ue1-sC-jRY"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="rui-c2-kKR" secondAttribute="trailing" constant="79" id="0sh-6y-ghK"/>
+                                    <constraint firstItem="bdn-aC-Ba6" firstAttribute="top" secondItem="rui-c2-kKR" secondAttribute="bottom" constant="15" id="1mL-bo-Jdk"/>
+                                    <constraint firstItem="rui-c2-kKR" firstAttribute="leading" secondItem="aFK-qm-WUu" secondAttribute="leading" constant="32" id="4FO-tN-c2u"/>
+                                    <constraint firstItem="6g1-8p-Cop" firstAttribute="top" secondItem="bdn-aC-Ba6" secondAttribute="bottom" constant="33" id="9aj-vH-IZO"/>
+                                    <constraint firstAttribute="trailing" secondItem="kcY-Jb-HDp" secondAttribute="trailing" constant="79" id="Art-7Q-jOy"/>
+                                    <constraint firstAttribute="trailing" secondItem="KDA-N3-Peu" secondAttribute="trailing" constant="16" id="CCI-In-Lj8"/>
+                                    <constraint firstItem="KDA-N3-Peu" firstAttribute="centerX" secondItem="aFK-qm-WUu" secondAttribute="centerX" id="HTC-pe-1XF"/>
+                                    <constraint firstAttribute="trailing" secondItem="bdn-aC-Ba6" secondAttribute="trailing" constant="16" id="N5U-Ao-4Vg"/>
+                                    <constraint firstAttribute="height" constant="382" id="NVQ-Gi-GdC"/>
+                                    <constraint firstItem="6g1-8p-Cop" firstAttribute="leading" secondItem="heD-hd-RR5" secondAttribute="trailing" constant="8" id="P0s-36-MDW"/>
+                                    <constraint firstItem="uo9-Nd-XO7" firstAttribute="top" secondItem="aFK-qm-WUu" secondAttribute="top" constant="16" id="P2m-91-CLa"/>
+                                    <constraint firstAttribute="trailing" secondItem="uo9-Nd-XO7" secondAttribute="trailing" constant="16" id="W7S-G4-RFg"/>
+                                    <constraint firstAttribute="bottom" secondItem="KDA-N3-Peu" secondAttribute="bottom" constant="1" id="aTy-gL-XPf"/>
+                                    <constraint firstAttribute="trailing" secondItem="6g1-8p-Cop" secondAttribute="trailing" constant="16" id="c24-gg-OiT"/>
+                                    <constraint firstItem="KDA-N3-Peu" firstAttribute="leading" secondItem="aFK-qm-WUu" secondAttribute="leading" constant="16" id="dbs-dc-5RZ"/>
+                                    <constraint firstItem="kcY-Jb-HDp" firstAttribute="leading" secondItem="aFK-qm-WUu" secondAttribute="leading" constant="32" id="eTo-ut-185"/>
+                                    <constraint firstItem="rui-c2-kKR" firstAttribute="top" secondItem="uo9-Nd-XO7" secondAttribute="bottom" constant="4" id="ehP-3O-AV4"/>
+                                    <constraint firstItem="heD-hd-RR5" firstAttribute="top" secondItem="kcY-Jb-HDp" secondAttribute="bottom" constant="13" id="gJt-Cr-Puo"/>
+                                    <constraint firstItem="bdn-aC-Ba6" firstAttribute="leading" secondItem="aFK-qm-WUu" secondAttribute="leading" constant="16" id="lZS-YR-QzU"/>
+                                    <constraint firstItem="uo9-Nd-XO7" firstAttribute="leading" secondItem="aFK-qm-WUu" secondAttribute="leading" constant="16" id="mwV-xI-58b"/>
+                                    <constraint firstItem="kcY-Jb-HDp" firstAttribute="top" secondItem="bdn-aC-Ba6" secondAttribute="bottom" constant="8" id="s0j-mK-qxa"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="14"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.95294117649999999" green="0.96078431369999995" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="aFK-qm-WUu" firstAttribute="centerX" secondItem="oWw-nx-UDE" secondAttribute="centerX" id="KYu-tY-Bvh"/>
+                            <constraint firstItem="GTn-m9-OtU" firstAttribute="trailing" secondItem="DuT-e4-IkJ" secondAttribute="trailing" constant="24" id="NLQ-5A-D3t"/>
+                            <constraint firstItem="aFK-qm-WUu" firstAttribute="top" secondItem="DuT-e4-IkJ" secondAttribute="bottom" constant="8" id="Sph-n6-irp"/>
+                            <constraint firstItem="DuT-e4-IkJ" firstAttribute="top" secondItem="GTn-m9-OtU" secondAttribute="top" constant="8" id="dwP-qR-iQ8"/>
+                            <constraint firstItem="aFK-qm-WUu" firstAttribute="leading" secondItem="GTn-m9-OtU" secondAttribute="leading" constant="8" id="lei-Jf-c7i"/>
+                            <constraint firstItem="GTn-m9-OtU" firstAttribute="trailing" secondItem="aFK-qm-WUu" secondAttribute="trailing" constant="8" id="ohN-r1-wbi"/>
+                            <constraint firstItem="DuT-e4-IkJ" firstAttribute="leading" secondItem="GTn-m9-OtU" secondAttribute="leading" constant="24" id="z1M-Nu-VqL"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="GTn-m9-OtU"/>
+                    </view>
+                    <connections>
+                        <outlet property="addressText" destination="uo9-Nd-XO7" id="vA5-kp-uGP"/>
+                        <outlet property="messageText" destination="bdn-aC-Ba6" id="ejq-Kh-nwz"/>
+                        <outlet property="signBtn" destination="6g1-8p-Cop" id="bfd-Bz-bjn"/>
+                        <outlet property="signatureContainer" destination="KDA-N3-Peu" id="FMH-aL-hst"/>
+                        <outlet property="signatureText" destination="03Y-OX-tu2" id="A1i-y2-mFB"/>
+                        <outlet property="viewContHeightContraint" destination="NVQ-Gi-GdC" id="WBU-mE-3XF"/>
+                        <outlet property="viewContainer" destination="aFK-qm-WUu" id="Tet-hm-byJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="49L-md-npe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-142.02898550724638" y="-37.5"/>
+        </scene>
+    </scenes>
+</document>
