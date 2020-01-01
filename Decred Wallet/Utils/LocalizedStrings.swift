@@ -360,6 +360,7 @@ struct LocalizedStrings {
      static let invalidSignature = NSLocalizedString("invalidSignature", comment: "")
     static let verifiedSignature = NSLocalizedString("verifiedSignature", comment: "")
     static let verifyMsgHeaderInfo = NSLocalizedString("verifyMsgHeaderInfo", comment: "")
+    static let verify = NSLocalizedString("verify", comment: "")
     static let address = NSLocalizedString("address", comment: "")
     static let message = NSLocalizedString("message", comment: "")
     static let signature = NSLocalizedString("signature", comment: "")

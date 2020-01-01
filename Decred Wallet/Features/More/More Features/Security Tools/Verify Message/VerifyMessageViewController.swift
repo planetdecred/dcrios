@@ -60,7 +60,7 @@ class VerifyMessageViewController: UIViewController {
         self.addNavigationBackButton()
               
         //setup leftBar button
-        let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.validateAddresses, style: .plain, target: self, action: nil)
+        let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.verifyMessage, style: .plain, target: self, action: nil)
         barButtonTitle.tintColor = UIColor.black // UIColor.appColor.darkblue
                      
         self.navigationItem.leftBarButtonItems =  [ (self.navigationItem.leftBarButtonItem)!, barButtonTitle]
