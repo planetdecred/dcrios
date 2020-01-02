@@ -79,9 +79,11 @@ class NavMenuFloatingButtons: UIView {
     }
     
     @objc func sendTapped(_ sender: UIButton) {
-        let sendVC = SendFundsViewController.instance
-        sendVC.modalPresentationStyle = .overFullScreen
-        self.window?.rootViewController?.present(sendVC, animated: true)
+        let nav = SendFundsViewController.instance
+        nav.modalPresentationStyle = .overFullScreen
+        guard let navigationMenuTabBarController = self.window?.rootViewController as? NavigationMenuTabBarController,  let sendVC = nav.viewControllers.first as? SendFundsViewController  else {return}
+        sendVC.sendFundsDelegate = navigationMenuTabBarController
+        self.window?.rootViewController?.present(nav, animated: true)
     }
     
     @objc func receiveTapped(_ sender: UIButton) {

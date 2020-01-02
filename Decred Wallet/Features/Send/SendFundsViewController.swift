@@ -55,6 +55,7 @@ class SendFundsViewController: UIViewController {
     var exchangeRate: NSDecimalNumber?
     var destinationAddress: String?
     var sendMax: Bool = false
+    var sendFundsDelegate: SendFundsDelegate?
     private lazy var qrImageScanner = QRImageScanner()
     let exchangeRateIconHeight: CGFloat = 20
     lazy var errorView: ErrorBanner = {
@@ -645,6 +646,7 @@ extension SendFundsViewController: UITextFieldDelegate {
 
 extension SendFundsViewController: SendFundsDelegate {
     func successfullySentFunds() {
+        sendFundsDelegate?.successfullySentFunds()
         dismiss(animated: true, completion: nil)
     }
 }
