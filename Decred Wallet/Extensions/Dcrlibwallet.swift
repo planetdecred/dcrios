@@ -97,7 +97,7 @@ extension DcrlibwalletAccount {
     }
 }
 
-extension DcrlibwalletLibWallet {
+extension DcrlibwalletWallet {
     func walletAccounts(confirmations: Int32) -> [DcrlibwalletAccount] {
         var accounts = [DcrlibwalletAccount]()
         do {
@@ -121,7 +121,7 @@ extension DcrlibwalletLibWallet {
         }
         
         var error: NSError?
-        let allTransactionsJson = wallet.getTransactions(offset, limit: count, txFilter: filter, error: &error)
+        let allTransactionsJson = wallet.getTransactions(offset, limit: count, txFilter: filter, newestFirst: true, error: &error)
         if error != nil {
             print("wallet.getTransactions error:", error!.localizedDescription)
             return nil

@@ -89,8 +89,8 @@ struct StartupPinOrPassword {
             do {
                 let oldPublicPass = (currentPublicPassphrase as NSString).data(using: String.Encoding.utf8.rawValue)!
                 let newPublicPass = (newPublicPassphrase as NSString).data(using: String.Encoding.utf8.rawValue)!
-                try AppDelegate.walletLoader.wallet?.changePublicPassphrase(oldPublicPass, newPass: newPublicPass)
-
+                try AppDelegate.walletLoader.multiWallet.changePublicPassphrase(oldPublicPass, newPublicPass: newPublicPass)
+                
                 DispatchQueue.main.async {
                     if newPinOrPassword == nil {
                         Settings.setValue(false, for: Settings.Keys.IsStartupSecuritySet)

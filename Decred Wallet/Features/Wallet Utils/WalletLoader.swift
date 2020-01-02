@@ -12,9 +12,21 @@ import Dcrlibwallet
 class WalletLoader: NSObject {
     static let appDataDir = NSHomeDirectory() + "/Documents/dcrlibwallet"
     
-    var wallet: DcrlibwalletLibWallet?
+    var multiWallet: DcrlibwalletMultiWallet!
     var syncer: Syncer
     var notification: TransactionNotification
+    
+    var isSynced: Bool {
+        return self.syncer.currentSyncOp == SyncOp.Done
+    }
+    
+    var oneOrMoreWalletsExist: Bool {
+        return self.multiWallet.loadedWalletsCount() > 0
+    }
+    
+    var wallet: DcrlibwalletWallet? {
+        return multiWallet.defaultWallet()
+    }
     
     override init() {
         syncer = Syncer()
@@ -22,26 +34,26 @@ class WalletLoader: NSObject {
         super.init()
     }
     
-    func initWallet() -> NSError? {
-        var initWalletError: NSError?
-        self.wallet = DcrlibwalletNewLibWallet(WalletLoader.appDataDir, "bdb", BuildConfig.NetType, &initWalletError)
-        
-        return initWalletError
+    func initWallets() -> NSError? {
+        var initWalletsError: NSError?
+        self.multiWallet = DcrlibwalletNewMultiWallet(WalletLoader.appDataDir, "bdb", BuildConfig.NetType, &initWalletsError)
+        return initWalletsError
     }
     
-    var isSynced: Bool {
-        return self.syncer.currentSyncOp == SyncOp.Done
-    }
-    
-    var isWalletCreated: Bool {
-        var walletExists: ObjCBool = ObjCBool(false)
-        
+    func linkExistingWallet(startupPinOrPassword: String) {
         do {
-            try self.wallet?.walletExists(&walletExists)
-        } catch (let error) {
-            print("Error checking if wallet exists: \(error.localizedDescription)")
+            var privatePassphraseType = DcrlibwalletPassphraseTypePass
+            if SpendingPinOrPassword.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PIN {
+                privatePassphraseType = DcrlibwalletPassphraseTypePin
+            }
+            
+            try AppDelegate.walletLoader.multiWallet.linkExistingWallet(WalletLoader.appDataDir,
+                                                                        originalPubPass: startupPinOrPassword,
+                                                                        multiwalletPubPass: startupPinOrPassword,
+                                                                        privatePassphraseType: privatePassphraseType)
+        } catch let error {
+            print("link existing wallet error: \(error.localizedDescription)")
         }
-        
-        return walletExists.boolValue
     }
+    
 }

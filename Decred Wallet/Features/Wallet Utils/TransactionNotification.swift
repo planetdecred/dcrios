@@ -10,7 +10,7 @@ import Dcrlibwallet
 import UserNotifications
 
 protocol NewBlockNotificationProtocol {
-    func onBlockAttached(_ height: Int32, timestamp: Int64)
+    func onBlockAttached(_ walletID: Int, blockHeight: Int32)
 }
 
 protocol NewTransactionNotificationProtocol {
@@ -18,36 +18,14 @@ protocol NewTransactionNotificationProtocol {
 }
 
 protocol ConfirmedTransactionNotificationProtocol {
-    func onTransactionConfirmed(_ hash: String?, height: Int32)
+    func onTransactionConfirmed(_ walletID: Int, hash: String?, blockHeight: Int32)
 }
 
 class TransactionNotification: NSObject {
-    var blockNotificationListeners = [String : NewBlockNotificationProtocol]()
-    var transactionNotificationListeners = [String : NewTransactionNotificationProtocol]()
-    var confirmedTransactionNotificationListeners = [String : ConfirmedTransactionNotificationProtocol]()
-    
     var newTxHashes: [String] = [String]()
     
     func startListeningForNotifications() {
-        AppDelegate.walletLoader.wallet?.transactionNotification(self)
-    }
-    
-    func registerListener(for identifier: String, newBlockListener: NewBlockNotificationProtocol) {
-        self.blockNotificationListeners[identifier] = newBlockListener
-    }
-    
-    func registerListener(for identifier: String, newTxistener: NewTransactionNotificationProtocol) {
-        self.transactionNotificationListeners[identifier] = newTxistener
-    }
-    
-    func registerListener(for identifier: String, confirmedTxListener: ConfirmedTransactionNotificationProtocol) {
-        self.confirmedTransactionNotificationListeners[identifier] = confirmedTxListener
-    }
-    
-    func deRegisterListeners(for identifier: String) {
-        self.blockNotificationListeners.removeValue(forKey: identifier)
-        self.transactionNotificationListeners.removeValue(forKey: identifier)
-        self.confirmedTransactionNotificationListeners.removeValue(forKey: identifier)
+        try? AppDelegate.walletLoader.multiWallet.add(self, uniqueIdentifier: "\(self)")
     }
     
     func newTxNotification(_ transaction: String?) {
@@ -68,26 +46,20 @@ class TransactionNotification: NSObject {
     }
 }
 
-extension TransactionNotification: DcrlibwalletTransactionListenerProtocol {
-    func onBlockAttached(_ height: Int32, timestamp: Int64) {
-        for (_, blockNotificationListener) in self.blockNotificationListeners {
-            blockNotificationListener.onBlockAttached(height, timestamp: timestamp)
-        }
-    }
-    
+extension TransactionNotification: DcrlibwalletTxAndBlockNotificationListenerProtocol {
     func onTransaction(_ transaction: String?) {
-        for (_, transactionNotificationListener) in self.transactionNotificationListeners {
-            transactionNotificationListener.onTransaction(transaction)
-        }
-        
         if Settings.incomingNotificationEnabled {
             self.newTxNotification(transaction)
         }
     }
     
-    func onTransactionConfirmed(_ hash: String?, height: Int32) {
-        for (_, confirmedTransactionNotificationListener) in self.confirmedTransactionNotificationListeners {
-            confirmedTransactionNotificationListener.onTransactionConfirmed(hash, height: height)
-        }
+    func onBlockAttached(_ walletID: Int, blockHeight: Int32) {
+        // View Controllers requiring this update should call
+        // `try? AppDelegate.walletLoader.multiWallet.add(self, uniqueIdentifier: "\(self)")`
+    }
+    
+    func onTransactionConfirmed(_ walletID: Int, hash: String?, blockHeight: Int32) {
+        // View Controllers requiring this update should call
+        // `try? AppDelegate.walletLoader.multiWallet.add(self, uniqueIdentifier: "\(self)")`
     }
 }

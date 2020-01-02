@@ -55,10 +55,10 @@ class Syncer: NSObject, AppLifeCycleDelegate {
     }
 
     func registerEstimatedSyncProgressListener() {
-        AppDelegate.walletLoader.wallet?.enableSyncLogs()
+        AppDelegate.walletLoader.multiWallet.enableSyncLogs()
         // Following call should only throw an error if we attempt to add this sync progress listener multiple times.
         // Safe to ignore such error since it implies that this sync listener is already registered.
-        try? AppDelegate.walletLoader.wallet?.add(self, uniqueIdentifier: "dcrios")
+        try? AppDelegate.walletLoader.multiWallet.add(self, uniqueIdentifier: "dcrios")
     }
     
     func resetSyncData() {
@@ -76,8 +76,9 @@ class Syncer: NSObject, AppLifeCycleDelegate {
         self.resetSyncData()
         
         do {
-            let userSetSPVPeerIPs = Settings.readOptionalValue(for: Settings.Keys.SPVPeerIP) ?? ""
-            try AppDelegate.walletLoader.wallet?.spvSync(userSetSPVPeerIPs)
+            // todo move this config value to Multiwallet
+            // let userSetSPVPeerIPs = Settings.readOptionalValue(for: Settings.Keys.SPVPeerIP) ?? ""
+            try AppDelegate.walletLoader.multiWallet.spvSync()
           
             self.forEachSyncListener({ syncListener in syncListener.onStarted(false) })
         } catch (let syncError) {
@@ -88,8 +89,9 @@ class Syncer: NSObject, AppLifeCycleDelegate {
     func restartSync() {
         self.resetSyncData()
         do {
-            let userSetSPVPeerIPs = Settings.readOptionalValue(for: Settings.Keys.SPVPeerIP) ?? ""
-            try AppDelegate.walletLoader.wallet?.restartSpvSync(userSetSPVPeerIPs)
+            // todo move this config value to Multiwallet
+            // let userSetSPVPeerIPs = Settings.readOptionalValue(for: Settings.Keys.SPVPeerIP) ?? ""
+            try AppDelegate.walletLoader.multiWallet.restartSpvSync()
             
             self.forEachSyncListener({ syncListener in syncListener.onStarted(true) })
         } catch (let syncError) {
@@ -180,7 +182,7 @@ class Syncer: NSObject, AppLifeCycleDelegate {
         }
         
         let totalInactiveSeconds = Date().timeIntervalSince(syncLastActive)
-        AppDelegate.walletLoader.wallet?.syncInactive(forPeriod: Int64(totalInactiveSeconds))
+        AppDelegate.walletLoader.multiWallet.syncInactive(forPeriod: Int64(totalInactiveSeconds))
         
         if self.networkLastActive != nil && AppDelegate.shared.reachability.connection == .none {
             // Reset network last active time to current time so that when network connection is restored,
@@ -226,7 +228,7 @@ class Syncer: NSObject, AppLifeCycleDelegate {
             
             // Account for stalled sync by subtracting lost time from sync estimation parameters.
             let totalInactiveSeconds = Date().timeIntervalSince(self.networkLastActive!)
-            AppDelegate.walletLoader.wallet?.syncInactive(forPeriod: Int64(totalInactiveSeconds))
+            AppDelegate.walletLoader.multiWallet.syncInactive(forPeriod: Int64(totalInactiveSeconds))
             self.networkLastActive = nil // Network is active at this point.
         }
     }
@@ -266,6 +268,10 @@ class Syncer: NSObject, AppLifeCycleDelegate {
 // Extension for receiving estimated sync progress report from dcrlibwallet sync process.
 // Progress report is decoded from the received Json string back to the original data format in the same dcrlibwallet background thread.
 extension Syncer: DcrlibwalletSyncProgressListenerProtocol {
+    func onSyncStarted() {
+        // todo new method, discover use case!
+    }
+    
     func onPeerConnectedOrDisconnected(_ numberOfConnectedPeers: Int32) {
         self.connectedPeersCount = numberOfConnectedPeers
         self.forEachSyncListener({ syncListener in syncListener.onPeerConnectedOrDisconnected(numberOfConnectedPeers) })
@@ -300,7 +306,7 @@ extension Syncer: DcrlibwalletSyncProgressListenerProtocol {
     func onHeadersRescanProgress(_ headersRescanProgress: DcrlibwalletHeadersRescanProgressReport?) {
         // Do not set current sync op for blocks rescan.
         // Ideally, blocks rescan should notify a different callback than sync - rescan stage.
-        if !AppDelegate.walletLoader.wallet!.isScanning() {
+        if !AppDelegate.walletLoader.multiWallet.isRescanning() {
             self.currentSyncOp = .RescanningHeaders
             self.currentSyncOpProgress = headersRescanProgress
             

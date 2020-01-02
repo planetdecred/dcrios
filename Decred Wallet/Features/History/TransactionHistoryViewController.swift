@@ -39,8 +39,7 @@ class TransactionHistoryViewController: UIViewController {
         self.transactionsTableView.register(UINib(nibName: TransactionTableViewCell.identifier, bundle: nil),
                                             forCellReuseIdentifier: TransactionTableViewCell.identifier)
         
-        AppDelegate.walletLoader.notification.registerListener(for: "\(self)", newTxistener: self)
-        AppDelegate.walletLoader.notification.registerListener(for: "\(self)", confirmedTxListener: self)
+        try? AppDelegate.walletLoader.multiWallet.add(self, uniqueIdentifier: "\(self)")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -155,7 +154,11 @@ class TransactionHistoryViewController: UIViewController {
     }
 }
 
-extension TransactionHistoryViewController: NewTransactionNotificationProtocol, ConfirmedTransactionNotificationProtocol {
+extension TransactionHistoryViewController: DcrlibwalletTxAndBlockNotificationListenerProtocol {
+    func onBlockAttached(_ walletID: Int, blockHeight: Int32) {
+        // not relevant to this VC
+    }
+    
     func onTransaction(_ transaction: String?) {
         var tx = try! JSONDecoder().decode(Transaction.self, from:(transaction!.utf8Bits))
         
@@ -175,7 +178,7 @@ extension TransactionHistoryViewController: NewTransactionNotificationProtocol, 
         }
     }
     
-    func onTransactionConfirmed(_ hash: String?, height: Int32) {
+    func onTransactionConfirmed(_ walletID: Int, hash: String?, blockHeight: Int32) {
         // all tx statuses will be updated when table rows are reloaded.
          DispatchQueue.main.async {
             self.transactionsTableView.reloadData()
