@@ -77,6 +77,11 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="destinationAddressLabel" destination="A4b-VK-Fhr" id="rzL-jM-14H"/>
+                <outlet property="sendingAmountLabel" destination="KMZ-iu-QXt" id="zS6-YY-T20"/>
+                <outlet property="sourceWalletLabel" destination="NjD-Ef-5fp" id="qGh-H7-KeK"/>
+            </connections>
             <point key="canvasLocation" x="89.855072463768124" y="85.044642857142847"/>
         </tableViewCell>
     </objects>

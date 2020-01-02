@@ -7,10 +7,16 @@
 //
 
 import UIKit
+import Dcrlibwallet
 
-class ConfirmToSendViewCotroller: UIViewController {
-    static let instance = Storyboards.Send.instantiateViewController(for: ConfirmToSendViewCotroller.self)
+protocol SendFundsDelegate: class {
+    func successfullySentFunds()
+}
 
+class ConfirmToSendViewController: UIViewController {
+    static let instance = Storyboards.Send.instantiateViewController(for: ConfirmToSendViewController.self)
+
+    @IBOutlet var sendButton: UIButton!
     @IBOutlet var tableView: UITableView!
     lazy var backdropView: UIView = {
         return self.view
@@ -20,6 +26,14 @@ class ConfirmToSendViewCotroller: UIViewController {
         return self.tableView.frame.size.height
     }()
     var sendingDetails: SendingDetails?
+    var requiredConfirmations: Int32 {
+        return Settings.spendUnconfirmed ? 0 : GlobalConstants.Wallet.defaultRequiredConfirmations
+    }
+    lazy var errorView: ErrorBanner = {
+        let view = ErrorBanner(parent: self)
+        return view
+    }()
+    weak var sendFundsDelegate: SendFundsDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,11 +54,12 @@ class ConfirmToSendViewCotroller: UIViewController {
     @IBAction func send(_ sender: UIButton) {
         let vc = ConfirmToSendPasswordEntryViewController.instance
         vc.modalPresentationStyle = .custom
+        vc.passwordEntryDelegate = self
         present(vc, animated: true, completion: nil)
     }
 }
 
-extension ConfirmToSendViewCotroller: UITableViewDelegate, UITableViewDataSource {
+extension ConfirmToSendViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -60,7 +75,11 @@ extension ConfirmToSendViewCotroller: UITableViewDelegate, UITableViewDataSource
                 cell = unWrappedCell
             }
         } else if indexPath.row == 1 {
-            cell = tableView.dequeueReusableCell(withIdentifier: "SendingInfoTableViewCell", for: indexPath) as? SendingInfoTableViewCell
+            if let sendingInfoCell = tableView.dequeueReusableCell(withIdentifier: "SendingInfoTableViewCell", for: indexPath) as? SendingInfoTableViewCell,
+                let details = sendingDetails {
+                sendingInfoCell.configureWith(details)
+                cell = sendingInfoCell
+            }
         } else if indexPath.row == 2 {
             let simpleInfoTableViewCell = tableView.dequeueReusableCell(withIdentifier: "SimpleInfoTableViewCell", for: indexPath) as? SimpleInfoTableViewCell
             simpleInfoTableViewCell?.configureWith(title: "Transaction fee", and: sendingDetails?.transactionFee)
@@ -89,7 +108,7 @@ extension ConfirmToSendViewCotroller: UITableViewDelegate, UITableViewDataSource
     }
 }
 
-extension ConfirmToSendViewCotroller: UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning {
+extension ConfirmToSendViewController: UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning {
     func animationController(forPresented presented: UIViewController,
                              presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return self
@@ -128,6 +147,69 @@ extension ConfirmToSendViewCotroller: UIViewControllerTransitioningDelegate, UIV
             }, completion: { (finished) in
                 transitionContext.completeTransition(true)
             })
+        }
+    }
+}
+
+extension ConfirmToSendViewController: ConfirmToSendPasswordEntryDelegate {
+    func didEnterPassword(_ password: String) {
+        toggleSendButtonState(isSending: true, hasFinishedSending: false)
+        do {
+            guard let sourceAccount = sendingDetails?.sourceWallet,
+                let details = sendingDetails else {return}
+            let sendAmountAtom = DcrlibwalletAmountAtom(details.amount)
+            let sourceAccountNumber = sourceAccount.Number
+            let destinationAddress = details.destinationWallet == nil ? details.destinationAddress : self.generateAddress(from: details.destinationWallet!)
+            
+            let newTx = AppDelegate.walletLoader.wallet!.newUnsignedTx(sourceAccountNumber,
+                                                                       requiredConfirmations: self.requiredConfirmations)
+            newTx?.addSendDestination(destinationAddress,
+                                      atomAmount: sendAmountAtom,
+                                      sendMax: details.sendMax)
+            
+            let _ = try newTx?.broadcast(password.utf8Bits)
+            DispatchQueue.main.async {
+                self.sendFundsDelegate?.successfullySentFunds()
+                self.dismiss(animated: true, completion: nil)
+            }
+        } catch let error {
+            toggleSendButtonState(isSending: false, hasFinishedSending: false)
+            if error.localizedDescription == DcrlibwalletErrInvalidPassphrase {
+                errorView.show(text: "Invalid password!")
+                return
+            }
+            errorView.show(text: "Failed to send. Please try again.")
+        }
+    }
+    
+    func generateAddress(from account: WalletAccount) -> String? {
+        var generateAddressError: NSError?
+        let destinationAddress = AppDelegate.walletLoader.wallet!.currentAddress(account.Number, error: &generateAddressError)
+        if generateAddressError != nil {
+            print("send page -> generate address for destination account error: \(generateAddressError!.localizedDescription)")
+            return nil
+        }
+        return destinationAddress
+    }
+    
+    private func toggleSendButtonState(isSending: Bool, hasFinishedSending: Bool) {
+        if isSending {
+            sendButton.setImage(UIImage(named: "ic-loader"), for: .normal)
+            sendButton.setTitleColor(UIColor.appColors.darkGray, for: .normal)
+            sendButton.tintColor = UIColor.appColors.darkGray
+            sendButton.setBackgroundColor(UIColor.white, for: .normal)
+            sendButton.setTitle("Processing...", for: .normal)
+        } else if hasFinishedSending {
+            sendButton.setImage(UIImage(named: "ic-checkmark-confirmed"), for: .normal)
+            sendButton.setTitleColor(UIColor.appColors.green, for: .normal)
+            sendButton.setBackgroundColor(UIColor.white, for: .normal)
+            sendButton.setTitle("Success", for: .normal)
+        } else {
+            sendButton.setImage(nil, for: .normal)
+            sendButton.setTitleColor(UIColor.white, for: .normal)
+            sendButton.setBackgroundColor(UIColor.blue, for: .normal)
+            guard let details = sendingDetails else {return}
+            sendButton.setTitle("Send \(details.amount) DCR", for: .normal)
         }
     }
 }

@@ -7,6 +7,11 @@
 //
 
 import UIKit
+import Dcrlibwallet
+
+protocol ConfirmToSendPasswordEntryDelegate: class {
+    func didEnterPassword(_ password: String)
+}
 
 class ConfirmToSendPasswordEntryViewController: UIViewController {
     static let instance = Storyboards.Send.instantiateViewController(for: ConfirmToSendPasswordEntryViewController.self)
@@ -24,6 +29,7 @@ class ConfirmToSendPasswordEntryViewController: UIViewController {
     lazy var backDropView: UIView = {
         return view
     }()
+    weak var passwordEntryDelegate: ConfirmToSendPasswordEntryDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,9 +43,11 @@ class ConfirmToSendPasswordEntryViewController: UIViewController {
     @objc func handleTap(gestureRecognizer: UITapGestureRecognizer) {
         dismiss(animated: true)
     }
-    
+
     @IBAction func confirmPassword(_ sender: UIButton) {
-        
+        guard let text = passwordEntryTextField.text else {return}
+        passwordEntryDelegate?.didEnterPassword(text)
+        dismiss(animated: true, completion: nil)
     }
 
     @IBAction func cancel(_ sender: UIButton) {

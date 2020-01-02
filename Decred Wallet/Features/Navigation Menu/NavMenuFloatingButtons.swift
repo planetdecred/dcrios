@@ -79,7 +79,7 @@ class NavMenuFloatingButtons: UIView {
     }
     
     @objc func sendTapped(_ sender: UIButton) {
-        let sendVC = SendV2ViewController.instance
+        let sendVC = SendFundsViewController.instance
         sendVC.modalPresentationStyle = .overFullScreen
         self.window?.rootViewController?.present(sendVC, animated: true)
     }

@@ -9,8 +9,8 @@
 import UIKit
 import Dcrlibwallet
 
-class SendV2ViewController: UIViewController {
-    static let instance = Storyboards.Send.instantiateViewController(for: SendV2ViewController.self).wrapInNavigationcontroller()
+class SendFundsViewController: UIViewController {
+    static let instance = Storyboards.Send.instantiateViewController(for: SendFundsViewController.self).wrapInNavigationcontroller()
 
     @IBOutlet var toSelfLayer: UIView!
     @IBOutlet var toOthersLayer: UIView!
@@ -57,6 +57,10 @@ class SendV2ViewController: UIViewController {
     var sendMax: Bool = false
     private lazy var qrImageScanner = QRImageScanner()
     let exchangeRateIconHeight: CGFloat = 20
+    lazy var errorView: ErrorBanner = {
+        let view = ErrorBanner(parent: self)
+        return view
+    }()
 
     var requiredConfirmations: Int32 {
         return Settings.spendUnconfirmed ? 0 : GlobalConstants.Wallet.defaultRequiredConfirmations
@@ -167,7 +171,7 @@ class SendV2ViewController: UIViewController {
     }
 
     @IBAction func proceedToConfirmSend(_ sender: Any) {
-        let vc = ConfirmToSendViewCotroller.instance
+        let vc = ConfirmToSendViewController.instance
 //        self.prepareTxSummary(isSendAttempt: false) { sendAmountDcr, _, txFeeAndSize in
 //            guard let sourceAccountBalance = self.sourceWallet?.Balance!.dcrSpendable else {return}
 //            let textFeeSize = txFeeAndSize.fee?.dcrValue ?? 0.0
@@ -176,12 +180,14 @@ class SendV2ViewController: UIViewController {
 //            let totalCost = Decimal(sendAmountDcr + textFeeSize) as NSDecimalNumber
 //            let totalCostText = "\(totalCost) DCR"
 //            let transactionFeeText = estimatedFee(for: txFeeAndSize.fee?.dcrValue ?? 0.0)
-//            let details = SendingDetails.init(amount: sendAmountDcr,
+//            let details = SendingDetails(amount: sendAmountDcr,
 //                                              destinationAddress: self.destinationAddress,
 //                                              destinationWallet: self.destinationWallet,
+//                                              sourceWallet: sourceWallet,
 //                                              transactionFee: transactionFeeText,
 //                                              balanceAfterSend: balanceAfterSendingText,
-//                                              totalCost: totalCostText)
+//                                              totalCost: totalCostText,
+//                                              sendMax: self.sendMax)
 //            vc.sendingDetails = details
 //            vc.modalPresentationStyle = .custom
 //            present(vc, animated: true, completion: nil)
@@ -607,7 +613,7 @@ class SendV2ViewController: UIViewController {
     }
 }
 
-extension SendV2ViewController: UITextFieldDelegate {
+extension SendFundsViewController: UITextFieldDelegate {
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
         // Address field
@@ -638,5 +644,11 @@ extension SendV2ViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+}
+
+extension SendFundsViewController: SendFundsDelegate {
+    func successfullySentFunds() {
+        dismiss(animated: true, completion: nil)
     }
 }

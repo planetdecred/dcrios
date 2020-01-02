@@ -463,10 +463,10 @@
             </objects>
             <point key="canvasLocation" x="-614" y="-252"/>
         </scene>
-        <!--SendV2 View Controller-->
+        <!--Send Funds View Controller-->
         <scene sceneID="tKE-qx-OrQ">
             <objects>
-                <viewController storyboardIdentifier="SendV2ViewController" id="dO4-2A-HQd" customClass="SendV2ViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SendFundsViewController" id="dO4-2A-HQd" customClass="SendFundsViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VQJ-G8-WES">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -528,13 +528,13 @@
                                                                 <rect key="frame" x="144.5" y="48" width="229.5" height="22"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 DCR" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ngj-pD-syW">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="168.5" height="22"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="150.5" height="22"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wCX-Hj-6v3">
-                                                                        <rect key="frame" x="170.5" y="0.0" width="59" height="22"/>
+                                                                        <rect key="frame" x="152.5" y="0.0" width="77" height="22"/>
                                                                         <state key="normal" image="arrow-1"/>
                                                                         <connections>
                                                                             <action selector="selectSendingWallet:" destination="dO4-2A-HQd" eventType="touchUpInside" id="qY7-KV-hGV"/>
@@ -619,13 +619,13 @@
                                                                 <rect key="frame" x="171" y="41" width="203" height="22"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="select account" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bRl-om-cMM">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="175" height="22"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="165" height="22"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QLt-i6-Ta4">
-                                                                        <rect key="frame" x="177" y="0.0" width="26" height="22"/>
+                                                                        <rect key="frame" x="167" y="0.0" width="36" height="22"/>
                                                                         <state key="normal" image="arrow-1"/>
                                                                         <connections>
                                                                             <action selector="selectReceivingWallet:" destination="dO4-2A-HQd" eventType="touchUpInside" id="Epe-7F-BUs"/>
@@ -949,25 +949,25 @@
                                                                 </constraints>
                                                             </view>
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Jod-5o-kEY">
-                                                                <rect key="frame" x="20" y="180" width="344" height="22"/>
+                                                                <rect key="frame" x="20" y="180" width="344" height="36"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Transaction fee" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ehs-q8-xFj">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="118" height="22"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="118" height="36"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="P3f-aw-yGT">
-                                                                        <rect key="frame" x="259" y="0.0" width="85" height="22"/>
+                                                                        <rect key="frame" x="259" y="0.0" width="85" height="36"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-DCR" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UqK-ol-OKw">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="40" height="22"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="40" height="36"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dBj-46-mFa">
-                                                                                <rect key="frame" x="45" y="0.0" width="40" height="22"/>
+                                                                                <rect key="frame" x="45" y="0.0" width="40" height="36"/>
                                                                                 <state key="normal" image="ic-expand-more"/>
                                                                                 <connections>
                                                                                     <action selector="showHideTransactionFeeDetails:" destination="dO4-2A-HQd" eventType="touchUpInside" id="maS-Yr-XOR"/>
@@ -978,7 +978,7 @@
                                                                 </subviews>
                                                             </stackView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="Poa-vp-CiY">
-                                                                <rect key="frame" x="20" y="212" width="344" height="101.5"/>
+                                                                <rect key="frame" x="20" y="226" width="344" height="101.5"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KgB-yK-O0k">
                                                                         <rect key="frame" x="0.0" y="0.0" width="344" height="101.5"/>
@@ -1245,10 +1245,10 @@
             </objects>
             <point key="canvasLocation" x="-1391.304347826087" y="-252.45535714285714"/>
         </scene>
-        <!--Confirm To Send View Cotroller-->
+        <!--Confirm To Send View Controller-->
         <scene sceneID="y0s-Z2-fqi">
             <objects>
-                <viewController storyboardIdentifier="ConfirmToSendViewCotroller" id="P84-Uu-nXE" customClass="ConfirmToSendViewCotroller" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ConfirmToSendViewController" id="P84-Uu-nXE" customClass="ConfirmToSendViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LVd-qx-9T3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1296,6 +1296,7 @@
                         <viewLayoutGuide key="safeArea" id="P9k-ZF-abH"/>
                     </view>
                     <connections>
+                        <outlet property="sendButton" destination="59d-pq-Gd7" id="9pf-bO-khD"/>
                         <outlet property="tableView" destination="jcm-MO-xeD" id="rhf-Fp-9rK"/>
                     </connections>
                 </viewController>

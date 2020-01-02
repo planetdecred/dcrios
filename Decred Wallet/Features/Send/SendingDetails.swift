@@ -13,7 +13,9 @@ struct SendingDetails {
     var amount: Double
     var destinationAddress: String?
     var destinationWallet: WalletAccount?
+    var sourceWallet: WalletAccount?
     var transactionFee: String
     var balanceAfterSend: String
     var totalCost: String
+    var sendMax: Bool = false
 }

@@ -10,15 +10,17 @@ import UIKit
 
 class SendingInfoTableViewCell: UITableViewCell {
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
+    @IBOutlet var sourceWalletLabel: UILabel!
+    @IBOutlet var sendingAmountLabel: UILabel!
+    @IBOutlet var destinationAddressLabel: UILabel!
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    func configureWith(_ sendingDetails: SendingDetails) {
+        sourceWalletLabel.text = "Sending from \(sendingDetails.sourceWallet?.Name ?? "")"
+        sendingAmountLabel.text = "\(sendingDetails.amount) DCR"
+        if sendingDetails.destinationWallet != nil {
+            destinationAddressLabel.text = sendingDetails.destinationWallet?.Name
+        } else {
+            destinationAddressLabel.text = sendingDetails.destinationAddress
+        }
     }
-    
 }
