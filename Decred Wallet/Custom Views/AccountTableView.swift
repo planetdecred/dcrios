@@ -10,7 +10,7 @@
 import UIKit
 import Dcrlibwallet
 
-class ReceiveAccountListView: UIView, UITableViewDelegate, UITableViewDataSource {
+class AccountTableView: UIView, UITableViewDelegate, UITableViewDataSource {
 
     var bgView : UIView?
     var tableView : UITableView?
@@ -66,7 +66,7 @@ class ReceiveAccountListView: UIView, UITableViewDelegate, UITableViewDataSource
         self.tableView?.dataSource = self as UITableViewDataSource
         self.bgView?.addSubview(self.tableView!)
         self.tableView?.separatorStyle = .none
-        self.tableView?.register(UINib.init(nibName: "ReceiveAccountListCell", bundle: nil), forCellReuseIdentifier: "ReceiveAccountListCell")
+        self.tableView?.register(UINib.init(nibName: "AccountTableViewCell", bundle: nil), forCellReuseIdentifier: "AccountTableViewCell")
         
         self.showView()
     }
@@ -102,7 +102,7 @@ class ReceiveAccountListView: UIView, UITableViewDelegate, UITableViewDataSource
         return walletAccountsArr!.count
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 74
+        return 78
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 30
@@ -111,7 +111,7 @@ class ReceiveAccountListView: UIView, UITableViewDelegate, UITableViewDataSource
         return 0.1
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell:ReceiveAccountListCell = tableView.dequeueReusableCell(withIdentifier: "ReceiveAccountListCell", for: indexPath) as! ReceiveAccountListCell
+        let cell:AccountTableViewCell = tableView.dequeueReusableCell(withIdentifier: "AccountTableViewCell", for: indexPath) as! AccountTableViewCell
         
         let cellBgView: UIView? = UIView.init()
         cellBgView?.backgroundColor = .white
@@ -120,7 +120,7 @@ class ReceiveAccountListView: UIView, UITableViewDelegate, UITableViewDataSource
         let walletAccountsArr: [DcrlibwalletAccount] = (self.listData?[indexPath.section])!
         let  walletAccount = walletAccountsArr[indexPath.row]
         
-        cell.setAccount(account: walletAccount)
+        cell.setAccount(walletAccount)
         
         return cell
     }

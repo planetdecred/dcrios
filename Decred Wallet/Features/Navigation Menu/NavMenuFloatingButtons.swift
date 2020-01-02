@@ -85,7 +85,7 @@ class NavMenuFloatingButtons: UIView {
     }
     
     @objc func receiveTapped(_ sender: UIButton) {
-        let receiveVC = Storyboards.Main.instantiateViewController(for: ReceiveViewController.self).wrapInNavigationcontroller()
+        let receiveVC = Storyboards.Receive.instantiateViewController(for: ReceiveViewController.self).wrapInNavigationcontroller()
         receiveVC.modalPresentationStyle = .overFullScreen
         self.window?.rootViewController?.present(receiveVC, animated: true)
     }

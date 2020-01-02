@@ -11,17 +11,16 @@ import Dcrlibwallet
 
 class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDelegate {
     
-    var receiveAccountListView: ReceiveAccountListView!
+    var receiveAccountTableView: AccountTableView!
     
-    @IBOutlet weak var accountNameLab: UILabel!
-    @IBOutlet weak var walletLab: UILabel!
-    @IBOutlet weak var totalLab: UILabel!
-    @IBOutlet weak var walletAddressLabel: UILabel!
-    @IBOutlet weak var dropdownBtn: UIButton!
-    @IBOutlet weak var imgWalletAddrQRCode: UIImageView!
-    @IBOutlet weak var shareBtn: UIButton!
+    @IBOutlet weak var selectedAccountNameLbl: UILabel!
+    @IBOutlet weak var selectedAccountWalletNameLbl: UILabel!
+    @IBOutlet weak var selectedAccountTotalBalanceLbl: UILabel!
+    @IBOutlet weak var generatedReceiveAddrLbl: UILabel!
+    @IBOutlet weak var accountSelectionDropdownBtn: UIButton!
+    @IBOutlet weak var generatedReceiveAddrQRCodeImg: UIImageView!
     
-    private var barButton: UIBarButtonItem?
+    private var moreNavBarBtnItem: UIBarButtonItem?
     private lazy var syncInProgressLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -33,7 +32,6 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     }()
 
     var firstTrial = true
-    var starttime: Int64 = 0
     var myacc: DcrlibwalletAccount?
     var tapGesture = UITapGestureRecognizer()
     var oldAddress = ""
@@ -48,8 +46,6 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.starttime = Int64(NSDate().timeIntervalSince1970)
         setupSyncInProgressLabelConstraints()
     }
 
@@ -66,51 +62,48 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
         super.viewWillDisappear(animated)
         self.navigationItem.leftBarButtonItem = nil
     }
-    @objc func dropdownBtnClick() {
-        self.dropdownBtn.isSelected = !self.dropdownBtn.isSelected
+    
+    @objc func accountSelectionDropdownBtnClick() {
+        self.accountSelectionDropdownBtn.isSelected = !self.accountSelectionDropdownBtn.isSelected
         
-        if self.receiveAccountListView == nil {
-            self.receiveAccountListView = ReceiveAccountListView.init(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
-            UIApplication.shared.keyWindow?.addSubview(self.receiveAccountListView!)
-            
-            self.receiveAccountListView.selectedAccount = {
-                [weak self] (account:DcrlibwalletAccount,walletName:String) in
-                
-                guard let this = self else { return }
-                
-                this.myacc = account
-                
-                this.accountNameLab.text = this.myacc?.name
-                this.walletLab.text = walletName
-                
-                let total = "\(this.myacc?.balance?.total ?? 0)"
-                let length:Int = total.length>4 ? 4:total.length
-                let totalStr = total + " DCR"
-                let attr:NSMutableAttributedString = NSMutableAttributedString.init(string: totalStr)
-                attr.addAttributes([NSMutableAttributedString.Key.font:UIFont.systemFont(ofSize: 20)], range: NSRange(location: 0, length: length))
-                this.totalLab.attributedText = attr;
-                                
-                this.getAddress(accountNumber: (this.myacc!.number))
-            }
-            self.receiveAccountListView.hide = {
-                [weak self] () in
-                guard let this = self else { return }
-                this.dropdownBtn.isSelected = !this.dropdownBtn.isSelected
-            }
+        if self.receiveAccountTableView == nil {
+            self.createReceiveAccountTableView()
         }
         
-        self.receiveAccountListView.showView()
+        self.receiveAccountTableView.showView()
+    }
+    
+    private func createReceiveAccountTableView() {
+        self.receiveAccountTableView = AccountTableView.init(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
+        UIApplication.shared.keyWindow?.addSubview(self.receiveAccountTableView!)
+        
+        self.receiveAccountTableView.selectedAccount = {
+            [weak self] (account:DcrlibwalletAccount,walletName:String) in
+            
+            guard let this = self else { return }
+            
+            this.myacc = account
+            
+            this.selectedAccountNameLbl.text = this.myacc?.name
+            this.selectedAccountWalletNameLbl.text = walletName
+            
+            let total = "\(this.myacc?.balance?.total ?? 0)"
+            this.selectedAccountTotalBalanceLbl.attributedText = Utils.getAttributedString(str: "\(total)", siz: 14.0, TexthexColor: UIColor.init(hex: "0A1440"))
+                            
+            this.getAddress(accountNumber: (this.myacc!.number))
+        }
+        self.receiveAccountTableView.hide = {
+            [weak self] () in
+            guard let this = self else { return }
+            this.accountSelectionDropdownBtn.isSelected = !this.accountSelectionDropdownBtn.isSelected
+        }
     }
 
     func setupExtraUI() {
-        
-        self.dropdownBtn.addTarget(self, action: #selector(dropdownBtnClick), for: .touchUpInside)
-        self.totalLab.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dropdownBtnClick)))
-        
-        self.shareBtn.addTarget(self, action: #selector(shareImgOnTap), for: .touchUpInside)
-
-        self.imgWalletAddrQRCode.addGestureRecognizer(tapToCopyAddressGesture())
-        self.walletAddressLabel.addGestureRecognizer(tapToCopyAddressGesture())
+        self.accountSelectionDropdownBtn.addTarget(self, action: #selector(accountSelectionDropdownBtnClick), for: .touchUpInside)
+        self.selectedAccountTotalBalanceLbl.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(accountSelectionDropdownBtnClick)))
+        self.generatedReceiveAddrQRCodeImg.addGestureRecognizer(tapToCopyAddressGesture())
+        self.generatedReceiveAddrLbl.addGestureRecognizer(tapToCopyAddressGesture())
     }
     
     func tapToCopyAddressGesture() -> UITapGestureRecognizer {
@@ -120,7 +113,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     @objc func copyAddress() {
         DispatchQueue.main.async {
             //Copy a string to the pasteboard.
-            UIPasteboard.general.string = self.walletAddressLabel.text!
+            UIPasteboard.general.string = self.generatedReceiveAddrLbl.text!
 
             //Alert
             let alertController = UIAlertController(title: "", message: LocalizedStrings.walletAddrCopied, preferredStyle: UIAlertController.Style.alert)
@@ -142,7 +135,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
         alertController.addAction(generateNewAddressAction)
         
         if let popoverPresentationController = alertController.popoverPresentationController {
-            popoverPresentationController.barButtonItem = barButton
+            popoverPresentationController.barButtonItem = moreNavBarBtnItem
         }
 
         self.present(alertController, animated: true, completion: nil)
@@ -157,21 +150,21 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
             self.setupExtraUI()
             
             self.showFirstWalletAddressAndQRCode()
-            self.populateWalletDropdownMenu()
+            self.showDefaultWalletAccount()
             syncInProgressLabel.isHidden = true
 
-            let shareBtn = UIButton(type: .custom)
-            shareBtn.setImage(UIImage(named: "ic_info"), for: .normal)
-            shareBtn.addTarget(self, action: #selector(tips), for: .touchUpInside)
-            shareBtn.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
-            let shareuBtnItem:UIBarButtonItem = UIBarButtonItem(customView: shareBtn)
+            let infoBtn = UIButton(type: .custom)
+            infoBtn.setImage(UIImage(named: "ic_info"), for: .normal)
+            infoBtn.addTarget(self, action: #selector(tips), for: .touchUpInside)
+            infoBtn.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
+            let infoNavBarBtnItem:UIBarButtonItem = UIBarButtonItem(customView: infoBtn)
 
-            let generateAddressBtn = UIButton(type: .custom)
-            generateAddressBtn.setImage(UIImage(named: "ic_more"), for: .normal)
-            generateAddressBtn.addTarget(self, action: #selector(showMenu), for: .touchUpInside)
-            generateAddressBtn.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
-            barButton = UIBarButtonItem(customView: generateAddressBtn)
-            self.navigationItem.rightBarButtonItems = [barButton!, shareuBtnItem]
+            let moreBtn = UIButton(type: .custom)
+            moreBtn.setImage(UIImage(named: "ic_more"), for: .normal)
+            moreBtn.addTarget(self, action: #selector(showMenu), for: .touchUpInside)
+            moreBtn.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
+            moreNavBarBtnItem = UIBarButtonItem(customView: moreBtn)
+            self.navigationItem.rightBarButtonItems = [moreNavBarBtnItem!, infoNavBarBtnItem]
         } else {
             syncInProgressLabel.isHidden = false
         }
@@ -185,7 +178,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     }
 
     private func generateNewAddress() {
-        self.oldAddress = self.walletAddressLabel.text!
+        self.oldAddress = self.generatedReceiveAddrLbl.text!
         self.getNextAddress(accountNumber: (self.myacc?.number)!)
     }
     
@@ -197,15 +190,10 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
             
             if let firstWalletAddress = accNames.first {
                 self.selectedAccount = firstWalletAddress
-                self.walletAddressLabel.text = self.selectedAccount
+                self.generatedReceiveAddrLbl.text = self.selectedAccount
 
                 let total = "\(self.myacc?.balance?.total ?? 0)"
-                let length:Int = total.length>4 ? 4:total.length
-                
-                let totalStr = total + " DCR"
-                let attr:NSMutableAttributedString = NSMutableAttributedString.init(string: totalStr)
-                attr.addAttributes([NSMutableAttributedString.Key.font:UIFont.systemFont(ofSize: 20)], range: NSRange(location: 0, length: length))
-                self.totalLab.attributedText = attr;
+                self.selectedAccountTotalBalanceLbl.attributedText = Utils.getAttributedString(str: "\(total)", siz: 14.0, TexthexColor: UIColor.init(hex: "0A1440"))
                 
                 self.getAddress(accountNumber: self.myacc!.number)
             }
@@ -214,20 +202,15 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
         }
     }
     
-    private func populateWalletDropdownMenu() {
-
+    private func showDefaultWalletAccount() {
+        
         if let acc = AppDelegate.walletLoader.wallet?.walletAccounts(confirmations: 0) {
            if let defaultAccount = acc.filter({ $0.isDefault}).first {
                
-                self.accountNameLab.text = defaultAccount.name
+                self.selectedAccountNameLbl.text = defaultAccount.name
 
                 let total = "\(defaultAccount.balance?.total ?? 0)"
-                let length:Int = total.length>4 ? 4:total.length
-                
-                let totalStr = total + " DCR"
-                let attr:NSMutableAttributedString = NSMutableAttributedString.init(string: totalStr)
-                attr.addAttributes([NSMutableAttributedString.Key.font:UIFont.systemFont(ofSize: 20)], range: NSRange(location: 0, length: length))
-                self.totalLab.attributedText = attr;
+                self.selectedAccountTotalBalanceLbl.attributedText = Utils.getAttributedString(str: "\(total)", siz: 14.0, TexthexColor: UIColor.init(hex: "0A1440"))
             
                 self.myacc = defaultAccount
                 self.getAddress(accountNumber: (self.myacc!.number))
@@ -236,7 +219,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     }
     
     @objc func tips(){
-        let alertController = UIAlertController(title: LocalizedStrings.receiveDCR, message: LocalizedStrings.receiveDes, preferredStyle: UIAlertController.Style.alert)
+        let alertController = UIAlertController(title: LocalizedStrings.receiveDCR, message: LocalizedStrings.receiveTip, preferredStyle: UIAlertController.Style.alert)
         alertController.addAction(UIAlertAction(title: LocalizedStrings.gotIt, style: UIAlertAction.Style.default, handler: nil))
         self.present(alertController, animated: true, completion: nil)
     }
@@ -245,9 +228,8 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
         self.getNextAddress(accountNumber: (self.myacc?.number)!)
     }
     
-    @objc func shareImgOnTap(){
-        
-        var img: UIImage = self.imgWalletAddrQRCode.image!
+    @IBAction func shareImgOnTap(_ sender: UIButton) {
+        var img: UIImage = self.generatedReceiveAddrQRCodeImg.image!
         
         if img.cgImage == nil {
             guard let ciImage = img.ciImage, let cgImage = CIContext(options: nil).createCGImage(ciImage, from: ciImage.extent) else {return}
@@ -257,21 +239,21 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
         let activityController = UIActivityViewController(activityItems: [img], applicationActivities: nil)
         
         if let popoverPresentationController = activityController.popoverPresentationController {
-            popoverPresentationController.barButtonItem = barButton
+            popoverPresentationController.barButtonItem = moreNavBarBtnItem
         }
         
         self.present(activityController, animated: true, completion: nil)
     }
-    
+        
     private func getAddress(accountNumber : Int32) {
         let receiveAddress = self.wallet?.currentAddress(Int32(accountNumber), error: nil)
         DispatchQueue.main.async { [weak self] in
             guard let this = self else { return }
             
-            this.walletAddressLabel.text = receiveAddress!
-            this.imgWalletAddrQRCode.image = this.generateQRCodeFor(
+            this.generatedReceiveAddrLbl.text = receiveAddress!
+            this.generatedReceiveAddrQRCodeImg.image = this.generateQRCodeFor(
                 with: receiveAddress!,
-                forImageViewFrame: this.imgWalletAddrQRCode.frame
+                forImageViewFrame: this.generatedReceiveAddrQRCodeImg.frame
             )
         }
     }
@@ -281,10 +263,10 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
         DispatchQueue.main.async { [weak self] in
             guard let this = self else { return }
             if (this.oldAddress != receiveAddress!) {
-                this.walletAddressLabel.text = receiveAddress!
-                this.imgWalletAddrQRCode.image = this.generateQRCodeFor(
+                this.generatedReceiveAddrLbl.text = receiveAddress!
+                this.generatedReceiveAddrQRCodeImg.image = this.generateQRCodeFor(
                     with: receiveAddress!,
-                    forImageViewFrame: this.imgWalletAddrQRCode.frame
+                    forImageViewFrame: this.generatedReceiveAddrQRCodeImg.frame
                 )
                 return
             }
