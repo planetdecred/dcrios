@@ -32,6 +32,7 @@ extension UIColor {
         static let darkText = UIColor.init(hex: "#091440")
         static let shadowColor = UIColor(hex: "#3D0914")
         static let faddedGray = UIColor(hex: "#e6eaed")
+        static let orange = UIColor.init(hex: "#ED6D47")
     }
     
     convenience init(hex: String) {

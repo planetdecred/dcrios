@@ -15,7 +15,6 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
     @IBOutlet weak var tableViewFooterHeightCont: NSLayoutConstraint!
     @IBOutlet weak var tableViewFooter: UIView!
     @IBOutlet weak var btnConfirm: UIButton!
-    private var errorBanner: ErrorBanner?
     
     var validSeedWords: [String] = []
     var userEnteredSeedWords = [String](repeating: "", count: 33)
@@ -36,9 +35,6 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
         
         registerObserverForKeyboardNotification()
         self.hideKeyboardWhenTappedAround()
-        
-        // init error banner
-        self.errorBanner = ErrorBanner(parent: self)
         
         // set border for dropdown list
         self.wordSelectionDropDownContainer.layer.borderWidth = 1
@@ -138,8 +134,6 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
     func seedWordEntered(for wordIndex: Int, seedWord: String, moveToNextField: Bool) {
         self.userEnteredSeedWords[wordIndex] = seedWord
         
-        self.errorBanner?.dismiss()
-        
         if wordIndex < 32 && moveToNextField {
             self.focusSeedWordInput(at: wordIndex + 1)
         } else {
@@ -165,7 +159,7 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
     
     @IBAction func onConfirm() {
         if self.userEnteredSeedWords.contains("") {
-            self.errorBanner?.show(text: LocalizedStrings.notAllSeedsAreEntered)
+            Utils.showBanner(parentVC: self, type: .error, text: LocalizedStrings.notAllSeedsAreEntered)
         } else {
             let validatedSeed = self.validateSeed()
             if validatedSeed.valid {
@@ -178,7 +172,7 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
                         self.secureWallet(validatedSeed.seed)
                     }
             } else {
-                self.errorBanner?.show(text: LocalizedStrings.incorrectSeedEntered)
+                Utils.showBanner(parentVC: self, type: .error, text: LocalizedStrings.incorrectSeedEntered)
             }
         }
     }

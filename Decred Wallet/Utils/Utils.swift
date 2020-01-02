@@ -10,6 +10,17 @@ import UIKit
 import JGProgressHUD
 import Dcrlibwallet
 
+enum BannerType: String {
+    case success
+    case error
+}
+
+struct AttributedStringStyle {
+    var tag: String
+    var font: UIFont?
+    var color: UIColor?
+}
+
 struct Utils {
     struct TimeInSeconds {
         static let Minute: Int64 = 60
@@ -82,7 +93,7 @@ struct Utils {
                 atrStr.append(NSMutableAttributedString(string: " DCR"))
                 stt = (stt?.appending(((" DCR")))) as NSString?
                 atrStr.addAttribute(NSAttributedString.Key.font,
-                                    value: UIFont(name: "Inconsolata-Regular", size: siz)!,
+                                    value: UIFont(name: "SourceSansPro-Regular", size: siz)!,
                                     range: NSRange(location:(dotRange?.location)!+3, length:(stt?.length)!-1 - ((dotRange?.location)!+2)))
                 
                 atrStr.addAttribute(NSAttributedString.Key.foregroundColor,
@@ -105,5 +116,40 @@ struct Utils {
         formatter.dateFormat = "MMM dd, yyyy / hh:mm:ss a"
         let date = Date(timeIntervalSince1970: Double(timestamp))
         return formatter.string(from: date)
+    }
+
+    static func showBanner(parentVC: UIViewController, type: BannerType, text: String) {
+        let banner = UIView()
+        parentVC.view.addSubview(banner)
+        banner.translatesAutoresizingMaskIntoConstraints = false
+        banner.leadingAnchor.constraint(greaterThanOrEqualTo: parentVC.view.leadingAnchor, constant: 8).isActive = true
+        banner.trailingAnchor.constraint(lessThanOrEqualTo: parentVC.view.trailingAnchor, constant: -8).isActive = true
+        banner.topAnchor.constraint(equalTo: parentVC.view.safeAreaLayoutGuide.topAnchor, constant: 84).isActive = true
+        banner.centerXAnchor.constraint(equalTo: parentVC.view.centerXAnchor).isActive = true
+
+        banner.backgroundColor = (type == .error) ? UIColor.appColors.orange : UIColor.appColors.green
+        banner.layer.cornerRadius = 7
+        banner.layer.shadowColor = UIColor.appColors.darkBlue.cgColor
+        banner.layer.shadowRadius = 4
+        banner.layer.shadowOpacity = 0.24
+        banner.layer.shadowOffset = CGSize(width: 0, height: 1)
+
+        let infoLabel = UILabel()
+        banner.addSubview(infoLabel)
+        infoLabel.translatesAutoresizingMaskIntoConstraints = false
+        infoLabel.leadingAnchor.constraint(equalTo: banner.leadingAnchor, constant: 10).isActive = true
+        infoLabel.trailingAnchor.constraint(equalTo: banner.trailingAnchor, constant: -10).isActive = true
+        infoLabel.topAnchor.constraint(equalTo: banner.topAnchor, constant: 5).isActive = true
+        infoLabel.bottomAnchor.constraint(equalTo: banner.bottomAnchor, constant: -5).isActive = true
+        infoLabel.numberOfLines = 0
+        infoLabel.lineBreakMode = .byWordWrapping
+        infoLabel.textAlignment = .center
+        infoLabel.textColor = .white
+        infoLabel.font = UIFont(name: "SourceSansPro-Regular", size: 16)
+        infoLabel.text = text
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) { [weak banner] in
+            banner?.removeFromSuperview()
+        }
     }
 }
