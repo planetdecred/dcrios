@@ -126,7 +126,6 @@ class SendFundsViewController: UIViewController {
         loadAccounts()
         sendingAmountTextField.addDoneButton()
         registerObserverForKeyboardNotification()
-        nextButton.isEnabled = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -172,29 +171,26 @@ class SendFundsViewController: UIViewController {
 
     @IBAction func proceedToConfirmSend(_ sender: Any) {
         let vc = ConfirmToSendViewController.instance
-//        self.prepareTxSummary(isSendAttempt: false) { sendAmountDcr, _, txFeeAndSize in
-//            guard let sourceAccountBalance = self.sourceWallet?.Balance!.dcrSpendable else {return}
-//            let textFeeSize = txFeeAndSize.fee?.dcrValue ?? 0.0
-//            let balanceAfterSending = Decimal(sourceAccountBalance - sendAmountDcr - textFeeSize) as NSDecimalNumber
-//            let balanceAfterSendingText = "\(balanceAfterSending.round(8).formattedWithSeparator) DCR"
-//            let totalCost = Decimal(sendAmountDcr + textFeeSize) as NSDecimalNumber
-//            let totalCostText = "\(totalCost) DCR"
-//            let transactionFeeText = estimatedFee(for: txFeeAndSize.fee?.dcrValue ?? 0.0)
-//            let details = SendingDetails(amount: sendAmountDcr,
-//                                              destinationAddress: self.destinationAddress,
-//                                              destinationWallet: self.destinationWallet,
-//                                              sourceWallet: sourceWallet,
-//                                              transactionFee: transactionFeeText,
-//                                              balanceAfterSend: balanceAfterSendingText,
-//                                              totalCost: totalCostText,
-//                                              sendMax: self.sendMax)
-//            vc.sendingDetails = details
-//            vc.modalPresentationStyle = .custom
-//            present(vc, animated: true, completion: nil)
-//        }
-        
-        vc.modalPresentationStyle = .custom
-        present(vc, animated: true, completion: nil)
+        self.prepareTxSummary(isSendAttempt: false) { sendAmountDcr, _, txFeeAndSize in
+            guard let sourceAccountBalance = self.sourceWallet?.Balance!.dcrSpendable else {return}
+            let textFeeSize = txFeeAndSize.fee?.dcrValue ?? 0.0
+            let balanceAfterSending = Decimal(sourceAccountBalance - sendAmountDcr - textFeeSize) as NSDecimalNumber
+            let balanceAfterSendingText = "\(balanceAfterSending.round(8).formattedWithSeparator) DCR"
+            let totalCost = Decimal(sendAmountDcr + textFeeSize) as NSDecimalNumber
+            let totalCostText = "\(totalCost) DCR"
+            let transactionFeeText = estimatedFee(for: txFeeAndSize.fee?.dcrValue ?? 0.0)
+            let details = SendingDetails(amount: sendAmountDcr,
+                                              destinationAddress: self.destinationAddress,
+                                              destinationWallet: self.destinationWallet,
+                                              sourceWallet: sourceWallet,
+                                              transactionFee: transactionFeeText,
+                                              balanceAfterSend: balanceAfterSendingText,
+                                              totalCost: totalCostText,
+                                              sendMax: self.sendMax)
+            vc.sendingDetails = details
+            vc.modalPresentationStyle = .custom
+            present(vc, animated: true, completion: nil)
+        }
     }
     
     private func fetchExchangeRate(_ sender: Any?) {
@@ -446,11 +442,11 @@ class SendFundsViewController: UIViewController {
         }
         
         if capturedText.count < 25 {
-//            self.invalidAddressFromQrCode(errorMessage: LocalizedStrings.walletAddressShort)
+            errorView.show(text: LocalizedStrings.walletAddressShort)
             return
         }
         if capturedText.count > 36 {
-//            self.invalidAddressFromQrCode(errorMessage: LocalizedStrings.walletAddressLong)
+            errorView.show(text: LocalizedStrings.walletAddressLong)
             return
         }
         
@@ -458,13 +454,13 @@ class SendFundsViewController: UIViewController {
             if capturedText.starts(with: "T") {
                 self.destinationAddressTextField.text = capturedText
             } else {
-//                self.invalidAddressFromQrCode(errorMessage: LocalizedStrings.invalidTesnetAddress)
+                errorView.show(text: LocalizedStrings.invalidTesnetAddress)
             }
         } else {
             if capturedText.starts(with: "D") {
                 self.destinationAddressTextField.text = capturedText
             } else {
-//                self.invalidAddressFromQrCode(errorMessage: LocalizedStrings.invalidMainnetAddress)
+                errorView.show(text: LocalizedStrings.invalidMainnetAddress)
             }
         }
     }
