@@ -15,7 +15,7 @@ class PinPasswordStrength {
         if strength > 0.7 {
             return (strength, UIColor.appColors.green)
         } else {
-            return (strength, UIColor.appColors.darkYellowWarning)
+            return (strength, UIColor.appColors.yellow)
         }
     }
     

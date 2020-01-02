@@ -59,7 +59,7 @@ class SyncDetailsComponent: UIView {
         self.container.clipsToBounds = true
         
         // setup separator
-        self.separator.backgroundColor = UIColor.appColors.borderGray
+        self.separator.backgroundColor = UIColor.appColors.gray
         self.separator.translatesAutoresizingMaskIntoConstraints = false
         self.separator.clipsToBounds = true
         
@@ -68,7 +68,7 @@ class SyncDetailsComponent: UIView {
         self.stepsLabel.text = String(format: LocalizedStrings.syncSteps, 0)
         self.stepsLabel.translatesAutoresizingMaskIntoConstraints = false
         self.stepsLabel.clipsToBounds = true
-        self.stepsLabel.textColor = UIColor.appColors.textGray
+        self.stepsLabel.textColor = UIColor.appColors.bluishGray
         
         // current step action/progress
         self.stepDetailLabel.font = UIFont(name: "SourceSansPro-Regular", size: 15)
@@ -81,7 +81,7 @@ class SyncDetailsComponent: UIView {
         self.stepStageProgressLabel.text = LocalizedStrings.blockHeadersFetched
         self.stepStageProgressLabel.translatesAutoresizingMaskIntoConstraints = false
         self.stepStageProgressLabel.clipsToBounds = true
-        self.stepStageProgressLabel.textColor = UIColor.appColors.textGray
+        self.stepStageProgressLabel.textColor = UIColor.appColors.bluishGray
         
         // Fetched headers count
         self.headersFetchedCount.font = UIFont(name: "SourceSansPro-Regular", size: 16)
@@ -94,7 +94,7 @@ class SyncDetailsComponent: UIView {
         self.syncProgressLabel.text = LocalizedStrings.syncingProgress
         self.syncProgressLabel.translatesAutoresizingMaskIntoConstraints = false
         self.syncProgressLabel.clipsToBounds = true
-        self.syncProgressLabel.textColor = UIColor.appColors.textGray
+        self.syncProgressLabel.textColor = UIColor.appColors.bluishGray
         
         // block age behind
         self.ledgerAgeLabel.font = UIFont(name: "SourceSansPro-Regular", size: 16)
@@ -107,7 +107,7 @@ class SyncDetailsComponent: UIView {
         self.numberOfPeersLabel.text = LocalizedStrings.connectedPeersCount
         self.numberOfPeersLabel.translatesAutoresizingMaskIntoConstraints = false
         self.numberOfPeersLabel.clipsToBounds = true
-        self.numberOfPeersLabel.textColor = UIColor.appColors.textGray
+        self.numberOfPeersLabel.textColor = UIColor.appColors.bluishGray
         
         // show connected peers count
         self.numberOfPeersCount.font = UIFont(name: "SourceSansPro-Regular", size: 16)
