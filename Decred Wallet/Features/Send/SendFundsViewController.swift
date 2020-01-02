@@ -378,12 +378,9 @@ class SendFundsViewController: UIViewController {
         }
     }
     func showSendError(_ errorMessage: String) {
-//        self.sendErrorLabel.text = errorMessage
-//        self.sendErrorLabel.isHidden = false
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-//            self.sendErrorLabel.isHidden = true
-//        }
+        errorView.show(text: errorMessage)
     }
+
     func registerObserverForKeyboardNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange), name: UIResponder.keyboardWillHideNotification, object: nil)
