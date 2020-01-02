@@ -47,6 +47,12 @@ class ConfirmToSendViewController: UIViewController {
         backdropView.addGestureRecognizer(tapGesture)
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        guard let details = sendingDetails else {return}
+        sendButton.setTitle("Send \(details.amount) DCR", for: .normal)
+    }
+
     @objc func handleTap(gestureRecognizer: UITapGestureRecognizer) {
         dismiss(animated: true)
     }
