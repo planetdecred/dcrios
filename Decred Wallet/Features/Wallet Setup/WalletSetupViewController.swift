@@ -13,8 +13,12 @@ class WalletSetupViewController: WalletSetupBaseViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toNewWalletCreation" {
             Settings.setValue(true, for: Settings.Keys.NewWalletSetUp)
-        } else if segue.identifier == "toWalletRestore" {
-            Settings.setValue(false, for: Settings.Keys.NewWalletSetUp)
         }
+    }
+    
+    @IBAction func RestoreWallet(_ sender: Any) {
+        let recoverVC = Storyboards.RecoverExistingWallet.instantiateViewController(for: RecoverExistingWalletViewController.self)
+        Settings.setValue(false, for: Settings.Keys.NewWalletSetUp)
+        self.navigationController?.pushViewController(recoverVC, animated: true)
     }
 }
