@@ -10,18 +10,18 @@ import UIKit
 import Dcrlibwallet
 
 class WalletInfoTableViewCell: UITableViewCell {
-    var wallet: WalletAccount?
+    var wallet: DcrlibwalletAccount?
     
     @IBOutlet var amountSpendable: UILabel!
     @IBOutlet var amountInWallet: UILabel!
     @IBOutlet var accountName: UILabel!
     
-    func configure(with account: WalletAccount) {
+    func configure(with account: DcrlibwalletAccount) {
         wallet = account
-        accountName.text = account.Name
-        let amountInWalletText = (Decimal(account.Balance!.dcrTotal) as NSDecimalNumber).round(8).formattedWithSeparator
+        accountName.text = account.name
+        let amountInWalletText = (Decimal(account.balance!.dcrTotal) as NSDecimalNumber).round(8).formattedWithSeparator
         amountInWallet.text = "\(amountInWalletText)"
-        let spendableAmountText = (Decimal(account.Balance!.dcrSpendable) as NSDecimalNumber).round(8).formattedWithSeparator
+        let spendableAmountText = (Decimal(account.balance!.dcrSpendable) as NSDecimalNumber).round(8).formattedWithSeparator
         amountSpendable.text = "\(spendableAmountText)"
     }
 }

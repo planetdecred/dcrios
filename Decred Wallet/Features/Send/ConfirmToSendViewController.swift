@@ -164,7 +164,7 @@ extension ConfirmToSendViewController: ConfirmToSendPasswordEntryDelegate {
             guard let sourceAccount = sendingDetails?.sourceWallet,
                 let details = sendingDetails else {return}
             let sendAmountAtom = DcrlibwalletAmountAtom(details.amount)
-            let sourceAccountNumber = sourceAccount.Number
+            let sourceAccountNumber = sourceAccount.number
             let destinationAddress = details.destinationWallet == nil ? details.destinationAddress : self.generateAddress(from: details.destinationWallet!)
             
             let newTx = AppDelegate.walletLoader.wallet!.newUnsignedTx(sourceAccountNumber,
@@ -188,9 +188,9 @@ extension ConfirmToSendViewController: ConfirmToSendPasswordEntryDelegate {
         }
     }
     
-    func generateAddress(from account: WalletAccount) -> String? {
+    func generateAddress(from account: DcrlibwalletAccount) -> String? {
         var generateAddressError: NSError?
-        let destinationAddress = AppDelegate.walletLoader.wallet!.currentAddress(account.Number, error: &generateAddressError)
+        let destinationAddress = AppDelegate.walletLoader.wallet!.currentAddress(account.number, error: &generateAddressError)
         if generateAddressError != nil {
             print("send page -> generate address for destination account error: \(generateAddressError!.localizedDescription)")
             return nil

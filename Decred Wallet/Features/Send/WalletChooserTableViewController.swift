@@ -20,12 +20,12 @@ class WalletChooserTableViewController: UIViewController {
     let tableView = UITableView()
     let menuHeight = UIScreen.main.bounds.height / 2
     var isPresenting = false
-    var walletAccounts: [WalletAccount]!
-    var selectedAccount: WalletAccount?
+    var walletAccounts: [DcrlibwalletAccount]!
+    var selectedAccount: DcrlibwalletAccount?
 
-    var didSelectAccount: ((WalletAccount?)-> Void)?
+    var didSelectAccount: ((DcrlibwalletAccount?)-> Void)?
 
-    init(wallets: [WalletAccount], selected: WalletAccount?) {
+    init(wallets: [DcrlibwalletAccount], selected: DcrlibwalletAccount?) {
         super.init(nibName: nil, bundle: nil)
         modalPresentationStyle = .custom
         transitioningDelegate = self

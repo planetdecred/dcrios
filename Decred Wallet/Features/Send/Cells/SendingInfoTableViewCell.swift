@@ -15,10 +15,10 @@ class SendingInfoTableViewCell: UITableViewCell {
     @IBOutlet var destinationAddressLabel: UILabel!
 
     func configureWith(_ sendingDetails: SendingDetails) {
-        sourceWalletLabel.text = "Sending from \(sendingDetails.sourceWallet?.Name ?? "")"
+        sourceWalletLabel.text = "Sending from \(sendingDetails.sourceWallet?.name ?? "")"
         sendingAmountLabel.text = "\(sendingDetails.amount) DCR"
         if sendingDetails.destinationWallet != nil {
-            destinationAddressLabel.text = sendingDetails.destinationWallet?.Name
+            destinationAddressLabel.text = sendingDetails.destinationWallet?.name
         } else {
             destinationAddressLabel.text = sendingDetails.destinationAddress
         }

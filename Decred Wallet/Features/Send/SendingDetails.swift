@@ -12,8 +12,8 @@ import Dcrlibwallet
 struct SendingDetails {
     var amount: Double
     var destinationAddress: String?
-    var destinationWallet: WalletAccount?
-    var sourceWallet: WalletAccount?
+    var destinationWallet: DcrlibwalletAccount?
+    var sourceWallet: DcrlibwalletAccount?
     var transactionFee: String
     var balanceAfterSend: String
     var totalCost: String

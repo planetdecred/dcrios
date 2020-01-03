@@ -49,9 +49,9 @@ class SendFundsViewController: UIViewController {
     
     var overflowNavBarButton: UIBarButtonItem!
     var infoNavBarButton: UIBarButtonItem!
-    var walletAccounts: [WalletAccount]?
-    var sourceWallet: WalletAccount?
-    var destinationWallet: WalletAccount?
+    var walletAccounts: [DcrlibwalletAccount]?
+    var sourceWallet: DcrlibwalletAccount?
+    var destinationWallet: DcrlibwalletAccount?
     var exchangeRate: NSDecimalNumber?
     var destinationAddress: String?
     var sendMax: Bool = false
@@ -110,7 +110,7 @@ class SendFundsViewController: UIViewController {
         }
         
         guard let source = sourceWallet else {return false}
-        let sourceAccountBalance = source.Balance!.dcrSpendable
+        let sourceAccountBalance = source.balance!.dcrSpendable
         if sendAmountDcr > sourceAccountBalance {
             self.notEnoughFundsLabel.text = self.insufficientFundsErrorMessage
             return false
@@ -140,11 +140,11 @@ class SendFundsViewController: UIViewController {
     
     private func loadAccounts() {
         let walletAccounts = AppDelegate.walletLoader.wallet!.walletAccounts(confirmations: self.requiredConfirmations)
-            .filter({ !$0.isHidden && $0.Number != INT_MAX }) // remove hidden wallets from array
+            .filter({ !$0.isHidden && $0.number != INT_MAX }) // remove hidden wallets from array
         self.walletAccounts = walletAccounts
-        sourceWalletInfoLabel.text = walletAccounts[0].Name
+        sourceWalletInfoLabel.text = walletAccounts[0].name
         sourceWallet = walletAccounts[0]
-        let spendableAmount = (Decimal(walletAccounts[0].Balance!.dcrSpendable) as NSDecimalNumber).round(8).formattedWithSeparator
+        let spendableAmount = (Decimal(walletAccounts[0].balance!.dcrSpendable) as NSDecimalNumber).round(8).formattedWithSeparator
         spendableAmountLabel.text = "Spendable: \(spendableAmount) DCR"
     }
     
@@ -173,7 +173,7 @@ class SendFundsViewController: UIViewController {
     @IBAction func proceedToConfirmSend(_ sender: Any) {
         let vc = ConfirmToSendViewController.instance
         self.prepareTxSummary(isSendAttempt: false) { sendAmountDcr, _, txFeeAndSize in
-            guard let sourceAccountBalance = self.sourceWallet?.Balance!.dcrSpendable else {return}
+            guard let sourceAccountBalance = self.sourceWallet?.balance!.dcrSpendable else {return}
             let textFeeSize = txFeeAndSize.fee?.dcrValue ?? 0.0
             let balanceAfterSending = Decimal(sourceAccountBalance - sendAmountDcr - textFeeSize) as NSDecimalNumber
             let balanceAfterSendingText = "\(balanceAfterSending.round(8).formattedWithSeparator) DCR"
@@ -254,9 +254,9 @@ class SendFundsViewController: UIViewController {
         
         return validDestinationAddress
     }
-    func generateAddress(from account: WalletAccount) -> String? {
+    func generateAddress(from account: DcrlibwalletAccount) -> String? {
         var generateAddressError: NSError?
-        let destinationAddress = AppDelegate.walletLoader.wallet!.currentAddress(account.Number, error: &generateAddressError)
+        let destinationAddress = AppDelegate.walletLoader.wallet!.currentAddress(account.number, error: &generateAddressError)
         if generateAddressError != nil {
             print("send page -> generate address for destination account error: \(generateAddressError!.localizedDescription)")
             return nil
@@ -291,7 +291,7 @@ class SendFundsViewController: UIViewController {
     
     func displayTransactionSummary() {
         self.prepareTxSummary(isSendAttempt: false) { sendAmountDcr, _, txFeeAndSize in
-            guard let sourceAccountBalance = self.sourceWallet?.Balance!.dcrSpendable else {return}
+            guard let sourceAccountBalance = self.sourceWallet?.balance!.dcrSpendable else {return}
             let balanceAfterSending = Decimal(sourceAccountBalance - sendAmountDcr - txFeeAndSize.fee!.dcrValue) as NSDecimalNumber
             let totalCost = Decimal(sendAmountDcr + txFeeAndSize.fee!.dcrValue) as NSDecimalNumber
             
@@ -352,7 +352,7 @@ class SendFundsViewController: UIViewController {
         do {
             guard let sourceAccount = sourceWallet else {return}
             let sendAmountAtom = DcrlibwalletAmountAtom(sendAmountDcr)
-            let sourceAccountNumber = sourceAccount.Number
+            let sourceAccountNumber = sourceAccount.number
             
             let newTx = AppDelegate.walletLoader.wallet!.newUnsignedTx(sourceAccountNumber,
                                                                        requiredConfirmations: self.requiredConfirmations)
@@ -470,7 +470,7 @@ class SendFundsViewController: UIViewController {
     func calculateAndDisplayMaxSendableAmount() {
         guard let sourceAccount = sourceWallet else {return}
         sendMax = true
-        if sourceAccount.Balance?.Spendable == 0 {
+        if sourceAccount.balance?.spendable == 0 {
             // nothing to send
             self.notEnoughFundsLabel.text = self.insufficientFundsErrorMessage
             return
@@ -480,7 +480,7 @@ class SendFundsViewController: UIViewController {
         let wallet = AppDelegate.walletLoader.wallet!
         
         do {
-            let newTx = wallet.newUnsignedTx(sourceAccount.Number, requiredConfirmations: self.requiredConfirmations)
+            let newTx = wallet.newUnsignedTx(sourceAccount.number, requiredConfirmations: self.requiredConfirmations)
             newTx?.addSendDestination(destinationAddress, atomAmount: 0, sendMax: sendMax)
             let maxSendableAmount = try newTx?.estimateMaxSendAmount()
             
@@ -567,10 +567,10 @@ class SendFundsViewController: UIViewController {
         guard let wallets = walletAccounts else {return}
         sender.setImage(UIImage(named: "arrorup"), for: .normal)
         let vc = WalletChooserTableViewController(wallets: wallets, selected: sourceWallet)
-        vc.didSelectAccount = { (account: WalletAccount?) -> () in
+        vc.didSelectAccount = { (account: DcrlibwalletAccount?) -> () in
             if let account = account {
-                self.sourceWalletInfoLabel.text = account.Name
-                let amountInWalletText = (Decimal(account.Balance!.dcrTotal) as NSDecimalNumber).round(8).formattedWithSeparator
+                self.sourceWalletInfoLabel.text = account.name
+                let amountInWalletText = (Decimal(account.balance!.dcrTotal) as NSDecimalNumber).round(8).formattedWithSeparator
                 self.sourceWalletAmount.text = "\(amountInWalletText) DCR"
                 self.sourceWallet = account
             }
@@ -584,10 +584,10 @@ class SendFundsViewController: UIViewController {
         guard let wallets = walletAccounts else {return}
         sender.setImage(UIImage(named: "arrorup"), for: .normal)
         let vc = WalletChooserTableViewController(wallets: wallets, selected: destinationWallet)
-        vc.didSelectAccount = { (account: WalletAccount?) -> () in
+        vc.didSelectAccount = { (account: DcrlibwalletAccount?) -> () in
             if let account = account {
-                self.receivingWalletInfoLabel.text = account.Name
-                let amountInWalletText = (Decimal(account.Balance!.dcrTotal) as NSDecimalNumber).round(8).formattedWithSeparator
+                self.receivingWalletInfoLabel.text = account.name
+                let amountInWalletText = (Decimal(account.balance!.dcrTotal) as NSDecimalNumber).round(8).formattedWithSeparator
                 self.receivingWalletAmount.text = "\(amountInWalletText) DCR"
                 self.destinationWallet = account
             }
