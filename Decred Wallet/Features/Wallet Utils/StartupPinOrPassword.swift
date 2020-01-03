@@ -75,7 +75,7 @@ struct StartupPinOrPassword {
         vc.present(securityVC, animated: true, completion: nil)
     }
 
-    static func changeWalletPublicPassphrase(_ vc: UIViewController, current currentPassword: String?, new newPinOrPassword: String?, type securityType: String? = nil, completionDelegate: SecurityRequestCompletionDelegate?, completion: (() -> Void)? = nil) {
+    static func changeWalletPublicPassphraseOld(_ vc: UIViewController, current currentPassword: String?, new newPinOrPassword: String?, type securityType: String? = nil, completionDelegate: SecurityRequestCompletionDelegate?, completion: (() -> Void)? = nil) {
         // cannot set new pin/password without a type specified
         if securityType == nil && newPinOrPassword != nil {
             vc.showOkAlert(message: LocalizedStrings.securityTypeNotSpecified, title: LocalizedStrings.invalidRequest)
@@ -114,6 +114,11 @@ struct StartupPinOrPassword {
                 }
             }
         }
+    }
+    
+    static func changeWalletPublicPassphrase(_ vc: UIViewController, current currentPassword: String?, new newPinOrPassword: String?, type securityType: String? = nil, completion: (() -> Void)? = nil) {
+        vc.showOkAlert(message: "Not yet implemented", title: LocalizedStrings.error)
+        completion?()
     }
 
     static func pinOrPasswordIsSet() -> Bool {

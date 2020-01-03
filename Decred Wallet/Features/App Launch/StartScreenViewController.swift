@@ -61,19 +61,19 @@ class StartScreenViewController: UIViewController {
 
     func loadMainScreen() {
         if AppDelegate.walletLoader.oneOrMoreWalletsExist {
-            self.checkStartupSecurityAndProceed(to: self.openWalletsAndStartApp)
-        } else if DcrlibwalletWalletExistsAt(WalletLoader.appDataDir) {
-            self.checkStartupSecurityAndProceed(to: AppDelegate.walletLoader.linkExistingWallet)
+            self.openWalletsAndStartApp()
+        } else if DcrlibwalletWalletExistsAt(WalletLoader.appDataDir, BuildConfig.NetType) {
+            self.checkStartupSecurityAndLinkExistingWallet()
         } else {
             self.displayWalletSetupScreen()
         }
     }
     
-    func checkStartupSecurityAndProceed(to nextFn: @escaping (String, SecurityRequestCompletionDelegate?) -> Void) {
+    func checkStartupSecurityAndLinkExistingWallet() {
         if StartupPinOrPassword.pinOrPasswordIsSet() {
-            self.promptForStartupPinOrPassword(completion: nextFn)
+            self.promptForStartupPinOrPassword(completion: AppDelegate.walletLoader.linkExistingWalletAndStartApp)
         } else {
-            nextFn("", nil)
+            AppDelegate.walletLoader.linkExistingWalletAndStartApp(startupPinOrPassword: "")
         }
     }
     
@@ -102,15 +102,15 @@ class StartScreenViewController: UIViewController {
             })
         }
     }
-
-    func openWalletsAndStartApp(startupPinOrPassword: String, completionDelegate: SecurityRequestCompletionDelegate?) {
+    
+    func openWalletsAndStartApp() {
         self.label.text = LocalizedStrings.openingWallet
         
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let `self` = self else { return }
             
             do {
-                try AppDelegate.walletLoader.multiWallet.openWallets(startupPinOrPassword.utf8Bits)
+                try AppDelegate.walletLoader.multiWallet.openWallets()
                 DispatchQueue.main.async {
                     completionDelegate?.securityCodeProcessed(true, nil)
                     NavigationMenuTabBarController.setupMenuAndLaunchApp(isNewWallet: false)
@@ -124,10 +124,7 @@ class StartScreenViewController: UIViewController {
                     }
                     completionDelegate?.securityCodeProcessed(false, errorMessage)
                     
-                    self.showOkAlert(message: errorMessage,
-                                     title: LocalizedStrings.error,
-                                     okText: LocalizedStrings.retry,
-                                     onPressOk: { self.promptForStartupPinOrPassword(completion: self.openWalletsAndStartApp) })
+                    self.showOkAlert(message: errorMessage, title: LocalizedStrings.error)
                 }
             }
         }

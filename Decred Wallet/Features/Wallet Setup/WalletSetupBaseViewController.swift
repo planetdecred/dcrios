@@ -24,9 +24,7 @@ class WalletSetupBaseViewController: UIViewController {
             let privatePassphraseType = securityType == SecurityViewController.SECURITY_TYPE_PASSWORD ? DcrlibwalletPassphraseTypePass : DcrlibwalletPassphraseTypePin
             
             do {
-                try multiwallet?.createNewWallet("",
-                                                 privatePassphrase: pinOrPassword,
-                                                 privatePassphraseType: privatePassphraseType)
+                try multiwallet?.createNewWallet(pinOrPassword, privatePassphraseType: privatePassphraseType)
                 
                 DispatchQueue.main.async {
                     Settings.setValue(securityType, for: Settings.Keys.SpendingPassphraseSecurityType)

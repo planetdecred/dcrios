@@ -20,9 +20,7 @@ class WalletLoader: NSObject {
         return self.syncer.currentSyncOp == SyncOp.Done
     }
     
-    var oneOrMoreWalletsExist: Bool {
-        return self.multiWallet.loadedWalletsCount() > 0
-    }
+    var oneOrMoreWalletsExist = false
     
     var wallet: DcrlibwalletWallet? {
         return multiWallet.defaultWallet()
@@ -37,10 +35,15 @@ class WalletLoader: NSObject {
     func initWallets() -> NSError? {
         var initWalletsError: NSError?
         self.multiWallet = DcrlibwalletNewMultiWallet(WalletLoader.appDataDir, "bdb", BuildConfig.NetType, &initWalletsError)
+        
+        if initWalletsError == nil {
+            self.oneOrMoreWalletsExist = self.multiWallet.loadedWalletsCount() > 0
+        }
+        
         return initWalletsError
     }
     
-    func linkExistingWallet(startupPinOrPassword: String) {
+    func linkExistingWalletAndStartApp(startupPinOrPassword: String) {
         do {
             var privatePassphraseType = DcrlibwalletPassphraseTypePass
             if SpendingPinOrPassword.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PIN {
@@ -49,11 +52,13 @@ class WalletLoader: NSObject {
             
             try AppDelegate.walletLoader.multiWallet.linkExistingWallet(WalletLoader.appDataDir,
                                                                         originalPubPass: startupPinOrPassword,
-                                                                        multiwalletPubPass: startupPinOrPassword,
                                                                         privatePassphraseType: privatePassphraseType)
+            
+            DispatchQueue.main.async {
+                NavigationMenuTabBarController.setupMenuAndLaunchApp(isNewWallet: false)
+            }
         } catch let error {
             print("link existing wallet error: \(error.localizedDescription)")
         }
     }
-    
 }
