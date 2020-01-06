@@ -7,14 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		10BA77992390059F00B67446 /* TabMenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BA77982390059F00B67446 /* TabMenuItemView.swift */; };
-		1085D1A523994F140035F416 /* UIPaddedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085D1A423994F140035F416 /* UIPaddedLabel.swift */; };
 		102AFAC423AA2B4D007E2EBD /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102AFAC323AA2B4D007E2EBD /* ProgressView.swift */; };
-		1085D1A523994F140035F416 /* PaddedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085D1A423994F140035F416 /* PaddedLabel.swift */; };
 		10A8446923B004B900975661 /* SecurityBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A8446823B004B900975661 /* SecurityBaseViewController.swift */; };
+		10BA77992390059F00B67446 /* TabMenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BA77982390059F00B67446 /* TabMenuItemView.swift */; };
+		10D9FB9223C3956300CBF216 /* FloatingLabelBorderLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D9FB8D23C3956200CBF216 /* FloatingLabelBorderLayer.swift */; };
+		10D9FB9323C3956300CBF216 /* FloatingLabelTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D9FB8E23C3956200CBF216 /* FloatingLabelTextField.swift */; };
+		10D9FB9423C3956300CBF216 /* FloatingLabelTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D9FB8F23C3956200CBF216 /* FloatingLabelTextView.swift */; };
+		10D9FB9523C3956300CBF216 /* FloatingLabelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D9FB9023C3956300CBF216 /* FloatingLabelProtocol.swift */; };
+		10D9FB9623C3956300CBF216 /* FloatingLabelPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D9FB9123C3956300CBF216 /* FloatingLabelPlaceholder.swift */; };
 		2557E1892355C6FA00B6A1B7 /* NavigationMenuTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2557E1882355C6FA00B6A1B7 /* NavigationMenuTabBarController.swift */; };
 		2557E18B2355C9F000B6A1B7 /* CustomTabMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2557E18A2355C9F000B6A1B7 /* CustomTabMenuView.swift */; };
-		255EEE4E231EEC470080200D /* FloatingLabelTextInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255EEE4D231EEC470080200D /* FloatingLabelTextInput.swift */; };
 		25751F532372C9460019F657 /* Dcrlibwallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25751F522372C9460019F657 /* Dcrlibwallet.framework */; };
 		257521DA233CC32100F6F6E7 /* UIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257521D9233CC32100F6F6E7 /* UIStackView.swift */; };
 		25A4331C2373D0330018FFCF /* SyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A4331B2373D0330018FFCF /* SyncManager.swift */; };
@@ -143,17 +145,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		10BA77982390059F00B67446 /* TabMenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabMenuItemView.swift; sourceTree = "<group>"; };
-		1085D1A423994F140035F416 /* UIPaddedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPaddedLabel.swift; sourceTree = "<group>"; };
 		102AFAC323AA2B4D007E2EBD /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
-		1085D1A423994F140035F416 /* PaddedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedLabel.swift; sourceTree = "<group>"; };
 		10A8446823B004B900975661 /* SecurityBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecurityBaseViewController.swift; sourceTree = "<group>"; };
+		10BA77982390059F00B67446 /* TabMenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabMenuItemView.swift; sourceTree = "<group>"; };
+		10D9FB8D23C3956200CBF216 /* FloatingLabelBorderLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingLabelBorderLayer.swift; sourceTree = "<group>"; };
+		10D9FB8E23C3956200CBF216 /* FloatingLabelTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingLabelTextField.swift; sourceTree = "<group>"; };
+		10D9FB8F23C3956200CBF216 /* FloatingLabelTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingLabelTextView.swift; sourceTree = "<group>"; };
+		10D9FB9023C3956300CBF216 /* FloatingLabelProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingLabelProtocol.swift; sourceTree = "<group>"; };
+		10D9FB9123C3956300CBF216 /* FloatingLabelPlaceholder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingLabelPlaceholder.swift; sourceTree = "<group>"; };
 		23F5A25CDDC0ADF47F98ED95 /* Pods-Decred Wallet.mainnet release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.mainnet release.xcconfig"; path = "Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.mainnet release.xcconfig"; sourceTree = "<group>"; };
 		2557E1882355C6FA00B6A1B7 /* NavigationMenuTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationMenuTabBarController.swift; sourceTree = "<group>"; };
 		2557E18A2355C9F000B6A1B7 /* CustomTabMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabMenuView.swift; sourceTree = "<group>"; };
-		25751F522372C9460019F657 /* Dcrlibwallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Dcrlibwallet.framework; path = libs/Dcrlibwallet.framework; sourceTree = "<group>"; };
-		257521D9233CC32100F6F6E7 /* UIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackView.swift; sourceTree = "<group>"; };
-		255EEE4D231EEC470080200D /* FloatingLabelTextInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingLabelTextInput.swift; sourceTree = "<group>"; };
 		25751F522372C9460019F657 /* Dcrlibwallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Dcrlibwallet.framework; path = libs/Dcrlibwallet.framework; sourceTree = "<group>"; };
 		257521D9233CC32100F6F6E7 /* UIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackView.swift; sourceTree = "<group>"; };
 		25A4331B2373D0330018FFCF /* SyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncManager.swift; sourceTree = "<group>"; };
@@ -304,6 +306,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		10D9FB9723C3956600CBF216 /* FloatingLabelInputs */ = {
+			isa = PBXGroup;
+			children = (
+				10D9FB9023C3956300CBF216 /* FloatingLabelProtocol.swift */,
+				10D9FB8E23C3956200CBF216 /* FloatingLabelTextField.swift */,
+				10D9FB8F23C3956200CBF216 /* FloatingLabelTextView.swift */,
+				10D9FB9123C3956300CBF216 /* FloatingLabelPlaceholder.swift */,
+				10D9FB8D23C3956200CBF216 /* FloatingLabelBorderLayer.swift */,
+			);
+			path = FloatingLabelInputs;
+			sourceTree = "<group>";
+		};
 		452B0148672C448C74CB5C1E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -439,10 +453,9 @@
 		B3B469AC228F0F2600A68EDD /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
+				10D9FB9723C3956600CBF216 /* FloatingLabelInputs */,
 				B3B469AD228F0F2600A68EDD /* Button.swift */,
 				B3635B81229FE5870052EB4D /* QRImageScanner.swift */,
-				255EEE4D231EEC470080200D /* FloatingLabelTextInput.swift */,
-				1085D1A423994F140035F416 /* PaddedLabel.swift */,
 				102AFAC323AA2B4D007E2EBD /* ProgressView.swift */,
 			);
 			path = "Custom Views";
@@ -912,13 +925,14 @@
 				B3B46AC8228F120700A68EDD /* TransactionDetailCell.swift in Sources */,
 				B3B46A1B228F0F2700A68EDD /* SecurityViewController.swift in Sources */,
 				B3B46993228F0C2E00A68EDD /* AppDelegate.swift in Sources */,
-				255EEE4E231EEC470080200D /* FloatingLabelTextInput.swift in Sources */,
 				B3B46A12228F0F2700A68EDD /* TextFieldDoneButton.swift in Sources */,
 				B3B46A1D228F0F2700A68EDD /* RequestPasswordViewController.swift in Sources */,
 				B3B469FA228F0F2700A68EDD /* UIColor.swift in Sources */,
 				B3B469FD228F0F2700A68EDD /* UIViewController.swift in Sources */,
 				DD4948EC22C0E400006A35F8 /* LocalizedStrings.swift in Sources */,
+				10D9FB9323C3956300CBF216 /* FloatingLabelTextField.swift in Sources */,
 				B3B46A9B228F0F7D00A68EDD /* PeerSetTableViewController.swift in Sources */,
+				10D9FB9423C3956300CBF216 /* FloatingLabelTextView.swift in Sources */,
 				B3B46A89228F0F7D00A68EDD /* keyPadButton.swift in Sources */,
 				B3B46AB0228F0F7D00A68EDD /* AccountDataCell.swift in Sources */,
 				10BA77992390059F00B67446 /* TabMenuItemView.swift in Sources */,
@@ -930,6 +944,7 @@
 				B3A3EF8622936BFE00008A4E /* Reachability.swift in Sources */,
 				B36EFD362298617C002753B2 /* UIButton.swift in Sources */,
 				B3B469FC228F0F2700A68EDD /* String.swift in Sources */,
+				10D9FB9223C3956300CBF216 /* FloatingLabelBorderLayer.swift in Sources */,
 				B3B46A9D228F0F7D00A68EDD /* HelpViewController.swift in Sources */,
 				B3B46A9A228F0F7D00A68EDD /* SettingsController.swift in Sources */,
 				B3B46A26228F0F2700A68EDD /* CreateNewWalletViewController.swift in Sources */,
@@ -959,7 +974,6 @@
 				AD24C23D2343E445009583C9 /* NotificationsManager.swift in Sources */,
 				B3B46AA7228F0F7D00A68EDD /* CurrencyConversionOptionsViewController.swift in Sources */,
 				25E63F4E23312B2C009CD53E /* NavMenuFloatingButtons.swift in Sources */,
-				1085D1A523994F140035F416 /* PaddedLabel.swift in Sources */,
 				B3B46AB1228F0F7D00A68EDD /* SeedCheckActiveCellView.swift in Sources */,
 				B3B46A32228F0F2700A68EDD /* OverviewViewController.swift in Sources */,
 				B35C55D8232FED610006A765 /* Transaction.swift in Sources */,
@@ -972,6 +986,8 @@
 				B36255B622A11A9500C62946 /* SecurityMenuViewController.swift in Sources */,
 				B3B46AC4228F120700A68EDD /* TransactiontOutputDetailsCell.swift in Sources */,
 				25E61632237D69750031FB52 /* SyncDetailsComponent.swift in Sources */,
+				10D9FB9623C3956300CBF216 /* FloatingLabelPlaceholder.swift in Sources */,
+				10D9FB9523C3956300CBF216 /* FloatingLabelProtocol.swift in Sources */,
 				B3967B3D22A75BD400E14432 /* UITableView.swift in Sources */,
 				B3B46A35228F0F2700A68EDD /* Syncer.swift in Sources */,
 				B3B46A17228F0F2700A68EDD /* ContouredButton.swift in Sources */,

@@ -150,7 +150,7 @@
                                             <constraint firstAttribute="bottom" secondItem="NoT-EV-WHd" secondAttribute="bottom" constant="24" id="hem-da-OHY"/>
                                         </constraints>
                                     </view>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Spending password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NMs-Wa-sVv" customClass="FloatingLabelTextInput" customModule="Decred_Wallet" customModuleProvider="target">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Spending password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NMs-Wa-sVv" customClass="FloatingLabelTextField" customModule="Decred_Wallet" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="73.333333333333343" width="327" height="48"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="0es-Dm-pTI"/>
@@ -213,7 +213,7 @@
                                             <constraint firstAttribute="bottom" secondItem="f8A-co-8Dp" secondAttribute="bottom" constant="24" id="pad-fh-UgV"/>
                                         </constraints>
                                     </view>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm spending password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fj4-AU-s5Z" customClass="FloatingLabelTextInput" customModule="Decred_Wallet" customModuleProvider="target">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm spending password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fj4-AU-s5Z" customClass="FloatingLabelTextField" customModule="Decred_Wallet" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="185.33333333333334" width="327" height="48"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="q5y-pi-MzY"/>
@@ -266,7 +266,7 @@
                                                 <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
                                                 <state key="normal" title="Cancel"/>
                                                 <connections>
-                                                    <action selector="cancelTappedWith_sender:" destination="2lq-jW-9IA" eventType="touchUpInside" id="I6N-ue-lEk"/>
+                                                    <action selector="cancelTapped:" destination="2lq-jW-9IA" eventType="touchUpInside" id="Vej-tw-TUU"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PwE-hW-lVm" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
