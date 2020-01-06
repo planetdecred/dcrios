@@ -32,13 +32,36 @@ class FloatingLabelTextView: UITextView {
 
     private func initView() {
         self.delegate = self
-
+        
+        self.isScrollEnabled = false
+        self.showsVerticalScrollIndicator = false
+        self.showsHorizontalScrollIndicator = false
+        
         self.layer.addSublayer(borderLayer)
         self.layer.masksToBounds = false
         self.textContainerInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
 
         self.addSubview(self.floatingPlaceholderLabel)
         self.floatingPlaceholderLabel.setFontAndTopConstraint()
+    }
+
+    public func addButton(button: UIButton) {
+        var trailingToView = self.layoutMarginsGuide.trailingAnchor
+        var trailingConstant: CGFloat = -14
+        if let lastButton = self.subviews.last(where: { $0 is UIButton }) {
+            trailingToView = lastButton.leadingAnchor
+            trailingConstant = -28
+        }
+
+        self.addSubview(button)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        button.trailingAnchor.constraint(equalTo: trailingToView, constant: trailingConstant).isActive = true
+        button.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+
+        self.layoutIfNeeded()
+        self.textContainerInset.right = 14 + (self.frame.size.width -  button.frame.origin.x)
     }
 
     override func layoutSubviews() {
