@@ -11,7 +11,7 @@ import Dcrlibwallet
 
 class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDelegate {
     
-    var receiveAccountTableView: AccountTableView!
+    //var receiveAccountTableView: AccountTableView?
     
     @IBOutlet weak var selectedAccountNameLbl: UILabel!
     @IBOutlet weak var selectedAccountWalletNameLbl: UILabel!
@@ -29,6 +29,33 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
         label.textAlignment = .center
         label.text = LocalizedStrings.secureMenuSyncInfo
         return label
+    }()
+    
+    private lazy var receiveAccountTableView: AccountTableView = {
+        let receiveAccountTableView = AccountTableView.init(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
+        UIApplication.shared.keyWindow?.addSubview(receiveAccountTableView)
+        
+        receiveAccountTableView.onAccountSelected = {
+            [weak self] (selectedAccount:DcrlibwalletAccount,walletName:String) in
+
+            guard let this = self else { return }
+
+            this.myacc = selectedAccount
+
+            this.selectedAccountNameLbl.text = this.myacc?.name
+            this.selectedAccountWalletNameLbl.text = walletName
+
+            let total = "\(this.myacc?.balance?.total ?? 0)"
+            this.selectedAccountTotalBalanceLbl.attributedText = Utils.getAttributedString(str: "\(total)", siz: 14.0, TexthexColor: UIColor.appColors.darkBlue)
+
+            this.getAddress(accountNumber: (this.myacc!.number))
+        }
+        receiveAccountTableView.hide = {
+            [weak self] () in
+            guard let this = self else { return }
+            this.accountSelectionDropdownBtn.isSelected = !this.accountSelectionDropdownBtn.isSelected
+        }
+        return receiveAccountTableView
     }()
 
     var firstTrial = true
@@ -51,7 +78,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationItem.title = LocalizedStrings.receive
+        self.navigationItem.title = LocalizedStrings.receiveDCR
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_close")?.withRenderingMode(.alwaysOriginal),
                                                                 style: .done, target: self,
                                                                 action: #selector(navigateToBackScreen))
@@ -65,40 +92,10 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     
     @objc func accountSelectionDropdownBtnClick() {
         self.accountSelectionDropdownBtn.isSelected = !self.accountSelectionDropdownBtn.isSelected
-        
-        if self.receiveAccountTableView == nil {
-            self.createReceiveAccountTableView()
-        }
-        
+                
         self.receiveAccountTableView.showView()
     }
     
-    private func createReceiveAccountTableView() {
-        self.receiveAccountTableView = AccountTableView.init(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
-        UIApplication.shared.keyWindow?.addSubview(self.receiveAccountTableView!)
-        
-        self.receiveAccountTableView.selectedAccount = {
-            [weak self] (account:DcrlibwalletAccount,walletName:String) in
-            
-            guard let this = self else { return }
-            
-            this.myacc = account
-            
-            this.selectedAccountNameLbl.text = this.myacc?.name
-            this.selectedAccountWalletNameLbl.text = walletName
-            
-            let total = "\(this.myacc?.balance?.total ?? 0)"
-            this.selectedAccountTotalBalanceLbl.attributedText = Utils.getAttributedString(str: "\(total)", siz: 14.0, TexthexColor: UIColor.init(hex: "0A1440"))
-                            
-            this.getAddress(accountNumber: (this.myacc!.number))
-        }
-        self.receiveAccountTableView.hide = {
-            [weak self] () in
-            guard let this = self else { return }
-            this.accountSelectionDropdownBtn.isSelected = !this.accountSelectionDropdownBtn.isSelected
-        }
-    }
-
     func setupExtraUI() {
         self.accountSelectionDropdownBtn.addTarget(self, action: #selector(accountSelectionDropdownBtnClick), for: .touchUpInside)
         self.selectedAccountTotalBalanceLbl.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(accountSelectionDropdownBtnClick)))
@@ -157,7 +154,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
             infoBtn.setImage(UIImage(named: "ic_info"), for: .normal)
             infoBtn.addTarget(self, action: #selector(tips), for: .touchUpInside)
             infoBtn.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
-            let infoNavBarBtnItem:UIBarButtonItem = UIBarButtonItem(customView: infoBtn)
+            let infoNavBarBtnItem: UIBarButtonItem = UIBarButtonItem(customView: infoBtn)
 
             let moreBtn = UIButton(type: .custom)
             moreBtn.setImage(UIImage(named: "ic_more"), for: .normal)
@@ -210,7 +207,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
                 self.selectedAccountNameLbl.text = defaultAccount.name
 
                 let total = "\(defaultAccount.balance?.total ?? 0)"
-                self.selectedAccountTotalBalanceLbl.attributedText = Utils.getAttributedString(str: "\(total)", siz: 14.0, TexthexColor: UIColor.init(hex: "0A1440"))
+            self.selectedAccountTotalBalanceLbl.attributedText = Utils.getAttributedString(str: "\(total)", siz: 14.0, TexthexColor: UIColor.appColors.darkBlue)
             
                 self.myacc = defaultAccount
                 self.getAddress(accountNumber: (self.myacc!.number))

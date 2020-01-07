@@ -1,8 +1,8 @@
 //
-//  ReceiveAccountListView.swift
+//  AccountTableView.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2019 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 //
@@ -12,81 +12,97 @@ import Dcrlibwallet
 
 class AccountTableView: UIView, UITableViewDelegate, UITableViewDataSource {
 
-    var bgView : UIView?
-    var tableView : UITableView?
+    var bgView: UIView!
+    var tableView: UITableView!
         
-    var listData : [[DcrlibwalletAccount]]?
+    var listData = [[DcrlibwalletAccount]]()
     
-    var selectedAccount: ((DcrlibwalletAccount,String) -> ())?
+    var onAccountSelected: ((_ selectedAccount:DcrlibwalletAccount, _ walletName: String) -> ())?
     
     var hide: (() -> ())?
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.listData = Array()
-        
         self.setAccount()
         
         self.backgroundColor = UIColor.init(hex: "000000", alpha: 0.4)
         
-        let tapView = UIView.init(frame: CGRect(x: 0, y: 0, width: frame.width, height: frame.height-300))
+        let tapView = UIView()
         self.addSubview(tapView)
+        tapView.translatesAutoresizingMaskIntoConstraints = false
+        tapView.topAnchor.constraint(equalTo: self.topAnchor, constant: 0).isActive = true
+        tapView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 0).isActive = true
+        tapView.widthAnchor.constraint(equalToConstant: frame.width).isActive = true
+        tapView.heightAnchor.constraint(equalToConstant: frame.height-300).isActive = true
         let tapGes = UITapGestureRecognizer.init(target: self, action: #selector(hideView))
         tapView.addGestureRecognizer(tapGes)
         
-        self.bgView = UIView.init(frame: CGRect(x: 0, y: frame.height, width: frame.width, height: 300))
-        self.bgView?.backgroundColor = UIColor.white
+        self.bgView = UIView()
+        self.bgView.backgroundColor = UIColor.white
         self.addSubview(self.bgView!)
-
-        let maskPath = UIBezierPath(roundedRect: self.bgView!.bounds, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: 10, height: 10))
-        let maskLayer = CAShapeLayer()
-        maskLayer.frame = self.bgView!.bounds
-        maskLayer.path = maskPath.cgPath
-        self.bgView?.layer.mask = maskLayer
+        self.bgView.translatesAutoresizingMaskIntoConstraints = false
+        self.bgView.topAnchor.constraint(equalTo: self.topAnchor, constant: frame.height).isActive = true
+        self.bgView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 0).isActive = true
+        self.bgView.widthAnchor.constraint(equalToConstant: frame.width).isActive = true
+        self.bgView.heightAnchor.constraint(equalToConstant: 300).isActive = true
+        self.bgView.layer.cornerRadius = 10.0
         
         let closeBtn = UIButton.init(type: .custom)
-        closeBtn.frame = CGRect(x: 8, y: 4.5, width: 40, height: 40)
         closeBtn.setImage(UIImage(named: "ic_close"), for: .normal)
-        self.bgView?.addSubview(closeBtn)
+        self.bgView.addSubview(closeBtn)
         closeBtn.addTarget(self, action: #selector(self.hideView), for: .touchUpInside)
+        closeBtn.translatesAutoresizingMaskIntoConstraints = false
+        closeBtn.topAnchor.constraint(equalTo: self.bgView!.topAnchor, constant: 4.5).isActive = true
+        closeBtn.leftAnchor.constraint(equalTo: self.bgView!.leftAnchor, constant: 8).isActive = true
+        closeBtn.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        closeBtn.heightAnchor.constraint(equalToConstant: 40).isActive = true
 
-        let titleLab = UILabel.init(frame: CGRect(x: closeBtn.frame.maxX+10, y: 0, width: 200, height: 49))
-        titleLab.font = .systemFont(ofSize: 20)
-        titleLab.textColor = UIColor.init(red: 0.04, green: 0.08, blue: 0.25, alpha: 1)
+        let titleLab = UILabel()
+        titleLab.font = UIFont(name: "SourceSansPro-Regular", size: 20)
+        titleLab.textColor = UIColor.appColors.darkBlue
         titleLab.text = LocalizedStrings.receivingAccount
-        self.bgView?.addSubview(titleLab)
+        self.bgView.addSubview(titleLab)
+        titleLab.translatesAutoresizingMaskIntoConstraints = false
+        titleLab.topAnchor.constraint(equalTo: self.bgView.topAnchor, constant: 0).isActive = true
+        titleLab.leftAnchor.constraint(equalTo: closeBtn.rightAnchor, constant: 10).isActive = true
+        titleLab.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        titleLab.heightAnchor.constraint(equalToConstant: 49).isActive = true
         
-        let line = UIView.init(frame: CGRect(x: 0, y: titleLab.frame.maxY, width: frame.width, height: 1))
-        line.backgroundColor = .init(red: 0.9, green: 0.92, blue: 0.93, alpha: 1)
-        self.bgView?.addSubview(line)
+        let line = UIView()
+        line.backgroundColor = UIColor.appColors.gray
+        self.bgView.addSubview(line)
+        line.translatesAutoresizingMaskIntoConstraints = false
+        line.topAnchor.constraint(equalTo: titleLab.bottomAnchor, constant: 0).isActive = true
+        line.leftAnchor.constraint(equalTo: self.bgView.leftAnchor, constant: 0).isActive = true
+        line.widthAnchor.constraint(equalToConstant: frame.width).isActive = true
+        line.heightAnchor.constraint(equalToConstant: 1).isActive = true
         
-        self.tableView = UITableView.init(frame: CGRect(x: 0, y: 50, width: frame.width, height: (self.bgView?.frame.height)!-50), style: .grouped)
-        self.tableView?.backgroundColor = .white
-        self.tableView?.delegate = self as UITableViewDelegate
-        self.tableView?.dataSource = self as UITableViewDataSource
-        self.bgView?.addSubview(self.tableView!)
-        self.tableView?.separatorStyle = .none
-        self.tableView?.register(UINib.init(nibName: "AccountTableViewCell", bundle: nil), forCellReuseIdentifier: "AccountTableViewCell")
+        self.tableView = UITableView(frame: CGRect(), style: .grouped)
+        self.tableView.backgroundColor = .white
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.bgView.addSubview(self.tableView!)
+        self.tableView.separatorStyle = .none
+        self.tableView.register(UINib.init(nibName: "AccountTableViewCell", bundle: nil), forCellReuseIdentifier: "AccountTableViewCell")
         
-        self.showView()
+        self.tableView.translatesAutoresizingMaskIntoConstraints = false
+        self.tableView.topAnchor.constraint(equalTo: line.bottomAnchor, constant: 0).isActive = true
+        self.tableView.leftAnchor.constraint(equalTo: self.bgView.leftAnchor, constant: 0).isActive = true
+        self.tableView.bottomAnchor.constraint(equalTo: self.bgView.bottomAnchor, constant: 0).isActive = true
+        self.tableView.widthAnchor.constraint(equalToConstant: frame.width).isActive = true
     }
 
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
     }
     func setAccount() {
         let acc = AppDelegate.walletLoader.wallet?.walletAccounts(confirmations: 0)
         
-        let defaultAccount = acc?.filter({ $0.isDefault}).first
-        if (defaultAccount != nil) {
-            let defaultAcc: [DcrlibwalletAccount] = [defaultAccount!]
-            self.listData?.append(defaultAcc)
-            
-            let walletAccountsArr: [DcrlibwalletAccount] = (acc?.filter({!$0.isHidden && $0.number != INT_MAX }))!
-            self.listData?.append(walletAccountsArr)
-        }else{
-           let walletAccountsArr: [DcrlibwalletAccount] = (acc?.filter({!$0.isHidden && $0.number != INT_MAX }))!
-           self.listData?.append(walletAccountsArr)
+        if let defaultAccount = acc?.filter({ $0.isDefault}).first {
+            self.listData.append([defaultAccount])
+        }
+        if let walletAccountsArr = acc?.filter({!$0.isHidden && $0.number != INT_MAX }) {
+            self.listData.append(walletAccountsArr)
         }
         
         self.tableView?.reloadData()
@@ -94,15 +110,10 @@ class AccountTableView: UIView, UITableViewDelegate, UITableViewDataSource {
     
     //MARK: tableViewDelegate
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.listData!.count
+        return self.listData.count
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let walletAccountsArr: [DcrlibwalletAccount]? = self.listData![section]
-        
-        return walletAccountsArr!.count
-    }
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 78
+        return self.listData[section].count
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 30
@@ -113,24 +124,21 @@ class AccountTableView: UIView, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:AccountTableViewCell = tableView.dequeueReusableCell(withIdentifier: "AccountTableViewCell", for: indexPath) as! AccountTableViewCell
         
-        let cellBgView: UIView? = UIView.init()
-        cellBgView?.backgroundColor = .white
+        let cellBgView = UIView(frame: CGRect(x: 0, y: 0, width: cell.frame.size.width, height: cell.frame.size.height))
+        cellBgView.backgroundColor = .white
         cell.selectedBackgroundView = cellBgView
         
-        let walletAccountsArr: [DcrlibwalletAccount] = (self.listData?[indexPath.section])!
-        let  walletAccount = walletAccountsArr[indexPath.row]
-        
-        cell.setAccount(walletAccount)
+        cell.setAccount(self.listData[indexPath.section][indexPath.row])
         
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let walletAccountsArr: [DcrlibwalletAccount] = (self.listData?[indexPath.section])!
+        let walletAccountsArr: [DcrlibwalletAccount] = (self.listData[indexPath.section])
         let  walletAccount = walletAccountsArr[indexPath.row]
 
-        let walletName = indexPath.section==0 ? "Default":"Wallets"
+        let walletName = indexPath.section==0 ? LocalizedStrings.defaultAccount:LocalizedStrings.wallet
         
-        self.selectedAccount!(walletAccount,walletName)
+        self.onAccountSelected?(walletAccount, walletName)
         
         self.hideView()
     }
@@ -139,9 +147,9 @@ class AccountTableView: UIView, UITableViewDelegate, UITableViewDataSource {
         header.backgroundColor = .white
         
         let lab = UILabel.init(frame: CGRect(x: 16, y: 14, width: tableView.frame.width-30, height: 16))
-        lab.font = .systemFont(ofSize: 14)
-        lab.textColor = .init(red: 0.24, green: 0.35, blue: 0.45, alpha: 1)
-        lab.text = section==0 ? "Deafult":"Wallets"
+        lab.font = UIFont(name: "SourceSansPro-Regular", size: 14)
+        lab.textColor = UIColor.appColors.darkBluishGray
+        lab.text = section==0 ? LocalizedStrings.defaultAccount:LocalizedStrings.wallet
         header.addSubview(lab)
         
         return header
@@ -152,17 +160,15 @@ class AccountTableView: UIView, UITableViewDelegate, UITableViewDataSource {
     @objc func hideView() {
         self.hide!()
         UIView.animate(withDuration: 0.3, animations: {
-            self.bgView?.frame = CGRect(x: 0, y: self.frame.height, width: (self.bgView?.frame.width)!, height: (self.bgView?.frame.height)!)
-        }, completion: { (isFinsh) in
-            
+            self.bgView.topAnchor.constraint(equalTo: self.topAnchor, constant: self.frame.height).isActive = true
+        }, completion: { _ in
             self.isHidden = true
         })
     }
     func showView() {
         self.isHidden = false
         UIView.animate(withDuration: 0.3, animations: {
-            self.bgView?.frame = CGRect(x: 0, y: self.frame.height-(self.bgView?.frame.height)!, width: (self.bgView?.frame.width)!, height: (self.bgView?.frame.height)!)
-        }, completion: { (isFinsh) in
-        })
+            self.bgView.topAnchor.constraint(equalTo: self.topAnchor, constant: self.frame.height-300).isActive = true
+        }, completion: nil)
     }
 }

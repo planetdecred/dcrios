@@ -270,7 +270,8 @@ struct LocalizedStrings {
     static let receivingAccount = NSLocalizedString("receivingAccount", comment: "")
     static let receiveDCR = NSLocalizedString("receiveDCR", comment: "")
     static let receiveTip = NSLocalizedString("receiveTip", comment: "")
-    
+    static let defaultAccount = NSLocalizedString("defaultAccount", comment: "")
+
     /* Account View */
     static let hidden = NSLocalizedString("hidden", comment: "")
     static let spendable = NSLocalizedString("spendable", comment: "")
