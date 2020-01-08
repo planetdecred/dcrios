@@ -76,7 +76,7 @@ class SeedBackupVerifyViewController: UIViewController {
         } else {
             self.groupedSeedWordsTableView?.isUserInteractionEnabled = true
             self.btnConfirm?.stopLoading()
-            Utils.showBanner(parentVC: self, type: .error, text: NSLocalizedString("failedToVerify", comment: ""))
+            Utils.showBanner(parentVC: self, type: .error, text: LocalizedStrings.failedToVerify)
         }
     }
 

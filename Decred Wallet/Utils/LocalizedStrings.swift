@@ -415,4 +415,7 @@ struct LocalizedStrings {
     static let history = NSLocalizedString("history", comment: "")
     static let settings = NSLocalizedString("settings", comment: "")
     static let help = NSLocalizedString("help", comment: "")
+    
+    /* Seed Backup */
+    static let failedToVerify = NSLocalizedString("failedToVerify", comment: "")
 }
