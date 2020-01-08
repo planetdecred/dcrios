@@ -9,10 +9,8 @@ import Foundation
 import UIKit
 import Dcrlibwallet
 
-class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDelegate {
-    
-    //var receiveAccountTableView: AccountTableView?
-    
+class ReceiveViewController: UIViewController, UIDocumentInteractionControllerDelegate {
+        
     @IBOutlet weak var selectedAccountNameLbl: UILabel!
     @IBOutlet weak var selectedAccountWalletNameLbl: UILabel!
     @IBOutlet weak var selectedAccountTotalBalanceLbl: UILabel!
@@ -200,7 +198,6 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     }
     
     private func showDefaultWalletAccount() {
-        
         if let acc = AppDelegate.walletLoader.wallet?.walletAccounts(confirmations: 0) {
            if let defaultAccount = acc.filter({ $0.isDefault}).first {
                
@@ -215,13 +212,13 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
         }
     }
     
-    @objc func tips(){
+    @objc func tips() {
         let alertController = UIAlertController(title: LocalizedStrings.receiveDCR, message: LocalizedStrings.receiveTip, preferredStyle: UIAlertController.Style.alert)
         alertController.addAction(UIAlertAction(title: LocalizedStrings.gotIt, style: UIAlertAction.Style.default, handler: nil))
         self.present(alertController, animated: true, completion: nil)
     }
         
-    @objc func getNext(){
+    @objc func getNext() {
         self.getNextAddress(accountNumber: (self.myacc?.number)!)
     }
     
