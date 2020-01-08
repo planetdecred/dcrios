@@ -1,5 +1,5 @@
 //
-//  FloatingLabelPlaceholder.swift
+//  FloatingPlaceholderLabel.swift
 //  Decred Wallet
 //
 // Copyright (c) 2019 The Decred developers
@@ -9,13 +9,14 @@
 import UIKit
 
 @IBDesignable
-class FloatingLabelPlaceholder: UILabel {
+class FloatingPlaceholderLabel: UILabel {
     @IBInspectable var topPadding: CGFloat = 0
     @IBInspectable var bottomPadding: CGFloat = 0
     @IBInspectable var leftPadding: CGFloat = 4
     @IBInspectable var rightPadding: CGFloat = 4
 
     var topConstraint: NSLayoutConstraint?
+
     let normalColor: UIColor = UIColor.appColors.lightBluishGray
     var activeColor: UIColor = UIColor.appColors.lightBlue
     let normalFontSize: CGFloat = 16
@@ -23,7 +24,8 @@ class FloatingLabelPlaceholder: UILabel {
 
     override var text: String? {
         didSet {
-            self.setFontAndTopConstraint()
+            // set position after the text did set, since the label position calculated in real-time using the height of the label
+            self.setPosition()
         }
     }
 
@@ -41,24 +43,25 @@ class FloatingLabelPlaceholder: UILabel {
         self.backgroundColor = UIColor.white
         self.clipsToBounds = true
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.setTextColor(isParentEditing: false)
+        self.textColor = self.normalColor
+        self.setPosition()
     }
+    
+    private func setPosition() {
+        guard let floatingLabelInput = superview as? FloatingLabelProtocol else { return }
 
-    public func setFontAndTopConstraint() {
-        if let floatingLabelInput = superview as? FloatingLabelProtocol {
-            self.font = self.font.withSize(floatingLabelInput.isParentEmpty() ? self.normalFontSize : self.smallerFontSize)
-            self.sizeToFit()
-            let calculatedTopConstraintValue = floatingLabelInput.isParentEmpty() ? (self.superview!.frame.size.height - self.intrinsicContentSize.height) / 2 : self.intrinsicContentSize.height / -2
+        self.font = self.font.withSize(floatingLabelInput.isParentEmpty() ? self.normalFontSize : self.smallerFontSize)
+        self.sizeToFit()
+        let calculatedTopConstraintValue = floatingLabelInput.isParentEmpty() ? (self.superview!.frame.size.height - self.intrinsicContentSize.height) / 2 : self.intrinsicContentSize.height / -2
 
-            if self.topConstraint == nil {
-                self.topConstraint = self.topAnchor.constraint(equalTo: self.superview!.topAnchor, constant: calculatedTopConstraintValue)
-                NSLayoutConstraint.activate([
-                    self.leadingAnchor.constraint(equalTo: self.superview!.leadingAnchor, constant: 16),
-                    self.topConstraint!
-                ])
-            } else {
-                self.topConstraint?.constant = calculatedTopConstraintValue
-            }
+        if self.topConstraint == nil {
+            self.topConstraint = self.topAnchor.constraint(equalTo: self.superview!.topAnchor, constant: calculatedTopConstraintValue)
+            NSLayoutConstraint.activate([
+                self.leadingAnchor.constraint(equalTo: self.superview!.leadingAnchor, constant: 16),
+                self.topConstraint!
+            ])
+        } else {
+            self.topConstraint?.constant = calculatedTopConstraintValue
         }
     }
 

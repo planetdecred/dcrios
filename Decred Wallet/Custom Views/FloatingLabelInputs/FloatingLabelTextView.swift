@@ -11,7 +11,7 @@ import UIKit
 @IBDesignable
 class FloatingLabelTextView: UITextView {
     let borderLayer = FloatingLabelBorderLayer()
-    let floatingPlaceholderLabel = FloatingLabelPlaceholder()
+    let floatingPlaceholderLabel = FloatingPlaceholderLabel()
     var isEditing: Bool = false
 
     @IBInspectable var placeholder: String? {
@@ -42,7 +42,6 @@ class FloatingLabelTextView: UITextView {
         self.textContainerInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
 
         self.addSubview(self.floatingPlaceholderLabel)
-        self.floatingPlaceholderLabel.setFontAndTopConstraint()
     }
 
     public func addButton(button: UIButton) {

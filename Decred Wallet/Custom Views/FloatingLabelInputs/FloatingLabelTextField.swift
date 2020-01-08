@@ -11,7 +11,7 @@ import UIKit
 @IBDesignable
 class FloatingLabelTextField: UITextField {
     let borderLayer = FloatingLabelBorderLayer()
-    let floatingPlaceholderLabel = FloatingLabelPlaceholder()
+    let floatingPlaceholderLabel = FloatingPlaceholderLabel()
 
     lazy var pwdVisibilityToggleBtn: UIButton = {
         return UIButton(type: .custom)
@@ -44,9 +44,6 @@ class FloatingLabelTextField: UITextField {
         self.layer.masksToBounds = false
 
         self.addSubview(self.floatingPlaceholderLabel)
-        self.floatingPlaceholderLabel.text = self.placeholder
-        self.placeholder = ""
-        self.floatingPlaceholderLabel.setFontAndTopConstraint()
 
         self.addTarget(self, action: #selector(self.editingBegan), for: .editingDidBegin)
         self.addTarget(self, action: #selector(self.editingEnded), for: .editingDidEnd)
