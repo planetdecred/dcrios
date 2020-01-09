@@ -1,5 +1,5 @@
 //
-//  FloatingLabelTextView.swift
+//  FloatingPlaceholderTextView.swift
 //  Decred Wallet
 //
 // Copyright (c) 2019 The Decred developers
@@ -9,8 +9,8 @@
 import UIKit
 
 @IBDesignable
-class FloatingLabelTextView: UITextView {
-    let borderLayer = FloatingLabelBorderLayer()
+class FloatingPlaceholderTextView: UITextView {
+    let borderLayer = FloatingPlaceholderBorderLayer()
     let floatingPlaceholderLabel = FloatingPlaceholderLabel()
     var isEditing: Bool = false
 
@@ -69,22 +69,26 @@ class FloatingLabelTextView: UITextView {
     }
 }
 
-extension FloatingLabelTextView: UITextViewDelegate {
+extension FloatingPlaceholderTextView: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         self.isEditing = true
-        borderLayer.setColor(isParentEditing: self.isEditing)
-        self.floatingPlaceholderLabel.parentEditingDidBegin()
+        borderLayer.changeBorderColor(acitve: self.isEditing)
+        self.floatingPlaceholderLabel.moveToFloatingPosition()
     }
 
     func textViewDidEndEditing(_ textView: UITextView) {
         self.isEditing = false
-        borderLayer.setColor(isParentEditing: self.isEditing)
-        self.floatingPlaceholderLabel.parentEditingDidEnd()
+        borderLayer.changeBorderColor(acitve: self.isEditing)
+        if self.isInputEmpty() {
+            self.floatingPlaceholderLabel.moveToDefaultPosition()
+        } else {
+            self.floatingPlaceholderLabel.updateTextColor(shouldHighlight: false)
+        }
     }
 }
 
-extension FloatingLabelTextView: FloatingLabelProtocol {
-    func isParentEmpty() -> Bool {
+extension FloatingPlaceholderTextView: FloatingPlaceholderInputProtocol {
+    func isInputEmpty() -> Bool {
         return self.text?.isEmpty ?? false
     }
 }

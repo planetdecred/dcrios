@@ -24,8 +24,9 @@ class FloatingPlaceholderLabel: UILabel {
 
     override var text: String? {
         didSet {
-            // set position after the text did set, since the label position calculated in real-time using the height of the label
-            self.setPosition()
+            // set position after the text did set, since the label position
+            // calculated in real-time using the height of the label
+            self.positionPlaceholder()
         }
     }
 
@@ -44,15 +45,16 @@ class FloatingPlaceholderLabel: UILabel {
         self.clipsToBounds = true
         self.translatesAutoresizingMaskIntoConstraints = false
         self.textColor = self.normalColor
-        self.setPosition()
+        self.positionPlaceholder()
     }
-    
-    private func setPosition() {
-        guard let floatingLabelInput = superview as? FloatingLabelProtocol else { return }
 
-        self.font = self.font.withSize(floatingLabelInput.isParentEmpty() ? self.normalFontSize : self.smallerFontSize)
+    private func positionPlaceholder() {
+        guard let floatingLabelInput = superview as? FloatingPlaceholderInputProtocol else { return }
+
+        self.font = self.font.withSize(floatingLabelInput.isInputEmpty() ? self.normalFontSize : self.smallerFontSize)
         self.sizeToFit()
-        let calculatedTopConstraintValue = floatingLabelInput.isParentEmpty() ? (self.superview!.frame.size.height - self.intrinsicContentSize.height) / 2 : self.intrinsicContentSize.height / -2
+
+        let calculatedTopConstraintValue = floatingLabelInput.isInputEmpty() ? (self.superview!.frame.size.height - self.intrinsicContentSize.height) / 2 : self.intrinsicContentSize.height / -2
 
         if self.topConstraint == nil {
             self.topConstraint = self.topAnchor.constraint(equalTo: self.superview!.topAnchor, constant: calculatedTopConstraintValue)
@@ -65,7 +67,7 @@ class FloatingPlaceholderLabel: UILabel {
         }
     }
 
-    func parentEditingDidBegin() {
+    func moveToFloatingPosition() {
         UIView.animate(withDuration: 0.1) {
             self.textColor = self.activeColor
             self.font = self.font.withSize(self.smallerFontSize)
@@ -74,22 +76,17 @@ class FloatingPlaceholderLabel: UILabel {
         }
     }
 
-    func parentEditingDidEnd() {
-        if let floatingLabelInput = superview as? FloatingLabelProtocol,
-            floatingLabelInput.isParentEmpty() {
-            UIView.animate(withDuration: 0.1) {
-                self.textColor = self.normalColor
-                self.font = self.font.withSize(self.normalFontSize)
-                self.topConstraint?.constant = (self.superview!.frame.size.height - self.intrinsicContentSize.height) / 2
-                self.superview?.layoutIfNeeded()
-            }
-        } else {
+    func moveToDefaultPosition() {
+        UIView.animate(withDuration: 0.1) {
             self.textColor = self.normalColor
+            self.font = self.font.withSize(self.normalFontSize)
+            self.topConstraint?.constant = (self.superview!.frame.size.height - self.intrinsicContentSize.height) / 2
+            self.superview?.layoutIfNeeded()
         }
     }
 
-    func setTextColor(isParentEditing: Bool) {
-        self.textColor = isParentEditing ? self.activeColor : self.normalColor
+    func updateTextColor(shouldHighlight: Bool) {
+        self.textColor = shouldHighlight ? self.activeColor : self.normalColor
     }
 
     public override func drawText(in rect: CGRect) {

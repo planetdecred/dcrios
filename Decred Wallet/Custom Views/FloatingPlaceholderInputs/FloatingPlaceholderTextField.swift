@@ -1,5 +1,5 @@
 //
-//  FloatingLabelTextField.swift
+//  FloatingPlaceholderTextField.swift
 //  Decred Wallet
 //
 // Copyright (c) 2019 The Decred developers
@@ -9,8 +9,8 @@
 import UIKit
 
 @IBDesignable
-class FloatingLabelTextField: UITextField {
-    let borderLayer = FloatingLabelBorderLayer()
+class FloatingPlaceholderTextField: UITextField {
+    let borderLayer = FloatingPlaceholderBorderLayer()
     let floatingPlaceholderLabel = FloatingPlaceholderLabel()
 
     lazy var pwdVisibilityToggleBtn: UIButton = {
@@ -55,27 +55,31 @@ class FloatingLabelTextField: UITextField {
     }
 
     @objc func editingBegan() {
-        borderLayer.setColor(isParentEditing: self.isEditing)
-        self.floatingPlaceholderLabel.parentEditingDidBegin()
+        borderLayer.changeBorderColor(acitve: self.isEditing)
+        self.floatingPlaceholderLabel.moveToFloatingPosition()
     }
 
     @objc func editingEnded() {
-        borderLayer.setColor(isParentEditing: self.isEditing)
-        self.floatingPlaceholderLabel.parentEditingDidEnd()
+        borderLayer.changeBorderColor(acitve: self.isEditing)
+        if self.isInputEmpty() {
+            self.floatingPlaceholderLabel.moveToDefaultPosition()
+        } else {
+            self.floatingPlaceholderLabel.updateTextColor(shouldHighlight: false)
+        }
     }
 
     func showError() {
         self.borderLayer.activeBorderColor = UIColor.appColors.orange
         self.floatingPlaceholderLabel.activeColor = UIColor.appColors.orange
-        self.borderLayer.setColor(isParentEditing: self.isEditing)
-        self.floatingPlaceholderLabel.setTextColor(isParentEditing: self.isEditing)
+        self.borderLayer.changeBorderColor(acitve: self.isEditing)
+        self.floatingPlaceholderLabel.updateTextColor(shouldHighlight: self.isEditing)
     }
 
     func hideError() {
         self.borderLayer.activeBorderColor = UIColor.appColors.lightBlue
         self.floatingPlaceholderLabel.activeColor = UIColor.appColors.lightBlue
-        self.borderLayer.setColor(isParentEditing: self.isEditing)
-        self.floatingPlaceholderLabel.setTextColor(isParentEditing: self.isEditing)
+        self.borderLayer.changeBorderColor(acitve: self.isEditing)
+        self.floatingPlaceholderLabel.updateTextColor(shouldHighlight: self.isEditing)
     }
 
     func addTogglePasswordVisibilityButton() {
@@ -109,8 +113,8 @@ class FloatingLabelTextField: UITextField {
     }
 }
 
-extension FloatingLabelTextField: FloatingLabelProtocol {
-    func isParentEmpty() -> Bool {
+extension FloatingPlaceholderTextField: FloatingPlaceholderInputProtocol {
+    func isInputEmpty() -> Bool {
         return self.text?.isEmpty ?? false
     }
 }

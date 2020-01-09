@@ -10,12 +10,12 @@ import UIKit
 class RequestPasswordViewController: SecurityRequestBaseViewController, UITextFieldDelegate {
     @IBOutlet weak var headerLabel: UILabel!
 
-    @IBOutlet weak var passwordInput: FloatingLabelTextField!
+    @IBOutlet weak var passwordInput: FloatingPlaceholderTextField!
     @IBOutlet weak var passwordErrorLabel: UILabel!
     @IBOutlet weak var passwordCountLabel: UILabel?
     @IBOutlet weak var passwordStrengthIndicator: ProgressView?
 
-    @IBOutlet weak var confirmPasswordInput: FloatingLabelTextField?
+    @IBOutlet weak var confirmPasswordInput: FloatingPlaceholderTextField?
     @IBOutlet weak var confirmErrorLabel: UILabel?
     @IBOutlet weak var confirmCountLabel: UILabel?
 

@@ -1,5 +1,5 @@
 //
-//  FloatingLabelBorderLayer.swift
+//  FloatingPlaceholderBorderLayer.swift
 //  Decred Wallet
 //
 // Copyright (c) 2019 The Decred developers
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FloatingLabelBorderLayer: CALayer {
+class FloatingPlaceholderBorderLayer: CALayer {
     var activeBorderColor: UIColor = UIColor.appColors.lightBlue
     let inactiveBorderColor: UIColor = UIColor.appColors.lightGray
 
@@ -19,19 +19,21 @@ class FloatingLabelBorderLayer: CALayer {
 
     override init(layer: Any) {
         super.init(layer: layer)
+        self.initView()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        self.initView()
     }
 
     func initView() {
         self.cornerRadius = 4
         self.borderWidth = 2
-        self.setColor()
+        self.changeBorderColor()
     }
 
-    func setColor(isParentEditing: Bool = false) {
-        self.borderColor = isParentEditing ? self.activeBorderColor.cgColor : self.inactiveBorderColor.cgColor
+    func changeBorderColor(acitve: Bool = false) {
+        self.borderColor = acitve ? self.activeBorderColor.cgColor : self.inactiveBorderColor.cgColor
     }
 }
