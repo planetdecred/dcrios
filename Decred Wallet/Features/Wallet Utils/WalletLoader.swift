@@ -23,7 +23,7 @@ class WalletLoader: NSObject {
     var oneOrMoreWalletsExist = false
     
     var wallet: DcrlibwalletWallet? {
-        return multiWallet.defaultWallet()
+        return multiWallet.firstOrDefaultWallet()
     }
     
     override init() {
@@ -43,7 +43,7 @@ class WalletLoader: NSObject {
         return initWalletsError
     }
     
-    func linkExistingWalletAndStartApp(startupPinOrPassword: String) {
+    func linkExistingWalletAndStartApp(startupPinOrPassword: String) -> NSError? {
         do {
             var privatePassphraseType = DcrlibwalletPassphraseTypePass
             if SpendingPinOrPassword.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PIN {
@@ -57,8 +57,10 @@ class WalletLoader: NSObject {
             DispatchQueue.main.async {
                 NavigationMenuTabBarController.setupMenuAndLaunchApp(isNewWallet: false)
             }
+            return nil
         } catch let error {
             print("link existing wallet error: \(error.localizedDescription)")
+            return error
         }
     }
 }

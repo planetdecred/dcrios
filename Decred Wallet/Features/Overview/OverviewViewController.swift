@@ -471,20 +471,20 @@ class OverviewViewController: UIViewController, SeedBackupModalHandler {
     }
     
     func updatingLatestBlockInfo(latestBlock : __int32_t) {
-          if AppDelegate.walletLoader.multiWallet.isRescanning() {
+        if AppDelegate.walletLoader.multiWallet.isRescanning() {
             return
         }
           
-          if self.refreshBestBlockAgeTimer != nil {
-              self.refreshBestBlockAgeTimer?.invalidate()
-          }
+        if self.refreshBestBlockAgeTimer != nil {
+            self.refreshBestBlockAgeTimer?.invalidate()
+        }
           
-          self.refreshBestBlockAgeTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) {_ in
+        self.refreshBestBlockAgeTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) {_ in
             DispatchQueue.main.async {
-              self.setLatestBlockLabel(latestBlock: latestBlock)
+                self.setLatestBlockLabel(latestBlock: latestBlock)
             }
-          }
-      }
+        }
+    }
     
     func stopBestBlockAgeUpdate() {
                self.refreshBestBlockAgeTimer?.invalidate()

@@ -8,10 +8,10 @@
 
 import Foundation
 import UIKit
+import JGProgressHUD
+import Dcrlibwallet
 
 struct StartupPinOrPassword {
-    static let defaultPublicPassphrase = "public"
-
     static func clear(sender vc: UIViewController, completion: (() -> Void)? = nil) {
         if !self.pinOrPasswordIsSet() {
             // nothing to clear
@@ -75,22 +75,23 @@ struct StartupPinOrPassword {
         vc.present(securityVC, animated: true, completion: nil)
     }
 
-    static func changeWalletPublicPassphraseOld(_ vc: UIViewController, current currentPassword: String?, new newPinOrPassword: String?, type securityType: String? = nil, completionDelegate: SecurityRequestCompletionDelegate?, completion: (() -> Void)? = nil) {
+    static func changeWalletPublicPassphrase(_ vc: UIViewController, current currentPassword: String?, new newPinOrPassword: String?, type securityType: String? = nil, completionDelegate: SecurityRequestCompletionDelegate?, completion: (() -> Void)? = nil) {
         // cannot set new pin/password without a type specified
         if securityType == nil && newPinOrPassword != nil {
             vc.showOkAlert(message: LocalizedStrings.securityTypeNotSpecified, title: LocalizedStrings.invalidRequest)
             return
         }
 
-        let currentPublicPassphrase = currentPassword ?? self.defaultPublicPassphrase
-        let newPublicPassphrase = newPinOrPassword ?? self.defaultPublicPassphrase
+        let currentPublicPassphrase = currentPassword ?? ""
+        let newPublicPassphrase = newPinOrPassword ?? ""
 
         DispatchQueue.global(qos: .userInitiated).async {
             do {
-                let oldPublicPass = (currentPublicPassphrase as NSString).data(using: String.Encoding.utf8.rawValue)!
-                let newPublicPass = (newPublicPassphrase as NSString).data(using: String.Encoding.utf8.rawValue)!
-                try AppDelegate.walletLoader.multiWallet.changePublicPassphrase(oldPublicPass, newPublicPass: newPublicPass)
-                
+                let passphraseType = securityType == SecurityViewController.SECURITY_TYPE_PASSWORD ? DcrlibwalletPassphraseTypePass : DcrlibwalletPassphraseTypePin
+                try AppDelegate.walletLoader.multiWallet.changeStartupPassphrase(currentPublicPassphrase.utf8Bits,
+                                                                                 newPassphrase: newPublicPassphrase.utf8Bits,
+                                                                                 passphraseType: passphraseType)
+
                 DispatchQueue.main.async {
                     if newPinOrPassword == nil {
                         Settings.setValue(false, for: Settings.Keys.IsStartupSecuritySet)
@@ -99,6 +100,7 @@ struct StartupPinOrPassword {
                         Settings.setValue(true, for: Settings.Keys.IsStartupSecuritySet)
                         Settings.setValue(securityType!, for: Settings.Keys.StartupSecurityType)
                     }
+                    
                     completionDelegate?.securityCodeProcessed(true, nil)
                     completion?()
                 }
@@ -114,11 +116,6 @@ struct StartupPinOrPassword {
                 }
             }
         }
-    }
-    
-    static func changeWalletPublicPassphrase(_ vc: UIViewController, current currentPassword: String?, new newPinOrPassword: String?, type securityType: String? = nil, completion: (() -> Void)? = nil) {
-        vc.showOkAlert(message: "Not yet implemented", title: LocalizedStrings.error)
-        completion?()
     }
 
     static func pinOrPasswordIsSet() -> Bool {

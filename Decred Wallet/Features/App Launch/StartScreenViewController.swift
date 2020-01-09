@@ -24,14 +24,14 @@ class StartScreenViewController: UIViewController {
         if BuildConfig.IsTestNet {
             testnetLabel.isHidden = false
         }
-
+        
+        logo.loadGif(name: "splashLogo")
+        
         AppDelegate.walletLoader = WalletLoader()
         let initWalletError = AppDelegate.walletLoader.initWallets()
         if initWalletError != nil {
             print("init wallet error: \(initWalletError!.localizedDescription)")
         }
-
-        logo.loadGif(name: "splashLogo")
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -61,7 +61,7 @@ class StartScreenViewController: UIViewController {
 
     func loadMainScreen() {
         if AppDelegate.walletLoader.oneOrMoreWalletsExist {
-            self.openWalletsAndStartApp()
+            self.checkStartupSecurityAndStartApp()
         } else if DcrlibwalletWalletExistsAt(WalletLoader.appDataDir, BuildConfig.NetType) {
             self.checkStartupSecurityAndLinkExistingWallet()
         } else {
@@ -69,11 +69,26 @@ class StartScreenViewController: UIViewController {
         }
     }
     
+    func checkStartupSecurityAndStartApp() {
+        if StartupPinOrPassword.pinOrPasswordIsSet() {
+            self.promptForStartupPinOrPassword(completion: self.openWalletsAndStartApp)
+        } else {
+            self.openWalletsAndStartApp(startupPinOrPassword: "", completionDelegate: nil)
+        }
+    }
+    
     func checkStartupSecurityAndLinkExistingWallet() {
         if StartupPinOrPassword.pinOrPasswordIsSet() {
-            self.promptForStartupPinOrPassword(completion: AppDelegate.walletLoader.linkExistingWalletAndStartApp)
+            self.promptForStartupPinOrPassword() { startupPinOrPassword, completionDelegate in
+                let error = AppDelegate.walletLoader.linkExistingWalletAndStartApp(startupPinOrPassword: startupPinOrPassword)
+                if error == nil {
+                    completionDelegate?.securityCodeProcessed(true, nil)
+                } else {
+                    completionDelegate?.securityCodeProcessed(false, error!.localizedDescription)
+                }
+            }
         } else {
-            AppDelegate.walletLoader.linkExistingWalletAndStartApp(startupPinOrPassword: "")
+            _ = AppDelegate.walletLoader.linkExistingWalletAndStartApp(startupPinOrPassword: "")
         }
     }
     
@@ -103,14 +118,14 @@ class StartScreenViewController: UIViewController {
         }
     }
     
-    func openWalletsAndStartApp() {
+    func openWalletsAndStartApp(startupPinOrPassword: String, completionDelegate: SecurityRequestCompletionDelegate?) {
         self.label.text = LocalizedStrings.openingWallet
         
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let `self` = self else { return }
             
             do {
-                try AppDelegate.walletLoader.multiWallet.openWallets()
+                try AppDelegate.walletLoader.multiWallet.openWallets(startupPinOrPassword.utf8Bits)
                 DispatchQueue.main.async {
                     completionDelegate?.securityCodeProcessed(true, nil)
                     NavigationMenuTabBarController.setupMenuAndLaunchApp(isNewWallet: false)
