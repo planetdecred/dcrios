@@ -60,15 +60,10 @@ struct LocalizedStrings {
     static let passwordPlaceholder = NSLocalizedString("passwordPlaceholder", comment: "")
     static let confirmPasswordPlaceholder = NSLocalizedString("confirmPasswordPlaceholder", comment: "")
 
-    /* PIN setup*/
-    static let create = NSLocalizedString("create", comment: "")
-    static let next = NSLocalizedString("next", comment: "")
-
     /* Request Password */
     static let enterPassword = NSLocalizedString("enterPassword", comment: "")
     static let promptSpendingPassword = NSLocalizedString("promptSpendingPassword", comment: "")
     static let promptStartupPassword = NSLocalizedString("promptStartupPassword", comment: "")
-    static let promptStartupPIN = NSLocalizedString("promptStartupPIN", comment: "")
     static let securityTypeNotSpecified = NSLocalizedString("securityTypeNotSpecified", comment: "")
     static let password = NSLocalizedString("password", comment: "")
     static let proceed = NSLocalizedString("proceed", comment: "")
@@ -83,6 +78,9 @@ struct LocalizedStrings {
     static let pinsDidNotMatch = NSLocalizedString("pinsDidNotMatch", comment: "")
     static let pin = NSLocalizedString("pin", comment: "")
     static let pinStrength = NSLocalizedString("pinStrength", comment: "")
+    static let promptStartupPIN = NSLocalizedString("promptStartupPIN", comment: "")
+    static let create = NSLocalizedString("create", comment: "")
+    static let next = NSLocalizedString("next", comment: "")
 
     /* Change Spendind PIN/Password */
     static let enterCurrentSpendingPassword = NSLocalizedString("enterCurrentSpendingPassword", comment: "")

@@ -43,6 +43,7 @@ class RequestPinViewController: SecurityRequestBaseViewController {
 
     private func setupInterface() {
         self.view.addSubview(self.pinHiddenInput)
+        self.pinHiddenInput.delegate = self
         self.pinHiddenInput.addTarget(self, action: #selector(self.onPinTextChanged), for: .editingChanged)
 
         let layout = UICollectionViewCenterLayout()
@@ -76,9 +77,11 @@ class RequestPinViewController: SecurityRequestBaseViewController {
     @objc func onPinTextChanged() {
         var pinText = self.pinHiddenInput.text ?? ""
         let isPinEmpty = pinText.count == 0
-        
+
         if self.isInErrorState {
-            pinText = String(pinText.last!)
+            if let lastNumber = pinText.last {
+                pinText = String(lastNumber)
+            }
             self.pinHiddenInput.text = pinText
             self.hideError()
         }
@@ -106,6 +109,7 @@ class RequestPinViewController: SecurityRequestBaseViewController {
         self.pinHiddenInput.text = ""
         self.onPinTextChanged()
         self.btnBack?.isHidden = true
+        self.setPromptAndButtonText(isFirstStep: true)
     }
 
     @IBAction func onSubmit(_ sender: UIButton) {
@@ -173,6 +177,21 @@ extension RequestPinViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PinCell", for: indexPath)
         cell.backgroundColor = self.isInErrorState == true ? UIColor.appColors.orange : UIColor.appColors.turquoise
         return cell
+    }
+}
+
+extension RequestPinViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if let char = string.cString(using: String.Encoding.utf8),
+            (strcmp(char, "\\b") == -92), //Backspace was pressed
+            self.isInErrorState {
+                textField.text = ""
+                self.onPinTextChanged()
+        }
+        guard CharacterSet(charactersIn: "0123456789").isSuperset(of: CharacterSet(charactersIn: string)) else {
+            return false
+        }
+        return true
     }
 }
 

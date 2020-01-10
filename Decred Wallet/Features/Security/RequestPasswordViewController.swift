@@ -108,7 +108,7 @@ class RequestPasswordViewController: SecurityRequestBaseViewController, UITextFi
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == self.passwordInput {
+        if textField == self.passwordInput && self.requestConfirmation {
             self.confirmPasswordInput?.becomeFirstResponder()
             return true
         }
@@ -120,7 +120,6 @@ class RequestPasswordViewController: SecurityRequestBaseViewController, UITextFi
     }
 
     @IBAction func createTapped(_ sender: UIButton) {
-        btnSubmit.isEnabled = false
         _ = self.validatePasswordsAndProceed()
     }
 

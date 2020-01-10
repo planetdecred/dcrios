@@ -35,7 +35,7 @@ class SecurityRequestBaseViewController: SecurityBaseViewController, SecurityReq
         } else if let errorMessage = errorMessage {
             self.showError(text: errorMessage)
         } else {
-            self.showError(text: "Generic error message")
+            self.showError(text: "Error")
         }
     }
 }
