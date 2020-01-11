@@ -59,7 +59,6 @@
 "enterPassword" = "Enter Password";
 "promptSpendingPassword" = "Please enter spending password of your wallet.";
 "promptStartupPassword" = "Insira a atual Senha De Inicialização.";
-"promptStartupPIN" = "Enter Current Startup PIN";
 "enterCurrentSpendingPIN" = "Enter Current Spending PIN";
 "securityTypeNotSpecified" = "Security type not specified. Cannot proceed.";
 "password" = "SENHA";
@@ -67,6 +66,8 @@
 "passwordEmpty" = "Password can't be empty.";
 "invalidInput" = "invalid input.";
 "passwordInvalid" = "Senha inserida não é válida.";
+"passwordPlaceholder"="%@ password";
+"confirmPasswordPlaceholder"="Confirm %@ password";
 
 /* Request PIN and PIN Setup */
 "createPIN" = "Criar PIN De %@";
@@ -75,8 +76,10 @@
 "pinsDidNotMatch" = "PINs não coincidem. Tente novamente.";
 "pin" = "PIN";
 "pinStrength" = "FORÇA DO PIN";
-"passwordPlaceholder"="%@ password";
-"confirmPasswordPlaceholder"="Confirm %@ password";
+"promptStartupPIN" = "Enter Current Startup PIN";
+"next" = "Next";
+"create" = "Create";
+"back" = "Back";
 
 /* Change Spending PIN/Password */
 "enterCurrentSpendingPassword" = "Insira Senha De Gasto Atual";
@@ -417,8 +420,3 @@
 "history" = "history";
 "settings" = "Settings";
 "help" = "help";
-
-/* PIN Setup*/
-"next" = "Next";
-"create" = "Create";
-"back" = "Back";
