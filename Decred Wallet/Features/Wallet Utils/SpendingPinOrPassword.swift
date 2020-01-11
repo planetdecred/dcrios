@@ -11,23 +11,26 @@ import UIKit
 
 struct SpendingPinOrPassword {
     static func change(sender vc: UIViewController) {
-        self.promptForCurrentPinOrPassword(vc, afterUserEntersPinOrPassword: { (currentPinOrPassword: String) in
+        self.promptForCurrentPinOrPassword(vc, afterUserEntersPinOrPassword: { (currentPinOrPassword: String, completionDelegate: SecurityRequestCompletionDelegate?) in
+            completionDelegate?.securityCodeProcessed(true, nil)
             self.promptForNewPinOrPassword(vc, currentPinOrPassword: currentPinOrPassword)
         })
     }
     
-    private static func promptForCurrentPinOrPassword(_ vc: UIViewController, afterUserEntersPinOrPassword: @escaping (String) -> Void) {
+    private static func promptForCurrentPinOrPassword(_ vc: UIViewController, afterUserEntersPinOrPassword: @escaping (String, SecurityRequestCompletionDelegate?) -> Void) {
         // show the appropriate vc to read current pin or password
         if self.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
             let requestPasswordVC = RequestPasswordViewController.instantiate()
+            requestPasswordVC.securityFor = LocalizedStrings.current
             requestPasswordVC.prompt = LocalizedStrings.enterCurrentSpendingPassword
-            requestPasswordVC.onUserEnteredPassword = afterUserEntersPinOrPassword
+            requestPasswordVC.onUserEnteredSecurityCode = afterUserEntersPinOrPassword
             vc.present(requestPasswordVC, animated: true)
         } else {
             let requestPinVC = RequestPinViewController.instantiate()
             requestPinVC.securityFor = LocalizedStrings.current
             requestPinVC.showCancelButton = true
-            requestPinVC.onUserEnteredPin = afterUserEntersPinOrPassword
+            requestPinVC.onUserEnteredSecurityCode = afterUserEntersPinOrPassword
+            requestPinVC.prompt = LocalizedStrings.enterCurrentSpendingPIN
             vc.present(requestPinVC, animated: true)
         }
     }
@@ -38,17 +41,13 @@ struct SpendingPinOrPassword {
         securityVC.securityFor = LocalizedStrings.spending
         securityVC.initialSecurityType = self.currentSecurityType()
         
-        securityVC.onUserEnteredPinOrPassword = { (newPinOrPassword, securityType) in
-            self.changeWalletSpendingPassphrase(vc, current: currentPinOrPassword, new: newPinOrPassword, type: securityType)
+        securityVC.onUserEnteredPinOrPassword = { (newPinOrPassword, securityType, completionDelegate) in
+            self.changeWalletSpendingPassphrase(vc, current: currentPinOrPassword, new: newPinOrPassword, type: securityType, completionDelegate: completionDelegate)
         }
-        
-        vc.navigationController?.pushViewController(securityVC, animated: true)
+        vc.present(securityVC, animated: true, completion: nil)
     }
     
-    private static func changeWalletSpendingPassphrase(_ vc: UIViewController, current currentPassphrase: String, new newPassphrase: String, type securityType: String) {
-        let newSecurityType = securityType.lowercased()
-        let progressHud = Utils.showProgressHud(withText: String(format: LocalizedStrings.changingSpendingPINPass, newSecurityType))
-        
+    private static func changeWalletSpendingPassphrase(_ vc: UIViewController, current currentPassphrase: String, new newPassphrase: String, type securityType: String, completionDelegate: SecurityRequestCompletionDelegate?) {
         let oldPrivatePass = (currentPassphrase as NSString).data(using: String.Encoding.utf8.rawValue)!
         let newPrivatePass = (newPassphrase as NSString).data(using: String.Encoding.utf8.rawValue)!
         
@@ -56,12 +55,12 @@ struct SpendingPinOrPassword {
             do {
                 try AppDelegate.walletLoader.wallet?.changePrivatePassphrase(oldPrivatePass, newPass: newPrivatePass)
                 DispatchQueue.main.async {
-                    progressHud.dismiss()
+                    completionDelegate?.securityCodeProcessed(true, nil)
                     Settings.setValue(securityType, for: Settings.Keys.SpendingPassphraseSecurityType)
                 }
             } catch let error {
                 DispatchQueue.main.async {
-                    progressHud.dismiss()
+                    completionDelegate?.securityCodeProcessed(true, nil)
                     vc.showOkAlert(message: error.localizedDescription, title: LocalizedStrings.error)
                 }
             }

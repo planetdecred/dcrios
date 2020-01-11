@@ -12,4 +12,12 @@ class SecurityBaseViewController: UIViewController {
     static func instantiate() -> Self {
         return Storyboards.Security.instantiateViewController(for: self)
     }
+    
+    func dismissView() {
+        if self.isModal {
+            self.dismiss(animated: true, completion: nil)
+        } else {
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
 }

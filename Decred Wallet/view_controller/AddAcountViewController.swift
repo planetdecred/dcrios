@@ -27,78 +27,80 @@ class AddAcountViewController: UIViewController {
             createBtnTopConstraint.constant = -40
         }
     }
-    
+
     @IBAction func createFnc(_ sender: Any) {
-        if (accountName.text?.length)! < 1{
+        if (accountName.text?.length)! < 1 {
             Info(msg: LocalizedStrings.inputAccountName)
             return
         }
         
         let name = accountName.text
-        if(!(name!.isEmpty)){
+        if(!(name!.isEmpty)) {
             if SpendingPinOrPassword.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
                 addAccountWithoutPin()
-            }else{
+            } else {
                 let requestPinVC = RequestPinViewController.instantiate()
                 requestPinVC.securityFor = LocalizedStrings.spending
                 requestPinVC.showCancelButton = true
-                requestPinVC.onUserEnteredPin = { pin in
-                    self.addAccountWithPin(pin: pin as NSString)
+                requestPinVC.prompt = LocalizedStrings.confirmToCreate
+                requestPinVC.onUserEnteredSecurityCode = { (code: String, completionDelegate: SecurityRequestCompletionDelegate?) in
+                    self.addAccountWithPin(pin: code as NSString, completionDelegate: completionDelegate)
                 }
                 present(requestPinVC, animated: true, completion: nil)
             }
         }
     }
     
-    private func addAccountWithoutPin(){
+    private func addAccountWithoutPin() {
         let pass = passphrase.text
         if !pass!.isEmpty {
             let passphrase = (self.passphrase.text! as NSString).data(using: String.Encoding.utf8.rawValue)!
-            addAccount(passphrase: passphrase)
+            addAccount(passphrase: passphrase, completionDelegate: nil)
         }
     }
-    
-    private func addAccountWithPin(pin: NSString){
+
+    private func addAccountWithPin(pin: NSString, completionDelegate: SecurityRequestCompletionDelegate?) {
         let passphrase = pin.data(using: String.Encoding.utf8.rawValue)!
-        addAccount(passphrase: passphrase)
+        addAccount(passphrase: passphrase, completionDelegate:completionDelegate)
     }
-    
-    private func addAccount(passphrase: Data){
+
+    private func addAccount(passphrase: Data, completionDelegate: SecurityRequestCompletionDelegate?) {
         let progressHud = JGProgressHUD(style: .light)
         progressHud.shadow = JGProgressHUDShadow(color: .black, offset: .zero, radius: 5.0, opacity: 0.2)
         progressHud.textLabel.text = LocalizedStrings.creatingAccount
         progressHud.show(in: self.view)
-        
+
         let accountName = self.accountName.text!
-        
+
         DispatchQueue.global(qos: .userInitiated).async {
             do {
                 try AppDelegate.walletLoader.wallet?.nextAccount(accountName, privPass: passphrase)
                 DispatchQueue.main.async {
                     progressHud.dismiss()
+                    completionDelegate?.securityCodeProcessed(true, nil)
                     self.dismiss(animated: true, completion: nil)
                 }
-            }catch{
+            } catch {
                 DispatchQueue.main.async {
                     progressHud.dismiss()
-                    self.showError(error: error)
+                    completionDelegate?.securityCodeProcessed(false, error.localizedDescription)
                 }
             }
         }
     }
-    
+
     @IBAction func cancelBtn(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
     
-    func showError(error:Error){
+    func showError(error: Error) {
         let alert = UIAlertController(title: LocalizedStrings.errorMsg, message: error.localizedDescription, preferredStyle: .alert)
         let okAction = UIAlertAction(title: LocalizedStrings.ok, style: .default)
         alert.addAction(okAction)
         present(alert, animated: true, completion: nil)
     }
     
-    func Info(msg:String){
+    func Info(msg: String) {
         let alert = UIAlertController(title: LocalizedStrings.info, message: msg, preferredStyle: .alert)
         let okAction = UIAlertAction(title: LocalizedStrings.ok, style: .default)
         alert.addAction(okAction)

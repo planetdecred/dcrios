@@ -44,12 +44,14 @@
 /* Security Prompt */
 "enterStartupPassword" = "Enter Startup Password";
 "incorrectSecurityInfo" = "You entered an incorrect %@. Try again?";
+"unlockWithStartupPIN" = "Unlock with startup PIN";
+"unlock" = "Unlock";
 
 /* Password Setup */
 "emptyPasswordNotAllowed" = "Password cannot be empty";
-"passwordMatch" = "PASSWORDS MATCH";
-"passwordsDoNotMatch" = "PASSWORDS DO NOT MATCH";
-"createPassword" = "Create %@ Password";
+"passwordMatch" = "Passwords match";
+"passwordsDoNotMatch" = "Passwords do not match";
+"createPassword" = "Create a %@ password";
 "passwordStrength" = "PASSWORD STRENGTH";
 "confirmPassword" = "CONFIRM PASSWORD";
 
@@ -58,23 +60,29 @@
 "promptSpendingPassword" = "Please enter spending password of your wallet.";
 "promptStartupPassword" = "Enter Current Startup Password.";
 "securityTypeNotSpecified" = "Security type not specified. Cannot proceed.";
-"password" = "PASSWORD";
+"password" = "Password";
 "proceed" = "Proceed";
 "passwordEmpty" = "Password can't be empty.";
 "invalidInput" = "invalid input.";
 "passwordInvalid" = "Password entered was not valid.";
+"passwordPlaceholder"="%@ password";
+"confirmPasswordPlaceholder"="Confirm %@ password";
 
 /* Request PIN and PIN Setup */
-"createPIN" = "Create %@ PIN";
+"createPIN" = "Create a %@ PIN";
 "enterPIN" = "Enter %@ PIN";
-"confirmPIN" = "Confirm %@ PIN";
+"confirmPIN" = "Enter %@ PIN again";
 "pinsDidNotMatch" = "PINs did not match. Try again.";
 "pin" = "PIN";
 "pinStrength" = "PIN STRENGTH";
+"promptStartupPIN" = "Enter Current Startup PIN";
+"next" = "Next";
+"create" = "Create";
+"back" = "Back";
 
 /* Change Spending PIN/Password */
 "enterCurrentSpendingPassword" = "Enter Current Spending Password";
-"changingSpendingPINPass" = "Changing spending %@...";
+"enterCurrentSpendingPIN" = "Enter Current Spending PIN";
 
 /* Changing Startup PIN/Password */
 "changingStartupPINPass" = "Changing startup %@...";
@@ -249,6 +257,7 @@
 "estimateSize" = "Estimate Size:";
 "balanceAfter" = "Balance After:";
 "exchangeRate" = "Exchange Rate:";
+"confirmToSend" = "Confirm to send";
 
 /* Confirm Send Fund */
 "sending" = "Sending";
@@ -274,6 +283,7 @@
 /* Account View */
 "hidden" = "hidden";
 "spendable" = "Spendable";
+"confirmToCreate" = "Confirm to create";
 
 /* Account Data cell */
 "details" = "Details";
@@ -410,3 +420,4 @@
 "history" = "history";
 "settings" = "Settings";
 "help" = "help";
+
