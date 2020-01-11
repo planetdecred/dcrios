@@ -186,7 +186,8 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
         securityVC.onUserEnteredPinOrPassword = { (pinOrPassword, securityType, completionDelegate) in
             self.finalizeWalletSetup(seed, pinOrPassword, securityType, completionDelegate)
         }
-        self.navigationController?.pushViewController(securityVC, animated: true)
+        securityVC.modalPresentationStyle = .pageSheet
+        self.present(securityVC, animated: true)
     }
     
     private func validateSeed() -> (seed: String, valid: Bool) {
