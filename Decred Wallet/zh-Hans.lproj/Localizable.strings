@@ -48,6 +48,8 @@
 /* Security Prompt */
 "enterStartupPassword" = "输入启动密码";
 "incorrectSecurityInfo" = "You entered an incorrect %@. Try again?";
+"unlockWithStartupPIN" = "Unlock with startup PIN";
+"unlock" = "Unlock";
 
 /* Password Setup */
 "emptyPasswordNotAllowed" = "密码不能为空";
@@ -67,6 +69,8 @@
 "passwordEmpty" = "密码不能为空。";
 "invalidInput" = "invalid input.";
 "passwordInvalid" = "输入的密码错误。";
+"passwordPlaceholder"="%@ password";
+"confirmPasswordPlaceholder"="Confirm %@ password";
 
 /* Request PIN and PIN Setup */
 "createPIN" = "创建%@PIN码";
@@ -75,44 +79,19 @@
 "pinsDidNotMatch" = "PIN码不匹配，请重试。";
 "pin" = "PIN码";
 "pinStrength" = "PIN码强度";
+"promptStartupPIN" = "Enter Current Startup PIN";
+"next" = "Next";
+"create" = "Create";
+"back" = "Back";
 
 /* Change Spending PIN/Password */
 "enterCurrentSpendingPassword" = "输入当前支付密码";
-"changingSpendingPIN/Pass" = "正在更换支付%@。。。";
+"enterCurrentSpendingPIN" = "Enter Current Spending PIN";
 
 /* Changing Startup PIN/Password */
 "changingStartupPINPass" = "正在更换启动%@。。。";
 "removingStartupPINPass" = "移除启动%@。。。";
 "settingStartupPINPass" = "设置启动%@。。。";
-
-/* NavigationMenu / Sync progress */
-"cannotSyncWithoutNetworkConnection" = "Cannot sync without network connection.";
-"internetConnectionRequired" = "Internet connection required.";
-"connectToWiFiToSync" = "连接WiFi同步。";
-"restartingSync" = "Restarting sync...";
-"connectingToPeers" = "正在连接节点。";
-"syncedWith" =  "%@ 节点同步";
-"fetchingBlockHeaders" = "获取区块头部。";
-"blocksBehind" = "落后 %d 区块。";
-"bestBlockAgeAgo" = "%@前";
-"discoveringUsedAddresses" = "正在发现已使用的地址。";
-"generalSyncProgressCompletedleft" = "已完成 %d%%, 剩余 %2$d";
-"scanningBlocks" = "正在扫描区块";
-"rescanProgress" = "已完成 %d%%, 剩余 %2$d";
-"syncCanceled" = "Sync canceled.";
-"syncError" = "Sync error.";
-"latestBlock" = "最新区块: %d";
-"now" = "当前";
-"secondsAgo" = "%ds 前";
-"minAgo" = "%dm 前";
-"hrsAgo" = "%dh 前";
-"daysAgo" = "%dd 前";
-"weeksAgo" = "%dw 前";
-"monthsAgo" = "%dmo 前";
-"yearsAgo" =  "%dy 前";
-"totalBalance" = "总余额";
-"restartingSynchronization" = "Restarting Synchronization";
-"startingSynchronization" = "正在开始同步…";
 
 /* No Wifi Sync Connection */
 "notConnectedToWiFi" = "未连接WiFi";
@@ -122,30 +101,62 @@
 "always" = "总是";
 
 /* Sync progress view */
-"loading" = "加载中。。。";
-"numberOfConnectedPeers" = "%d节点";
-"numberOfConnectedPeer" = "%d节点";
-"syncingWithPeersOnNetwork" = "在测与%@同步%@";
-"fetchedHeaders" = "已获取 %d of ~%d 区块头部。\n";
-"headersFetchProgress" = "%d%% 当前步骤 1 of 3。" ;
-"bestBlockAgebehind" = "\n您的钱包落后 %@。";
-"addressDiscoveryProgressOver" = "~%d%%已完成步骤 2 of 3.";
-"addressDiscoveryProgressThrough" = "~%d%% 当前步骤 2 of 3。";
-"scanningTotalHeaders" = "正在扫描 %d of %d 区块头部。\n";
-"stepThreeRescanProgress" = "%d%% 当前步骤 3 of 3。";
-"synchronizing" = "正在同步";
+"loading" = "Loading...";
+"numberOfConnectedPeers" = "%d peers";
+"numberOfConnectedPeer" = "%d peer";
+"fetchedHeaders" = "%d of %d";
+"headersFetchProgress" = "Fetching block headers. %d%%";
+"headersScannedProgress" = "Scanning block headers. %d%%";
+"bestBlockAgebehind" = "%@ behind";
+"blockHeaderScanned" = "Block header scanned";
+"addressDiscoveryProgressOver" = "~%d%% (over)";
+"addressDiscoveryProgressThrough" = "~%d%%";
+"scanningTotalHeaders" = "%d of %d";
+"synchronizing" = "正在同步...";
 "synchronizationCanceled" = "Synchronization canceled";
 "synchronizationError" = "Synchronization error";
-"syncTotalProgress" = "已完成 %d%%, 剩余 %@";
+"syncTotalProgress" = "%d%% completed, %@ remaining.";
 "allTimes" = "总耗时";
 "elapsed" = "已过去:";
 "remain" = "剩余:";
 "total"  = "总共:";
-"stageTimes" = "阶段耗时";
 "tapToViewInformation" = "点击获取更多信息";
-"walletStatus" = "Wallet Status";
-"walletSynced" = "Synced";
-"walletNotSynced" = "Not Synced";
+"syncStageDescription" = "%@ - %d%%";
+"latestBlockAge" = "Latest block %d% :- %@";
+"blockHeadersFetched" = "Block headers fetched";
+"syncProgressComplete" = "%d%%";
+"syncTimeLeft" = "%@ left";
+"syncSteps" = "Step %d/3";
+"syncingProgress" = "Syncing progress";
+"cannotSyncWithoutNetworkConnection" = "Cannot sync without network connection.";
+"internetConnectionRequired" = "Internet connection required.";
+"connectToWiFiToSync" = "Connect to WiFi to sync.";
+"restartingSync" = "Restarting sync...";
+"connectingToPeers" = "Connecting to peers.";
+"syncedWith" =  "Synced with %@";
+"fetchingBlockHeaders" = "Fetching block headers.";
+"blocksBehind" = "%d blocks behind.";
+"bestBlockAgeAgo" = "%@ ago";
+"discoveringUsedAddresses" = "Discovering used addresses.";
+"generalSyncProgressCompletedleft" = "%d%% completed, %@ left.";
+"scanningBlocks" = "Scanning blocks.";
+"rescanProgress" = "%d%% completed, %@ left.";
+"syncCanceled" = "Sync canceled.";
+"syncError" = "Sync error.";
+"latestBlock" = "Latest Block: %d";
+"now" = "now";
+"secondsAgo" = "%ds ago";
+"minAgo" = "%dm ago";
+"hrsAgo" = "%dh ago";
+"daysAgo" = "%dd ago";
+"weeksAgo" = "%dw ago";
+"monthsAgo" = "%dmo ago";
+"yearsAgo" =  "%dy ago";
+"totalBalance" = "Total Balance";
+"restartingSynchronization" = "Restarting Synchronization";
+"startingSynchronization" = "Starting Sync...";
+"reconnect" = "Reconnect";
+"disconnect" = "Disconnect";
 
 /* Navigation Menu Items */
 "overview" = "Overview";
@@ -159,8 +170,22 @@
 
 /* Overview */
 "currentTotalBalance" = "总余额";
-"recentActivity" = "近期活动";
-"showAllTransactions" = "显示所有交易";
+"recentTransactions" = "Recent Transactions";
+"seeAll" = "See all";
+"backupSeedPhrase" = "Back up seed phrase";
+"walletStatus" = "Wallet Status";
+"walletSynced" = "Synced";
+"walletNotSynced" = "Not Synced";
+"backupWarningText" = "Verify your seed phrase backup so you can recover your funds when needed.";
+"connectedTo" = "Connected to %d peers";
+"online" = "Online";
+"offline" = "Offline";
+"showDetails" = "Show details";
+"hideDetails" = "Hide details";
+"connectedPeersCount" = "Connected peers count";
+"noConnectedPeer" = "No connected peers.";
+"peers" = "peers";
+"seeAll" = "See all";
 
 /* Transaction List/ History */
 "pending" = "等待";
@@ -236,6 +261,7 @@
 "estimateSize" = "预计大小:";
 "balanceAfter" = "发送后余额:";
 "exchangeRate" = "交易所汇率:";
+"confirmToSend" = "Confirm to send";
 
 /* Confirm Send Fund */
 "sending" = "发送中";
@@ -261,6 +287,7 @@
 /* Account View */
 "hidden" = "隐藏";
 "spendable" = "可用资金";
+"confirmToCreate" = "Confirm to create";
 
 /* Account Data cell */
 "details" = "详情";

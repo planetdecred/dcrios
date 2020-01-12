@@ -256,36 +256,38 @@ class SettingsController: UITableViewController  {
             let deleteWalletDialog = segue.destination as! DeleteWalletConfirmationViewController
             deleteWalletDialog.onDeleteWalletConfirmed = { password in
                 if password != nil {
-                    self.deleteWallet(spendingPinOrPassword: password!)
+                    self.deleteWallet(spendingPinOrPassword: password!, completionDelegate: nil)
                     return
                 }
                 
                 let requestPinVC = RequestPinViewController.instantiate()
                 requestPinVC.securityFor = LocalizedStrings.spending
                 requestPinVC.showCancelButton = true
-                requestPinVC.onUserEnteredPin = { pin in
-                    self.deleteWallet(spendingPinOrPassword: pin)
+                requestPinVC.prompt = LocalizedStrings.enterCurrentSpendingPIN
+                requestPinVC.onUserEnteredSecurityCode = {(code: String, completionDelegate: SecurityRequestCompletionDelegate?) in
+                    self.deleteWallet(spendingPinOrPassword: code, completionDelegate: completionDelegate)
                 }
                 self.present(requestPinVC, animated: true, completion: nil)
             }
         }
     }
     
-    func deleteWallet(spendingPinOrPassword: String) {
+    func deleteWallet(spendingPinOrPassword: String, completionDelegate: SecurityRequestCompletionDelegate?) {
         let progressHud = Utils.showProgressHud(withText: LocalizedStrings.deletingWallet)
         DispatchQueue.global(qos: .background).async {
             do {
                 try AppDelegate.walletLoader.wallet?.delete(spendingPinOrPassword.utf8Bits)
                 DispatchQueue.main.async {
                     progressHud.dismiss()
+                    completionDelegate?.securityCodeProcessed(true, nil)
                     self.walletDeleted()
                 }
             } catch let error {
                 DispatchQueue.main.async {
                     progressHud.dismiss()
+                    completionDelegate?.securityCodeProcessed(false, LocalizedStrings.deleteWalletFailed)
                 }
                 print("delete wallet error: \(error.localizedDescription)")
-                self.showOkAlert(message: LocalizedStrings.deleteWalletFailed, title: LocalizedStrings.error)
             }
         }
     }

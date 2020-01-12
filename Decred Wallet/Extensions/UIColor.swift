@@ -11,12 +11,12 @@ import UIKit
 
 extension UIColor {
     struct appColors {
-        static let darkYellowWarning = UIColor.init(hex: "#E7C659")
+//        static let darkYellowWarning = UIColor.init(hex: "#E7C659")
         static let thinGray = UIColor.init(hex: "#a4abb1")
         static let darkerGray = UIColor.init(hex: "#4e5f70")
         static let transparentThinGray = UIColor.init(hex: "#a4abb1", alpha: 0.3)
         static let shadowColor = UIColor(hex: "#3D0914")
-
+        
         // following are colors from new mockup color guide
         // ultimately other color constants should end up being obsolete once
         // the implementation of the new mockup is completed

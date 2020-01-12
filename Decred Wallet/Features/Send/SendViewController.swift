@@ -336,19 +336,20 @@ class SendViewController: UIViewController {
                     self.finalizeSending(destinationAddress: destinationAddress, pinOrPassword: spendingPassword!)
                     return
                 }
-                
+
                 let requestPinVC = RequestPinViewController.instantiate()
                 requestPinVC.securityFor = LocalizedStrings.spending
                 requestPinVC.showCancelButton = true
-                requestPinVC.modalPresentationStyle = .fullScreen
-                requestPinVC.onUserEnteredPin = { spendingPin in
-                    self.finalizeSending(destinationAddress: destinationAddress, pinOrPassword: spendingPin)
+                requestPinVC.prompt = LocalizedStrings.confirmToSend
+                requestPinVC.onUserEnteredSecurityCode = {(code: String, completionDelegate: SecurityRequestCompletionDelegate?) in
+                    completionDelegate?.securityCodeProcessed(true, nil)
+                    self.finalizeSending(destinationAddress: destinationAddress, pinOrPassword: code)
                 }
                 self.present(requestPinVC, animated: true, completion: nil)
             }
         }
     }
-    
+
     func prepareTxSummary(isSendAttempt: Bool, completion: (Double, String, DcrlibwalletTxFeeAndSize) -> Void) {
         guard let dcrAmountString = self.dcrAmountTextField.text, dcrAmountString != "",
             let sendAmountDcr = Double(dcrAmountString), sendAmountDcr > 0 else {
