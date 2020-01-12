@@ -44,7 +44,7 @@ class SeedBackupReminderViewController: UIViewController {
                 checkbox.borderWidth = 2
                 self.checkedCheckBoxesDict[checkbox.tag] = false
             } else {
-                checkbox.setImage(UIImage(named: "ic_checkmark_32"), for: .normal)
+                checkbox.setImage(UIImage(named: "ic_checkmark"), for: .normal)
                 checkbox.borderWidth = 0
                 self.checkedCheckBoxesDict[checkbox.tag] = true
             }

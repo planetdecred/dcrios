@@ -141,7 +141,7 @@ class OverviewViewController: UIViewController {
         
         // Sync status section
         self.onlineStatusIndicator.layer.cornerRadius = 5 // Height/width is 10pts, we use half that (5pts) to make a perfect circle
-        self.syncStatusImage.image = AppDelegate.walletLoader.isSynced ? UIImage(named: "ic_checkmark_24") : UIImage(named: "ic_crossmark") // Initial sync status image
+        self.syncStatusImage.image = AppDelegate.walletLoader.isSynced ? UIImage(named: "ic_checkmark") : UIImage(named: "ic_crossmark") // Initial sync status image
         
         let latestBlock = AppDelegate.walletLoader.wallet?.getBestBlock() ?? 0
         self.setLatestBlockLabel(latestBlock: latestBlock)
@@ -368,7 +368,7 @@ class OverviewViewController: UIViewController {
         
         // We have hidden the progress bar and sync progress report. we need to update the wallet sync status text and indicator
         if (AppDelegate.walletLoader.wallet?.isSyncing() == false) {
-            let syncStatusImageName = (AppDelegate.walletLoader.wallet?.isSynced())! ? "ic_checkmark_24" : "ic_crossmark"
+            let syncStatusImageName = (AppDelegate.walletLoader.wallet?.isSynced())! ? "ic_checkmark" : "ic_crossmark"
             self.syncStatusImage.image = UIImage(named: syncStatusImageName)
             self.syncStatusLabel.text = (AppDelegate.walletLoader.wallet?.isSynced())! ? LocalizedStrings.walletSynced : LocalizedStrings.walletNotSynced
             self.updatingLatestBlockInfo(latestBlock: bestBlock)
