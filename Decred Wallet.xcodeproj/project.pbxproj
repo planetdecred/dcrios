@@ -598,14 +598,12 @@
 		B3B469E2228F0F2600A68EDD /* Wallet Setup */ = {
 			isa = PBXGroup;
 			children = (
+				DD2D1E6E23CBB18A00FC49BC /* Recover Existing Wallet */,
 				DDCF259122B89D96005FCBB9 /* WalletSetup.storyboard */,
-				DD6855BC238C808A006B8BF4 /* RecoverySuccessViewController.swift */,
 				B3B469E3228F0F2600A68EDD /* CreateNewWalletViewController.swift */,
 				B3B469E4228F0F2600A68EDD /* ConfirmNewWalletSeedViewController.swift */,
-				B3B469E5228F0F2600A68EDD /* RecoverExistingWalletViewController.swift */,
 				B3B469E6228F0F2600A68EDD /* WalletSetupViewController.swift */,
 				B3B469E7228F0F2600A68EDD /* WalletSetupBaseViewController.swift */,
-				DD265A0C23BE2AD800CB68FA /* RecoverExistingWallet.storyboard */,
 			);
 			path = "Wallet Setup";
 			sourceTree = "<group>";
@@ -714,6 +712,16 @@
 				B3B46ABD228F120700A68EDD /* TransactiontOutputDetailsCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		DD2D1E6E23CBB18A00FC49BC /* Recover Existing Wallet */ = {
+			isa = PBXGroup;
+			children = (
+				DD265A0C23BE2AD800CB68FA /* RecoverExistingWallet.storyboard */,
+				B3B469E5228F0F2600A68EDD /* RecoverExistingWalletViewController.swift */,
+				DD6855BC238C808A006B8BF4 /* RecoverySuccessViewController.swift */,
+			);
+			path = "Recover Existing Wallet";
 			sourceTree = "<group>";
 		};
 		DDAD5023229F714600EDF91B /* Settings */ = {
