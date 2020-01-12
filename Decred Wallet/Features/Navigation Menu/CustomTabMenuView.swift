@@ -109,7 +109,7 @@ class CustomTabMenuView: UIStackView {
         let tab = self.subviews[viewId] as! MenuItemView
         let borderWidth = tab.frame.size.width - 20
         let borderLayer = CALayer()
-        borderLayer.backgroundColor = UIColor.appColors.decredGreen.cgColor
+        borderLayer.backgroundColor = UIColor.appColors.green.cgColor
         borderLayer.name = "active border"
         borderLayer.frame = CGRect(x: 10, y: 0, width: borderWidth, height: 2)
         tab.itemIconView.image = tab.menuItem!.active_icon!.withRenderingMode(.automatic)

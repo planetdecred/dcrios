@@ -134,7 +134,7 @@ class DropDownTableDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
         let cell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier, for: indexPath)
         cell.contentView.layoutMargins.left = 54
         cell.textLabel?.text = self.filteredWords[indexPath.row]
-        cell.textLabel?.textColor = UIColor.appColors.darkText
+        cell.textLabel?.textColor = UIColor.appColors.darkBlue
         cell.textLabel?.font = UIFont(name: "SourceSansPro-Regular", size: 16)
         return cell
     }

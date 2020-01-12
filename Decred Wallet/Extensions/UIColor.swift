@@ -10,29 +10,43 @@ import Foundation
 import UIKit
 
 extension UIColor {
-    // todo: significantly fewer colors should be left here once the implementation of the new
-    // interface design is completed as the new design uses fewer colors generally.
     struct appColors {
-        // decred colors are from https://decred.org/brand/
-        static let decredBlue = UIColor.init(hex: "#2970FF")
-        static let decredGreen = UIColor.init(hex: "#41BF53")
-        static let decredOrange = UIColor.init(hex: "#ED6D47")
         static let darkYellowWarning = UIColor.init(hex: "#E7C659")
-        static let green = UIColor.init(hex: "#2DD8A3")
-        static let lightGray = UIColor.init(hex: "#DEE1E3")
-        static let lighterGray = UIColor.init(hex: "#C4CBD2")
-        static let offWhite = UIColor(hex:"#F3F5F6")
-        static let lightOffWhite = UIColor(hex: "#F9FBFA")
-        static let yellowWarning = UIColor.init(hex: "#FFC84E")
         static let thinGray = UIColor.init(hex: "#a4abb1")
-        static let darkGray = UIColor.init(hex: "#4e5f70")
+        static let darkerGray = UIColor.init(hex: "#4e5f70")
         static let transparentThinGray = UIColor.init(hex: "#a4abb1", alpha: 0.3)
-        static let darkBlue = UIColor.init(hex: "#3d5873")
-        static let lightGreen = UIColor.init(hex: "#41be53")
-        static let darkText = UIColor.init(hex: "#091440")
         static let shadowColor = UIColor(hex: "#3D0914")
-        static let faddedGray = UIColor(hex: "#e6eaed")
+
+        // following are colors from new mockup color guide
+        // ultimately other color constants should end up being obsolete once
+        // the implementation of the new mockup is completed
+        static let blue = UIColor.init(hex: "#1B41B3")
+        static let lightBlue = UIColor.init(hex: "#2970FF")
+        static let darkBlue = UIColor.init(hex: "#091440")
+        static let skyBlue = UIColor.init(hex: "#70CBFF")
+        static let lightSkyBlue = UIColor.init(hex: "#E9F8FE")
+        
+        static let green = UIColor.init(hex: "#41BE53")
+        static let lightGreen = UIColor.init(hex: "#C4ECCA")
+        static let turquoise = UIColor.init(hex: "#2DD8A3")
+        static let darkTurquoise = UIColor.init(hex: "#14A078")
+        
         static let orange = UIColor.init(hex: "#ED6D47")
+        static let lightOrange = UIColor.init(hex: "#FEB8A5")
+        
+        static let yellow = UIColor.init(hex: "#FFC84E")
+        static let lightYellow = UIColor.init(hex: "#FFE4A7")
+        
+        static let bluishGray = UIColor.init(hex: "#596D81")
+        static let darkBluishGray = UIColor.init(hex: "#3D5873")
+        static let lightBluishGray = UIColor.init(hex: "#8997A5")
+        
+        static let gray = UIColor.init(hex: "#E6EAED")
+        static let darkGray = UIColor.init(hex: "#C4CBD2")
+        static let lightGray = UIColor.init(hex: "#EDEFF1")
+        
+        static let offWhite = UIColor(hex:"#F3F5F6")
+        static let lightOffWhite = UIColor(hex: "#F9FAFA")
     }
     
     convenience init(hex: String) {

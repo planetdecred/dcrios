@@ -109,9 +109,9 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
         let seedWordCell = tableView.dequeueReusableCell(withIdentifier: "seedWordCell", for: indexPath) as! RecoveryWalletSeedWordCell
         
         seedWordCell.lbSeedWordNum.text = String(format: LocalizedStrings.wordNumber, indexPath.row + 1)
-        seedWordCell.lbSeedWordNum.layer.borderColor = UIColor.appColors.darkText.cgColor
+        seedWordCell.lbSeedWordNum.layer.borderColor = UIColor.appColors.darkBlue.cgColor
         seedWordCell.seedWordAutoComplete.text = self.userEnteredSeedWords[indexPath.row]
-        seedWordCell.cellBorder.layer.borderColor = UIColor.appColors.faddedGray.cgColor
+        seedWordCell.cellBorder.layer.borderColor = UIColor.appColors.gray.cgColor
         seedWordCell.seedWordAutoComplete.resignFirstResponder()
         
         seedWordCell.setupAutoComplete(for: indexPath.row,
@@ -141,9 +141,9 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
         }
         
         if !self.userEnteredSeedWords.contains("") {
-            self.btnConfirm.backgroundColor = UIColor.appColors.decredGreen
+            self.btnConfirm.backgroundColor = UIColor.appColors.lightBlue
         } else {
-            self.btnConfirm.backgroundColor = UIColor.appColors.lighterGray
+            self.btnConfirm.backgroundColor = UIColor.appColors.darkGray
         }
     }
     
@@ -165,7 +165,7 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
             if validatedSeed.valid {
                     self.tableView.isUserInteractionEnabled = false
                     self.btnConfirm.setTitle(LocalizedStrings.success, for: .normal)
-                    self.btnConfirm.setTitleColor(UIColor.appColors.lightGreen, for: .normal)
+                    self.btnConfirm.setTitleColor(UIColor.appColors.green, for: .normal)
                     self.btnConfirm.setImage(.init(imageLiteralResourceName: "success_checked"), for: .normal)
                     self.btnConfirm.backgroundColor = .white
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
