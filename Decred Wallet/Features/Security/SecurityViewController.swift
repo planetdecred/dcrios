@@ -25,6 +25,18 @@ class SecurityViewController: SecurityBaseViewController {
     @IBOutlet weak var securityPromptLabel: UILabel!
     @IBOutlet weak var btnPin: UIButton!
     @IBOutlet weak var btnPassword: UIButton!
+    @IBOutlet weak var containerViewHeightConstraint: NSLayoutConstraint!
+
+    private func updateContainerViewHeight(height: CGFloat) {
+        DispatchQueue.main.async {
+            if self.containerViewHeightConstraint.constant != height {
+                UIView.animate(withDuration: 0.1) {
+                    self.containerViewHeightConstraint.constant = height
+                    self.view.layoutIfNeeded()
+                }
+            }
+        }
+    }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "loadTabBarController" {
@@ -35,6 +47,14 @@ class SecurityViewController: SecurityBaseViewController {
             passwordTabVC?.securityFor = self.securityFor
             passwordTabVC?.requestConfirmation = true
             passwordTabVC?.showCancelButton = true
+            passwordTabVC?.onViewHeightChanged = updateContainerViewHeight
+            passwordTabVC?.onLoadingStatusChanged = { (loading: Bool) in
+                self.btnPin?.isEnabled = !loading
+                self.btnPassword?.isEnabled = !loading
+                self.btnPassword.addBorder(atPosition: .bottom,
+                                           color: loading ? UIColor.appColors.darkGray: UIColor.appColors.lightBlue,
+                                           thickness: 2)
+            }
             passwordTabVC?.onUserEnteredSecurityCode = { (code: String, completionDelegate: SecurityRequestCompletionDelegate?) in
                 self.onUserEnteredPinOrPassword?(code, SecurityViewController.SECURITY_TYPE_PASSWORD, completionDelegate)
             }
@@ -43,6 +63,14 @@ class SecurityViewController: SecurityBaseViewController {
             pinTabVC?.securityFor = self.securityFor
             pinTabVC?.requestConfirmation = true
             pinTabVC?.showCancelButton = true
+            pinTabVC?.onViewHeightChanged = updateContainerViewHeight
+            pinTabVC?.onLoadingStatusChanged = { (loading: Bool) in
+                self.btnPin?.isEnabled = !loading
+                self.btnPassword?.isEnabled = !loading
+                self.btnPin.addBorder(atPosition: .bottom,
+                                           color: loading ? UIColor.appColors.darkGray: UIColor.appColors.lightBlue,
+                                           thickness: 2)
+            }
             pinTabVC?.onUserEnteredSecurityCode = { (code: String, completionDelegate: SecurityRequestCompletionDelegate?) in
                 self.onUserEnteredPinOrPassword?(code, SecurityViewController.SECURITY_TYPE_PIN, completionDelegate)
             }
@@ -76,6 +104,7 @@ class SecurityViewController: SecurityBaseViewController {
         // add border below password tab and remove border below PIN tab
         btnPassword.addBorder(atPosition: .bottom, color: UIColor.appColors.lightBlue, thickness: 2)
         btnPin.removeBorders(atPositions: .bottom)
+        btnPin.addBorder(atPosition: .bottom, color: UIColor.appColors.gray, thickness: 1)
 
         // set active and inactive text colors
         btnPassword.setTitleColor(UIColor.appColors.lightBlue, for: .normal)
@@ -90,6 +119,7 @@ class SecurityViewController: SecurityBaseViewController {
         // add border below PIN tab and remove border below PIN tab
         btnPin.addBorder(atPosition: .bottom, color: UIColor.appColors.lightBlue, thickness: 2)
         btnPassword.removeBorders(atPositions: .bottom)
+        btnPassword.addBorder(atPosition: .bottom, color: UIColor.appColors.gray, thickness: 1)
 
         // set active and inactive text colors
         btnPin.setTitleColor(UIColor.appColors.lightBlue, for: .normal)
