@@ -50,7 +50,7 @@ class RequestPinViewController: SecurityRequestBaseViewController {
         layout.estimatedItemSize = CGSize(width: 16, height: 16)
         pinCollectionView.collectionViewLayout = layout
 
-        self.prgsPinStrength.isHidden = !self.requestConfirmation
+        self.prgsPinStrength.superview?.isHidden = !self.requestConfirmation
         self.setPromptAndButtonText(isFirstStep: true)
 
         if let prompt = self.prompt {
@@ -86,14 +86,12 @@ class RequestPinViewController: SecurityRequestBaseViewController {
             self.hideError()
         }
 
-        pinCount.text = "\(pinText.count)"
+        self.pinCount.text = "\(pinText.count)"
         self.enterPinLabel.isHidden = !isPinEmpty
         self.btnSubmit.isEnabled = !isPinEmpty
         self.pinCount.isHidden = isPinEmpty
 
-        self.pinCollectionView.reloadData()
-        self.pinCollectionView.layoutIfNeeded()
-        self.pinCollectionViewHeightContraint.constant = max(16, self.pinCollectionView.contentSize.height)
+        self.updatePinCollectionView()
 
         if self.requestConfirmation {
             let pinStrength = PinPasswordStrength.percentageStrength(of: pinText)
@@ -105,8 +103,9 @@ class RequestPinViewController: SecurityRequestBaseViewController {
     private func reset() {
         self.pinToConfirm = ""
         self.prgsPinStrength.progress = 0
-        self.prgsPinStrength.isHidden = false
+        self.prgsPinStrength.superview?.isHidden = false
         self.pinHiddenInput.text = ""
+        self.updatePinCollectionView()
         self.onPinTextChanged()
         self.btnBack?.isHidden = true
         self.setPromptAndButtonText(isFirstStep: true)
@@ -118,8 +117,9 @@ class RequestPinViewController: SecurityRequestBaseViewController {
         if self.requestConfirmation && self.pinToConfirm.isEmpty {
             self.pinToConfirm = pinText
             self.prgsPinStrength.progress = 0
-            self.prgsPinStrength.isHidden = true
+            self.prgsPinStrength.superview?.isHidden = true
             self.pinHiddenInput.text = ""
+            self.updatePinCollectionView()
             self.onPinTextChanged()
             self.setPromptAndButtonText(isFirstStep: false)
             self.btnBack?.isHidden = false
@@ -128,10 +128,19 @@ class RequestPinViewController: SecurityRequestBaseViewController {
             self.enterPinLabel.text = LocalizedStrings.pinsDidNotMatch
         } else {
             self.btnSubmit.startLoading()
+            self.onLoadingStatusChanged?(true)
             self.btnBack?.isEnabled = false
             self.btnCancel?.isEnabled = false
             self.pinHiddenInput.resignFirstResponder()
             self.onUserEnteredSecurityCode?(pinText, self)
+        }
+    }
+
+    private func updatePinCollectionView() {
+        DispatchQueue.main.async {
+            self.pinCollectionView.reloadData()
+            self.pinCollectionViewHeightContraint.constant = max(16, self.pinCollectionView.contentSize.height)
+            self.pinCollectionView.layoutIfNeeded()
         }
     }
 
@@ -151,6 +160,7 @@ class RequestPinViewController: SecurityRequestBaseViewController {
         self.errorLabel.text = text
         self.errorLabel.isHidden = false
         self.btnSubmit.stopLoading()
+        self.onLoadingStatusChanged?(false)
         self.pinHiddenInput.becomeFirstResponder()
         self.btnBack?.isEnabled = true
         self.btnCancel?.isEnabled = true

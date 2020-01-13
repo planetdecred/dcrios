@@ -80,20 +80,24 @@ class StartScreenViewController: UIViewController {
             let requestPasswordVC = RequestPasswordViewController.instantiate()
             requestPasswordVC.securityFor = LocalizedStrings.startup
             requestPasswordVC.prompt = LocalizedStrings.enterStartupPassword
-            requestPasswordVC.modalPresentationStyle = .fullScreen
+            requestPasswordVC.modalPresentationStyle = .pageSheet
             requestPasswordVC.submitBtnText = LocalizedStrings.unlock
             requestPasswordVC.onUserEnteredSecurityCode = self.unlockWalletAndStartApp
             requestPasswordVC.showCancelButton = false
-            self.present(requestPasswordVC, animated: true, completion: nil)
+            self.present(requestPasswordVC, animated: true, completion: {
+              requestPasswordVC.presentationController?.presentedView?.gestureRecognizers?[0].isEnabled = false
+            })
         } else {
             let requestPinVC = RequestPinViewController.instantiate()
             requestPinVC.securityFor = LocalizedStrings.startup
-            requestPinVC.modalPresentationStyle = .fullScreen
+            requestPinVC.modalPresentationStyle = .pageSheet
             requestPinVC.onUserEnteredSecurityCode = self.unlockWalletAndStartApp
             requestPinVC.prompt = LocalizedStrings.unlockWithStartupPIN
             requestPinVC.submitBtnText = LocalizedStrings.unlock
             requestPinVC.showCancelButton = false
-            self.present(requestPinVC, animated: true, completion: nil)
+            self.present(requestPinVC, animated: true, completion: {
+              requestPinVC.presentationController?.presentedView?.gestureRecognizers?[0].isEnabled = false
+            })
         }
     }
 
