@@ -185,6 +185,10 @@ class OverviewViewController: UIViewController, SeedBackupModalHandler {
         self.showAllTransactionsButton.setTitle(LocalizedStrings.seeAll, for: .normal)
         self.showAllTransactionsButton.isHidden = (self.recentTransactions.count > 3) ? false : true
         self.showAllTransactionsButton.addTarget(self, action: #selector(self.showAllTransactions), for: .touchUpInside)
+
+        if Settings.readValue(for: Settings.Keys.NewWalletSetUp) {
+            Utils.showBanner(parentVC: self, type: .success, text: LocalizedStrings.walletCreated)
+        }
     }
 
     private func setLatestBlockLabel(latestBlock : __int32_t) {
