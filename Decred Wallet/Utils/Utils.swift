@@ -10,6 +10,17 @@ import UIKit
 import JGProgressHUD
 import Dcrlibwallet
 
+enum BannerType: String {
+    case success
+    case error
+}
+
+struct AttributedStringStyle {
+    var tag: String
+    var font: UIFont?
+    var color: UIColor?
+}
+
 struct Utils {
     struct TimeInSeconds {
         static let Minute: Int64 = 60
@@ -105,5 +116,62 @@ struct Utils {
         formatter.dateFormat = "MMM dd, yyyy / hh:mm:ss a"
         let date = Date(timeIntervalSince1970: Double(timestamp))
         return formatter.string(from: date)
+    }
+
+    static func showBanner(parentVC: UIViewController, type: BannerType, text: String) {
+        let banner = UIView()
+        parentVC.view.addSubview(banner)
+        banner.translatesAutoresizingMaskIntoConstraints = false
+        banner.leadingAnchor.constraint(greaterThanOrEqualTo: parentVC.view.leadingAnchor, constant: 8).isActive = true
+        banner.trailingAnchor.constraint(lessThanOrEqualTo: parentVC.view.trailingAnchor, constant: -8).isActive = true
+        banner.topAnchor.constraint(equalTo: parentVC.view.safeAreaLayoutGuide.topAnchor, constant: 84).isActive = true
+        banner.centerXAnchor.constraint(equalTo: parentVC.view.centerXAnchor).isActive = true
+
+        banner.backgroundColor = (type == .error) ? UIColor.appColors.orange : UIColor.appColors.green
+        banner.layer.cornerRadius = 7
+        banner.layer.shadowColor = UIColor.appColors.darkBlue.cgColor
+        banner.layer.shadowRadius = 4
+        banner.layer.shadowOpacity = 0.24
+        banner.layer.shadowOffset = CGSize(width: 0, height: 1)
+
+        let infoLabel = UILabel()
+        banner.addSubview(infoLabel)
+        infoLabel.translatesAutoresizingMaskIntoConstraints = false
+        infoLabel.leadingAnchor.constraint(equalTo: banner.leadingAnchor, constant: 10).isActive = true
+        infoLabel.trailingAnchor.constraint(equalTo: banner.trailingAnchor, constant: -10).isActive = true
+        infoLabel.topAnchor.constraint(equalTo: banner.topAnchor, constant: 5).isActive = true
+        infoLabel.bottomAnchor.constraint(equalTo: banner.bottomAnchor, constant: -5).isActive = true
+        infoLabel.numberOfLines = 0
+        infoLabel.lineBreakMode = .byWordWrapping
+        infoLabel.textAlignment = .center
+        infoLabel.textColor = .white
+        infoLabel.font = UIFont(name: "SourceSansPro-Regular", size: 16)
+        infoLabel.text = text
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) { [weak banner] in
+            banner?.removeFromSuperview()
+        }
+    }
+
+    static func styleAttributedString(_ inString: String, styles: [AttributedStringStyle]) -> NSMutableAttributedString {
+        let attrString = NSMutableAttributedString(string: inString, attributes: nil)
+        for style in styles {
+            let pattern = "<\\s*\(style.tag)[^>]*>(.*?)<\\s*\\/\\s*\(style.tag)>"
+            let regex = try? NSRegularExpression(pattern: pattern, options: [])
+            if let matches = regex?.matches(in: inString, options: [], range: NSMakeRange(0, inString.count)) {
+                for match in matches {
+                    if let color = style.color {
+                        attrString.addAttribute(NSAttributedString.Key.foregroundColor, value: color, range: match.range(at: 1))
+                    }
+                    if let font = style.font {
+                        attrString.addAttribute(NSAttributedString.Key.font, value: font, range: match.range(at: 1))
+                    }
+                }
+                for tagPattern in ["<\(style.tag)>", "</\(style.tag)>"] {
+                    attrString.mutableString.replaceOccurrences(of: tagPattern, with: "", options: NSString.CompareOptions.caseInsensitive, range: NSRange(location: 0, length: attrString.length))
+                }
+            }
+        }
+        return attrString
     }
 }
