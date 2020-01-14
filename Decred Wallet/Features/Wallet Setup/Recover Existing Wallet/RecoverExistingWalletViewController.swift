@@ -10,11 +10,10 @@ import UIKit
 import Dcrlibwallet
 
 class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITableViewDelegate, UITableViewDataSource {
-    @IBOutlet var tableView : UITableView!
+    @IBOutlet var tableView: UITableView!
     @IBOutlet weak var wordSelectionDropDownContainer: UIView!
-    @IBOutlet weak var tableViewFooter: UIStackView!
-    @IBOutlet weak var tableViewFooterTopSpacingConstraint: NSLayoutConstraint!
-    @IBOutlet weak var invalidSeedLabel: UILabel!
+    @IBOutlet weak var tableViewFooterHeightCosnt: NSLayoutConstraint!
+    @IBOutlet weak var tableViewFooter: UIView!
     @IBOutlet weak var btnConfirm: UIButton!
     
     var validSeedWords: [String] = []
@@ -40,12 +39,22 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
         // set border for dropdown list
         self.wordSelectionDropDownContainer.layer.borderWidth = 1
         self.wordSelectionDropDownContainer.layer.borderColor = UIColor.appColors.lightGray.cgColor
+        self.wordSelectionDropDownContainer.setRoundCorners(corners: [.bottomRight, .bottomLeft, .topLeft, .topRight], radius: 4.0)
+        self.wordSelectionDropDownContainer?.layer.shadowColor = UIColor.appColors.darkBlue.cgColor
+        self.wordSelectionDropDownContainer?.layer.shadowRadius = 4
+        self.wordSelectionDropDownContainer?.layer.shadowOpacity = 0.24
+        self.wordSelectionDropDownContainer?.layer.shadowOffset = CGSize(width: -1, height: 1)
+        
+        // add drop shadow for better transition while scrolling the tableView
+        self.tableViewFooter.dropShadow(color: UIColor.appColors.lighterGrayGray, offSet: CGSize.zero )
         
         // long press to proceed with test seed, only on testnet
         #if IsTestnet
         let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressConfirm))
         btnConfirm.addGestureRecognizer(longGesture)
         #endif
+        
+        self.btnConfirm.backgroundColor = UIColor.appColors.darkGray
     }
     
     deinit {
@@ -71,8 +80,11 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
                                      width: self.view.frame.width,
                                      height: window.origin.y + window.height - keyboardSize.height)
             
+            // hide the confirm button and allow the tableview occupy its height
+            self.tableViewFooterHeightCosnt.constant = 0
+            self.btnConfirm.isHidden = true
             // add space at the bottom of table so that the seed word input fields do not touch the keyboard
-            self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
+            self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
         }
     }
     
@@ -84,8 +96,11 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
                                      width: self.view.frame.width,
                                      height: window.origin.y + window.height)
             
+           // display the confirm button and retain its height
+            self.tableViewFooterHeightCosnt.constant = 72
+            self.btnConfirm.isHidden = false
             // remove space at the bottom of table that was added when keyboard was displayed
-             self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
         }
     }
     
@@ -101,28 +116,41 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
         let seedWordCell = tableView.dequeueReusableCell(withIdentifier: "seedWordCell", for: indexPath) as! RecoveryWalletSeedWordCell
         
         seedWordCell.lbSeedWordNum.text = String(format: LocalizedStrings.wordNumber, indexPath.row + 1)
+        seedWordCell.lbSeedWordNum.layer.borderColor = UIColor.appColors.darkBluishGray.cgColor
         seedWordCell.seedWordAutoComplete.text = self.userEnteredSeedWords[indexPath.row]
+        seedWordCell.cellBorder.layer.borderColor = UIColor.appColors.gray.cgColor
         seedWordCell.seedWordAutoComplete.resignFirstResponder()
         
         seedWordCell.setupAutoComplete(for: indexPath.row,
                                        filter: self.validSeedWords,
                                        dropDownListPlaceholder: self.wordSelectionDropDownContainer,
                                        onSeedEntered: self.seedWordEntered)
+        if indexPath.row == 0 {
+            seedWordCell.setRoundCorners(corners: [.topLeft, .topRight], radius: 14.0)
+            seedWordCell.cellComponentTopMargin.constant = 16
+        } else if indexPath.row == 32 {
+            seedWordCell.setRoundCorners(corners: [.bottomRight, .bottomLeft], radius: 14.0)
+            seedWordCell.cellComponentBottomMargin.constant = 16
+        } else {
+            seedWordCell.setRoundCorners(corners: [.bottomRight, .bottomLeft, .topLeft, .topRight], radius: 0.0)
+            seedWordCell.cellComponentBottomMargin.constant = 8
+            seedWordCell.cellComponentTopMargin.constant = 8
+        }
         
         return seedWordCell
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.row {
+        case 0, 32:
+            return 78
+        default:
+            return 70
+        }
+    }
+    
     func seedWordEntered(for wordIndex: Int, seedWord: String, moveToNextField: Bool) {
         self.userEnteredSeedWords[wordIndex] = seedWord
-        
-        if (self.invalidSeedLabel.isHidden == false) {
-            self.invalidSeedLabel.isHidden = true
-            // increase top spacing so that confirm button is centered in display
-            self.tableViewFooterTopSpacingConstraint.constant = 30
-            UIView.animate(withDuration: 0.5) {
-                self.tableViewFooter.layoutIfNeeded()
-            }
-        }
         
         if wordIndex < 32 && moveToNextField {
             self.focusSeedWordInput(at: wordIndex + 1)
@@ -130,8 +158,8 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
             self.view.endEditing(true)
         }
         
-        if self.validateSeed().valid {
-            self.btnConfirm.backgroundColor = UIColor.appColors.green
+        if !self.userEnteredSeedWords.contains("") {
+            self.btnConfirm.backgroundColor = UIColor.appColors.lightBlue
         } else {
             self.btnConfirm.backgroundColor = UIColor.appColors.darkGray
         }
@@ -149,25 +177,22 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
     
     @IBAction func onConfirm() {
         if self.userEnteredSeedWords.contains("") {
-            self.displaySeedError(LocalizedStrings.notAllSeedsAreEntered)
+            Utils.showBanner(parentVC: self, type: .error, text: LocalizedStrings.notAllSeedsAreEntered)
         } else {
             let validatedSeed = self.validateSeed()
             if validatedSeed.valid {
-                self.secureWallet(validatedSeed.seed)
+                self.tableView.isUserInteractionEnabled = false
+                self.btnConfirm.setTitle(LocalizedStrings.success, for: .normal)
+                self.btnConfirm.setTitleColor(UIColor.appColors.green, for: .normal)
+                self.btnConfirm.setImage(.init(imageLiteralResourceName: "success_checked"), for: .normal)
+                self.btnConfirm.backgroundColor = .white
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self.secureWallet(validatedSeed.seed)
+                }
             } else {
-                self.displaySeedError(LocalizedStrings.incorrectSeedEntered)
+                Utils.showBanner(parentVC: self, type: .error, text: LocalizedStrings.incorrectSeedEntered)
             }
         }
-    }
-    
-    func displaySeedError(_ errorMessage: String) {
-        // reduce top spacing so that warning label and confirm button are centered in display
-        self.tableViewFooterTopSpacingConstraint.constant = 10
-        UIView.animate(withDuration: 0.5) {
-            self.tableViewFooter.layoutIfNeeded()
-        }
-        self.invalidSeedLabel.text = errorMessage
-        self.invalidSeedLabel.isHidden = false
     }
     
     // following code will only be included if compiling for testnet
@@ -194,16 +219,6 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
         let seed = self.userEnteredSeedWords.reduce("", {(word1, word2) in "\(word1) \(word2)"})
         let seedValid = DcrlibwalletVerifySeed(seed)
         return (seed, seedValid)
-    }
-    
-    private func showError(_ error: String) {
-        let alert = UIAlertController(title: LocalizedStrings.walletRecoveryError, message: error, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: LocalizedStrings.tryAgain, style: .default) { _ in
-            alert.dismiss(animated: true, completion: nil)
-            self.clearSeedInputs()
-        }
-        alert.addAction(okAction)
-        self.present(alert, animated: true, completion: nil)
     }
     
     func clearSeedInputs() {

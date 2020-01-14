@@ -13,10 +13,10 @@ import Dcrlibwallet
 class WalletSetupViewController: WalletSetupBaseViewController {
     var seed: String! = ""
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toWalletRestore" {
-            Settings.setValue(false, for: Settings.Keys.NewWalletSetUp)
-        }
+    @IBAction func restoreWallet(_ sender: Any) {
+        let recoverVC = Storyboards.RecoverExistingWallet.instantiateViewController(for: RecoverExistingWalletViewController.self)
+        Settings.setValue(false, for: Settings.Keys.NewWalletSetUp)
+        self.navigationController?.pushViewController(recoverVC, animated: true)
     }
     
     @IBAction func createNewwallet(_ sender: Any) {
