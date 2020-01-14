@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		102AFAC423AA2B4D007E2EBD /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102AFAC323AA2B4D007E2EBD /* ProgressView.swift */; };
+		10341E0723CBBB700055DFDE /* SeedBackupSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10341E0023CBBB700055DFDE /* SeedBackupSuccessViewController.swift */; };
+		10341E0823CBBB700055DFDE /* SeedWordsDisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10341E0123CBBB700055DFDE /* SeedWordsDisplayViewController.swift */; };
+		10341E0923CBBB700055DFDE /* SeedBackupVerifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10341E0223CBBB700055DFDE /* SeedBackupVerifyViewController.swift */; };
+		10341E0A23CBBB700055DFDE /* SeedBackupVerifyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10341E0323CBBB700055DFDE /* SeedBackupVerifyTableViewCell.swift */; };
+		10341E0B23CBBB700055DFDE /* SeedWordsDisplayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10341E0423CBBB700055DFDE /* SeedWordsDisplayTableViewCell.swift */; };
+		10341E0C23CBBB700055DFDE /* SeedBackup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10341E0523CBBB700055DFDE /* SeedBackup.storyboard */; };
+		10341E0D23CBBB700055DFDE /* SeedBackupReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10341E0623CBBB700055DFDE /* SeedBackupReminderViewController.swift */; };
+		10341E0F23CBBB7E0055DFDE /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10341E0E23CBBB7E0055DFDE /* Label.swift */; };
 		10A8446923B004B900975661 /* SecurityBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A8446823B004B900975661 /* SecurityBaseViewController.swift */; };
 		10BA77992390059F00B67446 /* TabMenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BA77982390059F00B67446 /* TabMenuItemView.swift */; };
 		10D9FB9323C3956300CBF216 /* FloatingPlaceholderTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D9FB8E23C3956200CBF216 /* FloatingPlaceholderTextField.swift */; };
@@ -75,9 +83,6 @@
 		B3B46A21228F0F2700A68EDD /* SecurityRequestBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469DC228F0F2600A68EDD /* SecurityRequestBaseViewController.swift */; };
 		B3B46A24228F0F2700A68EDD /* TransactionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469E0228F0F2600A68EDD /* TransactionTableViewCell.swift */; };
 		B3B46A25228F0F2700A68EDD /* TransactionHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469E1228F0F2600A68EDD /* TransactionHistoryViewController.swift */; };
-		B3B46A26228F0F2700A68EDD /* CreateNewWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469E3228F0F2600A68EDD /* CreateNewWalletViewController.swift */; };
-		B3B46A27228F0F2700A68EDD /* ConfirmNewWalletSeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469E4228F0F2600A68EDD /* ConfirmNewWalletSeedViewController.swift */; };
-		B3B46A28228F0F2700A68EDD /* RecoverExistingWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469E5228F0F2600A68EDD /* RecoverExistingWalletViewController.swift */; };
 		B3B46A29228F0F2700A68EDD /* WalletSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469E6228F0F2600A68EDD /* WalletSetupViewController.swift */; };
 		B3B46A2A228F0F2700A68EDD /* WalletSetupBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469E7228F0F2600A68EDD /* WalletSetupBaseViewController.swift */; };
 		B3B46A2E228F0F2700A68EDD /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469EC228F0F2600A68EDD /* MenuItem.swift */; };
@@ -115,7 +120,6 @@
 		B3B46AA9228F0F7D00A68EDD /* AddAcountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46A71228F0F7B00A68EDD /* AddAcountViewController.swift */; };
 		B3B46AAA228F0F7D00A68EDD /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46A72228F0F7B00A68EDD /* AccountViewController.swift */; };
 		B3B46AAC228F0F7D00A68EDD /* RecoveryWalletSeedWordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46A75228F0F7C00A68EDD /* RecoveryWalletSeedWordCell.swift */; };
-		B3B46AAF228F0F7D00A68EDD /* SeedConfirmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46A78228F0F7C00A68EDD /* SeedConfirmTableViewCell.swift */; };
 		B3B46AB0228F0F7D00A68EDD /* AccountDataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46A79228F0F7C00A68EDD /* AccountDataCell.swift */; };
 		B3B46AB1228F0F7D00A68EDD /* SeedCheckActiveCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46A7A228F0F7C00A68EDD /* SeedCheckActiveCellView.swift */; };
 		B3B46AB3228F0F7D00A68EDD /* ConfirmSeedViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46A7C228F0F7C00A68EDD /* ConfirmSeedViewCell.swift */; };
@@ -126,6 +130,7 @@
 		B3B46AC8228F120700A68EDD /* TransactionDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46AC1228F120700A68EDD /* TransactionDetailCell.swift */; };
 		B3B46AC9228F120700A68EDD /* TransactiontInputDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46AC2228F120700A68EDD /* TransactiontInputDetailsCell.swift */; };
 		B3D21C9F2296E4F000609F23 /* ExchangeRates.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D21C9E2296E4F000609F23 /* ExchangeRates.swift */; };
+		DD17D9CC23CE243D0017E41D /* RecoverExistingWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD17D9CB23CE243D0017E41D /* RecoverExistingWalletViewController.swift */; };
 		DD265A0D23BE2AD800CB68FA /* RecoverExistingWallet.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD265A0C23BE2AD800CB68FA /* RecoverExistingWallet.storyboard */; };
 		DD3DF86622C3F0BD00E168AB /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3DF86522C3F0BD00E168AB /* UILabel.swift */; };
 		DD41737B22B1B31E00580935 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DD41737D22B1B31E00580935 /* Localizable.strings */; };
@@ -148,6 +153,14 @@
 
 /* Begin PBXFileReference section */
 		102AFAC323AA2B4D007E2EBD /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
+		10341E0023CBBB700055DFDE /* SeedBackupSuccessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeedBackupSuccessViewController.swift; sourceTree = "<group>"; };
+		10341E0123CBBB700055DFDE /* SeedWordsDisplayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeedWordsDisplayViewController.swift; sourceTree = "<group>"; };
+		10341E0223CBBB700055DFDE /* SeedBackupVerifyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeedBackupVerifyViewController.swift; sourceTree = "<group>"; };
+		10341E0323CBBB700055DFDE /* SeedBackupVerifyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeedBackupVerifyTableViewCell.swift; sourceTree = "<group>"; };
+		10341E0423CBBB700055DFDE /* SeedWordsDisplayTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeedWordsDisplayTableViewCell.swift; sourceTree = "<group>"; };
+		10341E0523CBBB700055DFDE /* SeedBackup.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SeedBackup.storyboard; sourceTree = "<group>"; };
+		10341E0623CBBB700055DFDE /* SeedBackupReminderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeedBackupReminderViewController.swift; sourceTree = "<group>"; };
+		10341E0E23CBBB7E0055DFDE /* Label.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
 		10A8446823B004B900975661 /* SecurityBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecurityBaseViewController.swift; sourceTree = "<group>"; };
 		10BA77982390059F00B67446 /* TabMenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabMenuItemView.swift; sourceTree = "<group>"; };
 		10D9FB8E23C3956200CBF216 /* FloatingPlaceholderTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingPlaceholderTextField.swift; sourceTree = "<group>"; };
@@ -220,9 +233,6 @@
 		B3B469DC228F0F2600A68EDD /* SecurityRequestBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecurityRequestBaseViewController.swift; sourceTree = "<group>"; };
 		B3B469E0228F0F2600A68EDD /* TransactionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionTableViewCell.swift; sourceTree = "<group>"; };
 		B3B469E1228F0F2600A68EDD /* TransactionHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionHistoryViewController.swift; sourceTree = "<group>"; };
-		B3B469E3228F0F2600A68EDD /* CreateNewWalletViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateNewWalletViewController.swift; sourceTree = "<group>"; };
-		B3B469E4228F0F2600A68EDD /* ConfirmNewWalletSeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmNewWalletSeedViewController.swift; sourceTree = "<group>"; };
-		B3B469E5228F0F2600A68EDD /* RecoverExistingWalletViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecoverExistingWalletViewController.swift; sourceTree = "<group>"; };
 		B3B469E6228F0F2600A68EDD /* WalletSetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletSetupViewController.swift; sourceTree = "<group>"; };
 		B3B469E7228F0F2600A68EDD /* WalletSetupBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletSetupBaseViewController.swift; sourceTree = "<group>"; };
 		B3B469EC228F0F2600A68EDD /* MenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
@@ -260,7 +270,6 @@
 		B3B46A71228F0F7B00A68EDD /* AddAcountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAcountViewController.swift; sourceTree = "<group>"; };
 		B3B46A72228F0F7B00A68EDD /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		B3B46A75228F0F7C00A68EDD /* RecoveryWalletSeedWordCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecoveryWalletSeedWordCell.swift; sourceTree = "<group>"; };
-		B3B46A78228F0F7C00A68EDD /* SeedConfirmTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeedConfirmTableViewCell.swift; sourceTree = "<group>"; };
 		B3B46A79228F0F7C00A68EDD /* AccountDataCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountDataCell.swift; sourceTree = "<group>"; };
 		B3B46A7A228F0F7C00A68EDD /* SeedCheckActiveCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeedCheckActiveCellView.swift; sourceTree = "<group>"; };
 		B3B46A7C228F0F7C00A68EDD /* ConfirmSeedViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmSeedViewCell.swift; sourceTree = "<group>"; };
@@ -272,6 +281,7 @@
 		B3B46AC2228F120700A68EDD /* TransactiontInputDetailsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactiontInputDetailsCell.swift; sourceTree = "<group>"; };
 		B3D21C9E2296E4F000609F23 /* ExchangeRates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRates.swift; sourceTree = "<group>"; };
 		D59C7DB99807D17630259A55 /* Pods-Decred Wallet.testnet release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.testnet release.xcconfig"; path = "Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.testnet release.xcconfig"; sourceTree = "<group>"; };
+		DD17D9CB23CE243D0017E41D /* RecoverExistingWalletViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecoverExistingWalletViewController.swift; sourceTree = "<group>"; };
 		DD265A0C23BE2AD800CB68FA /* RecoverExistingWallet.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RecoverExistingWallet.storyboard; sourceTree = "<group>"; };
 		DD3DF86522C3F0BD00E168AB /* UILabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
 		DD3DF86722C42B3E00E168AB /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -310,6 +320,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		10341DFF23CBBB700055DFDE /* Seed Backup */ = {
+			isa = PBXGroup;
+			children = (
+				10341E0623CBBB700055DFDE /* SeedBackupReminderViewController.swift */,
+				10341E0123CBBB700055DFDE /* SeedWordsDisplayViewController.swift */,
+				10341E0223CBBB700055DFDE /* SeedBackupVerifyViewController.swift */,
+				10341E0023CBBB700055DFDE /* SeedBackupSuccessViewController.swift */,
+				10341E0323CBBB700055DFDE /* SeedBackupVerifyTableViewCell.swift */,
+				10341E0423CBBB700055DFDE /* SeedWordsDisplayTableViewCell.swift */,
+				10341E0523CBBB700055DFDE /* SeedBackup.storyboard */,
+			);
+			path = "Seed Backup";
+			sourceTree = "<group>";
+		};
 		10D9FB9723C3956600CBF216 /* FloatingPlaceholderInputs */ = {
 			isa = PBXGroup;
 			children = (
@@ -459,6 +483,7 @@
 			children = (
 				10D9FB9723C3956600CBF216 /* FloatingPlaceholderInputs */,
 				B3B469AD228F0F2600A68EDD /* Button.swift */,
+				10341E0E23CBBB7E0055DFDE /* Label.swift */,
 				B3635B81229FE5870052EB4D /* QRImageScanner.swift */,
 				102AFAC323AA2B4D007E2EBD /* ProgressView.swift */,
 			);
@@ -544,6 +569,7 @@
 		B3B469D1228F0F2600A68EDD /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				10341DFF23CBBB700055DFDE /* Seed Backup */,
 				B3B469D2228F0F2600A68EDD /* App Launch */,
 				B3B469D4228F0F2600A68EDD /* Security */,
 				B3B469DD228F0F2600A68EDD /* History */,
@@ -597,8 +623,6 @@
 			children = (
 				DD2D1E6E23CBB18A00FC49BC /* Recover Existing Wallet */,
 				DDCF259122B89D96005FCBB9 /* WalletSetup.storyboard */,
-				B3B469E3228F0F2600A68EDD /* CreateNewWalletViewController.swift */,
-				B3B469E4228F0F2600A68EDD /* ConfirmNewWalletSeedViewController.swift */,
 				B3B469E6228F0F2600A68EDD /* WalletSetupViewController.swift */,
 				B3B469E7228F0F2600A68EDD /* WalletSetupBaseViewController.swift */,
 			);
@@ -689,7 +713,6 @@
 			isa = PBXGroup;
 			children = (
 				B3B46A75228F0F7C00A68EDD /* RecoveryWalletSeedWordCell.swift */,
-				B3B46A78228F0F7C00A68EDD /* SeedConfirmTableViewCell.swift */,
 				B3B46A79228F0F7C00A68EDD /* AccountDataCell.swift */,
 				DDCF25A222B8A417005FCBB9 /* AccountDataCell.xib */,
 				B3B46A7A228F0F7C00A68EDD /* SeedCheckActiveCellView.swift */,
@@ -715,7 +738,7 @@
 			isa = PBXGroup;
 			children = (
 				DD265A0C23BE2AD800CB68FA /* RecoverExistingWallet.storyboard */,
-				B3B469E5228F0F2600A68EDD /* RecoverExistingWalletViewController.swift */,
+				DD17D9CB23CE243D0017E41D /* RecoverExistingWalletViewController.swift */,
 				DD6855BC238C808A006B8BF4 /* RecoverySuccessViewController.swift */,
 			);
 			path = "Recover Existing Wallet";
@@ -824,6 +847,7 @@
 				B3B46A8B228F0F7D00A68EDD /* splashLogo.gif in Resources */,
 				DDCF25A922B8A488005FCBB9 /* Main.storyboard in Resources */,
 				DDCF259C22B8A362005FCBB9 /* Send.storyboard in Resources */,
+				10341E0C23CBBB700055DFDE /* SeedBackup.storyboard in Resources */,
 				B3B46AB7228F0F7D00A68EDD /* splashLoader.gif in Resources */,
 				DDCF259A22B8A347005FCBB9 /* Overview.storyboard in Resources */,
 				DD8F9D3C22BE7A5600FF8594 /* Security.storyboard in Resources */,
@@ -923,15 +947,16 @@
 				2557E18B2355C9F000B6A1B7 /* CustomTabMenuView.swift in Sources */,
 				B3B46A24228F0F2700A68EDD /* TransactionTableViewCell.swift in Sources */,
 				B3D21C9F2296E4F000609F23 /* ExchangeRates.swift in Sources */,
-				B3B46A28228F0F2700A68EDD /* RecoverExistingWalletViewController.swift in Sources */,
 				B3B46A86228F0F7D00A68EDD /* DropMenuButton.swift in Sources */,
 				10A8446923B004B900975661 /* SecurityBaseViewController.swift in Sources */,
 				B3B46AC9228F120700A68EDD /* TransactiontInputDetailsCell.swift in Sources */,
+				10341E0F23CBBB7E0055DFDE /* Label.swift in Sources */,
 				10FABE4F23C7303E00BC201B /* FloatingPlaceholderTextView.swift in Sources */,
 				DD3DF86622C3F0BD00E168AB /* UILabel.swift in Sources */,
 				B3B46A99228F0F7D00A68EDD /* CertificateViewController.swift in Sources */,
 				DDD65AD722A935460027CDA8 /* LicenseViewController.swift in Sources */,
 				B3B46A9E228F0F7D00A68EDD /* ReceiveViewController.swift in Sources */,
+				DD17D9CC23CE243D0017E41D /* RecoverExistingWalletViewController.swift in Sources */,
 				B39BDC4D228F798300F3FB55 /* BuildConfig.swift in Sources */,
 				B3B46A9F228F0F7D00A68EDD /* WalletLogViewController.swift in Sources */,
 				2557E1892355C6FA00B6A1B7 /* NavigationMenuTabBarController.swift in Sources */,
@@ -944,10 +969,13 @@
 				B3B46A12228F0F2700A68EDD /* TextFieldDoneButton.swift in Sources */,
 				B3B46A1D228F0F2700A68EDD /* RequestPasswordViewController.swift in Sources */,
 				B3B469FA228F0F2700A68EDD /* UIColor.swift in Sources */,
+				10341E0B23CBBB700055DFDE /* SeedWordsDisplayTableViewCell.swift in Sources */,
 				10FABE5123C7307100BC201B /* FloatingPlaceholderBorderLayer.swift in Sources */,
+				10341E0823CBBB700055DFDE /* SeedWordsDisplayViewController.swift in Sources */,
 				B3B469FD228F0F2700A68EDD /* UIViewController.swift in Sources */,
 				DD4948EC22C0E400006A35F8 /* LocalizedStrings.swift in Sources */,
 				10D9FB9323C3956300CBF216 /* FloatingPlaceholderTextField.swift in Sources */,
+				10341E0923CBBB700055DFDE /* SeedBackupVerifyViewController.swift in Sources */,
 				B3B46A9B228F0F7D00A68EDD /* PeerSetTableViewController.swift in Sources */,
 				B3B46A89228F0F7D00A68EDD /* keyPadButton.swift in Sources */,
 				B3B46AB0228F0F7D00A68EDD /* AccountDataCell.swift in Sources */,
@@ -963,20 +991,18 @@
 				B3B46A9D228F0F7D00A68EDD /* HelpViewController.swift in Sources */,
 				B3B46A9A228F0F7D00A68EDD /* SettingsController.swift in Sources */,
 				10FABE4B23C72D6800BC201B /* FloatingPlaceholderInputProtocol.swift in Sources */,
-				B3B46A26228F0F2700A68EDD /* CreateNewWalletViewController.swift in Sources */,
 				257521DA233CC32100F6F6E7 /* UIStackView.swift in Sources */,
 				B3B46A14228F0F2700A68EDD /* AccountsHeaderView.swift in Sources */,
 				B3B46A1F228F0F2700A68EDD /* RequestPinViewController.swift in Sources */,
+				10341E0A23CBBB700055DFDE /* SeedBackupVerifyTableViewCell.swift in Sources */,
 				B377DB0722A5663700BDF56F /* DeleteWalletConfirmationViewController.swift in Sources */,
 				B3B469A6228F0F0700A68EDD /* AccountHeader.swift in Sources */,
 				B3A3EF88229375D100008A4E /* Date.swift in Sources */,
 				B3B46A21228F0F2700A68EDD /* SecurityRequestBaseViewController.swift in Sources */,
 				B3A3EF922295956300008A4E /* SendViewController.swift in Sources */,
 				B3B46A9C228F0F7D00A68EDD /* ServerSetTableViewController.swift in Sources */,
-				B3B46AAF228F0F7D00A68EDD /* SeedConfirmTableViewCell.swift in Sources */,
 				B3B46A8C228F0F7D00A68EDD /* Utils.swift in Sources */,
 				B3B46A34228F0F2700A68EDD /* TransactionNotification.swift in Sources */,
-				B3B46A27228F0F2700A68EDD /* ConfirmNewWalletSeedViewController.swift in Sources */,
 				B3B46A87228F0F7D00A68EDD /* Data.swift in Sources */,
 				B3B46AB6228F0F7D00A68EDD /* Storyboards.swift in Sources */,
 				B3B46A37228F0F2700A68EDD /* SpendingPinOrPassword.swift in Sources */,
@@ -992,6 +1018,7 @@
 				25E63F4E23312B2C009CD53E /* NavMenuFloatingButtons.swift in Sources */,
 				B3B46AB1228F0F7D00A68EDD /* SeedCheckActiveCellView.swift in Sources */,
 				B3B46A32228F0F2700A68EDD /* OverviewViewController.swift in Sources */,
+				10341E0723CBBB700055DFDE /* SeedBackupSuccessViewController.swift in Sources */,
 				B35C55D8232FED610006A765 /* Transaction.swift in Sources */,
 				B3B46A8A228F0F7D00A68EDD /* customUImage.swift in Sources */,
 				B3B46AA6228F0F7D00A68EDD /* NetworkModeTableViewController.swift in Sources */,
@@ -1001,6 +1028,7 @@
 				B3B46A0D228F0F2700A68EDD /* Constants.swift in Sources */,
 				B3B46A29228F0F2700A68EDD /* WalletSetupViewController.swift in Sources */,
 				B36255B622A11A9500C62946 /* SecurityMenuViewController.swift in Sources */,
+				10341E0D23CBBB700055DFDE /* SeedBackupReminderViewController.swift in Sources */,
 				B3B46AC4228F120700A68EDD /* TransactiontOutputDetailsCell.swift in Sources */,
 				25E61632237D69750031FB52 /* SyncDetailsComponent.swift in Sources */,
 				10D9FB9623C3956300CBF216 /* FloatingPlaceholderLabel.swift in Sources */,
