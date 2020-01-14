@@ -9,11 +9,14 @@
 import UIKit
 
 class SeedBackupSuccessViewController: UIViewController {
+    var delegate: SeedBackupModalHandler?
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
 
     @IBAction func onBackToOverview(_ sender: Any) {
+        self.delegate?.updateSeedBackupSectionViewVisibility()
         navigateToBackScreen()
     }
 }

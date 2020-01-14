@@ -15,7 +15,8 @@ class SeedBackupVerifyViewController: UIViewController {
     var selectedWords: [String] = []
     @IBOutlet weak var groupedSeedWordsTableView: UITableView!
     @IBOutlet weak var btnConfirm: Button!
-    
+    var delegate: SeedBackupModalHandler?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         addNavigationBackButton()
@@ -30,6 +31,11 @@ class SeedBackupVerifyViewController: UIViewController {
             self.seedWordsGroupedByThree.append(seedWordsGrouped)
             self.selectedWords.append("")
         }
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+         let seedBackupSuccessVC = segue.destination as! SeedBackupSuccessViewController
+         seedBackupSuccessVC.delegate = self.delegate
     }
 
     private func breakdownByThree(_ allSeedWords: [String], validSeedWordToInclude: String) -> [String] {
@@ -57,7 +63,7 @@ class SeedBackupVerifyViewController: UIViewController {
     }
 
     @IBAction func backbtn(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
+        navigateToBackScreen()
     }
 
     @IBAction func onConfirm(_ sender: Any) {

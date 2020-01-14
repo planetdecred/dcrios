@@ -10,7 +10,11 @@ import UIKit
 import Dcrlibwallet
 import Signals
 
-class OverviewViewController: UIViewController {
+protocol SeedBackupModalHandler {
+  func updateSeedBackupSectionViewVisibility()
+}
+
+class OverviewViewController: UIViewController, SeedBackupModalHandler {
     
     /*
         Main UI components
@@ -98,7 +102,8 @@ class OverviewViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.view.layer.backgroundColor = UIColor(hex: "#f3f5f6").cgColor
-        
+        self.updateSeedBackupSectionViewVisibility()
+
         // Setup stackviews properly with rounded corners
         DispatchQueue.main.async {
             self.recentActivitySection.layer.backgroundColor = UIColor.white.cgColor
@@ -108,7 +113,13 @@ class OverviewViewController: UIViewController {
             self.navigationController?.navigationBar.backgroundColor = UIColor.white
         }
     }
-    
+
+    func updateSeedBackupSectionViewVisibility() {
+        if Settings.seedBackedUp {
+            self.seedBackupSectionView.isHidden = true
+        }
+    }
+
     private func setupInterface() {
         /*
             Custom navigation bar with logo image
@@ -175,7 +186,7 @@ class OverviewViewController: UIViewController {
         self.showAllTransactionsButton.isHidden = (self.recentTransactions.count > 3) ? false : true
         self.showAllTransactionsButton.addTarget(self, action: #selector(self.showAllTransactions), for: .touchUpInside)
     }
-    
+
     private func setLatestBlockLabel(latestBlock : __int32_t) {
         let latestBlockAge = self.syncManager.setBestBlockAge()
         let latestBlockText = String(format: LocalizedStrings.latestBlockAge, latestBlock, latestBlockAge)
@@ -389,8 +400,9 @@ class OverviewViewController: UIViewController {
     }
     
     @objc func handleBackupWalletSeed() {
-        let backupReminderVC = Storyboards.SeedBackup.instantiateViewController(for: SeedBackupReminderViewController.self).wrapInNavigationcontroller()
-
+        let seedBackupReminderViewController = Storyboards.SeedBackup.instantiateViewController(for: SeedBackupReminderViewController.self)
+        seedBackupReminderViewController.delegate = self
+        let backupReminderVC = seedBackupReminderViewController.wrapInNavigationcontroller()
         backupReminderVC.modalPresentationStyle = .overFullScreen
         self.present(backupReminderVC, animated: true)
     }

@@ -13,6 +13,7 @@ class SeedBackupReminderViewController: UIViewController {
     @IBOutlet var seedBackupNoticeLabels: [UILabel]?
     var checkedCheckBoxesDict: [Int: Bool] = [:]
     @IBOutlet weak var viewSeedBtn: Button!
+    var delegate: SeedBackupModalHandler?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +56,11 @@ class SeedBackupReminderViewController: UIViewController {
             }
             self.viewSeedBtn?.isEnabled = allChecked
         }
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+         let seedWordsDisplayViewController = segue.destination as! SeedWordsDisplayViewController
+         seedWordsDisplayViewController.delegate = self.delegate
     }
 
     override func viewWillAppear(_ animated: Bool) {
