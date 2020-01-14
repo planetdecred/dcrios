@@ -15,12 +15,6 @@ enum BannerType: String {
     case error
 }
 
-struct AttributedStringStyle {
-    var tag: String
-    var font: UIFont?
-    var color: UIColor?
-}
-
 struct Utils {
     struct TimeInSeconds {
         static let Minute: Int64 = 60

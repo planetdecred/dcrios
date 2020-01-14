@@ -16,7 +16,7 @@ class WalletSetupViewController: WalletSetupBaseViewController {
         }
     }
     
-    @IBAction func RestoreWallet(_ sender: Any) {
+    @IBAction func restoreWallet(_ sender: Any) {
         let recoverVC = Storyboards.RecoverExistingWallet.instantiateViewController(for: RecoverExistingWalletViewController.self)
         Settings.setValue(false, for: Settings.Keys.NewWalletSetUp)
         self.navigationController?.pushViewController(recoverVC, animated: true)

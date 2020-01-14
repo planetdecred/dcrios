@@ -10,9 +10,9 @@ import UIKit
 import Dcrlibwallet
 
 class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITableViewDelegate, UITableViewDataSource {
-    @IBOutlet var tableView : UITableView!
+    @IBOutlet var tableView: UITableView!
     @IBOutlet weak var wordSelectionDropDownContainer: UIView!
-    @IBOutlet weak var tableViewFooterHeightCont: NSLayoutConstraint!
+    @IBOutlet weak var tableViewFooterHeightCosnt: NSLayoutConstraint!
     @IBOutlet weak var tableViewFooter: UIView!
     @IBOutlet weak var btnConfirm: UIButton!
     
@@ -46,7 +46,7 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
         self.wordSelectionDropDownContainer?.layer.shadowOffset = CGSize(width: -1, height: 1)
         
         // add drop shadow for better transition while scrolling the tableView
-        self.tableViewFooter.dropShadow(color: UIColor(hex: "#140000"), offSet: CGSize.zero )
+        self.tableViewFooter.dropShadow(color: UIColor.appColors.lighterGrayGray, offSet: CGSize.zero )
         
         // long press to proceed with test seed, only on testnet
         #if IsTestnet
@@ -81,7 +81,7 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
                                      height: window.origin.y + window.height - keyboardSize.height)
             
             // hide the confirm button and allow the tableview occupy its height
-            self.tableViewFooterHeightCont.constant = 0
+            self.tableViewFooterHeightCosnt.constant = 0
             self.btnConfirm.isHidden = true
             // add space at the bottom of table so that the seed word input fields do not touch the keyboard
             self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
@@ -97,7 +97,7 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
                                      height: window.origin.y + window.height)
             
            // display the confirm button and retain its height
-            self.tableViewFooterHeightCont.constant = 72
+            self.tableViewFooterHeightCosnt.constant = 72
             self.btnConfirm.isHidden = false
             // remove space at the bottom of table that was added when keyboard was displayed
             self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
@@ -128,12 +128,10 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
         if indexPath.row == 0 {
             seedWordCell.setRoundCorners(corners: [.topLeft, .topRight], radius: 14.0)
             seedWordCell.cellComponentTopMargin.constant = 16
-        }
-        else if indexPath.row == 32 {
+        } else if indexPath.row == 32 {
             seedWordCell.setRoundCorners(corners: [.bottomRight, .bottomLeft], radius: 14.0)
             seedWordCell.cellComponentBottomMargin.constant = 16
-        }
-        else{
+        } else {
             seedWordCell.setRoundCorners(corners: [.bottomRight, .bottomLeft, .topLeft, .topRight], radius: 0.0)
             seedWordCell.cellComponentBottomMargin.constant = 8
             seedWordCell.cellComponentTopMargin.constant = 8
@@ -143,9 +141,8 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
         switch indexPath.row {
-        case 0,32:
+        case 0, 32:
             return 78
         default:
             return 70

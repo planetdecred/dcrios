@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -18,24 +16,24 @@
             <objects>
                 <viewController storyboardIdentifier="RecoverExistingWalletViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="LcL-qf-oIK" customClass="RecoverExistingWalletViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xzY-IO-FEH">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lvS-Gt-0g7">
-                                <rect key="frame" x="0.0" y="44" width="414" height="56"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="56"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="aV5-lQ-Yfg">
-                                        <rect key="frame" x="24" y="21.5" width="251.5" height="25.5"/>
+                                        <rect key="frame" x="24" y="-1" width="295.5" height="48"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9d2-ZR-TVa">
-                                                <rect key="frame" x="0.0" y="0.0" width="24" height="25.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
                                                 <state key="normal" image="left-arrow"/>
                                                 <connections>
                                                     <action selector="backButtonTap:" destination="LcL-qf-oIK" eventType="touchUpInside" id="Dso-y6-cff"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" text="Restore from seed phrase" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fdy-42-al5">
-                                                <rect key="frame" x="40" y="0.0" width="211.5" height="25.5"/>
+                                                <rect key="frame" x="64" y="0.0" width="231.5" height="48"/>
                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
                                                 <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -54,15 +52,15 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="70" sectionHeaderHeight="1" sectionFooterHeight="1" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1C3-0F-zyP">
-                                <rect key="frame" x="8" y="108" width="398" height="683"/>
+                                <rect key="frame" x="8" y="64" width="584" height="465"/>
                                 <color key="backgroundColor" red="0.95294117649999999" green="0.96078431369999995" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="8"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="MV0-s8-D4Z">
-                                    <rect key="frame" x="0.0" y="0.0" width="398" height="36"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="584" height="36"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your seed phrase in correct order." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZE0-Ab-80A">
-                                            <rect key="frame" x="16" y="0.0" width="366" height="20"/>
+                                            <rect key="frame" x="16" y="0.0" width="552" height="20"/>
                                             <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                             <color key="textColor" red="0.23921568630000001" green="0.34509803919999998" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -82,14 +80,14 @@
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="seedWordCell" rowHeight="70" id="deB-je-eAN" customClass="RecoveryWalletSeedWordCell" customModule="Decred_Wallet" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="64" width="398" height="70"/>
+                                        <rect key="frame" x="0.0" y="64" width="584" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="deB-je-eAN" id="ic7-xd-MQ9">
-                                            <rect key="frame" x="0.0" y="0.0" width="398" height="70"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="584" height="70"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TZ5-Iq-oZj">
-                                                    <rect key="frame" x="16" y="8" width="366" height="54"/>
+                                                    <rect key="frame" x="16" y="8" width="552" height="54"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8qp-7R-tqR">
                                                             <rect key="frame" x="16" y="16" width="30" height="22"/>
@@ -111,7 +109,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="aqr-Ku-jon" customClass="DropDownSearchField" customModule="Decred_Wallet" customModuleProvider="target">
-                                                            <rect key="frame" x="54" y="12" width="296" height="30"/>
+                                                            <rect key="frame" x="54" y="12" width="482" height="30"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                                             <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
@@ -163,7 +161,7 @@
                                 </connections>
                             </tableView>
                             <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xzf-z8-C4i">
-                                <rect key="frame" x="24" y="422" width="366" height="234"/>
+                                <rect key="frame" x="24" y="422" width="552" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <userDefinedRuntimeAttributes>
@@ -173,10 +171,10 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ig6-oU-11T">
-                                <rect key="frame" x="0.0" y="791" width="414" height="72"/>
+                                <rect key="frame" x="0.0" y="529" width="600" height="72"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cOx-yu-4bA" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
-                                        <rect key="frame" x="35.5" y="12" width="343" height="48"/>
+                                        <rect key="frame" x="128.5" y="12" width="343" height="48"/>
                                         <color key="backgroundColor" red="0.76862745099999996" green="0.79607843140000001" blue="0.82352941180000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="343" id="Wlc-s3-EZO"/>
@@ -230,7 +228,7 @@
                         <outlet property="btnConfirm" destination="cOx-yu-4bA" id="8KW-s2-IqT"/>
                         <outlet property="tableView" destination="1C3-0F-zyP" id="xok-vZ-nWU"/>
                         <outlet property="tableViewFooter" destination="Ig6-oU-11T" id="aKU-bw-obO"/>
-                        <outlet property="tableViewFooterHeightCont" destination="aMw-qP-dNX" id="TdE-5h-j4Y"/>
+                        <outlet property="tableViewFooterHeightCosnt" destination="aMw-qP-dNX" id="TdE-5h-j4Y"/>
                         <outlet property="wordSelectionDropDownContainer" destination="Xzf-z8-C4i" id="ljP-Na-4yX"/>
                         <segue destination="iMd-AR-6Xr" kind="presentation" identifier="recoverySuccess" modalPresentationStyle="fullScreen" id="Yhf-P6-TVH"/>
                     </connections>
@@ -244,11 +242,11 @@
             <objects>
                 <viewController storyboardIdentifier="recoverySuccess" useStoryboardIdentifierAsRestorationIdentifier="YES" id="iMd-AR-6Xr" customClass="RecoverySuccessViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VFi-0c-M9R">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Your wallet is successfully restored" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z8G-XL-ngn">
-                                <rect key="frame" x="24" y="433" width="366" height="30.5"/>
+                                <rect key="frame" x="24" y="286" width="552" height="28"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="24"/>
                                 <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -257,14 +255,14 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="aGA-W0-7fG">
-                                <rect key="frame" x="175" y="345" width="64" height="64"/>
+                                <rect key="frame" x="268" y="198" width="64" height="64"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="64" id="lZl-7R-dUS"/>
                                     <constraint firstAttribute="height" constant="64" id="qyb-g2-zvy"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5fr-hY-sWL">
-                                <rect key="frame" x="24" y="804" width="366" height="34"/>
+                                <rect key="frame" x="24" y="542" width="552" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Get started">
                                     <color key="titleColor" red="0.16078431369999999" green="0.43921568630000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
