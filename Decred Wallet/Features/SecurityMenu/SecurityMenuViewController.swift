@@ -296,12 +296,14 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
             alert.addAction(okAction)
             
             self.present(alert, animated: true, completion: nil)
-        }else{
+        } else {
             let requestPinVC = RequestPinViewController.instantiate()
             requestPinVC.securityFor = LocalizedStrings.spending
+            requestPinVC.prompt = LocalizedStrings.enterCurrentSpendingPIN
             requestPinVC.showCancelButton = true
-            requestPinVC.onUserEnteredPin = { pin in
-                self.SignMsg(pass: pin)
+            requestPinVC.onUserEnteredSecurityCode = {(code: String, completionDelegate: SecurityRequestCompletionDelegate?) in
+                self.SignMsg(pass: code)
+                completionDelegate?.securityCodeProcessed(true, nil)
             }
             self.present(requestPinVC, animated: true, completion: nil)
         }
