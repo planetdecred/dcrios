@@ -39,6 +39,11 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
         // set border for dropdown list
         self.wordSelectionDropDownContainer.layer.borderWidth = 1
         self.wordSelectionDropDownContainer.layer.borderColor = UIColor.appColors.lightGray.cgColor
+        self.wordSelectionDropDownContainer.setRoundCorners(corners: [.bottomRight, .bottomLeft, .topLeft, .topRight], radius: 4.0)
+        self.wordSelectionDropDownContainer?.layer.shadowColor = UIColor.appColors.darkBlue.cgColor
+        self.wordSelectionDropDownContainer?.layer.shadowRadius = 4
+        self.wordSelectionDropDownContainer?.layer.shadowOpacity = 0.24
+        self.wordSelectionDropDownContainer?.layer.shadowOffset = CGSize(width: -1, height: 1)
         
         // add drop shadow for better transition while scrolling the tableView
         self.tableViewFooter.dropShadow(color: UIColor(hex: "#140000"), offSet: CGSize.zero )
@@ -48,6 +53,8 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
         let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressConfirm))
         btnConfirm.addGestureRecognizer(longGesture)
         #endif
+        
+        self.btnConfirm.backgroundColor = UIColor.appColors.darkGray
     }
     
     deinit {
@@ -109,7 +116,7 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
         let seedWordCell = tableView.dequeueReusableCell(withIdentifier: "seedWordCell", for: indexPath) as! RecoveryWalletSeedWordCell
         
         seedWordCell.lbSeedWordNum.text = String(format: LocalizedStrings.wordNumber, indexPath.row + 1)
-        seedWordCell.lbSeedWordNum.layer.borderColor = UIColor.appColors.darkBlue.cgColor
+        seedWordCell.lbSeedWordNum.layer.borderColor = UIColor.appColors.darkBluishGray.cgColor
         seedWordCell.seedWordAutoComplete.text = self.userEnteredSeedWords[indexPath.row]
         seedWordCell.cellBorder.layer.borderColor = UIColor.appColors.gray.cgColor
         seedWordCell.seedWordAutoComplete.resignFirstResponder()
@@ -119,16 +126,30 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
                                        dropDownListPlaceholder: self.wordSelectionDropDownContainer,
                                        onSeedEntered: self.seedWordEntered)
         if indexPath.row == 0 {
-            seedWordCell.setRoundCorners(corners: [.topLeft, .topRight], radius: 10.0)
+            seedWordCell.setRoundCorners(corners: [.topLeft, .topRight], radius: 14.0)
+            seedWordCell.cellComponentTopMargin.constant = 16
         }
         else if indexPath.row == 32 {
-            seedWordCell.setRoundCorners(corners: [.bottomRight, .bottomLeft], radius: 10.0)
+            seedWordCell.setRoundCorners(corners: [.bottomRight, .bottomLeft], radius: 14.0)
+            seedWordCell.cellComponentBottomMargin.constant = 16
         }
         else{
             seedWordCell.setRoundCorners(corners: [.bottomRight, .bottomLeft, .topLeft, .topRight], radius: 0.0)
+            seedWordCell.cellComponentBottomMargin.constant = 8
+            seedWordCell.cellComponentTopMargin.constant = 8
         }
         
         return seedWordCell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        switch indexPath.row {
+        case 0,32:
+            return 78
+        default:
+            return 70
+        }
     }
     
     func seedWordEntered(for wordIndex: Int, seedWord: String, moveToNextField: Bool) {
@@ -163,14 +184,14 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
         } else {
             let validatedSeed = self.validateSeed()
             if validatedSeed.valid {
-                    self.tableView.isUserInteractionEnabled = false
-                    self.btnConfirm.setTitle(LocalizedStrings.success, for: .normal)
-                    self.btnConfirm.setTitleColor(UIColor.appColors.green, for: .normal)
-                    self.btnConfirm.setImage(.init(imageLiteralResourceName: "success_checked"), for: .normal)
-                    self.btnConfirm.backgroundColor = .white
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        self.secureWallet(validatedSeed.seed)
-                    }
+                self.tableView.isUserInteractionEnabled = false
+                self.btnConfirm.setTitle(LocalizedStrings.success, for: .normal)
+                self.btnConfirm.setTitleColor(UIColor.appColors.green, for: .normal)
+                self.btnConfirm.setImage(.init(imageLiteralResourceName: "success_checked"), for: .normal)
+                self.btnConfirm.backgroundColor = .white
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self.secureWallet(validatedSeed.seed)
+                }
             } else {
                 Utils.showBanner(parentVC: self, type: .error, text: LocalizedStrings.incorrectSeedEntered)
             }

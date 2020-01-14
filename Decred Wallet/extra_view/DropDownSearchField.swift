@@ -77,7 +77,7 @@ class DropDownSearchField: UITextField, UITextFieldDelegate {
         let textFieldYPos = textField.superview?.convert(textField.frame.origin, to: nil).y ?? 0
         let dropDownHolderMaxHeight = self.dropDownListPlaceholder?.superview?.frame.height ?? 0
         
-        var dropDownYPos = textFieldYPos + textField.frame.height
+        var dropDownYPos = textFieldYPos + textField.frame.height + 12
         if (dropDownYPos + tableHeight) > dropDownHolderMaxHeight {
             dropDownYPos = textFieldYPos - tableHeight
         }
