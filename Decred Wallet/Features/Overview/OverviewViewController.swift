@@ -188,6 +188,7 @@ class OverviewViewController: UIViewController, SeedBackupModalHandler {
 
         if Settings.readValue(for: Settings.Keys.NewWalletSetUp) {
             Utils.showBanner(parentVC: self, type: .success, text: LocalizedStrings.walletCreated)
+            Settings.setValue(false, for: Settings.Keys.NewWalletSetUp)
         }
     }
 
