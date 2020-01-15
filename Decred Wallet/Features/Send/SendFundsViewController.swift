@@ -12,6 +12,8 @@ import Dcrlibwallet
 class SendFundsViewController: UIViewController {
     static let instance = Storyboards.Send.instantiateViewController(for: SendFundsViewController.self).wrapInNavigationcontroller()
 
+    @IBOutlet var amountLayer: UIView!
+    @IBOutlet var fromLayer: UIView!
     @IBOutlet var toSelfLayer: UIView!
     @IBOutlet var toOthersLayer: UIView!
     @IBOutlet var destinationAddressLabel: UILabel!
@@ -427,6 +429,27 @@ class SendFundsViewController: UIViewController {
         amountContainerView.layer.borderColor = UIColor.appColors.lighterGray.cgColor
         showHideTransactionFeeDetails(showHideTransactionFeeDetailsButton)
         nextButton.setBackgroundColor(UIColor.appColors.lighterGray, for: .disabled)
+
+        // shadows
+        fromLayer.layer.shadowRadius = 16.0
+        fromLayer.layer.shadowColor = UIColor(red: 0.04, green: 0.08, blue: 0.25, alpha: 1.0).cgColor
+        fromLayer.layer.shadowOffset = .zero
+        fromLayer.layer.shadowOpacity = 0.06
+
+        toSelfLayer.layer.shadowRadius = 16.0
+        toSelfLayer.layer.shadowColor = UIColor(red: 0.04, green: 0.08, blue: 0.25, alpha: 1.0).cgColor
+        toSelfLayer.layer.shadowOffset = .zero
+        toSelfLayer.layer.shadowOpacity = 0.06
+
+        toOthersLayer.layer.shadowRadius = 16.0
+        toOthersLayer.layer.shadowColor = UIColor(red: 0.04, green: 0.08, blue: 0.25, alpha: 1.0).cgColor
+        toOthersLayer.layer.shadowOffset = .zero
+        toOthersLayer.layer.shadowOpacity = 0.06
+
+        amountLayer.layer.shadowRadius = 16.0
+        amountLayer.layer.shadowColor = UIColor(red: 0.04, green: 0.08, blue: 0.25, alpha: 1.0).cgColor
+        amountLayer.layer.shadowOffset = .zero
+        amountLayer.layer.shadowOpacity = 0.06
     }
     
     func checkAddressFromQrCode(textScannedFromQRCode: String?) {
