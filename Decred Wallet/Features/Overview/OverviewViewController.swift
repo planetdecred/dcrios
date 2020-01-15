@@ -10,7 +10,11 @@ import UIKit
 import Dcrlibwallet
 import Signals
 
-class OverviewViewController: UIViewController {
+protocol SeedBackupModalHandler {
+  func updateSeedBackupSectionViewVisibility()
+}
+
+class OverviewViewController: UIViewController, SeedBackupModalHandler {
     
     /*
         Main UI components
@@ -98,7 +102,8 @@ class OverviewViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.view.layer.backgroundColor = UIColor(hex: "#f3f5f6").cgColor
-        
+        self.updateSeedBackupSectionViewVisibility()
+
         // Setup stackviews properly with rounded corners
         DispatchQueue.main.async {
             self.recentActivitySection.layer.backgroundColor = UIColor.white.cgColor
@@ -108,7 +113,13 @@ class OverviewViewController: UIViewController {
             self.navigationController?.navigationBar.backgroundColor = UIColor.white
         }
     }
-    
+
+    func updateSeedBackupSectionViewVisibility() {
+        if Settings.seedBackedUp {
+            self.seedBackupSectionView.isHidden = true
+        }
+    }
+
     private func setupInterface() {
         /*
             Custom navigation bar with logo image
@@ -137,7 +148,7 @@ class OverviewViewController: UIViewController {
         self.seedBackupSectionView.layer.shadowColor = UIColor(displayP3Red: 0.04, green: 0.08, blue: 0.25, alpha: 0.04).cgColor
         self.seedBackupSectionView.layer.shadowOffset = CGSize(width: 8, height: 8)
         self.seedBackupSectionView.layer.shadowOpacity = 0.4
-        self.seedBackupSectionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBackupWallet))) // show wallet backup on tap
+        self.seedBackupSectionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBackupWalletSeed))) // show wallet backup on tap
         
         // Sync status section
         self.onlineStatusIndicator.layer.cornerRadius = 5 // Height/width is 10pts, we use half that (5pts) to make a perfect circle
@@ -174,8 +185,13 @@ class OverviewViewController: UIViewController {
         self.showAllTransactionsButton.setTitle(LocalizedStrings.seeAll, for: .normal)
         self.showAllTransactionsButton.isHidden = (self.recentTransactions.count > 3) ? false : true
         self.showAllTransactionsButton.addTarget(self, action: #selector(self.showAllTransactions), for: .touchUpInside)
+
+        if Settings.readValue(for: Settings.Keys.NewWalletSetUp) {
+            Utils.showBanner(parentVC: self, type: .success, text: LocalizedStrings.walletCreated)
+            Settings.setValue(false, for: Settings.Keys.NewWalletSetUp)
+        }
     }
-    
+
     private func setLatestBlockLabel(latestBlock : __int32_t) {
         let latestBlockAge = self.syncManager.setBestBlockAge()
         let latestBlockText = String(format: LocalizedStrings.latestBlockAge, latestBlock, latestBlockAge)
@@ -388,8 +404,12 @@ class OverviewViewController: UIViewController {
         refreshControl.endRefreshing()
     }
     
-    @objc func handleBackupWallet() {
-        // TODO: When implementing backup page
+    @objc func handleBackupWalletSeed() {
+        let seedBackupReminderViewController = Storyboards.SeedBackup.instantiateViewController(for: SeedBackupReminderViewController.self)
+        seedBackupReminderViewController.delegate = self
+        let backupReminderVC = seedBackupReminderViewController.wrapInNavigationcontroller()
+        backupReminderVC.modalPresentationStyle = .overFullScreen
+        self.present(backupReminderVC, animated: true)
     }
     
     // Update wallet network connection control button based on sync and network status

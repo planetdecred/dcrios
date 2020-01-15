@@ -26,13 +26,17 @@
 "confirmSeedInfo" = "每个空格只有一个正确单词。请选择正确的单词以确认您的种子。";
 
 /* Recover Existing Wallet */
-"word" = "单词 #%d";
+"word" = "%d";
 "notAllSeedsAreEntered" = "没有输入完单词。请检查输入栏并填写所有单词。";
-"incorrectSeedEntered" = "您输入的种子不正确。请检查输入的单词。";
+"incorrectSeedEntered" = "Failed to restore. Please verify all words and try again.";
 "walletRecoveryError" = "Wallet recovery error.";
-"seedRestoreHeader" = "恢复种子";
-"seedRestoreInfo" = "开始输入单词并在建议列表中点击正确的单词。";
+"seedRestoreHeader" = "Restore from seed phrase";
+"seedRestoreInfo" = "Enter your seed phrase in the correct order.";
 "confirm" = "确认";
+"restore" = "Restore";
+"success" = "Success";
+"getStarted" = "Get started";
+"restoreSuccessTitle" = "Your wallet is successfully restored.";
 
 /* Drop Down Search Field */
 "tapToSelect" = "点击选择单词。";
@@ -182,6 +186,7 @@
 "noConnectedPeer" = "No connected peers.";
 "peers" = "peers";
 "seeAll" = "See all";
+"walletCreated" = "Wallet created";
 
 /* Transaction List/ History */
 "pending" = "等待";
@@ -426,3 +431,30 @@
 "history" = "history";
 "settings" = "Settings";
 "help" = "help";
+
+/* Seed Backup Reminder */
+"keepInMind" = "Keep in mind";
+"viewSeedPhrase" = "View seed phrase";
+"reminderLabel1" = "The <bold>33-word seed phrase</bold> is EXTREMELY IMPORTANT.";
+"reminderLabel2" = "Seed phrase is <bold>the only way</bold> to restore your wallet.";
+"reminderLabel3" = "It is recommended to store your seed phrase in a <green>physical format</green> (e.g. write down on a paper).";
+"reminderLabel4" = "It is highly discouraged to store your seed phrase in any <orange>digital format</orange> (e.g. screenshot).";
+"reminderLabel5" = "Anyone with your seed phrase <orange>can steal your funds</orange>. DO NOT show it to anyone.";
+
+/* Seed Words Display */
+"writeDownSeedPhrase" = "Write down seed phrase";
+"writeDownStep1_2" = "Step 1/2";
+"writeDownStep2_2" = "Step 2/2";
+
+/* Seed Backup Verify */
+"writeDownAll33Words" = "Write down all 33 words in the correct order.";
+"your33word" = "Your 33-word seed phrase";
+"iHaveWroteDown" = "I have wrote down all 33 words";
+"verify" = "Verify";
+"backupSuccessTitle" = "Your seed phrase backup is verified";
+"backupSuccessDesc" = "Be sure to store your seed phrase backup in a secure location.";
+"backToOverview" = "Back to Overview";
+"failedToVerify" = "Failed to verify. Please go through every words and try again.";
+"verifying" = "Verifying...";
+"verifySeedPhrase" = "Verify seed phrase";
+"selectTheCorrectWordsToVerify" = "Select the correct words to verify.";

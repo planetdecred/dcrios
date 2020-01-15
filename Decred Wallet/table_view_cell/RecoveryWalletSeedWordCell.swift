@@ -11,6 +11,9 @@ import UIKit
 class RecoveryWalletSeedWordCell: UITableViewCell {
     @IBOutlet weak var lbSeedWordNum: UILabel!
     @IBOutlet weak var seedWordAutoComplete: DropDownSearchField!
+    @IBOutlet weak var cellBorder: UIView!
+    @IBOutlet weak var cellComponentTopMargin: NSLayoutConstraint!
+    @IBOutlet weak var cellComponentBottomMargin: NSLayoutConstraint!
     
     private var validSeedWords: [String] = []
     private var fieldIndex: Int?
@@ -31,12 +34,15 @@ class RecoveryWalletSeedWordCell: UITableViewCell {
         // set up autocomplete callbacks
         self.seedWordAutoComplete.onWordSelected = self.seedWordSelected
         self.seedWordAutoComplete.onTextChanged = self.textEditingEndedWithoutPickingSeedWord
+        self.seedWordAutoComplete.onTextFocused = self.textEditingFocussed
     }
     
     func seedWordSelected(_ selectedWord: String) {
         self.seedWordAutoComplete.text = selectedWord
-        self.setTextAppearance()
         self.onSeedEntered!(self.fieldIndex!, selectedWord, true)
+        self.lbSeedWordNum.layer.borderColor = UIColor.appColors.darkBlue.cgColor
+        self.cellBorder.layer.borderColor = UIColor.appColors.gray.cgColor
+        self.seedWordAutoComplete.textColor = UIColor.appColors.darkBlue
     }
     
     func textEditingEndedWithoutPickingSeedWord() {
@@ -44,16 +50,26 @@ class RecoveryWalletSeedWordCell: UITableViewCell {
         self.onSeedEntered!(self.fieldIndex!, self.seedWordAutoComplete.text ?? "", false)
     }
     
+    func textEditingFocussed() {
+        self.cellBorder.layer.borderColor =  UIColor.appColors.lightBlue.cgColor
+        self.lbSeedWordNum.layer.borderColor =  UIColor.appColors.lightBlue.cgColor
+        self.lbSeedWordNum.textColor = UIColor.appColors.lightBlue
+    }
+    
     func setTextAppearance() {
         let currentText = self.seedWordAutoComplete.text ?? ""
-        if self.validSeedWords.contains(currentText) {
-            // valid seed word, use normal text color and only show clear button if user focuses field
-            self.seedWordAutoComplete.textColor = UIColor.black
-            self.seedWordAutoComplete.clearButtonMode = .whileEditing
-        } else if currentText != "" {
-            // invalid seed word, use error text color and show clear button persistently
-            self.seedWordAutoComplete.textColor = UIColor.appColors.orange
-            self.seedWordAutoComplete.clearButtonMode = .always
-        }
+        // validate and define text appearance
+        let isValidWordOrEmptyString = self.validSeedWords.contains(currentText) || currentText.isEmpty
+        let lbSeedWordNumBorderColor = isValidWordOrEmptyString ? UIColor.appColors.darkBlue.cgColor: UIColor.appColors.orange.cgColor
+        let lbSeedWordNumColor = isValidWordOrEmptyString ? UIColor.appColors.darkBlue: UIColor.appColors.orange
+        let seedWordAutoCompleteClearButtonMode = isValidWordOrEmptyString ? UITextField.ViewMode.whileEditing : UITextField.ViewMode.always
+        let cellBorderBorderColor = isValidWordOrEmptyString ? UIColor.appColors.gray.cgColor: UIColor.appColors.orange.cgColor
+        let seedWordAutoCompleteTextColor = isValidWordOrEmptyString ? UIColor.appColors.darkBlue: UIColor.appColors.orange
+        
+        self.lbSeedWordNum.textColor = lbSeedWordNumColor
+        self.lbSeedWordNum.layer.borderColor = lbSeedWordNumBorderColor
+        self.seedWordAutoComplete.textColor = seedWordAutoCompleteTextColor
+        self.seedWordAutoComplete.clearButtonMode = seedWordAutoCompleteClearButtonMode
+        self.cellBorder.layer.borderColor = cellBorderBorderColor
     }
 }

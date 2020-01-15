@@ -36,6 +36,10 @@ struct LocalizedStrings {
     static let seedRestoreHeader = NSLocalizedString("seedRestoreHeader", comment: "")
     static let seedRestoreInfo = NSLocalizedString("seedRestoreInfo", comment: "")
     static let confirm = NSLocalizedString("confirm", comment: "")
+    static let success = NSLocalizedString("success", comment: "")
+    static let restore = NSLocalizedString("restore", comment: "")
+    static let getStarted = NSLocalizedString("getStarted", comment: "")
+    static let restoreSuccessTitle = NSLocalizedString("restoreSuccessTitle", comment: "")
     
     /* Drop Down Search Field */
     static let tapToSelect = NSLocalizedString("tapToSelect", comment: "")
@@ -177,6 +181,7 @@ struct LocalizedStrings {
     static let blockHeaderFetched = NSLocalizedString("blockHeaderFetched", comment: "")
     static let blockHeaderScanned = NSLocalizedString("blockHeaderScanned", comment: "")
     static let headersScannedProgress = NSLocalizedString("headersScannedProgress", comment: "")
+    static let walletCreated = NSLocalizedString("walletCreated", comment: "")
     
     /* Transaction List/ History */
     static let pending = NSLocalizedString("pending", comment: "")
@@ -421,4 +426,7 @@ struct LocalizedStrings {
     static let history = NSLocalizedString("history", comment: "")
     static let settings = NSLocalizedString("settings", comment: "")
     static let help = NSLocalizedString("help", comment: "")
+    
+    /* Seed Backup */
+    static let failedToVerify = NSLocalizedString("failedToVerify", comment: "")
 }

@@ -15,7 +15,6 @@ class WalletSetupBaseViewController: UIViewController {
     }
     
     func finalizeWalletSetup(_ seed: String, _ pinOrPassword: String, _ securityType: String, _ completionDelegate: SecurityRequestCompletionDelegate?) {
-        let progressHud = Utils.showProgressHud(withText: LocalizedStrings.settingUpWallet)
         
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let this = self else { return }
@@ -26,14 +25,21 @@ class WalletSetupBaseViewController: UIViewController {
                 try wallet.unlock(pinOrPassword.utf8Bits)
                 
                 DispatchQueue.main.async {
-                    progressHud.dismiss()
                     Settings.setValue(securityType, for: Settings.Keys.SpendingPassphraseSecurityType)
-                    NavigationMenuTabBarController.setupMenuAndLaunchApp(isNewWallet: true)
+
+                    if Settings.newWalletSetUp {
+                        Settings.setValue(seed, for: Settings.Keys.Seed)
+                        Settings.setValue(false, for: Settings.Keys.SeedBackedUp)
+                        NavigationMenuTabBarController.setupMenuAndLaunchApp(isNewWallet: true)
+                    } else {
+                        Settings.setValue(true, for: Settings.Keys.SeedBackedUp)
+                        completionDelegate?.securityCodeProcessed(true, nil)
+                        this.performSegue(withIdentifier: "recoverySuccess", sender: self)
+                    }
                 }
             } catch let error {
                 DispatchQueue.main.async {
-                    progressHud.dismiss()
-                    this.showOkAlert(message: error.localizedDescription, title: LocalizedStrings.errorSettingUpWallet)
+                    completionDelegate?.securityCodeProcessed(false, error.localizedDescription)
                 }
             }
         }
