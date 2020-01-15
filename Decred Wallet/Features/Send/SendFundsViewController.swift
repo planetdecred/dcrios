@@ -209,8 +209,11 @@ class SendFundsViewController: UIViewController {
             exchangeRateIconHeightConstraint.constant = 0
             exchangeRateSeparatorView.isHidden = true
             exchangeRateLabelContainerView.constant = 0
-            rateConversionContainerViewHeightConstraint.constant = (rateConversionContainerViewHeightConstraint.constant - (exchangeRateIconHeight * 2))
-            amountContainerViewHeight.constant = (amountContainerViewHeight.constant - (exchangeRateIconHeight * 2))
+            // we only update the first time we did a fetch for the exchange rate
+            if rateConversionContainerViewHeightConstraint.constant == CGFloat(integerLiteral: 100) {
+                rateConversionContainerViewHeightConstraint.constant = (rateConversionContainerViewHeightConstraint.constant - (exchangeRateIconHeight * 2))
+                amountContainerViewHeight.constant = (amountContainerViewHeight.constant - (exchangeRateIconHeight * 2))
+            }
             break
             
         case .Bittrex:
