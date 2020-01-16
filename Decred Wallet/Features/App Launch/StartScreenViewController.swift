@@ -24,14 +24,14 @@ class StartScreenViewController: UIViewController {
         if BuildConfig.IsTestNet {
             testnetLabel.isHidden = false
         }
-        
-        logo.loadGif(name: "splashLogo")
-        
+
         AppDelegate.walletLoader = WalletLoader()
-        let initWalletError = AppDelegate.walletLoader.initWallets()
-        if initWalletError != nil {
-            print("init wallet error: \(initWalletError!.localizedDescription)")
+        let initError = AppDelegate.walletLoader.initMultiWallet()
+        if initError != nil {
+            print("init multiwallet error: \(initError!.localizedDescription)")
         }
+
+        logo.loadGif(name: "splashLogo")
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -44,7 +44,7 @@ class StartScreenViewController: UIViewController {
             }
             self.startTimerWhenViewAppears = false
         }
-        
+
         if AppDelegate.walletLoader.oneOrMoreWalletsExist {
             self.label.text = LocalizedStrings.openingWallet
         }
@@ -60,6 +60,11 @@ class StartScreenViewController: UIViewController {
     }
 
     func loadMainScreen() {
+        if !AppDelegate.walletLoader.initialized {
+            // there was an error initializing multiwallet
+            return
+        }
+        
         if AppDelegate.walletLoader.oneOrMoreWalletsExist {
             self.checkStartupSecurityAndStartApp()
         } else if DcrlibwalletWalletExistsAt(WalletLoader.appDataDir, BuildConfig.NetType) {
@@ -78,20 +83,22 @@ class StartScreenViewController: UIViewController {
     }
     
     func checkStartupSecurityAndLinkExistingWallet() {
-        if StartupPinOrPassword.pinOrPasswordIsSet() {
-            self.promptForStartupPinOrPassword() { startupPinOrPassword, completionDelegate in
-                let error = AppDelegate.walletLoader.linkExistingWalletAndStartApp(startupPinOrPassword: startupPinOrPassword)
-                if error == nil {
-                    completionDelegate?.securityCodeProcessed(true, nil)
-                } else {
-                    completionDelegate?.securityCodeProcessed(false, error!.localizedDescription)
-                }
+        if !StartupPinOrPassword.pinOrPasswordIsSet() {
+            try? AppDelegate.walletLoader.linkExistingWalletAndStartApp(startupPinOrPassword: "")
+            return
+        }
+        
+        self.promptForStartupPinOrPassword() { startupPinOrPassword, completionDelegate in
+            do {
+                try AppDelegate.walletLoader.linkExistingWalletAndStartApp(startupPinOrPassword: startupPinOrPassword)
+                completionDelegate?.securityCodeProcessed(true, nil)
+            } catch let error {
+                print("link existing wallet error: \(error.localizedDescription)")
+                completionDelegate?.securityCodeProcessed(false, error.localizedDescription)
             }
-        } else {
-            _ = AppDelegate.walletLoader.linkExistingWalletAndStartApp(startupPinOrPassword: "")
         }
     }
-    
+
     func promptForStartupPinOrPassword(completion: @escaping ((String, SecurityRequestCompletionDelegate?) -> Void)) {
         if StartupPinOrPassword.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
             let requestPasswordVC = RequestPasswordViewController.instantiate()
@@ -117,13 +124,11 @@ class StartScreenViewController: UIViewController {
             })
         }
     }
-    
+
     func openWalletsAndStartApp(startupPinOrPassword: String, completionDelegate: SecurityRequestCompletionDelegate?) {
         self.label.text = LocalizedStrings.openingWallet
-        
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            guard let `self` = self else { return }
-            
+
+        DispatchQueue.global(qos: .userInitiated).async {
             do {
                 try AppDelegate.walletLoader.multiWallet.openWallets(startupPinOrPassword.utf8Bits)
                 DispatchQueue.main.async {
@@ -138,8 +143,6 @@ class StartScreenViewController: UIViewController {
                         errorMessage = String(format: LocalizedStrings.incorrectSecurityInfo, securityType)
                     }
                     completionDelegate?.securityCodeProcessed(false, errorMessage)
-                    
-                    self.showOkAlert(message: errorMessage, title: LocalizedStrings.error)
                 }
             }
         }
