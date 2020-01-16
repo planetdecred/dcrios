@@ -12,9 +12,20 @@ import Dcrlibwallet
 class WalletLoader: NSObject {
     static let appDataDir = NSHomeDirectory() + "/Documents/dcrlibwallet"
     
-    var wallet: DcrlibwalletLibWallet?
+    var multiWallet: DcrlibwalletMultiWallet!
     var syncer: Syncer
     var notification: TransactionNotification
+    
+    var initialized = false
+    var oneOrMoreWalletsExist = false
+    
+    var wallet: DcrlibwalletWallet? {
+        return multiWallet.firstOrDefaultWallet()
+    }
+    
+    var isSynced: Bool {
+        return self.syncer.currentSyncOp == SyncOp.Done
+    }
     
     override init() {
         syncer = Syncer()
@@ -22,26 +33,30 @@ class WalletLoader: NSObject {
         super.init()
     }
     
-    func initWallet() -> NSError? {
-        var initWalletError: NSError?
-        self.wallet = DcrlibwalletNewLibWallet(WalletLoader.appDataDir, "bdb", BuildConfig.NetType, &initWalletError)
+    func initMultiWallet() -> NSError? {
+        var error: NSError?
+        self.multiWallet = DcrlibwalletNewMultiWallet(WalletLoader.appDataDir, "bdb", BuildConfig.NetType, &error)
         
-        return initWalletError
-    }
-    
-    var isSynced: Bool {
-        return self.syncer.currentSyncOp == SyncOp.Done
-    }
-    
-    var isWalletCreated: Bool {
-        var walletExists: ObjCBool = ObjCBool(false)
-        
-        do {
-            try self.wallet?.walletExists(&walletExists)
-        } catch (let error) {
-            print("Error checking if wallet exists: \(error.localizedDescription)")
+        if error == nil {
+            self.initialized = true
+            self.oneOrMoreWalletsExist = self.multiWallet.loadedWalletsCount() > 0
         }
         
-        return walletExists.boolValue
+        return error
+    }
+    
+    func linkExistingWalletAndStartApp(startupPinOrPassword: String) throws {
+        var privatePassphraseType = DcrlibwalletPassphraseTypePass
+        if SpendingPinOrPassword.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PIN {
+            privatePassphraseType = DcrlibwalletPassphraseTypePin
+        }
+        
+        try AppDelegate.walletLoader.multiWallet.linkExistingWallet(WalletLoader.appDataDir,
+                                                                    originalPubPass: startupPinOrPassword,
+                                                                    privatePassphraseType: privatePassphraseType)
+        
+        DispatchQueue.main.async {
+            NavigationMenuTabBarController.setupMenuAndLaunchApp(isNewWallet: false)
+        }
     }
 }

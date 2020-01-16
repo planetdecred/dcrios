@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Dcrlibwallet
 
 struct SpendingPinOrPassword {
     static func change(sender vc: UIViewController) {
@@ -53,7 +54,12 @@ struct SpendingPinOrPassword {
         
         DispatchQueue.global(qos: .userInitiated).async {
             do {
-                try AppDelegate.walletLoader.wallet?.changePrivatePassphrase(oldPrivatePass, newPass: newPrivatePass)
+                let passphraseType = securityType == SecurityViewController.SECURITY_TYPE_PASSWORD ? DcrlibwalletPassphraseTypePass : DcrlibwalletPassphraseTypePin
+                
+                try AppDelegate.walletLoader.multiWallet.changePrivatePassphrase(forWallet: AppDelegate.walletLoader.wallet!.id_,
+                                                                                 oldPrivatePassphrase: oldPrivatePass,
+                                                                                 newPrivatePassphrase: newPrivatePass,
+                                                                                 privatePassphraseType: passphraseType)
                 DispatchQueue.main.async {
                     completionDelegate?.securityCodeProcessed(true, nil)
                     Settings.setValue(securityType, for: Settings.Keys.SpendingPassphraseSecurityType)

@@ -8,10 +8,10 @@
 
 import Foundation
 import UIKit
+import JGProgressHUD
+import Dcrlibwallet
 
 struct StartupPinOrPassword {
-    static let defaultPublicPassphrase = "public"
-
     static func clear(sender vc: UIViewController, completion: (() -> Void)? = nil) {
         if !self.pinOrPasswordIsSet() {
             // nothing to clear
@@ -82,14 +82,15 @@ struct StartupPinOrPassword {
             return
         }
 
-        let currentPublicPassphrase = currentPassword ?? self.defaultPublicPassphrase
-        let newPublicPassphrase = newPinOrPassword ?? self.defaultPublicPassphrase
+        let currentPublicPassphrase = currentPassword ?? ""
+        let newPublicPassphrase = newPinOrPassword ?? ""
 
         DispatchQueue.global(qos: .userInitiated).async {
             do {
-                let oldPublicPass = (currentPublicPassphrase as NSString).data(using: String.Encoding.utf8.rawValue)!
-                let newPublicPass = (newPublicPassphrase as NSString).data(using: String.Encoding.utf8.rawValue)!
-                try AppDelegate.walletLoader.wallet?.changePublicPassphrase(oldPublicPass, newPass: newPublicPass)
+                let passphraseType = securityType == SecurityViewController.SECURITY_TYPE_PASSWORD ? DcrlibwalletPassphraseTypePass : DcrlibwalletPassphraseTypePin
+                try AppDelegate.walletLoader.multiWallet.changeStartupPassphrase(currentPublicPassphrase.utf8Bits,
+                                                                                 newPassphrase: newPublicPassphrase.utf8Bits,
+                                                                                 passphraseType: passphraseType)
 
                 DispatchQueue.main.async {
                     if newPinOrPassword == nil {
@@ -99,6 +100,7 @@ struct StartupPinOrPassword {
                         Settings.setValue(true, for: Settings.Keys.IsStartupSecuritySet)
                         Settings.setValue(securityType!, for: Settings.Keys.StartupSecurityType)
                     }
+                    
                     completionDelegate?.securityCodeProcessed(true, nil)
                     completion?()
                 }

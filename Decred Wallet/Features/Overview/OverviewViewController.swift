@@ -54,7 +54,7 @@ class OverviewViewController: UIViewController, SeedBackupModalHandler {
     @IBOutlet weak var connectedPeersLabel: UILabel!
     
     @IBOutlet weak var showSyncDetailsButton: UIButton! {
-        didSet { self.showSyncDetailsButton.isHidden = (AppDelegate.walletLoader.wallet?.isSyncing() == true) ? true : false; self.showSyncDetailsButton.clipsToBounds = true; }
+        didSet { self.showSyncDetailsButton.isHidden = (AppDelegate.walletLoader.multiWallet.isSyncing() == true) ? true : false; self.showSyncDetailsButton.clipsToBounds = true; }
     }
     
     @IBOutlet weak var syncConnectionButton: UIButton!
@@ -235,7 +235,7 @@ class OverviewViewController: UIViewController, SeedBackupModalHandler {
             self.onlineStatusLabel.text = status ? LocalizedStrings.online : LocalizedStrings.offline
             
             // We need to update sync connect/disconnect button
-            self.updateConnectionButton(connected: status, isSyncing: (AppDelegate.walletLoader.wallet?.isSyncing())!)
+            self.updateConnectionButton(connected: status, isSyncing: (AppDelegate.walletLoader.multiWallet.isSyncing()))
             
             // We need to reset peer count
             if status == false {
@@ -281,7 +281,7 @@ class OverviewViewController: UIViewController, SeedBackupModalHandler {
     func showSyncStatus() {
         
         // Confirm wallet is actually syncing and sync progressbar is not already shown
-        if !(AppDelegate.walletLoader.wallet?.isSyncing())! || self.syncProgressBarContainer.isDescendant(of: self.syncProgressView) {
+        if !AppDelegate.walletLoader.multiWallet.isSyncing() || self.syncProgressBarContainer.isDescendant(of: self.syncProgressView) {
             return
         }
         
@@ -383,16 +383,16 @@ class OverviewViewController: UIViewController, SeedBackupModalHandler {
         self.showSyncDetailsButton.isHidden = true
         
         // We have hidden the progress bar and sync progress report. we need to update the wallet sync status text and indicator
-        if (AppDelegate.walletLoader.wallet?.isSyncing() == false) {
-            let syncStatusImageName = (AppDelegate.walletLoader.wallet?.isSynced())! ? "ic_checkmark" : "ic_crossmark"
+        if AppDelegate.walletLoader.multiWallet.isSyncing() == false {
+            let syncStatusImageName = AppDelegate.walletLoader.multiWallet.isSynced() ? "ic_checkmark" : "ic_crossmark"
             self.syncStatusImage.image = UIImage(named: syncStatusImageName)
-            self.syncStatusLabel.text = (AppDelegate.walletLoader.wallet?.isSynced())! ? LocalizedStrings.walletSynced : LocalizedStrings.walletNotSynced
+            self.syncStatusLabel.text = AppDelegate.walletLoader.multiWallet.isSynced() ? LocalizedStrings.walletSynced : LocalizedStrings.walletNotSynced
             self.updatingLatestBlockInfo(latestBlock: bestBlock)
             self.showSyncDetailsButton.isHidden = true
         }
         
         // Next we set the sync connection control button depending on whether or not the wallet synced successfully
-        self.updateConnectionButton(connected: (AppDelegate.walletLoader.wallet?.isSynced())! ? true : false, isSyncing: false)
+        self.updateConnectionButton(connected: AppDelegate.walletLoader.multiWallet.isSynced() ? true : false, isSyncing: false)
         if AppDelegate.walletLoader.isSynced {
             self.updateRecentActivity()
             self.updateCurrentBalance()
@@ -434,15 +434,10 @@ class OverviewViewController: UIViewController, SeedBackupModalHandler {
     @objc func connectionToggle() {
         // TODO: implement action for connection change toggle button
         switch self.syncConnectionButton.titleLabel?.text {
-        case LocalizedStrings.cancel:
-            AppDelegate.walletLoader.wallet?.cancelSync()
+        case LocalizedStrings.cancel, LocalizedStrings.disconnect:
+            AppDelegate.walletLoader.multiWallet.cancelSync()
             syncManager.onSyncCanceled(false)
-            self.updateConnectionButton(connected: (AppDelegate.walletLoader.wallet?.isSynced())!, isSyncing: (AppDelegate.walletLoader.wallet?.isSyncing())!)
-            break
-        case LocalizedStrings.disconnect:
-            AppDelegate.walletLoader.wallet?.cancelSync()
-            syncManager.onSyncCanceled(false)
-            self.updateConnectionButton(connected: (AppDelegate.walletLoader.wallet?.isSynced())!, isSyncing: (AppDelegate.walletLoader.wallet?.isSyncing())!)
+            self.updateConnectionButton(connected: AppDelegate.walletLoader.multiWallet.isSynced(), isSyncing: AppDelegate.walletLoader.multiWallet.isSyncing())
             break
         case LocalizedStrings.reconnect:
             self.stopBestBlockAgeUpdate()
@@ -476,18 +471,20 @@ class OverviewViewController: UIViewController, SeedBackupModalHandler {
     }
     
     func updatingLatestBlockInfo(latestBlock : __int32_t) {
-          if AppDelegate.walletLoader.wallet!.isScanning() {return}
+        if AppDelegate.walletLoader.multiWallet.isRescanning() {
+            return
+        }
           
-          if self.refreshBestBlockAgeTimer != nil {
-              self.refreshBestBlockAgeTimer?.invalidate()
-          }
+        if self.refreshBestBlockAgeTimer != nil {
+            self.refreshBestBlockAgeTimer?.invalidate()
+        }
           
-          self.refreshBestBlockAgeTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) {_ in
+        self.refreshBestBlockAgeTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) {_ in
             DispatchQueue.main.async {
-              self.setLatestBlockLabel(latestBlock: latestBlock)
+                self.setLatestBlockLabel(latestBlock: latestBlock)
             }
-          }
-      }
+        }
+    }
     
     func stopBestBlockAgeUpdate() {
                self.refreshBestBlockAgeTimer?.invalidate()
@@ -526,7 +523,12 @@ class OverviewViewController: UIViewController, SeedBackupModalHandler {
     }
 }
 
-extension OverviewViewController: NewTransactionNotificationProtocol, ConfirmedTransactionNotificationProtocol {
+// todo this listener is not attached to any notifier
+extension OverviewViewController: DcrlibwalletTxAndBlockNotificationListenerProtocol {
+    func onBlockAttached(_ walletID: Int, blockHeight: Int32) {
+        // not relevant to this VC
+    }
+    
     func onTransaction(_ transaction: String?) {
         var tx = try! JSONDecoder().decode(Transaction.self, from:(transaction!.utf8Bits))
         
@@ -547,7 +549,7 @@ extension OverviewViewController: NewTransactionNotificationProtocol, ConfirmedT
         }
     }
     
-    func onTransactionConfirmed(_ hash: String?, height: Int32) {
+    func onTransactionConfirmed(_ walletID: Int, hash: String?, blockHeight: Int32) {
         DispatchQueue.main.async {
             self.updateCurrentBalance()
             self.recentTransactionsTableView.reloadData()

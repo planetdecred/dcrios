@@ -234,13 +234,13 @@ class SettingsController: UITableViewController  {
     }
     
     func rescanBlocks() {
-        if AppDelegate.walletLoader.wallet!.isSyncing() {
+        if AppDelegate.walletLoader.multiWallet.isSyncing() {
             self.showOkAlert(message: LocalizedStrings.syncProgressAlert)
             return
         }
         
         do {
-            try AppDelegate.walletLoader.wallet?.rescanBlocks()
+            try AppDelegate.walletLoader.multiWallet.rescanBlocks(AppDelegate.walletLoader.wallet!.id_)
             self.displayToast(LocalizedStrings.scanInProgress)
         } catch let error {
             var errorMessage = error.localizedDescription
@@ -276,7 +276,8 @@ class SettingsController: UITableViewController  {
         let progressHud = Utils.showProgressHud(withText: LocalizedStrings.deletingWallet)
         DispatchQueue.global(qos: .background).async {
             do {
-                try AppDelegate.walletLoader.wallet?.delete(spendingPinOrPassword.utf8Bits)
+                try AppDelegate.walletLoader.multiWallet.delete(AppDelegate.walletLoader.wallet!.id_,
+                                                                privPass: spendingPinOrPassword.utf8Bits)
                 DispatchQueue.main.async {
                     progressHud.dismiss()
                     completionDelegate?.securityCodeProcessed(true, nil)

@@ -33,14 +33,14 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
     var passphrase_word = ""
   
     
-    var dcrlibwallet :DcrlibwalletLibWallet!
+    var wallet: DcrlibwalletWallet!
     
     var progressHud : JGProgressHUD?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        dcrlibwallet = AppDelegate.walletLoader.wallet
+        wallet = AppDelegate.walletLoader.wallet
         self.address.delegate = self
         self.signature.delegate = self
         self.message.delegate = self
@@ -127,8 +127,8 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
                 return true
             }
             
-            if (dcrlibwallet.isAddressValid(updatedString)) {
-                if(dcrlibwallet.haveAddress(updatedString)){
+            if (wallet.isAddressValid(updatedString)) {
+                if(wallet.haveAddress(updatedString)){
                     self.addressError.textColor = UIColor(hex: "#007AFF")
                     self.addressError.text = LocalizedStrings.validOwnAddr
                     addressPass = true
@@ -231,9 +231,9 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
             return
         }
         
-        if (dcrlibwallet.isAddressValid(addressd)) {
+        if (wallet.isAddressValid(addressd)) {
             do{
-                try dcrlibwallet.verifyMessage(addressd, message: message, signatureBase64: signatured, ret0_: retV)
+                try wallet.verifyMessage(addressd, message: message, signatureBase64: signatured, ret0_: retV)
                 if (retV[0]).boolValue {
                     self.signatureError.text = LocalizedStrings.verifiedSignature
                     self.signatureError.textColor = UIColor(hex: "#007AFF")
@@ -348,7 +348,7 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
             guard let this = self else { return }
             
             do {
-                let signature = try self!.dcrlibwallet.signMessage(finalPassphraseData, address: address, message: message)
+                let signature = try self!.wallet.signMessage(finalPassphraseData, address: address, message: message)
                 DispatchQueue.main.async {
                     self!.progressHud?.dismiss()
                     this.signature.text = signature.base64EncodedString()

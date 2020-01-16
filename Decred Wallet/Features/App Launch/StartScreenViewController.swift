@@ -26,9 +26,9 @@ class StartScreenViewController: UIViewController {
         }
 
         AppDelegate.walletLoader = WalletLoader()
-        let initWalletError = AppDelegate.walletLoader.initWallet()
-        if initWalletError != nil {
-            print("init wallet error: \(initWalletError!.localizedDescription)")
+        let initError = AppDelegate.walletLoader.initMultiWallet()
+        if initError != nil {
+            print("init multiwallet error: \(initError!.localizedDescription)")
         }
 
         logo.loadGif(name: "splashLogo")
@@ -45,7 +45,7 @@ class StartScreenViewController: UIViewController {
             self.startTimerWhenViewAppears = false
         }
 
-        if AppDelegate.walletLoader.isWalletCreated {
+        if AppDelegate.walletLoader.oneOrMoreWalletsExist {
             self.label.text = LocalizedStrings.openingWallet
         }
     }
@@ -60,29 +60,53 @@ class StartScreenViewController: UIViewController {
     }
 
     func loadMainScreen() {
-        if !AppDelegate.walletLoader.isWalletCreated {
-            self.displayWalletSetupScreen()
-        } else if StartupPinOrPassword.pinOrPasswordIsSet() {
-            self.promptForStartupPinOrPassword()
+        if !AppDelegate.walletLoader.initialized {
+            // there was an error initializing multiwallet
+            return
+        }
+        
+        if AppDelegate.walletLoader.oneOrMoreWalletsExist {
+            self.checkStartupSecurityAndStartApp()
+        } else if DcrlibwalletWalletExistsAt(WalletLoader.appDataDir, BuildConfig.NetType) {
+            self.checkStartupSecurityAndLinkExistingWallet()
         } else {
-            self.unlockWalletAndStartApp(pinOrPassword: "public", completionDelegate: nil) // unlock wallet using default public passphrase
+            self.displayWalletSetupScreen()
+        }
+    }
+    
+    func checkStartupSecurityAndStartApp() {
+        if StartupPinOrPassword.pinOrPasswordIsSet() {
+            self.promptForStartupPinOrPassword(completion: self.openWalletsAndStartApp)
+        } else {
+            self.openWalletsAndStartApp(startupPinOrPassword: "", completionDelegate: nil)
+        }
+    }
+    
+    func checkStartupSecurityAndLinkExistingWallet() {
+        if !StartupPinOrPassword.pinOrPasswordIsSet() {
+            try? AppDelegate.walletLoader.linkExistingWalletAndStartApp(startupPinOrPassword: "")
+            return
+        }
+        
+        self.promptForStartupPinOrPassword() { startupPinOrPassword, completionDelegate in
+            do {
+                try AppDelegate.walletLoader.linkExistingWalletAndStartApp(startupPinOrPassword: startupPinOrPassword)
+                completionDelegate?.securityCodeProcessed(true, nil)
+            } catch let error {
+                print("link existing wallet error: \(error.localizedDescription)")
+                completionDelegate?.securityCodeProcessed(false, error.localizedDescription)
+            }
         }
     }
 
-    func displayWalletSetupScreen() {
-        let walletSetupController = WalletSetupViewController.instantiate().wrapInNavigationcontroller()
-        walletSetupController.isNavigationBarHidden = true
-        AppDelegate.shared.setAndDisplayRootViewController(walletSetupController)
-    }
-
-    func promptForStartupPinOrPassword() {
+    func promptForStartupPinOrPassword(completion: @escaping ((String, SecurityRequestCompletionDelegate?) -> Void)) {
         if StartupPinOrPassword.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
             let requestPasswordVC = RequestPasswordViewController.instantiate()
             requestPasswordVC.securityFor = LocalizedStrings.startup
             requestPasswordVC.prompt = LocalizedStrings.enterStartupPassword
             requestPasswordVC.modalPresentationStyle = .pageSheet
             requestPasswordVC.submitBtnText = LocalizedStrings.unlock
-            requestPasswordVC.onUserEnteredSecurityCode = self.unlockWalletAndStartApp
+            requestPasswordVC.onUserEnteredSecurityCode = completion
             requestPasswordVC.showCancelButton = false
             self.present(requestPasswordVC, animated: true, completion: {
               requestPasswordVC.presentationController?.presentedView?.gestureRecognizers?[0].isEnabled = false
@@ -91,7 +115,7 @@ class StartScreenViewController: UIViewController {
             let requestPinVC = RequestPinViewController.instantiate()
             requestPinVC.securityFor = LocalizedStrings.startup
             requestPinVC.modalPresentationStyle = .pageSheet
-            requestPinVC.onUserEnteredSecurityCode = self.unlockWalletAndStartApp
+            requestPinVC.onUserEnteredSecurityCode = completion
             requestPinVC.prompt = LocalizedStrings.unlockWithStartupPIN
             requestPinVC.submitBtnText = LocalizedStrings.unlock
             requestPinVC.showCancelButton = false
@@ -101,12 +125,12 @@ class StartScreenViewController: UIViewController {
         }
     }
 
-    func unlockWalletAndStartApp(pinOrPassword: String, completionDelegate: SecurityRequestCompletionDelegate?) {
+    func openWalletsAndStartApp(startupPinOrPassword: String, completionDelegate: SecurityRequestCompletionDelegate?) {
         self.label.text = LocalizedStrings.openingWallet
 
         DispatchQueue.global(qos: .userInitiated).async {
             do {
-                try AppDelegate.walletLoader.wallet?.open(pinOrPassword.utf8Bits)
+                try AppDelegate.walletLoader.multiWallet.openWallets(startupPinOrPassword.utf8Bits)
                 DispatchQueue.main.async {
                     completionDelegate?.securityCodeProcessed(true, nil)
                     NavigationMenuTabBarController.setupMenuAndLaunchApp(isNewWallet: false)
@@ -123,7 +147,13 @@ class StartScreenViewController: UIViewController {
             }
         }
     }
-
+    
+    func displayWalletSetupScreen() {
+        let walletSetupController = WalletSetupViewController.instantiate().wrapInNavigationcontroller()
+        walletSetupController.isNavigationBarHidden = true
+        AppDelegate.shared.setAndDisplayRootViewController(walletSetupController)
+    }
+    
     static func instantiate() -> Self {
         return Storyboards.Main.instantiateViewController(for: self)
     }

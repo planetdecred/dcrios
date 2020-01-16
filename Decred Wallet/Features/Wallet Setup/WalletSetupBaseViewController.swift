@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Dcrlibwallet
 
 class WalletSetupBaseViewController: UIViewController {
     static func instantiate() -> Self {
@@ -18,11 +19,12 @@ class WalletSetupBaseViewController: UIViewController {
         
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let this = self else { return }
-            guard let wallet = AppDelegate.walletLoader.wallet else { return }
+            
+            let multiwallet = AppDelegate.walletLoader.multiWallet
+            let privatePassphraseType = securityType == SecurityViewController.SECURITY_TYPE_PASSWORD ? DcrlibwalletPassphraseTypePass : DcrlibwalletPassphraseTypePin
             
             do {
-                try wallet.createWallet(pinOrPassword, seedMnemonic: seed)
-                try wallet.unlock(pinOrPassword.utf8Bits)
+                try multiwallet?.createNewWallet(pinOrPassword, privatePassphraseType: privatePassphraseType)
                 
                 DispatchQueue.main.async {
                     Settings.setValue(securityType, for: Settings.Keys.SpendingPassphraseSecurityType)

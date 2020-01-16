@@ -79,7 +79,7 @@ class SyncManager: NSObject, SyncProgressListenerProtocol {
     
     func syncNotStartedDueToNetwork() {
         AppDelegate.walletLoader.syncer.deRegisterSyncProgressListener(for: "\(self)")
-        AppDelegate.walletLoader.wallet?.cancelSync()
+        AppDelegate.walletLoader.multiWallet.cancelSync()
         
         // Allow 0.5 seconds for sync cancellation to complete before setting up wallet.
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -140,7 +140,7 @@ class SyncManager: NSObject, SyncProgressListenerProtocol {
     }
     
     func onSyncCompleted() {
-        if (AppDelegate.walletLoader.wallet?.isSynced() == true) {
+        if (AppDelegate.walletLoader.multiWallet.isSynced() == true) {
             AppDelegate.walletLoader.syncer.deRegisterSyncProgressListener(for: "\(self)")
             self.syncStatus => (false, nil)
             self.peers => AppDelegate.walletLoader.syncer.connectedPeersCount
@@ -162,7 +162,7 @@ class SyncManager: NSObject, SyncProgressListenerProtocol {
     }
     
     func setBestBlockAge() -> String {
-        if AppDelegate.walletLoader.wallet!.isScanning() {
+        if AppDelegate.walletLoader.multiWallet.isRescanning() {
             return ""
         }
         
