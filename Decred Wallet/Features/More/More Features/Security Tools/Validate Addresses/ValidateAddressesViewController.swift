@@ -9,8 +9,8 @@
 import UIKit
 import Dcrlibwallet
 
-class ValidateAddressesViewController: UIViewController, UITextFieldDelegate  {
-    @IBOutlet weak var addressText: FloatingLabelTextInput!
+class ValidateAddressesViewController: UIViewController, UITextViewDelegate {
+    @IBOutlet weak var addressText: FloatingPlaceholderTextView!
     @IBOutlet weak var validateBtn: UIButton!
     @IBOutlet weak var viewContainer: UIView!
     @IBOutlet weak var isValidMsgContainer: UIView!
@@ -31,26 +31,17 @@ class ValidateAddressesViewController: UIViewController, UITextFieldDelegate  {
         
         viewContHeightContraint.constant = 144
         
-        self.TextFieldAddRightButton(textField: self.addressText, imgName: "ic_paste", action: #selector(onPaste), location: 68, index: 0)
-        self.addressText.layoutIfNeeded()
+        let pasteButton = UIButton(type: .custom)
+        pasteButton.setImage(UIImage(named: "ic_paste"), for: .normal)
+        pasteButton.addTarget(self, action: #selector(onPaste), for: .touchUpInside)
+        let scanButton = UIButton(type: .custom)
+        scanButton.setImage(UIImage(named: "ic_scan"), for: .normal)
+        scanButton.addTarget(self, action: #selector(onScan), for: .touchUpInside)
         
-        self.TextFieldAddRightButton(textField: self.addressText, imgName: "ic_scan", action: #selector(onScan), location: CGFloat(self.addressText!.subviews.index(0, offsetBy: 22)), index: 1)
+        self.addressText.addButton(button: pasteButton)
+        self.addressText.addButton(button: scanButton)
         self.addressText.setNeedsDisplay()
-        
-        self.addressText.delegate = self
         self.addressText.placeholder = LocalizedStrings.address
-    }
-    
-    func TextFieldAddRightButton(textField: UITextField, imgName: String, action: Selector , location: CGFloat, index: Int) {
-        let rightButton = UIButton(type: .custom)
-        rightButton.setImage(UIImage(named: imgName), for: .normal)
-        rightButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: CGFloat(-16), bottom: 0, right: 0)
-        rightButton.frame = CGRect(x: CGFloat(textField.frame.size.width - location), y: CGFloat(16), width: CGFloat(20), height: CGFloat(20))
-        
-        rightButton.addTarget(self, action: action, for: .touchUpInside)
-        textField.insertSubview(rightButton, at: index)
-       // textField.addSubview(rightButton)
-        textField.setNeedsDisplay()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -69,10 +60,9 @@ class ValidateAddressesViewController: UIViewController, UITextFieldDelegate  {
         barButtonTitle.tintColor = UIColor.black // UIColor.appColor.darkblue
                
         self.navigationItem.leftBarButtonItems =  [ (self.navigationItem.leftBarButtonItem)!, barButtonTitle]
-        
        }
     
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    func textView(_ textField: UITextView, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
     // figure out what the new string will be after the pending edit
         let updatedString = (textField.text as NSString?)?.replacingCharacters(in: range, with: string)
         self.toggleValidateButtonState(addressHasText: updatedString!)
@@ -81,7 +71,6 @@ class ValidateAddressesViewController: UIViewController, UITextFieldDelegate  {
             self.viewContHeightContraint.constant = 144
             self.isValidMsgContainer.isHidden = true
         }
-        
         return true
     }
     
@@ -90,10 +79,9 @@ class ValidateAddressesViewController: UIViewController, UITextFieldDelegate  {
     }
     
     @objc func onPaste() {
-        self.addressText.editingBegan()
+        self.addressText.textViewDidBeginEditing(self.addressText)
         self.addressText.text = UIPasteboard.general.string
         self.toggleValidateButtonState(addressHasText: self.addressText.text!)
-        self.addressText.editingEnded()
     }
     
     func toggleValidateButtonState(addressHasText: String) {

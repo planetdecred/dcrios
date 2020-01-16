@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -36,17 +36,16 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LrX-Tt-MCM">
                                 <rect key="frame" x="8" y="80.5" width="398" height="234"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Address" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="fvs-ex-8KP" customClass="FloatingLabelTextInput" customModule="Decred_Wallet" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="16" width="366" height="48"/>
-                                        <color key="tintColor" red="0.90196078431372551" green="0.91764705882352937" blue="0.92941176470588238" alpha="1" colorSpace="calibratedRGB"/>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Zzo-zu-amS" customClass="FloatingPlaceholderTextView" customModule="Decred_Wallet" customModuleProvider="target">
+                                        <rect key="frame" x="16" y="16" width="366" height="44"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="48" id="bwc-gf-Rs2"/>
-                                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="72" id="gFf-xA-q8R"/>
+                                            <constraint firstAttribute="height" constant="44" id="2R1-qe-liF"/>
                                         </constraints>
-                                        <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
-                                        <textInputTraits key="textInputTraits" textContentType="name"/>
-                                    </textField>
+                                        <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ig3-eZ-Ab1">
                                         <rect key="frame" x="32" y="68" width="287" height="12"/>
                                         <constraints>
@@ -153,19 +152,19 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstItem="GbU-6n-NJa" firstAttribute="centerX" secondItem="LrX-Tt-MCM" secondAttribute="centerX" id="Bqe-Xe-VL8"/>
+                                    <constraint firstItem="Zzo-zu-amS" firstAttribute="top" secondItem="LrX-Tt-MCM" secondAttribute="top" constant="16" id="DUs-5E-BdE"/>
+                                    <constraint firstItem="Ig3-eZ-Ab1" firstAttribute="top" secondItem="Zzo-zu-amS" secondAttribute="bottom" constant="8" id="Dxq-61-ZTb"/>
                                     <constraint firstAttribute="trailing" secondItem="Ig3-eZ-Ab1" secondAttribute="trailing" constant="79" id="Hnd-4R-wgN"/>
-                                    <constraint firstItem="fvs-ex-8KP" firstAttribute="leading" secondItem="LrX-Tt-MCM" secondAttribute="leading" constant="16" id="JwS-zV-ObS"/>
-                                    <constraint firstItem="fvs-ex-8KP" firstAttribute="top" secondItem="LrX-Tt-MCM" secondAttribute="top" constant="16" id="aHi-kp-SbY"/>
-                                    <constraint firstItem="U35-06-028" firstAttribute="top" secondItem="fvs-ex-8KP" secondAttribute="bottom" constant="24" id="bav-5V-eWM"/>
+                                    <constraint firstItem="U35-06-028" firstAttribute="top" secondItem="Zzo-zu-amS" secondAttribute="bottom" constant="28" id="RHg-Be-xsA"/>
+                                    <constraint firstAttribute="trailing" secondItem="Zzo-zu-amS" secondAttribute="trailing" constant="16" id="c53-iV-HjO"/>
+                                    <constraint firstItem="Zzo-zu-amS" firstAttribute="leading" secondItem="LrX-Tt-MCM" secondAttribute="leading" constant="16" id="eqi-yg-fZV"/>
                                     <constraint firstItem="Ig3-eZ-Ab1" firstAttribute="leading" secondItem="LrX-Tt-MCM" secondAttribute="leading" constant="32" id="g2d-As-4T2"/>
                                     <constraint firstAttribute="bottom" secondItem="GbU-6n-NJa" secondAttribute="bottom" id="hg8-ue-erW"/>
-                                    <constraint firstAttribute="trailing" secondItem="fvs-ex-8KP" secondAttribute="trailing" constant="16" id="pgB-pR-CBz"/>
                                     <constraint firstItem="bE1-XT-LxT" firstAttribute="top" secondItem="Ig3-eZ-Ab1" secondAttribute="bottom" constant="8" id="pw7-zm-Hki"/>
                                     <constraint firstAttribute="height" constant="234" id="sbM-b4-aGn"/>
                                     <constraint firstItem="U35-06-028" firstAttribute="leading" secondItem="bE1-XT-LxT" secondAttribute="trailing" constant="8" id="vK6-qg-8YX"/>
                                     <constraint firstAttribute="trailing" secondItem="U35-06-028" secondAttribute="trailing" constant="16" id="vft-Ty-y3b"/>
                                     <constraint firstAttribute="trailing" secondItem="GbU-6n-NJa" secondAttribute="trailing" constant="16" id="yjv-q8-iht"/>
-                                    <constraint firstItem="Ig3-eZ-Ab1" firstAttribute="top" secondItem="fvs-ex-8KP" secondAttribute="bottom" constant="4" id="zDZ-Ds-HJc"/>
                                     <constraint firstItem="GbU-6n-NJa" firstAttribute="leading" secondItem="LrX-Tt-MCM" secondAttribute="leading" constant="16" id="zEe-vf-K6C"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -189,7 +188,7 @@
                     </view>
                     <connections>
                         <outlet property="addrOwnerInfo" destination="e7J-fE-EIb" id="Ajs-Qb-Hah"/>
-                        <outlet property="addressText" destination="fvs-ex-8KP" id="5Wa-4D-rcY"/>
+                        <outlet property="addressText" destination="Zzo-zu-amS" id="krF-kV-GZb"/>
                         <outlet property="isValidImg" destination="1R6-ae-ZmJ" id="Vwh-bR-F4z"/>
                         <outlet property="isValidMsgContainer" destination="GbU-6n-NJa" id="jlN-w8-uqt"/>
                         <outlet property="validateBtn" destination="U35-06-028" id="8vE-K0-y2v"/>

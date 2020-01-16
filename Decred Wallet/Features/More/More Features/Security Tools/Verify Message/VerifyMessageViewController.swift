@@ -10,9 +10,9 @@ import UIKit
 import Dcrlibwallet
 
 class VerifyMessageViewController: UIViewController {
-    @IBOutlet weak var addressText: FloatingLabelTextInput!
-    @IBOutlet weak var signatureText: FloatingLabelTextInput!
-    @IBOutlet weak var messageText: FloatingLabelTextInput!
+    @IBOutlet weak var addressText: FloatingPlaceholderTextView!
+    @IBOutlet weak var signatureText: FloatingPlaceholderTextView!
+    @IBOutlet weak var messageText: FloatingPlaceholderTextView!
     @IBOutlet weak var verifyBtn: UIButton!
     @IBOutlet weak var viewContainer: UIView!
     @IBOutlet weak var isValidMsgContainer: UIView!
@@ -31,15 +31,33 @@ class VerifyMessageViewController: UIViewController {
         dcrlibwallet = AppDelegate.walletLoader.wallet
            
         viewContHeightContraint.constant = 280
-           
-        self.TextFieldAddRightButton(textField: self.addressText, imgName: "ic_paste", action: #selector(onAddressPaste), location: 68, index: 0)
-        self.TextFieldAddRightButton(textField: self.addressText, imgName: "ic_scan", action: #selector(onScan), location: CGFloat(self.addressText!.subviews.index(0, offsetBy: 22)), index: 1)
-        self.TextFieldAddRightButton(textField: self.signatureText, imgName: "ic_paste", action: #selector(onSignaturePaste), location: 22, index: 0)
-        self.TextFieldAddRightButton(textField: self.messageText, imgName: "ic_paste", action: #selector(onMessagePaste), location: 22, index: 0)
-           
-        self.addressText.addTarget(self, action: #selector(self.TextFieldChanged), for: .editingChanged)
-        self.signatureText.addTarget(self, action: #selector(self.TextFieldChanged), for: .editingChanged)
-        self.messageText.addTarget(self, action: #selector(self.TextFieldChanged), for: .editingChanged)
+        
+        let addressPasteButton = UIButton(type: .custom)
+        addressPasteButton.setImage(UIImage(named: "ic_paste"), for: .normal)
+        addressPasteButton.addTarget(self, action: #selector(onAddressPaste), for: .touchUpInside)
+        let addressScanButton = UIButton(type: .custom)
+        addressScanButton.setImage(UIImage(named: "ic_scan"), for: .normal)
+        addressScanButton.addTarget(self, action: #selector(onScan), for: .touchUpInside)
+        
+        self.addressText.addButton(button: addressPasteButton)
+        self.addressText.addButton(button: addressScanButton)
+        
+        let signaturePasteButton = UIButton(type: .custom)
+        signaturePasteButton.setImage(UIImage(named: "ic_paste"), for: .normal)
+        signaturePasteButton.addTarget(self, action: #selector(onSignaturePaste), for: .touchUpInside)
+        
+        self.signatureText.addButton(button: signaturePasteButton)
+        
+        let messagePasteButton = UIButton(type: .custom)
+        messagePasteButton.setImage(UIImage(named: "ic_paste"), for: .normal)
+        messagePasteButton.addTarget(self, action: #selector(onMessagePaste), for: .touchUpInside)
+        
+        self.messageText.addButton(button: messagePasteButton)
+        
+        // TODO: add target functionality to view
+      //  self.addressText.addTarget(self, action: #selector(self.TextFieldChanged), for: .editingChanged)
+       // self.signatureText.addTarget(self, action: #selector(self.TextFieldChanged), for: .editingChanged)
+       // self.messageText.addTarget(self, action: #selector(self.TextFieldChanged), for: .editingChanged)
         
         self.addressText.placeholder = LocalizedStrings.address
         self.signatureText.placeholder = LocalizedStrings.signature
@@ -80,41 +98,27 @@ class VerifyMessageViewController: UIViewController {
        }
     
     @objc func onAddressPaste() {
-        self.addressText.editingBegan()
+        self.addressText.textViewDidBeginEditing(self.addressText)
         self.addressText.text = UIPasteboard.general.string
         self.toggleValidateButtonState()
-        self.addressText.editingEnded()
     }
     
     @objc func onMessagePaste() {
-        self.messageText.editingBegan()
+        self.messageText.textViewDidBeginEditing(self.messageText)
         self.messageText.text = UIPasteboard.general.string
         self.toggleValidateButtonState()
-        self.messageText.editingEnded()
     }
     
     @objc func onSignaturePaste() {
-        self.signatureText.editingBegan()
+        self.signatureText.textViewDidBeginEditing(self.signatureText)
         self.signatureText.text = UIPasteboard.general.string
         self.toggleValidateButtonState()
-        self.signatureText.editingEnded()
     }
     
     @objc func pageInfo(){
         let alertController = UIAlertController(title: LocalizedStrings.verifyMessage, message: LocalizedStrings.verifyMessagepageInfo, preferredStyle: UIAlertController.Style.alert)
         alertController.addAction(UIAlertAction(title: LocalizedStrings.gotIt, style: UIAlertAction.Style.default, handler: nil))
         self.present(alertController, animated: true, completion: nil)
-    }
-    
-    func TextFieldAddRightButton(textField: UITextField, imgName: String, action: Selector , location: CGFloat, index: Int) {
-        let rightButton = UIButton(type: .custom)
-        rightButton.setImage(UIImage(named: imgName), for: .normal)
-        rightButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: CGFloat(-16), bottom: 0, right: 0)
-        rightButton.frame = CGRect(x: CGFloat(textField.frame.size.width - location), y: CGFloat(16), width: CGFloat(20), height: CGFloat(20))
-           
-        rightButton.addTarget(self, action: action, for: .touchUpInside)
-        textField.insertSubview(rightButton, at: index)
-        textField.setNeedsDisplay()
     }
     
     @IBAction func verifyMsg(_ sender: Any) {
