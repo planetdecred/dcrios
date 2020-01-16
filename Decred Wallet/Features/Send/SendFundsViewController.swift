@@ -165,7 +165,7 @@ class SendFundsViewController: UIViewController {
         let cancelBarButtonItem = UIBarButtonItem(image: UIImage(named: "cancel"),
                                                   style: .done, target: self,
                                                   action: #selector(navigateToBackScreen))
-        let titleBarButtonItem = UIBarButtonItem(title: LocalizedStrings.send, style: .plain, target: self, action: nil)
+        let titleBarButtonItem = UIBarButtonItem(title: "Send DCR", style: .plain, target: self, action: nil)
         
         navigationController?.navigationBar.tintColor = UIColor.black
         navigationItem.rightBarButtonItems = [overflowNavBarButton, infoNavBarButton]
