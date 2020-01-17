@@ -11,9 +11,9 @@ import Dcrlibwallet
 import JGProgressHUD
 
 class SignMessageViewController: UIViewController {
-    @IBOutlet weak var addressText: FloatingLabelTextInput!
-    @IBOutlet weak var signatureText: FloatingLabelTextInput!
-    @IBOutlet weak var messageText: FloatingLabelTextInput!
+    @IBOutlet weak var addressText: FloatingPlaceholderTextView!
+    @IBOutlet weak var signatureText: FloatingPlaceholderTextView!
+    @IBOutlet weak var messageText: FloatingPlaceholderTextView!
     @IBOutlet weak var signBtn: UIButton!
     @IBOutlet weak var viewContainer: UIView!
     @IBOutlet weak var signatureContainer: UIView!
@@ -32,13 +32,26 @@ class SignMessageViewController: UIViewController {
         dcrlibwallet = AppDelegate.walletLoader.wallet
            
         viewContHeightContraint.constant = 280
-           
-        self.TextFieldAddRightButton(textField: self.addressText, imgName: "ic_paste", action: #selector(onAddressPaste), location: 68, index: 0)
-        self.TextFieldAddRightButton(textField: self.addressText, imgName: "ic_scan", action: #selector(onScan), location: CGFloat(self.addressText!.subviews.index(0, offsetBy: 22)), index: 1)
-        self.TextFieldAddRightButton(textField: self.messageText, imgName: "ic_paste", action: #selector(onMessagePaste), location: 22, index: 0)
-           
-        self.addressText.addTarget(self, action: #selector(self.TextFieldChanged), for: .editingChanged)
-        self.messageText.addTarget(self, action: #selector(self.TextFieldChanged), for: .editingChanged)
+        
+        let addressPasteButton = UIButton(type: .custom)
+          addressPasteButton.setImage(UIImage(named: "ic_paste"), for: .normal)
+          addressPasteButton.addTarget(self, action: #selector(onAddressPaste), for: .touchUpInside)
+          let addressScanButton = UIButton(type: .custom)
+          addressScanButton.setImage(UIImage(named: "ic_scan"), for: .normal)
+          addressScanButton.addTarget(self, action: #selector(onScan), for: .touchUpInside)
+          
+          self.addressText.addButton(button: addressPasteButton)
+          self.addressText.addButton(button: addressScanButton)
+          
+          let messagePasteButton = UIButton(type: .custom)
+          messagePasteButton.setImage(UIImage(named: "ic_paste"), for: .normal)
+          messagePasteButton.addTarget(self, action: #selector(onMessagePaste), for: .touchUpInside)
+          
+          self.messageText.addButton(button: messagePasteButton)
+          
+        // TODO: add target functionality to view
+        // self.addressText.addTarget(self, action: #selector(self.TextFieldChanged), for: .editingChanged)
+        // self.messageText.addTarget(self, action: #selector(self.TextFieldChanged), for: .editingChanged)
         
         self.addressText.placeholder = LocalizedStrings.address
         self.signatureText.placeholder = LocalizedStrings.signature
@@ -79,17 +92,15 @@ class SignMessageViewController: UIViewController {
        }
     
     @objc func onAddressPaste() {
-        self.addressText.editingBegan()
+        self.addressText.textViewDidBeginEditing(self.addressText)
         self.addressText.text = UIPasteboard.general.string
         self.toggleSignButtonState()
-        self.addressText.editingEnded()
     }
     
     @objc func onMessagePaste() {
-        self.messageText.editingBegan()
+        self.messageText.textViewDidBeginEditing(self.messageText)
         self.messageText.text = UIPasteboard.general.string
         self.toggleSignButtonState()
-        self.messageText.editingEnded()
     }
     
     @objc func pageInfo(){
@@ -97,18 +108,6 @@ class SignMessageViewController: UIViewController {
         alertController.addAction(UIAlertAction(title: LocalizedStrings.gotIt, style: UIAlertAction.Style.default, handler: nil))
         self.present(alertController, animated: true, completion: nil)
     }
-    
-    func TextFieldAddRightButton(textField: UITextField, imgName: String, action: Selector , location: CGFloat, index: Int) {
-        let rightButton = UIButton(type: .custom)
-        rightButton.setImage(UIImage(named: imgName), for: .normal)
-        rightButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: CGFloat(-16), bottom: 0, right: 0)
-        rightButton.frame = CGRect(x: CGFloat(textField.frame.size.width - location), y: CGFloat(16), width: CGFloat(20), height: CGFloat(20))
-           
-        rightButton.addTarget(self, action: action, for: .touchUpInside)
-        textField.insertSubview(rightButton, at: index)
-        textField.setNeedsDisplay()
-    }
-    
     
     @objc func TextFieldChanged() {
         self.toggleSignButtonState()
@@ -134,10 +133,13 @@ class SignMessageViewController: UIViewController {
         self.signatureText.text = nil
         self.signBtn.backgroundColor = UIColor.appColors.darkerGray
         self.signBtn.isEnabled = false
-        self.addressText.isEnabled = true
-        self.messageText.isEnabled = true
+        self.addressText.isUserInteractionEnabled = true
+        self.messageText.isUserInteractionEnabled = true
         self.viewContHeightContraint.constant = 280
         self.signatureContainer.isHidden = true
+        self.addressText.textViewDidEndEditing(self.addressText)
+        self.messageText.textViewDidEndEditing(self.messageText)
+        self.signatureText.textViewDidEndEditing(self.signatureText)
     }
        
     func checkAddressFromQrCode(textScannedFromQRCode: String?) {
@@ -149,9 +151,9 @@ class SignMessageViewController: UIViewController {
         if capturedText.starts(with: "decred:") {
             capturedText = capturedText.replacingOccurrences(of: "decred:", with: "")
         }
-        self.addressText.editingEnded()
+       self.addressText.textViewDidBeginEditing(self.addressText)
         self.addressText.text = capturedText
-        self.addressText.editingEnded()
+       
     }
     
     func SignMsg(pass:String) {
@@ -172,11 +174,10 @@ class SignMessageViewController: UIViewController {
                        self!.progressHud?.dismiss()
                     this.viewContHeightContraint.constant = 382
                     this.signatureContainer.isHidden = false
-                    this.signatureText.editingBegan()
+                    this.signatureText.textViewDidBeginEditing(self!.signatureText)
                     this.signatureText.text = signature.base64EncodedString()
-                    this.signatureText.editingEnded()
-                    this.addressText.isEnabled = false
-                    this.messageText.isEnabled = false
+                    this.addressText.isUserInteractionEnabled = false
+                    this.messageText.isUserInteractionEnabled = false
                     this.signBtn.backgroundColor = UIColor.appColors.darkerGray
                     this.signBtn.isEnabled = false
                    }

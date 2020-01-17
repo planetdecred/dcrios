@@ -174,6 +174,9 @@ class VerifyMessageViewController: UIViewController {
         self.signatureText.text = nil
         self.verifyBtn.backgroundColor = UIColor.appColors.darkerGray
         self.verifyBtn.isEnabled = false
+        self.addressText.textViewDidEndEditing(self.addressText)
+        self.messageText.textViewDidEndEditing(self.messageText)
+        self.signatureText.textViewDidEndEditing(self.signatureText)
         self.viewContHeightContraint.constant = 280
         self.isValidMsgContainer.isHidden = true
     }
