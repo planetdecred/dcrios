@@ -285,7 +285,8 @@ extension Syncer: DcrlibwalletSyncProgressListenerProtocol {
         self.currentSyncOp = .FetchingHeaders
         self.currentSyncOpProgress = headersFetchProgress
         self.forEachSyncListener({ syncListener in syncListener.onHeadersFetchProgress(headersFetchProgress!) })
-        if let headers = headersFetchProgress, let progress = headers.generalSyncProgress {
+        
+        if let progress = headersFetchProgress?.generalSyncProgress {
             fireLocalBackgroundSyncNotificationIfInBackground(with: progress)
         }
     }
@@ -298,21 +299,22 @@ extension Syncer: DcrlibwalletSyncProgressListenerProtocol {
         self.currentSyncOp = .DiscoveringAddresses
         self.currentSyncOpProgress = addressDiscoveryProgress
         self.forEachSyncListener({ syncListener in syncListener.onAddressDiscoveryProgress(addressDiscoveryProgress!) })
-        if let headers = addressDiscoveryProgress, let progress = headers.generalSyncProgress {
+        
+        if let progress = addressDiscoveryProgress?.generalSyncProgress {
             fireLocalBackgroundSyncNotificationIfInBackground(with: progress)
         }
     }
     
     func onHeadersRescanProgress(_ headersRescanProgress: DcrlibwalletHeadersRescanProgressReport?) {
-        self.currentSyncOp = .RescanningHeaders
-        self.currentSyncOpProgress = headersRescanProgress
-        
         if !self.syncCompletedCanceledOrErrored {
             self.restartSyncIfItStalls()
         }
         
+        self.currentSyncOp = .RescanningHeaders
+        self.currentSyncOpProgress = headersRescanProgress
         self.forEachSyncListener({ syncListener in syncListener.onHeadersRescanProgress(headersRescanProgress!) })
-        if let headers = headersRescanProgress, let progress = headers.generalSyncProgress {
+        
+        if let progress = headersRescanProgress?.generalSyncProgress {
             fireLocalBackgroundSyncNotificationIfInBackground(with: progress)
         }
     }
