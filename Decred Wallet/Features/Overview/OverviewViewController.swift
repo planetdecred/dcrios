@@ -15,14 +15,9 @@ protocol SeedBackupModalHandler {
 }
 
 class OverviewViewController: UIViewController, SeedBackupModalHandler {
-    
-    /*
-        Main UI components
-    */
-    
-    // Navigation bar
-    let navBarTitle = UIView(frame: CGRect.zero) // Custom view because we will be embedding a image and label
-    var pageTitleLabel: UILabel!
+    // Custom navigation bar
+    @IBOutlet weak var pageTitleLabel: UILabel!
+    @IBOutlet weak var pageTitleSeparator: UIView!
     
     @IBOutlet weak var parentScrollView: UIScrollView! // Scroll view holding the entire contents of this view.
     @IBOutlet weak var balanceLabel: UILabel!
@@ -101,17 +96,14 @@ class OverviewViewController: UIViewController, SeedBackupModalHandler {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.view.layer.backgroundColor = UIColor(hex: "#f3f5f6").cgColor
+
+        self.navigationController?.navigationBar.isHidden = true
         self.updateSeedBackupSectionViewVisibility()
 
-        // Setup stackviews properly with rounded corners
-        DispatchQueue.main.async {
-            self.recentActivitySection.layer.backgroundColor = UIColor.white.cgColor
-            self.recentActivitySection.setCornerRadius(18)
-            self.syncStatusSection.layer.backgroundColor = UIColor.white.cgColor
-            self.syncStatusSection.setCornerRadius(18)
-            self.navigationController?.navigationBar.backgroundColor = UIColor.white
-        }
+        self.recentActivitySection.layer.backgroundColor = UIColor.white.cgColor
+        self.recentActivitySection.setCornerRadius(18)
+        self.syncStatusSection.layer.backgroundColor = UIColor.white.cgColor
+        self.syncStatusSection.setCornerRadius(18)
     }
 
     func updateSeedBackupSectionViewVisibility() {
@@ -121,25 +113,6 @@ class OverviewViewController: UIViewController, SeedBackupModalHandler {
     }
 
     private func setupInterface() {
-        /*
-            Custom navigation bar with logo image
-        */
-        
-        let logoImage = UIImageView(frame: CGRect(x: 24, y: 10, width: 24, height: 24))
-        logoImage.contentMode = .scaleAspectFit
-        logoImage.image = UIImage(named: "ic_decred")
-        logoImage.clipsToBounds = true
-        
-        self.pageTitleLabel = UILabel(frame: CGRect(x: 64, y: 10, width: 400, height: 20)) // position the overview label 64pts from the screens left edge and 10pts from the top of the navigation bar
-        self.pageTitleLabel.font = UIFont(name: "SourceSansPro-Regular", size: 20)
-        self.pageTitleLabel.text = LocalizedStrings.overview
-        self.pageTitleLabel.clipsToBounds = true
-        
-        self.navBarTitle.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 56)
-        self.navBarTitle.addSubview(logoImage)
-        self.navBarTitle.addSubview(self.pageTitleLabel)
-        self.navigationItem.titleView = self.navBarTitle // set our navigation item to our custom navbar view
-        
          self.balanceLabel.attributedText = Utils.getAttributedString(str: "0", siz: 17.0, TexthexColor: UIColor.appColors.darkBlue)
         
         // Setup seed backup warning
@@ -599,15 +572,25 @@ extension OverviewViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension OverviewViewController: UIScrollViewDelegate {
     // Update overview label on navigation bar to show wallet balance on scroll down
-    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
-        let actualPosition = scrollView.panGestureRecognizer.translation(in: scrollView.superview)
-        // We are targetting only the parent scroll view which we gave a tag of 2. this is because this view holds a tableview that can be scrolled and we do not want to react to that
-        if scrollView.tag == 2 {
-            if (actualPosition.y > 1) {
-                self.pageTitleLabel.text = LocalizedStrings.overview
-            } else {
-                self.pageTitleLabel.attributedText = self.balanceLabel.attributedText!
-            }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.updatePageTitleTextOnScroll(using: scrollView)
+    }
+
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        self.updatePageTitleTextOnScroll(using: scrollView)
+    }
+
+    func updatePageTitleTextOnScroll(using scrollView: UIScrollView) {
+        // We are targeting only the parent scroll view because this VC also holds a tableview that can be scrolled
+        // and we do not want to react to that.
+        guard scrollView == self.parentScrollView else { return }
+
+        if scrollView.contentOffset.y < self.balanceLabel.frame.height / 2 {
+            self.pageTitleLabel.text = LocalizedStrings.overview
+            self.pageTitleSeparator.isHidden = true
+        } else {
+            self.pageTitleLabel.attributedText = self.balanceLabel.attributedText!
+            self.pageTitleSeparator.isHidden = false
         }
     }
 }

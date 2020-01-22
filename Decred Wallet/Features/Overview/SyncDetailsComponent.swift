@@ -196,7 +196,7 @@ class SyncDetailsComponent: UIView {
                 if headersFetchedReport != nil {
                     DispatchQueue.main.async {
                         self.stepStageProgressLabel.text = LocalizedStrings.blockHeadersFetched
-                        self.headersFetchedCount.text = String(format: LocalizedStrings.fetchedHeaders, headersFetchedReport!.fetchedHeadersCount, headersFetchedReport!.totalHeadersToFetch)
+                        self.headersFetchedCount.text = String(format: LocalizedStrings.fetchedHeaders, headersFetchedReport!.currentHeaderHeight, headersFetchedReport!.totalHeadersToFetch)
                         self.stepDetailLabel.text = String(format: LocalizedStrings.headersFetchProgress, headersFetchedReport!.headersFetchProgress)
                         self.stepsLabel.text = String(format: LocalizedStrings.syncSteps, 1)
                         if headersFetchedReport!.bestBlockAge != "" {
