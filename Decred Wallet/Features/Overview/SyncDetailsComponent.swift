@@ -45,11 +45,6 @@ class SyncDetailsComponent: UIView {
         super.init(coder: aDecoder)
     }
     
-//    convenience init() {
-//        self.init(frame: .zero)
-//
-//    }
-    
     // Set component properties and their AutoLayout Constraints relative to each other
     func setupComponents() {
         // setup container holding details
@@ -162,10 +157,10 @@ class SyncDetailsComponent: UIView {
         NSLayoutConstraint.activate([
             
             // separator contraints
-                       self.separator.heightAnchor.constraint(equalToConstant: 0.5),
-                       self.separator.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0),
-                       self.separator.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0),
-                       self.separator.topAnchor.constraint(equalTo: self.topAnchor, constant: 0),
+           self.separator.heightAnchor.constraint(equalToConstant: 0.5),
+           self.separator.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0),
+           self.separator.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0),
+           self.separator.topAnchor.constraint(equalTo: self.topAnchor, constant: 0),
             
             // Current sync step (1,2 or 3)
             self.stepsLabel.heightAnchor.constraint(equalToConstant: 16),
