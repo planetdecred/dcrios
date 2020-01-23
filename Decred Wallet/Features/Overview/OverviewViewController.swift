@@ -27,7 +27,6 @@ class OverviewViewController: UIViewController, SeedBackupModalHandler {
     
     // MARK: Transaction history section
     @IBOutlet weak var recentActivitySection: UIStackView!
-    @IBOutlet weak var recentActivityLabelView: UIView!
     @IBOutlet weak var noTransactionsLabelView: UIView! // to show "No recent transactions"
     @IBOutlet weak var recentTransactionsTableView: UITableView!
     @IBOutlet weak var showAllTransactionsButton: UIButton!
@@ -82,28 +81,20 @@ class OverviewViewController: UIViewController, SeedBackupModalHandler {
         self.setupInterface()
         self.attachSyncListeners()
         
-        // Setup delegates
-        self.parentScrollView.tag = 2
-        self.parentScrollView.delegate = self // This is so we can update the navigation bar on user scroll. Our transactions tableView will also hold a scrollview when populated and we want to differentiate that, hence this tag
+        self.parentScrollView.delegate = self // This is so we can update the navigation bar on user scroll.
         
         if AppDelegate.walletLoader.isSynced {
             self.updateCurrentBalance()
             self.updateRecentActivity()
-        }else{
+        } else {
             self.showNoTransactions()
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
         self.navigationController?.navigationBar.isHidden = true
         self.updateSeedBackupSectionViewVisibility()
-
-        self.recentActivitySection.layer.backgroundColor = UIColor.white.cgColor
-        self.recentActivitySection.setCornerRadius(18)
-        self.syncStatusSection.layer.backgroundColor = UIColor.white.cgColor
-        self.syncStatusSection.setCornerRadius(18)
     }
 
     func updateSeedBackupSectionViewVisibility() {
@@ -113,15 +104,29 @@ class OverviewViewController: UIViewController, SeedBackupModalHandler {
     }
 
     private func setupInterface() {
-         self.balanceLabel.attributedText = Utils.getAttributedString(str: "0", siz: 17.0, TexthexColor: UIColor.appColors.darkBlue)
+         self.balanceLabel.attributedText = Utils.getAttributedString(str: "0",
+                                                                      siz: 17.0,
+                                                                      TexthexColor: UIColor.appColors.darkBlue)
         
         // Setup seed backup warning
         self.seedBackupSectionView.layer.cornerRadius = 14
-        self.seedBackupSectionView.layer.shadowPath = UIBezierPath(roundedRect: self.seedBackupSectionView.bounds, cornerRadius: self.seedBackupSectionView.layer.cornerRadius).cgPath
-        self.seedBackupSectionView.layer.shadowColor = UIColor(displayP3Red: 0.04, green: 0.08, blue: 0.25, alpha: 0.04).cgColor
-        self.seedBackupSectionView.layer.shadowOffset = CGSize(width: 8, height: 8)
-        self.seedBackupSectionView.layer.shadowOpacity = 0.4
-        self.seedBackupSectionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBackupWalletSeed))) // show wallet backup on tap
+        self.seedBackupSectionView.dropShadow(
+            color: UIColor(displayP3Red: 0.04, green: 0.08, blue: 0.25, alpha: 0.04),
+            opacity: 0.4,
+            offSet: CGSize(width: 8, height: 8)
+        )
+        self.seedBackupSectionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBackupWalletSeed))) 
+        
+        // Transactions section setup
+        self.recentTransactionsTableView.registerCellNib(TransactionTableViewCell.self)
+        self.recentTransactionsTableView.delegate = self
+        self.recentTransactionsTableView.dataSource = self
+        
+        // Add pull to refresh capability to recent transactions table
+        let pullToRefreshControl = UIRefreshControl()
+        pullToRefreshControl.addTarget(self, action: #selector(self.handleRecentActivityTableRefresh(_:)), for: UIControl.Event.valueChanged)
+        pullToRefreshControl.tintColor = UIColor.lightGray
+        self.recentTransactionsTableView.addSubview(pullToRefreshControl) // refresh control added
         
         // Sync status section
         self.onlineStatusIndicator.layer.cornerRadius = 5 // Height/width is 10pts, we use half that (5pts) to make a perfect circle
@@ -140,25 +145,9 @@ class OverviewViewController: UIViewController, SeedBackupModalHandler {
         self.syncConnectionButton.layer.borderWidth = 1
         self.syncConnectionButton.layer.borderColor = UIColor.appColors.gray.cgColor
         self.syncConnectionButton.layer.cornerRadius = 12 // Height is 24pts from mockup so we use use 12pts for rounded left & right edges
-         self.syncConnectionButton.isHidden = true // initially hidden because we only want to show it while sync is active
+        self.syncConnectionButton.isHidden = true // initially hidden because we only want to show it while sync is active
         self.syncConnectionButton.addTarget(self, action: #selector(self.connectionToggle), for: .touchUpInside)
         
-        // Transactions section setup
-        self.recentActivityLabelView.horizontalBorder(borderColor: UIColor.appColors.gray, yPosition: self.recentActivityLabelView.frame.maxY-7, borderHeight: 0.64)
-        self.recentTransactionsTableView.registerCellNib(TransactionTableViewCell.self)
-        self.recentTransactionsTableView.delegate = self
-        self.recentTransactionsTableView.dataSource = self
-        
-        // Add pull to refresh capability to recent transactions table
-        let pullToRefreshControl = UIRefreshControl()
-        pullToRefreshControl.addTarget(self, action: #selector(self.handleRecentActivityTableRefresh(_:)), for: UIControl.Event.valueChanged)
-        pullToRefreshControl.tintColor = UIColor.lightGray
-        self.recentTransactionsTableView.addSubview(pullToRefreshControl) // refresh control added
-        
-        self.showAllTransactionsButton.setTitle(LocalizedStrings.seeAll, for: .normal)
-        self.showAllTransactionsButton.isHidden = (self.recentTransactions.count > 3) ? false : true
-        self.showAllTransactionsButton.addTarget(self, action: #selector(self.showAllTransactions), for: .touchUpInside)
-
         if Settings.readValue(for: Settings.Keys.NewWalletSetUp) {
             Utils.showBanner(parentVC: self, type: .success, text: LocalizedStrings.walletCreated)
             Settings.setValue(false, for: Settings.Keys.NewWalletSetUp)
@@ -483,7 +472,8 @@ class OverviewViewController: UIViewController, SeedBackupModalHandler {
         self.syncToggle = !self.syncToggle
     }
     
-    @objc func showAllTransactions() {
+    // todo not working properly!
+    @IBAction func showAllTransactionsTap(_ sender: Any) {
         // Our navigation controller is set as our root view controller, we need to access its already created instance
         let navigation = AppDelegate.shared.window!.rootViewController as! NavigationMenuTabBarController
         // Now we find our transactions controller index on the tab menu
@@ -553,9 +543,10 @@ extension OverviewViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.showAllTransactionsButton.isHidden = (self.recentTransactions.count > 3) ? false : true
-        self.noTransactionsLabelView.isHidden = (self.recentTransactions.count > 0) ? true : false
-        self.recentTransactionsTableView.isHidden = (self.recentTransactions.count > 0) ? false : true
+        let noTransactions = self.recentTransactions.isEmpty
+        self.noTransactionsLabelView.isHidden = !noTransactions
+        self.recentTransactionsTableView.isHidden = noTransactions
+        self.showAllTransactionsButton.isHidden = noTransactions
         return min(self.recentTransactions.count, self.maxDisplayItems)
     }
     

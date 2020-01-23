@@ -26,12 +26,12 @@
 		2557E1892355C6FA00B6A1B7 /* NavigationMenuTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2557E1882355C6FA00B6A1B7 /* NavigationMenuTabBarController.swift */; };
 		2557E18B2355C9F000B6A1B7 /* CustomTabMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2557E18A2355C9F000B6A1B7 /* CustomTabMenuView.swift */; };
 		25751F532372C9460019F657 /* Dcrlibwallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25751F522372C9460019F657 /* Dcrlibwallet.framework */; };
-		257521DA233CC32100F6F6E7 /* UIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257521D9233CC32100F6F6E7 /* UIStackView.swift */; };
 		25A4331C2373D0330018FFCF /* SyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A4331B2373D0330018FFCF /* SyncManager.swift */; };
 		25E61632237D69750031FB52 /* SyncDetailsComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E61631237D69740031FB52 /* SyncDetailsComponent.swift */; };
 		25E63F4E23312B2C009CD53E /* NavMenuFloatingButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E63F4D23312B2B009CD53E /* NavMenuFloatingButtons.swift */; };
 		AD24C23D2343E445009583C9 /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD24C23C2343E445009583C9 /* NotificationsManager.swift */; };
 		B164982429AEDD7AF8C8782C /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9714AB438E597D403032748 /* Pods_Decred_Wallet.framework */; };
+		B3456D2523D91CF600B04860 /* RoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3456D2423D91CF600B04860 /* RoundedView.swift */; };
 		B35C55D8232FED610006A765 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35C55D7232FED610006A765 /* Transaction.swift */; };
 		B36255B622A11A9500C62946 /* SecurityMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36255B422A11A9500C62946 /* SecurityMenuViewController.swift */; };
 		B3635B82229FE5870052EB4D /* QRImageScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3635B81229FE5870052EB4D /* QRImageScanner.swift */; };
@@ -172,7 +172,6 @@
 		2557E1882355C6FA00B6A1B7 /* NavigationMenuTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationMenuTabBarController.swift; sourceTree = "<group>"; };
 		2557E18A2355C9F000B6A1B7 /* CustomTabMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabMenuView.swift; sourceTree = "<group>"; };
 		25751F522372C9460019F657 /* Dcrlibwallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Dcrlibwallet.framework; path = libs/Dcrlibwallet.framework; sourceTree = "<group>"; };
-		257521D9233CC32100F6F6E7 /* UIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackView.swift; sourceTree = "<group>"; };
 		25A4331B2373D0330018FFCF /* SyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncManager.swift; sourceTree = "<group>"; };
 		25E61631237D69740031FB52 /* SyncDetailsComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncDetailsComponent.swift; sourceTree = "<group>"; };
 		25E63F4D23312B2B009CD53E /* NavMenuFloatingButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavMenuFloatingButtons.swift; sourceTree = "<group>"; };
@@ -180,6 +179,7 @@
 		A9714AB438E597D403032748 /* Pods_Decred_Wallet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Decred_Wallet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD24C23C2343E445009583C9 /* NotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
 		B107091A1D996651AB5D8891 /* Pods-Decred Wallet.testnet debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.testnet debug.xcconfig"; path = "Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.testnet debug.xcconfig"; sourceTree = "<group>"; };
+		B3456D2423D91CF600B04860 /* RoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedView.swift; sourceTree = "<group>"; };
 		B35C55D7232FED610006A765 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		B36255B422A11A9500C62946 /* SecurityMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecurityMenuViewController.swift; sourceTree = "<group>"; };
 		B3635B81229FE5870052EB4D /* QRImageScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRImageScanner.swift; sourceTree = "<group>"; };
@@ -473,7 +473,7 @@
 				B3A3EF87229375D100008A4E /* Date.swift */,
 				B36EFD352298617C002753B2 /* UIButton.swift */,
 				B3967B3C22A75BD400E14432 /* UITableView.swift */,
-				257521D9233CC32100F6F6E7 /* UIStackView.swift */,
+				B3B469C7228F0F2600A68EDD /* UIView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -486,6 +486,7 @@
 				10341E0E23CBBB7E0055DFDE /* Label.swift */,
 				B3635B81229FE5870052EB4D /* QRImageScanner.swift */,
 				102AFAC323AA2B4D007E2EBD /* ProgressView.swift */,
+				B3456D2423D91CF600B04860 /* RoundedView.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -546,7 +547,6 @@
 		B3B469C6228F0F2600A68EDD /* extra_view */ = {
 			isa = PBXGroup;
 			children = (
-				B3B469C7228F0F2600A68EDD /* UIView.swift */,
 				B3B469C8228F0F2600A68EDD /* UITableViewExtension.swift */,
 				B3B469C9228F0F2600A68EDD /* TextFieldDoneButton.swift */,
 				B3B469CA228F0F2600A68EDD /* AccountsHeaderView */,
@@ -987,11 +987,11 @@
 				B3B46A2E228F0F2700A68EDD /* MenuItem.swift in Sources */,
 				B3A3EF8622936BFE00008A4E /* Reachability.swift in Sources */,
 				B36EFD362298617C002753B2 /* UIButton.swift in Sources */,
+				B3456D2523D91CF600B04860 /* RoundedView.swift in Sources */,
 				B3B469FC228F0F2700A68EDD /* String.swift in Sources */,
 				B3B46A9D228F0F7D00A68EDD /* HelpViewController.swift in Sources */,
 				B3B46A9A228F0F7D00A68EDD /* SettingsController.swift in Sources */,
 				10FABE4B23C72D6800BC201B /* FloatingPlaceholderInputProtocol.swift in Sources */,
-				257521DA233CC32100F6F6E7 /* UIStackView.swift in Sources */,
 				B3B46A14228F0F2700A68EDD /* AccountsHeaderView.swift in Sources */,
 				B3B46A1F228F0F2700A68EDD /* RequestPinViewController.swift in Sources */,
 				10341E0A23CBBB700055DFDE /* SeedBackupVerifyTableViewCell.swift in Sources */,
