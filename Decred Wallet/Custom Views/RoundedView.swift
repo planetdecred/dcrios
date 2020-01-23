@@ -16,4 +16,44 @@ class RoundedView: UIView {
             self.setNeedsDisplay()
         }
     }
+    
+    @IBInspectable var shadowColor: UIColor = .black {
+        didSet {
+            self.redrawDropShadow()
+        }
+    }
+    
+    @IBInspectable var shadowOpacity: Float = 0.4 {
+        didSet {
+            self.redrawDropShadow()
+        }
+    }
+    
+    @IBInspectable var shadowOffset: CGSize = .zero {
+        didSet {
+            self.redrawDropShadow()
+        }
+    }
+    
+    @IBInspectable var shadowRadius: CGFloat = 16 {
+        didSet {
+            self.redrawDropShadow()
+        }
+    }
+    
+    @IBInspectable var shadowSpread: CGFloat = 0 {
+        didSet {
+            self.redrawDropShadow()
+        }
+    }
+    
+    func redrawDropShadow() {
+        self.dropShadow2(color: self.shadowColor,
+                         opacity: self.shadowOpacity,
+                         offset: self.shadowOffset,
+                         radius: self.shadowRadius,
+                         spread: self.shadowSpread)
+
+        self.setNeedsDisplay()
+    }
 }

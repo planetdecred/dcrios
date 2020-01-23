@@ -52,10 +52,17 @@ extension UIView {
         layer.masksToBounds = false
     }
     
-    func dropShadow2(color: UIColor, opacity: Float, offset: CGSize) {
-        self.layer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: self.layer.cornerRadius).cgPath
+    func dropShadow2(color: UIColor, opacity: Float, offset: CGSize, radius: CGFloat, spread: CGFloat) {
         self.layer.shadowColor = color.cgColor
         self.layer.shadowOpacity = opacity
         self.layer.shadowOffset = offset
+        self.layer.shadowRadius = radius
+        
+        if spread == 0 {
+            self.layer.shadowPath = nil
+        } else {
+            let shadowRect = self.bounds.insetBy(dx: -spread, dy: -spread)
+            self.layer.shadowPath = UIBezierPath(roundedRect: shadowRect, cornerRadius: self.layer.cornerRadius).cgPath
+        }
     }
 }

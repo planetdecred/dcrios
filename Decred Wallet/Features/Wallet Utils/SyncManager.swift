@@ -160,44 +160,4 @@ class SyncManager: NSObject, SyncProgressListenerProtocol {
     func debug(_ debugInfo: DcrlibwalletDebugInfo) {
         // TODO: show full debug information on long press of show sync details button
     }
-    
-    func setBestBlockAge() -> String {
-        if AppDelegate.walletLoader.multiWallet.isRescanning() {
-            return ""
-        }
-        
-        let bestBlockAge = Int64(Date().timeIntervalSince1970) - AppDelegate.walletLoader.wallet!.getBestBlockTimeStamp()
-        
-        switch bestBlockAge {
-        case Int64.min...0:
-            return LocalizedStrings.now
-            
-        case 0..<Utils.TimeInSeconds.Minute:
-            return String(format: LocalizedStrings.secondsAgo, bestBlockAge)
-            
-        case Utils.TimeInSeconds.Minute..<Utils.TimeInSeconds.Hour:
-            let minutes = bestBlockAge / Utils.TimeInSeconds.Minute
-            return String(format: LocalizedStrings.minAgo, minutes)
-            
-        case Utils.TimeInSeconds.Hour..<Utils.TimeInSeconds.Day:
-            let hours = bestBlockAge / Utils.TimeInSeconds.Hour
-            return String(format: LocalizedStrings.hrsAgo, hours)
-            
-        case Utils.TimeInSeconds.Day..<Utils.TimeInSeconds.Week:
-            let days = bestBlockAge / Utils.TimeInSeconds.Day
-            return String(format: LocalizedStrings.daysAgo, days)
-            
-        case Utils.TimeInSeconds.Week..<Utils.TimeInSeconds.Month:
-            let weeks = bestBlockAge / Utils.TimeInSeconds.Week
-            return String(format: LocalizedStrings.weeksAgo, weeks)
-            
-        case Utils.TimeInSeconds.Month..<Utils.TimeInSeconds.Year:
-            let months = bestBlockAge / Utils.TimeInSeconds.Month
-            return String(format: LocalizedStrings.monthsAgo, months)
-            
-        default:
-            let years = bestBlockAge / Utils.TimeInSeconds.Year
-            return String(format: LocalizedStrings.yearsAgo, years)
-        }
-    }
 }

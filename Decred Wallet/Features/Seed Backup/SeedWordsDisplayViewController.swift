@@ -15,7 +15,6 @@ class SeedWordsDisplayViewController: UIViewController, UITableViewDataSource {
     @IBOutlet weak var bottomCorneredView: UIView!
     var seed: String! = ""
     var arrWords = [String]()
-    var delegate: SeedBackupModalHandler?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,7 +73,6 @@ class SeedWordsDisplayViewController: UIViewController, UITableViewDataSource {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
          let verifySeedVC = segue.destination as! SeedBackupVerifyViewController
-         verifySeedVC.delegate = self.delegate
          verifySeedVC.prepareSeedForVerification(seedToVerify: self.seed)
     }
 

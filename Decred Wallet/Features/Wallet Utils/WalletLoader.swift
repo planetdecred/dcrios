@@ -8,6 +8,7 @@
 
 import Foundation
 import Dcrlibwallet
+import Signals
 
 class WalletLoader: NSObject {
     static let appDataDir = NSHomeDirectory() + "/Documents/dcrlibwallet"
@@ -18,6 +19,8 @@ class WalletLoader: NSObject {
     
     var initialized = false
     var oneOrMoreWalletsExist = false
+    
+    var walletSeedBackedUp: Signal = Signal<Int>()
     
     var wallet: DcrlibwalletWallet? {
         return multiWallet.firstOrDefaultWallet()

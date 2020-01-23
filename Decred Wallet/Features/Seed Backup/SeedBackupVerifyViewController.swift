@@ -9,13 +9,13 @@
 import UIKit
 import Dcrlibwallet
 import JGProgressHUD
+import Signals
 
 class SeedBackupVerifyViewController: UIViewController {
     var seedWordsGroupedByThree: [[String]] = []
     var selectedWords: [String] = []
     @IBOutlet weak var groupedSeedWordsTableView: UITableView!
     @IBOutlet weak var btnConfirm: Button!
-    var delegate: SeedBackupModalHandler?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,11 +31,6 @@ class SeedBackupVerifyViewController: UIViewController {
             self.seedWordsGroupedByThree.append(seedWordsGrouped)
             self.selectedWords.append("")
         }
-    }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-         let seedBackupSuccessVC = segue.destination as! SeedBackupSuccessViewController
-         seedBackupSuccessVC.delegate = self.delegate
     }
 
     private func breakdownByThree(_ allSeedWords: [String], validSeedWordToInclude: String) -> [String] {
@@ -78,6 +73,7 @@ class SeedBackupVerifyViewController: UIViewController {
         if seedIsValid && userEnteredSeed.elementsEqual(savedSeed) {
             Settings.setValue(true, for: Settings.Keys.SeedBackedUp)
             Settings.clearValue(for: Settings.Keys.Seed)
+            AppDelegate.walletLoader.walletSeedBackedUp => AppDelegate.walletLoader.wallet!.id_
             self.performSegue(withIdentifier: "toSeedBackupSuccess", sender: nil)
         } else {
             self.groupedSeedWordsTableView?.isUserInteractionEnabled = true
