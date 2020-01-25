@@ -74,7 +74,7 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
             this.accounts?.removeAll()
             this.accountHeaders.removeAll()
             
-            if let acc = AppDelegate.walletLoader.wallet?.walletAccounts(confirmations: 0) {
+            if let acc = WalletLoader.shared.wallet?.walletAccounts(confirmations: 0) {
                 this.accounts = acc
                 this.accountHeaders = acc.map({ AccountHeader(entity: $0, color: nil) })
             }
@@ -113,7 +113,7 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
         } else {
             headerView.arrowDirection.setImage(UIImage.init(named: "arrow-1"), for: .normal)
         }
-        headerView.syncing(status: !AppDelegate.walletLoader.isSynced)
+        headerView.syncing(status: SyncManager.shared.isSyncing)
         
         return headerView
     }

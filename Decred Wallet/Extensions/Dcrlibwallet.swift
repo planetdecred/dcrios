@@ -116,7 +116,7 @@ extension DcrlibwalletWallet {
     }
     
     func transactionHistory(offset: Int32, count: Int32 = 0, filter: Int32 = DcrlibwalletTxFilterAll) -> [Transaction]? {
-        guard let wallet = AppDelegate.walletLoader.wallet else {
+        guard let wallet = WalletLoader.shared.wallet else {
             return nil
         }
         

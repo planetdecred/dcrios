@@ -113,8 +113,11 @@ class NavigationMenuTabBarController: UITabBarController {
         startView.isNewWallet = isNewWallet
         AppDelegate.shared.setAndDisplayRootViewController(startView)
         
-        AppDelegate.walletLoader.notification.startListeningForNotifications()// wallet is open, start notification listener
+        // start sync
+        SyncManager.shared.startOrRestartSync(allowSyncOnCellular: Settings.syncOnCellular)
         
-        SyncManager.shared.checkNetworkConnectionForSync() // Trigger sync
+        // start notification listener
+        // todo only listen for tx updates if user enabled notifications in settings
+        TransactionNotification.shared.startListeningForNotifications()
     }
 }

@@ -22,10 +22,12 @@ protocol ConfirmedTransactionNotificationProtocol {
 }
 
 class TransactionNotification: NSObject {
+    static let shared = TransactionNotification()
+    
     var newTxHashes: [String] = [String]()
     
     func startListeningForNotifications() {
-        try? AppDelegate.walletLoader.multiWallet.add(self, uniqueIdentifier: "\(self)")
+        try? WalletLoader.shared.multiWallet.add(self, uniqueIdentifier: "\(self)")
     }
     
     func newTxNotification(_ transaction: String?) {

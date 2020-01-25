@@ -28,7 +28,7 @@ class TransactionTableViewCell: UITableViewCell {
         if let transaction = data as? Transaction {
             var confirmations: Int32 = 0
             if transaction.blockHeight != -1 {
-                confirmations = AppDelegate.walletLoader.wallet!.getBestBlock() - Int32(transaction.blockHeight) + 1
+                confirmations = WalletLoader.shared.wallet!.getBestBlock() - Int32(transaction.blockHeight) + 1
             }
             let Date2 = NSDate.init(timeIntervalSince1970: TimeInterval(transaction.timestamp) )
                       let dateformater = DateFormatter()

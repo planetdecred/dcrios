@@ -20,7 +20,7 @@ class WalletSetupBaseViewController: UIViewController {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let this = self else { return }
             
-            let multiwallet = AppDelegate.walletLoader.multiWallet
+            let multiwallet = WalletLoader.shared.multiWallet
             let privatePassphraseType = securityType == SecurityViewController.SECURITY_TYPE_PASSWORD ? DcrlibwalletPassphraseTypePass : DcrlibwalletPassphraseTypePin
             
             do {

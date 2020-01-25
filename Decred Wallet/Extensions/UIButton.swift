@@ -22,6 +22,7 @@ extension UIButton {
         })
     }
     
+    // todo first remove any border previously added at `borderPosition`
     func addBorder(atPosition borderPosition: BorderPosition, color: UIColor, thickness: CGFloat = 1.7) {
         let borderLayer = CALayer()
         borderLayer.backgroundColor = color.cgColor

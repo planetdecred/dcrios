@@ -73,7 +73,7 @@ class SeedBackupVerifyViewController: UIViewController {
         if seedIsValid && userEnteredSeed.elementsEqual(savedSeed) {
             Settings.setValue(true, for: Settings.Keys.SeedBackedUp)
             Settings.clearValue(for: Settings.Keys.Seed)
-            AppDelegate.walletLoader.walletSeedBackedUp => AppDelegate.walletLoader.wallet!.id_
+            WalletLoader.shared.walletSeedBackedUp => WalletLoader.shared.wallet!.id_
             self.performSegue(withIdentifier: "toSeedBackupSuccess", sender: nil)
         } else {
             self.groupedSeedWordsTableView?.isUserInteractionEnabled = true

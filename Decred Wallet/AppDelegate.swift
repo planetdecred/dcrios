@@ -31,8 +31,6 @@ class AppDelegate: UIResponder {
     
     var reachability: Reachability!
     
-    static var walletLoader: WalletLoader = WalletLoader()
-    
     var lastActiveTimestamp: Double?
     var shouldTrackLastActiveTime: Bool = false
     
@@ -158,6 +156,6 @@ extension AppDelegate: UIApplicationDelegate {
     func applicationWillTerminate(_: UIApplication) {
         lifeCycleDelegates.forEach {$0.value.applicationWillTerminate()}
         self.reachability.stopNotifier()
-        AppDelegate.walletLoader.wallet?.shutdown()
+        WalletLoader.shared.multiWallet.shutdown()
     }
 }

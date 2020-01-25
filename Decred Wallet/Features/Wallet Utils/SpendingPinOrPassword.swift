@@ -56,7 +56,7 @@ struct SpendingPinOrPassword {
             do {
                 let passphraseType = securityType == SecurityViewController.SECURITY_TYPE_PASSWORD ? DcrlibwalletPassphraseTypePass : DcrlibwalletPassphraseTypePin
                 
-                try AppDelegate.walletLoader.multiWallet.changePrivatePassphrase(forWallet: AppDelegate.walletLoader.wallet!.id_,
+                try WalletLoader.shared.multiWallet.changePrivatePassphrase(forWallet: WalletLoader.shared.wallet!.id_,
                                                                                  oldPrivatePassphrase: oldPrivatePass,
                                                                                  newPrivatePassphrase: newPrivatePass,
                                                                                  privatePassphraseType: passphraseType)
