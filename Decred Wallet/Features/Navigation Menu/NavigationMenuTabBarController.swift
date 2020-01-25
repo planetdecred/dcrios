@@ -2,15 +2,16 @@
 //  NavigationMenuTabBarController.swift
 //  Decred Wallet
 //
-// Copyright (c) 2019 The Decred developers
+// Copyright (c) 2019-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 import UIKit
 
 class NavigationMenuTabBarController: UITabBarController {
     
-    var isNewWallet: Bool = false
     var customTabBar: CustomTabMenuView!
+    static let tabItems: [MenuItem] = [.overview, .transactions, .wallets, .more]
+    
     lazy var floatingButtons: NavMenuFloatingButtons = {
         return NavMenuFloatingButtons()
     }()
@@ -18,14 +19,10 @@ class NavigationMenuTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.loadTabBar()
-        if self.isNewWallet {
-            self.showOkAlert(message: LocalizedStrings.newWalletMsg)
-        }
     }
     
     func loadTabBar() {
-        let tabItems: [MenuItem] = [.overview, .transactions, .wallets, .more]
-        self.setupCustomTabMenu(tabItems)
+        self.setupCustomTabMenu(NavigationMenuTabBarController.tabItems)
         self.selectedIndex = 0
         self.showFloatingButtons() // show floating buttons since selected index is 0 by default
     }
@@ -60,9 +57,9 @@ class NavigationMenuTabBarController: UITabBarController {
         ])
         
         // Custom tab bar has been created, we want to react to taps on TabNavigationMenu items the moment they happen
-        self.customTabBar.itemTapped = { index in
-            self.selectedIndex = index
-            if index == 0 {
+        self.customTabBar.tabChanged = { previousTabIndex, newTabIndex in
+            self.selectedIndex = newTabIndex
+            if newTabIndex == 0 {
                 self.showFloatingButtons()
             } else {
                 self.hideFloatingButtons()
@@ -78,7 +75,6 @@ class NavigationMenuTabBarController: UITabBarController {
     
     // Allow child viewControllers to trigger navigation to a tab
     public func navigateToTab(index: Int) {
-        // A child view wants to trigger
         self.customTabBar.switchTab(from: self.customTabBar.activeTabIndex, to: index)
     }
     
@@ -108,16 +104,16 @@ class NavigationMenuTabBarController: UITabBarController {
         self.floatingButtons.removeFromSuperview() // Remove floating buttons
     }
     
-    static func setupMenuAndLaunchApp(isNewWallet: Bool) {
+    static func setupMenuAndLaunchApp() {
         let startView = NavigationMenuTabBarController()
-        startView.isNewWallet = isNewWallet
         AppDelegate.shared.setAndDisplayRootViewController(startView)
         
         // start sync
         SyncManager.shared.startOrRestartSync(allowSyncOnCellular: Settings.syncOnCellular)
         
-        // start notification listener
-        // todo only listen for tx updates if user enabled notifications in settings
-        TransactionNotification.shared.startListeningForNotifications()
+        // Start notification listener if notifications are enabled by user.
+        if Settings.incomingNotificationEnabled {
+            TransactionNotification.shared.startListeningForNotifications()
+        }
     }
 }

@@ -2,7 +2,7 @@
 //  StartScreenViewController.swift
 //  Decred Wallet
 
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -132,7 +132,7 @@ class StartScreenViewController: UIViewController {
                 try WalletLoader.shared.multiWallet.openWallets(startupPinOrPassword.utf8Bits)
                 DispatchQueue.main.async {
                     completionDelegate?.securityCodeProcessed(true, nil)
-                    NavigationMenuTabBarController.setupMenuAndLaunchApp(isNewWallet: false)
+                    NavigationMenuTabBarController.setupMenuAndLaunchApp()
                 }
             } catch let error {
                 DispatchQueue.main.async {

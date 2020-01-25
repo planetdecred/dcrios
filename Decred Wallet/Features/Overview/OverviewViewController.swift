@@ -2,7 +2,7 @@
 //  OverviewViewController.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -76,6 +76,10 @@ class OverviewViewController: UIViewController {
         // is connected or disconnected, so we can update the peer count label appropriately.
         let syncProgressListener = self as DcrlibwalletSyncProgressListenerProtocol
         try? WalletLoader.shared.multiWallet.add(syncProgressListener, uniqueIdentifier: "\(self)")
+        
+        // Register tx notification listener to update recent activity table for new txs.
+        let txNotificationListener = self as DcrlibwalletTxAndBlockNotificationListenerProtocol
+        try? WalletLoader.shared.multiWallet.add(txNotificationListener, uniqueIdentifier: "\(self)")
 
         // Display latest block and connected peer count if there's no ongoing sync.
         if !SyncManager.shared.isSyncing {
@@ -83,7 +87,6 @@ class OverviewViewController: UIViewController {
             self.displayConnectedPeersCount()
         }
 
-        // todo navbar does similar check, duplication?
         if Settings.readValue(for: Settings.Keys.NewWalletSetUp) {
             Utils.showBanner(parentVC: self, type: .success, text: LocalizedStrings.walletCreated)
             Settings.setValue(false, for: Settings.Keys.NewWalletSetUp)
@@ -166,7 +169,7 @@ class OverviewViewController: UIViewController {
             self.syncStatusLabel.text = LocalizedStrings.walletNotSynced
         }
     }
-    
+
     func toggleSyncProgressViews(isSyncing: Bool) {
         self.latestBlockLabel.superview?.isHidden = isSyncing
         self.generalSyncProgressViews.isHidden = !isSyncing
@@ -253,17 +256,14 @@ class OverviewViewController: UIViewController {
         self.present(seedBackupReminderVC, animated: true)
     }
     
-    // todo not working properly!
     @IBAction func showAllTransactionsTap(_ sender: Any) {
+        guard let txHistoryTabIndex = NavigationMenuTabBarController.tabItems.firstIndex(of: .transactions) else {
+            return
+        }
+        
         // Our navigation controller is set as our root view controller, we need to access its already created instance
-        let navigation = AppDelegate.shared.window!.rootViewController as! NavigationMenuTabBarController
-        // Now we find our transactions controller index on the tab menu
-        navigation.viewControllers!.enumerated().forEach({
-            if ($0.element.children.first as? TransactionHistoryViewController) != nil {
-                navigation.navigateToTab(index: $0.offset) // Tab index found, navigate to it
-                return
-            }
-        })
+        let navigationTabBarController = AppDelegate.shared.window!.rootViewController as! NavigationMenuTabBarController
+        navigationTabBarController.navigateToTab(index: txHistoryTabIndex)
     }
 
     // Handle action of sync connect/reconnect/cancel button click based on sync/network status
@@ -319,14 +319,15 @@ extension OverviewViewController: UITableViewDelegate, UITableViewDataSource {
         return TransactionTableViewCell.height()
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if self.recentTransactions.count == 0 {
-            return
-        }
-        
-        let txDetailsVC = Storyboards.TransactionDetails.instantiateViewController(for: TransactionDetailsViewController.self)
-        txDetailsVC.transaction = self.recentTransactions[indexPath.row]
-        self.navigationController?.pushViewController(txDetailsVC, animated: true)
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.recentTransactions.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: TransactionTableViewCell.identifier) as! TransactionTableViewCell
+        let tx = self.recentTransactions[indexPath.row]
+        cell.setData(tx)
+        return cell
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -335,24 +336,11 @@ extension OverviewViewController: UITableViewDelegate, UITableViewDataSource {
         }
         self.recentTransactions[indexPath.row].animate = false
     }
-    
-    // todo: what's going on here?
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let noTransactions = self.recentTransactions.isEmpty
-        self.noTransactionsLabelView.superview?.isHidden = !noTransactions
-        self.recentTransactionsTableView.isHidden = noTransactions
-        self.showAllTransactionsButton.isHidden = noTransactions
-        return self.recentTransactions.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: TransactionTableViewCell.identifier) as! TransactionTableViewCell
-        
-        if self.recentTransactions.count != 0 {
-            let tx = self.recentTransactions[indexPath.row]
-            cell.setData(tx)
-        }
-        return cell
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let txDetailsVC = Storyboards.TransactionDetails.instantiateViewController(for: TransactionDetailsViewController.self)
+        txDetailsVC.transaction = self.recentTransactions[indexPath.row]
+        self.navigationController?.pushViewController(txDetailsVC, animated: true)
     }
 }
 
@@ -495,7 +483,6 @@ extension OverviewViewController: DcrlibwalletSyncProgressListenerProtocol {
     }
 }
 
-// todo this listener is not attached to any notifier
 extension OverviewViewController: DcrlibwalletTxAndBlockNotificationListenerProtocol {
     func onBlockAttached(_ walletID: Int, blockHeight: Int32) {
         // not relevant to this VC

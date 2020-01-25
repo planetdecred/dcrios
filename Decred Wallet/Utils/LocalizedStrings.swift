@@ -2,7 +2,7 @@
 //  LocalizedStrings.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -155,11 +155,6 @@ struct LocalizedStrings {
     static let transactions = NSLocalizedString("transactions", comment: "")
     static let wallets = NSLocalizedString("wallets", comment: "")
     static let more = NSLocalizedString("more", comment: "")
-    
-    /* New Wallet Dialog */
-    static let newWalletMsg = NSLocalizedString("newWalletMsg", comment: "")
-    static let welcomeToDecredWallet = NSLocalizedString("welcomeToDecredWallet", comment: "")
-    static let syncStageDescription = NSLocalizedString("syncStageDescription", comment: "")
     
     /* Overview */
     static let currentTotalBalance = NSLocalizedString("currentTotalBalance", comment: "")

@@ -2,7 +2,7 @@
 //  RecoverExistingWalletViewController.swift
 //  Decred Wallet
 
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -46,7 +46,11 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
         self.wordSelectionDropDownContainer?.layer.shadowOffset = CGSize(width: -1, height: 1)
         
         // add drop shadow for better transition while scrolling the tableView
-        self.tableViewFooter.dropShadow(color: UIColor.appColors.lighterGrayGray, offSet: CGSize.zero )
+        self.tableViewFooter.dropShadow(color: UIColor.appColors.lighterGrayGray,
+                                        opacity: 0.2,
+                                        offset: CGSize.zero,
+                                        radius: 1,
+                                        spread: 0)
         
         // long press to proceed with test seed, only on testnet
         #if IsTestnet

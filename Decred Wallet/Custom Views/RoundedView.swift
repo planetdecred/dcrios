@@ -48,7 +48,7 @@ class RoundedView: UIView {
     }
     
     func redrawDropShadow() {
-        self.dropShadow2(color: self.shadowColor,
+        self.dropShadow(color: self.shadowColor,
                          opacity: self.shadowOpacity,
                          offset: self.shadowOffset,
                          radius: self.shadowRadius,

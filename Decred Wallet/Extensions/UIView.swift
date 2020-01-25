@@ -2,7 +2,7 @@
 //  UIColor.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -35,24 +35,15 @@ extension UIView {
     }
     
     func setRoundCorners(corners: UIRectCorner, radius: CGFloat) {
-           let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
-           let mask = CAShapeLayer()
-           mask.path = path.cgPath
-           layer.mask = mask
-       }
-       
-    func dropShadow(color: UIColor, opacity: Float = 0.2, offSet: CGSize, radius: CGFloat = 1, scale: Bool = true) {
-        layer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: self.layer.cornerRadius).cgPath
-        layer.shadowColor = color.cgColor
-        layer.shadowOpacity = opacity
-        layer.shadowOffset = offSet
-        layer.shadowRadius = radius
-        layer.shouldRasterize = true
-        layer.rasterizationScale = scale ? UIScreen.main.scale : 1
-        layer.masksToBounds = false
-    }
+       let path = UIBezierPath(roundedRect: bounds,
+                               byRoundingCorners: corners,
+                               cornerRadii: CGSize(width: radius, height: radius))
+       let mask = CAShapeLayer()
+       mask.path = path.cgPath
+       layer.mask = mask
+   }
     
-    func dropShadow2(color: UIColor, opacity: Float, offset: CGSize, radius: CGFloat, spread: CGFloat) {
+    func dropShadow(color: UIColor, opacity: Float, offset: CGSize, radius: CGFloat, spread: CGFloat) {
         self.layer.shadowColor = color.cgColor
         self.layer.shadowOpacity = opacity
         self.layer.shadowOffset = offset
