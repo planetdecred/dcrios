@@ -2,35 +2,27 @@
 //  WalletLoader.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
 import Foundation
 import Dcrlibwallet
+import Signals
 
 class WalletLoader: NSObject {
+    static let shared = WalletLoader()
     static let appDataDir = NSHomeDirectory() + "/Documents/dcrlibwallet"
     
     var multiWallet: DcrlibwalletMultiWallet!
-    var syncer: Syncer
-    var notification: TransactionNotification
     
     var initialized = false
     var oneOrMoreWalletsExist = false
     
+    var walletSeedBackedUp: Signal = Signal<Int>()
+    
     var wallet: DcrlibwalletWallet? {
         return multiWallet.firstOrDefaultWallet()
-    }
-    
-    var isSynced: Bool {
-        return self.syncer.currentSyncOp == SyncOp.Done
-    }
-    
-    override init() {
-        syncer = Syncer()
-        notification = TransactionNotification()
-        super.init()
     }
     
     func initMultiWallet() -> NSError? {
@@ -51,12 +43,12 @@ class WalletLoader: NSObject {
             privatePassphraseType = DcrlibwalletPassphraseTypePin
         }
         
-        try AppDelegate.walletLoader.multiWallet.linkExistingWallet(WalletLoader.appDataDir,
-                                                                    originalPubPass: startupPinOrPassword,
-                                                                    privatePassphraseType: privatePassphraseType)
+        try self.multiWallet.linkExistingWallet(WalletLoader.appDataDir,
+                                                originalPubPass: startupPinOrPassword,
+                                                privatePassphraseType: privatePassphraseType)
         
         DispatchQueue.main.async {
-            NavigationMenuTabBarController.setupMenuAndLaunchApp(isNewWallet: false)
+            NavigationMenuTabBarController.setupMenuAndLaunchApp()
         }
     }
 }

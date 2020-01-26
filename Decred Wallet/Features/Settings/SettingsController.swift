@@ -2,7 +2,7 @@
 //  SettingsController.swift
 //  Decred Wallet
 
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -161,7 +161,7 @@ class SettingsController: UITableViewController  {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let isWalletOpen = AppDelegate.walletLoader.wallet?.walletOpened() ?? false
+        let isWalletOpen = WalletLoader.shared.wallet?.walletOpened() ?? false
         
         if indexPath.section == 0 {
             switch indexPath.row {
@@ -234,13 +234,13 @@ class SettingsController: UITableViewController  {
     }
     
     func rescanBlocks() {
-        if AppDelegate.walletLoader.multiWallet.isSyncing() {
+        if SyncManager.shared.isSyncing {
             self.showOkAlert(message: LocalizedStrings.syncProgressAlert)
             return
         }
         
         do {
-            try AppDelegate.walletLoader.multiWallet.rescanBlocks(AppDelegate.walletLoader.wallet!.id_)
+            try WalletLoader.shared.multiWallet.rescanBlocks(WalletLoader.shared.wallet!.id_)
             self.displayToast(LocalizedStrings.scanInProgress)
         } catch let error {
             var errorMessage = error.localizedDescription
@@ -276,8 +276,8 @@ class SettingsController: UITableViewController  {
         let progressHud = Utils.showProgressHud(withText: LocalizedStrings.deletingWallet)
         DispatchQueue.global(qos: .background).async {
             do {
-                try AppDelegate.walletLoader.multiWallet.delete(AppDelegate.walletLoader.wallet!.id_,
-                                                                privPass: spendingPinOrPassword.utf8Bits)
+                try WalletLoader.shared.multiWallet.delete(WalletLoader.shared.wallet!.id_,
+                                                           privPass: spendingPinOrPassword.utf8Bits)
                 DispatchQueue.main.async {
                     progressHud.dismiss()
                     completionDelegate?.securityCodeProcessed(true, nil)

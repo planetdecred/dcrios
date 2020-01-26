@@ -1,7 +1,7 @@
 //  ReceiveViewController.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -34,7 +34,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     var myacc: DcrlibwalletAccount?
     var tapGesture = UITapGestureRecognizer()
     var oldAddress = ""
-    var wallet = AppDelegate.walletLoader.wallet
+    var wallet = WalletLoader.shared.wallet
 
     private var selectedAccount = ""
 
@@ -108,7 +108,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     }
 
     private func checkSyncStatus() {
-        let isSynced = AppDelegate.walletLoader.isSynced
+        let isSynced = SyncManager.shared.isSynced
         let isNewWalletSetup: Bool = Settings.readValue(for: Settings.Keys.NewWalletSetUp)
         let initialSyncCompleted: Bool = Settings.readOptionalValue(for: Settings.Keys.InitialSyncCompleted) ?? false
         if isSynced || isNewWalletSetup || initialSyncCompleted {
@@ -144,7 +144,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     
     private func showFirstWalletAddressAndQRCode() {
         
-        if let acc = AppDelegate.walletLoader.wallet?.walletAccounts(confirmations: 0) {
+        if let acc = WalletLoader.shared.wallet?.walletAccounts(confirmations: 0) {
             let accNames: [String] = (acc.map({ $0.name }))
             self.myacc = acc.first
             
@@ -160,7 +160,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     
     private func populateWalletDropdownMenu() {
 
-        if let acc = AppDelegate.walletLoader.wallet?.walletAccounts(confirmations: 0) {
+        if let acc = WalletLoader.shared.wallet?.walletAccounts(confirmations: 0) {
            if let defaultAccount = acc.filter({ $0.isDefault}).first {
                 accountDropdown.setTitle(
                     defaultAccount.name,

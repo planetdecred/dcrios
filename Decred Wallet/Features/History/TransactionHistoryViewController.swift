@@ -2,7 +2,7 @@
 //  TransactionHistoryViewController.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -39,14 +39,15 @@ class TransactionHistoryViewController: UIViewController {
         self.transactionsTableView.register(UINib(nibName: TransactionTableViewCell.identifier, bundle: nil),
                                             forCellReuseIdentifier: TransactionTableViewCell.identifier)
         
-        try? AppDelegate.walletLoader.multiWallet.add(self, uniqueIdentifier: "\(self)")
+        // register for new transactions notifications
+        try? WalletLoader.shared.multiWallet.add(self, uniqueIdentifier: "\(self)")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationItem.title = LocalizedStrings.history
 
-        if AppDelegate.walletLoader.isSynced {
+        if SyncManager.shared.isSynced {
             self.syncInProgressLabel.isHidden = true
             self.transactionsTableView.isHidden = false
             self.loadAllTransactions()
@@ -57,7 +58,7 @@ class TransactionHistoryViewController: UIViewController {
         self.allTransactions.removeAll()
         self.refreshControl.showLoader(in: self.transactionsTableView)
         
-        guard let txs = AppDelegate.walletLoader.wallet?.transactionHistory(offset: 0), !txs.isEmpty else {
+        guard let txs = WalletLoader.shared.wallet?.transactionHistory(offset: 0), !txs.isEmpty else {
             self.transactionsTableView.backgroundView = self.noTxsLabel
             self.transactionsTableView.separatorStyle = .none
             self.refreshControl.endRefreshing()

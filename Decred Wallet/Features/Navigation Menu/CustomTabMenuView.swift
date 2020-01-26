@@ -9,7 +9,7 @@
 import UIKit
 
 class CustomTabMenuView: UIStackView {
-    var itemTapped: ((_ index: Int) -> Void)?
+    var tabChanged: ((_ from: Int, _ to: Int) -> Void)?
     var activeTabIndex: Int = 0
     
     override init(frame: CGRect) {
@@ -45,7 +45,6 @@ class CustomTabMenuView: UIStackView {
             return
         }
         self.switchTab(from: self.activeTabIndex, to: selectedItemIndex)
-        self.itemTapped?(selectedItemIndex) // todo rename this listener
     }
     
     public func switchTab(from previousTabId: Int, to newTabId: Int) {
@@ -53,6 +52,7 @@ class CustomTabMenuView: UIStackView {
         DispatchQueue.main.async {
             (self.subviews[previousTabId] as! TabMenuItemView).deactivate()
             (self.subviews[newTabId] as! TabMenuItemView).activate()
+            self.tabChanged?(previousTabId, newTabId)
         }
     }
 }

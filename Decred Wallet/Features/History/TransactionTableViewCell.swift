@@ -2,7 +2,7 @@
 //  TransactionTableViewCell.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -28,7 +28,7 @@ class TransactionTableViewCell: UITableViewCell {
         if let transaction = data as? Transaction {
             var confirmations: Int32 = 0
             if transaction.blockHeight != -1 {
-                confirmations = AppDelegate.walletLoader.wallet!.getBestBlock() - Int32(transaction.blockHeight) + 1
+                confirmations = WalletLoader.shared.wallet!.getBestBlock() - Int32(transaction.blockHeight) + 1
             }
             let Date2 = NSDate.init(timeIntervalSince1970: TimeInterval(transaction.timestamp) )
                       let dateformater = DateFormatter()

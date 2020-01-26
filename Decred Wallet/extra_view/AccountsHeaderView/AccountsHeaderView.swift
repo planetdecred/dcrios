@@ -2,7 +2,7 @@
 //  AccountsHeaderView.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -38,7 +38,7 @@ class AccountsHeaderView: UIView {
     var spendableBalance: NSDecimalNumber = 0.0 {
         willSet {
             DispatchQueue.main.async {[weak self] in
-                if AppDelegate.walletLoader.isSynced {
+                if SyncManager.shared.isSynced {
                     let spendableTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(hex: "#8997A5")]
                     let spendableTextattr =  NSMutableAttributedString(string: "\(LocalizedStrings.spendable) ", attributes: spendableTextAttributes)
                     let amount = Utils.getAttributedString(str: "\(newValue)", siz: 9.0, TexthexColor: self!.spendableColor)

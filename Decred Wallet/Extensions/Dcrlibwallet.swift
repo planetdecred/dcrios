@@ -2,7 +2,7 @@
 //  Dcrlibwallet.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -116,7 +116,7 @@ extension DcrlibwalletWallet {
     }
     
     func transactionHistory(offset: Int32, count: Int32 = 0, filter: Int32 = DcrlibwalletTxFilterAll) -> [Transaction]? {
-        guard let wallet = AppDelegate.walletLoader.wallet else {
+        guard let wallet = WalletLoader.shared.wallet else {
             return nil
         }
         

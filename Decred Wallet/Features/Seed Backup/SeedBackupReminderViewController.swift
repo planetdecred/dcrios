@@ -2,7 +2,7 @@
 //  SeedBackupReminderViewController.swift
 //  Decred Wallet
 //
-// Copyright (c) 2019 The Decred developers
+// Copyright (c) 2019-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -13,11 +13,15 @@ class SeedBackupReminderViewController: UIViewController {
     @IBOutlet var seedBackupNoticeLabels: [UILabel]?
     var checkedCheckBoxesDict: [Int: Bool] = [:]
     @IBOutlet weak var viewSeedBtn: Button!
-    var delegate: SeedBackupModalHandler?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         styleSeedBackupNoticeLabels()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = true
     }
 
     private func styleSeedBackupNoticeLabels() {
@@ -58,17 +62,11 @@ class SeedBackupReminderViewController: UIViewController {
         }
     }
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-         let seedWordsDisplayViewController = segue.destination as! SeedWordsDisplayViewController
-         seedWordsDisplayViewController.delegate = self.delegate
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.isNavigationBarHidden = true
-    }
-
     @IBAction func backAction(_ sender: UIButton) {
         navigateToBackScreen()
+    }
+    
+    static func instance() -> SeedBackupReminderViewController {
+        return Storyboards.SeedBackup.instantiateViewController(for: self)
     }
 }

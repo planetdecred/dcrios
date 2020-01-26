@@ -2,20 +2,20 @@
 //  SeedBackupVerifyViewController.swift
 //  Decred Wallet
 //
-// Copyright (c) 2019 The Decred developers
+// Copyright (c) 2019-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
 import UIKit
 import Dcrlibwallet
 import JGProgressHUD
+import Signals
 
 class SeedBackupVerifyViewController: UIViewController {
     var seedWordsGroupedByThree: [[String]] = []
     var selectedWords: [String] = []
     @IBOutlet weak var groupedSeedWordsTableView: UITableView!
     @IBOutlet weak var btnConfirm: Button!
-    var delegate: SeedBackupModalHandler?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,11 +31,6 @@ class SeedBackupVerifyViewController: UIViewController {
             self.seedWordsGroupedByThree.append(seedWordsGrouped)
             self.selectedWords.append("")
         }
-    }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-         let seedBackupSuccessVC = segue.destination as! SeedBackupSuccessViewController
-         seedBackupSuccessVC.delegate = self.delegate
     }
 
     private func breakdownByThree(_ allSeedWords: [String], validSeedWordToInclude: String) -> [String] {
@@ -78,6 +73,7 @@ class SeedBackupVerifyViewController: UIViewController {
         if seedIsValid && userEnteredSeed.elementsEqual(savedSeed) {
             Settings.setValue(true, for: Settings.Keys.SeedBackedUp)
             Settings.clearValue(for: Settings.Keys.Seed)
+            WalletLoader.shared.walletSeedBackedUp => WalletLoader.shared.wallet!.id_
             self.performSegue(withIdentifier: "toSeedBackupSuccess", sender: nil)
         } else {
             self.groupedSeedWordsTableView?.isUserInteractionEnabled = true

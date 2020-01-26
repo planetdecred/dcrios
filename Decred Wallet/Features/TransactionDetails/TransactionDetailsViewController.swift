@@ -1,7 +1,7 @@
 //  TransactionDetailsViewController.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 import UIKit
@@ -49,7 +49,7 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
         if self.transaction == nil && self.transactionHash != nil {
             let txHash = Data(fromHexEncodedString: self.transactionHash!)!
             var getTxError: NSError?
-            let txJsonString = AppDelegate.walletLoader.wallet?.getTransaction(txHash, error: &getTxError)
+            let txJsonString = WalletLoader.shared.wallet?.getTransaction(txHash, error: &getTxError)
             if getTxError != nil {
                 print("wallet.getTransaction error", getTxError!.localizedDescription)
             }
@@ -67,7 +67,7 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
     fileprivate func prepareTransactionDetails() {
         var confirmations: Int32 = 0
         if self.transaction.blockHeight != -1 {
-            confirmations = AppDelegate.walletLoader.wallet!.getBestBlock() - Int32(self.transaction.blockHeight) + 1
+            confirmations = WalletLoader.shared.wallet!.getBestBlock() - Int32(self.transaction.blockHeight) + 1
         }
         
         let isConfirmed = Settings.spendUnconfirmed || confirmations > 1

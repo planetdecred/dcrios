@@ -2,7 +2,7 @@
 //  PublicPassphrase.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -88,9 +88,9 @@ struct StartupPinOrPassword {
         DispatchQueue.global(qos: .userInitiated).async {
             do {
                 let passphraseType = securityType == SecurityViewController.SECURITY_TYPE_PASSWORD ? DcrlibwalletPassphraseTypePass : DcrlibwalletPassphraseTypePin
-                try AppDelegate.walletLoader.multiWallet.changeStartupPassphrase(currentPublicPassphrase.utf8Bits,
-                                                                                 newPassphrase: newPublicPassphrase.utf8Bits,
-                                                                                 passphraseType: passphraseType)
+                try WalletLoader.shared.multiWallet.changeStartupPassphrase(currentPublicPassphrase.utf8Bits,
+                                                                            newPassphrase: newPublicPassphrase.utf8Bits,
+                                                                            passphraseType: passphraseType)
 
                 DispatchQueue.main.async {
                     if newPinOrPassword == nil {

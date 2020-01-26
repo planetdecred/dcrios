@@ -2,7 +2,7 @@
 //  OverviewViewController.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -10,520 +10,479 @@ import UIKit
 import Dcrlibwallet
 import Signals
 
-protocol SeedBackupModalHandler {
-  func updateSeedBackupSectionViewVisibility()
-}
-
-class OverviewViewController: UIViewController, SeedBackupModalHandler {
+class OverviewViewController: UIViewController {
+    // Custom navigation bar
+    @IBOutlet weak var pageTitleLabel: UILabel!
+    @IBOutlet weak var pageTitleSeparator: UIView!
     
-    /*
-        Main UI components
-    */
-    
-    // Navigation bar
-    let navBarTitle = UIView(frame: CGRect.zero) // Custom view because we will be embedding a image and label
-    var pageTitleLabel: UILabel!
-    
-    @IBOutlet weak var parentScrollView: UIScrollView! // Scroll view holding the entire contents of this view.
+    @IBOutlet weak var parentScrollView: UIScrollView!
     @IBOutlet weak var balanceLabel: UILabel!
     
     // MARK: Backup phrase section (Top view)
     @IBOutlet weak var seedBackupSectionView: UIView!
     
-    // MARK: Transaction history section
-    @IBOutlet weak var recentActivitySection: UIStackView!
-    @IBOutlet weak var recentActivityLabelView: UIView!
-    @IBOutlet weak var noTransactionsLabelView: UIView! // to show "No recent transactions"
+    // MARK: Recent activity section
+    @IBOutlet weak var noTransactionsLabelView: UILabel!
     @IBOutlet weak var recentTransactionsTableView: UITableView!
+    @IBOutlet weak var recentTransactionsTableViewHeightContraint: NSLayoutConstraint!
     @IBOutlet weak var showAllTransactionsButton: UIButton!
     
     // MARK: Sync status section
-    @IBOutlet weak var syncStatusSection: UIStackView!
-    @IBOutlet weak var walletStatusLabelView: UIView!
     @IBOutlet weak var onlineStatusIndicator: UIView!
     @IBOutlet weak var onlineStatusLabel: UILabel!
-
-    @IBOutlet weak var syncProgressView: UIView!
+    
     @IBOutlet weak var syncStatusImage: UIImageView!
-    @IBOutlet weak var syncStatusLabel: UILabel! {
-        didSet {
-            self.syncStatusLabel.text = (AppDelegate.walletLoader.isSynced == true) ? LocalizedStrings.walletSynced : LocalizedStrings.walletNotSynced
-        }
-    }
+    @IBOutlet weak var syncStatusLabel: UILabel!
+    @IBOutlet weak var syncConnectionButton: UIButton!
+    
     @IBOutlet weak var latestBlockLabel: UILabel!
     @IBOutlet weak var connectedPeersLabel: UILabel!
     
-    @IBOutlet weak var showSyncDetailsButton: UIButton! {
-        didSet { self.showSyncDetailsButton.isHidden = (AppDelegate.walletLoader.multiWallet.isSyncing() == true) ? true : false; self.showSyncDetailsButton.clipsToBounds = true; }
-    }
+    @IBOutlet weak var generalSyncProgressViews: UIStackView!
+    @IBOutlet weak var totalSyncProgressView: UIProgressView!
+    @IBOutlet weak var totalSyncProgressPercentageLabel: UILabel!
+    @IBOutlet weak var totalSyncETALabel: UILabel!
     
-    @IBOutlet weak var syncConnectionButton: UIButton!
-    @IBOutlet weak var recentTransactionsTableViewHeightContraint: NSLayoutConstraint!
+    @IBOutlet weak var showSyncDetailsButton: UIButton!
+    
+    @IBOutlet weak var syncDetailsSection: UIStackView!
+    @IBOutlet weak var syncCurrentStepNumberLabel: UILabel!
+    @IBOutlet weak var syncCurrentStepSummaryLabel: UILabel!
+    @IBOutlet weak var syncCurrentStepTitleLabel: UILabel!
+    @IBOutlet weak var syncCurrentStepReportLabel: UILabel!
+    @IBOutlet weak var syncCurrentStepProgressLabel: UILabel!
+    @IBOutlet weak var peerCountLabel: UILabel!
 
-    let maxDisplayItems = 3
-    var refreshBestBlockAgeTimer: Timer?
-    // Container for our progress report bar & text.
-    let syncProgressBarContainer = UIView(frame: CGRect.zero)
-    
-    /*
-        Data Values
-    */
     var recentTransactions = [Transaction]()
-    var syncManager = SyncManager.shared // Created as singleton to have just one listener instance
-    
-    var syncToggle: Bool = false {
-        didSet {
-            if self.syncToggle {
-                self.handleShowSyncDetails()
-            } else {
-                self.handleHideSyncDetails()
-            }
-        }
-    }
+    var refreshBestBlockAgeTimer: Timer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.setupInterface()
-        self.attachSyncListeners()
+        self.initializeViews()
+        self.updateMultiWalletBalance()
+        self.updateRecentActivity()
         
-        // Setup delegates
-        self.parentScrollView.tag = 2
-        self.parentScrollView.delegate = self // This is so we can update the navigation bar on user scroll. Our transactions tableView will also hold a scrollview when populated and we want to differentiate that, hence this tag
+        self.updateWalletStatusIndicatorAndLabel()
+        self.updateSyncStatusIndicatorAndLabel()
+        self.updateSyncConnectionButtonTextAndIcon()
+        self.toggleSyncProgressViews(isSyncing: SyncManager.shared.isSyncing)
+        self.clearAndHideSyncDetails()
         
-        if AppDelegate.walletLoader.isSynced {
-            self.updateCurrentBalance()
-            self.updateRecentActivity()
-        }else{
-            self.showNoTransactions()
-        }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.view.layer.backgroundColor = UIColor(hex: "#f3f5f6").cgColor
-        self.updateSeedBackupSectionViewVisibility()
+        // Register sync progress listener.
+        // If sync is currently ongoing, this listener will immediately receive the current/latest
+        // sync progress report which will then be displayed on the UI.
+        // If sync is not ongoing, registering this listener enables us to get notified when a peer
+        // is connected or disconnected, so we can update the peer count label appropriately.
+        let syncProgressListener = self as DcrlibwalletSyncProgressListenerProtocol
+        try? WalletLoader.shared.multiWallet.add(syncProgressListener, uniqueIdentifier: "\(self)")
+        
+        // Register tx notification listener to update recent activity table for new txs.
+        let txNotificationListener = self as DcrlibwalletTxAndBlockNotificationListenerProtocol
+        try? WalletLoader.shared.multiWallet.add(txNotificationListener, uniqueIdentifier: "\(self)")
 
-        // Setup stackviews properly with rounded corners
-        DispatchQueue.main.async {
-            self.recentActivitySection.layer.backgroundColor = UIColor.white.cgColor
-            self.recentActivitySection.setCornerRadius(18)
-            self.syncStatusSection.layer.backgroundColor = UIColor.white.cgColor
-            self.syncStatusSection.setCornerRadius(18)
-            self.navigationController?.navigationBar.backgroundColor = UIColor.white
+        // Display latest block and connected peer count if there's no ongoing sync.
+        if !SyncManager.shared.isSyncing {
+            self.displayLatestBlockHeightAndAge()
+            self.displayConnectedPeersCount()
         }
-    }
-
-    func updateSeedBackupSectionViewVisibility() {
-        if Settings.seedBackedUp {
-            self.seedBackupSectionView.isHidden = true
-        }
-    }
-
-    private func setupInterface() {
-        /*
-            Custom navigation bar with logo image
-        */
-        
-        let logoImage = UIImageView(frame: CGRect(x: 24, y: 10, width: 24, height: 24))
-        logoImage.contentMode = .scaleAspectFit
-        logoImage.image = UIImage(named: "ic_decred")
-        logoImage.clipsToBounds = true
-        
-        self.pageTitleLabel = UILabel(frame: CGRect(x: 64, y: 10, width: 400, height: 20)) // position the overview label 64pts from the screens left edge and 10pts from the top of the navigation bar
-        self.pageTitleLabel.font = UIFont(name: "SourceSansPro-Regular", size: 20)
-        self.pageTitleLabel.text = LocalizedStrings.overview
-        self.pageTitleLabel.clipsToBounds = true
-        
-        self.navBarTitle.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 56)
-        self.navBarTitle.addSubview(logoImage)
-        self.navBarTitle.addSubview(self.pageTitleLabel)
-        self.navigationItem.titleView = self.navBarTitle // set our navigation item to our custom navbar view
-        
-         self.balanceLabel.attributedText = Utils.getAttributedString(str: "0", siz: 17.0, TexthexColor: UIColor.appColors.darkBlue)
-        
-        // Setup seed backup warning
-        self.seedBackupSectionView.layer.cornerRadius = 14
-        self.seedBackupSectionView.layer.shadowPath = UIBezierPath(roundedRect: self.seedBackupSectionView.bounds, cornerRadius: self.seedBackupSectionView.layer.cornerRadius).cgPath
-        self.seedBackupSectionView.layer.shadowColor = UIColor(displayP3Red: 0.04, green: 0.08, blue: 0.25, alpha: 0.04).cgColor
-        self.seedBackupSectionView.layer.shadowOffset = CGSize(width: 8, height: 8)
-        self.seedBackupSectionView.layer.shadowOpacity = 0.4
-        self.seedBackupSectionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBackupWalletSeed))) // show wallet backup on tap
-        
-        // Sync status section
-        self.onlineStatusIndicator.layer.cornerRadius = 5 // Height/width is 10pts, we use half that (5pts) to make a perfect circle
-        self.syncStatusImage.image = AppDelegate.walletLoader.isSynced ? UIImage(named: "ic_checkmark") : UIImage(named: "ic_crossmark") // Initial sync status image
-        
-        let latestBlock = AppDelegate.walletLoader.wallet?.getBestBlock() ?? 0
-        self.setLatestBlockLabel(latestBlock: latestBlock)
-        self.connectedPeersLabel.attributedText = NSMutableAttributedString(string: LocalizedStrings.noConnectedPeer)
-        
-        self.showSyncDetailsButton.addBorder(atPosition: .top, color: UIColor.appColors.gray, thickness: 0.62)
-        self.showSyncDetailsButton.setTitle(LocalizedStrings.showDetails, for: .normal)
-        self.showSyncDetailsButton.isHidden = true // Hide show details button till we determine sync status
-        self.showSyncDetailsButton.addTarget(self, action: #selector(self.handleShowSyncToggle), for: .touchUpInside)
-        
-        // Sync network connect/disconnect/cancel button setup
-        self.syncConnectionButton.layer.borderWidth = 1
-        self.syncConnectionButton.layer.borderColor = UIColor.appColors.gray.cgColor
-        self.syncConnectionButton.layer.cornerRadius = 12 // Height is 24pts from mockup so we use use 12pts for rounded left & right edges
-         self.syncConnectionButton.isHidden = true // initially hidden because we only want to show it while sync is active
-        self.syncConnectionButton.addTarget(self, action: #selector(self.connectionToggle), for: .touchUpInside)
-        
-        // Transactions section setup
-        self.recentActivityLabelView.horizontalBorder(borderColor: UIColor.appColors.gray, yPosition: self.recentActivityLabelView.frame.maxY-7, borderHeight: 0.64)
-        self.recentTransactionsTableView.registerCellNib(TransactionTableViewCell.self)
-        self.recentTransactionsTableView.delegate = self
-        self.recentTransactionsTableView.dataSource = self
-        
-        // Add pull to refresh capability to recent transactions table
-        let pullToRefreshControl = UIRefreshControl()
-        pullToRefreshControl.addTarget(self, action: #selector(self.handleRecentActivityTableRefresh(_:)), for: UIControl.Event.valueChanged)
-        pullToRefreshControl.tintColor = UIColor.lightGray
-        self.recentTransactionsTableView.addSubview(pullToRefreshControl) // refresh control added
-        
-        self.showAllTransactionsButton.setTitle(LocalizedStrings.seeAll, for: .normal)
-        self.showAllTransactionsButton.isHidden = (self.recentTransactions.count > 3) ? false : true
-        self.showAllTransactionsButton.addTarget(self, action: #selector(self.showAllTransactions), for: .touchUpInside)
 
         if Settings.readValue(for: Settings.Keys.NewWalletSetUp) {
             Utils.showBanner(parentVC: self, type: .success, text: LocalizedStrings.walletCreated)
             Settings.setValue(false, for: Settings.Keys.NewWalletSetUp)
         }
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = true
+    }
+    
+    func initializeViews() {
+        // Set a scroll listener delegate so we can update the nav bar page title text on user scroll.
+        self.parentScrollView.delegate = self
+        
+        self.checkWhetherToPromptForSeedBackup()
+        WalletLoader.shared.walletSeedBackedUp.subscribe(with: self) { walletID in
+            print("Seed backed up for wallet with ID", walletID)
+            self.checkWhetherToPromptForSeedBackup()
+        }
+        
+        self.recentTransactionsTableView.registerCellNib(TransactionTableViewCell.self)
+        self.recentTransactionsTableView.delegate = self
+        self.recentTransactionsTableView.dataSource = self
 
-    private func setLatestBlockLabel(latestBlock : __int32_t) {
-        let latestBlockAge = self.syncManager.setBestBlockAge()
-        let latestBlockText = String(format: LocalizedStrings.latestBlockAge, latestBlock, latestBlockAge)
-
-        let range = (latestBlockText as NSString).range(of: "\(latestBlock)")
-        let range2 = (latestBlockText as NSString).range(of: "\(latestBlockAge)")
-        let attributedString = NSMutableAttributedString(string: latestBlockText)
-        attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.appColors.darkBlue, range: range)
-               attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.appColors.darkBlue , range: range2)
-        self.latestBlockLabel.attributedText = attributedString
+        self.totalSyncProgressView.layer.cornerRadius = 8
+        self.showSyncDetailsButton.addBorder(atPosition: .top, color: UIColor.appColors.gray, thickness: 0.62)
+        self.syncDetailsSection.horizontalBorder(borderColor: UIColor.appColors.gray, yPosition: 0, borderHeight: 0.62)
     }
     
-    // Attach listeners to sync manager and react in this view
-    func attachSyncListeners() {
-        
-        // Subscribe to changes in number of connected peers
-        self.syncManager.peers.subscribe(with: self) { (peers) in
-            let connectedPeerText = String(format: LocalizedStrings.connectedTo, peers)
-            let range = (connectedPeerText as NSString).range(of: "\(peers)")
-            let attributedString = NSMutableAttributedString(string: connectedPeerText)
-            attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.appColors.darkBlue, range: range)
-            self.connectedPeersLabel.attributedText = peers > 0 ? attributedString: NSMutableAttributedString(string: LocalizedStrings.noConnectedPeer)
-        }
-        
-        // Subscribe to changes in sync status
-        self.syncManager.syncStatus.subscribe(with: self) { (syncing, status) in
-            if syncing {
-                self.showSyncStatus()
-            } else {
-                self.hideSyncStatus()
-            }
-            
-            if status != nil {
-                self.syncStatusLabel.text = status
-            }
-        }
-        
-        // Monitor network changes and set offline/online indicator on wallet status section
-        self.syncManager.networkConnectionStatus = { (status) in
-            self.onlineStatusIndicator.layer.backgroundColor = status ? UIColor.appColors.green.cgColor : UIColor.appColors.orange.cgColor
-            self.onlineStatusLabel.text = status ? LocalizedStrings.online : LocalizedStrings.offline
-            
-            // We need to update sync connect/disconnect button
-            self.updateConnectionButton(connected: status, isSyncing: (AppDelegate.walletLoader.multiWallet.isSyncing()))
-            
-            // We need to reset peer count
-            if status == false {
-                self.connectedPeersLabel.attributedText = NSMutableAttributedString(string: LocalizedStrings.noConnectedPeer)
-            }
-        }
-    }
- 
-    // Show sync details on user click "show details" button while syncing
-    func handleShowSyncDetails() {
-        let detailsView = SyncDetailsComponent(frame: .zero)
-        detailsView.horizontalBorder(borderColor: UIColor.black, yPosition: 1, borderHeight: 0.9)
-        detailsView.translatesAutoresizingMaskIntoConstraints = false
-        detailsView.clipsToBounds = true
-        
-        let position = self.syncStatusSection.arrangedSubviews.index(before: self.syncStatusSection.arrangedSubviews.endIndex)
-        
-        DispatchQueue.main.async {
-            UIView.animate(withDuration: 1.0, delay: 0.0, options: [.curveEaseIn, .allowUserInteraction], animations: {
-                self.syncStatusSection.insertArrangedSubview(detailsView, at: position)
-                detailsView.heightAnchor.constraint(equalToConstant: 188).isActive = true
-                detailsView.widthAnchor.constraint(equalTo: self.syncProgressView.widthAnchor).isActive = true
-            })
-            self.showSyncDetailsButton.setTitle(LocalizedStrings.hideDetails, for: .normal)
-        }
+    func checkWhetherToPromptForSeedBackup() {
+        // todo should use multiwallet methods to check, not settings
+        self.seedBackupSectionView.isHidden = Settings.seedBackedUp
     }
     
-    // Hide sync details on "hide details" button click or on sync completion
-    func handleHideSyncDetails() {
-        //if (AppDelegate.walletLoader.wallet?.isSyncing() == false) { return }
-        DispatchQueue.main.async {
-             // If the user had clicked on "Show sync details", sync details will be visible after hiding sync progress bar. we need to make sure it is removed first
-            if self.syncStatusSection.arrangedSubviews.indices.contains(3) {
-                UIView.animate(withDuration: 4.3, delay: 0.0, options: [.curveEaseOut, .allowUserInteraction], animations: {
-                    self.syncStatusSection.arrangedSubviews[2].removeFromSuperview()
-                })
-            }
-            self.showSyncDetailsButton?.setTitle(LocalizedStrings.showDetails, for: .normal)
-        }
-    }
-    
-    // show sync status with progress bar
-    func showSyncStatus() {
-        
-        // Confirm wallet is actually syncing and sync progressbar is not already shown
-        if !AppDelegate.walletLoader.multiWallet.isSyncing() || self.syncProgressBarContainer.isDescendant(of: self.syncProgressView) {
-            return
-        }
-        
-        let bestBlock = AppDelegate.walletLoader.wallet!.getBestBlock()
-        self.setLatestBlockLabel(latestBlock: bestBlock)
-        // Remove default latest block label so we can show the progress bar
-        self.latestBlockLabel.isHidden = true
-        self.connectedPeersLabel.isHidden = true
-        
-        self.syncStatusImage.image = UIImage(named: "ic_syncing")
-        
-        // Container for our progress report
-        self.syncProgressBarContainer.translatesAutoresizingMaskIntoConstraints = false
-        self.syncProgressBarContainer.clipsToBounds = true
-        
-        // Progress bar
-        let progressBar = UIProgressView(frame: CGRect.zero)
-        progressBar.layer.cornerRadius = 4 // Because height is 8pts and we want a perfect semi circle curve
-        progressBar.progressTintColor = UIColor.appColors.green
-        progressBar.trackTintColor = UIColor.appColors.gray
-        progressBar.translatesAutoresizingMaskIntoConstraints = false
-        progressBar.clipsToBounds = true
-        progressBar.progress = Float(0)
-        
-        // Overall sync progress percentage
-        let percentageLabel = UILabel(frame: CGRect.zero)
-        percentageLabel.font = UIFont(name: "SourceSansPro-Regular", size: 16)
-        percentageLabel.textColor = UIColor.appColors.darkBlue
-        percentageLabel.translatesAutoresizingMaskIntoConstraints = false
-        percentageLabel.clipsToBounds = true
-        
-        // Estimated time left to complete sync
-        let timeLeftLabel = UILabel(frame: CGRect.zero)
-        timeLeftLabel.font = UIFont(name: "SourceSansPro-Regular", size: 16)
-        timeLeftLabel.textColor = UIColor.appColors.darkBlue
-        timeLeftLabel.translatesAutoresizingMaskIntoConstraints = false
-        timeLeftLabel.clipsToBounds = true
-        
-        self.syncProgressBarContainer.addSubview(progressBar)
-        self.syncProgressBarContainer.addSubview(percentageLabel)
-        self.syncProgressBarContainer.addSubview(timeLeftLabel)
-        
-        // Constraints to position progress view underneath "synchronizing label"
-        let constraints: [NSLayoutConstraint] = [
-            // Container contraints
-            self.syncProgressBarContainer.heightAnchor.constraint(equalToConstant: 30),
-            self.syncProgressBarContainer.topAnchor.constraint(equalTo: self.syncStatusLabel.bottomAnchor, constant: 10), // position progress container 10pts below "Synchronizing" label
-            self.syncProgressBarContainer.trailingAnchor.constraint(equalTo: self.syncProgressView.trailingAnchor, constant: -16), // Right margin of 16pts
-            self.syncProgressBarContainer.leadingAnchor.constraint(equalTo: self.syncProgressView.leadingAnchor, constant: 56), // Left margin of 56pts
-            
-            // Progress bar constraints
-            progressBar.widthAnchor.constraint(equalTo: self.syncProgressBarContainer.widthAnchor), // Full width of parent view
-            progressBar.heightAnchor.constraint(equalToConstant: 8), // Height of 8pts from mockup
-            progressBar.topAnchor.constraint(equalTo: self.syncProgressBarContainer.topAnchor), // Glue progress bar to top of container view
-            
-            //Pregress percentage constraints
-            percentageLabel.topAnchor.constraint(equalTo: progressBar.bottomAnchor),// Position underneath progress bar
-            percentageLabel.leadingAnchor.constraint(equalTo: self.syncProgressBarContainer.leadingAnchor), // No right margins
-            
-            // Estimated time left constraints
-            timeLeftLabel.trailingAnchor.constraint(equalTo: self.syncProgressBarContainer.trailingAnchor),
-            timeLeftLabel.topAnchor.constraint(equalTo: progressBar.bottomAnchor),
-        ]
-        
-        self.syncProgressView.addSubview(self.syncProgressBarContainer)
-        NSLayoutConstraint.activate(constraints)
-        
-        // Observe sync progress change events and react immediately
-        self.syncManager.syncProgress.subscribe(with: self) { (progressReport, headersFetched) in
-            guard progressReport != nil else { return }
-            timeLeftLabel.text = String(format: LocalizedStrings.syncTimeLeft, progressReport!.totalTimeRemaining)
-            percentageLabel.text = String(format: LocalizedStrings.syncProgressComplete, progressReport!.totalSyncProgress)
-            progressBar.progress = Float(progressReport!.totalSyncProgress) / 100.0
-            self.showSyncDetailsButton.isHidden = false
-        }
-        
-        // We are syncing, update the connection toggle button to show "cancel"
-        self.updateConnectionButton(connected: true, isSyncing: true)
-    }
-    
-    // hide sync status progressbar and time on sync complete or cancelled
-    func hideSyncStatus() {
-        DispatchQueue.main.async {
-             // If the user had clicked on "Show sync details", sync details will be visible after hiding sync progress bar. we need to make sure it is removed first
-            if self.syncStatusSection.arrangedSubviews.indices.contains(3) {
-                UIView.animate(withDuration: 4.3, delay: 0.0, options: [.curveEaseOut, .allowUserInteraction], animations: {
-                    self.syncStatusSection.arrangedSubviews[2].removeFromSuperview()
-                })
-            }
-            self.showSyncDetailsButton?.setTitle(LocalizedStrings.showDetails, for: .normal)
-            
-            self.syncProgressBarContainer.removeFromSuperview()
-            self.latestBlockLabel.isHidden = false
-            self.connectedPeersLabel.isHidden = false
-        }
-        
-        let bestBlock = AppDelegate.walletLoader.wallet!.getBestBlock()
-        self.setLatestBlockLabel(latestBlock: bestBlock)
-        self.showSyncDetailsButton.isHidden = true
-        
-        // We have hidden the progress bar and sync progress report. we need to update the wallet sync status text and indicator
-        if AppDelegate.walletLoader.multiWallet.isSyncing() == false {
-            let syncStatusImageName = AppDelegate.walletLoader.multiWallet.isSynced() ? "ic_checkmark" : "ic_crossmark"
-            self.syncStatusImage.image = UIImage(named: syncStatusImageName)
-            self.syncStatusLabel.text = AppDelegate.walletLoader.multiWallet.isSynced() ? LocalizedStrings.walletSynced : LocalizedStrings.walletNotSynced
-            self.updatingLatestBlockInfo(latestBlock: bestBlock)
-            self.showSyncDetailsButton.isHidden = true
-        }
-        
-        // Next we set the sync connection control button depending on whether or not the wallet synced successfully
-        self.updateConnectionButton(connected: AppDelegate.walletLoader.multiWallet.isSynced() ? true : false, isSyncing: false)
-        if AppDelegate.walletLoader.isSynced {
-            self.updateRecentActivity()
-            self.updateCurrentBalance()
-        }
-    }
-    
-    @objc func handleRecentActivityTableRefresh(_ refreshControl: UIRefreshControl) {
-        self.updateRecentActivity()
-        refreshControl.endRefreshing()
-    }
-    
-    @objc func handleBackupWalletSeed() {
-        let seedBackupReminderViewController = Storyboards.SeedBackup.instantiateViewController(for: SeedBackupReminderViewController.self)
-        seedBackupReminderViewController.delegate = self
-        let backupReminderVC = seedBackupReminderViewController.wrapInNavigationcontroller()
-        backupReminderVC.modalPresentationStyle = .overFullScreen
-        self.present(backupReminderVC, animated: true)
-    }
-    
-    // Update wallet network connection control button based on sync and network status
-    func updateConnectionButton(connected: Bool = false, isSyncing: Bool = false) {
-        if self.syncConnectionButton.isHidden {
-            self.syncConnectionButton.isHidden = false
-        }
-        switch connected {
-        case true:
-            let title = isSyncing ? LocalizedStrings.cancel : LocalizedStrings.disconnect
-            self.syncConnectionButton.setTitle(title, for: .normal)
-            self.syncConnectionButton.setImage(nil, for: .normal)
-            break
-        case false:
-            self.syncConnectionButton.setImage(UIImage(named: "ic_rescan"), for: .normal)
-            self.syncConnectionButton.imageView?.contentMode = .scaleAspectFit
-            self.syncConnectionButton.setTitle(LocalizedStrings.reconnect, for: .normal)
-        }
-    }
-    
-    // Handle action of sync connect/reconnect/cancel button click based on sync/network status
-    @objc func connectionToggle() {
-        // TODO: implement action for connection change toggle button
-        switch self.syncConnectionButton.titleLabel?.text {
-        case LocalizedStrings.cancel, LocalizedStrings.disconnect:
-            AppDelegate.walletLoader.multiWallet.cancelSync()
-            syncManager.onSyncCanceled(false)
-            self.updateConnectionButton(connected: AppDelegate.walletLoader.multiWallet.isSynced(), isSyncing: AppDelegate.walletLoader.multiWallet.isSyncing())
-            break
-        case LocalizedStrings.reconnect:
-            self.stopBestBlockAgeUpdate()
-            self.syncManager.isResartingSync = true
-            self.syncManager.checkNetworkConnectionForSync()
-            break
-        default:
-            break
-        }
+    // todo ensure this is always called from the main thread!
+    func updateMultiWalletBalance() {
+        // todo should use multiwallet balance!
+        let totalWalletAmount = WalletLoader.shared.wallet?.totalWalletBalance() ?? 0
+        let totalAmountRoundedOff = (Decimal(totalWalletAmount) as NSDecimalNumber).round(8)
+        self.balanceLabel.attributedText = Utils.getAttributedString(str: "\(totalAmountRoundedOff)", siz: 17.0, TexthexColor: UIColor.appColors.darkBlue)
     }
     
     func updateRecentActivity() {
-        // Fetch 5 most recent transactions
-        guard let transactions = AppDelegate.walletLoader.wallet?.transactionHistory(offset: Int32(0), count: Int32(5)) else {
-            self.showNoTransactions()
+        // Fetch 3 most recent transactions
+        // todo this should be a multiwallet fetch rather than a wallet fetch!
+        guard let transactions = WalletLoader.shared.wallet?.transactionHistory(offset: 0, count: 3) else {
+            self.recentTransactionsTableView.isHidden = true
+            self.noTransactionsLabelView.superview?.isHidden = false
             return
         }
         
         if transactions.count == 0 {
-            self.showNoTransactions()
+            self.recentTransactionsTableView.isHidden = true
+            self.noTransactionsLabelView.superview?.isHidden = false
             return
         }
         
-        DispatchQueue.main.async {
-            self.recentTransactions = transactions
-            self.recentTransactionsTableView.backgroundView = nil
-            self.recentTransactionsTableView.separatorStyle = .singleLine
-            self.recentTransactionsTableView.reloadData()
-            self.recentTransactionsTableViewHeightContraint.constant = TransactionTableViewCell.height() * CGFloat(min(self.recentTransactions.count, self.maxDisplayItems))
+        self.recentTransactions = transactions
+        self.recentTransactionsTableView.reloadData()
+        
+        self.recentTransactionsTableViewHeightContraint.constant = TransactionTableViewCell.height() * CGFloat(self.recentTransactions.count)
+    }
+    
+    func updateWalletStatusIndicatorAndLabel() {
+        let walletIsOnline = SyncManager.shared.isSynced || SyncManager.shared.isSyncing
+        self.onlineStatusIndicator.backgroundColor = walletIsOnline ? UIColor.appColors.green : UIColor.appColors.orange
+        self.onlineStatusLabel.text = walletIsOnline ? LocalizedStrings.online : LocalizedStrings.offline
+    }
+    
+    func updateSyncStatusIndicatorAndLabel() {
+        if SyncManager.shared.isSynced {
+            self.syncStatusImage.image = UIImage(named: "ic_checkmark")
+            self.syncStatusLabel.text = LocalizedStrings.walletSynced
+        } else if SyncManager.shared.isSyncing {
+            self.syncStatusImage.image = UIImage(named: "ic_syncing")
+            self.syncStatusLabel.text = LocalizedStrings.synchronizing
+        } else {
+            self.syncStatusImage.image = UIImage(named: "ic_crossmark")
+            self.syncStatusLabel.text = LocalizedStrings.walletNotSynced
+        }
+    }
+
+    func toggleSyncProgressViews(isSyncing: Bool) {
+        self.latestBlockLabel.superview?.isHidden = isSyncing
+        self.generalSyncProgressViews.isHidden = !isSyncing
+        self.showSyncDetailsButton.isHidden = !isSyncing
+        
+        // hide sync details section if sync is not ongoing
+        // but don't change the visibility state if sync is ongoing.
+        if !isSyncing {
+            self.syncDetailsSection.isHidden = true
+        }
+    }
+
+    func updateSyncConnectionButtonTextAndIcon() {
+        if SyncManager.shared.isSynced {
+            self.syncConnectionButton.setTitle(LocalizedStrings.disconnect, for: .normal)
+            self.syncConnectionButton.setImage(nil, for: .normal)
+        } else if SyncManager.shared.isSyncing {
+            self.syncConnectionButton.setTitle(LocalizedStrings.cancel, for: .normal)
+            self.syncConnectionButton.setImage(nil, for: .normal)
+        } else {
+            self.syncConnectionButton.setTitle(LocalizedStrings.reconnect, for: .normal)
+            self.syncConnectionButton.setImage(UIImage(named: "ic_rescan"), for: .normal)
+            self.syncConnectionButton.imageView?.contentMode = .scaleAspectFit
         }
     }
     
-    func updatingLatestBlockInfo(latestBlock : __int32_t) {
-        if AppDelegate.walletLoader.multiWallet.isRescanning() {
+    private func clearAndHideSyncDetails() {
+        self.syncDetailsSection.isHidden = true
+        self.showSyncDetailsButton.setTitle(LocalizedStrings.showDetails, for: .normal)
+        
+        self.syncCurrentStepNumberLabel.text = String(format: LocalizedStrings.syncSteps, 0)
+        self.syncCurrentStepSummaryLabel.text = ""
+        self.syncCurrentStepTitleLabel.text = ""
+        self.syncCurrentStepReportLabel.text = ""
+        self.syncCurrentStepProgressLabel.text = ""
+        
+        self.peerCountLabel.text = "\(WalletLoader.shared.multiWallet.connectedPeers())"
+    }
+    
+    private func displayLatestBlockHeightAndAge() {
+        guard let bestBlockInfo = WalletLoader.shared.multiWallet.getBestBlock() else { return }
+        
+        let bestBlockHeight = bestBlockInfo.height
+        let bestBlockAge = Int64(Date().timeIntervalSince1970) - bestBlockInfo.timestamp
+        let bestBlockAgeAsTimeAgo = Utils.timeAgo(timeInterval: bestBlockAge)
+        
+        let latestBlockText = String(format: LocalizedStrings.latestBlockAge, bestBlockHeight, bestBlockAgeAsTimeAgo)
+
+        let bestBlockHeightRange = (latestBlockText as NSString).range(of: "\(bestBlockHeight)")
+        let bestBlockAgeRange = (latestBlockText as NSString).range(of: bestBlockAgeAsTimeAgo)
+        
+        let attributedString = NSMutableAttributedString(string: latestBlockText)
+        attributedString.addAttribute(NSAttributedString.Key.foregroundColor,
+                                      value: UIColor.appColors.darkBlue,
+                                      range: bestBlockHeightRange)
+        attributedString.addAttribute(NSAttributedString.Key.foregroundColor,
+                                      value: UIColor.appColors.darkBlue,
+                                      range: bestBlockAgeRange)
+        
+        self.latestBlockLabel.attributedText = attributedString
+    }
+    
+    private func displayConnectedPeersCount() {
+        let peerCount = WalletLoader.shared.multiWallet.connectedPeers()
+        if peerCount == 0 {
+            self.connectedPeersLabel.attributedText = NSMutableAttributedString(string: LocalizedStrings.noConnectedPeer)
             return
         }
-          
+        
+        let connectedPeerText = String(format: LocalizedStrings.connectedTo, peerCount)
+        let peerCountRange = (connectedPeerText as NSString).range(of: "\(peerCount)")
+        
+        let attributedString = NSMutableAttributedString(string: connectedPeerText)
+        attributedString.addAttribute(NSAttributedString.Key.foregroundColor,
+                                      value: UIColor.appColors.darkBlue,
+                                      range: peerCountRange)
+        
+        self.connectedPeersLabel.attributedText = attributedString
+    }
+    
+    @IBAction func seedBackupTapped(_ sender: Any) {
+        let seedBackupReminderVC = SeedBackupReminderViewController.instance().wrapInNavigationcontroller()
+        seedBackupReminderVC.modalPresentationStyle = .overFullScreen
+        self.present(seedBackupReminderVC, animated: true)
+    }
+    
+    @IBAction func showAllTransactionsTap(_ sender: Any) {
+        guard let txHistoryTabIndex = NavigationMenuTabBarController.tabItems.firstIndex(of: .transactions) else {
+            return
+        }
+        
+        // Our navigation controller is set as our root view controller, we need to access its already created instance
+        let navigationTabBarController = AppDelegate.shared.window!.rootViewController as! NavigationMenuTabBarController
+        navigationTabBarController.navigateToTab(index: txHistoryTabIndex)
+    }
+
+    // Handle action of sync connect/reconnect/cancel button click based on sync/network status
+    @IBAction func syncConnectionButtonTap(_ sender: Any) {
+        if SyncManager.shared.isSynced || SyncManager.shared.isSyncing {
+            WalletLoader.shared.multiWallet.cancelSync()
+        } else {
+            SyncManager.shared.startOrRestartSync(allowSyncOnCellular: Settings.syncOnCellular)
+        }
+        
+        self.updateSyncConnectionButtonTextAndIcon()
+    }
+        
+    @IBAction func showOrHideSyncDetails(_ sender: Any) {
+        self.syncDetailsSection.isHidden = !self.syncDetailsSection.isHidden
+        if self.syncDetailsSection.isHidden {
+            self.showSyncDetailsButton.setTitle(LocalizedStrings.showDetails, for: .normal)
+        } else {
+            self.showSyncDetailsButton.setTitle(LocalizedStrings.hideDetails, for: .normal)
+        }
+    }
+}
+
+// extension methods for parent scrollview delegate so we can update
+// the nav bar page title text on user scroll.
+extension OverviewViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.updatePageTitleTextOnScroll(using: scrollView)
+    }
+
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        self.updatePageTitleTextOnScroll(using: scrollView)
+    }
+
+    func updatePageTitleTextOnScroll(using scrollView: UIScrollView) {
+        // We are targeting only the parent scroll view because this VC also holds a tableview that can be scrolled
+        // and we do not want to react to that.
+        guard scrollView == self.parentScrollView else { return }
+
+        if scrollView.contentOffset.y < self.balanceLabel.frame.height / 2 {
+            self.pageTitleLabel.text = LocalizedStrings.overview
+            self.pageTitleSeparator.isHidden = true
+        } else {
+            self.pageTitleLabel.attributedText = self.balanceLabel.attributedText!
+            self.pageTitleSeparator.isHidden = false
+        }
+    }
+}
+
+// extension methods for recent activity tableview delegate and datasource.
+extension OverviewViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return TransactionTableViewCell.height()
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.recentTransactions.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: TransactionTableViewCell.identifier) as! TransactionTableViewCell
+        let tx = self.recentTransactions[indexPath.row]
+        cell.setData(tx)
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if self.recentTransactions[indexPath.row].animate {
+            cell.blink()
+        }
+        self.recentTransactions[indexPath.row].animate = false
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let txDetailsVC = Storyboards.TransactionDetails.instantiateViewController(for: TransactionDetailsViewController.self)
+        txDetailsVC.transaction = self.recentTransactions[indexPath.row]
+        self.navigationController?.pushViewController(txDetailsVC, animated: true)
+    }
+}
+
+extension OverviewViewController: DcrlibwalletSyncProgressListenerProtocol {
+    func onSyncStarted(_ wasRestarted: Bool) {
+        DispatchQueue.main.async {
+            self.updateWalletStatusIndicatorAndLabel()
+            self.updateSyncStatusIndicatorAndLabel()
+            self.updateSyncConnectionButtonTextAndIcon()
+            self.toggleSyncProgressViews(isSyncing: true)
+            self.clearAndHideSyncDetails()
+            
+            if wasRestarted {
+                self.syncStatusLabel.text = LocalizedStrings.restartingSync
+            }
+        }
+    }
+    
+    func onPeerConnectedOrDisconnected(_ numberOfConnectedPeers: Int32) {
+        DispatchQueue.main.async {
+            if WalletLoader.shared.multiWallet.isSyncing() {
+                self.peerCountLabel.text = "\(numberOfConnectedPeers)"
+            } else {
+                self.displayConnectedPeersCount()
+            }
+        }
+    }
+    
+    func onHeadersFetchProgress(_ headersFetchProgress: DcrlibwalletHeadersFetchProgressReport?) {
+        guard let report = headersFetchProgress else { return }
+        
+        DispatchQueue.main.async {
+            self.syncStatusLabel.text = LocalizedStrings.synchronizing
+            self.displayGeneralSyncProgress(report.generalSyncProgress)
+            
+            self.syncCurrentStepNumberLabel.text = String(format: LocalizedStrings.syncSteps, 1)
+            self.syncCurrentStepSummaryLabel.text = String(format: LocalizedStrings.headersFetchProgress, report.headersFetchProgress)
+            
+            self.syncCurrentStepTitleLabel.text = LocalizedStrings.blockHeadersFetched
+            self.syncCurrentStepReportLabel.text = String(format: LocalizedStrings.fetchedHeaders, report.currentHeaderHeight, report.totalHeadersToFetch)
+            
+            self.syncCurrentStepProgressLabel.text = String(format: LocalizedStrings.bestBlockAgebehind, report.bestBlockAge)
+        }
+    }
+    
+    func onAddressDiscoveryProgress(_ addressDiscoveryProgress: DcrlibwalletAddressDiscoveryProgressReport?) {
+        guard let report = addressDiscoveryProgress else { return }
+        
+        DispatchQueue.main.async {
+            self.syncStatusLabel.text = LocalizedStrings.synchronizing
+            self.displayGeneralSyncProgress(report.generalSyncProgress)
+            
+            self.syncCurrentStepNumberLabel.text = String(format: LocalizedStrings.syncSteps, 2)
+            self.syncCurrentStepSummaryLabel.text = "\(LocalizedStrings.discoveringUsedAddresses) \(report.addressDiscoveryProgress)%"
+            
+            self.syncCurrentStepTitleLabel.text = LocalizedStrings.discoveringUsedAddresses
+            var reportFormat = LocalizedStrings.addressDiscoveryProgressThrough
+            if report.addressDiscoveryProgress > 100 {
+                reportFormat = LocalizedStrings.addressDiscoveryProgressOver
+            }
+            self.syncCurrentStepReportLabel.text = ""
+            
+            self.syncCurrentStepProgressLabel.text = String(format: reportFormat, report.addressDiscoveryProgress)
+        }
+    }
+    
+    func onHeadersRescanProgress(_ headersRescanProgress: DcrlibwalletHeadersRescanProgressReport?) {
+        guard let report = headersRescanProgress else { return }
+        
+        DispatchQueue.main.async {
+            self.syncStatusLabel.text = LocalizedStrings.synchronizing
+            self.displayGeneralSyncProgress(report.generalSyncProgress)
+            
+            self.syncCurrentStepNumberLabel.text = String(format: LocalizedStrings.syncSteps, 1)
+            self.syncCurrentStepSummaryLabel.text = String(format: LocalizedStrings.headersScannedProgress, report.rescanProgress)
+            
+            self.syncCurrentStepTitleLabel.text = LocalizedStrings.blockHeaderScanned
+            self.syncCurrentStepReportLabel.text = String(format: LocalizedStrings.scanningTotalHeaders, report.currentRescanHeight, report.totalHeadersToScan)
+            
+            self.syncCurrentStepProgressLabel.text = "\(report.rescanProgress)%"
+        }
+    }
+    
+    func onSyncCanceled(_ willRestart: Bool) {
+        DispatchQueue.main.async {
+            self.updateUI(syncCompletedSuccessfully: false)
+        }
+    }
+    
+    func onSyncCompleted() {
+        DispatchQueue.main.async {
+            self.updateUI(syncCompletedSuccessfully: true)
+        }
+    }
+    
+    func onSyncEndedWithError(_ err: Error?) {
+        DispatchQueue.main.async {
+            self.updateUI(syncCompletedSuccessfully: false)
+        }
+    }
+    
+    func debug(_ debugInfo: DcrlibwalletDebugInfo?) {
+        DispatchQueue.main.async {
+        }
+    }
+    
+    func displayGeneralSyncProgress(_ progressReport: DcrlibwalletGeneralSyncProgress?) {
+        guard let report = progressReport else { return }
+        
+        self.totalSyncProgressView.progress = Float(report.totalSyncProgress) / 100.0
+        self.totalSyncProgressPercentageLabel.text = String(format: LocalizedStrings.syncProgressComplete, report.totalSyncProgress)
+        self.totalSyncETALabel.text = String(format: LocalizedStrings.syncTimeLeft, report.totalTimeRemaining)
+    }
+    
+    func updateUI(syncCompletedSuccessfully synced: Bool) {
+        self.updateWalletStatusIndicatorAndLabel()
+        self.updateSyncStatusIndicatorAndLabel()
+        self.updateSyncConnectionButtonTextAndIcon()
+        self.toggleSyncProgressViews(isSyncing: false)
+        self.displayLatestBlockHeightAndAge()
+        self.refreshLatestBlockInfoPeriodically()
+        self.clearAndHideSyncDetails()
+        
+        if synced {
+            self.updateMultiWalletBalance()
+            self.updateRecentActivity()
+        }
+    }
+    
+    func refreshLatestBlockInfoPeriodically() {
         if self.refreshBestBlockAgeTimer != nil {
             self.refreshBestBlockAgeTimer?.invalidate()
         }
           
         self.refreshBestBlockAgeTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) {_ in
             DispatchQueue.main.async {
-                self.setLatestBlockLabel(latestBlock: latestBlock)
+                self.displayLatestBlockHeightAndAge()
             }
         }
-    }
-    
-    func stopBestBlockAgeUpdate() {
-               self.refreshBestBlockAgeTimer?.invalidate()
-               self.refreshBestBlockAgeTimer = nil
-    }
-    
-    func updateCurrentBalance() {
-        DispatchQueue.main.async {
-            let totalWalletAmount = AppDelegate.walletLoader.wallet?.totalWalletBalance()
-            let totalAmountRoundedOff = (Decimal(totalWalletAmount!) as NSDecimalNumber).round(8)
-             self.balanceLabel.attributedText = Utils.getAttributedString(str: "\(totalAmountRoundedOff)", siz: 17.0, TexthexColor: UIColor.appColors.darkBlue)
-        }
-    }
-    
-    // Show no transactions label while transaction list is empty
-    func showNoTransactions() {
-        self.recentTransactionsTableView.isHidden = true
-        self.noTransactionsLabelView.isHidden = false
-    }
-    
-    // Action for when show/hide sync details button is tapped
-    @objc func handleShowSyncToggle() {
-        self.syncToggle = !self.syncToggle
-    }
-    
-    @objc func showAllTransactions() {
-        // Our navigation controller is set as our root view controller, we need to access its already created instance
-        let navigation = AppDelegate.shared.window!.rootViewController as! NavigationMenuTabBarController
-        // Now we find our transactions controller index on the tab menu
-        navigation.viewControllers!.enumerated().forEach({
-            if ($0.element.children.first as? TransactionHistoryViewController) != nil {
-                navigation.navigateToTab(index: $0.offset) // Tab index found, navigate to it
-                return
-            }
-        })
     }
 }
 
-// todo this listener is not attached to any notifier
 extension OverviewViewController: DcrlibwalletTxAndBlockNotificationListenerProtocol {
     func onBlockAttached(_ walletID: Int, blockHeight: Int32) {
         // not relevant to this VC
@@ -539,10 +498,10 @@ extension OverviewViewController: DcrlibwalletTxAndBlockNotificationListenerProt
         
         tx.animate = true
         self.recentTransactions.insert(tx, at: 0)
-        self.updateCurrentBalance()
+        self.updateMultiWalletBalance()
         
         DispatchQueue.main.async {
-            if self.recentTransactions.count > Int(self.maxDisplayItems) {
+            if self.recentTransactions.count > 3 {
                 _ = self.recentTransactions.popLast()
             }
             self.recentTransactionsTableView.reloadData()
@@ -551,63 +510,8 @@ extension OverviewViewController: DcrlibwalletTxAndBlockNotificationListenerProt
     
     func onTransactionConfirmed(_ walletID: Int, hash: String?, blockHeight: Int32) {
         DispatchQueue.main.async {
-            self.updateCurrentBalance()
+            self.updateMultiWalletBalance()
             self.recentTransactionsTableView.reloadData()
-        }
-    }
-}
-
-extension OverviewViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return TransactionTableViewCell.height()
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if self.recentTransactions.count == 0 {
-            return
-        }
-        
-        let txDetailsVC = Storyboards.TransactionDetails.instantiateViewController(for: TransactionDetailsViewController.self)
-        txDetailsVC.transaction = self.recentTransactions[indexPath.row]
-        self.navigationController?.pushViewController(txDetailsVC, animated: true)
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if self.recentTransactions[indexPath.row].animate {
-            cell.blink()
-        }
-        self.recentTransactions[indexPath.row].animate = false
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.showAllTransactionsButton.isHidden = (self.recentTransactions.count > 3) ? false : true
-        self.noTransactionsLabelView.isHidden = (self.recentTransactions.count > 0) ? true : false
-        self.recentTransactionsTableView.isHidden = (self.recentTransactions.count > 0) ? false : true
-        return min(self.recentTransactions.count, self.maxDisplayItems)
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: TransactionTableViewCell.identifier) as! TransactionTableViewCell
-        
-        if self.recentTransactions.count != 0 {
-            let tx = self.recentTransactions[indexPath.row]
-            cell.setData(tx)
-        }
-        return cell
-    }
-}
-
-extension OverviewViewController: UIScrollViewDelegate {
-    // Update overview label on navigation bar to show wallet balance on scroll down
-    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
-        let actualPosition = scrollView.panGestureRecognizer.translation(in: scrollView.superview)
-        // We are targetting only the parent scroll view which we gave a tag of 2. this is because this view holds a tableview that can be scrolled and we do not want to react to that
-        if scrollView.tag == 2 {
-            if (actualPosition.y > 1) {
-                self.pageTitleLabel.text = LocalizedStrings.overview
-            } else {
-                self.pageTitleLabel.attributedText = self.balanceLabel.attributedText!
-            }
         }
     }
 }

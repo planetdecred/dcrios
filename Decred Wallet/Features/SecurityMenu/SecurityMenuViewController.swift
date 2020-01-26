@@ -2,7 +2,7 @@
 //  SecurityMenuViewController.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -40,7 +40,7 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        wallet = AppDelegate.walletLoader.wallet
+        wallet = WalletLoader.shared.wallet
         self.address.delegate = self
         self.signature.delegate = self
         self.message.delegate = self
@@ -49,7 +49,7 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
         self.address.placeholder = LocalizedStrings.address
         self.message.placeholder = LocalizedStrings.message
         
-        if AppDelegate.walletLoader.isSynced {
+        if SyncManager.shared.isSynced {
             self.toggleView()
         }
     }
@@ -58,7 +58,7 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
         super.viewWillAppear(animated)
         self.navigationItem.title = LocalizedStrings.security
 
-        if !AppDelegate.walletLoader.isSynced {
+        if !SyncManager.shared.isSynced {
             syncInfoLabel.isHidden = false
             return
         }

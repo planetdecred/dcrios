@@ -2,7 +2,7 @@
 //  WalletSetupBaseController.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -20,7 +20,7 @@ class WalletSetupBaseViewController: UIViewController {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let this = self else { return }
             
-            let multiwallet = AppDelegate.walletLoader.multiWallet
+            let multiwallet = WalletLoader.shared.multiWallet
             let privatePassphraseType = securityType == SecurityViewController.SECURITY_TYPE_PASSWORD ? DcrlibwalletPassphraseTypePass : DcrlibwalletPassphraseTypePin
             
             do {
@@ -32,7 +32,7 @@ class WalletSetupBaseViewController: UIViewController {
                     if Settings.newWalletSetUp {
                         Settings.setValue(seed, for: Settings.Keys.Seed)
                         Settings.setValue(false, for: Settings.Keys.SeedBackedUp)
-                        NavigationMenuTabBarController.setupMenuAndLaunchApp(isNewWallet: true)
+                        NavigationMenuTabBarController.setupMenuAndLaunchApp()
                     } else {
                         Settings.setValue(true, for: Settings.Keys.SeedBackedUp)
                         completionDelegate?.securityCodeProcessed(true, nil)

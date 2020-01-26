@@ -2,7 +2,7 @@
 //  Utils.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -31,6 +31,40 @@ struct Utils {
         static let Year: Int64 = TimeInSeconds.Month * 12
     }
     
+    static func timeAgo(timeInterval: Int64) -> String {
+        switch timeInterval {
+        case Int64.min...0:
+            return LocalizedStrings.now
+            
+        case 0..<Utils.TimeInSeconds.Minute:
+            return String(format: LocalizedStrings.secondsAgo, timeInterval)
+            
+        case Utils.TimeInSeconds.Minute..<Utils.TimeInSeconds.Hour:
+            let minutes = timeInterval / Utils.TimeInSeconds.Minute
+            return String(format: LocalizedStrings.minAgo, minutes)
+            
+        case Utils.TimeInSeconds.Hour..<Utils.TimeInSeconds.Day:
+            let hours = timeInterval / Utils.TimeInSeconds.Hour
+            return String(format: LocalizedStrings.hrsAgo, hours)
+            
+        case Utils.TimeInSeconds.Day..<Utils.TimeInSeconds.Week:
+            let days = timeInterval / Utils.TimeInSeconds.Day
+            return String(format: LocalizedStrings.daysAgo, days)
+            
+        case Utils.TimeInSeconds.Week..<Utils.TimeInSeconds.Month:
+            let weeks = timeInterval / Utils.TimeInSeconds.Week
+            return String(format: LocalizedStrings.weeksAgo, weeks)
+            
+        case Utils.TimeInSeconds.Month..<Utils.TimeInSeconds.Year:
+            let months = timeInterval / Utils.TimeInSeconds.Month
+            return String(format: LocalizedStrings.monthsAgo, months)
+            
+        default:
+            let years = timeInterval / Utils.TimeInSeconds.Year
+            return String(format: LocalizedStrings.yearsAgo, years)
+        }
+    }
+    
     static func showProgressHud(withText text: String) -> JGProgressHUD {
         let hud = JGProgressHUD(style: .light)
         hud.textLabel.text = text
@@ -44,7 +78,7 @@ struct Utils {
         let int64Pointer = UnsafeMutablePointer<Int64>.allocate(capacity: 64)
         do {
             
-            try  AppDelegate.walletLoader.wallet?.spendable(forAccount: account.number, requiredConfirmations: iRequireConfirm, ret0_: int64Pointer)
+            try WalletLoader.shared.wallet?.spendable(forAccount: account.number, requiredConfirmations: iRequireConfirm, ret0_: int64Pointer)
         } catch let error{
             print(error)
             return 0.0
@@ -69,6 +103,7 @@ struct Utils {
         }
     }
     
+    // todo this function is a mess, should be refactored!
     static func getAttributedString(str: String, siz: CGFloat, TexthexColor: UIColor) -> NSAttributedString {
         var tmpString = str
         if tmpString.contains("."){

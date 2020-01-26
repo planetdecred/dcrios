@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -30,8 +30,6 @@ class AppDelegate: UIResponder {
     var lifeCycleDelegates = [String : AppLifeCycleDelegate]()
     
     var reachability: Reachability!
-    
-    static var walletLoader: WalletLoader = WalletLoader()
     
     var lastActiveTimestamp: Double?
     var shouldTrackLastActiveTime: Bool = false
@@ -158,6 +156,6 @@ extension AppDelegate: UIApplicationDelegate {
     func applicationWillTerminate(_: UIApplication) {
         lifeCycleDelegates.forEach {$0.value.applicationWillTerminate()}
         self.reachability.stopNotifier()
-        AppDelegate.walletLoader.wallet?.shutdown()
+        WalletLoader.shared.multiWallet.shutdown()
     }
 }

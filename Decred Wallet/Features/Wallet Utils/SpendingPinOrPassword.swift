@@ -2,7 +2,7 @@
 //  PrivatePassphrase.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -56,10 +56,10 @@ struct SpendingPinOrPassword {
             do {
                 let passphraseType = securityType == SecurityViewController.SECURITY_TYPE_PASSWORD ? DcrlibwalletPassphraseTypePass : DcrlibwalletPassphraseTypePin
                 
-                try AppDelegate.walletLoader.multiWallet.changePrivatePassphrase(forWallet: AppDelegate.walletLoader.wallet!.id_,
-                                                                                 oldPrivatePassphrase: oldPrivatePass,
-                                                                                 newPrivatePassphrase: newPrivatePass,
-                                                                                 privatePassphraseType: passphraseType)
+                try WalletLoader.shared.multiWallet.changePrivatePassphrase(forWallet: WalletLoader.shared.wallet!.id_,
+                                                                            oldPrivatePassphrase: oldPrivatePass,
+                                                                            newPrivatePassphrase: newPrivatePass,
+                                                                            privatePassphraseType: passphraseType)
                 DispatchQueue.main.async {
                     completionDelegate?.securityCodeProcessed(true, nil)
                     Settings.setValue(securityType, for: Settings.Keys.SpendingPassphraseSecurityType)

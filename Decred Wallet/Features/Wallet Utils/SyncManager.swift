@@ -2,7 +2,7 @@
 //  SyncManager.swift
 //  Decred Wallet
 //
-// Copyright (c) 2019 The Decred developers
+// Copyright (c) 2019-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -10,194 +10,275 @@ import UIKit
 import Dcrlibwallet
 import Signals
 
-class SyncManager: NSObject, SyncProgressListenerProtocol {
+class SyncManager: NSObject {
     static let shared = SyncManager()
     
-    var peers: Signal = Signal<Int32>()
-    var syncStatus: Signal = Signal<(Bool, String?)>()
-    var syncProgress =  Signal<(DcrlibwalletGeneralSyncProgress?, Any?)>()
+    var stalledSyncTracker: Timer?
+    var networkLastActive: Date?
+    var backgroundTask: UIBackgroundTaskIdentifier = .invalid
     
-    // This is a custom listener for current sync operation/stage. the current sync operation can be deduced as a number
-    // 1 => fetching headers. 2 => discovering address, 3 => rescanning headers
-    var syncStage = Signal<(Int, String)>()
-    var networkConnectionStatus: ((_ status: Bool) -> Void)?
-    var isResartingSync = false
+    var isSyncing: Bool {
+        return WalletLoader.shared.multiWallet.isSyncing()
+    }
+    
+    var isSynced: Bool {
+        return WalletLoader.shared.multiWallet.isSynced()
+    }
+    
+    var currentNetworkConnection: Reachability.Connection {
+        // Re-trigger app network change listener to ensure correct network status is determined.
+        AppDelegate.shared.listenForNetworkChanges()
+        return AppDelegate.shared.reachability.connection
+    }
     
     override init() {
         super.init()
-        AppDelegate.walletLoader.syncer.registerSyncProgressListener(for: "\(self)", self)
-        AppDelegate.walletLoader.syncer.registerEstimatedSyncProgressListener()
-        self.networkConnectionStatus?(false) // We assume network is not connected on launch
+        try? WalletLoader.shared.multiWallet.add(self, uniqueIdentifier: "\(self)")
+        WalletLoader.shared.multiWallet.enableSyncLogs()
     }
     
-    func checkNetworkConnectionForSync() {
-        // Re-trigger app network change listener to ensure correct network status is determined.
-        AppDelegate.shared.listenForNetworkChanges()
-        
-        if AppDelegate.shared.reachability.connection == .none {
-            DispatchQueue.main.async {
-                let noConnectionAlert = UIAlertController(title: LocalizedStrings.internetConnectionRequired, message: LocalizedStrings.cannotSyncWithoutNetworkConnection, preferredStyle: .alert)
-                noConnectionAlert.addAction(UIAlertAction(title: LocalizedStrings.ok, style: .default, handler: nil))
-                AppDelegate.shared.window?.rootViewController?.present(noConnectionAlert, animated: false, completion: self.checkSyncPermission)
-            }
-        } else {
-            self.checkSyncPermission()
-        }
-    }
-    
-    func checkSyncPermission() {
-        if AppDelegate.shared.reachability.connection == .none {
-            self.syncNotStartedDueToNetwork()
-        } else if AppDelegate.shared.reachability.connection == .wifi || Settings.syncOnCellular {
-            self.networkConnectionStatus?(true) // Network is available, update any listening views
-            self.startSync(isRestarting: isResartingSync)
-        } else {
-            self.requestPermissionToSync()
-        }
-    }
-    
-    func requestPermissionToSync() {
-        let syncConfirmationDialog = UIAlertController(title: LocalizedStrings.internetConnectionRequired, message: LocalizedStrings.cannotSyncWithoutNetworkConnection, preferredStyle: .alert)
-        
-        syncConfirmationDialog.addAction(UIAlertAction(title: LocalizedStrings.allowOnce, style: .default, handler: { action in
-            self.startSync(isRestarting: self.isResartingSync)
-        })) // Allow once selected
-        
-        syncConfirmationDialog.addAction(UIAlertAction(title: LocalizedStrings.alwaysAllow, style: .default, handler: { action in
-            Settings.setValue(true, for: Settings.Keys.SyncOnCellular)
-            self.startSync(isRestarting: self.isResartingSync)
-        })) // Always allow even on cellular selected
-        
-        syncConfirmationDialog.addAction(UIAlertAction(title: LocalizedStrings.notNow, style: .cancel, handler: { action in
-            self.syncNotStartedDueToNetwork()
-        })) // Not now selected. Do not sync
-        
-        DispatchQueue.main.async {
-            AppDelegate.shared.window?.rootViewController?.present(syncConfirmationDialog, animated: true, completion: nil)
-        }
-    }
-    
-    func syncNotStartedDueToNetwork() {
-        AppDelegate.walletLoader.syncer.deRegisterSyncProgressListener(for: "\(self)")
-        AppDelegate.walletLoader.multiWallet.cancelSync()
-        
-        // Allow 0.5 seconds for sync cancellation to complete before setting up wallet.
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            AppDelegate.walletLoader.syncer.assumeSyncCompleted()
-            self.onSyncEndedWithError(LocalizedStrings.connectToWiFiToSync)
-            self.networkConnectionStatus?(false)
-        }
-    }
-    
-    
-    func startSync(isRestarting: Bool) {
-        AppDelegate.walletLoader.syncer.registerSyncProgressListener(for: "\(self)", self)
-        
-        // We want to start sync after determining if we are restarting or not.
-        if isRestarting {
-            AppDelegate.walletLoader.syncer.restartSync()
-        } else {
-            AppDelegate.walletLoader.syncer.beginSync()
-        }
-    }
-    
-    func onSyncEndedWithError(_ error: String) {
-        self.syncStatus => (false, LocalizedStrings.walletNotSynced)
-        self.networkConnectionStatus?(false)
-        print("Sync ended with error: \(error)") // for debugging purpose
-    }
-    
-    func onStarted(_ wasRestarted: Bool) {
-        let statusMessage = wasRestarted ? LocalizedStrings.restartingSync : LocalizedStrings.startingSynchronization
-        self.syncStatus => (true, statusMessage)
-        self.peers => AppDelegate.walletLoader.syncer.connectedPeersCount
-        self.networkConnectionStatus?(true)
-    }
-    
-    func onHeadersFetchProgress(_ progressReport: DcrlibwalletHeadersFetchProgressReport) {
-        let progress = Float(progressReport.headersFetchProgress) / 100.0
-        self.syncStage => (1, String(format: LocalizedStrings.syncStageDescription, LocalizedStrings.fetchingBlockHeaders, progress))
-        self.syncProgress => (progressReport.generalSyncProgress!, progressReport)
-        self.syncStatus => (true, LocalizedStrings.synchronizing)
-        self.peers => AppDelegate.walletLoader.syncer.connectedPeersCount
-    }
-    
-    func onAddressDiscoveryProgress(_ progressReport: DcrlibwalletAddressDiscoveryProgressReport) {
-        self.syncStage => (2, LocalizedStrings.discoveringUsedAddresses)
-        self.syncProgress => (progressReport.generalSyncProgress!, progressReport)
-        self.peers => AppDelegate.walletLoader.syncer.connectedPeersCount
-    }
-    
-    func onHeadersRescanProgress(_ progressReport: DcrlibwalletHeadersRescanProgressReport) {
-        if progressReport.generalSyncProgress == nil{
+    func startOrRestartSync(allowSyncOnCellular: Bool) {
+        // Check the updated network status before starting/restarting sync.
+        if self.currentNetworkConnection == .none {
+            self.requestInternetConnectionForSync()
             return
-        }else{
-            let progress = Float(progressReport.rescanProgress) / 100.0
-            self.syncProgress => (progressReport.generalSyncProgress!, progressReport)
-            self.syncStage => (3, String(format: LocalizedStrings.syncStageDescription, LocalizedStrings.scanningBlocks, progress))
-            self.peers => AppDelegate.walletLoader.syncer.connectedPeersCount
+        }
+        if self.currentNetworkConnection == .cellular && !allowSyncOnCellular {
+            self.requestPermissionToSyncOnCellular()
+            return
+        }
+        
+        do {
+            if WalletLoader.shared.multiWallet.isSyncing() {
+                try WalletLoader.shared.multiWallet.restartSpvSync()
+            } else {
+                try WalletLoader.shared.multiWallet.spvSync()
+            }
+        } catch (let syncError) {
+            AppDelegate.shared.showOkAlert(message: syncError.localizedDescription, title: LocalizedStrings.syncError)
         }
     }
     
-    func onSyncCompleted() {
-        if (AppDelegate.walletLoader.multiWallet.isSynced() == true) {
-            AppDelegate.walletLoader.syncer.deRegisterSyncProgressListener(for: "\(self)")
-            self.syncStatus => (false, nil)
-            self.peers => AppDelegate.walletLoader.syncer.connectedPeersCount
-        }
+    func requestInternetConnectionForSync() {
+        let noConnectionAlert = UIAlertController(title: LocalizedStrings.internetConnectionRequired,
+                                                  message: LocalizedStrings.cannotSyncWithoutNetworkConnection,
+                                                  preferredStyle: .alert)
+        
+        noConnectionAlert.addAction(UIAlertAction(title: LocalizedStrings.ok, style: .default, handler: { _ in
+            // Check if a network connection has been established and re-attempt to sync.
+            if self.currentNetworkConnection != .none {
+                self.startOrRestartSync(allowSyncOnCellular: Settings.syncOnCellular)
+            } else if WalletLoader.shared.multiWallet.isSyncing() {
+                // Cancel sync if sync was ongoing but there is no internet.
+                WalletLoader.shared.multiWallet.cancelSync()
+            }
+        }))
+        
+        AppDelegate.shared.window?.rootViewController?.present(noConnectionAlert, animated: false)
+    }
+    
+    func requestPermissionToSyncOnCellular() {
+        // todo this title and message look wrong!
+        let syncConfirmationDialog = UIAlertController(title: LocalizedStrings.internetConnectionRequired,
+                                                       message: LocalizedStrings.cannotSyncWithoutNetworkConnection,
+                                                       preferredStyle: .alert)
+        
+        // Dialog option to allow sync on cellular just once.
+        syncConfirmationDialog.addAction(UIAlertAction(title: LocalizedStrings.allowOnce, style: .default, handler: { _ in
+            self.startOrRestartSync(allowSyncOnCellular: true)
+        }))
+        
+        // Dialog option to ALWAYS allow syncing on cellular.
+        syncConfirmationDialog.addAction(UIAlertAction(title: LocalizedStrings.alwaysAllow, style: .default, handler: { _ in
+            Settings.setValue(true, for: Settings.Keys.SyncOnCellular)
+            self.startOrRestartSync(allowSyncOnCellular: true)
+        }))
+        
+        // Dialog option to not use cellular network for now.
+        syncConfirmationDialog.addAction(UIAlertAction(title: LocalizedStrings.notNow, style: .cancel, handler: { _ in
+            if WalletLoader.shared.multiWallet.isSyncing() {
+                // Cancel sync if sync was ongoing but user said not to use cellular network.
+                WalletLoader.shared.multiWallet.cancelSync()
+            }
+        }))
+        
+        AppDelegate.shared.window?.rootViewController?.present(syncConfirmationDialog, animated: true)
+    }
+}
+
+// extension to track delayed sync updates and restart sync
+extension SyncManager: DcrlibwalletSyncProgressListenerProtocol {
+    func onSyncStarted(_ wasRestarted: Bool) {
     }
     
     func onPeerConnectedOrDisconnected(_ numberOfConnectedPeers: Int32) {
-        self.peers => numberOfConnectedPeers
+    }
+    
+    func onHeadersFetchProgress(_ headersFetchProgress: DcrlibwalletHeadersFetchProgressReport?) {
+        self.restartSyncIfItStalls()
+    }
+    
+    func onAddressDiscoveryProgress(_ addressDiscoveryProgress: DcrlibwalletAddressDiscoveryProgressReport?) {
+        self.restartSyncIfItStalls()
+    }
+    
+    func onHeadersRescanProgress(_ headersRescanProgress: DcrlibwalletHeadersRescanProgressReport?) {
+        self.restartSyncIfItStalls()
     }
     
     func onSyncCanceled(_ willRestart: Bool) {
-        self.syncStatus => (false, willRestart ? LocalizedStrings.restartingSync : nil)
-        self.peers => AppDelegate.walletLoader.syncer.connectedPeersCount
-        self.networkConnectionStatus?(false)
+        self.stalledSyncTracker?.invalidate()
+        self.stalledSyncTracker = nil
     }
     
-    func debug(_ debugInfo: DcrlibwalletDebugInfo) {
-        // TODO: show full debug information on long press of show sync details button
+    func onSyncCompleted() {
+        self.stalledSyncTracker?.invalidate()
+        self.stalledSyncTracker = nil
     }
     
-    func setBestBlockAge() -> String {
-        if AppDelegate.walletLoader.multiWallet.isRescanning() {
-            return ""
+    func onSyncEndedWithError(_ err: Error?) {
+        self.stalledSyncTracker?.invalidate()
+        self.stalledSyncTracker = nil
+    }
+    
+    func debug(_ debugInfo: DcrlibwalletDebugInfo?) {
+    }
+    
+    func restartSyncIfItStalls() {
+        // Cancel any previously set sync-restart timer.
+        self.stalledSyncTracker?.invalidate()
+
+        // No need to restart if sync is no longer in progress.
+        if !self.isSyncing {
+            return
+        }
+
+        // Setup new timer to restart sync in 30 seconds.
+        // This timer would/should be canceled/invalidated if a sync update is received before the set interval (30 seconds).
+        DispatchQueue.main.async {
+            self.stalledSyncTracker = Timer.scheduledTimer(withTimeInterval: 30, repeats: false) {_ in
+                // No need to restart if sync is no longer in progress.
+                guard self.isSyncing else { return }
+                
+                self.startOrRestartSync(allowSyncOnCellular: Settings.syncOnCellular)
+                self.stalledSyncTracker = nil
+            }
+        }
+    }
+}
+
+// extension to react to changes in application state or network connection:
+/// - applicationWillEnterBackground:
+///   Registers a background task to keep the sync process alive for a few minutes even after app enters background.
+/// - applicationEnteredForegroundFromSuspendedState:
+///   Accounts for any amount of time lost because the app was suspended causing the ongoing sync to stall.
+/// - applicationWillTerminate:
+///   Kills any previously registered background task when the app terminates.
+/// - networkChanged:
+///   Tracks network changes to account for any amount of time lost due to network unavailability causing the ongoing sync to stall.
+extension SyncManager: AppLifeCycleDelegate {
+    func applicationWillEnterBackground() {
+        // Deregister any previous background task before registering a new one.
+        // Especially when the user frequently switches between background and foreground states while sync is in progress.
+        self.endBackgroundTask()
+        
+        if self.isSyncing && backgroundTask == .invalid {
+            self.registerBackgroundTask()
+            if let progress = WalletLoader.shared.multiWallet.generalSyncProgress() {
+                fireLocalBackgroundSyncNotificationIfInBackground(with: progress)
+            }
+        }
+    }
+    
+    func applicationEnteredForegroundFromSuspendedState(_ lastActiveTime: Date) {
+        if !self.isSyncing {
+            // sync is not currently active, no need to update sync estimation parameters
+            return
         }
         
-        let bestBlockAge = Int64(Date().timeIntervalSince1970) - AppDelegate.walletLoader.wallet!.getBestBlockTimeStamp()
+        // Sync was obviously stalled because the app went to sleep.
+        // Unset any previous timer set to track stalled sync since we'd account for this particular stalling below.
+        self.stalledSyncTracker?.invalidate()
+        self.stalledSyncTracker = nil
         
-        switch bestBlockAge {
-        case Int64.min...0:
-            return LocalizedStrings.now
+        var syncLastActive = lastActiveTime
+        if self.networkLastActive != nil && self.networkLastActive!.isBefore(lastActiveTime) {
+            // Use network last active time if network was lost before app went to sleep.
+            syncLastActive = self.networkLastActive!
+        }
+        
+        let totalInactiveSeconds = Date().timeIntervalSince(syncLastActive)
+        WalletLoader.shared.multiWallet.syncInactive(forPeriod: Int64(totalInactiveSeconds))
+        
+        if self.networkLastActive != nil && AppDelegate.shared.reachability.connection == .none {
+            // Reset network last active time to current time so that when network connection is restored,
+            // previously lost time (that was already accounted for above) would not be re-accounted for.
+            self.networkLastActive = Date()
+        }
+    }
+    
+    func applicationWillTerminate() {
+        print("app terminated")
+        if backgroundTask != .invalid {
+            endBackgroundTask()
+        }
+    }
+    
+    func networkChanged(_ connection: Reachability.Connection) {
+        if !self.isSyncing {
+            // sync is not currently active, no need to worry about network changes
+            return
+        }
+        
+        if connection == .none {
+            self.networkLastActive = Date()
+            // Network becoming disconnected may cause sync to stall for a while.
+            // Unset any previous timer set to track stalled sync since we'd account
+            // for this particular stalling below when network becomes active again.
+            self.stalledSyncTracker?.invalidate()
+            self.stalledSyncTracker = nil
+        } else if self.networkLastActive != nil {
+            // Account for stalled sync by subtracting lost time from sync estimation parameters.
+            let totalInactiveSeconds = Date().timeIntervalSince(self.networkLastActive!)
+            WalletLoader.shared.multiWallet.syncInactive(forPeriod: Int64(totalInactiveSeconds))
+            self.networkLastActive = nil // Network is active at this point.
+        }
+    }
+    
+    private func registerBackgroundTask() {
+        self.backgroundTask = UIApplication.shared.beginBackgroundTask { [weak self] in
+            print("Background task expired")
+            self?.endBackgroundTask()
+        }
+        
+        assert(backgroundTask != .invalid)
+        print("Background task started at: ", Date())
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+    }
+
+    private func endBackgroundTask() {
+        NotificationsManager.shared.removeSyncInProgressNotification()
+        if backgroundTask != .invalid {
+            print("Background task ended at: ", Date())
+            backgroundTask = .invalid
             
-        case 0..<Utils.TimeInSeconds.Minute:
-            return String(format: LocalizedStrings.secondsAgo, bestBlockAge)
+            DispatchQueue.main.async {
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                UIApplication.shared.endBackgroundTask(self.backgroundTask)
+            }
+        }
+    }
+
+    private func fireLocalBackgroundSyncNotificationIfInBackground(with progress: DcrlibwalletGeneralSyncProgress) {
+         DispatchQueue.main.async {
+            if !self.isSyncing || UIApplication.shared.applicationState != .background {
+                return
+            }
             
-        case Utils.TimeInSeconds.Minute..<Utils.TimeInSeconds.Hour:
-            let minutes = bestBlockAge / Utils.TimeInSeconds.Minute
-            return String(format: LocalizedStrings.minAgo, minutes)
-            
-        case Utils.TimeInSeconds.Hour..<Utils.TimeInSeconds.Day:
-            let hours = bestBlockAge / Utils.TimeInSeconds.Hour
-            return String(format: LocalizedStrings.hrsAgo, hours)
-            
-        case Utils.TimeInSeconds.Day..<Utils.TimeInSeconds.Week:
-            let days = bestBlockAge / Utils.TimeInSeconds.Day
-            return String(format: LocalizedStrings.daysAgo, days)
-            
-        case Utils.TimeInSeconds.Week..<Utils.TimeInSeconds.Month:
-            let weeks = bestBlockAge / Utils.TimeInSeconds.Week
-            return String(format: LocalizedStrings.weeksAgo, weeks)
-            
-        case Utils.TimeInSeconds.Month..<Utils.TimeInSeconds.Year:
-            let months = bestBlockAge / Utils.TimeInSeconds.Month
-            return String(format: LocalizedStrings.monthsAgo, months)
-            
-        default:
-            let years = bestBlockAge / Utils.TimeInSeconds.Year
-            return String(format: LocalizedStrings.yearsAgo, years)
+            let message = String(format: LocalizedStrings.syncTotalProgress,
+                                 progress.totalSyncProgress,
+                                 progress.totalTimeRemaining)
+            NotificationsManager.shared.fireSyncInProgressNotification(with: message)
         }
     }
 }

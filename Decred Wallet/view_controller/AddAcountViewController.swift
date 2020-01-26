@@ -2,7 +2,7 @@
 //  AddAcountViewController.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -75,7 +75,7 @@ class AddAcountViewController: UIViewController {
         DispatchQueue.global(qos: .userInitiated).async {
             do {
                 // pass nil pointer as we don't need the account number
-                try AppDelegate.walletLoader.wallet?.nextAccount(accountName, privPass: passphrase, ret0_: nil)
+                try WalletLoader.shared.wallet?.nextAccount(accountName, privPass: passphrase, ret0_: nil)
                 DispatchQueue.main.async {
                     progressHud.dismiss()
                     completionDelegate?.securityCodeProcessed(true, nil)

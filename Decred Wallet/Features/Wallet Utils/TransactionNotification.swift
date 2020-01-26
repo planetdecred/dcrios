@@ -2,7 +2,7 @@
 //  TransactionNotification.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -22,10 +22,12 @@ protocol ConfirmedTransactionNotificationProtocol {
 }
 
 class TransactionNotification: NSObject {
+    static let shared = TransactionNotification()
+    
     var newTxHashes: [String] = [String]()
     
     func startListeningForNotifications() {
-        try? AppDelegate.walletLoader.multiWallet.add(self, uniqueIdentifier: "\(self)")
+        try? WalletLoader.shared.multiWallet.add(self, uniqueIdentifier: "\(self)")
     }
     
     func newTxNotification(_ transaction: String?) {

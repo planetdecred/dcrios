@@ -2,7 +2,7 @@
 //  StartScreenViewController.swift
 //  Decred Wallet
 
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -25,8 +25,7 @@ class StartScreenViewController: UIViewController {
             testnetLabel.isHidden = false
         }
 
-        AppDelegate.walletLoader = WalletLoader()
-        let initError = AppDelegate.walletLoader.initMultiWallet()
+        let initError = WalletLoader.shared.initMultiWallet()
         if initError != nil {
             print("init multiwallet error: \(initError!.localizedDescription)")
         }
@@ -45,7 +44,7 @@ class StartScreenViewController: UIViewController {
             self.startTimerWhenViewAppears = false
         }
 
-        if AppDelegate.walletLoader.oneOrMoreWalletsExist {
+        if WalletLoader.shared.oneOrMoreWalletsExist {
             self.label.text = LocalizedStrings.openingWallet
         }
     }
@@ -60,12 +59,12 @@ class StartScreenViewController: UIViewController {
     }
 
     func loadMainScreen() {
-        if !AppDelegate.walletLoader.initialized {
+        if !WalletLoader.shared.initialized {
             // there was an error initializing multiwallet
             return
         }
         
-        if AppDelegate.walletLoader.oneOrMoreWalletsExist {
+        if WalletLoader.shared.oneOrMoreWalletsExist {
             self.checkStartupSecurityAndStartApp()
         } else if DcrlibwalletWalletExistsAt(WalletLoader.appDataDir, BuildConfig.NetType) {
             self.checkStartupSecurityAndLinkExistingWallet()
@@ -84,13 +83,13 @@ class StartScreenViewController: UIViewController {
     
     func checkStartupSecurityAndLinkExistingWallet() {
         if !StartupPinOrPassword.pinOrPasswordIsSet() {
-            try? AppDelegate.walletLoader.linkExistingWalletAndStartApp(startupPinOrPassword: "")
+            try? WalletLoader.shared.linkExistingWalletAndStartApp(startupPinOrPassword: "")
             return
         }
         
         self.promptForStartupPinOrPassword() { startupPinOrPassword, completionDelegate in
             do {
-                try AppDelegate.walletLoader.linkExistingWalletAndStartApp(startupPinOrPassword: startupPinOrPassword)
+                try WalletLoader.shared.linkExistingWalletAndStartApp(startupPinOrPassword: startupPinOrPassword)
                 completionDelegate?.securityCodeProcessed(true, nil)
             } catch let error {
                 print("link existing wallet error: \(error.localizedDescription)")
@@ -130,10 +129,10 @@ class StartScreenViewController: UIViewController {
 
         DispatchQueue.global(qos: .userInitiated).async {
             do {
-                try AppDelegate.walletLoader.multiWallet.openWallets(startupPinOrPassword.utf8Bits)
+                try WalletLoader.shared.multiWallet.openWallets(startupPinOrPassword.utf8Bits)
                 DispatchQueue.main.async {
                     completionDelegate?.securityCodeProcessed(true, nil)
-                    NavigationMenuTabBarController.setupMenuAndLaunchApp(isNewWallet: false)
+                    NavigationMenuTabBarController.setupMenuAndLaunchApp()
                 }
             } catch let error {
                 DispatchQueue.main.async {

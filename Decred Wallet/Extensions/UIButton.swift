@@ -2,7 +2,7 @@
 //  UIButton.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -23,9 +23,14 @@ extension UIButton {
     }
     
     func addBorder(atPosition borderPosition: BorderPosition, color: UIColor, thickness: CGFloat = 1.7) {
+        let borderLayerName = "\(borderPosition.rawValue) border"
+        
+        // first remove any border previously added at `borderPosition`
+        self.layer.sublayers?.filter({ $0.name == borderLayerName }).forEach({ $0.removeFromSuperlayer() })
+        
         let borderLayer = CALayer()
         borderLayer.backgroundColor = color.cgColor
-        borderLayer.name = "\(borderPosition.rawValue) border"
+        borderLayer.name = borderLayerName
         
         switch borderPosition {
         case .left:
