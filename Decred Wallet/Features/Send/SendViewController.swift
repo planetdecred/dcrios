@@ -198,7 +198,7 @@ class SendViewController: UIViewController {
     }
     
     func setupAccountDropdowns() {
-        let walletAccounts = WalletLoader.shared.firstWallet!.walletAccounts(confirmations: self.requiredConfirmations)
+        let walletAccounts = WalletLoader.shared.firstWallet!.accounts(confirmations: self.requiredConfirmations)
             .filter({ !$0.isHidden && $0.number != INT_MAX }) // remove hidden wallets from array
         self.walletAccounts = walletAccounts
         

@@ -18,6 +18,7 @@ enum Storyboard: String {
     case Send = "Send"
     case Settings = "Settings"
     case TransactionDetails = "TransactionDetails"
+    case Wallets = "Wallets"
     case SecurityMenu = "SecurityMenu"
     case RecoverExistingWallet = "RecoverExistingWallet"
     case SeedBackup = "SeedBackup"

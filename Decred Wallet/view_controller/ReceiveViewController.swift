@@ -142,7 +142,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     
     private func showFirstWalletAddressAndQRCode() {
         
-        if let acc = WalletLoader.shared.firstWallet?.walletAccounts(confirmations: 0) {
+        if let acc = WalletLoader.shared.firstWallet?.accounts(confirmations: 0) {
             let accNames: [String] = (acc.map({ $0.name }))
             self.myacc = acc.first
             
@@ -158,7 +158,7 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     
     private func populateWalletDropdownMenu() {
 
-        if let acc = WalletLoader.shared.firstWallet?.walletAccounts(confirmations: 0) {
+        if let acc = WalletLoader.shared.firstWallet?.accounts(confirmations: 0) {
            if let defaultAccount = acc.filter({ $0.isDefault}).first {
                 accountDropdown.setTitle(
                     defaultAccount.name,

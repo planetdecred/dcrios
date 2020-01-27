@@ -24,7 +24,7 @@ enum MenuItem: String, CaseIterable {
             return TransactionHistoryViewController(nibName: "TransactionHistoryViewController", bundle: nil)
         
         case .wallets:
-            return AccountViewController.instantiate(from: .Main)
+            return WalletsViewController.instantiate(from: .Wallets)
         
         case .more:
             return SettingsController.instantiate(from: .Settings)

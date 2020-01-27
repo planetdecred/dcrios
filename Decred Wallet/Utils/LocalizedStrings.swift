@@ -305,7 +305,6 @@ struct LocalizedStrings {
     /* Add Account */
     static let inputAccountName = NSLocalizedString("inputAccountName", comment: "")
     static let creatingAccount = NSLocalizedString("creatingAccount", comment: "")
-    static let addAccount = NSLocalizedString("addAccount", comment: "")
     static let addAccountInfo = NSLocalizedString("addAccountInfo", comment: "")
     static let accountName = NSLocalizedString("accountName", comment: "")
     static let createAccount = NSLocalizedString("createAccount", comment: "")
