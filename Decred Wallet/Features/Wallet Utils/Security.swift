@@ -11,15 +11,6 @@ import UIKit
 enum SecurityType: String {
     case password = "PASSWORD"
     case pin = "PIN"
-    
-    var localizedString: String {
-        switch self {
-        case .password:
-            return LocalizedStrings.password
-        case .pin:
-            return LocalizedStrings.pin
-        }
-    }
 }
 
 class Security: NSObject {
@@ -53,6 +44,7 @@ class Security: NSObject {
         var onViewHeightChanged: ((_ height: CGFloat) -> Void)?
         var onLoadingStatusChanged: ((_ loading: Bool) -> Void)?
         var onSecurityCodeEntered: SecurityCodeRequestCallback?
+        var onCurrentAndNewCodesEntered: CurrentAndNewSecurityCodeRequestCallback?
     }
     
     private var `for`: For
@@ -68,7 +60,7 @@ class Security: NSObject {
         return Security(for: .Spending)
     }
     
-    private init(for securityFor: For) {
+    init(for securityFor: For) {
         self.for = securityFor
         self.request = Request(for: securityFor)
         super.init()
@@ -136,22 +128,43 @@ class Security: NSObject {
         return self
     }
     
-    func requestSecurityCode(sender vc: UIViewController,
+    func requestNewCode(sender vc: UIViewController, callback: @escaping SecurityCodeRequestCallback) {
+        // init secutity vc to use in getting new spending password or pin from user
+        let securityVC = SecurityViewController.instantiate(from: .Security)
+        securityVC.securityFor = self.request.for
+        securityVC.initialSecurityType = self.currentSecurityType
+        securityVC.onSecurityCodeEntered = callback
+        securityVC.modalPresentationStyle = .pageSheet
+        vc.present(securityVC, animated: true, completion: nil)
+    }
+    
+    func requestCurrentCode(sender: UIViewController,
                              callback onSecurityCodeEntered: @escaping SecurityCodeRequestCallback) {
         
         self.callbacks.onSecurityCodeEntered = onSecurityCodeEntered
-        self.request(sender: vc)
+        self.callbacks.onCurrentAndNewCodesEntered = nil
+        self.presentSecurityRequestVC(sender: sender)
     }
     
-    private func request(sender vc: UIViewController) {
+    func requestCurrentAndNewCode(sender: UIViewController,
+                                  callback onCurrentAndNewCodesEntered: @escaping CurrentAndNewSecurityCodeRequestCallback) {
+        
+        self.callbacks.onSecurityCodeEntered = nil
+        self.callbacks.onCurrentAndNewCodesEntered = onCurrentAndNewCodesEntered
+        self.presentSecurityRequestVC(sender: sender)
+    }
+    
+    private func presentSecurityRequestVC(sender vc: UIViewController) {
         var securityRequestVC: SecurityCodeRequestBaseViewController
         if self.currentSecurityType == .password {
             securityRequestVC = RequestPasswordViewController.instantiate(from: .Security)
         } else {
             securityRequestVC = RequestPinViewController.instantiate(from: .Security)
         }
+        
         securityRequestVC.request = self.request
         securityRequestVC.callbacks = self.callbacks
+        
         securityRequestVC.modalPresentationStyle = .pageSheet
         vc.present(securityRequestVC, animated: true)
     }

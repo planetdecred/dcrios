@@ -11,6 +11,13 @@ import UIKit
 // triggered when security code is entered by user
 typealias SecurityCodeRequestCallback = (_ code: String, _ type: SecurityType, _ completion: SecurityCodeRequestCompletionDelegate?) -> Void
 
+// triggered after a user enters his current code and then a new code
+typealias CurrentAndNewSecurityCodeRequestCallback = (_ currentCode: String,
+    _ currentCodeRequestCompletion: SecurityCodeRequestCompletionDelegate?,
+    _ newCode: String,
+    _ newCodeRequestCompletion: SecurityCodeRequestCompletionDelegate?,
+    _ newCodeType: SecurityType) -> Void
+
 // triggered after user-provided code is processed
 protocol SecurityCodeRequestCompletionDelegate {
     func securityCodeProcessed()
@@ -22,7 +29,7 @@ class SecurityCodeRequestBaseViewController: UIViewController {
     @IBOutlet weak var stackViewBottomConstraint: NSLayoutConstraint!
     
     var request: Security.Request!
-    var callbacks: Security.RequestCallbacks!
+    var callbacks = Security.RequestCallbacks()
     
     var isInErrorState = false
 

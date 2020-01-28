@@ -78,7 +78,7 @@ class SecurityViewController: UIViewController {
         
         securityRequestVC?.callbacks.onSecurityCodeEntered = self.onSecurityCodeEntered
     }
-    
+
     @IBAction func onPasswordTab(_ sender: Any) {
         guard self.tabController?.selectedIndex != 0 else { return }
         self.activatePasswordTab()

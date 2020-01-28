@@ -337,7 +337,7 @@ class SendViewController: UIViewController {
                     return
                 }
                 
-                Security.spending().with(prompt: LocalizedStrings.confirmToSend).requestSecurityCode(sender: self) {
+                Security.spending().with(prompt: LocalizedStrings.confirmToSend).requestCurrentCode(sender: self) {
                     pinOrPassword, _, completion in
                     
                     completion?.securityCodeProcessed()

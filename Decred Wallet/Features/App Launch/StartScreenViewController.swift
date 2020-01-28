@@ -106,16 +106,14 @@ class StartScreenViewController: UIViewController {
     }
 
     func promptForStartupPinOrPassword(callback: @escaping SecurityCodeRequestCallback) {
-        var enterCodePrompt = LocalizedStrings.enterStartupPassword // todo update to "Unlock with startup password"
-        if StartupPinOrPassword.currentSecurityType() == .pin {
-            enterCodePrompt = LocalizedStrings.unlockWithStartupPIN
-        }
+        let securityType = StartupPinOrPassword.currentSecurityType() == .pin ? LocalizedStrings.pin : LocalizedStrings.password.lowercased()
+        let prompt = String(format: LocalizedStrings.unlockWithStartupCode, securityType)
         
         Security.startup()
-            .with(prompt: enterCodePrompt)
+            .with(prompt: prompt)
             .with(submitBtnText: LocalizedStrings.unlock)
             .should(showCancelButton: false)
-            .requestSecurityCode(sender: self, callback: callback)
+            .requestCurrentCode(sender: self, callback: callback)
     }
 
     func openWalletsAndStartApp(startupPinOrPassword: String, completion: SecurityCodeRequestCompletionDelegate?) {

@@ -48,9 +48,8 @@ struct LocalizedStrings {
     static let settingUpWallet = NSLocalizedString("settingUpWallet", comment: "")
     static let errorSettingUpWallet = NSLocalizedString("errorSettingUpWallet", comment: "")
     
-    /* Security Prompt */
-    static let enterStartupPassword = NSLocalizedString("enterStartupPassword", comment: "")
-    static let unlockWithStartupPIN = NSLocalizedString("unlockWithStartupPIN", comment: "")
+    /* Unlock Wallet Prompt */
+    static let unlockWithStartupCode = NSLocalizedString("unlockWithStartupCode", comment: "")
     static let unlock = NSLocalizedString("unlock", comment: "")
     static let wrongSecurityCode = NSLocalizedString("wrongSecurityCode", comment: "")
     

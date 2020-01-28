@@ -39,7 +39,7 @@ class AddAcountViewController: UIViewController {
             if SpendingPinOrPassword.currentSecurityType() == .password {
                 addAccountWithoutPin()
             } else {
-                Security.spending().with(prompt: LocalizedStrings.confirmToCreate).requestSecurityCode(sender: self) {
+                Security.spending().with(prompt: LocalizedStrings.confirmToCreate).requestCurrentCode(sender: self) {
                     pin, _, completion in
                     self.addAccountWithPin(pin: pin as NSString, completion: completion)
                 }

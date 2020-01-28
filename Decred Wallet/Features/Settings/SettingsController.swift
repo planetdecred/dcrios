@@ -212,7 +212,7 @@ class SettingsController: UITableViewController  {
                 SpendingPinOrPassword.change(sender: self)
                 
             case 1: // enable/disable startup pin/password
-                if (start_Pin.isOn) {
+                if start_Pin.isOn {
                     StartupPinOrPassword.clear(sender: self, done: self.checkStartupSecurity)
                 } else {
                     StartupPinOrPassword.set(sender: self, done: self.checkStartupSecurity)
@@ -260,7 +260,7 @@ class SettingsController: UITableViewController  {
                     return
                 }
                 
-                Security.spending().requestSecurityCode(sender: self) { pinOrPassword, _, completion in
+                Security.spending().requestCurrentCode(sender: self) { pinOrPassword, _, completion in
                     self.deleteWallet(spendingPinOrPassword: pinOrPassword, completion: completion)
                 }
             }

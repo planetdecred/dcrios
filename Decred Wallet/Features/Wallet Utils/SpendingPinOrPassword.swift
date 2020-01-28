@@ -10,39 +10,31 @@ import UIKit
 import Dcrlibwallet
 
 struct SpendingPinOrPassword {
-    static func requestNewSecurityCode(sender vc: UIViewController, callback: @escaping SecurityCodeRequestCallback) {
-        // init secutity vc to use in getting new spending password or pin from user
-        let securityVC = SecurityViewController.instantiate(from: .Security)
-        securityVC.securityFor = .Spending
-        securityVC.initialSecurityType = self.currentSecurityType()
-        securityVC.onSecurityCodeEntered = callback
-        securityVC.modalPresentationStyle = .pageSheet
-        vc.present(securityVC, animated: true, completion: nil)
-    }
-    
     static func change(sender vc: UIViewController) {
         Security.spending()
             .with(submitBtnText: LocalizedStrings.next)
-            .requestSecurityCode(sender: vc) { currentCode, _, completion in
-                completion?.securityCodeProcessed()
-                self.requestNewSecurityCodeAndChangePassword(sender: vc, currentCode: currentCode)
-        }
-    }
-    
-    private static func requestNewSecurityCodeAndChangePassword(sender vc: UIViewController, currentCode: String) {
-        self.requestNewSecurityCode(sender: vc) { newCode, type, completion in
-            self.changeWalletSpendingPassphrase(currentCode: currentCode, newCode: newCode, type: type, completion: completion)
+            .requestCurrentCode(sender: vc) { currentCode, _, currentCodeRequestCompletion in
+                
+                Security.spending().requestNewCode(sender: vc) { newCode, newCodeType, newCodeRequestCompletion in
+                    
+                    self.changeWalletSpendingPassphrase(currentCode: currentCode,
+                                                        currentCodeRequestCompletion: currentCodeRequestCompletion,
+                                                        newCode: newCode,
+                                                        newCodeRequestCompletion: newCodeRequestCompletion,
+                                                        newCodeType: newCodeType)
+                }
         }
     }
     
     private static func changeWalletSpendingPassphrase(currentCode: String,
+                                                       currentCodeRequestCompletion: SecurityCodeRequestCompletionDelegate?,
                                                        newCode: String,
-                                                       type securityType: SecurityType,
-                                                       completion: SecurityCodeRequestCompletionDelegate?) {
+                                                       newCodeRequestCompletion: SecurityCodeRequestCompletionDelegate?,
+                                                       newCodeType: SecurityType) {
         
         DispatchQueue.global(qos: .userInitiated).async {
             do {
-                let passphraseType = securityType == .password ? DcrlibwalletPassphraseTypePass : DcrlibwalletPassphraseTypePin
+                let passphraseType = newCodeType == .password ? DcrlibwalletPassphraseTypePass : DcrlibwalletPassphraseTypePin
                 
                 try WalletLoader.shared.multiWallet.changePrivatePassphrase(forWallet: WalletLoader.shared.wallet!.id_,
                                                                             oldPrivatePassphrase: currentCode.utf8Bits,
@@ -50,16 +42,17 @@ struct SpendingPinOrPassword {
                                                                             privatePassphraseType: passphraseType)
                 
                 DispatchQueue.main.async {
-                    completion?.securityCodeProcessed()
-                    Settings.setValue(securityType.rawValue, for: Settings.Keys.SpendingPassphraseSecurityType)
+                    newCodeRequestCompletion?.securityCodeProcessed()
+                    currentCodeRequestCompletion?.securityCodeProcessed()
+                    Settings.setValue(newCodeType.rawValue, for: Settings.Keys.SpendingPassphraseSecurityType)
                 }
             } catch let error {
                 DispatchQueue.main.async {
                     if error.isInvalidPassphraseError {
-                        // todo return to initial entry page to display this error
-                        completion?.securityCodeError(errorMessage: self.invalidSecurityCodeMessage())
+                        newCodeRequestCompletion?.securityCodeProcessed()
+                        currentCodeRequestCompletion?.securityCodeError(errorMessage: self.invalidSecurityCodeMessage())
                     } else {
-                        completion?.securityCodeError(errorMessage: error.localizedDescription)
+                        newCodeRequestCompletion?.securityCodeError(errorMessage: error.localizedDescription)
                     }
                 }
             }

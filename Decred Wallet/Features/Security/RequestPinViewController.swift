@@ -48,7 +48,10 @@ class RequestPinViewController: SecurityCodeRequestBaseViewController {
 
         let layout = UICollectionViewCenterLayout()
         layout.estimatedItemSize = CGSize(width: 16, height: 16)
-        pinCollectionView.collectionViewLayout = layout
+        self.pinCollectionView.collectionViewLayout = layout
+
+        self.pinCollectionView.superview?.addGestureRecognizer(UITapGestureRecognizer(target: self,
+                                                                                      action: #selector(self.showKeypad)))
 
         self.prgsPinStrength.superview?.isHidden = !self.request.requestConfirmation
         self.setPromptAndButtonText(isFirstStep: true)
@@ -62,6 +65,10 @@ class RequestPinViewController: SecurityCodeRequestBaseViewController {
         if !self.request.showCancelButton {
             self.btnCancel?.removeFromSuperview()
         }
+    }
+    
+    @objc func showKeypad() {
+        self.pinHiddenInput.becomeFirstResponder()
     }
 
     private func setPromptAndButtonText(isFirstStep: Bool) {
@@ -130,12 +137,23 @@ class RequestPinViewController: SecurityCodeRequestBaseViewController {
             self.enterPinLabel.text = LocalizedStrings.pinsDidNotMatch
         } else {
             self.pinHiddenInput.resignFirstResponder()
-            self.btnBack?.isEnabled = false
-            self.btnCancel?.isEnabled = false
-            self.btnSubmit.isEnabled = false
-            self.btnSubmit.startLoading()
-            self.callbacks.onLoadingStatusChanged?(true)
-            self.callbacks.onSecurityCodeEntered?(pinText, .pin, self)
+
+            // Disable buttons and return pin if `onCurrentAndNewCodesEntered` callback is NOT set.
+            guard let currentAndNewCodesEnteredCallback = self.callbacks.onCurrentAndNewCodesEntered else {
+                self.btnBack?.isEnabled = false
+                self.btnCancel?.isEnabled = false
+                self.btnSubmit.isEnabled = false
+                self.btnSubmit.startLoading()
+                self.callbacks.onLoadingStatusChanged?(true)
+                self.callbacks.onSecurityCodeEntered?(pinText, .pin, self)
+                return
+            }
+
+            // `onCurrentAndNewCodesEntered` callback is set, request new code and notify callback.
+            Security(for: self.request.for).requestNewCode(sender: self) {
+                newCode, newCodeType, newCodeRequestCompletion in
+                currentAndNewCodesEnteredCallback(pinText, self, newCode, newCodeRequestCompletion, newCodeType)
+            }
         }
     }
 

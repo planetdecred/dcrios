@@ -271,7 +271,7 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
     }
     
     private func askPassword() {
-        Security.spending().with(submitBtnText: LocalizedStrings.proceed).requestSecurityCode(sender: self) {
+        Security.spending().with(submitBtnText: LocalizedStrings.proceed).requestCurrentCode(sender: self) {
             pinOrPassword, _, completion in
             
             self.SignMsg(pass: pinOrPassword)

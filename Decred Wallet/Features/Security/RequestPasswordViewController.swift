@@ -34,7 +34,7 @@ class RequestPasswordViewController: SecurityCodeRequestBaseViewController, UITe
 
     private func setupInterface() {
         self.passwordInput.placeholder = String(format: LocalizedStrings.passwordPlaceholder,
-                                                self.request.for.localizedString.lowercased())
+                                                self.request.for.localizedString)
         self.passwordInput.isSecureTextEntry = true
         self.passwordInput.addTogglePasswordVisibilityButton()
         self.passwordInput.addTarget(self, action: #selector(self.passwordTextFieldChange), for: .editingChanged)
@@ -42,7 +42,7 @@ class RequestPasswordViewController: SecurityCodeRequestBaseViewController, UITe
 
         if self.request.requestConfirmation {
             self.confirmPasswordInput?.placeholder = String(format: LocalizedStrings.confirmPasswordPlaceholder,
-                                                            self.request.for.localizedString.lowercased())
+                                                            self.request.for.localizedString)
             self.confirmPasswordInput?.isSecureTextEntry = true
             self.confirmPasswordInput?.addTogglePasswordVisibilityButton()
             self.confirmPasswordInput?.delegate = self
@@ -151,14 +151,25 @@ class RequestPasswordViewController: SecurityCodeRequestBaseViewController, UITe
         }
 
         self.passwordInput.resignFirstResponder()
-        self.btnCancel?.isEnabled = false
-        self.btnSubmit.isEnabled = false
-        self.btnSubmit.startLoading()
-        self.callbacks.onLoadingStatusChanged?(true)
-        self.callbacks.onSecurityCodeEntered?(password, .password, self)
+        
+        // Disable buttons and return password if `onCurrentAndNewCodesEntered` callback is NOT set.
+        guard let currentAndNewCodesEnteredCallback = self.callbacks.onCurrentAndNewCodesEntered else {
+            self.btnCancel?.isEnabled = false
+            self.btnSubmit.isEnabled = false
+            self.btnSubmit.startLoading()
+            self.callbacks.onLoadingStatusChanged?(true)
+            self.callbacks.onSecurityCodeEntered?(password, .password, self)
+            return true
+        }
+
+        // `onCurrentAndNewCodesEntered` callback is set, request new code and notify callback.
+        Security(for: self.request.for).requestNewCode(sender: self) {
+            newCode, newCodeType, newCodeRequestCompletion in
+            currentAndNewCodesEnteredCallback(password, self, newCode, newCodeRequestCompletion, newCodeType)
+        }
         return true
     }
-
+    
     override func showError(text: String) {
         super.showError(text: text)
         
