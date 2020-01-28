@@ -261,9 +261,7 @@ class OverviewViewController: UIViewController {
             return
         }
         
-        // Our navigation controller is set as our root view controller, we need to access its already created instance
-        let navigationTabBarController = AppDelegate.shared.window!.rootViewController as! NavigationMenuTabBarController
-        navigationTabBarController.navigateToTab(index: txHistoryTabIndex)
+        NavigationMenuTabBarController.instance?.navigateToTab(index: txHistoryTabIndex)
     }
 
     // Handle action of sync connect/reconnect/cancel button click based on sync/network status

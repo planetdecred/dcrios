@@ -33,6 +33,9 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = false
+
         self.navigationItem.title = LocalizedStrings.transactionDetails
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "left-arrow"),
                                                                 style: .done, target: self,

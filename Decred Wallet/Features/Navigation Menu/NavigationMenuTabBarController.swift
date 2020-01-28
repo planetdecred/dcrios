@@ -130,4 +130,11 @@ class NavigationMenuTabBarController: UITabBarController {
             TransactionNotification.shared.startListeningForNotifications()
         }
     }
+
+    static var instance: NavigationMenuTabBarController? {
+        if let parentVC = AppDelegate.shared.window!.rootViewController as? UINavigationController {
+            return parentVC.viewControllers[0] as? NavigationMenuTabBarController
+        }
+        return nil
+    }
 }

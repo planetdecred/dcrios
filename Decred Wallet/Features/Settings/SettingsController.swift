@@ -67,8 +67,8 @@ class SettingsController: UITableViewController  {
         super.viewWillAppear(animated)
         
         self.navigationController?.navigationBar.isHidden = false
-        self.navigationController?.navigationBar.tintColor = UIColor.black
-        self.navigationItem.title = LocalizedStrings.settings
+        self.navigationController?.navigationBar.topItem?.title = LocalizedStrings.settings
+        self.navigationController?.navigationBar.topItem?.rightBarButtonItem = nil
         
         if self.isModal {
             self.addNavigationBackButton()

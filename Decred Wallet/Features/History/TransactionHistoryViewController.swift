@@ -45,7 +45,10 @@ class TransactionHistoryViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationItem.title = LocalizedStrings.history
+
+        self.navigationController?.navigationBar.isHidden = false
+        self.navigationController?.navigationBar.topItem?.title = LocalizedStrings.history
+        self.navigationController?.navigationBar.topItem?.rightBarButtonItem = nil
 
         if SyncManager.shared.isSynced {
             self.syncInProgressLabel.isHidden = true
