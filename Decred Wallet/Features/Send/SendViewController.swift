@@ -10,7 +10,7 @@ import UIKit
 import Dcrlibwallet
 
 class SendViewController: UIViewController {
-    static let instance = Storyboards.Send.instantiateViewController(for: SendViewController.self).wrapInNavigationcontroller()
+    static let instance = SendViewController.instantiate(from: .Send).wrapInNavigationcontroller()
     
     @IBOutlet weak var sourceAccountDropdown: DropMenuButton!
     
@@ -336,16 +336,13 @@ class SendViewController: UIViewController {
                     self.finalizeSending(destinationAddress: destinationAddress, pinOrPassword: spendingPassword!)
                     return
                 }
-
-                let requestPinVC = RequestPinViewController.instantiate()
-                requestPinVC.securityFor = LocalizedStrings.spending
-                requestPinVC.showCancelButton = true
-                requestPinVC.prompt = LocalizedStrings.confirmToSend
-                requestPinVC.onUserEnteredSecurityCode = {(code: String, completionDelegate: SecurityRequestCompletionDelegate?) in
-                    completionDelegate?.securityCodeProcessed(true, nil)
-                    self.finalizeSending(destinationAddress: destinationAddress, pinOrPassword: code)
+                
+                Security.spending().with(prompt: LocalizedStrings.confirmToSend).requestSecurityCode(sender: self) {
+                    pinOrPassword, _, completion in
+                    
+                    completion?.securityCodeProcessed()
+                    self.finalizeSending(destinationAddress: destinationAddress, pinOrPassword: pinOrPassword)
                 }
-                self.present(requestPinVC, animated: true, completion: nil)
             }
         }
     }
@@ -451,9 +448,11 @@ class SendViewController: UIViewController {
         
         SendCompletedViewController.showSendCompletedDialog(for: txHash) { showTxDetails in
             if showTxDetails {
-                let txDetailsVC = Storyboards.TransactionDetails.instantiateViewController(for: TransactionDetailsViewController.self)
+                let txDetailsVC = TransactionDetailsViewController.instantiate(from: .TransactionDetails)
                 txDetailsVC.transactionHash = txHash
-                self.present(txDetailsVC, animated: true)
+                
+                // wrap in nav controller as this presented VC might need to push another VC
+                self.present(txDetailsVC.wrapInNavigationcontroller(), animated: true)
             }
         }
     }

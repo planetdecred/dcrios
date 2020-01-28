@@ -2,7 +2,7 @@
 //  DeleteWalletConfirmationViewController.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -26,7 +26,7 @@ class DeleteWalletConfirmationViewController: UIViewController, UITextFieldDeleg
         
         self.deleteWalletHeader.text = "\(LocalizedStrings.deleteWallet)?"
         
-        if SpendingPinOrPassword.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
+        if SpendingPinOrPassword.currentSecurityType() == SecurityType.password.rawValue {
             self.passwordTextField.delegate = self
             self.passwordTextField.addTarget(self, action: #selector(self.passwordTextChanged), for: .editingChanged)
         } else {
@@ -60,7 +60,7 @@ class DeleteWalletConfirmationViewController: UIViewController, UITextFieldDeleg
 
     @IBAction func deleteWalletConfirmed(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
-        if SpendingPinOrPassword.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
+        if SpendingPinOrPassword.currentSecurityType() == SecurityType.password.rawValue {
             self.onDeleteWalletConfirmed?(self.passwordTextField.text!)
         } else {
             self.onDeleteWalletConfirmed?(nil)

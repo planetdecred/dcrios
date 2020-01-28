@@ -15,6 +15,10 @@ extension UIViewController {
         return "\(self)"
     }
     
+    static func instantiate(from storyboard: Storyboard) -> Self {
+        return storyboard.instantiateViewController(for: self)
+    }
+    
     func wrapInNavigationcontroller() -> UINavigationController {
         return UINavigationController(rootViewController: self)
     }
@@ -57,6 +61,14 @@ extension UIViewController {
         let presentingIsTabBar = tabBarController?.presentingViewController is UITabBarController
         
         return presentingIsModal || presentingIsNavigation || presentingIsTabBar
+    }
+    
+    func dismissView() {
+        if self.isModal {
+            self.dismiss(animated: true, completion: nil)
+        } else {
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     func showMessageDialog(title: String, message: String) {

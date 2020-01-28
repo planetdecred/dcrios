@@ -5,9 +5,11 @@
 // Copyright (c) 2019-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
+
 import UIKit
 
 class NavigationMenuTabBarController: UITabBarController {
+    var isNewWallet: Bool = false
     
     var customTabBar: CustomTabMenuView!
     static let tabItems: [MenuItem] = [.overview, .transactions, .wallets, .more]
@@ -19,6 +21,10 @@ class NavigationMenuTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.loadTabBar()
+        
+        if self.isNewWallet {
+            Utils.showBanner(parentVC: self, type: .success, text: LocalizedStrings.walletCreated)
+        }
     }
     
     func loadTabBar() {
@@ -104,9 +110,14 @@ class NavigationMenuTabBarController: UITabBarController {
         self.floatingButtons.removeFromSuperview() // Remove floating buttons
     }
     
-    static func setupMenuAndLaunchApp() {
+    static func setupMenuAndLaunchApp(isNewWallet: Bool) {
+        // Wrap this tab bar controller in a nav controller so that individual
+        // view controllers hosted by this tab bar controller won't need to be
+        // wrapped in separate nav controllers in order for them to be able to
+        // push other view controllers.
         let startView = NavigationMenuTabBarController()
-        AppDelegate.shared.setAndDisplayRootViewController(startView)
+        startView.isNewWallet = isNewWallet
+        AppDelegate.shared.setAndDisplayRootViewController(startView.wrapInNavigationcontroller())
         
         // start sync
         SyncManager.shared.startOrRestartSync(allowSyncOnCellular: Settings.syncOnCellular)

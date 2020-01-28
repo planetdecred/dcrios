@@ -11,6 +11,6 @@ import UIKit
 class RecoverySuccessViewController: UIViewController {
     
     @IBAction func getStarted(_ sender: Any) {
-        NavigationMenuTabBarController.setupMenuAndLaunchApp()
+        NavigationMenuTabBarController.setupMenuAndLaunchApp(isNewWallet: true)
     }
 }

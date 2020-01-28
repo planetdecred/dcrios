@@ -86,11 +86,6 @@ class OverviewViewController: UIViewController {
             self.displayLatestBlockHeightAndAge()
             self.displayConnectedPeersCount()
         }
-
-        if Settings.readValue(for: Settings.Keys.NewWalletSetUp) {
-            Utils.showBanner(parentVC: self, type: .success, text: LocalizedStrings.walletCreated)
-            Settings.setValue(false, for: Settings.Keys.NewWalletSetUp)
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -118,8 +113,7 @@ class OverviewViewController: UIViewController {
     }
     
     func checkWhetherToPromptForSeedBackup() {
-        // todo should use multiwallet methods to check, not settings
-        self.seedBackupSectionView.isHidden = Settings.seedBackedUp
+        self.seedBackupSectionView.isHidden = WalletLoader.shared.multiWallet.numWalletsNeedingSeedBackup() > 0
     }
     
     // todo ensure this is always called from the main thread!
@@ -251,7 +245,7 @@ class OverviewViewController: UIViewController {
     }
     
     @IBAction func seedBackupTapped(_ sender: Any) {
-        let seedBackupReminderVC = SeedBackupReminderViewController.instance().wrapInNavigationcontroller()
+        let seedBackupReminderVC = SeedBackupReminderViewController.instantiate(from: .SeedBackup).wrapInNavigationcontroller()
         seedBackupReminderVC.modalPresentationStyle = .overFullScreen
         self.present(seedBackupReminderVC, animated: true)
     }
@@ -338,7 +332,7 @@ extension OverviewViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let txDetailsVC = Storyboards.TransactionDetails.instantiateViewController(for: TransactionDetailsViewController.self)
+        let txDetailsVC = TransactionDetailsViewController.instantiate(from: .TransactionDetails)
         txDetailsVC.transaction = self.recentTransactions[indexPath.row]
         self.navigationController?.pushViewController(txDetailsVC, animated: true)
     }

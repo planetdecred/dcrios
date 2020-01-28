@@ -53,7 +53,7 @@ class StartScreenViewController: UIViewController {
         self.timer?.invalidate()
         self.startTimerWhenViewAppears = true
 
-        let settingsVC = SettingsController.instantiate().wrapInNavigationcontroller()
+        let settingsVC = SettingsController.instantiate(from: .Settings).wrapInNavigationcontroller()
         settingsVC.modalPresentationStyle = .fullScreen
         self.present(settingsVC, animated: true, completion: nil)
     }
@@ -74,10 +74,13 @@ class StartScreenViewController: UIViewController {
     }
     
     func checkStartupSecurityAndStartApp() {
-        if StartupPinOrPassword.pinOrPasswordIsSet() {
-            self.promptForStartupPinOrPassword(completion: self.openWalletsAndStartApp)
-        } else {
-            self.openWalletsAndStartApp(startupPinOrPassword: "", completionDelegate: nil)
+        if !StartupPinOrPassword.pinOrPasswordIsSet() {
+            self.openWalletsAndStartApp(startupPinOrPassword: "", completion: nil)
+            return
+        }
+        
+        self.promptForStartupPinOrPassword() { pinOrPassword, _, completion in
+            self.openWalletsAndStartApp(startupPinOrPassword: pinOrPassword, completion: completion)
         }
     }
     
@@ -87,73 +90,62 @@ class StartScreenViewController: UIViewController {
             return
         }
         
-        self.promptForStartupPinOrPassword() { startupPinOrPassword, completionDelegate in
+        self.promptForStartupPinOrPassword() { pinOrPassword, _, completion in
             do {
-                try WalletLoader.shared.linkExistingWalletAndStartApp(startupPinOrPassword: startupPinOrPassword)
-                completionDelegate?.securityCodeProcessed(true, nil)
+                try WalletLoader.shared.linkExistingWalletAndStartApp(startupPinOrPassword: pinOrPassword)
+                completion?.securityCodeProcessed()
             } catch let error {
                 print("link existing wallet error: \(error.localizedDescription)")
-                completionDelegate?.securityCodeProcessed(false, error.localizedDescription)
+                var errorMessage = error.localizedDescription
+                if errorMessage == DcrlibwalletErrInvalidPassphrase {
+                    let securityType = StartupPinOrPassword.currentSecurityType()!.lowercased()
+                    errorMessage = String(format: LocalizedStrings.incorrectSecurityInfo, securityType)
+                }
+                completion?.securityCodeError(errorMessage: errorMessage)
             }
         }
     }
 
-    func promptForStartupPinOrPassword(completion: @escaping ((String, SecurityRequestCompletionDelegate?) -> Void)) {
-        if StartupPinOrPassword.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
-            let requestPasswordVC = RequestPasswordViewController.instantiate()
-            requestPasswordVC.securityFor = LocalizedStrings.startup
-            requestPasswordVC.prompt = LocalizedStrings.enterStartupPassword
-            requestPasswordVC.modalPresentationStyle = .pageSheet
-            requestPasswordVC.submitBtnText = LocalizedStrings.unlock
-            requestPasswordVC.onUserEnteredSecurityCode = completion
-            requestPasswordVC.showCancelButton = false
-            self.present(requestPasswordVC, animated: true, completion: {
-              requestPasswordVC.presentationController?.presentedView?.gestureRecognizers?[0].isEnabled = false
-            })
-        } else {
-            let requestPinVC = RequestPinViewController.instantiate()
-            requestPinVC.securityFor = LocalizedStrings.startup
-            requestPinVC.modalPresentationStyle = .pageSheet
-            requestPinVC.onUserEnteredSecurityCode = completion
-            requestPinVC.prompt = LocalizedStrings.unlockWithStartupPIN
-            requestPinVC.submitBtnText = LocalizedStrings.unlock
-            requestPinVC.showCancelButton = false
-            self.present(requestPinVC, animated: true, completion: {
-              requestPinVC.presentationController?.presentedView?.gestureRecognizers?[0].isEnabled = false
-            })
+    func promptForStartupPinOrPassword(callback: @escaping SecurityCodeRequestCallback) {
+        var enterCodePrompt = LocalizedStrings.enterStartupPassword // todo update to "Unlock with startup password"
+        if StartupPinOrPassword.currentSecurityType() == SecurityType.pin.rawValue {
+            enterCodePrompt = LocalizedStrings.unlockWithStartupPIN
         }
+        
+        Security.startup()
+            .for(LocalizedStrings.startup)
+            .with(prompt: enterCodePrompt)
+            .with(submitBtnText: LocalizedStrings.unlock)
+            .should(showCancelButton: false)
+            .requestSecurityCode(sender: self, callback: callback)
     }
 
-    func openWalletsAndStartApp(startupPinOrPassword: String, completionDelegate: SecurityRequestCompletionDelegate?) {
+    func openWalletsAndStartApp(startupPinOrPassword: String, completion: SecurityCodeRequestCompletionDelegate?) {
         self.label.text = LocalizedStrings.openingWallet
 
         DispatchQueue.global(qos: .userInitiated).async {
             do {
                 try WalletLoader.shared.multiWallet.openWallets(startupPinOrPassword.utf8Bits)
                 DispatchQueue.main.async {
-                    completionDelegate?.securityCodeProcessed(true, nil)
-                    NavigationMenuTabBarController.setupMenuAndLaunchApp()
+                    completion?.securityCodeProcessed()
+                    NavigationMenuTabBarController.setupMenuAndLaunchApp(isNewWallet: false)
                 }
             } catch let error {
                 DispatchQueue.main.async {
                     var errorMessage = error.localizedDescription
-                    if error.localizedDescription == DcrlibwalletErrInvalidPassphrase {
+                    if errorMessage == DcrlibwalletErrInvalidPassphrase {
                         let securityType = StartupPinOrPassword.currentSecurityType()!.lowercased()
                         errorMessage = String(format: LocalizedStrings.incorrectSecurityInfo, securityType)
                     }
-                    completionDelegate?.securityCodeProcessed(false, errorMessage)
+                    completion?.securityCodeError(errorMessage: errorMessage)
                 }
             }
         }
     }
     
     func displayWalletSetupScreen() {
-        let walletSetupController = WalletSetupViewController.instantiate().wrapInNavigationcontroller()
+        let walletSetupController = WalletSetupViewController.instantiate(from: .WalletSetup).wrapInNavigationcontroller()
         walletSetupController.isNavigationBarHidden = true
         AppDelegate.shared.setAndDisplayRootViewController(walletSetupController)
-    }
-    
-    static func instantiate() -> Self {
-        return Storyboards.Main.instantiateViewController(for: self)
     }
 }

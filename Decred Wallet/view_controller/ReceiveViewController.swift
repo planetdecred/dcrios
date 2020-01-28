@@ -108,26 +108,24 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     }
 
     private func checkSyncStatus() {
-        let isSynced = SyncManager.shared.isSynced
-        let isNewWalletSetup: Bool = Settings.readValue(for: Settings.Keys.NewWalletSetUp)
-        let initialSyncCompleted: Bool = Settings.readOptionalValue(for: Settings.Keys.InitialSyncCompleted) ?? false
-        if isSynced || isNewWalletSetup || initialSyncCompleted {
-            self.showFirstWalletAddressAndQRCode()
-            self.populateWalletDropdownMenu()
-            contentStackView.isHidden = false
-            syncInProgressLabel.isHidden = true
-
-            let shareBtn = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share))
-            let generateAddressBtn = UIButton(type: .custom)
-            generateAddressBtn.setImage(UIImage(named: "right-menu"), for: .normal)
-            generateAddressBtn.addTarget(self, action: #selector(showMenu), for: .touchUpInside)
-            generateAddressBtn.frame = CGRect(x: 0, y: 0, width: 10, height: 51)
-            barButton = UIBarButtonItem(customView: generateAddressBtn)
-            self.navigationItem.rightBarButtonItems = [barButton!, shareBtn ]
-        } else {
+        guard let wallet = WalletLoader.shared.wallet, (!wallet.isRestored || wallet.hasDiscoveredAccounts) else {
             contentStackView.isHidden = true
             syncInProgressLabel.isHidden = false
+            return
         }
+        
+        self.showFirstWalletAddressAndQRCode()
+        self.populateWalletDropdownMenu()
+        contentStackView.isHidden = false
+        syncInProgressLabel.isHidden = true
+
+        let shareBtn = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share))
+        let generateAddressBtn = UIButton(type: .custom)
+        generateAddressBtn.setImage(UIImage(named: "right-menu"), for: .normal)
+        generateAddressBtn.addTarget(self, action: #selector(showMenu), for: .touchUpInside)
+        generateAddressBtn.frame = CGRect(x: 0, y: 0, width: 10, height: 51)
+        barButton = UIBarButtonItem(customView: generateAddressBtn)
+        self.navigationItem.rightBarButtonItems = [barButton!, shareBtn]
     }
 
     private func setupSyncInProgressLabelConstraints() {

@@ -2,29 +2,31 @@
 //  SecurityRequestBaseViewController.swift
 //  Decred Wallet
 //
-// Copyright (c) 2019 The Decred developers
+// Copyright (c) 2019-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
 import UIKit
 
-protocol SecurityRequestCompletionDelegate {
-    func securityCodeProcessed(_ success: Bool, _ errorMessage: String?)
+// triggered when security code is entered by user
+// todo rename to SecurityCodeEnteredCallback and move to Security.swift
+typealias SecurityCodeRequestCallback = (_ code: String, _ type: SecurityType, _ completion: SecurityCodeRequestCompletionDelegate?) -> Void
+
+// triggered after user-provided code is processed
+protocol SecurityCodeRequestCompletionDelegate {
+    func securityCodeProcessed()
+    func securityCodeError(errorMessage: String)
 }
 
-class SecurityRequestBaseViewController: SecurityBaseViewController, SecurityRequestCompletionDelegate {
+// todo prolly rename to SecurityCodeRequestBaseViewController
+class SecurityRequestBaseViewController: UIViewController {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var stackViewBottomConstraint: NSLayoutConstraint!
-
+    
+    var request = Security.Request()
+    var callbacks = Security.RequestCallbacks()
+    
     var isInErrorState = false
-    var requestConfirmation = false
-    var showCancelButton = false
-    var prompt: String?
-    var submitBtnText: String?
-    var securityFor: String = "" // expects "Spending", "Startup" or other security section
-    var onUserEnteredSecurityCode: ((_ code: String, _ completionDelegate: SecurityRequestCompletionDelegate?) -> Void)?
-    var onViewHeightChanged: ((_ height: CGFloat) -> Void)?
-    var onLoadingStatusChanged: ((_ loading: Bool) -> Void)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +39,7 @@ class SecurityRequestBaseViewController: SecurityBaseViewController, SecurityReq
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.onViewHeightChanged?(self.containerView!.frame.size.height)
+        self.callbacks.onViewHeightChanged?(self.containerView!.frame.size.height)
     }
 
     @objc func keyboardNotification(notification: NSNotification) {
@@ -64,14 +66,14 @@ class SecurityRequestBaseViewController: SecurityBaseViewController, SecurityReq
     func hideError() {
         self.isInErrorState = false
     }
+}
 
-    func securityCodeProcessed(_ success: Bool, _ errorMessage: String?) {
-        if success {
-            self.dismissView()
-        } else if let errorMessage = errorMessage {
-            self.showError(text: errorMessage)
-        } else {
-            self.showError(text: "Error")
-        }
+extension SecurityRequestBaseViewController: SecurityCodeRequestCompletionDelegate {
+    func securityCodeProcessed() {
+        self.dismissView()
+    }
+    
+    func securityCodeError(errorMessage: String) {
+        self.showError(text: errorMessage)
     }
 }

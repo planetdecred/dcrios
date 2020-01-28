@@ -9,7 +9,7 @@
 import UIKit
 import Dcrlibwallet
 
-class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITableViewDelegate, UITableViewDataSource {
+class RecoverExistingWalletViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet var tableView: UITableView!
     @IBOutlet weak var wordSelectionDropDownContainer: UIView!
     @IBOutlet weak var tableViewFooterHeightCosnt: NSLayoutConstraint!
@@ -211,12 +211,18 @@ class RecoverExistingWalletViewController: WalletSetupBaseViewController, UITabl
     #endif
     
     func secureWallet(_ seed: String) {
-        let securityVC = SecurityViewController.instantiate()
-        securityVC.onUserEnteredPinOrPassword = { (pinOrPassword, securityType, completionDelegate) in
-            self.finalizeWalletSetup(seed, pinOrPassword, securityType, completionDelegate)
+        SpendingPinOrPassword.requestNewSecurityCode(sender: self) { pinOrPassword, type, completion in
+            WalletLoader.shared.restoreWallet(seed: seed, spendingPinOrPassword: pinOrPassword, securityType: type) {
+                restoreError in
+                
+                if restoreError != nil {
+                    completion?.securityCodeError(errorMessage: restoreError!.localizedDescription)
+                } else {
+                    completion?.securityCodeProcessed()
+                    self.performSegue(withIdentifier: "recoverySuccess", sender: self)
+                }
+            }
         }
-        securityVC.modalPresentationStyle = .pageSheet
-        self.present(securityVC, animated: true)
     }
     
     private func validateSeed() -> (seed: String, valid: Bool) {

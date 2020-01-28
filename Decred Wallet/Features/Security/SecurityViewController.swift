@@ -2,24 +2,19 @@
 //  SecurityViewController.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
 import UIKit
 
-class SecurityViewController: SecurityBaseViewController {
-    static let SECURITY_TYPE_PASSWORD = "PASSWORD"
-    static let SECURITY_TYPE_PIN = "PIN"
-
+class SecurityViewController: UIViewController {
     // "Password" or "Pin" will be appended to the title depending on what tab is activated
     var securityFor = LocalizedStrings.spending // or Startup
     var initialSecurityType: String? // determines which tab will be displayed first
-
+    
     // This will be triggered after a pin or password is provided by the user.
-    var onUserEnteredPinOrPassword: ((_ code: String,
-                                      _ securityType: String,
-                                      _ completionDelegate: SecurityRequestCompletionDelegate?) -> Void)?
+    var onSecurityCodeEntered: SecurityCodeRequestCallback?
 
     var tabController: UITabBarController?
     @IBOutlet weak var securityPromptLabel: UILabel!
@@ -44,43 +39,33 @@ class SecurityViewController: SecurityBaseViewController {
             self.tabController?.tabBar.isHidden = true
 
             let passwordTabVC = self.tabController?.viewControllers?.first as? RequestPasswordViewController
-            passwordTabVC?.securityFor = self.securityFor
-            passwordTabVC?.requestConfirmation = true
-            passwordTabVC?.showCancelButton = true
-            passwordTabVC?.onViewHeightChanged = updateContainerViewHeight
-            passwordTabVC?.onLoadingStatusChanged = { (loading: Bool) in
-                self.btnPin?.isEnabled = !loading
-                self.btnPassword?.isEnabled = !loading
-                self.btnPassword.addBorder(atPosition: .bottom,
-                                           color: loading ? UIColor.appColors.darkGray: UIColor.appColors.lightBlue,
-                                           thickness: 2)
-            }
-            passwordTabVC?.onUserEnteredSecurityCode = { (code: String, completionDelegate: SecurityRequestCompletionDelegate?) in
-                self.onUserEnteredPinOrPassword?(code, SecurityViewController.SECURITY_TYPE_PASSWORD, completionDelegate)
-            }
+            self.setSecurityRequestParamsAndCallbacks(for: passwordTabVC)
 
             let pinTabVC = self.tabController?.viewControllers?.last as? RequestPinViewController
-            pinTabVC?.securityFor = self.securityFor
-            pinTabVC?.requestConfirmation = true
-            pinTabVC?.showCancelButton = true
-            pinTabVC?.onViewHeightChanged = updateContainerViewHeight
-            pinTabVC?.onLoadingStatusChanged = { (loading: Bool) in
-                self.btnPin?.isEnabled = !loading
-                self.btnPassword?.isEnabled = !loading
-                self.btnPin.addBorder(atPosition: .bottom,
-                                           color: loading ? UIColor.appColors.darkGray: UIColor.appColors.lightBlue,
-                                           thickness: 2)
-            }
-            pinTabVC?.onUserEnteredSecurityCode = { (code: String, completionDelegate: SecurityRequestCompletionDelegate?) in
-                self.onUserEnteredPinOrPassword?(code, SecurityViewController.SECURITY_TYPE_PIN, completionDelegate)
-            }
+            self.setSecurityRequestParamsAndCallbacks(for: pinTabVC)
         }
+    }
+    
+    private func setSecurityRequestParamsAndCallbacks(for securityRequestVC: SecurityRequestBaseViewController?) {
+        securityRequestVC?.request.for = self.securityFor
+        securityRequestVC?.request.requestConfirmation = true
+        securityRequestVC?.request.showCancelButton = true
+        
+        securityRequestVC?.callbacks.onViewHeightChanged = updateContainerViewHeight
+        securityRequestVC?.callbacks.onLoadingStatusChanged = { (loading: Bool) in
+            self.btnPin?.isEnabled = !loading
+            self.btnPassword?.isEnabled = !loading
+            self.btnPassword.addBorder(atPosition: .bottom,
+                                       color: loading ? UIColor.appColors.darkGray: UIColor.appColors.lightBlue,
+                                       thickness: 2)
+        }
+        securityRequestVC?.callbacks.onSecurityCodeEntered = self.onSecurityCodeEntered
     }
 
     override func viewDidLoad() {
         // delay before activating initial tab to allow borders show properly
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            if self.initialSecurityType == SecurityViewController.SECURITY_TYPE_PIN {
+            if self.initialSecurityType == SecurityType.pin.rawValue {
                 self.activatePinTab()
             } else {
                 self.activatePasswordTab()

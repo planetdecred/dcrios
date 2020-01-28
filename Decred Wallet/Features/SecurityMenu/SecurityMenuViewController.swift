@@ -271,41 +271,11 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
     }
     
     private func askPassword() {
-        if SpendingPinOrPassword.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
-            let alert = UIAlertController(title: LocalizedStrings.security, message: LocalizedStrings.promptSpendingPassword, preferredStyle: .alert)
-            alert.addTextField { textField in
-                textField.placeholder = LocalizedStrings.password.lowercased()
-                textField.isSecureTextEntry = true
-            }
+        Security.spending().with(submitBtnText: LocalizedStrings.proceed).requestSecurityCode(sender: self) {
+            pinOrPassword, _, completion in
             
-            let okAction = UIAlertAction(title: LocalizedStrings.proceed, style: .default) { _ in
-                let tfPasswd = alert.textFields![0] as UITextField
-                if (tfPasswd.text?.count)! > 0 {
-                    self.SignMsg(pass: tfPasswd.text!)
-                    alert.dismiss(animated: false, completion: nil)
-                } else {
-                    alert.dismiss(animated: false, completion: nil)
-                    self.showAlert(message: LocalizedStrings.passwordEmpty, titles: LocalizedStrings.invalidInput)
-                }
-            }
-            
-            let CancelAction = UIAlertAction(title: LocalizedStrings.cancel, style: .default) { _ in
-                alert.dismiss(animated: false, completion: nil)
-            }
-            alert.addAction(CancelAction)
-            alert.addAction(okAction)
-            
-            self.present(alert, animated: true, completion: nil)
-        } else {
-            let requestPinVC = RequestPinViewController.instantiate()
-            requestPinVC.securityFor = LocalizedStrings.spending
-            requestPinVC.prompt = LocalizedStrings.enterCurrentSpendingPIN
-            requestPinVC.showCancelButton = true
-            requestPinVC.onUserEnteredSecurityCode = {(code: String, completionDelegate: SecurityRequestCompletionDelegate?) in
-                self.SignMsg(pass: code)
-                completionDelegate?.securityCodeProcessed(true, nil)
-            }
-            self.present(requestPinVC, animated: true, completion: nil)
+            self.SignMsg(pass: pinOrPassword)
+            completion?.securityCodeProcessed()
         }
     }
     

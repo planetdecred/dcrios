@@ -1,73 +1,69 @@
 //
-//  PrivatePassphrase.swift
+//  SpendingPinOrPassword.swift
 //  Decred Wallet
 //
 // Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
-import Foundation
 import UIKit
 import Dcrlibwallet
 
 struct SpendingPinOrPassword {
-    static func change(sender vc: UIViewController) {
-        self.promptForCurrentPinOrPassword(vc, afterUserEntersPinOrPassword: { (currentPinOrPassword: String, completionDelegate: SecurityRequestCompletionDelegate?) in
-            completionDelegate?.securityCodeProcessed(true, nil)
-            self.promptForNewPinOrPassword(vc, currentPinOrPassword: currentPinOrPassword)
-        })
-    }
-    
-    private static func promptForCurrentPinOrPassword(_ vc: UIViewController, afterUserEntersPinOrPassword: @escaping (String, SecurityRequestCompletionDelegate?) -> Void) {
-        // show the appropriate vc to read current pin or password
-        if self.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
-            let requestPasswordVC = RequestPasswordViewController.instantiate()
-            requestPasswordVC.securityFor = LocalizedStrings.current
-            requestPasswordVC.prompt = LocalizedStrings.enterCurrentSpendingPassword
-            requestPasswordVC.onUserEnteredSecurityCode = afterUserEntersPinOrPassword
-            vc.present(requestPasswordVC, animated: true)
-        } else {
-            let requestPinVC = RequestPinViewController.instantiate()
-            requestPinVC.securityFor = LocalizedStrings.current
-            requestPinVC.showCancelButton = true
-            requestPinVC.onUserEnteredSecurityCode = afterUserEntersPinOrPassword
-            requestPinVC.prompt = LocalizedStrings.enterCurrentSpendingPIN
-            vc.present(requestPinVC, animated: true)
-        }
-    }
-    
-    private static func promptForNewPinOrPassword(_ vc: UIViewController, currentPinOrPassword: String) {
+    static func requestNewSecurityCode(sender vc: UIViewController, callback: @escaping SecurityCodeRequestCallback) {
         // init secutity vc to use in getting new spending password or pin from user
-        let securityVC = SecurityViewController.instantiate()
+        let securityVC = SecurityViewController.instantiate(from: .Security)
         securityVC.securityFor = LocalizedStrings.spending
         securityVC.initialSecurityType = self.currentSecurityType()
-        
-        securityVC.onUserEnteredPinOrPassword = { (newPinOrPassword, securityType, completionDelegate) in
-            self.changeWalletSpendingPassphrase(vc, current: currentPinOrPassword, new: newPinOrPassword, type: securityType, completionDelegate: completionDelegate)
-        }
+        securityVC.onSecurityCodeEntered = callback
+        securityVC.modalPresentationStyle = .pageSheet
         vc.present(securityVC, animated: true, completion: nil)
     }
     
-    private static func changeWalletSpendingPassphrase(_ vc: UIViewController, current currentPassphrase: String, new newPassphrase: String, type securityType: String, completionDelegate: SecurityRequestCompletionDelegate?) {
-        let oldPrivatePass = (currentPassphrase as NSString).data(using: String.Encoding.utf8.rawValue)!
-        let newPrivatePass = (newPassphrase as NSString).data(using: String.Encoding.utf8.rawValue)!
+    static func change(sender vc: UIViewController) {
+        Security.spending()
+            .with(submitBtnText: LocalizedStrings.next)
+            .requestSecurityCode(sender: vc) { currentCode, _, completion in
+                completion?.securityCodeProcessed()
+                self.requestNewSecurityCodeAndChangePassword(sender: vc, currentCode: currentCode)
+        }
+    }
+    
+    private static func requestNewSecurityCodeAndChangePassword(sender vc: UIViewController, currentCode: String) {
+        self.requestNewSecurityCode(sender: vc) { newCode, type, completion in
+            self.changeWalletSpendingPassphrase(currentCode: currentCode, newCode: newCode, type: type, completion: completion)
+        }
+    }
+    
+    private static func changeWalletSpendingPassphrase(currentCode: String,
+                                                       newCode: String,
+                                                       type securityType: SecurityType,
+                                                       completion: SecurityCodeRequestCompletionDelegate?) {
         
         DispatchQueue.global(qos: .userInitiated).async {
             do {
-                let passphraseType = securityType == SecurityViewController.SECURITY_TYPE_PASSWORD ? DcrlibwalletPassphraseTypePass : DcrlibwalletPassphraseTypePin
+                let passphraseType = securityType == .password ? DcrlibwalletPassphraseTypePass : DcrlibwalletPassphraseTypePin
                 
                 try WalletLoader.shared.multiWallet.changePrivatePassphrase(forWallet: WalletLoader.shared.wallet!.id_,
-                                                                            oldPrivatePassphrase: oldPrivatePass,
-                                                                            newPrivatePassphrase: newPrivatePass,
+                                                                            oldPrivatePassphrase: currentCode.utf8Bits,
+                                                                            newPrivatePassphrase: newCode.utf8Bits,
                                                                             privatePassphraseType: passphraseType)
+                
                 DispatchQueue.main.async {
-                    completionDelegate?.securityCodeProcessed(true, nil)
-                    Settings.setValue(securityType, for: Settings.Keys.SpendingPassphraseSecurityType)
+                    completion?.securityCodeProcessed()
+                    Settings.setValue(securityType.rawValue, for: Settings.Keys.SpendingPassphraseSecurityType)
                 }
             } catch let error {
                 DispatchQueue.main.async {
-                    completionDelegate?.securityCodeProcessed(true, nil)
-                    vc.showOkAlert(message: error.localizedDescription, title: LocalizedStrings.error)
+                    var errorMessage = error.localizedDescription
+                    if errorMessage == DcrlibwalletErrInvalidPassphrase {
+                        // todo text should be "Wrong spending/startup password/PIN. Please try again."
+                        // Update other similar usages.
+                        // todo return to initial entry page
+                        let securityType = SpendingPinOrPassword.currentSecurityType()!.lowercased()
+                        errorMessage = String(format: LocalizedStrings.incorrectSecurityInfo, securityType)
+                    }
+                    completion?.securityCodeError(errorMessage: errorMessage)
                 }
             }
         }

@@ -2,7 +2,7 @@
 //  MenuItem.swift
 //  Decred Wallet
 //
-// Copyright (c) 2019 The Decred developers
+// Copyright (c) 2019-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -14,21 +14,19 @@ enum MenuItem: String, CaseIterable {
     case wallets = "Wallets"
     case more = "More"
     
-    // Each menu item's VC is wrapped in a navigation controller to enable the display of a navigation bar on each page
-    // and to allow each page perform VC navigations using `self.navigationController?.pushViewController`.
     var viewController: UIViewController {
         switch self {
         case .overview:
-            return Storyboards.Overview.instantiateViewController(for: OverviewViewController.self).wrapInNavigationcontroller()
+            return OverviewViewController.instantiate(from: .Overview)
             
         case .transactions:
-            return TransactionHistoryViewController(nibName: "TransactionHistoryViewController", bundle: nil).wrapInNavigationcontroller()
+            return TransactionHistoryViewController(nibName: "TransactionHistoryViewController", bundle: nil)
         
         case .wallets:
-            return Storyboards.Main.instantiateViewController(for: AccountViewController.self).wrapInNavigationcontroller()
+            return AccountViewController.instantiate(from: .Main)
         
         case .more:
-            return SettingsController.instantiate().wrapInNavigationcontroller()
+            return SettingsController.instantiate(from: .Settings)
         }
     }
     
