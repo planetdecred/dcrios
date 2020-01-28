@@ -129,12 +129,14 @@ class OverviewViewController: UIViewController {
         // todo this should be a multiwallet fetch rather than a wallet fetch!
         guard let transactions = WalletLoader.shared.wallet?.transactionHistory(offset: 0, count: 3) else {
             self.recentTransactionsTableView.isHidden = true
+            self.showAllTransactionsButton.isHidden = true
             self.noTransactionsLabelView.superview?.isHidden = false
             return
         }
         
         if transactions.count == 0 {
             self.recentTransactionsTableView.isHidden = true
+            self.showAllTransactionsButton.isHidden = true
             self.noTransactionsLabelView.superview?.isHidden = false
             return
         }
@@ -143,6 +145,10 @@ class OverviewViewController: UIViewController {
         self.recentTransactionsTableView.reloadData()
         
         self.recentTransactionsTableViewHeightContraint.constant = TransactionTableViewCell.height() * CGFloat(self.recentTransactions.count)
+
+        self.recentTransactionsTableView.isHidden = false
+        self.showAllTransactionsButton.isHidden = false
+        self.noTransactionsLabelView.superview?.isHidden = true
     }
     
     func updateWalletStatusIndicatorAndLabel() {
