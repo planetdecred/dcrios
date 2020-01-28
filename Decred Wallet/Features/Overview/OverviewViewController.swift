@@ -113,7 +113,7 @@ class OverviewViewController: UIViewController {
     }
     
     func checkWhetherToPromptForSeedBackup() {
-        self.seedBackupSectionView.isHidden = WalletLoader.shared.multiWallet.numWalletsNeedingSeedBackup() > 0
+        self.seedBackupSectionView.isHidden = WalletLoader.shared.multiWallet.numWalletsNeedingSeedBackup() == 0
     }
     
     // todo ensure this is always called from the main thread!
