@@ -22,7 +22,7 @@ class AddAcountViewController: UIViewController {
         self.accountName.placeholder = LocalizedStrings.accountName
         self.passphrase.placeholder = LocalizedStrings.privatePassphrase
         
-        if SpendingPinOrPassword.currentSecurityType() != SecurityType.password.rawValue {
+        if SpendingPinOrPassword.currentSecurityType() != .password {
             passphrase.isHidden = true
             createBtnTopConstraint.constant = -40
         }
@@ -36,7 +36,7 @@ class AddAcountViewController: UIViewController {
         
         let name = accountName.text
         if(!(name!.isEmpty)) {
-            if SpendingPinOrPassword.currentSecurityType() == SecurityType.password.rawValue {
+            if SpendingPinOrPassword.currentSecurityType() == .password {
                 addAccountWithoutPin()
             } else {
                 Security.spending().with(prompt: LocalizedStrings.confirmToCreate).requestSecurityCode(sender: self) {

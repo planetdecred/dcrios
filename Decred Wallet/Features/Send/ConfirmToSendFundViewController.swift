@@ -64,7 +64,7 @@ class ConfirmToSendFundViewController: UIViewController, UITextFieldDelegate {
             self.accountLabel.text = "\(LocalizedStrings.toAccount) \'\(self.destinationAccount!)\'"
         }
         
-        if SpendingPinOrPassword.currentSecurityType() == SecurityType.password.rawValue {
+        if SpendingPinOrPassword.currentSecurityType() == .password {
             self.passwordTextField.delegate = self
             self.passwordTextField.addTarget(self, action: #selector(self.passwordTextChanged), for: .editingChanged)
         } else {
@@ -109,7 +109,7 @@ class ConfirmToSendFundViewController: UIViewController, UITextFieldDelegate {
     
     func confirmSend() {
         self.dismiss(animated: true, completion: nil)
-        if SpendingPinOrPassword.currentSecurityType() == SecurityType.password.rawValue {
+        if SpendingPinOrPassword.currentSecurityType() == .password {
             self.sendTxConfirmed?(self.passwordTextField.text!)
         } else {
             self.sendTxConfirmed?(nil)

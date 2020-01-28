@@ -11,6 +11,8 @@ import Dcrlibwallet
 
 class WalletSetupViewController: UIViewController {
     @IBAction func restoreWallet(_ sender: Any) {
+        // todo merge RecoverExistingWallet storyboard into WalletSetup storyboard
+        // and move all files in `RecoverExistingWallet` group to this `Wallet Setup` group.
         let recoverVC = RecoverExistingWalletViewController.instantiate(from: .RecoverExistingWallet)
         self.navigationController?.pushViewController(recoverVC, animated: true)
     }

@@ -26,7 +26,7 @@ class DeleteWalletConfirmationViewController: UIViewController, UITextFieldDeleg
         
         self.deleteWalletHeader.text = "\(LocalizedStrings.deleteWallet)?"
         
-        if SpendingPinOrPassword.currentSecurityType() == SecurityType.password.rawValue {
+        if SpendingPinOrPassword.currentSecurityType() == .password {
             self.passwordTextField.delegate = self
             self.passwordTextField.addTarget(self, action: #selector(self.passwordTextChanged), for: .editingChanged)
         } else {
@@ -60,7 +60,7 @@ class DeleteWalletConfirmationViewController: UIViewController, UITextFieldDeleg
 
     @IBAction func deleteWalletConfirmed(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
-        if SpendingPinOrPassword.currentSecurityType() == SecurityType.password.rawValue {
+        if SpendingPinOrPassword.currentSecurityType() == .password {
             self.onDeleteWalletConfirmed?(self.passwordTextField.text!)
         } else {
             self.onDeleteWalletConfirmed?(nil)

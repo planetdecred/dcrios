@@ -50,9 +50,9 @@ struct LocalizedStrings {
     
     /* Security Prompt */
     static let enterStartupPassword = NSLocalizedString("enterStartupPassword", comment: "")
-    static let incorrectSecurityInfo = NSLocalizedString("incorrectSecurityInfo", comment: "")
     static let unlockWithStartupPIN = NSLocalizedString("unlockWithStartupPIN", comment: "")
     static let unlock = NSLocalizedString("unlock", comment: "")
+    static let wrongSecurityCode = NSLocalizedString("wrongSecurityCode", comment: "")
     
     /* Password Setup */
     static let emptyPasswordNotAllowed = NSLocalizedString("emptyPasswordNotAllowed", comment: "")

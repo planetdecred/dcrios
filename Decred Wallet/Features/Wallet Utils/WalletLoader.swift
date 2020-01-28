@@ -39,7 +39,7 @@ class WalletLoader: NSObject {
     
     func linkExistingWalletAndStartApp(startupPinOrPassword: String) throws {
         var privatePassphraseType = DcrlibwalletPassphraseTypePass
-        if SpendingPinOrPassword.currentSecurityType() == SecurityType.pin.rawValue {
+        if SpendingPinOrPassword.currentSecurityType() == .pin {
             privatePassphraseType = DcrlibwalletPassphraseTypePin
         }
         

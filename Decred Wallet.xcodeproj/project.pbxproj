@@ -78,11 +78,10 @@
 		B3B46A1D228F0F2700A68EDD /* RequestPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469D8228F0F2600A68EDD /* RequestPasswordViewController.swift */; };
 		B3B46A1F228F0F2700A68EDD /* RequestPinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469DA228F0F2600A68EDD /* RequestPinViewController.swift */; };
 		B3B46A20228F0F2700A68EDD /* PinPasswordStrength.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469DB228F0F2600A68EDD /* PinPasswordStrength.swift */; };
-		B3B46A21228F0F2700A68EDD /* SecurityRequestBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469DC228F0F2600A68EDD /* SecurityRequestBaseViewController.swift */; };
+		B3B46A21228F0F2700A68EDD /* SecurityCodeRequestBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469DC228F0F2600A68EDD /* SecurityCodeRequestBaseViewController.swift */; };
 		B3B46A24228F0F2700A68EDD /* TransactionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469E0228F0F2600A68EDD /* TransactionTableViewCell.swift */; };
 		B3B46A25228F0F2700A68EDD /* TransactionHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469E1228F0F2600A68EDD /* TransactionHistoryViewController.swift */; };
 		B3B46A29228F0F2700A68EDD /* WalletSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469E6228F0F2600A68EDD /* WalletSetupViewController.swift */; };
-		B3B46A2A228F0F2700A68EDD /* WalletSetupBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469E7228F0F2600A68EDD /* WalletSetupBaseViewController.swift */; };
 		B3B46A2E228F0F2700A68EDD /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469EC228F0F2600A68EDD /* MenuItem.swift */; };
 		B3B46A32228F0F2700A68EDD /* OverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469F1228F0F2600A68EDD /* OverviewViewController.swift */; };
 		B3B46A34228F0F2700A68EDD /* TransactionNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469F4228F0F2600A68EDD /* TransactionNotification.swift */; };
@@ -226,11 +225,10 @@
 		B3B469D8228F0F2600A68EDD /* RequestPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestPasswordViewController.swift; sourceTree = "<group>"; };
 		B3B469DA228F0F2600A68EDD /* RequestPinViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestPinViewController.swift; sourceTree = "<group>"; };
 		B3B469DB228F0F2600A68EDD /* PinPasswordStrength.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinPasswordStrength.swift; sourceTree = "<group>"; };
-		B3B469DC228F0F2600A68EDD /* SecurityRequestBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecurityRequestBaseViewController.swift; sourceTree = "<group>"; };
+		B3B469DC228F0F2600A68EDD /* SecurityCodeRequestBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecurityCodeRequestBaseViewController.swift; sourceTree = "<group>"; };
 		B3B469E0228F0F2600A68EDD /* TransactionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionTableViewCell.swift; sourceTree = "<group>"; };
 		B3B469E1228F0F2600A68EDD /* TransactionHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionHistoryViewController.swift; sourceTree = "<group>"; };
 		B3B469E6228F0F2600A68EDD /* WalletSetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletSetupViewController.swift; sourceTree = "<group>"; };
-		B3B469E7228F0F2600A68EDD /* WalletSetupBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletSetupBaseViewController.swift; sourceTree = "<group>"; };
 		B3B469EC228F0F2600A68EDD /* MenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
 		B3B469F1228F0F2600A68EDD /* OverviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverviewViewController.swift; sourceTree = "<group>"; };
 		B3B469F4228F0F2600A68EDD /* TransactionNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionNotification.swift; sourceTree = "<group>"; };
@@ -594,7 +592,7 @@
 			children = (
 				DD8F9D3B22BE7A5600FF8594 /* Security.storyboard */,
 				B3B469D6228F0F2600A68EDD /* SecurityViewController.swift */,
-				B3B469DC228F0F2600A68EDD /* SecurityRequestBaseViewController.swift */,
+				B3B469DC228F0F2600A68EDD /* SecurityCodeRequestBaseViewController.swift */,
 				B3B469D8228F0F2600A68EDD /* RequestPasswordViewController.swift */,
 				B3B469DA228F0F2600A68EDD /* RequestPinViewController.swift */,
 				B3B469DB228F0F2600A68EDD /* PinPasswordStrength.swift */,
@@ -619,7 +617,6 @@
 				DD2D1E6E23CBB18A00FC49BC /* Recover Existing Wallet */,
 				DDCF259122B89D96005FCBB9 /* WalletSetup.storyboard */,
 				B3B469E6228F0F2600A68EDD /* WalletSetupViewController.swift */,
-				B3B469E7228F0F2600A68EDD /* WalletSetupBaseViewController.swift */,
 			);
 			path = "Wallet Setup";
 			sourceTree = "<group>";
@@ -933,7 +930,6 @@
 			files = (
 				B3B46A10228F0F2700A68EDD /* UIView.swift in Sources */,
 				B3B469FE228F0F2700A68EDD /* Button.swift in Sources */,
-				B3B46A2A228F0F2700A68EDD /* WalletSetupBaseViewController.swift in Sources */,
 				B3B46A15228F0F2700A68EDD /* UIImageView.swift in Sources */,
 				B3B46A19228F0F2700A68EDD /* StartScreenViewController.swift in Sources */,
 				B3B46AA0228F0F7D00A68EDD /* SendCompletedViewController.swift in Sources */,
@@ -991,7 +987,7 @@
 				B377DB0722A5663700BDF56F /* DeleteWalletConfirmationViewController.swift in Sources */,
 				B3B469A6228F0F0700A68EDD /* AccountHeader.swift in Sources */,
 				B3A3EF88229375D100008A4E /* Date.swift in Sources */,
-				B3B46A21228F0F2700A68EDD /* SecurityRequestBaseViewController.swift in Sources */,
+				B3B46A21228F0F2700A68EDD /* SecurityCodeRequestBaseViewController.swift in Sources */,
 				B3A3EF922295956300008A4E /* SendViewController.swift in Sources */,
 				B3B46A9C228F0F7D00A68EDD /* ServerSetTableViewController.swift in Sources */,
 				B3B46A8C228F0F7D00A68EDD /* Utils.swift in Sources */,

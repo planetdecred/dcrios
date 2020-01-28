@@ -96,24 +96,22 @@ class StartScreenViewController: UIViewController {
                 completion?.securityCodeProcessed()
             } catch let error {
                 print("link existing wallet error: \(error.localizedDescription)")
-                var errorMessage = error.localizedDescription
-                if errorMessage == DcrlibwalletErrInvalidPassphrase {
-                    let securityType = StartupPinOrPassword.currentSecurityType()!.lowercased()
-                    errorMessage = String(format: LocalizedStrings.incorrectSecurityInfo, securityType)
+                if error.isInvalidPassphraseError {
+                    completion?.securityCodeError(errorMessage: StartupPinOrPassword.invalidSecurityCodeMessage())
+                } else {
+                    completion?.securityCodeError(errorMessage: error.localizedDescription)
                 }
-                completion?.securityCodeError(errorMessage: errorMessage)
             }
         }
     }
 
     func promptForStartupPinOrPassword(callback: @escaping SecurityCodeRequestCallback) {
         var enterCodePrompt = LocalizedStrings.enterStartupPassword // todo update to "Unlock with startup password"
-        if StartupPinOrPassword.currentSecurityType() == SecurityType.pin.rawValue {
+        if StartupPinOrPassword.currentSecurityType() == .pin {
             enterCodePrompt = LocalizedStrings.unlockWithStartupPIN
         }
         
         Security.startup()
-            .for(LocalizedStrings.startup)
             .with(prompt: enterCodePrompt)
             .with(submitBtnText: LocalizedStrings.unlock)
             .should(showCancelButton: false)
@@ -132,12 +130,11 @@ class StartScreenViewController: UIViewController {
                 }
             } catch let error {
                 DispatchQueue.main.async {
-                    var errorMessage = error.localizedDescription
-                    if errorMessage == DcrlibwalletErrInvalidPassphrase {
-                        let securityType = StartupPinOrPassword.currentSecurityType()!.lowercased()
-                        errorMessage = String(format: LocalizedStrings.incorrectSecurityInfo, securityType)
+                    if error.isInvalidPassphraseError {
+                        completion?.securityCodeError(errorMessage: StartupPinOrPassword.invalidSecurityCodeMessage())
+                    } else {
+                        completion?.securityCodeError(errorMessage: error.localizedDescription)
                     }
-                    completion?.securityCodeError(errorMessage: errorMessage)
                 }
             }
         }

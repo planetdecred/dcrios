@@ -282,7 +282,11 @@ class SettingsController: UITableViewController  {
                 print("delete wallet error: \(error.localizedDescription)")
                 DispatchQueue.main.async {
                     progressHud.dismiss()
-                    completion?.securityCodeError(errorMessage: LocalizedStrings.deleteWalletFailed)
+                    if error.isInvalidPassphraseError {
+                        completion?.securityCodeError(errorMessage: SpendingPinOrPassword.invalidSecurityCodeMessage())
+                    } else {
+                        completion?.securityCodeError(errorMessage: LocalizedStrings.deleteWalletFailed)
+                    }
                 }
             }
         }

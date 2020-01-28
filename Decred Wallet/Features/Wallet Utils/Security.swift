@@ -11,20 +11,42 @@ import UIKit
 enum SecurityType: String {
     case password = "PASSWORD"
     case pin = "PIN"
+    
+    var localizedString: String {
+        switch self {
+        case .password:
+            return LocalizedStrings.password
+        case .pin:
+            return LocalizedStrings.pin
+        }
+    }
 }
 
 class Security: NSObject {
-    enum `Type` { // todo rename, can't have Security.Type and SecurityType
+    enum For {
         case Startup
         case Spending
+        
+        var localizedString: String {
+            switch self {
+            case .Startup:
+                return LocalizedStrings.startup
+            case .Spending:
+                return LocalizedStrings.spending
+            }
+        }
     }
     
     class Request {
-        var `for`: String = "" // expects "Spending", "Startup" or other security section, todo prolly rename
+        var `for`: For
         var prompt: String?
         var requestConfirmation = false
         var showCancelButton = true
         var submitBtnText: String?
+        
+        init(for securityFor: For) {
+            self.for = securityFor
+        }
     }
     
     class RequestCallbacks {
@@ -33,24 +55,25 @@ class Security: NSObject {
         var onSecurityCodeEntered: SecurityCodeRequestCallback?
     }
     
-    private var type: Type
-    private var request = Request()
+    private var `for`: For
+    private var request: Request
     private var callbacks = RequestCallbacks()
-    private var currentSecurityType: String?
+    private var currentSecurityType: SecurityType?
     
     static func startup() -> Security {
-        return Security(type: .Startup)
+        return Security(for: .Startup)
     }
     
     static func spending() -> Security {
-        return Security(type: .Spending)
+        return Security(for: .Spending)
     }
     
-    private init(type: Type) {
-        self.type = type
+    private init(for securityFor: For) {
+        self.for = securityFor
+        self.request = Request(for: securityFor)
         super.init()
         
-        if self.type == .Startup {
+        if self.for == .Startup {
             self.setDefaultStartupSecurityRequestParameters()
         } else {
             self.setDefaultSpendingSecurityRequestParameters()
@@ -59,9 +82,8 @@ class Security: NSObject {
     
     private func setDefaultStartupSecurityRequestParameters() {
         self.currentSecurityType = StartupPinOrPassword.currentSecurityType()
-        self.request.for = LocalizedStrings.startup
         
-        if self.currentSecurityType == SecurityType.password.rawValue {
+        if self.currentSecurityType == .password {
             self.request.prompt = LocalizedStrings.promptStartupPassword
         } else {
             self.request.prompt = LocalizedStrings.promptStartupPIN
@@ -70,19 +92,12 @@ class Security: NSObject {
     
     private func setDefaultSpendingSecurityRequestParameters() {
         self.currentSecurityType = SpendingPinOrPassword.currentSecurityType()
-        self.request.for = LocalizedStrings.spending
-        
-        if self.currentSecurityType == SecurityType.password.rawValue {
+
+        if self.currentSecurityType == .password {
             self.request.prompt = LocalizedStrings.enterCurrentSpendingPassword
         } else {
             self.request.prompt = LocalizedStrings.enterCurrentSpendingPIN
         }
-    }
-    
-    @discardableResult
-    func `for`(_ securityFor: String) -> Security {
-        self.request.for = securityFor
-        return self
     }
     
     @discardableResult
@@ -129,8 +144,8 @@ class Security: NSObject {
     }
     
     private func request(sender vc: UIViewController) {
-        var securityRequestVC: SecurityRequestBaseViewController
-        if self.currentSecurityType == SecurityType.password.rawValue {
+        var securityRequestVC: SecurityCodeRequestBaseViewController
+        if self.currentSecurityType == .password {
             securityRequestVC = RequestPasswordViewController.instantiate(from: .Security)
         } else {
             securityRequestVC = RequestPinViewController.instantiate(from: .Security)

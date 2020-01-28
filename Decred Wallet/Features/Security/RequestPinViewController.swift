@@ -9,7 +9,7 @@
 import UIKit
 import Dcrlibwallet
 
-class RequestPinViewController: SecurityRequestBaseViewController {
+class RequestPinViewController: SecurityCodeRequestBaseViewController {
     @IBOutlet weak var headerLabel: UILabel!
 
     @IBOutlet weak var pinCollectionView: UICollectionView!
@@ -67,10 +67,12 @@ class RequestPinViewController: SecurityRequestBaseViewController {
     private func setPromptAndButtonText(isFirstStep: Bool) {
         if isFirstStep {
             self.btnSubmit.setTitle(self.request.submitBtnText ?? LocalizedStrings.next, for: .normal)
-            self.enterPinLabel.text = String(format: LocalizedStrings.enterPIN, self.request.for)
+            self.enterPinLabel.text = String(format: LocalizedStrings.enterPIN,
+                                             self.request.for.localizedString.lowercased())
         } else {
             self.btnSubmit.setTitle(LocalizedStrings.create, for: .normal)
-            self.enterPinLabel.text = String(format: LocalizedStrings.confirmPIN, self.request.for)
+            self.enterPinLabel.text = String(format: LocalizedStrings.confirmPIN,
+                                             self.request.for.localizedString.lowercased())
         }
     }
 

@@ -13,7 +13,7 @@ struct StartupPinOrPassword {
     static func requestNewSecurityCode(sender vc: UIViewController, callback: @escaping SecurityCodeRequestCallback) {
         // init secutity vc to use in getting new spending password or pin from user
         let securityVC = SecurityViewController.instantiate(from: .Security)
-        securityVC.securityFor = LocalizedStrings.startup
+        securityVC.securityFor = .Startup
         securityVC.initialSecurityType = self.currentSecurityType()
         securityVC.onSecurityCodeEntered = callback
         securityVC.modalPresentationStyle = .pageSheet
@@ -106,13 +106,12 @@ struct StartupPinOrPassword {
                 }
             } catch let error {
                 DispatchQueue.main.async {
-                    var errorMessage = error.localizedDescription
-                    if errorMessage == DcrlibwalletErrInvalidPassphrase {
-                        // todo return to initial entry page
-                        let securityType = StartupPinOrPassword.currentSecurityType()!.lowercased()
-                        errorMessage = String(format: LocalizedStrings.incorrectSecurityInfo, securityType)
+                    if error.isInvalidPassphraseError {
+                        // todo return to initial entry page to display this error
+                        completion?.securityCodeError(errorMessage: self.invalidSecurityCodeMessage())
+                    } else {
+                        completion?.securityCodeError(errorMessage: error.localizedDescription)
                     }
-                    completion?.securityCodeError(errorMessage: errorMessage)
                 }
             }
         }
@@ -122,7 +121,15 @@ struct StartupPinOrPassword {
         return Settings.readValue(for: Settings.Keys.IsStartupSecuritySet)
     }
 
-    static func currentSecurityType() -> String? {
-        return Settings.readOptionalValue(for: Settings.Keys.StartupSecurityType)
+    static func currentSecurityType() -> SecurityType {
+        if Settings.readOptionalValue(for: Settings.Keys.StartupSecurityType) == SecurityType.pin.rawValue {
+            return .pin
+        }
+        return .password
+    }
+    
+    static func invalidSecurityCodeMessage() -> String {
+        let securityType = self.currentSecurityType() == .pin ? LocalizedStrings.pin : LocalizedStrings.password.lowercased()
+        return String(format: LocalizedStrings.wrongSecurityCode, LocalizedStrings.startup.lowercased(), securityType)
     }
 }

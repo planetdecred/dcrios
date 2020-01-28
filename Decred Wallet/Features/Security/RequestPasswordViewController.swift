@@ -7,7 +7,7 @@
 // license that can be found in the LICENSE file.
 import UIKit
 
-class RequestPasswordViewController: SecurityRequestBaseViewController, UITextFieldDelegate {
+class RequestPasswordViewController: SecurityCodeRequestBaseViewController, UITextFieldDelegate {
     @IBOutlet weak var headerLabel: UILabel!
 
     @IBOutlet weak var passwordInput: FloatingPlaceholderTextField!
@@ -33,14 +33,16 @@ class RequestPasswordViewController: SecurityRequestBaseViewController, UITextFi
     }
 
     private func setupInterface() {
-        self.passwordInput.placeholder = String(format: LocalizedStrings.passwordPlaceholder, self.request.for)
+        self.passwordInput.placeholder = String(format: LocalizedStrings.passwordPlaceholder,
+                                                self.request.for.localizedString.lowercased())
         self.passwordInput.isSecureTextEntry = true
         self.passwordInput.addTogglePasswordVisibilityButton()
         self.passwordInput.addTarget(self, action: #selector(self.passwordTextFieldChange), for: .editingChanged)
         self.passwordInput.delegate = self
 
         if self.request.requestConfirmation {
-            self.confirmPasswordInput?.placeholder = String(format: LocalizedStrings.confirmPasswordPlaceholder, self.request.for.lowercased())
+            self.confirmPasswordInput?.placeholder = String(format: LocalizedStrings.confirmPasswordPlaceholder,
+                                                            self.request.for.localizedString.lowercased())
             self.confirmPasswordInput?.isSecureTextEntry = true
             self.confirmPasswordInput?.addTogglePasswordVisibilityButton()
             self.confirmPasswordInput?.delegate = self

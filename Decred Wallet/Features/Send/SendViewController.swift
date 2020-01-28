@@ -430,14 +430,15 @@ class SendViewController: UIViewController {
                 DispatchQueue.main.async {
                     progressHud.dismiss()
                     
-                    if error.localizedDescription != DcrlibwalletErrInvalidPassphrase {
+                    if error.isInvalidPassphraseError {
+                        self.showOkAlert(message: SpendingPinOrPassword.invalidSecurityCodeMessage(),
+                                         title: LocalizedStrings.failedTransaction,
+                                         okText: LocalizedStrings.retry,
+                                         onPressOk: self.attemptSend,
+                                         addCancelAction: true)
+                    } else {
                         self.showOkAlert(message: error.localizedDescription, title: LocalizedStrings.error)
-                        return
                     }
-                    
-                    let securityType = SpendingPinOrPassword.currentSecurityType()!.lowercased()
-                    let errorMessage = String(format: LocalizedStrings.incorrectSecurityInfo, securityType)
-                    self.showOkAlert(message: errorMessage, title: LocalizedStrings.failedTransaction, okText: LocalizedStrings.retry, onPressOk: self.attemptSend, addCancelAction: true)
                 }
             }
         }

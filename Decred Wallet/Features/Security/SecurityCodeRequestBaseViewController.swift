@@ -9,7 +9,6 @@
 import UIKit
 
 // triggered when security code is entered by user
-// todo rename to SecurityCodeEnteredCallback and move to Security.swift
 typealias SecurityCodeRequestCallback = (_ code: String, _ type: SecurityType, _ completion: SecurityCodeRequestCompletionDelegate?) -> Void
 
 // triggered after user-provided code is processed
@@ -18,13 +17,12 @@ protocol SecurityCodeRequestCompletionDelegate {
     func securityCodeError(errorMessage: String)
 }
 
-// todo prolly rename to SecurityCodeRequestBaseViewController
-class SecurityRequestBaseViewController: UIViewController {
+class SecurityCodeRequestBaseViewController: UIViewController {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var stackViewBottomConstraint: NSLayoutConstraint!
     
-    var request = Security.Request()
-    var callbacks = Security.RequestCallbacks()
+    var request: Security.Request!
+    var callbacks: Security.RequestCallbacks!
     
     var isInErrorState = false
 
@@ -68,7 +66,7 @@ class SecurityRequestBaseViewController: UIViewController {
     }
 }
 
-extension SecurityRequestBaseViewController: SecurityCodeRequestCompletionDelegate {
+extension SecurityCodeRequestBaseViewController: SecurityCodeRequestCompletionDelegate {
     func securityCodeProcessed() {
         self.dismissView()
     }
