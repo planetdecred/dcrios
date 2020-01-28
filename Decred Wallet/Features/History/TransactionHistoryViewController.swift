@@ -217,7 +217,6 @@ extension TransactionHistoryViewController: UITableViewDataSource, UITableViewDe
         } else {
             transactionDetailVC.transaction = self.filteredTransactions[indexPath.row]
         }
-        
-        self.navigationController?.pushViewController(transactionDetailVC, animated: true)
+        self.present(transactionDetailVC, animated: true)
     }
 }

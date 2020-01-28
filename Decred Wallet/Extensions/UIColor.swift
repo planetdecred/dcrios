@@ -2,7 +2,7 @@
 //  UIColor.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -44,6 +44,7 @@ extension UIColor {
         static let gray = UIColor.init(hex: "#E6EAED")
         static let darkGray = UIColor.init(hex: "#C4CBD2")
         static let lightGray = UIColor.init(hex: "#EDEFF1")
+        static let deepGray = UIColor.init(hex:"#030303")
         
         static let offWhite = UIColor(hex:"#F3F5F6")
         static let lightOffWhite = UIColor(hex: "#F9FAFA")

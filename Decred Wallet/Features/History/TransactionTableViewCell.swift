@@ -41,7 +41,7 @@ class TransactionTableViewCell: UITableViewCell {
             let isConfirmed = Settings.spendUnconfirmed || confirmations > 1
             self.status.text = isConfirmed ? dateformater.string(from: Date2 as Date) : LocalizedStrings.pending
             self.status.textColor = isConfirmed ? UIColor(hex:"#596d81") : UIColor(hex:"#8997a5")
-            self.statusIcon.image = isConfirmed ? UIImage(named: "confirmed") : UIImage(named: "pending")
+            self.statusIcon.image = isConfirmed ? UIImage(named: "ic_confirmed") : UIImage(named: "ic_pending")
             
           
             let requireConfirmation = Settings.spendUnconfirmed ? 0 : 2
@@ -51,12 +51,12 @@ class TransactionTableViewCell: UITableViewCell {
                     let attributedString = NSMutableAttributedString(string: "-")
                     attributedString.append(Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 13.0, TexthexColor: UIColor.appColors.darkBlue))
                     self.dataText.attributedText = attributedString
-                    self.dataImage?.image = UIImage(named: "debit")
+                    self.dataImage?.image = UIImage(named: "ic_send")
                 } else if transaction.direction == DcrlibwalletTxDirectionReceived {
                     let attributedString = NSMutableAttributedString(string: " ")
                     attributedString.append(Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 13.0, TexthexColor: UIColor.appColors.darkBlue))
                     self.dataText.attributedText = attributedString
-                    self.dataImage?.image = UIImage(named: "credit")
+                    self.dataImage?.image = UIImage(named: "ic_receive")
                 } else if transaction.direction == DcrlibwalletTxDirectionTransferred {
                     let attributedString = NSMutableAttributedString(string: " ")
                     attributedString.append(Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 13.0, TexthexColor: UIColor.appColors.darkBlue))

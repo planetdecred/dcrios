@@ -212,6 +212,15 @@ struct LocalizedStrings {
     static let nullData = NSLocalizedString("nullData", comment: "")
     static let script = NSLocalizedString("script", comment: "")
     static let stakegen = NSLocalizedString("stakegen", comment: "")
+    static let inputsConsumed = NSLocalizedString("inputsConsumed", comment: "")
+    static let outputsCreated = NSLocalizedString("outputsCreated", comment: "")
+    static let confirmations = NSLocalizedString("confirmations", comment: "")
+    static let transactionID = NSLocalizedString("transactionID", comment: "")
+    static let transferred = NSLocalizedString("transferred", comment: "")
+    static let includedInBlock = NSLocalizedString("includedInBlock", comment: "")
+    static let howToCopy = NSLocalizedString("howToCopy", comment: "")
+    static let tapOnBlueText = NSLocalizedString("tapOnBlueText", comment: "")
+    static let gotIt = NSLocalizedString("gotIt", comment: "")
     
     /* Send view */
     static let invalidAmount = NSLocalizedString("invalidAmount", comment: "")

@@ -16,7 +16,7 @@ enum BannerType: String {
 }
 
 struct AttributedStringStyle {
-    var tag: String
+    var tag: String?
     var font: UIFont?
     var color: UIColor?
 }
@@ -212,22 +212,32 @@ struct Utils {
         }
     }
 
-    static func styleAttributedString(_ inString: String, styles: [AttributedStringStyle]) -> NSMutableAttributedString {
+    static func styleAttributedString(_ inString: String, styles: [AttributedStringStyle], defaultStyle: AttributedStringStyle? = nil) -> NSMutableAttributedString {
         let attrString = NSMutableAttributedString(string: inString, attributes: nil)
+        if let `defaultStyle` = defaultStyle {
+            if let color = defaultStyle.color {
+                attrString.addAttribute(NSAttributedString.Key.foregroundColor, value: color, range:  NSMakeRange(0, inString.count))
+            }
+            if let font = defaultStyle.font {
+                attrString.addAttribute(NSAttributedString.Key.font, value: font, range:  NSMakeRange(0, inString.count))
+            }
+        }
         for style in styles {
-            let pattern = "<\\s*\(style.tag)[^>]*>(.*?)<\\s*\\/\\s*\(style.tag)>"
-            let regex = try? NSRegularExpression(pattern: pattern, options: [])
-            if let matches = regex?.matches(in: inString, options: [], range: NSMakeRange(0, inString.count)) {
-                for match in matches {
-                    if let color = style.color {
-                        attrString.addAttribute(NSAttributedString.Key.foregroundColor, value: color, range: match.range(at: 1))
+            if let tag = style.tag {
+                let pattern = "<\\s*\(tag)[^>]*>(.*?)<\\s*\\/\\s*\(tag)>"
+                let regex = try? NSRegularExpression(pattern: pattern, options: [])
+                if let matches = regex?.matches(in: inString, options: [], range: NSMakeRange(0, inString.count)) {
+                    for match in matches {
+                        if let color = style.color {
+                            attrString.addAttribute(NSAttributedString.Key.foregroundColor, value: color, range: match.range(at: 1))
+                        }
+                        if let font = style.font {
+                            attrString.addAttribute(NSAttributedString.Key.font, value: font, range: match.range(at: 1))
+                        }
                     }
-                    if let font = style.font {
-                        attrString.addAttribute(NSAttributedString.Key.font, value: font, range: match.range(at: 1))
+                    for tagPattern in ["<\(tag)>", "</\(tag)>"] {
+                        attrString.mutableString.replaceOccurrences(of: tagPattern, with: "", options: NSString.CompareOptions.caseInsensitive, range: NSRange(location: 0, length: attrString.length))
                     }
-                }
-                for tagPattern in ["<\(style.tag)>", "</\(style.tag)>"] {
-                    attrString.mutableString.replaceOccurrences(of: tagPattern, with: "", options: NSString.CompareOptions.caseInsensitive, range: NSRange(location: 0, length: attrString.length))
                 }
             }
         }

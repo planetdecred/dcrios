@@ -392,7 +392,7 @@ extension OverviewViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let txDetailsVC = TransactionDetailsViewController.instantiate(from: .TransactionDetails)
         txDetailsVC.transaction = self.recentTransactions[indexPath.row]
-        self.navigationController?.pushViewController(txDetailsVC, animated: true)
+        self.present(txDetailsVC, animated: true)
     }
 }
 

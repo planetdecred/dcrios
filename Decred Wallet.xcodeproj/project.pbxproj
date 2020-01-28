@@ -16,6 +16,9 @@
 		10341E0C23CBBB700055DFDE /* SeedBackup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10341E0523CBBB700055DFDE /* SeedBackup.storyboard */; };
 		10341E0D23CBBB700055DFDE /* SeedBackupReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10341E0623CBBB700055DFDE /* SeedBackupReminderViewController.swift */; };
 		10341E0F23CBBB7E0055DFDE /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10341E0E23CBBB7E0055DFDE /* Label.swift */; };
+		108A2E7423DE311900B13A22 /* SelfSizedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108A2E7323DE311900B13A22 /* SelfSizedTableView.swift */; };
+		10A8446923B004B900975661 /* SecurityBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A8446823B004B900975661 /* SecurityBaseViewController.swift */; };
+		10B4B35E23DF6D4300B5A92F /* TransactiontViewOnDcrdataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B4B35D23DF6D4300B5A92F /* TransactiontViewOnDcrdataCell.swift */; };
 		10BA77992390059F00B67446 /* TabMenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BA77982390059F00B67446 /* TabMenuItemView.swift */; };
 		10D9FB9323C3956300CBF216 /* FloatingPlaceholderTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D9FB8E23C3956200CBF216 /* FloatingPlaceholderTextField.swift */; };
 		10D9FB9623C3956300CBF216 /* FloatingPlaceholderLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D9FB9123C3956300CBF216 /* FloatingPlaceholderLabel.swift */; };
@@ -156,6 +159,7 @@
 		DDCF25A122B8A3D4005FCBB9 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDCF25A022B8A3D4005FCBB9 /* Settings.storyboard */; };
 		DDCF25A522B8A43F005FCBB9 /* TransactiontInputDetailsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDCF25A422B8A43F005FCBB9 /* TransactiontInputDetailsCell.xib */; };
 		DDCF25A722B8A450005FCBB9 /* TransactiontOutputDetailsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDCF25A622B8A44F005FCBB9 /* TransactiontOutputDetailsCell.xib */; };
+		DDCF25A322B8A417005FCBB9 /* AccountDataCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDCF25A222B8A417005FCBB9 /* AccountDataCell.xib */; };
 		DDCF25A922B8A488005FCBB9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDCF25A822B8A487005FCBB9 /* Main.storyboard */; };
 		DDD65AD722A935460027CDA8 /* LicenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD65AD622A935460027CDA8 /* LicenseViewController.swift */; };
 /* End PBXBuildFile section */
@@ -170,6 +174,9 @@
 		10341E0523CBBB700055DFDE /* SeedBackup.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SeedBackup.storyboard; sourceTree = "<group>"; };
 		10341E0623CBBB700055DFDE /* SeedBackupReminderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeedBackupReminderViewController.swift; sourceTree = "<group>"; };
 		10341E0E23CBBB7E0055DFDE /* Label.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
+		108A2E7323DE311900B13A22 /* SelfSizedTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelfSizedTableView.swift; sourceTree = "<group>"; };
+		10A8446823B004B900975661 /* SecurityBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecurityBaseViewController.swift; sourceTree = "<group>"; };
+		10B4B35D23DF6D4300B5A92F /* TransactiontViewOnDcrdataCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactiontViewOnDcrdataCell.swift; sourceTree = "<group>"; };
 		10BA77982390059F00B67446 /* TabMenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabMenuItemView.swift; sourceTree = "<group>"; };
 		10D9FB8E23C3956200CBF216 /* FloatingPlaceholderTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingPlaceholderTextField.swift; sourceTree = "<group>"; };
 		10D9FB9123C3956300CBF216 /* FloatingPlaceholderLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingPlaceholderLabel.swift; sourceTree = "<group>"; };
@@ -320,6 +327,7 @@
 		DDCF25A022B8A3D4005FCBB9 /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		DDCF25A422B8A43F005FCBB9 /* TransactiontInputDetailsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactiontInputDetailsCell.xib; sourceTree = "<group>"; };
 		DDCF25A622B8A44F005FCBB9 /* TransactiontOutputDetailsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactiontOutputDetailsCell.xib; sourceTree = "<group>"; };
+		DDCF25A222B8A417005FCBB9 /* AccountDataCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountDataCell.xib; sourceTree = "<group>"; };
 		DDCF25A822B8A487005FCBB9 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		DDD65AD622A935460027CDA8 /* LicenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseViewController.swift; sourceTree = "<group>"; };
 		DDFB922722C8FF2D00F46FBE /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -503,6 +511,7 @@
 				10D9FB9723C3956600CBF216 /* FloatingPlaceholderInputs */,
 				B3B469AD228F0F2600A68EDD /* Button.swift */,
 				10341E0E23CBBB7E0055DFDE /* Label.swift */,
+				108A2E7323DE311900B13A22 /* SelfSizedTableView.swift */,
 				B3635B81229FE5870052EB4D /* QRImageScanner.swift */,
 				102AFAC323AA2B4D007E2EBD /* ProgressView.swift */,
 				B3456D2423D91CF600B04860 /* RoundedView.swift */,
@@ -734,10 +743,9 @@
 			children = (
 				B3B46AC0228F120700A68EDD /* TransactionDetailCell.xib */,
 				B3B46AC1228F120700A68EDD /* TransactionDetailCell.swift */,
-				DDCF25A422B8A43F005FCBB9 /* TransactiontInputDetailsCell.xib */,
 				B3B46AC2228F120700A68EDD /* TransactiontInputDetailsCell.swift */,
-				DDCF25A622B8A44F005FCBB9 /* TransactiontOutputDetailsCell.xib */,
 				B3B46ABD228F120700A68EDD /* TransactiontOutputDetailsCell.swift */,
+				10B4B35D23DF6D4300B5A92F /* TransactiontViewOnDcrdataCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -869,7 +877,6 @@
 				B3B46A0C228F0F2700A68EDD /* SourceSansPro-Italic.ttf in Resources */,
 				DDCF259222B89D96005FCBB9 /* WalletSetup.storyboard in Resources */,
 				DDCF259422B8A269005FCBB9 /* TransactionTableViewCell.xib in Resources */,
-				DDCF25A722B8A450005FCBB9 /* TransactiontOutputDetailsCell.xib in Resources */,
 				B3B46A40228F0F6700A68EDD /* bg-button.png in Resources */,
 				B3B46A3F228F0F6700A68EDD /* bg-button@3x.png in Resources */,
 				B3B46A01228F0F2700A68EDD /* SourceSansPro-BlackItalic.ttf in Resources */,
@@ -989,6 +996,7 @@
 				B3B46AC9228F120700A68EDD /* TransactiontInputDetailsCell.swift in Sources */,
 				10341E0F23CBBB7E0055DFDE /* Label.swift in Sources */,
 				10FABE4F23C7303E00BC201B /* FloatingPlaceholderTextView.swift in Sources */,
+				10B4B35E23DF6D4300B5A92F /* TransactiontViewOnDcrdataCell.swift in Sources */,
 				DD3DF86622C3F0BD00E168AB /* UILabel.swift in Sources */,
 				B3B46A99228F0F7D00A68EDD /* CertificateViewController.swift in Sources */,
 				DDD65AD722A935460027CDA8 /* LicenseViewController.swift in Sources */,
@@ -1006,6 +1014,7 @@
 				B3B46AC8228F120700A68EDD /* TransactionDetailCell.swift in Sources */,
 				B3B46A1B228F0F2700A68EDD /* SecurityViewController.swift in Sources */,
 				B3B46993228F0C2E00A68EDD /* AppDelegate.swift in Sources */,
+				108A2E7423DE311900B13A22 /* SelfSizedTableView.swift in Sources */,
 				B3B46A12228F0F2700A68EDD /* TextFieldDoneButton.swift in Sources */,
 				B3B46A1D228F0F2700A68EDD /* RequestPasswordViewController.swift in Sources */,
 				B3B469FA228F0F2700A68EDD /* UIColor.swift in Sources */,
