@@ -2,12 +2,12 @@
 //  RequestPasswordViewController.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 import UIKit
 
-class RequestPasswordViewController: SecurityRequestBaseViewController, UITextFieldDelegate {
+class RequestPasswordViewController: SecurityCodeRequestBaseViewController, UITextFieldDelegate {
     @IBOutlet weak var headerLabel: UILabel!
 
     @IBOutlet weak var passwordInput: FloatingPlaceholderTextField!
@@ -33,14 +33,16 @@ class RequestPasswordViewController: SecurityRequestBaseViewController, UITextFi
     }
 
     private func setupInterface() {
-        self.passwordInput.placeholder = String(format: LocalizedStrings.passwordPlaceholder, self.securityFor)
+        self.passwordInput.placeholder = String(format: LocalizedStrings.passwordPlaceholder,
+                                                self.request.for.localizedString)
         self.passwordInput.isSecureTextEntry = true
         self.passwordInput.addTogglePasswordVisibilityButton()
         self.passwordInput.addTarget(self, action: #selector(self.passwordTextFieldChange), for: .editingChanged)
         self.passwordInput.delegate = self
 
-        if self.requestConfirmation {
-            self.confirmPasswordInput?.placeholder = String(format: LocalizedStrings.confirmPasswordPlaceholder, self.securityFor.lowercased())
+        if self.request.requestConfirmation {
+            self.confirmPasswordInput?.placeholder = String(format: LocalizedStrings.confirmPasswordPlaceholder,
+                                                            self.request.for.localizedString)
             self.confirmPasswordInput?.isSecureTextEntry = true
             self.confirmPasswordInput?.addTogglePasswordVisibilityButton()
             self.confirmPasswordInput?.delegate = self
@@ -53,17 +55,17 @@ class RequestPasswordViewController: SecurityRequestBaseViewController, UITextFi
             self.passwordCountLabel?.removeFromSuperview()
         }
 
-        if let prompt = self.prompt {
+        if let prompt = self.request.prompt {
             self.headerLabel?.text = prompt
         } else {
             self.headerLabel?.removeFromSuperview()
         }
 
-        if !self.showCancelButton {
+        if !self.request.showCancelButton {
             self.btnCancel?.removeFromSuperview()
         }
 
-        if let submitBtnText = self.submitBtnText {
+        if let submitBtnText = self.request.submitBtnText {
             self.btnSubmit.setTitle(submitBtnText, for: .normal)
         }
     }
@@ -79,7 +81,7 @@ class RequestPasswordViewController: SecurityRequestBaseViewController, UITextFi
             self.hideError()
         }
 
-        if self.requestConfirmation {
+        if self.request.requestConfirmation {
             self.checkPasswordMatch()
         } else {
             self.btnSubmit.isEnabled = password != ""
@@ -105,7 +107,7 @@ class RequestPasswordViewController: SecurityRequestBaseViewController, UITextFi
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == self.passwordInput && self.requestConfirmation {
+        if textField == self.passwordInput && self.request.requestConfirmation {
             self.confirmPasswordInput?.becomeFirstResponder()
             return true
         }
@@ -133,7 +135,7 @@ class RequestPasswordViewController: SecurityRequestBaseViewController, UITextFi
             return false
         }
 
-        if self.requestConfirmation {
+        if self.request.requestConfirmation {
             let confirmPassword = self.confirmPasswordInput?.text ?? ""
             if password != confirmPassword {
                 self.confirmCountLabel?.textColor = UIColor.appColors.orange
@@ -149,23 +151,38 @@ class RequestPasswordViewController: SecurityRequestBaseViewController, UITextFi
         }
 
         self.passwordInput.resignFirstResponder()
-        self.btnSubmit.isEnabled = false
-        self.btnCancel?.isEnabled = false
-        self.btnSubmit.startLoading()
-        self.onLoadingStatusChanged?(true)
-        self.onUserEnteredSecurityCode?(password, self)
+        
+        // Disable buttons and return password if `onCurrentAndNewCodesEntered` callback is NOT set.
+        guard let currentAndNewCodesEnteredCallback = self.callbacks.onCurrentAndNewCodesEntered else {
+            self.btnCancel?.isEnabled = false
+            self.btnSubmit.isEnabled = false
+            self.btnSubmit.startLoading()
+            self.callbacks.onLoadingStatusChanged?(true)
+            self.callbacks.onSecurityCodeEntered?(password, .password, self)
+            return true
+        }
+
+        // `onCurrentAndNewCodesEntered` callback is set, request new code and notify callback.
+        Security(for: self.request.for).requestNewCode(sender: self) {
+            newCode, newCodeType, newCodeRequestCompletion in
+            currentAndNewCodesEnteredCallback(password, self, newCode, newCodeRequestCompletion, newCodeType)
+        }
         return true
     }
-
+    
     override func showError(text: String) {
         super.showError(text: text)
-        self.btnSubmit.stopLoading()
-        self.onLoadingStatusChanged?(false)
-        self.passwordInput.becomeFirstResponder()
-        self.btnCancel?.isEnabled = true
-        self.passwordErrorLabel.isHidden = false
+        
         self.passwordErrorLabel.text = text
+        self.passwordErrorLabel.isHidden = false
+        
         self.passwordInput?.showError()
+        self.passwordInput.becomeFirstResponder()
+        
+        self.btnCancel?.isEnabled = true
+        self.btnSubmit.isEnabled = true
+        self.btnSubmit.stopLoading()
+        self.callbacks.onLoadingStatusChanged?(false)
     }
 
     override func hideError() {

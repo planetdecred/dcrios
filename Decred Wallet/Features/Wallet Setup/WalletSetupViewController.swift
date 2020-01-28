@@ -2,37 +2,33 @@
 //  WalletSetupViewController.swift
 //  Decred Wallet
 
-/// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
-import Foundation
 import UIKit
 import Dcrlibwallet
 
-class WalletSetupViewController: WalletSetupBaseViewController {
-    var seed: String! = ""
-    
+class WalletSetupViewController: UIViewController {
     @IBAction func restoreWallet(_ sender: Any) {
-        let recoverVC = Storyboards.RecoverExistingWallet.instantiateViewController(for: RecoverExistingWalletViewController.self)
-        Settings.setValue(false, for: Settings.Keys.NewWalletSetUp)
+        // todo merge RecoverExistingWallet storyboard into WalletSetup storyboard
+        // and move all files in `RecoverExistingWallet` group to this `Wallet Setup` group.
+        let recoverVC = RecoverExistingWalletViewController.instantiate(from: .RecoverExistingWallet)
         self.navigationController?.pushViewController(recoverVC, animated: true)
     }
     
     @IBAction func createNewwallet(_ sender: Any) {
-        var generateSeedError: NSError?
-        
-        self.seed =  (DcrlibwalletGenerateSeed(&generateSeedError))
-        if generateSeedError != nil {
-            print("seed generate error: \(String(describing: generateSeedError?.localizedDescription))")
-        } else {
-            Settings.setValue(true, for: Settings.Keys.NewWalletSetUp)
-            let securityVC = SecurityViewController.instantiate()
-            securityVC.onUserEnteredPinOrPassword = { (pinOrPassword, securityType, completionDelegate) in
-                self.finalizeWalletSetup(self.seed, pinOrPassword, securityType, completionDelegate)
+        Security.spending().requestNewCode(sender: self) { pinOrPassword, type, completion in
+            WalletLoader.shared.createWallet(spendingPinOrPassword: pinOrPassword, securityType: type) {
+                createWalletError in
+                
+                if createWalletError != nil {
+                    completion?.securityCodeError(errorMessage: createWalletError!.localizedDescription)
+                } else {
+                    completion?.securityCodeProcessed()
+                    NavigationMenuTabBarController.setupMenuAndLaunchApp(isNewWallet: true)
+                }
             }
-            securityVC.modalPresentationStyle = .pageSheet
-            self.present(securityVC, animated: true)
         }
     }
 }

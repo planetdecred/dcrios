@@ -65,8 +65,4 @@ class SeedBackupReminderViewController: UIViewController {
     @IBAction func backAction(_ sender: UIButton) {
         navigateToBackScreen()
     }
-    
-    static func instance() -> SeedBackupReminderViewController {
-        return Storyboards.SeedBackup.instantiateViewController(for: self)
-    }
 }

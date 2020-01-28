@@ -45,7 +45,10 @@ class TransactionHistoryViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationItem.title = LocalizedStrings.history
+
+        self.navigationController?.navigationBar.isHidden = false
+        self.navigationController?.navigationBar.topItem?.title = LocalizedStrings.history
+        self.navigationController?.navigationBar.topItem?.rightBarButtonItem = nil
 
         if SyncManager.shared.isSynced {
             self.syncInProgressLabel.isHidden = true
@@ -207,7 +210,7 @@ extension TransactionHistoryViewController: UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let transactionDetailVC = Storyboards.TransactionDetails.instantiateViewController(for: TransactionDetailsViewController.self)
+        let transactionDetailVC = TransactionDetailsViewController.instantiate(from: .TransactionDetails)
         
         if self.filteredTransactions.isEmpty {
             transactionDetailVC.transaction = self.allTransactions[indexPath.row]

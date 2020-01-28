@@ -2,11 +2,12 @@
 //  Extensions.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
 import UIKit
+import Dcrlibwallet
 
 extension NSDecimalNumber {
     public func round(_ decimals:Int) -> NSDecimalNumber {
@@ -47,6 +48,12 @@ extension Date {
     
     init(milliseconds:Int) {
         self = Date(timeIntervalSince1970: TimeInterval(milliseconds) / 1000)
+    }
+}
+
+extension Error {
+    var isInvalidPassphraseError: Bool {
+        return self.localizedDescription == DcrlibwalletErrInvalidPassphrase
     }
 }
 

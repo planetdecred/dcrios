@@ -2,7 +2,7 @@
 //  SendCompletedViewController.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -19,7 +19,7 @@ class SendCompletedViewController: UIViewController {
     var dialogClosed: ((Bool) -> Void)!
     
     static func showSendCompletedDialog(for txHash: String, dialogClosed: @escaping (Bool) -> Void) {
-        let sendCompletedVC = Storyboards.Send.instantiateViewController(for: self)
+        let sendCompletedVC = SendCompletedViewController.instantiate(from: .Send)
         sendCompletedVC.transactionHash = txHash
         sendCompletedVC.dialogClosed = dialogClosed
         sendCompletedVC.modalTransitionStyle = .crossDissolve

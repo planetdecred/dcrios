@@ -27,20 +27,24 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
         tableAccountData
             .hideEmptyAndExtraRows()
             .registerCellNib(AccountDataCell.self)
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addAccount))
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationItem.title = LocalizedStrings.wallets
         
-        self.navigationItem.rightBarButtonItem?.accessibilityElementsHidden = true
+        self.navigationController?.navigationBar.isHidden = false
+
+        if let navItem = self.navigationController?.navigationBar.topItem {
+            navItem.title = LocalizedStrings.wallets
+            navItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addAccount))
+            navItem.rightBarButtonItem?.accessibilityElementsHidden = true
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         visible = false
-        self.navigationItem.rightBarButtonItem?.accessibilityElementsHidden = false
+        self.navigationController?.navigationBar.topItem?.rightBarButtonItem?.accessibilityElementsHidden = false
     }
     
     override func didReceiveMemoryWarning() {

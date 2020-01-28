@@ -2,7 +2,7 @@
 //  ConfirmToSendFundViewController.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -29,7 +29,7 @@ class ConfirmToSendFundViewController: UIViewController, UITextFieldDelegate {
     }
     
     static func requestConfirmation(amountToSend: Amount, estimatedFee: Amount, destinationAddress: String, destinationAccount: String?, onConfirmed: ((String?) -> Void)?) {
-        let confirmVC = Storyboards.Send.instantiateViewController(for: self)
+        let confirmVC = ConfirmToSendFundViewController.instantiate(from: .Send)
         
         confirmVC.sendAmount = "\(amountToSend.dcrValue.round(8).formattedWithSeparator) DCR"
         if amountToSend.usdValue != nil {
@@ -64,7 +64,7 @@ class ConfirmToSendFundViewController: UIViewController, UITextFieldDelegate {
             self.accountLabel.text = "\(LocalizedStrings.toAccount) \'\(self.destinationAccount!)\'"
         }
         
-        if SpendingPinOrPassword.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
+        if SpendingPinOrPassword.currentSecurityType() == .password {
             self.passwordTextField.delegate = self
             self.passwordTextField.addTarget(self, action: #selector(self.passwordTextChanged), for: .editingChanged)
         } else {
@@ -109,7 +109,7 @@ class ConfirmToSendFundViewController: UIViewController, UITextFieldDelegate {
     
     func confirmSend() {
         self.dismiss(animated: true, completion: nil)
-        if SpendingPinOrPassword.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
+        if SpendingPinOrPassword.currentSecurityType() == .password {
             self.sendTxConfirmed?(self.passwordTextField.text!)
         } else {
             self.sendTxConfirmed?(nil)

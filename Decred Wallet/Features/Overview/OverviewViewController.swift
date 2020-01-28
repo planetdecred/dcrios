@@ -86,11 +86,6 @@ class OverviewViewController: UIViewController {
             self.displayLatestBlockHeightAndAge()
             self.displayConnectedPeersCount()
         }
-
-        if Settings.readValue(for: Settings.Keys.NewWalletSetUp) {
-            Utils.showBanner(parentVC: self, type: .success, text: LocalizedStrings.walletCreated)
-            Settings.setValue(false, for: Settings.Keys.NewWalletSetUp)
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -118,8 +113,7 @@ class OverviewViewController: UIViewController {
     }
     
     func checkWhetherToPromptForSeedBackup() {
-        // todo should use multiwallet methods to check, not settings
-        self.seedBackupSectionView.isHidden = Settings.seedBackedUp
+        self.seedBackupSectionView.isHidden = WalletLoader.shared.multiWallet.numWalletsNeedingSeedBackup() == 0
     }
     
     // todo ensure this is always called from the main thread!
@@ -135,12 +129,14 @@ class OverviewViewController: UIViewController {
         // todo this should be a multiwallet fetch rather than a wallet fetch!
         guard let transactions = WalletLoader.shared.wallet?.transactionHistory(offset: 0, count: 3) else {
             self.recentTransactionsTableView.isHidden = true
+            self.showAllTransactionsButton.isHidden = true
             self.noTransactionsLabelView.superview?.isHidden = false
             return
         }
         
         if transactions.count == 0 {
             self.recentTransactionsTableView.isHidden = true
+            self.showAllTransactionsButton.isHidden = true
             self.noTransactionsLabelView.superview?.isHidden = false
             return
         }
@@ -149,6 +145,10 @@ class OverviewViewController: UIViewController {
         self.recentTransactionsTableView.reloadData()
         
         self.recentTransactionsTableViewHeightContraint.constant = TransactionTableViewCell.height() * CGFloat(self.recentTransactions.count)
+
+        self.recentTransactionsTableView.isHidden = false
+        self.showAllTransactionsButton.isHidden = false
+        self.noTransactionsLabelView.superview?.isHidden = true
     }
     
     func updateWalletStatusIndicatorAndLabel() {
@@ -251,7 +251,7 @@ class OverviewViewController: UIViewController {
     }
     
     @IBAction func seedBackupTapped(_ sender: Any) {
-        let seedBackupReminderVC = SeedBackupReminderViewController.instance().wrapInNavigationcontroller()
+        let seedBackupReminderVC = SeedBackupReminderViewController.instantiate(from: .SeedBackup).wrapInNavigationcontroller()
         seedBackupReminderVC.modalPresentationStyle = .overFullScreen
         self.present(seedBackupReminderVC, animated: true)
     }
@@ -261,9 +261,7 @@ class OverviewViewController: UIViewController {
             return
         }
         
-        // Our navigation controller is set as our root view controller, we need to access its already created instance
-        let navigationTabBarController = AppDelegate.shared.window!.rootViewController as! NavigationMenuTabBarController
-        navigationTabBarController.navigateToTab(index: txHistoryTabIndex)
+        NavigationMenuTabBarController.instance?.navigateToTab(index: txHistoryTabIndex)
     }
 
     // Handle action of sync connect/reconnect/cancel button click based on sync/network status
@@ -338,7 +336,7 @@ extension OverviewViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let txDetailsVC = Storyboards.TransactionDetails.instantiateViewController(for: TransactionDetailsViewController.self)
+        let txDetailsVC = TransactionDetailsViewController.instantiate(from: .TransactionDetails)
         txDetailsVC.transaction = self.recentTransactions[indexPath.row]
         self.navigationController?.pushViewController(txDetailsVC, animated: true)
     }

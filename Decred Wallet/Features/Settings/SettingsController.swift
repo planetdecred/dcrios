@@ -67,8 +67,8 @@ class SettingsController: UITableViewController  {
         super.viewWillAppear(animated)
         
         self.navigationController?.navigationBar.isHidden = false
-        self.navigationController?.navigationBar.tintColor = UIColor.black
-        self.navigationItem.title = LocalizedStrings.settings
+        self.navigationController?.navigationBar.topItem?.title = LocalizedStrings.settings
+        self.navigationController?.navigationBar.topItem?.rightBarButtonItem = nil
         
         if self.isModal {
             self.addNavigationBackButton()
@@ -212,14 +212,14 @@ class SettingsController: UITableViewController  {
                 SpendingPinOrPassword.change(sender: self)
                 
             case 1: // enable/disable startup pin/password
-                if (start_Pin.isOn) {
-                    StartupPinOrPassword.clear(sender: self, completion: self.checkStartupSecurity)
+                if start_Pin.isOn {
+                    StartupPinOrPassword.clear(sender: self, done: self.checkStartupSecurity)
                 } else {
-                    StartupPinOrPassword.set(sender: self, completion: self.checkStartupSecurity)
+                    StartupPinOrPassword.set(sender: self, done: self.checkStartupSecurity)
                 }
                 
             case 2: // change startup pin/password
-                StartupPinOrPassword.change(sender: self, completion: self.checkStartupSecurity)
+                StartupPinOrPassword.change(sender: self, done: self.checkStartupSecurity)
                 
             default:
                 break
@@ -256,23 +256,18 @@ class SettingsController: UITableViewController  {
             let deleteWalletDialog = segue.destination as! DeleteWalletConfirmationViewController
             deleteWalletDialog.onDeleteWalletConfirmed = { password in
                 if password != nil {
-                    self.deleteWallet(spendingPinOrPassword: password!, completionDelegate: nil)
+                    self.deleteWallet(spendingPinOrPassword: password!, completion: nil)
                     return
                 }
                 
-                let requestPinVC = RequestPinViewController.instantiate()
-                requestPinVC.securityFor = LocalizedStrings.spending
-                requestPinVC.showCancelButton = true
-                requestPinVC.prompt = LocalizedStrings.enterCurrentSpendingPIN
-                requestPinVC.onUserEnteredSecurityCode = {(code: String, completionDelegate: SecurityRequestCompletionDelegate?) in
-                    self.deleteWallet(spendingPinOrPassword: code, completionDelegate: completionDelegate)
+                Security.spending().requestCurrentCode(sender: self) { pinOrPassword, _, completion in
+                    self.deleteWallet(spendingPinOrPassword: pinOrPassword, completion: completion)
                 }
-                self.present(requestPinVC, animated: true, completion: nil)
             }
         }
     }
     
-    func deleteWallet(spendingPinOrPassword: String, completionDelegate: SecurityRequestCompletionDelegate?) {
+    func deleteWallet(spendingPinOrPassword: String, completion: SecurityCodeRequestCompletionDelegate?) {
         let progressHud = Utils.showProgressHud(withText: LocalizedStrings.deletingWallet)
         DispatchQueue.global(qos: .background).async {
             do {
@@ -280,15 +275,19 @@ class SettingsController: UITableViewController  {
                                                            privPass: spendingPinOrPassword.utf8Bits)
                 DispatchQueue.main.async {
                     progressHud.dismiss()
-                    completionDelegate?.securityCodeProcessed(true, nil)
+                    completion?.securityCodeProcessed()
                     self.walletDeleted()
                 }
             } catch let error {
+                print("delete wallet error: \(error.localizedDescription)")
                 DispatchQueue.main.async {
                     progressHud.dismiss()
-                    completionDelegate?.securityCodeProcessed(false, LocalizedStrings.deleteWalletFailed)
+                    if error.isInvalidPassphraseError {
+                        completion?.securityCodeError(errorMessage: SpendingPinOrPassword.invalidSecurityCodeMessage())
+                    } else {
+                        completion?.securityCodeError(errorMessage: LocalizedStrings.deleteWalletFailed)
+                    }
                 }
-                print("delete wallet error: \(error.localizedDescription)")
             }
         }
     }
@@ -297,11 +296,7 @@ class SettingsController: UITableViewController  {
     func walletDeleted() {
         Settings.clear()
         
-        let startScreen = Storyboards.Main.initialViewController()
+        let startScreen = Storyboard.Main.initialViewController()
         AppDelegate.shared.setAndDisplayRootViewController(startScreen!)
-    }
-    
-    static func instantiate() -> Self {
-        return Storyboards.Settings.instantiateViewController(for: self)
     }
 }

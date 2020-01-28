@@ -2,14 +2,14 @@
 //  RequestPinViewController.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
 import UIKit
 import Dcrlibwallet
 
-class RequestPinViewController: SecurityRequestBaseViewController {
+class RequestPinViewController: SecurityCodeRequestBaseViewController {
     @IBOutlet weak var headerLabel: UILabel!
 
     @IBOutlet weak var pinCollectionView: UICollectionView!
@@ -48,29 +48,38 @@ class RequestPinViewController: SecurityRequestBaseViewController {
 
         let layout = UICollectionViewCenterLayout()
         layout.estimatedItemSize = CGSize(width: 16, height: 16)
-        pinCollectionView.collectionViewLayout = layout
+        self.pinCollectionView.collectionViewLayout = layout
 
-        self.prgsPinStrength.superview?.isHidden = !self.requestConfirmation
+        self.pinCollectionView.superview?.addGestureRecognizer(UITapGestureRecognizer(target: self,
+                                                                                      action: #selector(self.showKeypad)))
+
+        self.prgsPinStrength.superview?.isHidden = !self.request.requestConfirmation
         self.setPromptAndButtonText(isFirstStep: true)
 
-        if let prompt = self.prompt {
+        if let prompt = self.request.prompt {
             self.headerLabel?.text = prompt
         } else {
             self.headerLabel?.removeFromSuperview()
         }
 
-        if !self.showCancelButton {
+        if !self.request.showCancelButton {
             self.btnCancel?.removeFromSuperview()
         }
+    }
+    
+    @objc func showKeypad() {
+        self.pinHiddenInput.becomeFirstResponder()
     }
 
     private func setPromptAndButtonText(isFirstStep: Bool) {
         if isFirstStep {
-            self.btnSubmit.setTitle(self.submitBtnText ?? LocalizedStrings.next, for: .normal)
-            self.enterPinLabel.text = String(format: LocalizedStrings.enterPIN, self.securityFor)
+            self.btnSubmit.setTitle(self.request.submitBtnText ?? LocalizedStrings.next, for: .normal)
+            self.enterPinLabel.text = String(format: LocalizedStrings.enterPIN,
+                                             self.request.for.localizedString.lowercased())
         } else {
             self.btnSubmit.setTitle(LocalizedStrings.create, for: .normal)
-            self.enterPinLabel.text = String(format: LocalizedStrings.confirmPIN, self.securityFor)
+            self.enterPinLabel.text = String(format: LocalizedStrings.confirmPIN,
+                                             self.request.for.localizedString.lowercased())
         }
     }
 
@@ -93,7 +102,7 @@ class RequestPinViewController: SecurityRequestBaseViewController {
 
         self.updatePinCollectionView()
 
-        if self.requestConfirmation {
+        if self.request.requestConfirmation {
             let pinStrength = PinPasswordStrength.percentageStrength(of: pinText)
             self.prgsPinStrength.progressTintColor = pinStrength.color
             self.prgsPinStrength.progress = pinStrength.strength
@@ -114,7 +123,7 @@ class RequestPinViewController: SecurityRequestBaseViewController {
     @IBAction func onSubmit(_ sender: UIButton) {
         guard let pinText = self.pinHiddenInput.text, !pinText.isEmpty else { return }
 
-        if self.requestConfirmation && self.pinToConfirm.isEmpty {
+        if self.request.requestConfirmation && self.pinToConfirm.isEmpty {
             self.pinToConfirm = pinText
             self.prgsPinStrength.progress = 0
             self.prgsPinStrength.superview?.isHidden = true
@@ -123,16 +132,28 @@ class RequestPinViewController: SecurityRequestBaseViewController {
             self.onPinTextChanged()
             self.setPromptAndButtonText(isFirstStep: false)
             self.btnBack?.isHidden = false
-        } else if self.requestConfirmation && self.pinToConfirm != pinText {
+        } else if self.request.requestConfirmation && self.pinToConfirm != pinText {
             self.reset()
             self.enterPinLabel.text = LocalizedStrings.pinsDidNotMatch
         } else {
-            self.btnSubmit.startLoading()
-            self.onLoadingStatusChanged?(true)
-            self.btnBack?.isEnabled = false
-            self.btnCancel?.isEnabled = false
             self.pinHiddenInput.resignFirstResponder()
-            self.onUserEnteredSecurityCode?(pinText, self)
+
+            // Disable buttons and return pin if `onCurrentAndNewCodesEntered` callback is NOT set.
+            guard let currentAndNewCodesEnteredCallback = self.callbacks.onCurrentAndNewCodesEntered else {
+                self.btnBack?.isEnabled = false
+                self.btnCancel?.isEnabled = false
+                self.btnSubmit.isEnabled = false
+                self.btnSubmit.startLoading()
+                self.callbacks.onLoadingStatusChanged?(true)
+                self.callbacks.onSecurityCodeEntered?(pinText, .pin, self)
+                return
+            }
+
+            // `onCurrentAndNewCodesEntered` callback is set, request new code and notify callback.
+            Security(for: self.request.for).requestNewCode(sender: self) {
+                newCode, newCodeType, newCodeRequestCompletion in
+                currentAndNewCodesEnteredCallback(pinText, self, newCode, newCodeRequestCompletion, newCodeType)
+            }
         }
     }
 
@@ -155,15 +176,19 @@ class RequestPinViewController: SecurityRequestBaseViewController {
 
     override func showError(text: String) {
         super.showError(text: text)
-        self.pinCollectionView.reloadData()
-        self.pinCount.textColor = UIColor.appColors.orange
+        
         self.errorLabel.text = text
         self.errorLabel.isHidden = false
-        self.btnSubmit.stopLoading()
-        self.onLoadingStatusChanged?(false)
+        
+        self.pinCollectionView.reloadData()
+        self.pinCount.textColor = UIColor.appColors.orange
         self.pinHiddenInput.becomeFirstResponder()
+        
         self.btnBack?.isEnabled = true
         self.btnCancel?.isEnabled = true
+        self.btnSubmit.isEnabled = true
+        self.btnSubmit.stopLoading()
+        self.callbacks.onLoadingStatusChanged?(false)
     }
 
     override func hideError() {

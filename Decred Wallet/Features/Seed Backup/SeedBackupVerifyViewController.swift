@@ -67,15 +67,14 @@ class SeedBackupVerifyViewController: UIViewController {
         self.groupedSeedWordsTableView?.isUserInteractionEnabled = false
         self.btnConfirm?.startLoading()
         let userEnteredSeed = selectedWords.joined(separator: " ")
-        let seedIsValid = DcrlibwalletVerifySeed(userEnteredSeed)
 
-        let savedSeed: String = Settings.readValue(for: Settings.Keys.Seed)
-        if seedIsValid && userEnteredSeed.elementsEqual(savedSeed) {
-            Settings.setValue(true, for: Settings.Keys.SeedBackedUp)
-            Settings.clearValue(for: Settings.Keys.Seed)
+        do {
+            try WalletLoader.shared.multiWallet.verifySeed(forWallet: WalletLoader.shared.wallet!.id_,
+                                                           seedMnemonic: userEnteredSeed)
+            
             WalletLoader.shared.walletSeedBackedUp => WalletLoader.shared.wallet!.id_
             self.performSegue(withIdentifier: "toSeedBackupSuccess", sender: nil)
-        } else {
+        } catch {
             self.groupedSeedWordsTableView?.isUserInteractionEnabled = true
             self.btnConfirm?.stopLoading()
             Utils.showBanner(parentVC: self, type: .error, text: LocalizedStrings.failedToVerify)

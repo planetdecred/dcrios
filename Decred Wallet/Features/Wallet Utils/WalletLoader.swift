@@ -39,7 +39,7 @@ class WalletLoader: NSObject {
     
     func linkExistingWalletAndStartApp(startupPinOrPassword: String) throws {
         var privatePassphraseType = DcrlibwalletPassphraseTypePass
-        if SpendingPinOrPassword.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PIN {
+        if SpendingPinOrPassword.currentSecurityType() == .pin {
             privatePassphraseType = DcrlibwalletPassphraseTypePin
         }
         
@@ -48,7 +48,47 @@ class WalletLoader: NSObject {
                                                 privatePassphraseType: privatePassphraseType)
         
         DispatchQueue.main.async {
-            NavigationMenuTabBarController.setupMenuAndLaunchApp()
+            NavigationMenuTabBarController.setupMenuAndLaunchApp(isNewWallet: false)
+        }
+    }
+    
+    func createWallet(spendingPinOrPassword: String, securityType: SecurityType, completion: @escaping (Error?) -> Void) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            let privatePassphraseType = securityType == .password ? DcrlibwalletPassphraseTypePass : DcrlibwalletPassphraseTypePin
+            
+            do {
+                try self.multiWallet.createNewWallet(spendingPinOrPassword, privatePassphraseType: privatePassphraseType)
+                
+                DispatchQueue.main.async {
+                    Settings.setValue(securityType.rawValue, for: Settings.Keys.SpendingPassphraseSecurityType)
+                    completion(nil)
+                }
+            } catch let error {
+                DispatchQueue.main.async {
+                    completion(error)
+                }
+            }
+        }
+    }
+    
+    func restoreWallet(seed: String, spendingPinOrPassword: String, securityType: SecurityType, completion: @escaping (Error?) -> Void) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            let privatePassphraseType = securityType == .password ? DcrlibwalletPassphraseTypePass : DcrlibwalletPassphraseTypePin
+            
+            do {
+                try self.multiWallet.restore(seed,
+                                             privatePassphrase: spendingPinOrPassword,
+                                             privatePassphraseType: privatePassphraseType)
+                
+                DispatchQueue.main.async {
+                    Settings.setValue(securityType.rawValue, for: Settings.Keys.SpendingPassphraseSecurityType)
+                    completion(nil)
+                }
+            } catch let error {
+                DispatchQueue.main.async {
+                    completion(error)
+                }
+            }
         }
     }
 }

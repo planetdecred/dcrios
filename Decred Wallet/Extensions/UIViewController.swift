@@ -2,7 +2,7 @@
 //  UIViewController.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -13,6 +13,10 @@ extension UIViewController {
     // By default, this returns the name of VC class as the storyboard ID.
     class var storyboardID: String {
         return "\(self)"
+    }
+    
+    static func instantiate(from storyboard: Storyboard) -> Self {
+        return storyboard.instantiateViewController(for: self)
     }
     
     func wrapInNavigationcontroller() -> UINavigationController {
@@ -57,6 +61,14 @@ extension UIViewController {
         let presentingIsTabBar = tabBarController?.presentingViewController is UITabBarController
         
         return presentingIsModal || presentingIsNavigation || presentingIsTabBar
+    }
+    
+    func dismissView() {
+        if self.isModal {
+            self.dismiss(animated: true, completion: nil)
+        } else {
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     func showMessageDialog(title: String, message: String) {

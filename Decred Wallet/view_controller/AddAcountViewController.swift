@@ -22,7 +22,7 @@ class AddAcountViewController: UIViewController {
         self.accountName.placeholder = LocalizedStrings.accountName
         self.passphrase.placeholder = LocalizedStrings.privatePassphrase
         
-        if SpendingPinOrPassword.currentSecurityType() != SecurityViewController.SECURITY_TYPE_PASSWORD {
+        if SpendingPinOrPassword.currentSecurityType() != .password {
             passphrase.isHidden = true
             createBtnTopConstraint.constant = -40
         }
@@ -36,17 +36,13 @@ class AddAcountViewController: UIViewController {
         
         let name = accountName.text
         if(!(name!.isEmpty)) {
-            if SpendingPinOrPassword.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
+            if SpendingPinOrPassword.currentSecurityType() == .password {
                 addAccountWithoutPin()
             } else {
-                let requestPinVC = RequestPinViewController.instantiate()
-                requestPinVC.securityFor = LocalizedStrings.spending
-                requestPinVC.showCancelButton = true
-                requestPinVC.prompt = LocalizedStrings.confirmToCreate
-                requestPinVC.onUserEnteredSecurityCode = { (code: String, completionDelegate: SecurityRequestCompletionDelegate?) in
-                    self.addAccountWithPin(pin: code as NSString, completionDelegate: completionDelegate)
+                Security.spending().with(prompt: LocalizedStrings.confirmToCreate).requestCurrentCode(sender: self) {
+                    pin, _, completion in
+                    self.addAccountWithPin(pin: pin as NSString, completion: completion)
                 }
-                present(requestPinVC, animated: true, completion: nil)
             }
         }
     }
@@ -55,16 +51,16 @@ class AddAcountViewController: UIViewController {
         let pass = passphrase.text
         if !pass!.isEmpty {
             let passphrase = (self.passphrase.text! as NSString).data(using: String.Encoding.utf8.rawValue)!
-            addAccount(passphrase: passphrase, completionDelegate: nil)
+            addAccount(passphrase: passphrase, completion: nil)
         }
     }
 
-    private func addAccountWithPin(pin: NSString, completionDelegate: SecurityRequestCompletionDelegate?) {
+    private func addAccountWithPin(pin: NSString, completion: SecurityCodeRequestCompletionDelegate?) {
         let passphrase = pin.data(using: String.Encoding.utf8.rawValue)!
-        addAccount(passphrase: passphrase, completionDelegate:completionDelegate)
+        addAccount(passphrase: passphrase, completion: completion)
     }
 
-    private func addAccount(passphrase: Data, completionDelegate: SecurityRequestCompletionDelegate?) {
+    private func addAccount(passphrase: Data, completion: SecurityCodeRequestCompletionDelegate?) {
         let progressHud = JGProgressHUD(style: .light)
         progressHud.shadow = JGProgressHUDShadow(color: .black, offset: .zero, radius: 5.0, opacity: 0.2)
         progressHud.textLabel.text = LocalizedStrings.creatingAccount
@@ -78,13 +74,13 @@ class AddAcountViewController: UIViewController {
                 try WalletLoader.shared.wallet?.nextAccount(accountName, privPass: passphrase, ret0_: nil)
                 DispatchQueue.main.async {
                     progressHud.dismiss()
-                    completionDelegate?.securityCodeProcessed(true, nil)
+                    completion?.securityCodeProcessed()
                     self.dismiss(animated: true, completion: nil)
                 }
             } catch {
                 DispatchQueue.main.async {
                     progressHud.dismiss()
-                    completionDelegate?.securityCodeProcessed(false, error.localizedDescription)
+                    completion?.securityCodeError(errorMessage: error.localizedDescription)
                 }
             }
         }
