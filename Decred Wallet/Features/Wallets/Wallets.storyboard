@@ -24,10 +24,10 @@
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="41k-aq-R7w">
                                 <rect key="frame" x="24" y="60" width="366" height="25.5"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="300" verticalHuggingPriority="300" image="ic_decred" translatesAutoresizingMaskIntoConstraints="NO" id="R16-4N-Ivu">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_decred" translatesAutoresizingMaskIntoConstraints="NO" id="R16-4N-Ivu">
                                         <rect key="frame" x="0.0" y="1" width="24" height="24"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wallets" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="geL-9F-loF">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Wallets" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="geL-9F-loF">
                                         <rect key="frame" x="40" y="0.0" width="286" height="25.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
                                         <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -36,9 +36,13 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="wallets"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="300" verticalHuggingPriority="300" image="ic_add_new_wallet" translatesAutoresizingMaskIntoConstraints="NO" id="Ke8-OC-Qjq">
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O0p-Sj-Y9m">
                                         <rect key="frame" x="342" y="1" width="24" height="24"/>
-                                    </imageView>
+                                        <state key="normal" image="ic_add_new_wallet"/>
+                                        <connections>
+                                            <action selector="addNewWalletTapped:" destination="9rG-wz-ve0" eventType="touchUpInside" id="BYG-JB-n67"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                             </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0o8-Qg-TUk">
@@ -64,7 +68,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1B1-A1-V93" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-83" y="-78"/>
+            <point key="canvasLocation" x="-84.057971014492765" y="-78.348214285714278"/>
         </scene>
     </scenes>
     <resources>

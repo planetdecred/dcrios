@@ -257,18 +257,18 @@ class SettingsController: UITableViewController  {
             let deleteWalletDialog = segue.destination as! DeleteWalletConfirmationViewController
             deleteWalletDialog.onDeleteWalletConfirmed = { password in
                 if password != nil {
-                    self.deleteWallet(spendingPinOrPassword: password!, completion: nil)
+                    self.deleteWallet(spendingPinOrPassword: password!, dialogDelegate: nil)
                     return
                 }
                 
-                Security.spending().requestCurrentCode(sender: self) { pinOrPassword, _, completion in
-                    self.deleteWallet(spendingPinOrPassword: pinOrPassword, completion: completion)
+                Security.spending().requestCurrentCode(sender: self) { pinOrPassword, _, dialogDelegate in
+                    self.deleteWallet(spendingPinOrPassword: pinOrPassword, dialogDelegate: dialogDelegate)
                 }
             }
         }
     }
     
-    func deleteWallet(spendingPinOrPassword: String, completion: SecurityCodeRequestCompletionDelegate?) {
+    func deleteWallet(spendingPinOrPassword: String, dialogDelegate: InputDialogDelegate?) {
         let progressHud = Utils.showProgressHud(withText: LocalizedStrings.deletingWallet)
         DispatchQueue.global(qos: .background).async {
             do {
@@ -276,7 +276,7 @@ class SettingsController: UITableViewController  {
                                                            privPass: spendingPinOrPassword.utf8Bits)
                 DispatchQueue.main.async {
                     progressHud.dismiss()
-                    completion?.securityCodeProcessed()
+                    dialogDelegate?.dismissDialog()
                     self.walletDeleted()
                 }
             } catch let error {
@@ -284,9 +284,9 @@ class SettingsController: UITableViewController  {
                 DispatchQueue.main.async {
                     progressHud.dismiss()
                     if error.isInvalidPassphraseError {
-                        completion?.securityCodeError(errorMessage: SpendingPinOrPassword.invalidSecurityCodeMessage())
+                        dialogDelegate?.displayError(errorMessage: SpendingPinOrPassword.invalidSecurityCodeMessage())
                     } else {
-                        completion?.securityCodeError(errorMessage: LocalizedStrings.deleteWalletFailed)
+                        dialogDelegate?.displayError(errorMessage: LocalizedStrings.deleteWalletFailed)
                     }
                 }
             }

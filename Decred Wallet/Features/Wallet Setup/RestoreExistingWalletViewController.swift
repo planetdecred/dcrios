@@ -1,5 +1,5 @@
 //
-//  RecoverExistingWalletViewController.swift
+//  RestoreExistingWalletViewController.swift
 //  Decred Wallet
 
 // Copyright (c) 2018-2020 The Decred developers
@@ -9,7 +9,7 @@
 import UIKit
 import Dcrlibwallet
 
-class RecoverExistingWalletViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class RestoreExistingWalletViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     @IBOutlet weak var wordSelectionDropDownContainer: UIView!
     @IBOutlet weak var tableViewFooterHeightCosnt: NSLayoutConstraint!
@@ -19,11 +19,7 @@ class RecoverExistingWalletViewController: UIViewController, UITableViewDelegate
     var validSeedWords: [String] = []
     var userEnteredSeedWords = [String](repeating: "", count: 33)
     
-    // following code will only be included if compiling for testnet
-    #if IsTestnet
-    private var testSeed = "reform aftermath printer warranty gremlin paragraph beehive stethoscope regain disruptive regain Bradbury chisel October trouble forever Algol applicant island infancy physique paragraph woodlark hydraulic snapshot backwater ratchet surrender revenge customer retouch intention minnow"
-    private var useTestSeed: Bool = false
-    #endif
+    var onWalletRestored: (() -> ())?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,9 +28,6 @@ class RecoverExistingWalletViewController: UIViewController, UITableViewDelegate
         let seedWordsPath = Bundle.main.path(forResource: "wordlist", ofType: "txt")
         let seedWords = try? String(contentsOfFile: seedWordsPath ?? "")
         validSeedWords = seedWords?.split{$0 == "\n"}.map(String.init) ?? []
-        
-        registerObserverForKeyboardNotification()
-        self.hideKeyboardWhenTappedAround()
         
         // set border for dropdown list
         self.wordSelectionDropDownContainer.layer.borderWidth = 1
@@ -54,23 +47,36 @@ class RecoverExistingWalletViewController: UIViewController, UITableViewDelegate
         
         // long press to proceed with test seed, only on testnet
         #if IsTestnet
-        let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressConfirm))
-        btnConfirm.addGestureRecognizer(longGesture)
+        self.btnConfirm.addGestureRecognizer(
+            UILongPressGestureRecognizer(target: self, action: #selector(self.onConfirmButtonLongPress))
+        )
         #endif
         
-        self.btnConfirm.backgroundColor = UIColor.appColors.darkGray
+        self.registerObserverForKeyboardNotification()
+        self.hideKeyboardWhenTappedAround()
+    }
+    
+    // following code will only be included if compiling for testnet
+    #if IsTestnet
+    @objc func onConfirmButtonLongPress() {
+        let testSeed = "reform aftermath printer warranty gremlin paragraph beehive stethoscope regain disruptive regain Bradbury chisel October trouble forever Algol applicant island infancy physique paragraph woodlark hydraulic snapshot backwater ratchet surrender revenge customer retouch intention minnow"
+        self.requestSpendingPasswordAndRestoreWallet(with: testSeed)
+    }
+    #endif
+    
+    func registerObserverForKeyboardNotification() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(onKeyboardWillShow),
+                                               name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(onKeyboardWillHide),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
     }
     
     deinit {
-        unregisterObserverForKeyboardNotification()
-    }
-    
-    func registerObserverForKeyboardNotification() {
-        NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    func unregisterObserverForKeyboardNotification() {
+        print("unregistering observers for keyboard notifications")
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object:nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object:nil)
     }
@@ -108,6 +114,76 @@ class RecoverExistingWalletViewController: UIViewController, UITableViewDelegate
         }
     }
     
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
+    }
+    
+    @objc func handleTap(_ tap: UITapGestureRecognizer) {
+        var tapPoint = tap.location(in: self.view)
+        tapPoint = self.wordSelectionDropDownContainer.convert(tapPoint, from: self.view)
+        if self.wordSelectionDropDownContainer.bounds.contains(tapPoint) {
+            // ignore taps inside the autoselection dropdown
+            return
+        }
+        
+        self.view.endEditing(true)
+        self.wordSelectionDropDownContainer.isHidden = true
+    }
+    
+    @IBAction func backButtonTap(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func onConfirm() {
+        if self.userEnteredSeedWords.contains("") {
+            Utils.showBanner(parentVC: self, type: .error, text: LocalizedStrings.notAllSeedsAreEntered)
+            return
+        }
+        
+        let seed = self.userEnteredSeedWords.reduce("", {(word1, word2) in "\(word1) \(word2)"})
+        let seedValid = DcrlibwalletVerifySeed(seed)
+        
+        if !seedValid {
+            Utils.showBanner(parentVC: self, type: .error, text: LocalizedStrings.incorrectSeedEntered)
+            return
+        }
+
+        self.tableView.isUserInteractionEnabled = false
+        self.btnConfirm.setTitle(LocalizedStrings.success, for: .normal)
+        self.btnConfirm.setTitleColor(UIColor.appColors.green, for: .normal)
+        self.btnConfirm.setImage(.init(imageLiteralResourceName: "success_checked"), for: .normal)
+        self.btnConfirm.backgroundColor = .white
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.requestSpendingPasswordAndRestoreWallet(with: seed)
+        }
+    }
+    
+    func requestSpendingPasswordAndRestoreWallet(with seed: String) {
+        Security.spending().requestNewCode(sender: self) { pinOrPassword, type, completion in
+            WalletLoader.shared.restoreWallet(seed: seed, spendingPinOrPassword: pinOrPassword, securityType: type) {
+                restoreError in
+                
+                if restoreError != nil {
+                    completion?.displayError(errorMessage: restoreError!.localizedDescription)
+                    return
+                }
+
+                completion?.dismissDialog()
+                
+                if self.onWalletRestored == nil {
+                    self.performSegue(withIdentifier: "recoverySuccess", sender: self)
+                } else {
+                    self.onWalletRestored!()
+                }
+            }
+        }
+    }
+}
+
+extension RestoreExistingWalletViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -128,7 +204,7 @@ class RecoverExistingWalletViewController: UIViewController, UITableViewDelegate
         seedWordCell.setupAutoComplete(for: indexPath.row,
                                        filter: self.validSeedWords,
                                        dropDownListPlaceholder: self.wordSelectionDropDownContainer,
-                                       onSeedEntered: self.seedWordEntered)
+                                       onSeedEntered: self.seedWordEnteredOrSelected)
         if indexPath.row == 0 {
             seedWordCell.setRoundCorners(corners: [.topLeft, .topRight], radius: 14.0)
             seedWordCell.cellComponentTopMargin.constant = 16
@@ -153,111 +229,24 @@ class RecoverExistingWalletViewController: UIViewController, UITableViewDelegate
         }
     }
     
-    func seedWordEntered(for wordIndex: Int, seedWord: String, moveToNextField: Bool) {
+    func seedWordEnteredOrSelected(for wordIndex: Int, seedWord: String, moveToNextField: Bool) {
         self.userEnteredSeedWords[wordIndex] = seedWord
         
+        let allSeedWordsEntered = !self.userEnteredSeedWords.contains("")
+        self.btnConfirm.backgroundColor = allSeedWordsEntered ? UIColor.appColors.lightBlue : UIColor.appColors.darkGray
+        
         if wordIndex < 32 && moveToNextField {
-            self.focusSeedWordInput(at: wordIndex + 1)
+            let nextTableIndexPath = IndexPath(row: wordIndex + 1, section: 0)
+            let nextSeedWordCell = self.tableView.cellForRow(at: nextTableIndexPath) as? RecoveryWalletSeedWordCell
+            nextSeedWordCell?.seedWordAutoComplete.becomeFirstResponder()
         } else {
             self.view.endEditing(true)
         }
-        
-        if !self.userEnteredSeedWords.contains("") {
-            self.btnConfirm.backgroundColor = UIColor.appColors.lightBlue
-        } else {
-            self.btnConfirm.backgroundColor = UIColor.appColors.darkGray
-        }
-    }
-    
-    func focusSeedWordInput(at tableRowIndex: Int) {
-        let tableIndexPath = IndexPath(row: tableRowIndex, section: 0)
-        let nextSeedWordCell = self.tableView.cellForRow(at: tableIndexPath) as? RecoveryWalletSeedWordCell
-        nextSeedWordCell?.seedWordAutoComplete.becomeFirstResponder()
-    }
-
-    @IBAction func backButtonTap(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
-    }
-    
-    @IBAction func onConfirm() {
-        if self.userEnteredSeedWords.contains("") {
-            Utils.showBanner(parentVC: self, type: .error, text: LocalizedStrings.notAllSeedsAreEntered)
-        } else {
-            let validatedSeed = self.validateSeed()
-            if validatedSeed.valid {
-                self.tableView.isUserInteractionEnabled = false
-                self.btnConfirm.setTitle(LocalizedStrings.success, for: .normal)
-                self.btnConfirm.setTitleColor(UIColor.appColors.green, for: .normal)
-                self.btnConfirm.setImage(.init(imageLiteralResourceName: "success_checked"), for: .normal)
-                self.btnConfirm.backgroundColor = .white
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    self.secureWallet(validatedSeed.seed)
-                }
-            } else {
-                Utils.showBanner(parentVC: self, type: .error, text: LocalizedStrings.incorrectSeedEntered)
-            }
-        }
-    }
-    
-    // following code will only be included if compiling for testnet
-    #if IsTestnet
-    @objc func longPressConfirm() {
-        if self.useTestSeed {
-            return
-        }
-        self.useTestSeed = true
-        self.secureWallet(self.testSeed)
-    }
-    #endif
-    
-    func secureWallet(_ seed: String) {
-        Security.spending().requestNewCode(sender: self) { pinOrPassword, type, completion in
-            WalletLoader.shared.restoreWallet(seed: seed, spendingPinOrPassword: pinOrPassword, securityType: type) {
-                restoreError in
-                
-                if restoreError != nil {
-                    completion?.securityCodeError(errorMessage: restoreError!.localizedDescription)
-                } else {
-                    completion?.securityCodeProcessed()
-                    self.performSegue(withIdentifier: "recoverySuccess", sender: self)
-                }
-            }
-        }
-    }
-    
-    private func validateSeed() -> (seed: String, valid: Bool) {
-        let seed = self.userEnteredSeedWords.reduce("", {(word1, word2) in "\(word1) \(word2)"})
-        let seedValid = DcrlibwalletVerifySeed(seed)
-        return (seed, seedValid)
-    }
-    
-    func clearSeedInputs() {
-        self.userEnteredSeedWords = [String](repeating: "", count: 33)
-        self.tableView.reloadData()
-        self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
     }
 }
 
-extension RecoverExistingWalletViewController: UIScrollViewDelegate {
+extension RestoreExistingWalletViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        self.wordSelectionDropDownContainer.isHidden = true
-    }
-    
-    func hideKeyboardWhenTappedAround() {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
-    }
-    
-    @objc func handleTap(_ tap: UITapGestureRecognizer) {
-        var tapPoint = tap.location(in: self.view)
-        tapPoint = self.wordSelectionDropDownContainer.convert(tapPoint, from: self.view)
-        if self.wordSelectionDropDownContainer.bounds.contains(tapPoint) {
-            // ignore taps inside the autoselection dropdown
-            return
-        }
-        
-        view.endEditing(true)
         self.wordSelectionDropDownContainer.isHidden = true
     }
 }

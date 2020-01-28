@@ -13,20 +13,20 @@ struct SpendingPinOrPassword {
     static func change(sender: UIViewController) {
         Security.spending()
             .with(submitBtnText: LocalizedStrings.next).requestCurrentAndNewCode(sender: sender) {
-                currentCode, currentCodeRequestCompletion, newCode, newCodeRequestCompletion, newCodeType in
+                currentCode, currentCodeRequestDelegate, newCode, newCodeRequestDelegate, newCodeType in
                 
                 self.changeWalletSpendingPassphrase(currentCode: currentCode,
-                                                    currentCodeRequestCompletion: currentCodeRequestCompletion,
+                                                    currentCodeRequestDelegate: currentCodeRequestDelegate,
                                                     newCode: newCode,
-                                                    newCodeRequestCompletion: newCodeRequestCompletion,
+                                                    newCodeRequestDelegate: newCodeRequestDelegate,
                                                     newCodeType: newCodeType)
         }
     }
     
     private static func changeWalletSpendingPassphrase(currentCode: String,
-                                                       currentCodeRequestCompletion: SecurityCodeRequestCompletionDelegate?,
+                                                       currentCodeRequestDelegate: InputDialogDelegate?,
                                                        newCode: String,
-                                                       newCodeRequestCompletion: SecurityCodeRequestCompletionDelegate?,
+                                                       newCodeRequestDelegate: InputDialogDelegate?,
                                                        newCodeType: SecurityType) {
         
         DispatchQueue.global(qos: .userInitiated).async {
@@ -39,16 +39,16 @@ struct SpendingPinOrPassword {
                                                                             privatePassphraseType: passphraseType)
                 
                 DispatchQueue.main.async {
-                    newCodeRequestCompletion?.securityCodeProcessed()
-                    currentCodeRequestCompletion?.securityCodeProcessed()
+                    newCodeRequestDelegate?.dismissDialog()
+                    currentCodeRequestDelegate?.dismissDialog()
                 }
             } catch let error {
                 DispatchQueue.main.async {
                     if error.isInvalidPassphraseError {
-                        newCodeRequestCompletion?.securityCodeProcessed()
-                        currentCodeRequestCompletion?.securityCodeError(errorMessage: self.invalidSecurityCodeMessage())
+                        newCodeRequestDelegate?.dismissDialog()
+                        currentCodeRequestDelegate?.displayError(errorMessage: self.invalidSecurityCodeMessage())
                     } else {
-                        newCodeRequestCompletion?.securityCodeError(errorMessage: error.localizedDescription)
+                        newCodeRequestDelegate?.displayError(errorMessage: error.localizedDescription)
                     }
                 }
             }

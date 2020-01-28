@@ -11,17 +11,18 @@ import UIKit
 
 enum Storyboard: String {
     case Main = "Main"
-    case WalletSetup = "WalletSetup"
     case Security = "Security"
+    case WalletSetup = "WalletSetup"
     case NavigationMenu = "NavigationMenu"
     case Overview = "Overview"
     case Send = "Send"
-    case Settings = "Settings"
     case TransactionDetails = "TransactionDetails"
     case Wallets = "Wallets"
-    case SecurityMenu = "SecurityMenu"
-    case RecoverExistingWallet = "RecoverExistingWallet"
     case SeedBackup = "SeedBackup"
+    case Settings = "Settings"
+    case SecurityMenu = "SecurityMenu"
+    
+    case CustomDialogs = "CustomDialogs"
     
     var instance: UIStoryboard {
         return UIStoryboard(name: self.rawValue, bundle: nil)

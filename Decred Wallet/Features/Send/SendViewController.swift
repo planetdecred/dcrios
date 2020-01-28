@@ -340,7 +340,7 @@ class SendViewController: UIViewController {
                 Security.spending().with(prompt: LocalizedStrings.confirmToSend).requestCurrentCode(sender: self) {
                     pinOrPassword, _, completion in
                     
-                    completion?.securityCodeProcessed()
+                    completion?.dismissDialog()
                     self.finalizeSending(destinationAddress: destinationAddress, pinOrPassword: pinOrPassword)
                 }
             }

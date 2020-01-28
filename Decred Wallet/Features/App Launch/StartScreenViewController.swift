@@ -75,12 +75,12 @@ class StartScreenViewController: UIViewController {
     
     func checkStartupSecurityAndStartApp() {
         if !StartupPinOrPassword.pinOrPasswordIsSet() {
-            self.openWalletsAndStartApp(startupPinOrPassword: "", completion: nil)
+            self.openWalletsAndStartApp(startupPinOrPassword: "", dialogDelegate: nil)
             return
         }
         
-        self.promptForStartupPinOrPassword() { pinOrPassword, _, completion in
-            self.openWalletsAndStartApp(startupPinOrPassword: pinOrPassword, completion: completion)
+        self.promptForStartupPinOrPassword() { pinOrPassword, _, dialogDelegate in
+            self.openWalletsAndStartApp(startupPinOrPassword: pinOrPassword, dialogDelegate: dialogDelegate)
         }
     }
 
@@ -95,22 +95,22 @@ class StartScreenViewController: UIViewController {
             .requestCurrentCode(sender: self, callback: callback)
     }
 
-    func openWalletsAndStartApp(startupPinOrPassword: String, completion: SecurityCodeRequestCompletionDelegate?) {
+    func openWalletsAndStartApp(startupPinOrPassword: String, dialogDelegate: InputDialogDelegate?) {
         self.label.text = LocalizedStrings.openingWallet
 
         DispatchQueue.global(qos: .userInitiated).async {
             do {
                 try WalletLoader.shared.multiWallet.openWallets(startupPinOrPassword.utf8Bits)
                 DispatchQueue.main.async {
-                    completion?.securityCodeProcessed()
+                    dialogDelegate?.dismissDialog()
                     NavigationMenuTabBarController.setupMenuAndLaunchApp(isNewWallet: false)
                 }
             } catch let error {
                 DispatchQueue.main.async {
                     if error.isInvalidPassphraseError {
-                        completion?.securityCodeError(errorMessage: StartupPinOrPassword.invalidSecurityCodeMessage())
+                        dialogDelegate?.displayError(errorMessage: StartupPinOrPassword.invalidSecurityCodeMessage())
                     } else {
-                        completion?.securityCodeError(errorMessage: error.localizedDescription)
+                        dialogDelegate?.displayError(errorMessage: error.localizedDescription)
                     }
                 }
             }

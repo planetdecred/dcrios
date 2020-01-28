@@ -40,8 +40,8 @@ class AddAcountViewController: UIViewController {
                 addAccountWithoutPin()
             } else {
                 Security.spending().with(prompt: LocalizedStrings.confirmToCreate).requestCurrentCode(sender: self) {
-                    pin, _, completion in
-                    self.addAccountWithPin(pin: pin as NSString, completion: completion)
+                    pin, _, dialogDelegate in
+                    self.addAccountWithPin(pin: pin as NSString, dialogDelegate: dialogDelegate)
                 }
             }
         }
@@ -51,16 +51,16 @@ class AddAcountViewController: UIViewController {
         let pass = passphrase.text
         if !pass!.isEmpty {
             let passphrase = (self.passphrase.text! as NSString).data(using: String.Encoding.utf8.rawValue)!
-            addAccount(passphrase: passphrase, completion: nil)
+            addAccount(passphrase: passphrase, dialogDelegate: nil)
         }
     }
 
-    private func addAccountWithPin(pin: NSString, completion: SecurityCodeRequestCompletionDelegate?) {
+    private func addAccountWithPin(pin: NSString, dialogDelegate: InputDialogDelegate?) {
         let passphrase = pin.data(using: String.Encoding.utf8.rawValue)!
-        addAccount(passphrase: passphrase, completion: completion)
+        addAccount(passphrase: passphrase, dialogDelegate: dialogDelegate)
     }
 
-    private func addAccount(passphrase: Data, completion: SecurityCodeRequestCompletionDelegate?) {
+    private func addAccount(passphrase: Data, dialogDelegate: InputDialogDelegate?) {
         let progressHud = JGProgressHUD(style: .light)
         progressHud.shadow = JGProgressHUDShadow(color: .black, offset: .zero, radius: 5.0, opacity: 0.2)
         progressHud.textLabel.text = LocalizedStrings.creatingAccount
@@ -74,13 +74,13 @@ class AddAcountViewController: UIViewController {
                 try WalletLoader.shared.firstWallet?.nextAccount(accountName, privPass: passphrase, ret0_: nil)
                 DispatchQueue.main.async {
                     progressHud.dismiss()
-                    completion?.securityCodeProcessed()
+                    dialogDelegate?.dismissDialog()
                     self.dismiss(animated: true, completion: nil)
                 }
             } catch {
                 DispatchQueue.main.async {
                     progressHud.dismiss()
-                    completion?.securityCodeError(errorMessage: error.localizedDescription)
+                    dialogDelegate?.displayError(errorMessage: error.localizedDescription)
                 }
             }
         }

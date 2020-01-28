@@ -275,7 +275,7 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
             pinOrPassword, _, completion in
             
             self.SignMsg(pass: pinOrPassword)
-            completion?.securityCodeProcessed()
+            completion?.dismissDialog()
         }
     }
     

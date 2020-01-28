@@ -16,12 +16,12 @@ struct StartupPinOrPassword {
             return
         }
         
-        Security.startup().requestNewCode(sender: sender) { code, type, completion in
+        Security.startup().requestNewCode(sender: sender) { code, type, dialogDelegate in
             
             self.changeWalletPublicPassphrase(currentCode: "",
-                                              currentCodeRequestCompletion: nil,
+                                              currentCodeRequestDelegate: nil,
                                               newCode: code,
-                                              newCodeRequestCompletion: completion,
+                                              newCodeRequestDelegate: dialogDelegate,
                                               newCodeType: type,
                                               done: done)
         }
@@ -36,12 +36,12 @@ struct StartupPinOrPassword {
         Security.startup()
             .with(submitBtnText: LocalizedStrings.next)
             .requestCurrentAndNewCode(sender: sender) {
-                currentCode, currentCodeRequestCompletion, newCode, newCodeRequestCompletion, newCodeType in
+                currentCode, currentCodeRequestDelegate, newCode, newCodeRequestDelegate, newCodeType in
                 
                 self.changeWalletPublicPassphrase(currentCode: currentCode,
-                                                  currentCodeRequestCompletion: currentCodeRequestCompletion,
+                                                  currentCodeRequestDelegate: currentCodeRequestDelegate,
                                                   newCode: newCode,
-                                                  newCodeRequestCompletion: newCodeRequestCompletion,
+                                                  newCodeRequestDelegate: newCodeRequestDelegate,
                                                   newCodeType: newCodeType,
                                                   done: done)
         }
@@ -56,26 +56,26 @@ struct StartupPinOrPassword {
 
         Security.startup()
             .with(submitBtnText: LocalizedStrings.next)
-            .requestCurrentCode(sender: vc) { currentCode, _, completion in
+            .requestCurrentCode(sender: vc) { currentCode, _, dialogDelegate in
                 
                 self.changeWalletPublicPassphrase(currentCode: currentCode,
-                                                  currentCodeRequestCompletion: completion,
+                                                  currentCodeRequestDelegate: dialogDelegate,
                                                   newCode: "",
-                                                  newCodeRequestCompletion: nil,
+                                                  newCodeRequestDelegate: nil,
                                                   newCodeType: nil,
                                                   done: done)
         }
     }
 
     private static func changeWalletPublicPassphrase(currentCode: String,
-                                                     currentCodeRequestCompletion: SecurityCodeRequestCompletionDelegate?,
+                                                     currentCodeRequestDelegate: InputDialogDelegate?,
                                                      newCode: String,
-                                                     newCodeRequestCompletion: SecurityCodeRequestCompletionDelegate?,
+                                                     newCodeRequestDelegate: InputDialogDelegate?,
                                                      newCodeType: SecurityType?,
                                                      done: (() -> Void)?) {
         
         if newCodeType == nil && newCode != "" {
-            newCodeRequestCompletion?.securityCodeError(errorMessage: LocalizedStrings.securityTypeNotSpecified)
+            newCodeRequestDelegate?.displayError(errorMessage: LocalizedStrings.securityTypeNotSpecified)
             return
         }
         
@@ -88,17 +88,17 @@ struct StartupPinOrPassword {
                                                                             passphraseType: passphraseType)
 
                 DispatchQueue.main.async {
-                    newCodeRequestCompletion?.securityCodeProcessed()
-                    currentCodeRequestCompletion?.securityCodeProcessed()
+                    newCodeRequestDelegate?.dismissDialog()
+                    currentCodeRequestDelegate?.dismissDialog()
                     done?()
                 }
             } catch let error {
                 DispatchQueue.main.async {
                     if error.isInvalidPassphraseError {
-                        newCodeRequestCompletion?.securityCodeProcessed()
-                        currentCodeRequestCompletion?.securityCodeError(errorMessage: self.invalidSecurityCodeMessage())
+                        newCodeRequestDelegate?.dismissDialog()
+                        currentCodeRequestDelegate?.displayError(errorMessage: self.invalidSecurityCodeMessage())
                     } else {
-                        newCodeRequestCompletion?.securityCodeError(errorMessage: error.localizedDescription)
+                        newCodeRequestDelegate?.displayError(errorMessage: error.localizedDescription)
                     }
                 }
             }

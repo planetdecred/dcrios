@@ -9,20 +9,14 @@
 import UIKit
 
 // triggered when security code is entered by user
-typealias SecurityCodeRequestCallback = (_ code: String, _ type: SecurityType, _ completion: SecurityCodeRequestCompletionDelegate?) -> Void
+typealias SecurityCodeRequestCallback = (_ code: String, _ type: SecurityType, _ dialogDelegate: InputDialogDelegate?) -> Void
 
 // triggered after a user enters his current code and then a new code
 typealias CurrentAndNewSecurityCodeRequestCallback = (_ currentCode: String,
-    _ currentCodeRequestCompletion: SecurityCodeRequestCompletionDelegate?,
+    _ currentCodeRequestDelegate: InputDialogDelegate?,
     _ newCode: String,
-    _ newCodeRequestCompletion: SecurityCodeRequestCompletionDelegate?,
+    _ newCodeRequestDelegate: InputDialogDelegate?,
     _ newCodeType: SecurityType) -> Void
-
-// triggered after user-provided code is processed
-protocol SecurityCodeRequestCompletionDelegate {
-    func securityCodeProcessed()
-    func securityCodeError(errorMessage: String)
-}
 
 class SecurityCodeRequestBaseViewController: UIViewController {
     @IBOutlet weak var containerView: UIView!
@@ -73,12 +67,12 @@ class SecurityCodeRequestBaseViewController: UIViewController {
     }
 }
 
-extension SecurityCodeRequestBaseViewController: SecurityCodeRequestCompletionDelegate {
-    func securityCodeProcessed() {
+extension SecurityCodeRequestBaseViewController: InputDialogDelegate {
+    func dismissDialog() {
         self.dismissView()
     }
     
-    func securityCodeError(errorMessage: String) {
+    func displayError(errorMessage: String) {
         self.showError(text: errorMessage)
     }
 }

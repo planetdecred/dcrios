@@ -8,8 +8,7 @@
 
 import UIKit
 
-class RecoverySuccessViewController: UIViewController {
-    
+class RestoreExistingWalletSuccessViewController: UIViewController {
     @IBAction func getStarted(_ sender: Any) {
         NavigationMenuTabBarController.setupMenuAndLaunchApp(isNewWallet: false)
     }
