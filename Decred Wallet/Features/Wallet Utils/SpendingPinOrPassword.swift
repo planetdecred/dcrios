@@ -10,19 +10,16 @@ import UIKit
 import Dcrlibwallet
 
 struct SpendingPinOrPassword {
-    static func change(sender vc: UIViewController) {
+    static func change(sender: UIViewController) {
         Security.spending()
-            .with(submitBtnText: LocalizedStrings.next)
-            .requestCurrentCode(sender: vc) { currentCode, _, currentCodeRequestCompletion in
+            .with(submitBtnText: LocalizedStrings.next).requestCurrentAndNewCode(sender: sender) {
+                currentCode, currentCodeRequestCompletion, newCode, newCodeRequestCompletion, newCodeType in
                 
-                Security.spending().requestNewCode(sender: vc) { newCode, newCodeType, newCodeRequestCompletion in
-                    
-                    self.changeWalletSpendingPassphrase(currentCode: currentCode,
-                                                        currentCodeRequestCompletion: currentCodeRequestCompletion,
-                                                        newCode: newCode,
-                                                        newCodeRequestCompletion: newCodeRequestCompletion,
-                                                        newCodeType: newCodeType)
-                }
+                self.changeWalletSpendingPassphrase(currentCode: currentCode,
+                                                    currentCodeRequestCompletion: currentCodeRequestCompletion,
+                                                    newCode: newCode,
+                                                    newCodeRequestCompletion: newCodeRequestCompletion,
+                                                    newCodeType: newCodeType)
         }
     }
     
