@@ -61,7 +61,7 @@ class TransactionHistoryViewController: UIViewController {
         self.allTransactions.removeAll()
         self.refreshControl.showLoader(in: self.transactionsTableView)
         
-        guard let txs = WalletLoader.shared.wallet?.transactionHistory(offset: 0), !txs.isEmpty else {
+        guard let txs = WalletLoader.shared.firstWallet?.transactionHistory(offset: 0), !txs.isEmpty else {
             self.transactionsTableView.backgroundView = self.noTxsLabel
             self.transactionsTableView.separatorStyle = .none
             self.refreshControl.endRefreshing()

@@ -52,7 +52,7 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
         if self.transaction == nil && self.transactionHash != nil {
             let txHash = Data(fromHexEncodedString: self.transactionHash!)!
             var getTxError: NSError?
-            let txJsonString = WalletLoader.shared.wallet?.getTransaction(txHash, error: &getTxError)
+            let txJsonString = WalletLoader.shared.firstWallet?.getTransaction(txHash, error: &getTxError)
             if getTxError != nil {
                 print("wallet.getTransaction error", getTxError!.localizedDescription)
             }
@@ -70,7 +70,7 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
     fileprivate func prepareTransactionDetails() {
         var confirmations: Int32 = 0
         if self.transaction.blockHeight != -1 {
-            confirmations = WalletLoader.shared.wallet!.getBestBlock() - Int32(self.transaction.blockHeight) + 1
+            confirmations = WalletLoader.shared.firstWallet!.getBestBlock() - Int32(self.transaction.blockHeight) + 1
         }
         
         let isConfirmed = Settings.spendUnconfirmed || confirmations > 1

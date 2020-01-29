@@ -78,7 +78,7 @@ struct Utils {
         let int64Pointer = UnsafeMutablePointer<Int64>.allocate(capacity: 64)
         do {
             
-            try WalletLoader.shared.wallet?.spendable(forAccount: account.number, requiredConfirmations: iRequireConfirm, ret0_: int64Pointer)
+            try WalletLoader.shared.firstWallet?.spendable(forAccount: account.number, requiredConfirmations: iRequireConfirm, ret0_: int64Pointer)
         } catch let error{
             print(error)
             return 0.0

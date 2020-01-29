@@ -161,7 +161,7 @@ class SettingsController: UITableViewController  {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let isWalletOpen = WalletLoader.shared.wallet?.walletOpened() ?? false
+        let isWalletOpen = WalletLoader.shared.firstWallet?.walletOpened() ?? false
         
         if indexPath.section == 0 {
             switch indexPath.row {
@@ -240,7 +240,7 @@ class SettingsController: UITableViewController  {
         }
         
         do {
-            try WalletLoader.shared.multiWallet.rescanBlocks(WalletLoader.shared.wallet!.id_)
+            try WalletLoader.shared.multiWallet.rescanBlocks(WalletLoader.shared.firstWallet!.id_)
             self.displayToast(LocalizedStrings.scanInProgress)
         } catch let error {
             var errorMessage = error.localizedDescription
@@ -271,7 +271,7 @@ class SettingsController: UITableViewController  {
         let progressHud = Utils.showProgressHud(withText: LocalizedStrings.deletingWallet)
         DispatchQueue.global(qos: .background).async {
             do {
-                try WalletLoader.shared.multiWallet.delete(WalletLoader.shared.wallet!.id_,
+                try WalletLoader.shared.multiWallet.delete(WalletLoader.shared.firstWallet!.id_,
                                                            privPass: spendingPinOrPassword.utf8Bits)
                 DispatchQueue.main.async {
                     progressHud.dismiss()
