@@ -35,20 +35,11 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
         self.transactionDetailsTable
             .hideEmptyAndExtraRows()
             .autoResizeCell(estimatedHeight: 60.0)
-        self.transactionDetailsTable.registerCellNib(TransactionDetailCell.self)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         transactionDetailsTable.maxHeight = self.view.frame.size.height - self.view.frame.origin.y
-            - self.headerView.frame.size.height - self.showOrHideDetailsBtn.frame.size.height
-
-        let optionsMenuButton = UIButton(type: .custom)
-        optionsMenuButton.setImage(UIImage(named: "right-menu"), for: .normal)
-        optionsMenuButton.addTarget(self, action: #selector(showOptionsMenu), for: .touchUpInside)
-        optionsMenuButton.frame = CGRect(x: 0, y: 0, width: 10, height: 51)
-        self.navigationItem.rightBarButtonItems = [
-            UIBarButtonItem(customView: optionsMenuButton)
-        ]
+            - self.headerView.frame.size.height - self.showOrHideDetailsBtn.frame.size.height - (UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0)
 
         if self.transaction == nil && self.transactionHash != nil {
             let txHash = Data(fromHexEncodedString: self.transactionHash!)!
@@ -78,19 +69,13 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
             self.statusLabel.text = LocalizedStrings.confirmed
             self.statusLabel.textColor = UIColor.appColors.green
             self.statusImageView.image = UIImage(named: "ic_confirmed")
-            //todo: use dot instead of dash
-            self.confirmationsLabel.text = " - " + String(format: LocalizedStrings.confirmations, confirmations)
+            self.confirmationsLabel.text = " · " + String(format: LocalizedStrings.confirmations, confirmations)
         } else {
             self.statusLabel.text = LocalizedStrings.pending
             self.statusLabel.textColor = UIColor.appColors.lightBluishGray
             self.statusImageView.image = UIImage(named: "ic_pending")
             self.confirmationsLabel.text = ""
         }
-
-        //todo: `from account` row / `to account` row
-        //todo: `to` row / `from` row
-        //todo: format `dateLabel` as mockup
-        //todo: vote / ticket e.g. types
 
         self.dateLabel.attributedText = NSMutableAttributedString(string: Utils.formatDateTime(timestamp: self.transaction.timestamp))
 
@@ -104,22 +89,22 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
             TransactionDetails(
                 title: LocalizedStrings.fee,
                 value: txFee,
-                textColor: nil
+                isCopyEnabled: false
             ),
             TransactionDetails(
                 title: LocalizedStrings.type,
                 value: NSMutableAttributedString(string: self.transaction.type),
-                textColor: nil
+                isCopyEnabled: false
             ),
             TransactionDetails(
                 title: LocalizedStrings.includedInBlock,
                 value: NSMutableAttributedString(string: "\(self.transaction.blockHeight)"),
-                textColor: nil
+                isCopyEnabled: false
             ),
             TransactionDetails(
                 title: LocalizedStrings.transactionID,
                 value: NSMutableAttributedString(string: self.transaction.hash),
-                textColor: UIColor.appColors.lightBlue
+                isCopyEnabled: true
             )
         ]
 
@@ -158,21 +143,21 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
             let lastBlockValid = TransactionDetails(
                 title: LocalizedStrings.lastBlockValid,
                 value: NSMutableAttributedString(string: String(describing: self.transaction.lastBlockValid)),
-                textColor: nil
+                isCopyEnabled: false
             )
             generalTxDetails.append(lastBlockValid)
 
             let voteVersion = TransactionDetails(
                 title: LocalizedStrings.version,
                 value: NSAttributedString(string: "\(self.transaction.voteVersion)"),
-                textColor: nil
+                isCopyEnabled: false
             )
             generalTxDetails.append(voteVersion)
 
             let voteBits = TransactionDetails(
                 title: LocalizedStrings.voteBits,
                 value: NSAttributedString(string: self.transaction.voteBits),
-                textColor: nil
+                isCopyEnabled: false
             )
             generalTxDetails.append(voteBits)
         }
@@ -180,39 +165,6 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
 
     @IBAction func onClose(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
-    }
-
-    @objc func showOptionsMenu(sender: UIBarButtonItem) {
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-
-        let cancelAction = UIAlertAction(title: LocalizedStrings.cancel, style: .cancel, handler: nil)
-
-        let copyTxHash = UIAlertAction(title: LocalizedStrings.copyTransactionHash, style: .default, handler: { (alert: UIAlertAction!) -> Void in
-            self.copyText(self.transaction.hash)
-        })
-
-        let copyRawTx = UIAlertAction(title: LocalizedStrings.copyRawTransaction, style: .default, handler: { (alert: UIAlertAction!) -> Void in
-            self.copyText(self.transaction.hex)
-        })
-
-        alertController.addAction(cancelAction)
-        alertController.addAction(copyTxHash)
-        alertController.addAction(copyRawTx)
-
-        if let popoverPresentationController = alertController.popoverPresentationController {
-            popoverPresentationController.barButtonItem = self.navigationItem.rightBarButtonItems![0]
-        }
-
-        self.present(alertController, animated: true, completion: nil)
-    }
-
-    private func copyText(_ text: String) {
-        //TODO: copy from detailcells
-        //TODO: callback this function from io cells
-        DispatchQueue.main.async {
-            UIPasteboard.general.string = text
-            Utils.showBanner(parentVC: self, type: .success, text: LocalizedStrings.copied)
-        }
     }
 
     func openLink(urlString: String) {
@@ -279,6 +231,7 @@ extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDe
         switch indexPath.section {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TransactionDetailCell") as! TransactionDetailCell
+            cell.presentingController = self
             cell.txnDetails = self.generalTxDetails[indexPath.row]
             return cell
 
@@ -316,12 +269,6 @@ extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDe
 
         default:
             return UITableViewCell()
-        }
-    }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 0 && indexPath.row == 6 {
-            self.copyText(self.transaction.hash)
         }
     }
 }

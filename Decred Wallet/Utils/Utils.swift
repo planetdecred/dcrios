@@ -167,7 +167,9 @@ struct Utils {
     
     static func formatDateTime(timestamp: Int64) -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "MMM dd, yyyy / hh:mm:ss a"
+        formatter.amSymbol = "am"
+        formatter.pmSymbol = "pm"
+        formatter.dateFormat = "MMM dd, yyyy hh:mma"
         let date = Date(timeIntervalSince1970: Double(timestamp))
         return formatter.string(from: date)
     }

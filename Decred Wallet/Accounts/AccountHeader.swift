@@ -32,9 +32,3 @@ struct AccountHeader {
         return false
     }
 }
-
-struct TransactionDetails {
-    let title: String
-    let value: NSAttributedString
-    let textColor: UIColor?
-}
