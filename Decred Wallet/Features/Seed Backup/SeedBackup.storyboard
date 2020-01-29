@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -25,14 +25,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N4P-On-36h">
-                                <rect key="frame" x="16" y="12.5" width="33" height="33"/>
+                                <rect key="frame" x="16" y="17" width="24" height="24"/>
                                 <state key="normal" image="left-arrow"/>
                                 <connections>
                                     <action selector="backAction:" destination="GcH-ey-TqQ" eventType="touchUpInside" id="8Al-hx-958"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Keep in mind" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yAa-56-GDQ">
-                                <rect key="frame" x="59" y="16" width="300" height="25.5"/>
+                                <rect key="frame" x="50" y="16" width="309" height="25.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
                                 <color key="textColor" red="0.035294117647058823" green="0.078431372549019607" blue="0.25098039215686274" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -81,7 +81,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
-                                                            <action selector="onCheck:" destination="GcH-ey-TqQ" eventType="touchUpInside" id="oDl-Yv-eXd"/>
+                                                            <action selector="backupNoticeCheckboxChecked:" destination="GcH-ey-TqQ" eventType="touchUpInside" id="oDl-Yv-eXd"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -128,7 +128,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
-                                                            <action selector="onCheck:" destination="GcH-ey-TqQ" eventType="touchUpInside" id="tB3-oj-NDV"/>
+                                                            <action selector="backupNoticeCheckboxChecked:" destination="GcH-ey-TqQ" eventType="touchUpInside" id="tB3-oj-NDV"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -175,7 +175,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
-                                                            <action selector="onCheck:" destination="GcH-ey-TqQ" eventType="touchUpInside" id="Bux-hn-3e4"/>
+                                                            <action selector="backupNoticeCheckboxChecked:" destination="GcH-ey-TqQ" eventType="touchUpInside" id="Bux-hn-3e4"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -222,7 +222,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
-                                                            <action selector="onCheck:" destination="GcH-ey-TqQ" eventType="touchUpInside" id="Wkw-3Y-n7o"/>
+                                                            <action selector="backupNoticeCheckboxChecked:" destination="GcH-ey-TqQ" eventType="touchUpInside" id="Wkw-3Y-n7o"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -269,7 +269,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
-                                                            <action selector="onCheck:" destination="GcH-ey-TqQ" eventType="touchUpInside" id="2Vn-q9-guI"/>
+                                                            <action selector="backupNoticeCheckboxChecked:" destination="GcH-ey-TqQ" eventType="touchUpInside" id="2Vn-q9-guI"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -324,7 +324,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <segue destination="RuM-Lj-RND" kind="show" id="UYK-lf-k5k"/>
+                                            <action selector="viewSeedPhraseButtonTapped:" destination="GcH-ey-TqQ" eventType="touchUpInside" id="Dai-eT-91j"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -370,23 +370,23 @@
         <!--Seed Words Display View Controller-->
         <scene sceneID="ddb-Um-UKV">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="RuM-Lj-RND" customClass="SeedWordsDisplayViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SeedWordsDisplayViewController" automaticallyAdjustsScrollViewInsets="NO" id="RuM-Lj-RND" customClass="SeedWordsDisplayViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UuI-zH-dxD">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TUw-bu-W5L">
-                                <rect key="frame" x="16" y="23.5" width="33" height="33"/>
+                                <rect key="frame" x="16" y="28" width="24" height="24"/>
                                 <state key="normal" image="left-arrow"/>
                                 <connections>
                                     <action selector="backAction:" destination="RuM-Lj-RND" eventType="touchUpInside" id="S9j-GW-wFO"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4c5-qr-nWF">
-                                <rect key="frame" x="59" y="16" width="300" height="47.5"/>
+                                <rect key="frame" x="50" y="16" width="309" height="47.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Write down seed phrase" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j8l-D5-Kv5">
-                                        <rect key="frame" x="0.0" y="0.0" width="300" height="25.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="309" height="25.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
                                         <color key="textColor" red="0.035294117647058823" green="0.078431372549019607" blue="0.25098039215686274" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -395,7 +395,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Step 1/2" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dCu-PR-9xt">
-                                        <rect key="frame" x="0.0" y="29.5" width="300" height="18"/>
+                                        <rect key="frame" x="0.0" y="29.5" width="309" height="18"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                         <color key="textColor" red="0.34901960784313724" green="0.42745098039215684" blue="0.50588235294117645" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -416,7 +416,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TuA-oP-ewu">
-                                <rect key="frame" x="8" y="71.5" width="367" height="446"/>
+                                <rect key="frame" x="8" y="71.5" width="367" height="466"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="VGj-E3-a6Z">
                                     <rect key="frame" x="0.0" y="0.0" width="367" height="81"/>
@@ -605,7 +605,7 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Na-kr-Eth">
-                                <rect key="frame" x="0.0" y="517.5" width="375" height="129.5"/>
+                                <rect key="frame" x="0.0" y="537.5" width="375" height="129.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You will be asked to enter the seed phrase on the next screen." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bQa-Ra-RGk">
                                         <rect key="frame" x="24" y="14" width="327" height="35.5"/>
@@ -689,10 +689,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4b7-yc-b5w">
-                                <rect key="frame" x="59" y="16" width="300" height="47.5"/>
+                                <rect key="frame" x="50" y="16" width="309" height="47.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Step 2/2" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R2R-hs-DSf">
-                                        <rect key="frame" x="0.0" y="29.5" width="300" height="18"/>
+                                        <rect key="frame" x="0.0" y="29.5" width="309" height="18"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                         <color key="textColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -701,7 +701,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Verify seed phrase" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cS8-e9-l2C">
-                                        <rect key="frame" x="0.0" y="0.0" width="300" height="25.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="309" height="25.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
                                         <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -722,7 +722,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YFE-lo-zXb">
-                                <rect key="frame" x="16" y="23.5" width="33" height="33"/>
+                                <rect key="frame" x="16" y="28" width="24" height="24"/>
                                 <state key="normal" image="left-arrow"/>
                                 <connections>
                                     <action selector="backAction:" destination="RuM-Lj-RND" eventType="touchUpInside" id="gAH-Wc-xpH"/>
@@ -1061,14 +1061,14 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VcD-Al-wic">
                                 <rect key="frame" x="24" y="588" width="327" height="35"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
-                                <state key="normal" title="Back to Overview">
+                                <state key="normal" title="Back to Wallets">
                                     <color key="titleColor" red="0.16078431372549018" green="0.4392156862745098" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="backToOverview"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="backToWallets"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="onBackToOverview:" destination="x0I-uE-PYx" eventType="touchUpInside" id="6pi-AX-vaf"/>
+                                    <action selector="backToWalletsTapped:" destination="x0I-uE-PYx" eventType="touchUpInside" id="6pi-AX-vaf"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1097,6 +1097,6 @@
     </scenes>
     <resources>
         <image name="ic_checkmark" width="64" height="64"/>
-        <image name="left-arrow" width="33" height="33"/>
+        <image name="left-arrow" width="24" height="24"/>
     </resources>
 </document>

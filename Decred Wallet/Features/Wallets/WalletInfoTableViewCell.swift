@@ -10,6 +10,7 @@ import UIKit
 import Dcrlibwallet
 
 protocol WalletInfoTableViewCellDelegate {
+    func walletSeedBackedUp()
     func showWalletMenu(walletName: String, walletID: Int)
     func addNewAccount(_ wallet: Wallet)
     func showAccountDetailsDialog(_ account: DcrlibwalletAccount)
@@ -18,23 +19,36 @@ protocol WalletInfoTableViewCellDelegate {
 class WalletInfoTableViewCell: UITableViewCell {
     @IBOutlet weak var expandCollapseToggleImageView: UIImageView!
     @IBOutlet weak var walletNameLabel: UILabel!
+    @IBOutlet weak var walletNotBackedUpLabel: UILabel!
     @IBOutlet weak var walletBalanceLabel: UILabel!
+    
+    @IBOutlet weak var accountsSection: UIView!
     @IBOutlet weak var accountsTableView: UITableView!
     @IBOutlet weak var accountsTableViewHeightConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var seedBackupPrompt: UIView! {
+        didSet {
+            self.seedBackupPrompt.addGestureRecognizer(
+                UITapGestureRecognizer(target: self, action: #selector(self.seedBackupPromptTapped))
+            )
+        }
+    }
     
     var delegate: WalletInfoTableViewCellDelegate?
     
     static let walletInfoSectionHeight: CGFloat = 65.0
+    static let walletNotBackedUpLabelHeight: CGFloat = 14.0
     static let accountCellHeight: CGFloat = 74.0
     static let addNewAccountButtonHeight: CGFloat = 56
+    static let seedBackupPromptHeight: CGFloat = 92.0
     
-    var wallet: Wallet? {
+    var wallet: Wallet! {
         didSet {
-            self.walletNameLabel.text = wallet?.name
-            self.walletBalanceLabel.text = wallet?.balance
+            self.walletNameLabel.text = wallet.name
+            self.walletBalanceLabel.text = wallet.balance
             
+            self.accountsSection.isHidden = !wallet.displayAccounts
             self.accountsTableViewHeightConstraint.constant = self.accountsTableViewHeight
-            self.accountsTableView.isHidden = self.numberOfAccountsToDisplay == 0
             
             if self.accountsTableView.delegate == nil {
                 self.accountsTableView.dataSource = self
@@ -43,48 +57,47 @@ class WalletInfoTableViewCell: UITableViewCell {
             } else {
                 self.accountsTableView.reloadData()
             }
+            
+            self.walletNotBackedUpLabel.isHidden = wallet.isSeedBackedUp
+            self.seedBackupPrompt.isHidden = wallet.isSeedBackedUp
 
             UIView.animate(withDuration: 0.1) {
-                let rotationAngle = self.wallet?.displayAccounts ?? false ? CGFloat(Double.pi/2) : 0.0
+                let rotationAngle = self.wallet.displayAccounts ? CGFloat(Double.pi/2) : 0.0
                 self.expandCollapseToggleImageView.transform = CGAffineTransform(rotationAngle: rotationAngle)
             }
         }
     }
     
     var numberOfAccountsToDisplay: Int {
-        return self.wallet != nil && self.wallet!.displayAccounts ? self.wallet!.accounts.count : 0
+        return self.wallet != nil && self.wallet.displayAccounts ? self.wallet.accounts.count : 0
     }
     
     var accountsTableViewHeight: CGFloat {
         return CGFloat(self.numberOfAccountsToDisplay) * WalletInfoTableViewCell.accountCellHeight
     }
     
+    @objc func seedBackupPromptTapped(_ sender: Any) {
+        let seedBackupReminderVC = SeedBackupReminderViewController.instantiate(from: .SeedBackup)
+        seedBackupReminderVC.walletID = self.wallet.id
+        seedBackupReminderVC.seedBackupCompleted = {
+            self.delegate?.walletSeedBackedUp()
+        }
+        
+        let modalVC = seedBackupReminderVC.wrapInNavigationcontroller()
+        modalVC.modalPresentationStyle = .overFullScreen
+        AppDelegate.shared.window?.rootViewController?.present(modalVC, animated: true)
+    }
+    
     @IBAction func walletMenuButtonTapped(_ sender: Any) {
-        guard let wallet = self.wallet else { return }
-        self.delegate?.showWalletMenu(walletName: wallet.name, walletID: wallet.id)
+        self.delegate?.showWalletMenu(walletName: self.wallet.name, walletID: self.wallet.id)
     }
     
     @IBAction func addNewAccountTapped(_ sender: Any) {
-        guard let wallet = self.wallet else { return }
-        self.delegate?.addNewAccount(wallet)
+        self.delegate?.addNewAccount(self.wallet)
     }
 }
 
 extension WalletInfoTableViewCell: UITableViewDataSource, UITableViewDelegate {
-    func numberOfSections(in _: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 1
-    }
-    
-    func tableView(_: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let borderView = UIView()
-        borderView.backgroundColor = UIColor.appColors.gray
-        return borderView
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return numberOfAccountsToDisplay
     }
@@ -95,12 +108,11 @@ extension WalletInfoTableViewCell: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let accountViewCell = tableView.dequeueReusableCell(withIdentifier: "WalletAccountTableViewCell") as! WalletAccountTableViewCell
-        accountViewCell.account = self.wallet!.accounts[indexPath.row]
+        accountViewCell.account = self.wallet.accounts[indexPath.row]
         return accountViewCell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let wallet = self.wallet else { return }
-        self.delegate?.showAccountDetailsDialog(wallet.accounts[indexPath.row])
+        self.delegate?.showAccountDetailsDialog(self.wallet.accounts[indexPath.row])
     }
 }

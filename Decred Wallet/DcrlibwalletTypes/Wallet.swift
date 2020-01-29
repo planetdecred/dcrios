@@ -14,6 +14,7 @@ class Wallet: NSObject {
     private(set) var name: String
     private(set) var balance: String
     private(set) var accounts = [DcrlibwalletAccount]()
+    private(set) var isSeedBackedUp: Bool = false
     private(set) var displayAccounts: Bool = false
     
     init(_ wallet: DcrlibwalletWallet) {
@@ -21,6 +22,7 @@ class Wallet: NSObject {
         self.name = wallet.name
         self.balance = "\(wallet.totalWalletBalance()) DCR"
         self.accounts = wallet.accounts(confirmations: 0)
+        self.isSeedBackedUp = wallet.seed.isEmpty
         self.displayAccounts = false
     }
     

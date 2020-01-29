@@ -9,7 +9,7 @@
 import UIKit
 import Dcrlibwallet
 
-class WalletsViewController: UIViewController, WalletInfoTableViewCellDelegate {
+class WalletsViewController: UIViewController {
     @IBOutlet weak var walletsTableView: UITableView!
     
     var wallets = [Wallet]()
@@ -44,7 +44,6 @@ class WalletsViewController: UIViewController, WalletInfoTableViewCellDelegate {
         self.walletsTableView.reloadData()
     }
     
-    // todo use localized strings
     // todo prolly hide this action if sync is ongoing as wallets cannot be added during ongoing sync
     @IBAction func addNewWalletTapped(_ sender: Any) {
         let alertController = UIAlertController(title: nil,
@@ -116,6 +115,47 @@ class WalletsViewController: UIViewController, WalletInfoTableViewCellDelegate {
         }
         self.navigationController?.pushViewController(restoreWalletVC, animated: true)
     }
+}
+
+extension WalletsViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.wallets.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let wallet = self.wallets[indexPath.row]
+        var cellHeight = WalletInfoTableViewCell.walletInfoSectionHeight
+        
+        if !wallet.isSeedBackedUp {
+            cellHeight += WalletInfoTableViewCell.walletNotBackedUpLabelHeight
+                + WalletInfoTableViewCell.seedBackupPromptHeight
+        }
+        
+        if wallet.displayAccounts {
+            cellHeight += (WalletInfoTableViewCell.accountCellHeight * CGFloat(wallet.accounts.count))
+                + WalletInfoTableViewCell.addNewAccountButtonHeight
+        }
+        
+        return cellHeight
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let walletViewCell = tableView.dequeueReusableCell(withIdentifier: "WalletInfoTableViewCell") as! WalletInfoTableViewCell
+        walletViewCell.wallet = self.wallets[indexPath.row]
+        walletViewCell.delegate = self
+        return walletViewCell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.wallets[indexPath.row].toggleAccountsDisplay()
+        tableView.reloadData()
+    }
+}
+
+extension WalletsViewController: WalletInfoTableViewCellDelegate {
+    func walletSeedBackedUp() {
+        self.loadWallets()
+    }
     
     func showWalletMenu(walletName: String, walletID: Int) {
         let prompt = String(format: "%@ (%@)", LocalizedStrings.wallet, walletName)
@@ -155,6 +195,17 @@ class WalletsViewController: UIViewController, WalletInfoTableViewCellDelegate {
         self.present(walletMenu, animated: true, completion: nil)
     }
     
+    func addNewAccount(_ wallet: Wallet) {
+        print("add new account to", wallet.name)
+    }
+    
+    func showAccountDetailsDialog(_ account: DcrlibwalletAccount) {
+        print("show account modal for", account.name)
+    }
+}
+
+// extension to handle wallet menu options.
+extension WalletsViewController {
     func showRemoveWalletWarning(callback: @escaping (Bool) -> Void) {
         SimpleOkCancelDialog.show(sender: self,
                                   title: LocalizedStrings.removeWalletConfirmation,
@@ -205,42 +256,5 @@ class WalletsViewController: UIViewController, WalletInfoTableViewCellDelegate {
                 dialogDelegate?.displayError(errorMessage: error.localizedDescription)
             }
         }
-    }
-    
-    func addNewAccount(_ wallet: Wallet) {
-        print("add new account to", wallet.name)
-    }
-    
-    func showAccountDetailsDialog(_ account: DcrlibwalletAccount) {
-        print("show account modal for", account.name)
-    }
-}
-
-extension WalletsViewController: UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.wallets.count
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let wallet = self.wallets[indexPath.row]
-        if !wallet.displayAccounts {
-            return WalletInfoTableViewCell.walletInfoSectionHeight
-        }
-        
-        return WalletInfoTableViewCell.walletInfoSectionHeight
-            + (WalletInfoTableViewCell.accountCellHeight * CGFloat(wallet.accounts.count))
-            + WalletInfoTableViewCell.addNewAccountButtonHeight
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let walletViewCell = tableView.dequeueReusableCell(withIdentifier: "WalletInfoTableViewCell") as! WalletInfoTableViewCell
-        walletViewCell.wallet = self.wallets[indexPath.row]
-        walletViewCell.delegate = self
-        return walletViewCell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.wallets[indexPath.row].toggleAccountsDisplay()
-        tableView.reloadData()
     }
 }

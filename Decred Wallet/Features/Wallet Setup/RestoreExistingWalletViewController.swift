@@ -177,6 +177,7 @@ class RestoreExistingWalletViewController: UIViewController {
                     self.performSegue(withIdentifier: "recoverySuccess", sender: self)
                 } else {
                     self.onWalletRestored!()
+                    self.dismissView()
                 }
             }
         }

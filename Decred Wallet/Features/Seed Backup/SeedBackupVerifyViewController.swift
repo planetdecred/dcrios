@@ -11,17 +11,24 @@ import Dcrlibwallet
 import JGProgressHUD
 
 class SeedBackupVerifyViewController: UIViewController {
-    var seedWordsGroupedByThree: [[String]] = []
-    var selectedWords: [String] = []
     @IBOutlet weak var groupedSeedWordsTableView: UITableView!
     @IBOutlet weak var btnConfirm: Button!
+    
+    var walletID: Int!
+    var seedBackupCompleted: (() -> Void)?
+    
+    var seedWordsGroupedByThree: [[String]] = []
+    var selectedWords: [String] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         addNavigationBackButton()
     }
 
-    func prepareSeedForVerification(seedToVerify: String) {
+    func prepareSeedForVerification(seedToVerify: String, walletID: Int, seedBackupCompleted: (() -> Void)?) {
+        self.walletID = walletID
+        self.seedBackupCompleted = seedBackupCompleted
+        
         let allSeedWords = loadSeedWordsList()
         let validSeedWords = seedToVerify.split{$0 == " "}.map(String.init)
         
@@ -68,9 +75,10 @@ class SeedBackupVerifyViewController: UIViewController {
         let userEnteredSeed = selectedWords.joined(separator: " ")
 
         do {
-            try WalletLoader.shared.multiWallet.verifySeed(forWallet: WalletLoader.shared.firstWallet!.id_,
+            try WalletLoader.shared.multiWallet.verifySeed(forWallet: self.walletID,
                                                            seedMnemonic: userEnteredSeed)
             
+            self.seedBackupCompleted?()
             self.performSegue(withIdentifier: "toSeedBackupSuccess", sender: nil)
         } catch {
             self.groupedSeedWordsTableView?.isUserInteractionEnabled = true

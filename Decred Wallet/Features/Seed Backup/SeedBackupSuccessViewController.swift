@@ -13,7 +13,7 @@ class SeedBackupSuccessViewController: UIViewController {
         super.viewDidLoad()
     }
 
-    @IBAction func onBackToOverview(_ sender: Any) {
+    @IBAction func backToWalletsTapped(_ sender: Any) {
         navigateToBackScreen()
     }
 }

@@ -25,32 +25,32 @@
                         <rect key="frame" x="0.0" y="25" width="24" height="24"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Default" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2s2-FE-DaI">
-                        <rect key="frame" x="40" y="14" width="57.5" height="21"/>
+                        <rect key="frame" x="40" y="14" width="54.5" height="23"/>
                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                         <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="7.51464806 DCR" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="umF-wo-77k">
-                        <rect key="frame" x="244.5" y="13" width="153.5" height="23.5"/>
+                        <rect key="frame" x="264" y="13" width="134" height="25.5"/>
                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
                         <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="7.51464806 DCR" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cU2-tf-Rgi">
-                        <rect key="frame" x="290.5" y="38.5" width="107.5" height="16.5"/>
+                        <rect key="frame" x="304.5" y="40.5" width="93.5" height="18"/>
                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                         <color key="textColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ecb-qP-RHx">
-                        <rect key="frame" x="40" y="69" width="374" height="1"/>
+                        <rect key="frame" x="40" y="72.5" width="358" height="1"/>
                         <color key="backgroundColor" red="0.90196078430000004" green="0.91764705879999997" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="dni-IQ-9pN"/>
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Spendable" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mck-hs-G7D">
-                        <rect key="frame" x="40" y="38.5" width="67.5" height="16.5"/>
+                        <rect key="frame" x="40" y="40.5" width="63" height="18"/>
                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                         <color key="textColor" red="0.34901960784313724" green="0.42745098039215684" blue="0.50588235294117645" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -66,7 +66,7 @@
                     <constraint firstItem="mck-hs-G7D" firstAttribute="top" secondItem="umF-wo-77k" secondAttribute="bottom" constant="2" id="bWE-oQ-voh"/>
                     <constraint firstItem="mck-hs-G7D" firstAttribute="leading" secondItem="2s2-FE-DaI" secondAttribute="leading" id="dlO-x1-EDa"/>
                     <constraint firstAttribute="trailing" secondItem="cU2-tf-Rgi" secondAttribute="trailing" constant="16" id="eQA-lJ-uJG"/>
-                    <constraint firstAttribute="trailing" secondItem="Ecb-qP-RHx" secondAttribute="trailing" id="nwK-Ip-g4Y"/>
+                    <constraint firstAttribute="trailing" secondItem="Ecb-qP-RHx" secondAttribute="trailing" constant="16" id="nwK-Ip-g4Y"/>
                     <constraint firstAttribute="trailing" secondItem="umF-wo-77k" secondAttribute="trailing" constant="16" id="pVg-Tv-7wx"/>
                     <constraint firstItem="2s2-FE-DaI" firstAttribute="leading" secondItem="TNG-Lq-r6K" secondAttribute="trailing" constant="16" id="tpw-Og-ADG"/>
                     <constraint firstItem="Ecb-qP-RHx" firstAttribute="top" secondItem="cU2-tf-Rgi" secondAttribute="bottom" constant="14" id="vkP-gK-6Fj"/>

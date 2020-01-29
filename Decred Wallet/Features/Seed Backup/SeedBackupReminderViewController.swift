@@ -13,10 +13,13 @@ class SeedBackupReminderViewController: UIViewController {
     @IBOutlet var seedBackupNoticeLabels: [UILabel]?
     var checkedCheckBoxesDict: [Int: Bool] = [:]
     @IBOutlet weak var viewSeedBtn: Button!
+    
+    var walletID: Int!
+    var seedBackupCompleted: (() -> Void)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        styleSeedBackupNoticeLabels()
+        self.styleSeedBackupNoticeLabels()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -42,7 +45,7 @@ class SeedBackupReminderViewController: UIViewController {
         }
     }
 
-    @IBAction func onCheck(_ sender: Any) {
+    @IBAction func backupNoticeCheckboxChecked(_ sender: Any) {
         if let checkbox = sender as? Button {
             if let checked = self.checkedCheckBoxesDict[checkbox.tag], checked {
                 checkbox.setImage(nil, for: .normal)
@@ -61,7 +64,14 @@ class SeedBackupReminderViewController: UIViewController {
             self.viewSeedBtn?.isEnabled = allChecked
         }
     }
-
+    
+    @IBAction func viewSeedPhraseButtonTapped(_ sender: Any) {
+        let seedWordsDisplayVC = SeedWordsDisplayViewController.instantiate(from: .SeedBackup)
+        seedWordsDisplayVC.walletID = self.walletID
+        seedWordsDisplayVC.seedBackupCompleted = self.seedBackupCompleted
+        self.navigationController?.pushViewController(seedWordsDisplayVC, animated: true)
+    }
+    
     @IBAction func backAction(_ sender: UIButton) {
         navigateToBackScreen()
     }
