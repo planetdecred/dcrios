@@ -47,19 +47,23 @@ class WalletsViewController: UIViewController, WalletInfoTableViewCellDelegate {
     // todo use localized strings
     // todo prolly hide this action if sync is ongoing as wallets cannot be added during ongoing sync
     @IBAction func addNewWalletTapped(_ sender: Any) {
-        let alertController = UIAlertController(title: nil, message: "Create or import a wallet", preferredStyle: .actionSheet)
+        let alertController = UIAlertController(title: nil,
+                                                message: LocalizedStrings.createOrImportWallet,
+                                                preferredStyle: .actionSheet)
         
-        alertController.addAction(UIAlertAction(title: "Create a new wallet", style: .default, handler: { _ in
+        alertController.addAction(UIAlertAction(title: LocalizedStrings.createNewWallet, style: .default, handler: { _ in
             if StartupPinOrPassword.pinOrPasswordIsSet() {
-                self.verifyStartupSecurityCode(prompt: "Confirm to create new wallet", onVerifiedSuccess: self.createNewWallet)
+                self.verifyStartupSecurityCode(prompt: LocalizedStrings.confirmToCreateNewWallet,
+                                               onVerifiedSuccess: self.createNewWallet)
             } else {
                 self.createNewWallet()
             }
         }))
         
-        alertController.addAction(UIAlertAction(title: "Import an existing wallet", style: .default, handler: { _ in
+        alertController.addAction(UIAlertAction(title: LocalizedStrings.restoreExistingWallet, style: .default, handler: { _ in
             if StartupPinOrPassword.pinOrPasswordIsSet() {
-                self.verifyStartupSecurityCode(prompt: "Confirm to import wallet", onVerifiedSuccess: self.goToRestoreWallet)
+                self.verifyStartupSecurityCode(prompt: LocalizedStrings.confirmToImportWallet,
+                                               onVerifiedSuccess: self.goToRestoreWallet)
             } else {
                 self.goToRestoreWallet()
             }
@@ -113,46 +117,49 @@ class WalletsViewController: UIViewController, WalletInfoTableViewCellDelegate {
         self.navigationController?.pushViewController(restoreWalletVC, animated: true)
     }
     
-    // todo use localized strings
     func showWalletMenu(walletName: String, walletID: Int) {
         let prompt = String(format: "%@ (%@)", LocalizedStrings.wallet, walletName)
-        let alertController = UIAlertController(title: nil, message: prompt, preferredStyle: .actionSheet)
+        let walletMenu = UIAlertController(title: nil, message: prompt, preferredStyle: .actionSheet)
         
         // todo prolly hide this action if sync is ongoing as wallets cannot be removed during ongoing sync
-        alertController.addAction(UIAlertAction(title: "Remove from device", style: .destructive, handler: { _ in
-            let warningMessage = "Make sure to have the seed phrase backed up before removing the wallet."
-            SimpleOkCancelDialog.show(sender: self,
-                                      title: "Remove wallet from device?",
-                                      message: warningMessage) { ok in
-                                        if ok {
-                                            self.removeWalletFromDevice(walletID: walletID)
-                                        }
+        walletMenu.addAction(UIAlertAction(title: LocalizedStrings.removeFromDevice, style: .destructive, handler: { _ in
+            self.showRemoveWalletWarning() { ok in
+                if ok {
+                    self.removeWalletFromDevice(walletID: walletID)
+                }
             }
         }))
         
-        alertController.addAction(UIAlertAction(title: "Change spending password/PIN", style: .default, handler: { _ in
+        walletMenu.addAction(UIAlertAction(title: LocalizedStrings.changeSpendingPinPass, style: .default, handler: { _ in
             self.changeWalletSpendingSecurityCode(walletID: walletID)
         }))
         
-        alertController.addAction(UIAlertAction(title: "Sign message", style: .default, handler: { _ in
+        walletMenu.addAction(UIAlertAction(title: LocalizedStrings.signMessage, style: .default, handler: { _ in
             
         }))
         
-        alertController.addAction(UIAlertAction(title: "Verify message", style: .default, handler: { _ in
+        walletMenu.addAction(UIAlertAction(title: LocalizedStrings.verifyMessage, style: .default, handler: { _ in
             
         }))
         
-        alertController.addAction(UIAlertAction(title: "Rename", style: .default, handler: { _ in
+        walletMenu.addAction(UIAlertAction(title: LocalizedStrings.rename, style: .default, handler: { _ in
             self.renameWallet(walletID: walletID)
         }))
         
-        alertController.addAction(UIAlertAction(title: "View property", style: .default, handler: { _ in
+        walletMenu.addAction(UIAlertAction(title: LocalizedStrings.viewProperty, style: .default, handler: { _ in
             
         }))
         
-        alertController.addAction(UIAlertAction(title: LocalizedStrings.cancel, style: .cancel, handler: nil))
+        walletMenu.addAction(UIAlertAction(title: LocalizedStrings.cancel, style: .cancel, handler: nil))
         
-        self.present(alertController, animated: true, completion: nil)
+        self.present(walletMenu, animated: true, completion: nil)
+    }
+    
+    func showRemoveWalletWarning(callback: @escaping (Bool) -> Void) {
+        SimpleOkCancelDialog.show(sender: self,
+                                  title: LocalizedStrings.removeWalletConfirmation,
+                                  message: LocalizedStrings.removeWalletWarning,
+                                  callback: callback)
     }
     
     func removeWalletFromDevice(walletID: Int) {
@@ -165,7 +172,7 @@ class WalletsViewController: UIViewController, WalletInfoTableViewCellDelegate {
                     try WalletLoader.shared.multiWallet.delete(walletID, privPass: currentCode.utf8Bits)
                     dialogDelegate?.dismissDialog()
                     self.loadWallets()
-                    Utils.showBanner(parentVC: self, type: .success, text: "Wallet removed")
+                    Utils.showBanner(parentVC: self, type: .success, text: LocalizedStrings.walletRemoved)
                 } catch let error {
                     if error.isInvalidPassphraseError {
                         dialogDelegate?.displayError(errorMessage: SpendingPinOrPassword.invalidSecurityCodeMessage())
@@ -179,21 +186,21 @@ class WalletsViewController: UIViewController, WalletInfoTableViewCellDelegate {
     func changeWalletSpendingSecurityCode(walletID: Int) {
         SpendingPinOrPassword.change(sender: self, walletID: walletID) {
             self.loadWallets()
-            Utils.showBanner(parentVC: self, type: .success, text: "Spending PIN/password changed")
+            Utils.showBanner(parentVC: self, type: .success, text: LocalizedStrings.spendingPinPassChanged)
         }
     }
     
     func renameWallet(walletID: Int) {
         SimpleTextInputDialog.show(sender: self,
-                                   title: "Rename wallet",
-                                   placeholder: "Wallet name",
-                                   submitButtonText: "Rename") { newWalletName, dialogDelegate in
+                                   title: LocalizedStrings.renameWallet,
+                                   placeholder: LocalizedStrings.walletName,
+                                   submitButtonText: LocalizedStrings.rename) { newWalletName, dialogDelegate in
             
             do {
                 try WalletLoader.shared.multiWallet.renameWallet(walletID, newName: newWalletName)
                 dialogDelegate?.dismissDialog()
                 self.loadWallets()
-                Utils.showBanner(parentVC: self, type: .success, text: "Wallet renamed")
+                Utils.showBanner(parentVC: self, type: .success, text: LocalizedStrings.walletRenamed)
             } catch let error {
                 dialogDelegate?.displayError(errorMessage: error.localizedDescription)
             }

@@ -59,6 +59,7 @@
 
 /* Request Password */
 "enterPassword" = "Enter Password";
+"enterCurrentSpendingPassword" = "Введите текущий пароль для расходов";
 "promptSpendingPassword" = "Please enter spending password of your wallet.";
 "promptStartupPassword" = "Введите текущий пароль для шифрования.";
 "securityTypeNotSpecified" = "Security type not specified. Cannot proceed.";
@@ -71,13 +72,14 @@
 "confirmPasswordPlaceholder"="Confirm %@ password";
 
 /* Request PIN and PIN Setup */
-"createPIN" = "Создайте PIN для %@";
 "enterPIN" = "Введите PIN для %@";
+"enterCurrentSpendingPIN" = "Enter Current Spending PIN";
+"promptStartupPIN" = "Enter Current Startup PIN";
+"createPIN" = "Создайте PIN для %@";
 "confirmPIN" = "Подтвердите PIN для %@";
 "pinsDidNotMatch" = "PIN не совпадают. Попробуйте ещё раз.";
 "pin" = "PIN";
 "pinStrength" = "НАДЁЖНОСТЬ PIN";
-"promptStartupPIN" = "Enter Current Startup PIN";
 "next" = "Next";
 "create" = "Create";
 
@@ -278,17 +280,37 @@
 /* Wallets/Accounts */
 "addNewAccount" = "Добавить аккаунт";
 
-/* Wallets -> Remove wallet */
-"confirmToRemove" = "Confirm to remove";
+/* Wallets -> Add new wallet */
+"createOrImportWallet" = "Create or import a wallet";
+"confirmToCreateNewWallet" = "Confirm to create new wallet";
+"confirmToImportWallet" = "Confirm to import wallet";
 
-/* Wallets -> Change Spending/Startup PIN/Password */
+/* Wallets -> Remove wallet */
+"removeFromDevice" = "Remove from device";
+"removeWalletConfirmation" = "Remove wallet from device?";
+"removeWalletWarning" = "Make sure to have the seed phrase backed up before removing the wallet.";
+"confirmToRemove" = "Confirm to remove";
+"walletRemoved" = "Wallet removed";
+
+/* Wallets -> Change Spending PIN/Password */
+"changeSpendingPinPass" = "Измените PIN/ пароль для расходов";
 "confirmToChange" = "Confirm to change";
-"change" = "Change";
-"enterCurrentSpendingPassword" = "Введите текущий пароль для расходов";
-"enterCurrentSpendingPIN" = "Enter Current Spending PIN";
-"changingStartupPINPass" = "Changing startup %@...";
-"removingStartupPINPass" = "Removing startup %@...";
-"settingStartupPINPass" = "Setting startup %@...";
+"spendingPinPassChanged" = "Spending PIN/password changed";
+
+/* Wallets -> Sign message */
+"signMessage" = "Подписать сообщение";
+
+/* Wallets -> Verify message */
+"verifyMessage" = "Verify message";
+
+/* Wallets -> Rename wallet */
+"rename" = "Rename";
+"renameWallet" = "Rename wallet";
+"walletName" = "Wallet name";
+"walletRenamed" = "Wallet renamed";
+
+/* Wallets -> View property */
+"viewProperty" = "View property";
 
 /* Account View */
 "hidden" = "скрыто";
@@ -329,7 +351,6 @@
 "address" = "Адрес";
 "message" = "Сообщение";
 "signature" = "Подпись";
-"signMessage" = "Подписать сообщение";
 "secureMenuSyncInfo" = "Пожалуйста, подождите, пока закончится синхронизация.";
 "secureMenuHeaderInfo" = "Тут вы можете проверить действительность адреса, подписывать сообщения (чтобы доказать, что адрес принадлежит вам) и для верификации подписей.";
 
@@ -337,7 +358,6 @@
 "forMoreInformationPleaseVisit" = "Для того, чтобы узнать больше, пожалуйста, посетите";
 
 /* Settings */
-"changeSpendingPinPass" = "Измените PIN/ пароль для расходов";
 "spendingPinPassInfo" = "Требуется для отправки средств.";
 "startupPinPass" = "PIN/пароль для шифрования";
 "changeStatupPinPass" = "Изменить PIN/пароль для шифрования";
@@ -368,6 +388,13 @@
 "connection" = "Соединение";
 "about" = "Информация";
 "debug" = "Debug";
+
+/* Change startup/spending pin/pass */
+"newPasswordPlaceholder" = "New %@ password";
+"newPINPlaceholder" = "Enter new %@ PIN";
+"confirmNewPasswordPlaceholder" = "Confirm new %@ password";
+"confirmNewPINPlaceholder" = "Enter new %@ PIN again";
+"change" = "Change";
 
 /* IP set */
 "connectToPeer" = "Подсоединиться к узлу";

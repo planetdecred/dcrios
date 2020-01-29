@@ -59,6 +59,7 @@
 
 /* Request Password */
 "enterPassword" = "Nhập mật khẩu";
+"enterCurrentSpendingPassword" = "Nhập mật khẩu chi tiêu hiện tại";
 "promptSpendingPassword" = "Please enter spending password of your wallet.";
 "promptStartupPassword" = "Nhập mật khẩu khởi động hiện tại.";
 "securityTypeNotSpecified" = "Security type not specified. Cannot proceed.";
@@ -71,13 +72,14 @@
 "confirmPasswordPlaceholder"="Confirm %@ password";
 
 /* Request PIN and PIN Setup */
-"createPIN" = "Tạo mã PIN %@" ;
 "enterPIN" = "Nhập mã PIN %@";
+"enterCurrentSpendingPIN" = "Enter Current Spending PIN";
+"promptStartupPIN" = "Enter Current Startup PIN";
+"createPIN" = "Tạo mã PIN %@" ;
 "confirmPIN" = "Xác nhận mã PIN %@" ;
 "pinsDidNotMatch" = "PIN không khớp. Thử lại";
 "pin" = "mã PIN";
 "pinStrength" = "PIN MẠNH";
-"promptStartupPIN" = "Enter Current Startup PIN";
 "next" = "Next";
 "create" = "Create";
 
@@ -278,17 +280,37 @@
 /* Wallets/Accounts */
 "addNewAccount" = "Thêm tài khoản";
 
-/* Wallets -> Remove wallet */
-"confirmToRemove" = "Confirm to remove";
+/* Wallets -> Add new wallet */
+"createOrImportWallet" = "Create or import a wallet";
+"confirmToCreateNewWallet" = "Confirm to create new wallet";
+"confirmToImportWallet" = "Confirm to import wallet";
 
-/* Wallets -> Change Spending/Startup PIN/Password */
+/* Wallets -> Remove wallet */
+"removeFromDevice" = "Remove from device";
+"removeWalletConfirmation" = "Remove wallet from device?";
+"removeWalletWarning" = "Make sure to have the seed phrase backed up before removing the wallet.";
+"confirmToRemove" = "Confirm to remove";
+"walletRemoved" = "Wallet removed";
+
+/* Wallets -> Change Spending PIN/Password */
+"changeSpendingPinPass" = "Thay đổi chi tiêu PIN/Mật khẩu";
 "confirmToChange" = "Confirm to change";
-"change" = "Change";
-"enterCurrentSpendingPassword" = "Nhập mật khẩu chi tiêu hiện tại";
-"enterCurrentSpendingPIN" = "Enter Current Spending PIN";
-"changingStartupPINPass" = "Thay đổi mã %@ khởi động...";
-"removingStartupPINPass" = "Xóa %@ khởi động…" ;
-"settingStartupPINPass" = "Đặt %@ khởi động…";
+"spendingPinPassChanged" = "Spending PIN/password changed";
+
+/* Wallets -> Sign message */
+"signMessage" = "Ký tin nhắn";
+
+/* Wallets -> Verify message */
+"verifyMessage" = "Verify message";
+
+/* Wallets -> Rename wallet */
+"rename" = "Rename";
+"renameWallet" = "Rename wallet";
+"walletName" = "Wallet name";
+"walletRenamed" = "Wallet renamed";
+
+/* Wallets -> View property */
+"viewProperty" = "View property";
 
 /* Account View */
 "hidden" = "Ẩn";
@@ -329,7 +351,6 @@
 "address" = "Địa chỉ";
 "message" = "Tin nhắn";
 "signature" = "Chữ ký";
-"signMessage" = "Ký tin nhắn";
 "secureMenuSyncInfo" = "Vui lòng đợi ví của bạn hoàn tất đồng bộ hóa.";
 "secureMenuHeaderInfo" = "Tại đây bạn có thể xác minh tính hợp lệ của một địa chỉ, ký tin nhắn để chứng minh quyền sở hữu địa chỉ của bạn và xác minh chữ ký.";
 
@@ -337,7 +358,6 @@
 "forMoreInformationPleaseVisit" = "Để biết thêm thông tin, vui lòng truy cập";
 
 /* Settings */
-"changeSpendingPinPass" = "Thay đổi chi tiêu PIN/Mật khẩu";
 "spendingPinPassInfo" = "Yêu cầu gửi tiền.";
 "startupPinPass" = "Mã PIN/Mật khẩu khởi động";
 "changeStatupPinPass" = "Thay đổi mã PIN khởi động /Mật khẩu";
@@ -368,6 +388,13 @@
 "connection" = "Kết nối";
 "about" = "About";
 "debug" = "Debug";
+
+/* Change startup/spending pin/pass */
+"newPasswordPlaceholder" = "New %@ password";
+"newPINPlaceholder" = "Enter new %@ PIN";
+"confirmNewPasswordPlaceholder" = "Confirm new %@ password";
+"confirmNewPINPlaceholder" = "Enter new %@ PIN again";
+"change" = "Change";
 
 /* IP set */
 "connectToPeer" = "Kết nối tới Peer";
