@@ -2,7 +2,7 @@
 //  Date.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -19,5 +19,9 @@ extension Date {
     
     func isAfter(_ otherDate: Date) -> Bool {
         return self > otherDate
+    }
+    
+    var daysFromNow: Int {
+      return Calendar.current.dateComponents([.day], from: Date(), to: self).day!
     }
 }

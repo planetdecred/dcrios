@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -21,59 +21,67 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="credit" translatesAutoresizingMaskIntoConstraints="NO" id="ppM-43-tik">
-                        <rect key="frame" x="16" y="18" width="24" height="20"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_ticketVoted" translatesAutoresizingMaskIntoConstraints="NO" id="ppM-43-tik">
+                        <rect key="frame" x="16" y="16" width="24" height="24"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="20" id="osB-9J-1ls"/>
+                            <constraint firstAttribute="height" constant="24" id="osB-9J-1ls"/>
                             <constraint firstAttribute="width" constant="24" id="wNA-oV-Ceo"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="I30-9I-EnW">
-                        <rect key="frame" x="48" y="28" width="151" height="0.0"/>
-                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
-                        <color key="textColor" red="0.035294117647058823" green="0.078431372549019607" blue="0.25098039215686274" alpha="0.88516695205479456" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kgG-PH-sxi">
-                        <rect key="frame" x="205" y="0.0" width="100" height="56"/>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Zgg-2l-nYs">
+                        <rect key="frame" x="56" y="7.5" width="107.5" height="41"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="c1T-Mh-IIo">
-                                <rect key="frame" x="0.0" y="28" width="79" height="0.0"/>
-                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
-                                <color key="textColor" red="0.1764705882352941" green="0.84705882352941175" blue="0.63921568627450975" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Voted" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="I30-9I-EnW">
+                                <rect key="frame" x="0.0" y="0.0" width="107.5" height="23"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
+                                <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ACR-tp-aNy">
-                                <rect key="frame" x="87" y="22" width="12" height="12"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="12" id="QQh-po-3aN"/>
-                                    <constraint firstAttribute="width" constant="12" id="waN-Yx-2PM"/>
-                                </constraints>
-                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="116.51637184 DCR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="fIZ-8i-2Fy">
+                                <rect key="frame" x="0.0" y="23" width="107.5" height="18"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                                <color key="textColor" red="0.53725490196078429" green="0.59215686274509804" blue="0.6470588235294118" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </stackView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_confirmed" translatesAutoresizingMaskIntoConstraints="NO" id="ACR-tp-aNy">
+                        <rect key="frame" x="292" y="22" width="12" height="12"/>
                         <constraints>
-                            <constraint firstItem="ACR-tp-aNy" firstAttribute="centerY" secondItem="kgG-PH-sxi" secondAttribute="centerY" id="2Vr-1e-GLO"/>
-                            <constraint firstAttribute="trailing" secondItem="ACR-tp-aNy" secondAttribute="trailing" constant="1" id="LWS-wV-tcq"/>
-                            <constraint firstAttribute="width" constant="100" id="Uqn-Zl-Zxn"/>
-                            <constraint firstItem="c1T-Mh-IIo" firstAttribute="leading" secondItem="kgG-PH-sxi" secondAttribute="leading" id="by2-P9-sxc"/>
-                            <constraint firstItem="ACR-tp-aNy" firstAttribute="leading" secondItem="c1T-Mh-IIo" secondAttribute="trailing" constant="8" id="mVa-eZ-5YJ"/>
-                            <constraint firstItem="c1T-Mh-IIo" firstAttribute="centerY" secondItem="kgG-PH-sxi" secondAttribute="centerY" id="yfq-4h-RUy"/>
+                            <constraint firstAttribute="height" constant="12" id="QQh-po-3aN"/>
+                            <constraint firstAttribute="width" constant="12" id="waN-Yx-2PM"/>
                         </constraints>
-                    </view>
+                    </imageView>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="A8C-6Y-BOg">
+                        <rect key="frame" x="202" y="9" width="81.5" height="38.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Oct 22, 2018" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="c1T-Mh-IIo">
+                                <rect key="frame" x="0.0" y="0.0" width="81.5" height="20.5"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                <color key="textColor" red="0.34901960784313724" green="0.42745098039215684" blue="0.50588235294117645" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="142 days" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="0Jw-U6-KEW">
+                                <rect key="frame" x="0.0" y="20.5" width="81.5" height="18"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                                <color key="textColor" red="0.53725490200000003" green="0.59215686270000001" blue="0.64705882349999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
                 </subviews>
-                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstItem="kgG-PH-sxi" firstAttribute="centerY" secondItem="eWK-b2-p7R" secondAttribute="centerY" id="aKF-gF-E6E"/>
-                    <constraint firstItem="I30-9I-EnW" firstAttribute="centerY" secondItem="eWK-b2-p7R" secondAttribute="centerY" id="bCf-x8-w5M"/>
+                    <constraint firstItem="A8C-6Y-BOg" firstAttribute="centerY" secondItem="eWK-b2-p7R" secondAttribute="centerY" id="74d-7U-aOM"/>
+                    <constraint firstItem="ACR-tp-aNy" firstAttribute="leading" secondItem="A8C-6Y-BOg" secondAttribute="trailing" constant="8.5" id="8Vm-4G-1Vf"/>
+                    <constraint firstItem="Zgg-2l-nYs" firstAttribute="leading" secondItem="ppM-43-tik" secondAttribute="trailing" constant="16" id="Fnd-HP-O7x"/>
+                    <constraint firstItem="ACR-tp-aNy" firstAttribute="centerY" secondItem="eWK-b2-p7R" secondAttribute="centerY" id="Hot-VF-pIP"/>
+                    <constraint firstAttribute="trailing" secondItem="ACR-tp-aNy" secondAttribute="trailing" constant="16" id="OtQ-Rx-toC"/>
                     <constraint firstItem="ppM-43-tik" firstAttribute="leading" secondItem="eWK-b2-p7R" secondAttribute="leading" constant="16" id="c9f-ya-sBc"/>
-                    <constraint firstItem="I30-9I-EnW" firstAttribute="leading" secondItem="ppM-43-tik" secondAttribute="trailing" constant="8" id="hP3-Uh-xkP"/>
+                    <constraint firstItem="A8C-6Y-BOg" firstAttribute="leading" secondItem="Zgg-2l-nYs" secondAttribute="trailing" constant="38.5" id="cOb-fv-hpk"/>
                     <constraint firstItem="ppM-43-tik" firstAttribute="centerY" secondItem="eWK-b2-p7R" secondAttribute="centerY" id="hQa-lt-XvP"/>
-                    <constraint firstItem="kgG-PH-sxi" firstAttribute="leading" secondItem="I30-9I-EnW" secondAttribute="trailing" constant="6" id="ldn-ct-qYZ"/>
-                    <constraint firstAttribute="bottom" secondItem="kgG-PH-sxi" secondAttribute="bottom" id="n4S-AT-R2g"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="kgG-PH-sxi" secondAttribute="trailing" id="wZY-qH-Unv"/>
-                    <constraint firstItem="kgG-PH-sxi" firstAttribute="top" secondItem="eWK-b2-p7R" secondAttribute="top" id="xty-xA-4FF"/>
+                    <constraint firstItem="Zgg-2l-nYs" firstAttribute="centerY" secondItem="eWK-b2-p7R" secondAttribute="centerY" id="wmF-2u-OOy"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -81,6 +89,8 @@
             <connections>
                 <outlet property="dataImage" destination="ppM-43-tik" id="xdO-QO-GUo"/>
                 <outlet property="dataText" destination="I30-9I-EnW" id="vsj-dK-z9n"/>
+                <outlet property="secondaryDataLabel" destination="fIZ-8i-2Fy" id="unG-fT-3A8"/>
+                <outlet property="secondaryStatusLabel" destination="0Jw-U6-KEW" id="eor-1M-ObN"/>
                 <outlet property="status" destination="c1T-Mh-IIo" id="wAD-Na-DJb"/>
                 <outlet property="statusIcon" destination="ACR-tp-aNy" id="NkA-8h-Dxg"/>
             </connections>
@@ -88,6 +98,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="credit" width="67" height="50.5"/>
+        <image name="ic_confirmed" width="12" height="12"/>
+        <image name="ic_ticketVoted" width="24" height="24"/>
     </resources>
 </document>

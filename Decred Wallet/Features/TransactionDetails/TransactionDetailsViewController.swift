@@ -61,10 +61,11 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
 
     private func prepareTransactionDetails() {
         var confirmations: Int32 = 0
+        let requireConfirmation = Settings.spendUnconfirmed ? 0 : 2
         if self.transaction.blockHeight != -1 {
             confirmations = WalletLoader.shared.firstWallet!.getBestBlock() - Int32(self.transaction.blockHeight) + 1
         }
-
+        
         if Settings.spendUnconfirmed || confirmations > 1 {
             self.statusLabel.text = LocalizedStrings.confirmed
             self.statusLabel.textColor = UIColor.appColors.green
@@ -129,7 +130,7 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
                 )
             } else if transaction.direction == DcrlibwalletTxDirectionTransferred {
                 self.titleLabel.text = LocalizedStrings.transferred
-                self.txIconImageView.image = UIImage(named: "fee")
+                self.txIconImageView.image = UIImage(named: "ic_fee")
                 self.txAmountLabel.attributedText = Utils.getAttributedString(
                     str: "\(self.transaction.dcrAmount.round(8))",
                     siz: 20,
@@ -138,7 +139,7 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
             }
         } else if self.transaction.type == DcrlibwalletTxTypeVote {
             self.titleLabel.text = " \(LocalizedStrings.vote)"
-            self.txIconImageView.image =  UIImage(named: "vote")
+            self.txIconImageView.image =  UIImage(named: "ic_ticketVoted")
 
             let lastBlockValid = TransactionDetails(
                 title: LocalizedStrings.lastBlockValid,
@@ -160,6 +161,30 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
                 isCopyEnabled: false
             )
             generalTxDetails.append(voteBits)
+            self.txAmountLabel.attributedText = Utils.getAttributedString(
+                str: "\(self.transaction.dcrAmount.round(8))",
+                siz: 20,
+                TexthexColor: UIColor.appColors.darkBlue
+            )
+        } else if self.transaction.type == DcrlibwalletTxTypeTicketPurchase {
+            self.titleLabel.text = " \(LocalizedStrings.ticket)"
+            self.txIconImageView.image =  UIImage(named: "ic_ticketImmature")
+
+            if confirmations < requireConfirmation {
+                self.statusLabel.text = LocalizedStrings.pending
+                self.statusLabel.textColor = UIColor.appColors.lightBluishGray
+                self.statusImageView.image = UIImage(named: "ic_pending")
+                self.confirmationsLabel.text = ""
+            } else if confirmations > BuildConfig.TicketMaturity {
+                self.txIconImageView.image = UIImage(named: "ic_ticketLive")
+            } else {
+                self.txIconImageView.image = UIImage(named: "ic_ticketImmature")
+            }
+            self.txAmountLabel.attributedText = Utils.getAttributedString(
+                str: "\(self.transaction.dcrAmount.round(8))",
+                siz: 20,
+                TexthexColor: UIColor.appColors.darkBlue
+            )
         }
     }
 

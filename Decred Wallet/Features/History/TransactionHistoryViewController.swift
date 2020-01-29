@@ -11,44 +11,44 @@ import Dcrlibwallet
 
 class TransactionHistoryViewController: UIViewController {
     @IBOutlet weak var syncInProgressLabel: UILabel!
+    @IBOutlet var transactionsTableView: UITableView!
+    @IBOutlet var transactionFilterDropDown: DropMenuButton!
+
     var noTxsLabel: UILabel {
         let noTxsLabel = UILabel(frame: self.transactionsTableView.frame)
         noTxsLabel.text = LocalizedStrings.noTransactions
+        noTxsLabel.font = UIFont(name: "Source Sans Pro", size: 16)
+        noTxsLabel.textColor = UIColor.appColors.lightBluishGray
         noTxsLabel.textAlignment = .center
         return noTxsLabel
     }
-    
-    var refreshControl: UIRefreshControl!
-    @IBOutlet var transactionsTableView: UITableView!
-    @IBOutlet var transactionFilterDropDown: DropMenuButton!
-    
+
+    var refreshControl: UIRefreshControl!    
     var allTransactions = [Transaction]()
     var transactionFilters = [Int32]()
     var filteredTransactions = [Transaction]()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.refreshControl = UIRefreshControl()
         self.refreshControl.tintColor = UIColor.lightGray
         self.refreshControl.addTarget(self,
                                       action: #selector(self.reloadTxsForCurrentFilter),
                                       for: UIControl.Event.valueChanged)
-        
+
         self.transactionsTableView.addSubview(self.refreshControl)
+        self.transactionsTableView.hideEmptyAndExtraRows()
         self.transactionsTableView.register(UINib(nibName: TransactionTableViewCell.identifier, bundle: nil),
                                             forCellReuseIdentifier: TransactionTableViewCell.identifier)
-        
+
         // register for new transactions notifications
         try? WalletLoader.shared.multiWallet.add(self, uniqueIdentifier: "\(self)")
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        self.navigationController?.navigationBar.isHidden = false
-        self.navigationController?.navigationBar.topItem?.title = LocalizedStrings.history
-        self.navigationController?.navigationBar.topItem?.rightBarButtonItem = nil
+        self.navigationController?.navigationBar.isHidden = true
 
         if SyncManager.shared.isSynced {
             self.syncInProgressLabel.isHidden = true
@@ -56,7 +56,7 @@ class TransactionHistoryViewController: UIViewController {
             self.loadAllTransactions()
         }
     }
-    
+
     func loadAllTransactions() {
         self.allTransactions.removeAll()
         self.refreshControl.showLoader(in: self.transactionsTableView)
@@ -67,41 +67,41 @@ class TransactionHistoryViewController: UIViewController {
             self.refreshControl.endRefreshing()
             return
         }
-        
+
         self.allTransactions = txs
         self.transactionsTableView.backgroundView = nil
         self.transactionsTableView.separatorStyle = .singleLine
         self.setupTxFilterAndDisplayAllTxs()
     }
-    
+
     func setupTxFilterAndDisplayAllTxs() {
         var filterOptions = [LocalizedStrings.all.appending(" (\(self.allTransactions.count))")]
         self.transactionFilters = [DcrlibwalletTxFilterAll]
-        
+
         let sentCount = self.allTransactions.filter{$0.direction == DcrlibwalletTxDirectionSent}.count
         if sentCount != 0 {
             filterOptions.append(LocalizedStrings.sent.appending(" (\(sentCount))"))
             self.transactionFilters.append(DcrlibwalletTxFilterSent)
         }
-        
+
         let receiveCount = self.allTransactions.filter{$0.direction == DcrlibwalletTxDirectionReceived}.count
         if receiveCount != 0 {
             filterOptions.append(LocalizedStrings.received.appending(" (\(receiveCount))"))
             self.transactionFilters.append(DcrlibwalletTxFilterReceived)
         }
-        
+
         let yourselfCount = self.allTransactions.filter{$0.direction == DcrlibwalletTxDirectionTransferred}.count
         if yourselfCount != 0 {
             filterOptions.append(LocalizedStrings.yourself.appending(" (\(yourselfCount))"))
             self.transactionFilters.append(DcrlibwalletTxFilterSent)
         }
-        
+
         let stakeCount = self.allTransactions.filter{$0.type != DcrlibwalletTxTypeRegular}.count
         if stakeCount != 0 {
             filterOptions.append(LocalizedStrings.staking.appending(" (\(stakeCount))"))
             self.transactionFilters.append(DcrlibwalletTxFilterStaking)
         }
-        
+
         let coinbaseCount = self.allTransactions.filter{$0.type == DcrlibwalletTxTypeCoinBase}.count
         if coinbaseCount != 0 {
             filterOptions.append(LocalizedStrings.coinbase.appending(" (\(coinbaseCount))"))
@@ -113,7 +113,7 @@ class TransactionHistoryViewController: UIViewController {
         }
         self.transactionFilterDropDown.setSelectedItemIndex(0)
     }
-    
+
     @objc func reloadTxsForCurrentFilter() {
         var currentFilterItem = DcrlibwalletTxFilterAll
         if self.transactionFilterDropDown.selectedItemIndex >= 0 && self.transactionFilters.count > self.transactionFilterDropDown.selectedItemIndex {
@@ -121,36 +121,36 @@ class TransactionHistoryViewController: UIViewController {
         }
         self.applyTxFilter(currentFilter: currentFilterItem)
     }
-    
+
     func applyTxFilter(currentFilter: Int32) {
         self.refreshControl.showLoader(in: self.transactionsTableView)
-        
+
         defer {
             self.transactionsTableView.reloadData()
             self.refreshControl.endRefreshing()
         }
-        
+
         switch currentFilter {
         case DcrlibwalletTxFilterSent:
             self.filteredTransactions = self.allTransactions.filter{$0.direction == DcrlibwalletTxDirectionSent && $0.type == DcrlibwalletTxTypeRegular}
             break
-            
+
         case DcrlibwalletTxFilterReceived:
             self.filteredTransactions = self.allTransactions.filter{$0.direction == DcrlibwalletTxDirectionReceived && $0.type == DcrlibwalletTxTypeRegular}
             break
-            
+
         case DcrlibwalletTxFilterTransferred:
             self.filteredTransactions = self.allTransactions.filter{$0.direction == DcrlibwalletTxDirectionTransferred && $0.type == DcrlibwalletTxTypeRegular}
             break
-            
+
         case DcrlibwalletTxFilterStaking:
             self.filteredTransactions = self.allTransactions.filter{$0.type == DcrlibwalletTxTypeRevocation || $0.type == DcrlibwalletTxTypeTicketPurchase || $0.type == DcrlibwalletTxTypeVote }
             break
-            
+
         case DcrlibwalletTxFilterCoinBase:
             self.filteredTransactions = self.allTransactions.filter{$0.type == DcrlibwalletTxTypeCoinBase}
             break
-            
+
         default:
             self.filteredTransactions.removeAll()
             break
@@ -162,18 +162,18 @@ extension TransactionHistoryViewController: DcrlibwalletTxAndBlockNotificationLi
     func onBlockAttached(_ walletID: Int, blockHeight: Int32) {
         // not relevant to this VC
     }
-    
+
     func onTransaction(_ transaction: String?) {
         var tx = try! JSONDecoder().decode(Transaction.self, from:(transaction!.utf8Bits))
-        
+
         if self.allTransactions.contains(where: { $0.hash == tx.hash }) {
             // duplicate notification, tx is already being displayed in table
             return
         }
-        
+
         tx.animate = true
         self.allTransactions.insert(tx, at: 0)
-        
+
         // Save hash for this tx as last viewed tx hash.
         Settings.setStringValue(tx.hash, for: DcrlibwalletLastTxHashConfigKey)
         
@@ -181,7 +181,7 @@ extension TransactionHistoryViewController: DcrlibwalletTxAndBlockNotificationLi
             self.reloadTxsForCurrentFilter()
         }
     }
-    
+
     func onTransactionConfirmed(_ walletID: Int, hash: String?, blockHeight: Int32) {
         // all tx statuses will be updated when table rows are reloaded.
          DispatchQueue.main.async {
@@ -194,13 +194,26 @@ extension TransactionHistoryViewController: UITableViewDataSource, UITableViewDe
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (self.filteredTransactions.count > 0) ? self.filteredTransactions.count : self.allTransactions.count
     }
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return TransactionTableViewCell.height()
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.transactionsTableView.dequeueReusableCell(withIdentifier: TransactionTableViewCell.identifier) as! TransactionTableViewCell
+
+        var frame = cell.frame
+        frame.size.width = self.transactionsTableView.frame.size.width
+        cell.frame = frame
+
+        if indexPath.row == 0 {
+            cell.setRoundCorners(corners: [.topLeft, .topRight], radius: 14.0)
+        } else if indexPath.row == allTransactions.count - 1 {
+            cell.setRoundCorners(corners: [.bottomRight, .bottomLeft], radius: 14.0)
+        } else {
+            cell.setRoundCorners(corners: [.bottomRight, .bottomLeft, .topLeft, .topRight], radius: 0.0)
+        }
+
         if self.filteredTransactions.isEmpty {
             cell.setData(allTransactions[indexPath.row])
             return cell
@@ -208,7 +221,7 @@ extension TransactionHistoryViewController: UITableViewDataSource, UITableViewDe
         cell.setData(filteredTransactions[indexPath.row])
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let transactionDetailVC = TransactionDetailsViewController.instantiate(from: .TransactionDetails)
         

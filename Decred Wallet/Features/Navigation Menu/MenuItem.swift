@@ -20,8 +20,7 @@ enum MenuItem: String, CaseIterable {
             return OverviewViewController.instantiate(from: .Overview)
             
         case .transactions:
-            // todo move to storyboard!
-            return TransactionHistoryViewController(nibName: "TransactionHistoryViewController", bundle: nil)
+            return TransactionHistoryViewController.instantiate(from: .History)
         
         case .wallets:
             return WalletsViewController.instantiate(from: .Wallets)
