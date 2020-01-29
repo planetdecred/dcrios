@@ -33,7 +33,7 @@ struct SpendingPinOrPassword {
             do {
                 let passphraseType = newCodeType == .password ? DcrlibwalletPassphraseTypePass : DcrlibwalletPassphraseTypePin
                 
-                try WalletLoader.shared.multiWallet.changePrivatePassphrase(forWallet: WalletLoader.shared.wallet!.id_,
+                try WalletLoader.shared.multiWallet.changePrivatePassphrase(forWallet: WalletLoader.shared.firstWallet!.id_,
                                                                             oldPrivatePassphrase: currentCode.utf8Bits,
                                                                             newPrivatePassphrase: newCode.utf8Bits,
                                                                             privatePassphraseType: passphraseType)

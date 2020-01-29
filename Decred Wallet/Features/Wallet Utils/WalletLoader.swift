@@ -13,27 +13,40 @@ import Signals
 class WalletLoader: NSObject {
     static let shared = WalletLoader()
     static let appDataDir = NSHomeDirectory() + "/Documents/dcrlibwallet"
+    static let WalletSeedBackedUp: Signal = Signal<Int>()
     
     var multiWallet: DcrlibwalletMultiWallet!
     
-    var initialized = false
-    var oneOrMoreWalletsExist = false
+    var isInitialized: Bool {
+        return self.multiWallet != nil
+    }
     
-    var walletSeedBackedUp: Signal = Signal<Int>()
+    var oneOrMoreWalletsExist: Bool {
+        return self.multiWallet.loadedWalletsCount() > 0
+    }
     
-    var wallet: DcrlibwalletWallet? {
-        return multiWallet.firstOrDefaultWallet()
+    var wallets: [DcrlibwalletWallet] {
+        var wallets = [DcrlibwalletWallet]()
+        
+        let walletsIterator = WalletLoader.shared.multiWallet.walletsIterator()
+        while let wallet = walletsIterator?.next() {
+            wallets.append(wallet)
+        }
+        
+        // sort by id, as dcrlibwallet may return wallets in any order
+        wallets.sort(by: { $0.id_ < $1.id_ })
+        
+        return wallets
+    }
+    
+    
+    var firstWallet: DcrlibwalletWallet? {
+        return self.wallets.first
     }
     
     func initMultiWallet() -> NSError? {
         var error: NSError?
         self.multiWallet = DcrlibwalletNewMultiWallet(WalletLoader.appDataDir, "bdb", BuildConfig.NetType, &error)
-        
-        if error == nil {
-            self.initialized = true
-            self.oneOrMoreWalletsExist = self.multiWallet.loadedWalletsCount() > 0
-        }
-        
         return error
     }
     

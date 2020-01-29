@@ -59,7 +59,7 @@ class StartScreenViewController: UIViewController {
     }
 
     func loadMainScreen() {
-        if !WalletLoader.shared.initialized {
+        if !WalletLoader.shared.isInitialized {
             // there was an error initializing multiwallet
             return
         }

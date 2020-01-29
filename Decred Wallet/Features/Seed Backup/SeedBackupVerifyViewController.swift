@@ -69,10 +69,10 @@ class SeedBackupVerifyViewController: UIViewController {
         let userEnteredSeed = selectedWords.joined(separator: " ")
 
         do {
-            try WalletLoader.shared.multiWallet.verifySeed(forWallet: WalletLoader.shared.wallet!.id_,
+            try WalletLoader.shared.multiWallet.verifySeed(forWallet: WalletLoader.shared.firstWallet!.id_,
                                                            seedMnemonic: userEnteredSeed)
             
-            WalletLoader.shared.walletSeedBackedUp => WalletLoader.shared.wallet!.id_
+            WalletLoader.WalletSeedBackedUp => WalletLoader.shared.firstWallet!.id_
             self.performSegue(withIdentifier: "toSeedBackupSuccess", sender: nil)
         } catch {
             self.groupedSeedWordsTableView?.isUserInteractionEnabled = true

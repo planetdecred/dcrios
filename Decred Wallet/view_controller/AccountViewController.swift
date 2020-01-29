@@ -78,7 +78,7 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
             this.accounts?.removeAll()
             this.accountHeaders.removeAll()
             
-            if let acc = WalletLoader.shared.wallet?.walletAccounts(confirmations: 0) {
+            if let acc = WalletLoader.shared.firstWallet?.walletAccounts(confirmations: 0) {
                 this.accounts = acc
                 this.accountHeaders = acc.map({ AccountHeader(entity: $0, color: nil) })
             }

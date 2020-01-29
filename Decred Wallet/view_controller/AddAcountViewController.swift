@@ -71,7 +71,7 @@ class AddAcountViewController: UIViewController {
         DispatchQueue.global(qos: .userInitiated).async {
             do {
                 // pass nil pointer as we don't need the account number
-                try WalletLoader.shared.wallet?.nextAccount(accountName, privPass: passphrase, ret0_: nil)
+                try WalletLoader.shared.firstWallet?.nextAccount(accountName, privPass: passphrase, ret0_: nil)
                 DispatchQueue.main.async {
                     progressHud.dismiss()
                     completion?.securityCodeProcessed()

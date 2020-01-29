@@ -40,7 +40,7 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        wallet = WalletLoader.shared.wallet
+        wallet = WalletLoader.shared.firstWallet
         self.address.delegate = self
         self.signature.delegate = self
         self.message.delegate = self

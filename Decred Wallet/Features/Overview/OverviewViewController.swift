@@ -98,7 +98,7 @@ class OverviewViewController: UIViewController {
         self.parentScrollView.delegate = self
         
         self.checkWhetherToPromptForSeedBackup()
-        WalletLoader.shared.walletSeedBackedUp.subscribe(with: self) { walletID in
+        WalletLoader.WalletSeedBackedUp.subscribe(with: self) { walletID in
             print("Seed backed up for wallet with ID", walletID)
             self.checkWhetherToPromptForSeedBackup()
         }
@@ -119,7 +119,7 @@ class OverviewViewController: UIViewController {
     // todo ensure this is always called from the main thread!
     func updateMultiWalletBalance() {
         // todo should use multiwallet balance!
-        let totalWalletAmount = WalletLoader.shared.wallet?.totalWalletBalance() ?? 0
+        let totalWalletAmount = WalletLoader.shared.firstWallet?.totalWalletBalance() ?? 0
         let totalAmountRoundedOff = (Decimal(totalWalletAmount) as NSDecimalNumber).round(8)
         self.balanceLabel.attributedText = Utils.getAttributedString(str: "\(totalAmountRoundedOff)", siz: 17.0, TexthexColor: UIColor.appColors.darkBlue)
     }
@@ -127,7 +127,7 @@ class OverviewViewController: UIViewController {
     func updateRecentActivity() {
         // Fetch 3 most recent transactions
         // todo this should be a multiwallet fetch rather than a wallet fetch!
-        guard let transactions = WalletLoader.shared.wallet?.transactionHistory(offset: 0, count: 3) else {
+        guard let transactions = WalletLoader.shared.firstWallet?.transactionHistory(offset: 0, count: 3) else {
             self.recentTransactionsTableView.isHidden = true
             self.showAllTransactionsButton.isHidden = true
             self.noTransactionsLabelView.superview?.isHidden = false

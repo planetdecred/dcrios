@@ -18,7 +18,7 @@ class SeedWordsDisplayViewController: UIViewController, UITableViewDataSource {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.seed = WalletLoader.shared.wallet!.seed
+        self.seed = WalletLoader.shared.firstWallet!.seed
         arrWords = (self.seed.components(separatedBy: " "))
 
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) { [weak self] in
