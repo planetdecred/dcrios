@@ -21,12 +21,14 @@ struct SpendingPinOrPassword {
         if self.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
             let requestPasswordVC = RequestPasswordViewController.instantiate()
             requestPasswordVC.prompt = LocalizedStrings.enterCurrentSpendingPassword
+            requestPasswordVC.modalPresentationStyle = .fullScreen
             requestPasswordVC.onUserEnteredPassword = afterUserEntersPinOrPassword
             vc.present(requestPasswordVC, animated: true)
         } else {
             let requestPinVC = RequestPinViewController.instantiate()
             requestPinVC.securityFor = LocalizedStrings.current
             requestPinVC.showCancelButton = true
+            requestPinVC.modalPresentationStyle = .fullScreen
             requestPinVC.onUserEnteredPin = afterUserEntersPinOrPassword
             vc.present(requestPinVC, animated: true)
         }

@@ -81,12 +81,14 @@ class StartScreenViewController: UIViewController {
             let requestPasswordVC = RequestPasswordViewController.instantiate()
             requestPasswordVC.prompt = LocalizedStrings.enterStartupPassword
             requestPasswordVC.onUserEnteredPassword = self.unlockWalletAndStartApp
+            requestPasswordVC.modalPresentationStyle = .fullScreen
             self.present(requestPasswordVC, animated: true, completion: nil)
         }
         else {
             let requestPinVC = RequestPinViewController.instantiate()
             requestPinVC.securityFor = LocalizedStrings.startup
             requestPinVC.onUserEnteredPin = self.unlockWalletAndStartApp
+            requestPinVC.modalPresentationStyle = .fullScreen
             self.present(requestPinVC, animated: true, completion: nil)
         }
     }
