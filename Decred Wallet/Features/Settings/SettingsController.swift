@@ -210,7 +210,7 @@ class SettingsController: UITableViewController  {
         if indexPath.section == 0 {
             switch indexPath.row {
             case 0: // change spending pin/password
-                SpendingPinOrPassword.change(sender: self, walletID: WalletLoader.shared.wallet!.id_)
+                SpendingPinOrPassword.change(sender: self, walletID: WalletLoader.shared.firstWallet!.id_)
                 
             case 1: // enable/disable startup pin/password
                 if start_Pin.isOn {
