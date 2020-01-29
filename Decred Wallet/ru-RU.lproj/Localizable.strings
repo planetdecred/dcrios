@@ -32,7 +32,6 @@
 "walletRecoveryError" = "Wallet recovery error.";
 "seedRestoreHeader" = "Restore from seed phrase";
 "seedRestoreInfo" = "Enter your seed phrase in the correct order.";
-"confirm" = "ПОДТВЕРДИТЬ";
 "restore" = "Restore";
 "success" = "Success";
 "getStarted" = "Get started";
@@ -81,21 +80,10 @@
 "promptStartupPIN" = "Enter Current Startup PIN";
 "next" = "Next";
 "create" = "Create";
-"back" = "Back";
 
 /* Overview - unlock wallets for account discovery */
 "unlockToResumeRestoration" = "Unlock to resume restoration";
 "unlockWalletForAccountDiscovery" = "The restoration process to discover your accounts was interrupted in the last sync.\n\nUnlock %@ to resume the process.";
-
-// todo, confirm that the following 2 sections are still in use!
-/* Change Spending PIN/Password */
-"enterCurrentSpendingPassword" = "Введите текущий пароль для расходов";
-"enterCurrentSpendingPIN" = "Enter Current Spending PIN";
-
-/* Changing Startup PIN/Password */
-"changingStartupPINPass" = "Changing startup %@...";
-"removingStartupPINPass" = "Removing startup %@...";
-"settingStartupPINPass" = "Setting startup %@...";
 
 /* No Wifi Sync Connection */
 "notConnectedToWiFi" = "Not connected to WiFi.";
@@ -290,6 +278,18 @@
 /* Wallets/Accounts */
 "addNewAccount" = "Добавить аккаунт";
 
+/* Wallets -> Remove wallet */
+"confirmToRemove" = "Confirm to remove";
+
+/* Wallets -> Change Spending/Startup PIN/Password */
+"confirmToChange" = "Confirm to change";
+"change" = "Change";
+"enterCurrentSpendingPassword" = "Введите текущий пароль для расходов";
+"enterCurrentSpendingPIN" = "Enter Current Spending PIN";
+"changingStartupPINPass" = "Changing startup %@...";
+"removingStartupPINPass" = "Removing startup %@...";
+"settingStartupPINPass" = "Setting startup %@...";
+
 /* Account View */
 "hidden" = "скрыто";
 "spendable" = "Расходуемый";
@@ -408,8 +408,11 @@
 "error" = "Error";
 "retry" = "ПОПРОБОВАТЬ ЕЩЁ РАЗ";
 "ok" = "ОК";
+"confirm" = "ПОДТВЕРДИТЬ";
+"remove" = "Remove";
 "tryAgain" = "Try again";
 "cancel" = "Отменить";
+"back" = "Back";
 "clearFields" =  "Очистить всё";
 "copiedSuccessfully" = "Скопировано успешно.";
 "invalidRequest" = "Invalid request!";

@@ -44,6 +44,7 @@ class Security: NSObject {
         var requestConfirmation = false
         var showCancelButton = true
         var submitBtnText: String?
+        var isChangeAttempt: Bool = false
         
         init(for securityFor: For) {
             self.for = securityFor
@@ -123,6 +124,11 @@ class Security: NSObject {
         self.request.requestConfirmation = requestConfirmation
         return self
     }
+
+    func `is`(changeAttempt: Bool) -> Security {
+        self.request.isChangeAttempt = changeAttempt
+        return self
+    }
     
     @discardableResult
     func should(showCancelButton: Bool) -> Security {
@@ -142,11 +148,12 @@ class Security: NSObject {
         return self
     }
     
-    func requestNewCode(sender vc: UIViewController, callback: @escaping SecurityCodeRequestCallback) {
+    func requestNewCode(sender vc: UIViewController, isChangeAttempt: Bool, callback: @escaping SecurityCodeRequestCallback) {
         // init secutity vc to use in getting new spending password or pin from user
         let securityVC = SecurityViewController.instantiate(from: .Security)
         securityVC.securityFor = self.request.for
         securityVC.initialSecurityType = self.currentSecurityType
+        securityVC.isSecurityCodeChangeAttempt = isChangeAttempt
         securityVC.onSecurityCodeEntered = callback
         securityVC.modalPresentationStyle = .pageSheet
         vc.present(securityVC, animated: true, completion: nil)

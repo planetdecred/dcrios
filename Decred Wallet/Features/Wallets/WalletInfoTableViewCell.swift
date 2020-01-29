@@ -10,7 +10,7 @@ import UIKit
 import Dcrlibwallet
 
 protocol WalletInfoTableViewCellDelegate {
-    func showWalletMenu(_ wallet: Wallet)
+    func showWalletMenu(walletName: String, walletID: Int)
     func addNewAccount(_ wallet: Wallet)
     func showAccountDetailsDialog(_ account: DcrlibwalletAccount)
 }
@@ -24,7 +24,7 @@ class WalletInfoTableViewCell: UITableViewCell {
     
     var delegate: WalletInfoTableViewCellDelegate?
     
-    static let walletInfoSectionHeight: CGFloat = 57.0
+    static let walletInfoSectionHeight: CGFloat = 65.0
     static let accountCellHeight: CGFloat = 74.0
     static let addNewAccountButtonHeight: CGFloat = 56
     
@@ -61,7 +61,7 @@ class WalletInfoTableViewCell: UITableViewCell {
     
     @IBAction func walletMenuButtonTapped(_ sender: Any) {
         guard let wallet = self.wallet else { return }
-        self.delegate?.showWalletMenu(wallet)
+        self.delegate?.showWalletMenu(walletName: wallet.name, walletID: wallet.id)
     }
     
     @IBAction func addNewAccountTapped(_ sender: Any) {

@@ -16,7 +16,7 @@ struct StartupPinOrPassword {
             return
         }
         
-        Security.startup().requestNewCode(sender: sender) { code, type, dialogDelegate in
+        Security.startup().requestNewCode(sender: sender, isChangeAttempt: false) { code, type, dialogDelegate in
             
             self.changeWalletPublicPassphrase(currentCode: "",
                                               currentCodeRequestDelegate: nil,
@@ -34,7 +34,8 @@ struct StartupPinOrPassword {
         }
         
         Security.startup()
-            .with(submitBtnText: LocalizedStrings.next)
+            .with(prompt: LocalizedStrings.confirmToChange)
+            .with(submitBtnText: LocalizedStrings.confirm)
             .requestCurrentAndNewCode(sender: sender) {
                 currentCode, currentCodeRequestDelegate, newCode, newCodeRequestDelegate, newCodeType in
                 
@@ -55,7 +56,8 @@ struct StartupPinOrPassword {
         }
 
         Security.startup()
-            .with(submitBtnText: LocalizedStrings.next)
+            .with(prompt: LocalizedStrings.confirmToRemove)
+            .with(submitBtnText: LocalizedStrings.remove)
             .requestCurrentCode(sender: vc) { currentCode, _, dialogDelegate in
                 
                 self.changeWalletPublicPassphrase(currentCode: currentCode,

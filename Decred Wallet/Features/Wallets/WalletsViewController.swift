@@ -39,12 +39,13 @@ class WalletsViewController: UIViewController, WalletInfoTableViewCellDelegate {
         }
         
         // sort by id, as dcrlibwallet may return wallets in any order
-        self.wallets.sort(by: { $0.id > $1.id })
+        self.wallets.sort(by: { $0.id < $1.id })
         
         self.walletsTableView.reloadData()
     }
     
     // todo use localized strings
+    // todo prolly hide this action if sync is ongoing as wallets cannot be added during ongoing sync
     @IBAction func addNewWalletTapped(_ sender: Any) {
         let alertController = UIAlertController(title: nil, message: "Create or import a wallet", preferredStyle: .actionSheet)
         
@@ -90,7 +91,7 @@ class WalletsViewController: UIViewController, WalletInfoTableViewCellDelegate {
     }
     
     func createNewWallet() {
-        Security.spending().requestNewCode(sender: self) { pinOrPassword, type, completion in
+        Security.spending().requestNewCode(sender: self, isChangeAttempt: false) { pinOrPassword, type, completion in
             WalletLoader.shared.createWallet(spendingPinOrPassword: pinOrPassword, securityType: type) { error in
                 if error == nil {
                     completion?.dismissDialog()
@@ -113,16 +114,24 @@ class WalletsViewController: UIViewController, WalletInfoTableViewCellDelegate {
     }
     
     // todo use localized strings
-    func showWalletMenu(_ wallet: Wallet) {
-        let prompt = String(format: "%@ (%@)", LocalizedStrings.wallet, wallet.name)
+    func showWalletMenu(walletName: String, walletID: Int) {
+        let prompt = String(format: "%@ (%@)", LocalizedStrings.wallet, walletName)
         let alertController = UIAlertController(title: nil, message: prompt, preferredStyle: .actionSheet)
         
+        // todo prolly hide this action if sync is ongoing as wallets cannot be removed during ongoing sync
         alertController.addAction(UIAlertAction(title: "Remove from device", style: .destructive, handler: { _ in
-            self.removeWalletFromDevice(walletID: wallet.id)
+            let warningMessage = "Make sure to have the seed phrase backed up before removing the wallet."
+            SimpleOkCancelDialog.show(sender: self,
+                                      title: "Remove wallet from device?",
+                                      message: warningMessage) { ok in
+                                        if ok {
+                                            self.removeWalletFromDevice(walletID: walletID)
+                                        }
+            }
         }))
         
         alertController.addAction(UIAlertAction(title: "Change spending password/PIN", style: .default, handler: { _ in
-            
+            self.changeWalletSpendingSecurityCode(walletID: walletID)
         }))
         
         alertController.addAction(UIAlertAction(title: "Sign message", style: .default, handler: { _ in
@@ -134,7 +143,7 @@ class WalletsViewController: UIViewController, WalletInfoTableViewCellDelegate {
         }))
         
         alertController.addAction(UIAlertAction(title: "Rename", style: .default, handler: { _ in
-            self.renameWallet(walletID: wallet.id)
+            self.renameWallet(walletID: walletID)
         }))
         
         alertController.addAction(UIAlertAction(title: "View property", style: .default, handler: { _ in
@@ -147,17 +156,44 @@ class WalletsViewController: UIViewController, WalletInfoTableViewCellDelegate {
     }
     
     func removeWalletFromDevice(walletID: Int) {
-        
+        Security.spending()
+            .with(prompt: LocalizedStrings.confirmToRemove)
+            .with(submitBtnText: LocalizedStrings.remove)
+            .requestCurrentCode(sender: self) { currentCode, _, dialogDelegate in
+                
+                do {
+                    try WalletLoader.shared.multiWallet.delete(walletID, privPass: currentCode.utf8Bits)
+                    dialogDelegate?.dismissDialog()
+                    self.loadWallets()
+                    Utils.showBanner(parentVC: self, type: .success, text: "Wallet removed")
+                } catch let error {
+                    if error.isInvalidPassphraseError {
+                        dialogDelegate?.displayError(errorMessage: SpendingPinOrPassword.invalidSecurityCodeMessage())
+                    } else {
+                        dialogDelegate?.displayError(errorMessage: error.localizedDescription)
+                    }
+                }
+        }
+    }
+    
+    func changeWalletSpendingSecurityCode(walletID: Int) {
+        SpendingPinOrPassword.change(sender: self, walletID: walletID) {
+            self.loadWallets()
+            Utils.showBanner(parentVC: self, type: .success, text: "Spending PIN/password changed")
+        }
     }
     
     func renameWallet(walletID: Int) {
-        SimpleTextInputDialog.show(sender: self, dialogTitle: "Rename wallet", placeholder: "Wallet name") {
-            newWalletName, dialogDelegate in
+        SimpleTextInputDialog.show(sender: self,
+                                   title: "Rename wallet",
+                                   placeholder: "Wallet name",
+                                   submitButtonText: "Rename") { newWalletName, dialogDelegate in
             
             do {
                 try WalletLoader.shared.multiWallet.renameWallet(walletID, newName: newWalletName)
                 dialogDelegate?.dismissDialog()
                 self.loadWallets()
+                Utils.showBanner(parentVC: self, type: .success, text: "Wallet renamed")
             } catch let error {
                 dialogDelegate?.displayError(errorMessage: error.localizedDescription)
             }

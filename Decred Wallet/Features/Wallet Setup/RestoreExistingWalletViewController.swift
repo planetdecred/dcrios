@@ -162,7 +162,7 @@ class RestoreExistingWalletViewController: UIViewController {
     }
     
     func requestSpendingPasswordAndRestoreWallet(with seed: String) {
-        Security.spending().requestNewCode(sender: self) { pinOrPassword, type, completion in
+        Security.spending().requestNewCode(sender: self, isChangeAttempt: false) { pinOrPassword, type, completion in
             WalletLoader.shared.restoreWallet(seed: seed, spendingPinOrPassword: pinOrPassword, securityType: type) {
                 restoreError in
                 

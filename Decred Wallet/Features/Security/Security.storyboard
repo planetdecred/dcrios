@@ -167,7 +167,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="366" height="73.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unlock with startup password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NoT-EV-WHd">
-                                                        <rect key="frame" x="0.0" y="24" width="366" height="25.5"/>
+                                                        <rect key="frame" x="0.0" y="24" width="366" height="33.5"/>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="20"/>
                                                         <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -181,7 +181,14 @@
                                                     <constraint firstItem="NoT-EV-WHd" firstAttribute="top" secondItem="0Ms-qN-4pQ" secondAttribute="top" constant="24" id="0pC-FP-PaV"/>
                                                     <constraint firstItem="NoT-EV-WHd" firstAttribute="leading" secondItem="0Ms-qN-4pQ" secondAttribute="leading" id="4MW-pb-fPp"/>
                                                     <constraint firstAttribute="trailing" secondItem="NoT-EV-WHd" secondAttribute="trailing" id="WyT-Tg-HWp"/>
-                                                    <constraint firstAttribute="bottom" secondItem="NoT-EV-WHd" secondAttribute="bottom" constant="24" id="hem-da-OHY"/>
+                                                    <constraint firstAttribute="bottom" secondItem="NoT-EV-WHd" secondAttribute="bottom" constant="16" id="hem-da-OHY"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RfS-CR-s9a">
+                                                <rect key="frame" x="0.0" y="73.5" width="366" height="10"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="10" id="KKK-Nz-HcY"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nLe-fV-hfu">
@@ -369,7 +376,7 @@ Unlock the wallet to resume the process.</string>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstItem="oLB-RB-SsP" firstAttribute="top" secondItem="VIK-gW-7wr" secondAttribute="top" constant="20" symbolic="YES" id="76A-G8-wTO"/>
+                                    <constraint firstItem="oLB-RB-SsP" firstAttribute="top" secondItem="VIK-gW-7wr" secondAttribute="top" id="76A-G8-wTO"/>
                                     <constraint firstAttribute="bottom" secondItem="oLB-RB-SsP" secondAttribute="bottom" id="OEj-Ag-TFl"/>
                                     <constraint firstAttribute="trailing" secondItem="oLB-RB-SsP" secondAttribute="trailing" constant="24" id="acL-7m-0yx"/>
                                     <constraint firstItem="oLB-RB-SsP" firstAttribute="leading" secondItem="VIK-gW-7wr" secondAttribute="leading" constant="24" id="p2T-QE-3FK"/>

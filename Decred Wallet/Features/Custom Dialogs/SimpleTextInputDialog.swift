@@ -25,15 +25,22 @@ class SimpleTextInputDialog: UIViewController {
     
     private var dialogTitle: String!
     private var placeholder: String!
+    private var cancelButtonText: String?
+    private var submitButtonText: String?
     private var callback: SimpleTextInputDialogCallback!
     
-    static func show(sender vc: UIViewController, dialogTitle: String,
+    static func show(sender vc: UIViewController,
+                     title: String,
                      placeholder: String,
+                     cancelButtonText: String? = nil,
+                     submitButtonText: String? = nil,
                      callback: @escaping SimpleTextInputDialogCallback) {
         
         let dialog = SimpleTextInputDialog.instantiate(from: .CustomDialogs)
-        dialog.dialogTitle = dialogTitle
+        dialog.dialogTitle = title
         dialog.placeholder = placeholder
+        dialog.cancelButtonText = cancelButtonText
+        dialog.submitButtonText = submitButtonText
         dialog.callback = callback
         
         dialog.modalPresentationStyle = .pageSheet
@@ -45,7 +52,11 @@ class SimpleTextInputDialog: UIViewController {
 
         self.titleLabel.text = self.dialogTitle
         self.textField.placeholder = self.placeholder
+        self.cancelButton.setTitle(self.cancelButtonText ?? LocalizedStrings.cancel, for: .normal)
+        self.submitButton.setTitle(self.submitButtonText ?? LocalizedStrings.ok, for: .normal)
+        
         self.textField.addTarget(self, action: #selector(self.textFieldEditingChanged), for: .editingChanged)
+        self.textField.delegate = self
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -54,10 +65,35 @@ class SimpleTextInputDialog: UIViewController {
     }
     
     @objc func textFieldEditingChanged() {
+        self.submitButton.isEnabled = (self.textField.text ?? "").count > 0
+        
         if !self.inputErrorLabel.isHidden {
             self.textField.hideError()
             self.inputErrorLabel.isHidden = true
         }
+    }
+    
+    @IBAction func cancelButtonTapped(_ sender: Any) {
+        self.dismissView()
+    }
+    
+    @IBAction func submitButtonTapped(_ sender: Any) {
+        self.submitUserInput()
+    }
+    
+    func submitUserInput() {
+        guard let userInput = self.textField.text, !userInput.isEmpty else {
+            return
+        }
+        
+        self.callback(userInput, self)
+    }
+}
+
+extension SimpleTextInputDialog: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.submitUserInput()
+        return true
     }
 }
 

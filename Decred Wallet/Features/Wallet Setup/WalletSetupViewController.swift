@@ -11,7 +11,7 @@ import Dcrlibwallet
 
 class WalletSetupViewController: UIViewController {
     @IBAction func createNewwallet(_ sender: Any) {
-        Security.spending().requestNewCode(sender: self) { pinOrPassword, type, completion in
+        Security.spending().requestNewCode(sender: self, isChangeAttempt: false) { pinOrPassword, type, completion in
             WalletLoader.shared.createWallet(spendingPinOrPassword: pinOrPassword, securityType: type) {
                 createWalletError in
                 

@@ -10,30 +10,36 @@ import UIKit
 import Dcrlibwallet
 
 struct SpendingPinOrPassword {
-    static func change(sender: UIViewController) {
+    static func change(sender: UIViewController, walletID: Int, done: (() -> ())? = nil) {
         Security.spending()
-            .with(submitBtnText: LocalizedStrings.next).requestCurrentAndNewCode(sender: sender) {
+            .with(prompt: LocalizedStrings.confirmToChange)
+            .with(submitBtnText: LocalizedStrings.confirm)
+            .requestCurrentAndNewCode(sender: sender) {
                 currentCode, currentCodeRequestDelegate, newCode, newCodeRequestDelegate, newCodeType in
                 
-                self.changeWalletSpendingPassphrase(currentCode: currentCode,
+                self.changeWalletSpendingPassphrase(walletID: walletID,
+                                                    currentCode: currentCode,
                                                     currentCodeRequestDelegate: currentCodeRequestDelegate,
                                                     newCode: newCode,
                                                     newCodeRequestDelegate: newCodeRequestDelegate,
-                                                    newCodeType: newCodeType)
+                                                    newCodeType: newCodeType,
+                                                    done: done)
         }
     }
     
-    private static func changeWalletSpendingPassphrase(currentCode: String,
+    private static func changeWalletSpendingPassphrase(walletID: Int,
+                                                       currentCode: String,
                                                        currentCodeRequestDelegate: InputDialogDelegate?,
                                                        newCode: String,
                                                        newCodeRequestDelegate: InputDialogDelegate?,
-                                                       newCodeType: SecurityType) {
+                                                       newCodeType: SecurityType,
+                                                       done: (() -> ())?) {
         
         DispatchQueue.global(qos: .userInitiated).async {
             do {
                 let passphraseType = newCodeType == .password ? DcrlibwalletPassphraseTypePass : DcrlibwalletPassphraseTypePin
                 
-                try WalletLoader.shared.multiWallet.changePrivatePassphrase(forWallet: WalletLoader.shared.firstWallet!.id_,
+                try WalletLoader.shared.multiWallet.changePrivatePassphrase(forWallet: walletID,
                                                                             oldPrivatePassphrase: currentCode.utf8Bits,
                                                                             newPrivatePassphrase: newCode.utf8Bits,
                                                                             privatePassphraseType: passphraseType)
@@ -41,6 +47,7 @@ struct SpendingPinOrPassword {
                 DispatchQueue.main.async {
                     newCodeRequestDelegate?.dismissDialog()
                     currentCodeRequestDelegate?.dismissDialog()
+                    done?()
                 }
             } catch let error {
                 DispatchQueue.main.async {
