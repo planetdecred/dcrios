@@ -67,7 +67,6 @@ struct LocalizedStrings {
     static let enterCurrentSpendingPassword = NSLocalizedString("enterCurrentSpendingPassword", comment: "")
     static let promptSpendingPassword = NSLocalizedString("promptSpendingPassword", comment: "")
     static let promptStartupPassword = NSLocalizedString("promptStartupPassword", comment: "")
-    static let securityTypeNotSpecified = NSLocalizedString("securityTypeNotSpecified", comment: "")
     static let password = NSLocalizedString("password", comment: "")
     static let proceed = NSLocalizedString("proceed", comment: "")
     static let passwordEmpty = NSLocalizedString("passwordEmpty", comment: "")

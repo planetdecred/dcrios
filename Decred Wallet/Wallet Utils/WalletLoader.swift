@@ -50,10 +50,8 @@ class WalletLoader: NSObject {
     
     func createWallet(spendingPinOrPassword: String, securityType: SecurityType, completion: @escaping (Error?) -> Void) {
         DispatchQueue.global(qos: .userInitiated).async {
-            let privatePassphraseType = securityType == .password ? DcrlibwalletPassphraseTypePass : DcrlibwalletPassphraseTypePin
-            
             do {
-                try self.multiWallet.createNewWallet(spendingPinOrPassword, privatePassphraseType: privatePassphraseType)
+                try self.multiWallet.createNewWallet(spendingPinOrPassword, privatePassphraseType: securityType.type)
                 
                 DispatchQueue.main.async {
                     completion(nil)
@@ -68,12 +66,10 @@ class WalletLoader: NSObject {
     
     func restoreWallet(seed: String, spendingPinOrPassword: String, securityType: SecurityType, completion: @escaping (Error?) -> Void) {
         DispatchQueue.global(qos: .userInitiated).async {
-            let privatePassphraseType = securityType == .password ? DcrlibwalletPassphraseTypePass : DcrlibwalletPassphraseTypePin
-            
             do {
                 try self.multiWallet.restore(seed,
                                              privatePassphrase: spendingPinOrPassword,
-                                             privatePassphraseType: privatePassphraseType)
+                                             privatePassphraseType: securityType.type)
                 
                 DispatchQueue.main.async {
                     completion(nil)

@@ -60,7 +60,7 @@ class RestoreExistingWalletViewController: UIViewController {
     #if IsTestnet
     @objc func onConfirmButtonLongPress() {
         let testSeed = "reform aftermath printer warranty gremlin paragraph beehive stethoscope regain disruptive regain Bradbury chisel October trouble forever Algol applicant island infancy physique paragraph woodlark hydraulic snapshot backwater ratchet surrender revenge customer retouch intention minnow"
-        self.requestSpendingPasswordAndRestoreWallet(with: testSeed)
+        self.requestSpendingSecurityCodeAndRestoreWallet(with: testSeed)
     }
     #endif
     
@@ -157,29 +157,31 @@ class RestoreExistingWalletViewController: UIViewController {
         self.btnConfirm.backgroundColor = .white
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.requestSpendingPasswordAndRestoreWallet(with: seed)
+            self.requestSpendingSecurityCodeAndRestoreWallet(with: seed)
         }
     }
     
-    func requestSpendingPasswordAndRestoreWallet(with seed: String) {
-        Security.spending().requestNewCode(sender: self, isChangeAttempt: false) { pinOrPassword, type, completion in
-            WalletLoader.shared.restoreWallet(seed: seed, spendingPinOrPassword: pinOrPassword, securityType: type) {
-                restoreError in
-                
-                if restoreError != nil {
-                    completion?.displayError(errorMessage: restoreError!.localizedDescription)
-                    return
-                }
+    func requestSpendingSecurityCodeAndRestoreWallet(with seed: String) {
+        Security.spending(initialSecurityType: .password)
+            .requestNewCode(sender: self, isChangeAttempt: false) { pinOrPassword, type, completion in
+            
+                WalletLoader.shared.restoreWallet(seed: seed, spendingPinOrPassword: pinOrPassword, securityType: type) {
+                    restoreError in
+                    
+                    if restoreError != nil {
+                        completion?.displayError(errorMessage: restoreError!.localizedDescription)
+                        return
+                    }
 
-                completion?.dismissDialog()
-                
-                if self.onWalletRestored == nil {
-                    self.performSegue(withIdentifier: "recoverySuccess", sender: self)
-                } else {
-                    self.onWalletRestored!()
-                    self.dismissView()
+                    completion?.dismissDialog()
+                    
+                    if self.onWalletRestored == nil {
+                        self.performSegue(withIdentifier: "recoverySuccess", sender: self)
+                    } else {
+                        self.onWalletRestored!()
+                        self.dismissView()
+                    }
                 }
-            }
         }
     }
 }

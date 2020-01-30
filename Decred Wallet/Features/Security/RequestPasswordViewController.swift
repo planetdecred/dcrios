@@ -185,9 +185,10 @@ class RequestPasswordViewController: SecurityCodeRequestBaseViewController, UITe
         }
 
         // `onCurrentAndNewCodesEntered` callback is set, request new code and notify callback.
-        Security(for: self.request.for, initialSecurityType: .password).requestNewCode(sender: self, isChangeAttempt: true) {
-            newCode, newCodeType, newCodeRequestCompletion in
-            currentAndNewCodesEnteredCallback(password, self, newCode, newCodeRequestCompletion, newCodeType)
+        Security(for: self.request.for, initialSecurityType: .password)
+            .requestNewCode(sender: self, isChangeAttempt: true) { newCode, newCodeType, newCodeRequestCompletion in
+                
+                currentAndNewCodesEnteredCallback(password, self, newCode, newCodeRequestCompletion, newCodeType)
         }
         return true
     }

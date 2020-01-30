@@ -7,6 +7,7 @@
 // license that can be found in the LICENSE file.
 
 import UIKit
+import Dcrlibwallet
 
 enum SecurityType: String {
     case password = "PASSWORD"
@@ -18,6 +19,16 @@ enum SecurityType: String {
             return LocalizedStrings.pin
         case .password:
             return LocalizedStrings.password.lowercased()
+        }
+    }
+
+    var type: Int32 {
+        switch self {
+        case .password:
+            return DcrlibwalletPassphraseTypePass
+            
+        case .pin:
+            return DcrlibwalletPassphraseTypePin
         }
     }
 }
@@ -67,8 +78,7 @@ class Security: NSObject {
         return Security(for: .Startup, initialSecurityType: StartupPinOrPassword.currentSecurityType())
     }
     
-    // todo, this needs fixing, there should be no default value for spending security type.
-    static func spending(initialSecurityType: SecurityType = SpendingPinOrPassword.currentSecurityType()) -> Security {
+    static func spending(initialSecurityType: SecurityType) -> Security {
         return Security(for: .Spending, initialSecurityType: initialSecurityType)
     }
     

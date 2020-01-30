@@ -41,6 +41,7 @@ class SendViewController: UIViewController {
     
     var overflowNavBarButton: UIBarButtonItem!
     
+    var sendFromWallet: DcrlibwalletWallet!
     var walletAccounts: [DcrlibwalletAccount]!
     var exchangeRate: NSDecimalNumber?
     var sendMaxAmount: Bool = false
@@ -54,7 +55,7 @@ class SendViewController: UIViewController {
             return self.destinationAccountDropdown.selectedItemIndex >= 0
         }
         let destinationAddress = self.destinationAddressTextField.text ?? ""
-        return WalletLoader.shared.firstWallet!.isAddressValid(destinationAddress)
+        return self.sendFromWallet.isAddressValid(destinationAddress)
     }
     
     var isValidAmount: Bool {
@@ -102,6 +103,9 @@ class SendViewController: UIViewController {
     }
     
     override func viewDidLoad() {
+        // Temporary until UI is implemented to select/change send from wallet.
+        self.sendFromWallet = WalletLoader.shared.firstWallet!
+        
         self.destinationAddressTextField.addTarget(self, action: #selector(self.addressTextFieldChanged), for: .editingChanged)
         self.dcrAmountTextField.addTarget(self, action: #selector(self.dcrAmountTextFieldChanged), for: .editingChanged)
         self.usdAmountTextField.addTarget(self, action: #selector(self.usdAmountTextFieldChanged), for: .editingChanged)
@@ -198,7 +202,7 @@ class SendViewController: UIViewController {
     }
     
     func setupAccountDropdowns() {
-        let walletAccounts = WalletLoader.shared.firstWallet!.accounts(confirmations: self.requiredConfirmations)
+        let walletAccounts = self.sendFromWallet.accounts(confirmations: self.requiredConfirmations)
             .filter({ !$0.isHidden && $0.number != INT_MAX }) // remove hidden wallets from array
         self.walletAccounts = walletAccounts
         
@@ -284,10 +288,9 @@ class SendViewController: UIViewController {
         }
         
         let destinationAddress = self.getDestinationAddress(isSendAttempt: false)
-        let wallet = WalletLoader.shared.firstWallet!
         
         do {
-            let newTx = wallet.newUnsignedTx(sourceAccount.number, requiredConfirmations: self.requiredConfirmations)
+            let newTx = self.sendFromWallet.newUnsignedTx(sourceAccount.number, requiredConfirmations: self.requiredConfirmations)
             newTx?.addSendDestination(destinationAddress, atomAmount: 0, sendMax: true)
             let maxSendableAmount = try newTx?.estimateMaxSendAmount()
             
@@ -328,7 +331,7 @@ class SendViewController: UIViewController {
             }
             
             let requestSendConfirmation = ConfirmToSendFundViewController.requestConfirmation
-            requestSendConfirmation(sendAmount, fee, destinationAddress, destinationAccount) {
+            requestSendConfirmation(self.sendFromWallet.id_, sendAmount, fee, destinationAddress, destinationAccount) {
                 (spendingPassword: String?) in
                 // Send tx confirmation page may return a password if the spending security type is password.
                 // If the password returned is nil, prompt user for spending pin, otherwise proceed to send with the provided password.
@@ -337,11 +340,12 @@ class SendViewController: UIViewController {
                     return
                 }
                 
-                Security.spending().with(prompt: LocalizedStrings.confirmToSend).requestCurrentCode(sender: self) {
-                    pinOrPassword, _, completion in
+                Security.spending(initialSecurityType: SpendingPinOrPassword.securityType(for: self.sendFromWallet))
+                    .with(prompt: LocalizedStrings.confirmToSend)
+                    .requestCurrentCode(sender: self) { pinOrPassword, _, completion in
                     
-                    completion?.dismissDialog()
-                    self.finalizeSending(destinationAddress: destinationAddress, pinOrPassword: pinOrPassword)
+                        completion?.dismissDialog()
+                        self.finalizeSending(destinationAddress: destinationAddress, pinOrPassword: pinOrPassword)
                 }
             }
         }
@@ -381,7 +385,7 @@ class SendViewController: UIViewController {
             let sendAmountAtom = DcrlibwalletAmountAtom(sendAmountDcr)
             let sourceAccountNumber = self.walletAccounts[self.sourceAccountDropdown.selectedItemIndex].number
             
-            let newTx = WalletLoader.shared.firstWallet!.newUnsignedTx(sourceAccountNumber,
+            let newTx = self.sendFromWallet.newUnsignedTx(sourceAccountNumber,
                                                                        requiredConfirmations: self.requiredConfirmations)
             newTx?.addSendDestination(destinationAddress,
                                       atomAmount: sendAmountAtom,
@@ -414,7 +418,7 @@ class SendViewController: UIViewController {
         let progressHud = Utils.showProgressHud(withText: LocalizedStrings.sendingTransaction)
         DispatchQueue.global(qos: .userInitiated).async {[unowned self] in
             do {
-                let newTx = WalletLoader.shared.firstWallet!.newUnsignedTx(sourceAccountNumber,
+                let newTx = self.sendFromWallet.newUnsignedTx(sourceAccountNumber,
                                                                            requiredConfirmations: self.requiredConfirmations)
                 newTx?.addSendDestination(destinationAddress,
                                           atomAmount: sendAmountAtom,
@@ -431,7 +435,8 @@ class SendViewController: UIViewController {
                     progressHud.dismiss()
                     
                     if error.isInvalidPassphraseError {
-                        self.showOkAlert(message: SpendingPinOrPassword.invalidSecurityCodeMessage(),
+                        let errorMessage = SpendingPinOrPassword.invalidSecurityCodeMessage(for: self.sendFromWallet.id_)
+                        self.showOkAlert(message: errorMessage,
                                          title: LocalizedStrings.failedTransaction,
                                          okText: LocalizedStrings.retry,
                                          onPressOk: self.attemptSend,
@@ -538,7 +543,7 @@ extension SendViewController {
     
     @objc func addressTextFieldChanged() {
         let destinationAddress = self.destinationAddressTextField.text ?? ""
-        let addressValid = WalletLoader.shared.firstWallet!.isAddressValid(destinationAddress)
+        let addressValid = self.sendFromWallet.isAddressValid(destinationAddress)
         
         self.toggleSendButtonState(addressValid: addressValid, amountValid: self.isValidAmount)
         self.scanQrCodeButton.isHidden = destinationAddress != ""
@@ -553,7 +558,7 @@ extension SendViewController {
     
     func checkClipboardForValidAddress() {
         let canShowPasteButton = (self.destinationAddressTextField.text ?? "") == "" &&
-            WalletLoader.shared.firstWallet!.isAddressValid(UIPasteboard.general.string)
+            self.sendFromWallet.isAddressValid(UIPasteboard.general.string)
         self.pasteAddressButton.isHidden = !canShowPasteButton
     }
     
@@ -586,7 +591,7 @@ extension SendViewController {
         }
         
         // Also ensure that destinationAddressTextField.text is a valid address.
-        guard WalletLoader.shared.firstWallet!.isAddressValid(destinationAddress) else {
+        guard self.sendFromWallet.isAddressValid(destinationAddress) else {
             if displayErrorOnUI {
                 self.destinationErrorLabel.text = LocalizedStrings.invalidDestAddr
             }
@@ -598,7 +603,7 @@ extension SendViewController {
     
     func generateAddress(from account: DcrlibwalletAccount) -> String? {
         var generateAddressError: NSError?
-        let destinationAddress = WalletLoader.shared.firstWallet!.currentAddress(account.number, error: &generateAddressError)
+        let destinationAddress = self.sendFromWallet.currentAddress(account.number, error: &generateAddressError)
         if generateAddressError != nil {
             print("send page -> generate address for destination account error: \(generateAddressError!.localizedDescription)")
             return nil

@@ -271,11 +271,13 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
     }
     
     private func askPassword() {
-        Security.spending().with(submitBtnText: LocalizedStrings.proceed).requestCurrentCode(sender: self) {
-            pinOrPassword, _, completion in
+        let walletSpendingSecurityType = SpendingPinOrPassword.securityType(for: WalletLoader.shared.firstWallet!)
+        Security.spending(initialSecurityType: walletSpendingSecurityType)
+            .with(submitBtnText: LocalizedStrings.proceed)
+            .requestCurrentCode(sender: self) { pinOrPassword, _, completion in
             
-            self.SignMsg(pass: pinOrPassword)
-            completion?.dismissDialog()
+                self.SignMsg(pass: pinOrPassword)
+                completion?.dismissDialog()
         }
     }
     

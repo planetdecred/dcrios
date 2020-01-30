@@ -64,7 +64,7 @@ struct StartupPinOrPassword {
                                                   currentCodeRequestDelegate: dialogDelegate,
                                                   newCode: "",
                                                   newCodeRequestDelegate: nil,
-                                                  newCodeType: nil,
+                                                  newCodeType: .password,
                                                   done: done)
         }
     }
@@ -73,21 +73,14 @@ struct StartupPinOrPassword {
                                                      currentCodeRequestDelegate: InputDialogDelegate?,
                                                      newCode: String,
                                                      newCodeRequestDelegate: InputDialogDelegate?,
-                                                     newCodeType: SecurityType?,
+                                                     newCodeType: SecurityType,
                                                      done: (() -> Void)?) {
-        
-        if newCodeType == nil && newCode != "" {
-            newCodeRequestDelegate?.displayError(errorMessage: LocalizedStrings.securityTypeNotSpecified)
-            return
-        }
         
         DispatchQueue.global(qos: .userInitiated).async {
             do {
-                let passphraseType = newCodeType == .password ? DcrlibwalletPassphraseTypePass : DcrlibwalletPassphraseTypePin
-                
                 try WalletLoader.shared.multiWallet.changeStartupPassphrase(currentCode.utf8Bits,
                                                                             newPassphrase: newCode.utf8Bits,
-                                                                            passphraseType: passphraseType)
+                                                                            passphraseType: newCodeType.type)
 
                 DispatchQueue.main.async {
                     newCodeRequestDelegate?.dismissDialog()

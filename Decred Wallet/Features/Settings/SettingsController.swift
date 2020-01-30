@@ -261,19 +261,23 @@ class SettingsController: UITableViewController  {
                     return
                 }
                 
-                Security.spending().requestCurrentCode(sender: self) { pinOrPassword, _, dialogDelegate in
-                    self.deleteWallet(spendingPinOrPassword: pinOrPassword, dialogDelegate: dialogDelegate)
+                let spendingSecurityType = SpendingPinOrPassword.securityType(for: WalletLoader.shared.firstWallet!)
+                Security.spending(initialSecurityType: spendingSecurityType)
+                    .requestCurrentCode(sender: self) { pinOrPassword, _, dialogDelegate in
+                        
+                        self.deleteWallet(spendingPinOrPassword: pinOrPassword, dialogDelegate: dialogDelegate)
                 }
             }
         }
     }
     
     func deleteWallet(spendingPinOrPassword: String, dialogDelegate: InputDialogDelegate?) {
+        let walletID = WalletLoader.shared.firstWallet!.id_
         let progressHud = Utils.showProgressHud(withText: LocalizedStrings.deletingWallet)
+        
         DispatchQueue.global(qos: .background).async {
             do {
-                try WalletLoader.shared.multiWallet.delete(WalletLoader.shared.firstWallet!.id_,
-                                                           privPass: spendingPinOrPassword.utf8Bits)
+                try WalletLoader.shared.multiWallet.delete(walletID, privPass: spendingPinOrPassword.utf8Bits)
                 DispatchQueue.main.async {
                     progressHud.dismiss()
                     dialogDelegate?.dismissDialog()
@@ -283,11 +287,12 @@ class SettingsController: UITableViewController  {
                 print("delete wallet error: \(error.localizedDescription)")
                 DispatchQueue.main.async {
                     progressHud.dismiss()
+                    
+                    var errorMessage = LocalizedStrings.deleteWalletFailed
                     if error.isInvalidPassphraseError {
-                        dialogDelegate?.displayError(errorMessage: SpendingPinOrPassword.invalidSecurityCodeMessage())
-                    } else {
-                        dialogDelegate?.displayError(errorMessage: LocalizedStrings.deleteWalletFailed)
+                        errorMessage = SpendingPinOrPassword.invalidSecurityCodeMessage(for: walletID)
                     }
+                    dialogDelegate?.displayError(errorMessage: errorMessage)
                 }
             }
         }

@@ -11,17 +11,19 @@ import Dcrlibwallet
 
 class WalletSetupViewController: UIViewController {
     @IBAction func createNewwallet(_ sender: Any) {
-        Security.spending().requestNewCode(sender: self, isChangeAttempt: false) { pinOrPassword, type, completion in
-            WalletLoader.shared.createWallet(spendingPinOrPassword: pinOrPassword, securityType: type) {
-                createWalletError in
+        Security.spending(initialSecurityType: .password)
+            .requestNewCode(sender: self, isChangeAttempt: false) { pinOrPassword, type, completion in
                 
-                if createWalletError != nil {
-                    completion?.displayError(errorMessage: createWalletError!.localizedDescription)
-                } else {
-                    completion?.dismissDialog()
-                    NavigationMenuTabBarController.setupMenuAndLaunchApp(isNewWallet: true)
+                WalletLoader.shared.createWallet(spendingPinOrPassword: pinOrPassword, securityType: type) {
+                    createWalletError in
+                    
+                    if createWalletError != nil {
+                        completion?.displayError(errorMessage: createWalletError!.localizedDescription)
+                    } else {
+                        completion?.dismissDialog()
+                        NavigationMenuTabBarController.setupMenuAndLaunchApp(isNewWallet: true)
+                    }
                 }
-            }
         }
     }
 }

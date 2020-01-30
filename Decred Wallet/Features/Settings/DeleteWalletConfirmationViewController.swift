@@ -15,6 +15,7 @@ class DeleteWalletConfirmationViewController: UIViewController, UITextFieldDeleg
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var deleteWalletHeader: UILabel!
     
+    var walletID: Int!
     var onDeleteWalletConfirmed: ((String?) -> Void)?
     
     override func viewDidLoad() {
@@ -26,7 +27,7 @@ class DeleteWalletConfirmationViewController: UIViewController, UITextFieldDeleg
         
         self.deleteWalletHeader.text = "\(LocalizedStrings.deleteWallet)?"
         
-        if SpendingPinOrPassword.currentSecurityType() == .password {
+        if SpendingPinOrPassword.securityType(for: self.walletID) == .password {
             self.passwordTextField.delegate = self
             self.passwordTextField.addTarget(self, action: #selector(self.passwordTextChanged), for: .editingChanged)
         } else {
@@ -60,7 +61,7 @@ class DeleteWalletConfirmationViewController: UIViewController, UITextFieldDeleg
 
     @IBAction func deleteWalletConfirmed(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
-        if SpendingPinOrPassword.currentSecurityType() == .password {
+        if SpendingPinOrPassword.securityType(for: self.walletID) == .password {
             self.onDeleteWalletConfirmed?(self.passwordTextField.text!)
         } else {
             self.onDeleteWalletConfirmed?(nil)

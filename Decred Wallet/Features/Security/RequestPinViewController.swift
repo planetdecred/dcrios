@@ -175,9 +175,10 @@ class RequestPinViewController: SecurityCodeRequestBaseViewController {
             }
 
             // `onCurrentAndNewCodesEntered` callback is set, request new code and notify callback.
-            Security(for: self.request.for, initialSecurityType: .pin).requestNewCode(sender: self, isChangeAttempt: true) {
-                newCode, newCodeType, newCodeRequestCompletion in
-                currentAndNewCodesEnteredCallback(pinText, self, newCode, newCodeRequestCompletion, newCodeType)
+            Security(for: self.request.for, initialSecurityType: .pin)
+                .requestNewCode(sender: self, isChangeAttempt: true) { newCode, newCodeType, newCodeRequestCompletion in
+
+                    currentAndNewCodesEnteredCallback(pinText, self, newCode, newCodeRequestCompletion, newCodeType)
             }
         }
     }

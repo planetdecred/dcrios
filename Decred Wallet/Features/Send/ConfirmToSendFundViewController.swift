@@ -17,6 +17,7 @@ class ConfirmToSendFundViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var confirmSendButton: UIButton!
     
+    var sendFromWalletID: Int!
     var sendAmount: String?
     var fee: String?
     var destinationAddress: String?
@@ -28,8 +29,10 @@ class ConfirmToSendFundViewController: UIViewController, UITextFieldDelegate {
         var usdValue: NSDecimalNumber?
     }
     
-    static func requestConfirmation(amountToSend: Amount, estimatedFee: Amount, destinationAddress: String, destinationAccount: String?, onConfirmed: ((String?) -> Void)?) {
+    static func requestConfirmation(sendFromWalletID: Int, amountToSend: Amount, estimatedFee: Amount, destinationAddress: String, destinationAccount: String?, onConfirmed: ((String?) -> Void)?) {
         let confirmVC = ConfirmToSendFundViewController.instantiate(from: .Send)
+        
+        confirmVC.sendFromWalletID = sendFromWalletID
         
         confirmVC.sendAmount = "\(amountToSend.dcrValue.round(8).formattedWithSeparator) DCR"
         if amountToSend.usdValue != nil {
@@ -64,7 +67,7 @@ class ConfirmToSendFundViewController: UIViewController, UITextFieldDelegate {
             self.accountLabel.text = "\(LocalizedStrings.toAccount) \'\(self.destinationAccount!)\'"
         }
         
-        if SpendingPinOrPassword.currentSecurityType() == .password {
+        if SpendingPinOrPassword.securityType(for: self.sendFromWalletID) == .password {
             self.passwordTextField.delegate = self
             self.passwordTextField.addTarget(self, action: #selector(self.passwordTextChanged), for: .editingChanged)
         } else {
@@ -109,7 +112,7 @@ class ConfirmToSendFundViewController: UIViewController, UITextFieldDelegate {
     
     func confirmSend() {
         self.dismiss(animated: true, completion: nil)
-        if SpendingPinOrPassword.currentSecurityType() == .password {
+        if SpendingPinOrPassword.securityType(for: self.sendFromWalletID) == .password {
             self.sendTxConfirmed?(self.passwordTextField.text!)
         } else {
             self.sendTxConfirmed?(nil)

@@ -94,7 +94,7 @@ class WalletsViewController: UIViewController {
     }
     
     func createNewWallet() {
-        Security.spending().requestNewCode(sender: self, isChangeAttempt: false) { pinOrPassword, type, completion in
+        Security.spending(initialSecurityType: .password).requestNewCode(sender: self, isChangeAttempt: false) { pinOrPassword, type, completion in
             WalletLoader.shared.createWallet(spendingPinOrPassword: pinOrPassword, securityType: type) { error in
                 if error == nil {
                     completion?.dismissDialog()
@@ -214,7 +214,7 @@ extension WalletsViewController {
     }
     
     func removeWalletFromDevice(walletID: Int) {
-        Security.spending()
+        Security.spending(initialSecurityType: SpendingPinOrPassword.securityType(for: walletID))
             .with(prompt: LocalizedStrings.confirmToRemove)
             .with(submitBtnText: LocalizedStrings.remove)
             .requestCurrentCode(sender: self) { currentCode, _, dialogDelegate in
@@ -230,7 +230,7 @@ extension WalletsViewController {
                     } catch let error {
                         DispatchQueue.main.async {
                             if error.isInvalidPassphraseError {
-                                dialogDelegate?.displayError(errorMessage: SpendingPinOrPassword.invalidSecurityCodeMessage())
+                                dialogDelegate?.displayError(errorMessage: SpendingPinOrPassword.invalidSecurityCodeMessage(for: walletID))
                             } else {
                                 dialogDelegate?.displayError(errorMessage: error.localizedDescription)
                             }
