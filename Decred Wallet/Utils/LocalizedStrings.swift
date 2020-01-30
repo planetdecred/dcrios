@@ -156,6 +156,8 @@ struct LocalizedStrings {
     static let more = NSLocalizedString("more", comment: "")
     
     /* Overview */
+    static let oneWalletNeedBackup = NSLocalizedString("oneWalletNeedBackup", comment: "")
+    static let walletsNeedBackup = NSLocalizedString("walletsNeedBackup", comment: "")
     static let currentTotalBalance = NSLocalizedString("currentTotalBalance", comment: "")
     static let recentTransactions = NSLocalizedString("recentTransactions", comment: "")
     static let seeAll = NSLocalizedString("seeAll", comment: "")

@@ -8,12 +8,10 @@
 
 import Foundation
 import Dcrlibwallet
-import Signals
 
 class WalletLoader: NSObject {
     static let shared = WalletLoader()
     static let appDataDir = NSHomeDirectory() + "/Documents/dcrlibwallet"
-    static let WalletSeedBackedUp: Signal = Signal<Int>()
     
     var multiWallet: DcrlibwalletMultiWallet!
     

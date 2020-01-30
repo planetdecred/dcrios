@@ -9,7 +9,6 @@
 import UIKit
 import Dcrlibwallet
 import JGProgressHUD
-import Signals
 
 class SeedBackupVerifyViewController: UIViewController {
     var seedWordsGroupedByThree: [[String]] = []
@@ -72,7 +71,6 @@ class SeedBackupVerifyViewController: UIViewController {
             try WalletLoader.shared.multiWallet.verifySeed(forWallet: WalletLoader.shared.firstWallet!.id_,
                                                            seedMnemonic: userEnteredSeed)
             
-            WalletLoader.WalletSeedBackedUp => WalletLoader.shared.firstWallet!.id_
             self.performSegue(withIdentifier: "toSeedBackupSuccess", sender: nil)
         } catch {
             self.groupedSeedWordsTableView?.isUserInteractionEnabled = true
