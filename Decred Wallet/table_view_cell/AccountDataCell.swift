@@ -1,7 +1,7 @@
 //  AccountDataCell.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -35,14 +35,14 @@ class AccountDataCell: UITableViewCell, AccountDetailsCellProtocol {
         super.setSelected(selected, animated: animated)
     }
     @IBAction func setHiddenAccount(_ sender: Any) {
-        Settings.setValue(hideAcount.isOn, for: "\(Settings.Keys.HiddenWalletPrefix)\(accountTmp.number)")
+        // deprecated
     }
     
     @IBAction func setDefault(_ sender: Any) {
         self.accountTmp.makeDefault()
         self.hideAcount.setOn(false, animated: true)
         self.hideAcount.isEnabled = false
-        Settings.setValue(false, for: "\(Settings.Keys.HiddenWalletPrefix)\(accountTmp.number)")
+        // deprecated
     }
     
     func setup(account: DcrlibwalletAccount) {

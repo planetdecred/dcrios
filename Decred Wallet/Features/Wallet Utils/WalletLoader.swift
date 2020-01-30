@@ -71,7 +71,6 @@ class WalletLoader: NSObject {
                 try self.multiWallet.createNewWallet(spendingPinOrPassword, privatePassphraseType: privatePassphraseType)
                 
                 DispatchQueue.main.async {
-                    Settings.setValue(securityType.rawValue, for: Settings.Keys.SpendingPassphraseSecurityType)
                     completion(nil)
                 }
             } catch let error {
@@ -92,7 +91,6 @@ class WalletLoader: NSObject {
                                              privatePassphraseType: privatePassphraseType)
                 
                 DispatchQueue.main.async {
-                    Settings.setValue(securityType.rawValue, for: Settings.Keys.SpendingPassphraseSecurityType)
                     completion(nil)
                 }
             } catch let error {

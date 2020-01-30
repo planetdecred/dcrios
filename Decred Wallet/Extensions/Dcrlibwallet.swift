@@ -81,15 +81,17 @@ extension DcrlibwalletBalance {
 
 extension DcrlibwalletAccount {
     func makeDefault() {
-        Settings.setValue(self.number, for: Settings.Keys.DefaultWallet)
+        // deprecated feature
     }
     
     var isDefault: Bool {
-        return Settings.readOptionalValue(for: Settings.Keys.DefaultWallet) == self.number
+        // deprecated feature
+        return false
     }
     
     var isHidden: Bool {
-        return Settings.readValue(for: "\(Settings.Keys.HiddenWalletPrefix)\(self.number)")
+        // deprecated feature
+        return false
     }
     
     var dcrTotalBalance: Double {
@@ -136,7 +138,7 @@ extension DcrlibwalletWallet {
         
         if transactions != nil {
             // Check if there are new transactions since last time wallet history was displayed.
-            let lastTxHash = Settings.readOptionalValue(for: Settings.Keys.LastTxHash) ?? ""
+            let lastTxHash = Settings.readStringValue(for: DcrlibwalletLastTxHashConfigKey)
             for i in 0..<transactions!.count {
                 if transactions![i].hash == lastTxHash {
                     // We've hit the last viewed tx. No need to animate this tx or futher txs.
@@ -146,7 +148,7 @@ extension DcrlibwalletWallet {
             }
             
             // Save hash for tx index 0 as last viewed tx hash.
-            Settings.setValue(transactions![0].hash, for: Settings.Keys.LastTxHash)
+            Settings.setStringValue(transactions![0].hash, for: DcrlibwalletLastTxHashConfigKey)
         }
         
         return transactions

@@ -52,8 +52,12 @@ class Security: NSObject {
     private var callbacks = RequestCallbacks()
     private var currentSecurityType: SecurityType?
     
-    static func startup() -> Security {
-        return Security(for: .Startup)
+    static func startup(legacy: Bool = false) -> Security {
+        let startupSecurity = Security(for: .Startup)
+        if legacy {
+            startupSecurity.currentSecurityType = StartupPinOrPassword.legacySecurityType()
+        }
+        return startupSecurity
     }
     
     static func spending() -> Security {

@@ -67,7 +67,7 @@ class StartScreenViewController: UIViewController {
         if WalletLoader.shared.oneOrMoreWalletsExist {
             self.checkStartupSecurityAndStartApp()
         } else if DcrlibwalletWalletExistsAt("\(WalletLoader.appDataDir)/\(BuildConfig.NetType)") {
-            self.checkStartupSecurityAndLinkExistingWallet()
+            self.checkLegacyStartupSecurityAndLinkExistingWallet()
         } else {
             self.displayWalletSetupScreen()
         }
@@ -79,18 +79,18 @@ class StartScreenViewController: UIViewController {
             return
         }
         
-        self.promptForStartupPinOrPassword() { pinOrPassword, _, completion in
+        self.promptForStartupPinOrPassword(legacy: false) { pinOrPassword, _, completion in
             self.openWalletsAndStartApp(startupPinOrPassword: pinOrPassword, completion: completion)
         }
     }
     
-    func checkStartupSecurityAndLinkExistingWallet() {
-        if !StartupPinOrPassword.pinOrPasswordIsSet() {
+    func checkLegacyStartupSecurityAndLinkExistingWallet() {
+        if !StartupPinOrPassword.legacyPinOrPasswordIsSet() {
             try? WalletLoader.shared.linkExistingWalletAndStartApp(startupPinOrPassword: "")
             return
         }
         
-        self.promptForStartupPinOrPassword() { pinOrPassword, _, completion in
+        self.promptForStartupPinOrPassword(legacy: true) { pinOrPassword, _, completion in
             do {
                 try WalletLoader.shared.linkExistingWalletAndStartApp(startupPinOrPassword: pinOrPassword)
                 completion?.securityCodeProcessed()
@@ -105,11 +105,12 @@ class StartScreenViewController: UIViewController {
         }
     }
 
-    func promptForStartupPinOrPassword(callback: @escaping SecurityCodeRequestCallback) {
-        let securityType = StartupPinOrPassword.currentSecurityType() == .pin ? LocalizedStrings.pin : LocalizedStrings.password.lowercased()
-        let prompt = String(format: LocalizedStrings.unlockWithStartupCode, securityType)
+    func promptForStartupPinOrPassword(legacy: Bool, callback: @escaping SecurityCodeRequestCallback) {
+        let securityType = legacy ? StartupPinOrPassword.legacySecurityType() : StartupPinOrPassword.currentSecurityType()
+        let securityTypeText = securityType == .pin ? LocalizedStrings.pin : LocalizedStrings.password.lowercased()
+        let prompt = String(format: LocalizedStrings.unlockWithStartupCode, securityTypeText)
         
-        Security.startup()
+        Security.startup(legacy: legacy)
             .with(prompt: prompt)
             .with(submitBtnText: LocalizedStrings.unlock)
             .should(showCancelButton: false)
