@@ -257,7 +257,7 @@ class OverviewViewController: UIViewController {
         }
     }
     
-    @IBAction func dismissSeedBackupPrompTapped(_ sender: Any) {
+    @IBAction func dismissSeedBackupPromptTapped(_ sender: Any) {
         self.hideSeedBackupPrompt = true
         self.seedBackupSectionView.isHidden = true
     }
