@@ -38,19 +38,30 @@
                                     </label>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleAspectFit" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Xg-aj-JTN" customClass="DropMenuButton" customModule="Decred_Wallet" customModuleProvider="target">
-                                <rect key="frame" x="8" y="57.5" width="132" height="45"/>
+                            <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Xg-aj-JTN" customClass="DropMenuButton" customModule="Decred_Wallet" customModuleProvider="target">
+                                <rect key="frame" x="24" y="57.5" width="41" height="45"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="132" id="cIq-jv-en6"/>
                                     <constraint firstAttribute="height" constant="45" id="tqs-yO-7WN"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
-                                <inset key="imageEdgeInsets" minX="100" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                 <state key="normal" title="All" image="ic_dropdown_down">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleColor" red="0.035294117647058823" green="0.078431372549019607" blue="0.25098039215686274" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="all"/>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6n8-S9-8yX" customClass="DropMenuButton" customModule="Decred_Wallet" customModuleProvider="target">
+                                <rect key="frame" x="81" y="57.5" width="74" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="g2c-Ga-Lpo"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                <state key="normal" title="Newest" image="ic_dropdown_down">
+                                    <color key="titleColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="newest"/>
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="56" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rdz-8b-in4">
@@ -78,26 +89,29 @@
                             <constraint firstItem="rdz-8b-in4" firstAttribute="leading" secondItem="hIz-r8-F5G" secondAttribute="leading" constant="8" id="4M5-RT-Rs5"/>
                             <constraint firstItem="4Xg-aj-JTN" firstAttribute="top" secondItem="O0D-Dc-Yer" secondAttribute="bottom" constant="16" id="B7b-Ej-COn"/>
                             <constraint firstItem="rdz-8b-in4" firstAttribute="trailing" secondItem="hIz-r8-F5G" secondAttribute="trailing" constant="-8" id="Da5-zF-TAW"/>
+                            <constraint firstItem="6n8-S9-8yX" firstAttribute="centerY" secondItem="4Xg-aj-JTN" secondAttribute="centerY" id="F4g-aZ-doi"/>
                             <constraint firstItem="O0D-Dc-Yer" firstAttribute="leading" secondItem="hIz-r8-F5G" secondAttribute="leading" constant="24" id="STy-WF-KEh"/>
                             <constraint firstItem="rdz-8b-in4" firstAttribute="bottom" secondItem="hIz-r8-F5G" secondAttribute="bottom" constant="-56" id="U8K-HG-44L"/>
                             <constraint firstItem="rdz-8b-in4" firstAttribute="top" secondItem="4Xg-aj-JTN" secondAttribute="bottom" id="YZu-le-0VX"/>
                             <constraint firstItem="hIz-r8-F5G" firstAttribute="trailing" secondItem="O0D-Dc-Yer" secondAttribute="trailing" constant="24" id="ZAK-Da-jyh"/>
-                            <constraint firstItem="4Xg-aj-JTN" firstAttribute="leading" secondItem="hIz-r8-F5G" secondAttribute="leading" constant="8" id="ePe-GA-SA2"/>
+                            <constraint firstItem="4Xg-aj-JTN" firstAttribute="leading" secondItem="hIz-r8-F5G" secondAttribute="leading" constant="24" id="ePe-GA-SA2"/>
                             <constraint firstItem="kb7-vS-Rrh" firstAttribute="centerX" secondItem="aZf-z0-Zpn" secondAttribute="centerX" id="gdI-sr-4Y3"/>
                             <constraint firstItem="O0D-Dc-Yer" firstAttribute="top" secondItem="hIz-r8-F5G" secondAttribute="top" constant="16" id="jfy-la-PTr"/>
                             <constraint firstItem="kb7-vS-Rrh" firstAttribute="centerY" secondItem="aZf-z0-Zpn" secondAttribute="centerY" id="pCB-NK-0yV"/>
+                            <constraint firstItem="6n8-S9-8yX" firstAttribute="leading" secondItem="4Xg-aj-JTN" secondAttribute="trailing" constant="16" id="w35-Ec-D1K"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="hIz-r8-F5G"/>
                     </view>
                     <connections>
                         <outlet property="syncInProgressLabel" destination="kb7-vS-Rrh" id="jCS-qV-6fV"/>
                         <outlet property="transactionFilterDropDown" destination="4Xg-aj-JTN" id="yeW-W8-oWV"/>
+                        <outlet property="transactionSorterDropDown" destination="6n8-S9-8yX" id="wVN-th-iEs"/>
                         <outlet property="transactionsTableView" destination="rdz-8b-in4" id="C7m-gV-buQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1ky-HZ-qRj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2625" y="-1369"/>
+            <point key="canvasLocation" x="2624.8000000000002" y="-1369.5652173913045"/>
         </scene>
     </scenes>
     <resources>

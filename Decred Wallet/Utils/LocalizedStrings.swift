@@ -190,6 +190,8 @@ struct LocalizedStrings {
     static let today = NSLocalizedString("today", comment: "")
     static let yesterday = NSLocalizedString("yesterday", comment: "")
     static let days = NSLocalizedString("days", comment: "")
+    static let newest = NSLocalizedString("newest", comment: "")
+    static let oldest = NSLocalizedString("oldest", comment: "")
     
     /* Transaction Details */
     static let transactionDetails = NSLocalizedString("transactionDetails", comment: "")

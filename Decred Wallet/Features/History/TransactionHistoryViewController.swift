@@ -9,10 +9,16 @@
 import UIKit
 import Dcrlibwallet
 
+enum TransactionSorterType: String {
+    case newest = "NEWEST"
+    case oldest = "OLDEST"
+}
+
 class TransactionHistoryViewController: UIViewController {
     @IBOutlet weak var syncInProgressLabel: UILabel!
     @IBOutlet var transactionsTableView: UITableView!
     @IBOutlet var transactionFilterDropDown: DropMenuButton!
+    @IBOutlet var transactionSorterDropDown: DropMenuButton!
 
     var noTxsLabel: UILabel {
         let noTxsLabel = UILabel(frame: self.transactionsTableView.frame)
@@ -26,6 +32,7 @@ class TransactionHistoryViewController: UIViewController {
     var refreshControl: UIRefreshControl!    
     var allTransactions = [Transaction]()
     var transactionFilters = [Int32]()
+    var transactionSorters =  [TransactionSorterType]()
     var filteredTransactions = [Transaction]()
 
     override func viewDidLoad() {
@@ -42,6 +49,7 @@ class TransactionHistoryViewController: UIViewController {
         self.transactionsTableView.register(UINib(nibName: TransactionTableViewCell.identifier, bundle: nil),
                                             forCellReuseIdentifier: TransactionTableViewCell.identifier)
 
+        self.setupTxSorter()
         // register for new transactions notifications
         try? WalletLoader.shared.multiWallet.add(self, uniqueIdentifier: "\(self)")
     }
@@ -69,42 +77,53 @@ class TransactionHistoryViewController: UIViewController {
         }
 
         self.allTransactions = txs
+        self.applyTxSorter()
         self.transactionsTableView.backgroundView = nil
         self.transactionsTableView.separatorStyle = .singleLine
         self.setupTxFilterAndDisplayAllTxs()
     }
 
+    func setupTxSorter() {
+        let sorterOptions = [LocalizedStrings.newest,
+                             LocalizedStrings.oldest]
+        self.transactionSorters = [TransactionSorterType.newest, TransactionSorterType.oldest]
+        self.transactionSorterDropDown.initMenu(sorterOptions) { [weak self] index, value in
+            self?.applyTxSorter()
+            self?.reloadTxsForCurrentFilter()
+        }
+    }
+
     func setupTxFilterAndDisplayAllTxs() {
-        var filterOptions = [LocalizedStrings.all.appending(" (\(self.allTransactions.count))")]
+        var filterOptions = [LocalizedStrings.all]
         self.transactionFilters = [DcrlibwalletTxFilterAll]
 
         let sentCount = self.allTransactions.filter{$0.direction == DcrlibwalletTxDirectionSent}.count
         if sentCount != 0 {
-            filterOptions.append(LocalizedStrings.sent.appending(" (\(sentCount))"))
+            filterOptions.append(LocalizedStrings.sent)
             self.transactionFilters.append(DcrlibwalletTxFilterSent)
         }
 
         let receiveCount = self.allTransactions.filter{$0.direction == DcrlibwalletTxDirectionReceived}.count
         if receiveCount != 0 {
-            filterOptions.append(LocalizedStrings.received.appending(" (\(receiveCount))"))
+            filterOptions.append(LocalizedStrings.received)
             self.transactionFilters.append(DcrlibwalletTxFilterReceived)
         }
 
         let yourselfCount = self.allTransactions.filter{$0.direction == DcrlibwalletTxDirectionTransferred}.count
         if yourselfCount != 0 {
-            filterOptions.append(LocalizedStrings.yourself.appending(" (\(yourselfCount))"))
+            filterOptions.append(LocalizedStrings.yourself)
             self.transactionFilters.append(DcrlibwalletTxFilterSent)
         }
 
         let stakeCount = self.allTransactions.filter{$0.type != DcrlibwalletTxTypeRegular}.count
         if stakeCount != 0 {
-            filterOptions.append(LocalizedStrings.staking.appending(" (\(stakeCount))"))
+            filterOptions.append(LocalizedStrings.staking)
             self.transactionFilters.append(DcrlibwalletTxFilterStaking)
         }
 
         let coinbaseCount = self.allTransactions.filter{$0.type == DcrlibwalletTxTypeCoinBase}.count
         if coinbaseCount != 0 {
-            filterOptions.append(LocalizedStrings.coinbase.appending(" (\(coinbaseCount))"))
+            filterOptions.append(LocalizedStrings.coinbase)
             self.transactionFilters.append(DcrlibwalletTxFilterCoinBase)
         }
 
@@ -156,6 +175,15 @@ class TransactionHistoryViewController: UIViewController {
             break
         }
     }
+
+    func applyTxSorter() {
+        var currentSorterType = TransactionSorterType.newest
+        if self.transactionSorterDropDown.selectedItemIndex >= 0 && self.transactionSorters.count > self.transactionSorterDropDown.selectedItemIndex {
+            currentSorterType = self.transactionSorters[self.transactionSorterDropDown.selectedItemIndex]
+        }
+        
+        self.allTransactions = currentSorterType == .newest ?  self.allTransactions.sorted {$0.timestamp > $1.timestamp} : self.allTransactions.sorted {$0.timestamp < $1.timestamp}
+    }
 }
 
 extension TransactionHistoryViewController: DcrlibwalletTxAndBlockNotificationListenerProtocol {
@@ -178,6 +206,7 @@ extension TransactionHistoryViewController: DcrlibwalletTxAndBlockNotificationLi
         Settings.setStringValue(tx.hash, for: DcrlibwalletLastTxHashConfigKey)
         
         DispatchQueue.main.async {
+            self.applyTxSorter()
             self.reloadTxsForCurrentFilter()
         }
     }
@@ -224,7 +253,7 @@ extension TransactionHistoryViewController: UITableViewDataSource, UITableViewDe
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let transactionDetailVC = TransactionDetailsViewController.instantiate(from: .TransactionDetails)
-        
+
         if self.filteredTransactions.isEmpty {
             transactionDetailVC.transaction = self.allTransactions[indexPath.row]
         } else {

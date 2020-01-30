@@ -23,6 +23,7 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
     
     var superSuperView = UIView()
     var containerView = UIView()
+    var minTableWidth:CGFloat = 0
     
     var isDropDownOpen: Bool {
         return self.containerView.alpha == 1
@@ -105,7 +106,7 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
         tableFrameHeight = frame.height * CGFloat(items.count)
         
         containerView.frame = CGRect(x: auxPoint2.x, y: auxPoint2.y, width: 300, height: tableFrameHeight)
-        table.frame = CGRect(x: 0, y: 0, width: frame.width, height: tableFrameHeight)
+        table.frame = CGRect(x: 0, y: 0, width: max(minTableWidth, frame.width), height: tableFrameHeight)
         table.rowHeight = frame.height
         table.separatorColor = UIColor.clear
         
@@ -151,16 +152,17 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let itemLabel = UILabel(frame: CGRect(x: 10, y: 0, width: frame.width - 10, height: frame.height))
+        let itemLabel = UILabel(frame: CGRect(x: 10, y: 0, width: 300, height: frame.height))
         itemLabel.textAlignment = NSTextAlignment.left
         itemLabel.text = items[(indexPath as NSIndexPath).row]
         itemLabel.font = UIFont(name: "SourceSansPro-Regular", size: 16)
         itemLabel.textColor = UIColor.black
         
+        self.minTableWidth = max(self.minTableWidth, itemLabel.intrinsicContentSize.width + 20)
         let bgColorView = UIView()
         bgColorView.backgroundColor = UIColor.lightGray
         
-        let cell = UITableViewCell(frame: CGRect(x: 0, y: 0, width: frame.width, height: frame.height))
+        let cell = UITableViewCell(frame: CGRect(x: 0, y: 0, width: 300, height: frame.height))
         cell.backgroundColor = UIColor.white
         cell.selectedBackgroundView = bgColorView
         cell.separatorInset = UIEdgeInsets(top: 0, left: frame.width, bottom: 0, right: frame.width)
