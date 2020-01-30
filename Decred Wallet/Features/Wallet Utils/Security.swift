@@ -11,6 +11,15 @@ import UIKit
 enum SecurityType: String {
     case password = "PASSWORD"
     case pin = "PIN"
+    
+    var localizedString: String {
+        switch self {
+        case .pin:
+            return LocalizedStrings.pin
+        case .password:
+            return LocalizedStrings.password.lowercased()
+        }
+    }
 }
 
 class Security: NSObject {
@@ -52,12 +61,8 @@ class Security: NSObject {
     private var callbacks = RequestCallbacks()
     private var currentSecurityType: SecurityType?
     
-    static func startup(legacy: Bool = false) -> Security {
-        let startupSecurity = Security(for: .Startup)
-        if legacy {
-            startupSecurity.currentSecurityType = StartupPinOrPassword.legacySecurityType()
-        }
-        return startupSecurity
+    static func startup() -> Security {
+        return Security(for: .Startup)
     }
     
     static func spending() -> Security {

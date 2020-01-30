@@ -10,35 +10,6 @@ import Foundation
 import Dcrlibwallet
 
 class Settings {
-    // Legacy keys and read function retained for use in migrating legacy user preferences.
-    struct Legacy {
-        struct Keys {
-            static let IsStartupSecuritySet = "startup_security_set"
-            static let StartupSecurityType = "startup_security_type"
-            static let SpendingPassphraseSecurityType = "spending_security_type"
-            static let DefaultWallet = "default_wallet"
-            static let HiddenWalletPrefix = "hidden"
-
-            static let SPVPeerIP = "pref_peer_ip"
-            static let RemoteServerIP = "pref_server_ip"
-            static let SyncOnCellular = "always_sync"
-            
-            static let SpendUnconfirmed = "pref_spend_unconfirmed"
-            static let IncomingNotification = "pref_notification_switch"
-            static let CurrencyConversionOption = "currency_conversion_option"
-            static let NetworkMode = "network_mode"
-            
-            static let LastTxHash = "last_tx_hash"
-        }
-        
-        static func readValue<T>(for key: String) -> T? {
-            if T.self == Bool.self {
-                return UserDefaults.standard.bool(forKey: key) as? T
-            }
-            return UserDefaults.standard.value(forKey: key) as? T
-        }
-    }
-    
     static func setBoolValue(_ value: Bool, for key: String) {
         WalletLoader.shared.multiWallet.setBoolConfigValueForKey(key, value: value)
     }

@@ -105,17 +105,6 @@ struct StartupPinOrPassword {
         }
     }
     
-    static func legacyPinOrPasswordIsSet() -> Bool {
-        return Settings.Legacy.readValue(for: Settings.Legacy.Keys.IsStartupSecuritySet) ?? false
-    }
-
-    static func legacySecurityType() -> SecurityType {
-        if Settings.Legacy.readValue(for: Settings.Legacy.Keys.StartupSecurityType) == SecurityType.pin.rawValue {
-            return .pin
-        }
-        return .password
-    }
-    
     static func pinOrPasswordIsSet() -> Bool {
         return WalletLoader.shared.multiWallet.isStartupSecuritySet()
     }
