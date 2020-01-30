@@ -66,7 +66,7 @@ class StartScreenViewController: UIViewController {
         
         if WalletLoader.shared.oneOrMoreWalletsExist {
             self.checkStartupSecurityAndStartApp()
-        } else if DcrlibwalletWalletExistsAt(WalletLoader.appDataDir, BuildConfig.NetType) {
+        } else if DcrlibwalletWalletExistsAt("\(WalletLoader.appDataDir)/\(BuildConfig.NetType)") {
             self.checkStartupSecurityAndLinkExistingWallet()
         } else {
             self.displayWalletSetupScreen()

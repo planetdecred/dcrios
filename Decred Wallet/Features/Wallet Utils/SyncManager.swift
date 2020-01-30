@@ -8,7 +8,6 @@
 
 import UIKit
 import Dcrlibwallet
-import Signals
 
 class SyncManager: NSObject {
     static let shared = SyncManager()

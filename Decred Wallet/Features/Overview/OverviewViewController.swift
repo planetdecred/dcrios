@@ -8,7 +8,6 @@
 
 import UIKit
 import Dcrlibwallet
-import Signals
 
 class OverviewViewController: UIViewController {
     // Custom navigation bar
@@ -20,6 +19,7 @@ class OverviewViewController: UIViewController {
     
     // MARK: Backup phrase section (Top view)
     @IBOutlet weak var seedBackupSectionView: UIView!
+    @IBOutlet weak var walletsNeedBackupLabel: UILabel!
     
     // MARK: Recent activity section
     @IBOutlet weak var noTransactionsLabelView: UILabel!
@@ -53,6 +53,7 @@ class OverviewViewController: UIViewController {
     @IBOutlet weak var syncCurrentStepProgressLabel: UILabel!
     @IBOutlet weak var peerCountLabel: UILabel!
 
+    var hideSeedBackupPrompt: Bool = false
     var recentTransactions = [Transaction]()
     var refreshBestBlockAgeTimer: Timer?
     
@@ -91,17 +92,12 @@ class OverviewViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
+        self.checkWhetherToPromptForSeedBackup()
     }
     
     func initializeViews() {
         // Set a scroll listener delegate so we can update the nav bar page title text on user scroll.
         self.parentScrollView.delegate = self
-        
-        self.checkWhetherToPromptForSeedBackup()
-        WalletLoader.WalletSeedBackedUp.subscribe(with: self) { walletID in
-            print("Seed backed up for wallet with ID", walletID)
-            self.checkWhetherToPromptForSeedBackup()
-        }
         
         self.recentTransactionsTableView.registerCellNib(TransactionTableViewCell.self)
         self.recentTransactionsTableView.delegate = self
@@ -112,11 +108,6 @@ class OverviewViewController: UIViewController {
         self.syncDetailsSection.horizontalBorder(borderColor: UIColor.appColors.gray, yPosition: 0, borderHeight: 0.62)
     }
     
-    func checkWhetherToPromptForSeedBackup() {
-        self.seedBackupSectionView.isHidden = WalletLoader.shared.multiWallet.numWalletsNeedingSeedBackup() == 0
-    }
-    
-    // todo ensure this is always called from the main thread!
     func updateMultiWalletBalance() {
         // todo should use multiwallet balance!
         let totalWalletAmount = WalletLoader.shared.firstWallet?.totalWalletBalance() ?? 0
@@ -250,18 +241,37 @@ class OverviewViewController: UIViewController {
         self.connectedPeersLabel.attributedText = attributedString
     }
     
-    @IBAction func seedBackupTapped(_ sender: Any) {
-        let seedBackupReminderVC = SeedBackupReminderViewController.instantiate(from: .SeedBackup).wrapInNavigationcontroller()
-        seedBackupReminderVC.modalPresentationStyle = .overFullScreen
-        self.present(seedBackupReminderVC, animated: true)
-    }
-    
-    @IBAction func showAllTransactionsTap(_ sender: Any) {
-        guard let txHistoryTabIndex = NavigationMenuTabBarController.tabItems.firstIndex(of: .transactions) else {
+    func checkWhetherToPromptForSeedBackup() {
+        let numWalletsNeedingSeedBackup = WalletLoader.shared.multiWallet.numWalletsNeedingSeedBackup()
+        if self.hideSeedBackupPrompt || numWalletsNeedingSeedBackup == 0 {
+            self.seedBackupSectionView.isHidden = true
             return
         }
         
-        NavigationMenuTabBarController.instance?.navigateToTab(index: txHistoryTabIndex)
+        self.seedBackupSectionView.isHidden = false
+        if numWalletsNeedingSeedBackup == 1 {
+            self.walletsNeedBackupLabel.text = LocalizedStrings.oneWalletNeedBackup
+        } else {
+            self.walletsNeedBackupLabel.text = String(format: LocalizedStrings.walletsNeedBackup,
+                                                      numWalletsNeedingSeedBackup)
+        }
+    }
+    
+    @IBAction func dismissSeedBackupPromptTapped(_ sender: Any) {
+        self.hideSeedBackupPrompt = true
+        self.seedBackupSectionView.isHidden = true
+    }
+    
+    @IBAction func seedBackupTapped(_ sender: Any) {
+        if let walletsTabIndex = NavigationMenuTabBarController.tabItems.firstIndex(of: .wallets) {
+            NavigationMenuTabBarController.instance?.navigateToTab(index: walletsTabIndex)
+        }
+    }
+    
+    @IBAction func showAllTransactionsTap(_ sender: Any) {
+        if let txHistoryTabIndex = NavigationMenuTabBarController.tabItems.firstIndex(of: .transactions) {
+            NavigationMenuTabBarController.instance?.navigateToTab(index: txHistoryTabIndex)
+        }
     }
 
     // Handle action of sync connect/reconnect/cancel button click based on sync/network status
