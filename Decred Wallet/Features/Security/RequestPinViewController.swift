@@ -79,7 +79,11 @@ class RequestPinViewController: SecurityCodeRequestBaseViewController {
     }
     
     private func setInitialPromptAndButtonText() {
-        self.btnSubmit.setTitle(LocalizedStrings.next, for: .normal)
+        if self.request.requestConfirmation {
+            self.btnSubmit.setTitle(LocalizedStrings.next, for: .normal)
+        } else {
+            self.btnSubmit.setTitle(self.request.submitBtnText ?? LocalizedStrings.next, for: .normal)
+        }
         
         if self.request.isChangeAttempt {
             self.enterPinLabel.text = String(format: LocalizedStrings.newPINPlaceholder,

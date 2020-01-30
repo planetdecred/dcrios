@@ -219,16 +219,22 @@ extension WalletsViewController {
             .with(submitBtnText: LocalizedStrings.remove)
             .requestCurrentCode(sender: self) { currentCode, _, dialogDelegate in
                 
-                do {
-                    try WalletLoader.shared.multiWallet.delete(walletID, privPass: currentCode.utf8Bits)
-                    dialogDelegate?.dismissDialog()
-                    self.loadWallets()
-                    Utils.showBanner(parentVC: self, type: .success, text: LocalizedStrings.walletRemoved)
-                } catch let error {
-                    if error.isInvalidPassphraseError {
-                        dialogDelegate?.displayError(errorMessage: SpendingPinOrPassword.invalidSecurityCodeMessage())
-                    } else {
-                        dialogDelegate?.displayError(errorMessage: error.localizedDescription)
+                DispatchQueue.global(qos: .userInitiated).async {
+                    do {
+                        try WalletLoader.shared.multiWallet.delete(walletID, privPass: currentCode.utf8Bits)
+                        DispatchQueue.main.async {
+                            dialogDelegate?.dismissDialog()
+                            self.loadWallets()
+                            Utils.showBanner(parentVC: self, type: .success, text: LocalizedStrings.walletRemoved)
+                        }
+                    } catch let error {
+                        DispatchQueue.main.async {
+                            if error.isInvalidPassphraseError {
+                                dialogDelegate?.displayError(errorMessage: SpendingPinOrPassword.invalidSecurityCodeMessage())
+                            } else {
+                                dialogDelegate?.displayError(errorMessage: error.localizedDescription)
+                            }
+                        }
                     }
                 }
         }
