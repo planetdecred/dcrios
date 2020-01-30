@@ -103,6 +103,9 @@
                         <viewLayoutGuide key="safeArea" id="hIz-r8-F5G"/>
                     </view>
                     <connections>
+                        <outlet property="headerBottomConstraint" destination="B7b-Ej-COn" id="3t8-cg-Sq4"/>
+                        <outlet property="headerStackView" destination="O0D-Dc-Yer" id="J9i-ky-tB3"/>
+                        <outlet property="headerTopConstraint" destination="jfy-la-PTr" id="nsR-0j-Tww"/>
                         <outlet property="syncInProgressLabel" destination="kb7-vS-Rrh" id="jCS-qV-6fV"/>
                         <outlet property="transactionFilterDropDown" destination="4Xg-aj-JTN" id="yeW-W8-oWV"/>
                         <outlet property="transactionSorterDropDown" destination="6n8-S9-8yX" id="wVN-th-iEs"/>

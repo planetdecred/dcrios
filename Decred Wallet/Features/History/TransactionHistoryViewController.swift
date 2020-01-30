@@ -15,6 +15,9 @@ enum TransactionSorterType: String {
 }
 
 class TransactionHistoryViewController: UIViewController {
+    @IBOutlet weak var headerTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var headerStackView: UIStackView!
+    @IBOutlet weak var headerBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var syncInProgressLabel: UILabel!
     @IBOutlet var transactionsTableView: UITableView!
     @IBOutlet var transactionFilterDropDown: DropMenuButton!
@@ -34,7 +37,7 @@ class TransactionHistoryViewController: UIViewController {
     var transactionFilters = [Int32]()
     var transactionSorters =  [TransactionSorterType]()
     var filteredTransactions = [Transaction]()
-
+    var maximumHeaderTopConstraint: CGFloat?
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -48,7 +51,6 @@ class TransactionHistoryViewController: UIViewController {
         self.transactionsTableView.hideEmptyAndExtraRows()
         self.transactionsTableView.register(UINib(nibName: TransactionTableViewCell.identifier, bundle: nil),
                                             forCellReuseIdentifier: TransactionTableViewCell.identifier)
-
         self.setupTxSorter()
         // register for new transactions notifications
         try? WalletLoader.shared.multiWallet.add(self, uniqueIdentifier: "\(self)")
@@ -260,5 +262,17 @@ extension TransactionHistoryViewController: UITableViewDataSource, UITableViewDe
             transactionDetailVC.transaction = self.filteredTransactions[indexPath.row]
         }
         self.present(transactionDetailVC, animated: true)
+    }
+}
+
+extension TransactionHistoryViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if self.maximumHeaderTopConstraint == nil {
+            self.maximumHeaderTopConstraint = self.headerTopConstraint.constant
+        }
+        let minimumValue: CGFloat = -1 * (self.maximumHeaderTopConstraint! + self.headerStackView.frame.size.height +
+            self.headerBottomConstraint.constant)
+        self.headerTopConstraint.constant = min(self.maximumHeaderTopConstraint!, self.maximumHeaderTopConstraint! + max(minimumValue, -scrollView.contentOffset.y))
+        self.headerStackView.alpha = headerTopConstraint.constant / self.maximumHeaderTopConstraint!
     }
 }
