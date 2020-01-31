@@ -19,7 +19,7 @@ class ServerSetTableViewController: UITableViewController {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
         self.navigationItem.title = LocalizedStrings.serverAddress
-        server_ip?.text = Settings.readStringValue(for: DcrlibwalletUserAgentConfigKey)
+        server_ip?.text = "" // deprecated in v2
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -33,19 +33,7 @@ class ServerSetTableViewController: UITableViewController {
     }
     
     @objc func save() -> Void {
-        // save here
-        guard let ipAddress = server_ip.text, ipAddress != "" else {
-            Settings.setStringValue("", for: DcrlibwalletUserAgentConfigKey)
-            self.navigationController?.popViewController(animated: true)
-            return
-        }
-        if isValidIP(s: server_ip.text!) {
-            Settings.setStringValue(server_ip.text!, for: DcrlibwalletUserAgentConfigKey)
-            self.navigationController?.popViewController(animated: true)
-            return
-        } else {
-            self.showMessage(title: LocalizedStrings.invalidInput, userMessage: LocalizedStrings.remoteAddressIsInvalid, buttonTitle: LocalizedStrings.ok)
-        }
+        // no longer saving full node server ip, feature deprecated in v2
     }
     
     @objc func cancel() -> Void {

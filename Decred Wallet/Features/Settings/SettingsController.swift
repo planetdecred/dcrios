@@ -76,7 +76,7 @@ class SettingsController: UITableViewController  {
         }
         
         connect_peer_ip?.text = Settings.readStringValue(for: DcrlibwalletSpvPersistentPeerAddressesConfigKey)
-        server_ip?.text = Settings.readStringValue(for: DcrlibwalletUserAgentConfigKey)
+        server_ip?.text = "" // deprecated in v2
         
         loadSettingsData()
         self.checkStartupSecurity()
@@ -112,7 +112,7 @@ class SettingsController: UITableViewController  {
         build?.text = dateformater.string(from: AppDelegate.compileDate as Date)
         spend_uncon_fund?.setOn(Settings.spendUnconfirmed, animated: false)
         connect_peer_ip?.text = Settings.readStringValue(for: DcrlibwalletSpvPersistentPeerAddressesConfigKey)
-        server_ip?.text = Settings.readStringValue(for: DcrlibwalletUserAgentConfigKey)
+        server_ip?.text = "" // deprecated in v2
         incoming_notification_switch?.setOn(Settings.incomingNotificationEnabled, animated: true)
         
         self.cellularSyncSwitch.isOn = Settings.readBoolValue(for: DcrlibwalletSyncOnCellularConfigKey)

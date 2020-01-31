@@ -104,7 +104,6 @@ fileprivate struct PreMultiWalletSettings {
         case SpendingPassphraseSecurityType = "spending_security_type"
         
         case SPVPeerIP = "pref_peer_ip"
-        case RemoteServerIP = "pref_server_ip"
         case SyncOnCellular = "always_sync"
         
         case SpendUnconfirmed = "pref_spend_unconfirmed"
@@ -132,10 +131,6 @@ fileprivate struct PreMultiWalletSettings {
     static func migrateUserConfig() {
         if let spvPeerIP: String = readOptionalValue(for: .SPVPeerIP) {
             Settings.setStringValue(spvPeerIP, for: DcrlibwalletSpvPersistentPeerAddressesConfigKey)
-        }
-        
-        if let remoteServerIP: String = readOptionalValue(for: .RemoteServerIP) {
-            Settings.setStringValue(remoteServerIP, for: DcrlibwalletUserAgentConfigKey)
         }
         
         if let syncOnCellular: Bool = readValue(for: .SyncOnCellular) {
