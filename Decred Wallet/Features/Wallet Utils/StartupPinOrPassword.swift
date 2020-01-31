@@ -88,14 +88,6 @@ struct StartupPinOrPassword {
                                                                             passphraseType: passphraseType)
 
                 DispatchQueue.main.async {
-                    if newCode == "" {
-                        Settings.setValue(false, for: Settings.Keys.IsStartupSecuritySet)
-                        Settings.clearValue(for: Settings.Keys.StartupSecurityType)
-                    } else {
-                        Settings.setValue(true, for: Settings.Keys.IsStartupSecuritySet)
-                        Settings.setValue(newCodeType!.rawValue, for: Settings.Keys.StartupSecurityType)
-                    }
-                    
                     newCodeRequestCompletion?.securityCodeProcessed()
                     currentCodeRequestCompletion?.securityCodeProcessed()
                     done?()
@@ -112,13 +104,13 @@ struct StartupPinOrPassword {
             }
         }
     }
-
+    
     static func pinOrPasswordIsSet() -> Bool {
-        return Settings.readValue(for: Settings.Keys.IsStartupSecuritySet)
+        return WalletLoader.shared.multiWallet.isStartupSecuritySet()
     }
 
     static func currentSecurityType() -> SecurityType {
-        if Settings.readOptionalValue(for: Settings.Keys.StartupSecurityType) == SecurityType.pin.rawValue {
+        if WalletLoader.shared.multiWallet.startupSecurityType() == DcrlibwalletPassphraseTypePin {
             return .pin
         }
         return .password

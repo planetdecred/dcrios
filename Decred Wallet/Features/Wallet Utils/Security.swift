@@ -11,6 +11,15 @@ import UIKit
 enum SecurityType: String {
     case password = "PASSWORD"
     case pin = "PIN"
+    
+    var localizedString: String {
+        switch self {
+        case .pin:
+            return LocalizedStrings.pin
+        case .password:
+            return LocalizedStrings.password.lowercased()
+        }
+    }
 }
 
 class Security: NSObject {

@@ -2,7 +2,7 @@
 //  AccountsData.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -28,7 +28,8 @@ struct AccountHeader {
     }
     
     var isHidden: Bool {
-        return Settings.readValue(for: "\(Settings.Keys.HiddenWalletPrefix)\(self.number)")
+        // deprecated feature
+        return false
     }
 }
 

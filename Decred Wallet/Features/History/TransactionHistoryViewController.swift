@@ -175,7 +175,7 @@ extension TransactionHistoryViewController: DcrlibwalletTxAndBlockNotificationLi
         self.allTransactions.insert(tx, at: 0)
         
         // Save hash for this tx as last viewed tx hash.
-        Settings.setValue(tx.hash, for: Settings.Keys.LastTxHash)
+        Settings.setStringValue(tx.hash, for: DcrlibwalletLastTxHashConfigKey)
         
         DispatchQueue.main.async {
             self.reloadTxsForCurrentFilter()

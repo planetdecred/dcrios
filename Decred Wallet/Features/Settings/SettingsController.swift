@@ -46,20 +46,21 @@ class SettingsController: UITableViewController  {
         var fieldToUpdate: String?
         switch switchView {
         case self.spend_uncon_fund:
-            fieldToUpdate = Settings.Keys.SpendUnconfirmed
+            fieldToUpdate = DcrlibwalletSpendUnconfirmedConfigKey
             
         case self.incoming_notification_switch:
-            fieldToUpdate = Settings.Keys.IncomingNotification
+            // should be set per wallet, rather than once for all wallets
+            break
             
         case self.cellularSyncSwitch:
-            fieldToUpdate = Settings.Keys.SyncOnCellular
+            fieldToUpdate = DcrlibwalletSyncOnCellularConfigKey
             
         default:
             return
         }
         
         if fieldToUpdate != nil {
-            Settings.setValue(switchView.isOn, for: fieldToUpdate!)
+            Settings.setBoolValue(switchView.isOn, for: fieldToUpdate!)
         }
     }
     
@@ -74,8 +75,8 @@ class SettingsController: UITableViewController  {
             self.addNavigationBackButton()
         }
         
-        connect_peer_ip?.text = Settings.readOptionalValue(for: Settings.Keys.SPVPeerIP) ?? ""
-        server_ip?.text = Settings.readOptionalValue(for: Settings.Keys.RemoteServerIP) ?? ""
+        connect_peer_ip?.text = Settings.readStringValue(for: DcrlibwalletSpvPersistentPeerAddressesConfigKey)
+        server_ip?.text = "" // deprecated in v2
         
         loadSettingsData()
         self.checkStartupSecurity()
@@ -110,11 +111,11 @@ class SettingsController: UITableViewController  {
         dateformater.dateFormat = "yyyy-MM-dd"
         build?.text = dateformater.string(from: AppDelegate.compileDate as Date)
         spend_uncon_fund?.setOn(Settings.spendUnconfirmed, animated: false)
-        connect_peer_ip?.text = Settings.readOptionalValue(for: Settings.Keys.SPVPeerIP) ?? ""
-        server_ip?.text = Settings.readOptionalValue(for: Settings.Keys.RemoteServerIP) ?? ""
+        connect_peer_ip?.text = Settings.readStringValue(for: DcrlibwalletSpvPersistentPeerAddressesConfigKey)
+        server_ip?.text = "" // deprecated in v2
         incoming_notification_switch?.setOn(Settings.incomingNotificationEnabled, animated: true)
         
-        self.cellularSyncSwitch.isOn = Settings.readValue(for: Settings.Keys.SyncOnCellular)
+        self.cellularSyncSwitch.isOn = Settings.readBoolValue(for: DcrlibwalletSyncOnCellularConfigKey)
         
         if Settings.networkMode == 0 {
             network_mode_subtitle?.text = LocalizedStrings.spv

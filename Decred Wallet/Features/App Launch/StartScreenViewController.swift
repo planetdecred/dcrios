@@ -1,7 +1,7 @@
 //
 //  StartScreenViewController.swift
 //  Decred Wallet
-
+//
 // Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
@@ -66,8 +66,8 @@ class StartScreenViewController: UIViewController {
         
         if WalletLoader.shared.oneOrMoreWalletsExist {
             self.checkStartupSecurityAndStartApp()
-        } else if DcrlibwalletWalletExistsAt("\(WalletLoader.appDataDir)/\(BuildConfig.NetType)") {
-            self.checkStartupSecurityAndLinkExistingWallet()
+        } else if SingleToMultiWalletMigration.migrationNeeded {
+            SingleToMultiWalletMigration.migrateExistingWallet()
         } else {
             self.displayWalletSetupScreen()
         }
@@ -83,31 +83,10 @@ class StartScreenViewController: UIViewController {
             self.openWalletsAndStartApp(startupPinOrPassword: pinOrPassword, completion: completion)
         }
     }
-    
-    func checkStartupSecurityAndLinkExistingWallet() {
-        if !StartupPinOrPassword.pinOrPasswordIsSet() {
-            try? WalletLoader.shared.linkExistingWalletAndStartApp(startupPinOrPassword: "")
-            return
-        }
-        
-        self.promptForStartupPinOrPassword() { pinOrPassword, _, completion in
-            do {
-                try WalletLoader.shared.linkExistingWalletAndStartApp(startupPinOrPassword: pinOrPassword)
-                completion?.securityCodeProcessed()
-            } catch let error {
-                print("link existing wallet error: \(error.localizedDescription)")
-                if error.isInvalidPassphraseError {
-                    completion?.securityCodeError(errorMessage: StartupPinOrPassword.invalidSecurityCodeMessage())
-                } else {
-                    completion?.securityCodeError(errorMessage: error.localizedDescription)
-                }
-            }
-        }
-    }
 
     func promptForStartupPinOrPassword(callback: @escaping SecurityCodeRequestCallback) {
-        let securityType = StartupPinOrPassword.currentSecurityType() == .pin ? LocalizedStrings.pin : LocalizedStrings.password.lowercased()
-        let prompt = String(format: LocalizedStrings.unlockWithStartupCode, securityType)
+        let prompt = String(format: LocalizedStrings.unlockWithStartupCode,
+                            StartupPinOrPassword.currentSecurityType().localizedString)
         
         Security.startup()
             .with(prompt: prompt)

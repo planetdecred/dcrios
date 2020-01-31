@@ -2,11 +2,12 @@
 //  NetworkModeTableViewController.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
 import UIKit
+import Dcrlibwallet
 
 class NetworkModeTableViewController: UITableViewController {
     @IBOutlet weak var spv_cell: UITableViewCell!
@@ -35,7 +36,7 @@ class NetworkModeTableViewController: UITableViewController {
         spv_cell.accessoryType = .none
         remote_cell.accessoryType = .none
         tableView.cellForRow(at: indexPath as IndexPath)?.accessoryType = .checkmark
-        Settings.setValue(indexPath.row, for: Settings.Keys.NetworkMode)
+        Settings.setIntValue(indexPath.row, for: DcrlibwalletNetworkModeConfigKey)
     }
     
     override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {

@@ -89,7 +89,7 @@ class SyncManager: NSObject {
         
         // Dialog option to ALWAYS allow syncing on cellular.
         syncConfirmationDialog.addAction(UIAlertAction(title: LocalizedStrings.alwaysAllow, style: .default, handler: { _ in
-            Settings.setValue(true, for: Settings.Keys.SyncOnCellular)
+            Settings.setBoolValue(true, for: DcrlibwalletSyncOnCellularConfigKey)
             self.startOrRestartSync(allowSyncOnCellular: true)
         }))
         

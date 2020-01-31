@@ -48,21 +48,6 @@ class WalletLoader: NSObject {
         return error
     }
     
-    func linkExistingWalletAndStartApp(startupPinOrPassword: String) throws {
-        var privatePassphraseType = DcrlibwalletPassphraseTypePass
-        if SpendingPinOrPassword.currentSecurityType() == .pin {
-            privatePassphraseType = DcrlibwalletPassphraseTypePin
-        }
-        
-        try self.multiWallet.linkExistingWallet(WalletLoader.appDataDir,
-                                                originalPubPass: startupPinOrPassword,
-                                                privatePassphraseType: privatePassphraseType)
-        
-        DispatchQueue.main.async {
-            NavigationMenuTabBarController.setupMenuAndLaunchApp(isNewWallet: false)
-        }
-    }
-    
     func createWallet(spendingPinOrPassword: String, securityType: SecurityType, completion: @escaping (Error?) -> Void) {
         DispatchQueue.global(qos: .userInitiated).async {
             let privatePassphraseType = securityType == .password ? DcrlibwalletPassphraseTypePass : DcrlibwalletPassphraseTypePin
@@ -71,7 +56,6 @@ class WalletLoader: NSObject {
                 try self.multiWallet.createNewWallet(spendingPinOrPassword, privatePassphraseType: privatePassphraseType)
                 
                 DispatchQueue.main.async {
-                    Settings.setValue(securityType.rawValue, for: Settings.Keys.SpendingPassphraseSecurityType)
                     completion(nil)
                 }
             } catch let error {
@@ -92,7 +76,6 @@ class WalletLoader: NSObject {
                                              privatePassphraseType: privatePassphraseType)
                 
                 DispatchQueue.main.async {
-                    Settings.setValue(securityType.rawValue, for: Settings.Keys.SpendingPassphraseSecurityType)
                     completion(nil)
                 }
             } catch let error {

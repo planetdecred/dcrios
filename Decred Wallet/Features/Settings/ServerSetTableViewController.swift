@@ -2,11 +2,12 @@
 //  ServerSetTableViewController.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
 import UIKit
+import Dcrlibwallet
 
 class ServerSetTableViewController: UITableViewController {
     
@@ -18,7 +19,7 @@ class ServerSetTableViewController: UITableViewController {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
         self.navigationItem.title = LocalizedStrings.serverAddress
-        server_ip?.text = Settings.readOptionalValue(for: Settings.Keys.RemoteServerIP) ?? ""
+        server_ip?.text = "" // deprecated in v2
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -32,19 +33,7 @@ class ServerSetTableViewController: UITableViewController {
     }
     
     @objc func save() -> Void {
-        // save here
-        guard let ipAddress = server_ip.text, ipAddress != "" else {
-            Settings.setValue("", for: Settings.Keys.RemoteServerIP)
-            self.navigationController?.popViewController(animated: true)
-            return
-        }
-        if isValidIP(s: server_ip.text!) {
-            Settings.setValue(server_ip.text!, for: Settings.Keys.RemoteServerIP)
-            self.navigationController?.popViewController(animated: true)
-            return
-        } else {
-            self.showMessage(title: LocalizedStrings.invalidInput, userMessage: LocalizedStrings.remoteAddressIsInvalid, buttonTitle: LocalizedStrings.ok)
-        }
+        // no longer saving full node server ip, feature deprecated in v2
     }
     
     @objc func cancel() -> Void {

@@ -41,7 +41,6 @@ struct SpendingPinOrPassword {
                 DispatchQueue.main.async {
                     newCodeRequestCompletion?.securityCodeProcessed()
                     currentCodeRequestCompletion?.securityCodeProcessed()
-                    Settings.setValue(newCodeType.rawValue, for: Settings.Keys.SpendingPassphraseSecurityType)
                 }
             } catch let error {
                 DispatchQueue.main.async {
@@ -57,7 +56,7 @@ struct SpendingPinOrPassword {
     }
     
     static func currentSecurityType() -> SecurityType {
-        if Settings.readOptionalValue(for: Settings.Keys.SpendingPassphraseSecurityType) == SecurityType.pin.rawValue {
+        if WalletLoader.shared.firstWallet!.privatePassphraseType == DcrlibwalletPassphraseTypePin {
             return .pin
         }
         return .password

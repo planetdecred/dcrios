@@ -2,11 +2,12 @@
 //  PeerSetTableViewController.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
 import UIKit
+import Dcrlibwallet
 
 class PeerSetTableViewController: UITableViewController {
     
@@ -18,7 +19,7 @@ class PeerSetTableViewController: UITableViewController {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
         self.navigationItem.title = LocalizedStrings.connectToPeer
         // Do any additional setup after loading the view.
-        peer_ip?.text = Settings.readOptionalValue(for: Settings.Keys.SPVPeerIP) ?? ""
+        peer_ip?.text = Settings.readStringValue(for: DcrlibwalletSpvPersistentPeerAddressesConfigKey)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -36,13 +37,13 @@ class PeerSetTableViewController: UITableViewController {
         print("saving")
         if (peer_ip.text?.isEmpty)! || (peer_ip.text)! == ""{
             print("saving nothing")
-            Settings.setValue("", for: Settings.Keys.SPVPeerIP)
+            Settings.setStringValue("", for: DcrlibwalletSpvPersistentPeerAddressesConfigKey)
             self.navigationController?.popViewController(animated: true)
             return
         }
         else if isValidIP(s: peer_ip.text!){
             print("saving \(String(describing: peer_ip.text))")
-            Settings.setValue(peer_ip.text!, for: Settings.Keys.SPVPeerIP)
+            Settings.setStringValue(peer_ip.text!, for: DcrlibwalletSpvPersistentPeerAddressesConfigKey)
             self.navigationController?.popViewController(animated: true)
             return
             }

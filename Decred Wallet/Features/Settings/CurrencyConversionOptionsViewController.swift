@@ -2,11 +2,12 @@
 //  CurrencyConversionOptionsViewController.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
 import UIKit
+import Dcrlibwallet
 
 enum CurrencyConversionOption: String, CaseIterable {
     case None = "none"
@@ -45,7 +46,7 @@ class CurrencyConversionOptionsViewController: UITableViewController {
         tableView.cellForRow(at: indexPath as IndexPath)?.accessoryType = .checkmark
         
         let selectedOption = CurrencyConversionOption.allCases[indexPath.row]
-        Settings.setValue(selectedOption.rawValue, for: Settings.Keys.CurrencyConversionOption)
+        Settings.setStringValue(selectedOption.rawValue, for: DcrlibwalletCurrencyConversionConfigKey)
     }
     
     override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
