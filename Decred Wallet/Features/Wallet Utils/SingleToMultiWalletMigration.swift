@@ -18,7 +18,7 @@ class SingleToMultiWalletMigration {
     // disable public passphrase security on the wallet after migrating.
     // The startup passphrase will continue to be used as the app's startup passphrase.
     static func migrateExistingWallet() {
-        if PreMultiWalletSettings.readValue(for: .IsStartupSecuritySet) ?? false {
+        if !PreMultiWalletSettings.readValue(for: .IsStartupSecuritySet) {
             SingleToMultiWalletMigration.self.migrate(startupPinOrPassword: "", completion: nil)
             return
         }
@@ -50,7 +50,7 @@ class SingleToMultiWalletMigration {
                                 completion: SecurityCodeRequestCompletionDelegate?) {
         
         var privatePassphraseType = DcrlibwalletPassphraseTypePass
-        if PreMultiWalletSettings.readValue(for: .StartupSecurityType) == SecurityType.password.rawValue {
+        if PreMultiWalletSettings.readValue(for: .SpendingPassphraseSecurityType) == SecurityType.password.rawValue {
             privatePassphraseType = DcrlibwalletPassphraseTypePin
         }
         
@@ -59,29 +59,33 @@ class SingleToMultiWalletMigration {
             startupSecurityType = DcrlibwalletPassphraseTypePin
         }
         
-        do {
-            try WalletLoader.shared.multiWallet.migrateV1Wallet(startupPinOrPassword,
-                                                                originalPrivatePassType: privatePassphraseType)
-            
-            // attempt to re-set the app startup passphrase
-            try? WalletLoader.shared.multiWallet.setStartupPassphrase(startupPinOrPassword.utf8Bits,
-                                                                      passphraseType: startupSecurityType)
-            
-            PreMultiWalletSettings.migrateUserConfig()
-            
-            DispatchQueue.main.async {
-                completion?.securityCodeProcessed()
-                NavigationMenuTabBarController.setupMenuAndLaunchApp(isNewWallet: false)
-            }
-            
-        } catch let error {
-            print("link existing wallet error: \(error.localizedDescription)")
-            
-            DispatchQueue.main.async {
-                if error.isInvalidPassphraseError {
-                    completion?.securityCodeError(errorMessage: StartupPinOrPassword.invalidSecurityCodeMessage())
-                } else {
-                    completion?.securityCodeError(errorMessage: error.localizedDescription)
+        DispatchQueue.global(qos: .userInitiated).async {
+            do {
+                try WalletLoader.shared.multiWallet.migrateV1Wallet(startupPinOrPassword,
+                                                                    originalPrivatePassType: privatePassphraseType)
+                
+                // attempt to re-set the app startup passphrase
+                if startupPinOrPassword != "" {
+                    try? WalletLoader.shared.multiWallet.setStartupPassphrase(startupPinOrPassword.utf8Bits,
+                                                                              passphraseType: startupSecurityType)
+                }
+                
+                PreMultiWalletSettings.migrateUserConfig()
+                
+                DispatchQueue.main.async {
+                    completion?.securityCodeProcessed()
+                    NavigationMenuTabBarController.setupMenuAndLaunchApp(isNewWallet: false)
+                }
+                
+            } catch let error {
+                print("link existing wallet error: \(error.localizedDescription)")
+                
+                DispatchQueue.main.async {
+                    if error.isInvalidPassphraseError {
+                        completion?.securityCodeError(errorMessage: StartupPinOrPassword.invalidSecurityCodeMessage())
+                    } else {
+                        completion?.securityCodeError(errorMessage: error.localizedDescription)
+                    }
                 }
             }
         }
@@ -111,7 +115,14 @@ fileprivate struct PreMultiWalletSettings {
         case LastTxHash = "last_tx_hash"
     }
     
-    static func readValue<T>(for key: Key) -> T? {
+    static func readValue<T>(for key: Key) -> T {
+        if T.self == Bool.self {
+            return UserDefaults.standard.bool(forKey: key.rawValue) as! T
+        }
+        return UserDefaults.standard.value(forKey: key.rawValue) as! T
+    }
+    
+    static func readOptionalValue<T>(for key: Key) -> T? {
         if T.self == Bool.self {
             return UserDefaults.standard.bool(forKey: key.rawValue) as? T
         }
@@ -119,11 +130,11 @@ fileprivate struct PreMultiWalletSettings {
     }
     
     static func migrateUserConfig() {
-        if let spvPeerIP: String = readValue(for: .SPVPeerIP) {
+        if let spvPeerIP: String = readOptionalValue(for: .SPVPeerIP) {
             Settings.setStringValue(spvPeerIP, for: DcrlibwalletSpvPersistentPeerAddressesConfigKey)
         }
         
-        if let remoteServerIP: String = readValue(for: .RemoteServerIP) {
+        if let remoteServerIP: String = readOptionalValue(for: .RemoteServerIP) {
             Settings.setStringValue(remoteServerIP, for: DcrlibwalletUserAgentConfigKey)
         }
         
@@ -136,29 +147,27 @@ fileprivate struct PreMultiWalletSettings {
         }
         
         if let incomingNotificationEnabled: Bool = readValue(for: .IncomingNotification) {
-            // todo update this default notification status when implementing wallets page -> wallet settings.
+            // todo update these notification statuses when implementing wallets page -> wallet settings.
             let notificationStatus = incomingNotificationEnabled ? "vibration" : "off"
-            if  incomingNotificationEnabled {
-                WalletLoader.shared.wallets.forEach({
-                    try? WalletLoader.shared.multiWallet
-                        .updateIncomingNotificationsUserPreference($0.id_, notificationsPref: notificationStatus)
-                })
-            }
+            WalletLoader.shared.wallets.forEach({
+                try? WalletLoader.shared.multiWallet
+                    .updateIncomingNotificationsUserPreference($0.id_, notificationsPref: notificationStatus)
+            })
         }
         
-        if let currencyConversionOption: String = readValue(for: .CurrencyConversionOption) {
+        if let currencyConversionOption: String = readOptionalValue(for: .CurrencyConversionOption) {
             Settings.setStringValue(currencyConversionOption, for: DcrlibwalletCurrencyConversionConfigKey)
         }
         
-        if let networkMode: Int = readValue(for: .NetworkMode) {
+        if let networkMode: Int = readOptionalValue(for: .NetworkMode) {
             Settings.setIntValue(networkMode, for: DcrlibwalletNetworkModeConfigKey)
         }
         
-        if let lastTxHash: String = readValue(for: .LastTxHash) {
+        if let lastTxHash: String = readOptionalValue(for: .LastTxHash) {
             Settings.setStringValue(lastTxHash, for: DcrlibwalletLastTxHashConfigKey)
         }
         
-        UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
-        UserDefaults.standard.synchronize()
+//        UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
+//        UserDefaults.standard.synchronize()
     }
 }
