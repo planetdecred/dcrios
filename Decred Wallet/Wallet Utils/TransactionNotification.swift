@@ -9,6 +9,33 @@
 import Dcrlibwallet
 import UserNotifications
 
+enum NotificationAlert: String {
+    case none
+    case silent
+    case vibrationOnly
+    case soundOnly
+    case soundAndVibration
+    
+    var localizedString: String {
+        switch self {
+        case .none:
+            return LocalizedStrings.none
+
+        case .silent:
+            return LocalizedStrings.none
+
+        case .vibrationOnly:
+            return LocalizedStrings.none
+
+        case .soundOnly:
+            return LocalizedStrings.none
+
+        case .soundAndVibration:
+            return LocalizedStrings.none
+        }
+    }
+}
+
 protocol NewBlockNotificationProtocol {
     func onBlockAttached(_ walletID: Int, blockHeight: Int32)
 }
@@ -37,7 +64,11 @@ class TransactionNotification: NSObject {
         }
         self.newTxHashes.append(tx!.hash)
         
-        if tx!.fee == 0 {
+        guard let affectedWallet = WalletLoader.shared.multiWallet.wallet(withID: tx!.walletID) else {
+            return
+        }
+        
+        if tx!.fee == 0 && WalletSettings(for: affectedWallet).txNotificationAlert != .none {
             let notification = UNMutableNotificationContent()
             notification.title = LocalizedStrings.newTransaction
             notification.body = "\(LocalizedStrings.youReceived) \(tx!.dcrAmount.round(8).description) DCR"

@@ -170,6 +170,9 @@
                                                             </label>
                                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Cm9-Wi-1n3">
                                                                 <rect key="frame" x="341" y="8.5" width="51" height="31"/>
+                                                                <connections>
+                                                                    <action selector="useFingerprintSwitchToggle:" destination="zwE-sw-7Mz" eventType="valueChanged" id="sY4-bb-arn"/>
+                                                                </connections>
                                                             </switch>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tyc-LT-2qc">
                                                                 <rect key="frame" x="24" y="46" width="390" height="1"/>
@@ -401,7 +404,7 @@
                         <viewLayoutGuide key="safeArea" id="VjD-6E-u0k"/>
                     </view>
                     <connections>
-                        <outlet property="incomingTransactionsNotificationsSetting" destination="4W7-DH-6Kn" id="Vwi-fl-Czg"/>
+                        <outlet property="incomingTxAlertButton" destination="4W7-DH-6Kn" id="Vwi-fl-Czg"/>
                         <outlet property="useFingerprintSwitch" destination="Cm9-Wi-1n3" id="0oZ-bK-M0w"/>
                         <outlet property="walletNameLabel" destination="M3F-qE-dpL" id="nNS-xs-YGw"/>
                     </connections>

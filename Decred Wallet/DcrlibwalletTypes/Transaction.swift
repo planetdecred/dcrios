@@ -10,6 +10,7 @@ import Foundation
 import Dcrlibwallet
 
 struct Transaction: Codable {
+    var walletID: Int
     var hash: String
     var type: String
     var hex: String
@@ -34,7 +35,7 @@ struct Transaction: Codable {
     @nonobjc var animate: Bool
     
     private enum CodingKeys : String, CodingKey {
-        case hash, type, hex, timestamp
+        case walletID, hash, type, hex, timestamp
         case blockHeight = "block_height"
         
         case version
@@ -50,6 +51,7 @@ struct Transaction: Codable {
     
     init(from decoder: Decoder) throws {
         let values = try! decoder.container(keyedBy: CodingKeys.self)
+        self.walletID = try! values.decode(Int.self, forKey: .walletID)
         self.hash = try! values.decode(String.self, forKey: .hash)
         self.type = try! values.decode(String.self, forKey: .type)
         self.hex = try! values.decode(String.self, forKey: .hex)

@@ -152,19 +152,6 @@ extension WalletsViewController: WalletInfoTableViewCellDelegate {
         let prompt = String(format: "%@ (%@)", LocalizedStrings.wallet, walletName)
         let walletMenu = UIAlertController(title: nil, message: prompt, preferredStyle: .actionSheet)
         
-        // todo prolly hide this action if sync is ongoing as wallets cannot be removed during ongoing sync
-//        walletMenu.addAction(UIAlertAction(title: LocalizedStrings.removeFromDevice, style: .destructive, handler: { _ in
-//            self.showRemoveWalletWarning() { ok in
-//                if ok {
-//                    self.removeWalletFromDevice(walletID: walletID)
-//                }
-//            }
-//        }))
-//
-//        walletMenu.addAction(UIAlertAction(title: LocalizedStrings.changeSpendingPinPass, style: .default, handler: { _ in
-//            self.changeWalletSpendingSecurityCode(walletID: walletID)
-//        }))
-        
         walletMenu.addAction(UIAlertAction(title: LocalizedStrings.signMessage, style: .default, handler: { _ in
             
         }))
@@ -201,47 +188,6 @@ extension WalletsViewController: WalletInfoTableViewCellDelegate {
 
 // extension to handle wallet menu options.
 extension WalletsViewController {
-    func showRemoveWalletWarning(callback: @escaping (Bool) -> Void) {
-        SimpleOkCancelDialog.show(sender: self,
-                                  title: LocalizedStrings.removeWalletConfirmation,
-                                  message: LocalizedStrings.removeWalletWarning,
-                                  callback: callback)
-    }
-    
-    func removeWalletFromDevice(walletID: Int) {
-        Security.spending(initialSecurityType: SpendingPinOrPassword.securityType(for: walletID))
-            .with(prompt: LocalizedStrings.confirmToRemove)
-            .with(submitBtnText: LocalizedStrings.remove)
-            .requestCurrentCode(sender: self) { currentCode, _, dialogDelegate in
-                
-                DispatchQueue.global(qos: .userInitiated).async {
-                    do {
-                        try WalletLoader.shared.multiWallet.delete(walletID, privPass: currentCode.utf8Bits)
-                        DispatchQueue.main.async {
-                            dialogDelegate?.dismissDialog()
-                            self.loadWallets() // check if user just removed the last wallet on the app
-                            Utils.showBanner(parentVC: self, type: .success, text: LocalizedStrings.walletRemoved)
-                        }
-                    } catch let error {
-                        DispatchQueue.main.async {
-                            if error.isInvalidPassphraseError {
-                                dialogDelegate?.displayError(errorMessage: SpendingPinOrPassword.invalidSecurityCodeMessage(for: walletID))
-                            } else {
-                                dialogDelegate?.displayError(errorMessage: error.localizedDescription)
-                            }
-                        }
-                    }
-                }
-        }
-    }
-    
-    func changeWalletSpendingSecurityCode(walletID: Int) {
-        SpendingPinOrPassword.change(sender: self, walletID: walletID) {
-            self.loadWallets()
-            Utils.showBanner(parentVC: self, type: .success, text: LocalizedStrings.spendingPinPassChanged)
-        }
-    }
-    
     func renameWallet(walletID: Int) {
         SimpleTextInputDialog.show(sender: self,
                                    title: LocalizedStrings.renameWallet,
@@ -260,7 +206,12 @@ extension WalletsViewController {
     }
     
     func goToWalletSettingsPage(walletID: Int) {
+        guard let wallet = WalletLoader.shared.multiWallet.wallet(withID: walletID) else {
+            return
+        }
+        
         let walletSettingsVC = WalletSettingsViewController.instantiate(from: .Wallets)
+        walletSettingsVC.wallet = wallet
         self.navigationController?.pushViewController(walletSettingsVC, animated: true)
     }
 }
