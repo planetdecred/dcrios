@@ -34,11 +34,11 @@ class WalletSettings {
     
     /** Computed properties to access commonly used settings. */
     var useFingerprint: Bool {
-        return Settings.readBoolValue(for: DcrlibwalletUseFingerprintConfigKey)
+        return self.readBoolValue(for: DcrlibwalletUseFingerprintConfigKey)
     }
     
     var txNotificationAlert: NotificationAlert {
-        let selectedOption: String = Settings.readStringValue(for: DcrlibwalletIncomingTxNotificationsConfigKey)
+        let selectedOption: String = self.readStringValue(for: DcrlibwalletIncomingTxNotificationsConfigKey)
         return NotificationAlert(rawValue: selectedOption) ?? .none
     }
 }
