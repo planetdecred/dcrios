@@ -278,33 +278,39 @@ struct LocalizedStrings {
     static let confirmToCreateNewWallet = NSLocalizedString("confirmToCreateNewWallet", comment: "")
     static let confirmToImportWallet = NSLocalizedString("confirmToImportWallet", comment: "")
     
-    /* Wallets -> Remove wallet */
-    static let removeFromDevice = NSLocalizedString("removeFromDevice", comment: "")
-    static let removeWalletConfirmation = NSLocalizedString("removeWalletConfirmation", comment: "")
-    static let removeWalletWarning = NSLocalizedString("removeWalletWarning", comment: "")
-    static let confirmToRemove = NSLocalizedString("confirmToRemove", comment: "")
-    static let walletRemoved = NSLocalizedString("walletRemoved", comment: "")
-
-    /* Wallets -> Change Spending PIN/Password */
-    static let changeSpendingPinPass = NSLocalizedString("changeSpendingPinPass", comment: "")
-    static let confirmToChange = NSLocalizedString("confirmToChange", comment: "")
-    static let spendingPinPassChanged = NSLocalizedString("spendingPinPassChanged", comment: "")
-    
     /* Wallets -> Sign message */
     static let signMessage = NSLocalizedString("signMessage", comment: "")
     
     /* Wallets -> Verify message */
     static let verifyMessage = NSLocalizedString("verifyMessage", comment: "")
     
+    /* Wallets -> View property */
+    static let viewProperty = NSLocalizedString("viewProperty", comment: "")
+    
     /* Wallets -> Rename wallet */
     static let rename = NSLocalizedString("rename", comment: "")
     static let renameWallet = NSLocalizedString("renameWallet", comment: "")
     static let walletName = NSLocalizedString("walletName", comment: "")
     static let walletRenamed = NSLocalizedString("walletRenamed", comment: "")
+    
+    /* Wallet Settings -> Change Spending PIN/Password */
+    static let changeSpendingPinPass = NSLocalizedString("changeSpendingPinPass", comment: "")
+    static let confirmToChange = NSLocalizedString("confirmToChange", comment: "")
+    static let spendingPinPassChanged = NSLocalizedString("spendingPinPassChanged", comment: "")
+    
+    /* Wallet Settings -> Notifications */
+    static let incomingTransactions = NSLocalizedString("incomingTransactions", comment: "")
+    static let silent = NSLocalizedString("silent", comment: "")
+    static let vibrationOnly = NSLocalizedString("vibrationOnly", comment: "")
+    static let soundOnly = NSLocalizedString("soundOnly", comment: "")
+    static let soundAndVibration = NSLocalizedString("soundAndVibration", comment: "")
 
-    /* Wallets -> View property */
-    static let viewProperty = NSLocalizedString("viewProperty", comment: "")
-
+    /* Wallet Settings -> Remove wallet */
+    static let removeWalletFromDevice = NSLocalizedString("removeWalletFromDevice", comment: "")
+    static let removeWalletWarning = NSLocalizedString("removeWalletWarning", comment: "")
+    static let confirmToRemove = NSLocalizedString("confirmToRemove", comment: "")
+    static let walletRemoved = NSLocalizedString("walletRemoved", comment: "")
+    
     /* Account View */
     static let hidden = NSLocalizedString("hidden", comment: "")
     static let spendable = NSLocalizedString("spendable", comment: "")

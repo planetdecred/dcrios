@@ -40,6 +40,24 @@ class WalletSettingsViewController: UIViewController {
     }
     
     @IBAction func changeIncomingTransactionsNotificationsSetting(_ sender: Any) {
+        let notificationAlertOptions = NotificationAlert.allCases.map({ $0.localizedString })
+        let currentOption = self.walletSettings.txNotificationAlert.localizedString
+        
+        CheckableListDialogViewController.show(sender: self,
+                                               title: LocalizedStrings.incomingTransactions,
+                                               options: notificationAlertOptions,
+                                               selectedOption: currentOption,
+                                               callback: self.updatetxNotificationAlertSetting)
+    }
+    
+    func updatetxNotificationAlertSetting(_ newOption: String?) {
+        guard let selectedOption = newOption,
+            let newSetting = NotificationAlert.allCases.first(where: { $0.localizedString == selectedOption }) else {
+                return
+        }
+        
+        self.walletSettings.setStringValue(newSetting.rawValue, for: DcrlibwalletIncomingTxNotificationsConfigKey)
+        self.incomingTxAlertButton.setTitle(newSetting.localizedString, for: .normal)
     }
     
     @IBAction func removeWalletFromDevice(_ sender: Any) {
@@ -56,10 +74,7 @@ class WalletSettingsViewController: UIViewController {
                             try WalletLoader.shared.multiWallet.delete(self.wallet.id_, privPass: spendingCode.utf8Bits)
                             DispatchQueue.main.async {
                                 dialogDelegate?.dismissDialog()
-                                Utils.showBanner(parentVC: self, type: .success, text: LocalizedStrings.walletRemoved)
-                                
-                                // todo clear wallet settings
-                                self.restartAppIfLastWalletDeleted()
+                                self.walletDeleted()
                             }
                         } catch let error {
                             DispatchQueue.main.async {
@@ -77,16 +92,23 @@ class WalletSettingsViewController: UIViewController {
     
     func showRemoveWalletWarning(callback: @escaping (Bool) -> Void) {
         SimpleOkCancelDialog.show(sender: self,
-                                  title: LocalizedStrings.removeWalletConfirmation,
+                                  title: LocalizedStrings.removeWalletFromDevice,
                                   message: LocalizedStrings.removeWalletWarning,
-                                  callback: self.removeWalletFromDevice)
+                                  callback: callback)
     }
     
-    func restartAppIfLastWalletDeleted() {
+    func walletDeleted() {
+        Utils.showBanner(parentVC: self, type: .success, text: LocalizedStrings.walletRemoved)
+        
+        // todo clear wallet settings
+        
         if WalletLoader.shared.multiWallet.openedWalletsCount() == 0 {
             Settings.clear()
+            WalletLoader.shared.multiWallet.shutdown()
             let startScreen = Storyboard.Main.initialViewController()
             AppDelegate.shared.setAndDisplayRootViewController(startScreen!)
+        } else {
+            self.dismissView()
         }
     }
 }

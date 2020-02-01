@@ -25,10 +25,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OTz-zL-ye2">
-                                <rect key="frame" x="0.0" y="682.5" width="414" height="213.5"/>
+                                <rect key="frame" x="0.0" y="684.5" width="414" height="211.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rename wallet" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sjt-85-hFY">
-                                        <rect key="frame" x="24" y="24" width="366" height="25.5"/>
+                                        <rect key="frame" x="24" y="24" width="366" height="23.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="20"/>
                                         <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -37,7 +37,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ylK-Qf-Xvq" customClass="FloatingPlaceholderTextField" customModule="Decred_Wallet" customModuleProvider="target">
-                                        <rect key="frame" x="24" y="73.5" width="366" height="48"/>
+                                        <rect key="frame" x="24" y="71.5" width="366" height="48"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="dXt-3n-nbc"/>
                                         </constraints>
@@ -45,13 +45,13 @@
                                         <textInputTraits key="textInputTraits" textContentType="password"/>
                                     </textField>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name is reserved." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jtQ-yz-NH0">
-                                        <rect key="frame" x="40" y="125.5" width="334" height="15.5"/>
+                                        <rect key="frame" x="40" y="123.5" width="334" height="14"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="12"/>
                                         <color key="textColor" red="0.92941176469999998" green="0.42745098040000001" blue="0.2784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bIU-cW-IVU">
-                                        <rect key="frame" x="24" y="149.5" width="366" height="40"/>
+                                        <rect key="frame" x="24" y="147.5" width="366" height="40"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="As3-fJ-RPc">
                                                 <rect key="frame" x="199" y="0.0" width="79" height="40"/>
@@ -59,7 +59,9 @@
                                                     <constraint firstAttribute="width" constant="79" id="Bxs-ka-H7H"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
-                                                <state key="normal" title="Cancel"/>
+                                                <state key="normal" title="Cancel">
+                                                    <color key="titleColor" red="0.16078431369999999" green="0.43921568630000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
                                                 <connections>
                                                     <action selector="cancelButtonTapped:" destination="lI7-ED-syP" eventType="touchUpInside" id="BQQ-tS-nqJ"/>
                                                 </connections>
@@ -159,10 +161,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PES-gD-iwp" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
-                                <rect key="frame" x="40" y="372" width="334" height="162"/>
+                                <rect key="frame" x="40" y="374.5" width="334" height="157"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remove wallet from device?" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DmN-2k-s0e">
-                                        <rect key="frame" x="24" y="20" width="286" height="25.5"/>
+                                        <rect key="frame" x="24" y="20" width="286" height="23.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="20"/>
                                         <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -171,7 +173,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Make sure to have the seed phrase backed up before removing the wallet." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2vZ-fQ-jXH">
-                                        <rect key="frame" x="24" y="57.5" width="286" height="40.5"/>
+                                        <rect key="frame" x="24" y="55.5" width="286" height="37.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                         <color key="textColor" red="0.23921568627450979" green="0.34509803921568627" blue="0.45098039215686275" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -180,18 +182,20 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="awL-a2-8ba">
-                                        <rect key="frame" x="151" y="114" width="79" height="40"/>
+                                        <rect key="frame" x="148" y="109" width="79" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="79" id="d1a-d2-FwU"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
-                                        <state key="normal" title="Cancel"/>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleColor" red="0.16078431369999999" green="0.43921568630000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
                                         <connections>
                                             <action selector="cancelButtonTapped:" destination="LZB-Of-VZX" eventType="touchUpInside" id="cG1-1T-Bf1"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bso-LG-2oW" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
-                                        <rect key="frame" x="238" y="114" width="88" height="40"/>
+                                        <rect key="frame" x="235" y="109" width="91" height="40"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="DY3-ip-ejk"/>
@@ -260,6 +264,118 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cwN-Fn-fif" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1043" y="-729"/>
+        </scene>
+        <!--Checkable List Dialog View Controller-->
+        <scene sceneID="0eQ-Xh-X5G">
+            <objects>
+                <viewController storyboardIdentifier="CheckableListDialogViewController" id="1C2-Ut-oCm" customClass="CheckableListDialogViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2ZD-Ch-Wwe">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JnU-Wj-3OK" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
+                                <rect key="frame" x="40" y="347.5" width="334" height="211.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Incoming transactions" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Lw-6t-u7h">
+                                        <rect key="frame" x="24" y="20" width="286" height="23.5"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="20"/>
+                                        <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="enterPIN"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tdL-B1-oIO">
+                                        <rect key="frame" x="0.0" y="55.5" width="334" height="100"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="100" id="Mgh-sQ-tVk"/>
+                                        </constraints>
+                                    </tableView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N6d-DK-8BP">
+                                        <rect key="frame" x="159" y="163.5" width="79" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="79" id="040-Mu-D1E"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleColor" red="0.16078431372549018" green="0.4392156862745098" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="cancelButtonTapped:" destination="1C2-Ut-oCm" eventType="touchUpInside" id="tAE-LB-RmH"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ycs-gD-CQg" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
+                                        <rect key="frame" x="246" y="163.5" width="80" height="40"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="8yz-wZ-sgh"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="aoQ-pS-qLl"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
+                                        <inset key="contentEdgeInsets" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
+                                        <state key="normal" title="Ok">
+                                            <color key="titleColor" red="0.16078431372549018" green="0.4392156862745098" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="disabledBackgroundColor">
+                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="7"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="enabledBackgroundColor">
+                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="okButtonTapped:" destination="1C2-Ut-oCm" eventType="touchUpInside" id="hGe-eG-IJp"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="tdL-B1-oIO" firstAttribute="leading" secondItem="JnU-Wj-3OK" secondAttribute="leading" id="17Z-8D-dhf"/>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="500" id="J44-oo-1jR"/>
+                                    <constraint firstAttribute="trailing" secondItem="tdL-B1-oIO" secondAttribute="trailing" id="QKC-ZW-daw"/>
+                                    <constraint firstItem="Ycs-gD-CQg" firstAttribute="top" secondItem="tdL-B1-oIO" secondAttribute="bottom" constant="8" id="Sgh-OX-jZo"/>
+                                    <constraint firstItem="tdL-B1-oIO" firstAttribute="top" secondItem="0Lw-6t-u7h" secondAttribute="bottom" constant="12" id="TW0-BP-6qi"/>
+                                    <constraint firstItem="0Lw-6t-u7h" firstAttribute="top" secondItem="JnU-Wj-3OK" secondAttribute="top" constant="20" id="VSQ-ew-GIj"/>
+                                    <constraint firstItem="0Lw-6t-u7h" firstAttribute="leading" secondItem="JnU-Wj-3OK" secondAttribute="leading" constant="24" id="dRY-mv-Eva"/>
+                                    <constraint firstAttribute="trailing" secondItem="0Lw-6t-u7h" secondAttribute="trailing" constant="24" id="g0q-6x-3Jc"/>
+                                    <constraint firstItem="N6d-DK-8BP" firstAttribute="height" secondItem="Ycs-gD-CQg" secondAttribute="height" id="hnc-WG-Tam"/>
+                                    <constraint firstItem="Ycs-gD-CQg" firstAttribute="leading" secondItem="N6d-DK-8BP" secondAttribute="trailing" constant="8" id="mIZ-QI-kpc"/>
+                                    <constraint firstAttribute="bottom" secondItem="Ycs-gD-CQg" secondAttribute="bottom" constant="8" id="s0n-hr-3ai"/>
+                                    <constraint firstItem="N6d-DK-8BP" firstAttribute="centerY" secondItem="Ycs-gD-CQg" secondAttribute="centerY" id="vas-iT-3AV"/>
+                                    <constraint firstAttribute="trailing" secondItem="Ycs-gD-CQg" secondAttribute="trailing" constant="8" id="wOY-sO-Ufd"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderRadius">
+                                        <real key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="JnU-Wj-3OK" firstAttribute="centerY" secondItem="lB8-Cb-IQc" secondAttribute="centerY" id="9bV-MT-Q3K"/>
+                            <constraint firstItem="lB8-Cb-IQc" firstAttribute="trailing" secondItem="JnU-Wj-3OK" secondAttribute="trailing" constant="40" id="BfB-8l-mNm"/>
+                            <constraint firstItem="JnU-Wj-3OK" firstAttribute="centerX" secondItem="lB8-Cb-IQc" secondAttribute="centerX" id="Kae-G6-jaI"/>
+                            <constraint firstItem="JnU-Wj-3OK" firstAttribute="leading" secondItem="lB8-Cb-IQc" secondAttribute="leading" constant="40" id="NHV-Ap-0vq"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="lB8-Cb-IQc"/>
+                    </view>
+                    <connections>
+                        <outlet property="cancelButton" destination="N6d-DK-8BP" id="WId-3g-zM6"/>
+                        <outlet property="okButton" destination="Ycs-gD-CQg" id="1GT-vL-3fQ"/>
+                        <outlet property="optionsTableView" destination="tdL-B1-oIO" id="73H-sz-H5y"/>
+                        <outlet property="optionsTableViewHeightConstraint" destination="Mgh-sQ-tVk" id="I9c-zV-Af3"/>
+                        <outlet property="titleLabel" destination="0Lw-6t-u7h" id="EC0-gs-eUt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XfN-GI-C9i" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1905.7971014492755" y="-729.24107142857144"/>
         </scene>
     </scenes>
 </document>

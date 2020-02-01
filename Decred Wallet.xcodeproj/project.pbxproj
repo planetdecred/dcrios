@@ -44,6 +44,7 @@
 		B3A3EF88229375D100008A4E /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A3EF87229375D100008A4E /* Date.swift */; };
 		B3A3EF8B22937B8800008A4E /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A3EF8A22937B8800008A4E /* Settings.swift */; };
 		B3A3EF922295956300008A4E /* SendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A3EF912295956300008A4E /* SendViewController.swift */; };
+		B3A8E80A23E593720094957B /* CheckableListOptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3A8E80923E593720094957B /* CheckableListOptionTableViewCell.xib */; };
 		B3B46993228F0C2E00A68EDD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46992228F0C2E00A68EDD /* AppDelegate.swift */; };
 		B3B4699A228F0C2E00A68EDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3B46999228F0C2E00A68EDD /* Assets.xcassets */; };
 		B3B4699D228F0C2E00A68EDD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3B4699B228F0C2E00A68EDD /* LaunchScreen.storyboard */; };
@@ -131,6 +132,8 @@
 		B3C0D4B623E0FBA5002D984F /* SimpleOkCancelDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C0D4B523E0FBA5002D984F /* SimpleOkCancelDialog.swift */; };
 		B3D21C9F2296E4F000609F23 /* ExchangeRates.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D21C9E2296E4F000609F23 /* ExchangeRates.swift */; };
 		B3D474DF23E55B5D00B6E305 /* WalletSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D474DE23E55B5D00B6E305 /* WalletSettings.swift */; };
+		B3D474E223E56CFD00B6E305 /* CheckableListDialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D474E123E56CFD00B6E305 /* CheckableListDialogViewController.swift */; };
+		B3D474E423E57DA200B6E305 /* CheckableListOptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D474E323E57DA200B6E305 /* CheckableListOptionTableViewCell.swift */; };
 		B3E727C423DD4A5F003B06B4 /* WalletInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3E727C323DD4A5F003B06B4 /* WalletInfoTableViewCell.xib */; };
 		B3E727C623DD4ABF003B06B4 /* WalletAccountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3E727C523DD4ABF003B06B4 /* WalletAccountTableViewCell.xib */; };
 		B3E727C823DD4AD7003B06B4 /* WalletInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E727C723DD4AD7003B06B4 /* WalletInfoTableViewCell.swift */; };
@@ -197,6 +200,7 @@
 		B3A3EF87229375D100008A4E /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		B3A3EF8A22937B8800008A4E /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Settings.swift; path = ../../Utils/Settings.swift; sourceTree = "<group>"; };
 		B3A3EF912295956300008A4E /* SendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendViewController.swift; sourceTree = "<group>"; };
+		B3A8E80923E593720094957B /* CheckableListOptionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CheckableListOptionTableViewCell.xib; sourceTree = "<group>"; };
 		B3B4698F228F0C2D00A68EDD /* Decred Wallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Decred Wallet.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3B46992228F0C2E00A68EDD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3B46999228F0C2E00A68EDD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -286,6 +290,8 @@
 		B3C0D4B523E0FBA5002D984F /* SimpleOkCancelDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleOkCancelDialog.swift; sourceTree = "<group>"; };
 		B3D21C9E2296E4F000609F23 /* ExchangeRates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRates.swift; sourceTree = "<group>"; };
 		B3D474DE23E55B5D00B6E305 /* WalletSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSettings.swift; sourceTree = "<group>"; };
+		B3D474E123E56CFD00B6E305 /* CheckableListDialogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckableListDialogViewController.swift; sourceTree = "<group>"; };
+		B3D474E323E57DA200B6E305 /* CheckableListOptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckableListOptionTableViewCell.swift; sourceTree = "<group>"; };
 		B3E727C323DD4A5F003B06B4 /* WalletInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletInfoTableViewCell.xib; sourceTree = "<group>"; };
 		B3E727C523DD4ABF003B06B4 /* WalletAccountTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletAccountTableViewCell.xib; sourceTree = "<group>"; };
 		B3E727C723DD4AD7003B06B4 /* WalletInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletInfoTableViewCell.swift; sourceTree = "<group>"; };
@@ -755,8 +761,19 @@
 				B3C0D4B123E0DB56002D984F /* CustomDialogs.storyboard */,
 				B3C0D4B323E0DBF6002D984F /* SimpleTextInputDialog.swift */,
 				B3C0D4B523E0FBA5002D984F /* SimpleOkCancelDialog.swift */,
+				B3D474E023E56CD900B6E305 /* CheckableListDialog */,
 			);
 			path = "Custom Dialogs";
+			sourceTree = "<group>";
+		};
+		B3D474E023E56CD900B6E305 /* CheckableListDialog */ = {
+			isa = PBXGroup;
+			children = (
+				B3D474E123E56CFD00B6E305 /* CheckableListDialogViewController.swift */,
+				B3D474E323E57DA200B6E305 /* CheckableListOptionTableViewCell.swift */,
+				B3A8E80923E593720094957B /* CheckableListOptionTableViewCell.xib */,
+			);
+			path = CheckableListDialog;
 			sourceTree = "<group>";
 		};
 		DDAD5023229F714600EDF91B /* Settings */ = {
@@ -883,6 +900,7 @@
 				B3B46A42228F0F6700A68EDD /* progress bar-1s-200px.gif in Resources */,
 				B3B46A0E228F0F2700A68EDD /* wordlist.txt in Resources */,
 				B3E727C623DD4ABF003B06B4 /* WalletAccountTableViewCell.xib in Resources */,
+				B3A8E80A23E593720094957B /* CheckableListOptionTableViewCell.xib in Resources */,
 				DD75148A22BA67B10070E4F6 /* TransactionHistoryViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -961,6 +979,7 @@
 				B3B46AA0228F0F7D00A68EDD /* SendCompletedViewController.swift in Sources */,
 				B3B46A20228F0F2700A68EDD /* PinPasswordStrength.swift in Sources */,
 				2557E18B2355C9F000B6A1B7 /* CustomTabMenuView.swift in Sources */,
+				B3D474E423E57DA200B6E305 /* CheckableListOptionTableViewCell.swift in Sources */,
 				B3B46A24228F0F2700A68EDD /* TransactionTableViewCell.swift in Sources */,
 				B3D21C9F2296E4F000609F23 /* ExchangeRates.swift in Sources */,
 				B3B46A86228F0F7D00A68EDD /* DropMenuButton.swift in Sources */,
@@ -997,6 +1016,7 @@
 				B3E727CC23DD506E003B06B4 /* WalletsViewController.swift in Sources */,
 				B3B46A9B228F0F7D00A68EDD /* PeerSetTableViewController.swift in Sources */,
 				B3B46A89228F0F7D00A68EDD /* keyPadButton.swift in Sources */,
+				B3D474E223E56CFD00B6E305 /* CheckableListDialogViewController.swift in Sources */,
 				10BA77992390059F00B67446 /* TabMenuItemView.swift in Sources */,
 				B3B46AB3228F0F7D00A68EDD /* ConfirmSeedViewCell.swift in Sources */,
 				B3B46A88228F0F7D00A68EDD /* UIIMage.swift in Sources */,

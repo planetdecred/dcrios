@@ -101,6 +101,15 @@ class OverviewViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = true
         self.refreshRecentActivityAndUpdateBalance()
         self.checkWhetherToPromptForSeedBackup()
+        
+        if !WalletLoader.shared.multiWallet.isSyncing() {
+            self.refreshLatestBlockInfoPeriodically()
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        // stop refreshing best block age when view becomes invisible
+        self.refreshBestBlockAgeTimer?.invalidate()
     }
     
     func initializeViews() {
@@ -515,10 +524,7 @@ extension OverviewViewController: DcrlibwalletSyncProgressListenerProtocol {
     }
     
     func refreshLatestBlockInfoPeriodically() {
-        if self.refreshBestBlockAgeTimer != nil {
-            self.refreshBestBlockAgeTimer?.invalidate()
-        }
-          
+        self.refreshBestBlockAgeTimer?.invalidate()
         self.refreshBestBlockAgeTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) {_ in
             DispatchQueue.main.async {
                 self.displayLatestBlockHeightAndAge()

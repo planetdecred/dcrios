@@ -212,20 +212,10 @@
                                                                     <action selector="changeSpendingPINPassword:" destination="zwE-sw-7Mz" eventType="touchUpInside" id="eFZ-4h-Dkv"/>
                                                                 </connections>
                                                             </button>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZbB-F5-gG7">
-                                                                <rect key="frame" x="24" y="46" width="390" height="1"/>
-                                                                <color key="backgroundColor" red="0.90196078430000004" green="0.91764705879999997" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="1" id="Fl5-Y8-T7a"/>
-                                                                </constraints>
-                                                            </view>
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="48" id="MEp-Jc-9bM"/>
-                                                            <constraint firstItem="ZbB-F5-gG7" firstAttribute="leading" secondItem="9Kw-rn-lwG" secondAttribute="leading" constant="24" id="Mez-0e-RKm"/>
-                                                            <constraint firstAttribute="trailing" secondItem="ZbB-F5-gG7" secondAttribute="trailing" id="UXu-Wb-wL0"/>
-                                                            <constraint firstAttribute="bottom" secondItem="ZbB-F5-gG7" secondAttribute="bottom" constant="1" id="stS-aO-DjL"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gbi-IJ-W5S">
@@ -358,7 +348,7 @@
                                                                     <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="removeWalletFromDevice"/>
                                                                 </userDefinedRuntimeAttributes>
                                                                 <connections>
-                                                                    <action selector="removeWalletFromDevice:" destination="zwE-sw-7Mz" eventType="touchUpInside" id="snY-Z4-7M1"/>
+                                                                    <action selector="removeWalletFromDevice:" destination="zwE-sw-7Mz" eventType="touchUpInside" id="aSu-cA-4v8"/>
                                                                 </connections>
                                                             </button>
                                                         </subviews>

@@ -9,7 +9,7 @@
 import Dcrlibwallet
 import UserNotifications
 
-enum NotificationAlert: String {
+enum NotificationAlert: String, CaseIterable {
     case none
     case silent
     case vibrationOnly
@@ -22,16 +22,16 @@ enum NotificationAlert: String {
             return LocalizedStrings.none
 
         case .silent:
-            return LocalizedStrings.none
+            return LocalizedStrings.silent
 
         case .vibrationOnly:
-            return LocalizedStrings.none
+            return LocalizedStrings.vibrationOnly
 
         case .soundOnly:
-            return LocalizedStrings.none
+            return LocalizedStrings.soundOnly
 
         case .soundAndVibration:
-            return LocalizedStrings.none
+            return LocalizedStrings.soundAndVibration
         }
     }
 }
