@@ -19,7 +19,7 @@ class SingleToMultiWalletMigration {
     // The startup passphrase will continue to be used as the app's startup passphrase.
     static func migrateExistingWallet() {
         if !PreMultiWalletSettings.readValue(for: .IsStartupSecuritySet) {
-            SingleToMultiWalletMigration.self.migrate(startupPinOrPassword: "", completion: nil)
+            SingleToMultiWalletMigration.self.migrate(startupPinOrPassword: "", dialogDelegate: nil)
             return
         }
         
@@ -47,7 +47,7 @@ class SingleToMultiWalletMigration {
     
     private static func migrate(startupPinOrPassword: String,
                                 securityType: SecurityType? = nil,
-                                completion: SecurityCodeRequestCompletionDelegate?) {
+                                dialogDelegate: InputDialogDelegate?) {
         
         var privatePassphraseType = DcrlibwalletPassphraseTypePass
         if PreMultiWalletSettings.readValue(for: .SpendingPassphraseSecurityType) == SecurityType.password.rawValue {
@@ -73,7 +73,7 @@ class SingleToMultiWalletMigration {
                 PreMultiWalletSettings.migrateUserConfig()
                 
                 DispatchQueue.main.async {
-                    completion?.securityCodeProcessed()
+                    dialogDelegate?.dismissDialog()
                     NavigationMenuTabBarController.setupMenuAndLaunchApp(isNewWallet: false)
                 }
                 
@@ -82,9 +82,9 @@ class SingleToMultiWalletMigration {
                 
                 DispatchQueue.main.async {
                     if error.isInvalidPassphraseError {
-                        completion?.securityCodeError(errorMessage: StartupPinOrPassword.invalidSecurityCodeMessage())
+                        dialogDelegate?.displayError(errorMessage: StartupPinOrPassword.invalidSecurityCodeMessage())
                     } else {
-                        completion?.securityCodeError(errorMessage: error.localizedDescription)
+                        dialogDelegate?.displayError(errorMessage: error.localizedDescription)
                     }
                 }
             }
