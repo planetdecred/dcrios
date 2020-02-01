@@ -31,16 +31,7 @@ class WalletsViewController: UIViewController {
     }
     
     func loadWallets() {
-        self.wallets = [Wallet]()
-        
-        let walletsIterator = WalletLoader.shared.multiWallet.walletsIterator()
-        while let wallet = walletsIterator!.next() {
-            self.wallets.append(Wallet.init(wallet))
-        }
-        
-        // sort by id, as dcrlibwallet may return wallets in any order
-        self.wallets.sort(by: { $0.id < $1.id })
-        
+        self.wallets = WalletLoader.shared.wallets.map({ Wallet.init($0) })
         self.walletsTableView.reloadData()
     }
     
@@ -162,17 +153,17 @@ extension WalletsViewController: WalletInfoTableViewCellDelegate {
         let walletMenu = UIAlertController(title: nil, message: prompt, preferredStyle: .actionSheet)
         
         // todo prolly hide this action if sync is ongoing as wallets cannot be removed during ongoing sync
-        walletMenu.addAction(UIAlertAction(title: LocalizedStrings.removeFromDevice, style: .destructive, handler: { _ in
-            self.showRemoveWalletWarning() { ok in
-                if ok {
-                    self.removeWalletFromDevice(walletID: walletID)
-                }
-            }
-        }))
-        
-        walletMenu.addAction(UIAlertAction(title: LocalizedStrings.changeSpendingPinPass, style: .default, handler: { _ in
-            self.changeWalletSpendingSecurityCode(walletID: walletID)
-        }))
+//        walletMenu.addAction(UIAlertAction(title: LocalizedStrings.removeFromDevice, style: .destructive, handler: { _ in
+//            self.showRemoveWalletWarning() { ok in
+//                if ok {
+//                    self.removeWalletFromDevice(walletID: walletID)
+//                }
+//            }
+//        }))
+//
+//        walletMenu.addAction(UIAlertAction(title: LocalizedStrings.changeSpendingPinPass, style: .default, handler: { _ in
+//            self.changeWalletSpendingSecurityCode(walletID: walletID)
+//        }))
         
         walletMenu.addAction(UIAlertAction(title: LocalizedStrings.signMessage, style: .default, handler: { _ in
             
@@ -182,12 +173,16 @@ extension WalletsViewController: WalletInfoTableViewCellDelegate {
             
         }))
         
+        walletMenu.addAction(UIAlertAction(title: LocalizedStrings.viewProperty, style: .default, handler: { _ in
+            
+        }))
+        
         walletMenu.addAction(UIAlertAction(title: LocalizedStrings.rename, style: .default, handler: { _ in
             self.renameWallet(walletID: walletID)
         }))
         
-        walletMenu.addAction(UIAlertAction(title: LocalizedStrings.viewProperty, style: .default, handler: { _ in
-            
+        walletMenu.addAction(UIAlertAction(title: LocalizedStrings.settings, style: .default, handler: { _ in
+            self.goToWalletSettingsPage(walletID: walletID)
         }))
         
         walletMenu.addAction(UIAlertAction(title: LocalizedStrings.cancel, style: .cancel, handler: nil))
@@ -224,7 +219,7 @@ extension WalletsViewController {
                         try WalletLoader.shared.multiWallet.delete(walletID, privPass: currentCode.utf8Bits)
                         DispatchQueue.main.async {
                             dialogDelegate?.dismissDialog()
-                            self.loadWallets()
+                            self.loadWallets() // check if user just removed the last wallet on the app
                             Utils.showBanner(parentVC: self, type: .success, text: LocalizedStrings.walletRemoved)
                         }
                     } catch let error {
@@ -262,5 +257,10 @@ extension WalletsViewController {
                 dialogDelegate?.displayError(errorMessage: error.localizedDescription)
             }
         }
+    }
+    
+    func goToWalletSettingsPage(walletID: Int) {
+        let walletSettingsVC = WalletSettingsViewController.instantiate(from: .Wallets)
+        self.navigationController?.pushViewController(walletSettingsVC, animated: true)
     }
 }

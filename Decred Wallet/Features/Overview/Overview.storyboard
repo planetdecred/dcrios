@@ -76,12 +76,11 @@
                                                 <rect key="frame" x="8" y="74" width="398" height="1065"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fxu-UZ-rsI" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="398" height="92"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="398" height="200"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_wallet_alert" translatesAutoresizingMaskIntoConstraints="NO" id="cIc-Id-dYl">
-                                                                <rect key="frame" x="16" y="16" width="24" height="24"/>
+                                                                <rect key="frame" x="16" y="27" width="24" height="24"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="width" constant="24" id="1gd-4b-KbY"/>
                                                                     <constraint firstAttribute="height" constant="24" id="7Zp-MI-tHl"/>
                                                                 </constraints>
                                                             </imageView>
@@ -105,14 +104,14 @@
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                                 <userDefinedRuntimeAttributes>
-                                                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="backupSeedPhrase"/>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="seedBackupRecommendation"/>
                                                                 </userDefinedRuntimeAttributes>
                                                             </label>
                                                             <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OZg-uu-cVv">
                                                                 <rect key="frame" x="0.0" y="124" width="398" height="1"/>
                                                                 <color key="backgroundColor" red="0.99607843137254903" green="0.72156862745098038" blue="0.6470588235294118" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="36" id="RpZ-wE-eoH"/>
+                                                                    <constraint firstAttribute="height" constant="1" id="wQ0-a4-XHt"/>
                                                                 </constraints>
                                                             </view>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Go to Wallets" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f9z-1v-sUv">
@@ -122,33 +121,28 @@
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                                 <userDefinedRuntimeAttributes>
-                                                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="backupWarningText"/>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="goToWallets"/>
                                                                 </userDefinedRuntimeAttributes>
                                                             </label>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_next" translatesAutoresizingMaskIntoConstraints="NO" id="Tqa-Fn-RRb">
-                                                                <rect key="frame" x="358" y="34" width="24" height="24"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="width" constant="24" id="4Bs-KG-4jo"/>
-                                                                    <constraint firstAttribute="height" constant="24" id="Qhy-mM-Gem"/>
-                                                                </constraints>
-                                                            </imageView>
                                                         </subviews>
                                                         <color key="backgroundColor" red="0.92941176470588238" green="0.42745098039215684" blue="0.27843137254901962" alpha="1" colorSpace="calibratedRGB"/>
                                                         <gestureRecognizers/>
                                                         <constraints>
                                                             <constraint firstItem="cIc-Id-dYl" firstAttribute="leading" secondItem="fxu-UZ-rsI" secondAttribute="leading" constant="16" id="0pC-05-Wia"/>
-                                                            <constraint firstAttribute="bottom" secondItem="cIc-Id-dYl" secondAttribute="bottom" constant="52" id="54B-4y-93W"/>
-                                                            <constraint firstItem="wEe-jI-LkD" firstAttribute="top" secondItem="fxu-UZ-rsI" secondAttribute="top" constant="40" id="8Db-Uc-gFs"/>
-                                                            <constraint firstItem="cIc-Id-dYl" firstAttribute="top" secondItem="fxu-UZ-rsI" secondAttribute="top" constant="16" id="Fxj-dK-vFr"/>
-                                                            <constraint firstItem="Tqa-Fn-RRb" firstAttribute="centerY" secondItem="fxu-UZ-rsI" secondAttribute="centerY" id="MXT-lE-DQq"/>
+                                                            <constraint firstItem="OZg-uu-cVv" firstAttribute="leading" secondItem="fxu-UZ-rsI" secondAttribute="leading" id="58R-hf-Pp8"/>
+                                                            <constraint firstAttribute="trailing" secondItem="Nj8-c4-arQ" secondAttribute="trailing" constant="16" id="5V6-Oe-9LE"/>
+                                                            <constraint firstItem="cIc-Id-dYl" firstAttribute="centerY" secondItem="bke-5i-43H" secondAttribute="centerY" id="7wg-nN-fi1"/>
+                                                            <constraint firstItem="f9z-1v-sUv" firstAttribute="centerX" secondItem="fxu-UZ-rsI" secondAttribute="centerX" id="FPQ-bP-GzH"/>
+                                                            <constraint firstAttribute="trailing" secondItem="OZg-uu-cVv" secondAttribute="trailing" id="Fev-qb-3Zo"/>
+                                                            <constraint firstItem="Nj8-c4-arQ" firstAttribute="centerY" secondItem="bke-5i-43H" secondAttribute="centerY" id="FzI-zD-Hbs"/>
                                                             <constraint firstItem="bke-5i-43H" firstAttribute="leading" secondItem="cIc-Id-dYl" secondAttribute="trailing" constant="16" id="NRb-aZ-Jks"/>
-                                                            <constraint firstAttribute="bottom" secondItem="wEe-jI-LkD" secondAttribute="bottom" constant="16" id="QpO-Ws-9Qi"/>
+                                                            <constraint firstItem="f9z-1v-sUv" firstAttribute="top" secondItem="OZg-uu-cVv" secondAttribute="bottom" constant="16" id="O4d-90-Waz"/>
+                                                            <constraint firstAttribute="bottom" secondItem="f9z-1v-sUv" secondAttribute="bottom" constant="16" id="QuX-Fp-BS5"/>
                                                             <constraint firstItem="wEe-jI-LkD" firstAttribute="leading" secondItem="fxu-UZ-rsI" secondAttribute="leading" constant="56" id="S17-cZ-zBO"/>
                                                             <constraint firstItem="bke-5i-43H" firstAttribute="top" secondItem="fxu-UZ-rsI" secondAttribute="top" constant="16" id="d73-Yx-RUP"/>
-                                                            <constraint firstAttribute="trailing" secondItem="Tqa-Fn-RRb" secondAttribute="trailing" constant="16" id="lDM-5Q-SMq"/>
-                                                            <constraint firstAttribute="height" constant="92" id="lz1-SN-IRx"/>
-                                                            <constraint firstAttribute="bottom" secondItem="bke-5i-43H" secondAttribute="bottom" constant="60" id="nfG-RJ-zYe"/>
-                                                            <constraint firstAttribute="trailing" secondItem="wEe-jI-LkD" secondAttribute="trailing" constant="56" id="yum-J8-rrr"/>
+                                                            <constraint firstItem="wEe-jI-LkD" firstAttribute="top" secondItem="bke-5i-43H" secondAttribute="bottom" constant="16" id="mcd-AG-kkf"/>
+                                                            <constraint firstItem="OZg-uu-cVv" firstAttribute="top" secondItem="wEe-jI-LkD" secondAttribute="bottom" constant="16" id="pZg-53-SA6"/>
+                                                            <constraint firstAttribute="trailing" secondItem="wEe-jI-LkD" secondAttribute="trailing" constant="16" id="yum-J8-rrr"/>
                                                         </constraints>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="borderRadius">
@@ -175,7 +169,7 @@
                                                         </connections>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HAm-xE-ejA" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="100" width="398" height="164"/>
+                                                        <rect key="frame" x="0.0" y="208" width="398" height="164"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="pbi-z3-cy7">
                                                                 <rect key="frame" x="0.0" y="0.0" width="398" height="164"/>
@@ -836,6 +830,7 @@
                         <outlet property="totalSyncETALabel" destination="zPw-bn-xfO" id="CnF-bN-fbs"/>
                         <outlet property="totalSyncProgressPercentageLabel" destination="MMS-7F-caT" id="OMT-K1-dvJ"/>
                         <outlet property="totalSyncProgressView" destination="4ot-bj-xT3" id="0Yv-6w-2tV"/>
+                        <outlet property="walletsNeedBackupLabel" destination="bke-5i-43H" id="bzB-Y7-0Cy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SDu-jM-obu" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -852,7 +847,6 @@
         <image name="ic_close_light" width="24" height="24"/>
         <image name="ic_crossmark" width="24" height="24"/>
         <image name="ic_decred" width="24" height="24"/>
-        <image name="ic_next" width="24" height="24"/>
         <image name="ic_rescan" width="16" height="16"/>
         <image name="ic_wallet_alert" width="24" height="24"/>
     </resources>
