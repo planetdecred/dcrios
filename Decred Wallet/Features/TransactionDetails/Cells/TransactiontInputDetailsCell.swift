@@ -51,9 +51,9 @@ class TransactiontInputDetailsCell: UITableViewCell {
     }
 
     private func addSubrow(with amount: String, title: String, subTitle: String) {
-        let subrow = UIView(frame: CGRect(x:0.0, y:0.0, width: self.debitsStack.frame.size.width, height:78.0))
-        let backgroundView = UIView(frame: CGRect(x:0.0, y:0.0, width: self.debitsStack.frame.size.width, height:70.0))
-        let amountLabel = UILabel(frame: CGRect(x:16.0, y:16.0, width: self.debitsStack.frame.size.width - 32, height: 22.0))
+        let subrow = UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.debitsStack.frame.size.width, height: 78.0))
+        let backgroundView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.debitsStack.frame.size.width, height: 70.0))
+        let amountLabel = UILabel(frame: CGRect(x: 16.0, y: 16.0, width: self.debitsStack.frame.size.width - 32, height: 22.0))
         let subTitleLabel = UIButton(frame: CGRect(x: 16.0, y: 36, width: self.debitsStack.frame.size.width - 32, height: 22.0))
 
         backgroundView.backgroundColor = UIColor.appColors.offWhite
@@ -78,7 +78,7 @@ class TransactiontInputDetailsCell: UITableViewCell {
         self.debitsStack.addArrangedSubview(subrow)
     }
 
-    @objc func buttonClicked(sender : UIButton) {
+    @objc func buttonClicked(sender: UIButton) {
         DispatchQueue.main.async {
             //Copy a string to the pasteboard.
             UIPasteboard.general.string = sender.titleLabel?.text

@@ -199,6 +199,7 @@ struct LocalizedStrings {
     static let copyRawTransaction = NSLocalizedString("copyRawTransaction", comment: "")
     static let viewOnDcrdata = NSLocalizedString("viewOnDcrdata", comment: "")
     static let copied = NSLocalizedString("copied", comment: "")
+    static let sgCopied = NSLocalizedString("sgCopied", comment: "")
     static let ticketPurchase = NSLocalizedString("ticketPurchase", comment: "")
     static let date = NSLocalizedString("date", comment: "")
     static let status = NSLocalizedString("status", comment: "")

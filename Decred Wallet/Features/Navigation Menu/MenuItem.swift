@@ -13,7 +13,7 @@ enum MenuItem: String, CaseIterable {
     case transactions = "Transactions"
     case wallets = "Wallets"
     case more = "More"
-    
+
     var viewController: UIViewController {
         switch self {
         case .overview:
@@ -29,7 +29,7 @@ enum MenuItem: String, CaseIterable {
             return SettingsController.instantiate(from: .Settings)
         }
     }
-    
+
     var icon: UIImage? {
         switch self {
         case .overview:

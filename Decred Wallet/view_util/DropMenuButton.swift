@@ -2,7 +2,7 @@
 //  DropMenuButton.swift
 //  Decred Wallet
 //
-// Copyright (c) 2018-2019 The Decred developers
+// Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -23,7 +23,7 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
     
     var superSuperView = UIView()
     var containerView = UIView()
-    var minTableWidth:CGFloat = 0
+    var minTableWidth: CGFloat = 0
     
     var isDropDownOpen: Bool {
         return self.containerView.alpha == 1

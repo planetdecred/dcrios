@@ -33,13 +33,13 @@ class TransactionTableViewCell: UITableViewCell {
                 confirmations = WalletLoader.shared.firstWallet!.getBestBlock() - Int32(transaction.blockHeight) + 1
             }
 
-            let Date2 = NSDate.init(timeIntervalSince1970: TimeInterval(transaction.timestamp) )
+            let txDate = NSDate.init(timeIntervalSince1970: TimeInterval(transaction.timestamp))
             let dateformater = DateFormatter()
             dateformater.locale = Locale(identifier: "en_US_POSIX")
             dateformater.dateFormat = "MMM dd"
-            dateformater.string(from: Date2 as Date)
-            let ageInDays = (Date2 as Date).daysFromNow
-            var dateString = dateformater.string(from: Date2 as Date)
+            dateformater.string(from: txDate as Date)
+            let ageInDays = (txDate as Date).daysFromNow
+            var dateString = dateformater.string(from: txDate as Date)
 
             if ageInDays == 0 {
                 dateString = LocalizedStrings.today

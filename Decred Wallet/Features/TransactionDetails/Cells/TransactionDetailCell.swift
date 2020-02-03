@@ -31,7 +31,7 @@ class TransactionDetailCell: UITableViewCell {
             DispatchQueue.main.async {
                 //Copy a string to the pasteboard.
                 UIPasteboard.general.string = txn.value.string
-                Utils.showBanner(parentVC: presentingController, type: .success, text: LocalizedStrings.copied)
+                Utils.showBanner(parentVC: presentingController, type: .success, text: String(format: LocalizedStrings.sgCopied, txn.title))
             }
         }
     }

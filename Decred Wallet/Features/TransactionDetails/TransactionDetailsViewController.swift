@@ -39,7 +39,8 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
 
     override func viewWillAppear(_ animated: Bool) {
         transactionDetailsTable.maxHeight = self.view.frame.size.height - self.view.frame.origin.y
-            - self.headerView.frame.size.height - self.showOrHideDetailsBtn.frame.size.height - (UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0)
+            - self.headerView.frame.size.height - self.showOrHideDetailsBtn.frame.size.height
+            - (UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0)
 
         if self.transaction == nil && self.transactionHash != nil {
             let txHash = Data(fromHexEncodedString: self.transactionHash!)!
@@ -65,7 +66,7 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
         if self.transaction.blockHeight != -1 {
             confirmations = WalletLoader.shared.firstWallet!.getBestBlock() - Int32(self.transaction.blockHeight) + 1
         }
-        
+
         if Settings.spendUnconfirmed || confirmations > 1 {
             self.statusLabel.text = LocalizedStrings.confirmed
             self.statusLabel.textColor = UIColor.appColors.green
@@ -236,7 +237,7 @@ extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDe
     func numberOfSections(in tableView: UITableView) -> Int {
         return 4
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return section == 0 ? self.generalTxDetails.count : 1
     }

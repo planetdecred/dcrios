@@ -2,7 +2,7 @@
 //  Label.swift
 //  Decred Wallet
 //
-// Copyright (c) 2019 The Decred developers
+// Copyright (c) 2019-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -35,7 +35,7 @@ class Label: UILabel {
 
     @IBInspectable var borderColor: UIColor = UIColor.appColors.lightBlue {
         didSet {
-            self.setNeedsDisplay()
+             setupView()
         }
     }
 
@@ -68,7 +68,7 @@ class Label: UILabel {
         layer.masksToBounds = true
         self.setNeedsDisplay()
     }
-    
+
     public override func drawText(in rect: CGRect) {
         let insets = UIEdgeInsets.init(top: topPadding, left: leftPadding, bottom: bottomPadding, right: rightPadding)
         super.drawText(in: rect.inset(by: insets))

@@ -218,10 +218,10 @@ struct Utils {
         let attrString = NSMutableAttributedString(string: inString, attributes: nil)
         if let `defaultStyle` = defaultStyle {
             if let color = defaultStyle.color {
-                attrString.addAttribute(NSAttributedString.Key.foregroundColor, value: color, range:  NSMakeRange(0, inString.count))
+                attrString.addAttribute(NSAttributedString.Key.foregroundColor, value: color, range: NSMakeRange(0, inString.count))
             }
             if let font = defaultStyle.font {
-                attrString.addAttribute(NSAttributedString.Key.font, value: font, range:  NSMakeRange(0, inString.count))
+                attrString.addAttribute(NSAttributedString.Key.font, value: font, range: NSMakeRange(0, inString.count))
             }
         }
         for style in styles {

@@ -122,25 +122,28 @@
                                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactionDetailCell" id="kR5-92-x4b" customClass="TransactionDetailCell" customModule="Decred_Wallet" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="28" width="375" height="51"/>
+                                                        <rect key="frame" x="0.0" y="28" width="375" height="38"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kR5-92-x4b" id="uqH-st-ioR">
-                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="51"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="38"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="cuK-2M-WpJ">
-                                                                    <rect key="frame" x="16" y="9" width="343" height="33"/>
+                                                                    <rect key="frame" x="16" y="10" width="343" height="18"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cpj-bh-TIm">
-                                                                            <rect key="frame" x="0.0" y="7.5" width="135" height="18"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="135" height="18"/>
                                                                             <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                                                             <color key="textColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6PO-NB-DP1">
-                                                                            <rect key="frame" x="135" y="0.0" width="208" height="33"/>
+                                                                            <rect key="frame" x="135" y="0.0" width="208" height="18"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="height" constant="18" id="bML-Ia-p3m"/>
+                                                                            </constraints>
                                                                             <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
-                                                                            <state key="normal" title="0 Inputs consumed">
+                                                                            <state key="normal" title="Regular">
                                                                                 <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             </state>
                                                                             <connections>
@@ -155,8 +158,8 @@
                                                                 </stackView>
                                                             </subviews>
                                                             <constraints>
-                                                                <constraint firstItem="cuK-2M-WpJ" firstAttribute="top" secondItem="uqH-st-ioR" secondAttribute="top" constant="9" id="XOT-NC-yao"/>
-                                                                <constraint firstAttribute="bottom" secondItem="cuK-2M-WpJ" secondAttribute="bottom" constant="9" id="aLO-gY-cqJ"/>
+                                                                <constraint firstItem="cuK-2M-WpJ" firstAttribute="top" secondItem="uqH-st-ioR" secondAttribute="top" constant="10" id="XOT-NC-yao"/>
+                                                                <constraint firstAttribute="bottom" secondItem="cuK-2M-WpJ" secondAttribute="bottom" constant="10" id="aLO-gY-cqJ"/>
                                                                 <constraint firstItem="cuK-2M-WpJ" firstAttribute="leading" secondItem="uqH-st-ioR" secondAttribute="leading" constant="16" id="fug-4p-MuO"/>
                                                                 <constraint firstAttribute="trailing" secondItem="cuK-2M-WpJ" secondAttribute="trailing" constant="16" id="glf-25-k9t"/>
                                                             </constraints>
@@ -167,7 +170,7 @@
                                                         </connections>
                                                     </tableViewCell>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactiontInputDetailsCell" id="HN0-ox-bOO" customClass="TransactiontInputDetailsCell" customModule="Decred_Wallet" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="79" width="375" height="48"/>
+                                                        <rect key="frame" x="0.0" y="66" width="375" height="48"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HN0-ox-bOO" id="gbE-qe-SCJ">
                                                             <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
@@ -232,7 +235,7 @@
                                                         </connections>
                                                     </tableViewCell>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactiontOutputDetailsCell" id="kNY-qr-Rti" customClass="TransactiontOutputDetailsCell" customModule="Decred_Wallet" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="127" width="375" height="48"/>
+                                                        <rect key="frame" x="0.0" y="114" width="375" height="48"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kNY-qr-Rti" id="drP-jX-XZO">
                                                             <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
@@ -297,7 +300,7 @@
                                                         </connections>
                                                     </tableViewCell>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactiontViewOnDcrdataCell" id="pFD-j8-VAY" customClass="TransactiontViewOnDcrdataCell" customModule="Decred_Wallet" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="175" width="375" height="48"/>
+                                                        <rect key="frame" x="0.0" y="162" width="375" height="48"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pFD-j8-VAY" id="tGw-3D-4hO">
                                                             <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
