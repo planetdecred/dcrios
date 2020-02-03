@@ -13,6 +13,7 @@ class TransactionTableViewCell: UITableViewCell {
     @IBOutlet weak var dataImage: UIImageView!
     @IBOutlet weak var dataText: UILabel!
     @IBOutlet weak var secondaryDataLabel: UILabel!
+    @IBOutlet weak var voteInfoLabel: Label!
     @IBOutlet weak var status: UILabel!
     @IBOutlet weak var secondaryStatusLabel: UILabel!
     @IBOutlet weak var statusIcon: UIImageView!
@@ -55,6 +56,7 @@ class TransactionTableViewCell: UITableViewCell {
 
             self.secondaryDataLabel.isHidden = transaction.type == DcrlibwalletTxTypeRegular
             self.secondaryStatusLabel.isHidden = transaction.type == DcrlibwalletTxTypeRegular
+            self.voteInfoLabel.isHidden = true //TODO: set value
 
             if transaction.type == DcrlibwalletTxTypeRegular {
                 if transaction.direction == DcrlibwalletTxDirectionSent {
