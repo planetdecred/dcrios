@@ -54,8 +54,8 @@ class Settings {
         return WalletLoader.shared.multiWallet.readDoubleConfigValue(forKey: key, defaultValue: defaultValue)
     }
     
-    static func readStringValue(for key: String, defaultValue: String = "") -> String {
-        return WalletLoader.shared.multiWallet.readStringConfigValue(forKey: key, defaultValue: defaultValue)
+    static func readStringValue(for key: String) -> String {
+        return WalletLoader.shared.multiWallet.readStringConfigValue(forKey: key)
     }
     
     static func clear() {

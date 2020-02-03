@@ -145,8 +145,7 @@ fileprivate struct PreMultiWalletSettings {
             // todo update these notification statuses when implementing wallets page -> wallet settings.
             let notificationStatus = incomingNotificationEnabled ? "vibration" : "off"
             WalletLoader.shared.wallets.forEach({
-                try? WalletLoader.shared.multiWallet
-                    .updateIncomingNotificationsUserPreference($0.id_, notificationsPref: notificationStatus)
+                $0.setStringConfigValueForKey(DcrlibwalletIncomingTxNotificationsConfigKey, value: notificationStatus)
             })
         }
         

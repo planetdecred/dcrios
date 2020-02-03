@@ -11,7 +11,8 @@ import Dcrlibwallet
 
 class RequestPinViewController: SecurityCodeRequestBaseViewController {
     @IBOutlet weak var headerLabel: UILabel!
-
+    @IBOutlet weak var subtextLabel: UILabel!
+    
     @IBOutlet weak var pinCollectionView: UICollectionView!
     @IBOutlet weak var pinCollectionViewHeightContraint: NSLayoutConstraint!
     @IBOutlet weak var enterPinLabel: UILabel!
@@ -60,6 +61,12 @@ class RequestPinViewController: SecurityCodeRequestBaseViewController {
             self.headerLabel?.text = prompt
         } else {
             self.headerLabel?.removeFromSuperview()
+        }
+
+        if let subtext = self.request.subtext {
+            self.subtextLabel?.text = subtext
+        } else {
+            self.subtextLabel?.removeFromSuperview()
         }
 
         if !self.request.showCancelButton {
@@ -150,7 +157,7 @@ class RequestPinViewController: SecurityCodeRequestBaseViewController {
             }
 
             // `onCurrentAndNewCodesEntered` callback is set, request new code and notify callback.
-            Security(for: self.request.for).requestNewCode(sender: self) {
+            Security(for: self.request.for, initialSecurityType: .pin).requestNewCode(sender: self) {
                 newCode, newCodeType, newCodeRequestCompletion in
                 currentAndNewCodesEnteredCallback(pinText, self, newCode, newCodeRequestCompletion, newCodeType)
             }
