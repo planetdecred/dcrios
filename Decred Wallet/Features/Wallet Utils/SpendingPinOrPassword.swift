@@ -55,6 +55,7 @@ struct SpendingPinOrPassword {
         }
     }
     
+    // todo remove eventually, different wallets have different spending security code type
     static func currentSecurityType() -> SecurityType {
         if WalletLoader.shared.firstWallet!.privatePassphraseType == DcrlibwalletPassphraseTypePin {
             return .pin
@@ -62,8 +63,18 @@ struct SpendingPinOrPassword {
         return .password
     }
     
+    static func securityType(for wallet: DcrlibwalletWallet) -> SecurityType {
+        return wallet.privatePassphraseType == DcrlibwalletPassphraseTypePin ? .pin : .password
+    }
+    
+    // todo remove eventually, different wallets have different spending security code type
     static func invalidSecurityCodeMessage() -> String {
         let securityType = self.currentSecurityType() == .pin ? LocalizedStrings.pin : LocalizedStrings.password.lowercased()
+        return String(format: LocalizedStrings.wrongSecurityCode, LocalizedStrings.spending.lowercased(), securityType)
+    }
+    
+    static func invalidSecurityCodeMessage(for wallet: DcrlibwalletWallet) -> String {
+        let securityType = self.securityType(for: wallet) == .pin ? LocalizedStrings.pin : LocalizedStrings.password.lowercased()
         return String(format: LocalizedStrings.wrongSecurityCode, LocalizedStrings.spending.lowercased(), securityType)
     }
 }

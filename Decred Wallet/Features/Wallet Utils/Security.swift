@@ -40,6 +40,7 @@ class Security: NSObject {
     class Request {
         var `for`: For
         var prompt: String?
+        var subtext: String?
         var requestConfirmation = false
         var showCancelButton = true
         var submitBtnText: String?
@@ -59,31 +60,31 @@ class Security: NSObject {
     private var `for`: For
     private var request: Request
     private var callbacks = RequestCallbacks()
-    private var currentSecurityType: SecurityType?
+    private var currentSecurityType: SecurityType
     
     static func startup() -> Security {
-        return Security(for: .Startup)
+        return Security(for: .Startup, initialSecurityType: StartupPinOrPassword.currentSecurityType())
     }
     
-    static func spending() -> Security {
-        return Security(for: .Spending)
+    // todo, this needs fixing, there should be no default value for spending security type.
+    static func spending(initialSecurityType: SecurityType = SpendingPinOrPassword.currentSecurityType()) -> Security {
+        return Security(for: .Spending, initialSecurityType: initialSecurityType)
     }
     
-    init(for securityFor: For) {
+    init(for securityFor: For, initialSecurityType: SecurityType) {
         self.for = securityFor
         self.request = Request(for: securityFor)
+        self.currentSecurityType = initialSecurityType
         super.init()
         
         if self.for == .Startup {
-            self.setDefaultStartupSecurityRequestParameters()
+            self.setDefaultStartupSecurityPrompt()
         } else {
-            self.setDefaultSpendingSecurityRequestParameters()
+            self.setDefaultSpendingSecurityPrompt()
         }
     }
     
-    private func setDefaultStartupSecurityRequestParameters() {
-        self.currentSecurityType = StartupPinOrPassword.currentSecurityType()
-        
+    private func setDefaultStartupSecurityPrompt() {
         if self.currentSecurityType == .password {
             self.request.prompt = LocalizedStrings.promptStartupPassword
         } else {
@@ -91,9 +92,7 @@ class Security: NSObject {
         }
     }
     
-    private func setDefaultSpendingSecurityRequestParameters() {
-        self.currentSecurityType = SpendingPinOrPassword.currentSecurityType()
-
+    private func setDefaultSpendingSecurityPrompt() {
         if self.currentSecurityType == .password {
             self.request.prompt = LocalizedStrings.enterCurrentSpendingPassword
         } else {
@@ -108,6 +107,18 @@ class Security: NSObject {
     }
     
     @discardableResult
+    func with(subtext: String) -> Security {
+        self.request.subtext = subtext
+        return self
+    }
+    
+    @discardableResult
+    func with(submitBtnText: String) -> Security {
+        self.request.submitBtnText = submitBtnText
+        return self
+    }
+    
+    @discardableResult
     func should(requestConfirmation: Bool) -> Security {
         self.request.requestConfirmation = requestConfirmation
         return self
@@ -116,12 +127,6 @@ class Security: NSObject {
     @discardableResult
     func should(showCancelButton: Bool) -> Security {
         self.request.showCancelButton = showCancelButton
-        return self
-    }
-    
-    @discardableResult
-    func with(submitBtnText: String) -> Security {
-        self.request.submitBtnText = submitBtnText
         return self
     }
     

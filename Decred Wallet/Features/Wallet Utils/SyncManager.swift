@@ -36,7 +36,82 @@ class SyncManager: NSObject {
         WalletLoader.shared.multiWallet.enableSyncLogs()
     }
     
-    func startOrRestartSync(allowSyncOnCellular: Bool) {
+    // run checks if there are wallets that have not completed account discovery.
+    // If all wallets have completed account discovery, sync is started.
+    // Otherwise, the user is asked to unlock those wallets before sync is started.
+    func startSync(allowSyncOnCellular: Bool) {
+        let walletsToUnlock = WalletLoader.shared.wallets.filter({ wallet in
+            return !wallet.hasDiscoveredAccounts && wallet.isLocked()
+        })
+        
+        if walletsToUnlock.count > 0 {
+            self.unlockWalletsForAccountDiscoveryAndStartSync(walletsToUnlock, allowSyncOnCellular)
+        } else {
+            self.startOrRestartSync(allowSyncOnCellular: allowSyncOnCellular)
+        }
+    }
+    
+    private func unlockWalletsForAccountDiscoveryAndStartSync(_ walletsToUnlock: [DcrlibwalletWallet],
+                                                              _ allowSyncOnCellular: Bool) {
+        
+        guard let rootVC = AppDelegate.shared.window?.rootViewController else {
+            print("no view controller is currently displayed, cannot sync")
+            return
+        }
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            // waitGroup ensures that wallets are unlocked one at a time,
+            // by waiting for a wallet to be unlocked before requesting security code for another wallet.
+            let waitGroup = DispatchGroup()
+
+            for wallet in walletsToUnlock {
+                waitGroup.enter()
+                DispatchQueue.main.async {
+                    self.requestSpendingCodeAndUnlockWallet(rootVC, wallet, waitGroup)
+                }
+                waitGroup.wait() // wait for this wallet to be unlocked before proceeding to next wallet
+            }
+
+            DispatchQueue.main.async {
+                self.startOrRestartSync(allowSyncOnCellular: allowSyncOnCellular)
+            }
+        }
+    }
+    
+    func requestSpendingCodeAndUnlockWallet(_ rootVC: UIViewController,
+                                            _ wallet: DcrlibwalletWallet,
+                                            _ waitGroup: DispatchGroup) {
+        
+        Security.spending(initialSecurityType: SpendingPinOrPassword.securityType(for: wallet))
+            .with(prompt: LocalizedStrings.unlockToResumeRestoration)
+            .with(subtext: String(format: LocalizedStrings.unlockWalletForAccountDiscovery, wallet.name))
+            .with(submitBtnText: LocalizedStrings.unlock)
+            .should(showCancelButton: false)
+            .requestCurrentCode(sender: rootVC) { walletSpendingCode, _, dialogDelegate in
+
+                DispatchQueue.global(qos: .userInitiated).async {
+                    do {
+                        try wallet.unlock(walletSpendingCode.utf8Bits)
+                        
+                        DispatchQueue.main.async {
+                            dialogDelegate?.securityCodeProcessed()
+                            waitGroup.leave()
+                        }
+                    } catch let error {
+                        var errorMessage = error.localizedDescription
+                        if error.isInvalidPassphraseError {
+                            errorMessage = SpendingPinOrPassword.invalidSecurityCodeMessage(for: wallet)
+                        }
+                        
+                        DispatchQueue.main.async {
+                            dialogDelegate?.securityCodeError(errorMessage: errorMessage)
+                        }
+                    }
+                }
+            }
+    }
+    
+    private func startOrRestartSync(allowSyncOnCellular: Bool) {
         // Check the updated network status before starting/restarting sync.
         if self.currentNetworkConnection == .none {
             self.requestInternetConnectionForSync()
@@ -58,7 +133,7 @@ class SyncManager: NSObject {
         }
     }
     
-    func requestInternetConnectionForSync() {
+    private func requestInternetConnectionForSync() {
         let noConnectionAlert = UIAlertController(title: LocalizedStrings.internetConnectionRequired,
                                                   message: LocalizedStrings.cannotSyncWithoutNetworkConnection,
                                                   preferredStyle: .alert)
@@ -76,7 +151,7 @@ class SyncManager: NSObject {
         AppDelegate.shared.window?.rootViewController?.present(noConnectionAlert, animated: false)
     }
     
-    func requestPermissionToSyncOnCellular() {
+    private func requestPermissionToSyncOnCellular() {
         // todo this title and message look wrong!
         let syncConfirmationDialog = UIAlertController(title: LocalizedStrings.internetConnectionRequired,
                                                        message: LocalizedStrings.cannotSyncWithoutNetworkConnection,
@@ -143,7 +218,7 @@ extension SyncManager: DcrlibwalletSyncProgressListenerProtocol {
     func debug(_ debugInfo: DcrlibwalletDebugInfo?) {
     }
     
-    func restartSyncIfItStalls() {
+    private func restartSyncIfItStalls() {
         // Cancel any previously set sync-restart timer.
         self.stalledSyncTracker?.invalidate()
 

@@ -279,7 +279,7 @@ class OverviewViewController: UIViewController {
         if SyncManager.shared.isSynced || SyncManager.shared.isSyncing {
             WalletLoader.shared.multiWallet.cancelSync()
         } else {
-            SyncManager.shared.startOrRestartSync(allowSyncOnCellular: Settings.syncOnCellular)
+            SyncManager.shared.startSync(allowSyncOnCellular: Settings.syncOnCellular)
         }
         
         self.updateSyncConnectionButtonTextAndIcon()

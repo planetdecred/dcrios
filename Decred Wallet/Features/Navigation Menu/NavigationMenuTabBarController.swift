@@ -7,6 +7,7 @@
 // license that can be found in the LICENSE file.
 
 import UIKit
+import Dcrlibwallet
 
 class NavigationMenuTabBarController: UITabBarController {
     private var isNewWallet: Bool = false
@@ -20,7 +21,7 @@ class NavigationMenuTabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.loadTabBar()
+        self.setupCustomTabMenu(NavigationMenuTabBarController.tabItems)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -28,12 +29,6 @@ class NavigationMenuTabBarController: UITabBarController {
             self.isNewWallet = false
             Utils.showBanner(parentVC: self, type: .success, text: LocalizedStrings.walletCreated)
         }
-    }
-    
-    func loadTabBar() {
-        self.setupCustomTabMenu(NavigationMenuTabBarController.tabItems)
-        self.selectedIndex = 0
-        self.showFloatingButtons() // show floating buttons since selected index is 0 by default
     }
     
     // Create our custom menu bar and display it right where the tab bar should be.
@@ -77,6 +72,7 @@ class NavigationMenuTabBarController: UITabBarController {
         }
         
         self.viewControllers = menuItems.map({ $0.viewController })
+        self.selectedIndex = 0
         
         self.view.bringSubviewToFront(self.customTabBar) // Keep nav menu in front of any subviews
         self.view.layoutIfNeeded()
@@ -123,7 +119,7 @@ class NavigationMenuTabBarController: UITabBarController {
         AppDelegate.shared.setAndDisplayRootViewController(startView.wrapInNavigationcontroller())
         
         // start sync
-        SyncManager.shared.startOrRestartSync(allowSyncOnCellular: Settings.syncOnCellular)
+        SyncManager.shared.startSync(allowSyncOnCellular: Settings.syncOnCellular)
         
         // Start notification listener if notifications are enabled by user.
         if Settings.incomingNotificationEnabled {

@@ -85,6 +85,10 @@ struct LocalizedStrings {
     static let create = NSLocalizedString("create", comment: "")
     static let next = NSLocalizedString("next", comment: "")
 
+    /* Overview - unlock wallets for account discovery */
+    static let unlockToResumeRestoration = NSLocalizedString("unlockToResumeRestoration", comment: "")
+    static let unlockWalletForAccountDiscovery = NSLocalizedString("unlockWalletForAccountDiscovery", comment: "")
+    
     /* Change Spendind PIN/Password */
     static let enterCurrentSpendingPassword = NSLocalizedString("enterCurrentSpendingPassword", comment: "")
     static let enterCurrentSpendingPIN = NSLocalizedString("enterCurrentSpendingPIN", comment: "")

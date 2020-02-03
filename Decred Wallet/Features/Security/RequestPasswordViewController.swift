@@ -9,7 +9,8 @@ import UIKit
 
 class RequestPasswordViewController: SecurityCodeRequestBaseViewController, UITextFieldDelegate {
     @IBOutlet weak var headerLabel: UILabel!
-
+    @IBOutlet weak var subtextLabel: UILabel!
+    
     @IBOutlet weak var passwordInput: FloatingPlaceholderTextField!
     @IBOutlet weak var passwordErrorLabel: UILabel!
     @IBOutlet weak var passwordCountLabel: UILabel?
@@ -33,6 +34,18 @@ class RequestPasswordViewController: SecurityCodeRequestBaseViewController, UITe
     }
 
     private func setupInterface() {
+        if let prompt = self.request.prompt {
+            self.headerLabel?.text = prompt
+        } else {
+            self.headerLabel?.removeFromSuperview()
+        }
+        
+        if let subtext = self.request.subtext {
+            self.subtextLabel?.text = subtext
+        } else {
+            self.subtextLabel?.removeFromSuperview()
+        }
+        
         self.passwordInput.placeholder = String(format: LocalizedStrings.passwordPlaceholder,
                                                 self.request.for.localizedString)
         self.passwordInput.isSecureTextEntry = true
@@ -53,12 +66,6 @@ class RequestPasswordViewController: SecurityCodeRequestBaseViewController, UITe
             self.confirmCountLabel?.removeFromSuperview()
             self.confirmErrorLabel?.removeFromSuperview()
             self.passwordCountLabel?.removeFromSuperview()
-        }
-
-        if let prompt = self.request.prompt {
-            self.headerLabel?.text = prompt
-        } else {
-            self.headerLabel?.removeFromSuperview()
         }
 
         if !self.request.showCancelButton {
@@ -163,7 +170,7 @@ class RequestPasswordViewController: SecurityCodeRequestBaseViewController, UITe
         }
 
         // `onCurrentAndNewCodesEntered` callback is set, request new code and notify callback.
-        Security(for: self.request.for).requestNewCode(sender: self) {
+        Security(for: self.request.for, initialSecurityType: .password).requestNewCode(sender: self) {
             newCode, newCodeType, newCodeRequestCompletion in
             currentAndNewCodesEnteredCallback(password, self, newCode, newCodeRequestCompletion, newCodeType)
         }
