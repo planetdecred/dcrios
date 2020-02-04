@@ -121,7 +121,7 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
         fixLayout()
     }
     
-    func setSelectedItemIndex(_ index: Int) {
+    func setSelectedItemIndex(_ index: Int, callAct: Bool = true) {
         if index >= 0 && index < self.items.count {
             self.selectedItemIndex = index
             self.selectedItem = self.items[self.selectedItemIndex]
@@ -132,7 +132,9 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
             self.setTitle("", for: .normal)
         }
         
-        act?(self.selectedItemIndex, self.selectedItem ?? "")
+        if callAct {
+            act?(self.selectedItemIndex, self.selectedItem ?? "")
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int

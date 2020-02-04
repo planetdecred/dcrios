@@ -29,12 +29,7 @@ class TransactionsViewController: UIViewController {
 
     var refreshControl: UIRefreshControl!
     var allTransactions = [Transaction]()
-    let transactionFilters: [Int32] = [DcrlibwalletTxFilterAll,
-                                       DcrlibwalletTxFilterSent,
-                                       DcrlibwalletTxFilterReceived,
-                                       DcrlibwalletTxFilterTransferred,
-                                       DcrlibwalletTxFilterStaking,
-                                       DcrlibwalletTxFilterCoinBase]
+    var transactionFilters = [Int32]()
     let transactionSorters: [Bool] = [true, false]
     var filteredTransactions = [Transaction]()
     var maximumHeaderTopConstraint: CGFloat?
@@ -84,23 +79,55 @@ class TransactionsViewController: UIViewController {
         self.transactionSorterDropDown.initMenu(sorterOptions) { [weak self] index, value in
             self?.reloadTxsForCurrentFilter()
         }
+        self.transactionSorterDropDown.setSelectedItemIndex(0, callAct: false)
 
-        //setupTxFilterAndDisplayAllTxs
-        let filterOptions = [LocalizedStrings.all,
-                             LocalizedStrings.sent,
-                             LocalizedStrings.received,
-                             LocalizedStrings.yourself,
-                             LocalizedStrings.staking,
-                             LocalizedStrings.coinbase]
-        self.transactionFilterDropDown.initMenu(filterOptions) { [weak self] index, value in
-            self?.reloadTxsForCurrentFilter()
-        }
-        
+        self.setupTxFilterDropDown()
+        self.transactionFilterDropDown.setSelectedItemIndex(0, callAct: false)
+
         self.transactionsTableView.backgroundView = nil
         self.transactionsTableView.separatorStyle = .singleLine
 
         self.transactionsTableView.reloadData()
         self.refreshControl.endRefreshing()
+    }
+    
+    func setupTxFilterDropDown() {
+        var filterOptions = [LocalizedStrings.all]
+        self.transactionFilters = [DcrlibwalletTxFilterAll]
+
+        let sentCount = self.allTransactions.filter {$0.direction == DcrlibwalletTxDirectionSent}.count
+        if sentCount != 0 {
+            filterOptions.append(LocalizedStrings.sent)
+            self.transactionFilters.append(DcrlibwalletTxFilterSent)
+        }
+
+        let receiveCount = self.allTransactions.filter {$0.direction == DcrlibwalletTxDirectionReceived}.count
+        if receiveCount != 0 {
+            filterOptions.append(LocalizedStrings.received)
+            self.transactionFilters.append(DcrlibwalletTxFilterReceived)
+        }
+
+        let yourselfCount = self.allTransactions.filter {$0.direction == DcrlibwalletTxDirectionTransferred}.count
+        if yourselfCount != 0 {
+            filterOptions.append(LocalizedStrings.yourself)
+            self.transactionFilters.append(DcrlibwalletTxFilterTransferred)
+        }
+
+        let stakeCount = self.allTransactions.filter {$0.type != DcrlibwalletTxTypeRegular}.count
+        if stakeCount != 0 {
+            filterOptions.append(LocalizedStrings.staking)
+            self.transactionFilters.append(DcrlibwalletTxFilterStaking)
+        }
+
+        let coinbaseCount = self.allTransactions.filter {$0.type == DcrlibwalletTxTypeCoinBase}.count
+        if coinbaseCount != 0 {
+            filterOptions.append(LocalizedStrings.coinbase)
+            self.transactionFilters.append(DcrlibwalletTxFilterCoinBase)
+        }
+
+        self.transactionFilterDropDown.initMenu(filterOptions) { [weak self] index, value in
+             self?.reloadTxsForCurrentFilter()
+        }
     }
 
     @objc func reloadTxsForCurrentFilter() {
