@@ -14,6 +14,7 @@ class OverviewViewController: UIViewController {
     @IBOutlet weak var pageTitleLabel: UILabel!
     @IBOutlet weak var pageTitleSeparator: UIView!
     
+    var refreshControl: UIRefreshControl!
     @IBOutlet weak var parentScrollView: UIScrollView!
     @IBOutlet weak var balanceLabel: UILabel!
     
@@ -65,8 +66,6 @@ class OverviewViewController: UIViewController {
     var recentTransactions = [Transaction]()
     var refreshBestBlockAgeTimer: Timer?
     
-    var refreshControl: UIRefreshControl!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -100,19 +99,17 @@ class OverviewViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
+        self.refreshRecentActivityAndUpdateBalance()
         self.checkWhetherToPromptForSeedBackup()
-        self.updateMultiWalletBalance()
-        self.updateRecentActivity()
     }
     
     func initializeViews() {
         // Set a scroll listener delegate so we can update the nav bar page title text on user scroll.
         self.parentScrollView.delegate = self
-        self.parentScrollView.alwaysBounceVertical = true
         
         self.refreshControl = UIRefreshControl()
         self.refreshControl.tintColor = UIColor.lightGray
-        self.refreshControl.addTarget(self, action: #selector(self.refresh), for: .valueChanged)
+        self.refreshControl.addTarget(self, action: #selector(self.refreshRecentActivityAndUpdateBalance), for: .valueChanged)
         self.parentScrollView.addSubview(self.refreshControl)
        
         self.recentTransactionsTableView.registerCellNib(TransactionTableViewCell.self)
@@ -126,14 +123,11 @@ class OverviewViewController: UIViewController {
         MultiWalletSyncDetailsLoader.setup(for: self.multipleWalletsSyncDetailsTableView)
     }
     
-    @objc func refresh() {
+    @objc func refreshRecentActivityAndUpdateBalance() {
         self.refreshControl.beginRefreshing()
-        defer {
-            self.recentTransactionsTableView.reloadData()
-            self.refreshControl.endRefreshing()
-        }
-        self.updateRecentActivity()
         self.updateMultiWalletBalance()
+        self.updateRecentActivity()
+        self.refreshControl.endRefreshing()
     }
     
     func updateMultiWalletBalance() {
