@@ -126,7 +126,7 @@ class OverviewViewController: UIViewController {
         MultiWalletSyncDetailsLoader.setup(for: self.multipleWalletsSyncDetailsTableView)
     }
     
-    @objc func refresh() {
+    @objc func refreshRecentActivityAndUpdateBalance() {
         self.refreshControl.beginRefreshing()
         defer {
             self.recentTransactionsTableView.reloadData()
