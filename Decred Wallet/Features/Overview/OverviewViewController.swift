@@ -113,7 +113,7 @@ class OverviewViewController: UIViewController {
         self.refreshControl = UIRefreshControl()
         self.refreshControl.tintColor = UIColor.lightGray
         self.refreshControl.addTarget(self, action: #selector(self.refresh), for: .valueChanged)
-        self.parentScrollView.addSubview(refreshControl)
+        self.parentScrollView.addSubview(self.refreshControl)
        
         self.recentTransactionsTableView.registerCellNib(TransactionTableViewCell.self)
         self.recentTransactionsTableView.delegate = self
