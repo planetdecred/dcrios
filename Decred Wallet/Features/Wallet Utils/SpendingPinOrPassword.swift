@@ -57,7 +57,7 @@ struct SpendingPinOrPassword {
     
     // todo remove eventually, different wallets have different spending security code type
     static func currentSecurityType() -> SecurityType {
-        if WalletLoader.shared.firstWallet!.privatePassphraseType == DcrlibwalletPassphraseTypePin {
+        if WalletLoader.shared.firstWallet?.privatePassphraseType == DcrlibwalletPassphraseTypePin {
             return .pin
         }
         return .password
