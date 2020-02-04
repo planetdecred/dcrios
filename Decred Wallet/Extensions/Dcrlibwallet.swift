@@ -111,13 +111,13 @@ extension DcrlibwalletWallet {
         return self.accounts(confirmations: confirmations).filter({ !$0.isHidden }).map({ $0.dcrTotalBalance }).reduce(0,+)
     }
     
-    func transactionHistory(offset: Int32, count: Int32 = 0, filter: Int32 = DcrlibwalletTxFilterAll) -> [Transaction]? {
+    func transactionHistory(offset: Int32, count: Int32 = 0, filter: Int32 = DcrlibwalletTxFilterAll, newestFirst:Bool = true) -> [Transaction]? {
         guard let wallet = WalletLoader.shared.firstWallet else {
             return nil
         }
         
         var error: NSError?
-        let allTransactionsJson = wallet.getTransactions(offset, limit: count, txFilter: filter, newestFirst: true, error: &error)
+        let allTransactionsJson = wallet.getTransactions(offset, limit: count, txFilter: filter, newestFirst: newestFirst, error: &error)
         if error != nil {
             print("wallet.getTransactions error:", error!.localizedDescription)
             return nil
