@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -16,7 +18,7 @@
             <objects>
                 <viewController storyboardIdentifier="OverviewViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HDe-ha-1OS" customClass="OverviewViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fOh-bl-3Dk">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="3co-lt-hDe">
@@ -47,7 +49,7 @@
                                 <rect key="frame" x="0.0" y="101.5" width="414" height="794.5"/>
                                 <subviews>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9pQ-ul-Ay3">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1032"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1354.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 DCR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GGm-T7-QFh">
                                                 <rect key="frame" x="24" y="0.0" width="366" height="40"/>
@@ -71,32 +73,32 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="DPB-YP-Vow">
-                                                <rect key="frame" x="8" y="74" width="398" height="828"/>
+                                                <rect key="frame" x="8" y="74" width="398" height="1150.5"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fxu-UZ-rsI" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="398" height="200"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="398" height="177.5"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_wallet_alert" translatesAutoresizingMaskIntoConstraints="NO" id="cIc-Id-dYl">
-                                                                <rect key="frame" x="16" y="27" width="24" height="24"/>
+                                                                <rect key="frame" x="16" y="15.5" width="24" height="24"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="24" id="7Zp-MI-tHl"/>
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 wallets need backup" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bke-5i-43H">
-                                                                <rect key="frame" x="56" y="16" width="166.5" height="45.5"/>
+                                                                <rect key="frame" x="56" y="16" width="166.5" height="23"/>
                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nj8-c4-arQ">
-                                                                <rect key="frame" x="334" y="15" width="48" height="48"/>
+                                                                <rect key="frame" x="358" y="15.5" width="24" height="24"/>
                                                                 <state key="normal" image="ic_close_light"/>
                                                                 <connections>
                                                                     <action selector="dismissSeedBackupPromptTapped:" destination="HDe-ha-1OS" eventType="touchUpInside" id="bFc-c1-WYm"/>
                                                                 </connections>
                                                             </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="It is recommended to write down the seed phrase for each wallet as a backup so that you can recover your funds when needed." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wEe-jI-LkD">
-                                                                <rect key="frame" x="56" y="77.5" width="326" height="53"/>
+                                                                <rect key="frame" x="56" y="55" width="326" height="53"/>
                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
@@ -105,14 +107,14 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </label>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OZg-uu-cVv">
-                                                                <rect key="frame" x="0.0" y="146.5" width="398" height="1"/>
+                                                                <rect key="frame" x="0.0" y="124" width="398" height="1"/>
                                                                 <color key="backgroundColor" red="0.99607843137254903" green="0.72156862745098038" blue="0.6470588235294118" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="1" id="wQ0-a4-XHt"/>
                                                                 </constraints>
                                                             </view>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Go to Wallets" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f9z-1v-sUv">
-                                                                <rect key="frame" x="155.5" y="163.5" width="87.5" height="20.5"/>
+                                                                <rect key="frame" x="155.5" y="141" width="87.5" height="20.5"/>
                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
@@ -165,7 +167,7 @@
                                                         </connections>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HAm-xE-ejA" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="208" width="398" height="164"/>
+                                                        <rect key="frame" x="0.0" y="185.5" width="398" height="164"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="pbi-z3-cy7">
                                                                 <rect key="frame" x="0.0" y="0.0" width="398" height="164"/>
@@ -282,10 +284,10 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CYq-6P-YB4" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="380" width="398" height="448"/>
+                                                        <rect key="frame" x="0.0" y="357.5" width="398" height="793"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="wYT-RR-tW7">
-                                                                <rect key="frame" x="0.0" y="0.0" width="398" height="448"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="398" height="793"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GkS-YP-86p">
                                                                         <rect key="frame" x="0.0" y="8" width="398" height="46"/>
@@ -468,7 +470,7 @@
                                                                         <edgeInsets key="layoutMargins" top="0.0" left="56" bottom="16" right="16"/>
                                                                     </stackView>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="N2f-nT-UYY">
-                                                                        <rect key="frame" x="0.0" y="222" width="398" height="170"/>
+                                                                        <rect key="frame" x="0.0" y="222" width="398" height="515"/>
                                                                         <subviews>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n3K-p9-8dC">
                                                                                 <rect key="frame" x="16" y="0.0" width="366" height="45"/>
@@ -566,11 +568,138 @@
                                                                                     </userDefinedRuntimeAttribute>
                                                                                 </userDefinedRuntimeAttributes>
                                                                             </view>
+                                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nwL-fV-Hfl">
+                                                                                <rect key="frame" x="16" y="170" width="366" height="37"/>
+                                                                                <subviews>
+                                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connected peers count" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QqT-Uc-hW8">
+                                                                                        <rect key="frame" x="0.0" y="8" width="135" height="18"/>
+                                                                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                                                                                        <color key="textColor" cyan="0.60999999999999999" magenta="0.38574564459999999" yellow="0.23122884329999999" black="0.032802663740000002" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
+                                                                                        <nil key="highlightedColor"/>
+                                                                                        <userDefinedRuntimeAttributes>
+                                                                                            <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="connectedPeersCount"/>
+                                                                                        </userDefinedRuntimeAttributes>
+                                                                                    </label>
+                                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8LS-tR-Cw9">
+                                                                                        <rect key="frame" x="358" y="8" width="8" height="18"/>
+                                                                                        <constraints>
+                                                                                            <constraint firstAttribute="height" constant="18" id="kc8-1Y-8yB"/>
+                                                                                        </constraints>
+                                                                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                                                                        <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                        <nil key="highlightedColor"/>
+                                                                                    </label>
+                                                                                </subviews>
+                                                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                                                <constraints>
+                                                                                    <constraint firstItem="QqT-Uc-hW8" firstAttribute="leading" secondItem="nwL-fV-Hfl" secondAttribute="leading" id="23W-Jf-kpm"/>
+                                                                                    <constraint firstItem="QqT-Uc-hW8" firstAttribute="centerY" secondItem="8LS-tR-Cw9" secondAttribute="centerY" id="ceD-pv-tRL"/>
+                                                                                    <constraint firstAttribute="bottom" secondItem="8LS-tR-Cw9" secondAttribute="bottom" constant="11" id="eNl-ME-kCH"/>
+                                                                                    <constraint firstAttribute="trailing" secondItem="8LS-tR-Cw9" secondAttribute="trailing" id="hFG-AD-xN6"/>
+                                                                                    <constraint firstItem="8LS-tR-Cw9" firstAttribute="top" secondItem="nwL-fV-Hfl" secondAttribute="top" constant="8" id="nHb-zN-R3v"/>
+                                                                                </constraints>
+                                                                            </view>
+                                                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="132" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ekD-uE-0yl">
+                                                                                <rect key="frame" x="16" y="207" width="366" height="300"/>
+                                                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                                                <constraints>
+                                                                                    <constraint firstAttribute="height" constant="300" id="uJ4-Sf-hOu"/>
+                                                                                </constraints>
+                                                                                <prototypes>
+                                                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="WalletSyncDetailsTableViewCell" rowHeight="132" id="1zv-A7-nLU" customClass="WalletSyncDetailsTableViewCell" customModule="Decred_Wallet" customModuleProvider="target">
+                                                                                        <rect key="frame" x="0.0" y="28" width="366" height="132"/>
+                                                                                        <autoresizingMask key="autoresizingMask"/>
+                                                                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1zv-A7-nLU" id="4Bf-TQ-LJc">
+                                                                                            <rect key="frame" x="0.0" y="0.0" width="366" height="132"/>
+                                                                                            <autoresizingMask key="autoresizingMask"/>
+                                                                                            <subviews>
+                                                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="idD-XG-cba" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
+                                                                                                    <rect key="frame" x="0.0" y="0.0" width="366" height="125"/>
+                                                                                                    <subviews>
+                                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="default wallet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="33l-LR-5Ld">
+                                                                                                            <rect key="frame" x="16" y="15" width="91.5" height="20.5"/>
+                                                                                                            <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                                                                                            <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                                            <nil key="highlightedColor"/>
+                                                                                                        </label>
+                                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Syncing..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qgj-Em-K1P">
+                                                                                                            <rect key="frame" x="293" y="16" width="57" height="18"/>
+                                                                                                            <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                                                                                                            <color key="textColor" red="0.76862745098039209" green="0.79607843137254897" blue="0.82352941176470584" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                                            <nil key="highlightedColor"/>
+                                                                                                        </label>
+                                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Block header fetched" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DdH-Jc-2Jj">
+                                                                                                            <rect key="frame" x="16" y="52.5" width="123.5" height="18"/>
+                                                                                                            <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                                                                                                            <color key="textColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                                            <nil key="highlightedColor"/>
+                                                                                                        </label>
+                                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6000 of 164864" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LTy-nc-Uuj">
+                                                                                                            <rect key="frame" x="250.5" y="51.5" width="99.5" height="20.5"/>
+                                                                                                            <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                                                                                            <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                                            <nil key="highlightedColor"/>
+                                                                                                        </label>
+                                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Syncing progress" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q0C-8s-vXs">
+                                                                                                            <rect key="frame" x="16" y="88" width="100" height="18"/>
+                                                                                                            <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                                                                                                            <color key="textColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                                            <nil key="highlightedColor"/>
+                                                                                                            <userDefinedRuntimeAttributes>
+                                                                                                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="syncingProgress"/>
+                                                                                                            </userDefinedRuntimeAttributes>
+                                                                                                        </label>
+                                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="220 days behind" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="270-pB-7cR">
+                                                                                                            <rect key="frame" x="241.5" y="86.5" width="108.5" height="20.5"/>
+                                                                                                            <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                                                                                            <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                                            <nil key="highlightedColor"/>
+                                                                                                        </label>
+                                                                                                    </subviews>
+                                                                                                    <color key="backgroundColor" red="0.95294117649999999" green="0.96078431369999995" blue="0.96470588239999999" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                                    <constraints>
+                                                                                                        <constraint firstItem="q0C-8s-vXs" firstAttribute="leading" secondItem="idD-XG-cba" secondAttribute="leading" constant="16" id="5nU-6v-ITH"/>
+                                                                                                        <constraint firstItem="LTy-nc-Uuj" firstAttribute="top" secondItem="33l-LR-5Ld" secondAttribute="bottom" constant="16" id="6Ky-ye-JiU"/>
+                                                                                                        <constraint firstItem="33l-LR-5Ld" firstAttribute="leading" secondItem="idD-XG-cba" secondAttribute="leading" constant="16" id="8r1-eI-LdO"/>
+                                                                                                        <constraint firstItem="q0C-8s-vXs" firstAttribute="centerY" secondItem="270-pB-7cR" secondAttribute="centerY" id="I9x-e9-96G"/>
+                                                                                                        <constraint firstItem="DdH-Jc-2Jj" firstAttribute="leading" secondItem="idD-XG-cba" secondAttribute="leading" constant="16" id="PT1-yH-uwL"/>
+                                                                                                        <constraint firstAttribute="trailing" secondItem="LTy-nc-Uuj" secondAttribute="trailing" constant="16" id="UNA-9h-boo"/>
+                                                                                                        <constraint firstItem="DdH-Jc-2Jj" firstAttribute="centerY" secondItem="LTy-nc-Uuj" secondAttribute="centerY" id="dXn-i0-9mR"/>
+                                                                                                        <constraint firstItem="270-pB-7cR" firstAttribute="top" secondItem="DdH-Jc-2Jj" secondAttribute="bottom" constant="16" id="fpk-Vv-MJh"/>
+                                                                                                        <constraint firstAttribute="height" constant="125" id="joP-7X-avB"/>
+                                                                                                        <constraint firstItem="33l-LR-5Ld" firstAttribute="centerY" secondItem="qgj-Em-K1P" secondAttribute="centerY" id="r1Z-sB-I2L"/>
+                                                                                                        <constraint firstAttribute="trailing" secondItem="qgj-Em-K1P" secondAttribute="trailing" constant="16" id="rly-7O-qP2"/>
+                                                                                                        <constraint firstItem="qgj-Em-K1P" firstAttribute="top" secondItem="idD-XG-cba" secondAttribute="top" constant="16" id="txi-oq-1lB"/>
+                                                                                                        <constraint firstAttribute="trailing" secondItem="270-pB-7cR" secondAttribute="trailing" constant="16" id="wwG-cc-rEl"/>
+                                                                                                    </constraints>
+                                                                                                    <userDefinedRuntimeAttributes>
+                                                                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderRadius">
+                                                                                                            <real key="value" value="8"/>
+                                                                                                        </userDefinedRuntimeAttribute>
+                                                                                                    </userDefinedRuntimeAttributes>
+                                                                                                </view>
+                                                                                            </subviews>
+                                                                                            <constraints>
+                                                                                                <constraint firstItem="idD-XG-cba" firstAttribute="leading" secondItem="4Bf-TQ-LJc" secondAttribute="leading" id="9Mc-Ja-SI0"/>
+                                                                                                <constraint firstAttribute="trailing" secondItem="idD-XG-cba" secondAttribute="trailing" id="PHI-HX-l58"/>
+                                                                                                <constraint firstItem="idD-XG-cba" firstAttribute="top" secondItem="4Bf-TQ-LJc" secondAttribute="top" id="mT8-pR-snL"/>
+                                                                                            </constraints>
+                                                                                        </tableViewCellContentView>
+                                                                                        <connections>
+                                                                                            <outlet property="walletNameLabel" destination="33l-LR-5Ld" id="Wml-Ji-FD1"/>
+                                                                                            <outlet property="walletSyncCurrentStepProgressLabel" destination="270-pB-7cR" id="VTk-Iq-yKq"/>
+                                                                                            <outlet property="walletSyncCurrentStepReportLabel" destination="LTy-nc-Uuj" id="IhE-Wf-xIR"/>
+                                                                                            <outlet property="walletSyncCurrentStepTitleLabel" destination="DdH-Jc-2Jj" id="i2Q-iZ-GDM"/>
+                                                                                            <outlet property="walletSyncStatusLabel" destination="qgj-Em-K1P" id="mGI-jf-2ov"/>
+                                                                                        </connections>
+                                                                                    </tableViewCell>
+                                                                                </prototypes>
+                                                                            </tableView>
                                                                         </subviews>
-                                                                        <edgeInsets key="layoutMargins" top="0.0" left="16" bottom="0.0" right="16"/>
+                                                                        <edgeInsets key="layoutMargins" top="0.0" left="16" bottom="8" right="16"/>
                                                                     </stackView>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GOT-0K-9Uk">
-                                                                        <rect key="frame" x="0.0" y="392" width="398" height="48"/>
+                                                                        <rect key="frame" x="0.0" y="737" width="398" height="48"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="48" id="XEf-4h-fEc"/>
                                                                         </constraints>
@@ -671,6 +800,9 @@
                         <outlet property="connectedPeersLabel" destination="buX-P1-OJJ" id="KFN-K9-uyO"/>
                         <outlet property="generalSyncProgressViews" destination="e2s-O8-Zbr" id="KwF-dA-5Wi"/>
                         <outlet property="latestBlockLabel" destination="DFV-Mc-l57" id="9P6-Rt-AWs"/>
+                        <outlet property="multipleWalletsPeerCountLabel" destination="8LS-tR-Cw9" id="mVG-GE-wbm"/>
+                        <outlet property="multipleWalletsSyncDetailsTableView" destination="ekD-uE-0yl" id="Ucs-3L-Cln"/>
+                        <outlet property="multipleWalletsSyncDetailsTableViewHeightConstraint" destination="uJ4-Sf-hOu" id="cMf-1G-rIH"/>
                         <outlet property="noTransactionsLabelView" destination="rMH-UY-qvt" id="jU5-Tm-W1x"/>
                         <outlet property="onlineStatusIndicator" destination="DPr-59-QRc" id="OzA-q2-pDF"/>
                         <outlet property="onlineStatusLabel" destination="uE8-QO-nVX" id="yFJ-a2-V5l"/>
@@ -683,6 +815,7 @@
                         <outlet property="seedBackupSectionView" destination="fxu-UZ-rsI" id="7eV-ei-oTv"/>
                         <outlet property="showAllTransactionsButton" destination="bAu-iE-Jfc" id="ezh-9T-yG8"/>
                         <outlet property="showSyncDetailsButton" destination="GOT-0K-9Uk" id="1rZ-XT-uFg"/>
+                        <outlet property="singleWalletSyncDetailsView" destination="l3a-sZ-C7r" id="OFv-Vv-I1o"/>
                         <outlet property="syncConnectionButton" destination="GcG-b3-nUG" id="VYI-yp-llN"/>
                         <outlet property="syncCurrentStepNumberLabel" destination="HcB-Iy-8uQ" id="jNk-LY-O6N"/>
                         <outlet property="syncCurrentStepProgressLabel" destination="KCD-nY-LrI" id="KLC-jQ-yxt"/>

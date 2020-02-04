@@ -30,6 +30,8 @@
 		AD24C23D2343E445009583C9 /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD24C23C2343E445009583C9 /* NotificationsManager.swift */; };
 		B164982429AEDD7AF8C8782C /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9714AB438E597D403032748 /* Pods_Decred_Wallet.framework */; };
 		B3456D2523D91CF600B04860 /* RoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3456D2423D91CF600B04860 /* RoundedView.swift */; };
+		B34A2F8F23E8E90500B8BC01 /* WalletSyncDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34A2F8E23E8E90500B8BC01 /* WalletSyncDetailsTableViewCell.swift */; };
+		B34A2F9123E8ED1500B8BC01 /* MultiWalletSyncDetailsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34A2F9023E8ED1500B8BC01 /* MultiWalletSyncDetailsLoader.swift */; };
 		B35C55D8232FED610006A765 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35C55D7232FED610006A765 /* Transaction.swift */; };
 		B36255B622A11A9500C62946 /* SecurityMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36255B422A11A9500C62946 /* SecurityMenuViewController.swift */; };
 		B3635B82229FE5870052EB4D /* QRImageScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3635B81229FE5870052EB4D /* QRImageScanner.swift */; };
@@ -176,6 +178,8 @@
 		AD24C23C2343E445009583C9 /* NotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
 		B107091A1D996651AB5D8891 /* Pods-Decred Wallet.testnet debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.testnet debug.xcconfig"; path = "Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.testnet debug.xcconfig"; sourceTree = "<group>"; };
 		B3456D2423D91CF600B04860 /* RoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedView.swift; sourceTree = "<group>"; };
+		B34A2F8E23E8E90500B8BC01 /* WalletSyncDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSyncDetailsTableViewCell.swift; sourceTree = "<group>"; };
+		B34A2F9023E8ED1500B8BC01 /* MultiWalletSyncDetailsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiWalletSyncDetailsLoader.swift; sourceTree = "<group>"; };
 		B35C55D7232FED610006A765 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		B36255B422A11A9500C62946 /* SecurityMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecurityMenuViewController.swift; sourceTree = "<group>"; };
 		B3635B81229FE5870052EB4D /* QRImageScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRImageScanner.swift; sourceTree = "<group>"; };
@@ -640,6 +644,8 @@
 			children = (
 				DDCF259922B8A346005FCBB9 /* Overview.storyboard */,
 				B3B469F1228F0F2600A68EDD /* OverviewViewController.swift */,
+				B34A2F9023E8ED1500B8BC01 /* MultiWalletSyncDetailsLoader.swift */,
+				B34A2F8E23E8E90500B8BC01 /* WalletSyncDetailsTableViewCell.swift */,
 			);
 			path = Overview;
 			sourceTree = "<group>";
@@ -961,6 +967,7 @@
 				B3B46A12228F0F2700A68EDD /* TextFieldDoneButton.swift in Sources */,
 				B3B46A1D228F0F2700A68EDD /* RequestPasswordViewController.swift in Sources */,
 				B3B469FA228F0F2700A68EDD /* UIColor.swift in Sources */,
+				B34A2F8F23E8E90500B8BC01 /* WalletSyncDetailsTableViewCell.swift in Sources */,
 				10341E0B23CBBB700055DFDE /* SeedWordsDisplayTableViewCell.swift in Sources */,
 				10FABE5123C7307100BC201B /* FloatingPlaceholderBorderLayer.swift in Sources */,
 				10341E0823CBBB700055DFDE /* SeedWordsDisplayViewController.swift in Sources */,
@@ -1023,6 +1030,7 @@
 				B36255B622A11A9500C62946 /* SecurityMenuViewController.swift in Sources */,
 				10341E0D23CBBB700055DFDE /* SeedBackupReminderViewController.swift in Sources */,
 				B3B46AC4228F120700A68EDD /* TransactiontOutputDetailsCell.swift in Sources */,
+				B34A2F9123E8ED1500B8BC01 /* MultiWalletSyncDetailsLoader.swift in Sources */,
 				10D9FB9623C3956300CBF216 /* FloatingPlaceholderLabel.swift in Sources */,
 				B3967B3D22A75BD400E14432 /* UITableView.swift in Sources */,
 				B3C0D4AF23DF9C45002D984F /* Security.swift in Sources */,

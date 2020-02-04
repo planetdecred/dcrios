@@ -104,6 +104,7 @@ struct LocalizedStrings {
     static let connectToWiFiToSync = NSLocalizedString("connectToWiFiToSync", comment: "")
     static let restartingSync = NSLocalizedString("restartingSync", comment: "")
     static let connectingToPeers = NSLocalizedString("connectingToPeers", comment: "")
+    static let waitingForOtherWallets = NSLocalizedString("waitingForOtherWallets", comment: "")
     static let syncedWith =  NSLocalizedString("syncedWith", comment: "")
     static let fetchingBlockHeaders = NSLocalizedString("fetchingBlockHeaders", comment: "")
     static let blocksBehind = NSLocalizedString("blocksBehind", comment: "")
