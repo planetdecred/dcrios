@@ -300,6 +300,7 @@ class SecurityMenuViewController: UIViewController,UITextFieldDelegate {
             let requestPinVC = RequestPinViewController.instantiate()
             requestPinVC.securityFor = LocalizedStrings.spending
             requestPinVC.showCancelButton = true
+            requestPinVC.modalPresentationStyle = .fullScreen
             requestPinVC.onUserEnteredPin = { pin in
                 self.SignMsg(pass: pin)
             }

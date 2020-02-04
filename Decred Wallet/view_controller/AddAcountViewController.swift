@@ -42,6 +42,7 @@ class AddAcountViewController: UIViewController {
                 let requestPinVC = RequestPinViewController.instantiate()
                 requestPinVC.securityFor = LocalizedStrings.spending
                 requestPinVC.showCancelButton = true
+                requestPinVC.modalPresentationStyle = .fullScreen
                 requestPinVC.onUserEnteredPin = { pin in
                     self.addAccountWithPin(pin: pin as NSString)
                 }
