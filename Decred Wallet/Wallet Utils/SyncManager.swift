@@ -94,7 +94,7 @@ class SyncManager: NSObject {
                         try wallet.unlock(walletSpendingCode.utf8Bits)
                         
                         DispatchQueue.main.async {
-                            dialogDelegate?.securityCodeProcessed()
+                            dialogDelegate?.dismissDialog()
                             waitGroup.leave()
                         }
                     } catch let error {
@@ -104,7 +104,7 @@ class SyncManager: NSObject {
                         }
                         
                         DispatchQueue.main.async {
-                            dialogDelegate?.securityCodeError(errorMessage: errorMessage)
+                            dialogDelegate?.displayError(errorMessage: errorMessage)
                         }
                     }
                 }
