@@ -48,10 +48,19 @@ class OverviewViewController: UIViewController {
     @IBOutlet weak var syncDetailsSection: UIStackView!
     @IBOutlet weak var syncCurrentStepNumberLabel: UILabel!
     @IBOutlet weak var syncCurrentStepSummaryLabel: UILabel!
+    
+    // display and update following views if only 1 wallet is being synced
+    @IBOutlet weak var singleWalletSyncDetailsView: RoundedView!
     @IBOutlet weak var syncCurrentStepTitleLabel: UILabel!
     @IBOutlet weak var syncCurrentStepReportLabel: UILabel!
     @IBOutlet weak var syncCurrentStepProgressLabel: UILabel!
     @IBOutlet weak var peerCountLabel: UILabel!
+    
+    // use following views to display sync progress details for multiple wallets
+    @IBOutlet weak var multipleWalletsPeerCountLabel: UILabel!
+    @IBOutlet weak var multipleWalletsSyncDetailsTableView: UITableView!
+    @IBOutlet weak var multipleWalletsSyncDetailsTableViewHeightConstraint: NSLayoutConstraint!
+    
 
     var hideSeedBackupPrompt: Bool = false
     var recentTransactions = [Transaction]()
@@ -82,10 +91,15 @@ class OverviewViewController: UIViewController {
         let txNotificationListener = self as DcrlibwalletTxAndBlockNotificationListenerProtocol
         try? WalletLoader.shared.multiWallet.add(txNotificationListener, uniqueIdentifier: "\(self)")
 
-        // Display latest block and connected peer count if there's no ongoing sync.
         if !SyncManager.shared.isSyncing {
+            // Display latest block and connected peer count if there's no ongoing sync.
             self.displayLatestBlockHeightAndAge()
             self.displayConnectedPeersCount()
+        } else if WalletLoader.shared.multiWallet.loadedWalletsCount() > 1 {
+            // Setup multipleWalletsSyncDetailsTableView to display detailed progress report for ongoing sync
+            let multiWalletSyncDetailsTableViewDelegate = MultiWalletSyncDetailsTableViewDelegate(for: self.multipleWalletsSyncDetailsTableView)
+            self.multipleWalletsSyncDetailsTableView.dataSource = multiWalletSyncDetailsTableViewDelegate
+            self.multipleWalletsSyncDetailsTableView.delegate = multiWalletSyncDetailsTableViewDelegate
         }
     }
     
@@ -165,10 +179,23 @@ class OverviewViewController: UIViewController {
         self.latestBlockLabel.superview?.isHidden = isSyncing
         self.generalSyncProgressViews.isHidden = !isSyncing
         self.showSyncDetailsButton.isHidden = !isSyncing
-        
-        // hide sync details section if sync is not ongoing
-        // but don't change the visibility state if sync is ongoing.
-        if !isSyncing {
+
+        // show appropriate view section depending on how many wallets are being synced
+        if isSyncing {
+            let nOpenedWallets = WalletLoader.shared.multiWallet.openedWalletsCount()
+            let isMultipleWalletsSync = nOpenedWallets > 1
+            
+            if isMultipleWalletsSync {
+                self.multipleWalletsSyncDetailsTableViewHeightConstraint.constant = CGFloat(nOpenedWallets) * self.multipleWalletsSyncDetailsTableView.rowHeight
+            }
+            
+            self.singleWalletSyncDetailsView.isHidden = isMultipleWalletsSync
+            self.multipleWalletsPeerCountLabel.superview?.isHidden = !isMultipleWalletsSync
+            self.multipleWalletsSyncDetailsTableView?.isHidden = !isMultipleWalletsSync
+            
+        } else {
+            // hide sync details section if sync is not ongoing
+            // but don't change the visibility state if sync is ongoing.
             self.syncDetailsSection.isHidden = true
         }
     }
@@ -188,16 +215,23 @@ class OverviewViewController: UIViewController {
     }
     
     private func clearAndHideSyncDetails() {
-        self.syncDetailsSection.isHidden = true
         self.showSyncDetailsButton.setTitle(LocalizedStrings.showDetails, for: .normal)
         
+        self.syncDetailsSection.isHidden = true
         self.syncCurrentStepNumberLabel.text = String(format: LocalizedStrings.syncSteps, 0)
         self.syncCurrentStepSummaryLabel.text = ""
-        self.syncCurrentStepTitleLabel.text = ""
-        self.syncCurrentStepReportLabel.text = ""
-        self.syncCurrentStepProgressLabel.text = ""
         
-        self.peerCountLabel.text = "\(WalletLoader.shared.multiWallet.connectedPeers())"
+        if WalletLoader.shared.multiWallet.openedWalletsCount() > 1 {
+            // clear multiwallet sync details views
+            self.multipleWalletsSyncDetailsTableView.reloadData()
+            self.multipleWalletsPeerCountLabel.text = "\(WalletLoader.shared.multiWallet.connectedPeers())"
+        } else {
+            // clear single wallet sync details views
+            self.syncCurrentStepTitleLabel.text = ""
+            self.syncCurrentStepReportLabel.text = ""
+            self.syncCurrentStepProgressLabel.text = ""
+            self.peerCountLabel.text = "\(WalletLoader.shared.multiWallet.connectedPeers())"
+        }
     }
     
     private func displayLatestBlockHeightAndAge() {
@@ -405,12 +439,12 @@ extension OverviewViewController: DcrlibwalletSyncProgressListenerProtocol {
             self.syncCurrentStepSummaryLabel.text = "\(LocalizedStrings.discoveringUsedAddresses) \(report.addressDiscoveryProgress)%"
             
             self.syncCurrentStepTitleLabel.text = LocalizedStrings.discoveringUsedAddresses
+            self.syncCurrentStepReportLabel.text = ""
+            
             var reportFormat = LocalizedStrings.addressDiscoveryProgressThrough
             if report.addressDiscoveryProgress > 100 {
                 reportFormat = LocalizedStrings.addressDiscoveryProgressOver
             }
-            self.syncCurrentStepReportLabel.text = ""
-            
             self.syncCurrentStepProgressLabel.text = String(format: reportFormat, report.addressDiscoveryProgress)
         }
     }
