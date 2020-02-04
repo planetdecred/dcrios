@@ -65,12 +65,12 @@ class OverviewViewController: UIViewController {
     var recentTransactions = [Transaction]()
     var refreshBestBlockAgeTimer: Timer?
     
+    var refreshControl: UIRefreshControl!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.initializeViews()
-        self.updateMultiWalletBalance()
-        self.updateRecentActivity()
         
         self.updateWalletStatusIndicatorAndLabel()
         self.updateSyncStatusIndicatorAndLabel()
@@ -101,12 +101,20 @@ class OverviewViewController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
         self.checkWhetherToPromptForSeedBackup()
+        self.updateMultiWalletBalance()
+        self.updateRecentActivity()
     }
     
     func initializeViews() {
         // Set a scroll listener delegate so we can update the nav bar page title text on user scroll.
         self.parentScrollView.delegate = self
+        self.parentScrollView.alwaysBounceVertical = true
         
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl.tintColor = UIColor.lightGray
+        self.refreshControl.addTarget(self, action: #selector(self.refresh), for: .valueChanged)
+        self.parentScrollView.addSubview(refreshControl)
+       
         self.recentTransactionsTableView.registerCellNib(TransactionTableViewCell.self)
         self.recentTransactionsTableView.delegate = self
         self.recentTransactionsTableView.dataSource = self
@@ -116,6 +124,16 @@ class OverviewViewController: UIViewController {
         self.syncDetailsSection.horizontalBorder(borderColor: UIColor.appColors.gray, yPosition: 0, borderHeight: 0.62)
     
         MultiWalletSyncDetailsLoader.setup(for: self.multipleWalletsSyncDetailsTableView)
+    }
+    
+    @objc func refresh() {
+        self.refreshControl.beginRefreshing()
+        defer {
+            self.recentTransactionsTableView.reloadData()
+            self.refreshControl.endRefreshing()
+        }
+        self.updateRecentActivity()
+        self.updateMultiWalletBalance()
     }
     
     func updateMultiWalletBalance() {
