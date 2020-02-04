@@ -110,7 +110,22 @@ extension DcrlibwalletWallet {
     func totalWalletBalance(confirmations: Int32 = 0) -> Double {
         return self.accounts(confirmations: confirmations).filter({ !$0.isHidden }).map({ $0.dcrTotalBalance }).reduce(0,+)
     }
-    
+
+    func transactionsCount(forTxFilter txFilter: Int32) -> Int {
+        let intPointer = UnsafeMutablePointer<Int>.allocate(capacity: 4)
+        defer {
+            intPointer.deallocate()
+        }
+        
+        do {
+            try self.countTransactions(txFilter, ret0_: intPointer)
+        } catch let error {
+            print("count tx error:", error.localizedDescription)
+        }
+
+        return intPointer.pointee
+    }
+
     func transactionHistory(offset: Int32, count: Int32 = 0, filter: Int32 = DcrlibwalletTxFilterAll, newestFirst:Bool = true) -> [Transaction]? {
         guard let wallet = WalletLoader.shared.firstWallet else {
             return nil

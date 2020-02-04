@@ -10,12 +10,15 @@ import UIKit
 import Dcrlibwallet
 
 class TransactionsViewController: UIViewController {
-    @IBOutlet weak var headerTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var headerStackView: UIStackView!
-    @IBOutlet weak var headerBottomConstraint: NSLayoutConstraint!
-    @IBOutlet var txTableView: UITableView!
+    var initialPageHeaderTopConstraintValue: CGFloat?
+    @IBOutlet weak var pageHeaderTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var pageHeaderStackView: UIStackView!
+    @IBOutlet weak var pageHeaderBottomConstraint: NSLayoutConstraint!
+
     @IBOutlet var txFilterDropDown: DropMenuButton!
     @IBOutlet var txSortOrderDropDown: DropMenuButton!
+    @IBOutlet var txTableView: UITableView!
+    var refreshControl: UIRefreshControl!
 
     var noTxsLabel: UILabel {
         let noTxsLabel = UILabel(frame: self.txTableView.frame)
@@ -26,28 +29,11 @@ class TransactionsViewController: UIViewController {
         return noTxsLabel
     }
 
-    var refreshControl: UIRefreshControl!
     var allTransactions = [Transaction]()
     var txFilters = [Int32]()
-    let txSorters: [Bool] = [true, false]
-    var filteredTransactions = [Transaction]()
-    var maximumHeaderTopConstraint: CGFloat?
-
-    let countTransactionsFor: (Int32) -> Int = { txFilter in
-        let intPointer = UnsafeMutablePointer<Int>.allocate(capacity: 4)
-        defer {
-            intPointer.deallocate()
-        }
-
-        do {
-            try WalletLoader.shared.firstWallet?.countTransactions(txFilter, ret0_: intPointer)
-        } catch let error {
-            print("count tx error:", error.localizedDescription)
-        }
-
-        return intPointer.pointee
-    }
-
+    let txSortOrders: [Bool] = [true, false]
+    var newTxHashes = [String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -61,6 +47,7 @@ class TransactionsViewController: UIViewController {
         self.txTableView.hideEmptyAndExtraRows()
         self.txTableView.register(UINib(nibName: TransactionTableViewCell.identifier, bundle: nil),
                                             forCellReuseIdentifier: TransactionTableViewCell.identifier)
+
         // register for new transactions notifications
         try? WalletLoader.shared.multiWallet.add(self, uniqueIdentifier: "\(self)")
     }
@@ -68,34 +55,33 @@ class TransactionsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
-
-        self.txTableView.isHidden = false
         self.loadAllTransactions()
     }
 
     func loadAllTransactions() {
         self.allTransactions.removeAll()
         self.refreshControl.showLoader(in: self.txTableView)
-        
+
+        defer {
+            self.refreshControl.endRefreshing()
+        }
+
         guard let txs = WalletLoader.shared.firstWallet?.transactionHistory(offset: 0), !txs.isEmpty else {
             self.txTableView.backgroundView = self.noTxsLabel
             self.txTableView.separatorStyle = .none
-            self.refreshControl.endRefreshing()
             return
         }
 
-        self.setupTxSorterDropDown()
+        self.setupTxSortOrderDropDown()
         self.setupTxFilterDropDown()
 
         self.allTransactions = txs
         self.txTableView.backgroundView = nil
         self.txTableView.separatorStyle = .singleLine
-
         self.txTableView.reloadData()
-        self.refreshControl.endRefreshing()
     }
 
-    func setupTxSorterDropDown() {
+    func setupTxSortOrderDropDown() {
         let sortOptions = [ LocalizedStrings.newest, LocalizedStrings.oldest ]
         self.txSortOrderDropDown.initMenu(sortOptions) { [weak self] index, value in
             self?.reloadTxsForCurrentFilter()
@@ -106,29 +92,31 @@ class TransactionsViewController: UIViewController {
         var filterOptions = [LocalizedStrings.all]
         self.txFilters = [DcrlibwalletTxFilterAll]
 
-        if self.countTransactionsFor(DcrlibwalletTxFilterSent) > 0 {
-            filterOptions.append(LocalizedStrings.sent)
-            self.txFilters.append(DcrlibwalletTxFilterSent)
-        }
+        if let wallet = WalletLoader.shared.firstWallet {
+            if wallet.transactionsCount(forTxFilter: DcrlibwalletTxFilterSent) > 0 {
+                filterOptions.append(LocalizedStrings.sent)
+                self.txFilters.append(DcrlibwalletTxFilterSent)
+            }
 
-        if self.countTransactionsFor(DcrlibwalletTxFilterReceived) > 0 {
-            filterOptions.append(LocalizedStrings.received)
-            self.txFilters.append(DcrlibwalletTxFilterReceived)
-        }
+            if wallet.transactionsCount(forTxFilter: DcrlibwalletTxFilterReceived) > 0 {
+                filterOptions.append(LocalizedStrings.received)
+                self.txFilters.append(DcrlibwalletTxFilterReceived)
+            }
 
-        if self.countTransactionsFor(DcrlibwalletTxFilterTransferred) > 0 {
-            filterOptions.append(LocalizedStrings.yourself)
-            self.txFilters.append(DcrlibwalletTxFilterTransferred)
-        }
+            if wallet.transactionsCount(forTxFilter: DcrlibwalletTxFilterTransferred) > 0 {
+                filterOptions.append(LocalizedStrings.yourself)
+                self.txFilters.append(DcrlibwalletTxFilterTransferred)
+            }
 
-        if self.countTransactionsFor(DcrlibwalletTxFilterStaking) > 0 {
-            filterOptions.append(LocalizedStrings.staking)
-            self.txFilters.append(DcrlibwalletTxFilterStaking)
-        }
+            if wallet.transactionsCount(forTxFilter: DcrlibwalletTxFilterStaking) > 0 {
+                filterOptions.append(LocalizedStrings.staking)
+                self.txFilters.append(DcrlibwalletTxFilterStaking)
+            }
 
-        if self.countTransactionsFor(DcrlibwalletTxFilterCoinBase) > 0 {
-            filterOptions.append(LocalizedStrings.coinbase)
-            self.txFilters.append(DcrlibwalletTxFilterCoinBase)
+            if wallet.transactionsCount(forTxFilter: DcrlibwalletTxFilterCoinBase) > 0 {
+                filterOptions.append(LocalizedStrings.coinbase)
+                self.txFilters.append(DcrlibwalletTxFilterCoinBase)
+            }
         }
 
         self.txFilterDropDown.initMenu(filterOptions) { [weak self] index, value in
@@ -149,7 +137,7 @@ class TransactionsViewController: UIViewController {
         let currentFilterItem = self.txFilters[safe: selectedFilterIndex] ?? DcrlibwalletTxFilterAll
 
         let selectedSortIndex = self.txSortOrderDropDown.selectedItemIndex
-        let sortOrderNewerFirst = self.txSorters[safe: selectedSortIndex] ?? true
+        let sortOrderNewerFirst = self.txSortOrders[safe: selectedSortIndex] ?? true
 
         if let txs = WalletLoader.shared.firstWallet?.transactionHistory(offset: 0, count: 0, filter: currentFilterItem, newestFirst: sortOrderNewerFirst) {
             self.allTransactions = txs
@@ -163,14 +151,18 @@ extension TransactionsViewController: DcrlibwalletTxAndBlockNotificationListener
     }
 
     func onTransaction(_ transaction: String?) {
-        var tx = try! JSONDecoder().decode(Transaction.self, from: (transaction!.utf8Bits))
+        let tx = try! JSONDecoder().decode(Transaction.self, from: (transaction!.utf8Bits))
 
         if self.allTransactions.contains(where: { $0.hash == tx.hash }) {
             // duplicate notification, tx is already being displayed in table
             return
         }
 
-        tx.animate = true
+        if self.newTxHashes.firstIndex(of: tx.hash) != nil {
+            return
+        }
+
+        self.newTxHashes.append(tx.hash)
         self.allTransactions.insert(tx, at: 0)
 
         // Save hash for this tx as last viewed tx hash.
@@ -191,11 +183,19 @@ extension TransactionsViewController: DcrlibwalletTxAndBlockNotificationListener
 
 extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (self.filteredTransactions.count > 0) ? self.filteredTransactions.count : self.allTransactions.count
+        return self.allTransactions.count
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return TransactionTableViewCell.height()
+    }
+
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let tx = self.allTransactions[indexPath.row]
+        if let newTxHashIndex = self.newTxHashes.firstIndex(of: tx.hash) {
+            cell.blink()
+            self.newTxHashes.remove(at: newTxHashIndex)
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -213,34 +213,27 @@ extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate
             cell.setRoundCorners(corners: [.bottomRight, .bottomLeft, .topLeft, .topRight], radius: 0.0)
         }
 
-        if self.filteredTransactions.isEmpty {
-            cell.setData(allTransactions[indexPath.row])
-            return cell
-        }
-        cell.setData(filteredTransactions[indexPath.row])
+        cell.setData(allTransactions[indexPath.row])
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let transactionDetailVC = TransactionDetailsViewController.instantiate(from: .TransactionDetails)
-
-        if self.filteredTransactions.isEmpty {
-            transactionDetailVC.transaction = self.allTransactions[indexPath.row]
-        } else {
-            transactionDetailVC.transaction = self.filteredTransactions[indexPath.row]
-        }
+        transactionDetailVC.transaction = self.allTransactions[indexPath.row]
         self.present(transactionDetailVC, animated: true)
     }
 }
 
 extension TransactionsViewController: UIScrollViewDelegate {
+    // make page header section view fade in or out progressively as user scrolls
+    // up or down on the transactionsTableView.
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if self.maximumHeaderTopConstraint == nil {
-            self.maximumHeaderTopConstraint = self.headerTopConstraint.constant
+        if self.initialPageHeaderTopConstraintValue == nil {
+            self.initialPageHeaderTopConstraintValue = self.pageHeaderTopConstraint.constant
         }
-        let minimumValue: CGFloat = -1 * (self.maximumHeaderTopConstraint! + self.headerStackView.frame.size.height +
-            self.headerBottomConstraint.constant)
-        self.headerTopConstraint.constant = min(self.maximumHeaderTopConstraint!, self.maximumHeaderTopConstraint! + max(minimumValue, -scrollView.contentOffset.y))
-        self.headerStackView.alpha = headerTopConstraint.constant / self.maximumHeaderTopConstraint!
+        let minimumValue: CGFloat = -1 * (self.initialPageHeaderTopConstraintValue! + self.pageHeaderStackView.frame.size.height +
+            self.pageHeaderBottomConstraint.constant)
+        self.pageHeaderTopConstraint.constant = min(self.initialPageHeaderTopConstraintValue!, self.initialPageHeaderTopConstraintValue! + max(minimumValue, -scrollView.contentOffset.y))
+        self.pageHeaderStackView.alpha = pageHeaderTopConstraint.constant / self.initialPageHeaderTopConstraintValue!
     }
 }
