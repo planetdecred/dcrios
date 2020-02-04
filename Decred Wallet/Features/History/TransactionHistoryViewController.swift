@@ -51,7 +51,6 @@ class TransactionHistoryViewController: UIViewController {
         self.transactionsTableView.hideEmptyAndExtraRows()
         self.transactionsTableView.register(UINib(nibName: TransactionTableViewCell.identifier, bundle: nil),
                                             forCellReuseIdentifier: TransactionTableViewCell.identifier)
-        self.setupTxSorter()
         // register for new transactions notifications
         try? WalletLoader.shared.multiWallet.add(self, uniqueIdentifier: "\(self)")
     }
@@ -79,7 +78,7 @@ class TransactionHistoryViewController: UIViewController {
         }
 
         self.allTransactions = txs
-        self.applyTxSorter()
+        self.setupTxSorter()
         self.transactionsTableView.backgroundView = nil
         self.transactionsTableView.separatorStyle = .singleLine
         self.setupTxFilterAndDisplayAllTxs()
