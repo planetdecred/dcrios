@@ -18,11 +18,11 @@ class WalletSyncDetailsTableViewCell: UITableViewCell {
     
     var wallet: DcrlibwalletWallet?
     
-    func displayProgress(for wallet: DcrlibwalletWallet, lastProgressReport: Any?) {
+    func displayProgress(for wallet: DcrlibwalletWallet) {
         self.wallet = wallet
         self.walletNameLabel.text = wallet.name
         
-        if self.wallet?.isWaiting() ?? true {
+        if wallet.isWaiting() {
             self.walletSyncStatusLabel.text = LocalizedStrings.waitingForOtherWallets
             self.walletSyncStatusLabel.textColor = UIColor.appColors.darkGray
         } else {
@@ -30,25 +30,52 @@ class WalletSyncDetailsTableViewCell: UITableViewCell {
             self.walletSyncStatusLabel.textColor = UIColor.appColors.green
         }
         
-        if lastProgressReport == nil {
-            self.resetSyncDetails()
-        } else if let report = lastProgressReport as? DcrlibwalletHeadersFetchProgressReport {
-            self.displayHeadersFetchProgressReport(report)
-        } else if let report = lastProgressReport as? DcrlibwalletAddressDiscoveryProgressReport {
-           self.displayAddressDiscoveryProgress(report)
-        } else if let report = lastProgressReport as? DcrlibwalletHeadersRescanProgressReport {
-            self.displayHeadersRescanProgress(report)
+        if WalletLoader.shared.multiWallet.currentSyncStage() == DcrlibwalletInvalidSyncStage {
+            // sync is probably just starting
+            self.walletSyncCurrentStepTitleLabel.text = ""
+            self.walletSyncCurrentStepReportLabel.text = ""
+            self.walletSyncCurrentStepProgressLabel.text = ""
+            return
         }
-    }
-    
-    func resetSyncDetails() {
-        self.walletSyncCurrentStepTitleLabel.text = ""
-        self.walletSyncCurrentStepReportLabel.text = ""
-        self.walletSyncCurrentStepProgressLabel.text = ""
+        
+        // If this wallet is fully synced, show stage 3 100% report.
+        if wallet.isSynced() {
+            self.walletSyncCurrentStepTitleLabel.text = LocalizedStrings.blockHeaderScanned
+            
+            let currentHeaderHeight = wallet.getBestBlock()
+            self.walletSyncCurrentStepReportLabel.text = String(format: LocalizedStrings.scanningTotalHeaders, currentHeaderHeight, currentHeaderHeight)
+            
+            self.walletSyncCurrentStepProgressLabel.text = "100%"
+            
+            return
+        }
+        
+        // This wallet is not fully synced, may be in stage 1, 2 or 3
+        // or done with stage 1, waiting to start stage 2.
+        // Show 100% progress report for stage 1 which would be ideal if waiting to start stage 2.
+        // If this wallet is currently in stage 1, 2 or 3,
+        // the progress report will be updated shortly from `MultiWalletSyncDetailsTableViewDelegate`
+        // when that class registers a sync listener which would cause
+        // the current stage progress report to be re-broadcasted.
+        self.walletSyncCurrentStepTitleLabel.text = LocalizedStrings.blockHeadersFetched
+        
+        let currentHeaderHeight = wallet.getBestBlock()
+        self.walletSyncCurrentStepReportLabel.text = String(format: LocalizedStrings.fetchedHeaders, currentHeaderHeight, currentHeaderHeight)
+        
+        let bestBlockAge = Utils.ageString(fromTimestamp: wallet.getBestBlockTimeStamp())
+        self.walletSyncCurrentStepProgressLabel.text = String(format: LocalizedStrings.bestBlockAgebehind, bestBlockAge)
     }
     
     func displayHeadersFetchProgressReport(_ report: DcrlibwalletHeadersFetchProgressReport) {
         guard let wallet = self.wallet else { return }
+        
+        if wallet.isWaiting() {
+            self.walletSyncStatusLabel.text = LocalizedStrings.waitingForOtherWallets
+            self.walletSyncStatusLabel.textColor = UIColor.appColors.darkGray
+        } else {
+            self.walletSyncStatusLabel.text = LocalizedStrings.synchronizing
+            self.walletSyncStatusLabel.textColor = UIColor.appColors.green
+        }
         
         self.walletSyncCurrentStepTitleLabel.text = LocalizedStrings.blockHeadersFetched
         
@@ -57,8 +84,9 @@ class WalletSyncDetailsTableViewCell: UITableViewCell {
                                                             currentHeaderHeight,
                                                             report.totalHeadersToFetch)
         
+        let bestBlockAge = wallet.isWaiting() ? Utils.ageString(fromTimestamp: wallet.getBestBlockTimeStamp()) : report.bestBlockAge
         self.walletSyncCurrentStepProgressLabel.text = String(format: LocalizedStrings.bestBlockAgebehind,
-                                                              report.bestBlockAge)
+                                                              bestBlockAge)
     }
     
     func displayAddressDiscoveryProgress(_ report: DcrlibwalletAddressDiscoveryProgressReport) {

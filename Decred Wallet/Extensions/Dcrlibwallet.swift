@@ -25,17 +25,7 @@ extension DcrlibwalletHeadersFetchProgressReport {
             return ""
         }
         
-        let nowSeconds = Date().millisecondsSince1970 / 1000
-        let hoursBehind = Float(nowSeconds - self.currentHeaderTimestamp) / Float(Utils.TimeInSeconds.Hour)
-        let daysBehind = Int64(round(hoursBehind / 24.0))
-        
-        if daysBehind < 1 {
-            return LocalizedStrings.lessThanOneday
-        } else if daysBehind == 1 {
-            return LocalizedStrings.oneDay
-        } else {
-            return String(format: LocalizedStrings.mutlipleDays, daysBehind)
-        }
+        return Utils.ageString(fromTimestamp: self.currentHeaderTimestamp)
     }
 }
 
