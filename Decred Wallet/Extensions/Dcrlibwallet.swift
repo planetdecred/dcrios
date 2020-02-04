@@ -144,3 +144,14 @@ extension DcrlibwalletWallet {
         return transactions
     }
 }
+
+extension DcrlibwalletMultiWallet {
+    func totalBalance(confirmations: Int32 = 0) -> Double {
+        var totalBalance: Double = 0
+        let walletsIterator = self.walletsIterator()
+        while let wallet = walletsIterator?.next() {
+            totalBalance += wallet.totalWalletBalance(confirmations: confirmations)
+        }
+        return totalBalance
+    }
+}

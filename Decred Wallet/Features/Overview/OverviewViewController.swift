@@ -119,8 +119,7 @@ class OverviewViewController: UIViewController {
     }
     
     func updateMultiWalletBalance() {
-        // todo should use multiwallet balance!
-        let totalWalletAmount = WalletLoader.shared.firstWallet?.totalWalletBalance() ?? 0
+        let totalWalletAmount = WalletLoader.shared.multiWallet.totalBalance()
         let totalAmountRoundedOff = (Decimal(totalWalletAmount) as NSDecimalNumber).round(8)
         self.balanceLabel.attributedText = Utils.getAttributedString(str: "\(totalAmountRoundedOff)", siz: 17.0, TexthexColor: UIColor.appColors.darkBlue)
     }
