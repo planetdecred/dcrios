@@ -20,7 +20,7 @@ enum MenuItem: String, CaseIterable {
             return OverviewViewController.instantiate(from: .Overview)
             
         case .transactions:
-            return TransactionHistoryViewController.instantiate(from: .History)
+            return TransactionsViewController.instantiate(from: .Transactions)
         
         case .wallets:
             return WalletsViewController.instantiate(from: .Wallets)

@@ -21,7 +21,7 @@ enum Storyboard: String {
     case SeedBackup = "SeedBackup"
     case Settings = "Settings"
     case SecurityMenu = "SecurityMenu"
-    case History = "History"
+    case Transactions = "Transactions"
     
     case CustomDialogs = "CustomDialogs"
     

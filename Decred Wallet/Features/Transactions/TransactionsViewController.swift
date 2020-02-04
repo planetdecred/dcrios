@@ -1,5 +1,5 @@
 //
-//  TransactionHistoryViewController.swift
+//  TransactionsViewController.swift
 //  Decred Wallet
 //
 // Copyright (c) 2018-2020 The Decred developers
@@ -14,7 +14,7 @@ enum TransactionSorterType: String {
     case oldest = "OLDEST"
 }
 
-class TransactionHistoryViewController: UIViewController {
+class TransactionsViewController: UIViewController {
     @IBOutlet weak var headerTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var headerStackView: UIStackView!
     @IBOutlet weak var headerBottomConstraint: NSLayoutConstraint!
@@ -187,7 +187,7 @@ class TransactionHistoryViewController: UIViewController {
     }
 }
 
-extension TransactionHistoryViewController: DcrlibwalletTxAndBlockNotificationListenerProtocol {
+extension TransactionsViewController: DcrlibwalletTxAndBlockNotificationListenerProtocol {
     func onBlockAttached(_ walletID: Int, blockHeight: Int32) {
         // not relevant to this VC
     }
@@ -220,7 +220,7 @@ extension TransactionHistoryViewController: DcrlibwalletTxAndBlockNotificationLi
     }
 }
 
-extension TransactionHistoryViewController: UITableViewDataSource, UITableViewDelegate {
+extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (self.filteredTransactions.count > 0) ? self.filteredTransactions.count : self.allTransactions.count
     }
@@ -264,7 +264,7 @@ extension TransactionHistoryViewController: UITableViewDataSource, UITableViewDe
     }
 }
 
-extension TransactionHistoryViewController: UIScrollViewDelegate {
+extension TransactionsViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if self.maximumHeaderTopConstraint == nil {
             self.maximumHeaderTopConstraint = self.headerTopConstraint.constant
