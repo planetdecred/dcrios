@@ -87,10 +87,14 @@ extension DcrlibwalletAccount {
     var dcrTotalBalance: Double {
         return DcrlibwalletAmountCoin(self.totalBalance)
     }
+    
+    var dcrSpendableBalance: Double {
+        return self.balance?.dcrSpendable ?? 0.0
+    }
 }
 
 extension DcrlibwalletWallet {
-    func walletAccounts(confirmations: Int32) -> [DcrlibwalletAccount] {
+    func accounts(confirmations: Int32) -> [DcrlibwalletAccount] {
         var accounts = [DcrlibwalletAccount]()
         do {
             let accountsIterator = try self.accountsIterator(confirmations)
@@ -104,7 +108,7 @@ extension DcrlibwalletWallet {
     }
     
     func totalWalletBalance(confirmations: Int32 = 0) -> Double {
-        return self.walletAccounts(confirmations: confirmations).filter({ !$0.isHidden }).map({ $0.dcrTotalBalance }).reduce(0,+)
+        return self.accounts(confirmations: confirmations).filter({ !$0.isHidden }).map({ $0.dcrTotalBalance }).reduce(0,+)
     }
     
     func transactionHistory(offset: Int32, count: Int32 = 0, filter: Int32 = DcrlibwalletTxFilterAll) -> [Transaction]? {

@@ -55,7 +55,7 @@ class RequestPinViewController: SecurityCodeRequestBaseViewController {
                                                                                       action: #selector(self.showKeypad)))
 
         self.prgsPinStrength.superview?.isHidden = !self.request.requestConfirmation
-        self.setPromptAndButtonText(isFirstStep: true)
+        self.setInitialPromptAndButtonText()
 
         if let prompt = self.request.prompt {
             self.headerLabel?.text = prompt
@@ -77,14 +77,32 @@ class RequestPinViewController: SecurityCodeRequestBaseViewController {
     @objc func showKeypad() {
         self.pinHiddenInput.becomeFirstResponder()
     }
-
-    private func setPromptAndButtonText(isFirstStep: Bool) {
-        if isFirstStep {
+    
+    private func setInitialPromptAndButtonText() {
+        if self.request.requestConfirmation {
+            self.btnSubmit.setTitle(LocalizedStrings.next, for: .normal)
+        } else {
             self.btnSubmit.setTitle(self.request.submitBtnText ?? LocalizedStrings.next, for: .normal)
-            self.enterPinLabel.text = String(format: LocalizedStrings.enterPIN,
+        }
+        
+        if self.request.isChangeAttempt {
+            self.enterPinLabel.text = String(format: LocalizedStrings.newPINPlaceholder,
                                              self.request.for.localizedString.lowercased())
         } else {
-            self.btnSubmit.setTitle(LocalizedStrings.create, for: .normal)
+            self.enterPinLabel.text = String(format: LocalizedStrings.enterPIN,
+                                             self.request.for.localizedString.lowercased())
+        }
+    }
+    
+    private func setConfirmationPromptAndButtonText() {
+        if self.request.isChangeAttempt {
+            self.btnSubmit.setTitle(self.request.submitBtnText ?? LocalizedStrings.change, for: .normal)
+            
+            self.enterPinLabel.text = String(format: LocalizedStrings.confirmNewPINPlaceholder,
+                                             self.request.for.localizedString.lowercased())
+        } else {
+            self.btnSubmit.setTitle(self.request.submitBtnText ?? LocalizedStrings.create, for: .normal)
+            
             self.enterPinLabel.text = String(format: LocalizedStrings.confirmPIN,
                                              self.request.for.localizedString.lowercased())
         }
@@ -124,7 +142,7 @@ class RequestPinViewController: SecurityCodeRequestBaseViewController {
         self.updatePinCollectionView()
         self.onPinTextChanged()
         self.btnBack?.isHidden = true
-        self.setPromptAndButtonText(isFirstStep: true)
+        self.setInitialPromptAndButtonText()
     }
 
     @IBAction func onSubmit(_ sender: UIButton) {
@@ -137,7 +155,7 @@ class RequestPinViewController: SecurityCodeRequestBaseViewController {
             self.pinHiddenInput.text = ""
             self.updatePinCollectionView()
             self.onPinTextChanged()
-            self.setPromptAndButtonText(isFirstStep: false)
+            self.setConfirmationPromptAndButtonText()
             self.btnBack?.isHidden = false
         } else if self.request.requestConfirmation && self.pinToConfirm != pinText {
             self.reset()
@@ -157,9 +175,10 @@ class RequestPinViewController: SecurityCodeRequestBaseViewController {
             }
 
             // `onCurrentAndNewCodesEntered` callback is set, request new code and notify callback.
-            Security(for: self.request.for, initialSecurityType: .pin).requestNewCode(sender: self) {
-                newCode, newCodeType, newCodeRequestCompletion in
-                currentAndNewCodesEnteredCallback(pinText, self, newCode, newCodeRequestCompletion, newCodeType)
+            Security(for: self.request.for, initialSecurityType: .pin)
+                .requestNewCode(sender: self, isChangeAttempt: true) { newCode, newCodeType, newCodeRequestCompletion in
+
+                    currentAndNewCodesEnteredCallback(pinText, self, newCode, newCodeRequestCompletion, newCodeType)
             }
         }
     }
@@ -174,7 +193,7 @@ class RequestPinViewController: SecurityCodeRequestBaseViewController {
 
     @IBAction func onBack(_ sender: Any) {
         self.reset()
-        self.setPromptAndButtonText(isFirstStep: true)
+        self.setInitialPromptAndButtonText()
     }
 
     @IBAction func onCancelButtonTapped(_ sender: Any) {

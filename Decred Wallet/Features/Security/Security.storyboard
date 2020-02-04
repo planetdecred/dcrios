@@ -167,7 +167,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="366" height="73.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unlock with startup password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NoT-EV-WHd">
-                                                        <rect key="frame" x="0.0" y="24" width="366" height="25.5"/>
+                                                        <rect key="frame" x="0.0" y="24" width="366" height="33.5"/>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="20"/>
                                                         <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -181,7 +181,14 @@
                                                     <constraint firstItem="NoT-EV-WHd" firstAttribute="top" secondItem="0Ms-qN-4pQ" secondAttribute="top" constant="24" id="0pC-FP-PaV"/>
                                                     <constraint firstItem="NoT-EV-WHd" firstAttribute="leading" secondItem="0Ms-qN-4pQ" secondAttribute="leading" id="4MW-pb-fPp"/>
                                                     <constraint firstAttribute="trailing" secondItem="NoT-EV-WHd" secondAttribute="trailing" id="WyT-Tg-HWp"/>
-                                                    <constraint firstAttribute="bottom" secondItem="NoT-EV-WHd" secondAttribute="bottom" constant="24" id="hem-da-OHY"/>
+                                                    <constraint firstAttribute="bottom" secondItem="NoT-EV-WHd" secondAttribute="bottom" constant="16" id="hem-da-OHY"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RfS-CR-s9a">
+                                                <rect key="frame" x="0.0" y="73.5" width="366" height="10"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="10" id="KKK-Nz-HcY"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nLe-fV-hfu">
@@ -316,7 +323,7 @@ Unlock the wallet to resume the process.</string>
                                                 <rect key="frame" x="0.0" y="346" width="366" height="72"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v6t-Bu-n8H">
-                                                        <rect key="frame" x="200" y="8" width="79" height="40"/>
+                                                        <rect key="frame" x="199" y="8" width="79" height="40"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="79" id="b1J-Cl-bBx"/>
                                                         </constraints>
@@ -327,13 +334,14 @@ Unlock the wallet to resume the process.</string>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PwE-hW-lVm" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
-                                                        <rect key="frame" x="287" y="8" width="79" height="40"/>
+                                                        <rect key="frame" x="286" y="8" width="80" height="40"/>
                                                         <color key="backgroundColor" red="0.77000000000000002" green="0.80000000000000004" blue="0.81999999999999995" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="Fi5-Lx-dDQ"/>
-                                                            <constraint firstAttribute="width" constant="79" id="k6V-Dj-Feb"/>
+                                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="k6V-Dj-Feb"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
+                                                        <inset key="contentEdgeInsets" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
                                                         <state key="normal" title="Create">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
@@ -368,7 +376,7 @@ Unlock the wallet to resume the process.</string>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstItem="oLB-RB-SsP" firstAttribute="top" secondItem="VIK-gW-7wr" secondAttribute="top" constant="20" symbolic="YES" id="76A-G8-wTO"/>
+                                    <constraint firstItem="oLB-RB-SsP" firstAttribute="top" secondItem="VIK-gW-7wr" secondAttribute="top" id="76A-G8-wTO"/>
                                     <constraint firstAttribute="bottom" secondItem="oLB-RB-SsP" secondAttribute="bottom" id="OEj-Ag-TFl"/>
                                     <constraint firstAttribute="trailing" secondItem="oLB-RB-SsP" secondAttribute="trailing" constant="24" id="acL-7m-0yx"/>
                                     <constraint firstItem="oLB-RB-SsP" firstAttribute="leading" secondItem="VIK-gW-7wr" secondAttribute="leading" constant="24" id="p2T-QE-3FK"/>
@@ -589,7 +597,7 @@ Unlock the wallet to resume the process.</string>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hE5-Xg-wZu">
-                                                        <rect key="frame" x="213" y="0.0" width="79" height="40"/>
+                                                        <rect key="frame" x="199" y="0.0" width="79" height="40"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="79" id="vgu-tU-bpZ"/>
                                                         </constraints>
@@ -600,13 +608,14 @@ Unlock the wallet to resume the process.</string>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Irb-id-mc4" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
-                                                        <rect key="frame" x="300" y="0.0" width="66" height="40"/>
+                                                        <rect key="frame" x="286" y="0.0" width="80" height="40"/>
                                                         <color key="backgroundColor" red="0.77000000000000002" green="0.80000000000000004" blue="0.81999999999999995" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="3eo-1S-fFG"/>
-                                                            <constraint firstAttribute="width" constant="66" id="PRB-Jt-Zcy"/>
+                                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="PRB-Jt-Zcy"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
+                                                        <inset key="contentEdgeInsets" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
                                                         <state key="normal" title="Create">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>

@@ -48,14 +48,33 @@ class RequestPasswordViewController: SecurityCodeRequestBaseViewController, UITe
         
         self.passwordInput.placeholder = String(format: LocalizedStrings.passwordPlaceholder,
                                                 self.request.for.localizedString)
+
+        if self.request.isChangeAttempt {
+            self.passwordInput.placeholder = String(format: LocalizedStrings.newPasswordPlaceholder,
+                                                    self.request.for.localizedString.lowercased())
+
+            self.btnSubmit.setTitle(self.request.submitBtnText ?? LocalizedStrings.change, for: .normal)
+        } else {
+            self.passwordInput.placeholder = String(format: LocalizedStrings.passwordPlaceholder,
+                                                    self.request.for.localizedString)
+
+            self.btnSubmit.setTitle(self.request.submitBtnText ?? LocalizedStrings.create, for: .normal)
+        }
+        
         self.passwordInput.isSecureTextEntry = true
         self.passwordInput.addTogglePasswordVisibilityButton()
         self.passwordInput.addTarget(self, action: #selector(self.passwordTextFieldChange), for: .editingChanged)
         self.passwordInput.delegate = self
 
         if self.request.requestConfirmation {
-            self.confirmPasswordInput?.placeholder = String(format: LocalizedStrings.confirmPasswordPlaceholder,
-                                                            self.request.for.localizedString)
+            if self.request.isChangeAttempt {
+                self.confirmPasswordInput?.placeholder = String(format: LocalizedStrings.confirmNewPasswordPlaceholder,
+                                                                self.request.for.localizedString.lowercased())
+            } else {
+                self.confirmPasswordInput?.placeholder = String(format: LocalizedStrings.confirmPasswordPlaceholder,
+                                                                self.request.for.localizedString.lowercased())
+            }
+            
             self.confirmPasswordInput?.isSecureTextEntry = true
             self.confirmPasswordInput?.addTogglePasswordVisibilityButton()
             self.confirmPasswordInput?.delegate = self
@@ -70,10 +89,6 @@ class RequestPasswordViewController: SecurityCodeRequestBaseViewController, UITe
 
         if !self.request.showCancelButton {
             self.btnCancel?.removeFromSuperview()
-        }
-
-        if let submitBtnText = self.request.submitBtnText {
-            self.btnSubmit.setTitle(submitBtnText, for: .normal)
         }
     }
 
@@ -170,9 +185,10 @@ class RequestPasswordViewController: SecurityCodeRequestBaseViewController, UITe
         }
 
         // `onCurrentAndNewCodesEntered` callback is set, request new code and notify callback.
-        Security(for: self.request.for, initialSecurityType: .password).requestNewCode(sender: self) {
-            newCode, newCodeType, newCodeRequestCompletion in
-            currentAndNewCodesEnteredCallback(password, self, newCode, newCodeRequestCompletion, newCodeType)
+        Security(for: self.request.for, initialSecurityType: .password)
+            .requestNewCode(sender: self, isChangeAttempt: true) { newCode, newCodeType, newCodeRequestCompletion in
+                
+                currentAndNewCodesEnteredCallback(password, self, newCode, newCodeRequestCompletion, newCodeType)
         }
         return true
     }

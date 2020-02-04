@@ -210,7 +210,7 @@ class SettingsController: UITableViewController  {
         if indexPath.section == 0 {
             switch indexPath.row {
             case 0: // change spending pin/password
-                SpendingPinOrPassword.change(sender: self)
+                SpendingPinOrPassword.change(sender: self, walletID: WalletLoader.shared.firstWallet!.id_)
                 
             case 1: // enable/disable startup pin/password
                 if start_Pin.isOn {
@@ -257,37 +257,42 @@ class SettingsController: UITableViewController  {
             let deleteWalletDialog = segue.destination as! DeleteWalletConfirmationViewController
             deleteWalletDialog.onDeleteWalletConfirmed = { password in
                 if password != nil {
-                    self.deleteWallet(spendingPinOrPassword: password!, completion: nil)
+                    self.deleteWallet(spendingPinOrPassword: password!, dialogDelegate: nil)
                     return
                 }
                 
-                Security.spending().requestCurrentCode(sender: self) { pinOrPassword, _, completion in
-                    self.deleteWallet(spendingPinOrPassword: pinOrPassword, completion: completion)
+                let spendingSecurityType = SpendingPinOrPassword.securityType(for: WalletLoader.shared.firstWallet!)
+                Security.spending(initialSecurityType: spendingSecurityType)
+                    .requestCurrentCode(sender: self) { pinOrPassword, _, dialogDelegate in
+                        
+                        self.deleteWallet(spendingPinOrPassword: pinOrPassword, dialogDelegate: dialogDelegate)
                 }
             }
         }
     }
     
-    func deleteWallet(spendingPinOrPassword: String, completion: SecurityCodeRequestCompletionDelegate?) {
+    func deleteWallet(spendingPinOrPassword: String, dialogDelegate: InputDialogDelegate?) {
+        let walletID = WalletLoader.shared.firstWallet!.id_
         let progressHud = Utils.showProgressHud(withText: LocalizedStrings.deletingWallet)
+        
         DispatchQueue.global(qos: .background).async {
             do {
-                try WalletLoader.shared.multiWallet.delete(WalletLoader.shared.firstWallet!.id_,
-                                                           privPass: spendingPinOrPassword.utf8Bits)
+                try WalletLoader.shared.multiWallet.delete(walletID, privPass: spendingPinOrPassword.utf8Bits)
                 DispatchQueue.main.async {
                     progressHud.dismiss()
-                    completion?.securityCodeProcessed()
+                    dialogDelegate?.dismissDialog()
                     self.walletDeleted()
                 }
             } catch let error {
                 print("delete wallet error: \(error.localizedDescription)")
                 DispatchQueue.main.async {
                     progressHud.dismiss()
+                    
+                    var errorMessage = LocalizedStrings.deleteWalletFailed
                     if error.isInvalidPassphraseError {
-                        completion?.securityCodeError(errorMessage: SpendingPinOrPassword.invalidSecurityCodeMessage())
-                    } else {
-                        completion?.securityCodeError(errorMessage: LocalizedStrings.deleteWalletFailed)
+                        errorMessage = SpendingPinOrPassword.invalidSecurityCodeMessage(for: walletID)
                     }
+                    dialogDelegate?.displayError(errorMessage: errorMessage)
                 }
             }
         }
