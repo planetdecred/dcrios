@@ -503,33 +503,37 @@ extension SendViewController {
     }
     
     func checkAddressFromQrCode(textScannedFromQRCode: String?) {
-        guard var capturedText = textScannedFromQRCode else {
+        
+        guard let capturedText = textScannedFromQRCode else {
             self.destinationAddressTextField.text = ""
             return
         }
+        let URI: DecredAddressURI = DecredAddressURI(uriString: capturedText)
         
-        if capturedText.starts(with: "decred:") {
-            capturedText = capturedText.replacingOccurrences(of: "decred:", with: "")
+        guard let address = URI.address else {
+            return
         }
         
-        if capturedText.count < 25 {
+        self.dcrAmountTextField.text = String(format: "%", URI.amount ?? "")
+        
+        if address.count < 25 {
             self.invalidAddressFromQrCode(errorMessage: LocalizedStrings.walletAddressShort)
             return
         }
-        if capturedText.count > 36 {
+        if address.count > 36 {
             self.invalidAddressFromQrCode(errorMessage: LocalizedStrings.walletAddressLong)
             return
         }
         
         if BuildConfig.IsTestNet {
-            if capturedText.starts(with: "T") {
-                self.destinationAddressTextField.text = capturedText
+            if address.starts(with: "T") {
+                self.destinationAddressTextField.text = address
             } else {
                 self.invalidAddressFromQrCode(errorMessage: LocalizedStrings.invalidTesnetAddress)
             }
         } else {
-            if capturedText.starts(with: "D") {
-                self.destinationAddressTextField.text = capturedText
+            if address.starts(with: "D") {
+                self.destinationAddressTextField.text = address
             } else {
                 self.invalidAddressFromQrCode(errorMessage: LocalizedStrings.invalidMainnetAddress)
             }
