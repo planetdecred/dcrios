@@ -10,7 +10,6 @@ import UIKit
 import Dcrlibwallet
 
 class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDelegate {
-    
     @IBOutlet weak var menuBtn: UIButton!
     @IBOutlet private var accountDropdown: DropMenuButton!
     @IBOutlet private var imgWalletAddrQRCode: UIImageView!

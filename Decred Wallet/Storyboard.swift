@@ -23,6 +23,7 @@ enum Storyboard: String {
     case Settings = "Settings"
     case SecurityMenu = "SecurityMenu"
     case CustomDialogs = "CustomDialogs"
+    case Receive = "Receive"
     
     var instance: UIStoryboard {
         return UIStoryboard(name: self.rawValue, bundle: nil)
