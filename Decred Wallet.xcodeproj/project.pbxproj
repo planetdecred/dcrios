@@ -56,7 +56,6 @@
 		B3B46993228F0C2E00A68EDD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46992228F0C2E00A68EDD /* AppDelegate.swift */; };
 		B3B4699A228F0C2E00A68EDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3B46999228F0C2E00A68EDD /* Assets.xcassets */; };
 		B3B4699D228F0C2E00A68EDD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3B4699B228F0C2E00A68EDD /* LaunchScreen.storyboard */; };
-		B3B469A6228F0F0700A68EDD /* AccountHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469A5228F0F0700A68EDD /* AccountHeader.swift */; };
 		B3B469FA228F0F2700A68EDD /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469A8228F0F2600A68EDD /* UIColor.swift */; };
 		B3B469FB228F0F2700A68EDD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469A9228F0F2600A68EDD /* Extensions.swift */; };
 		B3B469FC228F0F2700A68EDD /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B469AA228F0F2600A68EDD /* String.swift */; };
@@ -214,7 +213,6 @@
 		B3B46999228F0C2E00A68EDD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B3B4699C228F0C2E00A68EDD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B3B4699E228F0C2E00A68EDD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B3B469A5228F0F0700A68EDD /* AccountHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountHeader.swift; sourceTree = "<group>"; };
 		B3B469A8228F0F2600A68EDD /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		B3B469A9228F0F2600A68EDD /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		B3B469AA228F0F2600A68EDD /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -318,8 +316,6 @@
 		DDCF259B22B8A361005FCBB9 /* Send.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Send.storyboard; sourceTree = "<group>"; };
 		DDCF259D22B8A382005FCBB9 /* SecurityMenu.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SecurityMenu.storyboard; sourceTree = "<group>"; };
 		DDCF25A022B8A3D4005FCBB9 /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
-		DDCF25A222B8A417005FCBB9 /* AccountDataCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountDataCell.xib; sourceTree = "<group>"; };
-		DDCF25A422B8A43F005FCBB9 /* TransactiontInputDetailsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactiontInputDetailsCell.xib; sourceTree = "<group>"; };
 		DDCF25A822B8A487005FCBB9 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		DDD65AD622A935460027CDA8 /* LicenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseViewController.swift; sourceTree = "<group>"; };
 		DDFB922722C8FF2D00F46FBE /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -338,22 +334,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		100B122323E9EE59005636A7 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				DDCF25A422B8A43F005FCBB9 /* TransactiontInputDetailsCell.xib */,
-				DDCF25A222B8A417005FCBB9 /* AccountDataCell.xib */,
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
 		100B122423E9EEAC005636A7 /* Transactions */ = {
 			isa = PBXGroup;
 			children = (
-				100B122523E9EEAC005636A7 /* TransactionTableViewCell.xib */,
-				100B122623E9EEAC005636A7 /* TransactionTableViewCell.swift */,
 				100B122723E9EEAC005636A7 /* Transactions.storyboard */,
 				100B122823E9EEAC005636A7 /* TransactionsViewController.swift */,
+				100B122523E9EEAC005636A7 /* TransactionTableViewCell.xib */,
+				100B122623E9EEAC005636A7 /* TransactionTableViewCell.swift */,
 			);
 			path = Transactions;
 			sourceTree = "<group>";
@@ -449,7 +436,6 @@
 				B3B46990228F0C2D00A68EDD /* Products */,
 				8F7CDB697B0BC7D598AC1F98 /* Pods */,
 				452B0148672C448C74CB5C1E /* Frameworks */,
-				100B122323E9EE59005636A7 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -466,7 +452,6 @@
 			children = (
 				DD41737D22B1B31E00580935 /* Localizable.strings */,
 				B3A3EF8422936BEF00008A4E /* Network */,
-				B3B469A4228F0F0700A68EDD /* Accounts */,
 				B3B469BF228F0F2600A68EDD /* Constants */,
 				B3B469AC228F0F2600A68EDD /* Custom Views */,
 				B3B469C2228F0F2600A68EDD /* DcrlibwalletTypes */,
@@ -491,14 +476,6 @@
 				B39BDC4C228F798300F3FB55 /* BuildConfig.swift */,
 			);
 			path = "Decred Wallet";
-			sourceTree = "<group>";
-		};
-		B3B469A4228F0F0700A68EDD /* Accounts */ = {
-			isa = PBXGroup;
-			children = (
-				B3B469A5228F0F0700A68EDD /* AccountHeader.swift */,
-			);
-			path = Accounts;
 			sourceTree = "<group>";
 		};
 		B3B469A7228F0F2600A68EDD /* Extensions */ = {
@@ -1047,7 +1024,6 @@
 				10341E0A23CBBB700055DFDE /* SeedBackupVerifyTableViewCell.swift in Sources */,
 				B3B9432923E4D0B30088EC3E /* WalletSettingsViewController.swift in Sources */,
 				B377DB0722A5663700BDF56F /* DeleteWalletConfirmationViewController.swift in Sources */,
-				B3B469A6228F0F0700A68EDD /* AccountHeader.swift in Sources */,
 				B3A3EF88229375D100008A4E /* Date.swift in Sources */,
 				B3B46A21228F0F2700A68EDD /* SecurityCodeRequestBaseViewController.swift in Sources */,
 				B3A3EF922295956300008A4E /* SendViewController.swift in Sources */,

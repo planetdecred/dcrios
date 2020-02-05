@@ -8,6 +8,7 @@
 
 import UIKit
 
+@IBDesignable
 class Label: UILabel {
     @IBInspectable var topPadding: CGFloat = 0 {
         didSet {
@@ -35,7 +36,7 @@ class Label: UILabel {
 
     @IBInspectable var borderColor: UIColor = UIColor.appColors.lightBlue {
         didSet {
-             setupView()
+            setupView()
         }
     }
 

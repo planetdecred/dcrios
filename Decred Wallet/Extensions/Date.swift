@@ -9,6 +9,10 @@
 import Foundation
 
 extension Date {
+    var daysFromNow: Int {
+      return Calendar.current.dateComponents([.day], from: Date(), to: self).day!
+    }
+
     func isBefore(_ otherDate: Date) -> Bool {
         return self < otherDate
     }
@@ -20,8 +24,11 @@ extension Date {
     func isAfter(_ otherDate: Date) -> Bool {
         return self > otherDate
     }
-    
-    var daysFromNow: Int {
-      return Calendar.current.dateComponents([.day], from: Date(), to: self).day!
+
+    func toString(format: String, localeIdentifier: String = "en_US_POSIX") -> String {
+        let dateformater = DateFormatter()
+        dateformater.locale = Locale(identifier: localeIdentifier)
+        dateformater.dateFormat = format
+        return dateformater.string(from: self)
     }
 }

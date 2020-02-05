@@ -176,7 +176,7 @@ struct LocalizedStrings {
     /* Transactions */
     static let pending = NSLocalizedString("pending", comment: "")
     static let confirmed = NSLocalizedString("confirmed", comment: "")
-    static let vote = NSLocalizedString("vote", comment: "")
+    static let voted = NSLocalizedString("voted", comment: "")
     static let ticket = NSLocalizedString("ticket", comment: "")
     static let live = NSLocalizedString("live", comment: "")
     static let immature = NSLocalizedString("immature", comment: "")

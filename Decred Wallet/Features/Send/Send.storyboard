@@ -71,7 +71,7 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TW4-eL-kcD" customClass="DropMenuButton" customModule="Decred_Wallet" customModuleProvider="target">
-                                                                <rect key="frame" x="54" y="0.0" width="312" height="36"/>
+                                                                <rect key="frame" x="54" y="0.0" width="306" height="36"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="19"/>
                                                                 <state key="normal" title="default">
@@ -79,8 +79,8 @@
                                                                 </state>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QBh-io-GuA">
-                                                                <rect key="frame" x="376" y="0.0" width="18" height="36"/>
-                                                                <state key="normal" image="ic_dropdown_down"/>
+                                                                <rect key="frame" x="370" y="0.0" width="24" height="36"/>
+                                                                <state key="normal" image="ic_dropdown"/>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
@@ -101,7 +101,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aAT-RT-mQt" customClass="DropMenuButton" customModule="Decred_Wallet" customModuleProvider="target">
-                                                                <rect key="frame" x="54" y="0.0" width="312" height="0.0"/>
+                                                                <rect key="frame" x="54" y="0.0" width="306" height="0.0"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="19"/>
                                                                 <state key="normal" title="other account">
@@ -109,8 +109,8 @@
                                                                 </state>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BGU-c3-IJd">
-                                                                <rect key="frame" x="376" y="0.0" width="18" height="0.0"/>
-                                                                <state key="normal" image="ic_dropdown_down"/>
+                                                                <rect key="frame" x="370" y="0.0" width="24" height="0.0"/>
+                                                                <state key="normal" image="ic_dropdown"/>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
@@ -118,13 +118,13 @@
                                                         <rect key="frame" x="10" y="150.5" width="394" height="36"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="240" horizontalCompressionResistancePriority="740" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Destination Address" textAlignment="natural" minimumFontSize="12" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="fmU-vc-JfS">
-                                                                <rect key="frame" x="0.0" y="8.5" width="260.5" height="19"/>
+                                                                <rect key="frame" x="0.0" y="8.5" width="253.5" height="19"/>
                                                                 <color key="textColor" red="0.2901960784" green="0.57254901960000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="15"/>
                                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                                                             </textField>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Epn-J1-AU1" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
-                                                                <rect key="frame" x="264.5" y="3" width="92.5" height="30.5"/>
+                                                                <rect key="frame" x="257.5" y="3" width="99.5" height="30.5"/>
                                                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.10474636129999999" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="14"/>
                                                                 <inset key="contentEdgeInsets" minX="4" minY="4" maxX="4" maxY="4"/>
@@ -712,7 +712,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="ic_dropdown_down" width="18" height="18"/>
+        <image name="ic_dropdown" width="24" height="24"/>
         <image name="img-tx-sent" width="125" height="125"/>
         <image name="paste" width="18.666666030883789" height="22.666666030883789"/>
         <image name="qr_code_filled" width="33" height="33"/>

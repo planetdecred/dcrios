@@ -378,7 +378,7 @@ extension OverviewViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TransactionTableViewCell.identifier) as! TransactionTableViewCell
         let tx = self.recentTransactions[indexPath.row]
-        cell.setData(tx)
+        cell.displayInfo(for: tx)
         return cell
     }
     

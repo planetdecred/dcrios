@@ -16,13 +16,12 @@ enum Storyboard: String {
     case NavigationMenu = "NavigationMenu"
     case Overview = "Overview"
     case Send = "Send"
+    case Transactions = "Transactions"
     case TransactionDetails = "TransactionDetails"
     case Wallets = "Wallets"
     case SeedBackup = "SeedBackup"
     case Settings = "Settings"
     case SecurityMenu = "SecurityMenu"
-    case Transactions = "Transactions"
-    
     case CustomDialogs = "CustomDialogs"
     
     var instance: UIStoryboard {

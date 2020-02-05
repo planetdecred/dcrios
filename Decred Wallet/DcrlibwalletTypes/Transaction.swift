@@ -82,6 +82,13 @@ struct Transaction: Codable {
     var dcrFee: NSDecimalNumber {
         return Decimal(DcrlibwalletAmountCoin(self.fee)) as NSDecimalNumber
     }
+
+    var confirmations: Int32 {
+        if self.blockHeight != -1 {
+            return WalletLoader.shared.multiWallet.getBestBlock()!.height - self.blockHeight + 1
+        }
+        return 0
+    }
 }
 
 struct TxInput: Codable {

@@ -45,8 +45,7 @@ class TransactionsViewController: UIViewController {
 
         self.txTableView.addSubview(self.refreshControl)
         self.txTableView.hideEmptyAndExtraRows()
-        self.txTableView.register(UINib(nibName: TransactionTableViewCell.identifier, bundle: nil),
-                                            forCellReuseIdentifier: TransactionTableViewCell.identifier)
+        self.txTableView.registerCellNib(TransactionTableViewCell.self)
 
         // register for new transactions notifications
         try? WalletLoader.shared.multiWallet.add(self, uniqueIdentifier: "\(self)")
@@ -145,6 +144,45 @@ class TransactionsViewController: UIViewController {
     }
 }
 
+extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.allTransactions.count
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return TransactionTableViewCell.height()
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = self.txTableView.dequeueReusableCell(withIdentifier: TransactionTableViewCell.identifier) as! TransactionTableViewCell
+
+        if indexPath.row == 0 {
+            cell.setRoundCorners(corners: [.topLeft, .topRight], radius: 14.0)
+        } else if indexPath.row == allTransactions.count - 1 {
+            cell.setRoundCorners(corners: [.bottomRight, .bottomLeft], radius: 14.0)
+        } else {
+            cell.setRoundCorners(corners: [.bottomRight, .bottomLeft, .topLeft, .topRight], radius: 0.0)
+        }
+
+        cell.displayInfo(for: allTransactions[indexPath.row])
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let tx = self.allTransactions[indexPath.row]
+        if let newTxHashIndex = self.newTxHashes.firstIndex(of: tx.hash) {
+            cell.blink()
+            self.newTxHashes.remove(at: newTxHashIndex)
+        }
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let transactionDetailVC = TransactionDetailsViewController.instantiate(from: .TransactionDetails)
+        transactionDetailVC.transaction = self.allTransactions[indexPath.row]
+        self.present(transactionDetailVC, animated: true)
+    }
+}
+
 extension TransactionsViewController: DcrlibwalletTxAndBlockNotificationListenerProtocol {
     func onBlockAttached(_ walletID: Int, blockHeight: Int32) {
         // not relevant to this VC
@@ -178,49 +216,6 @@ extension TransactionsViewController: DcrlibwalletTxAndBlockNotificationListener
          DispatchQueue.main.async {
             self.txTableView.reloadData()
         }
-    }
-}
-
-extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.allTransactions.count
-    }
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return TransactionTableViewCell.height()
-    }
-
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let tx = self.allTransactions[indexPath.row]
-        if let newTxHashIndex = self.newTxHashes.firstIndex(of: tx.hash) {
-            cell.blink()
-            self.newTxHashes.remove(at: newTxHashIndex)
-        }
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = self.txTableView.dequeueReusableCell(withIdentifier: TransactionTableViewCell.identifier) as! TransactionTableViewCell
-
-        var frame = cell.frame
-        frame.size.width = self.txTableView.frame.size.width
-        cell.frame = frame
-
-        if indexPath.row == 0 {
-            cell.setRoundCorners(corners: [.topLeft, .topRight], radius: 14.0)
-        } else if indexPath.row == allTransactions.count - 1 {
-            cell.setRoundCorners(corners: [.bottomRight, .bottomLeft], radius: 14.0)
-        } else {
-            cell.setRoundCorners(corners: [.bottomRight, .bottomLeft, .topLeft, .topRight], radius: 0.0)
-        }
-
-        cell.setData(allTransactions[indexPath.row])
-        return cell
-    }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let transactionDetailVC = TransactionDetailsViewController.instantiate(from: .TransactionDetails)
-        transactionDetailVC.transaction = self.allTransactions[indexPath.row]
-        self.present(transactionDetailVC, animated: true)
     }
 }
 

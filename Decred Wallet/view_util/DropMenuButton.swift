@@ -23,7 +23,11 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
     
     var superSuperView = UIView()
     var containerView = UIView()
-    var minTableWidth: CGFloat = 0
+    var minTableWidth: CGFloat = 0 {
+        didSet {
+            self.layoutIfNeeded()
+        }
+    }
     
     var isDropDownOpen: Bool {
         return self.containerView.alpha == 1
