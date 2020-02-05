@@ -12,6 +12,8 @@
 		100B122B23E9EEAC005636A7 /* Transactions.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 100B122723E9EEAC005636A7 /* Transactions.storyboard */; };
 		100B122C23E9EEAC005636A7 /* TransactionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100B122823E9EEAC005636A7 /* TransactionsViewController.swift */; };
 		100B122E23E9EECB005636A7 /* RestoreExistingWalletSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100B122D23E9EECB005636A7 /* RestoreExistingWalletSuccessViewController.swift */; };
+		1013EBB223EAF83400E100F8 /* AccountSelectTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1013EBB123EAF83400E100F8 /* AccountSelectTableViewCell.xib */; };
+		1013EBB423EAF84B00E100F8 /* AccountSelectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1013EBB323EAF84B00E100F8 /* AccountSelectTableViewCell.swift */; };
 		102AFAC423AA2B4D007E2EBD /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102AFAC323AA2B4D007E2EBD /* ProgressView.swift */; };
 		102D724B23ED5271002DCAF2 /* TransactionDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102D724723ED5271002DCAF2 /* TransactionDetailCell.swift */; };
 		10341E0723CBBB700055DFDE /* SeedBackupSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10341E0023CBBB700055DFDE /* SeedBackupSuccessViewController.swift */; };
@@ -166,6 +168,8 @@
 		100B122723E9EEAC005636A7 /* Transactions.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Transactions.storyboard; sourceTree = "<group>"; };
 		100B122823E9EEAC005636A7 /* TransactionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsViewController.swift; sourceTree = "<group>"; };
 		100B122D23E9EECB005636A7 /* RestoreExistingWalletSuccessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestoreExistingWalletSuccessViewController.swift; sourceTree = "<group>"; };
+		1013EBB123EAF83400E100F8 /* AccountSelectTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AccountSelectTableViewCell.xib; path = "Decred Wallet/Features/Receive/AccountSelectTableViewCell.xib"; sourceTree = SOURCE_ROOT; };
+		1013EBB323EAF84B00E100F8 /* AccountSelectTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccountSelectTableViewCell.swift; path = "Decred Wallet/Features/Receive/AccountSelectTableViewCell.swift"; sourceTree = SOURCE_ROOT; };
 		102AFAC323AA2B4D007E2EBD /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 		102D724723ED5271002DCAF2 /* TransactionDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionDetailCell.swift; sourceTree = "<group>"; };
 		10341E0023CBBB700055DFDE /* SeedBackupSuccessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeedBackupSuccessViewController.swift; sourceTree = "<group>"; };
@@ -366,9 +370,11 @@
 		105836B523EACD390030FDF2 /* Receive */ = {
 			isa = PBXGroup;
 			children = (
-				105836BA23EAD1160030FDF2 /* AccountSelectDialog.swift */,
-				105836B623EACD390030FDF2 /* ReceiveViewController.swift */,
 				105836B723EACD390030FDF2 /* Receive.storyboard */,
+				105836B623EACD390030FDF2 /* ReceiveViewController.swift */,
+				105836BA23EAD1160030FDF2 /* AccountSelectDialog.swift */,
+				1013EBB123EAF83400E100F8 /* AccountSelectTableViewCell.xib */,
+				1013EBB323EAF84B00E100F8 /* AccountSelectTableViewCell.swift */,
 			);
 			path = Receive;
 			sourceTree = "<group>";
@@ -873,6 +879,7 @@
 				B3B46A40228F0F6700A68EDD /* bg-button.png in Resources */,
 				B3B46A3F228F0F6700A68EDD /* bg-button@3x.png in Resources */,
 				B3B46A01228F0F2700A68EDD /* SourceSansPro-BlackItalic.ttf in Resources */,
+				1013EBB223EAF83400E100F8 /* AccountSelectTableViewCell.xib in Resources */,
 				B3B46A06228F0F2700A68EDD /* SourceSansPro-Light.ttf in Resources */,
 				B3B46A04228F0F2700A68EDD /* SourceSansPro-Bold.ttf in Resources */,
 				B3E727C423DD4A5F003B06B4 /* WalletInfoTableViewCell.xib in Resources */,
@@ -995,6 +1002,7 @@
 				B32EB42E23EEA24000E43D4F /* AccountDetailsViewController.swift in Sources */,
 				DD17D9CC23CE243D0017E41D /* RestoreExistingWalletViewController.swift in Sources */,
 				B39BDC4D228F798300F3FB55 /* BuildConfig.swift in Sources */,
+				1013EBB423EAF84B00E100F8 /* AccountSelectTableViewCell.swift in Sources */,
 				B3B46A9F228F0F7D00A68EDD /* WalletLogViewController.swift in Sources */,
 				2557E1892355C6FA00B6A1B7 /* NavigationMenuTabBarController.swift in Sources */,
 				102AFAC423AA2B4D007E2EBD /* ProgressView.swift in Sources */,

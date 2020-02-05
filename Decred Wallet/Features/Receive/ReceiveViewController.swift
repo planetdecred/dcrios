@@ -17,6 +17,11 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     @IBOutlet weak var lblWalletAddress: UILabel!
     @IBOutlet var contentStackView: UIStackView!
 
+    @IBOutlet weak var selectedAccountView: UIView!
+    @IBOutlet weak var accountNameLabel: UILabel!
+    @IBOutlet weak var walletNameLabel: UILabel!
+    @IBOutlet weak var totalAccountBalanceLabel: UILabel!
+    
     private lazy var syncInProgressLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -29,12 +34,13 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
 
     var firstTrial = true
     var starttime: Int64 = 0
-    var myacc: DcrlibwalletAccount?
     var tapGesture = UITapGestureRecognizer()
     var oldAddress = ""
     var wallet = WalletLoader.shared.firstWallet
+    var selectedWallet: Wallet?
+    var selectedAccount: DcrlibwalletAccount?
 
-    private var selectedAccount = ""
+//    private var selectedAccount = ""
 
     override func loadView() {
         super.loadView()
@@ -57,6 +63,9 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
     func setupExtraUI() {
         self.imgWalletAddrQRCode.addGestureRecognizer(tapToCopyAddressGesture())
         self.lblWalletAddress.addGestureRecognizer(tapToCopyAddressGesture())
+        self.selectedAccountView.addGestureRecognizer(
+            UITapGestureRecognizer(target: self, action: #selector(self.showAccountSelectDialog))
+        )
     }
     
     func tapToCopyAddressGesture() -> UITapGestureRecognizer {
@@ -77,14 +86,17 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
 
     private func checkSyncStatus() {
         self.menuBtn.isEnabled = false
-        guard let wallet = WalletLoader.shared.firstWallet, (!wallet.isRestored || wallet.hasDiscoveredAccounts) else {
+    
+        if let wallet = WalletLoader.shared.wallets.map({ Wallet.init($0) }).first,
+            let account = wallet.accounts.first {
+            self.updateSelectedAccount(wallet, account)
+        } else {
             contentStackView.isHidden = true
             syncInProgressLabel.isHidden = false
             return
         }
-        
-        self.showFirstWalletAddressAndQRCode()
-        self.populateWalletDropdownMenu()
+
+        self.updateWalletAddressAndQRCode()
         contentStackView.isHidden = false
         syncInProgressLabel.isHidden = true
         self.menuBtn.isEnabled = true
@@ -99,54 +111,19 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
 
     private func generateNewAddress() {
         self.oldAddress = self.lblWalletAddress.text!
-        self.getNextAddress(accountNumber: (self.myacc?.number)!)
+        self.getNextAddress(accountNumber: (self.selectedAccount?.number)!)
     }
     
-    private func showFirstWalletAddressAndQRCode() {
-        
-        if let acc = WalletLoader.shared.firstWallet?.accounts(confirmations: 0) {
-            let accNames: [String] = (acc.map({ $0.name }))
-            self.myacc = acc.first
-            
-            if let firstWalletAddress = accNames.first {
-                self.selectedAccount = firstWalletAddress
-                self.accountDropdown.setTitle(self.selectedAccount, for: .normal)
-                self.getAddress(accountNumber: self.myacc!.number)
-            }
+    private func updateWalletAddressAndQRCode() {
+        if let account = self.selectedAccount {
+            self.getAddress(accountNumber: account.number)
         } else {
             print("no account")
         }
     }
     
-    private func populateWalletDropdownMenu() {
-
-        if let acc = WalletLoader.shared.firstWallet?.accounts(confirmations: 0) {
-           if let defaultAccount = acc.filter({ $0.isDefault}).first {
-                accountDropdown.setTitle(
-                    defaultAccount.name,
-                    for: UIControl.State.normal
-                )
-                self.accountDropdown.backgroundColor = UIColor.white
-            }
-            
-            let accNames: [String] = acc.filter({!$0.isHidden && $0.number != INT_MAX }).map({ $0.name })
-            
-            accountDropdown.initMenu(
-                accNames
-            ) { [weak self] _, val in
-                guard let this = self else { return }
-                this.selectedAccount = val
-                if acc.filter({ $0.name == val }).first != nil {
-                    print("value is \(val)")
-                    self?.myacc = acc.filter({ $0.name == val }).map({ $0 }).first
-                    self?.getAddress(accountNumber: (self?.myacc?.number)!)
-                }
-            }
-        }
-    }
-
     @objc func getNext(){
-        self.getNextAddress(accountNumber: (self.myacc?.number)!)
+        self.getNextAddress(accountNumber: (self.selectedAccount?.number)!)
     }
     
     private func getAddress(accountNumber : Int32) {
@@ -229,13 +206,30 @@ class ReceiveViewController: UIViewController,UIDocumentInteractionControllerDel
         self.dismissView()
     }
 
-    @IBAction func showInfo(_ sender: Any) {
-        //TODO
-        AccountSelectDialog.show(sender: self, title: LocalizedStrings.receivingAccount , callback: { selectedWallet, selectedAccount in
-            print("itt")
-        })
+    @objc func showAccountSelectDialog(_ sender: Any) {
+        AccountSelectDialog.show(sender: self,
+                                 title: LocalizedStrings.receivingAccount,
+                                 selectedWallet: selectedWallet,
+                                 selectedAccount: self.selectedAccount,
+                                 callback: self.updateSelectedAccount)
     }
 
+    @IBAction func showInfo(_ sender: Any) {
+        //TODO
+    }
+
+    func updateSelectedAccount(_ selectedWallet: Wallet, _ selectedAccount: DcrlibwalletAccount) {
+        self.selectedWallet = selectedWallet
+        self.selectedAccount = selectedAccount
+        
+        self.walletNameLabel.text = self.selectedWallet?.name
+        self.accountNameLabel.text = self.selectedAccount?.name
+
+        let totalBalance = self.selectedAccount?.dcrTotalBalance ?? 0
+        let totalBalanceRoundedOff = (Decimal(totalBalance) as NSDecimalNumber).round(8)
+        self.totalAccountBalanceLabel.attributedText = Utils.getAttributedString(str: "\(totalBalanceRoundedOff)", siz: 15.0, TexthexColor: UIColor.appColors.darkBlue)
+    }
+    
     @IBAction func showMenu(_ sender: Any) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 

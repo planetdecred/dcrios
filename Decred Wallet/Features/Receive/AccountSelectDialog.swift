@@ -19,15 +19,20 @@ class AccountSelectDialog: UIViewController {
     private var callback: AccountSelectDialogCallback!
 
     var wallets = [Wallet]()
+    var selectedWallet: Wallet?
+    var selectedAccount: DcrlibwalletAccount?
 
     static func show(sender vc: UIViewController,
                      title: String,
+                     selectedWallet: Wallet?,
+                     selectedAccount: DcrlibwalletAccount?,
                      callback: @escaping AccountSelectDialogCallback) {
 
         let dialog = AccountSelectDialog.instantiate(from: .Receive)
         dialog.dialogTitle = title
         dialog.callback = callback
-
+        dialog.selectedWallet = selectedWallet
+        dialog.selectedAccount = selectedAccount
         dialog.modalPresentationStyle = .pageSheet
         vc.present(dialog, animated: true, completion: nil)
     }
@@ -38,7 +43,7 @@ class AccountSelectDialog: UIViewController {
         self.walletsTableView.hideEmptyAndExtraRows()
         self.walletsTableView.dataSource = self
         self.walletsTableView.delegate = self
-        self.walletsTableView.registerCellNib(WalletInfoTableViewCell.self)
+        self.walletsTableView.registerCellNib(AccountSelectTableViewCell.self)
         self.loadWallets()
     }
 
@@ -54,35 +59,53 @@ class AccountSelectDialog: UIViewController {
 
 
 extension AccountSelectDialog: UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
         return self.wallets.count
     }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 10
+        } else {
+            return 20
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 20))
+
+        let label = UILabel()
+        label.frame = CGRect.init(x: 17, y: 0, width: headerView.frame.width-8, height: 14)
+        label.text = self.wallets[section].name
+        label.textColor = UIColor.appColors.darkBluishGray
+        label.font = UIFont(name: "SourceSansPro-Regular", size: 14)
+        headerView.addSubview(label)
+
+        return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.wallets[section].accounts.count
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let wallet = self.wallets[indexPath.row]
-        var cellHeight = WalletInfoTableViewCell.walletInfoSectionHeight
-        
-        if !wallet.isSeedBackedUp {
-            cellHeight += WalletInfoTableViewCell.walletNotBackedUpLabelHeight
-                + WalletInfoTableViewCell.seedBackupPromptHeight
-        }
-        
-        if wallet.displayAccounts {
-            cellHeight += (WalletInfoTableViewCell.accountCellHeight * CGFloat(wallet.accounts.count))
-                + WalletInfoTableViewCell.addNewAccountButtonHeight
-        }
-        
-        return cellHeight
+        return 74
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let walletViewCell = tableView.dequeueReusableCell(withIdentifier: "WalletInfoTableViewCell") as! WalletInfoTableViewCell
-        walletViewCell.wallet = self.wallets[indexPath.row]
-        return walletViewCell
+        let accountViewCell = tableView.dequeueReusableCell(withIdentifier: "AccountSelectTableViewCell") as! AccountSelectTableViewCell
+        let wallet = self.wallets[indexPath.section]
+        let account = wallet.accounts[indexPath.row]
+
+        accountViewCell.account = account
+        accountViewCell.checkmarkImageView.isHidden = !(wallet.name == self.selectedWallet?.name &&
+                                                      account.name == self.selectedAccount?.name)
+        return accountViewCell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.wallets[indexPath.row].toggleAccountsDisplay()
-        tableView.reloadData()
+        self.dismissView()
+        self.callback(self.wallets[indexPath.section], self.wallets[indexPath.section].accounts[indexPath.row])
     }
 }
