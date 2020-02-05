@@ -49,8 +49,6 @@
 		AD9F64C923B80BBD008AFE07 /* ConfirmToSendPasswordEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9F64C823B80BBD008AFE07 /* ConfirmToSendPasswordEntryViewController.swift */; };
 		ADDC42C1239599C700AD9363 /* WalletChooserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDC42C0239599C700AD9363 /* WalletChooserTableViewController.swift */; };
 		ADDC42C323959C8100AD9363 /* SlideInPresentationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDC42C223959C8100AD9363 /* SlideInPresentationManager.swift */; };
-		ADDC42C62395A7F900AD9363 /* WalletInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDC42C42395A7F900AD9363 /* WalletInfoTableViewCell.swift */; };
-		ADDC42C72395A7F900AD9363 /* WalletInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADDC42C52395A7F900AD9363 /* WalletInfoTableViewCell.xib */; };
 		ADDC42CA2396480400AD9363 /* ModalNavBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDC42C82396480400AD9363 /* ModalNavBarCell.swift */; };
 		ADDC42CF2396537D00AD9363 /* SimpleInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDC42CD2396537D00AD9363 /* SimpleInfoTableViewCell.swift */; };
 		ADDC42D02396537D00AD9363 /* SimpleInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADDC42CE2396537D00AD9363 /* SimpleInfoTableViewCell.xib */; };
@@ -226,8 +224,6 @@
 		AD9F64C823B80BBD008AFE07 /* ConfirmToSendPasswordEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmToSendPasswordEntryViewController.swift; sourceTree = "<group>"; };
 		ADDC42C0239599C700AD9363 /* WalletChooserTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletChooserTableViewController.swift; sourceTree = "<group>"; };
 		ADDC42C223959C8100AD9363 /* SlideInPresentationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideInPresentationManager.swift; sourceTree = "<group>"; };
-		ADDC42C42395A7F900AD9363 /* WalletInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletInfoTableViewCell.swift; sourceTree = "<group>"; };
-		ADDC42C52395A7F900AD9363 /* WalletInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletInfoTableViewCell.xib; sourceTree = "<group>"; };
 		ADDC42C82396480400AD9363 /* ModalNavBarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalNavBarCell.swift; sourceTree = "<group>"; };
 		ADDC42CD2396537D00AD9363 /* SimpleInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleInfoTableViewCell.swift; sourceTree = "<group>"; };
 		ADDC42CE2396537D00AD9363 /* SimpleInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SimpleInfoTableViewCell.xib; sourceTree = "<group>"; };
@@ -458,8 +454,6 @@
 			children = (
 				ADDC42C82396480400AD9363 /* ModalNavBarCell.swift */,
 				ADDC42D12396562800AD9363 /* ModalNavBarCell.xib */,
-				ADDC42C42395A7F900AD9363 /* WalletInfoTableViewCell.swift */,
-				ADDC42C52395A7F900AD9363 /* WalletInfoTableViewCell.xib */,
 				ADDC42CD2396537D00AD9363 /* SimpleInfoTableViewCell.swift */,
 				ADDC42CE2396537D00AD9363 /* SimpleInfoTableViewCell.xib */,
 				ADDC42D3239656A800AD9363 /* WarningInfoTableViewCell.swift */,
@@ -1078,7 +1072,6 @@
 				B32EB42E23EEA24000E43D4F /* AccountDetailsViewController.swift in Sources */,
 				DD17D9CC23CE243D0017E41D /* RestoreExistingWalletViewController.swift in Sources */,
 				B39BDC4D228F798300F3FB55 /* BuildConfig.swift in Sources */,
-				ADDC42C62395A7F900AD9363 /* WalletInfoTableViewCell.swift in Sources */,
 				B3B46A9F228F0F7D00A68EDD /* WalletLogViewController.swift in Sources */,
 				2557E1892355C6FA00B6A1B7 /* NavigationMenuTabBarController.swift in Sources */,
 				102AFAC423AA2B4D007E2EBD /* ProgressView.swift in Sources */,
@@ -1170,8 +1163,6 @@
 				B34A2F9123E8ED1500B8BC01 /* MultiWalletSyncDetailsLoader.swift in Sources */,
 				10D9FB9623C3956300CBF216 /* FloatingPlaceholderLabel.swift in Sources */,
 				ADDC42C323959C8100AD9363 /* SlideInPresentationManager.swift in Sources */,
-				B3B46AC4228F120700A68EDD /* TransactiontOutputDetailsCell.swift in Sources */,
-				ADDC42DC23965C9000AD9363 /* ConfirmToSendViewController.swift in Sources */,
 				ADDC42DC23965C9000AD9363 /* ConfirmToSendViewController.swift in Sources */,
 				B3967B3D22A75BD400E14432 /* UITableView.swift in Sources */,
 				B3C0D4B623E0FBA5002D984F /* SimpleOkCancelDialog.swift in Sources */,
