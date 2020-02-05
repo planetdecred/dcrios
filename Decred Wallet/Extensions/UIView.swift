@@ -82,7 +82,7 @@ class ErrorBanner: UIView {
         self.trailingAnchor.constraint(equalTo: parent.view.trailingAnchor,constant: -8).isActive = true
         self.topAnchor.constraint(equalTo: guide.topAnchor,constant: 84).isActive = true
         
-        self.backgroundColor = UIColor.appColors.decredOrange
+        self.backgroundColor = UIColor.appColors.orange
         self.layer.cornerRadius = 7;
         self.layer.shadowColor = UIColor.appColors.shadowColor.cgColor
         self.layer.shadowRadius = 4

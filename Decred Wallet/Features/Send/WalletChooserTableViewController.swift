@@ -53,7 +53,7 @@ class WalletChooserTableViewController: UIViewController {
         tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
 
-        tableView.registerCellNib(WalletInfoTableViewCell.self)
+        tableView.registerCellNib(WalletAccountSelectorTableViewCell.self)
         tableView.registerCellNib(ModalNavBarCell.self)
 
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(gestureRecognizer:)))
@@ -78,14 +78,11 @@ extension WalletChooserTableViewController: UITableViewDataSource, UITableViewDe
             }
             return cell
         } else {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "WalletInfoTableViewCell", for: indexPath) as? WalletInfoTableViewCell else{
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "WalletAccountSelectorTableViewCell", for: indexPath) as? WalletAccountSelectorTableViewCell else{
                 return UITableViewCell()
             }
             let wallet = walletAccounts[indexPath.section - 1]
             cell.configure(with: wallet)
-//            if let unWrappedPreviouslySelectedAccount = selectedAccount, wallet.Number == unWrappedPreviouslySelectedAccount.Number {
-//                cell.accessoryType = .checkmark
-//            }
             return cell
         }
     }

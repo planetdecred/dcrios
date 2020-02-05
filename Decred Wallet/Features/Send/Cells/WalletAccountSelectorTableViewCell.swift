@@ -1,5 +1,5 @@
 //
-//  WalletInfoTableViewCell.swift
+//  WalletAccountSelectorTableViewCell.swift
 //  Decred Wallet
 //
 //  Created by kayeli dennis on 02/12/2019.
@@ -9,7 +9,7 @@
 import UIKit
 import Dcrlibwallet
 
-class WalletInfoTableViewCell: UITableViewCell {
+class WalletAccountSelectorTableViewCell: UITableViewCell {
     var wallet: DcrlibwalletAccount?
     
     @IBOutlet var amountSpendable: UILabel!

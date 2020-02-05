@@ -10,7 +10,7 @@ import UIKit
 import Dcrlibwallet
 
 class SendFundsViewController: UIViewController {
-    static let instance = Storyboards.Send.instantiateViewController(for: SendFundsViewController.self).wrapInNavigationcontroller()
+    static let instance = Storyboard.Send.instantiateViewController(for: SendFundsViewController.self).wrapInNavigationcontroller()
 
     @IBOutlet var amountLayer: UIView!
     @IBOutlet var fromLayer: UIView!
@@ -70,7 +70,7 @@ class SendFundsViewController: UIViewController {
     }
 
     var insufficientFundsErrorMessage: String {
-        if AppDelegate.walletLoader.syncer.connectedPeersCount > 0 {
+        if WalletLoader.shared.multiWallet.connectedPeers() > 0 {
             return LocalizedStrings.notEnoughFunds
         } else {
             return LocalizedStrings.notEnoughFundsOrNotConnected
@@ -141,7 +141,7 @@ class SendFundsViewController: UIViewController {
     }
     
     private func loadAccounts() {
-        let walletAccounts = AppDelegate.walletLoader.wallet!.walletAccounts(confirmations: self.requiredConfirmations)
+        let walletAccounts = WalletLoader.shared.firstWallet!.accounts(confirmations: self.requiredConfirmations)
             .filter({ !$0.isHidden && $0.number != INT_MAX }) // remove hidden wallets from array
         self.walletAccounts = walletAccounts
         sourceWalletInfoLabel.text = walletAccounts[0].name
@@ -261,7 +261,7 @@ class SendFundsViewController: UIViewController {
     }
     func generateAddress(from account: DcrlibwalletAccount) -> String? {
         var generateAddressError: NSError?
-        let destinationAddress = AppDelegate.walletLoader.wallet!.currentAddress(account.number, error: &generateAddressError)
+        let destinationAddress = WalletLoader.shared.firstWallet!.currentAddress(account.number, error: &generateAddressError)
         if generateAddressError != nil {
             print("send page -> generate address for destination account error: \(generateAddressError!.localizedDescription)")
             return nil
@@ -284,7 +284,7 @@ class SendFundsViewController: UIViewController {
         }
         
         // Also ensure that destinationAddressTextField.text is a valid address.
-        guard AppDelegate.walletLoader.wallet!.isAddressValid(destinationAddress) else {
+        guard WalletLoader.shared.firstWallet!.isAddressValid(destinationAddress) else {
             if displayErrorOnUI {
                 self.invalidAddressLabel.text = LocalizedStrings.invalidDestAddr
             }
@@ -359,7 +359,7 @@ class SendFundsViewController: UIViewController {
             let sendAmountAtom = DcrlibwalletAmountAtom(sendAmountDcr)
             let sourceAccountNumber = sourceAccount.number
             
-            let newTx = AppDelegate.walletLoader.wallet!.newUnsignedTx(sourceAccountNumber,
+            let newTx = WalletLoader.shared.firstWallet!.newUnsignedTx(sourceAccountNumber,
                                                                        requiredConfirmations: self.requiredConfirmations)
             newTx?.addSendDestination(destinationAddress,
                                       atomAmount: sendAmountAtom,
@@ -428,10 +428,10 @@ class SendFundsViewController: UIViewController {
     }
     
     private func setUpViews() {
-        destinationAddressContainerView.layer.borderColor = UIColor.appColors.lighterGray.cgColor
-        amountContainerView.layer.borderColor = UIColor.appColors.lighterGray.cgColor
+        destinationAddressContainerView.layer.borderColor = UIColor.appColors.darkGray.cgColor
+        amountContainerView.layer.borderColor = UIColor.appColors.darkGray.cgColor
         showHideTransactionFeeDetails(showHideTransactionFeeDetailsButton)
-        nextButton.setBackgroundColor(UIColor.appColors.lighterGray, for: .disabled)
+        nextButton.setBackgroundColor(UIColor.appColors.darkGray, for: .disabled)
 
         // shadows
         fromLayer.layer.shadowRadius = 16.0
@@ -503,7 +503,7 @@ class SendFundsViewController: UIViewController {
         }
         
         let destinationAddress = self.getDestinationAddress(isSendAttempt: false)
-        let wallet = AppDelegate.walletLoader.wallet!
+        let wallet = WalletLoader.shared.firstWallet!
         
         do {
             let newTx = wallet.newUnsignedTx(sourceAccount.number, requiredConfirmations: self.requiredConfirmations)
@@ -638,8 +638,8 @@ extension SendFundsViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         // Address field
         if textField.tag == 0 {
-            destinationAddressContainerView.layer.borderColor = UIColor.appColors.decredBlue.cgColor
-            destinationAddressLabel.textColor = UIColor.appColors.decredBlue
+            destinationAddressContainerView.layer.borderColor = UIColor.appColors.lightBlue.cgColor
+            destinationAddressLabel.textColor = UIColor.appColors.lightBlue
             pasteButton.isHidden = false
         }
     }
@@ -648,7 +648,7 @@ extension SendFundsViewController: UITextFieldDelegate {
         // Address field
         if textField.tag == 0 {
             destinationAddressContainerView.layer.borderColor = UIColor.appColors.lightGray.cgColor
-            destinationAddressLabel.textColor = UIColor.appColors.lighterGray
+            destinationAddressLabel.textColor = UIColor.appColors.darkGray
             pasteButton.isHidden = true
             self.toggleSendButtonState(self.shouldEnableSendButton)
         } else if textField.tag == 1{

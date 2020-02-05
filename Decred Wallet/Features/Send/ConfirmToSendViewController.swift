@@ -14,7 +14,7 @@ protocol SendFundsDelegate: class {
 }
 
 class ConfirmToSendViewController: UIViewController {
-    static let instance = Storyboards.Send.instantiateViewController(for: ConfirmToSendViewController.self)
+    static let instance = Storyboard.Send.instantiateViewController(for: ConfirmToSendViewController.self)
 
     @IBOutlet var sendButton: UIButton!
     @IBOutlet var tableView: UITableView!
@@ -167,7 +167,7 @@ extension ConfirmToSendViewController: ConfirmToSendPasswordEntryDelegate {
             let sourceAccountNumber = sourceAccount.number
             let destinationAddress = details.destinationWallet == nil ? details.destinationAddress : self.generateAddress(from: details.destinationWallet!)
             
-            let newTx = AppDelegate.walletLoader.wallet!.newUnsignedTx(sourceAccountNumber,
+            let newTx = WalletLoader.shared.firstWallet!.newUnsignedTx(sourceAccountNumber,
                                                                        requiredConfirmations: self.requiredConfirmations)
             newTx?.addSendDestination(destinationAddress,
                                       atomAmount: sendAmountAtom,
@@ -190,7 +190,7 @@ extension ConfirmToSendViewController: ConfirmToSendPasswordEntryDelegate {
     
     func generateAddress(from account: DcrlibwalletAccount) -> String? {
         var generateAddressError: NSError?
-        let destinationAddress = AppDelegate.walletLoader.wallet!.currentAddress(account.number, error: &generateAddressError)
+        let destinationAddress = WalletLoader.shared.firstWallet!.currentAddress(account.number, error: &generateAddressError)
         if generateAddressError != nil {
             print("send page -> generate address for destination account error: \(generateAddressError!.localizedDescription)")
             return nil

@@ -20,7 +20,7 @@ class NavigationMenuTabBarController: UITabBarController {
     }()
     lazy var bannerView: ErrorBanner = {
         let view = ErrorBanner(parent: self)
-        view.backgroundColor = UIColor.appColors.decredGreen
+        view.backgroundColor = UIColor.appColors.green
         return view
     }()
     

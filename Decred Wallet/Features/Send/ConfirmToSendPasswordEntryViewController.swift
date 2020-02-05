@@ -14,7 +14,7 @@ protocol ConfirmToSendPasswordEntryDelegate: class {
 }
 
 class ConfirmToSendPasswordEntryViewController: UIViewController {
-    static let instance = Storyboards.Send.instantiateViewController(for: ConfirmToSendPasswordEntryViewController.self)
+    static let instance = ConfirmToSendPasswordEntryViewController.instantiate(from: .Send)
 
     @IBOutlet var passwordEntryTextField: UITextField!
     @IBOutlet var confirmToSendButton: UIButton!
@@ -35,7 +35,7 @@ class ConfirmToSendPasswordEntryViewController: UIViewController {
         super.viewDidLoad()
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(gestureRecognizer:)))
         backDropView.addGestureRecognizer(tapGesture)
-        passwordEntryContainerView.layer.borderColor = UIColor.appColors.decredBlue.cgColor
+        passwordEntryContainerView.layer.borderColor = UIColor.appColors.lightBlue.cgColor
         passwordEntryTextField.addDoneButton()
         confirmToSendButton.setBackgroundColor(UIColor.appColors.lightGray, for: UIControl.State.disabled)
     }
