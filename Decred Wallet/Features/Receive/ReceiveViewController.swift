@@ -57,7 +57,7 @@ class ReceiveViewController: UIViewController, UIDocumentInteractionControllerDe
     func setupExtraUI() {
         self.imgWalletAddrQRCode.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.copyAddress)))
         self.walletAddressLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.copyAddress)))
-        self.selectedAccountView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.showAccountSelectDialog)))
+        self.selectedAccountView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.showAccountSelectorDialog)))
     }
 
     @objc func copyAddress() {
@@ -159,8 +159,8 @@ class ReceiveViewController: UIViewController, UIDocumentInteractionControllerDe
         self.dismissView()
     }
 
-    @objc func showAccountSelectDialog(_ sender: Any) {
-        AccountSelectDialog.show(sender: self,
+    @objc func showAccountSelectorDialog(_ sender: Any) {
+        AccountSelectorDialog.show(sender: self,
                                  title: LocalizedStrings.receivingAccount,
                                  selectedWallet: selectedWallet,
                                  selectedAccount: self.selectedAccount,

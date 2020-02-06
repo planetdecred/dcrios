@@ -1,5 +1,5 @@
 //
-//  AccountSelectTableViewCell.swift
+//  AccountSelectorTableViewCell.swift
 //  Decred Wallet
 //
 // Copyright (c) 2020 The Decred developers
@@ -9,7 +9,7 @@
 import UIKit
 import Dcrlibwallet
 
-class AccountSelectTableViewCell: UITableViewCell {
+class AccountSelectorTableViewCell: UITableViewCell {
     @IBOutlet weak var accountNameLabel: UILabel!
     @IBOutlet weak var totalAccountBalanceLabel: UILabel!
     @IBOutlet weak var spendableAccountBalanceLabel: UILabel!

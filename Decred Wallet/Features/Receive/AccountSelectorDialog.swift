@@ -1,5 +1,5 @@
 //
-//  AccountSelectDialog.swift
+//  AccountSelectorDialog.swift
 //  Decred Wallet
 //
 // Copyright (c) 2020 The Decred developers
@@ -9,15 +9,15 @@
 import UIKit
 import Dcrlibwallet
 
-typealias AccountSelectDialogCallback = (_ selectedWallet: Wallet, _ selectedAccount: DcrlibwalletAccount) -> Void
+typealias AccountSelectorDialogCallback = (_ selectedWallet: Wallet, _ selectedAccount: DcrlibwalletAccount) -> Void
 
-class AccountSelectDialog: UIViewController {
+class AccountSelectorDialog: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var walletsTableView: UITableView!
     @IBOutlet weak var walletsTableViewHeightConstraint: NSLayoutConstraint!
     
     private var dialogTitle: String!
-    private var callback: AccountSelectDialogCallback!
+    private var callback: AccountSelectorDialogCallback!
 
     var wallets = [Wallet]()
     var selectedWallet: Wallet?
@@ -30,9 +30,9 @@ class AccountSelectDialog: UIViewController {
                      title: String,
                      selectedWallet: Wallet?,
                      selectedAccount: DcrlibwalletAccount?,
-                     callback: @escaping AccountSelectDialogCallback) {
+                     callback: @escaping AccountSelectorDialogCallback) {
 
-        let dialog = AccountSelectDialog.instantiate(from: .Receive)
+        let dialog = AccountSelectorDialog.instantiate(from: .Receive)
         dialog.dialogTitle = title
         dialog.callback = callback
         dialog.selectedWallet = selectedWallet
@@ -49,7 +49,7 @@ class AccountSelectDialog: UIViewController {
         self.walletsTableView.delegate = self
         self.walletsTableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: 1, height: 0.1))
         self.walletsTableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 1, height: 0.1))
-        self.walletsTableView.registerCellNib(AccountSelectTableViewCell.self)
+        self.walletsTableView.registerCellNib(AccountSelectorTableViewCell.self)
         self.loadWallets()
         
         let rowHeightSum:CGFloat = self.wallets.reduce(0) { sum, wallet in
@@ -72,7 +72,7 @@ class AccountSelectDialog: UIViewController {
     }
 }
 
-extension AccountSelectDialog: UITableViewDataSource, UITableViewDelegate {
+extension AccountSelectorDialog: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.wallets.count
     }
@@ -104,7 +104,7 @@ extension AccountSelectDialog: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let accountViewCell = tableView.dequeueReusableCell(withIdentifier: "AccountSelectTableViewCell") as! AccountSelectTableViewCell
+        let accountViewCell = tableView.dequeueReusableCell(withIdentifier: "AccountSelectorTableViewCell") as! AccountSelectorTableViewCell
         let wallet = self.wallets[indexPath.section]
         let account = wallet.visibleAccounts[indexPath.row]
 
