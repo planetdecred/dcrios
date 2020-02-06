@@ -32,8 +32,10 @@
 		10B7818523F0693C00AD2709 /* TransactionOutputDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B7818423F0693C00AD2709 /* TransactionOutputDetailCell.swift */; };
 		105836B823EACD390030FDF2 /* ReceiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105836B623EACD390030FDF2 /* ReceiveViewController.swift */; };
 		105836B923EACD390030FDF2 /* Receive.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 105836B723EACD390030FDF2 /* Receive.storyboard */; };
-		105836BB23EAD1160030FDF2 /* AccountSelectorDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105836BA23EAD1160030FDF2 /* AccountSelectorDialog.swift */; };
 		10BA77992390059F00B67446 /* TabMenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BA77982390059F00B67446 /* TabMenuItemView.swift */; };
+		10C6610E23EC587B00754DED /* AccountSelectorDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C6610B23EC587B00754DED /* AccountSelectorDialog.swift */; };
+		10C6610F23EC587B00754DED /* AccountSelectorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 10C6610C23EC587B00754DED /* AccountSelectorTableViewCell.xib */; };
+		10C6611023EC587B00754DED /* AccountSelectorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C6610D23EC587B00754DED /* AccountSelectorTableViewCell.swift */; };
 		10D9FB9323C3956300CBF216 /* FloatingPlaceholderTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D9FB8E23C3956200CBF216 /* FloatingPlaceholderTextField.swift */; };
 		10D9FB9623C3956300CBF216 /* FloatingPlaceholderLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D9FB9123C3956300CBF216 /* FloatingPlaceholderLabel.swift */; };
 		10FABE4B23C72D6800BC201B /* FloatingPlaceholderInputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FABE4A23C72D6700BC201B /* FloatingPlaceholderInputProtocol.swift */; };
@@ -192,8 +194,10 @@
 		10B7818423F0693C00AD2709 /* TransactionOutputDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionOutputDetailCell.swift; sourceTree = "<group>"; };
 		105836B623EACD390030FDF2 /* ReceiveViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiveViewController.swift; sourceTree = "<group>"; };
 		105836B723EACD390030FDF2 /* Receive.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Receive.storyboard; sourceTree = "<group>"; };
-		105836BA23EAD1160030FDF2 /* AccountSelectorDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSelectorDialog.swift; sourceTree = "<group>"; };
 		10BA77982390059F00B67446 /* TabMenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabMenuItemView.swift; sourceTree = "<group>"; };
+		10C6610B23EC587B00754DED /* AccountSelectorDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSelectorDialog.swift; sourceTree = "<group>"; };
+		10C6610C23EC587B00754DED /* AccountSelectorTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountSelectorTableViewCell.xib; sourceTree = "<group>"; };
+		10C6610D23EC587B00754DED /* AccountSelectorTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSelectorTableViewCell.swift; sourceTree = "<group>"; };
 		10D9FB8E23C3956200CBF216 /* FloatingPlaceholderTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingPlaceholderTextField.swift; sourceTree = "<group>"; };
 		10D9FB9123C3956300CBF216 /* FloatingPlaceholderLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingPlaceholderLabel.swift; sourceTree = "<group>"; };
 		10FABE4A23C72D6700BC201B /* FloatingPlaceholderInputProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingPlaceholderInputProtocol.swift; sourceTree = "<group>"; };
@@ -382,14 +386,14 @@
 			path = Receive;
 			sourceTree = "<group>";
 		};
-		10C6610923EC572300754DED /* AccountSelectorDialog */ = {
+		10C6610A23EC587B00754DED /* AccountSelectorDialog */ = {
 			isa = PBXGroup;
 			children = (
-				105836BA23EAD1160030FDF2 /* AccountSelectorDialog.swift */,
-				1013EBB123EAF83400E100F8 /* AccountSelectorTableViewCell.xib */,
-				1013EBB323EAF84B00E100F8 /* AccountSelectorTableViewCell.swift */,
+				10C6610B23EC587B00754DED /* AccountSelectorDialog.swift */,
+				10C6610C23EC587B00754DED /* AccountSelectorTableViewCell.xib */,
+				10C6610D23EC587B00754DED /* AccountSelectorTableViewCell.swift */,
 			);
-			name = AccountSelectorDialog;
+			path = AccountSelectorDialog;
 			sourceTree = "<group>";
 		};
 		10D9FB9723C3956600CBF216 /* FloatingPlaceholderInputs */ = {
@@ -783,7 +787,7 @@
 				B3C0D4B123E0DB56002D984F /* CustomDialogs.storyboard */,
 				B3C0D4B323E0DBF6002D984F /* SimpleTextInputDialog.swift */,
 				B3C0D4B523E0FBA5002D984F /* SimpleOkCancelDialog.swift */,
-				10C6610923EC572300754DED /* AccountSelectorDialog */,
+				10C6610A23EC587B00754DED /* AccountSelectorDialog */,
 				B3D474E023E56CD900B6E305 /* CheckableListDialog */,
 			);
 			path = "Custom Dialogs";
@@ -893,7 +897,6 @@
 				B3B46A40228F0F6700A68EDD /* bg-button.png in Resources */,
 				B3B46A3F228F0F6700A68EDD /* bg-button@3x.png in Resources */,
 				B3B46A01228F0F2700A68EDD /* SourceSansPro-BlackItalic.ttf in Resources */,
-				1013EBB223EAF83400E100F8 /* AccountSelectorTableViewCell.xib in Resources */,
 				B3B46A06228F0F2700A68EDD /* SourceSansPro-Light.ttf in Resources */,
 				B3B46A04228F0F2700A68EDD /* SourceSansPro-Bold.ttf in Resources */,
 				B3E727C423DD4A5F003B06B4 /* WalletInfoTableViewCell.xib in Resources */,
@@ -910,6 +913,7 @@
 				B3B46A03228F0F2700A68EDD /* SourceSansPro-Regular.ttf in Resources */,
 				B3B46A09228F0F2700A68EDD /* SourceSansPro-BoldItalic.ttf in Resources */,
 				B3C03B2323DD41EE00156D9F /* Wallets.storyboard in Resources */,
+				10C6610F23EC587B00754DED /* AccountSelectorTableViewCell.xib in Resources */,
 				B3B46A98228F0F7D00A68EDD /* TransactionDetails.storyboard in Resources */,
 				DDCF25A122B8A3D4005FCBB9 /* Settings.storyboard in Resources */,
 				B3B46A05228F0F2700A68EDD /* SourceSansPro-LightItalic.ttf in Resources */,
@@ -1016,10 +1020,11 @@
 				B32EB42E23EEA24000E43D4F /* AccountDetailsViewController.swift in Sources */,
 				DD17D9CC23CE243D0017E41D /* RestoreExistingWalletViewController.swift in Sources */,
 				B39BDC4D228F798300F3FB55 /* BuildConfig.swift in Sources */,
-				1013EBB423EAF84B00E100F8 /* AccountSelectorTableViewCell.swift in Sources */,
 				B3B46A9F228F0F7D00A68EDD /* WalletLogViewController.swift in Sources */,
 				2557E1892355C6FA00B6A1B7 /* NavigationMenuTabBarController.swift in Sources */,
 				102AFAC423AA2B4D007E2EBD /* ProgressView.swift in Sources */,
+				B3B46A25228F0F2700A68EDD /* TransactionHistoryViewController.swift in Sources */,
+				10C6611023EC587B00754DED /* AccountSelectorTableViewCell.swift in Sources */,
 				B3D474DF23E55B5D00B6E305 /* WalletSettings.swift in Sources */,
 				B3A3EF8B22937B8800008A4E /* Settings.swift in Sources */,
 				B3B46A1B228F0F2700A68EDD /* SecurityViewController.swift in Sources */,
@@ -1040,7 +1045,6 @@
 				B3E727CC23DD506E003B06B4 /* WalletsViewController.swift in Sources */,
 				B3B46A9B228F0F7D00A68EDD /* PeerSetTableViewController.swift in Sources */,
 				B3B46A89228F0F7D00A68EDD /* keyPadButton.swift in Sources */,
-				105836BB23EAD1160030FDF2 /* AccountSelectorDialog.swift in Sources */,
 				B3D474E223E56CFD00B6E305 /* CheckableListDialogViewController.swift in Sources */,
 				10BA77992390059F00B67446 /* TabMenuItemView.swift in Sources */,
 				B3B46AB3228F0F7D00A68EDD /* ConfirmSeedViewCell.swift in Sources */,
@@ -1050,6 +1054,7 @@
 				B3635B82229FE5870052EB4D /* QRImageScanner.swift in Sources */,
 				B3B46A2E228F0F2700A68EDD /* MenuItem.swift in Sources */,
 				B3A3EF8622936BFE00008A4E /* Reachability.swift in Sources */,
+				10C6610E23EC587B00754DED /* AccountSelectorDialog.swift in Sources */,
 				B36EFD362298617C002753B2 /* UIButton.swift in Sources */,
 				B3456D2523D91CF600B04860 /* RoundedView.swift in Sources */,
 				B3B469FC228F0F2700A68EDD /* String.swift in Sources */,
