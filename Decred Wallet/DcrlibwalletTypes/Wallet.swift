@@ -16,6 +16,9 @@ class Wallet: NSObject {
     private(set) var accounts = [DcrlibwalletAccount]()
     private(set) var isSeedBackedUp: Bool = false
     private(set) var displayAccounts: Bool = false
+    private(set) var isRestored: Bool = false
+    private(set) var hasDiscoveredAccounts: Bool = false
+    private(set) var wallet: DcrlibwalletWallet
     
     init(_ wallet: DcrlibwalletWallet) {
         self.id = wallet.id_
@@ -24,6 +27,7 @@ class Wallet: NSObject {
         self.accounts = wallet.accounts(confirmations: 0)
         self.isSeedBackedUp = wallet.seed.isEmpty
         self.displayAccounts = false
+        self.wallet = wallet
     }
     
     func toggleAccountsDisplay() {
