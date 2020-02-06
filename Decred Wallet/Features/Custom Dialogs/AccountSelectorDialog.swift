@@ -32,7 +32,7 @@ class AccountSelectorDialog: UIViewController {
                      selectedAccount: DcrlibwalletAccount?,
                      callback: @escaping AccountSelectorDialogCallback) {
 
-        let dialog = AccountSelectorDialog.instantiate(from: .Receive)
+        let dialog = AccountSelectorDialog.instantiate(from: .CustomDialogs)
         dialog.dialogTitle = title
         dialog.callback = callback
         dialog.selectedWallet = selectedWallet
