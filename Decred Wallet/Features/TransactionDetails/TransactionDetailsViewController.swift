@@ -109,39 +109,29 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
         if self.transaction.type == DcrlibwalletTxTypeRegular {
             self.displayRegularTxInfo(transaction)
         } else if self.transaction.type == DcrlibwalletTxTypeVote {
-            self.displayTicketPurchaseInfo(transaction)
-        } else if self.transaction.type == DcrlibwalletTxTypeTicketPurchase {
             self.displayVoteTxInfo(transaction)
+        } else if self.transaction.type == DcrlibwalletTxTypeTicketPurchase {
+            self.displayTicketPurchaseInfo(transaction)
         }
     }
 
     func displayRegularTxInfo(_ transaction: Transaction) {
+        let amountString = Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 20.0, TexthexColor: UIColor.appColors.darkBlue)
+
         if self.transaction.direction == DcrlibwalletTxDirectionSent {
             self.titleLabel.text = LocalizedStrings.sent
             self.txIconImageView.image = UIImage(named: "ic_send")
-            let attributedString = NSMutableAttributedString(string: "-")
-            attributedString.append(Utils.getAttributedString(
-                str: "\(self.transaction.dcrAmount.round(8))",
-                siz: 20,
-                TexthexColor: UIColor.appColors.darkBlue
-            ))
+            let attributedString = NSMutableAttributedString(string:"-")
+            attributedString.append(amountString)
             self.txAmountLabel.attributedText = attributedString
         } else if self.transaction.direction == DcrlibwalletTxDirectionReceived {
             self.titleLabel.text = LocalizedStrings.received
             self.txIconImageView.image = UIImage(named: "ic_receive")
-            self.txAmountLabel.attributedText = Utils.getAttributedString(
-                str: "\(self.transaction.dcrAmount.round(8))",
-                siz: 20,
-                TexthexColor: UIColor.appColors.darkBlue
-            )
+            self.txAmountLabel.attributedText = amountString
         } else if transaction.direction == DcrlibwalletTxDirectionTransferred {
             self.titleLabel.text = LocalizedStrings.transferred
             self.txIconImageView.image = UIImage(named: "ic_fee")
-            self.txAmountLabel.attributedText = Utils.getAttributedString(
-                str: "\(self.transaction.dcrAmount.round(8))",
-                siz: 20,
-                TexthexColor: UIColor.appColors.darkBlue
-            )
+            self.txAmountLabel.attributedText = amountString
         }
     }
 
@@ -177,11 +167,11 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
     }
 
     func displayVoteTxInfo(_ transaction: Transaction) {
-        let txConfirmations = transaction.confirmations
-        let requireConfirmation = Settings.spendUnconfirmed ? 0 : 2
-
         self.titleLabel.text = " \(LocalizedStrings.ticket)"
         self.txIconImageView.image =  UIImage(named: "ic_ticketImmature")
+
+        let txConfirmations = transaction.confirmations
+        let requireConfirmation = Settings.spendUnconfirmed ? 0 : 2
 
         if txConfirmations < requireConfirmation {
             self.statusLabel.text = LocalizedStrings.pending

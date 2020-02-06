@@ -14,7 +14,7 @@ class TransactionTableViewCell: UITableViewCell {
     @IBOutlet weak var txAmountOrTicketStatusLabel: UILabel! // holds amount for regular txs and ticket status for staking txs
     @IBOutlet weak var stakingTxAmountLabel: UILabel! // staking txs only, holds amount for different ticket states
     @IBOutlet weak var voteRewardLabel: Label! // vote tx only
-    @IBOutlet weak var status: UILabel!
+    @IBOutlet weak var txDateLabel: UILabel!
     @IBOutlet weak var daysCounterLabel: UILabel! // voted, revoked and expired tickets only
     @IBOutlet weak var txStatusIconImageView: UIImageView!
 
@@ -39,8 +39,8 @@ class TransactionTableViewCell: UITableViewCell {
             txDateString = txDate.toString(format: txDateIsInCurrentYear ? "MMM dd" : "MMM dd, YYYY")
         }
 
-        self.status.text = isConfirmed ? txDateString : LocalizedStrings.pending
-        self.status.textColor = isConfirmed ? UIColor.appColors.bluishGray : UIColor.appColors.lightBluishGray
+        self.txDateLabel.text = isConfirmed ? txDateString : LocalizedStrings.pending
+        self.txDateLabel.textColor = isConfirmed ? UIColor.appColors.bluishGray : UIColor.appColors.lightBluishGray
         self.txStatusIconImageView.image = isConfirmed ? UIImage(named: "ic_confirmed") : UIImage(named: "ic_pending")
 
         self.stakingTxAmountLabel.isHidden = transaction.type == DcrlibwalletTxTypeRegular
@@ -50,60 +50,49 @@ class TransactionTableViewCell: UITableViewCell {
         if transaction.type == DcrlibwalletTxTypeRegular {
             self.displayRegularTxInfo(transaction)
         } else if transaction.type == DcrlibwalletTxTypeVote {
-            self.displayTicketPurchaseInfo(transaction)
-        } else if transaction.type == DcrlibwalletTxTypeTicketPurchase {
             self.displayVoteTxInfo(transaction)
+        } else if transaction.type == DcrlibwalletTxTypeTicketPurchase {
+            self.displayTicketPurchaseInfo(transaction)
         }
     }
     
     func displayRegularTxInfo(_ transaction: Transaction) {
+        let amountString = Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 13.0, TexthexColor: UIColor.appColors.darkBlue)
+
         if transaction.direction == DcrlibwalletTxDirectionSent {
-            let attributedString = NSMutableAttributedString(string: "-")
-            attributedString.append(Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 13.0, TexthexColor: UIColor.appColors.darkBlue))
+            let attributedString = NSMutableAttributedString(string:"-")
+            attributedString.append(amountString)
             self.txAmountOrTicketStatusLabel.attributedText = attributedString
             self.txTypeIconImageView?.image = UIImage(named: "ic_send")
         } else if transaction.direction == DcrlibwalletTxDirectionReceived {
-            let attributedString = NSMutableAttributedString(string: " ")
-            attributedString.append(Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 13.0, TexthexColor: UIColor.appColors.darkBlue))
-            self.txAmountOrTicketStatusLabel.attributedText = attributedString
+            self.txAmountOrTicketStatusLabel.attributedText = amountString
             self.txTypeIconImageView?.image = UIImage(named: "ic_receive")
         } else if transaction.direction == DcrlibwalletTxDirectionTransferred {
-            let attributedString = NSMutableAttributedString(string: " ")
-            attributedString.append(Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 13.0, TexthexColor: UIColor.appColors.darkBlue))
-            self.txAmountOrTicketStatusLabel.attributedText = attributedString
+            self.txAmountOrTicketStatusLabel.attributedText = amountString
             self.txTypeIconImageView?.image = UIImage(named: "ic_fee")
         }
     }
     
     func displayTicketPurchaseInfo(_ transaction: Transaction) {
-        let ageInDays = Date(timeIntervalSince1970: TimeInterval(transaction.timestamp)).daysFromNow
-
-        self.txAmountOrTicketStatusLabel.text = " \(LocalizedStrings.voted)"
+        self.txAmountOrTicketStatusLabel.text = "\(LocalizedStrings.voted)"
         self.txTypeIconImageView?.image = UIImage(named: "ic_ticketVoted")
 
-        let attributedString = NSMutableAttributedString(string: " ")
-        attributedString.append(Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 11.0, TexthexColor: UIColor.appColors.lightBluishGray))
-        self.stakingTxAmountLabel.attributedText = attributedString
-        self.daysCounterLabel.text = String(format: LocalizedStrings.days, -ageInDays)
+        self.stakingTxAmountLabel.attributedText = Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 11.0, TexthexColor: UIColor.appColors.lightBluishGray)
+        self.daysCounterLabel.text = String(format: LocalizedStrings.days, -Date(timeIntervalSince1970: TimeInterval(transaction.timestamp)).daysFromNow)
     }
     
     func displayVoteTxInfo(_ transaction: Transaction) {
-        let ageInDays = Date(timeIntervalSince1970: TimeInterval(transaction.timestamp)).daysFromNow
+        self.txAmountOrTicketStatusLabel.text = "\(LocalizedStrings.ticket)"
+        self.txTypeIconImageView?.image = UIImage(named: "ic_ticketImmature")
+        self.daysCounterLabel.text = String(format: LocalizedStrings.days, -Date(timeIntervalSince1970: TimeInterval(transaction.timestamp)).daysFromNow)
+        self.stakingTxAmountLabel.attributedText = Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 11.0, TexthexColor: UIColor.appColors.lightBluishGray)
 
         let requireConfirmation = Settings.spendUnconfirmed ? 0 : 2
         let txConfirmations = transaction.confirmations
 
-        self.txAmountOrTicketStatusLabel.text = " \(LocalizedStrings.ticket)"
-        self.txTypeIconImageView?.image = UIImage(named: "ic_ticketImmature")
-        self.daysCounterLabel.text = String(format: LocalizedStrings.days, -ageInDays)
-
-        let attributedString = NSMutableAttributedString(string: " ")
-        attributedString.append(Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 11.0, TexthexColor: UIColor.appColors.lightBluishGray))
-        self.stakingTxAmountLabel.attributedText = attributedString
-
         if txConfirmations < requireConfirmation {
-            self.status.textColor = UIColor.appColors.lightBluishGray
-            self.status.text = LocalizedStrings.pending
+            self.txDateLabel.textColor = UIColor.appColors.lightBluishGray
+            self.txDateLabel.text = LocalizedStrings.pending
         } else if txConfirmations > BuildConfig.TicketMaturity {
             self.txAmountOrTicketStatusLabel.text = LocalizedStrings.live
             self.txTypeIconImageView?.image = UIImage(named: "ic_ticketLive")
