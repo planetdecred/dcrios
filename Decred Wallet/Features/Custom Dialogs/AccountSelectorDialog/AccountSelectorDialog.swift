@@ -9,7 +9,7 @@
 import UIKit
 import Dcrlibwallet
 
-typealias AccountSelectorDialogCallback = (_ selectedWallet: Wallet, _ selectedAccount: DcrlibwalletAccount) -> Void
+typealias AccountSelectorDialogCallback = (_ selectedWalletId: Int, _ selectedAccount: DcrlibwalletAccount) -> Void
 
 class AccountSelectorDialog: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
@@ -20,15 +20,15 @@ class AccountSelectorDialog: UIViewController {
     private var callback: AccountSelectorDialogCallback!
 
     var wallets = [Wallet]()
-    var selectedWallet: Wallet?
+    var selectedWallet: DcrlibwalletWallet?
     var selectedAccount: DcrlibwalletAccount?
 
-    let tableViewCellRowHeight: CGFloat = 74
-    let tableViewCellSectionHeight: CGFloat = 36
+    let accountCellRowHeight: CGFloat = 74
+    let walletHeaderSectionHeight: CGFloat = 36
     
     static func show(sender vc: UIViewController,
                      title: String,
-                     selectedWallet: Wallet?,
+                     selectedWallet: DcrlibwalletWallet?,
                      selectedAccount: DcrlibwalletAccount?,
                      callback: @escaping AccountSelectorDialogCallback) {
 
@@ -43,28 +43,28 @@ class AccountSelectorDialog: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         self.titleLabel.text = self.dialogTitle
+
         self.walletsTableView.hideEmptyAndExtraRows()
         self.walletsTableView.dataSource = self
         self.walletsTableView.delegate = self
         self.walletsTableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: 1, height: 0.1))
         self.walletsTableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 1, height: 0.1))
         self.walletsTableView.registerCellNib(AccountSelectorTableViewCell.self)
-        self.loadWallets()
+
+        let accountsFilterFn: (DcrlibwalletAccount) -> Bool = { $0.totalBalance > 0 || $0.name != "imported" }
+        self.wallets = WalletLoader.shared.wallets.map({ Wallet.init($0, accountsFilterFn: accountsFilterFn) })
+        self.walletsTableView.reloadData()
         
-        let rowHeightSum:CGFloat = self.wallets.reduce(0) { sum, wallet in
-            sum + (CGFloat(wallet.visibleAccounts.count) * self.tableViewCellRowHeight)
+        let tableContentHeight = self.wallets.reduce(0) { cummulativeContentHeight, wallet in
+            return cummulativeContentHeight + self.walletHeaderSectionHeight
+                + CGFloat(wallet.accounts.count) * self.accountCellRowHeight
         }
-        let sectionHeightSum:CGFloat = (CGFloat(self.wallets.count) * self.tableViewCellSectionHeight)
         self.walletsTableViewHeightConstraint.constant = min(
-            sectionHeightSum + rowHeightSum,
+            tableContentHeight,
             UIScreen.main.bounds.height * 0.33 // max height = 1/3rd of screen height
         )
-    }
-
-    func loadWallets() {
-        self.wallets = WalletLoader.shared.wallets.map({ Wallet.init($0) })
-        self.walletsTableView.reloadData()
     }
 
     @IBAction func closeButtonTapped(_ sender: Any) {
@@ -78,35 +78,37 @@ extension AccountSelectorDialog: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return self.tableViewCellSectionHeight
+        return self.walletHeaderSectionHeight
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: self.tableViewCellSectionHeight))
-        headerView.backgroundColor = UIColor.white
-
-        let label = UILabel()
-        label.frame = CGRect.init(x: 17, y: 16, width: headerView.frame.width-8, height: 20)
+        let label = Label()
+        label.frame = CGRect.init(x: 0, y: 0, width: tableView.frame.size.width, height: self.walletHeaderSectionHeight)
+        label.leftPadding = 17
+        label.topPadding = 16
+        label.borderWidth = 0
         label.text = self.wallets[section].name
         label.textColor = UIColor.appColors.darkBluishGray
+        label.backgroundColor = UIColor.white
+        label.adjustsFontSizeToFitWidth = false
+        label.lineBreakMode = .byTruncatingTail
+        label.numberOfLines = 1
         label.font = UIFont(name: "SourceSansPro-Regular", size: 14)
-        headerView.addSubview(label)
-
-        return headerView
+        return label
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.wallets[section].visibleAccounts.count
+        return self.wallets[section].accounts.count
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return self.tableViewCellRowHeight
+        return self.accountCellRowHeight
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let accountViewCell = tableView.dequeueReusableCell(withIdentifier: "AccountSelectorTableViewCell") as! AccountSelectorTableViewCell
         let wallet = self.wallets[indexPath.section]
-        let account = wallet.visibleAccounts[indexPath.row]
+        let account = wallet.accounts[indexPath.row]
 
         accountViewCell.account = account
         accountViewCell.checkmarkImageView.isHidden = !(wallet.name == self.selectedWallet?.name &&
@@ -116,6 +118,6 @@ extension AccountSelectorDialog: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.dismissView()
-        self.callback(self.wallets[indexPath.section], self.wallets[indexPath.section].visibleAccounts[indexPath.row])
+        self.callback(self.wallets[indexPath.section].id, self.wallets[indexPath.section].accounts[indexPath.row])
     }
 }

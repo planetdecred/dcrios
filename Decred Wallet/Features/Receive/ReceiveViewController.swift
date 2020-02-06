@@ -34,7 +34,7 @@ class ReceiveViewController: UIViewController, UIDocumentInteractionControllerDe
     var tapGesture = UITapGestureRecognizer()
     var oldAddress = ""
 
-    var selectedWallet: Wallet?
+    var selectedWallet: DcrlibwalletWallet?
     var selectedAccount: DcrlibwalletAccount?
 
     override func loadView() {
@@ -44,7 +44,6 @@ class ReceiveViewController: UIViewController, UIDocumentInteractionControllerDe
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // TAP Gesture
         self.setupExtraUI()
         setupSyncInProgressLabelConstraints()
     }
@@ -71,10 +70,10 @@ class ReceiveViewController: UIViewController, UIDocumentInteractionControllerDe
     private func checkSyncStatus() {
         self.menuBtn.isEnabled = false
     
-        if let wallet = WalletLoader.shared.wallets.map({ Wallet.init($0) }).first,
-            (!wallet.isRestored || wallet.hasDiscoveredAccounts),
+        let accountsFilterFn: (DcrlibwalletAccount) -> Bool = { $0.totalBalance > 0 || $0.name != "imported" }
+        if let wallet = WalletLoader.shared.wallets.map({ Wallet.init($0, accountsFilterFn: accountsFilterFn) }).first,
             let account = wallet.accounts.first {
-            self.updateSelectedAccount(wallet, account)
+            self.updateSelectedAccount(wallet.id, account)
         } else {
             containerRoundedView.isHidden = true
             syncInProgressLabel.isHidden = false
@@ -111,7 +110,7 @@ class ReceiveViewController: UIViewController, UIDocumentInteractionControllerDe
     @objc private func getNextAddress() {
         if let wallet = self.selectedWallet,
             let account = self.selectedAccount {
-                let receiveAddress = wallet.nextAddress(account.number)
+                let receiveAddress = wallet.nextAddress(account.number, error: nil)
                 if self.oldAddress != receiveAddress {
                     self.updateWalletAddressAndQRCode(receiveAddress: receiveAddress)
                 } else if receiveAddress != "" {
@@ -179,16 +178,19 @@ class ReceiveViewController: UIViewController, UIDocumentInteractionControllerDe
         }
     }
 
-    func updateSelectedAccount(_ selectedWallet: Wallet, _ selectedAccount: DcrlibwalletAccount) {
-        self.selectedWallet = selectedWallet
+    func updateSelectedAccount(_ selectedWalletId: Int, _ selectedAccount: DcrlibwalletAccount) {
+        guard let wallet = WalletLoader.shared.multiWallet.wallet(withID: selectedWalletId) else {
+            return
+        }
+        self.selectedWallet = wallet
         self.selectedAccount = selectedAccount
 
-        self.walletNameLabel.text = selectedWallet.name
+        self.walletNameLabel.text = wallet.name
         self.accountNameLabel.text = selectedAccount.name
 
         let totalBalanceRoundedOff = (Decimal(selectedAccount.dcrTotalBalance) as NSDecimalNumber).round(8)
         self.totalAccountBalanceLabel.attributedText = Utils.getAttributedString(str: "\(totalBalanceRoundedOff)", siz: 15.0, TexthexColor: UIColor.appColors.darkBlue)
-        self.updateWalletAddressAndQRCode(receiveAddress: selectedWallet.currentAddress(selectedAccount.number))
+        self.updateWalletAddressAndQRCode(receiveAddress: wallet.currentAddress(selectedAccount.number, error: nil))
     }
 
     @IBAction func showMenu(_ sender: Any) {
