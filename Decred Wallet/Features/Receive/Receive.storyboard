@@ -64,10 +64,10 @@
                                     <action selector="showInfo:" destination="pwN-Wv-Ioh" eventType="touchUpInside" id="MVv-9M-4VQ"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dvn-e5-AOF" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dvn-e5-AOF" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
                                 <rect key="frame" x="8" y="57" width="359" height="443"/>
                                 <subviews>
-                                    <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="CjE-tq-m7A">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="CjE-tq-m7A">
                                         <rect key="frame" x="0.0" y="0.0" width="359" height="419"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oqQ-og-lvi">
@@ -273,7 +273,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="accountNameLabel" destination="0eb-Xg-xua" id="KA7-tp-ZYh"/>
-                        <outlet property="contentStackView" destination="CjE-tq-m7A" id="RIc-dA-GYF"/>
+                        <outlet property="containerRoundedView" destination="dvn-e5-AOF" id="YkC-ZG-RA1"/>
                         <outlet property="imgWalletAddrQRCode" destination="P2Q-l4-CRY" id="2cl-JZ-uxS"/>
                         <outlet property="menuBtn" destination="fEY-wz-2Xy" id="Gg6-Pn-VHS"/>
                         <outlet property="selectedAccountView" destination="oqQ-og-lvi" id="DlR-nz-4Ys"/>
@@ -295,7 +295,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yrn-Tx-qdu">
-                                <rect key="frame" x="0.0" y="300" width="375" height="367"/>
+                                <rect key="frame" x="0.0" y="450" width="375" height="217"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Receiving Account" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gBc-ki-Uau">
                                         <rect key="frame" x="67" y="20.5" width="284" height="25.5"/>
@@ -303,11 +303,11 @@
                                         <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="WGc-Tb-6H3">
-                                        <rect key="frame" x="0.0" y="67" width="375" height="300"/>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="74" estimatedRowHeight="74" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="WGc-Tb-6H3">
+                                        <rect key="frame" x="0.0" y="67" width="375" height="150"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="300" id="b9z-ms-4vW"/>
+                                            <constraint firstAttribute="height" constant="150" id="834-ft-kMA"/>
                                         </constraints>
                                     </tableView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hGG-Be-LDb">
@@ -367,6 +367,7 @@
                     <connections>
                         <outlet property="titleLabel" destination="gBc-ki-Uau" id="nOe-mF-hEy"/>
                         <outlet property="walletsTableView" destination="WGc-Tb-6H3" id="AGa-jg-j2z"/>
+                        <outlet property="walletsTableViewHeightConstraint" destination="834-ft-kMA" id="PP5-ek-GYC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZmH-qq-WCY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

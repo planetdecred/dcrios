@@ -14,7 +14,7 @@ class ReceiveViewController: UIViewController, UIDocumentInteractionControllerDe
     @IBOutlet private var imgWalletAddrQRCode: UIImageView!
 
     @IBOutlet weak var walletAddressLabel: UILabel!
-    @IBOutlet var contentStackView: UIStackView!
+    @IBOutlet weak var containerRoundedView: RoundedView!
 
     @IBOutlet weak var selectedAccountView: UIView!
     @IBOutlet weak var accountNameLabel: UILabel!
@@ -76,12 +76,12 @@ class ReceiveViewController: UIViewController, UIDocumentInteractionControllerDe
             let account = wallet.accounts.first {
             self.updateSelectedAccount(wallet, account)
         } else {
-            contentStackView.isHidden = true
+            containerRoundedView.isHidden = true
             syncInProgressLabel.isHidden = false
             return
         }
 
-        contentStackView.isHidden = false
+        containerRoundedView.isHidden = false
         syncInProgressLabel.isHidden = true
         self.menuBtn.isEnabled = true
     }
@@ -111,10 +111,10 @@ class ReceiveViewController: UIViewController, UIDocumentInteractionControllerDe
     @objc private func getNextAddress() {
         if let wallet = self.selectedWallet,
             let account = self.selectedAccount {
-                let  receiveAddress = wallet.nextAddress(account.number)
-                if (self.oldAddress != receiveAddress) {
+                let receiveAddress = wallet.nextAddress(account.number)
+                if self.oldAddress != receiveAddress {
                     self.updateWalletAddressAndQRCode(receiveAddress: receiveAddress)
-                } else {
+                } else if receiveAddress != "" {
                     self.getNextAddress()
                 }
         }
