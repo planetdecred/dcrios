@@ -1,4 +1,4 @@
-//  TransactiontInputDetailsCell.swift
+//  TransactionInputDetailsCell.swift
 //  Decred Wallet
 //
 // Copyright (c) 2018-2020 The Decred developers
@@ -6,7 +6,7 @@
 // license that can be found in the LICENSE file.
 import UIKit
 
-class TransactiontInputDetailsCell: UITableViewCell {
+class TransactionInputDetailsCell: UITableViewCell {
     @IBOutlet weak var headerButton: UIButton!
     @IBOutlet weak var arrowImageView: UIImageView!
     @IBOutlet weak var debitsStack: UIStackView!

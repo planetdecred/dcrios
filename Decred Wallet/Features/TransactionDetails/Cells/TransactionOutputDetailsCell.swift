@@ -1,5 +1,5 @@
 //
-//  TransactiontOutputDetailsTableViewCell.swift
+//  TransactionOutputDetailsTableViewCell.swift
 //  Decred Wallet
 //
 // Copyright (c) 2018-2020 The Decred developers
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TransactiontOutputDetailsCell: UITableViewCell {
+class TransactionOutputDetailsCell: UITableViewCell {
     @IBOutlet weak var headerButton: UIButton!
     @IBOutlet weak var arrowImageView: UIImageView!
     @IBOutlet weak var creditsStack: UIStackView!

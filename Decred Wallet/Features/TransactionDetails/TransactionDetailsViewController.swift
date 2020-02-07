@@ -29,18 +29,10 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         self.transactionDetailsTable.isHidden = true
+        self.transactionDetailsTable.hideEmptyAndExtraRows()
         self.showOrHideDetailsBtn.addBorder(atPosition: .top, color: UIColor.appColors.gray, thickness: 1)
-
-        self.transactionDetailsTable
-            .hideEmptyAndExtraRows()
-            .autoResizeCell(estimatedHeight: 60.0)
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        transactionDetailsTable.maxHeight = self.view.frame.size.height - self.view.frame.origin.y
-            - self.headerView.frame.size.height - self.showOrHideDetailsBtn.frame.size.height
-            - (UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0)
 
         if self.transaction == nil && self.transactionHash != nil {
             let txHash = Data(fromHexEncodedString: self.transactionHash!)!
@@ -58,6 +50,16 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
         }
 
         self.prepareTransactionDetails()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // calculate maximum height of transactionDetailsTable to take up
+        self.transactionDetailsTable.maxHeight = self.view.frame.size.height
+            - self.view.frame.origin.y
+            - self.headerView.frame.size.height
+            - self.showOrHideDetailsBtn.frame.size.height
+            - (UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0)
     }
 
     private func prepareTransactionDetails() {
@@ -263,7 +265,7 @@ extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDe
             return cell
 
         case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TransactiontInputDetailsCell") as! TransactiontInputDetailsCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TransactionInputDetailsCell") as! TransactionInputDetailsCell
             cell.isCollapsed = self.isTxInputsCollapsed
             cell.setup(transaction.inputs, presentingController: self)
             cell.expandOrCollapse = { [weak self] in
@@ -273,7 +275,7 @@ extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDe
             return cell
 
         case 2:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TransactiontOutputDetailsCell") as! TransactiontOutputDetailsCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TransactionOutputDetailsCell") as! TransactionOutputDetailsCell
             cell.isCollapsed = self.isTxOutputsCollapsed
             cell.setup(transaction.outputs, presentingController: self)
             cell.expandOrCollapse = { [weak self] in
@@ -283,19 +285,20 @@ extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDe
             return cell
 
         case 3:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TransactiontViewOnDcrdataCell") as! TransactiontViewOnDcrdataCell
-            cell.onViewOnDcrData = { [weak self] in
-                guard let `self` = self else { return }
-                if BuildConfig.IsTestNet {
-                    self.openLink(urlString: "https://testnet.dcrdata.org/tx/\(self.transaction.hash)")
-                 } else {
-                    self.openLink(urlString: "https://dcrdata.decred.org/tx/\(self.transaction.hash)")
-                }
-            }
-            return cell
+            return tableView.dequeueReusableCell(withIdentifier: "TransactionViewOnDcrdataCell")!
 
         default:
             return UITableViewCell()
+        }
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 3 {
+            if BuildConfig.IsTestNet {
+                self.openLink(urlString: "https://testnet.dcrdata.org/tx/\(self.transaction.hash)")
+             } else {
+                self.openLink(urlString: "https://dcrdata.decred.org/tx/\(self.transaction.hash)")
+            }
         }
     }
 }
