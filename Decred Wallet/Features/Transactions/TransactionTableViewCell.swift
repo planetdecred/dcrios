@@ -50,9 +50,9 @@ class TransactionTableViewCell: UITableViewCell {
         if transaction.type == DcrlibwalletTxTypeRegular {
             self.displayRegularTxInfo(transaction)
         } else if transaction.type == DcrlibwalletTxTypeVote {
-            self.displayVoteTxInfo(transaction)
+            self.displayVoteTxInfo(transaction, ageInDays: ageInDays)
         } else if transaction.type == DcrlibwalletTxTypeTicketPurchase {
-            self.displayTicketPurchaseInfo(transaction)
+            self.displayTicketPurchaseInfo(transaction, ageInDays: ageInDays)
         }
     }
     
@@ -73,18 +73,18 @@ class TransactionTableViewCell: UITableViewCell {
         }
     }
     
-    func displayTicketPurchaseInfo(_ transaction: Transaction) {
+    func displayTicketPurchaseInfo(_ transaction: Transaction, ageInDays: Int) {
         self.txAmountOrTicketStatusLabel.text = "\(LocalizedStrings.voted)"
         self.txTypeIconImageView?.image = UIImage(named: "ic_ticketVoted")
 
         self.stakingTxAmountLabel.attributedText = Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 11.0, TexthexColor: UIColor.appColors.lightBluishGray)
-        self.daysCounterLabel.text = String(format: LocalizedStrings.days, -Date(timeIntervalSince1970: TimeInterval(transaction.timestamp)).daysFromNow)
+        self.daysCounterLabel.text = String(format: LocalizedStrings.days, -ageInDays)
     }
     
-    func displayVoteTxInfo(_ transaction: Transaction) {
+    func displayVoteTxInfo(_ transaction: Transaction, ageInDays: Int) {
         self.txAmountOrTicketStatusLabel.text = "\(LocalizedStrings.ticket)"
         self.txTypeIconImageView?.image = UIImage(named: "ic_ticketImmature")
-        self.daysCounterLabel.text = String(format: LocalizedStrings.days, -Date(timeIntervalSince1970: TimeInterval(transaction.timestamp)).daysFromNow)
+        self.daysCounterLabel.text = String(format: LocalizedStrings.days, -ageInDays)
         self.stakingTxAmountLabel.attributedText = Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 11.0, TexthexColor: UIColor.appColors.lightBluishGray)
 
         let requireConfirmation = Settings.spendUnconfirmed ? 0 : 2
