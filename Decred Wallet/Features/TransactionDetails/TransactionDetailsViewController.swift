@@ -247,13 +247,13 @@ extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDe
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0.5
+        return 1
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView.init(frame: CGRect.zero)
         headerView.backgroundColor = UIColor.appColors.gray
-        headerView.frame.size.height = 0
+        headerView.frame.size.height = 1
         return headerView
     }
 
