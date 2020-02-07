@@ -10,26 +10,15 @@ import UIKit
 import Dcrlibwallet
 
 class ReceiveViewController: UIViewController, UIDocumentInteractionControllerDelegate {
-    @IBOutlet weak var menuBtn: UIButton!
-    @IBOutlet private var imgWalletAddrQRCode: UIImageView!
-
-    @IBOutlet weak var walletAddressLabel: UILabel!
-    @IBOutlet weak var containerRoundedView: RoundedView!
-
+    @IBOutlet weak var moreMenuButton: UIButton!
+    @IBOutlet weak var mainContentViewHolder: RoundedView!
     @IBOutlet weak var selectedAccountView: UIView!
     @IBOutlet weak var accountNameLabel: UILabel!
     @IBOutlet weak var walletNameLabel: UILabel!
     @IBOutlet weak var totalAccountBalanceLabel: UILabel!
-
-    private lazy var syncInProgressLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .darkGray
-        label.numberOfLines = 0
-        label.textAlignment = .center
-        label.text = LocalizedStrings.secureMenuSyncInfo
-        return label
-    }()
+    @IBOutlet private var addressQRCodeImageView: UIImageView!
+    @IBOutlet weak var walletAddressLabel: UILabel!
+    @IBOutlet weak var syncInProgressLabel: UILabel!
 
     var tapGesture = UITapGestureRecognizer()
     var oldAddress = ""
@@ -37,15 +26,9 @@ class ReceiveViewController: UIViewController, UIDocumentInteractionControllerDe
     var selectedWallet: DcrlibwalletWallet?
     var selectedAccount: DcrlibwalletAccount?
 
-    override func loadView() {
-        super.loadView()
-        view.addSubview(syncInProgressLabel)
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupExtraUI()
-        setupSyncInProgressLabelConstraints()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -54,42 +37,42 @@ class ReceiveViewController: UIViewController, UIDocumentInteractionControllerDe
     }
 
     func setupExtraUI() {
-        self.imgWalletAddrQRCode.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.copyAddress)))
+        self.addressQRCodeImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.copyAddress)))
         self.walletAddressLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.copyAddress)))
         self.selectedAccountView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.showAccountSelectorDialog)))
     }
 
     @objc func copyAddress() {
         DispatchQueue.main.async {
-            //Copy a string to the pasteboard.
             UIPasteboard.general.string = self.walletAddressLabel.text!
             Utils.showBanner(parentVC: self, type: .success, text: LocalizedStrings.walletAddrCopied)
         }
     }
 
-    private func checkSyncStatus() {
-        self.menuBtn.isEnabled = false
-    
-        let accountsFilterFn: (DcrlibwalletAccount) -> Bool = { $0.totalBalance > 0 || $0.name != "imported" }
-        if let wallet = WalletLoader.shared.wallets.map({ Wallet.init($0, accountsFilterFn: accountsFilterFn) }).first,
-            let account = wallet.accounts.first {
-            self.updateSelectedAccount(wallet.id, account)
-        } else {
-            containerRoundedView.isHidden = true
-            syncInProgressLabel.isHidden = false
-            return
-        }
-
-        containerRoundedView.isHidden = false
-        syncInProgressLabel.isHidden = true
-        self.menuBtn.isEnabled = true
+    @objc func showAccountSelectorDialog(_ sender: Any) {
+        AccountSelectorDialog.show(sender: self,
+                                 title: LocalizedStrings.receivingAccount,
+                                 selectedWallet: selectedWallet,
+                                 selectedAccount: self.selectedAccount,
+                                 callback: self.updateSelectedAccount)
     }
 
-    private func setupSyncInProgressLabelConstraints() {
-        /// This will position the label at the center of the view
-        syncInProgressLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        syncInProgressLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        syncInProgressLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8).isActive = true
+    private func checkSyncStatus() {
+        self.moreMenuButton.isEnabled = false
+    
+        let accountsFilterFn: (DcrlibwalletAccount) -> Bool = { $0.totalBalance > 0 || $0.name != "imported" }
+        guard let wallet = WalletLoader.shared.wallets.map({ Wallet.init($0, accountsFilterFn: accountsFilterFn) }).first,
+            let account = wallet.accounts.first else {
+                self.mainContentViewHolder.isHidden = true
+                self.syncInProgressLabel.isHidden = false
+                return
+        }
+
+        self.updateSelectedAccount(wallet.id, account)
+
+        mainContentViewHolder.isHidden = false
+        syncInProgressLabel.isHidden = true
+        self.moreMenuButton.isEnabled = true
     }
 
     private func generateNewAddress() {
@@ -100,9 +83,9 @@ class ReceiveViewController: UIViewController, UIDocumentInteractionControllerDe
     private func updateWalletAddressAndQRCode(receiveAddress: String) {
         DispatchQueue.main.async {
             self.walletAddressLabel.text = receiveAddress
-            self.imgWalletAddrQRCode.image = self.generateQRCodeFor(
+            self.addressQRCodeImageView.image = self.generateQRCodeFor(
                 with: receiveAddress,
-                forImageViewFrame: self.imgWalletAddrQRCode.frame
+                forImageViewFrame: self.addressQRCodeImageView.frame
             )
         }
     }
@@ -158,14 +141,6 @@ class ReceiveViewController: UIViewController, UIDocumentInteractionControllerDe
         self.dismissView()
     }
 
-    @objc func showAccountSelectorDialog(_ sender: Any) {
-        AccountSelectorDialog.show(sender: self,
-                                 title: LocalizedStrings.receivingAccount,
-                                 selectedWallet: selectedWallet,
-                                 selectedAccount: self.selectedAccount,
-                                 callback: self.updateSelectedAccount)
-    }
-
     @IBAction func showInfo(_ sender: Any) {
         DispatchQueue.main.async {
             let alertController = UIAlertController(title: LocalizedStrings.receiveDCR,
@@ -208,7 +183,7 @@ class ReceiveViewController: UIViewController, UIDocumentInteractionControllerDe
     }
 
     @IBAction func onShare(_ sender: Any) {
-        var img: UIImage = self.imgWalletAddrQRCode.image!
+        var img: UIImage = self.addressQRCodeImageView.image!
 
         if img.cgImage == nil {
             guard let ciImage = img.ciImage, let cgImage = CIContext(options: nil).createCGImage(ciImage, from: ciImage.extent) else {return}

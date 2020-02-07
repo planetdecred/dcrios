@@ -81,7 +81,7 @@
                                                         </constraints>
                                                     </imageView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="hf2-cp-sgh">
-                                                        <rect key="frame" x="59" y="18" width="54.5" height="45"/>
+                                                        <rect key="frame" x="59" y="16" width="54.5" height="49"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Default" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0eb-Xg-xua">
                                                                 <rect key="frame" x="0.0" y="0.0" width="54.5" height="23"/>
@@ -90,7 +90,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Walle" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FyH-At-P9R" customClass="Label" customModule="Decred_Wallet" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="27" width="32" height="18"/>
+                                                                <rect key="frame" x="0.0" y="27" width="40" height="22"/>
                                                                 <color key="backgroundColor" red="0.95294117647058818" green="0.96078431372549022" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                                                 <color key="textColor" red="0.53725490196078429" green="0.59215686274509804" blue="0.6470588235294118" alpha="1" colorSpace="calibratedRGB"/>
@@ -246,6 +246,15 @@
                                     <constraint firstAttribute="trailing" secondItem="qGO-Qf-YMi" secondAttribute="trailing" id="kZj-iP-Nxp"/>
                                 </constraints>
                             </view>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please wait for your wallet to finish synchronizing." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hDv-Si-5Gh">
+                                <rect key="frame" x="16" y="311" width="343" height="45.5"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
+                                <color key="textColor" red="0.53725490200000003" green="0.59215686270000001" blue="0.64705882349999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="secureMenuSyncInfo"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.95294117647058818" green="0.96078431372549022" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -255,11 +264,14 @@
                             <constraint firstItem="Oqc-5O-q6B" firstAttribute="trailing" secondItem="Bxh-8Q-KbY" secondAttribute="trailing" id="9yS-iX-xsG"/>
                             <constraint firstItem="Bxh-8Q-KbY" firstAttribute="leading" secondItem="Oqc-5O-q6B" secondAttribute="leading" id="Es6-c8-G4h"/>
                             <constraint firstItem="fEY-wz-2Xy" firstAttribute="centerY" secondItem="W4w-5c-cuM" secondAttribute="centerY" id="Gyu-fy-gZg"/>
+                            <constraint firstItem="Oqc-5O-q6B" firstAttribute="trailing" secondItem="hDv-Si-5Gh" secondAttribute="trailing" constant="16" id="Hm9-hT-d2i"/>
                             <constraint firstItem="ZRf-sN-oTU" firstAttribute="centerY" secondItem="W4w-5c-cuM" secondAttribute="centerY" id="Hor-7X-wCt"/>
                             <constraint firstAttribute="bottom" secondItem="Bxh-8Q-KbY" secondAttribute="bottom" id="MQo-kG-Al4"/>
+                            <constraint firstItem="hDv-Si-5Gh" firstAttribute="leading" secondItem="Oqc-5O-q6B" secondAttribute="leading" constant="16" id="P6g-LP-Pbi"/>
                             <constraint firstItem="Oqc-5O-q6B" firstAttribute="trailing" secondItem="fEY-wz-2Xy" secondAttribute="trailing" constant="24" id="VBP-IZ-XzC"/>
                             <constraint firstItem="Oqc-5O-q6B" firstAttribute="trailing" secondItem="dvn-e5-AOF" secondAttribute="trailing" constant="8" id="XZe-X5-d1P"/>
                             <constraint firstItem="W4w-5c-cuM" firstAttribute="top" secondItem="Oqc-5O-q6B" secondAttribute="top" constant="16" id="d43-xq-ZS1"/>
+                            <constraint firstItem="hDv-Si-5Gh" firstAttribute="centerY" secondItem="Oqc-5O-q6B" secondAttribute="centerY" id="ghX-dh-z5n"/>
                             <constraint firstItem="fEY-wz-2Xy" firstAttribute="leading" secondItem="4g7-5X-Ks9" secondAttribute="trailing" constant="26" id="hyc-1D-KEt"/>
                             <constraint firstItem="Ist-fg-aj8" firstAttribute="bottom" secondItem="Oqc-5O-q6B" secondAttribute="bottom" constant="-16" id="q00-xe-hT9"/>
                             <constraint firstItem="ZRf-sN-oTU" firstAttribute="leading" secondItem="W4w-5c-cuM" secondAttribute="trailing" constant="22" id="qVH-97-5uG"/>
@@ -273,10 +285,11 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="accountNameLabel" destination="0eb-Xg-xua" id="KA7-tp-ZYh"/>
-                        <outlet property="containerRoundedView" destination="dvn-e5-AOF" id="YkC-ZG-RA1"/>
-                        <outlet property="imgWalletAddrQRCode" destination="P2Q-l4-CRY" id="2cl-JZ-uxS"/>
-                        <outlet property="menuBtn" destination="fEY-wz-2Xy" id="Gg6-Pn-VHS"/>
+                        <outlet property="addressQRCodeImageView" destination="P2Q-l4-CRY" id="2cl-JZ-uxS"/>
+                        <outlet property="mainContentViewHolder" destination="dvn-e5-AOF" id="YkC-ZG-RA1"/>
+                        <outlet property="moreMenuButton" destination="fEY-wz-2Xy" id="Gg6-Pn-VHS"/>
                         <outlet property="selectedAccountView" destination="oqQ-og-lvi" id="DlR-nz-4Ys"/>
+                        <outlet property="syncInProgressLabel" destination="hDv-Si-5Gh" id="byr-Sb-CY9"/>
                         <outlet property="totalAccountBalanceLabel" destination="m1l-wz-w3l" id="guJ-M3-mDu"/>
                         <outlet property="walletAddressLabel" destination="ad3-va-aFy" id="czF-ZO-nC7"/>
                         <outlet property="walletNameLabel" destination="FyH-At-P9R" id="wJL-qQ-NYH"/>
@@ -284,7 +297,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R0Q-i3-kfU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-394.20289855072468" y="813.61607142857144"/>
+            <point key="canvasLocation" x="-394.39999999999998" y="812.74362818590714"/>
         </scene>
     </scenes>
     <resources>

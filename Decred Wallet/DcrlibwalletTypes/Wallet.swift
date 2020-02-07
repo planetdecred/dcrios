@@ -14,10 +14,8 @@ class Wallet: NSObject {
     private(set) var name: String
     private(set) var balance: String
     private(set) var accounts = [DcrlibwalletAccount]()
-    private(set) var visibleAccounts = [DcrlibwalletAccount]()
     private(set) var isSeedBackedUp: Bool = false
     private(set) var displayAccounts: Bool = false
-    private(set) var isRestored: Bool = false
     
     init(_ wallet: DcrlibwalletWallet, accountsFilterFn: ((DcrlibwalletAccount) -> Bool)? = nil) {
         self.id = wallet.id_

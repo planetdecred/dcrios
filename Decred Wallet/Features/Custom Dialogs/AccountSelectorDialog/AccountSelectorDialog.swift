@@ -49,6 +49,8 @@ class AccountSelectorDialog: UIViewController {
         self.walletsTableView.hideEmptyAndExtraRows()
         self.walletsTableView.dataSource = self
         self.walletsTableView.delegate = self
+        
+        //Without these two lines the grouped UITableView has unnecessary top and bottom padding
         self.walletsTableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: 1, height: 0.1))
         self.walletsTableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 1, height: 0.1))
         self.walletsTableView.registerCellNib(AccountSelectorTableViewCell.self)
@@ -82,8 +84,7 @@ extension AccountSelectorDialog: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let label = Label()
-        label.frame = CGRect.init(x: 0, y: 0, width: tableView.frame.size.width, height: self.walletHeaderSectionHeight)
+        let label = Label(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.size.width, height: self.walletHeaderSectionHeight))
         label.leftPadding = 17
         label.topPadding = 16
         label.borderWidth = 0
@@ -109,10 +110,8 @@ extension AccountSelectorDialog: UITableViewDataSource, UITableViewDelegate {
         let accountViewCell = tableView.dequeueReusableCell(withIdentifier: "AccountSelectorTableViewCell") as! AccountSelectorTableViewCell
         let wallet = self.wallets[indexPath.section]
         let account = wallet.accounts[indexPath.row]
-
         accountViewCell.account = account
-        accountViewCell.checkmarkImageView.isHidden = !(wallet.name == self.selectedWallet?.name &&
-                                                      account.name == self.selectedAccount?.name)
+        accountViewCell.checkmarkImageView.isHidden = wallet.name != self.selectedWallet?.name || account.name != self.selectedAccount?.name
         return accountViewCell
     }
 
