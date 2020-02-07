@@ -13,12 +13,11 @@ class TransactionInputDetailsCell: UITableViewCell {
     @IBOutlet weak var alcDebitStackHeight: NSLayoutConstraint!
 
     var expandOrCollapse: (() -> Void)?
-
-    var presentingController: TransactionDetailsViewController!
+    var onTxDetailValueCopied: ((_ bannerMsg: String) -> ())?
     var isCollapsed: Bool = true
 
-    func setup(_ inputs: [TxInput], presentingController: TransactionDetailsViewController) {
-        self.presentingController = presentingController
+    func setup(_ inputs: [TxInput], isCollapsed: Bool) {
+        self.isCollapsed = isCollapsed
         self.headerButton.setTitle(String(format: LocalizedStrings.inputsConsumed, inputs.count), for: .normal)
         // this stack view comes with previous items when this function is called again
         self.debitsStack.subviews.forEach({ $0.removeFromSuperview() })
@@ -80,9 +79,8 @@ class TransactionInputDetailsCell: UITableViewCell {
 
     @objc func buttonClicked(sender: UIButton) {
         DispatchQueue.main.async {
-            //Copy a string to the pasteboard.
             UIPasteboard.general.string = sender.titleLabel?.text
-            Utils.showBanner(parentVC: self.presentingController, type: .success, text: LocalizedStrings.previousOutpointCopied)
+            self.onTxDetailValueCopied?(LocalizedStrings.previousOutpointCopied)
         }
     }
 }

@@ -23,7 +23,7 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
     var transactionHash: String?
     var transaction: Transaction!
 
-    var generalTxDetails: [TransactionDetails] = []
+    var generalTxDetails: [TransactionDetail] = []
     var isTxInputsCollapsed: Bool = true
     var isTxOutputsCollapsed: Bool = true
 
@@ -54,142 +54,141 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
         // calculate maximum height of transactionDetailsTable to take up
         self.transactionDetailsTable.maxHeight = self.view.frame.size.height
             - self.view.frame.origin.y
             - self.headerView.frame.size.height
             - self.showOrHideDetailsBtn.frame.size.height
             - (UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0)
+
+        self.displayTransactionDetails()
     }
 
     private func prepareTransactionDetails() {
-        let txConfirmations = transaction.confirmations
-
-        if Settings.spendUnconfirmed || txConfirmations > 1 {
-            self.statusLabel.text = LocalizedStrings.confirmed
-            self.statusLabel.textColor = UIColor.appColors.green
-            self.statusImageView.image = UIImage(named: "ic_confirmed")
-            self.confirmationsLabel.text = " · " + String(format: LocalizedStrings.confirmations, txConfirmations)
-        } else {
-            self.statusLabel.text = LocalizedStrings.pending
-            self.statusLabel.textColor = UIColor.appColors.lightBluishGray
-            self.statusImageView.image = UIImage(named: "ic_pending")
-            self.confirmationsLabel.text = ""
-        }
-
-        self.dateLabel.attributedText = NSMutableAttributedString(string: Utils.formatDateTime(timestamp: self.transaction.timestamp))
-
         let txFee = Utils.getAttributedString(
             str: "\(self.transaction.dcrFee.round(8))",
             siz: 16,
             TexthexColor: UIColor.appColors.darkBlue
         )
 
-        generalTxDetails = [
-            TransactionDetails(
+        self.generalTxDetails = [
+            TransactionDetail(
                 title: LocalizedStrings.fee,
-                value: txFee,
+                value: txFee.string,
                 isCopyEnabled: false
             ),
-            TransactionDetails(
+            TransactionDetail(
                 title: LocalizedStrings.type,
-                value: NSMutableAttributedString(string: self.transaction.type),
+                value: self.transaction.type,
                 isCopyEnabled: false
             ),
-            TransactionDetails(
+            TransactionDetail(
                 title: LocalizedStrings.includedInBlock,
-                value: NSMutableAttributedString(string: "\(self.transaction.blockHeight)"),
+                value: "\(self.transaction.blockHeight)",
                 isCopyEnabled: false
             ),
-            TransactionDetails(
+            TransactionDetail(
                 title: LocalizedStrings.transactionID,
-                value: NSMutableAttributedString(string: self.transaction.hash),
+                value: self.transaction.hash,
                 isCopyEnabled: true
             )
         ]
+        
+        if self.transaction.type == DcrlibwalletTxTypeTicketPurchase {
+            let lastBlockValid = TransactionDetail(
+                title: LocalizedStrings.lastBlockValid,
+                value: String(describing: self.transaction.lastBlockValid),
+                isCopyEnabled: false
+            )
+            generalTxDetails.append(lastBlockValid)
+
+            let voteVersion = TransactionDetail(
+                title: LocalizedStrings.version,
+                value: "\(self.transaction.voteVersion)",
+                isCopyEnabled: false
+            )
+            generalTxDetails.append(voteVersion)
+
+            let voteBits = TransactionDetail(
+                title: LocalizedStrings.voteBits,
+                value: self.transaction.voteBits,
+                isCopyEnabled: false
+            )
+            generalTxDetails.append(voteBits)
+            self.txAmountLabel.attributedText = Utils.getAttributedString(
+                str: "\(self.transaction.dcrAmount.round(8))",
+                siz: 20,
+                TexthexColor: UIColor.appColors.darkBlue
+            )
+        }
+    }
+
+    private func displayTransactionDetails() {
+        let txConfirmations = transaction.confirmations
+
+        let attributedAmountString = NSMutableAttributedString(string: (self.transaction.type == DcrlibwalletTxTypeRegular && self.transaction.direction == DcrlibwalletTxDirectionSent) ? "-" : "")
+        attributedAmountString.append(Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 20.0, TexthexColor: UIColor.appColors.darkBlue))
+        self.txAmountLabel.attributedText = attributedAmountString
+
+        self.dateLabel.text = Utils.formatDateTime(timestamp: self.transaction.timestamp)
+
+        if Settings.spendUnconfirmed || txConfirmations > 1 {
+            self.statusImageView.image = UIImage(named: "ic_confirmed")
+            self.statusLabel.text = LocalizedStrings.confirmed
+            self.statusLabel.textColor = UIColor.appColors.green
+            self.confirmationsLabel.text = " · " + String(format: LocalizedStrings.confirmations, txConfirmations)
+        } else {
+            self.statusImageView.image = UIImage(named: "ic_pending")
+            self.statusLabel.text = LocalizedStrings.pending
+            self.statusLabel.textColor = UIColor.appColors.lightBluishGray
+            self.confirmationsLabel.text = ""
+        }
 
         if self.transaction.type == DcrlibwalletTxTypeRegular {
-            self.displayRegularTxInfo(transaction)
+            self.displayRegularTxInfo(self.transaction)
         } else if self.transaction.type == DcrlibwalletTxTypeVote {
-            self.displayVoteTxInfo(transaction)
+            self.displayVoteTxInfo(self.transaction)
         } else if self.transaction.type == DcrlibwalletTxTypeTicketPurchase {
-            self.displayTicketPurchaseInfo(transaction)
+            self.displayTicketPurchaseInfo(self.transaction)
         }
     }
 
     func displayRegularTxInfo(_ transaction: Transaction) {
-        let amountString = Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 20.0, TexthexColor: UIColor.appColors.darkBlue)
-
         if self.transaction.direction == DcrlibwalletTxDirectionSent {
             self.titleLabel.text = LocalizedStrings.sent
             self.txIconImageView.image = UIImage(named: "ic_send")
-            let attributedString = NSMutableAttributedString(string:"-")
-            attributedString.append(amountString)
-            self.txAmountLabel.attributedText = attributedString
         } else if self.transaction.direction == DcrlibwalletTxDirectionReceived {
             self.titleLabel.text = LocalizedStrings.received
             self.txIconImageView.image = UIImage(named: "ic_receive")
-            self.txAmountLabel.attributedText = amountString
         } else if transaction.direction == DcrlibwalletTxDirectionTransferred {
             self.titleLabel.text = LocalizedStrings.transferred
             self.txIconImageView.image = UIImage(named: "ic_fee")
-            self.txAmountLabel.attributedText = amountString
         }
     }
 
     func displayTicketPurchaseInfo(_ transaction: Transaction) {
-        self.titleLabel.text = " \(LocalizedStrings.voted)"
+        self.titleLabel.text = LocalizedStrings.voted
         self.txIconImageView.image =  UIImage(named: "ic_ticketVoted")
-
-        let lastBlockValid = TransactionDetails(
-            title: LocalizedStrings.lastBlockValid,
-            value: NSMutableAttributedString(string: String(describing: self.transaction.lastBlockValid)),
-            isCopyEnabled: false
-        )
-        generalTxDetails.append(lastBlockValid)
-
-        let voteVersion = TransactionDetails(
-            title: LocalizedStrings.version,
-            value: NSAttributedString(string: "\(self.transaction.voteVersion)"),
-            isCopyEnabled: false
-        )
-        generalTxDetails.append(voteVersion)
-
-        let voteBits = TransactionDetails(
-            title: LocalizedStrings.voteBits,
-            value: NSAttributedString(string: self.transaction.voteBits),
-            isCopyEnabled: false
-        )
-        generalTxDetails.append(voteBits)
-        self.txAmountLabel.attributedText = Utils.getAttributedString(
-            str: "\(self.transaction.dcrAmount.round(8))",
-            siz: 20,
-            TexthexColor: UIColor.appColors.darkBlue
-        )
     }
 
     func displayVoteTxInfo(_ transaction: Transaction) {
-        self.titleLabel.text = " \(LocalizedStrings.ticket)"
+        self.titleLabel.text = LocalizedStrings.ticket
         self.txIconImageView.image =  UIImage(named: "ic_ticketImmature")
 
         let txConfirmations = transaction.confirmations
-        let requireConfirmation = Settings.spendUnconfirmed ? 0 : 2
+        let requiredConfirmations = Settings.spendUnconfirmed ? 0 : 2
 
-        if txConfirmations < requireConfirmation {
+        if txConfirmations < requiredConfirmations {
+            self.statusImageView.image = UIImage(named: "ic_pending")
             self.statusLabel.text = LocalizedStrings.pending
             self.statusLabel.textColor = UIColor.appColors.lightBluishGray
-            self.statusImageView.image = UIImage(named: "ic_pending")
             self.confirmationsLabel.text = ""
         } else if txConfirmations > BuildConfig.TicketMaturity {
             self.txIconImageView.image = UIImage(named: "ic_ticketLive")
         } else {
             self.txIconImageView.image = UIImage(named: "ic_ticketImmature")
         }
-        self.txAmountLabel.attributedText = Utils.getAttributedString(
-            str: "\(self.transaction.dcrAmount.round(8))",
-            siz: 20,
-            TexthexColor: UIColor.appColors.darkBlue
-        )
     }
 
     @IBAction func onClose(_ sender: Any) {
@@ -212,20 +211,22 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
                                                     message: "",
                                                     preferredStyle: UIAlertController.Style.alert)
 
-            let attributedStringStyles = [ AttributedStringStyle(tag: "blue",
-                                                                font: UIFont.systemFont(ofSize: 14),
-                                                                color: UIColor.appColors.lightBlue)
-                                            ]
-            let defaultAttributedStringStyle = AttributedStringStyle(font: UIFont.systemFont(ofSize: 14),
-                                                                     color: UIColor.appColors.deepGray)
-            let attrMsgString =  Utils.styleAttributedString(LocalizedStrings.tapOnBlueText,
-                                                                styles: attributedStringStyles,
-                                                                defaultStyle: defaultAttributedStringStyle)
-            alertController.setValue(attrMsgString, forKey: "attributedMessage")
+            let blueTextColorStyle = AttributedStringStyle(tag: "blue",
+                                                           font: UIFont.systemFont(ofSize: 14),
+                                                           color: UIColor.appColors.lightBlue)
 
+            let defaultTextStyle = AttributedStringStyle(font: UIFont.systemFont(ofSize: 14),
+                                                         color: UIColor.appColors.deepGray)
+
+            let infoMessage = Utils.styleAttributedString(LocalizedStrings.tapOnBlueText,
+                                                           styles: [blueTextColorStyle],
+                                                           defaultStyle: defaultTextStyle)
+
+            alertController.setValue(infoMessage, forKey: "attributedMessage")
             alertController.addAction(UIAlertAction(title: LocalizedStrings.gotIt,
                                                     style: UIAlertAction.Style.default,
                                                     handler: nil))
+
             self.present(alertController, animated: true, completion: nil)
         }
     }
@@ -260,27 +261,33 @@ extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDe
         switch indexPath.section {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TransactionDetailCell") as! TransactionDetailCell
-            cell.presentingController = self
-            cell.txnDetails = self.generalTxDetails[indexPath.row]
+            cell.txDetail = self.generalTxDetails[indexPath.row]
+            cell.onTxDetailValueCopied = { copiedDetail in
+                Utils.showBanner(parentVC: self, type: .success, text: String(format: LocalizedStrings.sgCopied, copiedDetail))
+            }
             return cell
 
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TransactionInputDetailsCell") as! TransactionInputDetailsCell
-            cell.isCollapsed = self.isTxInputsCollapsed
-            cell.setup(transaction.inputs, presentingController: self)
+            cell.setup(transaction.inputs, isCollapsed: self.isTxInputsCollapsed)
             cell.expandOrCollapse = { [weak self] in
                 self?.isTxInputsCollapsed = !(self?.isTxInputsCollapsed ?? false)
                 self?.transactionDetailsTable.reloadData()
+            }
+            cell.onTxDetailValueCopied = { bannerMsg in
+                Utils.showBanner(parentVC: self, type: .success, text: bannerMsg)
             }
             return cell
 
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TransactionOutputDetailsCell") as! TransactionOutputDetailsCell
-            cell.isCollapsed = self.isTxOutputsCollapsed
-            cell.setup(transaction.outputs, presentingController: self)
+            cell.setup(transaction.outputs, isCollapsed: self.isTxOutputsCollapsed)
             cell.expandOrCollapse = { [weak self] in
                 self?.isTxOutputsCollapsed = !(self?.isTxOutputsCollapsed ?? false)
                 self?.transactionDetailsTable.reloadData()
+            }
+            cell.onTxDetailValueCopied = { bannerMsg in
+                Utils.showBanner(parentVC: self, type: .success, text: bannerMsg)
             }
             return cell
 

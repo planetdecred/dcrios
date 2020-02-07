@@ -7,41 +7,39 @@
 
 import UIKit
 
-struct TransactionDetails {
+struct TransactionDetail {
     let title: String
-    let value: NSAttributedString
+    let value: String
     let isCopyEnabled: Bool
 }
 
 class TransactionDetailCell: UITableViewCell {
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var valueButton: UIButton!
-    var presentingController: TransactionDetailsViewController?
-    
-    var txnDetails: TransactionDetails? {
+
+    var onTxDetailValueCopied: ((_ copiedDetail: String) -> ())?
+    var txDetail: TransactionDetail? {
         didSet {
             showData()
         }
     }
 
-    @IBAction func onValueButtonClicked(_ sender: Any) {
-        if let txn = self.txnDetails,
-            txn.isCopyEnabled,
-            let presentingController = self.presentingController {
-            DispatchQueue.main.async {
-                //Copy a string to the pasteboard.
-                UIPasteboard.general.string = txn.value.string
-                Utils.showBanner(parentVC: presentingController, type: .success, text: String(format: LocalizedStrings.sgCopied, txn.title))
-            }
-        }
+    private func showData() {
+        guard let tx = self.txDetail else { return }
+
+        self.titleLabel.text = tx.title
+        self.valueButton.setTitle(tx.value, for: .normal)
+        self.valueButton.setTitleColor(tx.isCopyEnabled ? UIColor.appColors.lightBlue : UIColor.appColors.darkBlue, for: .normal)
+        self.isUserInteractionEnabled = tx.isCopyEnabled
     }
 
-    private func showData() {
-        guard let txn = self.txnDetails else { return }
-
-        self.titleLabel.text = txn.title
-        self.valueButton.setTitle(txn.value.string, for: .normal)
-        self.valueButton.setTitleColor(txn.isCopyEnabled ? UIColor.appColors.lightBlue : UIColor.appColors.darkBlue, for: .normal)
-        self.isUserInteractionEnabled = txn.isCopyEnabled
+    @IBAction func onValueButtonTapped(_ sender: Any) {
+        guard let tx = self.txDetail, tx.isCopyEnabled else {
+            return
+        }
+        DispatchQueue.main.async {
+            UIPasteboard.general.string = tx.value
+            self.onTxDetailValueCopied?(tx.title)
+        }
     }
 }
