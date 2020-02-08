@@ -182,7 +182,7 @@ extension WalletsViewController: WalletInfoTableViewCellDelegate {
     }
     
     func showAccountDetailsDialog(_ account: DcrlibwalletAccount) {
-        print("show account modal for", account.name)
+        AccountDetailsViewController.showDetails(for: account, onAccountDetailsUpdated: self.loadWallets, sender: self)
     }
 }
 

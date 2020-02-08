@@ -117,6 +117,11 @@ struct Utils {
         }
     }
     
+    static func amountAsAttributedString(amount: Double?, smallerTextSize: CGFloat, textColor: UIColor = UIColor.appColors.darkBlue) -> NSAttributedString {
+        let amountRoundedOff = (Decimal(amount ?? 0) as NSDecimalNumber).round(8)
+        return Utils.getAttributedString(str: "\(amountRoundedOff)", siz: smallerTextSize, TexthexColor: textColor)
+    }
+    
     // todo this function is a mess, should be refactored!
     static func getAttributedString(str: String, siz: CGFloat, TexthexColor: UIColor) -> NSAttributedString {
         var tmpString = str

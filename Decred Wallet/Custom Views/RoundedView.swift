@@ -10,6 +10,30 @@ import UIKit
 
 @IBDesignable
 class RoundedView: UIView {
+    @IBInspectable var roundTopLeftCorner: Bool = true {
+        didSet {
+            self.setMaskedCorners()
+        }
+    }
+    
+    @IBInspectable var roundTopRightCorner: Bool = true {
+        didSet {
+            self.setMaskedCorners()
+        }
+    }
+    
+    @IBInspectable var roundBottomLeftCorner: Bool = true {
+        didSet {
+            self.setMaskedCorners()
+        }
+    }
+    
+    @IBInspectable var roundBottomRightCorner: Bool = true {
+        didSet {
+            self.setMaskedCorners()
+        }
+    }
+    
     @IBInspectable var borderRadius: CGFloat = 14 {
         didSet {
             self.layer.cornerRadius = self.borderRadius
@@ -45,6 +69,26 @@ class RoundedView: UIView {
         didSet {
             self.redrawDropShadow()
         }
+    }
+    
+    func setMaskedCorners() {
+        var maskedCorners: CACornerMask = []
+        
+        if self.roundTopLeftCorner {
+            maskedCorners.insert(.layerMinXMinYCorner)
+        }
+        if self.roundTopRightCorner {
+            maskedCorners.insert(.layerMaxXMinYCorner)
+        }
+        if self.roundBottomLeftCorner {
+            maskedCorners.insert(.layerMinXMaxYCorner)
+        }
+        if self.roundBottomRightCorner {
+            maskedCorners.insert(.layerMaxXMaxYCorner)
+        }
+
+        self.layer.maskedCorners = maskedCorners
+        self.setNeedsDisplay()
     }
     
     func redrawDropShadow() {
