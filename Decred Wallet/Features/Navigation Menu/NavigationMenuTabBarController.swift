@@ -27,7 +27,7 @@ class NavigationMenuTabBarController: UITabBarController {
     override func viewDidAppear(_ animated: Bool) {
         if self.isNewWallet {
             self.isNewWallet = false
-            Utils.showBanner(parentVC: self, type: .success, text: LocalizedStrings.walletCreated)
+            Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.walletCreated)
         }
     }
     

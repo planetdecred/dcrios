@@ -90,7 +90,7 @@ class WalletsViewController: UIViewController {
                 if error == nil {
                     completion?.dismissDialog()
                     self.loadWallets()
-                    Utils.showBanner(parentVC: self, type: .success, text: LocalizedStrings.walletCreated)
+                    Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.walletCreated)
                 } else {
                     completion?.displayError(errorMessage: error!.localizedDescription)
                 }
@@ -102,7 +102,7 @@ class WalletsViewController: UIViewController {
         let restoreWalletVC = RestoreExistingWalletViewController.instantiate(from: .WalletSetup)
         restoreWalletVC.onWalletRestored = {
             self.loadWallets()
-            Utils.showBanner(parentVC: self, type: .success, text: LocalizedStrings.walletCreated)
+            Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.walletCreated)
         }
         self.navigationController?.pushViewController(restoreWalletVC, animated: true)
     }
@@ -182,7 +182,12 @@ extension WalletsViewController: WalletInfoTableViewCellDelegate {
     }
     
     func showAccountDetailsDialog(_ account: DcrlibwalletAccount) {
-        AccountDetailsViewController.showDetails(for: account, onAccountDetailsUpdated: self.loadWallets, sender: self)
+        AccountDetailsViewController.showDetails(for: account, onAccountDetailsUpdated: self.refreshAccountDetails, sender: self)
+    }
+
+    func refreshAccountDetails() {
+        self.wallets.forEach({ $0.reloadAccounts() })
+        self.walletsTableView.reloadData()
     }
 }
 
@@ -198,7 +203,7 @@ extension WalletsViewController {
                 try WalletLoader.shared.multiWallet.renameWallet(walletID, newName: newWalletName)
                 dialogDelegate?.dismissDialog()
                 self.loadWallets()
-                Utils.showBanner(parentVC: self, type: .success, text: LocalizedStrings.walletRenamed)
+                Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.walletRenamed)
             } catch let error {
                 dialogDelegate?.displayError(errorMessage: error.localizedDescription)
             }

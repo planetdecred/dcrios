@@ -35,7 +35,7 @@ class WalletSettingsViewController: UIViewController {
     
     @IBAction func changeSpendingPINPassword(_ sender: Any) {
         SpendingPinOrPassword.change(sender: self, walletID: self.wallet.id_) {
-            Utils.showBanner(parentVC: self, type: .success, text: LocalizedStrings.spendingPinPassChanged)
+            Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.spendingPinPassChanged)
         }
     }
     
@@ -98,7 +98,7 @@ class WalletSettingsViewController: UIViewController {
     }
     
     func walletDeleted() {
-        Utils.showBanner(parentVC: self, type: .success, text: LocalizedStrings.walletRemoved)
+        Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.walletRemoved)
         
         // todo clear wallet settings
         

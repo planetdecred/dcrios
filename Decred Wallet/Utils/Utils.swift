@@ -172,14 +172,19 @@ struct Utils {
         return formatter.string(from: date)
     }
 
-    static func showBanner(parentVC: UIViewController, type: BannerType, text: String) {
+    static func showBanner(in superview: UIView, type: BannerType, text: String) {
         let banner = UIView()
-        parentVC.view.addSubview(banner)
+        superview.addSubview(banner)
+
+        // Position banner 10% from the top of the view or 64pts from the top of the view,
+        // whichever is smaller.
+        let bannerYPos = min(superview.frame.height * 0.1, 64)
+
         banner.translatesAutoresizingMaskIntoConstraints = false
-        banner.leadingAnchor.constraint(greaterThanOrEqualTo: parentVC.view.leadingAnchor, constant: 8).isActive = true
-        banner.trailingAnchor.constraint(lessThanOrEqualTo: parentVC.view.trailingAnchor, constant: -8).isActive = true
-        banner.topAnchor.constraint(equalTo: parentVC.view.safeAreaLayoutGuide.topAnchor, constant: 84).isActive = true
-        banner.centerXAnchor.constraint(equalTo: parentVC.view.centerXAnchor).isActive = true
+        banner.leadingAnchor.constraint(greaterThanOrEqualTo: superview.leadingAnchor, constant: 8).isActive = true
+        banner.trailingAnchor.constraint(lessThanOrEqualTo: superview.trailingAnchor, constant: -8).isActive = true
+        banner.topAnchor.constraint(equalTo: superview.safeAreaLayoutGuide.topAnchor, constant: bannerYPos).isActive = true
+        banner.centerXAnchor.constraint(equalTo: superview.centerXAnchor).isActive = true
 
         banner.backgroundColor = (type == .error) ? UIColor.appColors.orange : UIColor.appColors.green
         banner.layer.cornerRadius = 7

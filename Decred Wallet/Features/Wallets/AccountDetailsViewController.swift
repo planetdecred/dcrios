@@ -114,7 +114,8 @@ class AccountDetailsViewController: UIViewController {
                 try wallet.renameAccount(self.account.number, newName: newAccountName)
                 dialogDelegate?.dismissDialog()
                 self.onAccountDetailsUpdated?()
-                Utils.showBanner(parentVC: self, type: .success, text: LocalizedStrings.accountRenamed)
+                self.accountNameLabel.text = newAccountName
+                Utils.showBanner(in: self.view.subviews.first!, type: .success, text: LocalizedStrings.accountRenamed)
             } catch let error {
                 dialogDelegate?.displayError(errorMessage: error.localizedDescription)
             }
