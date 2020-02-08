@@ -126,13 +126,13 @@ class SendFundsViewController: UIViewController {
         super.viewDidLoad()
         setUpBarButtonItems()
         setUpViews()
-        loadAccounts()
         sendingAmountTextField.addDoneButton()
         registerObserverForKeyboardNotification()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        loadAccounts()
         fetchExchangeRate(nil)
     }
 
@@ -145,6 +145,8 @@ class SendFundsViewController: UIViewController {
             .filter({ !$0.isHidden && $0.number != INT_MAX }) // remove hidden wallets from array
         self.walletAccounts = walletAccounts
         sourceWalletInfoLabel.text = walletAccounts[0].name
+        let amountInSourceWallet = (Decimal(walletAccounts[0].balance!.dcrTotal) as NSDecimalNumber).round(8).formattedWithSeparator
+        self.sourceWalletAmount.text = "\(amountInSourceWallet) DCR"
         sourceWallet = walletAccounts[0]
         let spendableAmount = (Decimal(walletAccounts[0].balance!.dcrSpendable) as NSDecimalNumber).round(8).formattedWithSeparator
         spendableAmountLabel.text = "Spendable: \(spendableAmount) DCR"
@@ -645,15 +647,19 @@ extension SendFundsViewController: UITextFieldDelegate {
     }
 
     func textFieldDidEndEditing(_ textField: UITextField) {
+        calculateAndDisplayMaxSendableAmount()
         // Address field
         if textField.tag == 0 {
             destinationAddressContainerView.layer.borderColor = UIColor.appColors.lightGray.cgColor
             destinationAddressLabel.textColor = UIColor.appColors.darkGray
             pasteButton.isHidden = true
             self.toggleSendButtonState(self.shouldEnableSendButton)
-        } else if textField.tag == 1{
-            displayExchangeRate(self.exchangeRate)
-            self.toggleSendButtonState(self.shouldEnableSendButton)
+        } else if textField.tag == 1 {
+            if self.exchangeRate != nil {
+                displayExchangeRate(self.exchangeRate)
+            }
+            dcrAmountTextFieldChanged()
+            toggleSendButtonState(self.shouldEnableSendButton)
         }
     }
 
