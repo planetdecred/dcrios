@@ -28,7 +28,7 @@ class ReceiveViewController: UIViewController, UIDocumentInteractionControllerDe
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setupExtraUI()
+        self.setupUI()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -36,7 +36,7 @@ class ReceiveViewController: UIViewController, UIDocumentInteractionControllerDe
         self.checkSyncStatus()
     }
 
-    func setupExtraUI() {
+    func setupUI() {
         self.addressQRCodeImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.copyAddress)))
         self.walletAddressLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.copyAddress)))
         self.selectedAccountView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.showAccountSelectorDialog)))
@@ -58,11 +58,10 @@ class ReceiveViewController: UIViewController, UIDocumentInteractionControllerDe
     }
 
     private func checkSyncStatus() {
-        self.moreMenuButton.isEnabled = false
-    
         let accountsFilterFn: (DcrlibwalletAccount) -> Bool = { $0.totalBalance > 0 || $0.name != "imported" }
         guard let wallet = WalletLoader.shared.wallets.map({ Wallet.init($0, accountsFilterFn: accountsFilterFn) }).first,
             let account = wallet.accounts.first else {
+                self.moreMenuButton.isEnabled = false
                 self.mainContentViewHolder.isHidden = true
                 self.syncInProgressLabel.isHidden = false
                 return
@@ -75,19 +74,18 @@ class ReceiveViewController: UIViewController, UIDocumentInteractionControllerDe
         self.moreMenuButton.isEnabled = true
     }
 
+    private func displayAddressAndQRCode(receiveAddress: String) {
+        DispatchQueue.main.async {
+            self.walletAddressLabel.text = receiveAddress
+            self.addressQRCodeImageView.image = self.generateQRCodeImage(
+                for: receiveAddress
+            )
+        }
+    }
+
     private func generateNewAddress() {
         self.oldAddress = self.walletAddressLabel.text!
         self.getNextAddress()
-    }
-
-    private func updateWalletAddressAndQRCode(receiveAddress: String) {
-        DispatchQueue.main.async {
-            self.walletAddressLabel.text = receiveAddress
-            self.addressQRCodeImageView.image = self.generateQRCodeFor(
-                with: receiveAddress,
-                forImageViewFrame: self.addressQRCodeImageView.frame
-            )
-        }
     }
 
     @objc private func getNextAddress() {
@@ -95,44 +93,29 @@ class ReceiveViewController: UIViewController, UIDocumentInteractionControllerDe
             let account = self.selectedAccount {
                 let receiveAddress = wallet.nextAddress(account.number, error: nil)
                 if self.oldAddress != receiveAddress {
-                    self.updateWalletAddressAndQRCode(receiveAddress: receiveAddress)
+                    self.displayAddressAndQRCode(receiveAddress: receiveAddress)
                 } else if receiveAddress != "" {
                     self.getNextAddress()
                 }
         }
     }
 
-    private func generateQRCodeFor(with addres: String, forImageViewFrame: CGRect) -> UIImage? {
-        guard let addrData = addres.data(using: String.Encoding.utf8) else {
-            return nil
-        }
-
-        // Color code and background
+    private func generateQRCodeImage(for address: String) -> UIImage? {
         guard let colorFilter = CIFilter(name: "CIFalseColor") else { return nil }
         let filter = CIFilter(name: "CIQRCodeGenerator")
-        filter?.setValue(addrData, forKey: "inputMessage")
-
-        let foregroundColor = CIColor.black
-        let backgroundColor = CIColor.clear
+        filter?.setValue(address.utf8Bits, forKey: "inputMessage")
 
         colorFilter.setDefaults()
         colorFilter.setValue(filter!.outputImage, forKey: "inputImage")
-        colorFilter.setValue(foregroundColor, forKey: "inputColor0")
-        colorFilter.setValue(backgroundColor, forKey: "inputColor1")
+        colorFilter.setValue(CIColor.black, forKey: "inputColor0")
+        colorFilter.setValue(CIColor.clear, forKey: "inputColor1")
 
-        if let imgQR = colorFilter.outputImage {
-            var tempFrame: CGRect? = forImageViewFrame
-            if tempFrame == nil {
-                tempFrame = CGRect(x: 0, y: 0, width: 100, height: 100)
-            }
-
-            guard let frame = tempFrame else { return nil }
+        if let qrImage = colorFilter.outputImage {
+            let frame = self.addressQRCodeImageView.frame
             let smallerSide = frame.size.width < frame.size.height ? frame.size.width : frame.size.height
-            let scale = smallerSide/imgQR.extent.size.width
-            let transformedImage = imgQR.transformed(by: CGAffineTransform(scaleX: scale, y: scale))
-            let imageQRCode = UIImage(ciImage: transformedImage)
-
-            return imageQRCode
+            let scale = smallerSide/qrImage.extent.size.width
+            let transformedImage = qrImage.transformed(by: CGAffineTransform(scaleX: scale, y: scale))
+            return UIImage(ciImage: transformedImage)
         }
         return nil
     }
@@ -141,7 +124,7 @@ class ReceiveViewController: UIViewController, UIDocumentInteractionControllerDe
         self.dismissView()
     }
 
-    @IBAction func showInfo(_ sender: Any) {
+    @IBAction func infoMenuButtonTapped(_ sender: Any) {
         DispatchQueue.main.async {
             let alertController = UIAlertController(title: LocalizedStrings.receiveDCR,
                                                     message: LocalizedStrings.receiveInfo,
@@ -157,6 +140,7 @@ class ReceiveViewController: UIViewController, UIDocumentInteractionControllerDe
         guard let wallet = WalletLoader.shared.multiWallet.wallet(withID: selectedWalletId) else {
             return
         }
+
         self.selectedWallet = wallet
         self.selectedAccount = selectedAccount
 
@@ -165,10 +149,10 @@ class ReceiveViewController: UIViewController, UIDocumentInteractionControllerDe
 
         let totalBalanceRoundedOff = (Decimal(selectedAccount.dcrTotalBalance) as NSDecimalNumber).round(8)
         self.totalAccountBalanceLabel.attributedText = Utils.getAttributedString(str: "\(totalBalanceRoundedOff)", siz: 15.0, TexthexColor: UIColor.appColors.darkBlue)
-        self.updateWalletAddressAndQRCode(receiveAddress: wallet.currentAddress(selectedAccount.number, error: nil))
+        self.displayAddressAndQRCode(receiveAddress: wallet.currentAddress(selectedAccount.number, error: nil))
     }
 
-    @IBAction func showMenu(_ sender: Any) {
+    @IBAction func moreMenuButtonTapped(_ sender: Any) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: LocalizedStrings.cancel, style: .cancel, handler: nil)
 
@@ -183,14 +167,11 @@ class ReceiveViewController: UIViewController, UIDocumentInteractionControllerDe
     }
 
     @IBAction func onShare(_ sender: Any) {
-        var img: UIImage = self.addressQRCodeImageView.image!
+        guard let addressQRCodeImage = self.addressQRCodeImageView.image,
+            let ciImage = addressQRCodeImage.ciImage,
+            let cgImage = CIContext(options: nil).createCGImage(ciImage, from: ciImage.extent) else { return }
 
-        if img.cgImage == nil {
-            guard let ciImage = img.ciImage, let cgImage = CIContext(options: nil).createCGImage(ciImage, from: ciImage.extent) else {return}
-            img = UIImage(cgImage: cgImage)
-        }
-
-        let activityController = UIActivityViewController(activityItems: [img], applicationActivities: nil)
+        let activityController = UIActivityViewController(activityItems: [ UIImage(cgImage: cgImage) ], applicationActivities: nil)
         self.present(activityController, animated: true, completion: nil)
     }
 }
