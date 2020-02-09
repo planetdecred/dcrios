@@ -13,9 +13,8 @@ typealias AccountSelectorDialogCallback = (_ selectedWalletId: Int, _ selectedAc
 
 class AccountSelectorDialog: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var walletsTableView: UITableView!
-    @IBOutlet weak var walletsTableViewHeightConstraint: NSLayoutConstraint!
-    
+    @IBOutlet weak var walletsTableView: SelfSizedTableView!
+
     private var dialogTitle: String!
     private var callback: AccountSelectorDialogCallback!
 
@@ -46,27 +45,14 @@ class AccountSelectorDialog: UIViewController {
 
         self.titleLabel.text = self.dialogTitle
 
-        self.walletsTableView.hideEmptyAndExtraRows()
         self.walletsTableView.dataSource = self
         self.walletsTableView.delegate = self
-        
-        //Without these two lines the grouped UITableView has unnecessary top and bottom padding
-        self.walletsTableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: 1, height: 0.1))
-        self.walletsTableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 1, height: 0.1))
         self.walletsTableView.registerCellNib(AccountSelectorTableViewCell.self)
+        self.walletsTableView.maxHeight = UIScreen.main.bounds.height * 0.33 // max height = 1/3rd of screen height
 
         let accountsFilterFn: (DcrlibwalletAccount) -> Bool = { $0.totalBalance > 0 || $0.name != "imported" }
         self.wallets = WalletLoader.shared.wallets.map({ Wallet.init($0, accountsFilterFn: accountsFilterFn) })
         self.walletsTableView.reloadData()
-        
-        let tableContentHeight = self.wallets.reduce(0) { cummulativeContentHeight, wallet in
-            return cummulativeContentHeight + self.walletHeaderSectionHeight
-                + CGFloat(wallet.accounts.count) * self.accountCellRowHeight
-        }
-        self.walletsTableViewHeightConstraint.constant = min(
-            tableContentHeight,
-            UIScreen.main.bounds.height * 0.33 // max height = 1/3rd of screen height
-        )
     }
 
     @IBAction func closeButtonTapped(_ sender: Any) {
