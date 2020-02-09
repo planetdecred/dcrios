@@ -94,7 +94,7 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
                 isCopyEnabled: true
             )
         ]
-        
+
         if self.transaction.type == DcrlibwalletTxTypeTicketPurchase {
             let lastBlockValid = TransactionDetail(
                 title: LocalizedStrings.lastBlockValid,
@@ -243,18 +243,89 @@ extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDe
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? self.generalTxDetails.count : 1
+        if section == 0 {
+            return self.generalTxDetails.count
+        } else if section == 1 {
+            return self.isTxInputsCollapsed ? 0 : transaction.inputs.count
+        } else if section == 2 {
+            return self.isTxOutputsCollapsed ? 0 : transaction.outputs.count
+        } else {
+            return 1
+        }
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 1
+        if section == 1 || section == 2 {
+            return 48
+        } else {
+            return 1
+        }
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView.init(frame: CGRect.zero)
-        headerView.backgroundColor = UIColor.appColors.gray
-        headerView.frame.size.height = 1
+        if section == 1 {
+            return self.getInputOutputSectionHeaderView(section: section,
+                                                        title: String(format: LocalizedStrings.inputsConsumed, transaction.inputs.count),
+                                                        isCollapsed: self.isTxInputsCollapsed)
+        } else if section == 2 {
+            return self.getInputOutputSectionHeaderView(section: section,
+                                                        title: String(format: LocalizedStrings.outputsCreated, transaction.outputs.count),
+                                                        isCollapsed: self.isTxOutputsCollapsed)
+        } else {
+            let headerView = UIView.init(frame: CGRect.zero)
+            headerView.backgroundColor = UIColor.appColors.gray
+            headerView.frame.size.height = 1
+            return headerView
+        }
+    }
+
+    private func getInputOutputSectionHeaderView(section: Int,
+                                                 title: String,
+                                                 isCollapsed: Bool) -> UIView {
+        let headerView = UIView.init(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 48))
+        headerView.backgroundColor = UIColor.white
+        headerView.frame.size.height = 48
+
+        let headerSeparator = UIView.init(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 1))
+        headerSeparator.backgroundColor = UIColor.appColors.gray
+        headerView.addSubview(headerSeparator)
+
+        let headerLabel = UILabel.init(frame: CGRect(x: 16, y: 1, width: self.view.frame.size.width - 56, height: 47))
+        headerLabel.textColor = UIColor.appColors.bluishGray
+        headerLabel.font = UIFont(name: "SourceSansPro-Regular", size: 14)
+        headerLabel.numberOfLines = 1
+        headerLabel.text = title
+        headerView.addSubview(headerLabel)
+
+        let arrowImageView = UIImageView.init(frame: CGRect(x: self.view.frame.size.width - 40, y: 12, width: 24, height: 24))
+        let arrowImage = UIImage(named: "ic_collapse")
+        if !isCollapsed {
+            arrowImageView.image = arrowImage
+        } else {
+            arrowImageView.image = UIImage(cgImage: (arrowImage?.cgImage!)!, scale: CGFloat(1.0), orientation: .downMirrored)
+        }
+        headerView.addSubview(arrowImageView)
+
+        let tapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(inputOutputSectionHeaderViewTapped(_:))
+        )
+        headerView.tag = section
+        headerView.addGestureRecognizer(tapGestureRecognizer)
+
         return headerView
+    }
+
+    @objc func inputOutputSectionHeaderViewTapped(_ sender: UITapGestureRecognizer?) {
+        guard let section = sender?.view?.tag else { return }
+
+        if section == 1 {
+            self.isTxInputsCollapsed = !self.isTxInputsCollapsed
+            self.transactionDetailsTable.reloadData()
+        } else if section == 2 {
+            self.isTxOutputsCollapsed = !self.isTxOutputsCollapsed
+            self.transactionDetailsTable.reloadData()
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -268,27 +339,13 @@ extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDe
             return cell
 
         case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TransactionInputDetailsCell") as! TransactionInputDetailsCell
-            cell.setup(transaction.inputs, isCollapsed: self.isTxInputsCollapsed)
-            cell.expandOrCollapse = { [weak self] in
-                self?.isTxInputsCollapsed = !(self?.isTxInputsCollapsed ?? false)
-                self?.transactionDetailsTable.reloadData()
-            }
-            cell.onTxDetailValueCopied = { bannerMsg in
-                Utils.showBanner(parentVC: self, type: .success, text: bannerMsg)
-            }
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TransactionInputDetailsCell") as! TransactionInputDetailCell
+            cell.setup(transaction.inputs[indexPath.row])
             return cell
 
         case 2:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TransactionOutputDetailsCell") as! TransactionOutputDetailsCell
-            cell.setup(transaction.outputs, isCollapsed: self.isTxOutputsCollapsed)
-            cell.expandOrCollapse = { [weak self] in
-                self?.isTxOutputsCollapsed = !(self?.isTxOutputsCollapsed ?? false)
-                self?.transactionDetailsTable.reloadData()
-            }
-            cell.onTxDetailValueCopied = { bannerMsg in
-                Utils.showBanner(parentVC: self, type: .success, text: bannerMsg)
-            }
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TransactionOutputDetailsCell") as! TransactionOutputDetailCell
+            cell.setup(transaction.outputs[indexPath.row])
             return cell
 
         case 3:
@@ -300,7 +357,17 @@ extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDe
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 3 {
+        if indexPath.section == 1, let cell = tableView.cellForRow(at: indexPath) as? TransactionInputDetailCell {
+            DispatchQueue.main.async {
+                UIPasteboard.general.string = cell.txHashLabel.text
+                Utils.showBanner(parentVC: self, type: .success, text: LocalizedStrings.previousOutpointCopied)
+            }
+        } else if indexPath.section == 2, let cell = tableView.cellForRow(at: indexPath) as? TransactionOutputDetailCell {
+            DispatchQueue.main.async {
+                UIPasteboard.general.string = cell.txHashLabel.text
+                Utils.showBanner(parentVC: self, type: .success, text: LocalizedStrings.addrCopied)
+            }
+        } else if indexPath.section == 3 {
             if BuildConfig.IsTestNet {
                 self.openLink(urlString: "https://testnet.dcrdata.org/tx/\(self.transaction.hash)")
              } else {
