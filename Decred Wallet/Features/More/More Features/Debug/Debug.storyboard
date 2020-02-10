@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Debug Table View Controller-->
+        <scene sceneID="xcl-A0-Ldm">
+            <objects>
+                <tableViewController storyboardIdentifier="DebugTableViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="AOV-lR-bGT" customClass="DebugTableViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" bouncesZoom="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="mZM-P1-Nx6">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.95294117649999999" green="0.96078431369999995" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="sectionIndexColor" red="0.23921568630000001" green="0.34509803919999998" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="sectionIndexBackgroundColor" red="0.95294117649999999" green="0.96078431369999995" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <sections>
+                            <tableViewSection id="CwX-uc-MUU">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="wallet_log_settings" textLabel="OC2-pO-Ojn" style="IBUITableViewCellStyleDefault" id="gPG-cZ-5Ww">
+                                        <rect key="frame" x="0.0" y="18" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gPG-cZ-5Ww" id="bi2-yJ-3ag">
+                                            <rect key="frame" x="0.0" y="0.0" width="383" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Check wallet log" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OC2-pO-Ojn">
+                                                    <rect key="frame" x="20" y="0.0" width="355" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                                    <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="checkWalletLog"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="EZd-XU-g0B" kind="show" id="hHN-7h-40A"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="rescan_block_settings" textLabel="idu-YM-Zhf" style="IBUITableViewCellStyleDefault" id="Mvc-RY-oKN">
+                                        <rect key="frame" x="0.0" y="62" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Mvc-RY-oKN" id="CRw-pA-6dx">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Rescan blockchain" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="idu-YM-Zhf">
+                                                    <rect key="frame" x="20" y="0.0" width="374" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                                    <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="rescanBlockchain"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="AOV-lR-bGT" id="te7-7J-IEx"/>
+                            <outlet property="delegate" destination="AOV-lR-bGT" id="FWX-e5-7yE"/>
+                        </connections>
+                    </tableView>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7CW-6X-GCC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="TtU-mI-KzV"/>
+            </objects>
+            <point key="canvasLocation" x="-583" y="1549"/>
+        </scene>
+        <!--Wallet Log View Controller-->
+        <scene sceneID="XVa-mi-6eV">
+            <objects>
+                <viewController id="EZd-XU-g0B" customClass="WalletLogViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="S9L-Pa-ty4"/>
+                        <viewControllerLayoutGuide type="bottom" id="iEO-6o-r9A"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="gCg-sB-NIN">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DDj-Zg-n1b">
+                                <rect key="frame" x="8" y="52" width="398" height="802"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="DDj-Zg-n1b" secondAttribute="trailing" constant="8" id="3LT-tp-z9e"/>
+                            <constraint firstItem="iEO-6o-r9A" firstAttribute="top" secondItem="DDj-Zg-n1b" secondAttribute="bottom" constant="8" id="6qD-pr-Qzf"/>
+                            <constraint firstItem="DDj-Zg-n1b" firstAttribute="top" secondItem="S9L-Pa-ty4" secondAttribute="bottom" constant="8" id="Gm3-G7-y7T"/>
+                            <constraint firstItem="DDj-Zg-n1b" firstAttribute="leading" secondItem="gCg-sB-NIN" secondAttribute="leading" constant="8" id="ptg-ki-8Mo"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="n4I-mu-riR"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="b8a-tl-zVw"/>
+                    <connections>
+                        <outlet property="logTextView" destination="DDj-Zg-n1b" id="WPq-lr-kHa"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GAo-5d-y9o" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="362" y="1596"/>
+        </scene>
+    </scenes>
+</document>
