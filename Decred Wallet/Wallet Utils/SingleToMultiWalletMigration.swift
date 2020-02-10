@@ -10,8 +10,12 @@ import UIKit
 import Dcrlibwallet
 
 class SingleToMultiWalletMigration {
+    static var v1WalletDbDir: String {
+        return "\(WalletLoader.appDataDir)/\(BuildConfig.NetType)"
+    }
+
     static var migrationNeeded: Bool {
-        return WalletLoader.shared.multiWallet.v1WalletExists()
+        return DcrlibwalletWalletExistsAt(v1WalletDbDir)
     }
     
     // Requires startup passphrase (aka wallet public passphrase) to
@@ -61,8 +65,9 @@ class SingleToMultiWalletMigration {
         
         DispatchQueue.global(qos: .userInitiated).async {
             do {
-                try WalletLoader.shared.multiWallet.migrateV1Wallet(startupPinOrPassword,
-                                                                    originalPrivatePassType: privatePassphraseType)
+                try WalletLoader.shared.multiWallet.linkExistingWallet(v1WalletDbDir,
+                                                                       originalPubPass: startupPinOrPassword,
+                                                                       privatePassphraseType: privatePassphraseType)
                 
                 // attempt to re-set the app startup passphrase
                 if startupPinOrPassword != "" {
