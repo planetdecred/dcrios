@@ -17,7 +17,7 @@ class HelpTableViewController: UITableViewController  {
         super.viewWillAppear(animated)
         
         self.navigationController?.navigationBar.isHidden = false
-        self.navigationController?.navigationBar.tintColor = UIColor(hex: "#091440") //move to color file
+        self.navigationController?.navigationBar.tintColor = UIColor.appColors.darkBlue 
         self.navigationController?.navigationBar.barTintColor = UIColor.appColors.offWhite
         //Remove shadow from navigation bar
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
