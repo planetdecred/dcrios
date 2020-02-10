@@ -20,7 +20,7 @@ class VerifyMessageViewController: UIViewController {
     @IBOutlet weak var isValidImg: UIImageView!
     @IBOutlet weak var isValidSignature: UILabel!
     
-     var dcrlibwallet :DcrlibwalletLibWallet!
+     var dcrlibwallet: DcrlibwalletWallet!
        
     // Good practice: create an instance of QRImageScanner lazily to avoid cpu overload during the
     // initialization and each time we need to scan a QRCode.
@@ -28,7 +28,7 @@ class VerifyMessageViewController: UIViewController {
        
     override func viewDidLoad() {
         super.viewDidLoad()
-        dcrlibwallet = AppDelegate.walletLoader.wallet
+        dcrlibwallet = WalletLoader.shared.firstWallet!
            
         viewContHeightContraint.constant = 280
         

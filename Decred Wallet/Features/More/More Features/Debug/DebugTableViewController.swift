@@ -42,7 +42,7 @@ class DebugTableViewController: UITableViewController  {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let isWalletOpen = AppDelegate.walletLoader.wallet?.walletOpened() ?? false
+        let isWalletOpen = WalletLoader.shared.firstWallet?.walletOpened() ?? false
         
         switch indexPath.row {
         case 1: // rescan blockchain options, requires wallet to be opened.
@@ -58,24 +58,6 @@ class DebugTableViewController: UITableViewController  {
     }
     
     func rescanBlocks() {
-        if AppDelegate.walletLoader.wallet!.isSyncing() {
-            self.showOkAlert(message: LocalizedStrings.syncProgressAlert)
-            return
-        }
-        
-        do {
-            try AppDelegate.walletLoader.wallet?.rescanBlocks()
-            self.displayToast(LocalizedStrings.scanInProgress)
-        } catch let error {
-            var errorMessage = error.localizedDescription
-            if errorMessage == DcrlibwalletErrInvalid {
-                errorMessage = LocalizedStrings.scanStartedAlready
-            }
-            self.showOkAlert(message: errorMessage, title: LocalizedStrings.rescanFailed)
-        }
-    }
-    
-    static func instantiate() -> Self {
-        return Storyboards.Settings.instantiateViewController(for: self)
+        // rescan feature deprecated
     }
 }

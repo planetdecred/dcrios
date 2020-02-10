@@ -19,7 +19,7 @@ class ValidateAddressesViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var addrOwnerInfo: UILabel!
     @IBOutlet weak var isValidImg: UIImageView!
     
-    var dcrlibwallet :DcrlibwalletLibWallet!
+    var dcrlibwallet: DcrlibwalletWallet!
     
     // Good practice: create an instance of QRImageScanner lazily to avoid cpu overload during the
     // initialization and each time we need to scan a QRCode.
@@ -27,7 +27,7 @@ class ValidateAddressesViewController: UIViewController, UITextViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        dcrlibwallet = AppDelegate.walletLoader.wallet
+        dcrlibwallet = WalletLoader.shared.firstWallet!
         
         viewContHeightContraint.constant = 144
         
@@ -101,7 +101,7 @@ class ValidateAddressesViewController: UIViewController, UITextViewDelegate {
                let isValid = dcrlibwallet.isAddressValid(address)
                
                if isOwnAndValid {
-                   self.validityInfo.textColor = UIColor.appColors.decredLightGreen
+                   self.validityInfo.textColor = UIColor.appColors.green
                    self.validityInfo.text = LocalizedStrings.validAddress
                    self.addrOwnerInfo.isHidden = false
                    self.addrOwnerInfo.textColor = UIColor.appColors.green
@@ -109,14 +109,14 @@ class ValidateAddressesViewController: UIViewController, UITextViewDelegate {
                    self.isValidImg.image = UIImage.init(named: "ic_checkmark")
                } else {
                    if isValid {
-                       self.validityInfo.textColor = UIColor.appColors.decredLightGreen
+                       self.validityInfo.textColor = UIColor.appColors.green
                        self.validityInfo.text = LocalizedStrings.validAddress
                        self.addrOwnerInfo.isHidden = false
                        self.addrOwnerInfo.textColor = UIColor.appColors.lightBluishGray
                        self.addrOwnerInfo.text = LocalizedStrings.validNotOwnAddr
                        self.isValidImg.image = UIImage.init(named: "ic_checkmark")
                    } else {
-                       self.validityInfo.textColor = UIColor.appColors.decredOrange
+                       self.validityInfo.textColor = UIColor.appColors.orange
                        self.validityInfo.text = LocalizedStrings.invalidAddr
                        self.addrOwnerInfo.isHidden = true
                        self.addrOwnerInfo.text = nil

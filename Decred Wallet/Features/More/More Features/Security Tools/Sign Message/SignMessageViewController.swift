@@ -19,7 +19,7 @@ class SignMessageViewController: UIViewController {
     @IBOutlet weak var signatureContainer: UIView!
     @IBOutlet weak var viewContHeightContraint: NSLayoutConstraint!
     
-    var dcrlibwallet :DcrlibwalletLibWallet!
+    var dcrlibwallet: DcrlibwalletWallet!
     
     var progressHud : JGProgressHUD?
        
@@ -29,7 +29,7 @@ class SignMessageViewController: UIViewController {
        
     override func viewDidLoad() {
         super.viewDidLoad()
-        dcrlibwallet = AppDelegate.walletLoader.wallet
+        dcrlibwallet = WalletLoader.shared.firstWallet!
            
         viewContHeightContraint.constant = 280
         
@@ -194,7 +194,7 @@ class SignMessageViewController: UIViewController {
     
     private func askPassword() {
         
-        if SpendingPinOrPassword.currentSecurityType() == SecurityViewController.SECURITY_TYPE_PASSWORD {
+        if SpendingPinOrPassword.securityType(for: dcrlibwallet.id_) == .password {
             let alert = UIAlertController(title: LocalizedStrings.security, message: LocalizedStrings.promptSpendingPassword, preferredStyle: .alert)
             alert.addTextField { textField in
             textField.placeholder = LocalizedStrings.password.lowercased()
@@ -219,14 +219,13 @@ class SignMessageViewController: UIViewController {
             alert.addAction(okAction)
             
             self.present(alert, animated: true, completion: nil)
-        }else {
-            let requestPinVC = RequestPinViewController.instantiate()
-            requestPinVC.securityFor = LocalizedStrings.spending
-            requestPinVC.showCancelButton = true
-            requestPinVC.onUserEnteredPin = { pin in
-                self.SignMsg(pass: pin)
+        } else {
+            Security.spending(initialSecurityType: .pin)
+                .should(showCancelButton: true)
+                .requestCurrentCode(sender: self) { pin, _, dialogDelegate in
+                    dialogDelegate?.dismissDialog()
+                    self.SignMsg(pass: pin)
             }
-            self.present(requestPinVC, animated: true, completion: nil)
         }
     }
     

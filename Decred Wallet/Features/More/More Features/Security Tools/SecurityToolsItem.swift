@@ -18,13 +18,13 @@ enum SecurityToolsItem: String, CaseIterable {
     var viewController: UIViewController {
         switch self {
         case .validateAddresses:
-            return Storyboards.ValidateAddresses.instantiateViewController(for: ValidateAddressesViewController.self)
+            return ValidateAddressesViewController.instantiate(from: .ValidateAddresses)
             
         case .signMessage:
-            return Storyboards.SignMessage.instantiateViewController(for: SignMessageViewController.self)
+            return SignMessageViewController.instantiate(from: .SignMessage)
             
         case .verifyMessage:
-            return Storyboards.VerifyMessage.instantiateViewController(for: VerifyMessageViewController.self)
+            return VerifyMessageViewController.instantiate(from: .VerifyMessage)
         }
     }
     
