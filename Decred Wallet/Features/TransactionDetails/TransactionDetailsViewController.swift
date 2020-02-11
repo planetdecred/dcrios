@@ -9,14 +9,15 @@ import Dcrlibwallet
 import SafariServices
 
 class TransactionDetailsViewController: UIViewController, SFSafariViewControllerDelegate {
-    @IBOutlet weak var headerView: UIView!
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var txOverviewSection: UIView!
+    @IBOutlet weak var txTypeLabel: UILabel!
     @IBOutlet weak var txIconImageView: UIImageView!
     @IBOutlet weak var txAmountLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var statusImageView: UIImageView!
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var confirmationsLabel: UILabel!
+
     @IBOutlet private weak var transactionDetailsTable: SelfSizedTableView!
     @IBOutlet weak var showOrHideDetailsBtn: UIButton!
 
@@ -31,7 +32,6 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
         super.viewDidLoad()
 
         self.transactionDetailsTable.isHidden = true
-        self.transactionDetailsTable.hideEmptyAndExtraRows()
         self.showOrHideDetailsBtn.addBorder(atPosition: .top, color: UIColor.appColors.gray, thickness: 1)
 
         if self.transaction == nil && self.transactionHash != nil {
@@ -49,7 +49,8 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
             }
         }
 
-        self.prepareTransactionDetails()
+        self.prepareGeneralTxDetails()
+        self.displayTransactionDetails()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -58,14 +59,12 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
         // calculate maximum height of transactionDetailsTable to take up
         self.transactionDetailsTable.maxHeight = self.view.frame.size.height
             - self.view.frame.origin.y
-            - self.headerView.frame.size.height
+            - self.txOverviewSection.frame.size.height
             - self.showOrHideDetailsBtn.frame.size.height
             - (UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0)
-
-        self.displayTransactionDetails()
     }
 
-    private func prepareTransactionDetails() {
+    private func prepareGeneralTxDetails() {
         let txFee = Utils.getAttributedString(
             str: "\(self.transaction.dcrFee.round(8))",
             siz: 16,
@@ -79,13 +78,13 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
                 isCopyEnabled: false
             ),
             TransactionDetail(
-                title: LocalizedStrings.type,
-                value: self.transaction.type,
+                title: LocalizedStrings.includedInBlock,
+                value: "\(self.transaction.blockHeight)",
                 isCopyEnabled: false
             ),
             TransactionDetail(
-                title: LocalizedStrings.includedInBlock,
-                value: "\(self.transaction.blockHeight)",
+                title: LocalizedStrings.type,
+                value: self.transaction.type,
                 isCopyEnabled: false
             ),
             TransactionDetail(
@@ -116,23 +115,17 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
                 isCopyEnabled: false
             )
             generalTxDetails.append(voteBits)
-            self.txAmountLabel.attributedText = Utils.getAttributedString(
-                str: "\(self.transaction.dcrAmount.round(8))",
-                siz: 20,
-                TexthexColor: UIColor.appColors.darkBlue
-            )
         }
     }
 
     private func displayTransactionDetails() {
-        let txConfirmations = transaction.confirmations
-
         let attributedAmountString = NSMutableAttributedString(string: (self.transaction.type == DcrlibwalletTxTypeRegular && self.transaction.direction == DcrlibwalletTxDirectionSent) ? "-" : "")
         attributedAmountString.append(Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 20.0, TexthexColor: UIColor.appColors.darkBlue))
         self.txAmountLabel.attributedText = attributedAmountString
 
         self.dateLabel.text = Utils.formatDateTime(timestamp: self.transaction.timestamp)
 
+        let txConfirmations = transaction.confirmations
         if Settings.spendUnconfirmed || txConfirmations > 1 {
             self.statusImageView.image = UIImage(named: "ic_confirmed")
             self.statusLabel.text = LocalizedStrings.confirmed
@@ -156,24 +149,24 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
 
     func displayRegularTxInfo(_ transaction: Transaction) {
         if self.transaction.direction == DcrlibwalletTxDirectionSent {
-            self.titleLabel.text = LocalizedStrings.sent
+            self.txTypeLabel.text = LocalizedStrings.sent
             self.txIconImageView.image = UIImage(named: "ic_send")
         } else if self.transaction.direction == DcrlibwalletTxDirectionReceived {
-            self.titleLabel.text = LocalizedStrings.received
+            self.txTypeLabel.text = LocalizedStrings.received
             self.txIconImageView.image = UIImage(named: "ic_receive")
         } else if transaction.direction == DcrlibwalletTxDirectionTransferred {
-            self.titleLabel.text = LocalizedStrings.transferred
+            self.txTypeLabel.text = LocalizedStrings.transferred
             self.txIconImageView.image = UIImage(named: "ic_fee")
         }
     }
 
     func displayTicketPurchaseInfo(_ transaction: Transaction) {
-        self.titleLabel.text = LocalizedStrings.voted
+        self.txTypeLabel.text = LocalizedStrings.voted
         self.txIconImageView.image =  UIImage(named: "ic_ticketVoted")
     }
 
     func displayVoteTxInfo(_ transaction: Transaction) {
-        self.titleLabel.text = LocalizedStrings.ticket
+        self.txTypeLabel.text = LocalizedStrings.ticket
         self.txIconImageView.image =  UIImage(named: "ic_ticketImmature")
 
         let txConfirmations = transaction.confirmations
@@ -193,16 +186,6 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
 
     @IBAction func onClose(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
-    }
-
-    func openLink(urlString: String) {
-        //TODO
-        if let url = URL(string: urlString) {
-            UIApplication.shared.open(url)
-//            let viewController = SFSafariViewController(url: url)
-//            viewController.delegate = self as SFSafariViewControllerDelegate
-//            self.navigationController?.pushViewController(viewController, animated: true)
-        }
     }
 
     @IBAction func showInfo(_ sender: Any) {
@@ -264,11 +247,11 @@ extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDe
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 1 {
-            return self.getInputOutputSectionHeaderView(section: section,
+            return self.inputOutputSectionHeaderView(section: section,
                                                         title: String(format: LocalizedStrings.inputsConsumed, transaction.inputs.count),
                                                         isCollapsed: self.isTxInputsCollapsed)
         } else if section == 2 {
-            return self.getInputOutputSectionHeaderView(section: section,
+            return self.inputOutputSectionHeaderView(section: section,
                                                         title: String(format: LocalizedStrings.outputsCreated, transaction.outputs.count),
                                                         isCollapsed: self.isTxOutputsCollapsed)
         } else {
@@ -279,16 +262,13 @@ extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDe
         }
     }
 
-    private func getInputOutputSectionHeaderView(section: Int,
+    private func inputOutputSectionHeaderView(section: Int,
                                                  title: String,
                                                  isCollapsed: Bool) -> UIView {
-        let headerView = UIView.init(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 48))
+        let headerView = UIView.init(frame: CGRect(x: 0, y: 0, width: self.transactionDetailsTable.frame.size.width, height: 48))
         headerView.backgroundColor = UIColor.white
         headerView.frame.size.height = 48
-
-        let headerSeparator = UIView.init(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 1))
-        headerSeparator.backgroundColor = UIColor.appColors.gray
-        headerView.addSubview(headerSeparator)
+        headerView.horizontalBorder(borderColor: UIColor.appColors.gray, yPosition: 0, borderHeight: 1)
 
         let headerLabel = UILabel.init(frame: CGRect(x: 16, y: 1, width: self.view.frame.size.width - 56, height: 47))
         headerLabel.textColor = UIColor.appColors.bluishGray
@@ -334,18 +314,24 @@ extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDe
             let cell = tableView.dequeueReusableCell(withIdentifier: "TransactionDetailCell") as! TransactionDetailCell
             cell.txDetail = self.generalTxDetails[indexPath.row]
             cell.onTxDetailValueCopied = { copiedDetail in
-                Utils.showBanner(parentVC: self, type: .success, text: String(format: LocalizedStrings.sgCopied, copiedDetail))
+                Utils.showBanner(in: self.view.subviews.first!, type: .success, text: String(format: LocalizedStrings.sgCopied, copiedDetail))
             }
             return cell
 
         case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TransactionInputDetailsCell") as! TransactionInputDetailCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TransactionInputDetailCell") as! TransactionInputDetailCell
             cell.setup(transaction.inputs[indexPath.row])
+            cell.onTxHashCopied = {
+                Utils.showBanner(in: self.view.subviews.first!, type: .success, text: LocalizedStrings.previousOutpointCopied)
+            }
             return cell
 
         case 2:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TransactionOutputDetailsCell") as! TransactionOutputDetailCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TransactionOutputDetailCell") as! TransactionOutputDetailCell
             cell.setup(transaction.outputs[indexPath.row])
+            cell.onTxHashCopied = {
+                Utils.showBanner(in: self.view.subviews.first!, type: .success, text: LocalizedStrings.addrCopied)
+            }
             return cell
 
         case 3:
@@ -357,22 +343,22 @@ extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDe
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 1, let cell = tableView.cellForRow(at: indexPath) as? TransactionInputDetailCell {
-            DispatchQueue.main.async {
-                UIPasteboard.general.string = cell.txHashLabel.text
-                Utils.showBanner(parentVC: self, type: .success, text: LocalizedStrings.previousOutpointCopied)
-            }
-        } else if indexPath.section == 2, let cell = tableView.cellForRow(at: indexPath) as? TransactionOutputDetailCell {
-            DispatchQueue.main.async {
-                UIPasteboard.general.string = cell.txHashLabel.text
-                Utils.showBanner(parentVC: self, type: .success, text: LocalizedStrings.addrCopied)
-            }
-        } else if indexPath.section == 3 {
+        if indexPath.section == 3 {
             if BuildConfig.IsTestNet {
                 self.openLink(urlString: "https://testnet.dcrdata.org/tx/\(self.transaction.hash)")
              } else {
                 self.openLink(urlString: "https://dcrdata.decred.org/tx/\(self.transaction.hash)")
             }
+        }
+    }
+
+    func openLink(urlString: String) {
+        //TODO
+        if let url = URL(string: urlString) {
+            UIApplication.shared.open(url)
+    //            let viewController = SFSafariViewController(url: url)
+    //            viewController.delegate = self as SFSafariViewControllerDelegate
+    //            self.navigationController?.pushViewController(viewController, animated: true)
         }
     }
 }
