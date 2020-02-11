@@ -138,7 +138,7 @@ class RestoreExistingWalletViewController: UIViewController {
     
     @IBAction func onConfirm() {
         if self.userEnteredSeedWords.contains("") {
-            Utils.showBanner(parentVC: self, type: .error, text: LocalizedStrings.notAllSeedsAreEntered)
+            Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.notAllSeedsAreEntered)
             return
         }
         
@@ -146,7 +146,7 @@ class RestoreExistingWalletViewController: UIViewController {
         let seedValid = DcrlibwalletVerifySeed(seed)
         
         if !seedValid {
-            Utils.showBanner(parentVC: self, type: .error, text: LocalizedStrings.incorrectSeedEntered)
+            Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.incorrectSeedEntered)
             return
         }
 

@@ -33,6 +33,11 @@ extension UIViewController {
         self.view.endEditing(true)
     }
     
+    func dismissViewOnTapAround() {
+        // Use a DirectTapGestureRecognizer to prevent subview taps from triggering the dismissView action.
+        self.view.addGestureRecognizer(DirectTapGestureRecognizer(target: self, action: #selector(self.dismissView)))
+    }
+    
     /// Creates custom back butotn on ViewController. Hides default back button and createa a UIBarButtonItem instance on controller and sets to leftBartButtonItem property.
     ///
     /// - Parameter imageName: Name of the image to show. if nil is supplied "picture_done" is assumed, specific to Imaginamos
@@ -63,7 +68,7 @@ extension UIViewController {
         return presentingIsModal || presentingIsNavigation || presentingIsTabBar
     }
     
-    func dismissView() {
+    @objc func dismissView() {
         if self.isModal {
             self.dismiss(animated: true, completion: nil)
         } else {
@@ -144,5 +149,18 @@ extension UIViewController {
                            completion: { _ in toastView.removeFromSuperview() }
             )
         })
+    }
+}
+
+// DirectTapGestureRecognizer disregards touch events not recieved directly from the `target` view.
+// Prevents invoking the tap callback for indirect touches such as from subviews.
+class DirectTapGestureRecognizer: UITapGestureRecognizer, UIGestureRecognizerDelegate {
+    override init(target: Any?, action: Selector?) {
+        super.init(target: target, action: action)
+        self.delegate = self
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        return touch.view == gestureRecognizer.view
     }
 }

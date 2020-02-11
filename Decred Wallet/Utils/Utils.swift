@@ -117,6 +117,11 @@ struct Utils {
         }
     }
     
+    static func amountAsAttributedString(amount: Double?, smallerTextSize: CGFloat, textColor: UIColor = UIColor.appColors.darkBlue) -> NSAttributedString {
+        let amountRoundedOff = (Decimal(amount ?? 0) as NSDecimalNumber).round(8)
+        return Utils.getAttributedString(str: "\(amountRoundedOff)", siz: smallerTextSize, TexthexColor: textColor)
+    }
+    
     // todo this function is a mess, should be refactored!
     static func getAttributedString(str: String, siz: CGFloat, TexthexColor: UIColor) -> NSAttributedString {
         var tmpString = str
@@ -167,14 +172,19 @@ struct Utils {
         return formatter.string(from: date)
     }
 
-    static func showBanner(parentVC: UIViewController, type: BannerType, text: String) {
+    static func showBanner(in superview: UIView, type: BannerType, text: String) {
         let banner = UIView()
-        parentVC.view.addSubview(banner)
+        superview.addSubview(banner)
+
+        // Position banner 10% from the top of the view or 64pts from the top of the view,
+        // whichever is smaller.
+        let bannerYPos = min(superview.frame.height * 0.1, 64)
+
         banner.translatesAutoresizingMaskIntoConstraints = false
-        banner.leadingAnchor.constraint(greaterThanOrEqualTo: parentVC.view.leadingAnchor, constant: 8).isActive = true
-        banner.trailingAnchor.constraint(lessThanOrEqualTo: parentVC.view.trailingAnchor, constant: -8).isActive = true
-        banner.topAnchor.constraint(equalTo: parentVC.view.safeAreaLayoutGuide.topAnchor, constant: 84).isActive = true
-        banner.centerXAnchor.constraint(equalTo: parentVC.view.centerXAnchor).isActive = true
+        banner.leadingAnchor.constraint(greaterThanOrEqualTo: superview.leadingAnchor, constant: 8).isActive = true
+        banner.trailingAnchor.constraint(lessThanOrEqualTo: superview.trailingAnchor, constant: -8).isActive = true
+        banner.topAnchor.constraint(equalTo: superview.safeAreaLayoutGuide.topAnchor, constant: bannerYPos).isActive = true
+        banner.centerXAnchor.constraint(equalTo: superview.centerXAnchor).isActive = true
 
         banner.backgroundColor = (type == .error) ? UIColor.appColors.orange : UIColor.appColors.green
         banner.layer.cornerRadius = 7

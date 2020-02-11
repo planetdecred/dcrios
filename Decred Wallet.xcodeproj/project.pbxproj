@@ -29,6 +29,7 @@
 		25E63F4E23312B2C009CD53E /* NavMenuFloatingButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E63F4D23312B2B009CD53E /* NavMenuFloatingButtons.swift */; };
 		AD24C23D2343E445009583C9 /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD24C23C2343E445009583C9 /* NotificationsManager.swift */; };
 		B164982429AEDD7AF8C8782C /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9714AB438E597D403032748 /* Pods_Decred_Wallet.framework */; };
+		B32EB42E23EEA24000E43D4F /* AccountDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32EB42D23EEA24000E43D4F /* AccountDetailsViewController.swift */; };
 		B3456D2523D91CF600B04860 /* RoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3456D2423D91CF600B04860 /* RoundedView.swift */; };
 		B34A2F8F23E8E90500B8BC01 /* WalletSyncDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34A2F8E23E8E90500B8BC01 /* WalletSyncDetailsTableViewCell.swift */; };
 		B34A2F9123E8ED1500B8BC01 /* MultiWalletSyncDetailsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34A2F9023E8ED1500B8BC01 /* MultiWalletSyncDetailsLoader.swift */; };
@@ -185,6 +186,7 @@
 		A9714AB438E597D403032748 /* Pods_Decred_Wallet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Decred_Wallet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD24C23C2343E445009583C9 /* NotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
 		B107091A1D996651AB5D8891 /* Pods-Decred Wallet.testnet debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.testnet debug.xcconfig"; path = "Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.testnet debug.xcconfig"; sourceTree = "<group>"; };
+		B32EB42D23EEA24000E43D4F /* AccountDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsViewController.swift; sourceTree = "<group>"; };
 		B3456D2423D91CF600B04860 /* RoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedView.swift; sourceTree = "<group>"; };
 		B34A2F8E23E8E90500B8BC01 /* WalletSyncDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSyncDetailsTableViewCell.swift; sourceTree = "<group>"; };
 		B34A2F9023E8ED1500B8BC01 /* MultiWalletSyncDetailsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiWalletSyncDetailsLoader.swift; sourceTree = "<group>"; };
@@ -751,6 +753,7 @@
 				B3E727C923DD4AE7003B06B4 /* WalletAccountTableViewCell.swift */,
 				B3B9432823E4D0B30088EC3E /* WalletSettingsViewController.swift */,
 				B3D474DE23E55B5D00B6E305 /* WalletSettings.swift */,
+				B32EB42D23EEA24000E43D4F /* AccountDetailsViewController.swift */,
 			);
 			path = Wallets;
 			sourceTree = "<group>";
@@ -991,6 +994,7 @@
 				DDD65AD722A935460027CDA8 /* LicenseViewController.swift in Sources */,
 				B3B46A9E228F0F7D00A68EDD /* ReceiveViewController.swift in Sources */,
 				B3E727C823DD4AD7003B06B4 /* WalletInfoTableViewCell.swift in Sources */,
+				B32EB42E23EEA24000E43D4F /* AccountDetailsViewController.swift in Sources */,
 				DD17D9CC23CE243D0017E41D /* RestoreExistingWalletViewController.swift in Sources */,
 				B39BDC4D228F798300F3FB55 /* BuildConfig.swift in Sources */,
 				B3B46A9F228F0F7D00A68EDD /* WalletLogViewController.swift in Sources */,

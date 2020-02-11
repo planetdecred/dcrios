@@ -270,9 +270,6 @@ struct LocalizedStrings {
     static let walletAddrCopied = NSLocalizedString("walletAddrCopied", comment: "")
     static let genNewAddr = NSLocalizedString("genNewAddr", comment: "")
     
-    /* Wallets/Accounts */
-    static let addNewAccount = NSLocalizedString("addNewAccount", comment: "")
-
     /* Wallets -> Add new wallet */
     static let createOrImportWallet = NSLocalizedString("createOrImportWallet", comment: "")
     static let confirmToCreateNewWallet = NSLocalizedString("confirmToCreateNewWallet", comment: "")
@@ -311,28 +308,24 @@ struct LocalizedStrings {
     static let confirmToRemove = NSLocalizedString("confirmToRemove", comment: "")
     static let walletRemoved = NSLocalizedString("walletRemoved", comment: "")
     
-    /* Account View */
-    static let hidden = NSLocalizedString("hidden", comment: "")
+     /* Wallets -> Account */
     static let spendable = NSLocalizedString("spendable", comment: "")
-    static let confirmToCreate = NSLocalizedString("confirmToCreate", comment: "")
-    
-    /* Account Data cell */
-    static let details = NSLocalizedString("details", comment: "")
     static let immatureRewards = NSLocalizedString("immatureRewards", comment: "")
     static let lockedByTickets = NSLocalizedString("lockedByTickets", comment: "")
-    static let votingAuhtority = NSLocalizedString("votingAuhtority", comment: "")
+    static let votingAuthority = NSLocalizedString("votingAuthority", comment: "")
     static let immatureStakeGeneration = NSLocalizedString("immatureStakeGeneration", comment: "")
+    static let showProperties = NSLocalizedString("showProperties", comment: "")
     static let properties = NSLocalizedString("properties", comment: "")
     static let accountNumber = NSLocalizedString("accountNumber", comment: "")
     static let hDPath = NSLocalizedString("hDPath", comment: "")
     static let keys = NSLocalizedString("keys", comment: "")
-    static let walletSettings = NSLocalizedString("walletSettings", comment: "")
-    static let hideThisWallet = NSLocalizedString("hideThisWallet", comment: "")
-    static let walletBalanceWillBeIgnored = NSLocalizedString("walletBalanceWillBeIgnored", comment: "")
-    static let defaultWallet = NSLocalizedString("defaultWallet", comment: "")
-    static let makeWalletDefaultDesc = NSLocalizedString("makeWalletDefaultDesc", comment: "")
+    static let hideProperties = NSLocalizedString("hideProperties", comment: "")
+    static let renameAccount = NSLocalizedString("renameAccount", comment: "")
+    static let accountRenamed = NSLocalizedString("accountRenamed", comment: "")
     
-    /* Add Account */
+    /* Wallets -> Account -> Add new account */
+    static let addNewAccount = NSLocalizedString("addNewAccount", comment: "")
+    // todo edit below when implementing add new account feature
     static let inputAccountName = NSLocalizedString("inputAccountName", comment: "")
     static let creatingAccount = NSLocalizedString("creatingAccount", comment: "")
     static let addAccountInfo = NSLocalizedString("addAccountInfo", comment: "")

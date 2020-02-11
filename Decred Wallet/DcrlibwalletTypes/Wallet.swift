@@ -20,7 +20,7 @@ class Wallet: NSObject {
     init(_ wallet: DcrlibwalletWallet) {
         self.id = wallet.id_
         self.name = wallet.name
-        self.balance = "\(wallet.totalWalletBalance()) DCR"
+        self.balance = "\((Decimal(wallet.totalWalletBalance()) as NSDecimalNumber).round(8)) DCR"
         self.accounts = wallet.accounts(confirmations: 0)
         self.isSeedBackedUp = wallet.seed.isEmpty
         self.displayAccounts = false
@@ -28,5 +28,12 @@ class Wallet: NSObject {
     
     func toggleAccountsDisplay() {
         self.displayAccounts = !self.displayAccounts
+    }
+
+    func reloadAccounts() {
+        guard let wallet = WalletLoader.shared.multiWallet.wallet(withID: self.id) else {
+            return
+        }
+        self.accounts = wallet.accounts(confirmations: 0)
     }
 }
