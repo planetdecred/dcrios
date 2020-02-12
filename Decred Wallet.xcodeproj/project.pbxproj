@@ -23,6 +23,7 @@
 		10341E0D23CBBB700055DFDE /* SeedBackupReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10341E0623CBBB700055DFDE /* SeedBackupReminderViewController.swift */; };
 		10341E0F23CBBB7E0055DFDE /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10341E0E23CBBB7E0055DFDE /* Label.swift */; };
 		108A2E7423DE311900B13A22 /* SelfSizedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108A2E7323DE311900B13A22 /* SelfSizedTableView.swift */; };
+		10945CDA23F3DB0C00BBE242 /* TransactionOverviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10945CD923F3DB0C00BBE242 /* TransactionOverviewCell.swift */; };
 		10B7818223F066DA00AD2709 /* TransactionInputDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B7818023F066DA00AD2709 /* TransactionInputDetailCell.swift */; };
 		10B7818523F0693C00AD2709 /* TransactionOutputDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B7818423F0693C00AD2709 /* TransactionOutputDetailCell.swift */; };
 		10BA77992390059F00B67446 /* TabMenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BA77982390059F00B67446 /* TabMenuItemView.swift */; };
@@ -174,6 +175,7 @@
 		10341E0623CBBB700055DFDE /* SeedBackupReminderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeedBackupReminderViewController.swift; sourceTree = "<group>"; };
 		10341E0E23CBBB7E0055DFDE /* Label.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
 		108A2E7323DE311900B13A22 /* SelfSizedTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelfSizedTableView.swift; sourceTree = "<group>"; };
+		10945CD923F3DB0C00BBE242 /* TransactionOverviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionOverviewCell.swift; sourceTree = "<group>"; };
 		10B7818023F066DA00AD2709 /* TransactionInputDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionInputDetailCell.swift; sourceTree = "<group>"; };
 		10B7818423F0693C00AD2709 /* TransactionOutputDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionOutputDetailCell.swift; sourceTree = "<group>"; };
 		10BA77982390059F00B67446 /* TabMenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabMenuItemView.swift; sourceTree = "<group>"; };
@@ -718,6 +720,7 @@
 		B3B46ABB228F120700A68EDD /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				10945CD923F3DB0C00BBE242 /* TransactionOverviewCell.swift */,
 				102D724723ED5271002DCAF2 /* TransactionDetailCell.swift */,
 				10B7818023F066DA00AD2709 /* TransactionInputDetailCell.swift */,
 				10B7818423F0693C00AD2709 /* TransactionOutputDetailCell.swift */,
@@ -1051,6 +1054,7 @@
 				B3B469FB228F0F2700A68EDD /* Extensions.swift in Sources */,
 				B3B46A0D228F0F2700A68EDD /* Constants.swift in Sources */,
 				B3B46A29228F0F2700A68EDD /* WalletSetupViewController.swift in Sources */,
+				10945CDA23F3DB0C00BBE242 /* TransactionOverviewCell.swift in Sources */,
 				B36255B622A11A9500C62946 /* SecurityMenuViewController.swift in Sources */,
 				10341E0D23CBBB700055DFDE /* SeedBackupReminderViewController.swift in Sources */,
 				B34A2F9123E8ED1500B8BC01 /* MultiWalletSyncDetailsLoader.swift in Sources */,

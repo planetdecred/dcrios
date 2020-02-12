@@ -9,15 +9,8 @@ import Dcrlibwallet
 import SafariServices
 
 class TransactionDetailsViewController: UIViewController, SFSafariViewControllerDelegate {
-    @IBOutlet weak var txOverviewSection: UIView!
+    @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var txTypeLabel: UILabel!
-    @IBOutlet weak var txIconImageView: UIImageView!
-    @IBOutlet weak var txAmountLabel: UILabel!
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var statusImageView: UIImageView!
-    @IBOutlet weak var statusLabel: UILabel!
-    @IBOutlet weak var confirmationsLabel: UILabel!
-
     @IBOutlet private weak var transactionDetailsTable: SelfSizedTableView!
     @IBOutlet weak var showOrHideDetailsBtn: UIButton!
 
@@ -27,11 +20,11 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
     var generalTxDetails: [TransactionDetail] = []
     var isTxInputsCollapsed: Bool = true
     var isTxOutputsCollapsed: Bool = true
+    var isTxDetailsTableViewCollapsed: Bool = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.transactionDetailsTable.isHidden = true
         self.showOrHideDetailsBtn.addBorder(atPosition: .top, color: UIColor.appColors.gray, thickness: 1)
 
         if self.transaction == nil && self.transactionHash != nil {
@@ -50,7 +43,7 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
         }
 
         self.prepareGeneralTxDetails()
-        self.displayTransactionDetails()
+        self.displayTitle()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -59,7 +52,7 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
         // calculate maximum height of transactionDetailsTable to take up
         self.transactionDetailsTable.maxHeight = self.view.frame.size.height
             - self.view.frame.origin.y
-            - self.txOverviewSection.frame.size.height
+            - self.headerView.frame.size.height
             - self.showOrHideDetailsBtn.frame.size.height
             - (UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0)
     }
@@ -117,70 +110,20 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
             generalTxDetails.append(voteBits)
         }
     }
-
-    private func displayTransactionDetails() {
-        let attributedAmountString = NSMutableAttributedString(string: (self.transaction.type == DcrlibwalletTxTypeRegular && self.transaction.direction == DcrlibwalletTxDirectionSent) ? "-" : "")
-        attributedAmountString.append(Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 20.0, TexthexColor: UIColor.appColors.darkBlue))
-        self.txAmountLabel.attributedText = attributedAmountString
-
-        self.dateLabel.text = Utils.formatDateTime(timestamp: self.transaction.timestamp)
-
-        let txConfirmations = transaction.confirmations
-        if Settings.spendUnconfirmed || txConfirmations > 1 {
-            self.statusImageView.image = UIImage(named: "ic_confirmed")
-            self.statusLabel.text = LocalizedStrings.confirmed
-            self.statusLabel.textColor = UIColor.appColors.green
-            self.confirmationsLabel.text = " · " + String(format: LocalizedStrings.confirmations, txConfirmations)
-        } else {
-            self.statusImageView.image = UIImage(named: "ic_pending")
-            self.statusLabel.text = LocalizedStrings.pending
-            self.statusLabel.textColor = UIColor.appColors.lightBluishGray
-            self.confirmationsLabel.text = ""
-        }
-
+    
+    private func displayTitle() {
         if self.transaction.type == DcrlibwalletTxTypeRegular {
-            self.displayRegularTxInfo(self.transaction)
+            if self.transaction.direction == DcrlibwalletTxDirectionSent {
+                self.txTypeLabel.text = LocalizedStrings.sent
+            } else if self.transaction.direction == DcrlibwalletTxDirectionReceived {
+                self.txTypeLabel.text = LocalizedStrings.received
+            } else if self.transaction.direction == DcrlibwalletTxDirectionTransferred {
+                self.txTypeLabel.text = LocalizedStrings.transferred
+            }
         } else if self.transaction.type == DcrlibwalletTxTypeVote {
-            self.displayVoteTxInfo(self.transaction)
+            self.txTypeLabel.text = LocalizedStrings.voted
         } else if self.transaction.type == DcrlibwalletTxTypeTicketPurchase {
-            self.displayTicketPurchaseInfo(self.transaction)
-        }
-    }
-
-    func displayRegularTxInfo(_ transaction: Transaction) {
-        if self.transaction.direction == DcrlibwalletTxDirectionSent {
-            self.txTypeLabel.text = LocalizedStrings.sent
-            self.txIconImageView.image = UIImage(named: "ic_send")
-        } else if self.transaction.direction == DcrlibwalletTxDirectionReceived {
-            self.txTypeLabel.text = LocalizedStrings.received
-            self.txIconImageView.image = UIImage(named: "ic_receive")
-        } else if transaction.direction == DcrlibwalletTxDirectionTransferred {
-            self.txTypeLabel.text = LocalizedStrings.transferred
-            self.txIconImageView.image = UIImage(named: "ic_fee")
-        }
-    }
-
-    func displayTicketPurchaseInfo(_ transaction: Transaction) {
-        self.txTypeLabel.text = LocalizedStrings.voted
-        self.txIconImageView.image =  UIImage(named: "ic_ticketVoted")
-    }
-
-    func displayVoteTxInfo(_ transaction: Transaction) {
-        self.txTypeLabel.text = LocalizedStrings.ticket
-        self.txIconImageView.image =  UIImage(named: "ic_ticketImmature")
-
-        let txConfirmations = transaction.confirmations
-        let requiredConfirmations = Settings.spendUnconfirmed ? 0 : 2
-
-        if txConfirmations < requiredConfirmations {
-            self.statusImageView.image = UIImage(named: "ic_pending")
-            self.statusLabel.text = LocalizedStrings.pending
-            self.statusLabel.textColor = UIColor.appColors.lightBluishGray
-            self.confirmationsLabel.text = ""
-        } else if txConfirmations > BuildConfig.TicketMaturity {
-            self.txIconImageView.image = UIImage(named: "ic_ticketLive")
-        } else {
-            self.txIconImageView.image = UIImage(named: "ic_ticketImmature")
+            self.txTypeLabel.text = LocalizedStrings.ticket
         }
     }
 
@@ -215,22 +158,23 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
     }
 
     @IBAction func showOrHideDetails(_ sender: Any) {
-        self.transactionDetailsTable.isHidden = !self.transactionDetailsTable.isHidden
-        self.showOrHideDetailsBtn.setTitle(self.transactionDetailsTable.isHidden ? LocalizedStrings.showDetails : LocalizedStrings.hideDetails, for: .normal)
+        self.isTxDetailsTableViewCollapsed = !self.isTxDetailsTableViewCollapsed
+        self.transactionDetailsTable.reloadData()
+        self.showOrHideDetailsBtn.setTitle(self.isTxDetailsTableViewCollapsed ? LocalizedStrings.showDetails : LocalizedStrings.hideDetails, for: .normal)
     }
 }
 
 extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return self.isTxDetailsTableViewCollapsed ? 1 : 5
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
+        if section == 1 {
             return self.generalTxDetails.count
-        } else if section == 1 {
-            return self.isTxInputsCollapsed ? 0 : transaction.inputs.count
         } else if section == 2 {
+            return self.isTxInputsCollapsed ? 0 : transaction.inputs.count
+        } else if section == 3 {
             return self.isTxOutputsCollapsed ? 0 : transaction.outputs.count
         } else {
             return 1
@@ -238,7 +182,7 @@ extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDe
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 1 || section == 2 {
+        if section == 2 || section == 3 {
             return 48
         } else {
             return 1
@@ -246,11 +190,13 @@ extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDe
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if section == 1 {
+        if section == 0 {
+            return UIView.init(frame: CGRect.zero)
+        } else if section == 2 {
             return self.inputOutputSectionHeaderView(section: section,
                                                         title: String(format: LocalizedStrings.inputsConsumed, transaction.inputs.count),
                                                         isCollapsed: self.isTxInputsCollapsed)
-        } else if section == 2 {
+        } else if section == 3 {
             return self.inputOutputSectionHeaderView(section: section,
                                                         title: String(format: LocalizedStrings.outputsCreated, transaction.outputs.count),
                                                         isCollapsed: self.isTxOutputsCollapsed)
@@ -299,11 +245,11 @@ extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDe
     @objc func inputOutputSectionHeaderViewTapped(_ sender: UITapGestureRecognizer?) {
         guard let section = sender?.view?.tag else { return }
 
-        if section == 1 {
-            self.isTxInputsCollapsed = !self.isTxInputsCollapsed
+        if section == 2 {
+            self.isTxInputsCollapsed.toggle()
             self.transactionDetailsTable.reloadData()
-        } else if section == 2 {
-            self.isTxOutputsCollapsed = !self.isTxOutputsCollapsed
+        } else if section == 3 {
+            self.isTxOutputsCollapsed.toggle()
             self.transactionDetailsTable.reloadData()
         }
     }
@@ -311,6 +257,11 @@ extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDe
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TransactionOverviewCell") as! TransactionOverviewCell
+            cell.setup(self.transaction)
+            return cell
+
+        case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TransactionDetailCell") as! TransactionDetailCell
             cell.txDetail = self.generalTxDetails[indexPath.row]
             cell.onTxDetailValueCopied = { copiedDetail in
@@ -318,7 +269,7 @@ extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDe
             }
             return cell
 
-        case 1:
+        case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TransactionInputDetailCell") as! TransactionInputDetailCell
             cell.setup(transaction.inputs[indexPath.row])
             cell.onTxHashCopied = {
@@ -326,7 +277,7 @@ extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDe
             }
             return cell
 
-        case 2:
+        case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TransactionOutputDetailCell") as! TransactionOutputDetailCell
             cell.setup(transaction.outputs[indexPath.row])
             cell.onTxHashCopied = {
@@ -334,7 +285,7 @@ extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDe
             }
             return cell
 
-        case 3:
+        case 4:
             return tableView.dequeueReusableCell(withIdentifier: "TransactionViewOnDcrdataCell")!
 
         default:
@@ -343,7 +294,7 @@ extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDe
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 3 {
+        if indexPath.section == 4 {
             if BuildConfig.IsTestNet {
                 self.openLink(urlString: "https://testnet.dcrdata.org/tx/\(self.transaction.hash)")
              } else {
