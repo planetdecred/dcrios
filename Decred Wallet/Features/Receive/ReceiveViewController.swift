@@ -16,7 +16,7 @@ class ReceiveViewController: UIViewController, UIDocumentInteractionControllerDe
     @IBOutlet weak var accountNameLabel: UILabel!
     @IBOutlet weak var walletNameLabel: UILabel!
     @IBOutlet weak var totalAccountBalanceLabel: UILabel!
-    @IBOutlet private var addressQRCodeImageView: UIImageView!
+    @IBOutlet weak var addressQRCodeImageView: UIImageView!
     @IBOutlet weak var walletAddressLabel: UILabel!
     @IBOutlet weak var syncInProgressLabel: UILabel!
 
@@ -33,13 +33,30 @@ class ReceiveViewController: UIViewController, UIDocumentInteractionControllerDe
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.checkSyncStatus()
+        self.displayAddressForFirstWalletAccount()
     }
 
     func setupUI() {
         self.addressQRCodeImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.copyAddress)))
         self.walletAddressLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.copyAddress)))
         self.selectedAccountView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.showAccountSelectorDialog)))
+    }
+
+    private func displayAddressForFirstWalletAccount() {
+        let accountsFilterFn: (DcrlibwalletAccount) -> Bool = { $0.totalBalance > 0 || $0.name != "imported" }
+        guard let wallet = WalletLoader.shared.wallets.map({ Wallet.init($0, accountsFilterFn: accountsFilterFn) }).first,
+            let account = wallet.accounts.first else {
+                self.moreMenuButton.isEnabled = false
+                self.mainContentViewHolder.isHidden = true
+                self.syncInProgressLabel.isHidden = false
+                return
+        }
+
+        self.updateSelectedAccount(wallet.id, account)
+
+        mainContentViewHolder.isHidden = false
+        syncInProgressLabel.isHidden = true
+        self.moreMenuButton.isEnabled = true
     }
 
     @objc func copyAddress() {
@@ -57,29 +74,10 @@ class ReceiveViewController: UIViewController, UIDocumentInteractionControllerDe
                                  callback: self.updateSelectedAccount)
     }
 
-    private func checkSyncStatus() {
-        let accountsFilterFn: (DcrlibwalletAccount) -> Bool = { $0.totalBalance > 0 || $0.name != "imported" }
-        guard let wallet = WalletLoader.shared.wallets.map({ Wallet.init($0, accountsFilterFn: accountsFilterFn) }).first,
-            let account = wallet.accounts.first else {
-                self.moreMenuButton.isEnabled = false
-                self.mainContentViewHolder.isHidden = true
-                self.syncInProgressLabel.isHidden = false
-                return
-        }
-
-        self.updateSelectedAccount(wallet.id, account)
-
-        mainContentViewHolder.isHidden = false
-        syncInProgressLabel.isHidden = true
-        self.moreMenuButton.isEnabled = true
-    }
-
     private func displayAddressAndQRCode(receiveAddress: String) {
         DispatchQueue.main.async {
             self.walletAddressLabel.text = receiveAddress
-            self.addressQRCodeImageView.image = self.generateQRCodeImage(
-                for: receiveAddress
-            )
+            self.displayQRCodeImage(for: receiveAddress)
         }
     }
 
@@ -100,8 +98,8 @@ class ReceiveViewController: UIViewController, UIDocumentInteractionControllerDe
         }
     }
 
-    private func generateQRCodeImage(for address: String) -> UIImage? {
-        guard let colorFilter = CIFilter(name: "CIFalseColor") else { return nil }
+    private func displayQRCodeImage(for address: String) {
+        guard let colorFilter = CIFilter(name: "CIFalseColor") else { return }
         let filter = CIFilter(name: "CIQRCodeGenerator")
         filter?.setValue(address.utf8Bits, forKey: "inputMessage")
 
@@ -115,9 +113,9 @@ class ReceiveViewController: UIViewController, UIDocumentInteractionControllerDe
             let smallerSide = frame.size.width < frame.size.height ? frame.size.width : frame.size.height
             let scale = smallerSide/qrImage.extent.size.width
             let transformedImage = qrImage.transformed(by: CGAffineTransform(scaleX: scale, y: scale))
-            return UIImage(ciImage: transformedImage)
+            self.addressQRCodeImageView.image =  UIImage(ciImage: transformedImage)
         }
-        return nil
+        self.addressQRCodeImageView.image = nil
     }
 
     @IBAction func onClose(_ sender: Any) {
