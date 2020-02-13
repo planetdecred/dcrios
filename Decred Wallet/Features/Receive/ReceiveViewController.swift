@@ -45,18 +45,9 @@ class ReceiveViewController: UIViewController, UIDocumentInteractionControllerDe
     private func displayAddressForFirstWalletAccount() {
         let accountsFilterFn: (DcrlibwalletAccount) -> Bool = { $0.totalBalance > 0 || $0.name != "imported" }
         guard let wallet = WalletLoader.shared.wallets.map({ Wallet.init($0, accountsFilterFn: accountsFilterFn) }).first,
-            let account = wallet.accounts.first else {
-                self.moreMenuButton.isEnabled = false
-                self.mainContentViewHolder.isHidden = true
-                self.syncInProgressLabel.isHidden = false
-                return
-        }
+            let account = wallet.accounts.first else { return }
 
         self.updateSelectedAccount(wallet.id, account)
-
-        mainContentViewHolder.isHidden = false
-        syncInProgressLabel.isHidden = true
-        self.moreMenuButton.isEnabled = true
     }
 
     @objc func copyAddress() {
@@ -140,9 +131,17 @@ class ReceiveViewController: UIViewController, UIDocumentInteractionControllerDe
     }
 
     func updateSelectedAccount(_ selectedWalletId: Int, _ selectedAccount: DcrlibwalletAccount) {
-        guard let wallet = WalletLoader.shared.multiWallet.wallet(withID: selectedWalletId) else {
+        guard let wallet = WalletLoader.shared.multiWallet.wallet(withID: selectedWalletId), wallet.isSynced()
+        else {
+            self.syncInProgressLabel.isHidden = false
+            self.moreMenuButton.isEnabled = false
+            self.mainContentViewHolder.isHidden = true
             return
         }
+
+        self.mainContentViewHolder.isHidden = false
+        self.moreMenuButton.isEnabled = true
+        self.syncInProgressLabel.isHidden = true
 
         self.selectedWallet = wallet
         self.selectedAccount = selectedAccount
