@@ -53,7 +53,7 @@ class ReceiveViewController: UIViewController, UIDocumentInteractionControllerDe
     @objc func copyAddress() {
         DispatchQueue.main.async {
             UIPasteboard.general.string = self.walletAddressLabel.text!
-            Utils.showBanner(parentVC: self, type: .success, text: LocalizedStrings.walletAddrCopied)
+            Utils.showBanner(in: self.view.subviews.first!, type: .success, text: LocalizedStrings.walletAddrCopied)
         }
     }
 
