@@ -99,7 +99,11 @@ class ReceiveViewController: UIViewController, UIDocumentInteractionControllerDe
     }
 
     private func displayQRCodeImage(for address: String) {
-        guard let colorFilter = CIFilter(name: "CIFalseColor") else { return }
+        guard let colorFilter = CIFilter(name: "CIFalseColor") else {
+            self.addressQRCodeImageView.image = nil
+            return
+        }
+
         let filter = CIFilter(name: "CIQRCodeGenerator")
         filter?.setValue(address.utf8Bits, forKey: "inputMessage")
 
@@ -114,8 +118,9 @@ class ReceiveViewController: UIViewController, UIDocumentInteractionControllerDe
             let scale = smallerSide/qrImage.extent.size.width
             let transformedImage = qrImage.transformed(by: CGAffineTransform(scaleX: scale, y: scale))
             self.addressQRCodeImageView.image =  UIImage(ciImage: transformedImage)
+        } else {
+            self.addressQRCodeImageView.image = nil
         }
-        self.addressQRCodeImageView.image = nil
     }
 
     @IBAction func onClose(_ sender: Any) {
