@@ -9,10 +9,11 @@ import UIKit
 
 class TransactionInputDetailCell: UITableViewCell {
     @IBOutlet weak var txAmountLabel: UILabel!
-    @IBOutlet weak var txHashLabel: UILabel!
+    @IBOutlet weak var txHashButton: UIButton!
+    
     var onTxHashCopied: (() -> ())?
     
-    func setup(_ input: TxInput) {
+    func display(_ input: TxInput) {
         self.txAmountLabel.text = Utils.getAttributedString(str: "\(input.dcrAmount.round(8))", siz: 16, TexthexColor: UIColor.appColors.darkBlue).string
             + " (\(input.accountName))"
 
@@ -21,19 +22,12 @@ class TransactionInputDetailCell: UITableViewCell {
             hash = "Stakebase: 0000"
         }
         hash = "\(hash):\(input.previousTransactionIndex)"
-        self.txHashLabel.text = hash
-        
-        self.txHashLabel.isUserInteractionEnabled = true
-        let tapGestureRecognizer = UITapGestureRecognizer(
-            target: self,
-            action: #selector(txHashLabelTapped)
-        )
-        self.txHashLabel.addGestureRecognizer(tapGestureRecognizer)
+        self.txHashButton.setTitle(hash, for: .normal)
     }
     
-    @objc func txHashLabelTapped(_ sender: UITapGestureRecognizer?) {
+    @IBAction func txHashButtonTapped(_ sender: Any) {
         DispatchQueue.main.async {
-            UIPasteboard.general.string = self.txHashLabel.text
+            UIPasteboard.general.string = (sender as! UIButton).titleLabel!.text
             self.onTxHashCopied?()
         }
     }

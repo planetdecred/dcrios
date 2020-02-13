@@ -18,6 +18,7 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
     var transaction: Transaction!
 
     var generalTxDetails: [TransactionDetail] = []
+    var txOverview: TransactionOverView = TransactionOverView()
     var isTxInputsCollapsed: Bool = true
     var isTxOutputsCollapsed: Bool = true
     var isTxDetailsTableViewCollapsed: Bool = true
@@ -43,6 +44,7 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
         }
 
         self.prepareGeneralTxDetails()
+        self.prepareTxOverview()
         self.displayTitle()
     }
 
@@ -111,6 +113,67 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
         }
     }
     
+    private func prepareTxOverview() {
+        let attributedAmountString = NSMutableAttributedString(string: (transaction.type == DcrlibwalletTxTypeRegular && transaction.direction == DcrlibwalletTxDirectionSent) ? "-" : "")
+        attributedAmountString.append(Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 20.0, TexthexColor: UIColor.appColors.darkBlue))
+        self.txOverview.txAmount = attributedAmountString
+
+        self.txOverview.date = Utils.formatDateTime(timestamp: transaction.timestamp)
+
+        let txConfirmations = transaction.confirmations
+        if Settings.spendUnconfirmed || txConfirmations > 1 {
+            self.txOverview.statusImage = UIImage(named: "ic_confirmed")
+            self.txOverview.status = LocalizedStrings.confirmed
+            self.txOverview.statusLabelColor = UIColor.appColors.green
+            self.txOverview.confirmations = " · " + String(format: LocalizedStrings.confirmations, txConfirmations)
+        } else {
+            self.txOverview.statusImage = UIImage(named: "ic_pending")
+            self.txOverview.status = LocalizedStrings.pending
+            self.txOverview.statusLabelColor = UIColor.appColors.lightBluishGray
+            self.txOverview.confirmations = ""
+        }
+
+        if transaction.type == DcrlibwalletTxTypeRegular {
+            self.prepareRegularTxOverview(transaction)
+        } else if transaction.type == DcrlibwalletTxTypeVote {
+            self.prepareVoteTxOverview(transaction)
+        } else if transaction.type == DcrlibwalletTxTypeTicketPurchase {
+            self.prepareTicketPurchaseTxOverview(transaction)
+        }
+    }
+    
+    private func prepareRegularTxOverview(_ transaction: Transaction) {
+        if transaction.direction == DcrlibwalletTxDirectionSent {
+            self.txOverview.txIconImage = UIImage(named: "ic_send")
+        } else if transaction.direction == DcrlibwalletTxDirectionReceived {
+            self.txOverview.txIconImage = UIImage(named: "ic_receive")
+        } else if transaction.direction == DcrlibwalletTxDirectionTransferred {
+            self.txOverview.txIconImage = UIImage(named: "ic_fee")
+        }
+    }
+
+    private func prepareVoteTxOverview(_ transaction: Transaction) {
+        self.txOverview.txIconImage =  UIImage(named: "ic_ticketImmature")
+
+        let txConfirmations = transaction.confirmations
+        let requiredConfirmations = Settings.spendUnconfirmed ? 0 : 2
+
+        if txConfirmations < requiredConfirmations {
+            self.txOverview.statusImage = UIImage(named: "ic_pending")
+            self.txOverview.status = LocalizedStrings.pending
+            self.txOverview.statusLabelColor = UIColor.appColors.lightBluishGray
+            self.txOverview.confirmations = ""
+        } else if txConfirmations > BuildConfig.TicketMaturity {
+            self.txOverview.txIconImage = UIImage(named: "ic_ticketLive")
+        } else {
+            self.txOverview.txIconImage = UIImage(named: "ic_ticketImmature")
+        }
+    }
+
+    private func prepareTicketPurchaseTxOverview(_ transaction: Transaction) {
+        self.txOverview.txIconImage =  UIImage(named: "ic_ticketVoted")
+    }
+
     private func displayTitle() {
         if self.transaction.type == DcrlibwalletTxTypeRegular {
             if self.transaction.direction == DcrlibwalletTxDirectionSent {
@@ -258,7 +321,7 @@ extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDe
         switch indexPath.section {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TransactionOverviewCell") as! TransactionOverviewCell
-            cell.setup(self.transaction)
+            cell.txOverView = self.txOverview
             return cell
 
         case 1:
@@ -271,7 +334,7 @@ extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDe
 
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TransactionInputDetailCell") as! TransactionInputDetailCell
-            cell.setup(transaction.inputs[indexPath.row])
+            cell.display(transaction.inputs[indexPath.row])
             cell.onTxHashCopied = {
                 Utils.showBanner(in: self.view.subviews.first!, type: .success, text: LocalizedStrings.previousOutpointCopied)
             }
@@ -279,7 +342,7 @@ extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDe
 
         case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TransactionOutputDetailCell") as! TransactionOutputDetailCell
-            cell.setup(transaction.outputs[indexPath.row])
+            cell.display(transaction.outputs[indexPath.row])
             cell.onTxHashCopied = {
                 Utils.showBanner(in: self.view.subviews.first!, type: .success, text: LocalizedStrings.addrCopied)
             }

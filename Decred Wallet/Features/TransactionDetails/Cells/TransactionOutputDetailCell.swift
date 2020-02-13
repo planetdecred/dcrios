@@ -10,10 +10,10 @@ import UIKit
 
 class TransactionOutputDetailCell: UITableViewCell {
     @IBOutlet weak var txAmountLabel: UILabel!
-    @IBOutlet weak var txHashLabel: UILabel!
+    @IBOutlet weak var txHashButton: UIButton!
     var onTxHashCopied: (() -> ())?
 
-    func setup(_ output: TxOutput) {
+    func display(_ output: TxOutput) {
         var amount = Utils.getAttributedString(str: "\(output.dcrAmount.round(8))", siz: 13, TexthexColor: UIColor.appColors.darkBlue)
         var address = output.address
 
@@ -32,19 +32,12 @@ class TransactionOutputDetailCell: UITableViewCell {
         }
 
         self.txAmountLabel.text = amount.string + account
-        self.txHashLabel.text = address
-
-        self.txHashLabel.isUserInteractionEnabled = true
-        let tapGestureRecognizer = UITapGestureRecognizer(
-            target: self,
-            action: #selector(txHashLabelTapped)
-        )
-        self.txHashLabel.addGestureRecognizer(tapGestureRecognizer)
+        self.txHashButton.setTitle(address, for: .normal)
     }
 
-    @objc func txHashLabelTapped(_ sender: UITapGestureRecognizer?) {
+    @IBAction func txHashButtonTapped(_ sender: Any) {
         DispatchQueue.main.async {
-            UIPasteboard.general.string = self.txHashLabel.text
+            UIPasteboard.general.string = (sender as! UIButton).titleLabel!.text
             self.onTxHashCopied?()
         }
     }

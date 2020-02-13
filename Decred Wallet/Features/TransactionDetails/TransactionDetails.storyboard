@@ -232,22 +232,29 @@
                                                                                     <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
-                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dskdzz53TP7RnbfQgbSS3QauFrfEWm9yrHA" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wqe-R2-8QH">
+                                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nvv-XM-deO">
                                                                                     <rect key="frame" x="20" y="20" width="303" height="18"/>
+                                                                                    <constraints>
+                                                                                        <constraint firstAttribute="height" constant="18" id="Pgh-aK-EPw"/>
+                                                                                    </constraints>
                                                                                     <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
-                                                                                    <color key="textColor" red="0.16078431369999999" green="0.43921568630000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                                                    <nil key="highlightedColor"/>
-                                                                                </label>
+                                                                                    <state key="normal" title="Dskdzz53TP7RnbfQgbSS3QauFrfEWm9yrHA">
+                                                                                        <color key="titleColor" red="0.16078431369999999" green="0.43921568630000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                    </state>
+                                                                                    <connections>
+                                                                                        <action selector="txHashButtonTapped:" destination="HN0-ox-bOO" eventType="touchUpInside" id="5Dd-0Z-vBu"/>
+                                                                                    </connections>
+                                                                                </button>
                                                                             </subviews>
                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <constraints>
                                                                                 <constraint firstItem="vc2-i4-IWL" firstAttribute="top" secondItem="Iea-G3-S8B" secondAttribute="top" id="2gP-hM-HZC"/>
-                                                                                <constraint firstAttribute="bottom" secondItem="wqe-R2-8QH" secondAttribute="bottom" id="F7l-GG-uxf"/>
-                                                                                <constraint firstItem="wqe-R2-8QH" firstAttribute="top" secondItem="vc2-i4-IWL" secondAttribute="bottom" constant="4" id="JJD-MF-Beq"/>
-                                                                                <constraint firstAttribute="trailing" secondItem="wqe-R2-8QH" secondAttribute="trailing" constant="20" id="V5M-vy-aeq"/>
+                                                                                <constraint firstAttribute="bottom" secondItem="Nvv-XM-deO" secondAttribute="bottom" id="8pa-yR-bac"/>
+                                                                                <constraint firstItem="Nvv-XM-deO" firstAttribute="leading" secondItem="Iea-G3-S8B" secondAttribute="leading" constant="20" id="Cd5-zO-k9g"/>
                                                                                 <constraint firstItem="vc2-i4-IWL" firstAttribute="leading" secondItem="Iea-G3-S8B" secondAttribute="leading" constant="20" id="eC2-kY-X3g"/>
+                                                                                <constraint firstItem="Nvv-XM-deO" firstAttribute="top" secondItem="vc2-i4-IWL" secondAttribute="bottom" constant="4" id="h3e-5W-w5N"/>
+                                                                                <constraint firstAttribute="trailing" secondItem="Nvv-XM-deO" secondAttribute="trailing" constant="20" id="mcE-RL-rVC"/>
                                                                                 <constraint firstAttribute="trailing" secondItem="vc2-i4-IWL" secondAttribute="trailing" constant="20" id="pli-0q-3RS"/>
-                                                                                <constraint firstItem="wqe-R2-8QH" firstAttribute="leading" secondItem="Iea-G3-S8B" secondAttribute="leading" constant="20" id="vdS-l1-x8f"/>
                                                                             </constraints>
                                                                         </view>
                                                                     </subviews>
@@ -274,7 +281,7 @@
                                                         </tableViewCellContentView>
                                                         <connections>
                                                             <outlet property="txAmountLabel" destination="vc2-i4-IWL" id="3VM-hV-rud"/>
-                                                            <outlet property="txHashLabel" destination="wqe-R2-8QH" id="KK2-NW-bcA"/>
+                                                            <outlet property="txHashButton" destination="Nvv-XM-deO" id="fl9-Xs-drp"/>
                                                         </connections>
                                                     </tableViewCell>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactionOutputDetailCell" rowHeight="78" id="kNY-qr-Rti" customClass="TransactionOutputDetailCell" customModule="Decred_Wallet" customModuleProvider="target">
@@ -299,21 +306,28 @@
                                                                                     <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
-                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dskdzz53TP7RnbfQgbSS3QauFrfEWm9yrHA" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CYy-n1-7To">
+                                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G9v-yx-5SV">
                                                                                     <rect key="frame" x="20" y="20" width="303" height="18"/>
+                                                                                    <constraints>
+                                                                                        <constraint firstAttribute="height" constant="18" id="aX6-QD-eG1"/>
+                                                                                    </constraints>
                                                                                     <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
-                                                                                    <color key="textColor" red="0.16078431369999999" green="0.43921568630000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                                                    <nil key="highlightedColor"/>
-                                                                                </label>
+                                                                                    <state key="normal" title="Dskdzz53TP7RnbfQgbSS3QauFrfEWm9yrHA">
+                                                                                        <color key="titleColor" red="0.16078431369999999" green="0.43921568630000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                    </state>
+                                                                                    <connections>
+                                                                                        <action selector="txHashButtonTapped:" destination="kNY-qr-Rti" eventType="touchUpInside" id="Vfl-lw-WYE"/>
+                                                                                    </connections>
+                                                                                </button>
                                                                             </subviews>
                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <constraints>
-                                                                                <constraint firstItem="CYy-n1-7To" firstAttribute="leading" secondItem="NHs-9Q-15D" secondAttribute="leading" constant="20" id="16K-J8-74c"/>
-                                                                                <constraint firstAttribute="trailing" secondItem="CYy-n1-7To" secondAttribute="trailing" constant="20" id="CVu-0a-ewh"/>
+                                                                                <constraint firstAttribute="trailing" secondItem="G9v-yx-5SV" secondAttribute="trailing" constant="20" id="C4A-Mx-aaH"/>
                                                                                 <constraint firstItem="f1y-Ys-g44" firstAttribute="top" secondItem="NHs-9Q-15D" secondAttribute="top" id="Gsa-qh-ZWa"/>
-                                                                                <constraint firstAttribute="bottom" secondItem="CYy-n1-7To" secondAttribute="bottom" id="MTe-nZ-akH"/>
+                                                                                <constraint firstItem="G9v-yx-5SV" firstAttribute="leading" secondItem="NHs-9Q-15D" secondAttribute="leading" constant="20" id="HIR-H1-OpP"/>
+                                                                                <constraint firstItem="G9v-yx-5SV" firstAttribute="top" secondItem="f1y-Ys-g44" secondAttribute="bottom" constant="4" id="Sqm-ZB-9bp"/>
                                                                                 <constraint firstAttribute="trailing" secondItem="f1y-Ys-g44" secondAttribute="trailing" constant="12" id="euk-Ko-BrO"/>
-                                                                                <constraint firstItem="CYy-n1-7To" firstAttribute="top" secondItem="f1y-Ys-g44" secondAttribute="bottom" constant="4" id="kg4-zC-RVt"/>
+                                                                                <constraint firstAttribute="bottom" secondItem="G9v-yx-5SV" secondAttribute="bottom" id="gNV-ih-gEK"/>
                                                                                 <constraint firstItem="f1y-Ys-g44" firstAttribute="leading" secondItem="NHs-9Q-15D" secondAttribute="leading" constant="20" id="vXi-mA-bVU"/>
                                                                             </constraints>
                                                                         </view>
@@ -341,7 +355,7 @@
                                                         </tableViewCellContentView>
                                                         <connections>
                                                             <outlet property="txAmountLabel" destination="f1y-Ys-g44" id="CMR-s4-T35"/>
-                                                            <outlet property="txHashLabel" destination="CYy-n1-7To" id="aOP-qo-klY"/>
+                                                            <outlet property="txHashButton" destination="G9v-yx-5SV" id="7v9-NG-vbQ"/>
                                                         </connections>
                                                     </tableViewCell>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactionViewOnDcrdataCell" rowHeight="48" id="pFD-j8-VAY">
