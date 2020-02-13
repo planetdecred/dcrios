@@ -53,7 +53,6 @@ class TransactionDetailsViewController: UIViewController {
 
         // calculate maximum height of transactionDetailsTable to take up
         self.transactionDetailsTable.maxHeight = self.view.frame.size.height
-            - self.view.frame.origin.y
             - self.headerView.frame.size.height
             - self.showOrHideDetailsBtn.frame.size.height
             - (UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0)
