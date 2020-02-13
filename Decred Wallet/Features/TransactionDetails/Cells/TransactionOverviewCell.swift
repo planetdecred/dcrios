@@ -26,15 +26,7 @@ class TransactionOverviewCell: UITableViewCell {
     @IBOutlet weak var statusImageView: UIImageView!
     @IBOutlet weak var confirmationsLabel: UILabel!
 
-    var txOverView: TransactionOverView? {
-        didSet {
-            showData()
-        }
-    }
-
-    func showData() {
-        guard let `txOverView` = self.txOverView else { return }
-
+    func display(_ txOverView: TransactionOverView) {
         self.txIconImageView.image = txOverView.txIconImage
         self.txAmountLabel.attributedText = txOverView.txAmount
         self.dateLabel.text = txOverView.date

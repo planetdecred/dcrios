@@ -4,14 +4,14 @@
 // Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
+
 import UIKit
 import Dcrlibwallet
-import SafariServices
 
-class TransactionDetailsViewController: UIViewController, SFSafariViewControllerDelegate {
+class TransactionDetailsViewController: UIViewController {
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var txTypeLabel: UILabel!
-    @IBOutlet private weak var transactionDetailsTable: SelfSizedTableView!
+    @IBOutlet weak var transactionDetailsTable: SelfSizedTableView!
     @IBOutlet weak var showOrHideDetailsBtn: UIButton!
 
     var transactionHash: String?
@@ -19,9 +19,9 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
 
     var generalTxDetails: [TransactionDetail] = []
     var txOverview: TransactionOverView = TransactionOverView()
+    var isTxDetailsTableViewCollapsed: Bool = true
     var isTxInputsCollapsed: Bool = true
     var isTxOutputsCollapsed: Bool = true
-    var isTxDetailsTableViewCollapsed: Bool = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,9 +43,9 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
             }
         }
 
+        self.displayTitle()
         self.prepareGeneralTxDetails()
         self.prepareTxOverview()
-        self.displayTitle()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -57,6 +57,22 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
             - self.headerView.frame.size.height
             - self.showOrHideDetailsBtn.frame.size.height
             - (UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0)
+    }
+
+    private func displayTitle() {
+        if self.transaction.type == DcrlibwalletTxTypeRegular {
+            if self.transaction.direction == DcrlibwalletTxDirectionSent {
+                self.txTypeLabel.text = LocalizedStrings.sent
+            } else if self.transaction.direction == DcrlibwalletTxDirectionReceived {
+                self.txTypeLabel.text = LocalizedStrings.received
+            } else if self.transaction.direction == DcrlibwalletTxDirectionTransferred {
+                self.txTypeLabel.text = LocalizedStrings.transferred
+            }
+        } else if self.transaction.type == DcrlibwalletTxTypeVote {
+            self.txTypeLabel.text = LocalizedStrings.voted
+        } else if self.transaction.type == DcrlibwalletTxTypeTicketPurchase {
+            self.txTypeLabel.text = LocalizedStrings.ticket
+        }
     }
 
     private func prepareGeneralTxDetails() {
@@ -174,24 +190,8 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
         self.txOverview.txIconImage =  UIImage(named: "ic_ticketVoted")
     }
 
-    private func displayTitle() {
-        if self.transaction.type == DcrlibwalletTxTypeRegular {
-            if self.transaction.direction == DcrlibwalletTxDirectionSent {
-                self.txTypeLabel.text = LocalizedStrings.sent
-            } else if self.transaction.direction == DcrlibwalletTxDirectionReceived {
-                self.txTypeLabel.text = LocalizedStrings.received
-            } else if self.transaction.direction == DcrlibwalletTxDirectionTransferred {
-                self.txTypeLabel.text = LocalizedStrings.transferred
-            }
-        } else if self.transaction.type == DcrlibwalletTxTypeVote {
-            self.txTypeLabel.text = LocalizedStrings.voted
-        } else if self.transaction.type == DcrlibwalletTxTypeTicketPurchase {
-            self.txTypeLabel.text = LocalizedStrings.ticket
-        }
-    }
-
     @IBAction func onClose(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        self.dismissView()
     }
 
     @IBAction func showInfo(_ sender: Any) {
@@ -245,7 +245,9 @@ extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDe
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 2 || section == 3 {
+        if section == 0 {
+            return 0
+        } else if section == 2 || section == 3 {
             return 48
         } else {
             return 1
@@ -253,9 +255,7 @@ extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDe
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if section == 0 {
-            return UIView.init(frame: CGRect.zero)
-        } else if section == 2 {
+        if section == 2 {
             return self.inputOutputSectionHeaderView(section: section,
                                                         title: String(format: LocalizedStrings.inputsConsumed, transaction.inputs.count),
                                                         isCollapsed: self.isTxInputsCollapsed)
@@ -274,19 +274,20 @@ extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDe
     private func inputOutputSectionHeaderView(section: Int,
                                                  title: String,
                                                  isCollapsed: Bool) -> UIView {
-        let headerView = UIView.init(frame: CGRect(x: 0, y: 0, width: self.transactionDetailsTable.frame.size.width, height: 48))
+        let transactionDetailsTableWidth = self.transactionDetailsTable.frame.size.width
+
+        let headerView = UIView.init(frame: CGRect(x: 0, y: 0, width: transactionDetailsTableWidth, height: 48))
         headerView.backgroundColor = UIColor.white
-        headerView.frame.size.height = 48
         headerView.horizontalBorder(borderColor: UIColor.appColors.gray, yPosition: 0, borderHeight: 1)
 
-        let headerLabel = UILabel.init(frame: CGRect(x: 16, y: 1, width: self.view.frame.size.width - 56, height: 47))
+        let headerLabel = UILabel.init(frame: CGRect(x: 16, y: 1, width: transactionDetailsTableWidth - 56, height: 47))
         headerLabel.textColor = UIColor.appColors.bluishGray
         headerLabel.font = UIFont(name: "SourceSansPro-Regular", size: 14)
         headerLabel.numberOfLines = 1
         headerLabel.text = title
         headerView.addSubview(headerLabel)
 
-        let arrowImageView = UIImageView.init(frame: CGRect(x: self.view.frame.size.width - 40, y: 12, width: 24, height: 24))
+        let arrowImageView = UIImageView.init(frame: CGRect(x: transactionDetailsTableWidth - 40, y: 12, width: 24, height: 24))
         let arrowImage = UIImage(named: "ic_collapse")
         if !isCollapsed {
             arrowImageView.image = arrowImage
@@ -321,7 +322,7 @@ extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDe
         switch indexPath.section {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TransactionOverviewCell") as! TransactionOverviewCell
-            cell.txOverView = self.txOverview
+            cell.display(self.txOverview)
             return cell
 
         case 1:
@@ -367,12 +368,8 @@ extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDe
     }
 
     func openLink(urlString: String) {
-        //TODO
         if let url = URL(string: urlString) {
             UIApplication.shared.open(url)
-    //            let viewController = SFSafariViewController(url: url)
-    //            viewController.delegate = self as SFSafariViewControllerDelegate
-    //            self.navigationController?.pushViewController(viewController, animated: true)
         }
     }
 }
