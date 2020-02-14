@@ -9,8 +9,8 @@
 import Foundation
 
 struct DecredAddressURI {
+    var address: String
     var amount: Double?
-    var address: String?
     
     init(uriString: String) {
         if uriString.contains("?") {

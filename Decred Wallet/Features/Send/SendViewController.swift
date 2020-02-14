@@ -508,18 +508,13 @@ extension SendViewController {
             self.destinationAddressTextField.text = ""
             return
         }
+        
         let URI: DecredAddressURI = DecredAddressURI(uriString: capturedText)
         
-        guard let address = URI.address else {
-            return
-        }
+        let address = URI.address
         
-        if address.count < 25 {
-            self.invalidAddressFromQrCode(errorMessage: LocalizedStrings.walletAddressShort)
-            return
-        }
-        if address.count > 36 {
-            self.invalidAddressFromQrCode(errorMessage: LocalizedStrings.walletAddressLong)
+        if address.count < 25 || address.count > 36 {
+            self.invalidAddressFromQrCode(errorMessage: String(format: LocalizedStrings.addressFromQr, address), title: LocalizedStrings.invalidAddr)
             return
         }
         
@@ -536,15 +531,19 @@ extension SendViewController {
                 self.invalidAddressFromQrCode(errorMessage: LocalizedStrings.invalidMainnetAddress)
             }
         }
-        // Only fill in the amount if the address field contains an address
-        if !self.destinationAddressTextField.text!.isEmpty && URI.amount != nil {
-            self.dcrAmountTextField.text = String(format: "%", URI.amount!)
+        // Only fill amount if address is valid and QR code contains an amount.
+        let addressValid = self.sendFromWallet.isAddressValid(self.destinationAddressTextField.text)
+        if addressValid && URI.amount != nil {
+            self.dcrAmountTextField.text = String(URI.amount!)
         }
     }
     
-    func invalidAddressFromQrCode(errorMessage: String) {
+    func invalidAddressFromQrCode(errorMessage: String, title: String? = nil) {
         self.destinationAddressTextField.text = ""
-        AppDelegate.shared.showOkAlert(message: errorMessage)
+        // Wait till QR code scanner view is dismissed before presenting alert on this view controller
+        DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: {
+            self.showOkAlert(message: errorMessage, title: title)
+        })
     }
     
     @objc func addressTextFieldChanged() {
