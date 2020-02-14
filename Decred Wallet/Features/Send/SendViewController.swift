@@ -514,8 +514,6 @@ extension SendViewController {
             return
         }
         
-        self.dcrAmountTextField.text = String(format: "%", URI.amount ?? "")
-        
         if address.count < 25 {
             self.invalidAddressFromQrCode(errorMessage: LocalizedStrings.walletAddressShort)
             return
@@ -537,6 +535,10 @@ extension SendViewController {
             } else {
                 self.invalidAddressFromQrCode(errorMessage: LocalizedStrings.invalidMainnetAddress)
             }
+        }
+        // Only fill in the amount if the address field contains an address
+        if !self.destinationAddressTextField.text!.isEmpty && URI.amount != nil {
+            self.dcrAmountTextField.text = String(format: "%", URI.amount!)
         }
     }
     
