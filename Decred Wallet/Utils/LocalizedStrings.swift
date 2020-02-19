@@ -286,7 +286,6 @@ struct LocalizedStrings {
     static let genNewAddr = NSLocalizedString("genNewAddr", comment: "")
     static let receiveDCR = NSLocalizedString("receiveDCR", comment: "")
     static let receivingAccount = NSLocalizedString("receivingAccount", comment: "")
-    static let gotIt = NSLocalizedString("gotIt", comment: "")
     static let receiveInfo = NSLocalizedString("receiveInfo", comment: "")
     
     /* Wallets -> Add new wallet */
