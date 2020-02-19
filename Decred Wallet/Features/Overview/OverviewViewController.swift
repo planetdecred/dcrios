@@ -378,7 +378,7 @@ extension OverviewViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TransactionTableViewCell.identifier) as! TransactionTableViewCell
         let tx = self.recentTransactions[indexPath.row]
-        cell.setData(tx)
+        cell.displayInfo(for: tx)
         return cell
     }
     
@@ -392,7 +392,7 @@ extension OverviewViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let txDetailsVC = TransactionDetailsViewController.instantiate(from: .TransactionDetails)
         txDetailsVC.transaction = self.recentTransactions[indexPath.row]
-        self.navigationController?.pushViewController(txDetailsVC, animated: true)
+        self.present(txDetailsVC, animated: true)
     }
 }
 

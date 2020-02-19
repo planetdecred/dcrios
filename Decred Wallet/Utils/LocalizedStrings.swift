@@ -173,13 +173,13 @@ struct LocalizedStrings {
     static let headersScannedProgress = NSLocalizedString("headersScannedProgress", comment: "")
     static let walletCreated = NSLocalizedString("walletCreated", comment: "")
     
-    /* Transaction List/ History */
+    /* Transactions */
     static let pending = NSLocalizedString("pending", comment: "")
     static let confirmed = NSLocalizedString("confirmed", comment: "")
-    static let vote = NSLocalizedString("vote", comment: "")
+    static let voted = NSLocalizedString("voted", comment: "")
     static let ticket = NSLocalizedString("ticket", comment: "")
-    static let confirmedLive = NSLocalizedString("confirmedLive", comment: "")
-    static let confirmedImmature = NSLocalizedString("confirmedImmature", comment: "")
+    static let live = NSLocalizedString("live", comment: "")
+    static let immature = NSLocalizedString("immature", comment: "")
     static let noTransactions = NSLocalizedString("noTransactions", comment: "")
     static let sent = NSLocalizedString("sent", comment: "")
     static let received = NSLocalizedString("received", comment: "")
@@ -187,6 +187,11 @@ struct LocalizedStrings {
     static let staking = NSLocalizedString("staking", comment: "")
     static let coinbase = NSLocalizedString("coinbase", comment: "")
     static let all = NSLocalizedString("all", comment: "")
+    static let today = NSLocalizedString("today", comment: "")
+    static let yesterday = NSLocalizedString("yesterday", comment: "")
+    static let days = NSLocalizedString("days", comment: "")
+    static let newest = NSLocalizedString("newest", comment: "")
+    static let oldest = NSLocalizedString("oldest", comment: "")
     
     /* Transaction Details */
     static let transactionDetails = NSLocalizedString("transactionDetails", comment: "")
@@ -194,6 +199,7 @@ struct LocalizedStrings {
     static let copyRawTransaction = NSLocalizedString("copyRawTransaction", comment: "")
     static let viewOnDcrdata = NSLocalizedString("viewOnDcrdata", comment: "")
     static let copied = NSLocalizedString("copied", comment: "")
+    static let sgCopied = NSLocalizedString("sgCopied", comment: "")
     static let ticketPurchase = NSLocalizedString("ticketPurchase", comment: "")
     static let date = NSLocalizedString("date", comment: "")
     static let status = NSLocalizedString("status", comment: "")
@@ -212,6 +218,15 @@ struct LocalizedStrings {
     static let nullData = NSLocalizedString("nullData", comment: "")
     static let script = NSLocalizedString("script", comment: "")
     static let stakegen = NSLocalizedString("stakegen", comment: "")
+    static let inputsConsumed = NSLocalizedString("inputsConsumed", comment: "")
+    static let outputsCreated = NSLocalizedString("outputsCreated", comment: "")
+    static let confirmations = NSLocalizedString("confirmations", comment: "")
+    static let transactionID = NSLocalizedString("transactionID", comment: "")
+    static let transferred = NSLocalizedString("transferred", comment: "")
+    static let includedInBlock = NSLocalizedString("includedInBlock", comment: "")
+    static let howToCopy = NSLocalizedString("howToCopy", comment: "")
+    static let tapOnBlueText = NSLocalizedString("tapOnBlueText", comment: "")
+    static let gotIt = NSLocalizedString("gotIt", comment: "")
     
     /* Send view */
     static let invalidAmount = NSLocalizedString("invalidAmount", comment: "")

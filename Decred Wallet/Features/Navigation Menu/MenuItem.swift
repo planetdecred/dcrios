@@ -13,15 +13,14 @@ enum MenuItem: String, CaseIterable {
     case transactions = "Transactions"
     case wallets = "Wallets"
     case more = "More"
-    
+
     var viewController: UIViewController {
         switch self {
         case .overview:
             return OverviewViewController.instantiate(from: .Overview)
             
         case .transactions:
-            // todo move to storyboard!
-            return TransactionHistoryViewController(nibName: "TransactionHistoryViewController", bundle: nil)
+            return TransactionsViewController.instantiate(from: .Transactions)
         
         case .wallets:
             return WalletsViewController.instantiate(from: .Wallets)
@@ -30,7 +29,7 @@ enum MenuItem: String, CaseIterable {
             return SettingsController.instantiate(from: .Settings)
         }
     }
-    
+
     var icon: UIImage? {
         switch self {
         case .overview:

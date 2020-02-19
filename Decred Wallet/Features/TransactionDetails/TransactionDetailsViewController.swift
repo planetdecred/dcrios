@@ -4,51 +4,30 @@
 // Copyright (c) 2018-2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
+
 import UIKit
 import Dcrlibwallet
-import SafariServices
 
-class TransactionDetailsViewController: UIViewController, SFSafariViewControllerDelegate  {
-    @IBOutlet private weak var tableTransactionDetails: UITableView!    
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet var detailsHeader: UIView!
-    @IBOutlet weak var amount: UILabel!
-    
+class TransactionDetailsViewController: UIViewController {
+    @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var txTypeLabel: UILabel!
+    @IBOutlet weak var transactionDetailsTable: SelfSizedTableView!
+    @IBOutlet weak var showOrHideDetailsBtn: UIButton!
+
     var transactionHash: String?
     var transaction: Transaction!
-    
-    var generalTxDetails: [TransactionDetails] = []
-    
+
+    var generalTxDetails: [TransactionDetail] = []
+    var txOverview: TransactionOverView = TransactionOverView()
+    var isTxDetailsTableViewCollapsed: Bool = true
+    var isTxInputsCollapsed: Bool = true
+    var isTxOutputsCollapsed: Bool = true
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        tableTransactionDetails
-            .hideEmptyAndExtraRows()
-            .autoResizeCell(estimatedHeight: 60.0)
-            .registerCellNib(TransactiontInputDetailsCell.self)
-        
-        tableTransactionDetails.registerCellNib(TransactionDetailCell.self)
-        tableTransactionDetails.registerCellNib(TransactiontInputDetailsCell.self)
-        tableTransactionDetails.registerCellNib(TransactiontOutputDetailsCell.self)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.isHidden = false
 
-        self.navigationItem.title = LocalizedStrings.transactionDetails
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "left-arrow"),
-                                                                style: .done, target: self,
-                                                                action: #selector(back))
-       
-        let optionsMenuButton = UIButton(type: .custom)
-        optionsMenuButton.setImage(UIImage(named: "right-menu"), for: .normal)
-        optionsMenuButton.addTarget(self, action: #selector(showOptionsMenu), for: .touchUpInside)
-        optionsMenuButton.frame = CGRect(x: 0, y: 0, width: 10, height: 51)
-        self.navigationItem.rightBarButtonItems = [
-            UIBarButtonItem(customView: optionsMenuButton)
-        ]
-        
+        self.showOrHideDetailsBtn.addBorder(atPosition: .top, color: UIColor.appColors.gray, thickness: 1)
+
         if self.transaction == nil && self.transactionHash != nil {
             let txHash = Data(fromHexEncodedString: self.transactionHash!)!
             var getTxError: NSError?
@@ -56,214 +35,340 @@ class TransactionDetailsViewController: UIViewController, SFSafariViewController
             if getTxError != nil {
                 print("wallet.getTransaction error", getTxError!.localizedDescription)
             }
-            
+
             do {
-                self.transaction = try JSONDecoder().decode(Transaction.self, from:(txJsonString!.utf8Bits))
+                self.transaction = try JSONDecoder().decode(Transaction.self, from: (txJsonString!.utf8Bits))
             } catch let error {
                 print("decode transaction error:", error.localizedDescription)
             }
         }
-        
-        self.prepareTransactionDetails()
+
+        self.displayTitle()
+        self.prepareGeneralTxDetails()
+        self.prepareTxOverview()
     }
-    
-    fileprivate func prepareTransactionDetails() {
-        var confirmations: Int32 = 0
-        if self.transaction.blockHeight != -1 {
-            confirmations = WalletLoader.shared.firstWallet!.getBestBlock() - Int32(self.transaction.blockHeight) + 1
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        // calculate maximum height of transactionDetailsTable to take up
+        self.transactionDetailsTable.maxHeight = self.view.frame.size.height
+            - self.headerView.frame.size.height
+            - self.showOrHideDetailsBtn.frame.size.height
+            - (UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0)
+    }
+
+    private func displayTitle() {
+        if self.transaction.type == DcrlibwalletTxTypeRegular {
+            if self.transaction.direction == DcrlibwalletTxDirectionSent {
+                self.txTypeLabel.text = LocalizedStrings.sent
+            } else if self.transaction.direction == DcrlibwalletTxDirectionReceived {
+                self.txTypeLabel.text = LocalizedStrings.received
+            } else if self.transaction.direction == DcrlibwalletTxDirectionTransferred {
+                self.txTypeLabel.text = LocalizedStrings.transferred
+            }
+        } else if self.transaction.type == DcrlibwalletTxTypeVote {
+            self.txTypeLabel.text = LocalizedStrings.voted
+        } else if self.transaction.type == DcrlibwalletTxTypeTicketPurchase {
+            self.txTypeLabel.text = LocalizedStrings.ticket
         }
-        
-        let isConfirmed = Settings.spendUnconfirmed || confirmations > 1
-        let status = isConfirmed ? LocalizedStrings.confirmed : LocalizedStrings.pending
-        let textColor = isConfirmed ? #colorLiteral(red: 0.2549019608, green: 0.7490196078, blue: 0.3254901961, alpha: 1) : #colorLiteral(red: 0.2392156863, green: 0.3960784314, blue: 0.6117647059, alpha: 1)
-        
-        let txAmount = Utils.getAttributedString(
-            str: "\(self.transaction.dcrAmount.round(8))",
-            siz: 13,
-            TexthexColor: UIColor.appColors.darkBlue
-        )
+    }
+
+    private func prepareGeneralTxDetails() {
         let txFee = Utils.getAttributedString(
             str: "\(self.transaction.dcrFee.round(8))",
-            siz: 13,
+            siz: 16,
             TexthexColor: UIColor.appColors.darkBlue
         )
-        
-        generalTxDetails = [
-            TransactionDetails(
-                title: LocalizedStrings.date,
-                value: NSMutableAttributedString(string: Utils.formatDateTime(timestamp: self.transaction.timestamp)),
-                textColor: nil
-            ),
-            TransactionDetails(
-                title: LocalizedStrings.status,
-                value: NSMutableAttributedString(string:status),
-                textColor: textColor
-            ),
-            TransactionDetails(
-                title: LocalizedStrings.amount,
-                value: txAmount,
-                textColor: nil
-            ),
-            TransactionDetails(
+
+        self.generalTxDetails = [
+            TransactionDetail(
                 title: LocalizedStrings.fee,
-                value: txFee,
-                textColor: nil
+                value: txFee.string,
+                isCopyEnabled: false
             ),
-            TransactionDetails(
+            TransactionDetail(
+                title: LocalizedStrings.includedInBlock,
+                value: "\(self.transaction.blockHeight)",
+                isCopyEnabled: false
+            ),
+            TransactionDetail(
                 title: LocalizedStrings.type,
-                value: NSMutableAttributedString(string: self.transaction.type),
-                textColor: nil
+                value: self.transaction.type,
+                isCopyEnabled: false
             ),
-            TransactionDetails(
-                title: LocalizedStrings.confirmation,
-                value: NSMutableAttributedString(string: "\(confirmations)"),
-                textColor: nil
-            ),
-            TransactionDetails(
-                title: LocalizedStrings.hash,
-                value: NSMutableAttributedString(string: self.transaction.hash),
-                textColor: #colorLiteral(red: 0.1607843137, green: 0.4392156863, blue: 1, alpha: 1)
+            TransactionDetail(
+                title: LocalizedStrings.transactionID,
+                value: self.transaction.hash,
+                isCopyEnabled: true
             )
         ]
-        
-        if self.transaction.type == DcrlibwalletTxTypeVote {
-            let lastBlockValid = TransactionDetails(
+
+        if self.transaction.type == DcrlibwalletTxTypeTicketPurchase {
+            let lastBlockValid = TransactionDetail(
                 title: LocalizedStrings.lastBlockValid,
-                value: NSMutableAttributedString(string: String(describing: self.transaction.lastBlockValid)),
-                textColor: nil
+                value: String(describing: self.transaction.lastBlockValid),
+                isCopyEnabled: false
             )
             generalTxDetails.append(lastBlockValid)
-            
-            let voteVersion = TransactionDetails(
+
+            let voteVersion = TransactionDetail(
                 title: LocalizedStrings.version,
-                value: NSAttributedString(string: "\(self.transaction.voteVersion)"),
-                textColor: nil
+                value: "\(self.transaction.voteVersion)",
+                isCopyEnabled: false
             )
             generalTxDetails.append(voteVersion)
-            
-            let voteBits = TransactionDetails(
-                title:LocalizedStrings.voteBits,
-                value: NSAttributedString(string: self.transaction.voteBits),
-                textColor: nil
+
+            let voteBits = TransactionDetail(
+                title: LocalizedStrings.voteBits,
+                value: self.transaction.voteBits,
+                isCopyEnabled: false
             )
             generalTxDetails.append(voteBits)
         }
     }
     
-    @objc func back() {
-        self.navigationController?.popViewController(animated: true)
-    }
-    
-    @objc func showOptionsMenu(sender: UIBarButtonItem) {
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        
-        let cancelAction = UIAlertAction(title: LocalizedStrings.cancel, style: .cancel, handler: nil)
-        
-        let copyTxHash = UIAlertAction(title: LocalizedStrings.copyTransactionHash, style: .default, handler: { (alert: UIAlertAction!) -> Void in
-            self.copyText(self.transaction.hash)
-        })
-        
-        let copyRawTx = UIAlertAction(title: LocalizedStrings.copyRawTransaction, style: .default, handler: { (alert: UIAlertAction!) -> Void in
-            self.copyText(self.transaction.hex)
-        })
-        
-        let viewOnDcrdata = UIAlertAction(title: LocalizedStrings.viewOnDcrdata, style: .default, handler: { (alert: UIAlertAction!) -> Void in
-             if BuildConfig.IsTestNet {
-                self.openLink(urlString: "https://testnet.dcrdata.org/tx/\(self.transaction.hash)")
-             } else {
-                self.openLink(urlString: "https://dcrdata.decred.org/tx/\(self.transaction.hash)")
-            }
-        })
-        
-        alertController.addAction(cancelAction)
-        alertController.addAction(copyTxHash)
-        alertController.addAction(copyRawTx)
-        alertController.addAction(viewOnDcrdata)
-        
-        if let popoverPresentationController = alertController.popoverPresentationController {
-            popoverPresentationController.barButtonItem = self.navigationItem.rightBarButtonItems![0]
-        }
-        
-        self.present(alertController, animated: true, completion: nil)
+    private func prepareTxOverview() {
+        let attributedAmountString = NSMutableAttributedString(string: (transaction.type == DcrlibwalletTxTypeRegular && transaction.direction == DcrlibwalletTxDirectionSent) ? "-" : "")
+        attributedAmountString.append(Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 20.0, TexthexColor: UIColor.appColors.darkBlue))
+        self.txOverview.txAmount = attributedAmountString
 
+        self.txOverview.date = Utils.formatDateTime(timestamp: transaction.timestamp)
+
+        let txConfirmations = transaction.confirmations
+        if Settings.spendUnconfirmed || txConfirmations > 1 {
+            self.txOverview.statusImage = UIImage(named: "ic_confirmed")
+            self.txOverview.status = LocalizedStrings.confirmed
+            self.txOverview.statusLabelColor = UIColor.appColors.green
+            self.txOverview.confirmations = " · " + String(format: LocalizedStrings.confirmations, txConfirmations)
+        } else {
+            self.txOverview.statusImage = UIImage(named: "ic_pending")
+            self.txOverview.status = LocalizedStrings.pending
+            self.txOverview.statusLabelColor = UIColor.appColors.lightBluishGray
+            self.txOverview.confirmations = ""
+        }
+
+        if transaction.type == DcrlibwalletTxTypeRegular {
+            self.prepareRegularTxOverview(transaction)
+        } else if transaction.type == DcrlibwalletTxTypeVote {
+            self.prepareVoteTxOverview(transaction)
+        } else if transaction.type == DcrlibwalletTxTypeTicketPurchase {
+            self.prepareTicketPurchaseTxOverview(transaction)
+        }
     }
     
-    private func copyText(_ text: String) {
+    private func prepareRegularTxOverview(_ transaction: Transaction) {
+        if transaction.direction == DcrlibwalletTxDirectionSent {
+            self.txOverview.txIconImage = UIImage(named: "ic_send")
+        } else if transaction.direction == DcrlibwalletTxDirectionReceived {
+            self.txOverview.txIconImage = UIImage(named: "ic_receive")
+        } else if transaction.direction == DcrlibwalletTxDirectionTransferred {
+            self.txOverview.txIconImage = UIImage(named: "ic_fee")
+        }
+    }
+
+    private func prepareVoteTxOverview(_ transaction: Transaction) {
+        self.txOverview.txIconImage =  UIImage(named: "ic_ticketImmature")
+
+        let txConfirmations = transaction.confirmations
+        let requiredConfirmations = Settings.spendUnconfirmed ? 0 : 2
+
+        if txConfirmations < requiredConfirmations {
+            self.txOverview.statusImage = UIImage(named: "ic_pending")
+            self.txOverview.status = LocalizedStrings.pending
+            self.txOverview.statusLabelColor = UIColor.appColors.lightBluishGray
+            self.txOverview.confirmations = ""
+        } else if txConfirmations > BuildConfig.TicketMaturity {
+            self.txOverview.txIconImage = UIImage(named: "ic_ticketLive")
+        } else {
+            self.txOverview.txIconImage = UIImage(named: "ic_ticketImmature")
+        }
+    }
+
+    private func prepareTicketPurchaseTxOverview(_ transaction: Transaction) {
+        self.txOverview.txIconImage =  UIImage(named: "ic_ticketVoted")
+    }
+
+    @IBAction func onClose(_ sender: Any) {
+        self.dismissView()
+    }
+
+    @IBAction func showInfo(_ sender: Any) {
         DispatchQueue.main.async {
-            UIPasteboard.general.string = text
-            
-            let alertController = UIAlertController(title: "",
-                                                    message: LocalizedStrings.copied,
+            let alertController = UIAlertController(title: LocalizedStrings.howToCopy,
+                                                    message: "",
                                                     preferredStyle: UIAlertController.Style.alert)
-            
-            alertController.addAction(UIAlertAction(title: LocalizedStrings.ok,
+
+            let blueTextColorStyle = AttributedStringStyle(tag: "blue",
+                                                           font: UIFont.systemFont(ofSize: 14),
+                                                           color: UIColor.appColors.lightBlue)
+
+            let defaultTextStyle = AttributedStringStyle(font: UIFont.systemFont(ofSize: 14),
+                                                         color: UIColor.appColors.deepGray)
+
+            let infoMessage = Utils.styleAttributedString(LocalizedStrings.tapOnBlueText,
+                                                           styles: [blueTextColorStyle],
+                                                           defaultStyle: defaultTextStyle)
+
+            alertController.setValue(infoMessage, forKey: "attributedMessage")
+            alertController.addAction(UIAlertAction(title: LocalizedStrings.gotIt,
                                                     style: UIAlertAction.Style.default,
                                                     handler: nil))
-            
+
             self.present(alertController, animated: true, completion: nil)
         }
     }
-    
-    func openLink(urlString: String) {
-        if let url = URL(string: urlString) {
-            let viewController = SFSafariViewController(url: url)
-            viewController.delegate = self as SFSafariViewControllerDelegate
-            self.navigationController?.pushViewController(viewController, animated: true)
-        }
+
+    @IBAction func showOrHideDetails(_ sender: Any) {
+        self.isTxDetailsTableViewCollapsed = !self.isTxDetailsTableViewCollapsed
+        self.transactionDetailsTable.reloadData()
+        self.showOrHideDetailsBtn.setTitle(self.isTxDetailsTableViewCollapsed ? LocalizedStrings.showDetails : LocalizedStrings.hideDetails, for: .normal)
     }
 }
 
 extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return self.isTxDetailsTableViewCollapsed ? 1 : 5
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? self.generalTxDetails.count : 1
+        if section == 1 {
+            return self.generalTxDetails.count
+        } else if section == 2 {
+            return self.isTxInputsCollapsed ? 0 : transaction.inputs.count
+        } else if section == 3 {
+            return self.isTxOutputsCollapsed ? 0 : transaction.outputs.count
+        } else {
+            return 1
+        }
     }
-    
+
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0.5
+        if section == 0 {
+            return 0
+        } else if section == 2 || section == 3 {
+            return 48
+        } else {
+            return 1
+        }
     }
-    
+
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView.init(frame: CGRect.zero)
-        headerView.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
-        headerView.frame.size.height = 0
+        if section == 2 {
+            return self.inputOutputSectionHeaderView(section: section,
+                                                        title: String(format: LocalizedStrings.inputsConsumed, transaction.inputs.count),
+                                                        isCollapsed: self.isTxInputsCollapsed)
+        } else if section == 3 {
+            return self.inputOutputSectionHeaderView(section: section,
+                                                        title: String(format: LocalizedStrings.outputsCreated, transaction.outputs.count),
+                                                        isCollapsed: self.isTxOutputsCollapsed)
+        } else {
+            let headerView = UIView.init(frame: CGRect.zero)
+            headerView.backgroundColor = UIColor.appColors.gray
+            headerView.frame.size.height = 1
+            return headerView
+        }
+    }
+
+    private func inputOutputSectionHeaderView(section: Int,
+                                                 title: String,
+                                                 isCollapsed: Bool) -> UIView {
+        let transactionDetailsTableWidth = self.transactionDetailsTable.frame.size.width
+
+        let headerView = UIView.init(frame: CGRect(x: 0, y: 0, width: transactionDetailsTableWidth, height: 48))
+        headerView.backgroundColor = UIColor.white
+        headerView.horizontalBorder(borderColor: UIColor.appColors.gray, yPosition: 0, borderHeight: 1)
+
+        let headerLabel = UILabel.init(frame: CGRect(x: 16, y: 1, width: transactionDetailsTableWidth - 56, height: 47))
+        headerLabel.textColor = UIColor.appColors.bluishGray
+        headerLabel.font = UIFont(name: "SourceSansPro-Regular", size: 14)
+        headerLabel.numberOfLines = 1
+        headerLabel.text = title
+        headerView.addSubview(headerLabel)
+
+        let arrowImageView = UIImageView.init(frame: CGRect(x: transactionDetailsTableWidth - 40, y: 12, width: 24, height: 24))
+        let arrowImage = UIImage(named: "ic_collapse")
+        if !isCollapsed {
+            arrowImageView.image = arrowImage
+        } else {
+            arrowImageView.image = UIImage(cgImage: (arrowImage?.cgImage!)!, scale: CGFloat(1.0), orientation: .downMirrored)
+        }
+        headerView.addSubview(arrowImageView)
+
+        let tapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(inputOutputSectionHeaderViewTapped(_:))
+        )
+        headerView.tag = section
+        headerView.addGestureRecognizer(tapGestureRecognizer)
+
         return headerView
     }
-    
+
+    @objc func inputOutputSectionHeaderViewTapped(_ sender: UITapGestureRecognizer?) {
+        guard let section = sender?.view?.tag else { return }
+
+        if section == 2 {
+            self.isTxInputsCollapsed.toggle()
+            self.transactionDetailsTable.reloadData()
+        } else if section == 3 {
+            self.isTxOutputsCollapsed.toggle()
+            self.transactionDetailsTable.reloadData()
+        }
+    }
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TransactionDetailCell") as! TransactionDetailCell
-            cell.txnDetails = self.generalTxDetails[indexPath.row]
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TransactionOverviewCell") as! TransactionOverviewCell
+            cell.display(self.txOverview)
             return cell
-            
+
         case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TransactiontInputDetailsCell") as! TransactiontInputDetailsCell
-            cell.setup(transaction.inputs, presentingController: self)
-            cell.expandOrCollapse = { [weak self] in
-                self?.tableTransactionDetails.reloadData()
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TransactionDetailCell") as! TransactionDetailCell
+            cell.txDetail = self.generalTxDetails[indexPath.row]
+            cell.onTxDetailValueCopied = { copiedDetail in
+                Utils.showBanner(in: self.view.subviews.first!, type: .success, text: String(format: LocalizedStrings.sgCopied, copiedDetail))
             }
             return cell
-            
+
         case 2:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TransactiontOutputDetailsCell") as! TransactiontOutputDetailsCell
-            cell.setup(transaction.outputs, presentingController: self)
-            cell.expandOrCollapse = { [weak self] in
-                self?.tableTransactionDetails.reloadData()
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TransactionInputDetailCell") as! TransactionInputDetailCell
+            cell.display(transaction.inputs[indexPath.row])
+            cell.onTxHashCopied = {
+                Utils.showBanner(in: self.view.subviews.first!, type: .success, text: LocalizedStrings.previousOutpointCopied)
             }
             return cell
-            
+
+        case 3:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TransactionOutputDetailCell") as! TransactionOutputDetailCell
+            cell.display(transaction.outputs[indexPath.row])
+            cell.onTxHashCopied = {
+                Utils.showBanner(in: self.view.subviews.first!, type: .success, text: LocalizedStrings.addrCopied)
+            }
+            return cell
+
+        case 4:
+            return tableView.dequeueReusableCell(withIdentifier: "TransactionViewOnDcrdataCell")!
+
         default:
             return UITableViewCell()
         }
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 0 && indexPath.row == 6 {
-            self.copyText(self.transaction.hash)
+        if indexPath.section == 4 {
+            if BuildConfig.IsTestNet {
+                self.openLink(urlString: "https://testnet.dcrdata.org/tx/\(self.transaction.hash)")
+             } else {
+                self.openLink(urlString: "https://dcrdata.decred.org/tx/\(self.transaction.hash)")
+            }
+        }
+    }
+
+    func openLink(urlString: String) {
+        if let url = URL(string: urlString) {
+            UIApplication.shared.open(url)
         }
     }
 }

@@ -30,7 +30,7 @@ class NavMenuFloatingButtons: UIView {
     }
     
     private func createButtons() {
-        self.sendButton.setImage(UIImage(named: "nav_menu/ic_send"), for: .normal)
+        self.sendButton.setImage(UIImage(named: "ic_send"), for: .normal)
         self.sendButton.setTitle(LocalizedStrings.send.localizedCapitalized, for: .normal)
         self.sendButton.set(fontSize: 17, name: "Source Sans Pro")
         self.sendButton.imageEdgeInsets = UIEdgeInsets(top: 12, left: 8, bottom: 12, right: 24)
@@ -39,7 +39,7 @@ class NavMenuFloatingButtons: UIView {
         self.sendButton.clipsToBounds = true
         self.sendButton.addTarget(self, action: #selector(self.sendTapped), for: .touchUpInside)
 
-        self.receiveButton.setImage(UIImage(named: "nav_menu/ic_receive"), for: .normal)
+        self.receiveButton.setImage(UIImage(named: "ic_receive"), for: .normal)
         self.receiveButton.setTitle(LocalizedStrings.receive.localizedCapitalized, for: .normal)
         self.receiveButton.set(fontSize: 17, name: "Source Sans Pro")
         self.receiveButton.imageEdgeInsets = UIEdgeInsets(top: 12, left: 10, bottom: 12, right: 22)

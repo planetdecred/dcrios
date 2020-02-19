@@ -63,7 +63,7 @@ class NavigationMenuTabBarController: UITabBarController {
         // Custom tab bar has been created, we want to react to taps on TabNavigationMenu items the moment they happen
         self.customTabBar.tabChanged = { previousTabIndex, newTabIndex in
             self.selectedIndex = newTabIndex
-            if newTabIndex == 0 {
+            if newTabIndex == 0 || newTabIndex == 1 {
                 self.showFloatingButtons()
             } else {
                 self.hideFloatingButtons()

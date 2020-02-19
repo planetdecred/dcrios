@@ -179,13 +179,13 @@
 "seeAll" = "See all";
 "walletCreated" = "Wallet created";
 
-/* Transaction List/ History */
+/* Transactions */
 "pending" = "Đang chờ xử lý";
 "confirmed" = "Đã xác nhận";
-"vote" = "Bỏ phiếu";
+"voted" = "Bỏ phiếu";
 "ticket" = "Vé";
-"confirmedLive" = "Đã xác nhận / Trực tiếp (live)";
-"confirmedImmature" = "Đã xác nhận / chưa chin muồi";
+"live" = "Trực tiếp (live)";
+"immature" = "chưa chin muồi";
 "noTransactions" = "Không có giao dịch";
 "sent" = "Đã gửi";
 "received" = "Đã nhận";
@@ -193,6 +193,11 @@
 "staking" = "Đang góp vốn (Staking)";
 "coinbase" = "Coinbase";
 "all" = "Tất cả";
+"today" = "Today";
+"yesterday" = "Yesterday";
+"days" = "%d days";
+"newest" = "Newest";
+"oldest" = "Oldest";
 
 /* Transaction Details */
 "transactionDetails" = "Chi tiết giao dịch";
@@ -200,6 +205,7 @@
 "copyRawTransaction" = "Sao chép số hex giao dịch thô";
 "viewOnDcrdata" = "xem trên dcrdata";
 "copied" = "đã sao chép";
+"sgCopied" = "%@ copied";
 "ticketPurchase" = "Mua vé";
 "date" = "Ngày";
 "status" = "Trạng thái";
@@ -218,6 +224,15 @@
 "nullData" = "không có dữ liệu";
 "script" = "Nguyên bản";
 "stakegen" = "stakegen";
+"inputsConsumed" = "%d Inputs consumed";
+"outputsCreated" = "%d Outputs created";
+"confirmations" = "%d Confirmations";
+"transactionID" = "Transaction ID";
+"transferred" = "Transferred";
+"includedInBlock" = "Included in block";
+"howToCopy" = "How to copy";
+"tapOnBlueText" = "Tap on <blue>blue text</blue> to copy the item.";
+"gotIt" = "Got it";
 
 /* Send view */
 "invalidAmount" = "Số tiền không hợp lệ.";
@@ -462,7 +477,6 @@
 
 /* Other Text */
 "send" = "send";
-"sent" = "sent";
 "receive" = "receive";
 "history" = "history";
 "settings" = "Settings";

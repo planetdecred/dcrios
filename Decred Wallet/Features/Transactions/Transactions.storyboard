@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Transactions View Controller-->
+        <scene sceneID="av4-5z-mnK">
+            <objects>
+                <viewController storyboardIdentifier="TransactionsViewController" id="cxH-wH-Q4u" customClass="TransactionsViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="aZf-z0-Zpn">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="O0D-Dc-Yer">
+                                <rect key="frame" x="24" y="16" width="327" height="24"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="300" verticalHuggingPriority="300" image="ic_decred" translatesAutoresizingMaskIntoConstraints="NO" id="9Lz-4T-Zbi">
+                                        <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Transactions" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ndj-nb-BCf">
+                                        <rect key="frame" x="40" y="0.5" width="287" height="23.5"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
+                                        <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="transactions"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Xg-aj-JTN" customClass="DropMenuButton" customModule="Decred_Wallet" customModuleProvider="target">
+                                <rect key="frame" x="24" y="56" width="42" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="tqs-yO-7WN"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                <state key="normal" title="All" image="ic_dropdown">
+                                    <color key="titleColor" red="0.035294117647058823" green="0.078431372549019607" blue="0.25098039215686274" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="all"/>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6n8-S9-8yX" customClass="DropMenuButton" customModule="Decred_Wallet" customModuleProvider="target">
+                                <rect key="frame" x="82" y="56" width="78" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="g2c-Ga-Lpo"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                <state key="normal" title="Newest" image="ic_dropdown">
+                                    <color key="titleColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="newest"/>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="56" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rdz-8b-in4">
+                                <rect key="frame" x="8" y="101" width="359" height="510"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="separatorColor" red="0.90196078430000004" green="0.91764705879999997" blue="0.92941176469999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <inset key="separatorInset" minX="56" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="cxH-wH-Q4u" id="UI5-2p-JXF"/>
+                                    <outlet property="delegate" destination="cxH-wH-Q4u" id="WvU-25-4lo"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.95294117649999999" green="0.96078431369999995" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="rdz-8b-in4" firstAttribute="leading" secondItem="hIz-r8-F5G" secondAttribute="leading" constant="8" id="4M5-RT-Rs5"/>
+                            <constraint firstItem="4Xg-aj-JTN" firstAttribute="top" secondItem="O0D-Dc-Yer" secondAttribute="bottom" constant="16" id="B7b-Ej-COn"/>
+                            <constraint firstItem="rdz-8b-in4" firstAttribute="trailing" secondItem="hIz-r8-F5G" secondAttribute="trailing" constant="-8" id="Da5-zF-TAW"/>
+                            <constraint firstItem="6n8-S9-8yX" firstAttribute="centerY" secondItem="4Xg-aj-JTN" secondAttribute="centerY" id="F4g-aZ-doi"/>
+                            <constraint firstItem="O0D-Dc-Yer" firstAttribute="leading" secondItem="hIz-r8-F5G" secondAttribute="leading" constant="24" id="STy-WF-KEh"/>
+                            <constraint firstItem="rdz-8b-in4" firstAttribute="bottom" secondItem="hIz-r8-F5G" secondAttribute="bottom" constant="-56" id="U8K-HG-44L"/>
+                            <constraint firstItem="rdz-8b-in4" firstAttribute="top" secondItem="4Xg-aj-JTN" secondAttribute="bottom" id="YZu-le-0VX"/>
+                            <constraint firstItem="hIz-r8-F5G" firstAttribute="trailing" secondItem="O0D-Dc-Yer" secondAttribute="trailing" constant="24" id="ZAK-Da-jyh"/>
+                            <constraint firstItem="4Xg-aj-JTN" firstAttribute="leading" secondItem="hIz-r8-F5G" secondAttribute="leading" constant="24" id="ePe-GA-SA2"/>
+                            <constraint firstItem="O0D-Dc-Yer" firstAttribute="top" secondItem="hIz-r8-F5G" secondAttribute="top" constant="16" id="jfy-la-PTr"/>
+                            <constraint firstItem="6n8-S9-8yX" firstAttribute="leading" secondItem="4Xg-aj-JTN" secondAttribute="trailing" constant="16" id="w35-Ec-D1K"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="hIz-r8-F5G"/>
+                    </view>
+                    <connections>
+                        <outlet property="pageHeaderBottomConstraint" destination="B7b-Ej-COn" id="3t8-cg-Sq4"/>
+                        <outlet property="pageHeaderStackView" destination="O0D-Dc-Yer" id="J9i-ky-tB3"/>
+                        <outlet property="pageHeaderTopConstraint" destination="jfy-la-PTr" id="nsR-0j-Tww"/>
+                        <outlet property="txFilterDropDown" destination="4Xg-aj-JTN" id="yeW-W8-oWV"/>
+                        <outlet property="txSortOrderDropDown" destination="6n8-S9-8yX" id="wVN-th-iEs"/>
+                        <outlet property="txTableView" destination="rdz-8b-in4" id="C7m-gV-buQ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1ky-HZ-qRj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2624.8000000000002" y="-1369.5652173913045"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="ic_decred" width="24" height="24"/>
+        <image name="ic_dropdown" width="24" height="24"/>
+    </resources>
+</document>
