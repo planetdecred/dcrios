@@ -15,6 +15,7 @@ enum Storyboard: String {
     case WalletSetup = "WalletSetup"
     case NavigationMenu = "NavigationMenu"
     case Overview = "Overview"
+    case Receive = "Receive"
     case Send = "Send"
     case Transactions = "Transactions"
     case TransactionDetails = "TransactionDetails"
@@ -23,7 +24,6 @@ enum Storyboard: String {
     case Settings = "Settings"
     case SecurityMenu = "SecurityMenu"
     case CustomDialogs = "CustomDialogs"
-    case Receive = "Receive"
     
     var instance: UIStoryboard {
         return UIStoryboard(name: self.rawValue, bundle: nil)
