@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import Dcrlibwallet
 
-class ReceiveViewController: UIViewController, UIDocumentInteractionControllerDelegate {
+class ReceiveViewController: UIViewController {
     @IBOutlet weak var moreMenuButton: UIButton!
     @IBOutlet weak var mainContentViewHolder: RoundedView!
     @IBOutlet weak var selectedAccountView: UIView!
