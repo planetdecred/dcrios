@@ -509,38 +509,40 @@ extension SendViewController {
             return
         }
         
-        let URI: DecredAddressURI = DecredAddressURI(uriString: capturedText)
-        
-        let address = URI.address
-        
-        if address.count < 25 || address.count > 36 {
-            self.invalidAddressFromQrCode(errorMessage: String(format: LocalizedStrings.addressFromQr, address), title: LocalizedStrings.invalidAddr)
+        let addressURI = DecredAddressURI(uriString: capturedText)
+                
+        if addressURI.address.count < 25 || addressURI.address.count > 36 {
+            self.invalidAddressFromQrCode(errorMessage: String(format: LocalizedStrings.addressFromQr, addressURI.address), title: LocalizedStrings.invalidAddr)
             return
         }
         
         if BuildConfig.IsTestNet {
-            if address.starts(with: "T") {
-                self.destinationAddressTextField.text = address
+            if addressURI.address.starts(with: "T") {
+                self.destinationAddressTextField.text = addressURI.address
             } else {
                 self.invalidAddressFromQrCode(errorMessage: LocalizedStrings.invalidTesnetAddress)
             }
         } else {
-            if address.starts(with: "D") {
-                self.destinationAddressTextField.text = address
+            if addressURI.address.starts(with: "D") {
+                self.destinationAddressTextField.text = addressURI.address
             } else {
                 self.invalidAddressFromQrCode(errorMessage: LocalizedStrings.invalidMainnetAddress)
             }
         }
-        // Only fill amount if address is valid and QR code contains an amount.
-        let addressValid = self.sendFromWallet.isAddressValid(self.destinationAddressTextField.text)
-        if addressValid && URI.amount != nil {
-            self.dcrAmountTextField.text = String(URI.amount!)
+        
+        // Only fill amount if QR code contains an amount.
+        if addressURI.amount != nil {
+            self.dcrAmountTextField.text = String(addressURI.amount!)
         }
     }
     
     func invalidAddressFromQrCode(errorMessage: String, title: String? = nil) {
         self.destinationAddressTextField.text = ""
-        // Wait till QR code scanner view is dismissed before presenting alert on this view controller
+        /*
+         QR code scanner is currently being presented over this controller's context.
+         Wait till QR code scanner view is dismissed properly before presenting an alert on this view controller.
+         Presenting too soon causes the alert to not get displayed sometimes
+        */
         DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: {
             self.showOkAlert(message: errorMessage, title: title)
         })
