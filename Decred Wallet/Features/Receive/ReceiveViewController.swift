@@ -20,8 +20,6 @@ class ReceiveViewController: UIViewController, UIDocumentInteractionControllerDe
     @IBOutlet weak var walletAddressLabel: UILabel!
     @IBOutlet weak var syncInProgressLabel: UILabel!
 
-    var tapGesture = UITapGestureRecognizer()
-
     var selectedWallet: DcrlibwalletWallet?
     var selectedAccount: DcrlibwalletAccount?
 
@@ -122,17 +120,6 @@ class ReceiveViewController: UIViewController, UIDocumentInteractionControllerDe
         }
     }
 
-    private func generateNewAddress() {
-        if let wallet = self.selectedWallet, let account = self.selectedAccount {
-             let nextReceiveAddress = wallet.nextAddress(account.number, error: nil)
-             if self.walletAddressLabel.text! != nextReceiveAddress {
-                 self.displayAddressAndQRCode(receiveAddress: nextReceiveAddress)
-             } else if nextReceiveAddress != "" {
-                 self.generateNewAddress()
-             }
-        }
-    }
-
     @IBAction func onClose(_ sender: Any) {
         self.dismissView()
     }
@@ -160,6 +147,17 @@ class ReceiveViewController: UIViewController, UIDocumentInteractionControllerDe
         alertController.addAction(generateNewAddressAction)
 
         self.present(alertController, animated: true, completion: nil)
+    }
+
+    private func generateNewAddress() {
+        if let wallet = self.selectedWallet, let account = self.selectedAccount {
+             let nextReceiveAddress = wallet.nextAddress(account.number, error: nil)
+             if self.walletAddressLabel.text! != nextReceiveAddress {
+                 self.displayAddressAndQRCode(receiveAddress: nextReceiveAddress)
+             } else if nextReceiveAddress != "" {
+                 self.generateNewAddress()
+             }
+        }
     }
 
     @IBAction func shareButtonTapped(_ sender: Any) {
