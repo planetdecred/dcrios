@@ -12,6 +12,7 @@ import Dcrlibwallet
 typealias AccountSelectorDialogCallback = (_ selectedWalletId: Int, _ selectedAccount: DcrlibwalletAccount) -> Void
 
 class AccountSelectorDialog: UIViewController {
+    @IBOutlet weak var headerContainerView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var walletsTableView: SelfSizedTableView!
 
@@ -48,10 +49,19 @@ class AccountSelectorDialog: UIViewController {
         self.walletsTableView.dataSource = self
         self.walletsTableView.delegate = self
         self.walletsTableView.registerCellNib(AccountSelectorTableViewCell.self)
-        self.walletsTableView.maxHeight = UIScreen.main.bounds.height * 0.33 // max height = 1/3rd of screen height
 
         let accountsFilterFn: (DcrlibwalletAccount) -> Bool = { $0.totalBalance > 0 || $0.name != "imported" }
         self.wallets = WalletLoader.shared.wallets.map({ Wallet.init($0, accountsFilterFn: accountsFilterFn) })
+        self.walletsTableView.reloadData()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        // calculate maximum height of walletsTableView to take up
+        self.walletsTableView.maxHeight = self.view.frame.size.height
+            - self.headerContainerView.frame.size.height
+            - (UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0)
         self.walletsTableView.reloadData()
     }
 

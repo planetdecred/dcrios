@@ -389,28 +389,38 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="STI-8m-ryV">
                                 <rect key="frame" x="0.0" y="645" width="414" height="251"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y0F-Ju-bFE">
-                                        <rect key="frame" x="21" y="21" width="24" height="24"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="24" id="5rN-uw-Ast"/>
-                                            <constraint firstAttribute="height" constant="24" id="so8-lD-K3M"/>
-                                        </constraints>
-                                        <color key="tintColor" red="0.23921568630000001" green="0.34509803919999998" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
-                                        <state key="normal" image="ic_close"/>
-                                        <connections>
-                                            <action selector="closeButtonTapped:" destination="av6-KY-cBT" eventType="touchUpInside" id="khg-Cb-70f"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Receiving Account" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LVC-da-btr">
-                                        <rect key="frame" x="67" y="20.5" width="323" height="25.5"/>
-                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
-                                        <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="150" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="74" estimatedRowHeight="74" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="1tl-kt-hoo" customClass="SelfSizedTableView" customModule="Decred_Wallet" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="67" width="414" height="150"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pAW-47-8yR">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="67"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y0F-Ju-bFE">
+                                                <rect key="frame" x="20" y="21" width="24" height="24"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="24" id="5rN-uw-Ast"/>
+                                                    <constraint firstAttribute="height" constant="24" id="so8-lD-K3M"/>
+                                                </constraints>
+                                                <color key="tintColor" red="0.23921568630000001" green="0.34509803919999998" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <state key="normal" image="ic_close"/>
+                                                <connections>
+                                                    <action selector="closeButtonTapped:" destination="av6-KY-cBT" eventType="touchUpInside" id="khg-Cb-70f"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Receiving Account" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LVC-da-btr">
+                                                <rect key="frame" x="66" y="21.5" width="328" height="23.5"/>
+                                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
+                                                <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                    </tableView>
+                                        <constraints>
+                                            <constraint firstItem="y0F-Ju-bFE" firstAttribute="top" secondItem="pAW-47-8yR" secondAttribute="top" constant="21" id="5lQ-ay-KBb"/>
+                                            <constraint firstAttribute="trailing" secondItem="LVC-da-btr" secondAttribute="trailing" constant="20" id="ER9-8f-7Z6"/>
+                                            <constraint firstItem="LVC-da-btr" firstAttribute="centerY" secondItem="y0F-Ju-bFE" secondAttribute="centerY" id="UTm-SE-XdV"/>
+                                            <constraint firstAttribute="bottom" secondItem="y0F-Ju-bFE" secondAttribute="bottom" constant="22" id="X7v-WA-P0C"/>
+                                            <constraint firstItem="y0F-Ju-bFE" firstAttribute="leading" secondItem="pAW-47-8yR" secondAttribute="leading" constant="20" id="XHA-vS-VoM"/>
+                                            <constraint firstItem="LVC-da-btr" firstAttribute="leading" secondItem="y0F-Ju-bFE" secondAttribute="trailing" constant="22" id="lNB-kj-muj"/>
+                                        </constraints>
+                                    </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gGa-cu-Ijj">
                                         <rect key="frame" x="0.0" y="65" width="414" height="1"/>
                                         <color key="backgroundColor" red="0.90196078430000004" green="0.91764705879999997" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -418,18 +428,20 @@
                                             <constraint firstAttribute="height" constant="1" id="ZBu-hu-oyn"/>
                                         </constraints>
                                     </view>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="150" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="74" estimatedRowHeight="74" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="1tl-kt-hoo" customClass="SelfSizedTableView" customModule="Decred_Wallet" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="67" width="414" height="150"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    </tableView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="LVC-da-btr" firstAttribute="centerY" secondItem="y0F-Ju-bFE" secondAttribute="centerY" id="30V-uo-7Hl"/>
-                                    <constraint firstAttribute="trailing" secondItem="LVC-da-btr" secondAttribute="trailing" constant="24" id="8cZ-Fk-aWt"/>
-                                    <constraint firstItem="LVC-da-btr" firstAttribute="leading" secondItem="y0F-Ju-bFE" secondAttribute="trailing" constant="22" id="Dg6-da-cz3"/>
+                                    <constraint firstItem="pAW-47-8yR" firstAttribute="top" secondItem="STI-8m-ryV" secondAttribute="top" id="48m-Ux-Jep"/>
                                     <constraint firstItem="1tl-kt-hoo" firstAttribute="leading" secondItem="STI-8m-ryV" secondAttribute="leading" id="EUh-6g-2uI"/>
-                                    <constraint firstItem="y0F-Ju-bFE" firstAttribute="leading" secondItem="STI-8m-ryV" secondAttribute="leading" constant="21" id="OGD-fN-B1w"/>
                                     <constraint firstAttribute="trailing" secondItem="1tl-kt-hoo" secondAttribute="trailing" id="TFs-0q-AJM"/>
-                                    <constraint firstItem="y0F-Ju-bFE" firstAttribute="top" secondItem="STI-8m-ryV" secondAttribute="top" constant="21" id="dVV-El-gwo"/>
+                                    <constraint firstItem="gGa-cu-Ijj" firstAttribute="top" secondItem="pAW-47-8yR" secondAttribute="bottom" constant="-2" id="dg7-Qx-iR7"/>
+                                    <constraint firstItem="pAW-47-8yR" firstAttribute="leading" secondItem="STI-8m-ryV" secondAttribute="leading" id="gwL-97-aAV"/>
+                                    <constraint firstAttribute="trailing" secondItem="pAW-47-8yR" secondAttribute="trailing" id="ibn-Hc-SWJ"/>
                                     <constraint firstAttribute="trailing" secondItem="gGa-cu-Ijj" secondAttribute="trailing" id="pKs-Me-YLb"/>
-                                    <constraint firstItem="1tl-kt-hoo" firstAttribute="top" secondItem="y0F-Ju-bFE" secondAttribute="bottom" constant="22" id="qW4-Fa-gVQ"/>
                                     <constraint firstItem="gGa-cu-Ijj" firstAttribute="leading" secondItem="STI-8m-ryV" secondAttribute="leading" id="rSS-Le-856"/>
                                     <constraint firstItem="1tl-kt-hoo" firstAttribute="top" secondItem="gGa-cu-Ijj" secondAttribute="bottom" constant="1" id="swZ-2B-yCo"/>
                                 </constraints>
@@ -454,6 +466,7 @@
                         <viewLayoutGuide key="safeArea" id="2BP-9v-Ax9"/>
                     </view>
                     <connections>
+                        <outlet property="headerContainerView" destination="pAW-47-8yR" id="aBM-it-AYQ"/>
                         <outlet property="titleLabel" destination="LVC-da-btr" id="Qy3-gX-SOx"/>
                         <outlet property="walletsTableView" destination="1tl-kt-hoo" id="SUl-Zx-Ab0"/>
                     </connections>
