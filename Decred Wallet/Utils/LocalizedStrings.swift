@@ -284,6 +284,9 @@ struct LocalizedStrings {
     static let copyOnTap = NSLocalizedString("copyOnTap", comment: "")
     static let walletAddrCopied = NSLocalizedString("walletAddrCopied", comment: "")
     static let genNewAddr = NSLocalizedString("genNewAddr", comment: "")
+    static let receiveDCR = NSLocalizedString("receiveDCR", comment: "")
+    static let receivingAccount = NSLocalizedString("receivingAccount", comment: "")
+    static let receiveInfo = NSLocalizedString("receiveInfo", comment: "")
     
     /* Wallets -> Add new wallet */
     static let createOrImportWallet = NSLocalizedString("createOrImportWallet", comment: "")

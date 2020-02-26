@@ -180,7 +180,7 @@ class OverviewViewController: UIViewController {
     
     func updateSyncStatusIndicatorAndLabel() {
         if SyncManager.shared.isSynced {
-            self.syncStatusImage.image = UIImage(named: "ic_checkmark")
+            self.syncStatusImage.image = UIImage(named: "ic_checkmark_round")
             self.syncStatusLabel.text = LocalizedStrings.walletSynced
         } else if SyncManager.shared.isSyncing {
             self.syncStatusImage.image = UIImage(named: "ic_syncing")

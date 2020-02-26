@@ -17,13 +17,19 @@ class Wallet: NSObject {
     private(set) var isSeedBackedUp: Bool = false
     private(set) var displayAccounts: Bool = false
     
-    init(_ wallet: DcrlibwalletWallet) {
+    init(_ wallet: DcrlibwalletWallet, accountsFilterFn: ((DcrlibwalletAccount) -> Bool)? = nil) {
         self.id = wallet.id_
         self.name = wallet.name
         self.balance = "\((Decimal(wallet.totalWalletBalance()) as NSDecimalNumber).round(8)) DCR"
         self.accounts = wallet.accounts(confirmations: 0)
         self.isSeedBackedUp = wallet.seed.isEmpty
         self.displayAccounts = false
+
+        if accountsFilterFn == nil {
+            self.accounts = wallet.accounts(confirmations: 0)
+        } else {
+            self.accounts = wallet.accounts(confirmations: 0).filter(accountsFilterFn!)
+        }
     }
     
     func toggleAccountsDisplay() {
