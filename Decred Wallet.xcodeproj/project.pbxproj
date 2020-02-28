@@ -59,9 +59,9 @@
 		ADDC42DA2396591500AD9363 /* SendingInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADDC42D82396591500AD9363 /* SendingInfoTableViewCell.xib */; };
 		ADDC42DC23965C9000AD9363 /* ConfirmToSendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDC42DB23965C9000AD9363 /* ConfirmToSendViewController.swift */; };
 		B164982429AEDD7AF8C8782C /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9714AB438E597D403032748 /* Pods_Decred_Wallet.framework */; };
-		B32EB42E23EEA24000E43D4F /* AccountDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32EB42D23EEA24000E43D4F /* AccountDetailsViewController.swift */; };
 		B31193CB23EA6BA80005E54E /* WalletAccountSelectorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31193C923EA6BA80005E54E /* WalletAccountSelectorTableViewCell.swift */; };
 		B31193CC23EA6BA80005E54E /* WalletAccountSelectorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B31193CA23EA6BA80005E54E /* WalletAccountSelectorTableViewCell.xib */; };
+		B32EB42E23EEA24000E43D4F /* AccountDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32EB42D23EEA24000E43D4F /* AccountDetailsViewController.swift */; };
 		B3456D2523D91CF600B04860 /* RoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3456D2423D91CF600B04860 /* RoundedView.swift */; };
 		B34A2F8F23E8E90500B8BC01 /* WalletSyncDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34A2F8E23E8E90500B8BC01 /* WalletSyncDetailsTableViewCell.swift */; };
 		B34A2F9123E8ED1500B8BC01 /* MultiWalletSyncDetailsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34A2F9023E8ED1500B8BC01 /* MultiWalletSyncDetailsLoader.swift */; };
@@ -236,9 +236,9 @@
 		ADDC42D82396591500AD9363 /* SendingInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SendingInfoTableViewCell.xib; sourceTree = "<group>"; };
 		ADDC42DB23965C9000AD9363 /* ConfirmToSendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmToSendViewController.swift; sourceTree = "<group>"; };
 		B107091A1D996651AB5D8891 /* Pods-Decred Wallet.testnet debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.testnet debug.xcconfig"; path = "Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.testnet debug.xcconfig"; sourceTree = "<group>"; };
-		B32EB42D23EEA24000E43D4F /* AccountDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsViewController.swift; sourceTree = "<group>"; };
 		B31193C923EA6BA80005E54E /* WalletAccountSelectorTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletAccountSelectorTableViewCell.swift; sourceTree = "<group>"; };
 		B31193CA23EA6BA80005E54E /* WalletAccountSelectorTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WalletAccountSelectorTableViewCell.xib; sourceTree = "<group>"; };
+		B32EB42D23EEA24000E43D4F /* AccountDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsViewController.swift; sourceTree = "<group>"; };
 		B3456D2423D91CF600B04860 /* RoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedView.swift; sourceTree = "<group>"; };
 		B34A2F8E23E8E90500B8BC01 /* WalletSyncDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSyncDetailsTableViewCell.swift; sourceTree = "<group>"; };
 		B34A2F9023E8ED1500B8BC01 /* MultiWalletSyncDetailsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiWalletSyncDetailsLoader.swift; sourceTree = "<group>"; };
@@ -503,10 +503,10 @@
 			children = (
 				ADDC42CC2396526A00AD9363 /* Cells */,
 				DDCF259B22B8A361005FCBB9 /* Send.storyboard */,
+				AD5F581C2391049700DE3F54 /* SendFundsViewController.swift */,
 				B3A3EF912295956300008A4E /* SendViewController.swift */,
 				B3B46A54228F0F7B00A68EDD /* ConfirmToSendFundViewController.swift */,
 				B3B46A68228F0F7B00A68EDD /* SendCompletedViewController.swift */,
-				AD5F581C2391049700DE3F54 /* SendFundsViewController.swift */,
 				ADDC42C0239599C700AD9363 /* WalletChooserTableViewController.swift */,
 				ADDC42C223959C8100AD9363 /* SlideInPresentationManager.swift */,
 				ADDC42DB23965C9000AD9363 /* ConfirmToSendViewController.swift */,
@@ -941,14 +941,11 @@
 				B3C0D4B223E0DB56002D984F /* CustomDialogs.storyboard in Resources */,
 				B3B46A41228F0F6700A68EDD /* dcr-logo.png in Resources */,
 				105836B923EACD390030FDF2 /* Receive.storyboard in Resources */,
-				ADDC42C72395A7F900AD9363 /* WalletInfoTableViewCell.xib in Resources */,
 				B3B46A02228F0F2700A68EDD /* SourceSansPro-SemiBoldItalic.ttf in Resources */,
 				100B122B23E9EEAC005636A7 /* Transactions.storyboard in Resources */,
 				B3B46A0C228F0F2700A68EDD /* SourceSansPro-Italic.ttf in Resources */,
 				DDCF259222B89D96005FCBB9 /* WalletSetup.storyboard in Resources */,
-				DDCF259422B8A269005FCBB9 /* TransactionTableViewCell.xib in Resources */,
 				ADDC42D02396537D00AD9363 /* SimpleInfoTableViewCell.xib in Resources */,
-				DDCF25A722B8A450005FCBB9 /* TransactiontOutputDetailsCell.xib in Resources */,
 				B3B46A40228F0F6700A68EDD /* bg-button.png in Resources */,
 				B3B46A3F228F0F6700A68EDD /* bg-button@3x.png in Resources */,
 				B3B46A01228F0F2700A68EDD /* SourceSansPro-BlackItalic.ttf in Resources */,
@@ -1085,7 +1082,6 @@
 				10C6611023EC587B00754DED /* AccountSelectorTableViewCell.swift in Sources */,
 				B3D474DF23E55B5D00B6E305 /* WalletSettings.swift in Sources */,
 				B3A3EF8B22937B8800008A4E /* Settings.swift in Sources */,
-				B3B46AC8228F120700A68EDD /* TransactionDetailCell.swift in Sources */,
 				ADDC42C1239599C700AD9363 /* WalletChooserTableViewController.swift in Sources */,
 				B3B46A1B228F0F2700A68EDD /* SecurityViewController.swift in Sources */,
 				102D724B23ED5271002DCAF2 /* TransactionDetailCell.swift in Sources */,
