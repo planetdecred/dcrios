@@ -11,10 +11,7 @@ import Dcrlibwallet
 
 class ReceiveViewController: UIViewController {
     @IBOutlet weak var moreMenuButton: UIButton!
-    @IBOutlet weak var selectedAccountView: UIView!
-    @IBOutlet weak var accountNameLabel: UILabel!
-    @IBOutlet weak var walletNameLabel: UILabel!
-    @IBOutlet weak var totalAccountBalanceLabel: UILabel!
+    @IBOutlet weak var selectedAccountView: WalletAccountView!
     @IBOutlet weak var separatorView: UIView!
     @IBOutlet weak var addressQRCodeContainerView: UIView!
     @IBOutlet weak var addressQRCodeImageView: UIImageView!
@@ -31,28 +28,17 @@ class ReceiveViewController: UIViewController {
         self.setupUI()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.displayAddressForFirstWalletAccount()
-    }
-
     func setupUI() {
+        self.separatorView.isHidden = true
+        self.addressQRCodeContainerView.isHidden = true
+        self.walletAddressLabel.isHidden = true
+        self.tapToCopyContainerView.isHidden = true
+        
         self.addressQRCodeImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.copyAddress)))
         self.walletAddressLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.copyAddress)))
-        self.selectedAccountView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.showAccountSelectorDialog)))
-
-        self.tapToCopyContainerView.isHidden = true
-        self.walletAddressLabel.isHidden = true
-        self.addressQRCodeContainerView.isHidden = true
-        self.separatorView.isHidden = true
-    }
-
-    private func displayAddressForFirstWalletAccount() {
-        let accountsFilterFn: (DcrlibwalletAccount) -> Bool = { $0.totalBalance > 0 || $0.name != "imported" }
-        guard let wallet = WalletLoader.shared.wallets.map({ Wallet.init($0, accountsFilterFn: accountsFilterFn) }).first,
-            let account = wallet.accounts.first else { return }
-
-        self.updateSelectedAccount(wallet.id, account)
+        
+        self.selectedAccountView.onAccountSelectionChanged = self.updateSelectedAccount
+        self.selectedAccountView.selectFirstWalletAccount()
     }
 
     @objc func copyAddress() {
@@ -62,27 +48,11 @@ class ReceiveViewController: UIViewController {
         }
     }
 
-    @objc func showAccountSelectorDialog(_ sender: Any) {
-        AccountSelectorDialog.show(sender: self,
-                                 title: LocalizedStrings.receivingAccount,
-                                 selectedWallet: selectedWallet,
-                                 selectedAccount: self.selectedAccount,
-                                 callback: self.updateSelectedAccount)
-    }
-
-    func updateSelectedAccount(_ selectedWalletId: Int, _ selectedAccount: DcrlibwalletAccount) {
-        guard let wallet = WalletLoader.shared.multiWallet.wallet(withID: selectedWalletId) else { return }
-
-        self.selectedWallet = wallet
+    func updateSelectedAccount(_ selectedWallet: DcrlibwalletWallet, _ selectedAccount: DcrlibwalletAccount) {
+        self.selectedWallet = selectedWallet
         self.selectedAccount = selectedAccount
 
-        self.walletNameLabel.text = wallet.name
-        self.accountNameLabel.text = selectedAccount.name
-
-        let totalBalanceRoundedOff = (Decimal(selectedAccount.dcrTotalBalance) as NSDecimalNumber).round(8)
-        self.totalAccountBalanceLabel.attributedText = Utils.getAttributedString(str: "\(totalBalanceRoundedOff)", siz: 15.0, TexthexColor: UIColor.appColors.darkBlue)
-
-        if wallet.isRestored && !wallet.isSynced() {
+        if !selectedWallet.hasDiscoveredAccounts {
             self.syncInProgressLabel.isHidden = false
             self.moreMenuButton.isEnabled = false
             self.shareButtonContainerView.isHidden = true
@@ -101,9 +71,8 @@ class ReceiveViewController: UIViewController {
         self.walletAddressLabel.isHidden = false
         self.separatorView.isHidden = false
 
-        self.displayAddressAndQRCode(receiveAddress: wallet.currentAddress(selectedAccount.number, error: nil))
+        self.displayAddressAndQRCode(receiveAddress: selectedWallet.currentAddress(selectedAccount.number, error: nil))
     }
-    
 
     private func displayAddressAndQRCode(receiveAddress: String) {
         DispatchQueue.main.async {

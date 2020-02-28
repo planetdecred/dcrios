@@ -112,7 +112,14 @@ extension AccountSelectorDialog: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedWallet = self.wallets[indexPath.section]
+        let selectedAccount = selectedWallet.accounts[indexPath.row]
+        
+        // invoke callback asynchronously to avoid delaying modal view dismissal.
+        DispatchQueue.main.async {
+            self.callback(selectedWallet.id, selectedAccount)
+        }
+        
         self.dismissView()
-        self.callback(self.wallets[indexPath.section].id, self.wallets[indexPath.section].accounts[indexPath.row])
     }
 }
