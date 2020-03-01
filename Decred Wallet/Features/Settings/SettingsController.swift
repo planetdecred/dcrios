@@ -72,7 +72,11 @@ class SettingsController: UITableViewController  {
         self.navigationController?.navigationBar.topItem?.rightBarButtonItem = nil
         
         if self.isModal {
-            self.addNavigationBackButton()
+            let closeButton = UIBarButtonItem(image: UIImage(named: "ic_close"),
+                                              style: .done,
+                                              target: self,
+                                              action: #selector(self.dismissView))
+            self.navigationItem.leftBarButtonItem = closeButton
         }
         
         connect_peer_ip?.text = Settings.readStringValue(for: DcrlibwalletSpvPersistentPeerAddressesConfigKey)

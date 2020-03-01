@@ -17,6 +17,8 @@ class Wallet: NSObject {
     private(set) var isSeedBackedUp: Bool = false
     private(set) var displayAccounts: Bool = false
     
+    private var accountsFilterFn: ((DcrlibwalletAccount) -> Bool)?
+    
     init(_ wallet: DcrlibwalletWallet, accountsFilterFn: ((DcrlibwalletAccount) -> Bool)? = nil) {
         self.id = wallet.id_
         self.name = wallet.name
@@ -25,10 +27,9 @@ class Wallet: NSObject {
         self.isSeedBackedUp = wallet.seed.isEmpty
         self.displayAccounts = false
 
-        if accountsFilterFn == nil {
-            self.accounts = wallet.accounts(confirmations: 0)
-        } else {
-            self.accounts = wallet.accounts(confirmations: 0).filter(accountsFilterFn!)
+        self.accountsFilterFn = accountsFilterFn
+        if accountsFilterFn != nil {
+            self.accounts = self.accounts.filter(accountsFilterFn!)
         }
     }
     
@@ -40,6 +41,10 @@ class Wallet: NSObject {
         guard let wallet = WalletLoader.shared.multiWallet.wallet(withID: self.id) else {
             return
         }
+        
         self.accounts = wallet.accounts(confirmations: 0)
+        if self.accountsFilterFn != nil {
+            self.accounts = self.accounts.filter(self.accountsFilterFn!)
+        }
     }
 }

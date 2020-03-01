@@ -15,6 +15,7 @@ import Dcrlibwallet
     @IBOutlet weak var accountBalanceLabel: UILabel!
     
     @IBInspectable var accountSelectorPrompt: String?
+    @IBInspectable var localizeAccountSelectorPrompt: Bool = true
     
     var selectedWallet: DcrlibwalletWallet? {
         didSet {
@@ -49,11 +50,12 @@ import Dcrlibwallet
             let stackView = contentView.subviews.first as? UIStackView else { return }
         
         stackView.arrangedSubviews.forEach({ self.addArrangedSubview($0) })
+        self.axis = stackView.axis
         self.alignment = stackView.alignment
         self.distribution = stackView.distribution
         self.spacing = stackView.spacing
         self.isLayoutMarginsRelativeArrangement = true
-        self.layoutMargins = contentView.layoutMargins
+        self.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
         
         NSLayoutConstraint.activate([
             self.heightAnchor.constraint(equalToConstant: contentView.frame.height)
@@ -65,11 +67,16 @@ import Dcrlibwallet
     @objc func showAccountSelectorDialog(_ sender: Any) {
         guard let topVC = AppDelegate.shared.topViewController() else { return }
         
+        var accountSelectorDialogTitle = self.accountSelectorPrompt ?? "Select account"
+        if self.localizeAccountSelectorPrompt && self.accountSelectorPrompt != nil {
+            accountSelectorDialogTitle = NSLocalizedString(self.accountSelectorPrompt!, comment: "")
+        }
+        
         AccountSelectorDialog.show(sender: topVC,
-                                 title: LocalizedStrings.receivingAccount,
-                                 selectedWallet: selectedWallet,
-                                 selectedAccount: self.selectedAccount,
-                                 callback: self.updateSelectedAccount)
+                                   title: accountSelectorDialogTitle,
+                                   selectedWallet: self.selectedWallet,
+                                   selectedAccount: self.selectedAccount,
+                                   callback: self.updateSelectedAccount)
     }
 
     func updateSelectedAccount(_ selectedWalletId: Int, _ selectedAccount: DcrlibwalletAccount) {

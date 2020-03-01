@@ -52,8 +52,8 @@ class RestoreExistingWalletViewController: UIViewController {
         )
         #endif
         
-        self.registerObserverForKeyboardNotification()
         self.hideKeyboardWhenTappedAround()
+        self.observeKeyboardShowHide(delegate: self)
     }
     
     // following code will only be included if compiling for testnet
@@ -63,56 +63,6 @@ class RestoreExistingWalletViewController: UIViewController {
         self.requestSpendingSecurityCodeAndRestoreWallet(with: testSeed)
     }
     #endif
-    
-    func registerObserverForKeyboardNotification() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(onKeyboardWillShow),
-                                               name: UIResponder.keyboardWillShowNotification,
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(onKeyboardWillHide),
-                                               name: UIResponder.keyboardWillHideNotification,
-                                               object: nil)
-    }
-    
-    deinit {
-        print("unregistering observers for keyboard notifications")
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object:nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object:nil)
-    }
-    
-    @objc func onKeyboardWillShow(_ notification: Notification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue,
-            let window = self.view.window?.frame {
-            // Minusing keyboard height from window height
-            self.view.frame = CGRect(x: self.view.frame.origin.x,
-                                     y: self.view.frame.origin.y,
-                                     width: self.view.frame.width,
-                                     height: window.origin.y + window.height - keyboardSize.height)
-            
-            // hide the confirm button and allow the tableview occupy its height
-            self.tableViewFooterHeightCosnt.constant = 0
-            self.btnConfirm.isHidden = true
-            // add space at the bottom of table so that the seed word input fields do not touch the keyboard
-            self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
-        }
-    }
-    
-    @objc func onKeyboardWillHide(_ notification: Notification) {
-        if let window = self.view.window?.frame {
-            // Resize main view to window height
-            self.view.frame = CGRect(x: self.view.frame.origin.x,
-                                     y: self.view.frame.origin.y,
-                                     width: self.view.frame.width,
-                                     height: window.origin.y + window.height)
-            
-           // display the confirm button and retain its height
-            self.tableViewFooterHeightCosnt.constant = 72
-            self.btnConfirm.isHidden = false
-            // remove space at the bottom of table that was added when keyboard was displayed
-            self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
-        }
-    }
     
     func hideKeyboardWhenTappedAround() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
@@ -251,5 +201,48 @@ extension RestoreExistingWalletViewController: UITableViewDataSource, UITableVie
 extension RestoreExistingWalletViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.wordSelectionDropDownContainer.isHidden = true
+    }
+}
+
+extension RestoreExistingWalletViewController: KeyboardVisibilityDelegate {
+    @objc func onKeyboardWillShowOrHide(_ notification: Notification) {
+        if notification.name == UIResponder.keyboardWillShowNotification {
+            self.onKeyboardWillShow(notification)
+        } else {
+            self.onKeyboardWillHide()
+        }
+    }
+    
+    func onKeyboardWillShow(_ notification: Notification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue,
+            let window = self.view.window?.frame {
+            // Minusing keyboard height from window height
+            self.view.frame = CGRect(x: self.view.frame.origin.x,
+                                     y: self.view.frame.origin.y,
+                                     width: self.view.frame.width,
+                                     height: window.origin.y + window.height - keyboardSize.height)
+            
+            // hide the confirm button and allow the tableview occupy its height
+            self.tableViewFooterHeightCosnt.constant = 0
+            self.btnConfirm.isHidden = true
+            // add space at the bottom of table so that the seed word input fields do not touch the keyboard
+            self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
+        }
+    }
+    
+    func onKeyboardWillHide() {
+        if let window = self.view.window?.frame {
+            // Resize main view to window height
+            self.view.frame = CGRect(x: self.view.frame.origin.x,
+                                     y: self.view.frame.origin.y,
+                                     width: self.view.frame.width,
+                                     height: window.origin.y + window.height)
+            
+           // display the confirm button and retain its height
+            self.tableViewFooterHeightCosnt.constant = 72
+            self.btnConfirm.isHidden = false
+            // remove space at the bottom of table that was added when keyboard was displayed
+            self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
+        }
     }
 }

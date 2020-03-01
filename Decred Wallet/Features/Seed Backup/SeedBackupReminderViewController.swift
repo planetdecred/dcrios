@@ -73,6 +73,6 @@ class SeedBackupReminderViewController: UIViewController {
     }
     
     @IBAction func backAction(_ sender: UIButton) {
-        navigateToBackScreen()
+        self.dismissView()
     }
 }

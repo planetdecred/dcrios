@@ -20,11 +20,6 @@ class SeedBackupVerifyViewController: UIViewController {
     var seedWordsGroupedByThree: [[String]] = []
     var selectedWords: [String] = []
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        addNavigationBackButton()
-    }
-
     func prepareSeedForVerification(seedToVerify: String, walletID: Int, seedBackupCompleted: (() -> Void)?) {
         self.walletID = walletID
         self.seedBackupCompleted = seedBackupCompleted
@@ -64,7 +59,7 @@ class SeedBackupVerifyViewController: UIViewController {
     }
 
     @IBAction func backbtn(_ sender: Any) {
-        navigateToBackScreen()
+        self.dismissView()
     }
 
     @IBAction func onConfirm(_ sender: Any) {

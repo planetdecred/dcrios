@@ -14,6 +14,6 @@ class SeedBackupSuccessViewController: UIViewController {
     }
 
     @IBAction func backToWalletsTapped(_ sender: Any) {
-        navigateToBackScreen()
+        self.dismissView()
     }
 }

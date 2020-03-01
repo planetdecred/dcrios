@@ -41,6 +41,20 @@ class RoundedView: UIView {
         }
     }
     
+    @IBInspectable var borderColor: UIColor? {
+        didSet {
+            self.layer.borderColor = self.borderColor?.cgColor
+            self.setNeedsDisplay()
+        }
+    }
+    
+    @IBInspectable var borderWidth: CGFloat = 0 {
+        didSet {
+            self.layer.borderWidth = self.borderWidth
+            self.setNeedsDisplay()
+        }
+    }
+    
     @IBInspectable var shadowColor: UIColor = .black {
         didSet {
             self.redrawDropShadow()

@@ -245,11 +245,12 @@ class SendViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         self.navigationItem.title = LocalizedStrings.send
         self.navigationItem.rightBarButtonItems = [self.overflowNavBarButton]
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "left-arrow"),
                                                                 style: .done, target: self,
-                                                                action: #selector(navigateToBackScreen))
+                                                                action: #selector(self.dismissView))
         
         self.checkClipboardForValidAddress()
         self.setupAccountDropdowns()
