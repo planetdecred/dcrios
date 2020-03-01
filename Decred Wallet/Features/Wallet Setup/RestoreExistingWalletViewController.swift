@@ -238,7 +238,7 @@ extension RestoreExistingWalletViewController: KeyboardVisibilityDelegate {
                                      width: self.view.frame.width,
                                      height: window.origin.y + window.height)
             
-           // display the confirm button and retain its height
+            // display the confirm button and retain its height
             self.tableViewFooterHeightCosnt.constant = 72
             self.btnConfirm.isHidden = false
             // remove space at the bottom of table that was added when keyboard was displayed

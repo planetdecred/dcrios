@@ -39,7 +39,7 @@ extension UITextView {
 }
 
 extension UITextField {
-
+    
     /// Adds a done button on textview to hide the keyboard. Useful when showing number pad.
     @discardableResult func addDoneButton() -> UITextField {
         let keyboardToolbar = UIToolbar()

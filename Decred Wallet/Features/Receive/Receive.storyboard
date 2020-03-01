@@ -76,6 +76,10 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GdJ-3u-Cn7" customClass="WalletAccountView" customModule="Decred_Wallet" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="398" height="88"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="localizeAccountSelectorPrompt" value="YES"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="accountSelectorPrompt" value="receivingAccount"/>
+                                                        </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ELj-zD-ScR">
                                                         <rect key="frame" x="0.0" y="90" width="398" height="1"/>

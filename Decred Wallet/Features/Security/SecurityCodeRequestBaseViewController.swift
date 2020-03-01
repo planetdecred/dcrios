@@ -29,29 +29,12 @@ class SecurityCodeRequestBaseViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardNotification(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        self.observeKeyboardShowHide(delegate: self)
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.callbacks.onViewHeightChanged?(self.containerView!.frame.size.height)
-    }
-
-    @objc func keyboardNotification(notification: NSNotification) {
-        if let userInfo = notification.userInfo {
-            let endFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
-            let endFrameY = endFrame?.origin.y ?? 0
-            DispatchQueue.main.async {
-                UIView.animate(withDuration: 0.3) {
-                    if endFrameY >= UIScreen.main.bounds.size.height {
-                        self.stackViewBottomConstraint?.constant = 0.0
-                    } else {
-                        self.stackViewBottomConstraint?.constant = endFrame?.size.height ?? 0.0
-                    }
-                    self.view.layoutIfNeeded()
-                }
-            }
-        }
     }
 
     func showError(text: String) {
@@ -70,5 +53,24 @@ extension SecurityCodeRequestBaseViewController: InputDialogDelegate {
     
     func displayError(errorMessage: String) {
         self.showError(text: errorMessage)
+    }
+}
+
+extension SecurityCodeRequestBaseViewController: KeyboardVisibilityDelegate {
+    @objc func onKeyboardWillShowOrHide(_ notification: Notification) {
+        if let userInfo = notification.userInfo {
+            let endFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+            let endFrameY = endFrame?.origin.y ?? 0
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.3) {
+                    if endFrameY >= UIScreen.main.bounds.size.height {
+                        self.stackViewBottomConstraint?.constant = 0.0
+                    } else {
+                        self.stackViewBottomConstraint?.constant = endFrame?.size.height ?? 0.0
+                    }
+                    self.view.layoutIfNeeded()
+                }
+            }
+        }
     }
 }
