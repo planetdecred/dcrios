@@ -44,11 +44,6 @@
 		25A4331C2373D0330018FFCF /* SyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A4331B2373D0330018FFCF /* SyncManager.swift */; };
 		25E63F4E23312B2C009CD53E /* NavMenuFloatingButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E63F4D23312B2B009CD53E /* NavMenuFloatingButtons.swift */; };
 		AD24C23D2343E445009583C9 /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD24C23C2343E445009583C9 /* NotificationsManager.swift */; };
-		AD42405C23B79AD100B88A0A /* SendingDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD42405B23B79AD100B88A0A /* SendingDetails.swift */; };
-		AD5F581D2391049700DE3F54 /* SendFundsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5F581C2391049700DE3F54 /* SendFundsViewController.swift */; };
-		AD9F64C923B80BBD008AFE07 /* ConfirmToSendPasswordEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9F64C823B80BBD008AFE07 /* ConfirmToSendPasswordEntryViewController.swift */; };
-		ADDC42C323959C8100AD9363 /* SlideInPresentationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDC42C223959C8100AD9363 /* SlideInPresentationManager.swift */; };
-		ADDC42DC23965C9000AD9363 /* ConfirmToSendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDC42DB23965C9000AD9363 /* ConfirmToSendViewController.swift */; };
 		B164982429AEDD7AF8C8782C /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9714AB438E597D403032748 /* Pods_Decred_Wallet.framework */; };
 		B32EB42E23EEA24000E43D4F /* AccountDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32EB42D23EEA24000E43D4F /* AccountDetailsViewController.swift */; };
 		B3456D2523D91CF600B04860 /* RoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3456D2423D91CF600B04860 /* RoundedView.swift */; };
@@ -67,7 +62,7 @@
 		B3A3EF8622936BFE00008A4E /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A3EF8522936BFE00008A4E /* Reachability.swift */; };
 		B3A3EF88229375D100008A4E /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A3EF87229375D100008A4E /* Date.swift */; };
 		B3A3EF8B22937B8800008A4E /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A3EF8A22937B8800008A4E /* Settings.swift */; };
-		B3A3EF922295956300008A4E /* SendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A3EF912295956300008A4E /* SendViewController.swift */; };
+		B3A3EF922295956300008A4E /* SendFundsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A3EF912295956300008A4E /* SendFundsViewController.swift */; };
 		B3A8E80A23E593720094957B /* CheckableListOptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3A8E80923E593720094957B /* CheckableListOptionTableViewCell.xib */; };
 		B3B46993228F0C2E00A68EDD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46992228F0C2E00A68EDD /* AppDelegate.swift */; };
 		B3B4699A228F0C2E00A68EDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3B46999228F0C2E00A68EDD /* Assets.xcassets */; };
@@ -132,7 +127,6 @@
 		B3B46A9C228F0F7D00A68EDD /* ServerSetTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46A63228F0F7B00A68EDD /* ServerSetTableViewController.swift */; };
 		B3B46A9D228F0F7D00A68EDD /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46A64228F0F7B00A68EDD /* HelpViewController.swift */; };
 		B3B46A9F228F0F7D00A68EDD /* WalletLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46A66228F0F7B00A68EDD /* WalletLogViewController.swift */; };
-		B3B46AA0228F0F7D00A68EDD /* SendCompletedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46A68228F0F7B00A68EDD /* SendCompletedViewController.swift */; };
 		B3B46AA6228F0F7D00A68EDD /* NetworkModeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46A6E228F0F7B00A68EDD /* NetworkModeTableViewController.swift */; };
 		B3B46AA7228F0F7D00A68EDD /* CurrencyConversionOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46A6F228F0F7B00A68EDD /* CurrencyConversionOptionsViewController.swift */; };
 		B3B46AAC228F0F7D00A68EDD /* RecoveryWalletSeedWordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B46A75228F0F7C00A68EDD /* RecoveryWalletSeedWordCell.swift */; };
@@ -212,11 +206,6 @@
 		6A0625AB1C6ACD2EC77F544F /* Pods-Decred Wallet.mainnet debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.mainnet debug.xcconfig"; path = "Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.mainnet debug.xcconfig"; sourceTree = "<group>"; };
 		A9714AB438E597D403032748 /* Pods_Decred_Wallet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Decred_Wallet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD24C23C2343E445009583C9 /* NotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
-		AD42405B23B79AD100B88A0A /* SendingDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendingDetails.swift; sourceTree = "<group>"; };
-		AD5F581C2391049700DE3F54 /* SendFundsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendFundsViewController.swift; sourceTree = "<group>"; };
-		AD9F64C823B80BBD008AFE07 /* ConfirmToSendPasswordEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmToSendPasswordEntryViewController.swift; sourceTree = "<group>"; };
-		ADDC42C223959C8100AD9363 /* SlideInPresentationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideInPresentationManager.swift; sourceTree = "<group>"; };
-		ADDC42DB23965C9000AD9363 /* ConfirmToSendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmToSendViewController.swift; sourceTree = "<group>"; };
 		B107091A1D996651AB5D8891 /* Pods-Decred Wallet.testnet debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.testnet debug.xcconfig"; path = "Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.testnet debug.xcconfig"; sourceTree = "<group>"; };
 		B32EB42D23EEA24000E43D4F /* AccountDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsViewController.swift; sourceTree = "<group>"; };
 		B3456D2423D91CF600B04860 /* RoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedView.swift; sourceTree = "<group>"; };
@@ -235,7 +224,7 @@
 		B3A3EF8522936BFE00008A4E /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		B3A3EF87229375D100008A4E /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		B3A3EF8A22937B8800008A4E /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Settings.swift; path = ../../Utils/Settings.swift; sourceTree = "<group>"; };
-		B3A3EF912295956300008A4E /* SendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendViewController.swift; sourceTree = "<group>"; };
+		B3A3EF912295956300008A4E /* SendFundsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendFundsViewController.swift; sourceTree = "<group>"; };
 		B3A8E80923E593720094957B /* CheckableListOptionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CheckableListOptionTableViewCell.xib; sourceTree = "<group>"; };
 		B3B4698F228F0C2D00A68EDD /* Decred Wallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Decred Wallet.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3B46992228F0C2E00A68EDD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -302,7 +291,6 @@
 		B3B46A63228F0F7B00A68EDD /* ServerSetTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerSetTableViewController.swift; sourceTree = "<group>"; };
 		B3B46A64228F0F7B00A68EDD /* HelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		B3B46A66228F0F7B00A68EDD /* WalletLogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletLogViewController.swift; sourceTree = "<group>"; };
-		B3B46A68228F0F7B00A68EDD /* SendCompletedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendCompletedViewController.swift; sourceTree = "<group>"; };
 		B3B46A6E228F0F7B00A68EDD /* NetworkModeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkModeTableViewController.swift; sourceTree = "<group>"; };
 		B3B46A6F228F0F7B00A68EDD /* CurrencyConversionOptionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyConversionOptionsViewController.swift; sourceTree = "<group>"; };
 		B3B46A75228F0F7C00A68EDD /* RecoveryWalletSeedWordCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecoveryWalletSeedWordCell.swift; sourceTree = "<group>"; };
@@ -476,14 +464,8 @@
 			isa = PBXGroup;
 			children = (
 				DDCF259B22B8A361005FCBB9 /* Send.storyboard */,
-				AD5F581C2391049700DE3F54 /* SendFundsViewController.swift */,
-				B3A3EF912295956300008A4E /* SendViewController.swift */,
+				B3A3EF912295956300008A4E /* SendFundsViewController.swift */,
 				B3B46A54228F0F7B00A68EDD /* ConfirmToSendFundsViewController.swift */,
-				B3B46A68228F0F7B00A68EDD /* SendCompletedViewController.swift */,
-				ADDC42C223959C8100AD9363 /* SlideInPresentationManager.swift */,
-				ADDC42DB23965C9000AD9363 /* ConfirmToSendViewController.swift */,
-				AD42405B23B79AD100B88A0A /* SendingDetails.swift */,
-				AD9F64C823B80BBD008AFE07 /* ConfirmToSendPasswordEntryViewController.swift */,
 			);
 			path = Send;
 			sourceTree = "<group>";
@@ -1028,7 +1010,6 @@
 				B3B469FE228F0F2700A68EDD /* Button.swift in Sources */,
 				B3B46A15228F0F2700A68EDD /* UIImageView.swift in Sources */,
 				B3B46A19228F0F2700A68EDD /* StartScreenViewController.swift in Sources */,
-				B3B46AA0228F0F7D00A68EDD /* SendCompletedViewController.swift in Sources */,
 				B3B46A20228F0F2700A68EDD /* PinPasswordStrength.swift in Sources */,
 				2557E18B2355C9F000B6A1B7 /* CustomTabMenuView.swift in Sources */,
 				B3D474E423E57DA200B6E305 /* CheckableListOptionTableViewCell.swift in Sources */,
@@ -1082,7 +1063,6 @@
 				B36EFD362298617C002753B2 /* UIButton.swift in Sources */,
 				B3456D2523D91CF600B04860 /* RoundedView.swift in Sources */,
 				B3B469FC228F0F2700A68EDD /* String.swift in Sources */,
-				AD5F581D2391049700DE3F54 /* SendFundsViewController.swift in Sources */,
 				B3B46A9D228F0F7D00A68EDD /* HelpViewController.swift in Sources */,
 				10B7818223F066DA00AD2709 /* TransactionInputDetailCell.swift in Sources */,
 				B3B46A9A228F0F7D00A68EDD /* SettingsController.swift in Sources */,
@@ -1094,7 +1074,7 @@
 				250D77BD23F2BF0F00CDC256 /* DecredAddressURI.swift in Sources */,
 				B3A3EF88229375D100008A4E /* Date.swift in Sources */,
 				B3B46A21228F0F2700A68EDD /* SecurityCodeRequestBaseViewController.swift in Sources */,
-				B3A3EF922295956300008A4E /* SendViewController.swift in Sources */,
+				B3A3EF922295956300008A4E /* SendFundsViewController.swift in Sources */,
 				B3E727CA23DD4AE7003B06B4 /* WalletAccountTableViewCell.swift in Sources */,
 				B3E727CE23DE0FCC003B06B4 /* Wallet.swift in Sources */,
 				B3B46A9C228F0F7D00A68EDD /* ServerSetTableViewController.swift in Sources */,
@@ -1105,7 +1085,6 @@
 				B3B46AB6228F0F7D00A68EDD /* Storyboard.swift in Sources */,
 				B3B46A37228F0F2700A68EDD /* SpendingPinOrPassword.swift in Sources */,
 				25A4331C2373D0330018FFCF /* SyncManager.swift in Sources */,
-				AD42405C23B79AD100B88A0A /* SendingDetails.swift in Sources */,
 				B3B46AAC228F0F7D00A68EDD /* RecoveryWalletSeedWordCell.swift in Sources */,
 				B3B46A39228F0F2700A68EDD /* StartupPinOrPassword.swift in Sources */,
 				B3B46A8F228F0F7D00A68EDD /* ConfirmToSendFundsViewController.swift in Sources */,
@@ -1114,7 +1093,6 @@
 				B3B46A36228F0F2700A68EDD /* WalletLoader.swift in Sources */,
 				AD24C23D2343E445009583C9 /* NotificationsManager.swift in Sources */,
 				10B7818523F0693C00AD2709 /* TransactionOutputDetailCell.swift in Sources */,
-				AD9F64C923B80BBD008AFE07 /* ConfirmToSendPasswordEntryViewController.swift in Sources */,
 				B3B46AA7228F0F7D00A68EDD /* CurrencyConversionOptionsViewController.swift in Sources */,
 				25E63F4E23312B2C009CD53E /* NavMenuFloatingButtons.swift in Sources */,
 				B3B46AB1228F0F7D00A68EDD /* SeedCheckActiveCellView.swift in Sources */,
@@ -1131,8 +1109,6 @@
 				10341E0D23CBBB700055DFDE /* SeedBackupReminderViewController.swift in Sources */,
 				B34A2F9123E8ED1500B8BC01 /* MultiWalletSyncDetailsLoader.swift in Sources */,
 				10D9FB9623C3956300CBF216 /* FloatingPlaceholderLabel.swift in Sources */,
-				ADDC42C323959C8100AD9363 /* SlideInPresentationManager.swift in Sources */,
-				ADDC42DC23965C9000AD9363 /* ConfirmToSendViewController.swift in Sources */,
 				B3967B3D22A75BD400E14432 /* UITableView.swift in Sources */,
 				B3C0D4B623E0FBA5002D984F /* SimpleOkCancelDialog.swift in Sources */,
 				B3C0D4AF23DF9C45002D984F /* Security.swift in Sources */,
