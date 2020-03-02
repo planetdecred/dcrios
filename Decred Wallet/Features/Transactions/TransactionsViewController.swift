@@ -74,17 +74,21 @@ class TransactionsViewController: UIViewController {
     }
 
     private func setupWalletSelector() {
-        self.walletSelectorContainerView.horizontalBorder(borderColor: UIColor.appColors.gray, yPosition: self.walletSelectorContainerView.frame.size.height - 1, borderHeight: 1)
+        if WalletLoader.shared.wallets.count > 1 {
+            self.walletSelectorContainerView.horizontalBorder(borderColor: UIColor.appColors.gray, yPosition: self.walletSelectorContainerView.frame.size.height - 1, borderHeight: 1)
 
-        self.walletSelectorGradientLayer.frame = self.walletSelectorCollectionView.bounds
-        self.walletSelectorGradientLayer.colors = [UIColor.black.cgColor, UIColor.black.cgColor, UIColor.black.cgColor, UIColor.black.cgColor]
-        self.walletSelectorGradientLayer.locations = [0, 0.1, 0.9, 1]
-        self.walletSelectorGradientLayer.transform = CATransform3DMakeRotation(.pi / -2, 0, 0, 1)
-        self.walletSelectorGradientLayer.delegate = self
-        self.walletSelectorCollectionView.layer.mask = walletSelectorGradientLayer
+            self.walletSelectorGradientLayer.frame = self.walletSelectorCollectionView.bounds
+            self.walletSelectorGradientLayer.colors = [UIColor.black.cgColor, UIColor.black.cgColor, UIColor.black.cgColor, UIColor.black.cgColor]
+            self.walletSelectorGradientLayer.locations = [0, 0.2, 0.8, 1]
+            self.walletSelectorGradientLayer.transform = CATransform3DMakeRotation(.pi / -2, 0, 0, 1)
+            self.walletSelectorGradientLayer.delegate = self
+            self.walletSelectorCollectionView.layer.mask = walletSelectorGradientLayer
 
-        self.walletSelectorPrevButton.setImage(UIImage(cgImage: UIImage(named: "ic_collapse")!.cgImage!, scale: CGFloat(1.0), orientation: .leftMirrored), for: .normal)
-        self.walletSelectorNextButton.setImage(UIImage(cgImage: UIImage(named: "ic_collapse")!.cgImage!, scale: CGFloat(1.0), orientation: .rightMirrored), for: .normal)
+            self.walletSelectorPrevButton.setImage(UIImage(cgImage: UIImage(named: "ic_collapse")!.cgImage!, scale: CGFloat(1.0), orientation: .leftMirrored), for: .normal)
+            self.walletSelectorNextButton.setImage(UIImage(cgImage: UIImage(named: "ic_collapse")!.cgImage!, scale: CGFloat(1.0), orientation: .rightMirrored), for: .normal)
+        } else {
+            self.walletSelectorContainerView.isHidden = true
+        }
     }
 
     private func selectWallet(selectedIndex: Int) {
