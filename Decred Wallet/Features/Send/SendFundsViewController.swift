@@ -215,35 +215,33 @@ class SendFundsViewController: UIViewController {
     
     @objc func scanQrCodeTapped(_ sender: UIButton) {
         self.qrImageScanner.scan(sender: self) { textScannedFromQRCode in
-            guard var capturedText = textScannedFromQRCode else {
+            guard let capturedText = textScannedFromQRCode else {
+                self.destinationAddressTextField.text = ""
                 return
             }
             
-            if capturedText.starts(with: "decred:") {
-                capturedText = capturedText.replacingOccurrences(of: "decred:", with: "")
-            }
-            
-            if capturedText.count < 25 {
-                Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.walletAddressShort)
-                return
-            }
-            if capturedText.count > 36 {
-                Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.walletAddressLong)
+            let addressURI = DecredAddressURI(uriString: capturedText)
+            if addressURI.address.count < 25 || addressURI.address.count > 36 {
+                Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.invalidAddr)
                 return
             }
             
             if BuildConfig.IsTestNet {
-                if capturedText.starts(with: "T") {
-                    self.destinationAddressTextField.text = capturedText
-                } else {
+                if !capturedText.starts(with: "T") {
                     Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.invalidTesnetAddress)
+                    return
                 }
             } else {
-                if capturedText.starts(with: "D") {
-                    self.destinationAddressTextField.text = capturedText
-                } else {
+                if !capturedText.starts(with: "D") {
                     Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.invalidMainnetAddress)
+                    return
                 }
+            }
+            
+            self.destinationAddressTextField.text = addressURI.address
+            if addressURI.amount != nil {
+                self.amountTextField.text = String(addressURI.amount!)
+                self.dcrAmountTextFieldEditingEnded()
             }
         }
     }
