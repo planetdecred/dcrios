@@ -5,6 +5,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -38,8 +39,111 @@
                                     </label>
                                 </subviews>
                             </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4lw-Zf-ZH8">
+                                <rect key="frame" x="0.0" y="58" width="375" height="50"/>
+                                <subviews>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="xRs-bi-4VO">
+                                        <rect key="frame" x="24" y="0.0" width="327" height="50"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="Wgy-9r-d0A"/>
+                                        </constraints>
+                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="24" minimumInteritemSpacing="24" id="QsE-TD-JnF">
+                                            <size key="itemSize" width="50" height="50"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" reuseIdentifier="WalletSelectorCell" id="dYd-nH-FXC" customClass="WalletSelectorCollectionViewCell" customModule="Decred_Wallet" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="1" width="39.5" height="48"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="yKx-9n-VaU">
+                                                    <rect key="frame" x="0.0" y="0.0" width="39.5" height="48"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IBS-9S-ZGG">
+                                                            <rect key="frame" x="0.0" y="0.0" width="39.5" height="48"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="48" id="lOU-OC-TPe"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                                            <color key="textColor" red="0.34901960784313724" green="0.42745098039215684" blue="0.50588235294117645" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a9j-Fx-1BX">
+                                                            <rect key="frame" x="0.0" y="46" width="39.5" height="4"/>
+                                                            <color key="backgroundColor" red="0.16078431369999999" green="0.43921568630000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="4" id="dZh-O3-xc5"/>
+                                                            </constraints>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                    <integer key="value" value="2"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </view>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="IBS-9S-ZGG" firstAttribute="leading" secondItem="yKx-9n-VaU" secondAttribute="leading" id="3pS-xp-cI5"/>
+                                                        <constraint firstItem="a9j-Fx-1BX" firstAttribute="trailing" secondItem="IBS-9S-ZGG" secondAttribute="trailing" id="5hx-yC-YZT"/>
+                                                        <constraint firstAttribute="bottom" secondItem="IBS-9S-ZGG" secondAttribute="bottom" id="E0X-ia-mVB"/>
+                                                        <constraint firstItem="a9j-Fx-1BX" firstAttribute="leading" secondItem="IBS-9S-ZGG" secondAttribute="leading" id="NfB-Ms-g0x"/>
+                                                        <constraint firstItem="a9j-Fx-1BX" firstAttribute="bottom" secondItem="IBS-9S-ZGG" secondAttribute="bottom" constant="2" id="PeJ-w4-601"/>
+                                                        <constraint firstAttribute="trailing" secondItem="IBS-9S-ZGG" secondAttribute="trailing" id="S2w-4X-FM0"/>
+                                                        <constraint firstItem="IBS-9S-ZGG" firstAttribute="top" secondItem="yKx-9n-VaU" secondAttribute="top" id="igE-Pb-b0B"/>
+                                                    </constraints>
+                                                </collectionViewCellContentView>
+                                                <connections>
+                                                    <outlet property="indicatorView" destination="a9j-Fx-1BX" id="PCL-uL-X3t"/>
+                                                    <outlet property="walletNameLabel" destination="IBS-9S-ZGG" id="bH3-tB-ZfN"/>
+                                                </connections>
+                                            </collectionViewCell>
+                                        </cells>
+                                        <connections>
+                                            <outlet property="dataSource" destination="cxH-wH-Q4u" id="LB5-pC-PEY"/>
+                                            <outlet property="delegate" destination="cxH-wH-Q4u" id="aIX-we-Iu8"/>
+                                        </connections>
+                                    </collectionView>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bby-Qe-cwe">
+                                        <rect key="frame" x="12" y="13" width="24" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="24" id="2GM-Sc-R5F"/>
+                                            <constraint firstAttribute="height" constant="24" id="ecx-8K-Rx8"/>
+                                        </constraints>
+                                        <color key="tintColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" image="ic_collapse"/>
+                                        <connections>
+                                            <action selector="walletSelectorPrevButtonTapped:" destination="cxH-wH-Q4u" eventType="touchUpInside" id="FyA-q5-fSf"/>
+                                        </connections>
+                                    </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JQV-LS-aLt">
+                                        <rect key="frame" x="339" y="13" width="24" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="24" id="8lm-Tx-AhW"/>
+                                            <constraint firstAttribute="height" constant="24" id="ht9-S3-aup"/>
+                                        </constraints>
+                                        <color key="tintColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" image="ic_collapse"/>
+                                        <connections>
+                                            <action selector="walletSelectorNextButtonTapped:" destination="cxH-wH-Q4u" eventType="touchUpInside" id="sGR-u6-yB4"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="Bby-Qe-cwe" firstAttribute="leading" secondItem="xRs-bi-4VO" secondAttribute="leading" constant="-12" id="4e3-Ls-Ydi"/>
+                                    <constraint firstItem="JQV-LS-aLt" firstAttribute="trailing" secondItem="xRs-bi-4VO" secondAttribute="trailing" constant="12" id="6gF-a6-Fd6"/>
+                                    <constraint firstAttribute="trailing" secondItem="xRs-bi-4VO" secondAttribute="trailing" constant="24" id="MN9-ou-wXx"/>
+                                    <constraint firstAttribute="bottom" secondItem="xRs-bi-4VO" secondAttribute="bottom" id="Rw9-eL-uIj"/>
+                                    <constraint firstItem="JQV-LS-aLt" firstAttribute="centerY" secondItem="xRs-bi-4VO" secondAttribute="centerY" id="UFz-ma-G2V"/>
+                                    <constraint firstItem="xRs-bi-4VO" firstAttribute="leading" secondItem="4lw-Zf-ZH8" secondAttribute="leading" constant="24" id="UbT-WM-MwO"/>
+                                    <constraint firstItem="xRs-bi-4VO" firstAttribute="top" secondItem="4lw-Zf-ZH8" secondAttribute="top" id="rxh-Xr-Ry2"/>
+                                    <constraint firstItem="Bby-Qe-cwe" firstAttribute="centerY" secondItem="xRs-bi-4VO" secondAttribute="centerY" id="t2V-gJ-idj"/>
+                                </constraints>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Xg-aj-JTN" customClass="DropMenuButton" customModule="Decred_Wallet" customModuleProvider="target">
-                                <rect key="frame" x="24" y="56" width="42" height="45"/>
+                                <rect key="frame" x="24" y="116" width="42" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="tqs-yO-7WN"/>
                                 </constraints>
@@ -52,7 +156,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6n8-S9-8yX" customClass="DropMenuButton" customModule="Decred_Wallet" customModuleProvider="target">
-                                <rect key="frame" x="82" y="56" width="78" height="45"/>
+                                <rect key="frame" x="82" y="116" width="78" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="g2c-Ga-Lpo"/>
                                 </constraints>
@@ -65,7 +169,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="56" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rdz-8b-in4">
-                                <rect key="frame" x="8" y="101" width="359" height="510"/>
+                                <rect key="frame" x="8" y="161" width="359" height="450"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="separatorColor" red="0.90196078430000004" green="0.91764705879999997" blue="0.92941176469999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <inset key="separatorInset" minX="56" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -78,26 +182,33 @@
                         <color key="backgroundColor" red="0.95294117649999999" green="0.96078431369999995" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="rdz-8b-in4" firstAttribute="leading" secondItem="hIz-r8-F5G" secondAttribute="leading" constant="8" id="4M5-RT-Rs5"/>
-                            <constraint firstItem="4Xg-aj-JTN" firstAttribute="top" secondItem="O0D-Dc-Yer" secondAttribute="bottom" constant="16" id="B7b-Ej-COn"/>
                             <constraint firstItem="rdz-8b-in4" firstAttribute="trailing" secondItem="hIz-r8-F5G" secondAttribute="trailing" constant="-8" id="Da5-zF-TAW"/>
                             <constraint firstItem="6n8-S9-8yX" firstAttribute="centerY" secondItem="4Xg-aj-JTN" secondAttribute="centerY" id="F4g-aZ-doi"/>
                             <constraint firstItem="O0D-Dc-Yer" firstAttribute="leading" secondItem="hIz-r8-F5G" secondAttribute="leading" constant="24" id="STy-WF-KEh"/>
                             <constraint firstItem="rdz-8b-in4" firstAttribute="bottom" secondItem="hIz-r8-F5G" secondAttribute="bottom" constant="-56" id="U8K-HG-44L"/>
                             <constraint firstItem="rdz-8b-in4" firstAttribute="top" secondItem="4Xg-aj-JTN" secondAttribute="bottom" id="YZu-le-0VX"/>
                             <constraint firstItem="hIz-r8-F5G" firstAttribute="trailing" secondItem="O0D-Dc-Yer" secondAttribute="trailing" constant="24" id="ZAK-Da-jyh"/>
+                            <constraint firstItem="4Xg-aj-JTN" firstAttribute="top" secondItem="4lw-Zf-ZH8" secondAttribute="bottom" constant="8" symbolic="YES" id="e1i-9L-eeJ"/>
                             <constraint firstItem="4Xg-aj-JTN" firstAttribute="leading" secondItem="hIz-r8-F5G" secondAttribute="leading" constant="24" id="ePe-GA-SA2"/>
+                            <constraint firstItem="4lw-Zf-ZH8" firstAttribute="trailing" secondItem="hIz-r8-F5G" secondAttribute="trailing" id="h1h-bf-PdE"/>
                             <constraint firstItem="O0D-Dc-Yer" firstAttribute="top" secondItem="hIz-r8-F5G" secondAttribute="top" constant="16" id="jfy-la-PTr"/>
+                            <constraint firstItem="4lw-Zf-ZH8" firstAttribute="top" secondItem="O0D-Dc-Yer" secondAttribute="bottom" constant="18" id="mag-aI-oc8"/>
+                            <constraint firstItem="4lw-Zf-ZH8" firstAttribute="leading" secondItem="hIz-r8-F5G" secondAttribute="leading" id="r3Z-PC-jQp"/>
                             <constraint firstItem="6n8-S9-8yX" firstAttribute="leading" secondItem="4Xg-aj-JTN" secondAttribute="trailing" constant="16" id="w35-Ec-D1K"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="hIz-r8-F5G"/>
                     </view>
                     <connections>
-                        <outlet property="pageHeaderBottomConstraint" destination="B7b-Ej-COn" id="3t8-cg-Sq4"/>
+                        <outlet property="pageHeaderBottomConstraint" destination="mag-aI-oc8" id="wwd-fq-AzZ"/>
                         <outlet property="pageHeaderStackView" destination="O0D-Dc-Yer" id="J9i-ky-tB3"/>
                         <outlet property="pageHeaderTopConstraint" destination="jfy-la-PTr" id="nsR-0j-Tww"/>
                         <outlet property="txFilterDropDown" destination="4Xg-aj-JTN" id="yeW-W8-oWV"/>
                         <outlet property="txSortOrderDropDown" destination="6n8-S9-8yX" id="wVN-th-iEs"/>
                         <outlet property="txTableView" destination="rdz-8b-in4" id="C7m-gV-buQ"/>
+                        <outlet property="walletSelectorCollectionView" destination="xRs-bi-4VO" id="A5x-ac-h6k"/>
+                        <outlet property="walletSelectorContainerView" destination="4lw-Zf-ZH8" id="suz-pe-Ieu"/>
+                        <outlet property="walletSelectorNextButton" destination="JQV-LS-aLt" id="b9X-kT-f53"/>
+                        <outlet property="walletSelectorPrevButton" destination="Bby-Qe-cwe" id="GIx-Vk-SOJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1ky-HZ-qRj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -106,6 +217,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="ic_collapse" width="24" height="24"/>
         <image name="ic_decred" width="24" height="24"/>
         <image name="ic_dropdown" width="24" height="24"/>
     </resources>

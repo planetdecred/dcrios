@@ -15,10 +15,18 @@ class TransactionsViewController: UIViewController {
     @IBOutlet weak var pageHeaderStackView: UIStackView!
     @IBOutlet weak var pageHeaderBottomConstraint: NSLayoutConstraint!
 
+    @IBOutlet weak var walletSelectorContainerView: UIView!
+    @IBOutlet weak var walletSelectorCollectionView: UICollectionView!
+    @IBOutlet weak var walletSelectorPrevButton: UIButton!
+    @IBOutlet weak var walletSelectorNextButton: UIButton!
+
     @IBOutlet var txFilterDropDown: DropMenuButton!
     @IBOutlet var txSortOrderDropDown: DropMenuButton!
     @IBOutlet var txTableView: UITableView!
-    var refreshControl: UIRefreshControl!
+
+    private var refreshControl: UIRefreshControl!
+    private var currentWalletSelectorIndex: Int = 0
+    private let walletSelectorGradientLayer = CAGradientLayer()
 
     var noTxsLabel: UILabel {
         let noTxsLabel = UILabel(frame: self.txTableView.frame)
@@ -49,12 +57,67 @@ class TransactionsViewController: UIViewController {
 
         // register for new transactions notifications
         try? WalletLoader.shared.multiWallet.add(self, uniqueIdentifier: "\(self)")
+
+        self.setupWalletSelector()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
+        self.selectWallet(selectedIndex: self.currentWalletSelectorIndex)
+    }
+
+    override public func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.updateWalletSelectorSteppingButtonsAndGradientColors()
+        self.updateWalletSelectorGradientFrame()
+    }
+
+    private func setupWalletSelector() {
+        self.walletSelectorContainerView.horizontalBorder(borderColor: UIColor.appColors.gray, yPosition: self.walletSelectorContainerView.frame.size.height - 1, borderHeight: 1)
+
+        self.walletSelectorGradientLayer.frame = self.walletSelectorCollectionView.bounds
+        self.walletSelectorGradientLayer.colors = [UIColor.black.cgColor, UIColor.black.cgColor, UIColor.black.cgColor, UIColor.black.cgColor]
+        self.walletSelectorGradientLayer.locations = [0, 0.1, 0.9, 1]
+        self.walletSelectorGradientLayer.transform = CATransform3DMakeRotation(.pi / -2, 0, 0, 1)
+        self.walletSelectorGradientLayer.delegate = self
+        self.walletSelectorCollectionView.layer.mask = walletSelectorGradientLayer
+
+        self.walletSelectorPrevButton.setImage(UIImage(cgImage: UIImage(named: "ic_collapse")!.cgImage!, scale: CGFloat(1.0), orientation: .leftMirrored), for: .normal)
+        self.walletSelectorNextButton.setImage(UIImage(cgImage: UIImage(named: "ic_collapse")!.cgImage!, scale: CGFloat(1.0), orientation: .rightMirrored), for: .normal)
+    }
+
+    private func selectWallet(selectedIndex: Int) {
+        self.currentWalletSelectorIndex = selectedIndex
+        self.walletSelectorCollectionView.selectItem(at: IndexPath(row: self.currentWalletSelectorIndex, section: 0), animated: true, scrollPosition: UICollectionView.ScrollPosition.centeredHorizontally)
+        self.updateWalletSelectorSteppingButtonsAndGradientColors()
         self.loadAllTransactions()
+    }
+
+    private func updateWalletSelectorSteppingButtonsAndGradientColors() {
+        if self.walletSelectorCollectionView.contentSize.width < self.walletSelectorCollectionView.bounds.width {
+            self.walletSelectorPrevButton.isHidden = false
+            self.walletSelectorNextButton.isHidden = false
+        } else {
+            self.walletSelectorPrevButton.isHidden = self.currentWalletSelectorIndex == 0
+            self.walletSelectorNextButton.isHidden = self.currentWalletSelectorIndex == WalletLoader.shared.wallets.count - 1
+            self.walletSelectorGradientLayer.colors = [(!self.walletSelectorPrevButton.isHidden || self.walletSelectorCollectionView.contentOffset.x > 0) ? UIColor.clear.cgColor : UIColor.black.cgColor,
+                                         UIColor.black.cgColor,
+                                         UIColor.black.cgColor,
+                                         (!self.walletSelectorNextButton.isHidden || floor(self.walletSelectorCollectionView.contentOffset.x) < floor(self.walletSelectorCollectionView.contentSize.width - self.walletSelectorCollectionView.frame.size.width )) ? UIColor.clear.cgColor : UIColor.black.cgColor]
+        }
+    }
+
+    @IBAction func walletSelectorPrevButtonTapped(_ sender: Any) {
+        if self.currentWalletSelectorIndex > 0 {
+            self.selectWallet(selectedIndex: self.currentWalletSelectorIndex - 1)
+        }
+    }
+
+    @IBAction func walletSelectorNextButtonTapped(_ sender: Any) {
+        if self.currentWalletSelectorIndex < WalletLoader.shared.wallets.count - 1 {
+            self.selectWallet(selectedIndex: self.currentWalletSelectorIndex + 1)
+        }
     }
 
     func loadAllTransactions() {
@@ -65,18 +128,18 @@ class TransactionsViewController: UIViewController {
             self.refreshControl.endRefreshing()
         }
 
-        guard let txs = WalletLoader.shared.firstWallet?.transactionHistory(offset: 0), !txs.isEmpty else {
+        if let txs = WalletLoader.shared.wallets[self.currentWalletSelectorIndex].transactionHistory(offset: 0), !txs.isEmpty {
+            self.allTransactions = txs
+            self.txTableView.backgroundView = nil
+            self.txTableView.separatorStyle = .singleLine
+        } else {
             self.txTableView.backgroundView = self.noTxsLabel
             self.txTableView.separatorStyle = .none
-            return
         }
 
         self.setupTxSortOrderDropDown()
         self.setupTxFilterDropDown()
 
-        self.allTransactions = txs
-        self.txTableView.backgroundView = nil
-        self.txTableView.separatorStyle = .singleLine
         self.txTableView.reloadData()
     }
 
@@ -91,31 +154,30 @@ class TransactionsViewController: UIViewController {
         var filterOptions = [LocalizedStrings.all]
         self.txFilters = [DcrlibwalletTxFilterAll]
 
-        if let wallet = WalletLoader.shared.firstWallet {
-            if wallet.transactionsCount(forTxFilter: DcrlibwalletTxFilterSent) > 0 {
-                filterOptions.append(LocalizedStrings.sent)
-                self.txFilters.append(DcrlibwalletTxFilterSent)
-            }
+        let wallet = WalletLoader.shared.wallets[self.currentWalletSelectorIndex]
+        if wallet.transactionsCount(forTxFilter: DcrlibwalletTxFilterSent) > 0 {
+            filterOptions.append(LocalizedStrings.sent)
+            self.txFilters.append(DcrlibwalletTxFilterSent)
+        }
 
-            if wallet.transactionsCount(forTxFilter: DcrlibwalletTxFilterReceived) > 0 {
-                filterOptions.append(LocalizedStrings.received)
-                self.txFilters.append(DcrlibwalletTxFilterReceived)
-            }
+        if wallet.transactionsCount(forTxFilter: DcrlibwalletTxFilterReceived) > 0 {
+            filterOptions.append(LocalizedStrings.received)
+            self.txFilters.append(DcrlibwalletTxFilterReceived)
+        }
 
-            if wallet.transactionsCount(forTxFilter: DcrlibwalletTxFilterTransferred) > 0 {
-                filterOptions.append(LocalizedStrings.yourself)
-                self.txFilters.append(DcrlibwalletTxFilterTransferred)
-            }
+        if wallet.transactionsCount(forTxFilter: DcrlibwalletTxFilterTransferred) > 0 {
+            filterOptions.append(LocalizedStrings.yourself)
+            self.txFilters.append(DcrlibwalletTxFilterTransferred)
+        }
 
-            if wallet.transactionsCount(forTxFilter: DcrlibwalletTxFilterStaking) > 0 {
-                filterOptions.append(LocalizedStrings.staking)
-                self.txFilters.append(DcrlibwalletTxFilterStaking)
-            }
+        if wallet.transactionsCount(forTxFilter: DcrlibwalletTxFilterStaking) > 0 {
+            filterOptions.append(LocalizedStrings.staking)
+            self.txFilters.append(DcrlibwalletTxFilterStaking)
+        }
 
-            if wallet.transactionsCount(forTxFilter: DcrlibwalletTxFilterCoinBase) > 0 {
-                filterOptions.append(LocalizedStrings.coinbase)
-                self.txFilters.append(DcrlibwalletTxFilterCoinBase)
-            }
+        if wallet.transactionsCount(forTxFilter: DcrlibwalletTxFilterCoinBase) > 0 {
+            filterOptions.append(LocalizedStrings.coinbase)
+            self.txFilters.append(DcrlibwalletTxFilterCoinBase)
         }
 
         self.txFilterDropDown.initMenu(filterOptions) { [weak self] index, value in
@@ -138,7 +200,7 @@ class TransactionsViewController: UIViewController {
         let selectedSortIndex = self.txSortOrderDropDown.selectedItemIndex
         let sortOrderNewerFirst = self.txSortOrders[safe: selectedSortIndex] ?? true
 
-        if let txs = WalletLoader.shared.firstWallet?.transactionHistory(offset: 0, count: 0, filter: currentFilterItem, newestFirst: sortOrderNewerFirst) {
+        if let txs = WalletLoader.shared.wallets[self.currentWalletSelectorIndex].transactionHistory(offset: 0, count: 0, filter: currentFilterItem, newestFirst: sortOrderNewerFirst) {
             self.allTransactions = txs
         }
     }
@@ -220,15 +282,52 @@ extension TransactionsViewController: DcrlibwalletTxAndBlockNotificationListener
 }
 
 extension TransactionsViewController: UIScrollViewDelegate {
-    // make page header section view fade in or out progressively as user scrolls
-    // up or down on the transactionsTableView.
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if self.initialPageHeaderTopConstraintValue == nil {
-            self.initialPageHeaderTopConstraintValue = self.pageHeaderTopConstraint.constant
+        if scrollView == self.txTableView {
+            // make page header section view fade in or out progressively as user scrolls
+            // up or down on the transactionsTableView.
+            if self.initialPageHeaderTopConstraintValue == nil {
+                self.initialPageHeaderTopConstraintValue = self.pageHeaderTopConstraint.constant
+            }
+            let minimumValue: CGFloat = -1 * (self.initialPageHeaderTopConstraintValue! + self.pageHeaderStackView.frame.size.height +
+                self.pageHeaderBottomConstraint.constant)
+            self.pageHeaderTopConstraint.constant = min(self.initialPageHeaderTopConstraintValue!, self.initialPageHeaderTopConstraintValue! + max(minimumValue, -scrollView.contentOffset.y))
+            self.pageHeaderStackView.alpha = pageHeaderTopConstraint.constant / self.initialPageHeaderTopConstraintValue!
+        } else if scrollView == self.walletSelectorCollectionView {
+            self.updateWalletSelectorSteppingButtonsAndGradientColors()
+            self.updateWalletSelectorGradientFrame()
         }
-        let minimumValue: CGFloat = -1 * (self.initialPageHeaderTopConstraintValue! + self.pageHeaderStackView.frame.size.height +
-            self.pageHeaderBottomConstraint.constant)
-        self.pageHeaderTopConstraint.constant = min(self.initialPageHeaderTopConstraintValue!, self.initialPageHeaderTopConstraintValue! + max(minimumValue, -scrollView.contentOffset.y))
-        self.pageHeaderStackView.alpha = pageHeaderTopConstraint.constant / self.initialPageHeaderTopConstraintValue!
+    }
+
+    private func updateWalletSelectorGradientFrame() {
+        self.walletSelectorGradientLayer.frame = CGRect( x: self.walletSelectorCollectionView.contentOffset.x,
+                                           y: 0,
+                                           width: self.walletSelectorCollectionView.bounds.width,
+                                           height: self.walletSelectorCollectionView.bounds.height )
+    }
+}
+
+extension TransactionsViewController: CALayerDelegate {
+    // prevent any unwanted animation in a CAGradientLayer
+    func action(for layer: CALayer, forKey event: String) -> CAAction? {
+        return NSNull()
+    }
+}
+
+extension TransactionsViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return WalletLoader.shared.wallets.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WalletSelectorCell", for: indexPath) as! WalletSelectorCollectionViewCell
+        cell.walletNameLabel.text = WalletLoader.shared.wallets[indexPath.row].name
+        return cell
+    }
+}
+
+extension TransactionsViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.selectWallet(selectedIndex: indexPath.row)
     }
 }

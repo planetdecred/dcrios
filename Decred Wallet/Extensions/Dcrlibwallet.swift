@@ -136,12 +136,8 @@ extension DcrlibwalletWallet {
     }
 
     func transactionHistory(offset: Int32, count: Int32 = 0, filter: Int32 = DcrlibwalletTxFilterAll, newestFirst:Bool = true) -> [Transaction]? {
-        guard let wallet = WalletLoader.shared.firstWallet else {
-            return nil
-        }
-        
         var error: NSError?
-        let allTransactionsJson = wallet.getTransactions(offset, limit: count, txFilter: filter, newestFirst: newestFirst, error: &error)
+        let allTransactionsJson = self.getTransactions(offset, limit: count, txFilter: filter, newestFirst: newestFirst, error: &error)
         if error != nil {
             print("wallet.getTransactions error:", error!.localizedDescription)
             return nil
