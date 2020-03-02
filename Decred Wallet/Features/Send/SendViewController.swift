@@ -503,34 +503,30 @@ extension SendViewController {
     }
     
     func checkAddressFromQrCode(textScannedFromQRCode: String?) {
-        
         guard let capturedText = textScannedFromQRCode else {
             self.destinationAddressTextField.text = ""
             return
         }
         
         let addressURI = DecredAddressURI(uriString: capturedText)
-                
         if addressURI.address.count < 25 || addressURI.address.count > 36 {
             self.invalidAddressFromQrCode(errorMessage: String(format: LocalizedStrings.addressFromQr, addressURI.address), title: LocalizedStrings.invalidAddr)
             return
         }
         
         if BuildConfig.IsTestNet {
-            if addressURI.address.starts(with: "T") {
-                self.destinationAddressTextField.text = addressURI.address
-            } else {
+            if !addressURI.address.starts(with: "T") {
                 self.invalidAddressFromQrCode(errorMessage: LocalizedStrings.invalidTesnetAddress)
+                return
             }
         } else {
-            if addressURI.address.starts(with: "D") {
-                self.destinationAddressTextField.text = addressURI.address
-            } else {
+            if !addressURI.address.starts(with: "D") {
                 self.invalidAddressFromQrCode(errorMessage: LocalizedStrings.invalidMainnetAddress)
+                return
             }
         }
-        
-        // Only fill amount if QR code contains an amount.
+
+        self.destinationAddressTextField.text = addressURI.address
         if addressURI.amount != nil {
             self.dcrAmountTextField.text = String(addressURI.amount!)
         }
