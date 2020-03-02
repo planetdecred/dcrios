@@ -94,6 +94,15 @@ extension DcrlibwalletAccount {
 }
 
 extension DcrlibwalletWallet {
+    func currentRecieveAddress(for accountNumber: Int32) -> String {
+        var error: NSError?
+        let currentAddress = self.currentAddress(accountNumber, error: &error)
+        if error != nil {
+            print("wallet.currentAddress error: \(error!.localizedDescription)")
+        }
+        return currentAddress
+    }
+    
     func accounts(confirmations: Int32) -> [DcrlibwalletAccount] {
         var accounts = [DcrlibwalletAccount]()
         do {

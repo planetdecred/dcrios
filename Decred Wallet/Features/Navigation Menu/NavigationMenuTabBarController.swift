@@ -18,11 +18,6 @@ class NavigationMenuTabBarController: UITabBarController {
     lazy var floatingButtons: NavMenuFloatingButtons = {
         return NavMenuFloatingButtons()
     }()
-    lazy var bannerView: ErrorBanner = {
-        let view = ErrorBanner(parent: self)
-        view.backgroundColor = UIColor.appColors.green
-        return view
-    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -133,11 +128,5 @@ class NavigationMenuTabBarController: UITabBarController {
             return parentVC.viewControllers[0] as? NavigationMenuTabBarController
         }
         return nil
-    }
-}
-
-extension NavigationMenuTabBarController: SendFundsDelegate {
-    func successfullySentFunds() {
-        bannerView.show(text: "Transaction sent")
     }
 }

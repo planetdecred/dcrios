@@ -59,32 +59,8 @@ class SimpleTextInputDialog: UIViewController {
         
         self.textField.addTarget(self, action: #selector(self.textFieldEditingChanged), for: .editingChanged)
         self.textField.delegate = self
-
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardNotification(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
-    }
-
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-
-    @objc func keyboardNotification(notification: NSNotification) {
-        if let userInfo = notification.userInfo {
-            let endFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
-            let endFrameY = endFrame?.origin.y ?? 0
-
-            let keyboardAnimationDuration = (userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as! NSNumber)
-            
-            DispatchQueue.main.async {
-                UIView.animate(withDuration: keyboardAnimationDuration.doubleValue) {
-                    if endFrameY >= UIScreen.main.bounds.size.height {
-                        self.dialogViewBottomConstraint?.constant = 0.0
-                    } else {
-                        self.dialogViewBottomConstraint?.constant = endFrame?.size.height ?? 0.0
-                    }
-                    self.view.layoutIfNeeded()
-                }
-            }
-        }
+        
+        self.observeKeyboardShowHide(delegate: self)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -140,5 +116,27 @@ extension SimpleTextInputDialog: InputDialogDelegate {
         self.cancelButton?.isEnabled = true
         self.submitButton.isEnabled = true
         self.submitButton.stopLoading()
+    }
+}
+
+extension SimpleTextInputDialog: KeyboardVisibilityDelegate {
+    func onKeyboardWillShowOrHide(_ notification: Notification) {
+        if let userInfo = notification.userInfo {
+            let endFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+            let endFrameY = endFrame?.origin.y ?? 0
+
+            let keyboardAnimationDuration = (userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as! NSNumber)
+            
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: keyboardAnimationDuration.doubleValue) {
+                    if endFrameY >= UIScreen.main.bounds.size.height {
+                        self.dialogViewBottomConstraint?.constant = 0.0
+                    } else {
+                        self.dialogViewBottomConstraint?.constant = endFrame?.size.height ?? 0.0
+                    }
+                    self.view.layoutIfNeeded()
+                }
+            }
+        }
     }
 }

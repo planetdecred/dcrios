@@ -71,7 +71,7 @@ class ReceiveViewController: UIViewController {
         self.walletAddressLabel.isHidden = false
         self.separatorView.isHidden = false
 
-        self.displayAddressAndQRCode(receiveAddress: selectedWallet.currentAddress(selectedAccount.number, error: nil))
+        self.displayAddressAndQRCode(receiveAddress: selectedWallet.currentRecieveAddress(for: selectedAccount.number))
     }
 
     private func displayAddressAndQRCode(receiveAddress: String) {

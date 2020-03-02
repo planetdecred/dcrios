@@ -548,12 +548,13 @@ extension OverviewViewController: DcrlibwalletTxAndBlockNotificationListenerProt
         
         tx.animate = true
         self.recentTransactions.insert(tx, at: 0)
-        self.updateMultiWalletBalance()
+        
+        if self.recentTransactions.count > 3 {
+            _ = self.recentTransactions.popLast()
+        }
         
         DispatchQueue.main.async {
-            if self.recentTransactions.count > 3 {
-                _ = self.recentTransactions.popLast()
-            }
+            self.updateMultiWalletBalance()
             self.recentTransactionsTableView.reloadData()
         }
     }

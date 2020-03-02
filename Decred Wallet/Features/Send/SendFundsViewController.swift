@@ -61,27 +61,12 @@ class SendFundsViewController: UIViewController {
     @IBOutlet var balanceAfterSendingLabel: UILabel!
     @IBOutlet var nextButton: UIButton!
     
-    @IBOutlet var scrollView: UIScrollView!
     @IBOutlet weak var scrollViewBottomConstraint: NSLayoutConstraint!
     
-    var exchangeRate: NSDecimalNumber?
-    
-    
-    
-    
-    
-    var destinationAddress: String?
-    var sendMax: Bool = false
-    var sendFundsDelegate: SendFundsDelegate?
     private lazy var qrImageScanner = QRImageScanner()
-    let exchangeRateIconHeight: CGFloat = 20
     
-    lazy var errorView: ErrorBanner = {
-        let view = ErrorBanner(parent: self)
-        return view
-    }()
-
-    lazy var slideInTransitioningDelegate = SlideInPresentationManager()
+    var exchangeRate: NSDecimalNumber?
+    var sendMax: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -114,6 +99,9 @@ class SendFundsViewController: UIViewController {
         
         self.toSelfAccountSection.isHidden = true
         
+        self.amountTextField.addTarget(self, action: #selector(self.dcrAmountTextFieldEditingBegan), for: .editingDidBegin)
+        self.amountTextField.addTarget(self, action: #selector(self.dcrAmountTextFieldChanged), for: .editingChanged)
+        self.amountTextField.addTarget(self, action: #selector(self.dcrAmountTextFieldEditingEnded), for: .editingDidEnd)
         self.amountTextField.addDoneButton() // todo review this!
         
         self.transactionFeeSection.addGestureRecognizer(
@@ -143,15 +131,7 @@ class SendFundsViewController: UIViewController {
         // Clearing the primary amount textfield should set the usd amount to 0,
         // hide the address error label, update the transaction fee details and sending summary fields.
         self.amountTextField.text = ""
-        self.usdAmountLabel.text = "0 USD"
-        self.notEnoughFundsLabel.text = " "
-        self.transactionFeeLabel.text = "- DCR"
-        self.processingTimeLabel.text = "-"
-        self.feeRateLabel.text = "-"
-        self.transactionSizeLabel.text = "-"
-        self.totalCostLabel.text = "- DCR"
-        let spendableAmount = (Decimal(self.sourceAccountView.selectedAccount?.balance!.dcrSpendable ?? 0) as NSDecimalNumber).round(8).formattedWithSeparator
-        self.balanceAfterSendingLabel.text = "\(spendableAmount) DCR"
+        self.dcrAmountTextFieldEditingEnded()
     }
     
     private func fetchExchangeRate() {
@@ -171,26 +151,19 @@ class SendFundsViewController: UIViewController {
     }
     
     func displayExchangeRate(_ newExchangeRate: NSDecimalNumber?) {
-        guard let exchangeRate = newExchangeRate else {
-            // only show error if an exchange rate has never been fetched previously
-            if self.exchangeRate == nil {
-                self.retryFetchExchangeRateButton.isHidden = true
-                self.usdAmountLabel.text = "Exchange rate not fetched"
-                self.usdAmountLabel.textColor = UIColor.appColors.orange
-            }
+        // only show error if an exchange rate has never been fetched previously
+        if newExchangeRate == nil && self.exchangeRate == nil {
+            self.retryFetchExchangeRateButton.isHidden = true
+            self.usdAmountLabel.textColor = UIColor.appColors.orange
+            self.usdAmountLabel.text = "Exchange rate not fetched"
             return
         }
         
-        self.exchangeRate = exchangeRate
+        self.exchangeRate = newExchangeRate ?? self.exchangeRate // maintain current value if new value is nil
         
         self.retryFetchExchangeRateButton.isHidden = true
-        if let dcrAmount = Double(self.amountTextField.text ?? "") {
-            let usdAmount = NSDecimalNumber(value: dcrAmount).multiplying(by: exchangeRate)
-            self.usdAmountLabel.text = "\(usdAmount.round(8)) USD"
-        } else {
-            self.usdAmountLabel.text = "- USD"
-        }
         self.usdAmountLabel.textColor = UIColor.appColors.darkGray
+        self.calculateAndDisplayUSDAmount()
     }
     
     func showOrHidePasteAddressButton() {
@@ -241,277 +214,108 @@ class SendFundsViewController: UIViewController {
     }
     
     @objc func scanQrCodeTapped(_ sender: UIButton) {
-        self.qrImageScanner.scan(sender: self, onTextScanned: self.checkAddressFromQrCode)
+        self.qrImageScanner.scan(sender: self) { textScannedFromQRCode in
+            guard var capturedText = textScannedFromQRCode else {
+                return
+            }
+            
+            if capturedText.starts(with: "decred:") {
+                capturedText = capturedText.replacingOccurrences(of: "decred:", with: "")
+            }
+            
+            if capturedText.count < 25 {
+                Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.walletAddressShort)
+                return
+            }
+            if capturedText.count > 36 {
+                Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.walletAddressLong)
+                return
+            }
+            
+            if BuildConfig.IsTestNet {
+                if capturedText.starts(with: "T") {
+                    self.destinationAddressTextField.text = capturedText
+                } else {
+                    Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.invalidTesnetAddress)
+                }
+            } else {
+                if capturedText.starts(with: "D") {
+                    self.destinationAddressTextField.text = capturedText
+                } else {
+                    Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.invalidMainnetAddress)
+                }
+            }
+        }
     }
     
     @objc func pasteAddressTapped(_ sender: UIButton) {
         guard let textFromClipboard = UIPasteboard.general.string else { return }
         self.destinationAddressTextField.setText(textFromClipboard)
-        destinationAddress = textFromClipboard
-    }
-    
-    @IBAction func proceedToConfirmSend(_ sender: Any) {
-        self.prepareTxSummary(isSendAttempt: false) { sendAmountDcr, _, txFeeAndSize in
-            guard let sourceAccountBalance = self.sourceAccountView.selectedAccount?.balance?.dcrSpendable else { return }
-            
-            let textFeeSize = txFeeAndSize.fee?.dcrValue ?? 0.0
-            let balanceAfterSending = Decimal(sourceAccountBalance - sendAmountDcr - textFeeSize) as NSDecimalNumber
-            let balanceAfterSendingText = "\(balanceAfterSending.round(8).formattedWithSeparator) DCR"
-            let totalCost = Decimal(sendAmountDcr + textFeeSize) as NSDecimalNumber
-            let totalCostText = "\(totalCost) DCR"
-            let transactionFeeText = estimatedFee(for: txFeeAndSize.fee?.dcrValue ?? 0.0)
-            
-            let details = SendingDetails(amount: sendAmountDcr,
-                                              destinationAddress: self.destinationAddress,
-                                              destinationWallet: self.destinationAccountView.selectedAccount,
-                                              sourceWallet: self.sourceAccountView.selectedAccount,
-                                              transactionFee: transactionFeeText,
-                                              balanceAfterSend: balanceAfterSendingText,
-                                              totalCost: totalCostText,
-                                              sendMax: self.sendMax)
-
-            let vc = ConfirmToSendViewController.instance
-            vc.sendingDetails = details
-            vc.modalPresentationStyle = .custom
-            present(vc, animated: true, completion: nil)
-        }
-    }
-    
-    func clearTxSummary() {
-        feeRateLabel.text = "0.00 DCR"
-        transactionSizeLabel.text = "0 bytes"
-        processingTimeLabel.text = "≈ -- blocks"
-    }
-    
-    func getDestinationAddress(isSendAttempt: Bool) -> String? {
-        // Display destination address error only if this a send attempt.
-        let validDestinationAddress = self.getValidDestinationAddress(displayErrorOnUI: isSendAttempt)
-        
-        if !isSendAttempt && validDestinationAddress == nil, let account = self.sourceAccountView.selectedAccount {
-            // Generate temporary address from wallet.
-            return self.generateAddress(from: account)
-        }
-        
-        return validDestinationAddress
-    }
-    
-    func generateAddress(from account: DcrlibwalletAccount) -> String? {
-        var generateAddressError: NSError?
-        let destinationAddress = WalletLoader.shared.firstWallet!.currentAddress(account.number, error: &generateAddressError)
-        if generateAddressError != nil {
-            print("send page -> generate address for destination account error: \(generateAddressError!.localizedDescription)")
-            return nil
-        }
-        return destinationAddress
-    }
-    
-    func getValidDestinationAddress(displayErrorOnUI: Bool) -> String? {
-        if !toSelfAccountSection.isHidden {
-            // Sending to account, generate an address to use.
-            guard let destinationAccount = self.destinationAccountView.selectedAccount else { return nil }
-            return self.generateAddress(from: destinationAccount)
-        }
-        
-        // Sending to address, ensure that destinationAddressTextField.text is not nil and it's not empty string either.
-        guard let destinationAddress = self.destinationAddressTextField.text, !destinationAddress.isEmpty else {
-            if displayErrorOnUI {
-                self.destinationAddressTextField.showError()
-                self.invalidDestinationAddressLabel.text = LocalizedStrings.emptyDestAddr
-            }
-            return nil
-        }
-        
-        // Also ensure that destinationAddressTextField.text is a valid address.
-        guard WalletLoader.shared.firstWallet!.isAddressValid(destinationAddress) else {
-            if displayErrorOnUI {
-                self.invalidDestinationAddressLabel.text = LocalizedStrings.invalidDestAddr
-            }
-            return nil
-        }
-        
-        return destinationAddress
-    }
-    
-    func displayTransactionSummary() {
-        self.prepareTxSummary(isSendAttempt: false) { sendAmountDcr, _, txFeeAndSize in
-            guard let sourceAccountBalance = self.sourceAccountView.selectedAccount?.balance!.dcrSpendable else {return}
-            let balanceAfterSending = Decimal(sourceAccountBalance - sendAmountDcr - txFeeAndSize.fee!.dcrValue) as NSDecimalNumber
-            let totalCost = Decimal(sendAmountDcr + txFeeAndSize.fee!.dcrValue) as NSDecimalNumber
-            
-            self.displayEstimatedFee(dcrFee: txFeeAndSize.fee!.dcrValue)
-            self.transactionSizeLabel.text = "\(txFeeAndSize.estimatedSignedSize) bytes"
-            self.balanceAfterSendingLabel.text = "\(balanceAfterSending.round(8).formattedWithSeparator) DCR"
-            self.totalCostLabel.text = "\(totalCost) DCR"
-        }
     }
 
-    func displayEstimatedFee(dcrFee: Double) {
-        feeRateLabel.text = estimatedFee(for: dcrFee)
-    }
-    
-    func estimatedFee(for amount: Double)-> String {
-        guard let txFee = Decimal(amount) as NSDecimalNumber? else {
-            return "0.00 DCR"
-        }
+    @IBAction func sendMaxTapped(_ sender: UIButton) {
+        self.sendMax = true
         
-        if self.exchangeRate == nil {
-            return "\(txFee.formattedWithSeparator) DCR"
-        } else {
-            let usdFee = exchangeRate!.multiplying(by: txFee).formattedWithSeparator
-            return "\(txFee.formattedWithSeparator) DCR\n(\(usdFee) USD)"
-        }
-    }
-
-    func prepareTxSummary(isSendAttempt: Bool, completion: (Double, String, DcrlibwalletTxFeeAndSize) -> Void) {
-        guard let dcrAmountString = self.amountTextField.text, !dcrAmountString.isEmpty,
-            let sendAmountDcr = Double(dcrAmountString), sendAmountDcr > 0 else {
-                self.clearTxSummary()
-                if isSendAttempt {
-                    self.notEnoughFundsLabel.text = LocalizedStrings.amountCantBeZero
-                } else {
-                    // disable send button
-                    self.toggleSendButtonState(false)
-                }
-                return
-        }
-        
-        // Send amount must be less than or equal to max amount.
-        guard sendAmountDcr <= DcrlibwalletMaxAmountDcr else {
-            // clear tx summary and disable send button
-            self.clearTxSummary()
-            self.toggleSendButtonState(false)
-            return
-        }
-        
-        guard let destinationAddress = self.getDestinationAddress(isSendAttempt: isSendAttempt) else {
-            if !isSendAttempt {
-                // clear tx summary and disable send button
-                self.clearTxSummary()
-                self.toggleSendButtonState(false)
-            }
+        guard self.isFormValid, let unsignedTx = self.currentUnsignedTx else {
+            self.sendMax = false
             return
         }
         
         do {
-            guard let sourceAccount = self.sourceAccountView.selectedAccount else {return}
-            let sendAmountAtom = DcrlibwalletAmountAtom(sendAmountDcr)
-            let sourceAccountNumber = sourceAccount.number
+            let maxSendableAmount = try unsignedTx.estimateMaxSendAmount()
+            let maxSendableAmountDecimal = NSDecimalNumber(value: maxSendableAmount.dcrValue)
             
-            let newTx = WalletLoader.shared.firstWallet!.newUnsignedTx(sourceAccountNumber,
-                                                                       requiredConfirmations: self.requiredConfirmations)
-            newTx?.addSendDestination(destinationAddress,
-                                      atomAmount: sendAmountAtom,
-                                      sendMax: self.sendMax)
-            
-            let txFeeAndSize = try newTx?.estimateFeeAndSize()
-            completion(sendAmountDcr, destinationAddress, txFeeAndSize!)
-        } catch let error {
-            // there's an error somewhere, clear tx summary and disable send button
-            self.clearTxSummary()
-            self.toggleSendButtonState(false)
-            if error.localizedDescription == "insufficient_balance" {
-                self.notEnoughFundsLabel.text = self.insufficientFundsErrorMessage
-                self.notEnoughFundsLabel.textColor = .red
-            } else {
-                print("get tx fee/size error: \(error.localizedDescription)")
-                if isSendAttempt {
-                    self.showSendError(LocalizedStrings.unexpectedError)
-                }
-            }
-        }
-    }
-    func showSendError(_ errorMessage: String) {
-        errorView.show(text: errorMessage)
-    }
-
-    @objc func dcrAmountTextFieldChanged(sendMax: Bool = false) {
-        defer {
-            self.toggleSendButtonState(shouldEnableSendButton)
-            self.displayTransactionSummary()
-        }
-
-        self.sendMax = sendMax
-        let dcrAmountString = self.amountTextField.text ?? ""
-
-        guard let dcrAmount = Double(dcrAmountString), let exchangeRate = self.exchangeRate else {
-            self.usdAmountLabel.text = "- USD"
-            return
-        }
-
-        let usdAmount = NSDecimalNumber(value: dcrAmount).multiplying(by: exchangeRate)
-        self.usdAmountLabel.text = "\(usdAmount.round(8)) USD"
-    }
-    
-    func checkAddressFromQrCode(textScannedFromQRCode: String?) {
-        guard var capturedText = textScannedFromQRCode else {
-            self.destinationAddressTextField.text = ""
-            return
-        }
-        
-        if capturedText.starts(with: "decred:") {
-            capturedText = capturedText.replacingOccurrences(of: "decred:", with: "")
-        }
-        
-        if capturedText.count < 25 {
-            errorView.show(text: LocalizedStrings.walletAddressShort)
-            return
-        }
-        if capturedText.count > 36 {
-            errorView.show(text: LocalizedStrings.walletAddressLong)
-            return
-        }
-        
-        if BuildConfig.IsTestNet {
-            if capturedText.starts(with: "T") {
-                self.destinationAddressTextField.text = capturedText
-            } else {
-                errorView.show(text: LocalizedStrings.invalidTesnetAddress)
-            }
-        } else {
-            if capturedText.starts(with: "D") {
-                self.destinationAddressTextField.text = capturedText
-            } else {
-                errorView.show(text: LocalizedStrings.invalidMainnetAddress)
-            }
-        }
-    }
-    
-    func toggleSendButtonState(_ enabled: Bool) {
-        nextButton.isEnabled = enabled
-    }
-    
-    func calculateAndDisplayMaxSendableAmount() {
-        guard let sourceAccount = self.sourceAccountView.selectedAccount else {return}
-        sendMax = true
-        if sourceAccount.balance?.spendable == 0 {
-            // nothing to send
-            self.notEnoughFundsLabel.text = self.insufficientFundsErrorMessage
-            return
-        }
-        
-        let destinationAddress = self.getDestinationAddress(isSendAttempt: false)
-        let wallet = WalletLoader.shared.firstWallet!
-        
-        do {
-            let newTx = wallet.newUnsignedTx(sourceAccount.number, requiredConfirmations: self.requiredConfirmations)
-            newTx?.addSendDestination(destinationAddress, atomAmount: 0, sendMax: sendMax)
-            let maxSendableAmount = try newTx?.estimateMaxSendAmount()
-            
-            let maxSendableAmountDecimal = Decimal(maxSendableAmount!.dcrValue) as NSDecimalNumber
             self.amountTextField.text = "\(maxSendableAmountDecimal.round(8))"
-            self.dcrAmountTextFieldChanged(sendMax: true)
+            self.dcrAmountTextFieldEditingEnded()
         } catch let error {
             print("get send max amount error: \(error.localizedDescription)")
-            self.notEnoughFundsLabel.text = LocalizedStrings.errorGettingMaxSpendable
+            self.sendMax = false
+            self.showAmountError(LocalizedStrings.errorGettingMaxSpendable)
         }
-    }
-
-    @IBAction func sendMaxTap(_ sender: UIButton) {
-        self.calculateAndDisplayMaxSendableAmount()
     }
 
     @IBAction func retryExchangeRateFetch(_ sender: UIButton) {
         self.fetchExchangeRate()
+    }
+    
+    @IBAction func nextButtonTapped(_ sender: Any) {
+        guard self.isFormValid,
+            let unsignedTx = self.currentUnsignedTx,
+            let txFeeAndSize = self.currentUnsignedTxFeeAndSize else { return }
+        
+        let sourceWallet = self.sourceAccountView.selectedWallet!
+        let sourceAccount = self.sourceAccountView.selectedAccount!
+        
+        let sourceAccountInfo = "\(sourceAccount.name) (\(sourceWallet.name))"
+        let dcrAmount = NSDecimalNumber(value: unsignedTx.totalSendAmount()!.dcrValue)
+        let dcrFee = NSDecimalNumber(value: txFeeAndSize.fee!.dcrValue)
+        let dcrTotalCost = dcrAmount.adding(dcrFee)
+        let dcrBalanceAfterSending = NSDecimalNumber(value: sourceAccount.dcrSpendableBalance).subtracting(dcrTotalCost)
+        
+        var unsignedTxSummary = UnsignedTxSummary(sourceAccountInfo: sourceAccountInfo,
+                                                  destinationAddress: unsignedTx.sendDestination(0)!.address,
+                                                  dcrAmount: dcrAmount,
+                                                  dcrFee: dcrFee,
+                                                  dcrTotalCost: dcrTotalCost,
+                                                  dcrBalanceAfterSending: dcrBalanceAfterSending)
+        
+        if !self.toSelfAccountSection.isHidden,
+            let destinationWallet = self.destinationAccountView.selectedWallet,
+            let destinationAccount = self.destinationAccountView.selectedAccount {
+            unsignedTxSummary.destinationAccountInfo = "\(destinationAccount.name) (\(destinationWallet.name))"
+        }
+        
+        ConfirmToSendFundsViewController.display(sender: self,
+                                                 sourceWalletID: sourceWallet.id_,
+                                                 unsignedTxSummary: unsignedTxSummary,
+                                                 unsignedTx: unsignedTx,
+                                                 exchangeRate: self.exchangeRate,
+                                                 onSendCompleted: self.sendCompleted)
+    }
+    
+    func sendCompleted() {
+        self.dismissView()
+        Utils.showBanner(in: AppDelegate.shared.topViewController()!.view, type: .success, text: "Transaction sent")
     }
 }
 
@@ -519,14 +323,72 @@ class SendFundsViewController: UIViewController {
 extension SendFundsViewController: FloatingPlaceholderTextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         self.showOrHidePasteAddressButton()
-        
-        let destinationAddress = self.destinationAddressTextField.text ?? ""
-        let addressValid = self.sourceAccountView.selectedWallet?.isAddressValid(destinationAddress) ?? false
-        self.invalidDestinationAddressLabel.isHidden = destinationAddress.isEmpty || addressValid
+        self.nextButton.isEnabled = self.isValidSendDestination && self.isValidAmount
     }
 }
 
-// comment
+// extension for amount calculations and display
+extension SendFundsViewController {
+    @objc func dcrAmountTextFieldEditingBegan() {
+        self.hideAmountError()
+    }
+
+    @objc func dcrAmountTextFieldChanged() {
+        self.sendMax = false
+        self.dcrAmountTextFieldEditingEnded()
+    }
+    
+    @objc func dcrAmountTextFieldEditingEnded() {
+        self.calculateAndDisplayUSDAmount()
+        self.displayFeeDetailsAndTransactionSummary()
+        self.nextButton.isEnabled = self.isValidAmount && self.isValidSendDestination
+    }
+
+    func calculateAndDisplayUSDAmount() {
+        guard let dcrAmount = Double(self.amountTextField.text ?? ""), let exchangeRate = self.exchangeRate else {
+            self.usdAmountLabel.text = "- USD"
+            return
+        }
+
+        let usdAmount = NSDecimalNumber(value: dcrAmount).multiplying(by: exchangeRate)
+        self.usdAmountLabel.text = "\(usdAmount.round(8)) USD"
+    }
+
+    func displayFeeDetailsAndTransactionSummary() {
+        guard let tempTx = self.currentUnsignedTx, let txFeeAndSize = self.currentUnsignedTxFeeAndSize else {
+            self.transactionFeeLabel.text = self.parseDCRAmount(0)
+            
+            self.processingTimeLabel.text = "-"
+            self.feeRateLabel.text = "-"
+            self.transactionSizeLabel.text = "-"
+            
+            self.totalCostLabel.text = self.parseDCRAmount(0)
+            self.balanceAfterSendingLabel.text = self.parseDCRAmount(0)
+            
+            return
+        }
+        
+        self.transactionFeeLabel.text = self.parseDCRAmount(txFeeAndSize.fee!.dcrValue)
+        
+        self.processingTimeLabel.text = "-" // todo fix!
+        
+        let feeRate = NSDecimalNumber(value: txFeeAndSize.fee!.dcrValue / Double(txFeeAndSize.estimatedSignedSize))
+        self.feeRateLabel.text = "\(feeRate.round(8).formattedWithSeparator) DCR/byte"
+        
+        self.transactionSizeLabel.text = "\(txFeeAndSize.estimatedSignedSize) bytes"
+        
+        let sendAmountDcr = tempTx.totalSendAmount()?.dcrValue ?? 0
+        let sourceAccountBalance = self.sourceAccountView.selectedAccount?.balance!.dcrSpendable ?? 0
+        
+        let totalCost = NSDecimalNumber(value: sendAmountDcr + txFeeAndSize.fee!.dcrValue)
+        let balanceAfterSending = NSDecimalNumber(value: sourceAccountBalance).subtracting(totalCost)
+        
+        self.totalCostLabel.text = "\(totalCost.round(8).formattedWithSeparator) DCR"
+        self.balanceAfterSendingLabel.text = "\(balanceAfterSending.round(8).formattedWithSeparator) DCR"
+    }
+}
+
+// extension for utility/helper variables and functions
 extension SendFundsViewController {
     var requiredConfirmations: Int32 {
         return Settings.spendUnconfirmed ? 0 : GlobalConstants.Wallet.defaultRequiredConfirmations
@@ -540,88 +402,157 @@ extension SendFundsViewController {
         }
     }
     
-    var shouldEnableSendButton: Bool {
-        if !toSelfAccountSection.isHidden {
-            guard destinationAccountView.selectedAccount != nil else { return false }
-        } else {
-            guard let address = destinationAddress, !address.isEmpty else { return false }
+    var destinationAddress: String? {
+        if self.toSelfAccountSection.isHidden {
+            return self.destinationAddressTextField.text ?? ""
         }
-        return isValidAmount
+
+        // Sending to account, generate an address to use.
+        guard let destinationWallet = self.destinationAccountView.selectedWallet,
+            let destinationAccount = self.destinationAccountView.selectedAccount else { return nil }
+        
+        return destinationWallet.currentRecieveAddress(for: destinationAccount.number)
+    }
+    
+    var currentUnsignedTx: DcrlibwalletTxAuthor? {
+        guard let sourceWallet = self.sourceAccountView.selectedWallet,
+            let sourceAccount = self.sourceAccountView.selectedAccount,
+            let sourceAccountBalance = sourceAccount.balance, sourceAccountBalance.spendable > 0,
+            let destinationAddress = self.destinationAddress, sourceWallet.isAddressValid(destinationAddress)
+            else { return nil }
+        
+        let sendAmountDcr = Double(self.amountTextField.text ?? "") ?? 0
+        if !self.sendMax {
+            guard sendAmountDcr > 0, sendAmountDcr <= DcrlibwalletMaxAmountDcr else {
+                return nil
+            }
+        }
+        
+        let unsignedTx = WalletLoader.shared.multiWallet.newUnsignedTx(sourceWallet,
+                                                                       sourceAccountNumber: sourceAccount.number)
+        
+        unsignedTx?.addSendDestination(destinationAddress,
+                                       atomAmount: DcrlibwalletAmountAtom(sendAmountDcr),
+                                       sendMax: self.sendMax)
+        
+        return unsignedTx
+    }
+    
+    var currentUnsignedTxFeeAndSize: DcrlibwalletTxFeeAndSize? {
+        guard let tempTx = self.currentUnsignedTx else { return nil }
+        
+        do {
+            return try tempTx.estimateFeeAndSize()
+        } catch let error {
+            if error.localizedDescription == DcrlibwalletErrInsufficientBalance {
+                self.showAmountError(self.insufficientFundsErrorMessage)
+            } else {
+                print("get tx fee/size error: \(error.localizedDescription)")
+            }
+            
+            self.nextButton.isEnabled = false
+            return nil
+        }
+    }
+    
+    var isValidSendDestination: Bool {
+        self.invalidDestinationAddressLabel.isHidden = true
+        
+        if !toSelfAccountSection.isHidden {
+            return destinationAccountView.selectedAccount != nil
+        } else {
+            let destinationAddress = self.destinationAddressTextField.text ?? ""
+            let addressValid = self.sourceAccountView.selectedWallet?.isAddressValid(destinationAddress) ?? false
+            self.invalidDestinationAddressLabel.isHidden = destinationAddress.isEmpty || addressValid
+            return addressValid
+        }
     }
     
     var isValidAmount: Bool {
-        self.notEnoughFundsLabel.text = ""
+        self.hideAmountError()
         guard let dcrAmountString = self.amountTextField.text, dcrAmountString != "" else { return false }
         
         if dcrAmountString.components(separatedBy: ".").count > 2 {
             // more than 1 decimal place
-            self.notEnoughFundsLabel.text = LocalizedStrings.invalidAmount
+            self.showAmountError(LocalizedStrings.invalidAmount)
             return false
         }
         
         let decimalPointIndex = dcrAmountString.firstIndex(of: ".")
         if decimalPointIndex != nil && dcrAmountString[decimalPointIndex!...].count > 9 {
-            self.notEnoughFundsLabel.text = LocalizedStrings.amount8Decimal
+            self.showAmountError(LocalizedStrings.amount8Decimal)
             return false
         }
         
         guard let sendAmountDcr = Double(dcrAmountString), sendAmountDcr > 0 else {
-            self.notEnoughFundsLabel.text = LocalizedStrings.invalidAmount
+            self.showAmountError(LocalizedStrings.invalidAmount)
             return false
         }
         
         if sendAmountDcr > DcrlibwalletMaxAmountDcr {
-            self.notEnoughFundsLabel.text = LocalizedStrings.amountMaximumAllowed
+            self.showAmountError(LocalizedStrings.amountMaximumAllowed)
             return false
         }
-        
-        guard let sourceAccount = self.sourceAccountView.selectedAccount else { return false }
-        
-        if sendAmountDcr > sourceAccount.balance!.dcrSpendable {
-            self.notEnoughFundsLabel.text = self.insufficientFundsErrorMessage
+                
+        if sendAmountDcr > self.sourceAccountView.selectedAccount?.balance!.dcrSpendable ?? 0 {
+            self.showAmountError(self.insufficientFundsErrorMessage)
             return false
         }
         
         return true
     }
-}
-
-// needs a comment
-extension SendFundsViewController: UITextFieldDelegate {
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        if let floatingPlaceholderTextfield = textField as? FloatingPlaceholderTextField {
-            floatingPlaceholderTextfield.hideError() // todo also hide error label
+    
+    var isFormValid: Bool {
+        guard let sourceWallet = self.sourceAccountView.selectedWallet,
+            let sourceAccount = self.sourceAccountView.selectedAccount else {
+            
+                Utils.showBanner(in: self.view, type: .error, text: "Select from account.") // todo localize
+                return false
         }
-    }
-
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        self.calculateAndDisplayMaxSendableAmount()
-        // Address field
-        if textField.tag == 0 {
-            self.toggleSendButtonState(self.shouldEnableSendButton)
-        } else if textField.tag == 1 {
-            if self.exchangeRate != nil {
-                displayExchangeRate(self.exchangeRate)
+        
+        guard let sourceAccountBalance = sourceAccount.balance, sourceAccountBalance.spendable > 0 else {
+            Utils.showBanner(in: self.view, type: .error, text: self.insufficientFundsErrorMessage)
+            return false
+        }
+        
+        guard let destinationAddress = self.destinationAddress, sourceWallet.isAddressValid(destinationAddress) else {
+            Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.invalidDestAddr)
+            return false
+        }
+        
+        let sendAmountDcr = Double(self.amountTextField.text ?? "") ?? 0
+        if !self.sendMax {
+            guard sendAmountDcr > 0, sendAmountDcr <= DcrlibwalletMaxAmountDcr else {
+                Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.invalidAmount)
+                return false
             }
-            dcrAmountTextFieldChanged()
-            toggleSendButtonState(self.shouldEnableSendButton)
+        }
+        
+        return true
+    }
+    
+    func hideAmountError() {
+        self.notEnoughFundsLabel.text = " "
+        if self.amountTextField.isEditing {
+            self.amountContainerView.layer.borderColor = UIColor.appColors.lightBlue.cgColor
+        } else {
+            self.amountContainerView.layer.borderColor = UIColor.appColors.gray.cgColor
         }
     }
-
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        return true
+    
+    func showAmountError(_ errorText: String) {
+        self.notEnoughFundsLabel.text = errorText
+        self.amountContainerView.layer.borderColor = UIColor.appColors.orange.cgColor
     }
 
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-}
-
-extension SendFundsViewController: SendFundsDelegate {
-    func successfullySentFunds() {
-        sendFundsDelegate?.successfullySentFunds()
-        dismiss(animated: true, completion: nil)
+    func parseDCRAmount(_ amount: Double) -> String {
+        let dcrAmount = NSDecimalNumber(value: amount)
+        if self.exchangeRate == nil {
+            return "\(dcrAmount.formattedWithSeparator) DCR"
+        } else {
+            let usdFee = exchangeRate!.multiplying(by: dcrAmount).round(8).formattedWithSeparator
+            return "\(dcrAmount.formattedWithSeparator) DCR (\(usdFee) USD)"
+        }
     }
 }
 

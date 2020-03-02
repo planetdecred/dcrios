@@ -53,6 +53,8 @@ class AccountSelectorDialog: UIViewController {
         let accountsFilterFn: (DcrlibwalletAccount) -> Bool = { $0.totalBalance > 0 || $0.name != "imported" }
         self.wallets = WalletLoader.shared.wallets.map({ Wallet.init($0, accountsFilterFn: accountsFilterFn) })
         self.walletsTableView.reloadData()
+        
+        self.dismissViewOnTapAround()
     }
 
     override func viewWillAppear(_ animated: Bool) {

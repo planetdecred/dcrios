@@ -290,18 +290,18 @@ class SendViewController: UIViewController {
         
         let destinationAddress = self.getDestinationAddress(isSendAttempt: false)
         
-        do {
-            let newTx = self.sendFromWallet.newUnsignedTx(sourceAccount.number, requiredConfirmations: self.requiredConfirmations)
-            newTx?.addSendDestination(destinationAddress, atomAmount: 0, sendMax: true)
-            let maxSendableAmount = try newTx?.estimateMaxSendAmount()
-            
-            let maxSendableAmountDecimal = Decimal(maxSendableAmount!.dcrValue) as NSDecimalNumber
-            self.dcrAmountTextField.text = "\(maxSendableAmountDecimal.round(8))"
-            self.dcrAmountTextFieldChanged(sendMax: true)
-        } catch let error {
-            print("get send max amount error: \(error.localizedDescription)")
-            self.sendAmountErrorLabel.text = LocalizedStrings.errorGettingMaxSpendable
-        }
+//        do {
+//            let newTx = self.sendFromWallet.newUnsignedTx(sourceAccount.number, requiredConfirmations: self.requiredConfirmations)
+//            newTx?.addSendDestination(destinationAddress, atomAmount: 0, sendMax: true)
+//            let maxSendableAmount = try newTx?.estimateMaxSendAmount()
+//
+//            let maxSendableAmountDecimal = Decimal(maxSendableAmount!.dcrValue) as NSDecimalNumber
+//            self.dcrAmountTextField.text = "\(maxSendableAmountDecimal.round(8))"
+//            self.dcrAmountTextFieldChanged(sendMax: true)
+//        } catch let error {
+//            print("get send max amount error: \(error.localizedDescription)")
+//            self.sendAmountErrorLabel.text = LocalizedStrings.errorGettingMaxSpendable
+//        }
     }
     
     @IBAction func sendButtonTapped(_ sender: Any) {
@@ -318,38 +318,38 @@ class SendViewController: UIViewController {
             return
         }
         
-        self.prepareTxSummary(isSendAttempt: true) { sendAmountDcr, destinationAddress, txFeeAndSize in
-            var sendAmount = ConfirmToSendFundViewController.Amount(dcrValue: NSDecimalNumber(value: sendAmountDcr), usdValue: nil)
-            var fee = ConfirmToSendFundViewController.Amount(dcrValue: NSDecimalNumber(value: txFeeAndSize.fee!.dcrValue), usdValue: nil)
-            if self.exchangeRate != nil {
-                sendAmount.usdValue = sendAmount.dcrValue.multiplying(by: self.exchangeRate!)
-                fee.usdValue = fee.dcrValue.multiplying(by: self.exchangeRate!)
-            }
-            
-            var destinationAccount: String?
-            if !self.destinationAccountView.isHidden {
-                destinationAccount = self.walletAccounts[self.destinationAccountDropdown.selectedItemIndex].name
-            }
-            
-            let requestSendConfirmation = ConfirmToSendFundViewController.requestConfirmation
-            requestSendConfirmation(self.sendFromWallet.id_, sendAmount, fee, destinationAddress, destinationAccount) {
-                (spendingPassword: String?) in
-                // Send tx confirmation page may return a password if the spending security type is password.
-                // If the password returned is nil, prompt user for spending pin, otherwise proceed to send with the provided password.
-                if spendingPassword != nil {
-                    self.finalizeSending(destinationAddress: destinationAddress, pinOrPassword: spendingPassword!)
-                    return
-                }
-                
-                Security.spending(initialSecurityType: SpendingPinOrPassword.securityType(for: self.sendFromWallet))
-                    .with(prompt: LocalizedStrings.confirmToSend)
-                    .requestCurrentCode(sender: self) { pinOrPassword, _, completion in
-                    
-                        completion?.dismissDialog()
-                        self.finalizeSending(destinationAddress: destinationAddress, pinOrPassword: pinOrPassword)
-                }
-            }
-        }
+//        self.prepareTxSummary(isSendAttempt: true) { sendAmountDcr, destinationAddress, txFeeAndSize in
+//            var sendAmount = ConfirmToSendFundsViewController.Amount(dcrValue: NSDecimalNumber(value: sendAmountDcr), usdValue: nil)
+//            var fee = ConfirmToSendFundsViewController.Amount(dcrValue: NSDecimalNumber(value: txFeeAndSize.fee!.dcrValue), usdValue: nil)
+//            if self.exchangeRate != nil {
+//                sendAmount.usdValue = sendAmount.dcrValue.multiplying(by: self.exchangeRate!)
+//                fee.usdValue = fee.dcrValue.multiplying(by: self.exchangeRate!)
+//            }
+//            
+//            var destinationAccount: String?
+//            if !self.destinationAccountView.isHidden {
+//                destinationAccount = self.walletAccounts[self.destinationAccountDropdown.selectedItemIndex].name
+//            }
+//            
+//            let requestSendConfirmation = ConfirmToSendFundsViewController.requestConfirmation
+//            requestSendConfirmation(self.sendFromWallet.id_, sendAmount, fee, destinationAddress, destinationAccount) {
+//                (spendingPassword: String?) in
+//                // Send tx confirmation page may return a password if the spending security type is password.
+//                // If the password returned is nil, prompt user for spending pin, otherwise proceed to send with the provided password.
+//                if spendingPassword != nil {
+//                    self.finalizeSending(destinationAddress: destinationAddress, pinOrPassword: spendingPassword!)
+//                    return
+//                }
+//                
+//                Security.spending(initialSecurityType: SpendingPinOrPassword.securityType(for: self.sendFromWallet))
+//                    .with(prompt: LocalizedStrings.confirmToSend)
+//                    .requestCurrentCode(sender: self) { pinOrPassword, _, completion in
+//                    
+//                        completion?.dismissDialog()
+//                        self.finalizeSending(destinationAddress: destinationAddress, pinOrPassword: pinOrPassword)
+//                }
+//            }
+//        }
     }
 
     func prepareTxSummary(isSendAttempt: Bool, completion: (Double, String, DcrlibwalletTxFeeAndSize) -> Void) {
@@ -382,32 +382,32 @@ class SendViewController: UIViewController {
             return
         }
         
-        do {
-            let sendAmountAtom = DcrlibwalletAmountAtom(sendAmountDcr)
-            let sourceAccountNumber = self.walletAccounts[self.sourceAccountDropdown.selectedItemIndex].number
-            
-            let newTx = self.sendFromWallet.newUnsignedTx(sourceAccountNumber,
-                                                                       requiredConfirmations: self.requiredConfirmations)
-            newTx?.addSendDestination(destinationAddress,
-                                      atomAmount: sendAmountAtom,
-                                      sendMax: self.sendMaxAmount)
-            
-            let txFeeAndSize = try newTx?.estimateFeeAndSize()
-            completion(sendAmountDcr, destinationAddress, txFeeAndSize!)
-        } catch let error {
-            // there's an error somewhere, clear tx summary and disable send button
-            self.clearTxSummary()
-            self.toggleSendButtonState(addressValid: false, amountValid: false)
-            
-            if error.localizedDescription == "insufficient_balance" {
-                self.sendAmountErrorLabel.text = self.insufficientFundsErrorMessage
-            } else {
-                print("get tx fee/size error: \(error.localizedDescription)")
-                if isSendAttempt {
-                    self.showSendError(LocalizedStrings.unexpectedError)
-                }
-            }
-        }
+//        do {
+//            let sendAmountAtom = DcrlibwalletAmountAtom(sendAmountDcr)
+//            let sourceAccountNumber = self.walletAccounts[self.sourceAccountDropdown.selectedItemIndex].number
+//
+//            let newTx = self.sendFromWallet.newUnsignedTx(sourceAccountNumber,
+//                                                                       requiredConfirmations: self.requiredConfirmations)
+//            newTx?.addSendDestination(destinationAddress,
+//                                      atomAmount: sendAmountAtom,
+//                                      sendMax: self.sendMaxAmount)
+//
+//            let txFeeAndSize = try newTx?.estimateFeeAndSize()
+//            completion(sendAmountDcr, destinationAddress, txFeeAndSize!)
+//        } catch let error {
+//            // there's an error somewhere, clear tx summary and disable send button
+//            self.clearTxSummary()
+//            self.toggleSendButtonState(addressValid: false, amountValid: false)
+//
+//            if error.localizedDescription == "insufficient_balance" {
+//                self.sendAmountErrorLabel.text = self.insufficientFundsErrorMessage
+//            } else {
+//                print("get tx fee/size error: \(error.localizedDescription)")
+//                if isSendAttempt {
+//                    self.showSendError(LocalizedStrings.unexpectedError)
+//                }
+//            }
+//        }
     }
     
     func finalizeSending(destinationAddress: String, pinOrPassword: String) {
@@ -418,35 +418,35 @@ class SendViewController: UIViewController {
         
         let progressHud = Utils.showProgressHud(withText: LocalizedStrings.sendingTransaction)
         DispatchQueue.global(qos: .userInitiated).async {[unowned self] in
-            do {
-                let newTx = self.sendFromWallet.newUnsignedTx(sourceAccountNumber,
-                                                                           requiredConfirmations: self.requiredConfirmations)
-                newTx?.addSendDestination(destinationAddress,
-                                          atomAmount: sendAmountAtom,
-                                          sendMax: self.sendMaxAmount)
-                
-                let hash = try newTx?.broadcast(pinOrPassword.utf8Bits)
-                
-                DispatchQueue.main.async {
-                    progressHud.dismiss()
-                    self.transactionSucceeded(hash!.hexEncodedString())
-                }
-            } catch let error {
-                DispatchQueue.main.async {
-                    progressHud.dismiss()
-                    
-                    if error.isInvalidPassphraseError {
-                        let errorMessage = SpendingPinOrPassword.invalidSecurityCodeMessage(for: self.sendFromWallet.id_)
-                        self.showOkAlert(message: errorMessage,
-                                         title: LocalizedStrings.failedTransaction,
-                                         okText: LocalizedStrings.retry,
-                                         onPressOk: self.attemptSend,
-                                         addCancelAction: true)
-                    } else {
-                        self.showOkAlert(message: error.localizedDescription, title: LocalizedStrings.error)
-                    }
-                }
-            }
+//            do {
+//                let newTx = self.sendFromWallet.newUnsignedTx(sourceAccountNumber,
+//                                                                           requiredConfirmations: self.requiredConfirmations)
+//                newTx?.addSendDestination(destinationAddress,
+//                                          atomAmount: sendAmountAtom,
+//                                          sendMax: self.sendMaxAmount)
+//
+//                let hash = try newTx?.broadcast(pinOrPassword.utf8Bits)
+//
+//                DispatchQueue.main.async {
+//                    progressHud.dismiss()
+//                    self.transactionSucceeded(hash!.hexEncodedString())
+//                }
+//            } catch let error {
+//                DispatchQueue.main.async {
+//                    progressHud.dismiss()
+//
+//                    if error.isInvalidPassphraseError {
+//                        let errorMessage = SpendingPinOrPassword.invalidSecurityCodeMessage(for: self.sendFromWallet.id_)
+//                        self.showOkAlert(message: errorMessage,
+//                                         title: LocalizedStrings.failedTransaction,
+//                                         okText: LocalizedStrings.retry,
+//                                         onPressOk: self.attemptSend,
+//                                         addCancelAction: true)
+//                    } else {
+//                        self.showOkAlert(message: error.localizedDescription, title: LocalizedStrings.error)
+//                    }
+//                }
+//            }
         }
     }
     
