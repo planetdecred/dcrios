@@ -503,42 +503,45 @@ extension SendViewController {
     }
     
     func checkAddressFromQrCode(textScannedFromQRCode: String?) {
-        guard var capturedText = textScannedFromQRCode else {
+        guard let capturedText = textScannedFromQRCode else {
             self.destinationAddressTextField.text = ""
             return
         }
         
-        if capturedText.starts(with: "decred:") {
-            capturedText = capturedText.replacingOccurrences(of: "decred:", with: "")
-        }
-        
-        if capturedText.count < 25 {
-            self.invalidAddressFromQrCode(errorMessage: LocalizedStrings.walletAddressShort)
-            return
-        }
-        if capturedText.count > 36 {
-            self.invalidAddressFromQrCode(errorMessage: LocalizedStrings.walletAddressLong)
+        let addressURI = DecredAddressURI(uriString: capturedText)
+        if addressURI.address.count < 25 || addressURI.address.count > 36 {
+            self.invalidAddressFromQrCode(errorMessage: String(format: LocalizedStrings.addressFromQr, addressURI.address), title: LocalizedStrings.invalidAddr)
             return
         }
         
         if BuildConfig.IsTestNet {
-            if capturedText.starts(with: "T") {
-                self.destinationAddressTextField.text = capturedText
-            } else {
+            if !addressURI.address.starts(with: "T") {
                 self.invalidAddressFromQrCode(errorMessage: LocalizedStrings.invalidTesnetAddress)
+                return
             }
         } else {
-            if capturedText.starts(with: "D") {
-                self.destinationAddressTextField.text = capturedText
-            } else {
+            if !addressURI.address.starts(with: "D") {
                 self.invalidAddressFromQrCode(errorMessage: LocalizedStrings.invalidMainnetAddress)
+                return
             }
+        }
+
+        self.destinationAddressTextField.text = addressURI.address
+        if addressURI.amount != nil {
+            self.dcrAmountTextField.text = String(addressURI.amount!)
         }
     }
     
-    func invalidAddressFromQrCode(errorMessage: String) {
+    func invalidAddressFromQrCode(errorMessage: String, title: String? = nil) {
         self.destinationAddressTextField.text = ""
-        AppDelegate.shared.showOkAlert(message: errorMessage)
+        /*
+         QR code scanner is currently being presented over this controller's context.
+         Wait till QR code scanner view is dismissed properly before presenting an alert on this view controller.
+         Presenting too soon causes the alert to not get displayed sometimes
+        */
+        DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: {
+            self.showOkAlert(message: errorMessage, title: title)
+        })
     }
     
     @objc func addressTextFieldChanged() {

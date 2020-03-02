@@ -37,6 +37,7 @@
 		10FABE4B23C72D6800BC201B /* FloatingPlaceholderInputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FABE4A23C72D6700BC201B /* FloatingPlaceholderInputProtocol.swift */; };
 		10FABE4F23C7303E00BC201B /* FloatingPlaceholderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FABE4E23C7303E00BC201B /* FloatingPlaceholderTextView.swift */; };
 		10FABE5123C7307100BC201B /* FloatingPlaceholderBorderLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FABE5023C7307100BC201B /* FloatingPlaceholderBorderLayer.swift */; };
+		250D77BD23F2BF0F00CDC256 /* DecredAddressURI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250D77BC23F2BF0F00CDC256 /* DecredAddressURI.swift */; };
 		2557E1892355C6FA00B6A1B7 /* NavigationMenuTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2557E1882355C6FA00B6A1B7 /* NavigationMenuTabBarController.swift */; };
 		2557E18B2355C9F000B6A1B7 /* CustomTabMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2557E18A2355C9F000B6A1B7 /* CustomTabMenuView.swift */; };
 		25751F532372C9460019F657 /* Dcrlibwallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25751F522372C9460019F657 /* Dcrlibwallet.framework */; };
@@ -195,6 +196,7 @@
 		10FABE4E23C7303E00BC201B /* FloatingPlaceholderTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingPlaceholderTextView.swift; sourceTree = "<group>"; };
 		10FABE5023C7307100BC201B /* FloatingPlaceholderBorderLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingPlaceholderBorderLayer.swift; sourceTree = "<group>"; };
 		23F5A25CDDC0ADF47F98ED95 /* Pods-Decred Wallet.mainnet release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.mainnet release.xcconfig"; path = "Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.mainnet release.xcconfig"; sourceTree = "<group>"; };
+		250D77BC23F2BF0F00CDC256 /* DecredAddressURI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecredAddressURI.swift; sourceTree = "<group>"; };
 		2557E1882355C6FA00B6A1B7 /* NavigationMenuTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationMenuTabBarController.swift; sourceTree = "<group>"; };
 		2557E18A2355C9F000B6A1B7 /* CustomTabMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabMenuView.swift; sourceTree = "<group>"; };
 		25751F522372C9460019F657 /* Dcrlibwallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Dcrlibwallet.framework; path = libs/Dcrlibwallet.framework; sourceTree = "<group>"; };
@@ -439,6 +441,7 @@
 		B3A3EF8922937B7500008A4E /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				250D77BC23F2BF0F00CDC256 /* DecredAddressURI.swift */,
 				B3B46A4F228F0F7B00A68EDD /* Utils.swift */,
 				DD4948EB22C0E400006A35F8 /* LocalizedStrings.swift */,
 				AD24C23C2343E445009583C9 /* NotificationsManager.swift */,
@@ -1057,6 +1060,7 @@
 				10341E0A23CBBB700055DFDE /* SeedBackupVerifyTableViewCell.swift in Sources */,
 				B3B9432923E4D0B30088EC3E /* WalletSettingsViewController.swift in Sources */,
 				B377DB0722A5663700BDF56F /* DeleteWalletConfirmationViewController.swift in Sources */,
+				250D77BD23F2BF0F00CDC256 /* DecredAddressURI.swift in Sources */,
 				B3A3EF88229375D100008A4E /* Date.swift in Sources */,
 				B3B46A21228F0F2700A68EDD /* SecurityCodeRequestBaseViewController.swift in Sources */,
 				B3A3EF922295956300008A4E /* SendViewController.swift in Sources */,

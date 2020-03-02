@@ -244,8 +244,6 @@ struct LocalizedStrings {
     static let unexpectedError = NSLocalizedString("unexpectedError", comment: "")
     static let sendingTransaction = NSLocalizedString("sendingTransaction", comment: "")
     static let failedTransaction = NSLocalizedString("failedTransaction", comment: "")
-    static let walletAddressShort = NSLocalizedString("walletAddressShort", comment: "")
-    static let walletAddressLong = NSLocalizedString("walletAddressLong", comment: "")
     static let invalidTesnetAddress = NSLocalizedString("invalidTesnetAddress", comment: "")
     static let invalidMainnetAddress = NSLocalizedString("invalidMainnetAddress", comment: "")
     static let invalidDestAddr = NSLocalizedString("invalidDestAddr", comment: "")
@@ -263,6 +261,8 @@ struct LocalizedStrings {
     static let balanceAfter = NSLocalizedString("balanceAfter", comment: "")
     static let exchangeRate = NSLocalizedString("exchangeRate", comment: "")
     static let confirmToSend = NSLocalizedString("confirmToSend", comment: "")
+    static let addressFromQr = NSLocalizedString("addressFromQr", comment: "")
+    
     
     /* Confirm Send Fund */
     static let sending = NSLocalizedString("sending", comment: "")
