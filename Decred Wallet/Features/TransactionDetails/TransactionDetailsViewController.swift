@@ -287,8 +287,8 @@ extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDe
         headerView.addSubview(headerLabel)
 
         let arrowImageView = UIImageView.init(frame: CGRect(x: transactionDetailsTableWidth - 40, y: 12, width: 24, height: 24))
-        let arrowImage = UIImage(named: "ic_collapse")
-        if !isCollapsed {
+        let arrowImage = UIImage(named: "ic_expand")
+        if isCollapsed {
             arrowImageView.image = arrowImage
         } else {
             arrowImageView.image = UIImage(cgImage: (arrowImage?.cgImage!)!, scale: CGFloat(1.0), orientation: .downMirrored)

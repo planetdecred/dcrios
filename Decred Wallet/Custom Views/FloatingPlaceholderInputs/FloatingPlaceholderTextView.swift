@@ -19,7 +19,11 @@ class FloatingPlaceholderTextView: UITextView {
             self.floatingPlaceholderLabel.text = placeholder
         }
     }
+    
+    @IBInspectable var allowLineBreaks: Bool = true
 
+    var textViewDelegate: FloatingPlaceholderTextViewDelegate?
+    
     override init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)
         self.initView()
@@ -43,30 +47,96 @@ class FloatingPlaceholderTextView: UITextView {
 
         self.addSubview(self.floatingPlaceholderLabel)
     }
+    
+    func setText(_ text: String) {
+        self.textViewDidBeginEditing(self)
+        self.text = text
+        self.textViewDidEndEditing(self)
+        self.textViewDidChange(self)
+    }
 
-    public func addButton(button: UIButton) {
-        var trailingToView = self.layoutMarginsGuide.trailingAnchor
-        var trailingConstant: CGFloat = -14
+    public func add(button: UIButton) {
+        var trailingAnchor = self.layoutMarginsGuide.trailingAnchor
+        var trailingConstant: CGFloat = -12
+        
         if let lastButton = self.subviews.last(where: { $0 is UIButton }) {
-            trailingToView = lastButton.leadingAnchor
-            trailingConstant = -28
+            trailingAnchor = lastButton.leadingAnchor
+            trailingConstant = -16
         }
 
         self.addSubview(button)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.widthAnchor.constraint(equalToConstant: 20).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        button.trailingAnchor.constraint(equalTo: trailingToView, constant: trailingConstant).isActive = true
+        button.trailingAnchor.constraint(equalTo: trailingAnchor, constant: trailingConstant).isActive = true
         button.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-
+        
         self.layoutIfNeeded()
-        self.textContainerInset.right = 14 + (self.frame.size.width -  button.frame.origin.x)
+        
+        self.textContainerInset.right += button.frame.width + abs(trailingConstant)
+    }
+    
+    public func toggleButtonVisibility(_ button: UIButton) {
+        // only proceed if the button exists in this view heiriachy.
+        guard self.subviews.first(where: { $0 == button }) != nil else { return }
+
+        button.isHidden = !button.isHidden
+        
+        if !button.isHidden {
+            // button was hidden but now visible
+            // re-layout so we can get the accurate button width
+            self.layoutIfNeeded()
+        }
+        
+        var textContainerInsetAdjustment = button.frame.size.width
+        if self.subviews.filter({ $0 is UIButton }).count == 1 {
+            textContainerInsetAdjustment += 12
+        } else {
+            textContainerInsetAdjustment += 16
+        }
+        
+        if button.isHidden {
+            self.textContainerInset.right -= textContainerInsetAdjustment
+        } else {
+            self.textContainerInset.right += textContainerInsetAdjustment
+        }
+        
+        self.layoutIfNeeded()
+    }
+    
+    func showError() {
+        self.borderLayer.activeBorderColor = UIColor.appColors.orange
+        self.floatingPlaceholderLabel.activeColor = UIColor.appColors.orange
+        self.borderLayer.changeBorderColor(acitve: self.isEditing)
+        self.floatingPlaceholderLabel.updateTextColor(shouldHighlight: self.isEditing)
+    }
+
+    func hideError() {
+        self.borderLayer.activeBorderColor = UIColor.appColors.lightBlue
+        self.floatingPlaceholderLabel.activeColor = UIColor.appColors.lightBlue
+        self.borderLayer.changeBorderColor(acitve: self.isEditing)
+        self.floatingPlaceholderLabel.updateTextColor(shouldHighlight: self.isEditing)
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
         borderLayer.frame = self.bounds
     }
+
+    override var intrinsicContentSize: CGSize {
+        self.setNeedsLayout()
+        self.layoutIfNeeded()
+        
+        let fixedWidth = self.frame.size.width
+        let newSize = self.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
+        
+        let minHeight = self.floatingPlaceholderLabel.frame.size.height
+            + self.textContainerInset.top + self.textContainerInset.bottom
+        
+        return CGSize(width: max(newSize.width, fixedWidth), height: max(newSize.height, minHeight))
+    }
+}
+
+@objc protocol FloatingPlaceholderTextViewDelegate {
+    @objc optional func textViewDidChange(_ textView: UITextView)
 }
 
 extension FloatingPlaceholderTextView: UITextViewDelegate {
@@ -84,6 +154,18 @@ extension FloatingPlaceholderTextView: UITextViewDelegate {
         } else {
             self.floatingPlaceholderLabel.updateTextColor(shouldHighlight: false)
         }
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if !self.allowLineBreaks && text.rangeOfCharacter(from: CharacterSet.newlines) != nil {
+            self.resignFirstResponder()
+            return false
+        }
+        return true
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        self.textViewDelegate?.textViewDidChange?(textView)
     }
 }
 

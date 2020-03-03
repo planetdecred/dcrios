@@ -19,6 +19,18 @@ struct AttributedStringStyle {
     var tag: String?
     var font: UIFont?
     var color: UIColor?
+    
+    init(tag: String? = nil, font: UIFont, color: UIColor) {
+        self.tag = tag
+        self.font = font
+        self.color = color
+    }
+    
+    init(tag: String? = nil, fontFamily: String, fontSize: CGFloat, color: UIColor) {
+        self.tag = tag
+        self.font = UIFont(name: fontFamily, size: fontSize)
+        self.color = color
+    }
 }
 
 struct Utils {
@@ -87,21 +99,6 @@ struct Utils {
         return hud
     }
     
-    static func spendable(account:DcrlibwalletAccount) -> Decimal{
-        let iRequireConfirm = Settings.spendUnconfirmed ? Int32(0) : Int32(2)
-        let int64Pointer = UnsafeMutablePointer<Int64>.allocate(capacity: 64)
-        do {
-            
-            try WalletLoader.shared.firstWallet?.spendable(forAccount: account.number, requiredConfirmations: iRequireConfirm, ret0_: int64Pointer)
-        } catch let error{
-            print(error)
-            return 0.0
-        }
-        print("spendable =")
-        print(Decimal(int64Pointer.move()))
-        return Decimal(int64Pointer.move()) / 100000000.0
-    }
-    
     static func loadCertificate() throws ->  String {
         let filePath = NSHomeDirectory() + "/Documents/rpc.cert"
         return try String.init(contentsOfFile: filePath)
@@ -117,13 +114,13 @@ struct Utils {
         }
     }
     
-    static func amountAsAttributedString(amount: Double?, smallerTextSize: CGFloat, textColor: UIColor = UIColor.appColors.darkBlue) -> NSAttributedString {
+    static func amountAsAttributedString(amount: Double?, smallerTextSize: CGFloat, textColor: UIColor = UIColor.appColors.darkBlue) -> NSMutableAttributedString {
         let amountRoundedOff = (Decimal(amount ?? 0) as NSDecimalNumber).round(8)
         return Utils.getAttributedString(str: "\(amountRoundedOff)", siz: smallerTextSize, TexthexColor: textColor)
     }
     
     // todo this function is a mess, should be refactored!
-    static func getAttributedString(str: String, siz: CGFloat, TexthexColor: UIColor) -> NSAttributedString {
+    static func getAttributedString(str: String, siz: CGFloat, TexthexColor: UIColor) -> NSMutableAttributedString {
         var tmpString = str
         if tmpString.contains("."){
             var stt = tmpString as NSString?
@@ -213,17 +210,24 @@ struct Utils {
             banner?.removeFromSuperview()
         }
     }
-
-    static func styleAttributedString(_ inString: String, styles: [AttributedStringStyle], defaultStyle: AttributedStringStyle? = nil) -> NSMutableAttributedString {
-        let attrString = NSMutableAttributedString(string: inString, attributes: nil)
-        if let `defaultStyle` = defaultStyle {
-            if let color = defaultStyle.color {
-                attrString.addAttribute(NSAttributedString.Key.foregroundColor, value: color, range: NSMakeRange(0, inString.count))
-            }
-            if let font = defaultStyle.font {
-                attrString.addAttribute(NSAttributedString.Key.font, value: font, range: NSMakeRange(0, inString.count))
-            }
+    
+    static func styleAttributedString(_ text: String, font: UIFont? = nil, color: UIColor? = nil) -> NSMutableAttributedString {
+        let attrString = NSMutableAttributedString(string: text, attributes: nil)
+        if font != nil {
+            attrString.addAttribute(NSAttributedString.Key.font, value: font!, range: NSMakeRange(0, text.count))
         }
+        if color != nil {
+            attrString.addAttribute(NSAttributedString.Key.foregroundColor, value: color!, range: NSMakeRange(0, text.count))
+        }
+        return attrString
+    }
+
+    static func styleAttributedString(_ inString: String,
+                                      styles: [AttributedStringStyle],
+                                      defaultStyle: AttributedStringStyle? = nil) -> NSMutableAttributedString {
+        
+        let attrString = Utils.styleAttributedString(inString, font: defaultStyle?.font, color: defaultStyle?.color)
+        
         for style in styles {
             if let tag = style.tag {
                 let pattern = "<\\s*\(tag)[^>]*>(.*?)<\\s*\\/\\s*\(tag)>"

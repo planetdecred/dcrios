@@ -95,6 +95,14 @@ class AppDelegate: UIResponder {
         self.window?.makeKeyAndVisible()
     }
     
+    func topViewController() -> UIViewController? {
+        var topVC = UIApplication.shared.keyWindow?.rootViewController
+        while let vc = topVC?.presentedViewController {
+            topVC = vc
+        }
+        return topVC
+    }
+    
     func showOkAlert(message: String, title: String? = nil, onPressOk: (() -> Void)? = nil) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: LocalizedStrings.ok, style: .default) { _ in
@@ -103,7 +111,7 @@ class AppDelegate: UIResponder {
         alert.addAction(okAction)
         
         DispatchQueue.main.async {
-            self.window?.rootViewController?.present(alert, animated: true, completion: nil)
+            self.topViewController()?.present(alert, animated: true, completion: nil)
         }
     }
 }

@@ -50,9 +50,7 @@ class AccountSelectorDialog: UIViewController {
         self.walletsTableView.delegate = self
         self.walletsTableView.registerCellNib(AccountSelectorTableViewCell.self)
 
-        let accountsFilterFn: (DcrlibwalletAccount) -> Bool = { $0.totalBalance > 0 || $0.name != "imported" }
-        self.wallets = WalletLoader.shared.wallets.map({ Wallet.init($0, accountsFilterFn: accountsFilterFn) })
-        self.walletsTableView.reloadData()
+        self.dismissViewOnTapAround()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -62,6 +60,11 @@ class AccountSelectorDialog: UIViewController {
         self.walletsTableView.maxHeight = self.view.frame.size.height
             - self.headerContainerView.frame.size.height
             - (UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0)
+        
+        let accountsFilterFn: (DcrlibwalletAccount) -> Bool = { $0.totalBalance > 0 || $0.name != "imported" }
+        self.wallets = WalletLoader.shared.wallets.map({ Wallet.init($0, accountsFilterFn: accountsFilterFn) })
+        self.walletsTableView.reloadData()
+        
         self.walletsTableView.reloadData()
     }
 
@@ -112,7 +115,14 @@ extension AccountSelectorDialog: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedWallet = self.wallets[indexPath.section]
+        let selectedAccount = selectedWallet.accounts[indexPath.row]
+        
+        // invoke callback asynchronously to avoid delaying modal view dismissal.
+        DispatchQueue.main.async {
+            self.callback(selectedWallet.id, selectedAccount)
+        }
+        
         self.dismissView()
-        self.callback(self.wallets[indexPath.section].id, self.wallets[indexPath.section].accounts[indexPath.row])
     }
 }

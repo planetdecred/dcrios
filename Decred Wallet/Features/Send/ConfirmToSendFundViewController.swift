@@ -7,115 +7,157 @@
 // license that can be found in the LICENSE file.
 
 import UIKit
+import Dcrlibwallet
+
+struct UnsignedTxSummary {
+    var sourceAccountInfo: String
+    var destinationAccountInfo: String?
+    var destinationAddress: String
+    var dcrAmount: NSDecimalNumber
+    var dcrFee: NSDecimalNumber
+    var dcrTotalCost: NSDecimalNumber
+    var dcrBalanceAfterSending: NSDecimalNumber
+}
 
 class ConfirmToSendFundViewController: UIViewController, UITextFieldDelegate {
-    @IBOutlet weak var dialogBackground: UIView!
-    @IBOutlet weak var sendAmountLabel: UILabel!
-    @IBOutlet weak var feeLabel: UILabel!
-    @IBOutlet weak var addressLabel: UILabel!
-    @IBOutlet weak var accountLabel: UILabel!
-    @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var confirmSendButton: UIButton!
+    @IBOutlet weak var sendingFromLabel: UILabel!
+    @IBOutlet weak var sendingAmountLabel: UILabel!
+    @IBOutlet weak var destinationTypeLabel: UILabel!
+    @IBOutlet weak var destinationInfoLabel: UILabel!
+    @IBOutlet weak var txFeeLabel: UILabel!
+    @IBOutlet weak var totalCostLabel: UILabel!
+    @IBOutlet weak var balanceAfterSendLabel: UILabel!
+    @IBOutlet weak var sendButton: Button!
     
-    var sendFromWalletID: Int!
-    var sendAmount: String?
-    var fee: String?
-    var destinationAddress: String?
-    var destinationAccount: String?
-    var sendTxConfirmed: ((String?) -> Void)?
+    var sourceWalletID: Int!
+    var unsignedTxSummary: UnsignedTxSummary!
+    var unsignedTx: DcrlibwalletTxAuthor!
+    var exchangeRate: NSDecimalNumber?
+    var onSendCompleted: (() -> Void)?
     
-    struct Amount {
-        var dcrValue: NSDecimalNumber
-        var usdValue: NSDecimalNumber?
-    }
-    
-    static func requestConfirmation(sendFromWalletID: Int, amountToSend: Amount, estimatedFee: Amount, destinationAddress: String, destinationAccount: String?, onConfirmed: ((String?) -> Void)?) {
-        let confirmVC = ConfirmToSendFundViewController.instantiate(from: .Send)
+    static func display(sender vc: UIViewController,
+                        sourceWalletID: Int,
+                        unsignedTxSummary: UnsignedTxSummary,
+                        unsignedTx: DcrlibwalletTxAuthor,
+                        exchangeRate: NSDecimalNumber?,
+                        onSendCompleted: (() -> Void)?) {
         
-        confirmVC.sendFromWalletID = sendFromWalletID
+        let confirmSendFundsVC = ConfirmToSendFundViewController.instantiate(from: .Send)
+        confirmSendFundsVC.sourceWalletID = sourceWalletID
+        confirmSendFundsVC.unsignedTxSummary = unsignedTxSummary
+        confirmSendFundsVC.unsignedTx = unsignedTx
+        confirmSendFundsVC.exchangeRate = exchangeRate
+        confirmSendFundsVC.onSendCompleted = onSendCompleted
         
-        confirmVC.sendAmount = "\(amountToSend.dcrValue.round(8).formattedWithSeparator) DCR"
-        if amountToSend.usdValue != nil {
-            confirmVC.sendAmount! += " ($\(amountToSend.usdValue!.round(4).formattedWithSeparator))"
-        }
+        confirmSendFundsVC.modalTransitionStyle = .crossDissolve
+        confirmSendFundsVC.modalPresentationStyle = .overCurrentContext
         
-        confirmVC.fee = "\(estimatedFee.dcrValue.round(8).formattedWithSeparator) DCR"
-        if estimatedFee.usdValue != nil {
-            confirmVC.fee! += " ($\(estimatedFee.usdValue!.round(4).formattedWithSeparator))"
-        }
-        
-        confirmVC.destinationAddress = destinationAddress
-        confirmVC.destinationAccount = destinationAccount
-        confirmVC.sendTxConfirmed = onConfirmed
-        
-        confirmVC.modalTransitionStyle = .crossDissolve
-        confirmVC.modalPresentationStyle = .overCurrentContext
-        AppDelegate.shared.window?.rootViewController?.presentedViewController?.present(confirmVC, animated: true, completion: nil)
+        vc.present(confirmSendFundsVC, animated: true, completion: nil)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.sendAmountLabel.text = "\(LocalizedStrings.sending) \(self.sendAmount!)"
-        self.feeLabel.text = "\(LocalizedStrings.withFee) \(self.fee!)"
-        self.addressLabel.text = LocalizedStrings.to + self.destinationAddress!
-        self.passwordTextField.placeholder = LocalizedStrings.passwordHint
-        
-        if self.destinationAccount == nil {
-            self.accountLabel.isHidden = true
-        } else {
-            self.accountLabel.text = "\(LocalizedStrings.toAccount) \'\(self.destinationAccount!)\'"
-        }
-        
-        if SpendingPinOrPassword.securityType(for: self.sendFromWalletID) == .password {
-            self.passwordTextField.delegate = self
-            self.passwordTextField.addTarget(self, action: #selector(self.passwordTextChanged), for: .editingChanged)
-        } else {
-            self.passwordTextField.isHidden = true
-            self.confirmSendButton.isEnabled = true
-        }
-        
-        let tap = UITapGestureRecognizer(target: self.view, action: #selector(self.view.endEditing(_:)))
-        tap.cancelsTouchesInView = false
-        self.view.addGestureRecognizer(tap)
-        
-        let layer = self.view.layer
-        layer.frame = dialogBackground.frame
-        layer.shadowColor = UIColor.gray.cgColor
-        layer.shadowRadius = 30
-        layer.shadowOpacity = 0.8
-        layer.shadowOffset = CGSize(width: 0, height: 40)
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if self.confirmSendButton.isEnabled {
-            self.confirmSend()
-        }
-        return self.confirmSendButton.isEnabled
-    }
-    
-    @objc func passwordTextChanged() {
-        guard let password = self.passwordTextField.text, password.count > 0 else {
-            self.confirmSendButton.isEnabled = false
-            return
-        }
-        self.confirmSendButton.isEnabled = true
-    }
+        let mainTextColor = UIColor.appColors.darkBlue
+        let subTextColor = UIColor.appColors.darkBluishGray
 
-    @IBAction private func cancelAction(_ sender: UIButton) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    @IBAction private func confirmAction(_ sender: UIButton) {
-        self.confirmSend()
-    }
-    
-    func confirmSend() {
-        self.dismiss(animated: true, completion: nil)
-        if SpendingPinOrPassword.securityType(for: self.sendFromWalletID) == .password {
-            self.sendTxConfirmed?(self.passwordTextField.text!)
+        let sourceAccountInfo = Utils.styleAttributedString(
+            String(format: "Sending from <bold>%@</bold>", self.unsignedTxSummary.sourceAccountInfo), // localize!
+            styles: [
+                AttributedStringStyle(tag: "bold", fontFamily: "SourceSansPro-SemiBold", fontSize: 14, color: mainTextColor)
+            ],
+            defaultStyle: AttributedStringStyle(fontFamily: "SourceSansPro-Regular", fontSize: 14, color: subTextColor)
+        )
+        self.sendingFromLabel.attributedText = sourceAccountInfo
+        
+        if let destinationAccountInfo = self.unsignedTxSummary.destinationAccountInfo {
+            self.destinationTypeLabel.text = "To self"
+            self.destinationInfoLabel.text = destinationAccountInfo
         } else {
-            self.sendTxConfirmed?(nil)
+            self.destinationTypeLabel.text = "To destination address"
+            self.destinationInfoLabel.text = self.unsignedTxSummary.destinationAddress
+        }
+        
+        let amountText = Utils.amountAsAttributedString(
+            amount: self.unsignedTxSummary.dcrAmount.doubleValue, smallerTextSize: 15.0
+        )
+        let feeText = NSMutableAttributedString(
+            string: self.unsignedTxSummary.dcrFee.round(8).formattedWithSeparator
+        )
+        let totalCostText = NSMutableAttributedString(
+            string: self.unsignedTxSummary.dcrTotalCost.round(8).formattedWithSeparator
+        )
+        
+        if let exchangeRate = self.exchangeRate {
+            let sendingAmountUsd = self.unsignedTxSummary.dcrAmount.multiplying(by: exchangeRate)
+            let sendingAmountUsdText = Utils.styleAttributedString(
+                " (\(sendingAmountUsd.round(4).formattedWithSeparator))",
+                font: UIFont(name: "SourceSansPro-Regular", size: 25),
+                color: subTextColor
+            )
+            amountText.append(sendingAmountUsdText)
+            
+            let feeUsd = self.unsignedTxSummary.dcrFee.multiplying(by: exchangeRate)
+            feeText.append(
+                Utils.styleAttributedString(" (\(feeUsd.round(8).formattedWithSeparator))", color: subTextColor)
+            )
+            
+            let totalCostUsd = self.unsignedTxSummary.dcrTotalCost.multiplying(by: exchangeRate)
+            totalCostText.append(
+                Utils.styleAttributedString(" (\(totalCostUsd.round(8).formattedWithSeparator))", color: subTextColor)
+            )
+        }
+        
+        self.sendingAmountLabel.attributedText = amountText
+        self.txFeeLabel.attributedText = feeText
+        self.totalCostLabel.attributedText = totalCostText
+        
+        self.balanceAfterSendLabel.text = "\(self.unsignedTxSummary.dcrBalanceAfterSending.round(8).formattedWithSeparator) DCR"
+        
+        self.sendButton.setTitle("Send \(self.unsignedTxSummary.dcrAmount.round(8).formattedWithSeparator) DCR", for: .normal)
+    }
+    
+    @IBAction func closeButtonTapped(_ sender: Any) {
+        self.dismissView()
+    }
+    
+    @IBAction func sendButtonTapped(_ sender: Any) {
+        let privatePassType = SpendingPinOrPassword.securityType(for: self.sourceWalletID)
+        Security.spending(initialSecurityType: privatePassType)
+            .with(prompt: "Confirm to send") // todo localize
+            .with(submitBtnText: LocalizedStrings.confirm)
+            .requestCurrentCode(sender: self) { privatePass, _, dialogDelegate in
+                
+                self.broadcastUnsignedTxInBackground(privatePass: privatePass) { error in
+                    if error == nil {
+                        dialogDelegate?.dismissDialog()
+                        self.dismissView()
+                        self.onSendCompleted?()
+                    } else if error!.isInvalidPassphraseError {
+                        let errorMessage = SpendingPinOrPassword.invalidSecurityCodeMessage(for: self.sourceWalletID)
+                        dialogDelegate?.displayError(errorMessage: errorMessage)
+                    } else {
+                        print("send error:", error!.localizedDescription)
+                        dialogDelegate?.dismissDialog()
+                        Utils.showBanner(in: self.view.subviews.first!, type: .error, text: "Failed to send. Please try again.")
+                    }
+                }
+        }
+    }
+    
+    func broadcastUnsignedTxInBackground(privatePass: String, next: @escaping (_ error: Error?) -> Void) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            do {
+                try self.unsignedTx.broadcast(privatePass.utf8Bits)
+                DispatchQueue.main.async {
+                    next(nil)
+                }
+                
+            } catch let error {
+                DispatchQueue.main.async {
+                    next(error)
+                }
+            }
         }
     }
 }

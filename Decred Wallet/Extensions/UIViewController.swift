@@ -23,6 +23,17 @@ extension UIViewController {
         return UINavigationController(rootViewController: self)
     }
     
+    func listenForKeyboardVisibilityChanges(delegate keyboardVisibilityDelegate: KeyboardVisibilityDelegate) {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardVisibilityDelegate.onKeyboardWillShowOrHide),
+                                               name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardVisibilityDelegate.onKeyboardWillShowOrHide),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
+    }
+    
     func hideKeyboardOnTapAround() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.hideKeyboard))
         tap.cancelsTouchesInView = false
@@ -36,25 +47,6 @@ extension UIViewController {
     func dismissViewOnTapAround() {
         // Use a DirectTapGestureRecognizer to prevent subview taps from triggering the dismissView action.
         self.view.addGestureRecognizer(DirectTapGestureRecognizer(target: self, action: #selector(self.dismissView)))
-    }
-    
-    /// Creates custom back butotn on ViewController. Hides default back button and createa a UIBarButtonItem instance on controller and sets to leftBartButtonItem property.
-    ///
-    /// - Parameter imageName: Name of the image to show. if nil is supplied "picture_done" is assumed, specific to Imaginamos
-    @discardableResult public func addNavigationBackButton() -> UIViewController {
-        let backArrowImage = #imageLiteral(resourceName: "left-arrow")
-        navigationItem.hidesBackButton = true
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: backArrowImage, style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.navigateToBackScreen))
-        return self
-    }
-    
-    /// Go back to previsous screen. If pushed if pops else dismisses.
-    @objc public func navigateToBackScreen() {
-        if self.isModal {
-            dismiss(animated: true, completion: nil)
-        } else {
-            _ = navigationController?.popViewController(animated: true)
-        }
     }
     
     /// Checks if controller was pushed or presented
@@ -163,4 +155,8 @@ class DirectTapGestureRecognizer: UITapGestureRecognizer, UIGestureRecognizerDel
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         return touch.view == gestureRecognizer.view
     }
+}
+
+@objc protocol KeyboardVisibilityDelegate {
+    @objc func onKeyboardWillShowOrHide(_ notification: Notification)
 }

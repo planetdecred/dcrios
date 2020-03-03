@@ -29,13 +29,16 @@ class SeedBackupReminderViewController: UIViewController {
 
     private func styleSeedBackupNoticeLabels() {
         let attributedStringStyles = [ AttributedStringStyle(tag: "bold",
-                                                             font: UIFont(name: "SourceSansPro-bold", size: 16),
+                                                             fontFamily: "SourceSansPro-bold",
+                                                             fontSize: 16,
                                                              color: UIColor.appColors.darkBluishGray),
                                       AttributedStringStyle(tag: "orange",
-                                                            font: UIFont(name: "SourceSansPro-bold", size: 16),
+                                                            fontFamily: "SourceSansPro-bold",
+                                                            fontSize: 16,
                                                             color: UIColor.appColors.orange),
                                       AttributedStringStyle(tag: "green",
-                                                            font: UIFont(name: "SourceSansPro-bold", size: 16),
+                                                            fontFamily: "SourceSansPro-bold",
+                                                            fontSize: 16,
                                                             color: UIColor.appColors.green) ]
 
         if let seedBackupNoticeLabels = self.seedBackupNoticeLabels {
@@ -73,6 +76,6 @@ class SeedBackupReminderViewController: UIViewController {
     }
     
     @IBAction func backAction(_ sender: UIButton) {
-        navigateToBackScreen()
+        self.dismissView()
     }
 }

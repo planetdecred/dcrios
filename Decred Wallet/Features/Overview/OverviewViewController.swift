@@ -140,7 +140,7 @@ class OverviewViewController: UIViewController {
     }
     
     func updateMultiWalletBalance() {
-        let totalWalletAmount = WalletLoader.shared.multiWallet.totalBalance()
+        let totalWalletAmount = WalletLoader.shared.multiWallet.totalBalance
         let totalAmountRoundedOff = (Decimal(totalWalletAmount) as NSDecimalNumber).round(8)
         self.balanceLabel.attributedText = Utils.getAttributedString(str: "\(totalAmountRoundedOff)", siz: 17.0, TexthexColor: UIColor.appColors.darkBlue)
     }
@@ -548,12 +548,13 @@ extension OverviewViewController: DcrlibwalletTxAndBlockNotificationListenerProt
         
         tx.animate = true
         self.recentTransactions.insert(tx, at: 0)
-        self.updateMultiWalletBalance()
+        
+        if self.recentTransactions.count > 3 {
+            _ = self.recentTransactions.popLast()
+        }
         
         DispatchQueue.main.async {
-            if self.recentTransactions.count > 3 {
-                _ = self.recentTransactions.popLast()
-            }
+            self.updateMultiWalletBalance()
             self.recentTransactionsTableView.reloadData()
         }
     }

@@ -22,7 +22,7 @@ class TransactionOutputDetailCell: UITableViewCell {
 
         switch output.scriptType {
         case "nulldata":
-            amount = NSAttributedString(string: "[\(LocalizedStrings.nullData)]")
+            amount = NSMutableAttributedString(string: "[\(LocalizedStrings.nullData)]")
             address = "[\(LocalizedStrings.script)]"
             account = ""
         case "stakegen":
