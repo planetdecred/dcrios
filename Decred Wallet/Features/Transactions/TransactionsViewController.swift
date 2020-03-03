@@ -100,8 +100,8 @@ class TransactionsViewController: UIViewController {
 
     private func updateWalletSelectorSteppingButtonsAndGradientColors() {
         if self.walletSelectorCollectionView.contentSize.width < self.walletSelectorCollectionView.bounds.width {
-            self.walletSelectorPrevButton.isHidden = false
-            self.walletSelectorNextButton.isHidden = false
+            self.walletSelectorPrevButton.isHidden = true
+            self.walletSelectorNextButton.isHidden = true
         } else {
             self.walletSelectorPrevButton.isHidden = self.currentWalletSelectorIndex == 0
             self.walletSelectorNextButton.isHidden = self.currentWalletSelectorIndex == WalletLoader.shared.wallets.count - 1
