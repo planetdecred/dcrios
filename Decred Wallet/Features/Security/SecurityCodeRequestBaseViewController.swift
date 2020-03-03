@@ -29,7 +29,7 @@ class SecurityCodeRequestBaseViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.observeKeyboardShowHide(delegate: self)
+        self.listenForKeyboardVisibilityChanges(delegate: self)
     }
 
     override func viewDidLayoutSubviews() {

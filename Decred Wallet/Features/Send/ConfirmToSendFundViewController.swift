@@ -19,7 +19,7 @@ struct UnsignedTxSummary {
     var dcrBalanceAfterSending: NSDecimalNumber
 }
 
-class ConfirmToSendFundsViewController: UIViewController, UITextFieldDelegate {
+class ConfirmToSendFundViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var sendingFromLabel: UILabel!
     @IBOutlet weak var sendingAmountLabel: UILabel!
     @IBOutlet weak var destinationTypeLabel: UILabel!
@@ -42,7 +42,7 @@ class ConfirmToSendFundsViewController: UIViewController, UITextFieldDelegate {
                         exchangeRate: NSDecimalNumber?,
                         onSendCompleted: (() -> Void)?) {
         
-        let confirmSendFundsVC = ConfirmToSendFundsViewController.instantiate(from: .Send)
+        let confirmSendFundsVC = ConfirmToSendFundViewController.instantiate(from: .Send)
         confirmSendFundsVC.sourceWalletID = sourceWalletID
         confirmSendFundsVC.unsignedTxSummary = unsignedTxSummary
         confirmSendFundsVC.unsignedTx = unsignedTx
@@ -128,21 +128,36 @@ class ConfirmToSendFundsViewController: UIViewController, UITextFieldDelegate {
             .with(submitBtnText: LocalizedStrings.confirm)
             .requestCurrentCode(sender: self) { privatePass, _, dialogDelegate in
                 
-                do {
-                    try self.unsignedTx.broadcast(privatePass.utf8Bits)
-                    dialogDelegate?.dismissDialog()
-                    self.dismissView()
-                    self.onSendCompleted?()
-                } catch let error {
-                    if error.isInvalidPassphraseError {
+                self.broadcastUnsignedTxInBackground(privatePass: privatePass) { error in
+                    if error == nil {
+                        dialogDelegate?.dismissDialog()
+                        self.dismissView()
+                        self.onSendCompleted?()
+                    } else if error!.isInvalidPassphraseError {
                         let errorMessage = SpendingPinOrPassword.invalidSecurityCodeMessage(for: self.sourceWalletID)
                         dialogDelegate?.displayError(errorMessage: errorMessage)
                     } else {
-                        print("send error:", error.localizedDescription)
+                        print("send error:", error!.localizedDescription)
                         dialogDelegate?.dismissDialog()
                         Utils.showBanner(in: self.view.subviews.first!, type: .error, text: "Failed to send. Please try again.")
                     }
                 }
+        }
+    }
+    
+    func broadcastUnsignedTxInBackground(privatePass: String, next: @escaping (_ error: Error?) -> Void) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            do {
+                try self.unsignedTx.broadcast(privatePass.utf8Bits)
+                DispatchQueue.main.async {
+                    next(nil)
+                }
+                
+            } catch let error {
+                DispatchQueue.main.async {
+                    next(error)
+                }
+            }
         }
     }
 }

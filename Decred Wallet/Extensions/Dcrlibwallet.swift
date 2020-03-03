@@ -94,19 +94,10 @@ extension DcrlibwalletAccount {
 }
 
 extension DcrlibwalletWallet {
-    func currentRecieveAddress(for accountNumber: Int32) -> String {
-        var error: NSError?
-        let currentAddress = self.currentAddress(accountNumber, error: &error)
-        if error != nil {
-            print("wallet.currentAddress error: \(error!.localizedDescription)")
-        }
-        return currentAddress
-    }
-    
-    func accounts(confirmations: Int32) -> [DcrlibwalletAccount] {
+    var accounts: [DcrlibwalletAccount] {
         var accounts = [DcrlibwalletAccount]()
         do {
-            let accountsIterator = try self.accountsIterator(confirmations)
+            let accountsIterator = try self.accountsIterator()
             while let account = accountsIterator.next() {
                 accounts.append(account)
             }
@@ -116,8 +107,17 @@ extension DcrlibwalletWallet {
         return accounts
     }
     
-    func totalWalletBalance(confirmations: Int32 = 0) -> Double {
-        return self.accounts(confirmations: confirmations).filter({ !$0.isHidden }).map({ $0.dcrTotalBalance }).reduce(0,+)
+    var totalWalletBalance: Double {
+        return self.accounts.filter({ !$0.isHidden }).map({ $0.dcrTotalBalance }).reduce(0,+)
+    }
+    
+    func currentRecieveAddress(for accountNumber: Int32) -> String {
+        var error: NSError?
+        let currentAddress = self.currentAddress(accountNumber, error: &error)
+        if error != nil {
+            print("wallet.currentAddress error: \(error!.localizedDescription)")
+        }
+        return currentAddress
     }
 
     func transactionsCount(forTxFilter txFilter: Int32) -> Int {
@@ -174,11 +174,11 @@ extension DcrlibwalletWallet {
 }
 
 extension DcrlibwalletMultiWallet {
-    func totalBalance(confirmations: Int32 = 0) -> Double {
+    var totalBalance: Double {
         var totalBalance: Double = 0
         let walletsIterator = self.walletsIterator()
         while let wallet = walletsIterator?.next() {
-            totalBalance += wallet.totalWalletBalance(confirmations: confirmations)
+            totalBalance += wallet.totalWalletBalance
         }
         return totalBalance
     }

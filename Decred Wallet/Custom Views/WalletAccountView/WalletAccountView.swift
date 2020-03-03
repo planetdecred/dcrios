@@ -90,9 +90,7 @@ import Dcrlibwallet
     
     func selectFirstWalletAccount() {
         guard let firstWallet = WalletLoader.shared.wallets.first,
-            let firstWalletAccount = firstWallet.accounts(confirmations: 0)
-                .filter({ $0.totalBalance > 0 || $0.name != "imported" })
-                .first
+            let firstWalletAccount = firstWallet.accounts.filter({ $0.totalBalance > 0 || $0.name != "imported" }).first
             else { return }
         
         self.selectedWallet = firstWallet

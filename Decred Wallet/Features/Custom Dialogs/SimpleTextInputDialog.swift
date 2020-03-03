@@ -60,7 +60,7 @@ class SimpleTextInputDialog: UIViewController {
         self.textField.addTarget(self, action: #selector(self.textFieldEditingChanged), for: .editingChanged)
         self.textField.delegate = self
         
-        self.observeKeyboardShowHide(delegate: self)
+        self.listenForKeyboardVisibilityChanges(delegate: self)
     }
 
     override func viewDidAppear(_ animated: Bool) {

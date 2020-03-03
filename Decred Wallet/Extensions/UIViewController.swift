@@ -23,7 +23,7 @@ extension UIViewController {
         return UINavigationController(rootViewController: self)
     }
     
-    func observeKeyboardShowHide(delegate keyboardVisibilityDelegate: KeyboardVisibilityDelegate) {
+    func listenForKeyboardVisibilityChanges(delegate keyboardVisibilityDelegate: KeyboardVisibilityDelegate) {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardVisibilityDelegate.onKeyboardWillShowOrHide),
                                                name: UIResponder.keyboardWillShowNotification,

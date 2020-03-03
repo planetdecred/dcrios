@@ -53,7 +53,7 @@ class RestoreExistingWalletViewController: UIViewController {
         #endif
         
         self.hideKeyboardWhenTappedAround()
-        self.observeKeyboardShowHide(delegate: self)
+        self.listenForKeyboardVisibilityChanges(delegate: self)
     }
     
     // following code will only be included if compiling for testnet

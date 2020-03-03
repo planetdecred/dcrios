@@ -140,7 +140,7 @@ class OverviewViewController: UIViewController {
     }
     
     func updateMultiWalletBalance() {
-        let totalWalletAmount = WalletLoader.shared.multiWallet.totalBalance()
+        let totalWalletAmount = WalletLoader.shared.multiWallet.totalBalance
         let totalAmountRoundedOff = (Decimal(totalWalletAmount) as NSDecimalNumber).round(8)
         self.balanceLabel.attributedText = Utils.getAttributedString(str: "\(totalAmountRoundedOff)", siz: 17.0, TexthexColor: UIColor.appColors.darkBlue)
     }

@@ -50,10 +50,6 @@ class AccountSelectorDialog: UIViewController {
         self.walletsTableView.delegate = self
         self.walletsTableView.registerCellNib(AccountSelectorTableViewCell.self)
 
-        let accountsFilterFn: (DcrlibwalletAccount) -> Bool = { $0.totalBalance > 0 || $0.name != "imported" }
-        self.wallets = WalletLoader.shared.wallets.map({ Wallet.init($0, accountsFilterFn: accountsFilterFn) })
-        self.walletsTableView.reloadData()
-        
         self.dismissViewOnTapAround()
     }
 
@@ -64,6 +60,11 @@ class AccountSelectorDialog: UIViewController {
         self.walletsTableView.maxHeight = self.view.frame.size.height
             - self.headerContainerView.frame.size.height
             - (UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0)
+        
+        let accountsFilterFn: (DcrlibwalletAccount) -> Bool = { $0.totalBalance > 0 || $0.name != "imported" }
+        self.wallets = WalletLoader.shared.wallets.map({ Wallet.init($0, accountsFilterFn: accountsFilterFn) })
+        self.walletsTableView.reloadData()
+        
         self.walletsTableView.reloadData()
     }
 

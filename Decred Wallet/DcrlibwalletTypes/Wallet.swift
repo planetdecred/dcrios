@@ -22,8 +22,8 @@ class Wallet: NSObject {
     init(_ wallet: DcrlibwalletWallet, accountsFilterFn: ((DcrlibwalletAccount) -> Bool)? = nil) {
         self.id = wallet.id_
         self.name = wallet.name
-        self.balance = "\((Decimal(wallet.totalWalletBalance()) as NSDecimalNumber).round(8)) DCR"
-        self.accounts = wallet.accounts(confirmations: 0)
+        self.balance = "\((Decimal(wallet.totalWalletBalance) as NSDecimalNumber).round(8)) DCR"
+        self.accounts = wallet.accounts
         self.isSeedBackedUp = wallet.seed.isEmpty
         self.displayAccounts = false
 
@@ -42,7 +42,7 @@ class Wallet: NSObject {
             return
         }
         
-        self.accounts = wallet.accounts(confirmations: 0)
+        self.accounts = wallet.accounts
         if self.accountsFilterFn != nil {
             self.accounts = self.accounts.filter(self.accountsFilterFn!)
         }

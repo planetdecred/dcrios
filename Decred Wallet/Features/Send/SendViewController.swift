@@ -1,5 +1,5 @@
 //
-//  SendFundsViewController.swift
+//  SendViewController.swift
 //  Decred Wallet
 //
 // Copyright (c) 2018-2020 The Decred developers
@@ -9,8 +9,8 @@
 import UIKit
 import Dcrlibwallet
 
-class SendFundsViewController: UIViewController {
-    static let instance = SendFundsViewController.instantiate(from: .Send).wrapInNavigationcontroller()
+class SendViewController: UIViewController {
+    static let instance = SendViewController.instantiate(from: .Send).wrapInNavigationcontroller()
     
     @IBOutlet weak var sourceAccountView: WalletAccountView!
     
@@ -70,7 +70,7 @@ class SendFundsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.observeKeyboardShowHide(delegate: self)
+        self.listenForKeyboardVisibilityChanges(delegate: self)
         self.setupViews()
         self.resetFields()
     }
@@ -91,6 +91,10 @@ class SendFundsViewController: UIViewController {
         self.sourceAccountView.onAccountSelectionChanged = { _, newSourceAccount in
             let spendableAmount = (Decimal(newSourceAccount.balance!.dcrSpendable) as NSDecimalNumber).round(8).formattedWithSeparator
             self.sourceAccountSpendableBalanceLabel.text = "Spendable: \(spendableAmount) DCR" // todo localize spendable
+            
+            if self.sendMax {
+                self.calculateAndSetMaxSendableAmount()
+            }
         }
         
         self.destinationAddressTextField.add(button: self.scanQRCodeForAddressButton)
@@ -98,11 +102,14 @@ class SendFundsViewController: UIViewController {
         self.destinationAddressTextField.textViewDelegate = self
         
         self.toSelfAccountSection.isHidden = true
+        self.destinationAccountView.onAccountSelectionChanged = { _, _ in
+            self.displayFeeDetailsAndTransactionSummary() // re-calculate fee with updated destination info
+        }
         
         self.amountTextField.addTarget(self, action: #selector(self.dcrAmountTextFieldEditingBegan), for: .editingDidBegin)
         self.amountTextField.addTarget(self, action: #selector(self.dcrAmountTextFieldChanged), for: .editingChanged)
         self.amountTextField.addTarget(self, action: #selector(self.dcrAmountTextFieldEditingEnded), for: .editingDidEnd)
-        self.amountTextField.addDoneButton() // todo review this!
+        self.amountTextField.addDoneButton()
         
         self.transactionFeeSection.addGestureRecognizer(
             UITapGestureRecognizer(target: self, action: #selector(self.toggleTransactionFeeDetailsVisibility))
@@ -203,6 +210,8 @@ class SendFundsViewController: UIViewController {
         UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseIn, animations: {
             self.toAddressSection.isHidden = true
             self.toSelfAccountSection.isHidden = false
+            
+            self.displayFeeDetailsAndTransactionSummary() // re-calculate fee with updated destination info
         })
     }
 
@@ -210,6 +219,8 @@ class SendFundsViewController: UIViewController {
         UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseIn, animations: {
             self.toSelfAccountSection.isHidden = true
             self.toAddressSection.isHidden = false
+            
+            self.displayFeeDetailsAndTransactionSummary() // re-calculate fee with updated destination info
         })
     }
     
@@ -252,6 +263,10 @@ class SendFundsViewController: UIViewController {
     }
 
     @IBAction func sendMaxTapped(_ sender: UIButton) {
+        self.calculateAndSetMaxSendableAmount()
+    }
+    
+    func calculateAndSetMaxSendableAmount() {
         self.sendMax = true
         
         guard self.isFormValid, let unsignedTx = self.currentUnsignedTx else {
@@ -303,7 +318,7 @@ class SendFundsViewController: UIViewController {
             unsignedTxSummary.destinationAccountInfo = "\(destinationAccount.name) (\(destinationWallet.name))"
         }
         
-        ConfirmToSendFundsViewController.display(sender: self,
+        ConfirmToSendFundViewController.display(sender: self,
                                                  sourceWalletID: sourceWallet.id_,
                                                  unsignedTxSummary: unsignedTxSummary,
                                                  unsignedTx: unsignedTx,
@@ -312,21 +327,25 @@ class SendFundsViewController: UIViewController {
     }
     
     func sendCompleted() {
-        self.dismissView()
-        Utils.showBanner(in: AppDelegate.shared.topViewController()!.view, type: .success, text: "Transaction sent")
+        Utils.showBanner(in: NavigationMenuTabBarController.instance!.view, type: .success, text: "Transaction sent")
+        self.resetFields()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.dismissView()
+        }
     }
 }
 
 // delegate for destination address text view.
-extension SendFundsViewController: FloatingPlaceholderTextViewDelegate {
+extension SendViewController: FloatingPlaceholderTextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         self.showOrHidePasteAddressButton()
-        self.nextButton.isEnabled = self.isValidSendDestination && self.isValidAmount
+        self.validateSendDestination()
+        self.displayFeeDetailsAndTransactionSummary() // re-calculate fee with updated destination info
     }
 }
 
 // extension for amount calculations and display
-extension SendFundsViewController {
+extension SendViewController {
     @objc func dcrAmountTextFieldEditingBegan() {
         self.hideAmountError()
     }
@@ -337,9 +356,9 @@ extension SendFundsViewController {
     }
     
     @objc func dcrAmountTextFieldEditingEnded() {
+        self.validateAmount()
         self.calculateAndDisplayUSDAmount()
         self.displayFeeDetailsAndTransactionSummary()
-        self.nextButton.isEnabled = self.isValidAmount && self.isValidSendDestination
     }
 
     func calculateAndDisplayUSDAmount() {
@@ -363,6 +382,7 @@ extension SendFundsViewController {
             self.totalCostLabel.text = self.parseDCRAmount(0)
             self.balanceAfterSendingLabel.text = self.parseDCRAmount(0)
             
+            self.nextButton.isEnabled = false
             return
         }
         
@@ -381,17 +401,15 @@ extension SendFundsViewController {
         let totalCost = NSDecimalNumber(value: sendAmountDcr + txFeeAndSize.fee!.dcrValue)
         let balanceAfterSending = NSDecimalNumber(value: sourceAccountBalance).subtracting(totalCost)
         
-        self.totalCostLabel.text = "\(totalCost.round(8).formattedWithSeparator) DCR"
-        self.balanceAfterSendingLabel.text = "\(balanceAfterSending.round(8).formattedWithSeparator) DCR"
+        self.totalCostLabel.text = self.parseDCRAmount(totalCost.doubleValue)
+        self.balanceAfterSendingLabel.text = self.parseDCRAmount(balanceAfterSending.doubleValue)
+
+        self.nextButton.isEnabled = true
     }
 }
 
 // extension for utility/helper variables and functions
-extension SendFundsViewController {
-    var requiredConfirmations: Int32 {
-        return Settings.spendUnconfirmed ? 0 : GlobalConstants.Wallet.defaultRequiredConfirmations
-    }
-
+extension SendViewController {
     var insufficientFundsErrorMessage: String {
         if WalletLoader.shared.multiWallet.connectedPeers() > 0 {
             return LocalizedStrings.notEnoughFunds
@@ -410,6 +428,35 @@ extension SendFundsViewController {
             let destinationAccount = self.destinationAccountView.selectedAccount else { return nil }
         
         return destinationWallet.currentRecieveAddress(for: destinationAccount.number)
+    }
+    
+    var isFormValid: Bool {
+        guard let sourceWallet = self.sourceAccountView.selectedWallet,
+            let sourceAccount = self.sourceAccountView.selectedAccount else {
+            
+                Utils.showBanner(in: self.view, type: .error, text: "Select from account.") // todo localize
+                return false
+        }
+        
+        guard let sourceAccountBalance = sourceAccount.balance, sourceAccountBalance.spendable > 0 else {
+            Utils.showBanner(in: self.view, type: .error, text: self.insufficientFundsErrorMessage)
+            return false
+        }
+        
+        guard let destinationAddress = self.destinationAddress, sourceWallet.isAddressValid(destinationAddress) else {
+            Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.invalidDestAddr)
+            return false
+        }
+        
+        let sendAmountDcr = Double(self.amountTextField.text ?? "") ?? 0
+        if !self.sendMax {
+            guard sendAmountDcr > 0, sendAmountDcr <= DcrlibwalletMaxAmountDcr else {
+                Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.invalidAmount)
+                return false
+            }
+        }
+        
+        return true
     }
     
     var currentUnsignedTx: DcrlibwalletTxAuthor? {
@@ -453,80 +500,50 @@ extension SendFundsViewController {
         }
     }
     
-    var isValidSendDestination: Bool {
+    func validateSendDestination() {
         self.invalidDestinationAddressLabel.isHidden = true
         
-        if !toSelfAccountSection.isHidden {
-            return destinationAccountView.selectedAccount != nil
-        } else {
+        if toSelfAccountSection.isHidden {
             let destinationAddress = self.destinationAddressTextField.text ?? ""
             let addressValid = self.sourceAccountView.selectedWallet?.isAddressValid(destinationAddress) ?? false
             self.invalidDestinationAddressLabel.isHidden = destinationAddress.isEmpty || addressValid
-            return addressValid
+            return
         }
     }
     
-    var isValidAmount: Bool {
+    func validateAmount() {
         self.hideAmountError()
-        guard let dcrAmountString = self.amountTextField.text, dcrAmountString != "" else { return false }
+        
+        guard let dcrAmountString = self.amountTextField.text, dcrAmountString != "" else {
+            return
+        }
         
         if dcrAmountString.components(separatedBy: ".").count > 2 {
             // more than 1 decimal place
             self.showAmountError(LocalizedStrings.invalidAmount)
-            return false
+            return
         }
         
         let decimalPointIndex = dcrAmountString.firstIndex(of: ".")
         if decimalPointIndex != nil && dcrAmountString[decimalPointIndex!...].count > 9 {
             self.showAmountError(LocalizedStrings.amount8Decimal)
-            return false
+            return
         }
         
         guard let sendAmountDcr = Double(dcrAmountString), sendAmountDcr > 0 else {
             self.showAmountError(LocalizedStrings.invalidAmount)
-            return false
+            return
         }
         
         if sendAmountDcr > DcrlibwalletMaxAmountDcr {
             self.showAmountError(LocalizedStrings.amountMaximumAllowed)
-            return false
+            return
         }
                 
         if sendAmountDcr > self.sourceAccountView.selectedAccount?.balance!.dcrSpendable ?? 0 {
             self.showAmountError(self.insufficientFundsErrorMessage)
-            return false
+            return
         }
-        
-        return true
-    }
-    
-    var isFormValid: Bool {
-        guard let sourceWallet = self.sourceAccountView.selectedWallet,
-            let sourceAccount = self.sourceAccountView.selectedAccount else {
-            
-                Utils.showBanner(in: self.view, type: .error, text: "Select from account.") // todo localize
-                return false
-        }
-        
-        guard let sourceAccountBalance = sourceAccount.balance, sourceAccountBalance.spendable > 0 else {
-            Utils.showBanner(in: self.view, type: .error, text: self.insufficientFundsErrorMessage)
-            return false
-        }
-        
-        guard let destinationAddress = self.destinationAddress, sourceWallet.isAddressValid(destinationAddress) else {
-            Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.invalidDestAddr)
-            return false
-        }
-        
-        let sendAmountDcr = Double(self.amountTextField.text ?? "") ?? 0
-        if !self.sendMax {
-            guard sendAmountDcr > 0, sendAmountDcr <= DcrlibwalletMaxAmountDcr else {
-                Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.invalidAmount)
-                return false
-            }
-        }
-        
-        return true
     }
     
     func hideAmountError() {
@@ -548,13 +565,13 @@ extension SendFundsViewController {
         if self.exchangeRate == nil {
             return "\(dcrAmount.formattedWithSeparator) DCR"
         } else {
-            let usdFee = exchangeRate!.multiplying(by: dcrAmount).round(8).formattedWithSeparator
-            return "\(dcrAmount.formattedWithSeparator) DCR (\(usdFee) USD)"
+            let usdAmount = exchangeRate!.multiplying(by: dcrAmount).round(8).formattedWithSeparator
+            return "\(dcrAmount.formattedWithSeparator) DCR (\(usdAmount) USD)"
         }
     }
 }
 
-extension SendFundsViewController: KeyboardVisibilityDelegate {
+extension SendViewController: KeyboardVisibilityDelegate {
     @objc func onKeyboardWillShowOrHide(_ notification: Notification) {
         guard let window = self.view.window?.frame,
             let keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue

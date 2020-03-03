@@ -16,10 +16,10 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Send Funds View Controller-->
+        <!--Send View Controller-->
         <scene sceneID="Nzi-Ye-Qc2">
             <objects>
-                <viewController storyboardIdentifier="SendFundsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="QI0-Sp-Mco" customClass="SendFundsViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SendViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="QI0-Sp-Mco" customClass="SendViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="u3S-B7-EqK">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -561,7 +561,7 @@
                                                 </subviews>
                                             </stackView>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.94901960780000005" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="E7K-3J-yiV" secondAttribute="bottom" id="X3F-c0-rDv"/>
                                             <constraint firstItem="E7K-3J-yiV" firstAttribute="leading" secondItem="H3C-42-Oka" secondAttribute="leading" constant="8" id="dfe-gc-KGt"/>
@@ -570,6 +570,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="H3C-42-Oka" firstAttribute="leading" secondItem="1VY-fw-ObN" secondAttribute="leading" id="34S-Qz-PV9"/>
                                     <constraint firstAttribute="bottom" secondItem="H3C-42-Oka" secondAttribute="bottom" id="5Gf-lf-LGz"/>
@@ -648,7 +649,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.95294117647058818" green="0.96078431372549022" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="T9I-3F-cJf" firstAttribute="leading" secondItem="xFE-MF-1f4" secondAttribute="leading" id="4Kb-5r-Kg1"/>
                             <constraint firstItem="T9I-3F-cJf" firstAttribute="top" secondItem="1VY-fw-ObN" secondAttribute="bottom" constant="8" id="7iq-RO-g3s"/>
@@ -702,10 +703,10 @@
             </objects>
             <point key="canvasLocation" x="-614" y="-252"/>
         </scene>
-        <!--Confirm To Send Funds View Controller-->
+        <!--Confirm To Send Fund View Controller-->
         <scene sceneID="ztT-Wn-CO5">
             <objects>
-                <viewController storyboardIdentifier="ConfirmToSendFundsViewController" id="I0z-kv-sqb" customClass="ConfirmToSendFundsViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ConfirmToSendFundViewController" id="I0z-kv-sqb" customClass="ConfirmToSendFundViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" id="SS6-Yn-4sk">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
