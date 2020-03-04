@@ -39,20 +39,20 @@ class VerifyMessageViewController: UIViewController {
         addressScanButton.setImage(UIImage(named: "ic_scan"), for: .normal)
         addressScanButton.addTarget(self, action: #selector(onScan), for: .touchUpInside)
         
-        self.addressText.addButton(button: addressPasteButton)
-        self.addressText.addButton(button: addressScanButton)
+        self.addressText.add(button: addressPasteButton)
+        self.addressText.add(button: addressScanButton)
         
         let signaturePasteButton = UIButton(type: .custom)
         signaturePasteButton.setImage(UIImage(named: "ic_paste"), for: .normal)
         signaturePasteButton.addTarget(self, action: #selector(onSignaturePaste), for: .touchUpInside)
         
-        self.signatureText.addButton(button: signaturePasteButton)
+        self.signatureText.add(button: signaturePasteButton)
         
         let messagePasteButton = UIButton(type: .custom)
         messagePasteButton.setImage(UIImage(named: "ic_paste"), for: .normal)
         messagePasteButton.addTarget(self, action: #selector(onMessagePaste), for: .touchUpInside)
         
-        self.messageText.addButton(button: messagePasteButton)
+        self.messageText.add(button: messagePasteButton)
         
         // TODO: add target functionality to view
       //  self.addressText.addTarget(self, action: #selector(self.TextFieldChanged), for: .editingChanged)
@@ -74,14 +74,12 @@ class VerifyMessageViewController: UIViewController {
         //Remove shadow from navigation bar
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
-                 
-        self.addNavigationBackButton()
-              
+        
         //setup leftBar button
         let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.verifyMessage, style: .plain, target: self, action: nil)
         barButtonTitle.tintColor = UIColor.black // UIColor.appColor.darkblue
                      
-        self.navigationItem.leftBarButtonItems =  [ (self.navigationItem.leftBarButtonItem)!, barButtonTitle]
+        self.navigationItem.leftBarButtonItems =  [barButtonTitle]
         
         //setup rightBar button
         let infoBtn = UIButton(type: .custom)

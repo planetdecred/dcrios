@@ -23,12 +23,10 @@ class DebugTableViewController: UITableViewController  {
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         
-        self.addNavigationBackButton()
-            
         let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.debug, style: .plain, target: self, action: nil)
         barButtonTitle.tintColor = UIColor.black // UIColor.appColor.darkblue
             
-        self.navigationItem.leftBarButtonItems =  [(self.navigationItem.leftBarButtonItem)!, barButtonTitle]
+        self.navigationItem.leftBarButtonItems =  [barButtonTitle]
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

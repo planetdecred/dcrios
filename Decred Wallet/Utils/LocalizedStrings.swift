@@ -226,7 +226,6 @@ struct LocalizedStrings {
     static let includedInBlock = NSLocalizedString("includedInBlock", comment: "")
     static let howToCopy = NSLocalizedString("howToCopy", comment: "")
     static let tapOnBlueText = NSLocalizedString("tapOnBlueText", comment: "")
-    static let gotIt = NSLocalizedString("gotIt", comment: "")
     
     /* Send view */
     static let invalidAmount = NSLocalizedString("invalidAmount", comment: "")

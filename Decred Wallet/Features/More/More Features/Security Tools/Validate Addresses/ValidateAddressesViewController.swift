@@ -38,8 +38,8 @@ class ValidateAddressesViewController: UIViewController, UITextViewDelegate {
         scanButton.setImage(UIImage(named: "ic_scan"), for: .normal)
         scanButton.addTarget(self, action: #selector(onScan), for: .touchUpInside)
         
-        self.addressText.addButton(button: pasteButton)
-        self.addressText.addButton(button: scanButton)
+        self.addressText.add(button: pasteButton)
+        self.addressText.add(button: scanButton)
         self.addressText.setNeedsDisplay()
         self.addressText.placeholder = LocalizedStrings.address
     }
@@ -52,14 +52,12 @@ class ValidateAddressesViewController: UIViewController, UITextViewDelegate {
            //Remove shadow from navigation bar
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
-           
-        self.addNavigationBackButton()
         
         //setup leftBar button
         let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.validateAddresses, style: .plain, target: self, action: nil)
         barButtonTitle.tintColor = UIColor.black // UIColor.appColor.darkblue
                
-        self.navigationItem.leftBarButtonItems =  [ (self.navigationItem.leftBarButtonItem)!, barButtonTitle]
+        self.navigationItem.leftBarButtonItems =  [barButtonTitle]
        }
     
     func textView(_ textField: UITextView, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

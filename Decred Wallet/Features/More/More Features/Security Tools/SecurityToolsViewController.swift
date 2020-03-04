@@ -20,15 +20,12 @@ class SecurityToolsViewController: UIViewController, UITableViewDataSource, UITa
            //Remove shadow from navigation bar
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
-           
-        self.addNavigationBackButton()
         
         //setup leftBar button
-        let emptyButton = UIBarButtonItem.init()
         let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.securityTools, style: .plain, target: self, action: nil)
         barButtonTitle.tintColor = UIColor.black // UIColor.appColor.darkblue
                
-        self.navigationItem.leftBarButtonItems =  [emptyButton, emptyButton, (self.navigationItem.leftBarButtonItem)!, barButtonTitle]
+        self.navigationItem.leftBarButtonItems =  [barButtonTitle]
         
         //setup rightBar button
         let infoBtn = UIButton(type: .custom)
