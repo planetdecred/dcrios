@@ -78,6 +78,14 @@ extension DcrlibwalletLibWallet {
                 if getTransactionsError != nil {
                     throw getTransactionsError!
                 }
+                
+                if transactionsJson == nil || transactionsJson!.isEmpty {
+                    DispatchQueue.main.async {
+                        completion([])
+                    }
+                    return
+                }
+                
                 var transactions = try JSONDecoder().decode([Transaction].self, from: transactionsJson!.utf8Bits)
                 
                 // Check if there are new transactions since last time wallet history was displayed.
