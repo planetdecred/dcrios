@@ -44,7 +44,6 @@ class SecurityToolsViewController: UIViewController, UITableViewDataSource, UITa
     }
        
        func navigateSecurityPage(to menuItem: SecurityToolsItem) {
-           //self.tabBarController?.present(menuItem.viewController, animated: true, completion: nil)
            self.navigationController?.pushViewController(menuItem.viewController, animated: true)
           }
        

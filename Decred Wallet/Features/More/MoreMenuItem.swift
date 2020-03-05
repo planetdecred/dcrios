@@ -2,15 +2,15 @@
 //  MoreMenuItem.swift
 //  Decred Wallet
 //
-//  Created by Suleiman Abubakar on 03/12/2019.
-//  Copyright © 2019 Decred. All rights reserved.
-//
+// Copyright (c)2020 The Decred developers
+// Use of this source code is governed by an ISC
+// license that can be found in the LICENSE file.
 
 import UIKit
 
 enum MoreMenuItem: String, CaseIterable {
     case settings = "Settings"
-    case security = "Security"
+    case securityTools = "Security Tools"
     case help = "Help"
     case about = "About"
     case debug = "Debug"
@@ -22,7 +22,7 @@ enum MoreMenuItem: String, CaseIterable {
         case .settings:
             return SettingsController.instantiate(from: .Settings)
             
-        case .security:
+        case .securityTools:
             return SecurityToolsViewController.instantiate(from: .SecurityTools)
             
         case .help:
@@ -41,7 +41,7 @@ enum MoreMenuItem: String, CaseIterable {
         case .settings:
             return UIImage(named: "settings")
             
-        case .security:
+        case .securityTools:
             return UIImage(named: "security_tools")
             
         case .help:
@@ -56,6 +56,6 @@ enum MoreMenuItem: String, CaseIterable {
     }
     
     var displayTitle: String {
-        return NSLocalizedString(self.rawValue.lowercased(), comment: "")
+        return NSLocalizedString(self.rawValue, comment: "")
     }
 }

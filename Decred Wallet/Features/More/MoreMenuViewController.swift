@@ -2,9 +2,9 @@
 //  MoreViewController.swift
 //  Decred Wallet
 //
-//  Created by Suleiman Abubakar on 26/12/2019.
-//  Copyright © 2019 Decred. All rights reserved.
-//
+// Copyright (c)2019 The Decred developers
+// Use of this source code is governed by an ISC
+// license that can be found in the LICENSE file.
 
 import UIKit
 
@@ -18,7 +18,7 @@ class MoreMenuViewController: UIViewController,UITableViewDataSource,UITableView
         style: .done, target: self,
         action: nil)
         let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.more, style: .plain, target: self, action: nil)
-        barButtonTitle.tintColor = UIColor(hex: "#091440") // UIColor.appColor.darkblue
+        barButtonTitle.tintColor = UIColor.appColors.darkBlue
         
         self.navigationItem.leftBarButtonItems = [emptyButton, emptyButton, barButtonImg, barButtonTitle]
         //Remove shadow from navigation bar

@@ -67,7 +67,7 @@ class SettingsController: UITableViewController  {
         super.viewWillAppear(animated)
         
         self.navigationController?.navigationBar.isHidden = false
-        self.navigationController?.navigationBar.tintColor = UIColor(hex: "#091440") //move to color file
+        self.navigationController?.navigationBar.tintColor = UIColor.appColors.darkBlue
         self.navigationController?.navigationBar.topItem?.title = LocalizedStrings.settings
         self.navigationController?.navigationBar.topItem?.rightBarButtonItem = nil
         self.navigationController?.navigationBar.barTintColor = UIColor.appColors.offWhite
@@ -165,7 +165,7 @@ class SettingsController: UITableViewController  {
     
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int){
         let header = view as! UITableViewHeaderFooterView
-        header.textLabel?.textColor = UIColor(hex: "#3d5873")// move to color file
+        header.textLabel?.textColor = UIColor.appColors.darkBluishGray
         header.textLabel?.font = UIFont(name: "SourceSansPro-Regular", size: 14)
     }
     
