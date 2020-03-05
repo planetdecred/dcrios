@@ -136,17 +136,17 @@ extension DcrlibwalletWallet {
     }
 
     func transactionHistory(offset: Int32, count: Int32 = 0, filter: Int32 = DcrlibwalletTxFilterAll, newestFirst:Bool = true) -> [Transaction]? {
-        guard let wallet = WalletLoader.shared.firstWallet else {
-            return nil
-        }
-        
         var error: NSError?
-        let allTransactionsJson = wallet.getTransactions(offset, limit: count, txFilter: filter, newestFirst: newestFirst, error: &error)
+        let allTransactionsJson = self.getTransactions(offset, limit: count, txFilter: filter, newestFirst: newestFirst, error: &error)
         if error != nil {
             print("wallet.getTransactions error:", error!.localizedDescription)
             return nil
         }
         
+        if allTransactionsJson.isEmpty {
+            return []
+        }
+
         var transactions: [Transaction]?
         do {
             transactions = try JSONDecoder().decode([Transaction].self, from: allTransactionsJson.data(using: .utf8)!)
@@ -181,5 +181,42 @@ extension DcrlibwalletMultiWallet {
             totalBalance += wallet.totalWalletBalance
         }
         return totalBalance
+    }
+
+    func transactionHistory(offset: Int32, count: Int32 = 0, filter: Int32 = DcrlibwalletTxFilterAll, newestFirst:Bool = true) -> [Transaction]? {
+        var error: NSError?
+        let allTransactionsJson = self.getTransactions(offset, limit: count, txFilter: filter, newestFirst: newestFirst, error: &error)
+        if error != nil {
+            print("multiwallet.getTransactions error:", error!.localizedDescription)
+            return nil
+        }
+
+        if allTransactionsJson.isEmpty {
+            return []
+        }
+
+        var transactions: [Transaction]?
+        do {
+            transactions = try JSONDecoder().decode([Transaction].self, from: allTransactionsJson.data(using: .utf8)!)
+        } catch let error {
+            print("decode multiwallet transactions json error:", error.localizedDescription)
+        }
+
+        if transactions != nil {
+            // Check if there are new transactions since last time wallet history was displayed.
+            let lastTxHash = Settings.readStringValue(for: DcrlibwalletLastTxHashConfigKey)
+            for i in 0..<transactions!.count {
+                if transactions![i].hash == lastTxHash {
+                    // We've hit the last viewed tx. No need to animate this tx or futher txs.
+                    break
+                }
+                transactions![i].animate = true
+            }
+            
+            // Save hash for tx index 0 as last viewed tx hash.
+            Settings.setStringValue(transactions![0].hash, for: DcrlibwalletLastTxHashConfigKey)
+        }
+
+        return transactions
     }
 }
