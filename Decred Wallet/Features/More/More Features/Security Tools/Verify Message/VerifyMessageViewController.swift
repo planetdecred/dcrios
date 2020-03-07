@@ -9,7 +9,7 @@
 import UIKit
 import Dcrlibwallet
 
-class VerifyMessageViewController: UIViewController {
+class VerifyMessageViewController: UIViewController, FloatingPlaceholderTextViewDelegate {
     @IBOutlet weak var addressText: FloatingPlaceholderTextView!
     @IBOutlet weak var signatureText: FloatingPlaceholderTextView!
     @IBOutlet weak var messageText: FloatingPlaceholderTextView!
@@ -53,11 +53,10 @@ class VerifyMessageViewController: UIViewController {
         messagePasteButton.addTarget(self, action: #selector(onMessagePaste), for: .touchUpInside)
         
         self.messageText.add(button: messagePasteButton)
-        
-        // TODO: add target functionality to view
-      //  self.addressText.addTarget(self, action: #selector(self.TextFieldChanged), for: .editingChanged)
-       // self.signatureText.addTarget(self, action: #selector(self.TextFieldChanged), for: .editingChanged)
-       // self.messageText.addTarget(self, action: #selector(self.TextFieldChanged), for: .editingChanged)
+    
+        self.addressText.textViewDelegate = self
+        self.signatureText.textViewDelegate = self
+        self.messageText.textViewDelegate = self
         
         self.addressText.placeholder = LocalizedStrings.address
         self.signatureText.placeholder = LocalizedStrings.signature
@@ -65,6 +64,10 @@ class VerifyMessageViewController: UIViewController {
         
         self.hideKeyboardOnTapAround()
        }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        self.toggleValidateButtonState()
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -163,14 +166,14 @@ class VerifyMessageViewController: UIViewController {
     func toggleValidateButtonState() {
         let textCheck =  self.addressText.text!.isEmpty || self.messageText.text!.isEmpty || self.signatureText.text!.isEmpty
         self.verifyBtn.isEnabled = textCheck ?  false : true
-        self.verifyBtn.backgroundColor = textCheck ?  UIColor.appColors.darkerGray : UIColor.appColors.lightBlue
+        self.verifyBtn.backgroundColor = textCheck ?  UIColor.appColors.darkGray : UIColor.appColors.lightBlue
     }
     
     @IBAction func clearFields(_ sender: Any) {
         self.addressText.text = nil
         self.messageText.text = nil
         self.signatureText.text = nil
-        self.verifyBtn.backgroundColor = UIColor.appColors.darkerGray
+        self.verifyBtn.backgroundColor = UIColor.appColors.darkGray
         self.verifyBtn.isEnabled = false
         self.addressText.textViewDidEndEditing(self.addressText)
         self.messageText.textViewDidEndEditing(self.messageText)

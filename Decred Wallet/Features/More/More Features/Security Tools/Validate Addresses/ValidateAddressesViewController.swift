@@ -9,7 +9,7 @@
 import UIKit
 import Dcrlibwallet
 
-class ValidateAddressesViewController: UIViewController, UITextViewDelegate {
+class ValidateAddressesViewController: UIViewController, UITextViewDelegate, FloatingPlaceholderTextViewDelegate {
     @IBOutlet weak var addressText: FloatingPlaceholderTextView!
     @IBOutlet weak var validateBtn: UIButton!
     @IBOutlet weak var viewContainer: UIView!
@@ -40,6 +40,7 @@ class ValidateAddressesViewController: UIViewController, UITextViewDelegate {
         
         self.addressText.add(button: pasteButton)
         self.addressText.add(button: scanButton)
+        self.addressText.textViewDelegate = self
         self.addressText.setNeedsDisplay()
         self.addressText.placeholder = LocalizedStrings.address
     }
@@ -72,6 +73,10 @@ class ValidateAddressesViewController: UIViewController, UITextViewDelegate {
         return true
     }
     
+    func textViewDidChange(_ textView: UITextView) {
+        self.toggleValidateButtonState(addressHasText: textView.text)
+    }
+    
     @objc func onScan() {
         self.qrImageScanner.scan(sender: self, onTextScanned: self.checkAddressFromQrCode)
     }
@@ -84,7 +89,7 @@ class ValidateAddressesViewController: UIViewController, UITextViewDelegate {
     
     func toggleValidateButtonState(addressHasText: String) {
         self.validateBtn.isEnabled = addressHasText.isEmpty ?  false : true
-        self.validateBtn.backgroundColor = addressHasText.isEmpty ?  UIColor.appColors.darkerGray : UIColor.appColors.lightBlue
+        self.validateBtn.backgroundColor = addressHasText.isEmpty ?  UIColor.appColors.darkGray : UIColor.appColors.lightBlue
     }
     
     @IBAction func validatAddress(_ sender: Any) {
@@ -125,7 +130,7 @@ class ValidateAddressesViewController: UIViewController, UITextViewDelegate {
     
     @IBAction func clearAddress(_ sender: Any) {
         self.addressText.text = nil
-        self.validateBtn.backgroundColor = UIColor.appColors.darkerGray
+        self.validateBtn.backgroundColor = UIColor.appColors.darkGray
         self.validateBtn.isEnabled = false
         self.viewContHeightContraint.constant = 144
         self.isValidMsgContainer.isHidden = true
