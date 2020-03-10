@@ -25,10 +25,12 @@ class AboutTableViewController: UITableViewController  {
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         
+        self.addNavigationBackButton()
+            
         let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.about, style: .plain, target: self, action: nil)
         barButtonTitle.tintColor = UIColor.black // UIColor.appColor.darkblue
             
-        self.navigationItem.leftBarButtonItems =  [barButtonTitle]
+        self.navigationItem.leftBarButtonItems =  [(self.navigationItem.leftBarButtonItem)!, barButtonTitle]
         
         loadAboutData()
     }

@@ -26,7 +26,7 @@ enum MenuItem: String, CaseIterable {
             return WalletsViewController.instantiate(from: .Wallets)
         
         case .more:
-            return MoreMenuViewController.instantiate(from: .More)
+            return MoreMenuViewController.instantiate(from: .More).wrapInNavigationcontroller()
         }
     }
 

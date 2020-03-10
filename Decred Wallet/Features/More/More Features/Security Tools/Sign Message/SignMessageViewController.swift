@@ -72,12 +72,12 @@ class SignMessageViewController: UIViewController, FloatingPlaceholderTextViewDe
         //Remove shadow from navigation bar
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
-        
+        self.addNavigationBackButton()
         //setup leftBar button
         let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.signMessage, style: .plain, target: self, action: nil)
         barButtonTitle.tintColor = UIColor.black // UIColor.appColor.darkblue
         
-        self.navigationItem.leftBarButtonItems =  [barButtonTitle]
+        self.navigationItem.leftBarButtonItems =  [ (self.navigationItem.leftBarButtonItem)!, barButtonTitle]
         
         //setup rightBar button
         let infoBtn = UIButton(type: .custom)

@@ -68,7 +68,6 @@ class SettingsController: UITableViewController  {
         
         self.navigationController?.navigationBar.isHidden = false
         self.navigationController?.navigationBar.tintColor = UIColor.appColors.darkBlue
-        self.navigationController?.navigationBar.topItem?.title = LocalizedStrings.settings
         self.navigationController?.navigationBar.topItem?.rightBarButtonItem = nil
         self.navigationController?.navigationBar.barTintColor = UIColor.appColors.offWhite
         

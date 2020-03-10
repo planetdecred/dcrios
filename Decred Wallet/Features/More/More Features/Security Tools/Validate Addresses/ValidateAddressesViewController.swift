@@ -58,7 +58,7 @@ class ValidateAddressesViewController: UIViewController, UITextViewDelegate, Flo
         let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.validateAddresses, style: .plain, target: self, action: nil)
         barButtonTitle.tintColor = UIColor.black // UIColor.appColor.darkblue
                
-        self.navigationItem.leftBarButtonItems =  [barButtonTitle]
+        self.navigationItem.leftBarButtonItems =  [ (self.navigationItem.leftBarButtonItem)!, barButtonTitle]
        }
     
     func textView(_ textField: UITextView, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

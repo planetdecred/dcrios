@@ -13,21 +13,22 @@ class MoreMenuViewController: UIViewController,UITableViewDataSource,UITableView
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let emptyButton = UIBarButtonItem.init()
         let barButtonImg = UIBarButtonItem(image: UIImage(named: "ic_decred")?.withRenderingMode(.alwaysOriginal),
         style: .done, target: self,
         action: nil)
         let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.more, style: .plain, target: self, action: nil)
         barButtonTitle.tintColor = UIColor.appColors.darkBlue
-        
-        self.navigationItem.leftBarButtonItems = [emptyButton, emptyButton, barButtonImg, barButtonTitle]
+        let positiveSeparator = UIBarButtonItem(barButtonSystemItem:.fixedSpace, target: nil, action: nil)
+        positiveSeparator.width = 16
+       
+        self.navigationItem.leftBarButtonItems = [positiveSeparator, barButtonImg, barButtonTitle]
+    
         //Remove shadow from navigation bar
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
     }
     
     func navigateMorePage(to menuItem: MoreMenuItem) {
-        //self.tabBarController?.present(menuItem.viewController, animated: true, completion: nil)
         self.navigationController?.pushViewController(menuItem.viewController, animated: true)
        }
     

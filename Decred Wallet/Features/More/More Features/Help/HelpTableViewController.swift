@@ -23,10 +23,12 @@ class HelpTableViewController: UITableViewController  {
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         
-        let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.help, style: .plain, target: self, action: nil)
-            barButtonTitle.tintColor = UIColor.black // UIColor.appColor.darkblue
+       self.addNavigationBackButton()
             
-        self.navigationItem.leftBarButtonItems =  [barButtonTitle]
+        let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.help, style: .plain, target: self, action: nil)
+        barButtonTitle.tintColor = UIColor.black // UIColor.appColor.darkblue
+            
+        self.navigationItem.leftBarButtonItems =  [(self.navigationItem.leftBarButtonItem)!, barButtonTitle]
         
     }
     

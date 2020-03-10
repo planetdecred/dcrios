@@ -82,7 +82,7 @@ class VerifyMessageViewController: UIViewController, FloatingPlaceholderTextView
         let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.verifyMessage, style: .plain, target: self, action: nil)
         barButtonTitle.tintColor = UIColor.black // UIColor.appColor.darkblue
                      
-        self.navigationItem.leftBarButtonItems =  [barButtonTitle]
+        self.navigationItem.leftBarButtonItems =  [ (self.navigationItem.leftBarButtonItem)!, barButtonTitle]
         
         //setup rightBar button
         let infoBtn = UIButton(type: .custom)
