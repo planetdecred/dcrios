@@ -83,15 +83,15 @@ class TransactionDetailsViewController: UIViewController {
 
         if transaction.type == DcrlibwalletTxTypeRegular {
             if transaction.direction == DcrlibwalletTxDirectionSent {
-                if let sourceAccount = self.getSourceAccount() {
+                if let sourceAccount = self.transaction.sourceAccount {
                     generalTxDetails.append(TransactionDetail(
                         title: LocalizedStrings.fromAccountDetail,
                         value: "\(sourceAccount.capitalizingFirstLetter())",
-                        walletName: self.getWalletName(),
+                        walletName: self.transaction.walletName,
                         isCopyEnabled: false
                     ))
                 }
-                if let receiveAddress = self.getReceiveAddress() {
+                if let receiveAddress = self.transaction.receiveAddress {
                     generalTxDetails.append(TransactionDetail(
                         title: LocalizedStrings.toDetail,
                         value: "\(receiveAddress)",
@@ -99,18 +99,18 @@ class TransactionDetailsViewController: UIViewController {
                     ))
                 }
             } else if transaction.direction == DcrlibwalletTxDirectionReceived {
-                if let sourceAddress = self.getSourceAddress() {
+                if let sourceAddress = self.transaction.sourceAddress {
                     generalTxDetails.append(TransactionDetail(
                         title: LocalizedStrings.fromDetail,
                         value: "\(sourceAddress)",
                         isCopyEnabled: true
                     ))
                 }
-                if let receiveAccount = self.getReceiveAccount() {
+                if let receiveAccount = self.transaction.receiveAccount {
                     generalTxDetails.append(TransactionDetail(
                         title: LocalizedStrings.toAccountDetail,
                         value: "\(receiveAccount.capitalizingFirstLetter())",
-                        walletName: self.getWalletName(),
+                        walletName: self.transaction.walletName,
                         isCopyEnabled: false
                     ))
                 }
@@ -157,51 +157,6 @@ class TransactionDetailsViewController: UIViewController {
         }
     }
 
-    private func getReceiveAccount() -> String? {
-        for output in self.transaction.outputs {
-            if (output.accountName != "external") {
-                return output.accountName
-            }
-        }
-        return nil
-    }
-
-    private func getReceiveAddress() -> String? {
-        for output in self.transaction.outputs {
-            if (output.accountName == "external") {
-                return output.address
-            }
-        }
-        return nil
-    }
-
-    private func getSourceAddress() -> String? {
-        for input in self.transaction.inputs {
-            if (input.accountName == "external") {
-                return input.previousTransactionHash
-            }
-        }
-        return nil
-    }
-
-    private func getSourceAccount() -> String? {
-        for input in self.transaction.inputs {
-            if (input.accountName != "external") {
-                return input.accountName
-            }
-        }
-        return nil
-    }
-
-    private func getWalletName() -> String? {
-        for wallet in WalletLoader.shared.wallets {
-            if wallet.id_ == self.transaction.walletID {
-                return wallet.name
-            }
-        }
-        return nil
-    }
-
     private func prepareTxOverview() {
         let attributedAmountString = NSMutableAttributedString(string: (transaction.type == DcrlibwalletTxTypeRegular && transaction.direction == DcrlibwalletTxDirectionSent) ? "-" : "")
         attributedAmountString.append(Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 20.0, TexthexColor: UIColor.appColors.darkBlue))
@@ -230,7 +185,7 @@ class TransactionDetailsViewController: UIViewController {
             self.prepareTicketPurchaseTxOverview(transaction)
         }
     }
-    
+
     private func prepareRegularTxOverview(_ transaction: Transaction) {
         if transaction.direction == DcrlibwalletTxDirectionSent {
             self.txOverview.txIconImage = UIImage(named: "ic_send")

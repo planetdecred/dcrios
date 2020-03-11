@@ -10,7 +10,7 @@ import UIKit
 struct TransactionDetail {
     let title: String
     let value: String
-    var walletName: String? = nil
+    var walletName: String?
     let isCopyEnabled: Bool
 }
 
@@ -18,7 +18,7 @@ class TransactionDetailCell: UITableViewCell {
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var walletNameLabel: Label!
     @IBOutlet private weak var valueButton: UIButton!
-    
+
     var onTxDetailValueCopied: ((_ copiedDetail: String) -> ())?
     var txDetail: TransactionDetail? {
         didSet {
