@@ -202,7 +202,7 @@ extension DcrlibwalletMultiWallet {
             print("decode multiwallet transactions json error:", error.localizedDescription)
         }
 
-        if transactions != nil {
+        if transactions != nil && transactions!.count > 0 {
             // Check if there are new transactions since last time wallet history was displayed.
             let lastTxHash = Settings.readStringValue(for: DcrlibwalletLastTxHashConfigKey)
             for i in 0..<transactions!.count {
