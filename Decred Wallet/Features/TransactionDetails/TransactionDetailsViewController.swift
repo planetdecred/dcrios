@@ -81,53 +81,127 @@ class TransactionDetailsViewController: UIViewController {
             TexthexColor: UIColor.appColors.darkBlue
         )
 
-        self.generalTxDetails = [
-            TransactionDetail(
+        if transaction.type == DcrlibwalletTxTypeRegular {
+            if transaction.direction == DcrlibwalletTxDirectionSent {
+                if let sourceAccount = self.getSourceAccount() {
+                    generalTxDetails.append(TransactionDetail(
+                        title: LocalizedStrings.fromAccountDetail,
+                        value: "\(sourceAccount.capitalizingFirstLetter())",
+                        walletName: self.getWalletName(),
+                        isCopyEnabled: false
+                    ))
+                }
+                if let receiveAddress = self.getReceiveAddress() {
+                    generalTxDetails.append(TransactionDetail(
+                        title: LocalizedStrings.toDetail,
+                        value: "\(receiveAddress)",
+                        isCopyEnabled: true
+                    ))
+                }
+            } else if transaction.direction == DcrlibwalletTxDirectionReceived {
+                if let sourceAddress = self.getSourceAddress() {
+                    generalTxDetails.append(TransactionDetail(
+                        title: LocalizedStrings.fromDetail,
+                        value: "\(sourceAddress)",
+                        isCopyEnabled: true
+                    ))
+                }
+                if let receiveAccount = self.getReceiveAccount() {
+                    generalTxDetails.append(TransactionDetail(
+                        title: LocalizedStrings.toAccountDetail,
+                        value: "\(receiveAccount.capitalizingFirstLetter())",
+                        walletName: self.getWalletName(),
+                        isCopyEnabled: false
+                    ))
+                }
+            }
+        }
+
+        self.generalTxDetails.append(TransactionDetail(
                 title: LocalizedStrings.fee,
                 value: txFee.string,
                 isCopyEnabled: false
-            ),
-            TransactionDetail(
+        ))
+        self.generalTxDetails.append(TransactionDetail(
                 title: LocalizedStrings.includedInBlock,
                 value: "\(self.transaction.blockHeight)",
                 isCopyEnabled: false
-            ),
-            TransactionDetail(
+        ))
+        self.generalTxDetails.append(TransactionDetail(
                 title: LocalizedStrings.type,
                 value: self.transaction.type,
                 isCopyEnabled: false
-            ),
-            TransactionDetail(
+        ))
+        self.generalTxDetails.append(TransactionDetail(
                 title: LocalizedStrings.transactionID,
                 value: self.transaction.hash,
                 isCopyEnabled: true
-            )
-        ]
+        ))
 
         if self.transaction.type == DcrlibwalletTxTypeTicketPurchase {
-            let lastBlockValid = TransactionDetail(
+            generalTxDetails.append(TransactionDetail(
                 title: LocalizedStrings.lastBlockValid,
                 value: String(describing: self.transaction.lastBlockValid),
                 isCopyEnabled: false
-            )
-            generalTxDetails.append(lastBlockValid)
-
-            let voteVersion = TransactionDetail(
+            ))
+            generalTxDetails.append(TransactionDetail(
                 title: LocalizedStrings.version,
                 value: "\(self.transaction.voteVersion)",
                 isCopyEnabled: false
-            )
-            generalTxDetails.append(voteVersion)
-
-            let voteBits = TransactionDetail(
+            ))
+            generalTxDetails.append(TransactionDetail(
                 title: LocalizedStrings.voteBits,
                 value: self.transaction.voteBits,
                 isCopyEnabled: false
-            )
-            generalTxDetails.append(voteBits)
+            ))
         }
     }
-    
+
+    private func getReceiveAccount() -> String? {
+        for output in self.transaction.outputs {
+            if (output.accountName != "external") {
+                return output.accountName
+            }
+        }
+        return nil
+    }
+
+    private func getReceiveAddress() -> String? {
+        for output in self.transaction.outputs {
+            if (output.accountName == "external") {
+                return output.address
+            }
+        }
+        return nil
+    }
+
+    private func getSourceAddress() -> String? {
+        for input in self.transaction.inputs {
+            if (input.accountName == "external") {
+                return input.previousTransactionHash
+            }
+        }
+        return nil
+    }
+
+    private func getSourceAccount() -> String? {
+        for input in self.transaction.inputs {
+            if (input.accountName != "external") {
+                return input.accountName
+            }
+        }
+        return nil
+    }
+
+    private func getWalletName() -> String? {
+        for wallet in WalletLoader.shared.wallets {
+            if wallet.id_ == self.transaction.walletID {
+                return wallet.name
+            }
+        }
+        return nil
+    }
+
     private func prepareTxOverview() {
         let attributedAmountString = NSMutableAttributedString(string: (transaction.type == DcrlibwalletTxTypeRegular && transaction.direction == DcrlibwalletTxDirectionSent) ? "-" : "")
         attributedAmountString.append(Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 20.0, TexthexColor: UIColor.appColors.darkBlue))

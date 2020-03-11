@@ -31,6 +31,7 @@ class TransactionOverviewCell: UITableViewCell {
         self.txAmountLabel.attributedText = txOverView.txAmount
         self.dateLabel.text = txOverView.date
         self.statusLabel.text = txOverView.status
+        self.statusLabel.textColor = txOverView.statusLabelColor
         self.statusImageView.image = txOverView.statusImage
         self.confirmationsLabel.text = txOverView.confirmations
     }
