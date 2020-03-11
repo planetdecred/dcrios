@@ -55,6 +55,7 @@ class ValidateAddressesViewController: UIViewController, UITextViewDelegate, Flo
         self.navigationController?.navigationBar.shadowImage = UIImage()
         
         //setup leftBar button
+        self.addNavigationBackButton()
         let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.validateAddresses, style: .plain, target: self, action: nil)
         barButtonTitle.tintColor = UIColor.black // UIColor.appColor.darkblue
                
@@ -109,7 +110,7 @@ class ValidateAddressesViewController: UIViewController, UITextViewDelegate, Flo
                    self.addrOwnerInfo.isHidden = false
                    self.addrOwnerInfo.textColor = UIColor.appColors.green
                    self.addrOwnerInfo.text = LocalizedStrings.validOwnAddr
-                   self.isValidImg.image = UIImage.init(named: "ic_checkmark")
+                   self.isValidImg.image = UIImage.init(named: "ic_checkmark_round")
                } else {
                    if isValid {
                        self.validityInfo.textColor = UIColor.appColors.green
@@ -117,7 +118,7 @@ class ValidateAddressesViewController: UIViewController, UITextViewDelegate, Flo
                        self.addrOwnerInfo.isHidden = false
                        self.addrOwnerInfo.textColor = UIColor.appColors.lightBluishGray
                        self.addrOwnerInfo.text = LocalizedStrings.validNotOwnAddr
-                       self.isValidImg.image = UIImage.init(named: "ic_checkmark")
+                       self.isValidImg.image = UIImage.init(named: "ic_checkmark_round")
                    } else {
                        self.validityInfo.textColor = UIColor.appColors.orange
                        self.validityInfo.text = LocalizedStrings.invalidAddr

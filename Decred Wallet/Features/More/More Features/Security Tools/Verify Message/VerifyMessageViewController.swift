@@ -79,9 +79,10 @@ class VerifyMessageViewController: UIViewController, FloatingPlaceholderTextView
         self.navigationController?.navigationBar.shadowImage = UIImage()
         
         //setup leftBar button
+        self.addNavigationBackButton()
         let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.verifyMessage, style: .plain, target: self, action: nil)
         barButtonTitle.tintColor = UIColor.black // UIColor.appColor.darkblue
-                     
+        
         self.navigationItem.leftBarButtonItems =  [ (self.navigationItem.leftBarButtonItem)!, barButtonTitle]
         
         //setup rightBar button
@@ -143,7 +144,7 @@ class VerifyMessageViewController: UIViewController, FloatingPlaceholderTextView
                 } else {
                     self.isValidSignature.text = LocalizedStrings.invalidSignature
                     self.isValidSignature.textColor = UIColor.red
-                    self.isValidImg.image = UIImage.init(named: "ic_checkmark")
+                    self.isValidImg.image = UIImage.init(named: "ic_checkmark_round")
                     return
                 }
             } catch {

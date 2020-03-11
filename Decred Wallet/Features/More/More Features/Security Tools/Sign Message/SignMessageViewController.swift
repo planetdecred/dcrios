@@ -32,7 +32,7 @@ class SignMessageViewController: UIViewController, FloatingPlaceholderTextViewDe
         
         dcrlibwallet = WalletLoader.shared.firstWallet!
            
-        viewContHeightContraint.constant = 280
+       // viewContHeightContraint.constant = 280
         
         let addressPasteButton = UIButton(type: .custom)
         addressPasteButton.setImage(UIImage(named: "ic_paste"), for: .normal)
@@ -72,8 +72,9 @@ class SignMessageViewController: UIViewController, FloatingPlaceholderTextViewDe
         //Remove shadow from navigation bar
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.addNavigationBackButton()
+        
         //setup leftBar button
+        self.addNavigationBackButton()
         let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.signMessage, style: .plain, target: self, action: nil)
         barButtonTitle.tintColor = UIColor.black // UIColor.appColor.darkblue
         
@@ -125,7 +126,7 @@ class SignMessageViewController: UIViewController, FloatingPlaceholderTextViewDe
         self.signMessage()
     }
     
-    @IBAction func Copy(_ sender: Any) {
+    @IBAction func Copy(_ sender: UIButton) {
         self.copyData()
     }
     
@@ -169,7 +170,6 @@ class SignMessageViewController: UIViewController, FloatingPlaceholderTextViewDe
                        self.ProcessSignMsg(privatePass: privatePass) { error in
                            if error == nil {
                                dialogDelegate?.dismissDialog()
-                               self.dismissView()
                             self.viewContHeightContraint.constant = 382
                                                self.signatureContainer.isHidden = false
                             self.signatureText.textViewDidBeginEditing(self.signatureText)
@@ -177,6 +177,8 @@ class SignMessageViewController: UIViewController, FloatingPlaceholderTextViewDe
                                                self.messageText.isUserInteractionEnabled = false
                                                self.signBtn.backgroundColor = UIColor.appColors.darkGray
                                                self.signBtn.isEnabled = false
+                            Utils.showBanner(in: self.view.subviews.first!, type: .success, text: "Message signed")
+                            
                            } else if error!.isInvalidPassphraseError {
                             let errorMessage = SpendingPinOrPassword.invalidSecurityCodeMessage(for: self.dcrlibwallet.id_)
                             dialogDelegate?.displayError(errorMessage: errorMessage)
@@ -213,13 +215,11 @@ class SignMessageViewController: UIViewController, FloatingPlaceholderTextViewDe
     private func copyData(){
         DispatchQueue.main.async {
             //Copy a string to the pasteboard.
+            print("copy")
             let info = "\(LocalizedStrings.address): \(self.addressText.text ?? "") \n\(LocalizedStrings.message): \(self.messageText.text ?? "") \n\(LocalizedStrings.signature): \(self.signatureText.text ?? "")"
             UIPasteboard.general.string = info
                
-            //Alert
-            let alertController = UIAlertController(title: "", message: LocalizedStrings.copiedSuccessfully, preferredStyle: UIAlertController.Style.alert)
-            alertController.addAction(UIAlertAction(title: LocalizedStrings.ok, style: UIAlertAction.Style.default, handler: nil))
-            self.present(alertController, animated: true, completion: nil)
+            Utils.showBanner(in: self.view.subviews.first!, type: .error, text: LocalizedStrings.copiedSuccessfully)
         }
     }
 }
