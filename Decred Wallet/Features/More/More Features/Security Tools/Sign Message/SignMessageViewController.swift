@@ -177,7 +177,7 @@ class SignMessageViewController: UIViewController, FloatingPlaceholderTextViewDe
                                                self.messageText.isUserInteractionEnabled = false
                                                self.signBtn.backgroundColor = UIColor.appColors.darkGray
                                                self.signBtn.isEnabled = false
-                            Utils.showBanner(in: self.view.subviews.first!, type: .success, text: "Message signed")
+                            Utils.showBanner(in: self.view.subviews.first!, type: .success, text: LocalizedStrings.signSuccesMessage)
                             
                            } else if error!.isInvalidPassphraseError {
                             let errorMessage = SpendingPinOrPassword.invalidSecurityCodeMessage(for: self.dcrlibwallet.id_)
@@ -185,7 +185,7 @@ class SignMessageViewController: UIViewController, FloatingPlaceholderTextViewDe
                            } else {
                             print("sign error:", error!.localizedDescription)
                             dialogDelegate?.dismissDialog()
-                            Utils.showBanner(in: self.view.subviews.first!, type: .error, text: "Failed to sign message. Please try again.")
+                            Utils.showBanner(in: self.view.subviews.first!, type: .error, text: LocalizedStrings.signFailedMessage)
                         }
                 }
         }

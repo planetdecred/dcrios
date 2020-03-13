@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="D9F-Sd-24p">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="D9F-Sd-24p">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -383,10 +384,6 @@
         <scene sceneID="6nh-mZ-Xhx">
             <objects>
                 <viewController id="fV9-F9-h7o" customClass="CertificateViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="27D-oQ-jMz"/>
-                        <viewControllerLayoutGuide type="bottom" id="4Nc-ZT-SkG"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="w7z-7i-27N">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -428,13 +425,14 @@
                             <constraint firstItem="bPN-YR-Qki" firstAttribute="trailing" secondItem="w7z-7i-27N" secondAttribute="trailingMargin" id="D8z-M1-MBa"/>
                             <constraint firstItem="bPN-YR-Qki" firstAttribute="leading" secondItem="Cu9-M6-uYC" secondAttribute="leading" id="DCa-Mv-loh"/>
                             <constraint firstItem="Cu9-M6-uYC" firstAttribute="top" secondItem="bPN-YR-Qki" secondAttribute="bottom" constant="15" id="DZb-tz-kUY"/>
-                            <constraint firstItem="4Nc-ZT-SkG" firstAttribute="top" secondItem="3Y9-cM-yL2" secondAttribute="bottom" constant="280" id="HfO-zr-iEC"/>
+                            <constraint firstItem="KLJ-Xc-Gek" firstAttribute="bottom" secondItem="3Y9-cM-yL2" secondAttribute="bottom" constant="280" id="HfO-zr-iEC"/>
                             <constraint firstItem="Cu9-M6-uYC" firstAttribute="trailing" secondItem="3Y9-cM-yL2" secondAttribute="trailing" id="S5l-KC-kjY"/>
                             <constraint firstItem="Cu9-M6-uYC" firstAttribute="leading" secondItem="3Y9-cM-yL2" secondAttribute="leading" id="UCk-lf-TYh"/>
                             <constraint firstItem="bPN-YR-Qki" firstAttribute="trailing" secondItem="Cu9-M6-uYC" secondAttribute="trailing" id="aF5-R4-t3N"/>
                             <constraint firstItem="3Y9-cM-yL2" firstAttribute="top" secondItem="Cu9-M6-uYC" secondAttribute="bottom" constant="8" symbolic="YES" id="iyU-Pe-C8C"/>
-                            <constraint firstItem="bPN-YR-Qki" firstAttribute="top" secondItem="27D-oQ-jMz" secondAttribute="bottom" constant="20" id="uXM-s2-jaN"/>
+                            <constraint firstItem="bPN-YR-Qki" firstAttribute="top" secondItem="KLJ-Xc-Gek" secondAttribute="top" constant="20" id="uXM-s2-jaN"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="KLJ-Xc-Gek"/>
                     </view>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <splitViewDetailSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

@@ -89,32 +89,29 @@
         <scene sceneID="XVa-mi-6eV">
             <objects>
                 <viewController id="EZd-XU-g0B" customClass="WalletLogViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="S9L-Pa-ty4"/>
-                        <viewControllerLayoutGuide type="bottom" id="iEO-6o-r9A"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="gCg-sB-NIN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DDj-Zg-n1b">
                                 <rect key="frame" x="8" y="52" width="398" height="802"/>
-                                <color key="backgroundColor" red="0.95294117647058818" green="0.96078431372549022" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <color key="textColor" red="0.095721818510000001" green="0.2476373613" blue="0.38040792940000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="textColor" red="0.23921568627450979" green="0.34509803921568627" blue="0.45098039215686275" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
-                        <color key="backgroundColor" red="0.95294117647058818" green="0.96078431372549022" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="DDj-Zg-n1b" secondAttribute="trailing" constant="8" id="3LT-tp-z9e"/>
-                            <constraint firstItem="iEO-6o-r9A" firstAttribute="top" secondItem="DDj-Zg-n1b" secondAttribute="bottom" constant="8" id="6qD-pr-Qzf"/>
-                            <constraint firstItem="DDj-Zg-n1b" firstAttribute="top" secondItem="S9L-Pa-ty4" secondAttribute="bottom" constant="8" id="Gm3-G7-y7T"/>
-                            <constraint firstItem="DDj-Zg-n1b" firstAttribute="leading" secondItem="gCg-sB-NIN" secondAttribute="leading" constant="8" id="ptg-ki-8Mo"/>
+                            <constraint firstItem="tlJ-9x-7bY" firstAttribute="trailing" secondItem="DDj-Zg-n1b" secondAttribute="trailing" constant="8" id="3LT-tp-z9e"/>
+                            <constraint firstItem="tlJ-9x-7bY" firstAttribute="bottom" secondItem="DDj-Zg-n1b" secondAttribute="bottom" constant="8" id="6qD-pr-Qzf"/>
+                            <constraint firstItem="DDj-Zg-n1b" firstAttribute="top" secondItem="tlJ-9x-7bY" secondAttribute="top" constant="8" id="kDy-9x-Ps7"/>
+                            <constraint firstItem="DDj-Zg-n1b" firstAttribute="leading" secondItem="tlJ-9x-7bY" secondAttribute="leading" constant="8" id="ptg-ki-8Mo"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="n4I-mu-riR"/>
+                        <viewLayoutGuide key="safeArea" id="tlJ-9x-7bY"/>
                     </view>
                     <navigationItem key="navigationItem" id="b8a-tl-zVw"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="logTextView" destination="DDj-Zg-n1b" id="WPq-lr-kHa"/>
                     </connections>

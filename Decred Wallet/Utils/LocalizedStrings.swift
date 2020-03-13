@@ -372,6 +372,8 @@ struct LocalizedStrings {
     static let signingMessage = NSLocalizedString("signingMessage", comment: "")
     static let secureMenuSyncInfo = NSLocalizedString("secureMenuSyncInfo", comment: "")
     static let secureMenuHeaderInfo = NSLocalizedString("secureMenuHeaderInfo", comment: "")
+    static let signSuccesMessage = NSLocalizedString("signSuccesMessage", comment: "")
+    static let signFailedMessage = NSLocalizedString("signFailedMessage", comment: "")
     
     /* Help */
     static let forMoreInformationPleaseVisit = NSLocalizedString("forMoreInformationPleaseVisit", comment: "")

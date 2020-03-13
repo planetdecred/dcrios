@@ -15,27 +15,33 @@ class WalletLogViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.navigationBar.isHidden = false
-        self.navigationController?.navigationBar.tintColor = UIColor.appColors.darkBlue
-        self.navigationController?.navigationBar.barTintColor = UIColor.appColors.offWhite
+        
+    }
     
-        //setup leftBar button
-        self.addNavigationBackButton()
-        let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.walletLog, style: .plain, target: self, action: nil)
-        barButtonTitle.tintColor = UIColor.black // UIColor.appColor.darkblue
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = false
+            self.navigationController?.navigationBar.tintColor = UIColor.appColors.darkBlue
+            self.navigationController?.navigationBar.barTintColor = UIColor.appColors.offWhite
         
-        self.navigationItem.leftBarButtonItems =  [ (self.navigationItem.leftBarButtonItem)!, barButtonTitle]
+            //setup leftBar button
+            self.addNavigationBackButton()
+            let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.walletLog, style: .plain, target: self, action: nil)
+            barButtonTitle.tintColor = UIColor.black // UIColor.appColor.darkblue
+            
+            self.navigationItem.leftBarButtonItems =  [ (self.navigationItem.leftBarButtonItem)!, barButtonTitle]
+            
+            self.progressHud = Utils.showProgressHud(withText: LocalizedStrings.loading)
+            
+            //setup rightBar button
+            let infoBtn = UIButton(type: .custom)
+            infoBtn.setImage(UIImage(named: "ic_paste"), for: .normal)
+            infoBtn.addTarget(self, action: #selector(copyLog), for: .touchUpInside)
+            infoBtn.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
+            let infoBtnBtnItem:UIBarButtonItem = UIBarButtonItem(customView: infoBtn)
+            
+            self.navigationItem.rightBarButtonItem = infoBtnBtnItem
         
-        self.progressHud = Utils.showProgressHud(withText: LocalizedStrings.loading)
-        
-        //setup rightBar button
-        let infoBtn = UIButton(type: .custom)
-        infoBtn.setImage(UIImage(named: "ic_paste"), for: .normal)
-        infoBtn.addTarget(self, action: #selector(copyLog), for: .touchUpInside)
-        infoBtn.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
-        let infoBtnBtnItem:UIBarButtonItem = UIBarButtonItem(customView: infoBtn)
-        
-        self.navigationItem.rightBarButtonItem = infoBtnBtnItem
     }
     
     override func viewDidAppear(_ animated: Bool) {
