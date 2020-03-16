@@ -23,24 +23,22 @@ extension UIViewController {
         return UINavigationController(rootViewController: self)
     }
     
-    /// Creates custom back butotn on ViewController. Hides default back button and createa a UIBarButtonItem instance on controller and sets to leftBartButtonItem property.
+    /// Creates a custom back button on ViewController. Hides default back button and create a UIBarButtonItem instance on controller and sets to leftBartButtonItem property.
     ///
-    /// - Parameter imageName: Name of the image to show. if nil is supplied "picture_done" is assumed, specific to Imaginamos
     @discardableResult public func addNavigationBackButton() -> UIViewController {
-        let backArrowImage = #imageLiteral(resourceName: "left-arrow")
         navigationItem.hidesBackButton = true
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: backArrowImage, style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.navigateToBackScreen))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "left-arrow"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.navigateToBackScreen))
         return self
     }
     
     /// Go back to previsous screen. If pushed if pops else dismisses.
        @objc public func navigateToBackScreen() {
-           if self.isModal {
-               dismiss(animated: true, completion: nil)
-           } else {
-               _ = navigationController?.popViewController(animated: true)
-           }
-       }
+        if self.isModal {
+            dismiss(animated: true, completion: nil)
+        } else {
+            _ = navigationController?.popViewController(animated: true)
+        }
+    }
     
     func listenForKeyboardVisibilityChanges(delegate keyboardVisibilityDelegate: KeyboardVisibilityDelegate) {
         NotificationCenter.default.addObserver(self,

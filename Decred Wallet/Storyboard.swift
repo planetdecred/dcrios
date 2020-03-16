@@ -31,7 +31,6 @@ enum Storyboard: String {
     case ValidateAddresses = "ValidateAddresses"
     case VerifyMessage = "VerifyMessage"
     case SignMessage = "SignMessage"
-    
     case CustomDialogs = "CustomDialogs"
     
     var instance: UIStoryboard {

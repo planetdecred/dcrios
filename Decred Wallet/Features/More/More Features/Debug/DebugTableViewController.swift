@@ -1,7 +1,7 @@
 //
 //  DebugTableViewController.swift
 //  Decred Wallet
-
+//
 // Copyright (c) 2019 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
@@ -11,7 +11,7 @@ import UIKit
 import JGProgressHUD
 import Dcrlibwallet
 
-class DebugTableViewController: UITableViewController  {
+class DebugTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -26,7 +26,7 @@ class DebugTableViewController: UITableViewController  {
         self.addNavigationBackButton()
             
         let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.debug, style: .plain, target: self, action: nil)
-        barButtonTitle.tintColor = UIColor.black // UIColor.appColor.darkblue
+        barButtonTitle.tintColor = UIColor.appColors.darkBlue
             
         self.navigationItem.leftBarButtonItems =  [(self.navigationItem.leftBarButtonItem)!, barButtonTitle]
     }

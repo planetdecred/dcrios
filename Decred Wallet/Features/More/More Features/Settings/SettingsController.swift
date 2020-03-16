@@ -77,7 +77,7 @@ class SettingsController: UITableViewController  {
                                           action: #selector(self.dismissView))
         
         let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.settings, style: .plain, target: self, action: nil)
-        barButtonTitle.tintColor = UIColor.black // UIColor.appColor.darkblue
+        barButtonTitle.tintColor = UIColor.appColors.darkBlue
         
         self.navigationItem.leftBarButtonItems =  [closeButton, barButtonTitle]
         

@@ -10,12 +10,12 @@ import Foundation
 import UIKit
 
 class SecurityToolsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    @IBOutlet weak var SecurityToolsTableView: UITableView!
+    @IBOutlet weak var securityToolsTableView: UITableView!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = false
-        self.navigationController?.navigationBar.tintColor = UIColor(hex: "#091440") //move to color file
+        self.navigationController?.navigationBar.tintColor = UIColor.appColors.darkBlue
         self.navigationController?.navigationBar.barTintColor = UIColor.appColors.offWhite
            //Remove shadow from navigation bar
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
@@ -25,7 +25,7 @@ class SecurityToolsViewController: UIViewController, UITableViewDataSource, UITa
         self.addNavigationBackButton()
             
         let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.about, style: .plain, target: self, action: nil)
-        barButtonTitle.tintColor = UIColor.black // UIColor.appColor.darkblue
+        barButtonTitle.tintColor = UIColor.appColors.darkBlue
             
         self.navigationItem.leftBarButtonItems =  [(self.navigationItem.leftBarButtonItem)!, barButtonTitle]
         
@@ -39,34 +39,33 @@ class SecurityToolsViewController: UIViewController, UITableViewDataSource, UITa
         self.navigationItem.rightBarButtonItem = infoBtnBtnItem
        }
     
-    @objc func pageInfo(){
+    @objc func pageInfo() {
         let alertController = UIAlertController(title: LocalizedStrings.securityTools, message: LocalizedStrings.securityToolsInfo, preferredStyle: UIAlertController.Style.alert)
         alertController.addAction(UIAlertAction(title: LocalizedStrings.gotIt, style: UIAlertAction.Style.default, handler: nil))
         self.present(alertController, animated: true, completion: nil)
     }
        
-       func navigateSecurityPage(to menuItem: SecurityToolsItem) {
-           self.navigationController?.pushViewController(menuItem.viewController, animated: true)
-          }
+    func navigateSecurityPage(to menuItem: SecurityToolsItem) {
+        self.navigationController?.pushViewController(menuItem.viewController, animated: true)
+    }
        
-       func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-           return SecurityToolsItemCell.height
-       }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return SecurityToolsItemCell.height
+    }
        
-       func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-           self.navigateSecurityPage(to: SecurityToolsItem.allCases[indexPath.row])
-       }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.navigateSecurityPage(to: SecurityToolsItem.allCases[indexPath.row])
+    }
        
-       func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-           return SecurityToolsItem.allCases.count
-       }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return SecurityToolsItem.allCases.count
+    }
        
-       func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-           let securityToolsItem = SecurityToolsItem.allCases[indexPath.row]
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let securityToolsItem = SecurityToolsItem.allCases[indexPath.row]
            
-           let securityToolsItemCell = self.SecurityToolsTableView.dequeueReusableCell(withIdentifier: SecurityToolsItemCell.securityToolsIdentifier) as! SecurityToolsItemCell
-           securityToolsItemCell.render(securityToolsItem)
-           
-           return securityToolsItemCell
-       }
+        let securityToolsItemCell = self.securityToolsTableView.dequeueReusableCell(withIdentifier: SecurityToolsItemCell.securityToolsIdentifier) as! SecurityToolsItemCell
+        securityToolsItemCell.render(securityToolsItem)
+        return securityToolsItemCell
+    }
 }

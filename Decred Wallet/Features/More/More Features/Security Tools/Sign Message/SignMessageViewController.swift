@@ -21,7 +21,7 @@ class SignMessageViewController: UIViewController, FloatingPlaceholderTextViewDe
     
     var dcrlibwallet: DcrlibwalletWallet!
     
-    var progressHud : JGProgressHUD?
+    var progressHud: JGProgressHUD?
        
     // Good practice: create an instance of QRImageScanner lazily to avoid cpu overload during the
     // initialization and each time we need to scan a QRCode.
@@ -32,7 +32,7 @@ class SignMessageViewController: UIViewController, FloatingPlaceholderTextViewDe
         
         dcrlibwallet = WalletLoader.shared.firstWallet!
            
-       // viewContHeightContraint.constant = 280
+        viewContHeightContraint.constant = 280
         
         let addressPasteButton = UIButton(type: .custom)
         addressPasteButton.setImage(UIImage(named: "ic_paste"), for: .normal)
@@ -76,7 +76,7 @@ class SignMessageViewController: UIViewController, FloatingPlaceholderTextViewDe
         //setup leftBar button
         self.addNavigationBackButton()
         let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.signMessage, style: .plain, target: self, action: nil)
-        barButtonTitle.tintColor = UIColor.black // UIColor.appColor.darkblue
+        barButtonTitle.tintColor = UIColor.appColors.darkBlue
         
         self.navigationItem.leftBarButtonItems =  [ (self.navigationItem.leftBarButtonItem)!, barButtonTitle]
         
@@ -85,9 +85,9 @@ class SignMessageViewController: UIViewController, FloatingPlaceholderTextViewDe
         infoBtn.setImage(UIImage(named: "info"), for: .normal)
         infoBtn.addTarget(self, action: #selector(pageInfo), for: .touchUpInside)
         infoBtn.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
-        let infoBtnBtnItem:UIBarButtonItem = UIBarButtonItem(customView: infoBtn)
+        let infoBtnItem:UIBarButtonItem = UIBarButtonItem(customView: infoBtn)
         
-        self.navigationItem.rightBarButtonItem = infoBtnBtnItem
+        self.navigationItem.rightBarButtonItem = infoBtnItem
     }
        
     @objc func onScan() {
@@ -97,22 +97,24 @@ class SignMessageViewController: UIViewController, FloatingPlaceholderTextViewDe
     @objc func onAddressPaste() {
         self.addressText.textViewDidBeginEditing(self.addressText)
         self.addressText.text = UIPasteboard.general.string
+        self.addressText.textViewDidEndEditing(self.addressText)
         self.toggleSignButtonState()
     }
     
     @objc func onMessagePaste() {
         self.messageText.textViewDidBeginEditing(self.messageText)
         self.messageText.text = UIPasteboard.general.string
+        self.messageText.textViewDidEndEditing(self.messageText)
         self.toggleSignButtonState()
     }
     
-    @objc func pageInfo(){
+    @objc func pageInfo() {
         let alertController = UIAlertController(title: LocalizedStrings.signMessage, message: LocalizedStrings.signMsgPageInfo, preferredStyle: UIAlertController.Style.alert)
         alertController.addAction(UIAlertAction(title: LocalizedStrings.gotIt, style: UIAlertAction.Style.default, handler: nil))
         self.present(alertController, animated: true, completion: nil)
     }
     
-    @objc func TextFieldChanged() {
+    @objc func textFieldChanged() {
         self.toggleSignButtonState()
     }
     
@@ -126,7 +128,7 @@ class SignMessageViewController: UIViewController, FloatingPlaceholderTextViewDe
         self.signMessage()
     }
     
-    @IBAction func Copy(_ sender: UIButton) {
+    @IBAction func copyInfo(_ sender: UIButton) {
         self.copyData()
     }
     
@@ -156,9 +158,7 @@ class SignMessageViewController: UIViewController, FloatingPlaceholderTextViewDe
         }
         self.addressText.textViewDidBeginEditing(self.addressText)
         self.addressText.text = capturedText
-       
     }
-    
     
     func signMessage() {
         let privatePassType = SpendingPinOrPassword.securityType(for: dcrlibwallet.id_)
@@ -167,7 +167,7 @@ class SignMessageViewController: UIViewController, FloatingPlaceholderTextViewDe
                    .with(submitBtnText: LocalizedStrings.confirm)
                    .requestCurrentCode(sender: self) { privatePass, _, dialogDelegate in
                        
-                       self.ProcessSignMsg(privatePass: privatePass) { error in
+                       self.processSignMsg(privatePass: privatePass) { error in
                            if error == nil {
                                dialogDelegate?.dismissDialog()
                             self.viewContHeightContraint.constant = 382
@@ -177,7 +177,8 @@ class SignMessageViewController: UIViewController, FloatingPlaceholderTextViewDe
                                                self.messageText.isUserInteractionEnabled = false
                                                self.signBtn.backgroundColor = UIColor.appColors.darkGray
                                                self.signBtn.isEnabled = false
-                            Utils.showBanner(in: self.view.subviews.first!, type: .success, text: LocalizedStrings.signSuccesMessage)
+                            self.signatureText.textViewDidEndEditing(self.signatureText)
+                            Utils.showBanner(in: self.viewContainer.subviews.first!, type: .success, text: LocalizedStrings.signSuccesMessage)
                             
                            } else if error!.isInvalidPassphraseError {
                             let errorMessage = SpendingPinOrPassword.invalidSecurityCodeMessage(for: self.dcrlibwallet.id_)
@@ -185,13 +186,13 @@ class SignMessageViewController: UIViewController, FloatingPlaceholderTextViewDe
                            } else {
                             print("sign error:", error!.localizedDescription)
                             dialogDelegate?.dismissDialog()
-                            Utils.showBanner(in: self.view.subviews.first!, type: .error, text: LocalizedStrings.signFailedMessage)
+                            Utils.showBanner(in: self.viewContainer.subviews.first!, type: .error, text: LocalizedStrings.signFailedMessage)
                         }
                 }
         }
     }
     
-    func ProcessSignMsg(privatePass: String, next: @escaping (_ error: Error?) -> Void) {
+    func processSignMsg(privatePass: String, next: @escaping (_ error: Error?) -> Void) {
         let address = self.addressText.text
         let message = self.messageText.text
         let finalPassphrase = privatePass as NSString
@@ -203,7 +204,6 @@ class SignMessageViewController: UIViewController, FloatingPlaceholderTextViewDe
                     self.signatureText.text = signature.base64EncodedString()
                     next(nil)
                 }
-                
             } catch let error {
                 DispatchQueue.main.async {
                     next(error)
@@ -215,11 +215,10 @@ class SignMessageViewController: UIViewController, FloatingPlaceholderTextViewDe
     private func copyData(){
         DispatchQueue.main.async {
             //Copy a string to the pasteboard.
-            print("copy")
             let info = "\(LocalizedStrings.address): \(self.addressText.text ?? "") \n\(LocalizedStrings.message): \(self.messageText.text ?? "") \n\(LocalizedStrings.signature): \(self.signatureText.text ?? "")"
             UIPasteboard.general.string = info
                
-            Utils.showBanner(in: self.view.subviews.first!, type: .error, text: LocalizedStrings.copiedSuccessfully)
+            Utils.showBanner(in: self.viewContainer.subviews.first!, type: .error, text: LocalizedStrings.copiedSuccessfully)
         }
     }
 }

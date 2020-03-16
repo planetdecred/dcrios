@@ -11,7 +11,7 @@ import UIKit
 import JGProgressHUD
 import Dcrlibwallet
 
-class AboutTableViewController: UITableViewController  {
+class AboutTableViewController: UITableViewController {
     @IBOutlet weak var build: UILabel!
     @IBOutlet weak var version: UILabel!
     
@@ -19,7 +19,7 @@ class AboutTableViewController: UITableViewController  {
         super.viewWillAppear(animated)
         
         self.navigationController?.navigationBar.isHidden = false
-        self.navigationController?.navigationBar.tintColor = UIColor(hex: "#091440") //move to color file
+        self.navigationController?.navigationBar.tintColor = UIColor.appColors.darkBlue
         self.navigationController?.navigationBar.barTintColor = UIColor.appColors.offWhite
         //Remove shadow from navigation bar
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
@@ -28,7 +28,7 @@ class AboutTableViewController: UITableViewController  {
         self.addNavigationBackButton()
             
         let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.about, style: .plain, target: self, action: nil)
-        barButtonTitle.tintColor = UIColor.black // UIColor.appColor.darkblue
+        barButtonTitle.tintColor = UIColor.appColors.darkBlue
             
         self.navigationItem.leftBarButtonItems =  [(self.navigationItem.leftBarButtonItem)!, barButtonTitle]
         
@@ -39,7 +39,7 @@ class AboutTableViewController: UITableViewController  {
         return 16
     }
     
-    func loadAboutData() -> Void {
+    func loadAboutData() {
         version?.text = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String
         
         let dateformater = DateFormatter()

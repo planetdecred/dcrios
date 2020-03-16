@@ -1,5 +1,5 @@
 //
-//  MoreViewController.swift
+//  MoreMenuViewController.swift
 //  Decred Wallet
 //
 // Copyright (c)2019 The Decred developers
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MoreMenuViewController: UIViewController,UITableViewDataSource,UITableViewDelegate   {
+class MoreMenuViewController: UIViewController, UITableViewDataSource, UITableViewDelegate   {
     @IBOutlet weak var moreMenuTableView: UITableView!
     
     override func viewWillAppear(_ animated: Bool) {
@@ -18,7 +18,7 @@ class MoreMenuViewController: UIViewController,UITableViewDataSource,UITableView
         action: nil)
         let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.more, style: .plain, target: self, action: nil)
         barButtonTitle.tintColor = UIColor.appColors.darkBlue
-        let positiveSeparator = UIBarButtonItem(barButtonSystemItem:.fixedSpace, target: nil, action: nil)
+        let positiveSeparator = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
         positiveSeparator.width = 16
        
         self.navigationItem.leftBarButtonItems = [positiveSeparator, barButtonImg, barButtonTitle]

@@ -27,7 +27,7 @@ class WalletLogViewController: UIViewController {
             //setup leftBar button
             self.addNavigationBackButton()
             let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.walletLog, style: .plain, target: self, action: nil)
-            barButtonTitle.tintColor = UIColor.black // UIColor.appColor.darkblue
+            barButtonTitle.tintColor = UIColor.appColors.darkBlue
             
             self.navigationItem.leftBarButtonItems =  [ (self.navigationItem.leftBarButtonItem)!, barButtonTitle]
             
