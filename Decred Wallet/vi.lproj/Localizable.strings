@@ -234,6 +234,10 @@
 "howToCopy" = "How to copy";
 "tapOnBlueText" = "Tap on <blue>blue text</blue> to copy the item.";
 "gotIt" = "Got it";
+"toAccountDetail" = "To account";
+"toDetail" = "To";
+"fromAccountDetail" = "From account";
+"fromDetail" = "From";
 
 /* Send view */
 "invalidAmount" = "Số tiền không hợp lệ.";
@@ -368,18 +372,33 @@
 "createAccount" = "Tạo tài khoản";
 "privatePassphrase" = "Cụm mật khẩu riêng";
 
-/* Security Menu */
-"validOwnAddr" = "Địa chỉ hợp lệ và bạn sở hữu nó.";
-"validNotOwnAddr" = "Địa chỉ hợp lệ và bạn KHÔNG sở hữu nó..";
-"invalidAddr" = "Không phải là một địa chỉ hợp lệ.";
-"verifiedSignature" = "Chữ ký này xác minh đối với tin nhắn và địa chỉ.";
-"invalidSignature" = "Chữ ký này không xác minh đối với tin nhắn và địa chỉ.";
-"signingMessage" = "Signing Message...";
-"address" = "Địa chỉ";
+/* Security Tools */
+"securityTools" = "Security Tools";
+"securityToolsInfo" = "Various tools that help in different aspects of crypto currency security will be located here.";
+"validateAddresses" = "Validate addresses";
+"validAddress " = "Valid address";
+"validOwnAddr" = "Owned by this wallet";
+"validNotOwnAddr" = "NOT owned by this wallet";
+"invalidAddr" = "Invalid address";
+"validate" = "Validate";
+"enterAnAddressToValidate" = "Enter an address to validate:";
+"address" = "Address";
+"verifyMsgHeaderInfo" = "Enter the address, signature, and message to verfiy:";
+"verifyMessage" = "Verify message";
+"verify" = "Verify";
 "message" = "Tin nhắn";
 "signature" = "Chữ ký";
-"secureMenuSyncInfo" = "Vui lòng đợi ví của bạn hoàn tất đồng bộ hóa.";
-"secureMenuHeaderInfo" = "Tại đây bạn có thể xác minh tính hợp lệ của một địa chỉ, ký tin nhắn để chứng minh quyền sở hữu địa chỉ của bạn và xác minh chữ ký.";
+"invalidSignature" = "Invalid signature";
+"verifiedSignature" = "Valid signature";
+"verifyMessagepageInfo" = "After you or your counterparty has generated a signature, you can use this form to verify the validity of the signature. Once you have entered the address, the message and the corresponding signature, you will see VALID if the signature appropriately matches the address and message, otherwise INVALID.";
+"signMsgHeaderInfo" = "Enter an address and message to sign:";
+"signMsgPageInfo" = "Signing a message with an address' private key allows you to prove that you are the owner of a given address to a possible counterparty.";
+"signMessage" = "Sign Message";
+"signingMessage" = "Signing Message...";
+"secureMenuSyncInfo" = "Please wait for your wallet to finish synchronizing.";
+"signSuccesMessage" = "Signed Message";
+"signFailedMessage" = "Failed to sign message. Please try again.";
+"sign" = "Sign";
 
 /* Help */
 "forMoreInformationPleaseVisit" = "Để biết thêm thông tin, vui lòng truy cập";
@@ -399,22 +418,27 @@
 "syncOnWifiDesc" = "Đồng bộ hóa khi không có WiFi";
 "buildDate" = "Ngày tạo lập";
 "walletLog" = "Nhật ký ví";
-"deleteWallet" = "Xóa ví";
+"removeWallet" = "Remove wallet";
 "spv" = "Xác minh thanh toán đơn giản (SPV)";
 "remoteFullNode" = "Nút đầy đủ từ xa (full node)";
 "none" = "None";
 "rescanConfirm" = "Bạn có chắc không? Điều này có thể mất một thời gian.";
-"rescanBlockchain" = "Quét lại Blockchain";
+"rescanBlockchain" = "Quét lại blockchain";
 "syncProgressAlert" = "Sync is in progress. Please wait for sync to complete.";
 "scanInProgress" = "Kiểm tra tiến độ trong thanh điều hướng.";
 "scanStartedAlready" = "Ví đã được quét lại, kiểm tra tiến trình trong thanh điều hướng.";
 "rescanFailed" = "Rescan failed";
-"deletingWallet" = "Đang xoá ví…";
-"deleteWalletFailed" = "Failed to delete wallet.";
+"removingWallet" = "Removing wallet...";
+"removeWalletFailed" = "Failed to Remove wallet.";
 "general" = "Tổng hợp";
 "connection" = "Kết nối";
 "about" = "About";
 "debug" = "Debug";
+"notifications" = "Notifications";
+"checkWalletLog" = "Check wallet log";
+"helpInfo" = "For more information, please visit the Decred documentation.";
+"seeDocumentations" = "See Documentations";
+"beepForNewBlocks" = "Beep for new blocks";
 
 /* Change startup/spending pin/pass */
 "newPasswordPlaceholder" = "New %@ password";
@@ -459,6 +483,7 @@
 "secRemaining" = "%d giây";
 
 /* Pop Ups */
+"clear" = "Clear";
 "error" = "lỗi";
 "retry" = "Thử lại";
 "ok" = "OK";
@@ -484,7 +509,9 @@
 "receive" = "receive";
 "history" = "history";
 "settings" = "Settings";
-"help" = "help";
+"help" = "Help";
+"gotIt" = "Got it";
+"security" = "Security";
 
 /* Seed Backup Reminder */
 "keepInMind" = "Keep in mind";

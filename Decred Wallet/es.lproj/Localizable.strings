@@ -234,6 +234,10 @@
 "howToCopy" = "How to copy";
 "tapOnBlueText" = "Tap on <blue>blue text</blue> to copy the item.";
 "gotIt" = "Got it";
+"toAccountDetail" = "To account";
+"toDetail" = "To";
+"fromAccountDetail" = "From account";
+"fromDetail" = "From";
 
 /* Send view */
 "invalidAmount" = "El monto no es válido.";
@@ -368,18 +372,33 @@
 "createAccount" = "Crear Cuenta";
 "privatePassphrase" = "Frase de contraseña privada";
 
-/* Security Menu */
-"validOwnAddr" = "La dirección es válida y usted la posee.";
-"validNotOwnAddr" = "Address is valid and you do NOT own it.";
-"invalidAddr" = "No es una dirección válida.";
-"verifiedSignature" = "Esta firma verifica mensaje y dirección.";
-"invalidSignature" = "Esta firma no verifica mensaje y dirección.";
-"signingMessage" = "Signing Message...";
-"address" = "Dirección";
+/* Security Tools */
+"securityTools" = "Security Tools";
+"securityToolsInfo" = "Various tools that help in different aspects of crypto currency security will be located here.";
+"validateAddresses" = "Validate addresses";
+"validAddress " = "Valid address";
+"validOwnAddr" = "Owned by this wallet";
+"validNotOwnAddr" = "NOT owned by this wallet";
+"invalidAddr" = "Invalid address";
+"validate" = "Validate";
+"enterAnAddressToValidate" = "Enter an address to validate:";
+"address" = "Address";
+"verifyMsgHeaderInfo" = "Enter the address, signature, and message to verfiy:";
+"verifyMessage" = "Verify message";
+"verify" = "Verify";
 "message" = "Mensaje";
 "signature" = "Firma";
-"secureMenuSyncInfo" = "Por favor, espera a que tu billetera termine de sincronizar.";
-"secureMenuHeaderInfo" = "Aquí puedes verificar la válidez de una dirección, firmar mensajes para demostrar su titularidad y verificar firmas.";
+"invalidSignature" = "Invalid signature";
+"verifiedSignature" = "Valid signature";
+"verifyMessagepageInfo" = "After you or your counterparty has generated a signature, you can use this form to verify the validity of the signature. Once you have entered the address, the message and the corresponding signature, you will see VALID if the signature appropriately matches the address and message, otherwise INVALID.";
+"signMsgHeaderInfo" = "Enter an address and message to sign:";
+"signMsgPageInfo" = "Signing a message with an address' private key allows you to prove that you are the owner of a given address to a possible counterparty.";
+"signMessage" = "Sign Message";
+"signingMessage" = "Signing Message...";
+"secureMenuSyncInfo" = "Please wait for your wallet to finish synchronizing.";
+"signSuccesMessage" = "Signed Message";
+"signFailedMessage" = "Failed to sign message. Please try again.";
+"sign" = "Sign";
 
 /* Help */
 "forMoreInformationPleaseVisit" = "Para más información por favor visita";
@@ -399,7 +418,7 @@
 "syncOnWifiDesc" = "Sincronizar cuando no esté conectado a una red WiFi";
 "buildDate" = "Fecha de creación";
 "walletLog" = "Registro de la billetera";
-"deleteWallet" = "Eliminar la billetera";
+"removeWallet" = "Remove wallet";
 "spv" = "Verificación de Pago Simplificada (VPS)";
 "remoteFullNode" = "Nodo completo remoto";
 "none" = "Ninguno";
@@ -409,12 +428,17 @@
 "scanInProgress" = "Ver progreso en la barra de navegación.";
 "scanStartedAlready" = "La billetera ya está reexplorando, verifique el progreso en la barra de navegación.";
 "rescanFailed" = "Rescan failed";
-"deletingWallet" = "Eliminando la billetera…";
-"deleteWalletFailed" = "Failed to delete wallet.";
+"removingWallet" = "Removing wallet...";
+"removeWalletFailed" = "Failed to Remove wallet.";
 "general" = "General";
 "connection" = "Conexión";
 "about" = "About";
 "debug" = "Debug";
+"notifications" = "Notifications";
+"checkWalletLog" = "Check wallet log";
+"helpInfo" = "For more information, please visit the Decred documentation.";
+"seeDocumentations" = "See Documentations";
+"beepForNewBlocks" = "Beep for new blocks";
 
 /* Change startup/spending pin/pass */
 "newPasswordPlaceholder" = "New %@ password";
@@ -459,6 +483,7 @@
 "secRemaining" = "%d segundos";
 
 /* Pop Ups */
+"clear" = "Clear";
 "error" = "Error";
 "retry" = "REINTENTAR";
 "ok" = "De acuerdo";
@@ -484,7 +509,9 @@
 "receive" = "receive";
 "history" = "history";
 "settings" = "Settings";
-"help" = "help";
+"help" = "Help";
+"gotIt" = "Got it";
+"security" = "Security";
 
 /* Seed Backup Reminder */
 "keepInMind" = "Keep in mind";

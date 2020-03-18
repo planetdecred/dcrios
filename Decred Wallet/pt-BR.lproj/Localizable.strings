@@ -234,6 +234,10 @@
 "howToCopy" = "How to copy";
 "tapOnBlueText" = "Tap on <blue>blue text</blue> to copy the item.";
 "gotIt" = "Got it";
+"toAccountDetail" = "To account";
+"toDetail" = "To";
+"fromAccountDetail" = "From account";
+"fromDetail" = "From";
 
 /* Send view */
 "invalidAmount" = "Quantia não é válida.";
@@ -368,18 +372,33 @@
 "createAccount" = "Criar conta";
 "privatePassphrase" = "Chave Privada";
 
-/* Security Menu */
-"validOwnAddr" = "Endereço válido e você é o proprietário.";
-"validNotOwnAddr" = "Endereço válido e voce NÃO é o proprietário..";
-"invalidAddr" = "Endereço inválido.";
-"verifiedSignature" = "Essa assinatura verifica contra a mensagem e o endereço.";
-"invalidSignature" = "Essa assinatura não verifica contra a mensagem e o endereço.";
-"signingMessage" = "Signing Message...";
-"address" = "Endereço";
+/* Security Tools */
+"securityTools" = "Security Tools";
+"securityToolsInfo" = "Various tools that help in different aspects of crypto currency security will be located here.";
+"validateAddresses" = "Validate addresses";
+"validAddress " = "Valid address";
+"validOwnAddr" = "Owned by this wallet";
+"validNotOwnAddr" = "NOT owned by this wallet";
+"invalidAddr" = "Invalid address";
+"validate" = "Validate";
+"enterAnAddressToValidate" = "Enter an address to validate:";
+"address" = "Address";
+"verifyMsgHeaderInfo" = "Enter the address, signature, and message to verfiy:";
+"verifyMessage" = "Verify message";
+"verify" = "Verify";
 "message" = "Mensagem";
 "signature" = "Assinatura";
-"secureMenuSyncInfo" = "Por favor espere sua carteira terminar a sincronização.";
-"secureMenuHeaderInfo" = "Aqui voce pode verificar a validade de um endereço, assinar mensagens para comprovar sua propriedade e verificar assinaturas.";
+"invalidSignature" = "Invalid signature";
+"verifiedSignature" = "Valid signature";
+"verifyMessagepageInfo" = "After you or your counterparty has generated a signature, you can use this form to verify the validity of the signature. Once you have entered the address, the message and the corresponding signature, you will see VALID if the signature appropriately matches the address and message, otherwise INVALID.";
+"signMsgHeaderInfo" = "Enter an address and message to sign:";
+"signMsgPageInfo" = "Signing a message with an address' private key allows you to prove that you are the owner of a given address to a possible counterparty.";
+"signMessage" = "Sign Message";
+"signingMessage" = "Signing Message...";
+"secureMenuSyncInfo" = "Please wait for your wallet to finish synchronizing.";
+"signSuccesMessage" = "Signed Message";
+"signFailedMessage" = "Failed to sign message. Please try again.";
+"sign" = "Sign";
 
 /* Help */
 "forMoreInformationPleaseVisit" = "Para mais informações visite";
@@ -399,22 +418,27 @@
 "syncOnWifiDesc" = "Sincronizar quando não estiver na rede sem fio";
 "buildDate" = "Data de construção";
 "walletLog" = "egistro Da Carteira";
-"deleteWallet" = "Apagar carteira";
+"removeWallet" = "Remove wallet";
 "spv" = "Simplified Payment Verification (SPV)";
 "remoteFullNode" = "Remote Full Node";
 "none" = "None";
 "rescanConfirm" = "Voce tem certeza? Isso levará algum tempo.";
-"rescanBlockchain" = "Re-escanear Blockchain";
+"rescanBlockchain" = "Re-escanear blockchain";
 "syncProgressAlert" = "Sync is in progress. Please wait for sync to complete.";
 "scanInProgress" = "Verifique o progresso na barra de navegação.";
 "scanStartedAlready" = "Carteira está pronta, reescaneando, acompanhe o progresso na barra de navegação.";
 "rescanFailed" = "Rescan failed";
-"deletingWallet" = "Apagando carteira…";
-"deleteWalletFailed" = "Failed to delete wallet.";
+"removingWallet" = "Removing wallet...";
+"removeWalletFailed" = "Failed to Remove wallet.";
 "general" = "Geral";
 "connection" = "Conexão";
 "about" = "About";
 "debug" = "Debug";
+"notifications" = "Notifications";
+"checkWalletLog" = "Check wallet log";
+"helpInfo" = "For more information, please visit the Decred documentation.";
+"seeDocumentations" = "See Documentations";
+"beepForNewBlocks" = "Beep for new blocks";
 
 /* Change startup/spending pin/pass */
 "newPasswordPlaceholder" = "New %@ password";
@@ -459,6 +483,7 @@
 "secRemaining" = "%d seg";
 
 /* Pop Ups */
+"clear" = "Clear";
 "error" = "Erro";
 "retry" = "Repetir";
 "ok" = "OK";
@@ -484,7 +509,9 @@
 "receive" = "receive";
 "history" = "history";
 "settings" = "Settings";
-"help" = "help";
+"help" = "Help";
+"gotIt" = "Got it";
+"security" = "Security";
 
 /* Seed Backup Reminder */
 "keepInMind" = "Keep in mind";

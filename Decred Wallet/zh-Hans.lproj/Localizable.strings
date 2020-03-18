@@ -234,6 +234,10 @@
 "howToCopy" = "How to copy";
 "tapOnBlueText" = "Tap on <blue>blue text</blue> to copy the item.";
 "gotIt" = "Got it";
+"toAccountDetail" = "To account";
+"toDetail" = "To";
+"fromAccountDetail" = "From account";
+"fromDetail" = "From";
 
 /* Send view */
 "invalidAmount" = "金额不正确.";
@@ -368,18 +372,33 @@
 "createAccount" = "创建账户";
 "privatePassphrase" = "密码";
 
-/* Security Menu */
-"validOwnAddr" = "地址是正确并属于您的。";
-"validNotOwnAddr" = "地址是正确的但是不属于您。";
-"invalidAddr" = "无效地址.";
-"verifiedSignature" = "这个签名可以验证这个消息和地址。";
-"invalidSignature" = "这个签名不能验证这个消息和地址。";
-"signingMessage" = "Signing Message...";
-"address" = "地址";
+/* Security Tools */
+"securityTools" = "Security Tools";
+"securityToolsInfo" = "Various tools that help in different aspects of crypto currency security will be located here.";
+"validateAddresses" = "Validate addresses";
+"validAddress " = "Valid address";
+"validOwnAddr" = "Owned by this wallet";
+"validNotOwnAddr" = "NOT owned by this wallet";
+"invalidAddr" = "Invalid address";
+"validate" = "Validate";
+"enterAnAddressToValidate" = "Enter an address to validate:";
+"address" = "Address";
+"verifyMsgHeaderInfo" = "Enter the address, signature, and message to verfiy:";
+"verifyMessage" = "Verify message";
+"verify" = "Verify";
 "message" = "消息";
 "signature" = "签名";
-"secureMenuSyncInfo" = "请等待钱包完成同步.";
-"secureMenuHeaderInfo" = "此功能可以验证一个地址的合法性，签名消息以证明地址的所有权，和验证签名。";
+"invalidSignature" = "Invalid signature";
+"verifiedSignature" = "Valid signature";
+"verifyMessagepageInfo" = "After you or your counterparty has generated a signature, you can use this form to verify the validity of the signature. Once you have entered the address, the message and the corresponding signature, you will see VALID if the signature appropriately matches the address and message, otherwise INVALID.";
+"signMsgHeaderInfo" = "Enter an address and message to sign:";
+"signMsgPageInfo" = "Signing a message with an address' private key allows you to prove that you are the owner of a given address to a possible counterparty.";
+"signMessage" = "Sign Message";
+"signingMessage" = "Signing Message...";
+"secureMenuSyncInfo" = "Please wait for your wallet to finish synchronizing.";
+"signSuccesMessage" = "Signed Message";
+"signFailedMessage" = "Failed to sign message. Please try again.";
+"sign" = "Sign";
 
 /* Help */
 "forMoreInformationPleaseVisit" = "查看更多内容请浏览";
@@ -399,7 +418,7 @@
 "syncOnWifiDesc" = "未连接WiFi时同步";
 "buildDate" = "Build Date";
 "walletLog" = "钱包日志";
-"deleteWallet" = "删除钱包";
+"removeWallet" = "Remove wallet";
 "spv" = "简单支付验证 (SPV)";
 "remoteFullNode" = "远程全节点";
 "none" = "None";
@@ -409,12 +428,17 @@
 "scanInProgress" = "在导航栏查看进度。";
 "scanStartedAlready" = "钱包正在重新扫描中，具体进度请查看导航栏。";
 "rescanFailed" = "Rescan failed";
-"deletingWallet" = "正在删除钱包…";
-"deleteWalletFailed" = "Failed to delete wallet.";
+"removingWallet" = "Removing wallet...";
+"removeWalletFailed" = "Failed to Remove wallet.";
 "general" = "常规";
 "connection" = "连接";
 "about" = "信息";
 "debug" = "Debug";
+"notifications" = "Notifications";
+"checkWalletLog" = "Check wallet log";
+"helpInfo" = "For more information, please visit the Decred documentation.";
+"seeDocumentations" = "See Documentations";
+"beepForNewBlocks" = "Beep for new blocks";
 
 /* Change startup/spending pin/pass */
 "newPasswordPlaceholder" = "New %@ password";
@@ -459,6 +483,7 @@
 "secRemaining" = "%d sec";
 
 /* Pop Ups */
+"clear" = "Clear";
 "error" = "错误";
 "retry" = "重试";
 "ok" = "OK";
@@ -484,7 +509,9 @@
 "receive" = "receive";
 "history" = "history";
 "settings" = "Settings";
-"help" = "help";
+"help" = "Help";
+"gotIt" = "Got it";
+"security" = "Security";
 
 /* Seed Backup Reminder */
 "keepInMind" = "Keep in mind";
