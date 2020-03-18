@@ -226,7 +226,12 @@ struct LocalizedStrings {
     static let includedInBlock = NSLocalizedString("includedInBlock", comment: "")
     static let howToCopy = NSLocalizedString("howToCopy", comment: "")
     static let tapOnBlueText = NSLocalizedString("tapOnBlueText", comment: "")
-    
+    static let gotIt = NSLocalizedString("gotIt", comment: "")
+    static let toAccountDetail = NSLocalizedString("toAccountDetail", comment: "")
+    static let toDetail = NSLocalizedString("toDetail", comment: "")
+    static let fromAccountDetail = NSLocalizedString("fromAccountDetail", comment: "")
+    static let fromDetail = NSLocalizedString("fromDetail", comment: "")
+
     /* Send view */
     static let invalidAmount = NSLocalizedString("invalidAmount", comment: "")
     static let amount8Decimal = NSLocalizedString("amount8Decimal", comment: "")
@@ -484,7 +489,6 @@ struct LocalizedStrings {
     static let help = NSLocalizedString("help", comment: "")
     static let helpInfo = NSLocalizedString("helpInfo", comment: "")
     static let notifications = NSLocalizedString("notifications", comment: "")
-    static let gotIt = NSLocalizedString("gotIt", comment: "")
     
     /* Seed Backup */
     static let failedToVerify = NSLocalizedString("failedToVerify", comment: "")

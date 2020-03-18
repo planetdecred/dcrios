@@ -61,49 +61,55 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
     {
         self.items = items
         act = actions
-        
-        var resp = self as UIResponder
-        
-        while !(resp.isKind(of: UIViewController.self) || (resp.isKind(of: UITableViewCell.self))) && resp.next != nil
-        {
-            resp = resp.next!
+
+        if containerView.superview != superSuperView {
+            var resp = self as UIResponder
+            
+            while !(resp.isKind(of: UIViewController.self) || (resp.isKind(of: UITableViewCell.self))) && resp.next != nil
+            {
+                resp = resp.next!
+            }
+            // backgroundColor = UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
+
+            if let vc = resp as? UIViewController
+            {
+                superSuperView = vc.view
+            }
+            else if let vc = resp as? UITableViewCell
+            {
+                superSuperView = vc
+            }
+
+            table = UITableView()
+
+            table.rowHeight = frame.height
+            table.delegate = self
+            table.dataSource = self
+            table.isUserInteractionEnabled = true
+            table.bounces = false
+            containerView.alpha = 0
+            table.separatorColor = UIColor.clear
+
+            containerView.addSubview(table)
+            superSuperView.addSubview(containerView)
+
+            containerView.clipsToBounds = false
+            containerView.layer.shadowOffset = CGSize(width: -2, height: 5)
+            containerView.layer.shadowRadius = 6
+            containerView.layer.shadowOpacity = 0.8
+            containerView.layer.shadowColor = UIColor.lightGray.cgColor
+
+            addTarget(self, action: #selector(DropMenuButton.showItems), for: .touchUpInside)
         }
-        // backgroundColor = UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
-        
-        if let vc = resp as? UIViewController
-        {
-            superSuperView = vc.view
-        }
-        else if let vc = resp as? UITableViewCell
-        {
-            superSuperView = vc
-        }
-        
-        table = UITableView()
-        
-        table.rowHeight = frame.height
-        table.delegate = self
-        table.dataSource = self
-        table.isUserInteractionEnabled = true
-        table.bounces = false
-        containerView.alpha = 0
-        table.separatorColor = UIColor.clear
-        
-        containerView.addSubview(table)
-        superSuperView.addSubview(containerView)
-        
-        containerView.clipsToBounds = false
-        containerView.layer.shadowOffset = CGSize(width: -2, height: 5)
-        containerView.layer.shadowRadius = 6
-        containerView.layer.shadowOpacity = 0.8
-        containerView.layer.shadowColor = UIColor.lightGray.cgColor
 
         // set automatically the selected item index to 0
         self.selectedItemIndex = 0
         self.selectedItem = self.items[self.selectedItemIndex]
         self.setTitle(self.selectedItem!, for: .normal)
+        self.setTitle(self.selectedItem!, for: .selected)
+        self.setTitle(self.selectedItem!, for: .highlighted)
 
-        addTarget(self, action: #selector(DropMenuButton.showItems), for: .touchUpInside)
+        table.reloadData()
     }
     
     func fixLayout()

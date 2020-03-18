@@ -10,11 +10,13 @@ import UIKit
 struct TransactionDetail {
     let title: String
     let value: String
+    var walletName: String?
     let isCopyEnabled: Bool
 }
 
 class TransactionDetailCell: UITableViewCell {
     @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var walletNameLabel: Label!
     @IBOutlet private weak var valueButton: UIButton!
 
     var onTxDetailValueCopied: ((_ copiedDetail: String) -> ())?
@@ -30,6 +32,13 @@ class TransactionDetailCell: UITableViewCell {
         self.titleLabel.text = tx.title
         self.valueButton.setTitle(tx.value, for: .normal)
         self.valueButton.setTitleColor(tx.isCopyEnabled ? UIColor.appColors.lightBlue : UIColor.appColors.darkBlue, for: .normal)
+        if let walletName = tx.walletName {
+            self.walletNameLabel.text = walletName
+            self.walletNameLabel.isHidden = false
+        } else {
+            self.walletNameLabel.text = ""
+            self.walletNameLabel.isHidden = true
+        }
         self.isUserInteractionEnabled = tx.isCopyEnabled
     }
 

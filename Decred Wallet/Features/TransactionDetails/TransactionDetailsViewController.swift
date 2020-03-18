@@ -81,53 +81,82 @@ class TransactionDetailsViewController: UIViewController {
             TexthexColor: UIColor.appColors.darkBlue
         )
 
-        self.generalTxDetails = [
-            TransactionDetail(
+        if transaction.type == DcrlibwalletTxTypeRegular {
+            if transaction.direction == DcrlibwalletTxDirectionSent {
+                if let sourceAccount = self.transaction.sourceAccount {
+                    generalTxDetails.append(TransactionDetail(
+                        title: LocalizedStrings.fromAccountDetail,
+                        value: "\(sourceAccount.capitalizingFirstLetter())",
+                        walletName: self.transaction.walletName,
+                        isCopyEnabled: false
+                    ))
+                }
+                if let receiveAddress = self.transaction.receiveAddress {
+                    generalTxDetails.append(TransactionDetail(
+                        title: LocalizedStrings.toDetail,
+                        value: "\(receiveAddress)",
+                        isCopyEnabled: true
+                    ))
+                }
+            } else if transaction.direction == DcrlibwalletTxDirectionReceived {
+                if let sourceAddress = self.transaction.sourceAddress {
+                    generalTxDetails.append(TransactionDetail(
+                        title: LocalizedStrings.fromDetail,
+                        value: "\(sourceAddress)",
+                        isCopyEnabled: true
+                    ))
+                }
+                if let receiveAccount = self.transaction.receiveAccount {
+                    generalTxDetails.append(TransactionDetail(
+                        title: LocalizedStrings.toAccountDetail,
+                        value: "\(receiveAccount.capitalizingFirstLetter())",
+                        walletName: self.transaction.walletName,
+                        isCopyEnabled: false
+                    ))
+                }
+            }
+        }
+
+        self.generalTxDetails.append(TransactionDetail(
                 title: LocalizedStrings.fee,
                 value: txFee.string,
                 isCopyEnabled: false
-            ),
-            TransactionDetail(
+        ))
+        self.generalTxDetails.append(TransactionDetail(
                 title: LocalizedStrings.includedInBlock,
                 value: "\(self.transaction.blockHeight)",
                 isCopyEnabled: false
-            ),
-            TransactionDetail(
+        ))
+        self.generalTxDetails.append(TransactionDetail(
                 title: LocalizedStrings.type,
                 value: self.transaction.type,
                 isCopyEnabled: false
-            ),
-            TransactionDetail(
+        ))
+        self.generalTxDetails.append(TransactionDetail(
                 title: LocalizedStrings.transactionID,
                 value: self.transaction.hash,
                 isCopyEnabled: true
-            )
-        ]
+        ))
 
         if self.transaction.type == DcrlibwalletTxTypeTicketPurchase {
-            let lastBlockValid = TransactionDetail(
+            generalTxDetails.append(TransactionDetail(
                 title: LocalizedStrings.lastBlockValid,
                 value: String(describing: self.transaction.lastBlockValid),
                 isCopyEnabled: false
-            )
-            generalTxDetails.append(lastBlockValid)
-
-            let voteVersion = TransactionDetail(
+            ))
+            generalTxDetails.append(TransactionDetail(
                 title: LocalizedStrings.version,
                 value: "\(self.transaction.voteVersion)",
                 isCopyEnabled: false
-            )
-            generalTxDetails.append(voteVersion)
-
-            let voteBits = TransactionDetail(
+            ))
+            generalTxDetails.append(TransactionDetail(
                 title: LocalizedStrings.voteBits,
                 value: self.transaction.voteBits,
                 isCopyEnabled: false
-            )
-            generalTxDetails.append(voteBits)
+            ))
         }
     }
-    
+
     private func prepareTxOverview() {
         let attributedAmountString = NSMutableAttributedString(string: (transaction.type == DcrlibwalletTxTypeRegular && transaction.direction == DcrlibwalletTxDirectionSent) ? "-" : "")
         attributedAmountString.append(Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 20.0, TexthexColor: UIColor.appColors.darkBlue))
@@ -156,7 +185,7 @@ class TransactionDetailsViewController: UIViewController {
             self.prepareTicketPurchaseTxOverview(transaction)
         }
     }
-    
+
     private func prepareRegularTxOverview(_ transaction: Transaction) {
         if transaction.direction == DcrlibwalletTxDirectionSent {
             self.txOverview.txIconImage = UIImage(named: "ic_send")

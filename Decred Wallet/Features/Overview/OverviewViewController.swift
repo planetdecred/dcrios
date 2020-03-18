@@ -128,8 +128,6 @@ class OverviewViewController: UIViewController {
         self.totalSyncProgressView.layer.cornerRadius = 8
         self.showSyncDetailsButton.addBorder(atPosition: .top, color: UIColor.appColors.gray, thickness: 0.62)
         self.syncDetailsSection.horizontalBorder(borderColor: UIColor.appColors.gray, yPosition: 0, borderHeight: 0.62)
-    
-        MultiWalletSyncDetailsLoader.setup(for: self.multipleWalletsSyncDetailsTableView)
     }
     
     @objc func refreshRecentActivityAndUpdateBalance() {
@@ -147,12 +145,13 @@ class OverviewViewController: UIViewController {
     
     func updateRecentActivity() {
         // Fetch 3 most recent transactions
-        // todo this should be a multiwallet fetch rather than a wallet fetch!
-        guard let transactions = WalletLoader.shared.firstWallet?.transactionHistory(offset: 0, count: 3) else {
-            self.recentTransactionsTableView.isHidden = true
-            self.showAllTransactionsButton.isHidden = true
-            self.noTransactionsLabelView.superview?.isHidden = false
-            return
+        guard let transactions = WalletLoader.shared.multiWallet.transactionHistory(offset: 0, count: 3),
+            !transactions.isEmpty
+            else {
+                self.recentTransactionsTableView.isHidden = true
+                self.showAllTransactionsButton.isHidden = true
+                self.noTransactionsLabelView.superview?.isHidden = false
+                return
         }
         
         if transactions.count == 0 {
@@ -241,7 +240,9 @@ class OverviewViewController: UIViewController {
         self.syncCurrentStepReportLabel.text = ""
         self.syncCurrentStepProgressLabel.text = ""
         self.peerCountLabel.text = "\(WalletLoader.shared.multiWallet.connectedPeers())"
+
         self.multipleWalletsPeerCountLabel.text = "\(WalletLoader.shared.multiWallet.connectedPeers())"
+        MultiWalletSyncDetailsLoader.setup(for: self.multipleWalletsSyncDetailsTableView)
     }
     
     private func displayLatestBlockHeightAndAge() {
@@ -467,7 +468,7 @@ extension OverviewViewController: DcrlibwalletSyncProgressListenerProtocol {
             self.syncStatusLabel.text = LocalizedStrings.synchronizing
             self.displayGeneralSyncProgress(report.generalSyncProgress)
             
-            self.syncCurrentStepNumberLabel.text = String(format: LocalizedStrings.syncSteps, 1)
+            self.syncCurrentStepNumberLabel.text = String(format: LocalizedStrings.syncSteps, 3)
             self.syncCurrentStepSummaryLabel.text = String(format: LocalizedStrings.headersScannedProgress, report.rescanProgress)
             
             self.syncCurrentStepTitleLabel.text = LocalizedStrings.blockHeaderScanned
