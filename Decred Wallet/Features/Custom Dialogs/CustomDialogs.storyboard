@@ -405,7 +405,7 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Receiving Account" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LVC-da-btr">
-                                                <rect key="frame" x="66" y="21.5" width="328" height="23.5"/>
+                                                <rect key="frame" x="66" y="20.5" width="328" height="25.5"/>
                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
                                                 <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -474,6 +474,77 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hCc-ge-CoI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2812" y="-729"/>
+        </scene>
+        <!--Simple Alert Dialog-->
+        <scene sceneID="a0v-Zb-PMW">
+            <objects>
+                <viewController storyboardIdentifier="SimpleAlertDialog" id="7tf-oj-rM0" customClass="SimpleAlertDialog" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9WJ-x4-JTq">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9mB-bz-qSS" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
+                                <rect key="frame" x="40" y="392.5" width="334" height="121.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remember to back up your wallets as soon as possible." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rr3-ou-obW">
+                                        <rect key="frame" x="24" y="24" width="286" height="40.5"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                        <color key="textColor" red="0.23921568630000001" green="0.34509803919999998" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="backUpYourWalletsReminder"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XPc-hQ-3RI">
+                                        <rect key="frame" x="247" y="80.5" width="79" height="33"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="79" id="PaO-bL-cec"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
+                                        <state key="normal" title="Got it">
+                                            <color key="titleColor" red="0.16078431369999999" green="0.43921568630000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="gotIt"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="gotItButtonTapped:" destination="7tf-oj-rM0" eventType="touchUpInside" id="4da-24-EDU"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="XPc-hQ-3RI" secondAttribute="trailing" constant="8" id="41g-VO-uRA"/>
+                                    <constraint firstAttribute="bottom" secondItem="XPc-hQ-3RI" secondAttribute="bottom" constant="8" id="5Sa-yX-5uh"/>
+                                    <constraint firstItem="rr3-ou-obW" firstAttribute="top" secondItem="9mB-bz-qSS" secondAttribute="top" constant="24" id="NUw-wc-IU3"/>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="500" id="TWR-wl-auk"/>
+                                    <constraint firstItem="XPc-hQ-3RI" firstAttribute="top" secondItem="rr3-ou-obW" secondAttribute="bottom" constant="16" id="cAx-pf-bWD"/>
+                                    <constraint firstItem="rr3-ou-obW" firstAttribute="leading" secondItem="9mB-bz-qSS" secondAttribute="leading" constant="24" id="heM-Li-5lK"/>
+                                    <constraint firstAttribute="trailing" secondItem="rr3-ou-obW" secondAttribute="trailing" constant="24" id="s26-eU-1DT"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderRadius">
+                                        <real key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="9mB-bz-qSS" firstAttribute="centerX" secondItem="ngy-YP-lVz" secondAttribute="centerX" id="6Mb-Y1-BXe"/>
+                            <constraint firstItem="9mB-bz-qSS" firstAttribute="leading" secondItem="ngy-YP-lVz" secondAttribute="leading" constant="40" id="KmF-ti-Uz1"/>
+                            <constraint firstItem="ngy-YP-lVz" firstAttribute="trailing" secondItem="9mB-bz-qSS" secondAttribute="trailing" constant="40" id="Piz-0s-oUT"/>
+                            <constraint firstItem="9mB-bz-qSS" firstAttribute="centerY" secondItem="ngy-YP-lVz" secondAttribute="centerY" id="xtx-dE-SWY"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ngy-YP-lVz"/>
+                    </view>
+                    <connections>
+                        <outlet property="messageLabel" destination="rr3-ou-obW" id="VdF-Hc-143"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ile-Wm-at2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3692.753623188406" y="-729.24107142857144"/>
         </scene>
     </scenes>
     <resources>
