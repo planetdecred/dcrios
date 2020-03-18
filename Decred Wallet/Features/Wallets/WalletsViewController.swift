@@ -153,15 +153,11 @@ extension WalletsViewController: WalletInfoTableViewCellDelegate {
         let walletMenu = UIAlertController(title: nil, message: prompt, preferredStyle: .actionSheet)
         
         walletMenu.addAction(UIAlertAction(title: LocalizedStrings.signMessage, style: .default, handler: { _ in
-            
+            self.gotToSignMessage(walletID: walletID)
         }))
         
         walletMenu.addAction(UIAlertAction(title: LocalizedStrings.verifyMessage, style: .default, handler: { _ in
-            
-        }))
-        
-        walletMenu.addAction(UIAlertAction(title: LocalizedStrings.viewProperty, style: .default, handler: { _ in
-            
+            self.gotToVerifyMessage(walletID: walletID)
         }))
         
         walletMenu.addAction(UIAlertAction(title: LocalizedStrings.rename, style: .default, handler: { _ in
@@ -218,5 +214,23 @@ extension WalletsViewController {
         let walletSettingsVC = WalletSettingsViewController.instantiate(from: .Wallets)
         walletSettingsVC.wallet = wallet
         self.navigationController?.pushViewController(walletSettingsVC, animated: true)
+    }
+    
+    func gotToSignMessage(walletID: Int) {
+        guard let wallet = WalletLoader.shared.multiWallet.wallet(withID: walletID) else {
+            return
+        }
+        let signMessageVC = SignMessageViewController.instantiate(from: .SignMessage)
+        signMessageVC.wallet = wallet
+        self.navigationController?.pushViewController(signMessageVC, animated: true)
+    }
+    
+    func gotToVerifyMessage(walletID: Int) {
+        guard let wallet = WalletLoader.shared.multiWallet.wallet(withID: walletID) else {
+            return
+        }
+        let verifyMessageVC = VerifyMessageViewController.instantiate(from: .VerifyMessage)
+        verifyMessageVC.wallet = wallet
+        self.navigationController?.pushViewController(verifyMessageVC, animated: true)
     }
 }

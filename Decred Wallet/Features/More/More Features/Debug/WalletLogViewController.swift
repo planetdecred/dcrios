@@ -15,9 +15,33 @@ class WalletLogViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = LocalizedStrings.walletLog
-        self.progressHud = Utils.showProgressHud(withText: LocalizedStrings.loading)
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: LocalizedStrings.copy, style: .plain, target: self, action: #selector(copyLog))
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = false
+            self.navigationController?.navigationBar.tintColor = UIColor.appColors.darkBlue
+            self.navigationController?.navigationBar.barTintColor = UIColor.appColors.offWhite
+        
+            //setup leftBar button
+            self.addNavigationBackButton()
+            let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.walletLog, style: .plain, target: self, action: nil)
+            barButtonTitle.tintColor = UIColor.appColors.darkBlue
+            
+            self.navigationItem.leftBarButtonItems =  [ (self.navigationItem.leftBarButtonItem)!, barButtonTitle]
+            
+            self.progressHud = Utils.showProgressHud(withText: LocalizedStrings.loading)
+            
+            //setup rightBar button
+            let infoBtn = UIButton(type: .custom)
+            infoBtn.setImage(UIImage(named: "ic_paste"), for: .normal)
+            infoBtn.addTarget(self, action: #selector(copyLog), for: .touchUpInside)
+            infoBtn.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
+            let infoBtnBtnItem:UIBarButtonItem = UIBarButtonItem(customView: infoBtn)
+            
+            self.navigationItem.rightBarButtonItem = infoBtnBtnItem
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -27,7 +51,7 @@ class WalletLogViewController: UIViewController {
     @objc func copyLog() -> Void {
         DispatchQueue.main.async {
             UIPasteboard.general.string = self.logTextView.text
-            self.showOkAlert(message: LocalizedStrings.walletLogCopied)
+            Utils.showBanner(in: self.view.subviews.first!, type: .success, text: LocalizedStrings.walletLogCopied)
         }
     }
     

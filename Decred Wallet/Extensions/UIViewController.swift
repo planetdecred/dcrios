@@ -23,6 +23,23 @@ extension UIViewController {
         return UINavigationController(rootViewController: self)
     }
     
+    /// Creates a custom back button on ViewController. Hides default back button and create a UIBarButtonItem instance on controller and sets to leftBartButtonItem property.
+    ///
+    @discardableResult public func addNavigationBackButton() -> UIViewController {
+        navigationItem.hidesBackButton = true
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "left-arrow"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.navigateToBackScreen))
+        return self
+    }
+    
+    /// Go back to previsous screen. If pushed if pops else dismisses.
+       @objc public func navigateToBackScreen() {
+        if self.isModal {
+            dismiss(animated: true, completion: nil)
+        } else {
+            _ = navigationController?.popViewController(animated: true)
+        }
+    }
+    
     func listenForKeyboardVisibilityChanges(delegate keyboardVisibilityDelegate: KeyboardVisibilityDelegate) {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardVisibilityDelegate.onKeyboardWillShowOrHide),
