@@ -160,10 +160,6 @@ extension WalletsViewController: WalletInfoTableViewCellDelegate {
             self.gotToVerifyMessage(walletID: walletID)
         }))
         
-        walletMenu.addAction(UIAlertAction(title: LocalizedStrings.viewProperty, style: .default, handler: { _ in
-            
-        }))
-        
         walletMenu.addAction(UIAlertAction(title: LocalizedStrings.rename, style: .default, handler: { _ in
             self.renameWallet(walletID: walletID)
         }))
