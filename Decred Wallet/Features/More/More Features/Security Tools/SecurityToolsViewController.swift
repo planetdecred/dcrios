@@ -24,7 +24,7 @@ class SecurityToolsViewController: UIViewController, UITableViewDataSource, UITa
         //setup leftBar button
         self.addNavigationBackButton()
             
-        let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.about, style: .plain, target: self, action: nil)
+        let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.securityTools, style: .plain, target: self, action: nil)
         barButtonTitle.tintColor = UIColor.appColors.darkBlue
             
         self.navigationItem.leftBarButtonItems =  [(self.navigationItem.leftBarButtonItem)!, barButtonTitle]
