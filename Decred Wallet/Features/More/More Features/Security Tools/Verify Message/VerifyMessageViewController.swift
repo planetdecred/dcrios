@@ -20,7 +20,7 @@ class VerifyMessageViewController: UIViewController, FloatingPlaceholderTextView
     @IBOutlet weak var isValidImg: UIImageView!
     @IBOutlet weak var isValidSignature: UILabel!
     
-     var dcrlibwallet: DcrlibwalletWallet!
+     var wallet: DcrlibwalletWallet!
        
     // Good practice: create an instance of QRImageScanner lazily to avoid cpu overload during the
     // initialization and each time we need to scan a QRCode.
@@ -28,7 +28,6 @@ class VerifyMessageViewController: UIViewController, FloatingPlaceholderTextView
        
     override func viewDidLoad() {
         super.viewDidLoad()
-        dcrlibwallet = WalletLoader.shared.firstWallet!
            
         viewContHeightContraint.constant = 280
         
@@ -135,9 +134,9 @@ class VerifyMessageViewController: UIViewController, FloatingPlaceholderTextView
         let signatured = signatures
         let retV = UnsafeMutablePointer<ObjCBool>.allocate(capacity: 1)
            
-        if (dcrlibwallet.isAddressValid(addressd)) {
+        if (wallet.isAddressValid(addressd)) {
             do{
-                try dcrlibwallet.verifyMessage(addressd, message: message, signatureBase64: signatured, ret0_: retV)
+                try wallet.verifyMessage(addressd, message: message, signatureBase64: signatured, ret0_: retV)
                 if (retV[0]).boolValue {
                     self.isValidSignature.text = LocalizedStrings.verifiedSignature
                     return

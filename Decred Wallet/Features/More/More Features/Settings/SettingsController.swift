@@ -19,14 +19,11 @@ class SettingsController: UITableViewController  {
     @IBOutlet weak var network_mode_subtitle: UILabel!
     @IBOutlet weak var network_mode: UITableViewCell!
     @IBOutlet weak var Start_Pin_cell: UITableViewCell!
-    
     @IBOutlet weak var cellularSyncSwitch: UISwitch!
-    
     @IBOutlet weak var connect_peer_ip: UILabel!
     @IBOutlet weak var server_ip: UILabel!
-    
     @IBOutlet weak var spend_uncon_fund: UISwitch!
-    @IBOutlet weak var incoming_notification_switch: UISwitch!
+    @IBOutlet weak var beep_for_new_block: UISwitch!
     @IBOutlet weak var start_Pin: UISwitch!
     @IBOutlet weak var currency_subtitle: UILabel!
     @IBOutlet weak var certificateLabel: UILabel!
@@ -36,7 +33,7 @@ class SettingsController: UITableViewController  {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.spend_uncon_fund.addTarget(self, action: #selector(switchChanged), for: UIControl.Event.valueChanged)
-        self.incoming_notification_switch.addTarget(self, action: #selector(switchChanged), for: UIControl.Event.valueChanged)
+        self.beep_for_new_block.addTarget(self, action: #selector(switchChanged), for: UIControl.Event.valueChanged)
         self.cellularSyncSwitch.addTarget(self, action: #selector(switchChanged), for: UIControl.Event.valueChanged)
         self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 56, right: 0)
     }
@@ -47,8 +44,8 @@ class SettingsController: UITableViewController  {
         case self.spend_uncon_fund:
             fieldToUpdate = DcrlibwalletSpendUnconfirmedConfigKey
             
-        case self.incoming_notification_switch:
-            // should be set per wallet, rather than once for all wallets
+        case self.beep_for_new_block:
+            fieldToUpdate = DcrlibwalletBeepNewBlocksConfigKey
             break
             
         case self.cellularSyncSwitch:
@@ -81,14 +78,14 @@ class SettingsController: UITableViewController  {
         
         self.navigationItem.leftBarButtonItems =  [closeButton, barButtonTitle]
         
-        connect_peer_ip?.text = Settings.readStringValue(for: DcrlibwalletSpvPersistentPeerAddressesConfigKey)
-        server_ip?.text = "" // deprecated in v2
+        self.connect_peer_ip?.text = Settings.readStringValue(for: DcrlibwalletSpvPersistentPeerAddressesConfigKey)
+        self.server_ip?.text = "" // deprecated in v2
         
-        loadSettingsData()
+        self.loadSettingsData()
         self.checkStartupSecurity()
 
         if Settings.networkMode == 0 {
-            network_mode_subtitle?.text = LocalizedStrings.spv
+            self.network_mode_subtitle?.text = LocalizedStrings.spv
             self.certificate_cell.isUserInteractionEnabled = false
             self.server_cell.isUserInteractionEnabled = false
             self.connectPeer_cell.isUserInteractionEnabled = true
@@ -98,7 +95,7 @@ class SettingsController: UITableViewController  {
             self.serverAddressLabel.textColor = UIColor.lightGray
             self.connectIpDesc.textColor = UIColor.darkText
         } else {
-            network_mode_subtitle?.text = LocalizedStrings.remoteFullNode
+            self.network_mode_subtitle?.text = LocalizedStrings.remoteFullNode
             self.certificate_cell.isUserInteractionEnabled = true
             self.server_cell.isUserInteractionEnabled = true
             self.connectPeer_cell.isUserInteractionEnabled = false
@@ -111,40 +108,40 @@ class SettingsController: UITableViewController  {
     }
     
     func loadSettingsData() -> Void {
-        spend_uncon_fund?.setOn(Settings.spendUnconfirmed, animated: false)
-        connect_peer_ip?.text = Settings.readStringValue(for: DcrlibwalletSpvPersistentPeerAddressesConfigKey)
-        server_ip?.text = "" // deprecated in v2
-        incoming_notification_switch?.setOn(Settings.incomingNotificationEnabled, animated: true)
+        self.spend_uncon_fund?.isOn = Settings.readBoolValue(for: DcrlibwalletSpendUnconfirmedConfigKey)
+        self.connect_peer_ip?.text = Settings.readStringValue(for: DcrlibwalletSpvPersistentPeerAddressesConfigKey)
+        self.server_ip?.text = "" // deprecated in v2
+        self.beep_for_new_block?.isOn = Settings.readBoolValue(for: DcrlibwalletBeepNewBlocksConfigKey)
         
         self.cellularSyncSwitch.isOn = Settings.readBoolValue(for: DcrlibwalletSyncOnCellularConfigKey)
         
         if Settings.networkMode == 0 {
-            network_mode_subtitle?.text = LocalizedStrings.spv
+            self.network_mode_subtitle?.text = LocalizedStrings.spv
         } else {
-            network_mode_subtitle?.text = LocalizedStrings.remoteFullNode
+            self.network_mode_subtitle?.text = LocalizedStrings.remoteFullNode
         }
         
         switch Settings.currencyConversionOption {
         case .None:
-            currency_subtitle?.text = LocalizedStrings.none
+            self.currency_subtitle?.text = LocalizedStrings.none
         case .Bittrex:
-            currency_subtitle?.text = "USD (bittrex)"
+            self.currency_subtitle?.text = "USD (bittrex)"
         }
     }
     
     func checkStartupSecurity() {
-        start_Pin?.setOn(StartupPinOrPassword.pinOrPasswordIsSet(), animated: false)
+        self.start_Pin?.setOn(StartupPinOrPassword.pinOrPasswordIsSet(), animated: false)
         
         if start_Pin.isOn {
-            changeStartPINCell.isUserInteractionEnabled = true
-            changeStartPINCell.alpha = 1
+            self.changeStartPINCell.isUserInteractionEnabled = true
+            self.changeStartPINCell.alpha = 1
         }
         else{
-            changeStartPINCell.isUserInteractionEnabled = false
-            changeStartPINCell.alpha = 0.4
+            self.changeStartPINCell.isUserInteractionEnabled = false
+            self.changeStartPINCell.alpha = 0.4
         }
         
-        tableView.reloadData()
+        self.tableView.reloadData()
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -169,17 +166,17 @@ class SettingsController: UITableViewController  {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let isWalletOpen = WalletLoader.shared.firstWallet?.walletOpened() ?? false
+        var isWalletOpen = false
+        if WalletLoader.shared.multiWallet.openedWalletsCount() > 0 {
+            isWalletOpen = true
+        }
         
         if indexPath.section == 1 {
             switch indexPath.row {
-            case 0: // change spending pin/password, requires wallet to be opened.
+            case 0: // enable startup pin/password, requires wallet to be opened.
                 return isWalletOpen ? 44 : 0
                 
-            case 1: // enable startup pin/password, requires wallet to be opened.
-                return isWalletOpen ? 44 : 0
-                
-            case 2: // change startup pin/password, requires wallet to be opened and startup pin to have been enabled previously.
+            case 1: // change startup pin/password, requires wallet to be opened and startup pin to have been enabled previously.
                 return isWalletOpen && start_Pin.isOn ? 44 : 0
                 
             default:
@@ -199,24 +196,20 @@ class SettingsController: UITableViewController  {
                 return 44
             }
         }
-        
         return 44
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 1 {
             switch indexPath.row {
-            case 0: // change spending pin/password
-                SpendingPinOrPassword.change(sender: self, walletID: WalletLoader.shared.firstWallet!.id_)
-                
-            case 1: // enable/disable startup pin/password
+            case 0: // enable/disable startup pin/password
                 if start_Pin.isOn {
                     StartupPinOrPassword.clear(sender: self, done: self.checkStartupSecurity)
                 } else {
                     StartupPinOrPassword.set(sender: self, done: self.checkStartupSecurity)
                 }
                 
-            case 2: // change startup pin/password
+            case 1: // change startup pin/password
                 StartupPinOrPassword.change(sender: self, done: self.checkStartupSecurity)
                 
             default:

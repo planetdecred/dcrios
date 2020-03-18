@@ -19,7 +19,7 @@ class SignMessageViewController: UIViewController, FloatingPlaceholderTextViewDe
     @IBOutlet weak var signatureContainer: UIView!
     @IBOutlet weak var viewContHeightContraint: NSLayoutConstraint!
     
-    var dcrlibwallet: DcrlibwalletWallet!
+    var wallet: DcrlibwalletWallet!
     
     var progressHud: JGProgressHUD?
        
@@ -29,8 +29,6 @@ class SignMessageViewController: UIViewController, FloatingPlaceholderTextViewDe
        
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        dcrlibwallet = WalletLoader.shared.firstWallet!
            
         viewContHeightContraint.constant = 280
         
@@ -161,7 +159,7 @@ class SignMessageViewController: UIViewController, FloatingPlaceholderTextViewDe
     }
     
     func signMessage() {
-        let privatePassType = SpendingPinOrPassword.securityType(for: dcrlibwallet.id_)
+        let privatePassType = SpendingPinOrPassword.securityType(for: wallet.id_)
                Security.spending(initialSecurityType: privatePassType)
                 .with(prompt: LocalizedStrings.signMessage)
                    .with(submitBtnText: LocalizedStrings.confirm)
@@ -181,7 +179,7 @@ class SignMessageViewController: UIViewController, FloatingPlaceholderTextViewDe
                             Utils.showBanner(in: self.viewContainer.subviews.first!, type: .success, text: LocalizedStrings.signSuccesMessage)
                             
                            } else if error!.isInvalidPassphraseError {
-                            let errorMessage = SpendingPinOrPassword.invalidSecurityCodeMessage(for: self.dcrlibwallet.id_)
+                            let errorMessage = SpendingPinOrPassword.invalidSecurityCodeMessage(for: self.wallet.id_)
                             dialogDelegate?.displayError(errorMessage: errorMessage)
                            } else {
                             print("sign error:", error!.localizedDescription)
@@ -199,7 +197,7 @@ class SignMessageViewController: UIViewController, FloatingPlaceholderTextViewDe
         let finalPassphraseData = finalPassphrase .data(using: String.Encoding.utf8.rawValue)!
         DispatchQueue.global(qos: .userInitiated).async {
             do {
-                let signature = try self.dcrlibwallet.signMessage(finalPassphraseData, address: address, message: message)
+                let signature = try self.wallet.signMessage(finalPassphraseData, address: address, message: message)
                 DispatchQueue.main.async {
                     self.signatureText.text = signature.base64EncodedString()
                     next(nil)

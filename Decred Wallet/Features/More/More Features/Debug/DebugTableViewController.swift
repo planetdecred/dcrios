@@ -42,7 +42,10 @@ class DebugTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let isWalletOpen = WalletLoader.shared.firstWallet?.walletOpened() ?? false
+        var isWalletOpen = false
+        if WalletLoader.shared.multiWallet.openedWalletsCount() > 0 {
+            isWalletOpen = true
+        }
         
         switch indexPath.row {
         case 1: // rescan blockchain options, requires wallet to be opened.
