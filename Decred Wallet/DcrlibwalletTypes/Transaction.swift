@@ -89,6 +89,41 @@ struct Transaction: Codable {
         }
         return 0
     }
+    
+    var receiveAccount: String? {
+        for output in self.outputs where output.accountName != "external" {
+            return output.accountName
+        }
+        return nil
+    }
+
+    var receiveAddress: String? {
+        for output in self.outputs where output.accountName == "external" {
+            return output.address
+        }
+        return nil
+    }
+
+    var sourceAddress: String? {
+        for input in self.inputs where input.accountName == "external" {
+            return input.previousTransactionHash
+        }
+        return nil
+    }
+
+    var sourceAccount: String? {
+        for input in self.inputs where input.accountName != "external" {
+            return input.accountName
+        }
+        return nil
+    }
+    
+    var walletName: String? {
+        for wallet in WalletLoader.shared.wallets where wallet.id_ == self.walletID {
+            return wallet.name
+        }
+        return nil
+    }
 }
 
 struct TxInput: Codable {
