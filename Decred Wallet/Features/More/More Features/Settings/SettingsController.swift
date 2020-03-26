@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import JGProgressHUD
 import Dcrlibwallet
+import LocalAuthentication
 
 class SettingsController: UITableViewController  {
     @IBOutlet weak var changeStartPINCell: UITableViewCell!
@@ -25,10 +26,12 @@ class SettingsController: UITableViewController  {
     @IBOutlet weak var spend_uncon_fund: UISwitch!
     @IBOutlet weak var beep_for_new_block: UISwitch!
     @IBOutlet weak var start_Pin: UISwitch!
+    @IBOutlet weak var use_biometric: UISwitch!
     @IBOutlet weak var currency_subtitle: UILabel!
     @IBOutlet weak var certificateLabel: UILabel!
     @IBOutlet weak var serverAddressLabel: UILabel!
     @IBOutlet weak var connectIpDesc: UILabel!
+    @IBOutlet weak var biometric_type: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -115,6 +118,8 @@ class SettingsController: UITableViewController  {
         
         self.cellularSyncSwitch.isOn = Settings.readBoolValue(for: DcrlibwalletSyncOnCellularConfigKey)
         
+        self.use_biometric.isOn = Settings.readBoolValue(for: DcrlibwalletUseFingerprintConfigKey)
+        
         if Settings.networkMode == 0 {
             self.network_mode_subtitle?.text = LocalizedStrings.spv
         } else {
@@ -131,6 +136,8 @@ class SettingsController: UITableViewController  {
     
     func checkStartupSecurity() {
         self.start_Pin?.setOn(StartupPinOrPassword.pinOrPasswordIsSet(), animated: false)
+        
+        self.use_biometric?.setOn(Settings.readBoolValue(for: DcrlibwalletUseFingerprintConfigKey), animated: false)
         
         if start_Pin.isOn {
             self.changeStartPINCell.isUserInteractionEnabled = true
@@ -171,12 +178,45 @@ class SettingsController: UITableViewController  {
             isWalletOpen = true
         }
         
+        let localAuthenticationContext = LAContext()
+        var authError: NSError?
+        var isBiometricSupported = false
+        
+        if localAuthenticationContext.canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error: &authError) {
+            if #available(iOS 11.0, *) {
+                switch localAuthenticationContext.biometryType {
+                case .faceID:
+                    isBiometricSupported = true
+                    self.biometric_type.text = LocalizedStrings.useFaceID
+                    break
+                    
+                case .touchID:
+                    isBiometricSupported = true
+                    self.biometric_type.text = LocalizedStrings.useTouchId
+                break
+                    
+                case .none:
+                    isBiometricSupported = false
+                break
+                    
+                @unknown default:
+                    isBiometricSupported = false
+                    break
+                }
+            } else {
+                isBiometricSupported = false
+            }
+        }
+        
         if indexPath.section == 1 {
             switch indexPath.row {
             case 0: // enable startup pin/password, requires wallet to be opened.
                 return isWalletOpen ? 44 : 0
                 
-            case 1: // change startup pin/password, requires wallet to be opened and startup pin to have been enabled previously.
+            case 1: // use biometrics, requires wallet to be opened,startup pin to have been enabled previously and biometric to have beeb enrolled on the device.
+                return isWalletOpen && start_Pin.isOn && isBiometricSupported ? 44 : 0
+                
+            case 2: // change startup pin/password, requires wallet to be opened and startup pin to have been enabled previously.
                 return isWalletOpen && start_Pin.isOn ? 44 : 0
                 
             default:
@@ -209,11 +249,49 @@ class SettingsController: UITableViewController  {
                     StartupPinOrPassword.set(sender: self, done: self.checkStartupSecurity)
                 }
                 
-            case 1: // change startup pin/password
+            case 1: // use biometric
+                self.promptForStartupPinOrPassword() { pinOrPassword, _, dialogDelegate in
+                    self.verifyPinOrPassword(startupPinOrPassword: pinOrPassword, dialogDelegate: dialogDelegate)
+                }
+                
+            case 2: // change startup pin/password
                 StartupPinOrPassword.change(sender: self, done: self.checkStartupSecurity)
                 
             default:
                 break
+            }
+        }
+    }
+    
+    func promptForStartupPinOrPassword(callback: @escaping SecurityCodeRequestCallback) {
+        let prompt = String(format: LocalizedStrings.enableWithStartupCode,
+                            StartupPinOrPassword.currentSecurityType().localizedString)
+        
+        Security.startup()
+            .with(prompt: prompt)
+            .with(submitBtnText: LocalizedStrings.verify)
+            .should(showCancelButton: true)
+            .requestCurrentCode(sender: self, callback: callback)
+    }
+    
+    func verifyPinOrPassword(startupPinOrPassword: String, dialogDelegate: InputDialogDelegate?) {
+
+        DispatchQueue.global(qos: .userInitiated).async {
+            do {
+                try WalletLoader.shared.multiWallet.verifyStartupPassphrase(startupPinOrPassword.utf8Bits)
+                DispatchQueue.main.async {
+                    dialogDelegate?.dismissDialog()
+                    self.use_biometric.setOn(!self.use_biometric.isOn, animated: true)
+                    Settings.setBoolValue(self.use_biometric.isOn, for: DcrlibwalletUseFingerprintConfigKey)
+                }
+            } catch let error {
+                DispatchQueue.main.async {
+                    if error.isInvalidPassphraseError {
+                        dialogDelegate?.displayError(errorMessage: StartupPinOrPassword.invalidSecurityCodeMessage())
+                    } else {
+                        dialogDelegate?.displayError(errorMessage: error.localizedDescription)
+                    }
+                }
             }
         }
     }
