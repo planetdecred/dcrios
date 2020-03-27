@@ -156,7 +156,13 @@ class StartScreenViewController: UIViewController {
             localAuthenticationContext.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reasonString) { success, evaluateError in
                 DispatchQueue.main.async {
                 if success {
+<<<<<<< HEAD
                     self.openWalletsAndStartApp(startupPinOrPassword: "1234", dialogDelegate: nil)
+=======
+                    if let passOrPin = KeychainWrapper.standard.string(forKey: "StartupPinOrPassword") {
+                        self.openWalletsAndStartApp(startupPinOrPassword: passOrPin, dialogDelegate: nil)
+                    }
+>>>>>>> f60f5735578a7775546f9ad3252e0d63b1dad3f8
                 } else {
                     guard let error = evaluateError else {
                         return
