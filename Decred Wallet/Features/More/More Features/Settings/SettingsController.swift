@@ -247,7 +247,6 @@ class SettingsController: UITableViewController  {
             case 0: // enable/disable startup pin/password
                 if start_Pin.isOn {
                     StartupPinOrPassword.clear(sender: self, done: self.checkStartupSecurity)
-                    
                 } else {
                     StartupPinOrPassword.set(sender: self, done: self.checkStartupSecurity)
                 }
@@ -286,15 +285,12 @@ class SettingsController: UITableViewController  {
                     dialogDelegate?.dismissDialog()
                     self.use_biometric.setOn(!self.use_biometric.isOn, animated: true)
                     Settings.setBoolValue(self.use_biometric.isOn, for: DcrlibwalletUseFingerprintConfigKey)
-<<<<<<< HEAD
-=======
+
                     if self.use_biometric.isOn {
                         KeychainWrapper.standard.set(startupPinOrPassword, forKey: "StartupPinOrPassword")
                     } else {
                         KeychainWrapper.standard.removeObject(forKey: "StartupPinOrPassword")
                     }
-                    
->>>>>>> f60f5735578a7775546f9ad3252e0d63b1dad3f8
                 }
             } catch let error {
                 DispatchQueue.main.async {

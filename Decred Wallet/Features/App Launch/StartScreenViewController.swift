@@ -156,19 +156,14 @@ class StartScreenViewController: UIViewController {
             localAuthenticationContext.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reasonString) { success, evaluateError in
                 DispatchQueue.main.async {
                 if success {
-<<<<<<< HEAD
-                    self.openWalletsAndStartApp(startupPinOrPassword: "1234", dialogDelegate: nil)
-=======
                     if let passOrPin = KeychainWrapper.standard.string(forKey: "StartupPinOrPassword") {
                         self.openWalletsAndStartApp(startupPinOrPassword: passOrPin, dialogDelegate: nil)
                     }
->>>>>>> f60f5735578a7775546f9ad3252e0d63b1dad3f8
                 } else {
                     guard let error = evaluateError else {
                         return
                     }
-                    
-                    print(self.evaluateAuthenticationPolicyMessageForLA(errorCode: error._code))
+                    print(ErrorMessageForLA.evaluateAuthenticationPolicyMessageForLA(errorCode: error._code))
                     self.promptForStartupPinOrPassword() { pinOrPassword, _, dialogDelegate in
                         self.openWalletsAndStartApp(startupPinOrPassword: pinOrPassword, dialogDelegate: dialogDelegate)
                     }
@@ -183,60 +178,7 @@ class StartScreenViewController: UIViewController {
             self.promptForStartupPinOrPassword() { pinOrPassword, _, dialogDelegate in
                 self.openWalletsAndStartApp(startupPinOrPassword: pinOrPassword, dialogDelegate: dialogDelegate)
             }
-            print(self.evaluateAuthenticationPolicyMessageForLA(errorCode: error.code))
+            print(ErrorMessageForLA.evaluateAuthenticationPolicyMessageForLA(errorCode: error.code))
         }
-    }
-    
-    func evaluatePolicyFailErrorMessageForLA(errorCode: Int) -> String {
-        var message = ""
-        if #available(iOS 11.0, macOS 10.13, *) {
-            switch errorCode {
-            case LAError.biometryNotAvailable.rawValue:
-                message = "Authentication could not start because the device does not support biometric authentication."
-            case LAError.biometryLockout.rawValue:
-                message = "Authentication could not continue because the user has been locked out of biometric authentication, due to failing authentication too many times."
-            case LAError.biometryNotEnrolled.rawValue:
-                message = "Authentication could not start because the user has not enrolled in biometric authentication."
-            default:
-                message = "Did not find error code on LAError object"
-            }
-        } else {
-            switch errorCode {
-            case LAError.touchIDLockout.rawValue:
-                message = "Too many failed attempts."
-            case LAError.touchIDNotAvailable.rawValue:
-                message = "TouchID is not available on the device"
-            case LAError.touchIDNotEnrolled.rawValue:
-                message = "TouchID is not enrolled on the device"
-            default:
-                message = "Did not find error code on LAError object"
-            }
-        }
-        return message;
-    }
-    
-    func evaluateAuthenticationPolicyMessageForLA(errorCode: Int) -> String {
-        var message = ""
-        switch errorCode {
-        case LAError.authenticationFailed.rawValue:
-            message = "The user failed to provide valid credentials"
-        case LAError.appCancel.rawValue:
-            message = "Authentication was cancelled by application"
-        case LAError.invalidContext.rawValue:
-            message = "The context is invalid"
-        case LAError.notInteractive.rawValue:
-            message = "Not interactive"
-        case LAError.passcodeNotSet.rawValue:
-            message = "Passcode is not set on the device"
-        case LAError.systemCancel.rawValue:
-            message = "Authentication was cancelled by the system"
-        case LAError.userCancel.rawValue:
-            message = "The user did cancel"
-        case LAError.userFallback.rawValue:
-            message = "The user chose to use the fallback"
-        default:
-            message = self.evaluatePolicyFailErrorMessageForLA(errorCode: errorCode)
-        }
-        return message
     }
 }
