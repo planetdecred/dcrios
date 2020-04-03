@@ -416,6 +416,7 @@ struct LocalizedStrings {
     static let connection = NSLocalizedString("connection", comment: "")
     static let about = NSLocalizedString("about", comment: "")
     static let debug = NSLocalizedString("debug", comment: "")
+    static let checkStatistics = NSLocalizedString("checkStatistics", comment: "")
 
     /* Change startup/spending pin/pass */
     static let newPasswordPlaceholder = NSLocalizedString("newPasswordPlaceholder", comment: "")
