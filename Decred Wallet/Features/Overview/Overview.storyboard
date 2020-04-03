@@ -49,7 +49,7 @@
                                 <rect key="frame" x="0.0" y="101.5" width="414" height="794.5"/>
                                 <subviews>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9pQ-ul-Ay3">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1377"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1386.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 DCR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GGm-T7-QFh">
                                                 <rect key="frame" x="24" y="0.0" width="366" height="40"/>
@@ -73,25 +73,25 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="DPB-YP-Vow">
-                                                <rect key="frame" x="8" y="74" width="398" height="1173"/>
+                                                <rect key="frame" x="8" y="74" width="398" height="1182.5"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fxu-UZ-rsI" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="398" height="200"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="398" height="209.5"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_wallet_alert" translatesAutoresizingMaskIntoConstraints="NO" id="cIc-Id-dYl">
-                                                                <rect key="frame" x="16" y="27" width="24" height="24"/>
+                                                                <rect key="frame" x="16" y="31.5" width="24" height="24"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="24" id="7Zp-MI-tHl"/>
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 wallets need backup" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bke-5i-43H">
-                                                                <rect key="frame" x="56" y="16" width="166.5" height="45.5"/>
+                                                                <rect key="frame" x="56" y="16" width="166.5" height="55"/>
                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nj8-c4-arQ">
-                                                                <rect key="frame" x="358" y="27" width="24" height="24"/>
+                                                                <rect key="frame" x="358" y="31.5" width="24" height="24"/>
                                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <state key="normal" image="ic_close"/>
                                                                 <connections>
@@ -99,7 +99,7 @@
                                                                 </connections>
                                                             </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="It is recommended to write down the seed phrase for each wallet as a backup so that you can recover your funds when needed." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wEe-jI-LkD">
-                                                                <rect key="frame" x="56" y="77.5" width="326" height="53"/>
+                                                                <rect key="frame" x="56" y="87" width="326" height="53"/>
                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
@@ -108,21 +108,28 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </label>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OZg-uu-cVv">
-                                                                <rect key="frame" x="0.0" y="146.5" width="398" height="1"/>
+                                                                <rect key="frame" x="0.0" y="156" width="398" height="1"/>
                                                                 <color key="backgroundColor" red="0.99607843137254903" green="0.72156862745098038" blue="0.6470588235294118" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="1" id="wQ0-a4-XHt"/>
                                                                 </constraints>
                                                             </view>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Go to Wallets" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f9z-1v-sUv">
-                                                                <rect key="frame" x="155.5" y="163.5" width="87.5" height="20.5"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4j8-vw-52r">
+                                                                <rect key="frame" x="0.0" y="157" width="398" height="52.5"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="52.5" id="L8i-ek-zkr"/>
+                                                                </constraints>
                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
-                                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                <nil key="highlightedColor"/>
+                                                                <state key="normal" title="Go to Wallets">
+                                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </state>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="goToWallets"/>
                                                                 </userDefinedRuntimeAttributes>
-                                                            </label>
+                                                                <connections>
+                                                                    <action selector="seedBackupTapped:" destination="HDe-ha-1OS" eventType="touchUpInside" id="9S6-Zg-JpW"/>
+                                                                </connections>
+                                                            </button>
                                                         </subviews>
                                                         <color key="backgroundColor" red="0.92941176470588238" green="0.42745098039215684" blue="0.27843137254901962" alpha="1" colorSpace="calibratedRGB"/>
                                                         <gestureRecognizers/>
@@ -131,14 +138,16 @@
                                                             <constraint firstItem="OZg-uu-cVv" firstAttribute="leading" secondItem="fxu-UZ-rsI" secondAttribute="leading" id="58R-hf-Pp8"/>
                                                             <constraint firstAttribute="trailing" secondItem="Nj8-c4-arQ" secondAttribute="trailing" constant="16" id="5V6-Oe-9LE"/>
                                                             <constraint firstItem="cIc-Id-dYl" firstAttribute="centerY" secondItem="bke-5i-43H" secondAttribute="centerY" id="7wg-nN-fi1"/>
-                                                            <constraint firstItem="f9z-1v-sUv" firstAttribute="centerX" secondItem="fxu-UZ-rsI" secondAttribute="centerX" id="FPQ-bP-GzH"/>
+                                                            <constraint firstItem="4j8-vw-52r" firstAttribute="leading" secondItem="fxu-UZ-rsI" secondAttribute="leading" id="BKo-AX-Hse"/>
                                                             <constraint firstAttribute="trailing" secondItem="OZg-uu-cVv" secondAttribute="trailing" id="Fev-qb-3Zo"/>
                                                             <constraint firstItem="Nj8-c4-arQ" firstAttribute="centerY" secondItem="bke-5i-43H" secondAttribute="centerY" id="FzI-zD-Hbs"/>
+                                                            <constraint firstItem="4j8-vw-52r" firstAttribute="top" secondItem="OZg-uu-cVv" secondAttribute="bottom" id="Irx-fe-grO"/>
                                                             <constraint firstItem="bke-5i-43H" firstAttribute="leading" secondItem="cIc-Id-dYl" secondAttribute="trailing" constant="16" id="NRb-aZ-Jks"/>
-                                                            <constraint firstItem="f9z-1v-sUv" firstAttribute="top" secondItem="OZg-uu-cVv" secondAttribute="bottom" constant="16" id="O4d-90-Waz"/>
-                                                            <constraint firstAttribute="bottom" secondItem="f9z-1v-sUv" secondAttribute="bottom" constant="16" id="QuX-Fp-BS5"/>
                                                             <constraint firstItem="wEe-jI-LkD" firstAttribute="leading" secondItem="fxu-UZ-rsI" secondAttribute="leading" constant="56" id="S17-cZ-zBO"/>
+                                                            <constraint firstAttribute="trailing" secondItem="4j8-vw-52r" secondAttribute="trailing" id="aGx-aZ-iIy"/>
+                                                            <constraint firstAttribute="bottom" secondItem="4j8-vw-52r" secondAttribute="bottom" id="cc4-xD-kkQ"/>
                                                             <constraint firstItem="bke-5i-43H" firstAttribute="top" secondItem="fxu-UZ-rsI" secondAttribute="top" constant="16" id="d73-Yx-RUP"/>
+                                                            <constraint firstItem="4j8-vw-52r" firstAttribute="centerX" secondItem="fxu-UZ-rsI" secondAttribute="centerX" id="ftg-aI-fom"/>
                                                             <constraint firstItem="wEe-jI-LkD" firstAttribute="top" secondItem="bke-5i-43H" secondAttribute="bottom" constant="16" id="mcd-AG-kkf"/>
                                                             <constraint firstItem="OZg-uu-cVv" firstAttribute="top" secondItem="wEe-jI-LkD" secondAttribute="bottom" constant="16" id="pZg-53-SA6"/>
                                                             <constraint firstAttribute="trailing" secondItem="wEe-jI-LkD" secondAttribute="trailing" constant="16" id="yum-J8-rrr"/>
@@ -163,12 +172,9 @@
                                                                 <real key="value" value="0.0"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
-                                                        <connections>
-                                                            <outletCollection property="gestureRecognizers" destination="1kR-Nd-jXM" appends="YES" id="euf-Sc-IR7"/>
-                                                        </connections>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HAm-xE-ejA" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="208" width="398" height="164"/>
+                                                        <rect key="frame" x="0.0" y="217.5" width="398" height="164"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="pbi-z3-cy7">
                                                                 <rect key="frame" x="0.0" y="0.0" width="398" height="164"/>
@@ -285,7 +291,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CYq-6P-YB4" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="380" width="398" height="793"/>
+                                                        <rect key="frame" x="0.0" y="389.5" width="398" height="793"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="wYT-RR-tW7">
                                                                 <rect key="frame" x="0.0" y="0.0" width="398" height="793"/>
@@ -833,13 +839,8 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SDu-jM-obu" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="1kR-Nd-jXM">
-                    <connections>
-                        <action selector="seedBackupTapped:" destination="HDe-ha-1OS" id="kCQ-Dn-CHl"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-3391.304347826087" y="-1453.125"/>
+            <point key="canvasLocation" x="-3136.2318840579715" y="-1488.6160714285713"/>
         </scene>
     </scenes>
     <resources>
