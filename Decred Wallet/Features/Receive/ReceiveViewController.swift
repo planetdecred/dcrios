@@ -132,7 +132,7 @@ class ReceiveViewController: UIViewController {
         }
         alertController.addAction(generateNewAddressAction)
         
-          if let popoverPresentationController = alertController.popoverPresentationController {
+        if let popoverPresentationController = alertController.popoverPresentationController {
             popoverPresentationController.sourceView = sender
             popoverPresentationController.sourceRect = sender.bounds
         }
