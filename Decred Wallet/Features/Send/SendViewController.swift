@@ -195,7 +195,7 @@ class SendViewController: UIViewController {
         present(alertController, animated: true, completion: nil)
     }
     
-    @IBAction func overflowMenuButtonTapped(_ sender: Any) {
+    @IBAction func overflowMenuButtonTapped(_ sender: UIView) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: LocalizedStrings.cancel, style: .cancel, handler: nil)
         let clearFieldsAction = UIAlertAction(title: "Clear all fields", style: .default) { action in
@@ -205,8 +205,8 @@ class SendViewController: UIViewController {
         alertController.addAction(clearFieldsAction)
         
         if let popoverPresentationController = alertController.popoverPresentationController {
-            popoverPresentationController.sourceView = sender as? UIView
-            popoverPresentationController.sourceRect = (sender as! UIView).bounds
+            popoverPresentationController.sourceView = sender
+            popoverPresentationController.sourceRect = sender.bounds
         }
         
         present(alertController, animated: true, completion: nil)

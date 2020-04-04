@@ -122,7 +122,7 @@ class ReceiveViewController: UIViewController {
         }
     }
 
-    @IBAction func moreMenuButtonTapped(_ sender: Any) {
+    @IBAction func moreMenuButtonTapped(_ sender: UIView) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: LocalizedStrings.cancel, style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
@@ -133,8 +133,8 @@ class ReceiveViewController: UIViewController {
         alertController.addAction(generateNewAddressAction)
         
           if let popoverPresentationController = alertController.popoverPresentationController {
-            popoverPresentationController.sourceView = sender as? UIView
-            popoverPresentationController.sourceRect = (sender as! UIView).bounds
+            popoverPresentationController.sourceView = sender
+            popoverPresentationController.sourceRect = sender.bounds
         }
 
         self.present(alertController, animated: true, completion: nil)
@@ -151,7 +151,7 @@ class ReceiveViewController: UIViewController {
         }
     }
 
-    @IBAction func shareButtonTapped(_ sender: Any) {
+    @IBAction func shareButtonTapped(_ sender: UIView) {
         guard let addressQRCodeImage = self.addressQRCodeImageView.image,
             let ciImage = addressQRCodeImage.ciImage,
             let cgImage = CIContext(options: nil).createCGImage(ciImage, from: ciImage.extent) else { return }
@@ -159,8 +159,8 @@ class ReceiveViewController: UIViewController {
         let activityController = UIActivityViewController(activityItems: [ UIImage(cgImage: cgImage) ], applicationActivities: nil)
         
         if let popoverPresentationController = activityController.popoverPresentationController {
-            popoverPresentationController.sourceView = sender as? UIView
-            popoverPresentationController.sourceRect = (sender as! UIView).bounds
+            popoverPresentationController.sourceView = sender
+            popoverPresentationController.sourceRect = sender.bounds
         }
         
         self.present(activityController, animated: true, completion: nil)

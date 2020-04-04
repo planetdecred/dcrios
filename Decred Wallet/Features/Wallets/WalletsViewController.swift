@@ -36,7 +36,7 @@ class WalletsViewController: UIViewController {
     }
     
     // todo prolly hide this action if sync is ongoing as wallets cannot be added during ongoing sync
-    @IBAction func addNewWalletTapped(_ sender: Any) {
+    @IBAction func addNewWalletTapped(_ sender: UIView) {
         let alertController = UIAlertController(title: nil,
                                                 message: LocalizedStrings.createOrImportWallet,
                                                 preferredStyle: .actionSheet)
@@ -62,8 +62,8 @@ class WalletsViewController: UIViewController {
         alertController.addAction(UIAlertAction(title: LocalizedStrings.cancel, style: .cancel, handler: nil))
         
         if let popoverPresentationController = alertController.popoverPresentationController {
-            popoverPresentationController.sourceView = sender as? UIView
-            popoverPresentationController.sourceRect = (sender as! UIView).bounds
+            popoverPresentationController.sourceView = sender
+            popoverPresentationController.sourceRect = sender.bounds
         }
         
         self.present(alertController, animated: true, completion: nil)
@@ -154,7 +154,7 @@ extension WalletsViewController: WalletInfoTableViewCellDelegate {
         self.loadWallets()
     }
     
-    func showWalletMenu(walletName: String, walletID: Int, _ sender: Any) {
+    func showWalletMenu(walletName: String, walletID: Int, _ sender: UIView) {
         let prompt = String(format: "%@ (%@)", LocalizedStrings.wallet, walletName)
         let walletMenu = UIAlertController(title: nil, message: prompt, preferredStyle: .actionSheet)
         
@@ -176,9 +176,9 @@ extension WalletsViewController: WalletInfoTableViewCellDelegate {
         
         walletMenu.addAction(UIAlertAction(title: LocalizedStrings.cancel, style: .cancel, handler: nil))
         
-    if let popoverPresentationController = walletMenu.popoverPresentationController {
-        popoverPresentationController.sourceView = sender as? UIView
-        popoverPresentationController.sourceRect = (sender as! UIView).bounds
+        if let popoverPresentationController = walletMenu.popoverPresentationController {
+            popoverPresentationController.sourceView = sender
+            popoverPresentationController.sourceRect = sender.bounds
         }
         
         self.present(walletMenu, animated: true, completion: nil)
