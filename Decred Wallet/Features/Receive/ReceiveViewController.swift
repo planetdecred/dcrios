@@ -131,6 +131,11 @@ class ReceiveViewController: UIViewController {
             self.generateNewAddress()
         }
         alertController.addAction(generateNewAddressAction)
+        
+          if let popoverPresentationController = alertController.popoverPresentationController {
+            popoverPresentationController.sourceView = sender as? UIView
+            popoverPresentationController.sourceRect = (sender as! UIView).bounds
+        }
 
         self.present(alertController, animated: true, completion: nil)
     }
@@ -152,6 +157,12 @@ class ReceiveViewController: UIViewController {
             let cgImage = CIContext(options: nil).createCGImage(ciImage, from: ciImage.extent) else { return }
 
         let activityController = UIActivityViewController(activityItems: [ UIImage(cgImage: cgImage) ], applicationActivities: nil)
+        
+        if let popoverPresentationController = activityController.popoverPresentationController {
+            popoverPresentationController.sourceView = sender as? UIView
+            popoverPresentationController.sourceRect = (sender as! UIView).bounds
+        }
+        
         self.present(activityController, animated: true, completion: nil)
     }
 }

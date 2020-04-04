@@ -61,6 +61,11 @@ class WalletsViewController: UIViewController {
         
         alertController.addAction(UIAlertAction(title: LocalizedStrings.cancel, style: .cancel, handler: nil))
         
+        if let popoverPresentationController = alertController.popoverPresentationController {
+            popoverPresentationController.sourceView = sender as? UIView
+            popoverPresentationController.sourceRect = (sender as! UIView).bounds
+        }
+        
         self.present(alertController, animated: true, completion: nil)
     }
     
@@ -144,11 +149,12 @@ extension WalletsViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension WalletsViewController: WalletInfoTableViewCellDelegate {
+    
     func walletSeedBackedUp() {
         self.loadWallets()
     }
     
-    func showWalletMenu(walletName: String, walletID: Int) {
+    func showWalletMenu(walletName: String, walletID: Int, _ sender: Any) {
         let prompt = String(format: "%@ (%@)", LocalizedStrings.wallet, walletName)
         let walletMenu = UIAlertController(title: nil, message: prompt, preferredStyle: .actionSheet)
         
@@ -169,6 +175,11 @@ extension WalletsViewController: WalletInfoTableViewCellDelegate {
         }))
         
         walletMenu.addAction(UIAlertAction(title: LocalizedStrings.cancel, style: .cancel, handler: nil))
+        
+    if let popoverPresentationController = walletMenu.popoverPresentationController {
+        popoverPresentationController.sourceView = sender as? UIView
+        popoverPresentationController.sourceRect = (sender as! UIView).bounds
+        }
         
         self.present(walletMenu, animated: true, completion: nil)
     }

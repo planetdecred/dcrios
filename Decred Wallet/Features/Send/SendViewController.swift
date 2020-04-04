@@ -203,6 +203,12 @@ class SendViewController: UIViewController {
         }
         alertController.addAction(cancelAction)
         alertController.addAction(clearFieldsAction)
+        
+        if let popoverPresentationController = alertController.popoverPresentationController {
+            popoverPresentationController.sourceView = sender as? UIView
+            popoverPresentationController.sourceRect = (sender as! UIView).bounds
+        }
+        
         present(alertController, animated: true, completion: nil)
     }
     
