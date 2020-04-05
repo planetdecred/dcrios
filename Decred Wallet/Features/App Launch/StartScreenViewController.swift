@@ -80,7 +80,7 @@ class StartScreenViewController: UIViewController {
             return
         }
         
-        if Settings.readBoolValue(for: DcrlibwalletUseFingerprintConfigKey) {
+        if Settings.readBoolValue(for: DcrlibwalletUseBiometricConfigKey) {
             self.authenticationWithTouchID()
             return
         }

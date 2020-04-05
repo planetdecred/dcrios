@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -159,19 +159,16 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PcX-81-I57">
                                                         <rect key="frame" x="0.0" y="50" width="414" height="48"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use fingerprint" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cx7-Nh-cEB">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use Face ID" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cx7-Nh-cEB">
                                                                 <rect key="frame" x="24" y="14.5" width="305" height="19"/>
                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="15"/>
                                                                 <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
-                                                                <userDefinedRuntimeAttributes>
-                                                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="useFingerprint"/>
-                                                                </userDefinedRuntimeAttributes>
                                                             </label>
                                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Cm9-Wi-1n3">
                                                                 <rect key="frame" x="341" y="8.5" width="51" height="31"/>
                                                                 <connections>
-                                                                    <action selector="useFingerprintSwitchToggle:" destination="zwE-sw-7Mz" eventType="valueChanged" id="sY4-bb-arn"/>
+                                                                    <action selector="useBiometricSwitchToggle:" destination="zwE-sw-7Mz" eventType="valueChanged" id="sY4-bb-arn"/>
                                                                 </connections>
                                                             </switch>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tyc-LT-2qc">
@@ -395,7 +392,7 @@
                     </view>
                     <connections>
                         <outlet property="incomingTxAlertButton" destination="4W7-DH-6Kn" id="Vwi-fl-Czg"/>
-                        <outlet property="useFingerprintSwitch" destination="Cm9-Wi-1n3" id="0oZ-bK-M0w"/>
+                        <outlet property="useBiometricSwitch" destination="Cm9-Wi-1n3" id="0oZ-bK-M0w"/>
                         <outlet property="walletNameLabel" destination="M3F-qE-dpL" id="nNS-xs-YGw"/>
                     </connections>
                 </viewController>
@@ -412,7 +409,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ggu-IF-Ehw" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="248.5" width="414" height="647.5"/>
+                                <rect key="frame" x="0.0" y="222.5" width="414" height="673.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ViB-dv-2vV">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="639.5"/>

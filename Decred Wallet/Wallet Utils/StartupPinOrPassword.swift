@@ -66,9 +66,9 @@ struct StartupPinOrPassword {
                                                   newCodeRequestDelegate: nil,
                                                   newCodeType: .password,
                                                   done: done)
-                if Settings.readBoolValue(for: DcrlibwalletUseFingerprintConfigKey) {
+                if Settings.readBoolValue(for: DcrlibwalletUseBiometricConfigKey) {
                    KeychainWrapper.standard.removeObject(forKey: "StartupPinOrPassword")
-                    Settings.clearValue(for: DcrlibwalletUseFingerprintConfigKey)
+                    Settings.clearValue(for: DcrlibwalletUseBiometricConfigKey)
                 }
         }
     }
@@ -89,7 +89,7 @@ struct StartupPinOrPassword {
                 DispatchQueue.main.async {
                     newCodeRequestDelegate?.dismissDialog()
                     currentCodeRequestDelegate?.dismissDialog()
-                    if Settings.readBoolValue(for: DcrlibwalletUseFingerprintConfigKey) {
+                    if Settings.readBoolValue(for: DcrlibwalletUseBiometricConfigKey) {
                        KeychainWrapper.standard.set(newCode, forKey: "StartupPinOrPassword")
                     }
                     done?()

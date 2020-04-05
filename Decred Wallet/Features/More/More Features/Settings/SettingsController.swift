@@ -118,7 +118,7 @@ class SettingsController: UITableViewController  {
         
         self.cellularSyncSwitch.isOn = Settings.readBoolValue(for: DcrlibwalletSyncOnCellularConfigKey)
         
-        self.use_biometric.isOn = Settings.readBoolValue(for: DcrlibwalletUseFingerprintConfigKey)
+        self.use_biometric.isOn = Settings.readBoolValue(for: DcrlibwalletUseBiometricConfigKey)
         
         if Settings.networkMode == 0 {
             self.network_mode_subtitle?.text = LocalizedStrings.spv
@@ -137,17 +137,15 @@ class SettingsController: UITableViewController  {
     func checkStartupSecurity() {
         self.start_Pin?.setOn(StartupPinOrPassword.pinOrPasswordIsSet(), animated: false)
         
-        self.use_biometric?.setOn(Settings.readBoolValue(for: DcrlibwalletUseFingerprintConfigKey), animated: false)
+        self.use_biometric?.setOn(Settings.readBoolValue(for: DcrlibwalletUseBiometricConfigKey), animated: false)
         
         if start_Pin.isOn {
             self.changeStartPINCell.isUserInteractionEnabled = true
             self.changeStartPINCell.alpha = 1
-            self.use_biometric?.setOn(Settings.readBoolValue(for: DcrlibwalletUseFingerprintConfigKey), animated: false)
         }
         else{
             self.changeStartPINCell.isUserInteractionEnabled = false
             self.changeStartPINCell.alpha = 0.4
-            self.use_biometric?.setOn(Settings.readBoolValue(for: DcrlibwalletUseFingerprintConfigKey), animated: false)
         }
         
         self.tableView.reloadData()
@@ -284,7 +282,7 @@ class SettingsController: UITableViewController  {
                 DispatchQueue.main.async {
                     dialogDelegate?.dismissDialog()
                     self.use_biometric.setOn(!self.use_biometric.isOn, animated: true)
-                    Settings.setBoolValue(self.use_biometric.isOn, for: DcrlibwalletUseFingerprintConfigKey)
+                    Settings.setBoolValue(self.use_biometric.isOn, for: DcrlibwalletUseBiometricConfigKey)
 
                     if self.use_biometric.isOn {
                         KeychainWrapper.standard.set(startupPinOrPassword, forKey: "StartupPinOrPassword")
