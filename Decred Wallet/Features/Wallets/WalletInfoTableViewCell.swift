@@ -69,7 +69,14 @@ class WalletInfoTableViewCell: UITableViewCell {
     }
     
     var numberOfAccountsToDisplay: Int {
-        return self.wallet != nil && self.wallet.displayAccounts ? self.wallet.accounts.count : 0
+        let isWalletAvailable = self.wallet != nil && self.wallet.displayAccounts
+        let importedTotalAmount = self.wallet.accounts.last?.dcrTotalBalance
+        let isImportedZero = !(importedTotalAmount! > 0.0)
+        if isWalletAvailable {
+            return isImportedZero ? self.wallet.accounts.count - 1 : self.wallet.accounts.count
+        } else {
+            return 0
+        }
     }
     
     var accountsTableViewHeight: CGFloat {
@@ -99,7 +106,7 @@ class WalletInfoTableViewCell: UITableViewCell {
 
 extension WalletInfoTableViewCell: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return numberOfAccountsToDisplay
+        return self.numberOfAccountsToDisplay
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
