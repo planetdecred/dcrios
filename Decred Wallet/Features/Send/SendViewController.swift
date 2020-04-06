@@ -238,12 +238,12 @@ class SendViewController: UIViewController {
             }
             
             if BuildConfig.IsTestNet {
-                if !capturedText.starts(with: "T") {
+                if !addressURI.address.starts(with: "T") {
                     Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.invalidTesnetAddress)
                     return
                 }
             } else {
-                if !capturedText.starts(with: "D") {
+                if !addressURI.address.starts(with: "D") {
                     Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.invalidMainnetAddress)
                     return
                 }
