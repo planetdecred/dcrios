@@ -71,9 +71,9 @@ class WalletInfoTableViewCell: UITableViewCell {
     var numberOfAccountsToDisplay: Int {
         let isWalletAvailable = self.wallet != nil && self.wallet.displayAccounts
         let importedTotalAmount = self.wallet.accounts.last?.dcrTotalBalance
-        let isImportedZero = !(importedTotalAmount! > 0.0)
+        let isImportedTotalAmountZero = !(importedTotalAmount! > 0.0)
         if isWalletAvailable {
-            return isImportedZero ? self.wallet.accounts.count - 1 : self.wallet.accounts.count
+            return isImportedTotalAmountZero ? self.wallet.accounts.count - 1 : self.wallet.accounts.count
         } else {
             return 0
         }

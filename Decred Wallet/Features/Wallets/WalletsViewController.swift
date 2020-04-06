@@ -124,8 +124,8 @@ extension WalletsViewController: UITableViewDataSource, UITableViewDelegate {
         
         if wallet.displayAccounts {
             let importedTotalAmount = wallet.accounts.last?.dcrTotalBalance
-            let isImportedZero = !(importedTotalAmount! > 0.0)
-            let accountCount = isImportedZero ? wallet.accounts.count - 1 : wallet.accounts.count           
+            let isImportedTotalAmountZero = !(importedTotalAmount! > 0.0)
+            let accountCount = isImportedTotalAmountZero ? wallet.accounts.count - 1 : wallet.accounts.count           
             cellHeight += (WalletInfoTableViewCell.accountCellHeight * CGFloat(accountCount))
                 + WalletInfoTableViewCell.addNewAccountButtonHeight
         }
