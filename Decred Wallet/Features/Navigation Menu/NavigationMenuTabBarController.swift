@@ -27,7 +27,12 @@ class NavigationMenuTabBarController: UITabBarController {
     override func viewDidAppear(_ animated: Bool) {
         if self.isNewWallet {
             self.isNewWallet = false
-            Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.walletCreated)
+            NewWalletDialog.show {
+                Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.walletCreated)
+                self.startSync()
+            }
+        } else {
+            self.startSync()
         }
     }
     
@@ -117,7 +122,9 @@ class NavigationMenuTabBarController: UITabBarController {
         let startView = NavigationMenuTabBarController()
         startView.isNewWallet = isNewWallet
         AppDelegate.shared.setAndDisplayRootViewController(startView.wrapInNavigationcontroller())
-        
+    }
+    
+    private func startSync() {
         // start sync and new tx listener
         SyncManager.shared.startSync(allowSyncOnCellular: Settings.syncOnCellular)
         TransactionNotification.shared.startListeningForNotifications()
