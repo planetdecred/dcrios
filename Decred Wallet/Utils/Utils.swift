@@ -249,4 +249,44 @@ struct Utils {
         }
         return attrString
     }
+    
+    static func format(bytes: Double) -> String {
+        guard bytes > 0 else {
+            return "0 bytes"
+        }
+
+        let suffixes = ["bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"]
+        let k: Double = 1000
+        let i = floor(log(bytes) / log(k))
+
+        // Format number with thousands separator and everything below 1 GB with no decimal places.
+        let numberFormatter = NumberFormatter()
+        numberFormatter.maximumFractionDigits = i < 3 ? 0 : 1
+        numberFormatter.numberStyle = .decimal
+
+        let numberString = numberFormatter.string(from: NSNumber(value: bytes / pow(k, i))) ?? "Unknown"
+        let suffix = suffixes[Int(i)]
+        return "\(numberString) \(suffix)"
+    }
+    
+    static func getDirFileSize() -> Int64 {
+        let intPointer = UnsafeMutablePointer<Int64>.allocate(capacity: 4)
+        defer {
+            intPointer.deallocate()
+        }
+        do {
+            try WalletLoader.shared.multiWallet.rootDirFileSize(inBytes: intPointer)
+        } catch let error {
+            print("dir error:", error.localizedDescription)
+        }
+        return intPointer.pointee
+    }
+    
+    static func countAllWalletTransaction()-> Int {
+        var transactionCount: Int = 0
+        for wallet in WalletLoader.shared.wallets {
+            transactionCount += wallet.transactionsCount(forTxFilter: DcrlibwalletTxFilterAll)
+        }
+        return transactionCount
+    }
 }

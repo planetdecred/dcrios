@@ -11,5 +11,62 @@ import Foundation
 import UIKit
 
 class StatisticsViewController: UITableViewController  {
-
+    @IBOutlet weak var buildDetailLabel: UILabel!
+    
+    @IBOutlet weak var peerConnectedDetailLabel: UILabel!
+    @IBOutlet weak var uptimeDetailLabel: UILabel!
+    @IBOutlet weak var networkDetailLabel: UILabel!
+    @IBOutlet weak var bestBlockDetailLabel: UILabel!
+    @IBOutlet weak var bestBlockTimestampDetailLabel: UILabel!
+    
+    @IBOutlet weak var bestBlockAgeDetailLabel: UILabel!
+    @IBOutlet weak var walletFileDetailLabel: UILabel!
+    @IBOutlet weak var chainDataDetailLabel: UILabel!
+    
+    @IBOutlet weak var transactionDetailLabel: UILabel!
+    @IBOutlet weak var accountDetailLabel: UILabel!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.loadStatistcs()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+       self.navigationController?.navigationBar.isHidden = false
+        self.navigationController?.navigationBar.tintColor = UIColor.appColors.darkBlue
+        self.navigationController?.navigationBar.barTintColor = UIColor.appColors.offWhite
+        //Remove shadow from navigation bar
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        
+        self.addNavigationBackButton()
+            
+        let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.checkStatistics, style: .plain, target: self, action: nil)
+        barButtonTitle.tintColor = UIColor.appColors.darkBlue
+            
+        self.navigationItem.leftBarButtonItems =  [(self.navigationItem.leftBarButtonItem)!, barButtonTitle]
+    }
+    
+    func loadStatistcs() {
+        let dateformater = DateFormatter()
+        dateformater.dateFormat = "yyyy-MM-dd"
+        self.buildDetailLabel.text = "\(BuildConfig.NetType), \(dateformater.string(from: AppDelegate.compileDate as Date))"
+        
+        self.peerConnectedDetailLabel.text = "\(WalletLoader.shared.multiWallet.connectedPeers())"
+        self.uptimeDetailLabel.text = ""
+        self.networkDetailLabel.text = "\(BuildConfig.NetType)"
+        self.bestBlockDetailLabel.text = "\(WalletLoader.shared.multiWallet.getBestBlock()?.height ?? 0)"
+        
+        let bestBlockInfo = WalletLoader.shared.multiWallet.getBestBlock()
+        let bestBlockAge = Int64(Date().timeIntervalSince1970) - bestBlockInfo!.timestamp
+        self.bestBlockTimestampDetailLabel.text = "\(Utils.formatDateTime(timestamp: bestBlockInfo!.timestamp))"
+        self.bestBlockAgeDetailLabel.text = Utils.timeAgo(timeInterval: bestBlockAge)
+        
+        self.walletFileDetailLabel.text = "/Documents/dcrlibwallet/\(BuildConfig.NetType)/"
+        self.chainDataDetailLabel.text = "\(Utils.format(bytes: Double(Utils.getDirFileSize())))"
+        self.accountDetailLabel.text = "\(WalletLoader.shared.multiWallet.openedWalletsCount())"
+        self.transactionDetailLabel.text = "\(Utils.countAllWalletTransaction())"
+    }
 }
