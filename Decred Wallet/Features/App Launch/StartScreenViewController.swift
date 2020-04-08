@@ -34,7 +34,6 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
         }
         
         self.startAnim()
-        
     }
     
     func startAnim(done: (() -> Void)? = nil) {
@@ -94,6 +93,7 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
                 }
         }
     }
+    
     @IBAction func restoreExistingWallet(_ sender: Any) {
         print("restore")
         let restoreWalletVC = RestoreExistingWalletViewController.instantiate(from: .WalletSetup)
@@ -161,13 +161,12 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
     }
     
     func displayWalletSetupScreen() {
-        
         UIView.animate(withDuration: 0.4,
                                      delay: 0,
                                      options: UIView.AnimationOptions.curveLinear,
                                      animations: { () -> Void in
                                         self.loadingLabel.isHidden = true
-                                      self.createWalletBtn.center.y -= 100
+                                        self.createWalletBtn.center.y -= 100
                                         self.logo.image = UIImage(named: "ic_decred_logo")
                                         self.logo.center.y -= 20
                                         self.welcomeText.center.y -= 100
@@ -179,6 +178,5 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
                                         self.welcomeText.text = LocalizedStrings.introMessage
                           }, completion: { (finished) -> Void in
                           })
-        
     }
 }
