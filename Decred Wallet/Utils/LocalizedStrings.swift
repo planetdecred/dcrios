@@ -16,6 +16,7 @@ struct LocalizedStrings {
     static let createNewWallet = NSLocalizedString("createNewWallet", comment: "")
     static let restoreExistingWallet = NSLocalizedString("restoreExistingWallet", comment: "")
     static let wallet = NSLocalizedString("wallet", comment: "")
+    static let introMessage = NSLocalizedString("introMessage", comment: "")
     
     /* Create New Wallet(Seed display view) */
     static let settingUpYourWallet = NSLocalizedString("settingUpYourWallet", comment: "")

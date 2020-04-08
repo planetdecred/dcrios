@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BLx-jo-l82">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3Xs-3X-Jiu">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -12,109 +13,88 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Help View Controller-->
-        <scene sceneID="KmC-zu-2VC">
+        <!--Start Screen View Controller-->
+        <scene sceneID="R00-QL-oqe">
             <objects>
-                <viewController storyboardIdentifier="HelpViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="W0n-B7-KjY" customClass="HelpViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="PrI-zG-xl5"/>
-                        <viewControllerLayoutGuide type="bottom" id="fjK-mu-Ueq"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="w9N-kl-PBo">
+                <viewController storyboardIdentifier="StartScreenViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Kb1-lm-LZA" customClass="StartScreenViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="JGZ-bG-2El">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="For more information please visit" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dLy-1p-dtT">
-                                <rect key="frame" x="20.5" y="408" width="373" height="17"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" red="0.53725490196078429" green="0.59215686274509804" blue="0.6470588235294118" alpha="1" colorSpace="calibratedRGB"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_decred_logo" translatesAutoresizingMaskIntoConstraints="NO" id="cZc-WL-Sm8">
+                                <rect key="frame" x="127" y="249" width="160" height="160"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="160" id="FXz-HU-2yw"/>
+                                    <constraint firstAttribute="height" constant="160" id="Uk6-Ew-M4B"/>
+                                </constraints>
+                            </imageView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="welcome" textAlignment="center" lineBreakMode="clip" numberOfLines="0" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y4w-th-plZ">
+                                <rect key="frame" x="24" y="448" width="366" height="30.5"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="24"/>
+                                <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="forMoreInformationPleaseVisit"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="introMsg"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="helpIcon" translatesAutoresizingMaskIntoConstraints="NO" id="lue-Jf-2pX">
-                                <rect key="frame" x="165.5" y="279.5" width="83" height="109.5"/>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zvk-KY-83T" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
+                                <rect key="frame" x="24" y="710" width="366" height="56"/>
+                                <color key="backgroundColor" red="0.16" green="0.44" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="lue-Jf-2pX" secondAttribute="height" multiplier="50:66" id="XLD-H3-unY"/>
+                                    <constraint firstAttribute="height" constant="56" id="scK-t1-mBP"/>
                                 </constraints>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g3T-GI-lU4">
-                                <rect key="frame" x="20.5" y="433" width="373" height="30"/>
-                                <state key="normal" title="https://docs.decred.org"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
+                                <inset key="contentEdgeInsets" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <inset key="titleEdgeInsets" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" image="ic-add">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleShadowColor" red="0.040000000000000001" green="0.080000000000000002" blue="0.25" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="7"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="createNewWallet"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="openHelpLink:" destination="W0n-B7-KjY" eventType="touchUpInside" id="fz3-8n-qRW"/>
+                                    <action selector="createNewwallet:" destination="Kb1-lm-LZA" eventType="touchUpInside" id="RwZ-Di-G44"/>
                                 </connections>
                             </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="g3T-GI-lU4" firstAttribute="centerY" secondItem="w9N-kl-PBo" secondAttribute="centerY" id="B6T-yj-ucr"/>
-                            <constraint firstItem="g3T-GI-lU4" firstAttribute="top" secondItem="dLy-1p-dtT" secondAttribute="bottom" constant="8" id="D2w-1E-8zW"/>
-                            <constraint firstItem="g3T-GI-lU4" firstAttribute="centerX" secondItem="w9N-kl-PBo" secondAttribute="centerX" id="Epg-ai-0Q8"/>
-                            <constraint firstItem="lue-Jf-2pX" firstAttribute="centerX" secondItem="w9N-kl-PBo" secondAttribute="centerX" id="e5r-4s-moR"/>
-                            <constraint firstItem="dLy-1p-dtT" firstAttribute="width" secondItem="w9N-kl-PBo" secondAttribute="width" multiplier="0.9" id="pvo-q3-E1d"/>
-                            <constraint firstItem="dLy-1p-dtT" firstAttribute="centerX" secondItem="w9N-kl-PBo" secondAttribute="centerX" id="rBo-gZ-dal"/>
-                            <constraint firstItem="dLy-1p-dtT" firstAttribute="top" secondItem="lue-Jf-2pX" secondAttribute="bottom" constant="19" id="rpz-JW-eXj"/>
-                            <constraint firstItem="lue-Jf-2pX" firstAttribute="width" secondItem="w9N-kl-PBo" secondAttribute="width" multiplier="0.2" id="ruE-aZ-xlD"/>
-                            <constraint firstItem="g3T-GI-lU4" firstAttribute="width" secondItem="w9N-kl-PBo" secondAttribute="width" multiplier="0.9" id="yYc-Sh-SyV"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="linkBtn" destination="g3T-GI-lU4" id="mCu-tb-Rfs"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="RK1-To-ESx" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="249" y="-1188"/>
-        </scene>
-        <!--Start Screen View Controller-->
-        <scene sceneID="PGy-QW-K8H">
-            <objects>
-                <viewController storyboardIdentifier="StartScreenViewController" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BLx-jo-l82" customClass="StartScreenViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="6l6-ug-aLI"/>
-                        <viewControllerLayoutGuide type="bottom" id="u8k-lY-6JX"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="EO2-Pa-A0e">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="decredWord" translatesAutoresizingMaskIntoConstraints="NO" id="dYR-FH-u7X">
-                                <rect key="frame" x="159.5" y="436.5" width="95" height="23"/>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DGk-43-e2H" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
+                                <rect key="frame" x="24" y="782" width="366" height="56"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="23" id="b5C-s2-Ic1"/>
+                                    <constraint firstAttribute="height" constant="56" id="wAK-7t-U7P"/>
                                 </constraints>
-                            </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Je2-ms-0XC">
-                                <rect key="frame" x="137" y="323.5" width="140" height="105"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="c0d-2Z-wlh">
-                                        <rect key="frame" x="0.0" y="0.0" width="140" height="105"/>
-                                        <gestureRecognizers/>
-                                    </imageView>
-                                </subviews>
-                                <gestureRecognizers/>
-                                <constraints>
-                                    <constraint firstItem="c0d-2Z-wlh" firstAttribute="centerY" secondItem="Je2-ms-0XC" secondAttribute="centerY" id="G58-kb-CEV"/>
-                                    <constraint firstAttribute="height" constant="105" id="OCU-rc-jvd"/>
-                                    <constraint firstItem="c0d-2Z-wlh" firstAttribute="height" secondItem="Je2-ms-0XC" secondAttribute="height" id="kbO-oG-fVD"/>
-                                    <constraint firstAttribute="width" constant="140" id="mWE-pZ-1tY"/>
-                                    <constraint firstItem="c0d-2Z-wlh" firstAttribute="width" secondItem="Je2-ms-0XC" secondAttribute="width" id="wgw-0S-EcR"/>
-                                    <constraint firstItem="c0d-2Z-wlh" firstAttribute="centerX" secondItem="Je2-ms-0XC" secondAttribute="centerX" id="xe4-FG-X11"/>
-                                </constraints>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="contentEdgeInsets" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <inset key="titleEdgeInsets" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="16" maxY="0.0"/>
+                                <state key="normal" image="ic_restore">
+                                    <color key="titleColor" red="0.16078431369999999" green="0.43921568630000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="7"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="restoreExistingWallet"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="enabledBackgroundColor">
+                                        <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <outletCollection property="gestureRecognizers" destination="hk2-L0-l0m" appends="YES" id="oUV-kK-Hs0"/>
+                                    <action selector="restoreExistingWallet:" destination="Kb1-lm-LZA" eventType="touchUpInside" id="8pe-Pe-wce"/>
                                 </connections>
-                            </view>
+                            </button>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="testnet" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hRj-cn-ZPx">
-                                <rect key="frame" x="177.5" y="465" width="59" height="20.5"/>
+                                <rect key="frame" x="177.5" y="425" width="59" height="20.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="textColor" red="0.043137254899999998" green="0.1137254902" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="highlightedColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w3H-Un-Z5W">
-                                <rect key="frame" x="170" y="501.5" width="74" height="23"/>
+                                <rect key="frame" x="170" y="452" width="74" height="23"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                 <color key="textColor" red="0.043137254899999998" green="0.1137254902" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="highlightedColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -125,36 +105,64 @@
                         </subviews>
                         <color key="backgroundColor" red="0.95294117649999999" green="0.96078431369999995" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="dYR-FH-u7X" firstAttribute="width" secondItem="c0d-2Z-wlh" secondAttribute="width" multiplier="0.68" id="0Aw-X2-QBn"/>
-                            <constraint firstItem="w3H-Un-Z5W" firstAttribute="top" secondItem="hRj-cn-ZPx" secondAttribute="bottom" constant="16" id="6RK-vA-EqZ"/>
-                            <constraint firstItem="w3H-Un-Z5W" firstAttribute="centerX" secondItem="EO2-Pa-A0e" secondAttribute="centerX" id="8Qd-OH-T47"/>
-                            <constraint firstItem="hRj-cn-ZPx" firstAttribute="centerX" secondItem="EO2-Pa-A0e" secondAttribute="centerX" id="KH1-Re-2no"/>
-                            <constraint firstItem="dYR-FH-u7X" firstAttribute="centerY" secondItem="EO2-Pa-A0e" secondAttribute="centerY" id="dSa-eA-nyC"/>
-                            <constraint firstItem="dYR-FH-u7X" firstAttribute="centerX" secondItem="EO2-Pa-A0e" secondAttribute="centerX" id="dbk-dx-UNu"/>
-                            <constraint firstItem="Je2-ms-0XC" firstAttribute="centerX" secondItem="EO2-Pa-A0e" secondAttribute="centerX" id="lIp-RR-e3l"/>
-                            <constraint firstItem="dYR-FH-u7X" firstAttribute="top" secondItem="Je2-ms-0XC" secondAttribute="bottom" constant="8" id="pGj-xI-0R9"/>
-                            <constraint firstItem="hRj-cn-ZPx" firstAttribute="top" secondItem="dYR-FH-u7X" secondAttribute="bottom" constant="5.5" id="wPF-85-8eR"/>
+                            <constraint firstItem="zvk-KY-83T" firstAttribute="leading" secondItem="bve-SX-yvX" secondAttribute="leading" constant="24" id="4YG-aE-m3N"/>
+                            <constraint firstItem="bve-SX-yvX" firstAttribute="trailing" secondItem="DGk-43-e2H" secondAttribute="trailing" constant="24" id="Gtf-gR-BFF"/>
+                            <constraint firstItem="DGk-43-e2H" firstAttribute="leading" secondItem="bve-SX-yvX" secondAttribute="leading" constant="24" id="IOS-QN-0zu"/>
+                            <constraint firstItem="DGk-43-e2H" firstAttribute="top" secondItem="zvk-KY-83T" secondAttribute="bottom" constant="16" id="Ip4-fg-5pa"/>
+                            <constraint firstItem="bve-SX-yvX" firstAttribute="trailing" secondItem="zvk-KY-83T" secondAttribute="trailing" constant="24" id="L5L-Oc-HMk"/>
+                            <constraint firstItem="bve-SX-yvX" firstAttribute="trailing" secondItem="y4w-th-plZ" secondAttribute="trailing" constant="24" id="SBt-Oa-LvS"/>
+                            <constraint firstItem="y4w-th-plZ" firstAttribute="top" secondItem="cZc-WL-Sm8" secondAttribute="bottom" constant="39" id="Stc-jF-ht1"/>
+                            <constraint firstItem="y4w-th-plZ" firstAttribute="leading" secondItem="bve-SX-yvX" secondAttribute="leading" constant="24" id="Wmx-yR-xPC"/>
+                            <constraint firstItem="w3H-Un-Z5W" firstAttribute="top" secondItem="y4w-th-plZ" secondAttribute="bottom" constant="-26.5" id="XDG-8q-kRi"/>
+                            <constraint firstItem="zvk-KY-83T" firstAttribute="leading" secondItem="bve-SX-yvX" secondAttribute="leading" constant="24" id="YrY-ji-FQ3"/>
+                            <constraint firstItem="w3H-Un-Z5W" firstAttribute="centerX" secondItem="JGZ-bG-2El" secondAttribute="centerX" id="aGc-37-0yJ"/>
+                            <constraint firstItem="cZc-WL-Sm8" firstAttribute="centerX" secondItem="JGZ-bG-2El" secondAttribute="centerX" id="blS-t1-0m7"/>
+                            <constraint firstItem="y4w-th-plZ" firstAttribute="centerX" secondItem="JGZ-bG-2El" secondAttribute="centerX" id="kEv-wn-87f"/>
+                            <constraint firstItem="DGk-43-e2H" firstAttribute="top" secondItem="zvk-KY-83T" secondAttribute="bottom" constant="16" id="l9c-eu-VSb"/>
+                            <constraint firstItem="hRj-cn-ZPx" firstAttribute="top" secondItem="cZc-WL-Sm8" secondAttribute="bottom" constant="16" id="ooA-yf-Tk9"/>
+                            <constraint firstItem="bve-SX-yvX" firstAttribute="bottom" secondItem="DGk-43-e2H" secondAttribute="bottom" constant="24" id="qQA-bX-rBR"/>
+                            <constraint firstItem="y4w-th-plZ" firstAttribute="centerY" secondItem="JGZ-bG-2El" secondAttribute="centerY" constant="15.25" id="uza-bk-Gdi"/>
+                            <constraint firstItem="hRj-cn-ZPx" firstAttribute="centerX" secondItem="JGZ-bG-2El" secondAttribute="centerX" id="w8t-9D-jbx"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="bve-SX-yvX"/>
                     </view>
+                    <navigationItem key="navigationItem" id="Jpv-ob-gVe"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
-                        <outlet property="label" destination="w3H-Un-Z5W" id="2PH-vS-iWb"/>
-                        <outlet property="logo" destination="c0d-2Z-wlh" id="7cR-4h-euq"/>
-                        <outlet property="testnetLabel" destination="hRj-cn-ZPx" id="dzI-Gs-qj6"/>
+                        <outlet property="createWalletBtn" destination="zvk-KY-83T" id="uR6-ai-Bku"/>
+                        <outlet property="loadingLabel" destination="w3H-Un-Z5W" id="ckh-oL-vZe"/>
+                        <outlet property="logo" destination="cZc-WL-Sm8" id="FVE-cJ-5cc"/>
+                        <outlet property="restoreWalletBtn" destination="DGk-43-e2H" id="o68-5b-Ui7"/>
+                        <outlet property="testnetLabel" destination="hRj-cn-ZPx" id="AjQ-T7-3ky"/>
+                        <outlet property="welcomeText" destination="y4w-th-plZ" id="LZU-Sj-ViW"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="abl-tj-8Do" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer numberOfTapsRequired="2" id="hk2-L0-l0m">
-                    <connections>
-                        <action selector="animatedLogoTap:" destination="BLx-jo-l82" id="243-wN-MKT"/>
-                    </connections>
-                </tapGestureRecognizer>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BH2-r5-PgV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-858.39999999999998" y="-53.523238380809602"/>
+            <point key="canvasLocation" x="710.14492753623199" y="-1433.0357142857142"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="jk5-eA-izr">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="3Xs-3X-Jiu" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="met-OZ-m5y">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Kb1-lm-LZA" kind="relationship" relationship="rootViewController" id="WG1-uk-alX"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Avo-s0-AHH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-200.00000000000003" y="-1433.0357142857142"/>
         </scene>
     </scenes>
     <resources>
-        <image name="decredWord" width="188.5" height="45"/>
-        <image name="helpIcon" width="50" height="67"/>
-        <image name="ic_dropdown" width="24" height="24"/>
+        <image name="ic-add" width="24" height="24"/>
+        <image name="ic_decred_logo" width="160" height="160"/>
+        <image name="ic_restore" width="24" height="24"/>
     </resources>
 </document>

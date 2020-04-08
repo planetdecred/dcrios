@@ -9,15 +9,14 @@
 import UIKit
 import Dcrlibwallet
 
-class StartScreenViewController: UIViewController {
-    @IBOutlet weak var label: UILabel!
+class StartScreenViewController: UIViewController, CAAnimationDelegate {
+    @IBOutlet weak var loadingLabel: UILabel!
     @IBOutlet weak var logo: UIImageView!
+    @IBOutlet weak var welcomeText: UILabel!
+    @IBOutlet weak var createWalletBtn: Button!
+    @IBOutlet weak var restoreWalletBtn: Button!
     @IBOutlet weak var testnetLabel: UILabel!
-
-    var timer: Timer?
-    var startTimerWhenViewAppears = true
-    let animationDurationSeconds: Double = 5
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -29,37 +28,81 @@ class StartScreenViewController: UIViewController {
         if initError != nil {
             print("init multiwallet error: \(initError!.localizedDescription)")
         }
+        
+        if WalletLoader.shared.oneOrMoreWalletsExist {
+            self.loadingLabel.text = LocalizedStrings.openingWallet
+        }
+        
+        self.startAnim()
+        
+    }
+    
+    func startAnim(done: (() -> Void)? = nil) {
+        let splashLogo = UIImage.gif(name: "splashLogo")
+        
+        // CAKeyframeAnimation.values are expected to be CGImageRef,
+        // so we take the values from the UIImage images
+        var values = [CGImage]()
+        for image in splashLogo!.images! {
+            values.append(image.cgImage!)
+        }
 
-        logo.loadGif(name: "splashLogo")
+        // Create animation and set SwiftGif values and duration
+        let animation = CAKeyframeAnimation(keyPath: "contents")
+        animation.calculationMode = CAAnimationCalculationMode.discrete
+        animation.duration = splashLogo!.duration
+        animation.values = values
+        // Set the repeat count
+        animation.repeatCount = 3
+        // Other stuff
+        animation.isRemovedOnCompletion = false
+        animation.fillMode = CAMediaTimingFillMode.forwards
+        // Set the delegate
+        animation.delegate = self
+        self.logo.layer.add(animation, forKey: "animation")
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
-        // start timer to load main screen after specified interval
-        if self.startTimerWhenViewAppears {
-            self.timer = Timer.scheduledTimer(withTimeInterval: self.animationDurationSeconds, repeats: false) {_ in
-                self.loadMainScreen()
-            }
-            self.startTimerWhenViewAppears = false
-        }
-
-        if WalletLoader.shared.oneOrMoreWalletsExist {
-            self.label.text = LocalizedStrings.openingWallet
+    }
+    
+     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        if flag {
+            self.loadMainScreen()
         }
     }
 
     @IBAction func animatedLogoTap(_ sender: Any) {
-        self.timer?.invalidate()
-        self.startTimerWhenViewAppears = true
-
         let settingsVC = SettingsController.instantiate(from: .Settings).wrapInNavigationcontroller()
         settingsVC.modalPresentationStyle = .fullScreen
         self.present(settingsVC, animated: true, completion: nil)
     }
-
+    
+    @IBAction func createNewwallet(_ sender: Any) {
+        Security.spending(initialSecurityType: .password)
+            .requestNewCode(sender: self, isChangeAttempt: false) { pinOrPassword, type, completion in
+                
+                WalletLoader.shared.createWallet(spendingPinOrPassword: pinOrPassword, securityType: type) {
+                    createWalletError in
+                    
+                    if createWalletError != nil {
+                        completion?.displayError(errorMessage: createWalletError!.localizedDescription)
+                    } else {
+                        completion?.dismissDialog()
+                        NavigationMenuTabBarController.setupMenuAndLaunchApp(isNewWallet: true)
+                    }
+                }
+        }
+    }
+    @IBAction func restoreExistingWallet(_ sender: Any) {
+        print("restore")
+        let restoreWalletVC = RestoreExistingWalletViewController.instantiate(from: .WalletSetup)
+        self.navigationController?.pushViewController(restoreWalletVC, animated: true)
+    }
+    
     func loadMainScreen() {
         if !WalletLoader.shared.isInitialized {
+            print("can't init")
             // there was an error initializing multiwallet
             return
         }
@@ -96,7 +139,7 @@ class StartScreenViewController: UIViewController {
     }
 
     func openWalletsAndStartApp(startupPinOrPassword: String, dialogDelegate: InputDialogDelegate?) {
-        self.label.text = LocalizedStrings.openingWallet
+        self.loadingLabel.text = LocalizedStrings.openingWallet
 
         DispatchQueue.global(qos: .userInitiated).async {
             do {
@@ -118,8 +161,24 @@ class StartScreenViewController: UIViewController {
     }
     
     func displayWalletSetupScreen() {
-        let walletSetupController = WalletSetupViewController.instantiate(from: .WalletSetup).wrapInNavigationcontroller()
-        walletSetupController.isNavigationBarHidden = true
-        AppDelegate.shared.setAndDisplayRootViewController(walletSetupController)
+        
+        UIView.animate(withDuration: 0.4,
+                                     delay: 0,
+                                     options: UIView.AnimationOptions.curveLinear,
+                                     animations: { () -> Void in
+                                        self.loadingLabel.isHidden = true
+                                      self.createWalletBtn.center.y -= 100
+                                        self.logo.image = UIImage(named: "ic_decred_logo")
+                                        self.logo.center.y -= 20
+                                        self.welcomeText.center.y -= 100
+                                        self.restoreWalletBtn.center.y -= 100
+                                        self.testnetLabel.center.y -= 20
+                                        self.createWalletBtn.isHidden = false
+                                        self.restoreWalletBtn.isHidden = false
+                                        self.welcomeText.isHidden = false
+                                        self.welcomeText.text = LocalizedStrings.introMessage
+                          }, completion: { (finished) -> Void in
+                          })
+        
     }
 }
