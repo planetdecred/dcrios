@@ -8,6 +8,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="SourceSansPro-Bold.ttf">
+            <string>SourceSansPro-Bold</string>
+        </array>
         <array key="SourceSansPro-Regular.ttf">
             <string>SourceSansPro-Regular</string>
         </array>
@@ -22,7 +25,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_decred_logo" translatesAutoresizingMaskIntoConstraints="NO" id="cZc-WL-Sm8">
-                                <rect key="frame" x="127" y="249" width="160" height="160"/>
+                                <rect key="frame" x="127" y="265" width="160" height="160"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="160" id="FXz-HU-2yw"/>
                                     <constraint firstAttribute="height" constant="160" id="Uk6-Ew-M4B"/>
@@ -87,14 +91,14 @@
                                     <action selector="restoreExistingWallet:" destination="Kb1-lm-LZA" eventType="touchUpInside" id="8pe-Pe-wce"/>
                                 </connections>
                             </button>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="testnet" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hRj-cn-ZPx">
-                                <rect key="frame" x="177.5" y="425" width="59" height="20.5"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="testnet" textAlignment="center" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hRj-cn-ZPx">
+                                <rect key="frame" x="180" y="425" width="54" height="21.5"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Bold" family="Source Sans Pro" pointSize="17"/>
                                 <color key="textColor" red="0.043137254899999998" green="0.1137254902" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="highlightedColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w3H-Un-Z5W">
-                                <rect key="frame" x="170" y="452" width="74" height="23"/>
+                                <rect key="frame" x="170" y="451.5" width="74" height="23"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                 <color key="textColor" red="0.043137254899999998" green="0.1137254902" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="highlightedColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -106,20 +110,20 @@
                         <color key="backgroundColor" red="0.95294117649999999" green="0.96078431369999995" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="zvk-KY-83T" firstAttribute="leading" secondItem="bve-SX-yvX" secondAttribute="leading" constant="24" id="4YG-aE-m3N"/>
+                            <constraint firstItem="w3H-Un-Z5W" firstAttribute="top" secondItem="hRj-cn-ZPx" secondAttribute="bottom" constant="5" id="4oY-bb-5x1"/>
                             <constraint firstItem="bve-SX-yvX" firstAttribute="trailing" secondItem="DGk-43-e2H" secondAttribute="trailing" constant="24" id="Gtf-gR-BFF"/>
                             <constraint firstItem="DGk-43-e2H" firstAttribute="leading" secondItem="bve-SX-yvX" secondAttribute="leading" constant="24" id="IOS-QN-0zu"/>
                             <constraint firstItem="DGk-43-e2H" firstAttribute="top" secondItem="zvk-KY-83T" secondAttribute="bottom" constant="16" id="Ip4-fg-5pa"/>
                             <constraint firstItem="bve-SX-yvX" firstAttribute="trailing" secondItem="zvk-KY-83T" secondAttribute="trailing" constant="24" id="L5L-Oc-HMk"/>
                             <constraint firstItem="bve-SX-yvX" firstAttribute="trailing" secondItem="y4w-th-plZ" secondAttribute="trailing" constant="24" id="SBt-Oa-LvS"/>
-                            <constraint firstItem="y4w-th-plZ" firstAttribute="top" secondItem="cZc-WL-Sm8" secondAttribute="bottom" constant="39" id="Stc-jF-ht1"/>
+                            <constraint firstItem="y4w-th-plZ" firstAttribute="top" secondItem="cZc-WL-Sm8" secondAttribute="bottom" constant="23" id="Stc-jF-ht1"/>
                             <constraint firstItem="y4w-th-plZ" firstAttribute="leading" secondItem="bve-SX-yvX" secondAttribute="leading" constant="24" id="Wmx-yR-xPC"/>
-                            <constraint firstItem="w3H-Un-Z5W" firstAttribute="top" secondItem="y4w-th-plZ" secondAttribute="bottom" constant="-26.5" id="XDG-8q-kRi"/>
                             <constraint firstItem="zvk-KY-83T" firstAttribute="leading" secondItem="bve-SX-yvX" secondAttribute="leading" constant="24" id="YrY-ji-FQ3"/>
                             <constraint firstItem="w3H-Un-Z5W" firstAttribute="centerX" secondItem="JGZ-bG-2El" secondAttribute="centerX" id="aGc-37-0yJ"/>
                             <constraint firstItem="cZc-WL-Sm8" firstAttribute="centerX" secondItem="JGZ-bG-2El" secondAttribute="centerX" id="blS-t1-0m7"/>
                             <constraint firstItem="y4w-th-plZ" firstAttribute="centerX" secondItem="JGZ-bG-2El" secondAttribute="centerX" id="kEv-wn-87f"/>
                             <constraint firstItem="DGk-43-e2H" firstAttribute="top" secondItem="zvk-KY-83T" secondAttribute="bottom" constant="16" id="l9c-eu-VSb"/>
-                            <constraint firstItem="hRj-cn-ZPx" firstAttribute="top" secondItem="cZc-WL-Sm8" secondAttribute="bottom" constant="16" id="ooA-yf-Tk9"/>
+                            <constraint firstItem="hRj-cn-ZPx" firstAttribute="top" secondItem="cZc-WL-Sm8" secondAttribute="bottom" id="ooA-yf-Tk9"/>
                             <constraint firstItem="bve-SX-yvX" firstAttribute="bottom" secondItem="DGk-43-e2H" secondAttribute="bottom" constant="24" id="qQA-bX-rBR"/>
                             <constraint firstItem="y4w-th-plZ" firstAttribute="centerY" secondItem="JGZ-bG-2El" secondAttribute="centerY" constant="15.25" id="uza-bk-Gdi"/>
                             <constraint firstItem="hRj-cn-ZPx" firstAttribute="centerX" secondItem="JGZ-bG-2El" secondAttribute="centerX" id="w8t-9D-jbx"/>

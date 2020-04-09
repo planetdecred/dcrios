@@ -17,8 +17,21 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
     @IBOutlet weak var restoreWalletBtn: Button!
     @IBOutlet weak var testnetLabel: UILabel!
     
+    let initialAnimationToggleValue : CGFloat = 50
+    let splashViewSlideUpValue : CGFloat = 80
+    let walletSetupViewSlideUpValue : CGFloat = 100
+    var isAnimated = false
+    
+    var timer: Timer?
+    var startTimerWhenViewAppears = true
+    var animationDurationSeconds: Double = 7
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(appMovedToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
 
         if BuildConfig.IsTestNet {
             testnetLabel.isHidden = false
@@ -31,9 +44,25 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
         
         if WalletLoader.shared.oneOrMoreWalletsExist {
             self.loadingLabel.text = LocalizedStrings.openingWallet
+            self.animationDurationSeconds = 6
         }
         
-        self.startAnim()
+        if self.startTimerWhenViewAppears {
+            self.startAnim()
+            self.timer = Timer.scheduledTimer(withTimeInterval: animationDurationSeconds, repeats: false) {_ in
+                self.loadMainScreen()
+            }
+            self.startTimerWhenViewAppears = false
+        }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        if !startTimerWhenViewAppears{
+            self.logo.center.y += initialAnimationToggleValue
+            self.testnetLabel.center.y += initialAnimationToggleValue
+            self.loadingLabel.center.y += initialAnimationToggleValue
+            return
+        }
     }
     
     func startAnim(done: (() -> Void)? = nil) {
@@ -58,19 +87,25 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
         animation.fillMode = CAMediaTimingFillMode.forwards
         // Set the delegate
         animation.delegate = self
+        self.logo.contentMode = .scaleAspectFit
         self.logo.layer.add(animation, forKey: "animation")
     }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    
+     func animationDidStop(_ anim: CAAnimation, finished animated: Bool) {
+        self.isAnimated = animated
     }
     
-     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
-        if flag {
-            self.loadMainScreen()
+    @objc func appMovedToForeground() {
+        if !self.isAnimated {
+            DispatchQueue.main.async {
+            self.logo.center.y -= self.initialAnimationToggleValue
+            self.testnetLabel.center.y -= self.initialAnimationToggleValue
+            self.loadingLabel.center.y -= self.initialAnimationToggleValue
+            self.view.layoutIfNeeded()
+            }
         }
     }
-
+    
     @IBAction func animatedLogoTap(_ sender: Any) {
         let settingsVC = SettingsController.instantiate(from: .Settings).wrapInNavigationcontroller()
         settingsVC.modalPresentationStyle = .fullScreen
@@ -161,22 +196,34 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
     }
     
     func displayWalletSetupScreen() {
+        // update splash screen location
+        UIView.animate(withDuration: 0,
+                   delay: 0,
+                   options: UIView.AnimationOptions.curveLinear,
+                   animations: { () -> Void in
+        }, completion: { (finished) -> Void in
+            self.logo.center.y -= self.initialAnimationToggleValue
+            self.testnetLabel.center.y -= self.initialAnimationToggleValue
+            self.loadingLabel.center.y -= self.initialAnimationToggleValue
+        })
+        
+        // animate and display wallet setup options
         UIView.animate(withDuration: 0.4,
                                      delay: 0,
                                      options: UIView.AnimationOptions.curveLinear,
                                      animations: { () -> Void in
                                         self.loadingLabel.isHidden = true
-                                        self.createWalletBtn.center.y -= 100
+                                        self.createWalletBtn.center.y -= self.walletSetupViewSlideUpValue
                                         self.logo.image = UIImage(named: "ic_decred_logo")
-                                        self.logo.center.y -= 20
-                                        self.welcomeText.center.y -= 100
-                                        self.restoreWalletBtn.center.y -= 100
-                                        self.testnetLabel.center.y -= 20
+                                        self.loadingLabel.center.y -= self.splashViewSlideUpValue
+                                        self.logo.center.y -= self.splashViewSlideUpValue
+                                        self.welcomeText.center.y -= self.walletSetupViewSlideUpValue
+                                        self.restoreWalletBtn.center.y -= self.walletSetupViewSlideUpValue
+                                        self.testnetLabel.center.y -= self.splashViewSlideUpValue
                                         self.createWalletBtn.isHidden = false
                                         self.restoreWalletBtn.isHidden = false
                                         self.welcomeText.isHidden = false
                                         self.welcomeText.text = LocalizedStrings.introMessage
-                          }, completion: { (finished) -> Void in
-                          })
+        })
     }
 }
