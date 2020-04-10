@@ -31,8 +31,8 @@ class WalletsViewController: UIViewController {
     }
     
     func loadWallets() {
-        self.wallets = WalletLoader.shared.wallets.map({ Wallet.init($0) })
-        self.walletsTableView.reloadData()
+        let accountsFilterFn: (DcrlibwalletAccount) -> Bool = { ($0.totalBalance >= 0 && $0.name != "imported") || ($0.totalBalance > 0 && $0.name == "imported")}
+        self.wallets = WalletLoader.shared.wallets.map({ Wallet.init($0, accountsFilterFn: accountsFilterFn) })
     }
     
     // todo prolly hide this action if sync is ongoing as wallets cannot be added during ongoing sync
@@ -123,10 +123,7 @@ extension WalletsViewController: UITableViewDataSource, UITableViewDelegate {
         }
         
         if wallet.displayAccounts {
-            let importedTotalAmount = wallet.accounts.last?.dcrTotalBalance
-            let isImportedTotalAmountZero = !(importedTotalAmount! > 0.0)
-            let accountCount = isImportedTotalAmountZero ? wallet.accounts.count - 1 : wallet.accounts.count           
-            cellHeight += (WalletInfoTableViewCell.accountCellHeight * CGFloat(accountCount))
+            cellHeight += (WalletInfoTableViewCell.accountCellHeight * CGFloat(wallet.accounts.count))
                 + WalletInfoTableViewCell.addNewAccountButtonHeight
         }
         
