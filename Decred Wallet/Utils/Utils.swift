@@ -289,4 +289,46 @@ struct Utils {
         }
         return transactionCount
     }
+    
+    static func calculateTime(timeInterval: Int64) -> String {
+        switch timeInterval {
+        case Int64.min...0:
+            return LocalizedStrings.now
+            
+        case 0..<Utils.TimeInSeconds.Minute:
+            return String(format: LocalizedStrings.seconds, timeInterval)
+            
+        case Utils.TimeInSeconds.Minute..<Utils.TimeInSeconds.Hour:
+            let minutes = timeInterval / Utils.TimeInSeconds.Minute
+            return String(format: LocalizedStrings.minutes, minutes)
+            
+        case Utils.TimeInSeconds.Hour..<Utils.TimeInSeconds.Day:
+            let hours = timeInterval / Utils.TimeInSeconds.Hour
+            return String(format: LocalizedStrings.hours, hours)
+            
+        case Utils.TimeInSeconds.Day..<Utils.TimeInSeconds.Week:
+            let days = timeInterval / Utils.TimeInSeconds.Day
+            return String(format: LocalizedStrings.days, days)
+            
+        case Utils.TimeInSeconds.Week..<Utils.TimeInSeconds.Month:
+            let weeks = timeInterval / Utils.TimeInSeconds.Week
+            return String(format: LocalizedStrings.weeks, weeks)
+            
+        case Utils.TimeInSeconds.Month..<Utils.TimeInSeconds.Year:
+            let months = timeInterval / Utils.TimeInSeconds.Month
+            return String(format: LocalizedStrings.months, months)
+            
+        default:
+            let years = timeInterval / Utils.TimeInSeconds.Year
+            return String(format: LocalizedStrings.years, years)
+        }
+    }
+    
+    static func timeStringFor(seconds : Double) -> String {
+        let formatter = DateComponentsFormatter()
+        formatter.allowedUnits = [.second, .minute, .hour]
+        formatter.zeroFormattingBehavior = .pad
+        let output = formatter.string(from: TimeInterval(seconds))!
+        return output
+    }
 }

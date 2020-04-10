@@ -33,6 +33,7 @@ class AppDelegate: UIResponder {
     
     var lastActiveTimestamp: Double?
     var shouldTrackLastActiveTime: Bool = false
+    static var appUpTime: Double?
     
     class var shared: AppDelegate {
         return UIApplication.shared.delegate as! AppDelegate
@@ -123,7 +124,9 @@ extension AppDelegate: UIApplicationDelegate {
         Fabric.with([Crashlytics.self])
         print("crashlytics set up on testnet")
         #endif
-
+        
+        AppDelegate.appUpTime = Date().timeIntervalSince1970
+        
         NotificationsManager.shared.requestAuthorization()
 
         self.listenForNetworkChanges()

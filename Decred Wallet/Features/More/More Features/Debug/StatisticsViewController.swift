@@ -53,16 +53,18 @@ class StatisticsViewController: UITableViewController  {
         let dateformater = DateFormatter()
         dateformater.dateFormat = "yyyy-MM-dd"
         self.buildDetailLabel.text = "\(BuildConfig.NetType), \(dateformater.string(from: AppDelegate.compileDate as Date))"
-        
         self.peerConnectedDetailLabel.text = "\(WalletLoader.shared.multiWallet.connectedPeers())"
-        self.uptimeDetailLabel.text = ""
+        
+        let durationUpTime = Date().timeIntervalSince1970 - AppDelegate.appUpTime!
+        self.uptimeDetailLabel.text = "\(Utils.timeStringFor(seconds: durationUpTime))"
+        
         self.networkDetailLabel.text = "\(BuildConfig.NetType)"
         self.bestBlockDetailLabel.text = "\(WalletLoader.shared.multiWallet.getBestBlock()?.height ?? 0)"
         
         let bestBlockInfo = WalletLoader.shared.multiWallet.getBestBlock()
         let bestBlockAge = Int64(Date().timeIntervalSince1970) - bestBlockInfo!.timestamp
-        self.bestBlockTimestampDetailLabel.text = "\(Utils.formatDateTime(timestamp: bestBlockInfo!.timestamp))"
-        self.bestBlockAgeDetailLabel.text = Utils.timeAgo(timeInterval: bestBlockAge)
+        self.bestBlockTimestampDetailLabel.text = "\(Date(timeIntervalSince1970: Double(bestBlockInfo!.timestamp)))"
+        self.bestBlockAgeDetailLabel.text = Utils.calculateTime(timeInterval: bestBlockAge).lowercased()
         
         self.walletFileDetailLabel.text = "/Documents/dcrlibwallet/\(BuildConfig.NetType)/"
         self.chainDataDetailLabel.text = "\(Utils.format(bytes: Double(Utils.getDirFileSize())))"
