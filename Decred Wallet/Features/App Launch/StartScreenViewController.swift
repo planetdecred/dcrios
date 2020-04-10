@@ -16,16 +16,19 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
     @IBOutlet weak var createWalletBtn: Button!
     @IBOutlet weak var restoreWalletBtn: Button!
     @IBOutlet weak var testnetLabel: UILabel!
+    @IBOutlet weak var imageViewContainer: UIView!
     
     let initialAnimationToggleValue : CGFloat = 50
     let splashViewSlideUpValue : CGFloat = 80
     let walletSetupViewSlideUpValue : CGFloat = 100
-    var isAnimated = false
     
+    var isAnimated = false
     var timer: Timer?
     var startTimerWhenViewAppears = true
     var animationDurationSeconds: Double = 7
-    
+
+    // Create animation
+    let animation = CAKeyframeAnimation(keyPath: "contents")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +49,10 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
             self.loadingLabel.text = LocalizedStrings.openingWallet
             self.animationDurationSeconds = 6
         }
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
         if self.startTimerWhenViewAppears {
             self.startAnim()
             self.timer = Timer.scheduledTimer(withTimeInterval: animationDurationSeconds, repeats: false) {_ in
@@ -58,10 +64,7 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
     
     override func viewDidLayoutSubviews() {
         if !startTimerWhenViewAppears{
-            self.logo.center.y += initialAnimationToggleValue
-            self.testnetLabel.center.y += initialAnimationToggleValue
-            self.loadingLabel.center.y += initialAnimationToggleValue
-            return
+            self.setStartupAnimationPosition()
         }
     }
     
@@ -74,19 +77,17 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
         for image in splashLogo!.images! {
             values.append(image.cgImage!)
         }
-
-        // Create animation and set SwiftGif values and duration
-        let animation = CAKeyframeAnimation(keyPath: "contents")
-        animation.calculationMode = CAAnimationCalculationMode.discrete
-        animation.duration = splashLogo!.duration
-        animation.values = values
+        
+        self.animation.calculationMode = CAAnimationCalculationMode.discrete
+        self.animation.duration = splashLogo!.duration
+        self.animation.values = values
         // Set the repeat count
-        animation.repeatCount = 3
+        self.animation.repeatCount = 3
         // Other stuff
-        animation.isRemovedOnCompletion = false
-        animation.fillMode = CAMediaTimingFillMode.forwards
+        self.animation.isRemovedOnCompletion = false
+        self.animation.fillMode = CAMediaTimingFillMode.forwards
         // Set the delegate
-        animation.delegate = self
+        self.animation.delegate = self
         self.logo.contentMode = .scaleAspectFit
         self.logo.layer.add(animation, forKey: "animation")
     }
@@ -98,18 +99,36 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
     @objc func appMovedToForeground() {
         if !self.isAnimated {
             DispatchQueue.main.async {
-            self.logo.center.y -= self.initialAnimationToggleValue
-            self.testnetLabel.center.y -= self.initialAnimationToggleValue
-            self.loadingLabel.center.y -= self.initialAnimationToggleValue
-            self.view.layoutIfNeeded()
+                self.revertAnimationPosition()
+                self.view.layoutIfNeeded()
             }
         }
     }
     
     @IBAction func animatedLogoTap(_ sender: Any) {
+        if self.isAnimated {
+            return
+        }
+        
+        self.timer?.invalidate()
+        self.startTimerWhenViewAppears = true
+        self.logo.layer.removeAllAnimations()
+        
         let settingsVC = SettingsController.instantiate(from: .Settings).wrapInNavigationcontroller()
         settingsVC.modalPresentationStyle = .fullScreen
         self.present(settingsVC, animated: true, completion: nil)
+    }
+    
+    func setStartupAnimationPosition() {
+        self.imageViewContainer.center.y += initialAnimationToggleValue
+        self.testnetLabel.center.y += initialAnimationToggleValue
+        self.loadingLabel.center.y += initialAnimationToggleValue
+    }
+    
+    func revertAnimationPosition() {
+        self.imageViewContainer.center.y -= self.initialAnimationToggleValue
+        self.testnetLabel.center.y -= self.initialAnimationToggleValue
+        self.loadingLabel.center.y -= self.initialAnimationToggleValue
     }
     
     @IBAction func createNewwallet(_ sender: Any) {
@@ -202,9 +221,7 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
                    options: UIView.AnimationOptions.curveLinear,
                    animations: { () -> Void in
         }, completion: { (finished) -> Void in
-            self.logo.center.y -= self.initialAnimationToggleValue
-            self.testnetLabel.center.y -= self.initialAnimationToggleValue
-            self.loadingLabel.center.y -= self.initialAnimationToggleValue
+            self.revertAnimationPosition()
         })
         
         // animate and display wallet setup options
@@ -216,7 +233,7 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
                                         self.createWalletBtn.center.y -= self.walletSetupViewSlideUpValue
                                         self.logo.image = UIImage(named: "ic_decred_logo")
                                         self.loadingLabel.center.y -= self.splashViewSlideUpValue
-                                        self.logo.center.y -= self.splashViewSlideUpValue
+                                        self.imageViewContainer.center.y -= self.splashViewSlideUpValue
                                         self.welcomeText.center.y -= self.walletSetupViewSlideUpValue
                                         self.restoreWalletBtn.center.y -= self.walletSetupViewSlideUpValue
                                         self.testnetLabel.center.y -= self.splashViewSlideUpValue

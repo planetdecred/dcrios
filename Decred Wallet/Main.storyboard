@@ -24,14 +24,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_decred_logo" translatesAutoresizingMaskIntoConstraints="NO" id="cZc-WL-Sm8">
-                                <rect key="frame" x="127" y="265" width="160" height="160"/>
-                                <gestureRecognizers/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="160" id="FXz-HU-2yw"/>
-                                    <constraint firstAttribute="height" constant="160" id="Uk6-Ew-M4B"/>
-                                </constraints>
-                            </imageView>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="welcome" textAlignment="center" lineBreakMode="clip" numberOfLines="0" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y4w-th-plZ">
                                 <rect key="frame" x="24" y="448" width="366" height="30.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="24"/>
@@ -106,25 +98,44 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="loading"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CdX-sy-0x2">
+                                <rect key="frame" x="127" y="265" width="160" height="160"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ic_decred_logo" translatesAutoresizingMaskIntoConstraints="NO" id="cZc-WL-Sm8">
+                                        <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.95294117649999999" green="0.96078431369999995" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <gestureRecognizers/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="0.99676262842465757" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="160" id="WXf-G9-aje"/>
+                                    <constraint firstAttribute="height" constant="160" id="rrb-By-adz"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="BZn-3a-5LH" appends="YES" id="iyQ-30-bJE"/>
+                                </connections>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.95294117649999999" green="0.96078431369999995" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="zvk-KY-83T" firstAttribute="leading" secondItem="bve-SX-yvX" secondAttribute="leading" constant="24" id="4YG-aE-m3N"/>
                             <constraint firstItem="w3H-Un-Z5W" firstAttribute="top" secondItem="hRj-cn-ZPx" secondAttribute="bottom" constant="5" id="4oY-bb-5x1"/>
+                            <constraint firstItem="CdX-sy-0x2" firstAttribute="centerX" secondItem="JGZ-bG-2El" secondAttribute="centerX" id="Agz-VK-9Yx"/>
                             <constraint firstItem="bve-SX-yvX" firstAttribute="trailing" secondItem="DGk-43-e2H" secondAttribute="trailing" constant="24" id="Gtf-gR-BFF"/>
                             <constraint firstItem="DGk-43-e2H" firstAttribute="leading" secondItem="bve-SX-yvX" secondAttribute="leading" constant="24" id="IOS-QN-0zu"/>
                             <constraint firstItem="DGk-43-e2H" firstAttribute="top" secondItem="zvk-KY-83T" secondAttribute="bottom" constant="16" id="Ip4-fg-5pa"/>
                             <constraint firstItem="bve-SX-yvX" firstAttribute="trailing" secondItem="zvk-KY-83T" secondAttribute="trailing" constant="24" id="L5L-Oc-HMk"/>
                             <constraint firstItem="bve-SX-yvX" firstAttribute="trailing" secondItem="y4w-th-plZ" secondAttribute="trailing" constant="24" id="SBt-Oa-LvS"/>
-                            <constraint firstItem="y4w-th-plZ" firstAttribute="top" secondItem="cZc-WL-Sm8" secondAttribute="bottom" constant="23" id="Stc-jF-ht1"/>
                             <constraint firstItem="y4w-th-plZ" firstAttribute="leading" secondItem="bve-SX-yvX" secondAttribute="leading" constant="24" id="Wmx-yR-xPC"/>
                             <constraint firstItem="zvk-KY-83T" firstAttribute="leading" secondItem="bve-SX-yvX" secondAttribute="leading" constant="24" id="YrY-ji-FQ3"/>
                             <constraint firstItem="w3H-Un-Z5W" firstAttribute="centerX" secondItem="JGZ-bG-2El" secondAttribute="centerX" id="aGc-37-0yJ"/>
-                            <constraint firstItem="cZc-WL-Sm8" firstAttribute="centerX" secondItem="JGZ-bG-2El" secondAttribute="centerX" id="blS-t1-0m7"/>
+                            <constraint firstItem="y4w-th-plZ" firstAttribute="top" secondItem="CdX-sy-0x2" secondAttribute="bottom" constant="23" id="bYP-YX-NVx"/>
                             <constraint firstItem="y4w-th-plZ" firstAttribute="centerX" secondItem="JGZ-bG-2El" secondAttribute="centerX" id="kEv-wn-87f"/>
                             <constraint firstItem="DGk-43-e2H" firstAttribute="top" secondItem="zvk-KY-83T" secondAttribute="bottom" constant="16" id="l9c-eu-VSb"/>
-                            <constraint firstItem="hRj-cn-ZPx" firstAttribute="top" secondItem="cZc-WL-Sm8" secondAttribute="bottom" id="ooA-yf-Tk9"/>
                             <constraint firstItem="bve-SX-yvX" firstAttribute="bottom" secondItem="DGk-43-e2H" secondAttribute="bottom" constant="24" id="qQA-bX-rBR"/>
+                            <constraint firstItem="hRj-cn-ZPx" firstAttribute="top" secondItem="CdX-sy-0x2" secondAttribute="bottom" id="to3-I2-2Uv"/>
                             <constraint firstItem="y4w-th-plZ" firstAttribute="centerY" secondItem="JGZ-bG-2El" secondAttribute="centerY" constant="15.25" id="uza-bk-Gdi"/>
                             <constraint firstItem="hRj-cn-ZPx" firstAttribute="centerX" secondItem="JGZ-bG-2El" secondAttribute="centerX" id="w8t-9D-jbx"/>
                         </constraints>
@@ -134,6 +145,7 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="createWalletBtn" destination="zvk-KY-83T" id="uR6-ai-Bku"/>
+                        <outlet property="imageViewContainer" destination="CdX-sy-0x2" id="O6s-Vp-M6h"/>
                         <outlet property="loadingLabel" destination="w3H-Un-Z5W" id="ckh-oL-vZe"/>
                         <outlet property="logo" destination="cZc-WL-Sm8" id="FVE-cJ-5cc"/>
                         <outlet property="restoreWalletBtn" destination="DGk-43-e2H" id="o68-5b-Ui7"/>
@@ -142,6 +154,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BH2-r5-PgV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer numberOfTapsRequired="2" id="BZn-3a-5LH">
+                    <connections>
+                        <action selector="animatedLogoTap:" destination="Kb1-lm-LZA" id="kH8-lQ-KMU"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="710.14492753623199" y="-1433.0357142857142"/>
         </scene>
