@@ -17,9 +17,6 @@
 
 /* Create New Wallet(Seed display view) */
 "settingUpYourWallet" = "Setting Up Decred Wallet";
-"seedHeaderInfo" = "Write down this seed phrase and save it in a secure location. You will be asked to enter it on the next screen and if you ever need to restore your wallet.";
-"seedWarningInfo" = "Failure to keep this seed safe can result in theft of your entire wallet or inability to recover your wallet.";
-"iCopiedTheSeedPhrase" = "I COPIED THE SEED PHRASE";
 
 /* Confirm NewWallet Seed */
 "seedDoesNotMatch" = "You entered an incorrect seed. Please check your words.";
@@ -43,7 +40,6 @@
 
 /* Wallet Setup Base */
 "settingUpWallet" ="Setting up Decred wallet...";
-"errorSettingUpWallet" = "Error setting up wallet.";
 
 /* Unlock Wallet Prompt */
 "unlockWithStartupCode" = "Unlock with startup %@";
@@ -65,9 +61,7 @@
 "promptStartupPassword" = "Enter Current Startup Password";
 "password" = "Password";
 "proceed" = "Proceed";
-"passwordEmpty" = "Password can't be empty.";
 "invalidInput" = "invalid input.";
-"passwordInvalid" = "Password entered was not valid.";
 "passwordPlaceholder"="%@ password";
 "confirmPasswordPlaceholder"="Confirm %@ password";
 
@@ -108,14 +102,8 @@
 "addressDiscoveryProgressThrough" = "~%d%%";
 "scanningTotalHeaders" = "%d of %d";
 "synchronizing" = "Syncing...";
-"synchronizationCanceled" = "Synchronization canceled";
-"synchronizationError" = "Synchronization error";
 "syncTotalProgress" = "%d%% completed, %@ remaining.";
-"allTimes" = "All Times";
-"elapsed" = "elapsed:";
-"remain" = "remain:";
 "total"  = "total:";
-"tapToViewInformation" = "Tap for more information";
 "latestBlockAge" = "Latest block %d% :- %@";
 "blockHeadersFetched" = "Block headers fetched";
 "syncProgressComplete" = "%d%%";
@@ -124,16 +112,9 @@
 "syncingProgress" = "Syncing progress";
 "cannotSyncWithoutNetworkConnection" = "Cannot sync without network connection.";
 "internetConnectionRequired" = "Internet connection required.";
-"connectToWiFiToSync" = "Connect to WiFi to sync.";
 "restartingSync" = "Restarting sync...";
-"connectingToPeers" = "Connecting to peers.";
-"syncedWith" =  "Synced with %@";
-"fetchingBlockHeaders" = "Fetching block headers.";
-"blocksBehind" = "%d blocks behind.";
-"bestBlockAgeAgo" = "%@ ago";
 "discoveringUsedAddresses" = "Discovering used addresses.";
 "generalSyncProgressCompletedleft" = "%d%% completed, %@ left.";
-"scanningBlocks" = "Scanning blocks.";
 "rescanProgress" = "%d%% completed, %@ left.";
 "syncCanceled" = "Sync canceled.";
 "syncError" = "Sync error.";
@@ -147,8 +128,6 @@
 "monthsAgo" = "%dmo ago";
 "yearsAgo" =  "%dy ago";
 "totalBalance" = "Total Balance";
-"restartingSynchronization" = "Restarting Synchronization";
-"startingSynchronization" = "Starting Sync...";
 "reconnect" = "Reconnect";
 "disconnect" = "Disconnect";
 
@@ -246,11 +225,7 @@
 "amountMaximumAllowed" = "Amount more than maximum allowed.";
 "notEnoughFunds" = "Not enough funds.";
 "notEnoughFundsOrNotConnected" = "Not enough funds (or not connected).";
-"rateUnavailableTap"  = "rate unavailable (tap to retry).";
-"sendToAccount" = "Send to account";
-"sendToAddress" = "Send to address";
 "errorGettingMaxSpendable" = "Error getting maximum spendable amount.";
-"pleaseWaitNetworkSync" = "Please wait for network synchronization.";
 "notConnected" = "Not connected to the network.";
 "amountCantBeZero" = "Amount cannot be zero.";
 "unexpectedError" = "Unexpected error.";
@@ -412,25 +387,13 @@
 "spendUnconfirmedFund" = "Spend Unconfirmed Funds";
 "incomingTxNotification" = "Incoming Transaction Notification";
 "currencyConversion" = "Currency Conversion";
-"networkMode" = "Network Mode";
-"serverAddress" = "Server Address";
 "connectIpDesc" = "Connect to Peer";
-"certificate" = "Certificate";
 "syncOnWifiDesc" = "Sync when not on WiFi";
 "buildDate" = "Build Date";
 "walletLog" = "Wallet Log";
-"removeWallet" = "Remove wallet";
-"spv" = "Simplified Payment Verification (SPV)";
-"remoteFullNode" = "Remote Full Node";
 "none" = "None";
 "rescanConfirm" = "Are you sure? This could take some time.";
 "rescanBlockchain" = "Rescan blockchain";
-"syncProgressAlert" = "Sync is in progress. Please wait for sync to complete.";
-"scanInProgress" = "Check progress in navigation bar.";
-"scanStartedAlready" = "Wallet is already rescanning, check progress in navigation bar.";
-"rescanFailed" = "Rescan failed";
-"removingWallet" = "Removing wallet...";
-"removeWalletFailed" = "Failed to Remove wallet.";
 "general" = "General";
 "connection" = "Connection";
 "about" = "About";
@@ -495,10 +458,8 @@
 "back" = "Back";
 "clearFields" =  "Clear fields";
 "copiedSuccessfully" = "Copied successfully.";
-"invalidRequest" = "Invalid request!";
 "addrCopied" = "Address copied!";
 "previousOutpointCopied" = "Previous outpoint copied!";
-"errorMsg" = "Error Message";
 "info" = "Info";
 "delete" = "Delete";
 "allowOnce" = "Allow once";
@@ -540,3 +501,4 @@
 "verifying" = "Verifying...";
 "verifySeedPhrase" = "Verify seed phrase";
 "selectTheCorrectWordsToVerify" = "Select the correct words to verify.";
+"enterSeedOnNextScreen" = "You will be asked to enter the seed phrase on the next screen.";

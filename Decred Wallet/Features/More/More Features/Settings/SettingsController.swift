@@ -14,20 +14,13 @@ import Dcrlibwallet
 class SettingsController: UITableViewController  {
     @IBOutlet weak var changeStartPINCell: UITableViewCell!
     @IBOutlet weak var connectPeer_cell: UITableViewCell!
-    @IBOutlet weak var server_cell: UITableViewCell!
-    @IBOutlet weak var certificate_cell: UITableViewCell!
-    @IBOutlet weak var network_mode_subtitle: UILabel!
-    @IBOutlet weak var network_mode: UITableViewCell!
     @IBOutlet weak var Start_Pin_cell: UITableViewCell!
     @IBOutlet weak var cellularSyncSwitch: UISwitch!
     @IBOutlet weak var connect_peer_ip: UILabel!
-    @IBOutlet weak var server_ip: UILabel!
     @IBOutlet weak var spend_uncon_fund: UISwitch!
     @IBOutlet weak var beep_for_new_block: UISwitch!
     @IBOutlet weak var start_Pin: UISwitch!
     @IBOutlet weak var currency_subtitle: UILabel!
-    @IBOutlet weak var certificateLabel: UILabel!
-    @IBOutlet weak var serverAddressLabel: UILabel!
     @IBOutlet weak var connectIpDesc: UILabel!
     
     override func viewDidLoad() {
@@ -79,47 +72,17 @@ class SettingsController: UITableViewController  {
         self.navigationItem.leftBarButtonItems =  [closeButton, barButtonTitle]
         
         self.connect_peer_ip?.text = Settings.readStringValue(for: DcrlibwalletSpvPersistentPeerAddressesConfigKey)
-        self.server_ip?.text = "" // deprecated in v2
         
         self.loadSettingsData()
         self.checkStartupSecurity()
-
-        if Settings.networkMode == 0 {
-            self.network_mode_subtitle?.text = LocalizedStrings.spv
-            self.certificate_cell.isUserInteractionEnabled = false
-            self.server_cell.isUserInteractionEnabled = false
-            self.connectPeer_cell.isUserInteractionEnabled = true
-            self.server_ip.textColor = UIColor.lightGray
-            self.certificateLabel.textColor = UIColor.lightGray
-            self.connect_peer_ip.textColor = UIColor.darkText
-            self.serverAddressLabel.textColor = UIColor.lightGray
-            self.connectIpDesc.textColor = UIColor.darkText
-        } else {
-            self.network_mode_subtitle?.text = LocalizedStrings.remoteFullNode
-            self.certificate_cell.isUserInteractionEnabled = true
-            self.server_cell.isUserInteractionEnabled = true
-            self.connectPeer_cell.isUserInteractionEnabled = false
-            self.connect_peer_ip.textColor = UIColor.lightGray
-            self.certificateLabel.textColor = UIColor.darkText
-            self.server_ip.textColor = UIColor.darkText
-            self.serverAddressLabel.textColor = UIColor.darkText
-            self.connectIpDesc.textColor = UIColor.lightGray
-        }
     }
     
     func loadSettingsData() -> Void {
         self.spend_uncon_fund?.isOn = Settings.readBoolValue(for: DcrlibwalletSpendUnconfirmedConfigKey)
         self.connect_peer_ip?.text = Settings.readStringValue(for: DcrlibwalletSpvPersistentPeerAddressesConfigKey)
-        self.server_ip?.text = "" // deprecated in v2
         self.beep_for_new_block?.isOn = Settings.readBoolValue(for: DcrlibwalletBeepNewBlocksConfigKey)
         
         self.cellularSyncSwitch.isOn = Settings.readBoolValue(for: DcrlibwalletSyncOnCellularConfigKey)
-        
-        if Settings.networkMode == 0 {
-            self.network_mode_subtitle?.text = LocalizedStrings.spv
-        } else {
-            self.network_mode_subtitle?.text = LocalizedStrings.remoteFullNode
-        }
         
         switch Settings.currencyConversionOption {
         case .None:
@@ -178,19 +141,6 @@ class SettingsController: UITableViewController  {
                 
             case 1: // change startup pin/password, requires wallet to be opened and startup pin to have been enabled previously.
                 return isWalletOpen && start_Pin.isOn ? 44 : 0
-                
-            default:
-                return 44
-            }
-        }
-        
-        if indexPath.section == 3 {
-            switch indexPath.row {
-            case 1: // connect to peer, only show if network mode is SPV (0).
-                 return Settings.networkMode == 0 ? 44 : 0
-                
-            case 2, 3: // server address and certificate options, only show if network mode is full node (1).
-                return Settings.networkMode == 1 ? 44 : 0
                 
             default:
                 return 44

@@ -17,9 +17,6 @@
 
 /* Create New Wallet(Seed display view) */
 "settingUpYourWallet" = "Configurando Cartera Decred";
-"seedHeaderInfo" = "Escriba esta frase semilla que aparece abajo y guárdela en un lugar seguro. Se le pedirá que lo ingrese en la siguiente pantalla y si alguna vez necesita restaurar su billetara.";
-"seedWarningInfo" = "El no mantener esta semilla segura puede resultar en el robo de su billetera completa o la incapacidad de recuperarla.";
-"iCopiedTheSeedPhrase" = "He copiado la frase semilla";
 
 /* Confirm NewWallet Seed */
 "seedDoesNotMatch" = "Has ingresado una semilla incorrecta. Por favor, revísa tus palabras.";
@@ -43,7 +40,6 @@
 
 /* Wallet Setup Base */
 "settingUpWallet" ="Configurando Cartera Decred...";
-"errorSettingUpWallet" = "Error setting up wallet.";
 
 /* Unlock Wallet Prompt */
 "unlockWithStartupCode" = "Unlock with startup %@";
@@ -65,9 +61,7 @@
 "promptStartupPassword" = "Ingresa la contraseña de inicio actual.";
 "password" = "CONTRASEÑA";
 "proceed" = "Proceed";
-"passwordEmpty" = "Password can't be empty.";
 "invalidInput" = "invalid input.";
-"passwordInvalid" = "La contraseña ingresada no es válida.";
 "passwordPlaceholder"="%@ password";
 "confirmPasswordPlaceholder"="Confirm %@ password";
 
@@ -108,14 +102,8 @@
 "addressDiscoveryProgressThrough" = "~%d%%";
 "scanningTotalHeaders" = "%d of %d";
 "synchronizing" = "Sincronizando...";
-"synchronizationCanceled" = "Synchronization canceled";
-"synchronizationError" = "Synchronization error";
 "syncTotalProgress" = "%d%% completed, %@ remaining.";
-"allTimes" = "Todo el tiempo";
-"elapsed" = "elapsed:";
-"remain" = "queda:";
 "total"  = "total:";
-"tapToViewInformation" = "Pulsa para más información.";
 "latestBlockAge" = "Latest block %d% :- %@";
 "blockHeadersFetched" = "Block headers fetched";
 "syncProgressComplete" = "%d%%";
@@ -124,16 +112,9 @@
 "syncingProgress" = "Syncing progress";
 "cannotSyncWithoutNetworkConnection" = "Cannot sync without network connection.";
 "internetConnectionRequired" = "Internet connection required.";
-"connectToWiFiToSync" = "Connect to WiFi to sync.";
 "restartingSync" = "Restarting sync...";
-"connectingToPeers" = "Connecting to peers.";
-"syncedWith" =  "Synced with %@";
-"fetchingBlockHeaders" = "Fetching block headers.";
-"blocksBehind" = "%d blocks behind.";
-"bestBlockAgeAgo" = "%@ ago";
 "discoveringUsedAddresses" = "Discovering used addresses.";
 "generalSyncProgressCompletedleft" = "%d%% completed, %@ left.";
-"scanningBlocks" = "Scanning blocks.";
 "rescanProgress" = "%d%% completed, %@ left.";
 "syncCanceled" = "Sync canceled.";
 "syncError" = "Sync error.";
@@ -147,8 +128,6 @@
 "monthsAgo" = "%dmo ago";
 "yearsAgo" =  "%dy ago";
 "totalBalance" = "Total Balance";
-"restartingSynchronization" = "Restarting Synchronization";
-"startingSynchronization" = "Starting Sync...";
 "reconnect" = "Reconnect";
 "disconnect" = "Disconnect";
 
@@ -246,11 +225,7 @@
 "amountMaximumAllowed" = "Amount more than maximum allowed.";
 "notEnoughFunds" = "No hay fondos suficientes.";
 "notEnoughFundsOrNotConnected" = "No hay fondos suficientes(o no se encuentra conectado).";
-"rateUnavailableTap"  = "Tasa de cambio no disponible (pulsa para reintentar).";
-"sendToAccount" = "Enviar a la cuenta";
-"sendToAddress" = "Enviar a la dirección";
 "errorGettingMaxSpendable" = "Error getting maximum spendable amount.";
-"pleaseWaitNetworkSync" = "Por favor espera la sincronización de la red.";
 "notConnected" = "No conectado a la red.";
 "amountCantBeZero" = "El monto no puede ser cero.";
 "unexpectedError" = "Unexpected error.";
@@ -412,25 +387,13 @@
 "spendUnconfirmedFund" = "Spend Unconfirmed Funds";
 "incomingTxNotification" = "Notificaciones de transacciones entrantes";
 "currencyConversion" = "Conversión actual";
-"networkMode" = "Modo de Red";
-"serverAddress" = "Dirección del servidor";
 "connectIpDesc" = "Conectado al par";
-"certificate" = "Certificado";
 "syncOnWifiDesc" = "Sincronizar cuando no esté conectado a una red WiFi";
 "buildDate" = "Fecha de creación";
 "walletLog" = "Registro de la billetera";
-"removeWallet" = "Remove wallet";
-"spv" = "Verificación de Pago Simplificada (VPS)";
-"remoteFullNode" = "Nodo completo remoto";
 "none" = "Ninguno";
 "rescanConfirm" = "¿Estas seguro? Esto podría tomar algo de tiempo.";
 "rescanBlockchain" = "volver a escanear el bloque";
-"syncProgressAlert" = "Sync is in progress. Please wait for sync to complete.";
-"scanInProgress" = "Ver progreso en la barra de navegación.";
-"scanStartedAlready" = "La billetera ya está reexplorando, verifique el progreso en la barra de navegación.";
-"rescanFailed" = "Rescan failed";
-"removingWallet" = "Removing wallet...";
-"removeWalletFailed" = "Failed to Remove wallet.";
 "general" = "General";
 "connection" = "Conexión";
 "about" = "About";
@@ -495,10 +458,8 @@
 "back" = "Back";
 "clearFields" =  "Eliminar campos";
 "copiedSuccessfully" = "Copiado exitosamente.";
-"invalidRequest" = "Invalid request!";
 "addrCopied" = "Dirección copiada!";
 "previousOutpointCopied" = "Previous outpoint copied!";
-"errorMsg" = "Error Message";
 "info" = "Información";
 "delete" = "Eliminar";
 "allowOnce" = "Allow once";
@@ -540,3 +501,4 @@
 "verifying" = "Verifying...";
 "verifySeedPhrase" = "Verify seed phrase";
 "selectTheCorrectWordsToVerify" = "Select the correct words to verify.";
+"enterSeedOnNextScreen" = "You will be asked to enter the seed phrase on the next screen.";

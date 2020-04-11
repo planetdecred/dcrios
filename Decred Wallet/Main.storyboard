@@ -12,62 +12,6 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Help View Controller-->
-        <scene sceneID="KmC-zu-2VC">
-            <objects>
-                <viewController storyboardIdentifier="HelpViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="W0n-B7-KjY" customClass="HelpViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="PrI-zG-xl5"/>
-                        <viewControllerLayoutGuide type="bottom" id="fjK-mu-Ueq"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="w9N-kl-PBo">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="For more information please visit" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dLy-1p-dtT">
-                                <rect key="frame" x="20.5" y="408" width="373" height="17"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" red="0.53725490196078429" green="0.59215686274509804" blue="0.6470588235294118" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="forMoreInformationPleaseVisit"/>
-                                </userDefinedRuntimeAttributes>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="helpIcon" translatesAutoresizingMaskIntoConstraints="NO" id="lue-Jf-2pX">
-                                <rect key="frame" x="165.5" y="279.5" width="83" height="109.5"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="lue-Jf-2pX" secondAttribute="height" multiplier="50:66" id="XLD-H3-unY"/>
-                                </constraints>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g3T-GI-lU4">
-                                <rect key="frame" x="20.5" y="433" width="373" height="30"/>
-                                <state key="normal" title="https://docs.decred.org"/>
-                                <connections>
-                                    <action selector="openHelpLink:" destination="W0n-B7-KjY" eventType="touchUpInside" id="fz3-8n-qRW"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="g3T-GI-lU4" firstAttribute="centerY" secondItem="w9N-kl-PBo" secondAttribute="centerY" id="B6T-yj-ucr"/>
-                            <constraint firstItem="g3T-GI-lU4" firstAttribute="top" secondItem="dLy-1p-dtT" secondAttribute="bottom" constant="8" id="D2w-1E-8zW"/>
-                            <constraint firstItem="g3T-GI-lU4" firstAttribute="centerX" secondItem="w9N-kl-PBo" secondAttribute="centerX" id="Epg-ai-0Q8"/>
-                            <constraint firstItem="lue-Jf-2pX" firstAttribute="centerX" secondItem="w9N-kl-PBo" secondAttribute="centerX" id="e5r-4s-moR"/>
-                            <constraint firstItem="dLy-1p-dtT" firstAttribute="width" secondItem="w9N-kl-PBo" secondAttribute="width" multiplier="0.9" id="pvo-q3-E1d"/>
-                            <constraint firstItem="dLy-1p-dtT" firstAttribute="centerX" secondItem="w9N-kl-PBo" secondAttribute="centerX" id="rBo-gZ-dal"/>
-                            <constraint firstItem="dLy-1p-dtT" firstAttribute="top" secondItem="lue-Jf-2pX" secondAttribute="bottom" constant="19" id="rpz-JW-eXj"/>
-                            <constraint firstItem="lue-Jf-2pX" firstAttribute="width" secondItem="w9N-kl-PBo" secondAttribute="width" multiplier="0.2" id="ruE-aZ-xlD"/>
-                            <constraint firstItem="g3T-GI-lU4" firstAttribute="width" secondItem="w9N-kl-PBo" secondAttribute="width" multiplier="0.9" id="yYc-Sh-SyV"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="linkBtn" destination="g3T-GI-lU4" id="mCu-tb-Rfs"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="RK1-To-ESx" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="249" y="-1188"/>
-        </scene>
         <!--Start Screen View Controller-->
         <scene sceneID="PGy-QW-K8H">
             <objects>
@@ -154,7 +98,5 @@
     </scenes>
     <resources>
         <image name="decredWord" width="188.5" height="45"/>
-        <image name="helpIcon" width="50" height="67"/>
-        <image name="ic_dropdown" width="24" height="24"/>
     </resources>
 </document>
