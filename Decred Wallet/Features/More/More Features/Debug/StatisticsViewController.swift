@@ -43,7 +43,7 @@ class StatisticsViewController: UITableViewController  {
         
         self.addNavigationBackButton()
             
-        let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.checkStatistics, style: .plain, target: self, action: nil)
+        let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.statistics, style: .plain, target: self, action: nil)
         barButtonTitle.tintColor = UIColor.appColors.darkBlue
             
         self.navigationItem.leftBarButtonItems =  [(self.navigationItem.leftBarButtonItem)!, barButtonTitle]

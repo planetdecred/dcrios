@@ -417,6 +417,7 @@ struct LocalizedStrings {
     static let about = NSLocalizedString("about", comment: "")
     static let debug = NSLocalizedString("debug", comment: "")
     static let checkStatistics = NSLocalizedString("checkStatistics", comment: "")
+    static let statistics = NSLocalizedString("statistics", comment: "")
     static let seconds = NSLocalizedString("seconds", comment: "")
     static let minutes = NSLocalizedString("minutes", comment: "")
     static let hours = NSLocalizedString("hours", comment: "")
