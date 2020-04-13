@@ -99,7 +99,7 @@ class WalletInfoTableViewCell: UITableViewCell {
 
 extension WalletInfoTableViewCell: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return numberOfAccountsToDisplay
+        return self.numberOfAccountsToDisplay
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
