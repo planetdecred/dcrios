@@ -517,6 +517,7 @@ extension OverviewViewController: DcrlibwalletSyncProgressListenerProtocol {
         self.toggleSyncProgressViews(isSyncing: false)
         self.displayLatestBlockHeightAndAge()
         self.refreshLatestBlockInfoPeriodically()
+        self.displayConnectedPeersCount()
         self.clearAndHideSyncDetails()
         
         if synced {
@@ -527,7 +528,7 @@ extension OverviewViewController: DcrlibwalletSyncProgressListenerProtocol {
     
     func refreshLatestBlockInfoPeriodically() {
         self.refreshBestBlockAgeTimer?.invalidate()
-        self.refreshBestBlockAgeTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) {_ in
+        self.refreshBestBlockAgeTimer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true) {_ in
             DispatchQueue.main.async {
                 self.displayLatestBlockHeightAndAge()
             }
