@@ -11,7 +11,7 @@ import Dcrlibwallet
 
 class WalletSettingsViewController: UIViewController {
     @IBOutlet weak var walletNameLabel: UILabel!
-    @IBOutlet weak var useFingerprintSwitch: UISwitch!
+    @IBOutlet weak var useBiometricSwitch: UISwitch!
     @IBOutlet weak var incomingTxAlertButton: UIButton!
     
     var wallet: DcrlibwalletWallet!
@@ -21,7 +21,7 @@ class WalletSettingsViewController: UIViewController {
         self.walletNameLabel.text = self.wallet.name
         self.walletSettings = WalletSettings(for: self.wallet)
         
-        self.useFingerprintSwitch.isOn = self.walletSettings.useFingerprint
+        self.useBiometricSwitch.isOn = self.walletSettings.useBiometric
         self.incomingTxAlertButton.setTitle(self.walletSettings.txNotificationAlert.localizedString, for: .normal)
     }
     
@@ -29,8 +29,8 @@ class WalletSettingsViewController: UIViewController {
         self.dismissView()
     }
     
-    @IBAction func useFingerprintSwitchToggle(_ sender: Any) {
-        self.walletSettings.setBoolValue(self.useFingerprintSwitch.isOn, for: DcrlibwalletUseFingerprintConfigKey)
+    @IBAction func useBiometricSwitchToggle(_ sender: Any) {
+        self.walletSettings.setBoolValue(self.useBiometricSwitch.isOn, for: "\(self.wallet.id_)" + DcrlibwalletUseBiometricConfigKey)
     }
     
     @IBAction func changeSpendingPINPassword(_ sender: Any) {
