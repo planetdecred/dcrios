@@ -169,11 +169,11 @@
 		DD89A04523B08FDD00C1ECE9 /* SecurityToolsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD89A04423B08FDD00C1ECE9 /* SecurityToolsItem.swift */; };
 		DD89A04723B091FF00C1ECE9 /* SecurityToolsItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD89A04623B091FF00C1ECE9 /* SecurityToolsItemCell.swift */; };
 		DD8F9D3C22BE7A5600FF8594 /* Security.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD8F9D3B22BE7A5600FF8594 /* Security.storyboard */; };
+		DDA2F7CE24375FEF00A3DC7C /* StatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA2F7CD24375FEF00A3DC7C /* StatisticsViewController.swift */; };
 		DDA8154B243E56750011333F /* WalletSetup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDA8154A243E56740011333F /* WalletSetup.storyboard */; };
 		DDAE91002435086B00FEC016 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAE90FF2435086B00FEC016 /* KeychainWrapper.swift */; };
 		DDAE91022435092200FEC016 /* KeychainItemAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAE91012435092200FEC016 /* KeychainItemAccessibility.swift */; };
 		DDAE91042435092200FEC016 /* ErrorMessageForLA.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAE91032435092200FEC016 /* ErrorMessageForLA.swift */; };
-		DDCF259222B89D96005FCBB9 /* WalletSetup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDCF259122B89D96005FCBB9 /* WalletSetup.storyboard */; };
 		DDCF259A22B8A347005FCBB9 /* Overview.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDCF259922B8A346005FCBB9 /* Overview.storyboard */; };
 		DDCF259C22B8A362005FCBB9 /* Send.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDCF259B22B8A361005FCBB9 /* Send.storyboard */; };
 		DDCF25A122B8A3D4005FCBB9 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDCF25A022B8A3D4005FCBB9 /* Settings.storyboard */; };
@@ -361,11 +361,11 @@
 		DD89A04423B08FDD00C1ECE9 /* SecurityToolsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityToolsItem.swift; sourceTree = "<group>"; };
 		DD89A04623B091FF00C1ECE9 /* SecurityToolsItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityToolsItemCell.swift; sourceTree = "<group>"; };
 		DD8F9D3B22BE7A5600FF8594 /* Security.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Security.storyboard; sourceTree = "<group>"; };
+		DDA2F7CD24375FEF00A3DC7C /* StatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewController.swift; sourceTree = "<group>"; };
 		DDA8154A243E56740011333F /* WalletSetup.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = WalletSetup.storyboard; sourceTree = "<group>"; };
 		DDAE90FF2435086B00FEC016 /* KeychainWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		DDAE91012435092200FEC016 /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainItemAccessibility.swift; sourceTree = "<group>"; };
 		DDAE91032435092200FEC016 /* ErrorMessageForLA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessageForLA.swift; sourceTree = "<group>"; };
-		DDCF259122B89D96005FCBB9 /* WalletSetup.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = WalletSetup.storyboard; sourceTree = "<group>"; };
 		DDCF259922B8A346005FCBB9 /* Overview.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Overview.storyboard; sourceTree = "<group>"; };
 		DDCF259B22B8A361005FCBB9 /* Send.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Send.storyboard; sourceTree = "<group>"; };
 		DDCF25A022B8A3D4005FCBB9 /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
@@ -905,6 +905,7 @@
 				DD5AB14723BAE47A00863362 /* Debug.storyboard */,
 				B3B46A66228F0F7B00A68EDD /* WalletLogViewController.swift */,
 				DD5AB14D23D4C12C00863362 /* DebugTableViewController.swift */,
+				DDA2F7CD24375FEF00A3DC7C /* StatisticsViewController.swift */,
 			);
 			path = Debug;
 			sourceTree = "<group>";
@@ -1212,6 +1213,7 @@
 				DD89A04323B08CF800C1ECE9 /* SecurityToolsViewController.swift in Sources */,
 				DDDF95CE23C11F760057AA7F /* VerifyMessageViewController.swift in Sources */,
 				B3B46A9D228F0F7D00A68EDD /* HelpViewController.swift in Sources */,
+				DDA2F7CE24375FEF00A3DC7C /* StatisticsViewController.swift in Sources */,
 				10B7818223F066DA00AD2709 /* TransactionInputDetailCell.swift in Sources */,
 				B3B46A9A228F0F7D00A68EDD /* SettingsController.swift in Sources */,
 				10FABE4B23C72D6800BC201B /* FloatingPlaceholderInputProtocol.swift in Sources */,
@@ -1258,7 +1260,6 @@
 				B3B46AA6228F0F7D00A68EDD /* NetworkModeTableViewController.swift in Sources */,
 				B3B469FB228F0F2700A68EDD /* Extensions.swift in Sources */,
 				B3B46A0D228F0F2700A68EDD /* Constants.swift in Sources */,
-				B3B46A29228F0F2700A68EDD /* WalletSetupViewController.swift in Sources */,
 				DDAE91042435092200FEC016 /* ErrorMessageForLA.swift in Sources */,
 				10945CDA23F3DB0C00BBE242 /* TransactionOverviewCell.swift in Sources */,
 				10341E0D23CBBB700055DFDE /* SeedBackupReminderViewController.swift in Sources */,

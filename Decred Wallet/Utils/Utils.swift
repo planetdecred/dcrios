@@ -249,4 +249,86 @@ struct Utils {
         }
         return attrString
     }
+    
+    static func format(bytes: Double) -> String {
+        guard bytes > 0 else {
+            return "0 bytes"
+        }
+
+        let suffixes = ["bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"]
+        let k: Double = 1000
+        let i = floor(log(bytes) / log(k))
+
+        // Format number with thousands separator and everything below 1 GB with no decimal places.
+        let numberFormatter = NumberFormatter()
+        numberFormatter.maximumFractionDigits = i < 3 ? 0 : 1
+        numberFormatter.numberStyle = .decimal
+
+        let numberString = numberFormatter.string(from: NSNumber(value: bytes / pow(k, i))) ?? "Unknown"
+        let suffix = suffixes[Int(i)]
+        return "\(numberString) \(suffix)"
+    }
+    
+    static func getDirFileSize() -> Int64 {
+        let intPointer = UnsafeMutablePointer<Int64>.allocate(capacity: 4)
+        defer {
+            intPointer.deallocate()
+        }
+        do {
+            try WalletLoader.shared.multiWallet.rootDirFileSize(inBytes: intPointer)
+        } catch let error {
+            print("dir error:", error.localizedDescription)
+        }
+        return intPointer.pointee
+    }
+    
+    static func countAllWalletTransaction()-> Int {
+        var transactionCount: Int = 0
+        for wallet in WalletLoader.shared.wallets {
+            transactionCount += wallet.transactionsCount(forTxFilter: DcrlibwalletTxFilterAll)
+        }
+        return transactionCount
+    }
+    
+    static func calculateTime(timeInterval: Int64) -> String {
+        switch timeInterval {
+        case Int64.min...0:
+            return LocalizedStrings.now
+            
+        case 0..<Utils.TimeInSeconds.Minute:
+            return String(format: LocalizedStrings.seconds, timeInterval)
+            
+        case Utils.TimeInSeconds.Minute..<Utils.TimeInSeconds.Hour:
+            let minutes = timeInterval / Utils.TimeInSeconds.Minute
+            return String(format: LocalizedStrings.minutes, minutes)
+            
+        case Utils.TimeInSeconds.Hour..<Utils.TimeInSeconds.Day:
+            let hours = timeInterval / Utils.TimeInSeconds.Hour
+            return String(format: LocalizedStrings.hours, hours)
+            
+        case Utils.TimeInSeconds.Day..<Utils.TimeInSeconds.Week:
+            let days = timeInterval / Utils.TimeInSeconds.Day
+            return String(format: LocalizedStrings.days, days)
+            
+        case Utils.TimeInSeconds.Week..<Utils.TimeInSeconds.Month:
+            let weeks = timeInterval / Utils.TimeInSeconds.Week
+            return String(format: LocalizedStrings.weeks, weeks)
+            
+        case Utils.TimeInSeconds.Month..<Utils.TimeInSeconds.Year:
+            let months = timeInterval / Utils.TimeInSeconds.Month
+            return String(format: LocalizedStrings.months, months)
+            
+        default:
+            let years = timeInterval / Utils.TimeInSeconds.Year
+            return String(format: LocalizedStrings.years, years)
+        }
+    }
+    
+    static func timeStringFor(seconds : Double) -> String {
+        let formatter = DateComponentsFormatter()
+        formatter.allowedUnits = [.second, .minute, .hour]
+        formatter.zeroFormattingBehavior = .pad
+        let output = formatter.string(from: TimeInterval(seconds))!
+        return output
+    }
 }

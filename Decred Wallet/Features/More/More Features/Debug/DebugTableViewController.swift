@@ -32,7 +32,7 @@ class DebugTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 1 {
+        if indexPath.row == 2 {
             // rescan blockchain
             self.showOkAlert(message: LocalizedStrings.rescanConfirm,
                              title: LocalizedStrings.rescanBlockchain,
@@ -48,7 +48,7 @@ class DebugTableViewController: UITableViewController {
         }
         
         switch indexPath.row {
-        case 1: // rescan blockchain options, requires wallet to be opened.
+        case 1, 2: // check statistics and rescan blockchain options, requires wallet to be opened.
             return isWalletOpen ? 44 : 0
             
         default:
