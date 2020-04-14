@@ -34,20 +34,7 @@ class StatisticsViewController: UITableViewController  {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-       self.navigationController?.navigationBar.isHidden = false
-        self.navigationController?.navigationBar.tintColor = UIColor.appColors.darkBlue
-        self.navigationController?.navigationBar.barTintColor = UIColor.appColors.offWhite
-        //Remove shadow from navigation bar
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        
-        self.addNavigationBackButton()
-            
-        let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.statistics, style: .plain, target: self, action: nil)
-        barButtonTitle.tintColor = UIColor.appColors.darkBlue
-            
-        self.navigationItem.leftBarButtonItems =  [(self.navigationItem.leftBarButtonItem)!, barButtonTitle]
+        self.setupNavigationBar()
     }
     
     func loadStatistcs() {
@@ -71,5 +58,23 @@ class StatisticsViewController: UITableViewController  {
         self.chainDataDetailLabel.text = "\(Utils.format(bytes: Double(Utils.getDirFileSize())))"
         self.accountDetailLabel.text = "\(WalletLoader.shared.multiWallet.openedWalletsCount())"
         self.transactionDetailLabel.text = "\(Utils.countAllWalletTransaction())"
+    }
+    
+    private func setupNavigationBar() {
+        self.navigationController?.navigationBar.isHidden = false
+        self.navigationController?.navigationBar.tintColor = UIColor.appColors.darkBlue
+        self.navigationController?.navigationBar.barTintColor = UIColor.appColors.offWhite
+               //Remove shadow from navigation bar
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+               
+        self.addNavigationBackButton()
+                   
+        let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.statistics, style: .plain, target: self, action: nil)
+               barButtonTitle.tintColor = UIColor.appColors.darkBlue
+        if let barButtonReturn = self.navigationItem.leftBarButtonItem {
+            self.navigationItem.leftBarButtonItems =
+            [barButtonReturn, barButtonTitle]
+        }
     }
 }

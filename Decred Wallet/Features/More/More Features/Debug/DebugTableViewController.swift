@@ -48,11 +48,8 @@ class DebugTableViewController: UITableViewController {
         }
         
         switch indexPath.row {
-        case 1: // check statistics options, requires wallet to be opened.
+        case 1, 2: // check statistics and rescan blockchain options, requires wallet to be opened.
             return isWalletOpen ? 44 : 0
-            
-        case 2: // rescan blockchain options, requires wallet to be opened.
-        return isWalletOpen ? 44 : 0
             
         default:
             return 44
