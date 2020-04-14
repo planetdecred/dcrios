@@ -13,111 +13,12 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Wallet Setup View Controller-->
-        <scene sceneID="SNV-cX-ruz">
-            <objects>
-                <viewController storyboardIdentifier="WalletSetupViewController" id="98H-rf-Dma" customClass="WalletSetupViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="npK-sR-9JI">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Decred Wallet,  a secure &amp; open-source mobile wallet." textAlignment="center" lineBreakMode="clip" numberOfLines="0" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8zf-Wa-Bz1">
-                                <rect key="frame" x="24" y="238.5" width="272" height="91"/>
-                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="24"/>
-                                <color key="textColor" red="0.035294117647058823" green="0.078431372549019607" blue="0.25098039215686274" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="introMessage"/>
-                                </userDefinedRuntimeAttributes>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ni8-A4-7rx" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
-                                <rect key="frame" x="24" y="416" width="272" height="56"/>
-                                <color key="backgroundColor" red="0.16" green="0.44" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="56" id="IiK-R7-XR5"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
-                                <inset key="contentEdgeInsets" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <inset key="titleEdgeInsets" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" image="ic-add">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <color key="titleShadowColor" red="0.040000000000000001" green="0.080000000000000002" blue="0.25" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="7"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="createNewWallet"/>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="createNewwallet:" destination="98H-rf-Dma" eventType="touchUpInside" id="qtH-rE-QYb"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L3O-72-qmd" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
-                                <rect key="frame" x="24" y="488" width="272" height="56"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="56" id="PAv-Oh-lqQ"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
-                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <inset key="contentEdgeInsets" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <inset key="titleEdgeInsets" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="16" maxY="0.0"/>
-                                <state key="normal" image="ic_restore">
-                                    <color key="titleColor" red="0.16078431372549018" green="0.4392156862745098" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="7"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="restoreExistingWallet"/>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="enabledBackgroundColor">
-                                        <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <segue destination="sSQ-om-jpL" kind="show" id="C6D-9x-805"/>
-                                </connections>
-                            </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_decred_logo" translatesAutoresizingMaskIntoConstraints="NO" id="xDz-Fh-kaY">
-                                <rect key="frame" x="80" y="54.5" width="160" height="160"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="160" id="2ha-XR-iQb"/>
-                                    <constraint firstAttribute="width" constant="160" id="ZIz-AX-cRW"/>
-                                </constraints>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" red="0.95294117649999999" green="0.96078431369999995" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="xDz-Fh-kaY" firstAttribute="centerX" secondItem="npK-sR-9JI" secondAttribute="centerX" id="5nj-sd-p6N"/>
-                            <constraint firstItem="L3O-72-qmd" firstAttribute="top" secondItem="Ni8-A4-7rx" secondAttribute="bottom" constant="16" id="7KF-KL-1Vm"/>
-                            <constraint firstItem="LAl-yA-Pfr" firstAttribute="trailing" secondItem="Ni8-A4-7rx" secondAttribute="trailing" constant="24" id="DTt-94-Dk9"/>
-                            <constraint firstItem="LAl-yA-Pfr" firstAttribute="trailing" secondItem="8zf-Wa-Bz1" secondAttribute="trailing" constant="24" id="GAJ-xq-dhs"/>
-                            <constraint firstItem="LAl-yA-Pfr" firstAttribute="bottom" secondItem="L3O-72-qmd" secondAttribute="bottom" constant="24" id="QB2-n6-0Om"/>
-                            <constraint firstItem="8zf-Wa-Bz1" firstAttribute="leading" secondItem="LAl-yA-Pfr" secondAttribute="leading" constant="24" id="QF1-h5-eDo"/>
-                            <constraint firstItem="8zf-Wa-Bz1" firstAttribute="centerX" secondItem="npK-sR-9JI" secondAttribute="centerX" id="Rhe-eS-n1i"/>
-                            <constraint firstItem="Ni8-A4-7rx" firstAttribute="leading" secondItem="LAl-yA-Pfr" secondAttribute="leading" constant="24" id="Srm-Ho-mhs"/>
-                            <constraint firstItem="LAl-yA-Pfr" firstAttribute="trailing" secondItem="L3O-72-qmd" secondAttribute="trailing" constant="24" id="ldX-3z-HE1"/>
-                            <constraint firstItem="8zf-Wa-Bz1" firstAttribute="top" secondItem="xDz-Fh-kaY" secondAttribute="bottom" constant="24" id="nSj-KQ-kA5"/>
-                            <constraint firstItem="8zf-Wa-Bz1" firstAttribute="centerY" secondItem="npK-sR-9JI" secondAttribute="centerY" id="scd-sD-W6h"/>
-                            <constraint firstItem="L3O-72-qmd" firstAttribute="leading" secondItem="LAl-yA-Pfr" secondAttribute="leading" constant="24" id="tCu-nc-C3I"/>
-                            <constraint firstItem="L3O-72-qmd" firstAttribute="top" secondItem="Ni8-A4-7rx" secondAttribute="bottom" constant="16" id="y7O-Cd-v9M"/>
-                            <constraint firstItem="Ni8-A4-7rx" firstAttribute="leading" secondItem="LAl-yA-Pfr" secondAttribute="leading" constant="24" id="zHR-BY-NbL"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="LAl-yA-Pfr"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="958-W0-p93" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1034.7826086956522" y="-177.45535714285714"/>
-        </scene>
         <!--Restore Existing Wallet View Controller-->
         <scene sceneID="Gw8-z6-E4f">
             <objects>
                 <viewController storyboardIdentifier="RestoreExistingWalletViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="sSQ-om-jpL" customClass="RestoreExistingWalletViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KIb-dl-V73">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xri-y1-UTl">
@@ -153,7 +54,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="70" sectionHeaderHeight="1" sectionFooterHeight="1" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R32-m2-T9b">
-                                <rect key="frame" x="8" y="64" width="304" height="413"/>
+                                <rect key="frame" x="8" y="64" width="304" height="433"/>
                                 <color key="backgroundColor" red="0.95294117649999999" green="0.96078431369999995" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="8"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="Wio-PS-07A">
@@ -262,7 +163,7 @@
                                 </connections>
                             </tableView>
                             <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vsG-Pq-WkH">
-                                <rect key="frame" x="24" y="274" width="272" height="158"/>
+                                <rect key="frame" x="24" y="288" width="272" height="158"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <userDefinedRuntimeAttributes>
@@ -272,7 +173,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fLE-bA-m0D">
-                                <rect key="frame" x="0.0" y="477" width="320" height="72"/>
+                                <rect key="frame" x="0.0" y="497" width="320" height="72"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y0N-xl-hPB">
                                         <rect key="frame" x="-11.5" y="12" width="343" height="48"/>
@@ -399,10 +300,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="ic-add" width="24" height="24"/>
         <image name="ic_checkmark_round" width="64" height="64"/>
-        <image name="ic_decred_logo" width="160" height="160"/>
-        <image name="ic_restore" width="24" height="24"/>
         <image name="left-arrow" width="24" height="24"/>
     </resources>
 </document>
