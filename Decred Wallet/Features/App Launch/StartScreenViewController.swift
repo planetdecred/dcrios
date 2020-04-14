@@ -55,7 +55,7 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         if self.startTimerWhenViewAppears {
-            self.startAnim()
+            self.startAnimation()
             self.timer = Timer.scheduledTimer(withTimeInterval: animationDurationSeconds, repeats: false) {_ in
                 self.loadMainScreen()
             }
@@ -69,7 +69,7 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
         }
     }
     
-    func startAnim(done: (() -> Void)? = nil) {
+    func startAnimation(done: (() -> Void)? = nil) {
         let splashLogo = UIImage.gif(name: "splashLogo")
         
         // CAKeyframeAnimation.values are expected to be CGImageRef,
@@ -150,15 +150,13 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
     }
     
     @IBAction func restoreExistingWallet(_ sender: Any) {
-        print("restore")
         let restoreWalletVC = RestoreExistingWalletViewController.instantiate(from: .WalletSetup)
         self.navigationController?.pushViewController(restoreWalletVC, animated: true)
     }
     
     func loadMainScreen() {
         if !WalletLoader.shared.isInitialized {
-            print("can't init")
-            // there was an error initializing multiwallet
+            print("there was an error initializing multiwallet")
             return
         }
         
