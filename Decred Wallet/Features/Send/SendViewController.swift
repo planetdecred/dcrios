@@ -195,7 +195,7 @@ class SendViewController: UIViewController {
         present(alertController, animated: true, completion: nil)
     }
     
-    @IBAction func overflowMenuButtonTapped(_ sender: Any) {
+    @IBAction func overflowMenuButtonTapped(_ sender: UIView) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: LocalizedStrings.cancel, style: .cancel, handler: nil)
         let clearFieldsAction = UIAlertAction(title: "Clear all fields", style: .default) { action in
@@ -203,6 +203,12 @@ class SendViewController: UIViewController {
         }
         alertController.addAction(cancelAction)
         alertController.addAction(clearFieldsAction)
+        
+        if let popoverPresentationController = alertController.popoverPresentationController {
+            popoverPresentationController.sourceView = sender
+            popoverPresentationController.sourceRect = sender.bounds
+        }
+        
         present(alertController, animated: true, completion: nil)
     }
     
@@ -238,12 +244,12 @@ class SendViewController: UIViewController {
             }
             
             if BuildConfig.IsTestNet {
-                if !capturedText.starts(with: "T") {
+                if !addressURI.address.starts(with: "T") {
                     Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.invalidTesnetAddress)
                     return
                 }
             } else {
-                if !capturedText.starts(with: "D") {
+                if !addressURI.address.starts(with: "D") {
                     Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.invalidMainnetAddress)
                     return
                 }

@@ -11,7 +11,7 @@ import Dcrlibwallet
 
 protocol WalletInfoTableViewCellDelegate {
     func walletSeedBackedUp()
-    func showWalletMenu(walletName: String, walletID: Int)
+    func showWalletMenu(walletName: String, walletID: Int, _ sender: UIView)
     func addNewAccount(_ wallet: Wallet)
     func showAccountDetailsDialog(_ account: DcrlibwalletAccount)
 }
@@ -88,8 +88,8 @@ class WalletInfoTableViewCell: UITableViewCell {
         AppDelegate.shared.window?.rootViewController?.present(modalVC, animated: true)
     }
     
-    @IBAction func walletMenuButtonTapped(_ sender: Any) {
-        self.delegate?.showWalletMenu(walletName: self.wallet.name, walletID: self.wallet.id)
+    @IBAction func walletMenuButtonTapped(_ sender: UIView) {
+        self.delegate?.showWalletMenu(walletName: self.wallet.name, walletID: self.wallet.id, sender)
     }
     
     @IBAction func addNewAccountTapped(_ sender: Any) {
@@ -99,7 +99,7 @@ class WalletInfoTableViewCell: UITableViewCell {
 
 extension WalletInfoTableViewCell: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return numberOfAccountsToDisplay
+        return self.numberOfAccountsToDisplay
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

@@ -28,6 +28,7 @@ class StatisticsViewController: UITableViewController  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 36, right: 0)
         self.loadStatistcs()
     }
     

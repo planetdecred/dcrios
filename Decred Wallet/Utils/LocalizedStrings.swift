@@ -16,6 +16,7 @@ struct LocalizedStrings {
     static let createNewWallet = NSLocalizedString("createNewWallet", comment: "")
     static let restoreExistingWallet = NSLocalizedString("restoreExistingWallet", comment: "")
     static let wallet = NSLocalizedString("wallet", comment: "")
+    static let introMessage = NSLocalizedString("introMessage", comment: "")
     
     /* Create New Wallet(Seed display view) */
     static let settingUpYourWallet = NSLocalizedString("settingUpYourWallet", comment: "")
@@ -85,6 +86,14 @@ struct LocalizedStrings {
     static let next = NSLocalizedString("next", comment: "")
     static let create = NSLocalizedString("create", comment: "")
 
+    /* Request Biometric */
+    static let promptStartupPassOrPIN = NSLocalizedString("promptStartupPassOrPIN", comment: "")
+    static let promptTouchIDUsageUsage = NSLocalizedString("promptTouchIDUsageUsage", comment: "")
+    static let promptFaceIDUsageUsage = NSLocalizedString("promptFaceIDUsageUsage", comment: "")
+    static let useFaceID = NSLocalizedString("useFaceID", comment: "")
+    static let useTouchId = NSLocalizedString("useTouchId", comment: "")
+    static let enableWithStartupCode = NSLocalizedString("enableWithStartupCode", comment: "")
+    
     /* Overview - unlock wallets for account discovery */
     static let unlockToResumeRestoration = NSLocalizedString("unlockToResumeRestoration", comment: "")
     static let unlockWalletForAccountDiscovery = NSLocalizedString("unlockWalletForAccountDiscovery", comment: "")

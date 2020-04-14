@@ -8,18 +8,34 @@
 
 import UIKit
 import Dcrlibwallet
+import LocalAuthentication
 
-class StartScreenViewController: UIViewController {
-    @IBOutlet weak var label: UILabel!
+class StartScreenViewController: UIViewController, CAAnimationDelegate {
+    @IBOutlet weak var loadingLabel: UILabel!
     @IBOutlet weak var logo: UIImageView!
+    @IBOutlet weak var welcomeText: UILabel!
+    @IBOutlet weak var createWalletBtn: Button!
+    @IBOutlet weak var restoreWalletBtn: Button!
     @IBOutlet weak var testnetLabel: UILabel!
-
+    @IBOutlet weak var imageViewContainer: UIView!
+    
+    let initialAnimationToggleValue : CGFloat = 50
+    let splashViewSlideUpValue : CGFloat = 80
+    let walletSetupViewSlideUpValue : CGFloat = 100
+    
+    var isAnimated = false
     var timer: Timer?
     var startTimerWhenViewAppears = true
-    let animationDurationSeconds: Double = 5
+    var animationDurationSeconds: Double = 7
 
+    // Create animation
+    let animation = CAKeyframeAnimation(keyPath: "contents")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(appMovedToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
 
         if BuildConfig.IsTestNet {
             testnetLabel.isHidden = false
@@ -29,38 +45,118 @@ class StartScreenViewController: UIViewController {
         if initError != nil {
             print("init multiwallet error: \(initError!.localizedDescription)")
         }
-
-        logo.loadGif(name: "splashLogo")
+        
+        if WalletLoader.shared.oneOrMoreWalletsExist {
+            self.loadingLabel.text = LocalizedStrings.openingWallet
+            self.animationDurationSeconds = 6
+        }
     }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-        // start timer to load main screen after specified interval
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
         if self.startTimerWhenViewAppears {
-            self.timer = Timer.scheduledTimer(withTimeInterval: self.animationDurationSeconds, repeats: false) {_ in
+            self.startAnimation()
+            self.timer = Timer.scheduledTimer(withTimeInterval: animationDurationSeconds, repeats: false) {_ in
                 self.loadMainScreen()
             }
             self.startTimerWhenViewAppears = false
         }
-
-        if WalletLoader.shared.oneOrMoreWalletsExist {
-            self.label.text = LocalizedStrings.openingWallet
+    }
+    
+    override func viewDidLayoutSubviews() {
+        if !startTimerWhenViewAppears{
+            self.setStartupAnimationPosition()
         }
     }
-
+    
+    func startAnimation(done: (() -> Void)? = nil) {
+        let splashLogo = UIImage.gif(name: "splashLogo")
+        
+        // CAKeyframeAnimation.values are expected to be CGImageRef,
+        // so we take the values from the UIImage images
+        var values = [CGImage]()
+        for image in splashLogo!.images! {
+            values.append(image.cgImage!)
+        }
+        
+        self.animation.calculationMode = CAAnimationCalculationMode.discrete
+        self.animation.duration = splashLogo!.duration
+        self.animation.values = values
+        // Set the repeat count
+        self.animation.repeatCount = 3
+        // Other stuff
+        self.animation.isRemovedOnCompletion = false
+        self.animation.fillMode = CAMediaTimingFillMode.forwards
+        // Set the delegate
+        self.animation.delegate = self
+        self.logo.contentMode = .scaleAspectFit
+        self.logo.layer.add(animation, forKey: "animation")
+    }
+    
+     func animationDidStop(_ anim: CAAnimation, finished animated: Bool) {
+        self.isAnimated = animated
+    }
+    
+    @objc func appMovedToForeground() {
+        if !self.isAnimated {
+            DispatchQueue.main.async {
+                self.revertAnimationPosition()
+                self.view.layoutIfNeeded()
+            }
+        }
+    }
+    
     @IBAction func animatedLogoTap(_ sender: Any) {
+        if self.isAnimated {
+            return
+        }
+        
         self.timer?.invalidate()
         self.startTimerWhenViewAppears = true
-
+        self.logo.layer.removeAllAnimations()
+        
         let settingsVC = SettingsController.instantiate(from: .Settings).wrapInNavigationcontroller()
         settingsVC.modalPresentationStyle = .fullScreen
         self.present(settingsVC, animated: true, completion: nil)
     }
-
+    
+    func setStartupAnimationPosition() {
+        self.imageViewContainer.center.y += initialAnimationToggleValue
+        self.testnetLabel.center.y += initialAnimationToggleValue
+        self.loadingLabel.center.y += initialAnimationToggleValue
+    }
+    
+    func revertAnimationPosition() {
+        self.imageViewContainer.center.y -= self.initialAnimationToggleValue
+        self.testnetLabel.center.y -= self.initialAnimationToggleValue
+        self.loadingLabel.center.y -= self.initialAnimationToggleValue
+    }
+    
+    @IBAction func createNewwallet(_ sender: Any) {
+        Security.spending(initialSecurityType: .password)
+            .requestNewCode(sender: self, isChangeAttempt: false) { pinOrPassword, type, completion in
+                
+                WalletLoader.shared.createWallet(spendingPinOrPassword: pinOrPassword, securityType: type) {
+                    createWalletError in
+                    
+                    if createWalletError != nil {
+                        completion?.displayError(errorMessage: createWalletError!.localizedDescription)
+                    } else {
+                        completion?.dismissDialog()
+                        NavigationMenuTabBarController.setupMenuAndLaunchApp(isNewWallet: true)
+                    }
+                }
+        }
+    }
+    
+    @IBAction func restoreExistingWallet(_ sender: Any) {
+        let restoreWalletVC = RestoreExistingWalletViewController.instantiate(from: .WalletSetup)
+        self.navigationController?.pushViewController(restoreWalletVC, animated: true)
+    }
+    
     func loadMainScreen() {
         if !WalletLoader.shared.isInitialized {
-            // there was an error initializing multiwallet
+            print("there was an error initializing multiwallet")
             return
         }
         
@@ -76,6 +172,11 @@ class StartScreenViewController: UIViewController {
     func checkStartupSecurityAndStartApp() {
         if !StartupPinOrPassword.pinOrPasswordIsSet() {
             self.openWalletsAndStartApp(startupPinOrPassword: "", dialogDelegate: nil)
+            return
+        }
+        
+        if Settings.readBoolValue(for: DcrlibwalletUseBiometricConfigKey) {
+            self.authenticationWithTouchID()
             return
         }
         
@@ -96,7 +197,7 @@ class StartScreenViewController: UIViewController {
     }
 
     func openWalletsAndStartApp(startupPinOrPassword: String, dialogDelegate: InputDialogDelegate?) {
-        self.label.text = LocalizedStrings.openingWallet
+        self.loadingLabel.text = LocalizedStrings.openingWallet
 
         DispatchQueue.global(qos: .userInitiated).async {
             do {
@@ -118,8 +219,85 @@ class StartScreenViewController: UIViewController {
     }
     
     func displayWalletSetupScreen() {
-        let walletSetupController = WalletSetupViewController.instantiate(from: .WalletSetup).wrapInNavigationcontroller()
-        walletSetupController.isNavigationBarHidden = true
-        AppDelegate.shared.setAndDisplayRootViewController(walletSetupController)
+        // update splash screen location
+        UIView.animate(withDuration: 0,
+                   delay: 0,
+                   options: UIView.AnimationOptions.curveLinear,
+                   animations: { () -> Void in
+        }, completion: { (finished) -> Void in
+            self.revertAnimationPosition()
+        })
+        
+        // animate and display wallet setup options
+        UIView.animate(withDuration: 0.4,
+                                     delay: 0,
+                                     options: UIView.AnimationOptions.curveLinear,
+                                     animations: { () -> Void in
+                                        self.loadingLabel.isHidden = true
+                                        self.createWalletBtn.center.y -= self.walletSetupViewSlideUpValue
+                                        self.logo.image = UIImage(named: "ic_decred_logo")
+                                        self.loadingLabel.center.y -= self.splashViewSlideUpValue
+                                        self.imageViewContainer.center.y -= self.splashViewSlideUpValue
+                                        self.welcomeText.center.y -= self.walletSetupViewSlideUpValue
+                                        self.restoreWalletBtn.center.y -= self.walletSetupViewSlideUpValue
+                                        self.testnetLabel.center.y -= self.splashViewSlideUpValue
+                                        self.createWalletBtn.isHidden = false
+                                        self.restoreWalletBtn.isHidden = false
+                                        self.welcomeText.isHidden = false
+                                        self.welcomeText.text = LocalizedStrings.introMessage
+        })
+    }
+    
+    func authenticationWithTouchID() {
+        let localAuthenticationContext = LAContext()
+        localAuthenticationContext.localizedFallbackTitle = LocalizedStrings.promptStartupPassOrPIN
+        var authError: NSError?
+        var reasonString = ""
+        if localAuthenticationContext.canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error: &authError) {
+            if #available(iOS 11.0, *) {
+                switch localAuthenticationContext.biometryType {
+                case .faceID:
+                    reasonString = LocalizedStrings.promptFaceIDUsageUsage
+                    break
+                case .touchID:
+                    reasonString = LocalizedStrings.promptTouchIDUsageUsage
+                    break
+                case .none:
+                    reasonString = ""
+                    break
+                @unknown default:
+                    reasonString = ""
+                    break
+                }
+            } else {
+                reasonString = ""
+            }
+            localAuthenticationContext.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reasonString) { success, evaluateError in
+                DispatchQueue.main.async {
+                if success {
+                    if let passOrPin = KeychainWrapper.standard.string(forKey: "StartupPinOrPassword") {
+                        self.openWalletsAndStartApp(startupPinOrPassword: passOrPin, dialogDelegate: nil)
+                    }
+                } else {
+                    guard let error = evaluateError else {
+                        return
+                    }
+                    print(ErrorMessageForLA.evaluateAuthenticationPolicyMessageForLA(errorCode: error._code))
+                    self.promptForStartupPinOrPassword() { pinOrPassword, _, dialogDelegate in
+                        self.openWalletsAndStartApp(startupPinOrPassword: pinOrPassword, dialogDelegate: dialogDelegate)
+                    }
+                    }
+                }
+            }
+        } else {
+            guard let error = authError else {
+                return
+            }
+            
+            self.promptForStartupPinOrPassword() { pinOrPassword, _, dialogDelegate in
+                self.openWalletsAndStartApp(startupPinOrPassword: pinOrPassword, dialogDelegate: dialogDelegate)
+            }
+            print(ErrorMessageForLA.evaluateAuthenticationPolicyMessageForLA(errorCode: error.code))
+        }
     }
 }

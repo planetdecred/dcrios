@@ -13,6 +13,7 @@
 "createNewWallet" = "Create a new wallet";
 "restoreExistingWallet" = "Restore an existing wallet";
 "wallet" = "Wallet";
+"introMessage" = "Welcome to Decred Wallet,\n a secure & open-source mobile wallet.";
 
 /* Create New Wallet(Seed display view) */
 "settingUpYourWallet" = "Setting Up Decred Wallet";
@@ -82,6 +83,14 @@
 "next" = "Next";
 "create" = "Create";
 
+/* Request Biometric */
+"promptStartupPassOrPIN" = "Use Startup PIN/Password";
+"promptTouchIDUsageUsage" = "Touch ID is required to use Decred";
+"promptFaceIDUsageUsage" = "Face ID is required to use Decred";
+"useFaceID" = "Use Face ID";
+"useTouchId" = "Use Touch ID";
+"enableWithStartupCode" = "Enable with startup %@";
+
 /* Overview - unlock wallets for account discovery */
 "unlockToResumeRestoration" = "Unlock to resume restoration";
 "unlockWalletForAccountDiscovery" = "The restoration process to discover your accounts was interrupted in the last sync.\n\nUnlock %@ to resume the process.";
@@ -99,8 +108,8 @@
 "numberOfConnectedPeer" = "%d peer";
 "waitingForOtherWallets" = "Waiting for other wallets";
 "fetchedHeaders" = "%d of %d";
-"headersFetchProgress" = "Fetching block headers. %d%%";
-"headersScannedProgress" = "Scanning block headers. %d%%";
+"headersFetchProgress" = "Fetching block headers · %d%%";
+"headersScannedProgress" = "Scanning block headers · %d%%";
 "bestBlockAgebehind" = "%@ behind";
 "blockHeaderScanned" = "Block header scanned";
 "addressDiscoveryProgressOver" = "~%d%% (over)";
@@ -326,7 +335,6 @@
 
 /* Wallet Settings */
 "spendingPinPass" = "Spending PIN/ Password";
-"useFingerprint" = "Use fingerprint";
 "changeSpendingPinPass" = "Change spending PIN/password";
 "notifications" = "Notifications";
 "incomingTransactions" = "Incoming transactions";
