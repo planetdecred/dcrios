@@ -99,7 +99,6 @@ class WalletSettingsViewController: UIViewController {
     
     func walletDeleted() {
         Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.walletRemoved)
-        
         // todo clear wallet settings
         
         if WalletLoader.shared.multiWallet.openedWalletsCount() == 0 {

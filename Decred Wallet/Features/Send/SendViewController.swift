@@ -27,7 +27,7 @@ class SendViewController: UIViewController {
         pasteAddressFromClipboardButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         pasteAddressFromClipboardButton.layer.cornerRadius = 4
         pasteAddressFromClipboardButton.set(fontSize: 14, name: "SourceSansPro-Regular")
-        pasteAddressFromClipboardButton.setTitle("Paste", for: .normal)
+        pasteAddressFromClipboardButton.setTitle(LocalizedStrings.paste, for: .normal)
         pasteAddressFromClipboardButton.setTitleColor(UIColor.appColors.lightBlue, for: .normal)
         pasteAddressFromClipboardButton.backgroundColor = UIColor.appColors.lightGray
         pasteAddressFromClipboardButton.addTarget(self, action: #selector(self.pasteAddressTapped), for: .touchUpInside)
@@ -90,7 +90,7 @@ class SendViewController: UIViewController {
     func setupViews() {
         self.sourceAccountView.onAccountSelectionChanged = { _, newSourceAccount in
             let spendableAmount = (Decimal(newSourceAccount.balance!.dcrSpendable) as NSDecimalNumber).round(8).formattedWithSeparator
-            self.sourceAccountSpendableBalanceLabel.text = "Spendable: \(spendableAmount) DCR" // todo localize spendable
+            self.sourceAccountSpendableBalanceLabel.text = "\(LocalizedStrings.spendable): \(spendableAmount) DCR"
             
             if self.sendMax {
                 self.calculateAndSetMaxSendableAmount()
@@ -162,7 +162,7 @@ class SendViewController: UIViewController {
         if newExchangeRate == nil && self.exchangeRate == nil {
             self.retryFetchExchangeRateButton.isHidden = true
             self.usdAmountLabel.textColor = UIColor.appColors.orange
-            self.usdAmountLabel.text = "Exchange rate not fetched"
+            self.usdAmountLabel.text = LocalizedStrings.exchangeRateNotFetched
             return
         }
         
@@ -189,8 +189,8 @@ class SendViewController: UIViewController {
     }
     
     @IBAction func infoMenuButtonTapped(_ sender: Any) {
-        let alertController = UIAlertController(title: "Send DCR", message: "Input or scan the destination wallet address and the amount in DCR to send funds", preferredStyle: .alert)
-        let gotItAction = UIAlertAction(title: "Got it", style: .cancel, handler: nil)
+        let alertController = UIAlertController(title: LocalizedStrings.sendDCR, message: LocalizedStrings.sendHeaderInfo, preferredStyle: .alert)
+        let gotItAction = UIAlertAction(title: LocalizedStrings.gotIt, style: .cancel, handler: nil)
         alertController.addAction(gotItAction)
         present(alertController, animated: true, completion: nil)
     }
@@ -198,7 +198,7 @@ class SendViewController: UIViewController {
     @IBAction func overflowMenuButtonTapped(_ sender: UIView) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: LocalizedStrings.cancel, style: .cancel, handler: nil)
-        let clearFieldsAction = UIAlertAction(title: "Clear all fields", style: .default) { action in
+        let clearFieldsAction = UIAlertAction(title: LocalizedStrings.clearFields, style: .default) { action in
             self.resetFields()
         }
         alertController.addAction(cancelAction)
@@ -374,7 +374,7 @@ extension SendViewController {
         }
 
         let usdAmount = NSDecimalNumber(value: dcrAmount).multiplying(by: exchangeRate)
-        self.usdAmountLabel.text = "\(usdAmount.round(8)) USD"
+        self.usdAmountLabel.text = "\(usdAmount.round(2)) USD"
     }
 
     func displayFeeDetailsAndTransactionSummary() {
@@ -440,7 +440,7 @@ extension SendViewController {
         guard let sourceWallet = self.sourceAccountView.selectedWallet,
             let sourceAccount = self.sourceAccountView.selectedAccount else {
             
-                Utils.showBanner(in: self.view, type: .error, text: "Select from account.") // todo localize
+                Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.selectFromAccount)
                 return false
         }
         

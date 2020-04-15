@@ -274,9 +274,13 @@ struct LocalizedStrings {
     static let estimateSize = NSLocalizedString("estimateSize", comment: "")
     static let balanceAfter = NSLocalizedString("balanceAfter", comment: "")
     static let exchangeRate = NSLocalizedString("exchangeRate", comment: "")
+    static let exchangeRateNotFetched = NSLocalizedString("exchangeRateNotFetched", comment: "")
     static let confirmToSend = NSLocalizedString("confirmToSend", comment: "")
     static let addressFromQr = NSLocalizedString("addressFromQr", comment: "")
-    
+    static let sendDCR = NSLocalizedString("sendDCR", comment: "")
+    static let paste = NSLocalizedString("paste", comment: "")
+    static let selectFromAccount = NSLocalizedString("selectFromAccount", comment: "")
+    static let FailedToSendTryAgain = NSLocalizedString("FailedToSendTryAgain", comment: "")
     
     /* Confirm Send Fund */
     static let sending = NSLocalizedString("sending", comment: "")
