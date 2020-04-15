@@ -178,6 +178,7 @@
 		DDCF259C22B8A362005FCBB9 /* Send.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDCF259B22B8A361005FCBB9 /* Send.storyboard */; };
 		DDCF25A122B8A3D4005FCBB9 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDCF25A022B8A3D4005FCBB9 /* Settings.storyboard */; };
 		DDCF25A922B8A488005FCBB9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDCF25A822B8A487005FCBB9 /* Main.storyboard */; };
+		DDCF5EF9243BB4B000F389EE /* NewWalletDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF5EF8243BB4B000F389EE /* NewWalletDialog.swift */; };
 		DDD65AD722A935460027CDA8 /* LicenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD65AD622A935460027CDA8 /* LicenseViewController.swift */; };
 		DDDF95CC23C11F760057AA7F /* VerifyMessage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDDF95CB23C11F760057AA7F /* VerifyMessage.storyboard */; };
 		DDDF95CE23C11F760057AA7F /* VerifyMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDF95CD23C11F760057AA7F /* VerifyMessageViewController.swift */; };
@@ -370,6 +371,7 @@
 		DDCF259B22B8A361005FCBB9 /* Send.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Send.storyboard; sourceTree = "<group>"; };
 		DDCF25A022B8A3D4005FCBB9 /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		DDCF25A822B8A487005FCBB9 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		DDCF5EF8243BB4B000F389EE /* NewWalletDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWalletDialog.swift; sourceTree = "<group>"; };
 		DDD65AD622A935460027CDA8 /* LicenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseViewController.swift; sourceTree = "<group>"; };
 		DDDF95CB23C11F760057AA7F /* VerifyMessage.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = VerifyMessage.storyboard; sourceTree = "<group>"; };
 		DDDF95CD23C11F760057AA7F /* VerifyMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyMessageViewController.swift; sourceTree = "<group>"; };
@@ -745,6 +747,7 @@
 				B3B469F1228F0F2600A68EDD /* OverviewViewController.swift */,
 				B34A2F9023E8ED1500B8BC01 /* MultiWalletSyncDetailsLoader.swift */,
 				B34A2F8E23E8E90500B8BC01 /* WalletSyncDetailsTableViewCell.swift */,
+				DDCF5EF8243BB4B000F389EE /* NewWalletDialog.swift */,
 			);
 			path = Overview;
 			sourceTree = "<group>";
@@ -1178,6 +1181,7 @@
 				103BE67E240D1F9E007910DA /* WalletSelectorCollectionViewCell.swift in Sources */,
 				B3B46993228F0C2E00A68EDD /* AppDelegate.swift in Sources */,
 				108A2E7423DE311900B13A22 /* SelfSizedTableView.swift in Sources */,
+				DDCF5EF9243BB4B000F389EE /* NewWalletDialog.swift in Sources */,
 				B3B46A12228F0F2700A68EDD /* TextFieldDoneButton.swift in Sources */,
 				B3B46A1D228F0F2700A68EDD /* RequestPasswordViewController.swift in Sources */,
 				B3B469FA228F0F2700A68EDD /* UIColor.swift in Sources */,

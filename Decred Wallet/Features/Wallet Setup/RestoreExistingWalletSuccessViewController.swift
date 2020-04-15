@@ -10,6 +10,6 @@ import UIKit
 
 class RestoreExistingWalletSuccessViewController: UIViewController {
     @IBAction func getStarted(_ sender: Any) {
-        NavigationMenuTabBarController.setupMenuAndLaunchApp(isNewWallet: false)
+        NavigationMenuTabBarController.setupMenuAndLaunchApp(isNewWallet: true)
     }
 }

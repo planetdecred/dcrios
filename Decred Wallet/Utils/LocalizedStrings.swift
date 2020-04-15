@@ -183,6 +183,10 @@ struct LocalizedStrings {
     static let walletCreated = NSLocalizedString("walletCreated", comment: "")
     static let backUpYourWalletsReminder = NSLocalizedString("backUpYourWalletsReminder", comment: "")
     
+    /* New Wallet Dialog */
+    static let newWalletMsg = NSLocalizedString("newWalletMsg", comment: "")
+    static let welcomeToDecredWallet = NSLocalizedString("welcomeToDecredWallet", comment: "")
+    
     /* Transactions */
     static let pending = NSLocalizedString("pending", comment: "")
     static let confirmed = NSLocalizedString("confirmed", comment: "")
@@ -276,7 +280,6 @@ struct LocalizedStrings {
     static let exchangeRate = NSLocalizedString("exchangeRate", comment: "")
     static let confirmToSend = NSLocalizedString("confirmToSend", comment: "")
     static let addressFromQr = NSLocalizedString("addressFromQr", comment: "")
-    
     
     /* Confirm Send Fund */
     static let sending = NSLocalizedString("sending", comment: "")
