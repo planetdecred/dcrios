@@ -84,8 +84,4 @@ class Settings {
         let selectedOption: String = Settings.readStringValue(for: DcrlibwalletCurrencyConversionConfigKey)
         return CurrencyConversionOption(rawValue: selectedOption) ?? .None
     }
-    
-    static var networkMode: Int {
-        return Settings.readIntValue(for: DcrlibwalletNetworkModeConfigKey)
-    }
 }

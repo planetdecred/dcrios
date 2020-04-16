@@ -17,9 +17,6 @@
 
 /* Create New Wallet(Seed display view) */
 "settingUpYourWallet" = "НАСТРОЙКА КОШЕЛЬКА DECRED";
-"seedHeaderInfo" = "Запишите себе эту сид-фразу и храните её в надёжном месте. Вас попросят ввести эту фразу, в случае если у вас когда-либо возникнет необходимость восстановить ваш кошелёк.";
-"seedWarningInfo" = "Небрежное отношение к хранению сида может привести к краже всего вашего кошелька или к невозможности его восстановить.";
-"iCopiedTheSeedPhrase" = "Я скопировал/а сид-фразы.";
 
 /* Confirm NewWallet Seed */
 "seedDoesNotMatch" = "You entered an incorrect seed. Please check your words.";
@@ -43,7 +40,6 @@
 
 /* Wallet Setup Base */
 "settingUpWallet" ="НАСТРОЙКА КОШЕЛЬКА DECRED...";
-"errorSettingUpWallet" = "Error setting up wallet.";
 
 /* Unlock Wallet Prompt */
 "unlockWithStartupCode" = "Unlock with startup %@";
@@ -65,9 +61,7 @@
 "promptStartupPassword" = "Введите текущий пароль для шифрования.";
 "password" = "ПАРОЛЬ";
 "proceed" = "Proceed";
-"passwordEmpty" = "Password can't be empty.";
 "invalidInput" = "invalid input.";
-"passwordInvalid" = "Введённый пароль недействителен.";
 "passwordPlaceholder"="%@ password";
 "confirmPasswordPlaceholder"="Confirm %@ password";
 
@@ -116,14 +110,8 @@
 "addressDiscoveryProgressThrough" = "~%d%%";
 "scanningTotalHeaders" = "%d of %d";
 "synchronizing" = "Syncing...";
-"synchronizationCanceled" = "Synchronization canceled";
-"synchronizationError" = "Synchronization error";
 "syncTotalProgress" = "%d%% completed, %@ remaining.";
-"allTimes" = "All Times";
-"elapsed" = "elapsed:";
-"remain" = "remain:";
 "total"  = "total:";
-"tapToViewInformation" = "Tap for more information";
 "latestBlockAge" = "Latest block %d% :- %@";
 "blockHeadersFetched" = "Block headers fetched";
 "syncProgressComplete" = "%d%%";
@@ -132,16 +120,9 @@
 "syncingProgress" = "Syncing progress";
 "cannotSyncWithoutNetworkConnection" = "Cannot sync without network connection.";
 "internetConnectionRequired" = "Internet connection required.";
-"connectToWiFiToSync" = "Connect to WiFi to sync.";
 "restartingSync" = "Restarting sync...";
-"connectingToPeers" = "Connecting to peers.";
-"syncedWith" =  "Synced with %@";
-"fetchingBlockHeaders" = "Fetching block headers.";
-"blocksBehind" = "%d blocks behind.";
-"bestBlockAgeAgo" = "%@ ago";
 "discoveringUsedAddresses" = "Discovering used addresses.";
 "generalSyncProgressCompletedleft" = "%d%% completed, %@ left.";
-"scanningBlocks" = "Scanning blocks.";
 "rescanProgress" = "%d%% completed, %@ left.";
 "syncCanceled" = "Sync canceled.";
 "syncError" = "Sync error.";
@@ -155,8 +136,6 @@
 "monthsAgo" = "%dmo ago";
 "yearsAgo" =  "%dy ago";
 "totalBalance" = "Total Balance";
-"restartingSynchronization" = "Restarting Synchronization";
-"startingSynchronization" = "Starting Sync...";
 "reconnect" = "Reconnect";
 "disconnect" = "Disconnect";
 
@@ -254,11 +233,7 @@
 "amountMaximumAllowed" = "Amount more than maximum allowed.";
 "notEnoughFunds" = "Недостаточно средств.";
 "notEnoughFundsOrNotConnected" = "Not enough funds (or not connected).";
-"rateUnavailableTap"  = "Курс недоступен (попробовать ещё раз)";
-"sendToAccount" = "Отправить в аккаунт";
-"sendToAddress" = "Отправить на адрес";
 "errorGettingMaxSpendable" = "Error getting maximum spendable amount.";
-"pleaseWaitNetworkSync" = "Please wait for network synchronization.";
 "notConnected" = "Not connected to the network.";
 "amountCantBeZero" = "Сумма не может быть равной нулю.";
 "unexpectedError" = "Unexpected error.";
@@ -384,6 +359,8 @@
 "accountName" = "Название аккаунта";
 "createAccount" = "Создать аккаунт";
 "privatePassphrase" = "Личная парольная фраза";
+"createNewAccount" = "Create new account";
+"accountCreated" = "Account created";
 
 /* Security Tools */
 "securityTools" = "Security Tools";
@@ -424,25 +401,13 @@
 "spendUnconfirmedFund" = "Потратить неподтверждённые средства";
 "incomingTxNotification" = "Уведомления о входящих транзакциях";
 "currencyConversion" = "Конвертация валют";
-"networkMode" = "Режим сети";
-"serverAddress" = "Адрес сервера";
 "connectIpDesc" = "Подсоединиться к узлу";
-"certificate" = "Сертификат";
 "syncOnWifiDesc" = "Sync when not on WiFi";
 "buildDate" = "Дата сборки";
 "walletLog" = "Лог кошелька";
-"removeWallet" = "Remove wallet";
-"spv" = "Упрощённая верификация платежа (SPV)";
-"remoteFullNode" = "Удалённая полная нода";
 "none" = "Ни один";
 "rescanConfirm" = "Вы уверены? Это может занять некоторое время.";
 "rescanBlockchain" = "Сканировать blockchain ещё раз";
-"syncProgressAlert" = "Sync is in progress. Please wait for sync to complete.";
-"scanInProgress" = "Проверяйте статус в navigation bar.";
-"scanStartedAlready" = "Осуществляется повторное сканирование кошелька, проверяйте статус в navigation bar.";
-"rescanFailed" = "Rescan failed";
-"removingWallet" = "Removing wallet...";
-"removeWalletFailed" = "Failed to Remove wallet.";
 "general" = "Основные";
 "connection" = "Соединение";
 "about" = "Информация";
@@ -515,10 +480,8 @@
 "back" = "Back";
 "clearFields" =  "Очистить всё";
 "copiedSuccessfully" = "Скопировано успешно.";
-"invalidRequest" = "Invalid request!";
 "addrCopied" = "Адрес скопирован в буфер обмена";
 "previousOutpointCopied" = "Previous outpoint copied!";
-"errorMsg" = "Error Message";
 "info" = "Info";
 "delete" = "Удалить";
 "allowOnce" = "Allow once";
@@ -560,3 +523,4 @@
 "verifying" = "Verifying...";
 "verifySeedPhrase" = "Verify seed phrase";
 "selectTheCorrectWordsToVerify" = "Select the correct words to verify.";
+"enterSeedOnNextScreen" = "You will be asked to enter the seed phrase on the next screen.";

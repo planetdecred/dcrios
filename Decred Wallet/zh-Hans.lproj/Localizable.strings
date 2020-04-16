@@ -17,9 +17,6 @@
 
 /* Create New Wallet(Seed display view) */
 "settingUpYourWallet" = "设置Decred钱包";
-"seedHeaderInfo" = "请将种子写下并安全保存。在下个页面及以后需要恢复钱包时都需要输入种子。";
-"seedWarningInfo" = "如果不能保证种子单词的安全可能会导致钱包被盗或无法恢复。";
-"iCopiedTheSeedPhrase" = "我已复制种子单词";
 
 /* Confirm NewWallet Seed */
 "seedDoesNotMatches" = "您输入的种子不正确。请检查输入的单词。";
@@ -43,7 +40,6 @@
 
 /* Wallet Setup Base */
 "settingUpWallet" ="设置Decred钱包。。。";
-"errorSettingUpWallet" = "Error setting up wallet.";
 
 /* Unlock Wallet Prompt */
 "unlockWithStartupCode" = "Unlock with startup %@";
@@ -65,9 +61,7 @@
 "promptStartupPassword" = "输入当前启动密码";
 "password" = "密码";
 "proceed" = "前";
-"passwordEmpty" = "密码不能为空。";
 "invalidInput" = "invalid input.";
-"passwordInvalid" = "输入的密码错误。";
 "passwordPlaceholder"="%@ password";
 "confirmPasswordPlaceholder"="Confirm %@ password";
 
@@ -116,14 +110,8 @@
 "addressDiscoveryProgressThrough" = "~%d%%";
 "scanningTotalHeaders" = "%d of %d";
 "synchronizing" = "正在同步...";
-"synchronizationCanceled" = "Synchronization canceled";
-"synchronizationError" = "Synchronization error";
 "syncTotalProgress" = "%d%% completed, %@ remaining.";
-"allTimes" = "总耗时";
-"elapsed" = "已过去:";
-"remain" = "剩余:";
 "total"  = "总共:";
-"tapToViewInformation" = "点击获取更多信息";
 "latestBlockAge" = "Latest block %d% :- %@";
 "blockHeadersFetched" = "Block headers fetched";
 "syncProgressComplete" = "%d%%";
@@ -132,16 +120,9 @@
 "syncingProgress" = "Syncing progress";
 "cannotSyncWithoutNetworkConnection" = "Cannot sync without network connection.";
 "internetConnectionRequired" = "Internet connection required.";
-"connectToWiFiToSync" = "Connect to WiFi to sync.";
 "restartingSync" = "Restarting sync...";
-"connectingToPeers" = "Connecting to peers.";
-"syncedWith" =  "Synced with %@";
-"fetchingBlockHeaders" = "Fetching block headers.";
-"blocksBehind" = "%d blocks behind.";
-"bestBlockAgeAgo" = "%@ ago";
 "discoveringUsedAddresses" = "Discovering used addresses.";
 "generalSyncProgressCompletedleft" = "%d%% completed, %@ left.";
-"scanningBlocks" = "Scanning blocks.";
 "rescanProgress" = "%d%% completed, %@ left.";
 "syncCanceled" = "Sync canceled.";
 "syncError" = "Sync error.";
@@ -155,8 +136,6 @@
 "monthsAgo" = "%dmo ago";
 "yearsAgo" =  "%dy ago";
 "totalBalance" = "Total Balance";
-"restartingSynchronization" = "Restarting Synchronization";
-"startingSynchronization" = "Starting Sync...";
 "reconnect" = "Reconnect";
 "disconnect" = "Disconnect";
 
@@ -254,11 +233,7 @@
 "amountMaximumAllowed" = "Amount more than maximum allowed.";
 "notEnoughFunds" = "资金不足。";
 "notEnoughFundsOrNotConnected" = "资金不足或未连接网络.";
-"rateUnavailableTap"  = "费率不可用（点击重试).";
-"sendToAccount" = "发送到账户";
-"sendToAddress" = "发送到地址";
 "errorGettingMaxSpendable" = "Error getting maximum spendable amount.";
-"pleaseWaitNetworkSync" = "请等待网络同步。";
 "notConnected" = "网络未连接";
 "amountCantBeZero" = "Amount cannot be zero.";
 "unexpectedError" = "Unexpected error.";
@@ -384,6 +359,8 @@
 "accountName" = "账户名";
 "createAccount" = "创建账户";
 "privatePassphrase" = "密码";
+"createNewAccount" = "Create new account";
+"accountCreated" = "Account created";
 
 /* Security Tools */
 "securityTools" = "Security Tools";
@@ -424,25 +401,13 @@
 "spendUnconfirmedFundDesc" = "发送未确认资金";
 "incomingTxNotificationDesc" = "传入交易通知";
 "currencyConversionDesc" = "货币转换";
-"networkMode" = "网络模式";
-"serverAddress" = "服务器地址";
 "connectIpDesc" = "连接到节点";
-"certificate" = "证书";
 "syncOnWifiDesc" = "未连接WiFi时同步";
 "buildDate" = "Build Date";
 "walletLog" = "钱包日志";
-"removeWallet" = "Remove wallet";
-"spv" = "简单支付验证 (SPV)";
-"remoteFullNode" = "远程全节点";
 "none" = "None";
 "rescanConfirm" = "您确定吗？这将会花费一些时间。";
 "rescanBlockchain" = "重新扫描区块";
-"syncProgressAlert" = "Sync is in progress. Please wait for sync to complete.";
-"scanInProgress" = "在导航栏查看进度。";
-"scanStartedAlready" = "钱包正在重新扫描中，具体进度请查看导航栏。";
-"rescanFailed" = "Rescan failed";
-"removingWallet" = "Removing wallet...";
-"removeWalletFailed" = "Failed to Remove wallet.";
 "general" = "常规";
 "connection" = "连接";
 "about" = "信息";
@@ -515,10 +480,8 @@
 "back" = "Back";
 "clearFields" =  "清除";
 "copiedSuccessfully" = "复制成功";
-"invalidRequest" = "Invalid request!";
 "addrCopied" = "地址已复制到剪贴板";
 "previousOutpointCopied" = "Previous outpoint copied!";
-"errorMsg" = "错误信息";
 "info" = "信息";
 "delete" = "删除";
 "allowOnce" = "Allow once";
@@ -560,3 +523,4 @@
 "verifying" = "Verifying...";
 "verifySeedPhrase" = "Verify seed phrase";
 "selectTheCorrectWordsToVerify" = "Select the correct words to verify.";
+"enterSeedOnNextScreen" = "You will be asked to enter the seed phrase on the next screen.";

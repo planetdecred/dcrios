@@ -17,9 +17,6 @@
 
 /* Create New Wallet(Seed display view) */
 "settingUpYourWallet" = "Thiết lập Ví Decred";
-"seedHeaderInfo" = "Hãy ghi lại từ khóa seed này, và lưu nó trong một vị trí bảo mật. Bạn sẽ được yêu cầu đăng nhập nó trên màn hình tiếp và nếu bạn cần phục hồi tên ví.";
-"seedWarningInfo" = "Việc không giữ seed này an toàn có thể dẫn đến việc đánh cắp toàn bộ ví của bạn hoặc không thể khôi phục ví của bạn.";
-"iCopiedTheSeedPhrase" = "Tôi đã sao chép cụm từ seed";
 
 /* Confirm NewWallet Seed */
 "seedDoesNotMatch" = "Bạn đã nhập một seed không chính xác. Vui lòng kiểm tra các từ của bạn.";
@@ -43,7 +40,6 @@
 
 /* Wallet Setup Base */
 "settingUpWallet" ="Thiết lập Ví Decred...";
-"errorSettingUpWallet" = "Error setting up wallet.";
 
 /* Unlock Wallet Prompt */
 "unlockWithStartupCode" = "Unlock with startup %@";
@@ -65,9 +61,7 @@
 "promptStartupPassword" = "Nhập mật khẩu khởi động hiện tại.";
 "password" = "MẬT KHẨU";
 "proceed" = "Proceed";
-"passwordEmpty" = "Password can't be empty.";
 "invalidInput" = "invalid input.";
-"passwordInvalid" = "Mật khẩu đã nhập không hợp lệ";
 "passwordPlaceholder"="%@ password";
 "confirmPasswordPlaceholder"="Confirm %@ password";
 
@@ -116,14 +110,8 @@
 "addressDiscoveryProgressThrough" = "~%d%%";
 "scanningTotalHeaders" = "%d of %d";
 "synchronizing" = "Syncing...";
-"synchronizationCanceled" = "Synchronization canceled";
-"synchronizationError" = "Synchronization error";
 "syncTotalProgress" = "%d%% completed, %@ remaining.";
-"allTimes" = "Tất cả thời gian";
-"elapsed" = "đã trôi qua:";
-"remain" = "còn lại:";
 "total"  = "tổng cộng:";
-"tapToViewInformation" = "Nhấn để biết thêm thông tin";
 "latestBlockAge" = "Latest block %d% :- %@";
 "blockHeadersFetched" = "Block headers fetched";
 "syncProgressComplete" = "%d%%";
@@ -132,16 +120,9 @@
 "syncingProgress" = "Syncing progress";
 "cannotSyncWithoutNetworkConnection" = "Cannot sync without network connection.";
 "internetConnectionRequired" = "Internet connection required.";
-"connectToWiFiToSync" = "Connect to WiFi to sync.";
 "restartingSync" = "Restarting sync...";
-"connectingToPeers" = "Connecting to peers.";
-"syncedWith" =  "Synced with %@";
-"fetchingBlockHeaders" = "Fetching block headers.";
-"blocksBehind" = "%d blocks behind.";
-"bestBlockAgeAgo" = "%@ ago";
 "discoveringUsedAddresses" = "Discovering used addresses.";
 "generalSyncProgressCompletedleft" = "%d%% completed, %@ left.";
-"scanningBlocks" = "Scanning blocks.";
 "rescanProgress" = "%d%% completed, %@ left.";
 "syncCanceled" = "Sync canceled.";
 "syncError" = "Sync error.";
@@ -155,8 +136,6 @@
 "monthsAgo" = "%dmo ago";
 "yearsAgo" =  "%dy ago";
 "totalBalance" = "Total Balance";
-"restartingSynchronization" = "Restarting Synchronization";
-"startingSynchronization" = "Starting Sync...";
 "reconnect" = "Reconnect";
 "disconnect" = "Disconnect";
 
@@ -254,11 +233,7 @@
 "amountMaximumAllowed" = "Amount more than maximum allowed.";
 "notEnoughFunds" = "Không đủ tiền.";
 "notEnoughFundsOrNotConnected" = "Không đủ tiền (hoặc không được kết nối).";
-"rateUnavailableTap"  = "Chỉ số không có sẵn (chạm để thử lại).";
-"sendToAccount" = "Gửi tới tài khoản";
-"sendToAddress" = "Gửi đến địa chỉ";
 "errorGettingMaxSpendable" = "Error getting maximum spendable amount.";
-"pleaseWaitNetworkSync" = "Vui lòng đợi đồng bộ hóa mạng.";
 "notConnected" = "Không kết nối với mạng.";
 "amountCantBeZero" = "Số tiền không thể bằng không.";
 "unexpectedError" = "Unexpected error.";
@@ -384,6 +359,8 @@
 "accountName" = "Tên tài khoàn";
 "createAccount" = "Tạo tài khoản";
 "privatePassphrase" = "Cụm mật khẩu riêng";
+"createNewAccount" = "Create new account";
+"accountCreated" = "Account created";
 
 /* Security Tools */
 "securityTools" = "Security Tools";
@@ -424,25 +401,13 @@
 "spendUnconfirmedFund" = "Chi tiêu chưa được xác nhận";
 "incomingTxNotification" = "Thông báo giao dịch đến";
 "currencyConversion" = "Chuyển đổi ngoại tệ";
-"networkMode" = "Chế độ mạng";
-"serverAddress" = "Địa chỉ máy chủ";
 "connectIpDesc" = "Kết nối tới Peer";
-"certificate" = "Chứng nhận";
 "syncOnWifiDesc" = "Đồng bộ hóa khi không có WiFi";
 "buildDate" = "Ngày tạo lập";
 "walletLog" = "Nhật ký ví";
-"removeWallet" = "Remove wallet";
-"spv" = "Xác minh thanh toán đơn giản (SPV)";
-"remoteFullNode" = "Nút đầy đủ từ xa (full node)";
 "none" = "None";
 "rescanConfirm" = "Bạn có chắc không? Điều này có thể mất một thời gian.";
 "rescanBlockchain" = "Quét lại blockchain";
-"syncProgressAlert" = "Sync is in progress. Please wait for sync to complete.";
-"scanInProgress" = "Kiểm tra tiến độ trong thanh điều hướng.";
-"scanStartedAlready" = "Ví đã được quét lại, kiểm tra tiến trình trong thanh điều hướng.";
-"rescanFailed" = "Rescan failed";
-"removingWallet" = "Removing wallet...";
-"removeWalletFailed" = "Failed to Remove wallet.";
 "general" = "Tổng hợp";
 "connection" = "Kết nối";
 "about" = "About";
@@ -515,10 +480,8 @@
 "back" = "Back";
 "clearFields" =  "Xóa các dữ liệu";
 "copiedSuccessfully" = "Sao chép thành công.";
-"invalidRequest" = "Invalid request!";
 "addrCopied" = "Địa chỉ được sao chép!";
 "previousOutpointCopied" = "Previous outpoint copied!";
-"errorMsg" = "thông báo lỗi";
 "info" = "thông tin";
 "delete" = "Xoá";
 "allowOnce" = "Allow once";
@@ -560,3 +523,4 @@
 "verifying" = "Verifying...";
 "verifySeedPhrase" = "Verify seed phrase";
 "selectTheCorrectWordsToVerify" = "Select the correct words to verify.";
+"enterSeedOnNextScreen" = "You will be asked to enter the seed phrase on the next screen.";
