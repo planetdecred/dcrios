@@ -16,6 +16,7 @@ struct LocalizedStrings {
     static let createNewWallet = NSLocalizedString("createNewWallet", comment: "")
     static let restoreExistingWallet = NSLocalizedString("restoreExistingWallet", comment: "")
     static let wallet = NSLocalizedString("wallet", comment: "")
+    static let introMessage = NSLocalizedString("introMessage", comment: "")
     
     /* Create New Wallet(Seed display view) */
     static let settingUpYourWallet = NSLocalizedString("settingUpYourWallet", comment: "")
@@ -79,6 +80,14 @@ struct LocalizedStrings {
     static let next = NSLocalizedString("next", comment: "")
     static let create = NSLocalizedString("create", comment: "")
 
+    /* Request Biometric */
+    static let promptStartupPassOrPIN = NSLocalizedString("promptStartupPassOrPIN", comment: "")
+    static let promptTouchIDUsageUsage = NSLocalizedString("promptTouchIDUsageUsage", comment: "")
+    static let promptFaceIDUsageUsage = NSLocalizedString("promptFaceIDUsageUsage", comment: "")
+    static let useFaceID = NSLocalizedString("useFaceID", comment: "")
+    static let useTouchId = NSLocalizedString("useTouchId", comment: "")
+    static let enableWithStartupCode = NSLocalizedString("enableWithStartupCode", comment: "")
+    
     /* Overview - unlock wallets for account discovery */
     static let unlockToResumeRestoration = NSLocalizedString("unlockToResumeRestoration", comment: "")
     static let unlockWalletForAccountDiscovery = NSLocalizedString("unlockWalletForAccountDiscovery", comment: "")
@@ -240,9 +249,13 @@ struct LocalizedStrings {
     static let estimateSize = NSLocalizedString("estimateSize", comment: "")
     static let balanceAfter = NSLocalizedString("balanceAfter", comment: "")
     static let exchangeRate = NSLocalizedString("exchangeRate", comment: "")
+    static let exchangeRateNotFetched = NSLocalizedString("exchangeRateNotFetched", comment: "")
     static let confirmToSend = NSLocalizedString("confirmToSend", comment: "")
     static let addressFromQr = NSLocalizedString("addressFromQr", comment: "")
-    
+    static let sendDCR = NSLocalizedString("sendDCR", comment: "")
+    static let paste = NSLocalizedString("paste", comment: "")
+    static let selectFromAccount = NSLocalizedString("selectFromAccount", comment: "")
+    static let FailedToSendTryAgain = NSLocalizedString("FailedToSendTryAgain", comment: "")
     
     /* Confirm Send Fund */
     static let sending = NSLocalizedString("sending", comment: "")
@@ -379,6 +392,14 @@ struct LocalizedStrings {
     static let connection = NSLocalizedString("connection", comment: "")
     static let about = NSLocalizedString("about", comment: "")
     static let debug = NSLocalizedString("debug", comment: "")
+    static let checkStatistics = NSLocalizedString("checkStatistics", comment: "")
+    static let statistics = NSLocalizedString("statistics", comment: "")
+    static let seconds = NSLocalizedString("seconds", comment: "")
+    static let minutes = NSLocalizedString("minutes", comment: "")
+    static let hours = NSLocalizedString("hours", comment: "")
+    static let weeks = NSLocalizedString("weeks", comment: "")
+    static let months = NSLocalizedString("months", comment: "")
+    static let years = NSLocalizedString("years", comment: "")
 
     /* Change startup/spending pin/pass */
     static let newPasswordPlaceholder = NSLocalizedString("newPasswordPlaceholder", comment: "")

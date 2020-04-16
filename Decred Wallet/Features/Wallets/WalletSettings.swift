@@ -33,8 +33,8 @@ class WalletSettings {
     }
     
     /** Computed properties to access commonly used settings. */
-    var useFingerprint: Bool {
-        return self.readBoolValue(for: DcrlibwalletUseFingerprintConfigKey)
+    var useBiometric: Bool {
+        return self.readBoolValue(for: "\(self.wallet.id_)" + DcrlibwalletUseBiometricConfigKey)
     }
     
     var txNotificationAlert: NotificationAlert {

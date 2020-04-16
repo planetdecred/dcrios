@@ -77,6 +77,14 @@
 "next" = "Next";
 "create" = "Create";
 
+/* Request Biometric */
+"promptStartupPassOrPIN" = "Use Startup PIN/Password";
+"promptTouchIDUsageUsage" = "Touch ID is required to use Decred Wallet";
+"promptFaceIDUsageUsage" = "Face ID is required to use Decred Wallet";
+"useFaceID" = "Use Face ID";
+"useTouchId" = "Use Touch ID";
+"enableWithStartupCode" = "Enable with startup %@";
+
 /* Overview - unlock wallets for account discovery */
 "unlockToResumeRestoration" = "Unlock to resume restoration";
 "unlockWalletForAccountDiscovery" = "The restoration process to discover your accounts was interrupted in the last sync.\n\nUnlock %@ to resume the process.";
@@ -94,8 +102,8 @@
 "numberOfConnectedPeer" = "%d peer";
 "waitingForOtherWallets" = "Waiting for other wallets";
 "fetchedHeaders" = "%d of %d";
-"headersFetchProgress" = "Fetching block headers. %d%%";
-"headersScannedProgress" = "Scanning block headers. %d%%";
+"headersFetchProgress" = "Fetching block headers · %d%%";
+"headersScannedProgress" = "Scanning block headers · %d%%";
 "bestBlockAgebehind" = "%@ behind";
 "blockHeaderScanned" = "Block header scanned";
 "addressDiscoveryProgressOver" = "~%d%% (over)";
@@ -247,8 +255,13 @@
 "estimateSize" = "Estimar tamanho:";
 "balanceAfter" = "Saldo Após Envio:";
 "exchangeRate" = "Fator De Conversão:";
+"exchangeRateNotFetched" = "Exchange rate not fetched";
 "confirmToSend" = "Confirm to send";
 "addressFromQr" = "Address from QR code: %@";
+"sendDCR" = "Send DCR";
+"paste" = "Paste";
+"selectFromAccount" = "Select from account.";
+"FailedToSendTryAgain" = "Failed to send. Please try again.";
 
 /* Confirm Send Fund */
 "sending" = "Enviando";
@@ -302,7 +315,6 @@
 
 /* Wallet Settings */
 "spendingPinPass" = "Spending PIN/ Password";
-"useFingerprint" = "Use fingerprint";
 "changeSpendingPinPass" = "Mudar PIN/Senha De Gasto";
 "notifications" = "Notifications";
 "incomingTransactions" = "Incoming transactions";
@@ -403,6 +415,14 @@
 "helpInfo" = "For more information, please visit the Decred documentation.";
 "seeDocumentations" = "See Documentations";
 "beepForNewBlocks" = "Beep for new blocks";
+"checkStatistics" = "Check statistics";
+"statistics" = "Statistics";
+"seconds" = "%d Seconds";
+"minutes" = "%d Minutes";
+"hours" = "%d Hours";
+"weeks" = "%d Weeks";
+"months" = "%d Months";
+"years" = "%d Years";
 
 /* Change startup/spending pin/pass */
 "newPasswordPlaceholder" = "New %@ password";

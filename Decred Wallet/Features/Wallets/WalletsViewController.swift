@@ -31,8 +31,8 @@ class WalletsViewController: UIViewController {
     }
     
     func loadWallets() {
-        self.wallets = WalletLoader.shared.wallets.map({ Wallet.init($0) })
-        self.walletsTableView.reloadData()
+        let accountsFilterFn: (DcrlibwalletAccount) -> Bool = { ($0.totalBalance >= 0 && $0.name != "imported") || ($0.totalBalance > 0 && $0.name == "imported")}
+        self.wallets = WalletLoader.shared.wallets.map({ Wallet.init($0, accountsFilterFn: accountsFilterFn) })
     }
     
     // todo prolly hide this action if sync is ongoing as wallets cannot be added during ongoing sync

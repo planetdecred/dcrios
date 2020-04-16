@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="D9F-Sd-24p">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="D9F-Sd-24p">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -120,8 +120,38 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="nxc-vF-Pnq" style="IBUITableViewCellStyleDefault" id="CCv-sw-rUR">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="D7y-he-OVj">
                                         <rect key="frame" x="0.0" y="243.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="D7y-he-OVj" id="npR-zW-l7B">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use biometric" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fZi-Vb-BjG">
+                                                    <rect key="frame" x="16" y="6.5" width="286" height="31"/>
+                                                    <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                                    <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="useBiometric"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="hl5-33-U0A">
+                                                    <rect key="frame" x="310" y="6.5" width="51" height="31"/>
+                                                </switch>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="hl5-33-U0A" firstAttribute="leading" secondItem="fZi-Vb-BjG" secondAttribute="trailing" constant="8" id="0Wo-Eo-wFD"/>
+                                                <constraint firstItem="fZi-Vb-BjG" firstAttribute="leading" secondItem="npR-zW-l7B" secondAttribute="leadingMargin" id="2gP-KQ-NFC"/>
+                                                <constraint firstItem="fZi-Vb-BjG" firstAttribute="centerY" secondItem="hl5-33-U0A" secondAttribute="centerY" id="IT5-Ol-TaL"/>
+                                                <constraint firstItem="hl5-33-U0A" firstAttribute="trailing" secondItem="npR-zW-l7B" secondAttribute="trailingMargin" id="JKn-Ol-Vw1"/>
+                                                <constraint firstItem="fZi-Vb-BjG" firstAttribute="centerY" secondItem="npR-zW-l7B" secondAttribute="centerY" id="jGz-GW-ulE"/>
+                                                <constraint firstItem="fZi-Vb-BjG" firstAttribute="top" secondItem="hl5-33-U0A" secondAttribute="top" id="m8f-Qb-qH6"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="nxc-vF-Pnq" style="IBUITableViewCellStyleDefault" id="CCv-sw-rUR">
+                                        <rect key="frame" x="0.0" y="287.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CCv-sw-rUR" id="nW1-aN-N4L">
                                             <rect key="frame" x="0.0" y="0.0" width="348" height="44"/>
@@ -145,7 +175,7 @@
                             <tableViewSection headerTitle="Notifications" id="INg-gP-xoB">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Wj5-nM-yyF">
-                                        <rect key="frame" x="0.0" y="343.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="387.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Wj5-nM-yyF" id="HWR-Qa-RHq">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -182,7 +212,7 @@
                             <tableViewSection headerTitle="connection" id="qWn-Cb-pex">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="BAp-BM-B3N">
-                                        <rect key="frame" x="0.0" y="443.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="487.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BAp-BM-B3N" id="IbO-3b-8m6">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -212,7 +242,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="wHH-qq-PBK" detailTextLabel="uLU-Vj-txe" style="IBUITableViewCellStyleValue1" id="lvw-Xe-R2c">
-                                        <rect key="frame" x="0.0" y="487.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="531.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lvw-Xe-R2c" id="HUm-iV-tO2">
                                             <rect key="frame" x="0.0" y="0.0" width="348" height="44"/>
@@ -252,16 +282,18 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="Start_Pin_cell" destination="fQb-dI-sZt" id="RAk-Ui-4ke"/>
-                        <outlet property="beep_for_new_block" destination="rgi-fu-g0z" id="cji-in-bx5"/>
+                        <outlet property="beepForNewBlockSwitch" destination="rgi-fu-g0z" id="cji-in-bx5"/>
+                        <outlet property="biometricTypeLabel" destination="fZi-Vb-BjG" id="BND-8b-oTP"/>
                         <outlet property="cellularSyncSwitch" destination="M8i-z0-RGC" id="CVQ-DC-EFS"/>
                         <outlet property="changeStartPINCell" destination="CCv-sw-rUR" id="iZt-ET-rna"/>
-                        <outlet property="connectIpDesc" destination="wHH-qq-PBK" id="Qzb-M1-OqC"/>
+                        <outlet property="connectIpLabel" destination="wHH-qq-PBK" id="Qzb-M1-OqC"/>
+                        <outlet property="connectPeerIpLabel" destination="uLU-Vj-txe" id="A20-Zt-14h"/>
                         <outlet property="connectPeer_cell" destination="lvw-Xe-R2c" id="aex-WQ-Dce"/>
-                        <outlet property="connect_peer_ip" destination="uLU-Vj-txe" id="A20-Zt-14h"/>
-                        <outlet property="currency_subtitle" destination="GEO-eE-V3Q" id="rOx-K8-X77"/>
-                        <outlet property="spend_uncon_fund" destination="UQm-nI-5Hn" id="EF9-wH-PWU"/>
-                        <outlet property="start_Pin" destination="HzW-fb-ioM" id="tbB-cX-aRx"/>
+                        <outlet property="currencySubtitleLabel" destination="GEO-eE-V3Q" id="rOx-K8-X77"/>
+                        <outlet property="spendUnconfirmedFundSwitch" destination="UQm-nI-5Hn" id="EF9-wH-PWU"/>
+                        <outlet property="startupPinOrPasswordCell" destination="fQb-dI-sZt" id="RAk-Ui-4ke"/>
+                        <outlet property="startupPinOrPasswordSwitch" destination="HzW-fb-ioM" id="tbB-cX-aRx"/>
+                        <outlet property="useBiometricSwitch" destination="hl5-33-U0A" id="pJm-bz-22X"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9zL-3t-ck0" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -295,7 +327,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Peer IP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FPv-Dh-YNo">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IP" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FPv-Dh-YNo">
                                                     <rect key="frame" x="16" y="12" width="99" height="20.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="99" id="Hrl-4L-yIa"/>
@@ -303,9 +335,6 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="connectIpDesc"/>
-                                                    </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="0.0.0.0" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="3iN-3j-7xt">
                                                     <rect key="frame" x="123" y="12" width="236" height="20.5"/>
