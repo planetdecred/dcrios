@@ -343,6 +343,8 @@ struct LocalizedStrings {
     static let accountName = NSLocalizedString("accountName", comment: "")
     static let createAccount = NSLocalizedString("createAccount", comment: "")
     static let privatePassphrase = NSLocalizedString("privatePassphrase", comment: "")
+    static let createNewAccount = NSLocalizedString("createNewAccount", comment: "")
+    static let accountCreated = NSLocalizedString("accountCreated", comment: "")
     
     /* Security Tools */
     static let securityTools = NSLocalizedString("securityTools", comment: "")

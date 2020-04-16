@@ -28,6 +28,7 @@ class WalletsViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = true
         
         self.loadWallets()
+        self.refreshAccountDetails()
     }
     
     func loadWallets() {
@@ -95,6 +96,7 @@ class WalletsViewController: UIViewController {
                 if error == nil {
                     completion?.dismissDialog()
                     self.loadWallets()
+                    self.refreshAccountDetails()
                     Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.walletCreated)
                 } else {
                     completion?.displayError(errorMessage: error!.localizedDescription)
@@ -185,7 +187,51 @@ extension WalletsViewController: WalletInfoTableViewCellDelegate {
     }
     
     func addNewAccount(_ wallet: Wallet) {
-        print("add new account to", wallet.name)
+        SimpleTextInputDialog.show(sender: self,
+                                   title: LocalizedStrings.createNewAccount,
+                                   placeholder: LocalizedStrings.accountName,
+                                   submitButtonText: LocalizedStrings.create) { accountName, dialogDelegate in
+                                    dialogDelegate?.dismissDialog()
+                                    
+                                    let privatePassType = SpendingPinOrPassword.securityType(for: wallet.id)
+                                    Security.spending(initialSecurityType: privatePassType).requestCurrentCode(sender: self) { pinOrPassword, type, completion in
+                                        DispatchQueue.global(qos: .userInitiated).async {
+                                            let intPointer = UnsafeMutablePointer<Int32>.allocate(capacity: 4)
+                                            defer {
+                                                intPointer.deallocate()
+                                            }
+                                            do {
+                                                try WalletLoader.shared.multiWallet.wallet(withID: wallet.id)?.nextAccount(accountName, privPass: pinOrPassword.utf8Bits, ret0_: intPointer)
+                                                DispatchQueue.main.async {
+                                                    dialogDelegate?.dismissDialog()
+                                                    completion?.dismissDialog()
+                                                    self.loadWallets()
+                                                    self.refreshAccountDetails()
+                                                    Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.accountCreated)
+                                                }
+                                            } catch {
+                                                DispatchQueue.main.async {
+                                                    completion?.displayError(errorMessage: error.localizedDescription)
+                                                }
+                                            }
+                                        }
+                                    }
+        }
+    }
+    
+    func promptForSpendingPinOrPassword(submitBtnText: String, prompt: String, callback: @escaping SecurityCodeRequestCallback) {
+        let prompt = String(format: LocalizedStrings.enableWithStartupCode,
+                            StartupPinOrPassword.currentSecurityType().localizedString)
+        
+        Security.spending(initialSecurityType: .password)
+            .with(prompt: prompt)
+            .with(submitBtnText: submitBtnText)
+            .should(showCancelButton: true)
+            .requestCurrentCode(sender: self, callback: callback)
+    }
+    
+    func checkStartupSecurity() {
+        
     }
     
     func showAccountDetailsDialog(_ account: DcrlibwalletAccount) {
@@ -210,6 +256,7 @@ extension WalletsViewController {
                 try WalletLoader.shared.multiWallet.renameWallet(walletID, newName: newWalletName)
                 dialogDelegate?.dismissDialog()
                 self.loadWallets()
+                self.refreshAccountDetails()
                 Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.walletRenamed)
             } catch let error {
                 dialogDelegate?.displayError(errorMessage: error.localizedDescription)
