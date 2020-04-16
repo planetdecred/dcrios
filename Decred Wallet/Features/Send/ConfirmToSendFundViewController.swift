@@ -114,7 +114,7 @@ class ConfirmToSendFundViewController: UIViewController, UITextFieldDelegate {
         
         self.balanceAfterSendLabel.text = "\(self.unsignedTxSummary.dcrBalanceAfterSending.round(8).formattedWithSeparator) DCR"
         
-        self.sendButton.setTitle("Send \(self.unsignedTxSummary.dcrAmount.round(8).formattedWithSeparator) DCR", for: .normal)
+        self.sendButton.setTitle("\(LocalizedStrings.send.capitalizingFirstLetter()) \(self.unsignedTxSummary.dcrAmount.round(8).formattedWithSeparator) DCR", for: .normal)
     }
     
     @IBAction func closeButtonTapped(_ sender: Any) {
@@ -124,7 +124,7 @@ class ConfirmToSendFundViewController: UIViewController, UITextFieldDelegate {
     @IBAction func sendButtonTapped(_ sender: Any) {
         let privatePassType = SpendingPinOrPassword.securityType(for: self.sourceWalletID)
         Security.spending(initialSecurityType: privatePassType)
-            .with(prompt: "Confirm to send") // todo localize
+            .with(prompt: LocalizedStrings.confirmToSend)
             .with(submitBtnText: LocalizedStrings.confirm)
             .requestCurrentCode(sender: self) { privatePass, _, dialogDelegate in
                 
@@ -139,7 +139,7 @@ class ConfirmToSendFundViewController: UIViewController, UITextFieldDelegate {
                     } else {
                         print("send error:", error!.localizedDescription)
                         dialogDelegate?.dismissDialog()
-                        Utils.showBanner(in: self.view.subviews.first!, type: .error, text: "Failed to send. Please try again.")
+                        Utils.showBanner(in: self.view.subviews.first!, type: .error, text: LocalizedStrings.FailedToSendTryAgain)
                     }
                 }
         }
