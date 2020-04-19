@@ -438,8 +438,6 @@ extension OverviewViewController: DcrlibwalletSyncProgressListenerProtocol {
             self.syncCurrentStepReportLabel.text = String(format: LocalizedStrings.fetchedHeaders, report.currentHeaderHeight, report.totalHeadersToFetch)
             
             self.syncCurrentStepProgressLabel.text = String(format: LocalizedStrings.bestBlockAgebehind, report.bestBlockAge)
-            print("header fetching")
-            print("\(report.generalSyncProgress?.totalTimeRemainingSeconds ?? 1)")
             
         }
     }
