@@ -70,7 +70,7 @@ class SendViewController: UIViewController {
     
     var validSendAmountString: String? {
         let amountCrudeText = self.amountTextField.text
-        let validTextAmountString = amountCrudeText?.dropLast(3) ?? ""
+        let validTextAmountString = amountCrudeText?.dropLast(4) ?? ""
         return String(validTextAmountString)
     }
     
@@ -150,7 +150,7 @@ class SendViewController: UIViewController {
     private func fetchExchangeRate() {
         self.retryFetchExchangeRateButton.isHidden = true
         if self.exchangeRate == nil {
-            self.usdAmountLabel.text = "- USD"
+            self.usdAmountLabel.text = "0 USD"
         }
         
         switch Settings.currencyConversionOption {
@@ -376,7 +376,7 @@ extension SendViewController {
     func calculateAndDisplayUSDAmount() {
 
         guard let dcrAmount = Double(validSendAmountString ?? ""), let exchangeRate = self.exchangeRate else {
-            self.usdAmountLabel.text = "- USD"
+            self.usdAmountLabel.text = "0 USD"
             return
         }
 
