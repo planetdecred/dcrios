@@ -64,7 +64,7 @@ class SettingsController: UITableViewController  {
         self.navigationController?.navigationBar.topItem?.rightBarButtonItem = nil
         self.navigationController?.navigationBar.barTintColor = UIColor.appColors.offWhite
         
-        let closeButton = UIBarButtonItem(image: UIImage(named: "ic_close"),
+        let closeButton = UIBarButtonItem(image: UIImage(named: "left-arrow"),
                                           style: .done,
                                           target: self,
                                           action: #selector(self.dismissView))
