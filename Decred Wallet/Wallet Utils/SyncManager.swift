@@ -12,7 +12,6 @@ import Dcrlibwallet
 class SyncManager: NSObject {
     static let shared = SyncManager()
     
-    var stalledSyncTracker: Timer?
     var networkLastActive: Date?
     var backgroundTask: UIBackgroundTaskIdentifier = .invalid
     
@@ -32,7 +31,6 @@ class SyncManager: NSObject {
     
     override init() {
         super.init()
-        try? WalletLoader.shared.multiWallet.add(self, uniqueIdentifier: "\(self)")
         WalletLoader.shared.multiWallet.enableSyncLogs()
     }
     
@@ -180,67 +178,6 @@ class SyncManager: NSObject {
     }
 }
 
-// extension to track delayed sync updates and restart sync
-extension SyncManager: DcrlibwalletSyncProgressListenerProtocol {
-    func onSyncStarted(_ wasRestarted: Bool) {
-    }
-    
-    func onPeerConnectedOrDisconnected(_ numberOfConnectedPeers: Int32) {
-    }
-    
-    func onHeadersFetchProgress(_ headersFetchProgress: DcrlibwalletHeadersFetchProgressReport?) {
-        self.restartSyncIfItStalls()
-    }
-    
-    func onAddressDiscoveryProgress(_ addressDiscoveryProgress: DcrlibwalletAddressDiscoveryProgressReport?) {
-        self.restartSyncIfItStalls()
-    }
-    
-    func onHeadersRescanProgress(_ headersRescanProgress: DcrlibwalletHeadersRescanProgressReport?) {
-        self.restartSyncIfItStalls()
-    }
-    
-    func onSyncCanceled(_ willRestart: Bool) {
-        self.stalledSyncTracker?.invalidate()
-        self.stalledSyncTracker = nil
-    }
-    
-    func onSyncCompleted() {
-        self.stalledSyncTracker?.invalidate()
-        self.stalledSyncTracker = nil
-    }
-    
-    func onSyncEndedWithError(_ err: Error?) {
-        self.stalledSyncTracker?.invalidate()
-        self.stalledSyncTracker = nil
-    }
-    
-    func debug(_ debugInfo: DcrlibwalletDebugInfo?) {
-    }
-    
-    private func restartSyncIfItStalls() {
-        // Cancel any previously set sync-restart timer.
-        self.stalledSyncTracker?.invalidate()
-
-        // No need to restart if sync is no longer in progress.
-        if !self.isSyncing {
-            return
-        }
-
-        // Setup new timer to restart sync in 30 seconds.
-        // This timer would/should be canceled/invalidated if a sync update is received before the set interval (30 seconds).
-        DispatchQueue.main.async {
-            self.stalledSyncTracker = Timer.scheduledTimer(withTimeInterval: 30, repeats: false) {_ in
-                // No need to restart if sync is no longer in progress.
-                guard self.isSyncing else { return }
-                
-                self.startOrRestartSync(allowSyncOnCellular: Settings.syncOnCellular)
-                self.stalledSyncTracker = nil
-            }
-        }
-    }
-}
-
 // extension to react to changes in application state or network connection:
 /// - applicationWillEnterBackground:
 ///   Registers a background task to keep the sync process alive for a few minutes even after app enters background.
@@ -271,10 +208,6 @@ extension SyncManager: AppLifeCycleDelegate {
         }
         
         // Sync was obviously stalled because the app went to sleep.
-        // Unset any previous timer set to track stalled sync since we'd account for this particular stalling below.
-        self.stalledSyncTracker?.invalidate()
-        self.stalledSyncTracker = nil
-        
         var syncLastActive = lastActiveTime
         if self.networkLastActive != nil && self.networkLastActive!.isBefore(lastActiveTime) {
             // Use network last active time if network was lost before app went to sleep.
@@ -309,8 +242,6 @@ extension SyncManager: AppLifeCycleDelegate {
             // Network becoming disconnected may cause sync to stall for a while.
             // Unset any previous timer set to track stalled sync since we'd account
             // for this particular stalling below when network becomes active again.
-            self.stalledSyncTracker?.invalidate()
-            self.stalledSyncTracker = nil
         } else if self.networkLastActive != nil {
             // Account for stalled sync by subtracting lost time from sync estimation parameters.
             let totalInactiveSeconds = Date().timeIntervalSince(self.networkLastActive!)
