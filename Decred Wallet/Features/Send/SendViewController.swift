@@ -40,7 +40,7 @@ class SendViewController: UIViewController {
     
     @IBOutlet var sourceAccountSpendableBalanceLabel: UILabel!
     @IBOutlet var amountContainerView: UIView!
-    @IBOutlet var amountTextField: UITextField!
+    @IBOutlet var amountTextField: SuffixTextField!
     @IBOutlet var usdAmountSeparatorView: UIView!
     @IBOutlet var usdAmountSection: UIView!
     @IBOutlet var usdAmountLabel: UILabel!
@@ -368,7 +368,11 @@ extension SendViewController {
     }
 
     func calculateAndDisplayUSDAmount() {
-        guard let dcrAmount = Double(self.amountTextField.text ?? ""), let exchangeRate = self.exchangeRate else {
+
+        let amountCrudeText = self.amountTextField.text
+        let validTextAmountString = amountCrudeText?.dropLast(3)
+
+        guard let dcrAmount = Double(validTextAmountString ?? ""), let exchangeRate = self.exchangeRate else {
             self.usdAmountLabel.text = "- USD"
             return
         }
@@ -453,8 +457,11 @@ extension SendViewController {
             Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.invalidDestAddr)
             return false
         }
-        
-        let sendAmountDcr = Double(self.amountTextField.text ?? "") ?? 0
+
+        let amountCrudeText = self.amountTextField.text
+        let validTextAmountString = amountCrudeText?.dropLast(3)
+
+        let sendAmountDcr = Double(validTextAmountString ?? "") ?? 0
         if !self.sendMax {
             guard sendAmountDcr > 0, sendAmountDcr <= DcrlibwalletMaxAmountDcr else {
                 Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.invalidAmount)
@@ -471,8 +478,11 @@ extension SendViewController {
             let sourceAccountBalance = sourceAccount.balance, sourceAccountBalance.spendable > 0,
             let destinationAddress = self.destinationAddress, sourceWallet.isAddressValid(destinationAddress)
             else { return nil }
-        
-        let sendAmountDcr = Double(self.amountTextField.text ?? "") ?? 0
+
+        let amountCrudeText = self.amountTextField.text
+        let validTextAmountString = amountCrudeText?.dropLast(3)
+
+        let sendAmountDcr = Double(validTextAmountString ?? "") ?? 0
         if !self.sendMax {
             guard sendAmountDcr > 0, sendAmountDcr <= DcrlibwalletMaxAmountDcr else {
                 return nil
@@ -519,8 +529,11 @@ extension SendViewController {
     
     func validateAmount() {
         self.hideAmountError()
-        
-        guard let dcrAmountString = self.amountTextField.text, dcrAmountString != "" else {
+
+        let amountCrudeText = self.amountTextField.text
+        let validTextAmountString = amountCrudeText?.dropLast(3)
+
+        guard let dcrAmountString = validTextAmountString, dcrAmountString != "" else {
             return
         }
         
