@@ -19,6 +19,7 @@ class TabMenuItemView: UIView {
         let view = UIView.init(frame: CGRect(x: iconView.frame.size.width / 2, y: 0, width: 12, height: 12))
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = view.frame.size.height / 2
+        view.backgroundColor = .red
         return view
     }
     
@@ -109,7 +110,6 @@ class TabMenuItemView: UIView {
     
     func addIndicatorView(backGroundColor: UIColor) {
         addIndicatorView()
-        indicatorView.backgroundColor = backgroundColor
     }
 
     func removeIndicatorView() {

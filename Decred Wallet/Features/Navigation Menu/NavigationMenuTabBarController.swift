@@ -14,6 +14,7 @@ class NavigationMenuTabBarController: UITabBarController {
     
     var customTabBar: CustomTabMenuView!
     static let tabItems: [MenuItem] = [.overview, .transactions, .wallets, .more]
+    var walletsVC: WalletsViewController?
     
     lazy var floatingButtons: NavMenuFloatingButtons = {
         return NavMenuFloatingButtons()
@@ -31,8 +32,9 @@ class NavigationMenuTabBarController: UITabBarController {
         }
 
         let numberOfWalletsNeedingBackUp = WalletLoader.shared.multiWallet.numWalletsNeedingSeedBackup()
-        if numberOfWalletsNeedingBackUp >= 1 {
+        if numberOfWalletsNeedingBackUp >= 1 || isNewWallet {
             customTabBar.hasUnBackedUpWallets(true)
+            walletsVC?.customTabBar = customTabBar
         }
     }
     
@@ -45,7 +47,7 @@ class NavigationMenuTabBarController: UITabBarController {
                 guard let walletsVc = item.viewController as? WalletsViewController else {
                     return
                 }
-                walletsVc.customTabBar = self.customTabBar
+                self.walletsVC = walletsVc
             }
         }
 
