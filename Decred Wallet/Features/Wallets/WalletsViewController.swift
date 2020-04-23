@@ -13,6 +13,7 @@ class WalletsViewController: UIViewController {
     @IBOutlet weak var walletsTableView: UITableView!
     
     var wallets = [Wallet]()
+    weak var customTabBar: CustomTabMenuView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +30,12 @@ class WalletsViewController: UIViewController {
         
         self.loadWallets()
         self.refreshAccountDetails()
+        
+        let numberOfWalletsNeedingBackUp = WalletLoader.shared.multiWallet.numWalletsNeedingSeedBackup()
+        if numberOfWalletsNeedingBackUp < 1 {
+            customTabBar?.hasUnBackedUpWallets(false)
+        }
+
     }
     
     func loadWallets() {

@@ -29,12 +29,26 @@ class NavigationMenuTabBarController: UITabBarController {
             self.isNewWallet = false
             Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.walletCreated)
         }
+
+        let numberOfWalletsNeedingBackUp = WalletLoader.shared.multiWallet.numWalletsNeedingSeedBackup()
+        if numberOfWalletsNeedingBackUp >= 1 {
+            customTabBar.hasUnBackedUpWallets(true)
+        }
     }
     
     // Create our custom menu bar and display it right where the tab bar should be.
     func setupCustomTabMenu(_ menuItems: [MenuItem]) {
         tabBar.isHidden = true
-        
+
+        menuItems.forEach { item in
+            if item == .wallets {
+                guard let walletsVc = item.viewController as? WalletsViewController else {
+                    return
+                }
+                walletsVc.customTabBar = self.customTabBar
+            }
+        }
+
         let background = UIView(frame: CGRect.zero) // White background to fill up safe area at bottom of devices >= iPhone X
         background.backgroundColor = UIColor.white
         background.translatesAutoresizingMaskIntoConstraints = false
