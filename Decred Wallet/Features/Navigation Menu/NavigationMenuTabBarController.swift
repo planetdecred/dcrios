@@ -68,7 +68,12 @@ class NavigationMenuTabBarController: UITabBarController {
             } else {
                 self.hideFloatingButtons()
             }
-            
+
+            // Always making sure we with start with more menu on the top level
+            if newTabIndex == 3 {
+                guard let nav = self.viewControllers?.last as? UINavigationController else {return}
+                nav.popToRootViewController(animated: false)
+            }
         }
         
         self.viewControllers = menuItems.map({ $0.viewController })
