@@ -191,6 +191,8 @@ class VerifyMessageViewController: UIViewController, FloatingPlaceholderTextView
         if capturedText.starts(with: "decred:") {
             capturedText = capturedText.replacingOccurrences(of: "decred:", with: "")
         }
+        self.addressText.textViewDidBeginEditing(self.addressText)
         self.addressText.text = capturedText
+        self.toggleValidateButtonState()
     }
 }

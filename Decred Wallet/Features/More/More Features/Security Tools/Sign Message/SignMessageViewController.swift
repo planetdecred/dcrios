@@ -156,6 +156,7 @@ class SignMessageViewController: UIViewController, FloatingPlaceholderTextViewDe
         }
         self.addressText.textViewDidBeginEditing(self.addressText)
         self.addressText.text = capturedText
+        self.toggleSignButtonState()
     }
     
     func signMessage() {

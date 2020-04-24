@@ -255,6 +255,7 @@ class SendViewController: UIViewController {
                 }
             }
             
+            self.destinationAddressTextField.textViewDidBeginEditing(self.destinationAddressTextField)
             self.destinationAddressTextField.text = addressURI.address
             if addressURI.amount != nil {
                 self.amountTextField.text = String(addressURI.amount!)

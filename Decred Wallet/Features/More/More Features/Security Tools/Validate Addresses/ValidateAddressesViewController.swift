@@ -146,7 +146,8 @@ class ValidateAddressesViewController: UIViewController, UITextViewDelegate, Flo
         if capturedText.starts(with: "decred:") {
             capturedText = capturedText.replacingOccurrences(of: "decred:", with: "")
         }
+        self.addressText.textViewDidBeginEditing(self.addressText)
         self.addressText.text = capturedText
-        self.validateAdd(address: capturedText)
+        self.toggleValidateButtonState(addressHasText: self.addressText.text)
     }
 }
