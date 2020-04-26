@@ -91,7 +91,7 @@ class ConfirmToSendFundViewController: UIViewController, UITextFieldDelegate {
         if let exchangeRate = self.exchangeRate {
             let sendingAmountUsd = self.unsignedTxSummary.dcrAmount.multiplying(by: exchangeRate)
             let sendingAmountUsdText = Utils.styleAttributedString(
-                " (\(sendingAmountUsd.round(4).formattedWithSeparator))",
+                " ($\(sendingAmountUsd.round(4).formattedWithSeparator) USD)",
                 font: UIFont(name: "SourceSansPro-Regular", size: 25),
                 color: subTextColor
             )
@@ -99,12 +99,12 @@ class ConfirmToSendFundViewController: UIViewController, UITextFieldDelegate {
             
             let feeUsd = self.unsignedTxSummary.dcrFee.multiplying(by: exchangeRate)
             feeText.append(
-                Utils.styleAttributedString(" (\(feeUsd.round(8).formattedWithSeparator))", color: subTextColor)
+                Utils.styleAttributedString("DCR ($\(feeUsd.round(4).formattedWithSeparator) USD)", color: subTextColor)
             )
             
             let totalCostUsd = self.unsignedTxSummary.dcrTotalCost.multiplying(by: exchangeRate)
             totalCostText.append(
-                Utils.styleAttributedString(" (\(totalCostUsd.round(8).formattedWithSeparator))", color: subTextColor)
+                Utils.styleAttributedString("DCR ($\(totalCostUsd.round(2).formattedWithSeparator) USD)", color: subTextColor)
             )
         }
         
