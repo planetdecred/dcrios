@@ -539,7 +539,12 @@ extension OverviewViewController: DcrlibwalletSyncProgressListenerProtocol {
 
 extension OverviewViewController: DcrlibwalletTxAndBlockNotificationListenerProtocol {
     func onBlockAttached(_ walletID: Int, blockHeight: Int32) {
-        // not relevant to this VC
+        let unconfirmedTransactions = self.recentTransactions.filter {$0.confirmations <= 2}.count
+        if unconfirmedTransactions > 0 {
+            DispatchQueue.main.async {
+                self.updateRecentActivity()
+            }
+        }
     }
     
     func onTransaction(_ transaction: String?) {
@@ -566,7 +571,7 @@ extension OverviewViewController: DcrlibwalletTxAndBlockNotificationListenerProt
     func onTransactionConfirmed(_ walletID: Int, hash: String?, blockHeight: Int32) {
         DispatchQueue.main.async {
             self.updateMultiWalletBalance()
-            self.recentTransactionsTableView.reloadData()
+            self.updateRecentActivity()
         }
     }
 }
