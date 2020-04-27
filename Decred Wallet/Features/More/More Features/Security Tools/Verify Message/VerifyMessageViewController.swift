@@ -99,21 +99,24 @@ class VerifyMessageViewController: UIViewController, FloatingPlaceholderTextView
        }
     
     @objc func onAddressPaste() {
-        self.addressText.textViewDidBeginEditing(self.addressText)
-        self.addressText.text = UIPasteboard.general.string
-        self.toggleValidateButtonState()
+        if let address = UIPasteboard.general.string {
+            self.addressText.setText(address)
+            self.toggleValidateButtonState()
+        }
     }
     
     @objc func onMessagePaste() {
-        self.messageText.textViewDidBeginEditing(self.messageText)
-        self.messageText.text = UIPasteboard.general.string
-        self.toggleValidateButtonState()
+        if let message = UIPasteboard.general.string {
+            self.messageText.setText(message)
+            self.toggleValidateButtonState()
+        }
     }
     
     @objc func onSignaturePaste() {
-        self.signatureText.textViewDidBeginEditing(self.signatureText)
-        self.signatureText.text = UIPasteboard.general.string
-        self.toggleValidateButtonState()
+        if let signature = UIPasteboard.general.string {
+            self.signatureText.setText(signature)
+            self.toggleValidateButtonState()
+        }
     }
     
     @objc func pageInfo(){
@@ -191,8 +194,7 @@ class VerifyMessageViewController: UIViewController, FloatingPlaceholderTextView
         if capturedText.starts(with: "decred:") {
             capturedText = capturedText.replacingOccurrences(of: "decred:", with: "")
         }
-        self.addressText.textViewDidBeginEditing(self.addressText)
-        self.addressText.text = capturedText
+        self.addressText.setText(capturedText)
         self.toggleValidateButtonState()
     }
 }

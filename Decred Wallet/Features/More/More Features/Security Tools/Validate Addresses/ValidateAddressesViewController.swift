@@ -83,9 +83,10 @@ class ValidateAddressesViewController: UIViewController, UITextViewDelegate, Flo
     }
     
     @objc func onPaste() {
-        self.addressText.textViewDidBeginEditing(self.addressText)
-        self.addressText.text = UIPasteboard.general.string
-        self.toggleValidateButtonState(addressHasText: self.addressText.text!)
+        if let address = UIPasteboard.general.string {
+            self.addressText.setText(address)
+            self.toggleValidateButtonState(addressHasText: self.addressText.text!)
+        }
     }
     
     func toggleValidateButtonState(addressHasText: String) {
@@ -146,8 +147,7 @@ class ValidateAddressesViewController: UIViewController, UITextViewDelegate, Flo
         if capturedText.starts(with: "decred:") {
             capturedText = capturedText.replacingOccurrences(of: "decred:", with: "")
         }
-        self.addressText.textViewDidBeginEditing(self.addressText)
-        self.addressText.text = capturedText
+        self.addressText.setText(capturedText)
         self.toggleValidateButtonState(addressHasText: self.addressText.text)
     }
 }
