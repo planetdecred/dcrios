@@ -74,6 +74,7 @@ class SeedBackupVerifyViewController: UIViewController {
                                                            seedMnemonic: userEnteredSeed)
             
             self.seedBackupCompleted?()
+            NotificationCenter.default.post(name: NSNotification.Name("SeedBackupCompleted"), object: nil)
             self.performSegue(withIdentifier: "toSeedBackupSuccess", sender: nil)
         } catch {
             self.groupedSeedWordsTableView?.isUserInteractionEnabled = true

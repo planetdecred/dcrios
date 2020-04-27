@@ -22,22 +22,27 @@ class WalletsViewController: UIViewController {
         self.walletsTableView.registerCellNib(WalletInfoTableViewCell.self)
         self.walletsTableView.dataSource = self
         self.walletsTableView.delegate = self
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(refreshView),
+                                               name: Notification.Name("SeedBackupCompleted"),
+                                               object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
-        
+        refreshView()
+    }
+
+    @objc func refreshView() {
         self.loadWallets()
         self.refreshAccountDetails()
-        
-        let numberOfWalletsNeedingBackUp = WalletLoader.shared.multiWallet.numWalletsNeedingSeedBackup()
-        if numberOfWalletsNeedingBackUp < 1 {
+        let numberOfNotBackedupWallets = self.wallets.filter {!$0.isSeedBackedUp}.count
+        if numberOfNotBackedupWallets < 1 {
             customTabBar?.hasUnBackedUpWallets(false)
         }
-
     }
-    
+
     func loadWallets() {
         let accountsFilterFn: (DcrlibwalletAccount) -> Bool = { ($0.totalBalance >= 0 && $0.name != "imported") || ($0.totalBalance > 0 && $0.name == "imported")}
         self.wallets = WalletLoader.shared.wallets.map({ Wallet.init($0, accountsFilterFn: accountsFilterFn) })

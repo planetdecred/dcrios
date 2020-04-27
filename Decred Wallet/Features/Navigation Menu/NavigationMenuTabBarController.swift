@@ -23,6 +23,12 @@ class NavigationMenuTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupCustomTabMenu(NavigationMenuTabBarController.tabItems)
+        guard let navs = self.viewControllers else {return}
+        navs.forEach {
+            if let walletVC = $0 as? WalletsViewController {
+                walletVC.customTabBar = self.customTabBar
+            }
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -41,15 +47,6 @@ class NavigationMenuTabBarController: UITabBarController {
     // Create our custom menu bar and display it right where the tab bar should be.
     func setupCustomTabMenu(_ menuItems: [MenuItem]) {
         tabBar.isHidden = true
-
-        menuItems.forEach { item in
-            if item == .wallets {
-                guard let walletsVc = item.viewController as? WalletsViewController else {
-                    return
-                }
-                self.walletsVC = walletsVc
-            }
-        }
 
         let background = UIView(frame: CGRect.zero) // White background to fill up safe area at bottom of devices >= iPhone X
         background.backgroundColor = UIColor.white
