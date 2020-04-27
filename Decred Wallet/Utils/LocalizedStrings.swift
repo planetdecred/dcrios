@@ -132,6 +132,7 @@ struct LocalizedStrings {
     static let syncingProgress = NSLocalizedString("syncingProgress", comment: "")
     static let disconnect = NSLocalizedString("disconnect", comment: "")
     static let reconnect = NSLocalizedString("reconnect", comment: "")
+    static let waitForSync = NSLocalizedString("waitForSync", comment: "")
     
     /* Navigation Menu Items */
     static let overview = NSLocalizedString("overview", comment: "")

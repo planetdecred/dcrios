@@ -79,12 +79,36 @@ class NavMenuFloatingButtons: UIView {
     }
     
     @objc func sendTapped(_ sender: UIButton) {
+        if WalletLoader.shared.multiWallet.isSyncing() {
+            if let navigationTabController = NavigationMenuTabBarController.instance?.view {
+                Utils.showBanner(in: navigationTabController, type: .error, text: LocalizedStrings.waitForSync)
+            }
+            return
+        } else if !WalletLoader.shared.multiWallet.isConnectedToDecredNetwork() {
+            if let navigationTabController = NavigationMenuTabBarController.instance?.view {
+                Utils.showBanner(in: navigationTabController, type: .error, text: LocalizedStrings.notConnected)
+            }
+            return
+        }
+        
         let sendVC = SendViewController.instance
         sendVC.modalPresentationStyle = .overFullScreen
         self.window?.rootViewController?.present(sendVC, animated: true)
     }
     
     @objc func receiveTapped(_ sender: UIButton) {
+        if WalletLoader.shared.multiWallet.isSyncing() {
+            if let navigationTabController = NavigationMenuTabBarController.instance?.view {
+                Utils.showBanner(in: navigationTabController, type: .error, text: LocalizedStrings.waitForSync)
+            }
+            return
+        } else if !WalletLoader.shared.multiWallet.isConnectedToDecredNetwork() {
+            if let navigationTabController = NavigationMenuTabBarController.instance?.view {
+                Utils.showBanner(in: navigationTabController, type: .error, text: LocalizedStrings.notConnected)
+            }
+            return
+        }
+        
         let receiveVC = ReceiveViewController.instantiate(from: .Receive)
         receiveVC.modalPresentationStyle = .overFullScreen
         self.window?.rootViewController?.present(receiveVC, animated: true)
