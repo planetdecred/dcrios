@@ -81,17 +81,25 @@ class ConfirmToSendFundViewController: UIViewController, UITextFieldDelegate {
         let amountText = Utils.amountAsAttributedString(
             amount: self.unsignedTxSummary.dcrAmount.doubleValue, smallerTextSize: 15.0
         )
+        
         let feeText = NSMutableAttributedString(
             string: self.unsignedTxSummary.dcrFee.round(8).formattedWithSeparator
         )
+        feeText.append(
+             Utils.styleAttributedString(" DCR")
+        )
+        
         let totalCostText = NSMutableAttributedString(
             string: self.unsignedTxSummary.dcrTotalCost.round(8).formattedWithSeparator
+        )
+        totalCostText.append(
+            Utils.styleAttributedString(" DCR")
         )
         
         if let exchangeRate = self.exchangeRate {
             let sendingAmountUsd = self.unsignedTxSummary.dcrAmount.multiplying(by: exchangeRate)
             let sendingAmountUsdText = Utils.styleAttributedString(
-                " ($\(sendingAmountUsd.round(4).formattedWithSeparator) USD)",
+                " ($\(sendingAmountUsd.round(2).formattedWithSeparator))",
                 font: UIFont(name: "SourceSansPro-Regular", size: 25),
                 color: subTextColor
             )
@@ -99,12 +107,12 @@ class ConfirmToSendFundViewController: UIViewController, UITextFieldDelegate {
             
             let feeUsd = self.unsignedTxSummary.dcrFee.multiplying(by: exchangeRate)
             feeText.append(
-                Utils.styleAttributedString("DCR ($\(feeUsd.round(4).formattedWithSeparator) USD)", color: subTextColor)
+                 Utils.styleAttributedString(" ($\(feeUsd.round(4).formattedWithSeparator))", color: subTextColor)
             )
             
             let totalCostUsd = self.unsignedTxSummary.dcrTotalCost.multiplying(by: exchangeRate)
             totalCostText.append(
-                Utils.styleAttributedString("DCR ($\(totalCostUsd.round(2).formattedWithSeparator) USD)", color: subTextColor)
+                Utils.styleAttributedString(" ($\(totalCostUsd.round(2).formattedWithSeparator))", color: subTextColor)
             )
         }
         
