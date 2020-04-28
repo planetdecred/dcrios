@@ -136,7 +136,7 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
         Security.spending(initialSecurityType: .password)
             .requestNewCode(sender: self, isChangeAttempt: false) { pinOrPassword, type, completion in
                 
-                WalletLoader.shared.createWallet(spendingPinOrPassword: pinOrPassword, securityType: type) {
+                WalletLoader.shared.createWallet(spendingPinOrPassword: pinOrPassword, securityType: type, walletName: LocalizedStrings.myWallet) {
                     createWalletError in
                     
                     if createWalletError != nil {
@@ -151,6 +151,7 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
     
     @IBAction func restoreExistingWallet(_ sender: Any) {
         let restoreWalletVC = RestoreExistingWalletViewController.instantiate(from: .WalletSetup)
+        restoreWalletVC.walletName = LocalizedStrings.myWallet
         self.navigationController?.pushViewController(restoreWalletVC, animated: true)
     }
     

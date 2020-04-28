@@ -21,6 +21,8 @@ class RestoreExistingWalletViewController: UIViewController {
     
     var onWalletRestored: (() -> ())?
     
+    var walletName = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -115,7 +117,7 @@ class RestoreExistingWalletViewController: UIViewController {
         Security.spending(initialSecurityType: .password)
             .requestNewCode(sender: self, isChangeAttempt: false) { pinOrPassword, type, completion in
             
-                WalletLoader.shared.restoreWallet(seed: seed, spendingPinOrPassword: pinOrPassword, securityType: type) {
+                WalletLoader.shared.restoreWallet(seed: seed, spendingPinOrPassword: pinOrPassword, securityType: type, walletName: self.walletName) {
                     restoreError in
                     
                     if restoreError != nil {

@@ -36,7 +36,6 @@ class WalletsViewController: UIViewController {
         self.wallets = WalletLoader.shared.wallets.map({ Wallet.init($0, accountsFilterFn: accountsFilterFn) })
     }
     
-    // todo prolly hide this action if sync is ongoing as wallets cannot be added during ongoing sync
     @IBAction func addNewWalletTapped(_ sender: UIView) {
         let alertController = UIAlertController(title: nil,
                                                 message: LocalizedStrings.createOrImportWallet,
@@ -91,27 +90,40 @@ class WalletsViewController: UIViewController {
     }
     
     func createNewWallet() {
-        Security.spending(initialSecurityType: .password).requestNewCode(sender: self, isChangeAttempt: false) { pinOrPassword, type, completion in
-            WalletLoader.shared.createWallet(spendingPinOrPassword: pinOrPassword, securityType: type) { error in
-                if error == nil {
-                    completion?.dismissDialog()
-                    self.loadWallets()
-                    self.refreshAccountDetails()
-                    Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.walletCreated)
-                } else {
-                    completion?.displayError(errorMessage: error!.localizedDescription)
+        SimpleTextInputDialog.show(sender: self,
+        title: LocalizedStrings.walletName,
+        placeholder: LocalizedStrings.walletName,
+        submitButtonText: LocalizedStrings.confirm) { walletName, dialogDelegate in
+         dialogDelegate?.dismissDialog()
+            Security.spending(initialSecurityType: .password).requestNewCode(sender: self, isChangeAttempt: false) { pinOrPassword, type, completion in
+                WalletLoader.shared.createWallet(spendingPinOrPassword: pinOrPassword, securityType: type, walletName: walletName) { error in
+                    if error == nil {
+                        completion?.dismissDialog()
+                        self.loadWallets()
+                        self.refreshAccountDetails()
+                        Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.walletCreated)
+                    } else {
+                        completion?.displayError(errorMessage: error!.localizedDescription)
+                    }
                 }
             }
         }
     }
     
     func goToRestoreWallet() {
-        let restoreWalletVC = RestoreExistingWalletViewController.instantiate(from: .WalletSetup)
-        restoreWalletVC.onWalletRestored = {
-            self.loadWallets()
-            Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.walletCreated)
+        SimpleTextInputDialog.show(sender: self,
+        title: LocalizedStrings.walletName,
+        placeholder: LocalizedStrings.walletName,
+        submitButtonText: LocalizedStrings.confirm) { walletName, dialogDelegate in
+            dialogDelegate?.dismissDialog()
+            let restoreWalletVC = RestoreExistingWalletViewController.instantiate(from: .WalletSetup)
+            restoreWalletVC.walletName = walletName
+            restoreWalletVC.onWalletRestored = {
+                self.loadWallets()
+                Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.walletCreated)
+            }
+            self.navigationController?.pushViewController(restoreWalletVC, animated: true)
         }
-        self.navigationController?.pushViewController(restoreWalletVC, animated: true)
     }
 }
 
