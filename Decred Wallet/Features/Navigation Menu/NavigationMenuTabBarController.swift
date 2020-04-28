@@ -14,6 +14,7 @@ class NavigationMenuTabBarController: UITabBarController {
     
     var customTabBar: CustomTabMenuView!
     static let tabItems: [MenuItem] = [.overview, .transactions, .wallets, .more]
+    var walletsVC: WalletsViewController?
     
     lazy var floatingButtons: NavMenuFloatingButtons = {
         return NavMenuFloatingButtons()
@@ -22,6 +23,12 @@ class NavigationMenuTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupCustomTabMenu(NavigationMenuTabBarController.tabItems)
+        guard let navs = self.viewControllers else {return}
+        navs.forEach {
+            if let walletVC = $0 as? WalletsViewController {
+                walletVC.customTabBar = self.customTabBar
+            }
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -29,12 +36,18 @@ class NavigationMenuTabBarController: UITabBarController {
             self.isNewWallet = false
             Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.walletCreated)
         }
+
+        let numberOfWalletsNeedingBackUp = WalletLoader.shared.multiWallet.numWalletsNeedingSeedBackup()
+        if numberOfWalletsNeedingBackUp >= 1 || isNewWallet {
+            customTabBar.hasUnBackedUpWallets(true)
+            walletsVC?.customTabBar = customTabBar
+        }
     }
     
     // Create our custom menu bar and display it right where the tab bar should be.
     func setupCustomTabMenu(_ menuItems: [MenuItem]) {
         tabBar.isHidden = true
-        
+
         let background = UIView(frame: CGRect.zero) // White background to fill up safe area at bottom of devices >= iPhone X
         background.backgroundColor = UIColor.white
         background.translatesAutoresizingMaskIntoConstraints = false
