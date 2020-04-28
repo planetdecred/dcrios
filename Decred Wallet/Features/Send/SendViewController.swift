@@ -150,7 +150,7 @@ class SendViewController: UIViewController {
     private func fetchExchangeRate() {
         self.retryFetchExchangeRateButton.isHidden = true
         if self.exchangeRate == nil {
-            self.usdAmountLabel.text = "0 USD"
+            self.usdAmountLabel.text = "- USD"
         }
         
         switch Settings.currencyConversionOption {
