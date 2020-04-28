@@ -33,10 +33,6 @@ class WalletsViewController: UIViewController {
     @objc func refreshView() {
         self.loadWallets()
         self.refreshAccountDetails()
-        let numberOfNotBackedupWallets = self.wallets.filter {!$0.isSeedBackedUp}.count
-        if numberOfNotBackedupWallets < 1 {
-            customTabBar?.hasUnBackedUpWallets(false)
-        }
     }
 
     func loadWallets() {
@@ -105,6 +101,7 @@ class WalletsViewController: UIViewController {
                     completion?.dismissDialog()
                     self.loadWallets()
                     self.refreshAccountDetails()
+                    self.customTabBar?.hasUnBackedUpWallets(true)
                     Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.walletCreated)
                 } else {
                     completion?.displayError(errorMessage: error!.localizedDescription)
@@ -249,6 +246,10 @@ extension WalletsViewController: WalletInfoTableViewCellDelegate {
     func refreshAccountDetails() {
         self.wallets.forEach({ $0.reloadAccounts() })
         self.walletsTableView.reloadData()
+        let numberOfNotBackedupWallets = self.wallets.filter {!$0.isSeedBackedUp}.count
+        if numberOfNotBackedupWallets < 1 {
+            customTabBar?.hasUnBackedUpWallets(false)
+        }
     }
 }
 
