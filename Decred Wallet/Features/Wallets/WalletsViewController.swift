@@ -22,10 +22,6 @@ class WalletsViewController: UIViewController {
         self.walletsTableView.registerCellNib(WalletInfoTableViewCell.self)
         self.walletsTableView.dataSource = self
         self.walletsTableView.delegate = self
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(refreshView),
-                                               name: Notification.Name("SeedBackupCompleted"),
-                                               object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -165,7 +161,7 @@ extension WalletsViewController: UITableViewDataSource, UITableViewDelegate {
 extension WalletsViewController: WalletInfoTableViewCellDelegate {
     
     func walletSeedBackedUp() {
-        self.loadWallets()
+        self.refreshView()
     }
     
     func showWalletMenu(walletName: String, walletID: Int, _ sender: UIView) {
