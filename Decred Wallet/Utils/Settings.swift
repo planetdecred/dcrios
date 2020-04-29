@@ -80,6 +80,10 @@ class Settings {
         return true
     }
     
+    static var beepNewBlocks: Bool {
+        return Settings.readBoolValue(for: DcrlibwalletBeepNewBlocksConfigKey)
+    }
+    
     static var currencyConversionOption: CurrencyConversionOption {
         let selectedOption: String = Settings.readStringValue(for: DcrlibwalletCurrencyConversionConfigKey)
         return CurrencyConversionOption(rawValue: selectedOption) ?? .None

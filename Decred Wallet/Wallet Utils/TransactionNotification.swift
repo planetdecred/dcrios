@@ -8,6 +8,7 @@
 
 import Dcrlibwallet
 import UserNotifications
+import AVFoundation
 
 enum NotificationAlert: String, CaseIterable {
     case none
@@ -50,6 +51,7 @@ protocol ConfirmedTransactionNotificationProtocol {
 
 class TransactionNotification: NSObject {
     static let shared = TransactionNotification()
+    var player: AVAudioPlayer?
     
     var newTxHashes: [String] = [String]()
     
@@ -77,6 +79,25 @@ class TransactionNotification: NSObject {
             UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
         }
     }
+
+    func playSound() {
+        guard let url = Bundle.main.url(forResource: "beep", withExtension: "mp3") else { return }
+
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+            try AVAudioSession.sharedInstance().setActive(true)
+
+            player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
+
+            guard let player = player else { return }
+            
+            player.volume = 0.2
+            player.play()
+
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
 }
 
 extension TransactionNotification: DcrlibwalletTxAndBlockNotificationListenerProtocol {
@@ -89,6 +110,9 @@ extension TransactionNotification: DcrlibwalletTxAndBlockNotificationListenerPro
     func onBlockAttached(_ walletID: Int, blockHeight: Int32) {
         // View Controllers requiring this update should call
         // `try? AppDelegate.walletLoader.multiWallet.add(self, uniqueIdentifier: "\(self)")`
+        if Settings.beepNewBlocks && !WalletLoader.shared.multiWallet.isSyncing() {
+            self.playSound()
+        }
     }
     
     func onTransactionConfirmed(_ walletID: Int, hash: String?, blockHeight: Int32) {
