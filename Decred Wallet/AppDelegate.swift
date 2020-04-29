@@ -11,12 +11,6 @@ import CoreData
 import Dcrlibwallet
 import UserNotifications
 
-// compile-time preprocessor, following code will only be added if compiling for testnet
-#if IsTestnet
-import Fabric
-import Crashlytics
-#endif
-
 protocol AppLifeCycleDelegate {
     func applicationEnteredForegroundFromSuspendedState(_ lastActiveTime: Date)
     func applicationWillEnterBackground()
@@ -119,12 +113,6 @@ class AppDelegate: UIResponder {
 
 extension AppDelegate: UIApplicationDelegate {
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // compile-time preprocessor, following code will only be added if compiling for testnet
-        #if IsTestnet
-        Fabric.with([Crashlytics.self])
-        print("crashlytics set up on testnet")
-        #endif
-        
         AppDelegate.appUpTime = Date().timeIntervalSince1970
         
         NotificationsManager.shared.requestAuthorization()
