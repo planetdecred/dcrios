@@ -96,7 +96,7 @@ class WalletsViewController: UIViewController {
         submitButtonText: LocalizedStrings.confirm) { walletName, dialogDelegate in
          dialogDelegate?.dismissDialog()
             Security.spending(initialSecurityType: .password).requestNewCode(sender: self, isChangeAttempt: false) { pinOrPassword, type, completion in
-                WalletLoader.shared.createWallet(spendingPinOrPassword: pinOrPassword, securityType: type, walletName: walletName) { error in
+                WalletLoader.shared.createWallet(spendingPinOrPassword: pinOrPassword, securityType: type, walletName: walletName.lowercased()) { error in
                     if error == nil {
                         completion?.dismissDialog()
                         self.loadWallets()
@@ -117,7 +117,7 @@ class WalletsViewController: UIViewController {
         submitButtonText: LocalizedStrings.confirm) { walletName, dialogDelegate in
             dialogDelegate?.dismissDialog()
             let restoreWalletVC = RestoreExistingWalletViewController.instantiate(from: .WalletSetup)
-            restoreWalletVC.walletName = walletName
+            restoreWalletVC.walletName = walletName.lowercased()
             restoreWalletVC.onWalletRestored = {
                 self.loadWallets()
                 Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.walletCreated)
