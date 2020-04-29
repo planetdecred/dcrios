@@ -150,6 +150,7 @@
 		DD3DF86622C3F0BD00E168AB /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3DF86522C3F0BD00E168AB /* UILabel.swift */; };
 		DD41737B22B1B31E00580935 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DD41737D22B1B31E00580935 /* Localizable.strings */; };
 		DD4948EC22C0E400006A35F8 /* LocalizedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4948EB22C0E400006A35F8 /* LocalizedStrings.swift */; };
+		DD53FD772459F8B3003CA279 /* beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = DD53FD762459F8B3003CA279 /* beep.mp3 */; };
 		DD5AB14623BAE47A00863362 /* About.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD5AB14523BAE47A00863362 /* About.storyboard */; };
 		DD5AB14823BAE47A00863362 /* Debug.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD5AB14723BAE47A00863362 /* Debug.storyboard */; };
 		DD5AB14A23BAE47A00863362 /* Help.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD5AB14923BAE47A00863362 /* Help.storyboard */; };
@@ -337,6 +338,7 @@
 		DD443DD422C768A000EEAB95 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DD452ED922CA93CB00A12378 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DD4948EB22C0E400006A35F8 /* LocalizedStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedStrings.swift; sourceTree = "<group>"; };
+		DD53FD762459F8B3003CA279 /* beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = beep.mp3; sourceTree = "<group>"; };
 		DD5AB14523BAE47A00863362 /* About.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = About.storyboard; sourceTree = "<group>"; };
 		DD5AB14723BAE47A00863362 /* Debug.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Debug.storyboard; sourceTree = "<group>"; };
 		DD5AB14923BAE47A00863362 /* Help.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Help.storyboard; sourceTree = "<group>"; };
@@ -557,6 +559,7 @@
 				DDCF25A822B8A487005FCBB9 /* Main.storyboard */,
 				B3B46992228F0C2E00A68EDD /* AppDelegate.swift */,
 				B3B46999228F0C2E00A68EDD /* Assets.xcassets */,
+				DD53FD762459F8B3003CA279 /* beep.mp3 */,
 				B3B4699B228F0C2E00A68EDD /* LaunchScreen.storyboard */,
 				B3B4699E228F0C2E00A68EDD /* Info.plist */,
 				B39BDC4C228F798300F3FB55 /* BuildConfig.swift */,
@@ -1004,6 +1007,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD53FD772459F8B3003CA279 /* beep.mp3 in Resources */,
 				B3C0D4B223E0DB56002D984F /* CustomDialogs.storyboard in Resources */,
 				B3B46A41228F0F6700A68EDD /* dcr-logo.png in Resources */,
 				105836B923EACD390030FDF2 /* Receive.storyboard in Resources */,
@@ -1189,7 +1193,6 @@
 				B3B469FC228F0F2700A68EDD /* String.swift in Sources */,
 				DD89A04323B08CF800C1ECE9 /* SecurityToolsViewController.swift in Sources */,
 				DDDF95CE23C11F760057AA7F /* VerifyMessageViewController.swift in Sources */,
-				B3B46A9D228F0F7D00A68EDD /* HelpViewController.swift in Sources */,
 				DDA2F7CE24375FEF00A3DC7C /* StatisticsViewController.swift in Sources */,
 				10B7818223F066DA00AD2709 /* TransactionInputDetailCell.swift in Sources */,
 				B3B46A9A228F0F7D00A68EDD /* SettingsController.swift in Sources */,
