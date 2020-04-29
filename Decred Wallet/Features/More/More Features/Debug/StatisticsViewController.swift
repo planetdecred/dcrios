@@ -40,11 +40,13 @@ class StatisticsViewController: UITableViewController  {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         // stop refreshing statistics when view becomes invisible
         self.refreshStatsTimer?.invalidate()
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         self.refreshStatsTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) {_ in
             DispatchQueue.main.async {
                 self.statsLiveUpdate()
