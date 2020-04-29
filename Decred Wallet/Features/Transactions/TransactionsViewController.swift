@@ -251,7 +251,12 @@ extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate
 
 extension TransactionsViewController: DcrlibwalletTxAndBlockNotificationListenerProtocol {
     func onBlockAttached(_ walletID: Int, blockHeight: Int32) {
-        // not relevant to this VC
+        let unconfirmedTransactions = self.allTransactions.filter {$0.confirmations <= 2}.count
+        if unconfirmedTransactions > 0 {
+            DispatchQueue.main.async {
+                self.reloadTxsForCurrentFilter()
+            }
+        }
     }
 
     func onTransaction(_ transaction: String?) {
@@ -280,7 +285,7 @@ extension TransactionsViewController: DcrlibwalletTxAndBlockNotificationListener
     func onTransactionConfirmed(_ walletID: Int, hash: String?, blockHeight: Int32) {
         // all tx statuses will be updated when table rows are reloaded.
          DispatchQueue.main.async {
-            self.txTableView.reloadData()
+            self.reloadTxsForCurrentFilter()
         }
     }
 }

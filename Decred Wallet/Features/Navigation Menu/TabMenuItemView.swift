@@ -15,6 +15,14 @@ class TabMenuItemView: UIView {
         return self.frame.size.width - 20
     }
     
+    lazy var indicatorView: UIView = {
+        let view = UIView.init(frame: CGRect(x: iconView.frame.size.width / 2, y: 0, width: 12, height: 12))
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.cornerRadius = view.frame.size.height / 2
+        view.backgroundColor = .red
+        return view
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -70,6 +78,10 @@ class TabMenuItemView: UIView {
         ])
     }
     
+    func addIndicatorView() {
+        iconView.addSubview(indicatorView)
+    }
+    
     // Sets this menu item icon alpha to 1 and adds a top border to this view.
     func activate() {
         self.iconView.alpha = 1.0
@@ -94,5 +106,13 @@ class TabMenuItemView: UIView {
             borderLayers.forEach({ $0.removeFromSuperlayer() })
             self.setNeedsLayout()
         })
+    }
+    
+    func addIndicatorView(backGroundColor: UIColor) {
+        addIndicatorView()
+    }
+
+    func removeIndicatorView() {
+        indicatorView.removeFromSuperview()
     }
 }

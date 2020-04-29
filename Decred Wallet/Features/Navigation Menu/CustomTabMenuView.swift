@@ -11,6 +11,7 @@ import UIKit
 class CustomTabMenuView: UIStackView {
     var tabChanged: ((_ from: Int, _ to: Int) -> Void)?
     var activeTabIndex: Int = 0
+    var walletsTab: TabMenuItemView?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -29,6 +30,9 @@ class CustomTabMenuView: UIStackView {
         
         for menuItem in menuItems {
             let menuItemView = TabMenuItemView(for: menuItem)
+            if menuItem == .wallets {
+                walletsTab = menuItemView
+            }
             menuItemView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleMenuItemTap)))
             self.addArrangedSubview(menuItemView)
         }
@@ -53,6 +57,14 @@ class CustomTabMenuView: UIStackView {
             (self.subviews[previousTabId] as! TabMenuItemView).deactivate()
             (self.subviews[newTabId] as! TabMenuItemView).activate()
             self.tabChanged?(previousTabId, newTabId)
+        }
+    }
+
+    public func hasUnBackedUpWallets(_ value: Bool) {
+        if value {
+            walletsTab?.addIndicatorView(backGroundColor: UIColor.red)
+        } else {
+            walletsTab?.removeIndicatorView()
         }
     }
 }

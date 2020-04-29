@@ -13,6 +13,7 @@ class WalletsViewController: UIViewController {
     @IBOutlet weak var walletsTableView: UITableView!
     
     var wallets = [Wallet]()
+    weak var customTabBar: CustomTabMenuView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,11 +27,14 @@ class WalletsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
-        
+        refreshView()
+    }
+
+    @objc func refreshView() {
         self.loadWallets()
         self.refreshAccountDetails()
     }
-    
+
     func loadWallets() {
         let accountsFilterFn: (DcrlibwalletAccount) -> Bool = { ($0.totalBalance >= 0 && $0.name != "imported") || ($0.totalBalance > 0 && $0.name == "imported")}
         self.wallets = WalletLoader.shared.wallets.map({ Wallet.init($0, accountsFilterFn: accountsFilterFn) })
@@ -165,7 +169,7 @@ extension WalletsViewController: UITableViewDataSource, UITableViewDelegate {
 extension WalletsViewController: WalletInfoTableViewCellDelegate {
     
     func walletSeedBackedUp() {
-        self.loadWallets()
+        self.refreshView()
     }
     
     func showWalletMenu(walletName: String, walletID: Int, _ sender: UIView) {
@@ -253,6 +257,10 @@ extension WalletsViewController: WalletInfoTableViewCellDelegate {
     func refreshAccountDetails() {
         self.wallets.forEach({ $0.reloadAccounts() })
         self.walletsTableView.reloadData()
+        let numberOfNotBackedupWallets = self.wallets.filter {!$0.isSeedBackedUp}.count
+        if numberOfNotBackedupWallets < 1 {
+            customTabBar?.hasUnBackedUpWallets(false)
+        }
     }
 }
 
