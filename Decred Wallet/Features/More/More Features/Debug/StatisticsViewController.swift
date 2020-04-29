@@ -72,18 +72,22 @@ class StatisticsViewController: UITableViewController  {
         // numbers of peers
         self.peerConnectedDetailLabel.text = "\(WalletLoader.shared.multiWallet.connectedPeers())"
         // app uptime
-        let durationUpTime = Date().timeIntervalSince1970 - AppDelegate.appUpTime!
-        self.uptimeDetailLabel.text = "\(Utils.timeStringFor(seconds: durationUpTime))"
+        if let appStartTime = AppDelegate.appUpTime {
+            let durationUpTime = Date().timeIntervalSince1970 - appStartTime
+            self.uptimeDetailLabel.text = "\(Utils.timeStringFor(seconds: durationUpTime))"
+        }
         // best block
         self.bestBlockDetailLabel.text = "\(WalletLoader.shared.multiWallet.getBestBlock()?.height ?? 0)"
         // best block age info
-        let bestBlockInfo = WalletLoader.shared.multiWallet.getBestBlock()
-        self.bestBlockTimestampDetailLabel.text = "\(Date(timeIntervalSince1970: Double(bestBlockInfo!.timestamp)))"
-        // best block age
-        let bestBlockAge = Int64(Date().timeIntervalSince1970) - bestBlockInfo!.timestamp
-        self.bestBlockAgeDetailLabel.text = Utils.calculateTime(timeInterval: bestBlockAge).lowercased()
+        if let bestBlockInfo = WalletLoader.shared.multiWallet.getBestBlock() {
+            // best block timestamp
+           self.bestBlockTimestampDetailLabel.text = "\(Date(timeIntervalSince1970: Double(bestBlockInfo.timestamp)))"
+            // best block age
+            let bestBlockAge = Int64(Date().timeIntervalSince1970) - bestBlockInfo.timestamp
+            self.bestBlockAgeDetailLabel.text = Utils.calculateTime(timeInterval: bestBlockAge).lowercased()
+        }
         // Transaction count
-         self.transactionDetailLabel.text = "\(Utils.countAllWalletTransaction())"
+        self.transactionDetailLabel.text = "\(Utils.countAllWalletTransaction())"
         // chain Data in human readable format
         self.chainDataDetailLabel.text = "\(Utils.format(bytes: Double(Utils.getDirFileSize())))"
     }
