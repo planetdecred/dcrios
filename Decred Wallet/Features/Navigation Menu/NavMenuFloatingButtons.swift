@@ -79,14 +79,42 @@ class NavMenuFloatingButtons: UIView {
     }
     
     @objc func sendTapped(_ sender: UIButton) {
-        let sendVC = SendViewController.instance
-        sendVC.modalPresentationStyle = .overFullScreen
-        self.window?.rootViewController?.present(sendVC, animated: true)
+        if WalletLoader.shared.multiWallet.isSyncing() {
+            if let navigationTabController = NavigationMenuTabBarController.instance?.view {
+                Utils.showBanner(in: navigationTabController, type: .error, text: LocalizedStrings.waitForSync)
+            }
+            return
+        } else if !WalletLoader.shared.multiWallet.isConnectedToDecredNetwork() {
+            if let navigationTabController = NavigationMenuTabBarController.instance?.view {
+                Utils.showBanner(in: navigationTabController, type: .error, text: LocalizedStrings.notConnected)
+            }
+            return
+        }
+        
+        DispatchQueue.main.async {
+            let sendVC = SendViewController.instance
+            sendVC.modalPresentationStyle = .overFullScreen
+            self.window?.rootViewController?.present(sendVC, animated: true)
+        }
     }
     
     @objc func receiveTapped(_ sender: UIButton) {
-        let receiveVC = ReceiveViewController.instantiate(from: .Receive)
-        receiveVC.modalPresentationStyle = .overFullScreen
-        self.window?.rootViewController?.present(receiveVC, animated: true)
+        if WalletLoader.shared.multiWallet.isSyncing() {
+            if let navigationTabController = NavigationMenuTabBarController.instance?.view {
+                Utils.showBanner(in: navigationTabController, type: .error, text: LocalizedStrings.waitForSync)
+            }
+            return
+        } else if !WalletLoader.shared.multiWallet.isConnectedToDecredNetwork() {
+            if let navigationTabController = NavigationMenuTabBarController.instance?.view {
+                Utils.showBanner(in: navigationTabController, type: .error, text: LocalizedStrings.notConnected)
+            }
+            return
+        }
+        
+        DispatchQueue.main.async {
+            let receiveVC = ReceiveViewController.instantiate(from: .Receive)
+            receiveVC.modalPresentationStyle = .overFullScreen
+            self.window?.rootViewController?.present(receiveVC, animated: true)
+        }
     }
 }

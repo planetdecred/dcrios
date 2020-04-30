@@ -17,7 +17,6 @@ class ReceiveViewController: UIViewController {
     @IBOutlet weak var addressQRCodeImageView: UIImageView!
     @IBOutlet weak var walletAddressLabel: UILabel!
     @IBOutlet weak var tapToCopyContainerView: UIView!
-    @IBOutlet weak var syncInProgressLabel: UILabel!
     @IBOutlet weak var shareButtonContainerView: UIView!
 
     var selectedWallet: DcrlibwalletWallet?
@@ -52,21 +51,9 @@ class ReceiveViewController: UIViewController {
         self.selectedWallet = selectedWallet
         self.selectedAccount = selectedAccount
 
-        if !selectedWallet.hasDiscoveredAccounts {
-            self.syncInProgressLabel.isHidden = false
-            self.moreMenuButton.isEnabled = false
-            self.shareButtonContainerView.isHidden = true
-            self.addressQRCodeContainerView.isHidden = true
-            self.tapToCopyContainerView.isHidden = true
-            self.walletAddressLabel.isHidden = true
-            self.separatorView.isHidden = true
-            return
-        }
-
         self.shareButtonContainerView.isHidden = false
         self.addressQRCodeContainerView.isHidden = false
         self.moreMenuButton.isEnabled = true
-        self.syncInProgressLabel.isHidden = true
         self.tapToCopyContainerView.isHidden = false
         self.walletAddressLabel.isHidden = false
         self.separatorView.isHidden = false
