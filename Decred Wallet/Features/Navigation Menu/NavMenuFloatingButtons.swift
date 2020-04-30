@@ -91,9 +91,11 @@ class NavMenuFloatingButtons: UIView {
             return
         }
         
-        let sendVC = SendViewController.instance
-        sendVC.modalPresentationStyle = .overFullScreen
-        self.window?.rootViewController?.present(sendVC, animated: true)
+        DispatchQueue.main.async {
+            let sendVC = SendViewController.instance
+            sendVC.modalPresentationStyle = .overFullScreen
+            self.window?.rootViewController?.present(sendVC, animated: true)
+        }
     }
     
     @objc func receiveTapped(_ sender: UIButton) {
@@ -109,8 +111,10 @@ class NavMenuFloatingButtons: UIView {
             return
         }
         
-        let receiveVC = ReceiveViewController.instantiate(from: .Receive)
-        receiveVC.modalPresentationStyle = .overFullScreen
-        self.window?.rootViewController?.present(receiveVC, animated: true)
+        DispatchQueue.main.async {
+            let receiveVC = ReceiveViewController.instantiate(from: .Receive)
+            receiveVC.modalPresentationStyle = .overFullScreen
+            self.window?.rootViewController?.present(receiveVC, animated: true)
+        }
     }
 }
