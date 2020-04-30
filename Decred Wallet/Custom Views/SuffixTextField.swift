@@ -59,6 +59,10 @@ class SuffixTextField: UITextField {
         return textRange(from: maxCursorPosition, to: maxCursorPosition)
     }
 
+    func reloadText() {
+        textChanged()
+    }
+
     override var selectedTextRange: UITextRange? {
         get { return super.selectedTextRange }
         set {

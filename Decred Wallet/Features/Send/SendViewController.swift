@@ -371,6 +371,7 @@ extension SendViewController {
         self.validateAmount()
         self.calculateAndDisplayUSDAmount()
         self.displayFeeDetailsAndTransactionSummary()
+        amountTextField.reloadText()
     }
 
     func calculateAndDisplayUSDAmount() {
