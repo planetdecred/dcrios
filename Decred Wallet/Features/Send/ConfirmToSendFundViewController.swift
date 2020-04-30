@@ -83,10 +83,7 @@ class ConfirmToSendFundViewController: UIViewController, UITextFieldDelegate {
         )
         
         let feeText = NSMutableAttributedString(
-            string: self.unsignedTxSummary.dcrFee.round(8).formattedWithSeparator
-        )
-        feeText.append(
-             Utils.styleAttributedString(" DCR")
+            string: "\(self.unsignedTxSummary.dcrFee.round(8).formattedWithSeparator) DCR"
         )
         
         let totalCostText = NSMutableAttributedString(
