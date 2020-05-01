@@ -93,17 +93,17 @@ class SignMessageViewController: UIViewController, FloatingPlaceholderTextViewDe
        }
     
     @objc func onAddressPaste() {
-        self.addressText.textViewDidBeginEditing(self.addressText)
-        self.addressText.text = UIPasteboard.general.string
-        self.addressText.textViewDidEndEditing(self.addressText)
-        self.toggleSignButtonState()
+        if let address = UIPasteboard.general.string {
+            self.addressText.setText(address)
+            self.toggleSignButtonState()
+        }
     }
     
     @objc func onMessagePaste() {
-        self.messageText.textViewDidBeginEditing(self.messageText)
-        self.messageText.text = UIPasteboard.general.string
-        self.messageText.textViewDidEndEditing(self.messageText)
-        self.toggleSignButtonState()
+        if let message = UIPasteboard.general.string {
+            self.messageText.setText(message)
+            self.toggleSignButtonState()
+        }
     }
     
     @objc func pageInfo() {
@@ -154,8 +154,8 @@ class SignMessageViewController: UIViewController, FloatingPlaceholderTextViewDe
         if capturedText.starts(with: "decred:") {
             capturedText = capturedText.replacingOccurrences(of: "decred:", with: "")
         }
-        self.addressText.textViewDidBeginEditing(self.addressText)
-        self.addressText.text = capturedText
+        self.addressText.setText(capturedText)
+        self.toggleSignButtonState()
     }
     
     func signMessage() {
