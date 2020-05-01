@@ -27,6 +27,7 @@ class SimpleTextInputDialog: UIViewController {
 
     private var dialogTitle: String!
     private var placeholder: String!
+    private var textFieldText: String!
     private var cancelButtonText: String?
     private var submitButtonText: String?
     private var callback: SimpleTextInputDialogCallback!
@@ -34,6 +35,7 @@ class SimpleTextInputDialog: UIViewController {
     static func show(sender vc: UIViewController,
                      title: String,
                      placeholder: String,
+                     textfield: String = "",
                      cancelButtonText: String? = nil,
                      submitButtonText: String? = nil,
                      callback: @escaping SimpleTextInputDialogCallback) {
@@ -41,6 +43,7 @@ class SimpleTextInputDialog: UIViewController {
         let dialog = SimpleTextInputDialog.instantiate(from: .CustomDialogs)
         dialog.dialogTitle = title
         dialog.placeholder = placeholder
+        dialog.textFieldText = textfield
         dialog.cancelButtonText = cancelButtonText
         dialog.submitButtonText = submitButtonText
         dialog.callback = callback
@@ -59,13 +62,14 @@ class SimpleTextInputDialog: UIViewController {
         
         self.textField.addTarget(self, action: #selector(self.textFieldEditingChanged), for: .editingChanged)
         self.textField.delegate = self
+        self.textField.becomeFirstResponder()
         
         self.listenForKeyboardVisibilityChanges(delegate: self)
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.textField.becomeFirstResponder()
+        self.textField.text = self.textFieldText
     }
     
     @objc func textFieldEditingChanged() {

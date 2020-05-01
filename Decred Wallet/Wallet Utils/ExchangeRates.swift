@@ -7,6 +7,7 @@
 // license that can be found in the LICENSE file.
 
 import Foundation
+import Dcrlibwallet
 
 class ExchangeRates {
     struct Bittrex {
@@ -20,8 +21,11 @@ class ExchangeRates {
                 }
             }
             
+            let userAgent = Settings.readStringValue(for: DcrlibwalletUserAgentConfigKey)
             let sessionConfig = URLSessionConfiguration.default
             sessionConfig.timeoutIntervalForRequest = 7
+            sessionConfig.httpAdditionalHeaders = ["User-Agent": userAgent]
+            
             let task = URLSession(configuration: sessionConfig).dataTask(with: exchangeUrl, completionHandler: fetchCompleteHandler)
             task.resume()
         }

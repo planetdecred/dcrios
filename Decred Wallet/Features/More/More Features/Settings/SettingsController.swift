@@ -128,10 +128,25 @@ class SettingsController: UITableViewController  {
         }
     }
     
+    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        switch section {
+        case 3:
+            return LocalizedStrings.userAgentInfo
+        default:
+            return ""
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int){
         let header = view as! UITableViewHeaderFooterView
         header.textLabel?.textColor = UIColor.appColors.darkBluishGray
         header.textLabel?.font = UIFont(name: "SourceSansPro-Regular", size: 14)
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
+        let footer = view as! UITableViewHeaderFooterView
+        footer.textLabel?.textColor = UIColor.appColors.bluishGray
+        footer.textLabel?.font = UIFont(name: "SourceSansPro-Regular", size: 14)
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -189,7 +204,8 @@ class SettingsController: UITableViewController  {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 1 {
+        switch indexPath.section {
+        case 1: // SECURITY
             switch indexPath.row {
             case 0: // enable/disable startup pin/password
                 if startupPinOrPasswordSwitch.isOn {
@@ -211,6 +227,26 @@ class SettingsController: UITableViewController  {
             default:
                 break
             }
+            
+        case 3: // CONNECTION
+            switch indexPath.row {
+            case 2: // user agent
+                
+                SimpleTextInputDialog.show(sender: self,
+                title: LocalizedStrings.setupUserAgent,
+                placeholder: LocalizedStrings.userAgent,
+                textfield: Settings.readStringValue(for: DcrlibwalletUserAgentConfigKey),
+                submitButtonText: LocalizedStrings.confirm) { userAgent, dialogDelegate in
+                 dialogDelegate?.dismissDialog()
+                    Settings.setStringValue(userAgent, for: DcrlibwalletUserAgentConfigKey)
+                }
+                
+            default:
+                break
+            }
+            
+        default:
+            break
         }
     }
     
