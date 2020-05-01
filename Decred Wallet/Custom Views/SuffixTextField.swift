@@ -42,7 +42,7 @@ class SuffixTextField: UITextField {
         if let currentText = text, let placeholder = suffixText {
             if currentText == placeholder {
                 self.text = nil
-            } else if !currentText.hasSuffix(placeholder) {
+            } else if !currentText.hasSuffix(placeholder) && !currentText.isEmpty {
                 self.text = currentText + placeholder
             }
         }
