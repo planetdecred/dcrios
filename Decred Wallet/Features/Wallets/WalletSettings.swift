@@ -38,7 +38,7 @@ class WalletSettings {
     }
     
     var txNotificationAlert: NotificationAlert {
-        let selectedOption: String = self.readStringValue(for: DcrlibwalletIncomingTxNotificationsConfigKey)
+        let selectedOption: String = self.readStringValue(for: "\(self.wallet.id_)\(DcrlibwalletIncomingTxNotificationsConfigKey)")
         return NotificationAlert(rawValue: selectedOption) ?? .none
     }
 }

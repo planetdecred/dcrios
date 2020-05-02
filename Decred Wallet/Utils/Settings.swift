@@ -75,11 +75,6 @@ class Settings {
         return Settings.readBoolValue(for: DcrlibwalletSpendUnconfirmedConfigKey)
     }
     
-    static var incomingNotificationEnabled: Bool {
-        // todo, should be checked per wallet henceforth
-        return true
-    }
-    
     static var beepNewBlocks: Bool {
         return Settings.readBoolValue(for: DcrlibwalletBeepNewBlocksConfigKey)
     }

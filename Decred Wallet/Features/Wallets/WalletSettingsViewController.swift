@@ -56,7 +56,7 @@ class WalletSettingsViewController: UIViewController {
                 return
         }
         
-        self.walletSettings.setStringValue(newSetting.rawValue, for: DcrlibwalletIncomingTxNotificationsConfigKey)
+        self.walletSettings.setStringValue(newSetting.rawValue, for: "\(self.wallet.id_)\(DcrlibwalletIncomingTxNotificationsConfigKey)")
         self.incomingTxAlertButton.setTitle(newSetting.localizedString, for: .normal)
     }
     
