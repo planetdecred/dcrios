@@ -69,25 +69,16 @@ class ReceiveViewController: UIViewController {
     }
 
     private func displayQRCodeImage(for address: String) {
-        guard let colorFilter = CIFilter(name: "CIFalseColor") else {
+        guard CIFilter(name: "CIFalseColor") != nil else {
             self.addressQRCodeImageView.image = nil
             return
         }
+        
+        let swiftLeeBlackColor = UIColor.black
+        let swiftLeeLogo = UIImage(named: "ic_qr_logo")!
 
-        let filter = CIFilter(name: "CIQRCodeGenerator")
-        filter?.setValue(address.utf8Bits, forKey: "inputMessage")
-
-        colorFilter.setDefaults()
-        colorFilter.setValue(filter!.outputImage, forKey: "inputImage")
-        colorFilter.setValue(CIColor.black, forKey: "inputColor0")
-        colorFilter.setValue(CIColor.clear, forKey: "inputColor1")
-
-        if let qrImage = colorFilter.outputImage {
-            let frame = self.addressQRCodeImageView.frame
-            let smallerSide = frame.size.width < frame.size.height ? frame.size.width : frame.size.height
-            let scale = smallerSide/qrImage.extent.size.width
-            let transformedImage = qrImage.transformed(by: CGAffineTransform(scaleX: scale, y: scale))
-            self.addressQRCodeImageView.image =  UIImage(ciImage: transformedImage)
+        if let qrURLImage = URL(string: address)?.qrImage(using: swiftLeeBlackColor, logo: swiftLeeLogo, frame: self.addressQRCodeImageView.frame) {
+            self.addressQRCodeImageView.image = UIImage(ciImage: qrURLImage)
         } else {
             self.addressQRCodeImageView.image = nil
         }
