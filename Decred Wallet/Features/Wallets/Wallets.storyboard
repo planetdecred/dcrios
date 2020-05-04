@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -123,7 +123,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="756.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="lPf-go-zy6">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="342"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="294"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j1z-NH-HEZ">
                                                         <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
@@ -156,7 +156,7 @@
                                                             <constraint firstItem="dRe-vj-WHJ" firstAttribute="leading" secondItem="j1z-NH-HEZ" secondAttribute="leading" id="gcz-G4-My3"/>
                                                         </constraints>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PcX-81-I57">
+                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PcX-81-I57">
                                                         <rect key="frame" x="0.0" y="50" width="414" height="48"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use Face ID" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cx7-Nh-cEB">
@@ -193,7 +193,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Kw-rn-lwG">
-                                                        <rect key="frame" x="0.0" y="98" width="414" height="48"/>
+                                                        <rect key="frame" x="0.0" y="50" width="414" height="48"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sbv-0X-puj">
                                                                 <rect key="frame" x="24" y="7.5" width="366" height="33"/>
@@ -216,7 +216,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gbi-IJ-W5S">
-                                                        <rect key="frame" x="0.0" y="146" width="414" height="50"/>
+                                                        <rect key="frame" x="0.0" y="98" width="414" height="50"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bYB-iB-S5q">
                                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="0.5"/>
@@ -257,7 +257,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Uu-M5-f8T">
-                                                        <rect key="frame" x="0.0" y="196" width="414" height="48"/>
+                                                        <rect key="frame" x="0.0" y="148" width="414" height="48"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Incoming transactions" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fQm-PA-4qP">
                                                                 <rect key="frame" x="24" y="14.5" width="139.5" height="19"/>
@@ -295,7 +295,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pVm-cD-HIP">
-                                                        <rect key="frame" x="0.0" y="244" width="414" height="50"/>
+                                                        <rect key="frame" x="0.0" y="196" width="414" height="50"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zsX-xo-s36">
                                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="0.5"/>
@@ -333,7 +333,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xZc-sc-BON">
-                                                        <rect key="frame" x="0.0" y="294" width="414" height="48"/>
+                                                        <rect key="frame" x="0.0" y="246" width="414" height="48"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="snl-2l-E4O">
                                                                 <rect key="frame" x="24" y="7.5" width="366" height="33"/>

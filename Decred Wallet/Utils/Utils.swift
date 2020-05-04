@@ -119,7 +119,7 @@ struct Utils {
         return Utils.getAttributedString(str: "\(amountRoundedOff)", siz: smallerTextSize, TexthexColor: textColor)
     }
     
-    // todo this function is a mess, should be refactored!
+    // function should be refactored!
     static func getAttributedString(str: String, siz: CGFloat, TexthexColor: UIColor) -> NSMutableAttributedString {
         var tmpString = str
         if tmpString.contains("."){

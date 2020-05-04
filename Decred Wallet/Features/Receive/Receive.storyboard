@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -212,15 +212,6 @@
                                     <constraint firstItem="5KI-Ew-MvO" firstAttribute="top" secondItem="dvn-e5-AOF" secondAttribute="top" id="yH1-tG-5hr"/>
                                 </constraints>
                             </view>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please wait for your wallet to finish synchronizing." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hDv-Si-5Gh">
-                                <rect key="frame" x="24" y="430.5" width="366" height="45.5"/>
-                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
-                                <color key="textColor" red="0.53725490200000003" green="0.59215686270000001" blue="0.64705882349999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="secureMenuSyncInfo"/>
-                                </userDefinedRuntimeAttributes>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.95294117647058818" green="0.96078431372549022" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -229,14 +220,11 @@
                             <constraint firstItem="W4w-5c-cuM" firstAttribute="leading" secondItem="Oqc-5O-q6B" secondAttribute="leading" constant="24" id="5qN-Qh-J0F"/>
                             <constraint firstAttribute="bottom" secondItem="dvn-e5-AOF" secondAttribute="bottom" id="6yj-oX-zHh"/>
                             <constraint firstItem="fEY-wz-2Xy" firstAttribute="centerY" secondItem="W4w-5c-cuM" secondAttribute="centerY" id="Gyu-fy-gZg"/>
-                            <constraint firstItem="Oqc-5O-q6B" firstAttribute="trailing" secondItem="hDv-Si-5Gh" secondAttribute="trailing" constant="24" id="Hm9-hT-d2i"/>
                             <constraint firstItem="ZRf-sN-oTU" firstAttribute="centerY" secondItem="W4w-5c-cuM" secondAttribute="centerY" id="Hor-7X-wCt"/>
-                            <constraint firstItem="hDv-Si-5Gh" firstAttribute="leading" secondItem="Oqc-5O-q6B" secondAttribute="leading" constant="24" id="P6g-LP-Pbi"/>
                             <constraint firstItem="Oqc-5O-q6B" firstAttribute="bottom" secondItem="Ist-fg-aj8" secondAttribute="bottom" constant="16" id="SRZ-Jy-TqA"/>
                             <constraint firstItem="Oqc-5O-q6B" firstAttribute="trailing" secondItem="fEY-wz-2Xy" secondAttribute="trailing" constant="24" id="VBP-IZ-XzC"/>
                             <constraint firstItem="Oqc-5O-q6B" firstAttribute="trailing" secondItem="dvn-e5-AOF" secondAttribute="trailing" id="XZe-X5-d1P"/>
                             <constraint firstItem="W4w-5c-cuM" firstAttribute="top" secondItem="Oqc-5O-q6B" secondAttribute="top" constant="16" id="d43-xq-ZS1"/>
-                            <constraint firstItem="hDv-Si-5Gh" firstAttribute="centerY" secondItem="Oqc-5O-q6B" secondAttribute="centerY" id="ghX-dh-z5n"/>
                             <constraint firstItem="fEY-wz-2Xy" firstAttribute="leading" secondItem="4g7-5X-Ks9" secondAttribute="trailing" constant="26" id="hyc-1D-KEt"/>
                             <constraint firstItem="ZRf-sN-oTU" firstAttribute="leading" secondItem="W4w-5c-cuM" secondAttribute="trailing" constant="22" id="qVH-97-5uG"/>
                             <constraint firstItem="4g7-5X-Ks9" firstAttribute="centerY" secondItem="W4w-5c-cuM" secondAttribute="centerY" id="urm-Xh-OUh"/>
@@ -253,7 +241,6 @@
                         <outlet property="selectedAccountView" destination="GdJ-3u-Cn7" id="Ain-vS-iWx"/>
                         <outlet property="separatorView" destination="ELj-zD-ScR" id="yc8-aw-UQU"/>
                         <outlet property="shareButtonContainerView" destination="Bxh-8Q-KbY" id="OTv-sD-l8Y"/>
-                        <outlet property="syncInProgressLabel" destination="hDv-Si-5Gh" id="byr-Sb-CY9"/>
                         <outlet property="tapToCopyContainerView" destination="m4Z-fY-t2D" id="cdW-yR-4xI"/>
                         <outlet property="walletAddressLabel" destination="ad3-va-aFy" id="czF-ZO-nC7"/>
                     </connections>

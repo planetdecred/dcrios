@@ -48,10 +48,10 @@ class WalletLoader: NSObject {
         return error
     }
     
-    func createWallet(spendingPinOrPassword: String, securityType: SecurityType, completion: @escaping (Error?) -> Void) {
+    func createWallet(spendingPinOrPassword: String, securityType: SecurityType,walletName: String, completion: @escaping (Error?) -> Void) {
         DispatchQueue.global(qos: .userInitiated).async {
             do {
-                try self.multiWallet.createNewWallet(spendingPinOrPassword, privatePassphraseType: securityType.type)
+                try self.multiWallet.createNewWallet(walletName, privatePassphrase: spendingPinOrPassword, privatePassphraseType: securityType.type)
                 
                 DispatchQueue.main.async {
                     completion(nil)
@@ -64,12 +64,10 @@ class WalletLoader: NSObject {
         }
     }
     
-    func restoreWallet(seed: String, spendingPinOrPassword: String, securityType: SecurityType, completion: @escaping (Error?) -> Void) {
+    func restoreWallet(seed: String, spendingPinOrPassword: String, securityType: SecurityType, walletName: String, completion: @escaping (Error?) -> Void) {
         DispatchQueue.global(qos: .userInitiated).async {
             do {
-                try self.multiWallet.restore(seed,
-                                             privatePassphrase: spendingPinOrPassword,
-                                             privatePassphraseType: securityType.type)
+                try self.multiWallet.restore(walletName, seedMnemonic: seed, privatePassphrase: spendingPinOrPassword, privatePassphraseType: securityType.type)
                 
                 DispatchQueue.main.async {
                     completion(nil)

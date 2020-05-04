@@ -17,6 +17,7 @@ struct LocalizedStrings {
     static let restoreExistingWallet = NSLocalizedString("restoreExistingWallet", comment: "")
     static let wallet = NSLocalizedString("wallet", comment: "")
     static let introMessage = NSLocalizedString("introMessage", comment: "")
+    static let myWallet = NSLocalizedString("myWallet", comment: "")
     
     /* Create New Wallet(Seed display view) */
     static let settingUpYourWallet = NSLocalizedString("settingUpYourWallet", comment: "")
@@ -132,6 +133,7 @@ struct LocalizedStrings {
     static let syncingProgress = NSLocalizedString("syncingProgress", comment: "")
     static let disconnect = NSLocalizedString("disconnect", comment: "")
     static let reconnect = NSLocalizedString("reconnect", comment: "")
+    static let waitForSync = NSLocalizedString("waitForSync", comment: "")
     
     /* Navigation Menu Items */
     static let overview = NSLocalizedString("overview", comment: "")

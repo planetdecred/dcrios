@@ -65,9 +65,7 @@ class SingleToMultiWalletMigration {
         
         DispatchQueue.global(qos: .userInitiated).async {
             do {
-                try WalletLoader.shared.multiWallet.linkExistingWallet(v1WalletDbDir,
-                                                                       originalPubPass: startupPinOrPassword,
-                                                                       privatePassphraseType: privatePassphraseType)
+                try WalletLoader.shared.multiWallet.linkExistingWallet(LocalizedStrings.myWallet, walletDataDir: v1WalletDbDir, originalPubPass: startupPinOrPassword, privatePassphraseType: privatePassphraseType)
                 
                 // attempt to re-set the app startup passphrase
                 if startupPinOrPassword != "" {

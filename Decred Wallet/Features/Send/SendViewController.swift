@@ -255,7 +255,7 @@ class SendViewController: UIViewController {
                 }
             }
             
-            self.destinationAddressTextField.text = addressURI.address
+            self.destinationAddressTextField.setText(addressURI.address)
             if addressURI.amount != nil {
                 self.amountTextField.text = String(addressURI.amount!)
                 self.dcrAmountTextFieldEditingEnded()
@@ -374,25 +374,25 @@ extension SendViewController {
         }
 
         let usdAmount = NSDecimalNumber(value: dcrAmount).multiplying(by: exchangeRate)
-        self.usdAmountLabel.text = "\(usdAmount.round(2)) USD"
+        self.usdAmountLabel.text = "\(usdAmount.round(2).formattedWithSeparator) USD"
     }
 
     func displayFeeDetailsAndTransactionSummary() {
         guard let tempTx = self.currentUnsignedTx, let txFeeAndSize = self.currentUnsignedTxFeeAndSize else {
-            self.transactionFeeLabel.text = self.parseDCRAmount(0)
+            self.transactionFeeLabel.text = self.parseDCRAmount(0, usdDecimalPlaces: 4)
             
             self.processingTimeLabel.text = "-"
             self.feeRateLabel.text = "-"
             self.transactionSizeLabel.text = "-"
             
-            self.totalCostLabel.text = self.parseDCRAmount(0)
-            self.balanceAfterSendingLabel.text = self.parseDCRAmount(0)
+            self.totalCostLabel.text = self.parseDCRAmount(0, usdDecimalPlaces: 2)
+            self.balanceAfterSendingLabel.text = "0 DCR"
             
             self.nextButton.isEnabled = false
             return
         }
         
-        self.transactionFeeLabel.text = self.parseDCRAmount(txFeeAndSize.fee!.dcrValue)
+        self.transactionFeeLabel.text = self.parseDCRAmount(txFeeAndSize.fee!.dcrValue, usdDecimalPlaces: 4)
         
         self.processingTimeLabel.text = "-" // todo fix!
         
@@ -407,8 +407,8 @@ extension SendViewController {
         let totalCost = NSDecimalNumber(value: sendAmountDcr + txFeeAndSize.fee!.dcrValue)
         let balanceAfterSending = NSDecimalNumber(value: sourceAccountBalance).subtracting(totalCost)
         
-        self.totalCostLabel.text = self.parseDCRAmount(totalCost.doubleValue)
-        self.balanceAfterSendingLabel.text = self.parseDCRAmount(balanceAfterSending.doubleValue)
+        self.totalCostLabel.text = self.parseDCRAmount(totalCost.doubleValue, usdDecimalPlaces: 2)
+        self.balanceAfterSendingLabel.text = "\(balanceAfterSending.round(8).formattedWithSeparator) DCR"
 
         self.nextButton.isEnabled = true
     }
@@ -566,13 +566,13 @@ extension SendViewController {
         self.amountContainerView.layer.borderColor = UIColor.appColors.orange.cgColor
     }
 
-    func parseDCRAmount(_ amount: Double) -> String {
+    func parseDCRAmount(_ amount: Double, usdDecimalPlaces: Int) -> String {
         let dcrAmount = NSDecimalNumber(value: amount)
         if self.exchangeRate == nil {
             return "\(dcrAmount.formattedWithSeparator) DCR"
         } else {
-            let usdAmount = exchangeRate!.multiplying(by: dcrAmount).round(8).formattedWithSeparator
-            return "\(dcrAmount.formattedWithSeparator) DCR (\(usdAmount) USD)"
+            let usdAmount = exchangeRate!.multiplying(by: dcrAmount).round(usdDecimalPlaces).formattedWithSeparator
+            return "\(dcrAmount.formattedWithSeparator) DCR ($\(usdAmount))"
         }
     }
 }
