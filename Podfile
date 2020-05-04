@@ -7,7 +7,5 @@ target 'Decred Wallet' do
 
   pod 'JGProgressHUD'
   pod 'QRCodeReader.swift'
-  pod 'Fabric'
-  pod 'Crashlytics'
 
 end
