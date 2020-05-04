@@ -23,6 +23,10 @@ class SyncManager: NSObject {
         return WalletLoader.shared.multiWallet.isSynced()
     }
     
+    var isRescanning: Bool {
+        return WalletLoader.shared.multiWallet.isRescanning()
+    }
+    
     var currentNetworkConnection: Reachability.Connection {
         // Re-trigger app network change listener to ensure correct network status is determined.
         AppDelegate.shared.listenForNetworkChanges()

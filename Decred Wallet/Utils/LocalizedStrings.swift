@@ -134,6 +134,12 @@ struct LocalizedStrings {
     static let disconnect = NSLocalizedString("disconnect", comment: "")
     static let reconnect = NSLocalizedString("reconnect", comment: "")
     static let waitForSync = NSLocalizedString("waitForSync", comment: "")
+    static let scannedBlocks = NSLocalizedString("scannedBlocks", comment: "")
+    static let rescanningBlocks = NSLocalizedString("rescanningBlocks", comment: "")
+    static let blocksLeft = NSLocalizedString("blocksLeft", comment: "")
+    static let errorSyncInProgress = NSLocalizedString("errorSyncInProgress", comment: "")
+    static let errorRescanInProgress = NSLocalizedString("errorRescanInProgress", comment: "")
+    static let rescanProgressNotification = NSLocalizedString("rescanProgressNotification", comment: "")
     
     /* Navigation Menu Items */
     static let overview = NSLocalizedString("overview", comment: "")

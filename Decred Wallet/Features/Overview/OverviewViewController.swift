@@ -52,13 +52,16 @@ class OverviewViewController: UIViewController {
     
     // display and update following views if only 1 wallet is being synced
     @IBOutlet weak var singleWalletSyncDetailsView: RoundedView!
+    @IBOutlet weak var singleWalletSyncDetailsViewHeightConst: NSLayoutConstraint!
     @IBOutlet weak var syncCurrentStepTitleLabel: UILabel!
     @IBOutlet weak var syncCurrentStepReportLabel: UILabel!
     @IBOutlet weak var syncCurrentStepProgressLabel: UILabel!
     @IBOutlet weak var peerCountLabel: UILabel!
+    @IBOutlet weak var peerCountTitleLabel: UILabel!
     
     // use following views to display sync progress details for multiple wallets
     @IBOutlet weak var multipleWalletsPeerCountLabel: UILabel!
+    @IBOutlet weak var multipleWalletsPeerCountTitleLabel: UILabel!
     @IBOutlet weak var multipleWalletsSyncDetailsTableView: UITableView!
     @IBOutlet weak var multipleWalletsSyncDetailsTableViewHeightConstraint: NSLayoutConstraint!
 
@@ -88,6 +91,8 @@ class OverviewViewController: UIViewController {
         // Register tx notification listener to update recent activity table for new txs.
         let txNotificationListener = self as DcrlibwalletTxAndBlockNotificationListenerProtocol
         try? WalletLoader.shared.multiWallet.add(txNotificationListener, uniqueIdentifier: "\(self)")
+        
+        WalletLoader.shared.multiWallet.setBlocksRescanProgressListener(self)
 
         // Display latest block and connected peer count if there's no ongoing sync.
         if !SyncManager.shared.isSyncing {
@@ -178,7 +183,10 @@ class OverviewViewController: UIViewController {
     }
     
     func updateSyncStatusIndicatorAndLabel() {
-        if SyncManager.shared.isSynced {
+        if SyncManager.shared.isRescanning {
+            self.syncStatusImage.image = UIImage(named: "ic_syncing")
+            self.syncStatusLabel.text = LocalizedStrings.rescanningBlocks
+        } else if SyncManager.shared.isSynced {
             self.syncStatusImage.image = UIImage(named: "ic_checkmark_round")
             self.syncStatusLabel.text = LocalizedStrings.walletSynced
         } else if SyncManager.shared.isSyncing {
@@ -214,13 +222,32 @@ class OverviewViewController: UIViewController {
             self.syncDetailsSection.isHidden = true
         }
     }
+    
+    func toggleRescanProgressViews(isRescanning: Bool) {
+        self.latestBlockLabel.superview?.isHidden = isRescanning
+        self.generalSyncProgressViews.isHidden = !isRescanning
+        self.showSyncDetailsButton.isHidden = !isRescanning
+        
+        // show single wallet sync details view section for rescanning
+        if isRescanning {
+            self.singleWalletSyncDetailsView.isHidden = false
+            self.multipleWalletsPeerCountLabel.superview?.isHidden = false
+            self.multipleWalletsSyncDetailsTableView?.isHidden = true
+            
+        } else {
+            // hide rescan details section if rescan is not ongoing
+            // but don't change the visibility state if rescan is ongoing.
+            self.syncDetailsSection.isHidden = true
+        }
+    }
 
     func updateSyncConnectionButtonTextAndIcon() {
-        if SyncManager.shared.isSynced {
-            self.syncConnectionButton.setTitle(LocalizedStrings.disconnect, for: .normal)
-            self.syncConnectionButton.setImage(nil, for: .normal)
-        } else if SyncManager.shared.isSyncing {
+        if SyncManager.shared.isSyncing || SyncManager.shared.isRescanning {
             self.syncConnectionButton.setTitle(LocalizedStrings.cancel, for: .normal)
+            self.syncConnectionButton.setImage(nil, for: .normal)
+        }
+        else if SyncManager.shared.isSynced {
+            self.syncConnectionButton.setTitle(LocalizedStrings.disconnect, for: .normal)
             self.syncConnectionButton.setImage(nil, for: .normal)
         } else {
             self.syncConnectionButton.setTitle(LocalizedStrings.reconnect, for: .normal)
@@ -398,6 +425,59 @@ extension OverviewViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+extension OverviewViewController: DcrlibwalletBlocksRescanProgressListenerProtocol {
+    func onBlocksRescanEnded(_ walletID: Int, err: Error?) {
+        DispatchQueue.main.async {
+            self.toggleSingleWalletSyncDetailsViewHeight(isRescanning: false)
+            self.updateUI(syncCompletedSuccessfully: true)
+        }
+    }
+    
+    func onBlocksRescanProgress(_ p0: DcrlibwalletHeadersRescanProgressReport?) {
+        guard let report = p0 else { return }
+        
+        let nOpenedWallets = WalletLoader.shared.multiWallet.openedWalletsCount()
+        
+        DispatchQueue.main.async {
+            self.syncStatusLabel.text = LocalizedStrings.rescanningBlocks
+            self.displayGeneralSyncProgress(report.generalSyncProgress)
+            
+            self.multipleWalletsPeerCountTitleLabel.text = LocalizedStrings.wallet
+            if nOpenedWallets > 1 {
+                let wallet = WalletLoader.shared.multiWallet.wallet(withID: report.walletID)
+                self.multipleWalletsPeerCountLabel.text = wallet?.name
+            } else {
+                self.multipleWalletsPeerCountLabel.superview?.isHidden = true
+            }
+        
+            self.syncCurrentStepNumberLabel.text = LocalizedStrings.connectedPeersCount
+            self.syncCurrentStepSummaryLabel.text = "\(WalletLoader.shared.multiWallet.connectedPeers())"
+            
+            self.syncCurrentStepTitleLabel.text = LocalizedStrings.scannedBlocks
+            self.syncCurrentStepReportLabel.text = "\(report.currentRescanHeight)"
+            
+            self.syncCurrentStepProgressLabel.text = String(format: LocalizedStrings.blocksLeft, report.totalHeadersToScan - report.currentRescanHeight)
+        }
+    }
+    
+    func onBlocksRescanStarted(_ walletID: Int) {
+        DispatchQueue.main.async {
+            self.updateWalletStatusIndicatorAndLabel()
+            self.updateSyncStatusIndicatorAndLabel()
+            self.updateSyncConnectionButtonTextAndIcon()
+            self.toggleRescanProgressViews(isRescanning: true)
+            self.clearAndHideSyncDetails()
+            self.toggleSingleWalletSyncDetailsViewHeight(isRescanning: true)
+        }
+    }
+    
+    func toggleSingleWalletSyncDetailsViewHeight(isRescanning: Bool) {
+        self.peerCountLabel.isHidden = isRescanning
+        self.peerCountTitleLabel.isHidden = isRescanning
+        self.singleWalletSyncDetailsViewHeightConst.constant = isRescanning ? 88.5 : 125
+    }
+}
+
 extension OverviewViewController: DcrlibwalletSyncProgressListenerProtocol {
     func onSyncStarted(_ wasRestarted: Bool) {
         DispatchQueue.main.async {
@@ -511,7 +591,14 @@ extension OverviewViewController: DcrlibwalletSyncProgressListenerProtocol {
         self.totalSyncETALabel.text = String(format: LocalizedStrings.syncTimeLeft, report.totalTimeRemaining)
     }
     
+    func clearGeneralSyncProgress() {
+        self.totalSyncProgressView.progress = 0.0
+        self.totalSyncProgressPercentageLabel.text = ""
+        self.totalSyncETALabel.text = ""
+    }
+    
     func updateUI(syncCompletedSuccessfully synced: Bool) {
+        self.clearGeneralSyncProgress()
         self.updateWalletStatusIndicatorAndLabel()
         self.updateSyncStatusIndicatorAndLabel()
         self.updateSyncConnectionButtonTextAndIcon()
