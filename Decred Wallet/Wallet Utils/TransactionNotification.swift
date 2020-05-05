@@ -70,7 +70,7 @@ class TransactionNotification: NSObject {
             return
         }
         
-        if tx!.fee == 0 && WalletSettings(for: affectedWallet).txNotificationAlert != .none {
+        if tx!.direction == DcrlibwalletTxDirectionReceived && WalletSettings(for: affectedWallet).txNotificationAlert != .none {
             let notification = UNMutableNotificationContent()
             notification.title = LocalizedStrings.newTransaction
             notification.body = "\(LocalizedStrings.youReceived) \(tx!.dcrAmount.round(8).description) DCR"
@@ -102,9 +102,7 @@ class TransactionNotification: NSObject {
 
 extension TransactionNotification: DcrlibwalletTxAndBlockNotificationListenerProtocol {
     func onTransaction(_ transaction: String?) {
-        if Settings.incomingNotificationEnabled {
-            self.newTxNotification(transaction)
-        }
+        self.newTxNotification(transaction)
     }
     
     func onBlockAttached(_ walletID: Int, blockHeight: Int32) {
