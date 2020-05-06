@@ -231,13 +231,8 @@ class SettingsController: UITableViewController  {
         case 3: // CONNECTION
             switch indexPath.row {
             case 2: // user agent
-                
-                SimpleTextInputDialog.show(sender: self,
-                title: LocalizedStrings.setupUserAgent,
-                placeholder: LocalizedStrings.userAgent,
-                textfield: Settings.readStringValue(for: DcrlibwalletUserAgentConfigKey),
-                submitButtonText: LocalizedStrings.confirm) { userAgent, dialogDelegate in
-                 dialogDelegate?.dismissDialog()
+                SimpleTextInputDialog.show(sender: self, title: LocalizedStrings.setupUserAgent, placeholder: LocalizedStrings.userAgent, currentValue: Settings.readStringValue(for: DcrlibwalletUserAgentConfigKey), submitButtonText: LocalizedStrings.confirm) { userAgent, dialogDelegate in
+                    dialogDelegate?.dismissDialog()
                     Settings.setStringValue(userAgent, for: DcrlibwalletUserAgentConfigKey)
                 }
                 

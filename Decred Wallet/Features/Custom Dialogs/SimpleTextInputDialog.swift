@@ -27,7 +27,7 @@ class SimpleTextInputDialog: UIViewController {
 
     private var dialogTitle: String!
     private var placeholder: String!
-    private var textFieldText: String!
+    private var currentValue: String!
     private var cancelButtonText: String?
     private var submitButtonText: String?
     private var callback: SimpleTextInputDialogCallback!
@@ -35,7 +35,7 @@ class SimpleTextInputDialog: UIViewController {
     static func show(sender vc: UIViewController,
                      title: String,
                      placeholder: String,
-                     textfield: String = "",
+                     currentValue: String = "",
                      cancelButtonText: String? = nil,
                      submitButtonText: String? = nil,
                      callback: @escaping SimpleTextInputDialogCallback) {
@@ -43,7 +43,7 @@ class SimpleTextInputDialog: UIViewController {
         let dialog = SimpleTextInputDialog.instantiate(from: .CustomDialogs)
         dialog.dialogTitle = title
         dialog.placeholder = placeholder
-        dialog.textFieldText = textfield
+        dialog.currentValue = currentValue
         dialog.cancelButtonText = cancelButtonText
         dialog.submitButtonText = submitButtonText
         dialog.callback = callback
@@ -69,7 +69,7 @@ class SimpleTextInputDialog: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.textField.text = self.textFieldText
+        self.textField.text = self.currentValue
     }
     
     @objc func textFieldEditingChanged() {
