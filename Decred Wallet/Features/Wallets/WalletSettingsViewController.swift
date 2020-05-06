@@ -79,14 +79,10 @@ class WalletSettingsViewController: UIViewController {
     func rescanBlocks() {
         do {
             try WalletLoader.shared.multiWallet.rescanBlocks(self.wallet.id_)
-            DispatchQueue.main.async {
-                Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.rescanProgressNotification)
-            }
+            Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.rescanProgressNotification)
         } catch let error {
-            var errorMessage = error.localizedDescription
-            if errorMessage == DcrlibwalletErrInvalid {
-                errorMessage = "scan started already"
-            }
+            let errorMessage = error.localizedDescription
+            print(errorMessage)
         }
     }
 
