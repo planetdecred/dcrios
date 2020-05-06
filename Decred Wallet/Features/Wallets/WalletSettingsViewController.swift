@@ -60,6 +60,32 @@ class WalletSettingsViewController: UIViewController {
         self.incomingTxAlertButton.setTitle(newSetting.localizedString, for: .normal)
     }
     
+     @IBAction func rescanBlockchain(_ sender: Any) {
+        if SyncManager.shared.isSyncing {
+            Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.errorSyncInProgress)
+        } else if !WalletLoader.shared.multiWallet.isConnectedToDecredNetwork() {
+            Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.notConnected)
+        } else if SyncManager.shared.isRescanning {
+            Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.errorRescanInProgress)
+        } else {
+            // rescan blockchain
+            self.showOkAlert(message: LocalizedStrings.rescanConfirm,
+                                 title: LocalizedStrings.rescanBlockchain,
+                                 onPressOk: self.rescanBlocks,
+                                 addCancelAction: true)
+        }
+    }
+        
+    func rescanBlocks() {
+        do {
+            try WalletLoader.shared.multiWallet.rescanBlocks(self.wallet.id_)
+            Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.rescanProgressNotification)
+        } catch let error {
+            let errorMessage = error.localizedDescription
+            print(errorMessage)
+        }
+    }
+
     @IBAction func removeWalletFromDevice(_ sender: Any) {
         self.showRemoveWalletWarning() { ok in
             guard ok else { return }

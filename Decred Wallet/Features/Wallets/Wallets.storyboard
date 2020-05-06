@@ -123,7 +123,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="756.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="lPf-go-zy6">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="294"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="392"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j1z-NH-HEZ">
                                                         <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
@@ -294,8 +294,72 @@
                                                             <constraint firstItem="fQm-PA-4qP" firstAttribute="leading" secondItem="5Uu-M5-f8T" secondAttribute="leading" constant="24" id="cSO-ki-5RB"/>
                                                         </constraints>
                                                     </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qnm-iS-KT9">
+                                                        <rect key="frame" x="0.0" y="244" width="414" height="50"/>
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ncc-nN-Q09">
+                                                                <rect key="frame" x="0.0" y="0.0" width="414" height="0.5"/>
+                                                                <color key="backgroundColor" red="0.90196078430000004" green="0.91764705879999997" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="0.5" id="tKZ-eh-ky1"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Debug" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ygf-xo-iHX">
+                                                                <rect key="frame" x="24" y="24" width="366" height="18"/>
+                                                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                                                                <color key="textColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <nil key="highlightedColor"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="debug"/>
+                                                                </userDefinedRuntimeAttributes>
+                                                            </label>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Du-tY-AQn">
+                                                                <rect key="frame" x="0.0" y="48.5" width="414" height="0.5"/>
+                                                                <color key="backgroundColor" red="0.90196078430000004" green="0.91764705879999997" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="0.5" id="Tx7-Jc-KJt"/>
+                                                                </constraints>
+                                                            </view>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="trailing" secondItem="2Du-tY-AQn" secondAttribute="trailing" id="3nv-dO-jq0"/>
+                                                            <constraint firstItem="Ncc-nN-Q09" firstAttribute="top" secondItem="Qnm-iS-KT9" secondAttribute="top" id="ACS-vr-1EX"/>
+                                                            <constraint firstItem="ygf-xo-iHX" firstAttribute="top" secondItem="Qnm-iS-KT9" secondAttribute="top" constant="24" id="Snd-SD-af4"/>
+                                                            <constraint firstItem="Ncc-nN-Q09" firstAttribute="leading" secondItem="Qnm-iS-KT9" secondAttribute="leading" id="gnL-6S-dUa"/>
+                                                            <constraint firstAttribute="bottom" secondItem="2Du-tY-AQn" secondAttribute="bottom" constant="1" id="jfl-yQ-NGs"/>
+                                                            <constraint firstAttribute="trailing" secondItem="ygf-xo-iHX" secondAttribute="trailing" constant="24" id="o84-rA-lCY"/>
+                                                            <constraint firstItem="2Du-tY-AQn" firstAttribute="leading" secondItem="Qnm-iS-KT9" secondAttribute="leading" id="oOF-1M-VIU"/>
+                                                            <constraint firstAttribute="bottom" secondItem="ygf-xo-iHX" secondAttribute="bottom" constant="8" id="qDG-TI-UKI"/>
+                                                            <constraint firstItem="ygf-xo-iHX" firstAttribute="leading" secondItem="Qnm-iS-KT9" secondAttribute="leading" constant="24" id="ueb-qB-jxs"/>
+                                                            <constraint firstAttribute="trailing" secondItem="Ncc-nN-Q09" secondAttribute="trailing" id="yZs-Y1-hqN"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Nq-bD-eD3">
+                                                        <rect key="frame" x="0.0" y="294" width="414" height="48"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WRF-rP-G0f">
+                                                                <rect key="frame" x="24" y="7.5" width="366" height="33"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                                                <state key="normal" title="Rescan blockhain">
+                                                                    <color key="titleColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                                </state>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="rescanBlockchain"/>
+                                                                </userDefinedRuntimeAttributes>
+                                                                <connections>
+                                                                    <action selector="rescanBlockchain:" destination="zwE-sw-7Mz" eventType="touchUpInside" id="J5V-EY-4iA"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="48" id="ysV-eB-AzU"/>
+                                                        </constraints>
+                                                    </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pVm-cD-HIP">
-                                                        <rect key="frame" x="0.0" y="196" width="414" height="50"/>
+                                                        <rect key="frame" x="0.0" y="294" width="414" height="50"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zsX-xo-s36">
                                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="0.5"/>
@@ -333,7 +397,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xZc-sc-BON">
-                                                        <rect key="frame" x="0.0" y="246" width="414" height="48"/>
+                                                        <rect key="frame" x="0.0" y="344" width="414" height="48"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="snl-2l-E4O">
                                                                 <rect key="frame" x="24" y="7.5" width="366" height="33"/>
