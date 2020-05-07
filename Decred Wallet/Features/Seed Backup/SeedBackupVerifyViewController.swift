@@ -67,26 +67,38 @@ class SeedBackupVerifyViewController: UIViewController {
         
         let privatePassType = SpendingPinOrPassword.securityType(for: self.walletID)
                Security.spending(initialSecurityType: privatePassType)
-               .with(prompt: LocalizedStrings.confirmToSend)
+               .with(prompt: LocalizedStrings.confirmToVerifySeed)
                .with(submitBtnText: LocalizedStrings.confirm)
                .should(showCancelButton: true)
                .requestCurrentCode(sender: self) { privatePass, _, dialogDelegate in
                 self.groupedSeedWordsTableView?.isUserInteractionEnabled = false
-                self.btnConfirm?.startLoading()
                 let userEnteredSeed = self.selectedWords.joined(separator: " ")
-
-                do {
-                    try WalletLoader.shared.multiWallet.verifySeed(forWallet: self.walletID, seedMnemonic: userEnteredSeed, privpass: privatePass.utf8Bits, ret0_: nil)
-                    
-                    self.seedBackupCompleted?()
-                    self.performSegue(withIdentifier: "toSeedBackupSuccess", sender: nil)
-                } catch {
-                    self.groupedSeedWordsTableView?.isUserInteractionEnabled = true
-                    self.btnConfirm?.stopLoading()
-                    Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.failedToVerify)
+                var errorValue: ObjCBool = false
+                DispatchQueue.global(qos: .userInitiated).async {
+                    do {
+                        try WalletLoader.shared.multiWallet.verifySeed(forWallet: self.walletID, seedMnemonic: userEnteredSeed, privpass: privatePass.utf8Bits, ret0_: &errorValue)
+                        if errorValue.boolValue == true {
+                            DispatchQueue.main.async {
+                                self.seedBackupCompleted?()
+                                dialogDelegate?.dismissDialog()
+                                self.performSegue(withIdentifier: "toSeedBackupSuccess", sender: nil)
+                            }
+                        }
+                    } catch {
+                        DispatchQueue.main.async {
+                            if error.localizedDescription == "invalid" {
+                                self.groupedSeedWordsTableView?.isUserInteractionEnabled = true
+                                dialogDelegate?.dismissDialog()
+                                Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.failedToVerify)
+                            } else {
+                                let errorMessage = SpendingPinOrPassword.invalidSecurityCodeMessage(for: self.walletID)
+                                dialogDelegate?.displayError(errorMessage: errorMessage)
+                                self.groupedSeedWordsTableView?.isUserInteractionEnabled = true
+                            }
+                        }
+                    }
                 }
         }
-        
     }
 
     private func loadSeedWordsList() -> [String] {

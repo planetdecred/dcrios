@@ -19,8 +19,6 @@ class SeedWordsDisplayViewController: UIViewController {
     
     var seed: String = ""
     var seedWords = [String]()
-    
-    var navigateBack = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,16 +28,12 @@ class SeedWordsDisplayViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
-        print("will appear appear")
         self.requestPassOrPINandDisplaySeed()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-       // if self.navigateBack {
-            print("did appear")
-            //self.dismissView()
-        //}
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -56,7 +50,6 @@ class SeedWordsDisplayViewController: UIViewController {
     func displaySeed() {
         self.seedWords = self.seed.components(separatedBy: " ")
         
-        self.navigateBack = false
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) { [weak self] in
             self?.seedWordsTableView?.reloadData()
         }
@@ -74,17 +67,22 @@ class SeedWordsDisplayViewController: UIViewController {
     func requestPassOrPINandDisplaySeed() {
         let privatePassType = SpendingPinOrPassword.securityType(for: self.walletID)
         Security.spending(initialSecurityType: privatePassType)
-        .with(prompt: LocalizedStrings.confirmToSend)
+            .with(prompt: LocalizedStrings.confirmToShowSeed)
         .with(submitBtnText: LocalizedStrings.confirm)
         .should(showCancelButton: true)
-        .requestCurrentCode(sender: self) { privatePass, _, dialogDelegate in
-            let decryptedSeed = WalletLoader.shared.multiWallet.wallet(withID: self.walletID)?.decryptSeed(privatePass.utf8Bits, error: nil)
-            self.seed = decryptedSeed ?? ""
-            self.displaySeed()
-            return
+            .requestCurrentCode(sender: self, dismissSenderOnCancel: true) { privatePass, _, dialogDelegate in
+                var errorOrNil: NSError? = nil
+                if let decryptedSeed = WalletLoader.shared.multiWallet.wallet(withID: self.walletID)?.decryptSeed(privatePass.utf8Bits, error: &errorOrNil) {
+                    if errorOrNil == nil {
+                        self.seed = decryptedSeed
+                        dialogDelegate?.dismissDialog()
+                        self.displaySeed()
+                    } else {
+                        let errorMessage = SpendingPinOrPassword.invalidSecurityCodeMessage(for: self.walletID)
+                        dialogDelegate?.displayError(errorMessage: errorMessage)
+                    }
+                }
         }
-        self.dismissView()
-        return
     }
 }
 

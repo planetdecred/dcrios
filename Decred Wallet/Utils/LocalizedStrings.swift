@@ -26,6 +26,8 @@ struct LocalizedStrings {
     static let seedDoesNotMatch = NSLocalizedString("seedDoesNotMatch", comment: "")
     static let seedPhraseVerification = NSLocalizedString("seedPhraseVerification", comment: "")
     static let confirmSeedInfo = NSLocalizedString("confirmSeedInfo", comment: "")
+    static let confirmToShowSeed = NSLocalizedString("confirmToShowSeed", comment: "")
+    static let confirmToVerifySeed = NSLocalizedString("confirmToVerifySeed", comment: "")
     
     /* Recover Existing Wallet */
     static let wordNumber = NSLocalizedString("wordNumber", comment: "")
