@@ -18,6 +18,6 @@ class CheckableListOptionTableViewCell: UITableViewCell {
     
     func set(optionTitle: String, isOptionSelected: Bool) {
         self.optionLabel.text = optionTitle
-        self.checkIconImageView.tintColor = isOptionSelected ? UIColor.appColors.blue : UIColor.white
+        self.checkIconImageView.image = isOptionSelected ? UIImage(named: "ic_checkmark") : nil
     }
 }
