@@ -19,30 +19,27 @@ class SeedWordsDisplayViewController: UIViewController {
     
     var seed: String = ""
     var seedWords = [String]()
+    
+    var navigateBack = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.seed = WalletLoader.shared.multiWallet.wallet(withID: self.walletID)?.seed ?? ""
-        self.seedWords = self.seed.components(separatedBy: " ")
-
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) { [weak self] in
-            self?.seedWordsTableView?.reloadData()
-        }
-        
-        // set cornered views
-        topCorneredView.clipsToBounds = true
-        topCorneredView.layer.cornerRadius = 14
-        topCorneredView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-
-        bottomCorneredView.clipsToBounds = true
-        bottomCorneredView.layer.cornerRadius = 14
-        bottomCorneredView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
+        print("will appear appear")
+        self.requestPassOrPINandDisplaySeed()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+       // if self.navigateBack {
+            print("did appear")
+            //self.dismissView()
+        //}
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -54,6 +51,40 @@ class SeedWordsDisplayViewController: UIViewController {
 
     @IBAction func backAction(_ sender: UIButton) {
         self.dismissView()
+    }
+    
+    func displaySeed() {
+        self.seedWords = self.seed.components(separatedBy: " ")
+        
+        self.navigateBack = false
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) { [weak self] in
+            self?.seedWordsTableView?.reloadData()
+        }
+        
+        // set cornered views
+        self.topCorneredView.clipsToBounds = true
+        self.topCorneredView.layer.cornerRadius = 14
+        self.topCorneredView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+
+        self.bottomCorneredView.clipsToBounds = true
+        self.bottomCorneredView.layer.cornerRadius = 14
+        self.bottomCorneredView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+    }
+    
+    func requestPassOrPINandDisplaySeed() {
+        let privatePassType = SpendingPinOrPassword.securityType(for: self.walletID)
+        Security.spending(initialSecurityType: privatePassType)
+        .with(prompt: LocalizedStrings.confirmToSend)
+        .with(submitBtnText: LocalizedStrings.confirm)
+        .should(showCancelButton: true)
+        .requestCurrentCode(sender: self) { privatePass, _, dialogDelegate in
+            let decryptedSeed = WalletLoader.shared.multiWallet.wallet(withID: self.walletID)?.decryptSeed(privatePass.utf8Bits, error: nil)
+            self.seed = decryptedSeed ?? ""
+            self.displaySeed()
+            return
+        }
+        self.dismissView()
+        return
     }
 }
 

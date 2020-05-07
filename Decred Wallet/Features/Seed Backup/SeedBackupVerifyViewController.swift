@@ -64,22 +64,29 @@ class SeedBackupVerifyViewController: UIViewController {
 
     @IBAction func onConfirm(_ sender: Any) {
         if self.btnConfirm!.isLoading { return } // prevent multiple click/tap attempts.
+        
+        let privatePassType = SpendingPinOrPassword.securityType(for: self.walletID)
+               Security.spending(initialSecurityType: privatePassType)
+               .with(prompt: LocalizedStrings.confirmToSend)
+               .with(submitBtnText: LocalizedStrings.confirm)
+               .should(showCancelButton: true)
+               .requestCurrentCode(sender: self) { privatePass, _, dialogDelegate in
+                self.groupedSeedWordsTableView?.isUserInteractionEnabled = false
+                self.btnConfirm?.startLoading()
+                let userEnteredSeed = self.selectedWords.joined(separator: " ")
 
-        self.groupedSeedWordsTableView?.isUserInteractionEnabled = false
-        self.btnConfirm?.startLoading()
-        let userEnteredSeed = selectedWords.joined(separator: " ")
-
-        do {
-            try WalletLoader.shared.multiWallet.verifySeed(forWallet: self.walletID,
-                                                           seedMnemonic: userEnteredSeed)
-            
-            self.seedBackupCompleted?()
-            self.performSegue(withIdentifier: "toSeedBackupSuccess", sender: nil)
-        } catch {
-            self.groupedSeedWordsTableView?.isUserInteractionEnabled = true
-            self.btnConfirm?.stopLoading()
-            Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.failedToVerify)
+                do {
+                    try WalletLoader.shared.multiWallet.verifySeed(forWallet: self.walletID, seedMnemonic: userEnteredSeed, privpass: privatePass.utf8Bits, ret0_: nil)
+                    
+                    self.seedBackupCompleted?()
+                    self.performSegue(withIdentifier: "toSeedBackupSuccess", sender: nil)
+                } catch {
+                    self.groupedSeedWordsTableView?.isUserInteractionEnabled = true
+                    self.btnConfirm?.stopLoading()
+                    Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.failedToVerify)
+                }
         }
+        
     }
 
     private func loadSeedWordsList() -> [String] {
