@@ -31,11 +31,6 @@ class SeedWordsDisplayViewController: UIViewController {
         self.requestPassOrPINandDisplaySeed()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let verifySeedVC = segue.destination as! SeedBackupVerifyViewController
         verifySeedVC.prepareSeedForVerification(seedToVerify: self.seed,
