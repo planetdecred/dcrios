@@ -86,8 +86,6 @@ class SeedBackupVerifyViewController: UIViewController {
                         }
                     } catch {
                         DispatchQueue.main.async {
-                            print("error is")
-                            print(error.localizedDescription)
                             if error.isInvalidPassphraseError {
                                 print(error.localizedDescription)
                                 let errorMessage = SpendingPinOrPassword.invalidSecurityCodeMessage(for: self.walletID)
