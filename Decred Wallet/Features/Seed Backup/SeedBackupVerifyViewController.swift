@@ -86,14 +86,17 @@ class SeedBackupVerifyViewController: UIViewController {
                         }
                     } catch {
                         DispatchQueue.main.async {
-                            if error.localizedDescription == "invalid" {
-                                self.groupedSeedWordsTableView?.isUserInteractionEnabled = true
-                                dialogDelegate?.dismissDialog()
-                                Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.failedToVerify)
-                            } else {
+                            print("error is")
+                            print(error.localizedDescription)
+                            if error.isInvalidPassphraseError {
+                                print(error.localizedDescription)
                                 let errorMessage = SpendingPinOrPassword.invalidSecurityCodeMessage(for: self.walletID)
                                 dialogDelegate?.displayError(errorMessage: errorMessage)
                                 self.groupedSeedWordsTableView?.isUserInteractionEnabled = true
+                            } else {
+                                self.groupedSeedWordsTableView?.isUserInteractionEnabled = true
+                                dialogDelegate?.dismissDialog()
+                                Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.failedToVerify)
                             }
                         }
                     }
