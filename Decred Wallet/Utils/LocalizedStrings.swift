@@ -263,7 +263,19 @@ struct LocalizedStrings {
     static let sendDCR = NSLocalizedString("sendDCR", comment: "")
     static let paste = NSLocalizedString("paste", comment: "")
     static let selectFromAccount = NSLocalizedString("selectFromAccount", comment: "")
-    static let FailedToSendTryAgain = NSLocalizedString("FailedToSendTryAgain", comment: "")
+    static let failedToSendTryAgain = NSLocalizedString("failedToSendTryAgain", comment: "")
+    static let sendToSelf = NSLocalizedString("sendToSelf", comment: "")
+    static let sendToOthers = NSLocalizedString("sendToOthers", comment: "")
+    static let transactionFee = NSLocalizedString("transactionFee", comment: "")
+    static let processingTime = NSLocalizedString("processingTime", comment: "")
+    static let feeRate = NSLocalizedString("feeRate", comment: "")
+    static let transactionSize = NSLocalizedString("transactionSize", comment: "")
+    static let totalCost = NSLocalizedString("totalCost", comment: "")
+    static let balanceAfterSend = NSLocalizedString("balanceAfterSend", comment: "")
+    static let sendWarning = NSLocalizedString("sendWarning", comment: "")
+    static let sendingAccount = NSLocalizedString("sendingAccount", comment: "")
+    static let toDestinationAddress = NSLocalizedString("toDestinationAddress", comment: "")
+    static let toSelf = NSLocalizedString("toSelf", comment: "")
     
     /* Confirm Send Fund */
     static let sending = NSLocalizedString("sending", comment: "")
@@ -341,6 +353,9 @@ struct LocalizedStrings {
     static let hideProperties = NSLocalizedString("hideProperties", comment: "")
     static let renameAccount = NSLocalizedString("renameAccount", comment: "")
     static let accountRenamed = NSLocalizedString("accountRenamed", comment: "")
+    static let noWalletSelected = NSLocalizedString("noWalletSelected", comment: "")
+    static let tapToSelectAccount = NSLocalizedString("tapToSelectAccount", comment: "")
+    static let selectAccount = NSLocalizedString("selectAccount", comment: "")
     
     /* Wallets -> Account -> Add new account */
     static let addNewAccount = NSLocalizedString("addNewAccount", comment: "")
@@ -485,4 +500,17 @@ struct LocalizedStrings {
     
     /* Seed Backup */
     static let failedToVerify = NSLocalizedString("failedToVerify", comment: "")
+    
+    /* Statistics */
+    static let accounts = NSLocalizedString("accounts", comment: "")
+    static let chainData = NSLocalizedString("chainData", comment: "")
+    static let walletFile = NSLocalizedString("walletFile", comment: "")
+    static let bestBlockAge = NSLocalizedString("bestBlockAge", comment: "")
+    static let bestBlockTimestamp = NSLocalizedString("bestBlockTimestamp", comment: "")
+    static let bestBlock = NSLocalizedString("bestBlock", comment: "")
+    static let network = NSLocalizedString("network", comment: "")
+    static let uptime = NSLocalizedString("uptime", comment: "")
+    static let peersConnected = NSLocalizedString("peersConnected", comment: "")
+    static let build = NSLocalizedString("build", comment: "")
+
 }

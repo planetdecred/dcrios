@@ -31,16 +31,6 @@ class DebugTableViewController: UITableViewController {
         self.navigationItem.leftBarButtonItems =  [(self.navigationItem.leftBarButtonItem)!, barButtonTitle]
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 2 {
-            // rescan blockchain
-            self.showOkAlert(message: LocalizedStrings.rescanConfirm,
-                             title: LocalizedStrings.rescanBlockchain,
-                             onPressOk: self.rescanBlocks,
-                             addCancelAction: true)
-        }
-    }
-    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         var isWalletOpen = false
         if WalletLoader.shared.multiWallet.openedWalletsCount() > 0 {
@@ -50,9 +40,6 @@ class DebugTableViewController: UITableViewController {
         switch indexPath.row {
         case 1: // check statistics option, requires wallet to be opened.
             return isWalletOpen ? 44 : 0
-        
-        case 2: //todo move to wallet settings
-            return 0
             
         default:
             return 44
@@ -61,9 +48,5 @@ class DebugTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 16
-    }
-    
-    func rescanBlocks() {
-        // rescan feature deprecated
     }
 }

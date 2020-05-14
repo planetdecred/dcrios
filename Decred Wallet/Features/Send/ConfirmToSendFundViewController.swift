@@ -71,10 +71,10 @@ class ConfirmToSendFundViewController: UIViewController, UITextFieldDelegate {
         self.sendingFromLabel.attributedText = sourceAccountInfo
         
         if let destinationAccountInfo = self.unsignedTxSummary.destinationAccountInfo {
-            self.destinationTypeLabel.text = "To self"
+            self.destinationTypeLabel.text = LocalizedStrings.toSelf
             self.destinationInfoLabel.text = destinationAccountInfo
         } else {
-            self.destinationTypeLabel.text = "To destination address"
+            self.destinationTypeLabel.text = LocalizedStrings.toDestinationAddress
             self.destinationInfoLabel.text = self.unsignedTxSummary.destinationAddress
         }
         
@@ -144,7 +144,7 @@ class ConfirmToSendFundViewController: UIViewController, UITextFieldDelegate {
                     } else {
                         print("send error:", error!.localizedDescription)
                         dialogDelegate?.dismissDialog()
-                        Utils.showBanner(in: self.view.subviews.first!, type: .error, text: LocalizedStrings.FailedToSendTryAgain)
+                        Utils.showBanner(in: self.view.subviews.first!, type: .error, text: LocalizedStrings.failedToSendTryAgain)
                     }
                 }
         }
