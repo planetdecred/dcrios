@@ -69,6 +69,7 @@ class AppDelegate: UIResponder {
     
     @objc func networkChanged(_ notification: Notification) {
         let reachability = notification.object as! Reachability
+        print("network changed to \(reachability.connection)")
         SyncManager.shared.networkChanged(reachability.connection)
     }
     
@@ -118,7 +119,6 @@ extension AppDelegate: UIApplicationDelegate {
         AppDelegate.appUpTime = Date().timeIntervalSince1970
         
         NotificationsManager.shared.requestAuthorization()
-    
         self.listenForNetworkChanges()
         
         return true
