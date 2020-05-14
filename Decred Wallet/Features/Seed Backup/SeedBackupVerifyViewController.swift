@@ -91,10 +91,15 @@ class SeedBackupVerifyViewController: UIViewController {
                                 let errorMessage = SpendingPinOrPassword.invalidSecurityCodeMessage(for: self.walletID)
                                 dialogDelegate?.displayError(errorMessage: errorMessage)
                                 self.groupedSeedWordsTableView?.isUserInteractionEnabled = true
-                            } else {
+                            } else if error.localizedDescription == DcrlibwalletErrInvalid {
                                 self.groupedSeedWordsTableView?.isUserInteractionEnabled = true
                                 dialogDelegate?.dismissDialog()
                                 Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.failedToVerify)
+                            } else {
+                                self.groupedSeedWordsTableView?.isUserInteractionEnabled = true
+                                dialogDelegate?.dismissDialog()
+                                DcrlibwalletLogT("verify seed:", error.localizedDescription)
+                                Utils.showBanner(in: self.view, type: .error, text: error.localizedDescription)
                             }
                         }
                     }
