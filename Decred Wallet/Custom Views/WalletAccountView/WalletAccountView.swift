@@ -19,13 +19,13 @@ import Dcrlibwallet
     
     var selectedWallet: DcrlibwalletWallet? {
         didSet {
-            self.walletNameLabel.text = self.selectedWallet?.name ?? "No wallet selected"
+            self.walletNameLabel.text = self.selectedWallet?.name ?? LocalizedStrings.noWalletSelected
         }
     }
     
     var selectedAccount: DcrlibwalletAccount? {
         didSet {
-            self.accountNameLabel.text = self.selectedAccount?.name ?? "Tap to select account"
+            self.accountNameLabel.text = self.selectedAccount?.name ?? LocalizedStrings.tapToSelectAccount
             let accountBalance = self.selectedAccount?.dcrTotalBalance ?? 0
             self.accountBalanceLabel.attributedText = Utils.amountAsAttributedString(amount: accountBalance,
                                                                                      smallerTextSize: 15.0)
@@ -67,7 +67,7 @@ import Dcrlibwallet
     @objc func showAccountSelectorDialog(_ sender: Any) {
         guard let topVC = AppDelegate.shared.topViewController() else { return }
         
-        var accountSelectorDialogTitle = self.accountSelectorPrompt ?? "Select account"
+        var accountSelectorDialogTitle = self.accountSelectorPrompt ?? LocalizedStrings.selectAccount
         if self.localizeAccountSelectorPrompt && self.accountSelectorPrompt != nil {
             accountSelectorDialogTitle = NSLocalizedString(self.accountSelectorPrompt!, comment: "")
         }
