@@ -2,7 +2,7 @@
 //  Localizable.strings
 //  Decred Wallet
 //
-// Copyright (c) 2018-2020 The Decred developers
+// Copyright (c) 2020 The Decred developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -19,28 +19,16 @@
 /* Create New Wallet(Seed display view) */
 "settingUpYourWallet" = "Setting Up Decred Wallet";
 
-/* Confirm NewWallet Seed */
-"seedDoesNotMatch" = "Weryfikacja nie powiodła się. Sprawdź dokładnie każde wprowadzone słowo i spróbuj ponownie.";
-"seedPhraseVerification" = "Zweryfikuj frazę bazową";
-"confirmSeedInfo" = "Each field contains only one correct word. Please confirm your seed by selecting the correct words.";
-
 /* Recover Existing Wallet */
 "wordNumber" = "%d";
 "notAllSeedsAreEntered" = "Not all seeds are entered. Please, check input fields and enter all seeds.";
 "incorrectSeedEntered" = "Odzyskiwanie nie powiodło się. Sprawdź dokładnie każde wprowadzone słowo i spróbuj ponownie.";
-"walletRecoveryError" = "Wallet recovery error.";
 "seedRestoreHeader" = "Odzyskaj z frazy bazowej";
 "seedRestoreInfo" = "Enter your seed phrase in the correct order.";
 "restore" = "Odzyskaj";
 "success" = "Operacja udana";
 "getStarted" = "Jak rozpocząć";
 "restoreSuccessTitle" = "Odzyskiwanie portfela powiodło się.";
-
-/* Drop Down Search Field */
-"tapToSelect" = "Tap to select the word";
-
-/* Wallet Setup Base */
-"settingUpWallet" ="Setting up Decred wallet...";
 
 /* Unlock Wallet Prompt */
 "unlockWithStartupCode" = "Odblokuj %@ do uruchamiania";
@@ -49,19 +37,13 @@
 
 /* Password Setup */
 "emptyPasswordNotAllowed" = "Password cannot be empty";
-"passwordMatch" = "Passwords match";
 "passwordsDoNotMatch" = "Passwords do not match";
 "createPassword" = "Utwórz hasło do %@";
-"passwordStrength" = "PASSWORD STRENGTH";
-"confirmPassword" = "CONFIRM PASSWORD";
 
 /* Request Password */
-"enterPassword" = "Enter Password";
 "enterCurrentSpendingPassword" = "Wprowadź hasło do wydawania środków";
-"promptSpendingPassword" = "Please enter spending password of your wallet.";
 "promptStartupPassword" = "Wprowadź hasło do uruchamiania";
 "password" = "Hasło";
-"proceed" = "Proceed";
 "invalidInput" = "invalid input.";
 "passwordPlaceholder"="%@ hasło";
 "confirmPasswordPlaceholder"="Potwierdź hasło do %@";
@@ -74,7 +56,6 @@
 "confirmPIN" = "Wprowadź PIN do %@ ponownie %@";
 "pinsDidNotMatch" = "Wprowadzone PINy są niezgodne.";
 "pin" = "PIN";
-"pinStrength" = "PIN STRENGTH";
 "next" = "Dalej";
 "create" = "Utwórz";
 
@@ -91,16 +72,12 @@
 "unlockWalletForAccountDiscovery" = "Proces przywracania celem odkrycia Twoich kont został przerwany podczas ostatniej synchronizacji.\n\nOdblokuj %@, aby wznowić proces.";
 
 /* No Wifi Sync Connection */
-"notConnectedToWiFi" = "Not connected to WiFi.";
-"syncAnyways" = "Would you like to sync anyways?";
 "no" = "Nie";
 "yes" = "Tak";
 "always" = "Zawsze";
 
 /* Sync progress view */
 "loading" = "Wczytywanie...";
-"numberOfConnectedPeers" = "%d peers";
-"numberOfConnectedPeer" = "%d peer";
 "waitingForOtherWallets" = "Oczekiwanie na pozostałe portfele";
 "fetchedHeaders" = "%d z %d";
 "headersFetchProgress" = "Pobieranie nagłówków bloków · %d%%";
@@ -123,12 +100,8 @@
 "internetConnectionRequired" = "Internet connection required.";
 "restartingSync" = "Restarting sync...";
 "discoveringUsedAddresses" = "Odkrywanie wykorzystanych adresów.";
-"generalSyncProgressCompletedleft" = "%d%% completed, %@ left.";
-"rescanProgress" = "%d%% completed, %@ left.";
-"syncCanceled" = "Sync canceled.";
 "syncError" = "Sync error.";
-"latestBlock" = "Latest Block: %d";
-"now" = "now";
+"now" = "teraz";
 "secondsAgo" = "%ds temu";
 "minAgo" = "%dm temu";
 "hrsAgo" = "%dh temu";
@@ -198,23 +171,14 @@
 
 /* Transaction Details */
 "transactionDetails" = "Szczegóły transakcji";
-"copyTransactionHash" = "Copy transaction hash";
-"copyRawTransaction" = "Copy raw transaction";
 "viewOnDcrdata" = "zobacz w dcrdata";
-"copied" = "Copied";
 "sgCopied" = "%@ został skopiowany";
-"ticketPurchase" = "Ticket Purchase";
-"date" = "Date";
-"status" = "Status";
 "amount" = "Kwota";
 "fee" = "Opłata";
 "type" = "Typ";
-"confirmation" = "Confirmation";
 "lastBlockValid" = "Last Block Valid";
 "version" = "Wersja";
-"voteBits" =  "Vote Bits";
-"inputs" = "Inputs";
-"outputs" = "Outputs";
+"voteBits" = "Vote Bits";
 "external" = "Zewnętrzne";
 "internal" = "wewnętrznych";
 "imported" = "zaimportowanych";
@@ -243,29 +207,14 @@
 "notEnoughFundsOrNotConnected" = "Brak wystarczających środków (lub brak połączenia).";
 "errorGettingMaxSpendable" = "Error getting maximum spendable amount.";
 "notConnected" = "Brak połączenia z siecią Decred.";
-"amountCantBeZero" = "Amount cannot be zero.";
-"unexpectedError" = "Unexpected error.";
-"sendingTransaction" = "Sending Transaction...";
-"failedTransaction" = "Failed to send transaction.";
 "invalidTesnetAddress" = "This is not a valid Decred testnet3 address.";
 "invalidMainnetAddress" = "This is not a valid Decred Mainnet address.";
 "invalidDestAddr" = "Destination address is not valid.";
-"emptyDestAddr" = "Destination address cannot be empty.";
-"sendingDecred" = "Sending Decred";
 "from" = "Z:";
 "sendHeaderInfo" = "Wprowadź lub zeskanuj adres docelowego portfela oraz ilość DCR, żeby wysłać środki.";
 "destAddr" = "dres docelowy";
-"tapToPaste" = "Tap to Paste";
-"sendInUSD" = "Send in USD:";
-"sendInDCR" = "Send in DCR:";
-"sendMax" = "SEND MAX";
-"feeDesc" = "Fee:";
-"estimateSize" = "Estimate Size:";
-"balanceAfter" = "Balance After:";
-"exchangeRate" = "Exchange Rate:";
 "exchangeRateNotFetched" = "Nie pobrano kursu wymiany";
 "confirmToSend" = "Potwierdź, aby wysłać";
-"addressFromQr" = "Address from QR code: %@";
 "sendDCR" = "Wyślij DCR";
 "paste" = "Wklej";
 "selectFromAccount" = "Select from account.";
@@ -283,23 +232,7 @@
 "toSelf" = "Do siebie";
 "toDestinationAddress" = "Na adres docelowy";
 
-/* Confirm Send Fund */
-"sending" = "Sending";
-"withFee" = "with a fee of";
-"to" = "To ";
-"toAccount" = "to account ";
-"passwordHint" = "Password";
-
-/* Send Complete */
-"hashCopied" = "HASH: (copied)";
-"hash" = "HASH";
-"view" = "VIEW";
-"transactionSuccessful" = "Transaction Was Successful";
-
 /* Recieve */
-"receivingDecred" = "Receive Funds";
-"receiveHeaderInfo" = "Za każdym razem, gdy prosisz o dokonanie wpłaty, tworzony jest nowy adres, aby chronić Twoją prywatność.";
-"accountDesc" = "Account:";
 "walletAddrCopied" = "Skopiowano adres do schowka";
 "genNewAddr" = "Wygeneruj nowy adres";
 "receiveDCR" = "Odbierz DCR";
@@ -375,13 +308,7 @@
 
 /* Wallets -> Account -> Add new account */
 "addNewAccount" = "Dodaj nowe konto";
-// todo edit below when implementing add new account feature
-"inputAccountName" = "Enter a name for your account.";
-"creatingAccount" = "Creating account...";
-"addAccountInfo" = "Input your new account name and enter your private passphrase";
 "accountName" = "Nazwa konta";
-"createAccount" = "Create Account";
-"privatePassphrase" = "Private Passphrase";
 "createNewAccount" = "Stwórz nowe konto";
 "accountCreated" = "Konto zostało utworzone";
 
@@ -407,22 +334,14 @@
 "signMsgHeaderInfo" = "Wprowadź adres oraz wiadomość do podpisania:";
 "signMsgPageInfo" = "Podpisanie wiadomości kluczem prywatnym adresu pozwala udowodnić drugiej stronie transakcji, że rzeczywiście jesteś posiadaczem danego adresu.";
 "signMessage" = "Podpisz wiadomość";
-"signingMessage" = "Signing Message...";
-"secureMenuSyncInfo" = "Please wait for your wallet to finish synchronizing.";
 "signSuccesMessage" = "Wiadomość została podpisana";
 "signFailedMessage" = "Failed to sign message. Please try again.";
 "sign" = "Podpisz";
 
-/* Help */
-"forMoreInformationPleaseVisit" = "For more information please visit";
-
 /* Settings */
-"spendingPinPassInfo" = "Required to send funds.";
 "startupPinPass" = "PIN/hasło do uruchamiania";
 "changeStatupPinPass" = "Zmień PIN/hasło do uruchamiania";
-"startupPinPassInfo" = "Required to enter app.";
 "spendUnconfirmedFund" = "Wydaj niepotwierdzone środki";
-"incomingTxNotification" = "Incoming Transaction Notification";
 "currencyConversion" = "Konwersja walutowa";
 "connectIpDesc" = "Połącz się z konkretnym peerem";
 "userAgent" = "Aplikacja klienta";
@@ -430,7 +349,7 @@
 "setupUserAgent" = "Skonfiguruj aplikację klienta";
 "syncOnWifiDesc" = "Synchronizuj bez połączenia z WiFi";
 "buildDate" = "Wersja";
-"walletLog" = "Pokaż logi portfeli";
+"walletLog" = "Log portfeli";
 "none" = "Brak";
 "rescanConfirm" = "Na pewno? To może trochę potrwać.";
 "rescanBlockchain" = "Skanuj blockchain ponownie";
@@ -462,10 +381,6 @@
 /* IP set */
 "connectToPeer" = "Połącz się z konkretnym peerem";
 "peerAddressIsInvalid" = "Wprowadź poprawny adres IP";
-"remoteAddressIsInvalid" = "Remote address is invalid";
-
-/* Certificate */
-"certificateInfo" = "Paste the certificate for dcrd";
 
 /* License */
 "license" = "Licencja";
@@ -473,10 +388,6 @@
 /* Wallet Log */
 "copy" = "Kopiuj";
 "walletLogCopied" = "Kopiowanie loga portfela zakończone pomyślnie.";
-
-/* Delete Wallet */
-"confirmDeleteInfo" = "Are you sure you want to delete your wallet? Make sure you have your wallet seed saved or your coins moved before deleting. This will also clear all app settings to a default state.";
-"confirmDeleteDesc" = "To confirm, enter your password:";
 
 /* Transaction Notification */
 "newTransaction" = "Nowa transakcja";
@@ -501,14 +412,12 @@
 "ok" = "OK";
 "confirm" = "Potwierdź";
 "remove" = "Usuń";
-"tryAgain" = "Try again";
 "cancel" = "Anuluj";
 "back" = "Wróć";
 "clearFields" =  "Wyczyść pola";
 "copiedSuccessfully" = "skopiowany pomyślnie.";
 "addrCopied" = "Skopiowano adres do schowka!";
 "previousOutpointCopied" = "Poprzedni outpoint został skopiowany!";
-"info" = "Info";
 "delete" = "Skasuj";
 "allowOnce" = "Allow once";
 "alwaysAllow" = "Always allow";
@@ -517,7 +426,6 @@
 /* Other Text */
 "send" = "Wyślij";
 "receive" = "Odbierz";
-"history" = "history";
 "settings" = "Ustawienia";
 "help" = "Pomoc";
 "gotIt" = "Rozumiem";
