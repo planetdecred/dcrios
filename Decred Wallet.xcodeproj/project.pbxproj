@@ -150,6 +150,7 @@
 		DD36717723B44AB700D1ED67 /* More.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD36717623B44AB700D1ED67 /* More.storyboard */; };
 		DD3DF86622C3F0BD00E168AB /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3DF86522C3F0BD00E168AB /* UILabel.swift */; };
 		DD41737B22B1B31E00580935 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DD41737D22B1B31E00580935 /* Localizable.strings */; };
+		DD493BF8247327E800C0D772 /* MultipleTextInputDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD493BF7247327E800C0D772 /* MultipleTextInputDialog.swift */; };
 		DD4948EC22C0E400006A35F8 /* LocalizedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4948EB22C0E400006A35F8 /* LocalizedStrings.swift */; };
 		DD53FD772459F8B3003CA279 /* beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = DD53FD762459F8B3003CA279 /* beep.mp3 */; };
 		DD5AB14623BAE47A00863362 /* About.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD5AB14523BAE47A00863362 /* About.storyboard */; };
@@ -340,6 +341,7 @@
 		DD41737E22B1B32500580935 /* ru-RU */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ru-RU"; path = "ru-RU.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		DD443DD422C768A000EEAB95 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DD452ED922CA93CB00A12378 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DD493BF7247327E800C0D772 /* MultipleTextInputDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleTextInputDialog.swift; sourceTree = "<group>"; };
 		DD4948EB22C0E400006A35F8 /* LocalizedStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedStrings.swift; sourceTree = "<group>"; };
 		DD53FD762459F8B3003CA279 /* beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = beep.mp3; sourceTree = "<group>"; };
 		DD5AB14523BAE47A00863362 /* About.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = About.storyboard; sourceTree = "<group>"; };
@@ -841,6 +843,7 @@
 				1034D5CE24113BF10009576C /* SimpleAlertDialog.swift */,
 				10C6610A23EC587B00754DED /* AccountSelectorDialog */,
 				B3D474E023E56CD900B6E305 /* CheckableListDialog */,
+				DD493BF7247327E800C0D772 /* MultipleTextInputDialog.swift */,
 			);
 			path = "Custom Dialogs";
 			sourceTree = "<group>";
@@ -1148,6 +1151,7 @@
 				B3B46993228F0C2E00A68EDD /* AppDelegate.swift in Sources */,
 				108A2E7423DE311900B13A22 /* SelfSizedTableView.swift in Sources */,
 				B3B46A12228F0F2700A68EDD /* TextFieldDoneButton.swift in Sources */,
+				DD493BF8247327E800C0D772 /* MultipleTextInputDialog.swift in Sources */,
 				B3B46A1D228F0F2700A68EDD /* RequestPasswordViewController.swift in Sources */,
 				B3B469FA228F0F2700A68EDD /* UIColor.swift in Sources */,
 				B34A2F8F23E8E90500B8BC01 /* WalletSyncDetailsTableViewCell.swift in Sources */,

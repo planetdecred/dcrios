@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -545,6 +545,152 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ile-Wm-at2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3692.753623188406" y="-729.24107142857144"/>
+        </scene>
+        <!--Multiple Text Input Dialog-->
+        <scene sceneID="Kvz-VT-OHi">
+            <objects>
+                <viewController storyboardIdentifier="MulripleTextInputDialog" id="Gv8-Qc-Xel" customClass="MultipleTextInputDialog" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="PfO-3P-Ghe">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jix-Yz-rr0">
+                                <rect key="frame" x="0.0" y="618.5" width="414" height="277.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create watch only wallet" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CPF-2i-5k9">
+                                        <rect key="frame" x="24" y="24" width="366" height="25.5"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="20"/>
+                                        <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GAs-jd-Gqe" customClass="FloatingPlaceholderTextField" customModule="Decred_Wallet" customModuleProvider="target">
+                                        <rect key="frame" x="24" y="73.5" width="366" height="48"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="kXE-rI-pu8"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                        <textInputTraits key="textInputTraits" textContentType="password"/>
+                                    </textField>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name is reserved." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YmK-hg-wIe">
+                                        <rect key="frame" x="40" y="125.5" width="334" height="15.5"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="12"/>
+                                        <color key="textColor" red="0.92941176469999998" green="0.42745098040000001" blue="0.2784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7xk-ob-U2x">
+                                        <rect key="frame" x="24" y="213.5" width="366" height="40"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m9N-SL-zOt">
+                                                <rect key="frame" x="199" y="0.0" width="79" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="79" id="LCb-xO-O2J"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
+                                                <state key="normal" title="Cancel">
+                                                    <color key="titleColor" red="0.16078431369999999" green="0.43921568630000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="cancelButtonTapped:" destination="Gv8-Qc-Xel" eventType="touchUpInside" id="YZV-a5-sU3"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="US8-5M-GYa" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
+                                                <rect key="frame" x="286" y="0.0" width="80" height="40"/>
+                                                <color key="backgroundColor" red="0.77000000000000002" green="0.80000000000000004" blue="0.81999999999999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="5yr-xc-NfZ"/>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="9NZ-2d-V4B"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
+                                                <inset key="contentEdgeInsets" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
+                                                <state key="normal" title="Create">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="disabledBackgroundColor">
+                                                        <color key="value" red="0.76862745099999996" green="0.79607843140000001" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="7"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="enabledBackgroundColor">
+                                                        <color key="value" red="0.16078431369999999" green="0.43921568630000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="submitButtonTapped:" destination="Gv8-Qc-Xel" eventType="touchUpInside" id="3lp-hK-Wfv"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstItem="m9N-SL-zOt" firstAttribute="height" secondItem="US8-5M-GYa" secondAttribute="height" id="TtM-dk-GOl"/>
+                                            <constraint firstAttribute="bottom" secondItem="US8-5M-GYa" secondAttribute="bottom" id="j8H-6E-EFH"/>
+                                            <constraint firstItem="US8-5M-GYa" firstAttribute="top" secondItem="7xk-ob-U2x" secondAttribute="top" id="jJ5-bF-W8N"/>
+                                            <constraint firstAttribute="trailing" secondItem="US8-5M-GYa" secondAttribute="trailing" id="q5z-r9-I9q"/>
+                                            <constraint firstItem="US8-5M-GYa" firstAttribute="leading" secondItem="m9N-SL-zOt" secondAttribute="trailing" constant="8" id="u2k-ir-pe7"/>
+                                            <constraint firstItem="m9N-SL-zOt" firstAttribute="centerY" secondItem="US8-5M-GYa" secondAttribute="centerY" id="xrK-0R-9gL"/>
+                                        </constraints>
+                                    </view>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EGJ-n8-btt" customClass="FloatingPlaceholderTextField" customModule="Decred_Wallet" customModuleProvider="target">
+                                        <rect key="frame" x="24" y="149" width="366" height="48"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="7Qz-7x-2Mm"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                        <textInputTraits key="textInputTraits" textContentType="password"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="GAs-jd-Gqe" secondAttribute="trailing" constant="24" id="5lv-0F-YcZ"/>
+                                    <constraint firstItem="EGJ-n8-btt" firstAttribute="leading" secondItem="Jix-Yz-rr0" secondAttribute="leading" constant="24" id="8UC-sC-z3g"/>
+                                    <constraint firstItem="GAs-jd-Gqe" firstAttribute="trailing" secondItem="YmK-hg-wIe" secondAttribute="trailing" constant="16" id="B47-GC-qar"/>
+                                    <constraint firstItem="7xk-ob-U2x" firstAttribute="top" secondItem="EGJ-n8-btt" secondAttribute="bottom" constant="16.5" id="ESe-4h-wdT"/>
+                                    <constraint firstItem="GAs-jd-Gqe" firstAttribute="top" secondItem="CPF-2i-5k9" secondAttribute="bottom" constant="24" id="NXS-jm-FY2"/>
+                                    <constraint firstItem="YmK-hg-wIe" firstAttribute="top" secondItem="GAs-jd-Gqe" secondAttribute="bottom" constant="4" id="P0U-BT-wDV"/>
+                                    <constraint firstAttribute="trailing" secondItem="7xk-ob-U2x" secondAttribute="trailing" constant="24" id="QWN-2k-SxP"/>
+                                    <constraint firstItem="EGJ-n8-btt" firstAttribute="top" secondItem="YmK-hg-wIe" secondAttribute="bottom" constant="8" id="ci6-eM-DrL"/>
+                                    <constraint firstItem="GAs-jd-Gqe" firstAttribute="leading" secondItem="Jix-Yz-rr0" secondAttribute="leading" constant="24" id="gTa-3Y-AWB"/>
+                                    <constraint firstItem="CPF-2i-5k9" firstAttribute="top" secondItem="Jix-Yz-rr0" secondAttribute="top" constant="24" id="mhr-f0-xiL"/>
+                                    <constraint firstItem="7xk-ob-U2x" firstAttribute="leading" secondItem="Jix-Yz-rr0" secondAttribute="leading" constant="24" id="o7t-hl-IzA"/>
+                                    <constraint firstItem="YmK-hg-wIe" firstAttribute="leading" secondItem="GAs-jd-Gqe" secondAttribute="leading" constant="16" id="qNf-g8-dhr"/>
+                                    <constraint firstAttribute="trailing" secondItem="CPF-2i-5k9" secondAttribute="trailing" constant="24" id="qmR-Ka-gNm"/>
+                                    <constraint firstAttribute="trailing" secondItem="EGJ-n8-btt" secondAttribute="trailing" constant="24" id="rxB-Qe-Bzt"/>
+                                    <constraint firstAttribute="bottom" secondItem="7xk-ob-U2x" secondAttribute="bottom" constant="24" id="vKT-UD-86n"/>
+                                    <constraint firstItem="CPF-2i-5k9" firstAttribute="leading" secondItem="Jix-Yz-rr0" secondAttribute="leading" constant="24" id="vSK-qf-5R6"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="14"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.maskedCorners">
+                                        <integer key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Jix-Yz-rr0" firstAttribute="leading" secondItem="TB3-Sm-yNd" secondAttribute="leading" id="4tl-HE-3JW"/>
+                            <constraint firstItem="TB3-Sm-yNd" firstAttribute="trailing" secondItem="Jix-Yz-rr0" secondAttribute="trailing" id="b8v-FN-AGc"/>
+                            <constraint firstAttribute="bottom" secondItem="Jix-Yz-rr0" secondAttribute="bottom" id="cdk-sZ-Poj"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="TB3-Sm-yNd"/>
+                    </view>
+                    <connections>
+                        <outlet property="cancelButton" destination="m9N-SL-zOt" id="M3C-wA-zHH"/>
+                        <outlet property="dialogViewBottomConstraint" destination="cdk-sZ-Poj" id="GbG-XF-vES"/>
+                        <outlet property="inputErrorLabel" destination="YmK-hg-wIe" id="l1U-7h-3a3"/>
+                        <outlet property="submitButton" destination="US8-5M-GYa" id="njY-yT-paL"/>
+                        <outlet property="titleLabel" destination="CPF-2i-5k9" id="cse-1i-cT8"/>
+                        <outlet property="userName" destination="GAs-jd-Gqe" id="vmH-V3-XJZ"/>
+                        <outlet property="userPass" destination="EGJ-n8-btt" id="OTs-wW-ADy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cAg-cg-n1N" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="40.579710144927539" y="27.455357142857142"/>
         </scene>
     </scenes>
     <resources>
