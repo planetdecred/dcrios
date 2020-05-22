@@ -91,7 +91,7 @@ class SimpleTextInputDialog: UIViewController {
     }
     
     @IBAction func submitButtonTapped(_ sender: Any) {
-        self.submitButton.stopLoading()
+        self.submitButton.startLoading()
         self.submitUserInput()
     }
     

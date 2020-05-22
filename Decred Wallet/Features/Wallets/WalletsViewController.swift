@@ -278,10 +278,6 @@ extension WalletsViewController: WalletInfoTableViewCellDelegate {
             self.gotToSignMessage(walletID: walletID)
         }))
         
-        walletMenu.addAction(UIAlertAction(title: LocalizedStrings.verifyMessage, style: .default, handler: { _ in
-            self.gotToVerifyMessage(walletID: walletID)
-        }))
-        
         walletMenu.addAction(UIAlertAction(title: LocalizedStrings.rename, style: .default, handler: { _ in
             self.renameWallet(walletID: walletID)
         }))

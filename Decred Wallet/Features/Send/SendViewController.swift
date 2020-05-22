@@ -94,6 +94,7 @@ class SendViewController: UIViewController {
     }
     
     func setupViews() {
+        self.sourceAccountView.showWatchOnlyWallet = false
         self.sourceAccountView.onAccountSelectionChanged = { _, newSourceAccount in
             let spendableAmount = (Decimal(newSourceAccount.balance!.dcrSpendable) as NSDecimalNumber).round(8).formattedWithSeparator
             self.sourceAccountSpendableBalanceLabel.text = "\(LocalizedStrings.spendable): \(spendableAmount) DCR"
@@ -108,6 +109,7 @@ class SendViewController: UIViewController {
         self.destinationAddressTextField.textViewDelegate = self
         
         self.toSelfAccountSection.isHidden = true
+        self.destinationAccountView.showWatchOnlyWallet = true
         self.destinationAccountView.onAccountSelectionChanged = { _, _ in
             self.displayFeeDetailsAndTransactionSummary() // re-calculate fee with updated destination info
         }
@@ -180,6 +182,8 @@ class SendViewController: UIViewController {
     }
     
     func showOrHidePasteAddressButton() {
+        //let shouldShowPasteButton = self.destinationAddressTextField.isInputEmpty()
+         //   && WalletLoader.shared.multiWallet.isAddressValid(UIPasteboard.general.string)
         let shouldShowPasteButton = self.destinationAddressTextField.isInputEmpty()
             && self.sourceAccountView.selectedWallet?.isAddressValid(UIPasteboard.general.string) ?? false
 
@@ -339,6 +343,7 @@ class SendViewController: UIViewController {
     }
     
     func sendCompleted() {
+        //to do localize
         Utils.showBanner(in: NavigationMenuTabBarController.instance!.view, type: .success, text: "Transaction sent")
         self.resetFields()
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -458,6 +463,7 @@ extension SendViewController {
         }
         
         guard let destinationAddress = self.destinationAddress, sourceWallet.isAddressValid(destinationAddress) else {
+           // WalletLoader.shared.multiWallet.isAddressValid(destinationAddress) else {
             Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.invalidDestAddr)
             return false
         }
@@ -478,6 +484,7 @@ extension SendViewController {
             let sourceAccount = self.sourceAccountView.selectedAccount,
             let sourceAccountBalance = sourceAccount.balance, sourceAccountBalance.spendable > 0,
             let destinationAddress = self.destinationAddress, sourceWallet.isAddressValid(destinationAddress)
+          //let destinationAddress = self.destinationAddress,WalletLoader.shared.multiWalletisAddressValid(destinationAddress)
             else { return nil }
 
         let sendAmountDcr = Double(validSendAmountString ?? "") ?? 0
@@ -520,6 +527,7 @@ extension SendViewController {
         if toSelfAccountSection.isHidden {
             let destinationAddress = self.destinationAddressTextField.text ?? ""
             let addressValid = self.sourceAccountView.selectedWallet?.isAddressValid(destinationAddress) ?? false
+            //let addressValid = WalletLoader.shared.multiWallet.isAddressValid(destinationAddress) 
             self.invalidDestinationAddressLabel.isHidden = destinationAddress.isEmpty || addressValid
             return
         }

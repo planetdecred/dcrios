@@ -20,6 +20,7 @@ class VerifyMessageViewController: UIViewController, FloatingPlaceholderTextView
     @IBOutlet weak var isValidImg: UIImageView!
     @IBOutlet weak var isValidSignature: UILabel!
     
+    //todo delete
      var wallet: DcrlibwalletWallet!
        
     // Good practice: create an instance of QRImageScanner lazily to avoid cpu overload during the
@@ -136,9 +137,11 @@ class VerifyMessageViewController: UIViewController, FloatingPlaceholderTextView
         let message = messages
         let signatured = signatures
         let retV = UnsafeMutablePointer<ObjCBool>.allocate(capacity: 1)
-           
+        
+        //if WalletLoader.shared.multiWallet.isAddressValid(addressd) {
         if (wallet.isAddressValid(addressd)) {
             do{
+                //try WalletLoader.shared.multiWallet.verifyMessage(addressd, message: message, signatureBase64: signatured, ret0_: retV)
                 try wallet.verifyMessage(addressd, message: message, signatureBase64: signatured, ret0_: retV)
                 if (retV[0]).boolValue {
                     self.isValidSignature.text = LocalizedStrings.verifiedSignature
