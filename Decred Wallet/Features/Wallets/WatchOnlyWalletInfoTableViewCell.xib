@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="WatchOnlyWalletInfoTableViewCell" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WatchOnlyWalletInfoTableViewCell" rowHeight="366" id="d8O-gb-pZU" customClass="WatchOnlyWalletInfoTableViewCell" customModule="Decred_Wallet" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="205.5"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="d8O-gb-pZU" id="7bu-f6-QMZ">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="205.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YI3-dZ-TVN" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="153.5"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="p4H-85-xXK">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="153.5"/>
+                                <subviews>
+                                    <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="4OU-1s-YCs">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="52.5"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="BOt-b0-4q7">
+                                                <rect key="frame" x="16" y="16" width="382" height="20.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Watch only wallets" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uPf-yg-DII">
+                                                        <rect key="frame" x="0.0" y="0.0" width="382" height="20.5"/>
+                                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                                        <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <edgeInsets key="layoutMargins" top="16" left="16" bottom="16" right="16"/>
+                                    </stackView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OnS-85-hCg">
+                                        <rect key="frame" x="0.0" y="52.5" width="414" height="101"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AO5-VU-vlo">
+                                                <rect key="frame" x="44" y="0.0" width="354" height="1"/>
+                                                <color key="backgroundColor" red="0.90196078431372551" green="0.91764705882352937" blue="0.92941176470588238" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="1" id="xVX-6O-h7E"/>
+                                                </constraints>
+                                            </view>
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rkT-JM-G2U">
+                                                <rect key="frame" x="0.0" y="1" width="414" height="100"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="100" id="dQ1-E0-FzW"/>
+                                                </constraints>
+                                            </tableView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstItem="AO5-VU-vlo" firstAttribute="leading" secondItem="OnS-85-hCg" secondAttribute="leading" constant="16" id="1td-O5-Bv4"/>
+                                            <constraint firstAttribute="trailing" secondItem="rkT-JM-G2U" secondAttribute="trailing" id="NNM-Yd-SKN"/>
+                                            <constraint firstItem="AO5-VU-vlo" firstAttribute="top" secondItem="OnS-85-hCg" secondAttribute="top" id="Ooa-jg-8Fp"/>
+                                            <constraint firstAttribute="bottom" secondItem="rkT-JM-G2U" secondAttribute="bottom" id="YJL-fL-deu"/>
+                                            <constraint firstItem="rkT-JM-G2U" firstAttribute="top" secondItem="AO5-VU-vlo" secondAttribute="bottom" id="lRl-FJ-chW"/>
+                                            <constraint firstAttribute="trailing" secondItem="AO5-VU-vlo" secondAttribute="trailing" constant="16" id="mpE-tZ-Q33"/>
+                                            <constraint firstItem="rkT-JM-G2U" firstAttribute="leading" secondItem="OnS-85-hCg" secondAttribute="leading" id="rJy-qA-QK3"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="p4H-85-xXK" firstAttribute="top" secondItem="YI3-dZ-TVN" secondAttribute="top" id="5lw-XB-QRf"/>
+                            <constraint firstItem="p4H-85-xXK" firstAttribute="leading" secondItem="YI3-dZ-TVN" secondAttribute="leading" id="Q5P-iI-duo"/>
+                            <constraint firstAttribute="bottom" secondItem="p4H-85-xXK" secondAttribute="bottom" id="isF-yH-dUx"/>
+                            <constraint firstAttribute="trailing" secondItem="p4H-85-xXK" secondAttribute="trailing" id="m8h-w4-Fdx"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="borderRadius">
+                                <real key="value" value="14"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                <color key="value" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                <real key="value" value="0.23999999999999999"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                <size key="value" width="0.0" height="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                <real key="value" value="4"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowSpread">
+                                <real key="value" value="0.0"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" red="0.95294117647058818" green="0.96078431372549022" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                <constraints>
+                    <constraint firstItem="YI3-dZ-TVN" firstAttribute="top" secondItem="7bu-f6-QMZ" secondAttribute="top" id="0LF-eS-U5n"/>
+                    <constraint firstAttribute="trailing" secondItem="YI3-dZ-TVN" secondAttribute="trailing" id="BqB-EK-Kjl"/>
+                    <constraint firstItem="YI3-dZ-TVN" firstAttribute="leading" secondItem="7bu-f6-QMZ" secondAttribute="leading" id="J5F-Ip-5YS"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="walletsSection" destination="OnS-85-hCg" id="rjX-Wh-sS9"/>
+                <outlet property="walletsTableView" destination="rkT-JM-G2U" id="3RV-2s-Tkb"/>
+                <outlet property="walletsTableViewHeightConstraint" destination="dQ1-E0-FzW" id="qed-R1-Zde"/>
+            </connections>
+            <point key="canvasLocation" x="134.78260869565219" y="203.23660714285714"/>
+        </tableViewCell>
+    </objects>
+</document>

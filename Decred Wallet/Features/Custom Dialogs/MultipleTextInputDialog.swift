@@ -12,7 +12,7 @@ typealias MultipleTextInputDialogCallback = (_ userName: String, _ userPass: Str
 
 protocol MultipleInputDialogDelegate {
     func dismissDialog()
-    func displayError(errorMessage: String)
+    func displayError(errorMessage: String, firstTextField: Bool)
 }
 
 class MultipleTextInputDialog: UIViewController {
@@ -20,7 +20,8 @@ class MultipleTextInputDialog: UIViewController {
     @IBOutlet weak var userName: FloatingPlaceholderTextField!
     @IBOutlet weak var userPass: FloatingPlaceholderTextField!
     @IBOutlet weak var inputErrorLabel: UILabel!
-
+    @IBOutlet weak var passInputErrorLabel: UILabel!
+    
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var submitButton: Button!
     
@@ -77,7 +78,15 @@ class MultipleTextInputDialog: UIViewController {
         if !self.inputErrorLabel.isHidden {
             self.userName.hideError()
             self.inputErrorLabel.isHidden = true
+            return
         }
+        
+        if !self.passInputErrorLabel.isHidden {
+            self.userPass.hideError()
+            self.passInputErrorLabel.isHidden = true
+            return
+        }
+        
     }
     
     @IBAction func cancelButtonTapped(_ sender: Any) {
@@ -85,6 +94,7 @@ class MultipleTextInputDialog: UIViewController {
     }
     
     @IBAction func submitButtonTapped(_ sender: Any) {
+        self.submitButton.startLoading()
         self.submitUserInput()
     }
     
@@ -113,12 +123,20 @@ extension MultipleTextInputDialog: MultipleInputDialogDelegate {
         self.dismissView()
     }
     
-    func displayError(errorMessage: String) {
-        self.userName.showError()
-        self.userName.becomeFirstResponder()
-        
-        self.inputErrorLabel.text = errorMessage
-        self.inputErrorLabel.isHidden = false
+    func displayError(errorMessage: String, firstTextField: Bool = true) {
+        if firstTextField {
+            self.userName.showError()
+            self.userName.becomeFirstResponder()
+            
+            self.inputErrorLabel.text = errorMessage
+            self.inputErrorLabel.isHidden = false
+        } else {
+            self.userPass.showError()
+            self.userPass.becomeFirstResponder()
+            
+            self.passInputErrorLabel.text = errorMessage
+            self.passInputErrorLabel.isHidden = false
+        }
         
         self.cancelButton?.isEnabled = true
         self.submitButton.isEnabled = true

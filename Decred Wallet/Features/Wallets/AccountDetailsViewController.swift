@@ -23,7 +23,19 @@ class AccountDetailsViewController: UIViewController {
     @IBOutlet weak var accountHDPathLabel: UILabel!
     @IBOutlet weak var accountKeysLabel: UILabel!
     
+    @IBOutlet weak var accountPropertiesContainerConst: NSLayoutConstraint!
+    @IBOutlet weak var accountNumberContraint: NSLayoutConstraint!
+    @IBOutlet weak var accountNumerLabelConstraint: NSLayoutConstraint!
+    @IBOutlet weak var hdPathConstraint: NSLayoutConstraint!
+    @IBOutlet weak var hdPathLabelContaint: NSLayoutConstraint!
+    @IBOutlet weak var HdPathTopSpace: NSLayoutConstraint!
+    @IBOutlet weak var accountNumberTopSpace: NSLayoutConstraint!
+    
+    @IBOutlet weak var renameAccountBtn: UIButton!
+    
+    private var wallet: Wallet!
     private var account: DcrlibwalletAccount!
+    private var isWatchOnlyWallet = false
     private var onAccountDetailsUpdated: (() -> ())?
     private var showAccountProperties = false
     
@@ -33,21 +45,56 @@ class AccountDetailsViewController: UIViewController {
         
         let accountDetailsView = AccountDetailsViewController.instantiate(from: .Wallets)
         accountDetailsView.account = account
+        accountDetailsView.isWatchOnlyWallet = false
         accountDetailsView.onAccountDetailsUpdated = onAccountDetailsUpdated
         
         accountDetailsView.modalPresentationStyle = .pageSheet
-        vc.present(accountDetailsView, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            vc.present(accountDetailsView, animated: true, completion: nil)
+        }
+        
+    }
+    
+    static func showWatchOnlyWalletDetails(for wallet: Wallet,
+                            onAccountDetailsUpdated: (() -> ())?,
+                            sender vc: UIViewController) {
+        
+        let accountDetailsView = AccountDetailsViewController.instantiate(from: .Wallets)
+        accountDetailsView.wallet = wallet
+        accountDetailsView.account = wallet.accounts.first
+        accountDetailsView.isWatchOnlyWallet = true
+        accountDetailsView.onAccountDetailsUpdated = onAccountDetailsUpdated
+        
+        accountDetailsView.modalPresentationStyle = .pageSheet
+        DispatchQueue.main.async {
+            vc.present(accountDetailsView, animated: true, completion: nil)
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.accountPropertiesSection.isHidden = true
-        self.accountNameLabel.text = self.account.name
+        self.accountNameLabel.text = self.isWatchOnlyWallet ? self.wallet.name : self.account.name
+        self.renameAccountBtn.isHidden = self.isWatchOnlyWallet ? true : false
+        self.setupAccountProperties()
+        
         self.displayAccountBalances()
         self.populateOtherAccountProperties()
         
         self.dismissViewOnTapAround()
+    }
+    
+    func setupAccountProperties() {
+        self.accountPropertiesContainerConst.constant = self.isWatchOnlyWallet ? 85 : 153
+        
+        self.accountNumberContraint.constant = self.isWatchOnlyWallet ? 0 : 18
+        self.accountNumerLabelConstraint.constant = self.isWatchOnlyWallet ? 0 : 18
+        self.hdPathConstraint.constant = self.isWatchOnlyWallet ? 0 : 18
+        self.hdPathLabelContaint.constant = self.isWatchOnlyWallet ? 0 : 18
+        
+        self.accountNumberTopSpace.constant = self.isWatchOnlyWallet ? 0 : 16
+        self.HdPathTopSpace.constant = self.isWatchOnlyWallet ? 0 : 16
     }
     
     func displayAccountBalances() {

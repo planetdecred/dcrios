@@ -30,6 +30,7 @@ class SimpleTextInputDialog: UIViewController {
     private var currentValue: String!
     private var cancelButtonText: String?
     private var submitButtonText: String?
+    private var verifyInput: Bool!
     private var callback: SimpleTextInputDialogCallback!
     
     static func show(sender vc: UIViewController,
@@ -38,6 +39,7 @@ class SimpleTextInputDialog: UIViewController {
                      currentValue: String = "",
                      cancelButtonText: String? = nil,
                      submitButtonText: String? = nil,
+                     verifyInput: Bool = false,
                      callback: @escaping SimpleTextInputDialogCallback) {
         
         let dialog = SimpleTextInputDialog.instantiate(from: .CustomDialogs)
@@ -46,6 +48,7 @@ class SimpleTextInputDialog: UIViewController {
         dialog.currentValue = currentValue
         dialog.cancelButtonText = cancelButtonText
         dialog.submitButtonText = submitButtonText
+        dialog.verifyInput = verifyInput
         dialog.callback = callback
         
         dialog.modalPresentationStyle = .pageSheet
@@ -69,11 +72,13 @@ class SimpleTextInputDialog: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.textField.text = self.currentValue
+        if !self.verifyInput {
+           self.textField.text = self.currentValue
+        }
     }
     
     @objc func textFieldEditingChanged() {
-        self.submitButton.isEnabled = (self.textField.text ?? "").count > 0
+        self.submitButton.isEnabled = self.verifyInput ? self.currentValue == self.textField.text : (self.textField.text ?? "").count > 0
         
         if !self.inputErrorLabel.isHidden {
             self.textField.hideError()
@@ -86,6 +91,7 @@ class SimpleTextInputDialog: UIViewController {
     }
     
     @IBAction func submitButtonTapped(_ sender: Any) {
+        self.submitButton.stopLoading()
         self.submitUserInput()
     }
     

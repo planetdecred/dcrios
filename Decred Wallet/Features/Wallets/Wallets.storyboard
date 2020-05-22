@@ -295,7 +295,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qnm-iS-KT9">
-                                                        <rect key="frame" x="0.0" y="244" width="414" height="50"/>
+                                                        <rect key="frame" x="0.0" y="196" width="414" height="50"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ncc-nN-Q09">
                                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="0.5"/>
@@ -336,7 +336,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Nq-bD-eD3">
-                                                        <rect key="frame" x="0.0" y="294" width="414" height="48"/>
+                                                        <rect key="frame" x="0.0" y="246" width="414" height="48"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WRF-rP-G0f">
                                                                 <rect key="frame" x="24" y="7.5" width="366" height="33"/>
@@ -455,7 +455,9 @@
                         <viewLayoutGuide key="safeArea" id="VjD-6E-u0k"/>
                     </view>
                     <connections>
+                        <outlet property="changePassOrPIN" destination="9Kw-rn-lwG" id="rey-0F-KPI"/>
                         <outlet property="incomingTxAlertButton" destination="4W7-DH-6Kn" id="Vwi-fl-Czg"/>
+                        <outlet property="securityHeader" destination="j1z-NH-HEZ" id="Fmy-0C-y3e"/>
                         <outlet property="useBiometricSwitch" destination="Cm9-Wi-1n3" id="0oZ-bK-M0w"/>
                         <outlet property="walletNameLabel" destination="M3F-qE-dpL" id="nNS-xs-YGw"/>
                     </connections>
@@ -705,6 +707,9 @@
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Account number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g0W-m8-Kex">
                                                         <rect key="frame" x="16" y="51" width="359" height="18"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="18" id="v6t-UD-pfp"/>
+                                                        </constraints>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                                         <color key="textColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -714,12 +719,18 @@
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="egK-tO-Uol">
                                                         <rect key="frame" x="391" y="51" width="7" height="18"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="18" id="Aho-vw-cfF"/>
+                                                        </constraints>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                                         <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="HD Path" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="04U-AV-epm">
                                                         <rect key="frame" x="16" y="85" width="277.5" height="18"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="18" id="coL-xO-kUU"/>
+                                                        </constraints>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                                         <color key="textColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -729,6 +740,9 @@
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="m / 44’ / 20’ / 0’" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UqW-Jc-ihv">
                                                         <rect key="frame" x="309.5" y="85" width="88.5" height="18"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="18" id="UPy-Xw-AKC"/>
+                                                        </constraints>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                                         <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -758,6 +772,7 @@
                                                     <constraint firstItem="OU8-HL-Z6h" firstAttribute="leading" secondItem="A7a-r9-59P" secondAttribute="leading" id="ESb-X0-ML3"/>
                                                     <constraint firstItem="04U-AV-epm" firstAttribute="top" secondItem="g0W-m8-Kex" secondAttribute="bottom" constant="16" id="Emq-o7-EkJ"/>
                                                     <constraint firstItem="g0W-m8-Kex" firstAttribute="top" secondItem="Mtx-QK-ReZ" secondAttribute="bottom" constant="16" id="GLa-vV-bCw"/>
+                                                    <constraint firstAttribute="height" constant="153" id="JXx-Av-hhs"/>
                                                     <constraint firstItem="VRd-0S-C0j" firstAttribute="leading" secondItem="AuG-Rd-8hS" secondAttribute="trailing" constant="16" id="MwZ-6N-vZQ"/>
                                                     <constraint firstItem="egK-tO-Uol" firstAttribute="leading" secondItem="g0W-m8-Kex" secondAttribute="trailing" constant="16" id="Ofs-g0-ByK"/>
                                                     <constraint firstItem="UqW-Jc-ihv" firstAttribute="centerY" secondItem="04U-AV-epm" secondAttribute="centerY" id="Phr-S5-W4e"/>
@@ -828,14 +843,22 @@
                         <viewLayoutGuide key="safeArea" id="ArT-Pb-cdS"/>
                     </view>
                     <connections>
+                        <outlet property="HdPathTopSpace" destination="Emq-o7-EkJ" id="eyF-5i-eqC"/>
                         <outlet property="accountHDPathLabel" destination="UqW-Jc-ihv" id="qAa-su-xBf"/>
                         <outlet property="accountKeysLabel" destination="VRd-0S-C0j" id="pQe-OL-OVa"/>
                         <outlet property="accountNameLabel" destination="fwB-np-G4E" id="H51-cs-Vtw"/>
+                        <outlet property="accountNumberContraint" destination="v6t-UD-pfp" id="cGp-VA-kQb"/>
                         <outlet property="accountNumberLabel" destination="egK-tO-Uol" id="qbc-sZ-5vB"/>
+                        <outlet property="accountNumberTopSpace" destination="GLa-vV-bCw" id="pml-E0-dEb"/>
+                        <outlet property="accountNumerLabelConstraint" destination="Aho-vw-cfF" id="fT6-Ee-f6A"/>
+                        <outlet property="accountPropertiesContainerConst" destination="JXx-Av-hhs" id="QDn-uE-QBZ"/>
                         <outlet property="accountPropertiesSection" destination="A7a-r9-59P" id="3HO-1s-dJ6"/>
+                        <outlet property="hdPathConstraint" destination="coL-xO-kUU" id="cXd-U8-47h"/>
+                        <outlet property="hdPathLabelContaint" destination="UPy-Xw-AKC" id="yB1-OD-cm4"/>
                         <outlet property="immatureRewardsBalanceLabel" destination="FGg-uV-EsT" id="mbL-jx-bOg"/>
                         <outlet property="immatureStakeGenBalanceLabel" destination="ayf-EU-u8R" id="duB-kp-VZE"/>
                         <outlet property="lockedByTicketsBalanceLabel" destination="o8a-r9-Auu" id="tia-hq-dpN"/>
+                        <outlet property="renameAccountBtn" destination="ZG2-MD-6gn" id="KCU-Bc-R1W"/>
                         <outlet property="spendableBalanceLabel" destination="vaD-Sa-MN8" id="oXY-ap-qQc"/>
                         <outlet property="totalBalanceLabel" destination="chG-Fy-7RQ" id="RUm-zE-R3z"/>
                         <outlet property="votingAuthorityBalanceLabel" destination="Nvw-cq-x5p" id="Aqu-Mi-YKC"/>
