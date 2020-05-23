@@ -13,12 +13,14 @@ class WalletsViewController: UIViewController {
     @IBOutlet weak var walletsTableView: UITableView!
     
     var wallets = [Wallet]()
+    var watchOnly = [Wallet]()
     weak var customTabBar: CustomTabMenuView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.walletsTableView.hideEmptyAndExtraRows()
+        self.walletsTableView.registerCellNib(WatchOnlyWalletInfoTableViewCell.self)
         self.walletsTableView.registerCellNib(WalletInfoTableViewCell.self)
         self.walletsTableView.dataSource = self
         self.walletsTableView.delegate = self
@@ -37,7 +39,11 @@ class WalletsViewController: UIViewController {
 
     func loadWallets() {
         let accountsFilterFn: (DcrlibwalletAccount) -> Bool = { ($0.totalBalance >= 0 && $0.name != "imported") || ($0.totalBalance > 0 && $0.name == "imported")}
-        self.wallets = WalletLoader.shared.wallets.map({ Wallet.init($0, accountsFilterFn: accountsFilterFn) })
+        let watchOnly = WalletLoader.shared.wallets.filter { $0.isWatchingOnlyWallet()}
+        let fullCoinWallet = WalletLoader.shared.wallets.filter { !$0.isWatchingOnlyWallet()}
+        
+        self.watchOnly = watchOnly.map({ Wallet.init($0, accountsFilterFn: accountsFilterFn) })
+        self.wallets = fullCoinWallet.map({ Wallet.init($0, accountsFilterFn: accountsFilterFn) })
     }
     
     @IBAction func addNewWalletTapped(_ sender: UIView) {
@@ -62,6 +68,10 @@ class WalletsViewController: UIViewController {
                 self.goToRestoreWallet()
             }
         }))
+        
+        alertController.addAction(UIAlertAction(title: "Import a watch-only wallet", style: .default, handler: { _ in
+                       self.createWatchOnlyWallet()
+               }))
         
         alertController.addAction(UIAlertAction(title: LocalizedStrings.cancel, style: .cancel, handler: nil))
         
@@ -98,17 +108,40 @@ class WalletsViewController: UIViewController {
         title: LocalizedStrings.walletName,
         placeholder: LocalizedStrings.walletName,
         submitButtonText: LocalizedStrings.confirm) { walletName, dialogDelegate in
-         dialogDelegate?.dismissDialog()
-            Security.spending(initialSecurityType: .password).requestNewCode(sender: self, isChangeAttempt: false) { pinOrPassword, type, completion in
-                WalletLoader.shared.createWallet(spendingPinOrPassword: pinOrPassword, securityType: type, walletName: walletName.lowercased()) { error in
-                    if error == nil {
-                        completion?.dismissDialog()
-                        self.loadWallets()
-                        self.refreshAccountDetails()
-                        self.customTabBar?.hasUnBackedUpWallets(true)
-                        Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.walletCreated)
+            var errorValue: ObjCBool = false
+            do {
+                try WalletLoader.shared.multiWallet.walletNameExists(walletName, ret0_: &errorValue)
+                if !errorValue.boolValue {
+                    dialogDelegate?.dismissDialog()
+                    Security.spending(initialSecurityType: .password).requestNewCode(sender: self, isChangeAttempt: false) { pinOrPassword, type, completion in
+                        WalletLoader.shared.createWallet(spendingPinOrPassword: pinOrPassword, securityType: type, walletName: walletName.lowercased()) { error in
+                            if error == nil {
+                                DispatchQueue.main.async {
+                                    completion?.dismissDialog()
+                                    self.loadWallets()
+                                    self.refreshAccountDetails()
+                                    self.customTabBar?.hasUnBackedUpWallets(true)
+                                    Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.walletCreated)
+                                }
+                            } else {
+                                DispatchQueue.main.async {
+                                    completion?.displayError(errorMessage: error!.localizedDescription)
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        dialogDelegate?.displayError(errorMessage: LocalizedStrings.walletNameExists)
+                    }
+                }
+                
+            } catch {
+                DispatchQueue.main.async {
+                    if error.localizedDescription == DcrlibwalletErrExist {
+                        dialogDelegate?.displayError(errorMessage: LocalizedStrings.walletNameExists)
                     } else {
-                        completion?.displayError(errorMessage: error!.localizedDescription)
+                        
                     }
                 }
             }
@@ -120,50 +153,114 @@ class WalletsViewController: UIViewController {
         title: LocalizedStrings.walletName,
         placeholder: LocalizedStrings.walletName,
         submitButtonText: LocalizedStrings.confirm) { walletName, dialogDelegate in
-            dialogDelegate?.dismissDialog()
-            let restoreWalletVC = RestoreExistingWalletViewController.instantiate(from: .WalletSetup)
-            restoreWalletVC.walletName = walletName.lowercased()
-            restoreWalletVC.onWalletRestored = {
-                self.loadWallets()
-                Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.walletCreated)
+            var errorValue: ObjCBool = false
+            do {
+                try WalletLoader.shared.multiWallet.walletNameExists(walletName, ret0_: &errorValue)
+                if !errorValue.boolValue {
+                    dialogDelegate?.dismissDialog()
+                    let restoreWalletVC = RestoreExistingWalletViewController.instantiate(from: .WalletSetup)
+                    restoreWalletVC.walletName = walletName.lowercased()
+                    restoreWalletVC.onWalletRestored = {
+                        self.loadWallets()
+                        Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.walletCreated)
+                    }
+                    self.navigationController?.pushViewController(restoreWalletVC, animated: true)
+                } else {
+                    dialogDelegate?.displayError(errorMessage: LocalizedStrings.walletNameExists)
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    Utils.showBanner(in: self.view, type: .error, text: error.localizedDescription)
+                }
             }
-            self.navigationController?.pushViewController(restoreWalletVC, animated: true)
         }
+    }
+    
+    func createWatchOnlyWallet() {
+        MultipleTextInputDialog.show(sender: self,
+                                     title: LocalizedStrings.createWatchOnlyWallet,
+        userNamePlaceholder: LocalizedStrings.walletName,
+        userPassPlaceholder: LocalizedStrings.extendedPublicKey,
+        submitButtonText: LocalizedStrings.import_) { walletName, walletPubKey, dialogDelegate in
+            var errorValue: ObjCBool = false
+            DispatchQueue.global(qos: .userInitiated).async {
+                do {
+                    try WalletLoader.shared.multiWallet.walletNameExists(walletName, ret0_: &errorValue)
+                    try WalletLoader.shared.multiWallet.validateExtPubKey(walletPubKey)
+                    try WalletLoader.shared.multiWallet.createWatchOnlyWallet(walletName, extendedPublicKey: walletPubKey)
+                    DispatchQueue.main.async {
+                        dialogDelegate?.dismissDialog()
+                        self.loadWallets()
+                        self.refreshAccountDetails()
+                        Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.walletCreated)
+                    }
+                } catch {
+                    DispatchQueue.main.async {
+                        if error.localizedDescription == DcrlibwalletErrExist {
+                            dialogDelegate?.displayError(errorMessage: LocalizedStrings.walletNameExists, firstTextField: true)
+                        } else if error.localizedDescription == DcrlibwalletErrInvalid {
+                            dialogDelegate?.displayError(errorMessage: LocalizedStrings.keyIsInvalid, firstTextField: false)
+                        } else {
+                            Utils.showBanner(in: self.view, type: .error, text: error.localizedDescription)
+                            dialogDelegate?.dismissDialog()
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    var numberOfAccountsToDisplay: Int {
+        return self.watchOnly.count > 0 ? self.wallets.count + 1 : self.wallets.count
     }
 }
 
 extension WalletsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.wallets.count
+        return numberOfAccountsToDisplay
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let wallet = self.wallets[indexPath.row]
         var cellHeight = WalletInfoTableViewCell.walletInfoSectionHeight
-        
-        if !wallet.isSeedBackedUp {
-            cellHeight += WalletInfoTableViewCell.walletNotBackedUpLabelHeight
-                + WalletInfoTableViewCell.seedBackupPromptHeight
+        if indexPath.row < self.wallets.count {
+            let wallet = self.wallets[indexPath.row]
+            if !wallet.isSeedBackedUp {
+                cellHeight += WalletInfoTableViewCell.walletNotBackedUpLabelHeight
+                    + WalletInfoTableViewCell.seedBackupPromptHeight
+            }
+            
+            if wallet.displayAccounts {
+                cellHeight += (WalletInfoTableViewCell.accountCellHeight * CGFloat(wallet.accounts.count))
+                    + WalletInfoTableViewCell.addNewAccountButtonHeight
+            }
+        } else {
+            cellHeight += (WalletInfoTableViewCell.accountCellHeight * CGFloat(watchOnly.count))
         }
-        
-        if wallet.displayAccounts {
-            cellHeight += (WalletInfoTableViewCell.accountCellHeight * CGFloat(wallet.accounts.count))
-                + WalletInfoTableViewCell.addNewAccountButtonHeight
-        }
-        
         return cellHeight
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let walletViewCell = tableView.dequeueReusableCell(withIdentifier: "WalletInfoTableViewCell") as! WalletInfoTableViewCell
-        walletViewCell.wallet = self.wallets[indexPath.row]
-        walletViewCell.delegate = self
-        return walletViewCell
+        let cellName = (indexPath.row < self.wallets.count) ? "WalletInfoTableViewCell" : "WatchOnlyWalletInfoTableViewCell"
+        
+        if  indexPath.row < self.wallets.count {
+            let walletViewCell = tableView.dequeueReusableCell(withIdentifier: cellName, for: indexPath) as! WalletInfoTableViewCell
+            walletViewCell.wallet = self.wallets[indexPath.row]
+            walletViewCell.delegate = self
+            return walletViewCell
+        } else {
+            let watchOnlyWalletViewCell = tableView.dequeueReusableCell(withIdentifier: cellName, for: indexPath) as! WatchOnlyWalletInfoTableViewCell
+            watchOnlyWalletViewCell.watchOnlywallet = self.watchOnly
+            watchOnlyWalletViewCell.delegate = self
+            return watchOnlyWalletViewCell
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.wallets[indexPath.row].toggleAccountsDisplay()
-        tableView.reloadData()
+        if indexPath.row < self.wallets.count {
+            self.wallets[indexPath.row].toggleAccountsDisplay()
+            tableView.reloadData()
+        }
     }
 }
 
@@ -179,10 +276,6 @@ extension WalletsViewController: WalletInfoTableViewCellDelegate {
         
         walletMenu.addAction(UIAlertAction(title: LocalizedStrings.signMessage, style: .default, handler: { _ in
             self.gotToSignMessage(walletID: walletID)
-        }))
-        
-        walletMenu.addAction(UIAlertAction(title: LocalizedStrings.verifyMessage, style: .default, handler: { _ in
-            self.gotToVerifyMessage(walletID: walletID)
         }))
         
         walletMenu.addAction(UIAlertAction(title: LocalizedStrings.rename, style: .default, handler: { _ in
@@ -247,10 +340,6 @@ extension WalletsViewController: WalletInfoTableViewCellDelegate {
             .requestCurrentCode(sender: self, callback: callback)
     }
     
-    func checkStartupSecurity() {
-        
-    }
-    
     func showAccountDetailsDialog(_ account: DcrlibwalletAccount) {
         AccountDetailsViewController.showDetails(for: account, onAccountDetailsUpdated: self.refreshAccountDetails, sender: self)
     }
@@ -265,20 +354,52 @@ extension WalletsViewController: WalletInfoTableViewCellDelegate {
     }
 }
 
+extension WalletsViewController: WatchOnlyWalletInfoTableViewCellDelegate {
+    
+    func showWatchOnlyWalletDetailsDialog(_ wallet: Wallet) {
+        AccountDetailsViewController.showWatchOnlyWalletDetails(for: wallet, onAccountDetailsUpdated: self.refreshAccountDetails, sender: self)
+    }
+    
+    func showWatchOnlyWalletMenu(walletName: String, walletID: Int, _ sender: UIView) {
+        let prompt = String(format: "%@ (%@)", LocalizedStrings.wallet, walletName)
+        let walletMenu = UIAlertController(title: nil, message: prompt, preferredStyle: .actionSheet)
+               
+        walletMenu.addAction(UIAlertAction(title: LocalizedStrings.rename, style: .default, handler: { _ in
+                   self.renameWallet(walletID: walletID)
+               }))
+               
+        walletMenu.addAction(UIAlertAction(title: LocalizedStrings.settings, style: .default, handler: { _ in
+                   self.goToWalletSettingsPage(walletID: walletID)
+               }))
+               
+        walletMenu.addAction(UIAlertAction(title: LocalizedStrings.cancel, style: .cancel, handler: nil))
+               
+        if let popoverPresentationController = walletMenu.popoverPresentationController {
+            popoverPresentationController.sourceView = sender
+            popoverPresentationController.sourceRect = sender.bounds
+        }
+        
+        self.present(walletMenu, animated: true, completion: nil)
+    }
+}
+
 // extension to handle wallet menu options.
 extension WalletsViewController {
     func renameWallet(walletID: Int) {
-        SimpleTextInputDialog.show(sender: self,
-                                   title: LocalizedStrings.renameWallet,
-                                   placeholder: LocalizedStrings.walletName,
-                                   submitButtonText: LocalizedStrings.rename) { newWalletName, dialogDelegate in
-            
+        SimpleTextInputDialog.show(sender: self, title: LocalizedStrings.renameWallet, placeholder: LocalizedStrings.walletName, submitButtonText: LocalizedStrings.rename) { newWalletName, dialogDelegate in
+            var errorValue: ObjCBool = false
             do {
-                try WalletLoader.shared.multiWallet.renameWallet(walletID, newName: newWalletName)
-                dialogDelegate?.dismissDialog()
-                self.loadWallets()
-                self.refreshAccountDetails()
-                Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.walletRenamed)
+                try WalletLoader.shared.multiWallet.walletNameExists(newWalletName, ret0_: &errorValue)
+                if !errorValue.boolValue {
+                    try WalletLoader.shared.multiWallet.renameWallet(walletID, newName: newWalletName)
+                    dialogDelegate?.dismissDialog()
+                    self.loadWallets()
+                    self.refreshAccountDetails()
+                    Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.walletRenamed)
+                } else {
+                    dialogDelegate?.displayError(errorMessage: LocalizedStrings.walletNameExists)
+                }
+                
             } catch let error {
                 dialogDelegate?.displayError(errorMessage: error.localizedDescription)
             }
@@ -305,11 +426,7 @@ extension WalletsViewController {
     }
     
     func gotToVerifyMessage(walletID: Int) {
-        guard let wallet = WalletLoader.shared.multiWallet.wallet(withID: walletID) else {
-            return
-        }
         let verifyMessageVC = VerifyMessageViewController.instantiate(from: .VerifyMessage)
-        verifyMessageVC.wallet = wallet
         self.navigationController?.pushViewController(verifyMessageVC, animated: true)
     }
 }

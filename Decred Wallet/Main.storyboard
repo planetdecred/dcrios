@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3Xs-3X-Jiu">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3Xs-3X-Jiu">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -34,7 +34,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zvk-KY-83T" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
-                                <rect key="frame" x="24" y="710" width="366" height="56"/>
+                                <rect key="frame" x="24" y="638" width="366" height="56"/>
                                 <color key="backgroundColor" red="0.16" green="0.44" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="56" id="scK-t1-mBP"/>
@@ -57,7 +57,7 @@
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DGk-43-e2H" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
-                                <rect key="frame" x="24" y="782" width="366" height="56"/>
+                                <rect key="frame" x="24" y="710" width="366" height="56"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="56" id="wAK-7t-U7P"/>
@@ -117,9 +117,37 @@
                                     <outletCollection property="gestureRecognizers" destination="BZn-3a-5LH" appends="YES" id="iyQ-30-bJE"/>
                                 </connections>
                             </view>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5fw-3a-Sxn" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
+                                <rect key="frame" x="24" y="782" width="366" height="56"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="56" id="ds8-oq-46j"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="contentEdgeInsets" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <inset key="titleEdgeInsets" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="16" maxY="0.0"/>
+                                <state key="normal" image="ic_restore">
+                                    <color key="titleColor" red="0.16078431369999999" green="0.43921568630000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="7"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="importAWatchOnlyWallet"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="enabledBackgroundColor">
+                                        <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="importWatchOnlyWallet:" destination="Kb1-lm-LZA" eventType="touchUpInside" id="cWJ-aQ-rIL"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.95294117649999999" green="0.96078431369999995" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="bve-SX-yvX" firstAttribute="bottom" secondItem="5fw-3a-Sxn" secondAttribute="bottom" constant="24" id="4Dn-lj-J6I"/>
                             <constraint firstItem="zvk-KY-83T" firstAttribute="leading" secondItem="bve-SX-yvX" secondAttribute="leading" constant="24" id="4YG-aE-m3N"/>
                             <constraint firstItem="w3H-Un-Z5W" firstAttribute="top" secondItem="hRj-cn-ZPx" secondAttribute="bottom" constant="5" id="4oY-bb-5x1"/>
                             <constraint firstItem="CdX-sy-0x2" firstAttribute="centerX" secondItem="JGZ-bG-2El" secondAttribute="centerX" id="Agz-VK-9Yx"/>
@@ -131,10 +159,11 @@
                             <constraint firstItem="y4w-th-plZ" firstAttribute="leading" secondItem="bve-SX-yvX" secondAttribute="leading" constant="24" id="Wmx-yR-xPC"/>
                             <constraint firstItem="zvk-KY-83T" firstAttribute="leading" secondItem="bve-SX-yvX" secondAttribute="leading" constant="24" id="YrY-ji-FQ3"/>
                             <constraint firstItem="w3H-Un-Z5W" firstAttribute="centerX" secondItem="JGZ-bG-2El" secondAttribute="centerX" id="aGc-37-0yJ"/>
+                            <constraint firstItem="5fw-3a-Sxn" firstAttribute="leading" secondItem="bve-SX-yvX" secondAttribute="leading" constant="24" id="aob-hs-wUA"/>
                             <constraint firstItem="y4w-th-plZ" firstAttribute="top" secondItem="CdX-sy-0x2" secondAttribute="bottom" constant="23" id="bYP-YX-NVx"/>
+                            <constraint firstItem="bve-SX-yvX" firstAttribute="trailing" secondItem="5fw-3a-Sxn" secondAttribute="trailing" constant="24" id="iST-GA-Qm7"/>
                             <constraint firstItem="y4w-th-plZ" firstAttribute="centerX" secondItem="JGZ-bG-2El" secondAttribute="centerX" id="kEv-wn-87f"/>
-                            <constraint firstItem="DGk-43-e2H" firstAttribute="top" secondItem="zvk-KY-83T" secondAttribute="bottom" constant="16" id="l9c-eu-VSb"/>
-                            <constraint firstItem="bve-SX-yvX" firstAttribute="bottom" secondItem="DGk-43-e2H" secondAttribute="bottom" constant="24" id="qQA-bX-rBR"/>
+                            <constraint firstItem="5fw-3a-Sxn" firstAttribute="top" secondItem="DGk-43-e2H" secondAttribute="bottom" constant="16" id="tM7-6g-h3J"/>
                             <constraint firstItem="hRj-cn-ZPx" firstAttribute="top" secondItem="CdX-sy-0x2" secondAttribute="bottom" id="to3-I2-2Uv"/>
                             <constraint firstItem="y4w-th-plZ" firstAttribute="centerY" secondItem="JGZ-bG-2El" secondAttribute="centerY" constant="15.25" id="uza-bk-Gdi"/>
                             <constraint firstItem="hRj-cn-ZPx" firstAttribute="centerX" secondItem="JGZ-bG-2El" secondAttribute="centerX" id="w8t-9D-jbx"/>
@@ -146,6 +175,7 @@
                     <connections>
                         <outlet property="createWalletBtn" destination="zvk-KY-83T" id="uR6-ai-Bku"/>
                         <outlet property="imageViewContainer" destination="CdX-sy-0x2" id="O6s-Vp-M6h"/>
+                        <outlet property="importWatchOnly" destination="5fw-3a-Sxn" id="2k1-2A-mM5"/>
                         <outlet property="loadingLabel" destination="w3H-Un-Z5W" id="ckh-oL-vZe"/>
                         <outlet property="logo" destination="cZc-WL-Sm8" id="FVE-cJ-5cc"/>
                         <outlet property="restoreWalletBtn" destination="DGk-43-e2H" id="o68-5b-Ui7"/>

@@ -102,8 +102,8 @@ class ValidateAddressesViewController: UIViewController, UITextViewDelegate, Flo
     }
     
     func validateAdd(address: String) {
-        let isOwnAndValid = dcrlibwallet.isAddressValid(address) && dcrlibwallet.haveAddress(address)
-               let isValid = dcrlibwallet.isAddressValid(address)
+        let isOwnAndValid = WalletLoader.shared.multiWallet.isAddressValid(address) && dcrlibwallet.haveAddress(address)
+        let isValid = WalletLoader.shared.multiWallet.isAddressValid(address)
                
                if isOwnAndValid {
                    self.validityInfo.textColor = UIColor.appColors.green
