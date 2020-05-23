@@ -24,7 +24,7 @@ class Wallet: NSObject {
         self.name = wallet.name
         self.balance = "\((Decimal(wallet.totalWalletBalance) as NSDecimalNumber).round(8)) DCR"
         self.accounts = wallet.accounts
-        self.isSeedBackedUp = wallet.seed.isEmpty
+        self.isSeedBackedUp = wallet.encryptedSeed == nil
         self.displayAccounts = false
 
         self.accountsFilterFn = accountsFilterFn

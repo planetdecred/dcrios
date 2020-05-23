@@ -22,6 +22,10 @@ struct LocalizedStrings {
     /* Create New Wallet(Seed display view) */
     static let settingUpYourWallet = NSLocalizedString("settingUpYourWallet", comment: "")
     
+    /* Confirm NewWallet Seed */
+    static let confirmToShowSeed = NSLocalizedString("confirmToShowSeed", comment: "")
+    static let confirmToVerifySeed = NSLocalizedString("confirmToVerifySeed", comment: "")
+    
     /* Recover Existing Wallet */
     static let wordNumber = NSLocalizedString("wordNumber", comment: "")
     static let notAllSeedsAreEntered = NSLocalizedString("notAllSeedsAreEntered", comment: "")

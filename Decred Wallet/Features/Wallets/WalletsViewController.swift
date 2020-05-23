@@ -426,11 +426,7 @@ extension WalletsViewController {
     }
     
     func gotToVerifyMessage(walletID: Int) {
-        guard let wallet = WalletLoader.shared.multiWallet.wallet(withID: walletID) else {
-            return
-        }
         let verifyMessageVC = VerifyMessageViewController.instantiate(from: .VerifyMessage)
-        verifyMessageVC.wallet = wallet
         self.navigationController?.pushViewController(verifyMessageVC, animated: true)
     }
 }

@@ -22,6 +22,8 @@ class RequestPasswordViewController: SecurityCodeRequestBaseViewController, UITe
 
     @IBOutlet weak var btnCancel: UIButton!
     @IBOutlet weak var btnSubmit: Button!
+    
+    var dissmisSenderOnCancel = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -137,7 +139,12 @@ class RequestPasswordViewController: SecurityCodeRequestBaseViewController, UITe
     }
 
     @IBAction func cancelTapped(_ sender: UIButton) {
-        self.dismissView()
+        if dissmisSenderOnCancel {
+            self.dismissView()
+            self.presentingViewController?.dismissView()
+        } else {
+            self.dismissView()
+        }
     }
 
     @IBAction func createTapped(_ sender: UIButton) {

@@ -182,10 +182,8 @@ class SendViewController: UIViewController {
     }
     
     func showOrHidePasteAddressButton() {
-        //let shouldShowPasteButton = self.destinationAddressTextField.isInputEmpty()
-         //   && WalletLoader.shared.multiWallet.isAddressValid(UIPasteboard.general.string)
         let shouldShowPasteButton = self.destinationAddressTextField.isInputEmpty()
-            && self.sourceAccountView.selectedWallet?.isAddressValid(UIPasteboard.general.string) ?? false
+            && WalletLoader.shared.multiWallet.isAddressValid(UIPasteboard.general.string)
 
         if self.pasteAddressFromClipboardButton.isHidden == shouldShowPasteButton {
             // if ishidden = true and shouldShow = true, then toggle visibility
@@ -449,7 +447,7 @@ extension SendViewController {
     }
     
     var isFormValid: Bool {
-        guard let sourceWallet = self.sourceAccountView.selectedWallet,
+        guard let _ = self.sourceAccountView.selectedWallet,
             let sourceAccount = self.sourceAccountView.selectedAccount else {
             
                 Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.selectFromAccount)
@@ -461,8 +459,8 @@ extension SendViewController {
             return false
         }
         
-        guard let destinationAddress = self.destinationAddress, sourceWallet.isAddressValid(destinationAddress) else {
-           // WalletLoader.shared.multiWallet.isAddressValid(destinationAddress) else {
+        guard let destinationAddress = self.destinationAddress,
+            WalletLoader.shared.multiWallet.isAddressValid(destinationAddress) else {
             Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.invalidDestAddr)
             return false
         }
@@ -482,8 +480,8 @@ extension SendViewController {
         guard let sourceWallet = self.sourceAccountView.selectedWallet,
             let sourceAccount = self.sourceAccountView.selectedAccount,
             let sourceAccountBalance = sourceAccount.balance, sourceAccountBalance.spendable > 0,
-            let destinationAddress = self.destinationAddress, sourceWallet.isAddressValid(destinationAddress)
-          //let destinationAddress = self.destinationAddress,WalletLoader.shared.multiWalletisAddressValid(destinationAddress)
+            
+            let destinationAddress = self.destinationAddress, WalletLoader.shared.multiWallet.isAddressValid(destinationAddress)
             else { return nil }
 
         let sendAmountDcr = Double(validSendAmountString ?? "") ?? 0
@@ -525,8 +523,7 @@ extension SendViewController {
         
         if toSelfAccountSection.isHidden {
             let destinationAddress = self.destinationAddressTextField.text ?? ""
-            let addressValid = self.sourceAccountView.selectedWallet?.isAddressValid(destinationAddress) ?? false
-            //let addressValid = WalletLoader.shared.multiWallet.isAddressValid(destinationAddress) 
+            let addressValid = WalletLoader.shared.multiWallet.isAddressValid(destinationAddress) 
             self.invalidDestinationAddressLabel.isHidden = destinationAddress.isEmpty || addressValid
             return
         }

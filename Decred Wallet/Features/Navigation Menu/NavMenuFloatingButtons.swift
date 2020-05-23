@@ -79,7 +79,8 @@ class NavMenuFloatingButtons: UIView {
     }
     
     @objc func sendTapped(_ sender: UIButton) {
-       /* var errorValue: ObjCBool = false
+        var errorValue: ObjCBool = false
+        
        do {
             try WalletLoader.shared.multiWallet.allWalletsAreWatchOnly(&errorValue)
             if errorValue.boolValue {
@@ -93,7 +94,7 @@ class NavMenuFloatingButtons: UIView {
                 Utils.showBanner(in: navigationTabController, type: .error, text: error.localizedDescription)
                 return
             }
-        }*/
+        }
         
         if WalletLoader.shared.multiWallet.isSyncing() {
             if let navigationTabController = NavigationMenuTabBarController.instance?.view {

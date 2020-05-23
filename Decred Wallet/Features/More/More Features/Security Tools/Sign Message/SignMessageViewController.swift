@@ -197,10 +197,7 @@ class SignMessageViewController: UIViewController, FloatingPlaceholderTextViewDe
         let finalPassphraseData = finalPassphrase .data(using: String.Encoding.utf8.rawValue)!
         DispatchQueue.global(qos: .userInitiated).async {
             do {
-                // remove after pull fom master
                 let signature = try self.wallet.signMessage(finalPassphraseData, address: address, message: message)
-                
-               // let signature = try WalletLoader.shared.multiWallet.signMessage(finalPassphraseData, address: address, message: message)
                 DispatchQueue.main.async {
                     self.signatureText.text = signature.base64EncodedString()
                     next(nil)
