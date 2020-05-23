@@ -15,8 +15,9 @@ class WalletsViewController: UIViewController {
     var wallets = [Wallet]()
     var watchOnly = [Wallet]()
     weak var customTabBar: CustomTabMenuView?
+    let ONE_GB_VALUE: UInt64 = 1073741824
     var numberOfwalletAllowed: Int {
-        return Int(ProcessInfo.processInfo.physicalMemory/(1073741824))
+        return Int(ProcessInfo.processInfo.physicalMemory/(ONE_GB_VALUE))
     }
     
     override func viewDidLoad() {
