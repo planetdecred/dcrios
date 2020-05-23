@@ -298,6 +298,7 @@ class SendViewController: UIViewController {
             print("get send max amount error: \(error.localizedDescription)")
             self.sendMax = false
             self.showAmountError(LocalizedStrings.errorGettingMaxSpendable)
+            Utils.showBanner(in: self.view, type: .error, text: error.localizedDescription)
         }
     }
 
@@ -511,6 +512,7 @@ extension SendViewController {
                 self.showAmountError(self.insufficientFundsErrorMessage)
             } else {
                 print("get tx fee/size error: \(error.localizedDescription)")
+                self.showAmountError(error.localizedDescription)
             }
             
             self.nextButton.isEnabled = false
