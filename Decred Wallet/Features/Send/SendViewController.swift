@@ -94,6 +94,7 @@ class SendViewController: UIViewController {
     }
     
     func setupViews() {
+        self.sourceAccountView.showWatchOnlyWallet = false
         self.sourceAccountView.onAccountSelectionChanged = { _, newSourceAccount in
             let spendableAmount = (Decimal(newSourceAccount.balance!.dcrSpendable) as NSDecimalNumber).round(8).formattedWithSeparator
             self.sourceAccountSpendableBalanceLabel.text = "\(LocalizedStrings.spendable): \(spendableAmount) DCR"
@@ -108,6 +109,7 @@ class SendViewController: UIViewController {
         self.destinationAddressTextField.textViewDelegate = self
         
         self.toSelfAccountSection.isHidden = true
+        self.destinationAccountView.showWatchOnlyWallet = true
         self.destinationAccountView.onAccountSelectionChanged = { _, _ in
             self.displayFeeDetailsAndTransactionSummary() // re-calculate fee with updated destination info
         }
@@ -181,7 +183,7 @@ class SendViewController: UIViewController {
     
     func showOrHidePasteAddressButton() {
         let shouldShowPasteButton = self.destinationAddressTextField.isInputEmpty()
-            && self.sourceAccountView.selectedWallet?.isAddressValid(UIPasteboard.general.string) ?? false
+            && WalletLoader.shared.multiWallet.isAddressValid(UIPasteboard.general.string)
 
         if self.pasteAddressFromClipboardButton.isHidden == shouldShowPasteButton {
             // if ishidden = true and shouldShow = true, then toggle visibility
@@ -339,7 +341,7 @@ class SendViewController: UIViewController {
     }
     
     func sendCompleted() {
-        Utils.showBanner(in: NavigationMenuTabBarController.instance!.view, type: .success, text: "Transaction sent")
+        Utils.showBanner(in: NavigationMenuTabBarController.instance!.view, type: .success, text: LocalizedStrings.transactionSent)
         self.resetFields()
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.dismissView()
@@ -445,7 +447,7 @@ extension SendViewController {
     }
     
     var isFormValid: Bool {
-        guard let sourceWallet = self.sourceAccountView.selectedWallet,
+        guard let _ = self.sourceAccountView.selectedWallet,
             let sourceAccount = self.sourceAccountView.selectedAccount else {
             
                 Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.selectFromAccount)
@@ -457,7 +459,8 @@ extension SendViewController {
             return false
         }
         
-        guard let destinationAddress = self.destinationAddress, sourceWallet.isAddressValid(destinationAddress) else {
+        guard let destinationAddress = self.destinationAddress,
+            WalletLoader.shared.multiWallet.isAddressValid(destinationAddress) else {
             Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.invalidDestAddr)
             return false
         }
@@ -477,7 +480,8 @@ extension SendViewController {
         guard let sourceWallet = self.sourceAccountView.selectedWallet,
             let sourceAccount = self.sourceAccountView.selectedAccount,
             let sourceAccountBalance = sourceAccount.balance, sourceAccountBalance.spendable > 0,
-            let destinationAddress = self.destinationAddress, sourceWallet.isAddressValid(destinationAddress)
+            
+            let destinationAddress = self.destinationAddress, WalletLoader.shared.multiWallet.isAddressValid(destinationAddress)
             else { return nil }
 
         let sendAmountDcr = Double(validSendAmountString ?? "") ?? 0
@@ -519,7 +523,7 @@ extension SendViewController {
         
         if toSelfAccountSection.isHidden {
             let destinationAddress = self.destinationAddressTextField.text ?? ""
-            let addressValid = self.sourceAccountView.selectedWallet?.isAddressValid(destinationAddress) ?? false
+            let addressValid = WalletLoader.shared.multiWallet.isAddressValid(destinationAddress) 
             self.invalidDestinationAddressLabel.isHidden = destinationAddress.isEmpty || addressValid
             return
         }

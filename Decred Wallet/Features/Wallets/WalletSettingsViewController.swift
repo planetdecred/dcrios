@@ -13,6 +13,8 @@ class WalletSettingsViewController: UIViewController {
     @IBOutlet weak var walletNameLabel: UILabel!
     @IBOutlet weak var useBiometricSwitch: UISwitch!
     @IBOutlet weak var incomingTxAlertButton: UIButton!
+    @IBOutlet weak var securityHeader: UIView!
+    @IBOutlet weak var changePassOrPIN: UIView!
     
     var wallet: DcrlibwalletWallet!
     var walletSettings: WalletSettings!
@@ -23,6 +25,11 @@ class WalletSettingsViewController: UIViewController {
         
         self.useBiometricSwitch.isOn = self.walletSettings.useBiometric
         self.incomingTxAlertButton.setTitle(self.walletSettings.txNotificationAlert.localizedString, for: .normal)
+    }
+    
+    override func viewDidLoad() {
+        self.securityHeader.isHidden = self.wallet.isWatchingOnlyWallet()
+        self.changePassOrPIN.isHidden = self.wallet.isWatchingOnlyWallet()
     }
     
     @IBAction func backButtonTapped(_ sender: Any) {
@@ -90,14 +97,11 @@ class WalletSettingsViewController: UIViewController {
         self.showRemoveWalletWarning() { ok in
             guard ok else { return }
             
-            Security.spending(initialSecurityType: SpendingPinOrPassword.securityType(for: self.wallet.id_))
-                .with(prompt: LocalizedStrings.confirmToRemove)
-                .with(submitBtnText: LocalizedStrings.remove)
-                .requestCurrentCode(sender: self) { spendingCode, _, dialogDelegate in
-                    
+            if self.wallet.isWatchingOnlyWallet() {
+                SimpleTextInputDialog.show(sender: self, title: LocalizedStrings.walletName, placeholder: LocalizedStrings.walletName, currentValue: self.wallet.name, verifyInput: true) { (walletName, dialogDelegate) in
                     DispatchQueue.global(qos: .userInitiated).async {
                         do {
-                            try WalletLoader.shared.multiWallet.delete(self.wallet.id_, privPass: spendingCode.utf8Bits)
+                            try WalletLoader.shared.multiWallet.delete(self.wallet.id_, privPass: nil)
                             DispatchQueue.main.async {
                                 dialogDelegate?.dismissDialog()
                                 self.walletDeleted()
@@ -112,6 +116,31 @@ class WalletSettingsViewController: UIViewController {
                             }
                         }
                     }
+                }
+            } else {
+                Security.spending(initialSecurityType: SpendingPinOrPassword.securityType(for: self.wallet.id_))
+                    .with(prompt: LocalizedStrings.confirmToRemove)
+                    .with(submitBtnText: LocalizedStrings.remove)
+                    .requestCurrentCode(sender: self) { spendingCode, _, dialogDelegate in
+                    
+                        DispatchQueue.global(qos: .userInitiated).async {
+                            do {
+                                try WalletLoader.shared.multiWallet.delete(self.wallet.id_, privPass: spendingCode.utf8Bits)
+                                DispatchQueue.main.async {
+                                    dialogDelegate?.dismissDialog()
+                                    self.walletDeleted()
+                                }
+                            } catch let error {
+                                DispatchQueue.main.async {
+                                    var errorMessage = error.localizedDescription
+                                    if error.isInvalidPassphraseError {
+                                        errorMessage = SpendingPinOrPassword.invalidSecurityCodeMessage(for: self.wallet.id_)
+                                    }
+                                    dialogDelegate?.displayError(errorMessage: errorMessage)
+                                }
+                            }
+                        }
+                }
             }
         }
     }
