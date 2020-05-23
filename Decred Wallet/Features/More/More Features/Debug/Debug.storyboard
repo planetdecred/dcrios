@@ -413,14 +413,14 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Accounts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rSJ-Ld-XTf">
-                                                    <rect key="frame" x="16" y="14" width="61" height="20.5"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Wallets" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rSJ-Ld-XTf">
+                                                    <rect key="frame" x="16" y="14" width="48.5" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                                     <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="accounts"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="wallets"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="HZo-GR-FfY">
@@ -445,7 +445,6 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="accountDetailLabel" destination="HZo-GR-FfY" id="IHY-It-ieV"/>
                         <outlet property="bestBlockAgeDetailLabel" destination="2m1-io-5TS" id="Azh-BQ-iv5"/>
                         <outlet property="bestBlockDetailLabel" destination="gz6-Cr-2KE" id="XI7-FD-Lle"/>
                         <outlet property="bestBlockTimestampDetailLabel" destination="D97-At-C90" id="HkM-Ac-t1I"/>
@@ -456,6 +455,7 @@
                         <outlet property="transactionDetailLabel" destination="SwS-Hs-iES" id="MQu-ld-1v8"/>
                         <outlet property="uptimeDetailLabel" destination="utU-Md-EPx" id="nvd-Ue-yFb"/>
                         <outlet property="walletFileDetailLabel" destination="upz-WS-naG" id="GYq-aI-R2N"/>
+                        <outlet property="walletsDetailLabel" destination="HZo-GR-FfY" id="IHY-It-ieV"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mYf-UG-p9P" userLabel="First Responder" sceneMemberID="firstResponder"/>

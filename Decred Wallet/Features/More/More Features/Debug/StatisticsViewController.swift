@@ -24,7 +24,7 @@ class StatisticsViewController: UITableViewController  {
     @IBOutlet weak var chainDataDetailLabel: UILabel!
     
     @IBOutlet weak var transactionDetailLabel: UILabel!
-    @IBOutlet weak var accountDetailLabel: UILabel!
+    @IBOutlet weak var walletsDetailLabel: UILabel!
     
     var refreshStatsTimer: Timer?
     
@@ -63,7 +63,7 @@ class StatisticsViewController: UITableViewController  {
         // wallet file directory
         self.walletFileDetailLabel.text = "/Documents/dcrlibwallet/\(BuildConfig.NetType)/"
         // opened wallets account
-        self.accountDetailLabel.text = "\(WalletLoader.shared.multiWallet.openedWalletsCount())"
+        self.walletsDetailLabel.text = "\(WalletLoader.shared.multiWallet.openedWalletsCount())"
         // load live update details
         self.statsLiveUpdate()
     }
