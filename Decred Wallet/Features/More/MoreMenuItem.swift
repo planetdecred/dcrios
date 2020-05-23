@@ -9,11 +9,11 @@
 import UIKit
 
 enum MoreMenuItem: String, CaseIterable {
-    case settings = "Settings"
-    case securityTools = "Security Tools"
-    case help = "Help"
-    case about = "About"
-    case debug = "Debug"
+    case settings = "settings"
+    case securityTools = "securityTools"
+    case help = "help"
+    case about = "about"
+    case debug = "debug"
     
     // Each menu item's VC is wrapped in a navigation controller to enable the display of a navigation bar on each page,
     // and to allow each page perform VC navigations using `self.navigationController?.pushViewController`.

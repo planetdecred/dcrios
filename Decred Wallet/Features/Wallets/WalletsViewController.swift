@@ -105,6 +105,7 @@ class WalletsViewController: UIViewController {
                         completion?.dismissDialog()
                         self.loadWallets()
                         self.refreshAccountDetails()
+                        self.customTabBar?.hasUnBackedUpWallets(true)
                         Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.walletCreated)
                     } else {
                         completion?.displayError(errorMessage: error!.localizedDescription)

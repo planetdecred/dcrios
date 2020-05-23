@@ -14,33 +14,25 @@
 "restoreExistingWallet" = "恢复现有钱包";
 "wallet" = "钱包";
 "introMessage" = "Welcome to Decred Wallet,\n a secure & open-source mobile wallet.";
-"myWallet" = "my wallet";
+"myWallet" = "mywallet";
 
 /* Create New Wallet(Seed display view) */
 "settingUpYourWallet" = "设置Decred钱包";
 
 /* Confirm NewWallet Seed */
-"seedDoesNotMatches" = "您输入的种子不正确。请检查输入的单词。";
-"seedPhraseVerification" = "确认种子。。。";
-"confirmSeedInfo" = "每个空格只有一个正确单词。请选择正确的单词以确认您的种子。";
+"confirmToShowSeed" = "Confirm to show seed";
+"confirmToVerifySeed" = "Confirm to verify seed";
 
 /* Recover Existing Wallet */
 "word" = "%d";
 "notAllSeedsAreEntered" = "没有输入完单词。请检查输入栏并填写所有单词。";
 "incorrectSeedEntered" = "Failed to restore. Please verify all words and try again.";
-"walletRecoveryError" = "Wallet recovery error.";
 "seedRestoreHeader" = "Restore from seed phrase";
 "seedRestoreInfo" = "Enter your seed phrase in the correct order.";
 "restore" = "Restore";
 "success" = "Success";
 "getStarted" = "Get started";
 "restoreSuccessTitle" = "Your wallet is successfully restored.";
-
-/* Drop Down Search Field */
-"tapToSelect" = "点击选择单词。";
-
-/* Wallet Setup Base */
-"settingUpWallet" ="设置Decred钱包。。。";
 
 /* Unlock Wallet Prompt */
 "unlockWithStartupCode" = "Unlock with startup %@";
@@ -49,19 +41,13 @@
 
 /* Password Setup */
 "emptyPasswordNotAllowed" = "密码不能为空";
-"passwordMatch" = "密码匹配";
 "passwordsDoNotMatch" = "密码不匹配";
 "createPassword" = "创建%@密码";
-"passwordStrength" = "密码强度";
-"confirmPassword" = "确认密码";
 
 /* Request Password */
-"enterPassword" = "输入密码";
 "enterCurrentSpendingPassword" = "输入当前支付密码";
-"promptSpendingPassword" = "输入支付密码";
 "promptStartupPassword" = "输入当前启动密码";
 "password" = "密码";
-"proceed" = "前";
 "invalidInput" = "invalid input.";
 "passwordPlaceholder"="%@ password";
 "confirmPasswordPlaceholder"="Confirm %@ password";
@@ -74,7 +60,6 @@
 "confirmPIN" = "确认%@PIN码";
 "pinsDidNotMatch" = "PIN码不匹配，请重试。";
 "pin" = "PIN码";
-"pinStrength" = "PIN码强度";
 "next" = "Next";
 "create" = "Create";
 
@@ -91,16 +76,12 @@
 "unlockWalletForAccountDiscovery" = "The restoration process to discover your accounts was interrupted in the last sync.\n\nUnlock %@ to resume the process.";
 
 /* No Wifi Sync Connection */
-"notConnectedToWiFi" = "未连接WiFi";
-"syncAnyways" = "是否继续同步？";
 "no" = "否";
 "yes" = "是";
 "always" = "总是";
 
 /* Sync progress view */
 "loading" = "Loading...";
-"numberOfConnectedPeers" = "%d peers";
-"numberOfConnectedPeer" = "%d peer";
 "waitingForOtherWallets" = "Waiting for other wallets";
 "fetchedHeaders" = "%d of %d";
 "headersFetchProgress" = "Fetching block headers · %d%%";
@@ -123,11 +104,7 @@
 "internetConnectionRequired" = "Internet connection required.";
 "restartingSync" = "Restarting sync...";
 "discoveringUsedAddresses" = "Discovering used addresses.";
-"generalSyncProgressCompletedleft" = "%d%% completed, %@ left.";
-"rescanProgress" = "%d%% completed, %@ left.";
-"syncCanceled" = "Sync canceled.";
 "syncError" = "Sync error.";
-"latestBlock" = "Latest Block: %d";
 "now" = "now";
 "secondsAgo" = "%ds ago";
 "minAgo" = "%dm ago";
@@ -140,6 +117,12 @@
 "reconnect" = "Reconnect";
 "disconnect" = "Disconnect";
 "waitForSync" = "Wait for sync to complete";
+"scannedBlocks" = "Scanned blocks";
+"rescanningBlocks" = "Rescanning Blocks...";
+"blocksLeft" = "%d left";
+"errorSyncInProgress" = "Unable to start rescan while sync is in progress";
+"errorRescanInProgress" = "Unable to start rescan while another rescan is already running";
+"rescanProgressNotification" = "Check progress in Overview!";
 
 /* Navigation Menu Items */
 "overview" = "Overview";
@@ -192,23 +175,14 @@
 
 /* Transaction Details */
 "transactionDetails" = "交易详情";
-"copyTransactionHash" = "复制事务哈希";
-"copyRawTransaction" = "复制原始交易数据";
 "viewOnDcrdata" = "在 dcrdata 查看";
-"copied" = "复制";
 "sgCopied" = "%@ copied";
-"ticketPurchase" = "购买选票";
-"date" = "日期";
-"status" = "状态";
 "amount" = "金额";
 "fee" = "费用";
 "type" = "类别";
-"confirmation" = "确认";
 "lastBlockValid" = "最新区块有效";
 "version" = "版本";
 "voteBits" =  "投票 Bits";
-"inputs" = "输入";
-"outputs" = "输出";
 "external" = "外部";
 "internal" = "内部";
 "imported" = "导入";
@@ -237,51 +211,32 @@
 "notEnoughFundsOrNotConnected" = "资金不足或未连接网络.";
 "errorGettingMaxSpendable" = "Error getting maximum spendable amount.";
 "notConnected" = "Not connected to Decred network.";
-"amountCantBeZero" = "Amount cannot be zero.";
-"unexpectedError" = "Unexpected error.";
-"sendingTransaction" = "发送交易…";
-"failedTransaction" = "发送交易失败.";
 "invalidTesnetAddress" = "Decred testnet3地址无效。.";
 "invalidMainnetAddress" = "Decred主网地址无效.";
 "invalidDestAddr" = "目标地址不正确.";
-"emptyDestAddr" = "目标地址不能为空。";
-"sendingDecred" = "发送Decred";
 "from" = "从:";
 "sendHeaderInfo" = "输入或扫描目标地址并输入发送的DCR数目.";
 "destAddr" = "目的地址";
-"tapToPaste" = "点击复制";
-"sendInUSD" = "使用USD计价发送:";
-"sendInDCR" = "使用DCR计价发送:";
-"sendMax" = "发送所有资金";
-"feeDesc" = "费用:";
-"estimateSize" = "预计大小:";
-"balanceAfter" = "发送后余额:";
-"exchangeRate" = "交易所汇率:";
 "exchangeRateNotFetched" = "Exchange rate not fetched";
 "confirmToSend" = "Confirm to send";
-"addressFromQr" = "Address from QR code: %@";
 "sendDCR" = "Send DCR";
 "paste" = "Paste";
 "selectFromAccount" = "Select from account.";
-"FailedToSendTryAgain" = "Failed to send. Please try again.";
-
-/* Confirm Send Fund */
-"sending" = "发送中";
-"withFee" = "手续费为";
-"to" = "到 ";
-"toAccount" = "到账户 ";
-"passwordHint" = "密码";
-
-/* Send Complete */
-"hashCopied" = "哈希值: (复制)";
-"hash" = "哈希值";
-"view" = "查看";
-"transactionSuccessful" = "交易成功";
+"failedToSendTryAgain" = "Failed to send. Please try again.";
+"sendToSelf" = "send to self";
+"sendToOthers" = "send to others";
+"transactionFee" = "Transaction Fee";
+"processingTime" = "Processing time";
+"feeRate" = "Fee rate";
+"transactionSize" = "Transaction size";
+"totalCost" = "Total Cost";
+"balanceAfterSend" = "Balance after send";
+"sendWarning" = "Your DCR will be sent and CANNOT be undone.";
+"sendingAccount" = "Sending Account";
+"toSelf" = "To self";
+"toDestinationAddress" = "To destination address";
 
 /* Recieve */
-"receivingDecred" = "接收资金";
-"receiveHeaderInfo" = "每次请求支付都会生成一个新地址以保护您的隐私。";
-"accountDesc" = "账户:";
 "walletAddrCopied" = "地址已复制到剪贴板.";
 "genNewAddr" = "生成新地址";
 "receiveDCR" = "Receive DCR";
@@ -351,16 +306,13 @@
 "hideProperties" = "Hide properties";
 "renameAccount" = "Rename account";
 "accountRenamed" = "Account renamed";
+"noWalletSelected" = "No wallet selected";
+"tapToSelectAccount" = "Tap to select account";
+"selectAccount" = "Select account";
 
 /* Wallets -> Account -> Add new account */
 "addNewAccount" = "添加账户";
-// todo edit below when implementing add new account feature
-"inputAccountName" = "输入账户名字.";
-"creatingAccount" = "创建账户中…";
-"addAccountInfo" = "输入新账户名及密码";
 "accountName" = "账户名";
-"createAccount" = "创建账户";
-"privatePassphrase" = "密码";
 "createNewAccount" = "Create new account";
 "accountCreated" = "Account created";
 
@@ -386,24 +338,19 @@
 "signMsgHeaderInfo" = "Enter an address and message to sign:";
 "signMsgPageInfo" = "Signing a message with an address' private key allows you to prove that you are the owner of a given address to a possible counterparty.";
 "signMessage" = "Sign Message";
-"signingMessage" = "Signing Message...";
-"secureMenuSyncInfo" = "Please wait for your wallet to finish synchronizing.";
 "signSuccesMessage" = "Signed Message";
 "signFailedMessage" = "Failed to sign message. Please try again.";
 "sign" = "Sign";
 
-/* Help */
-"forMoreInformationPleaseVisit" = "查看更多内容请浏览";
-
 /* Settings */
-"spendingPinPassInfo" = "请求发送资金";
-"startupPinPassDesc" = "启动PIN码或密码";
-"changeStatupPinPassDesc" = "更改启动PIN码或密码";
-"startupPinPassInfo" = "请求进入app.";
-"spendUnconfirmedFundDesc" = "发送未确认资金";
-"incomingTxNotificationDesc" = "传入交易通知";
-"currencyConversionDesc" = "货币转换";
+"startupPinPass" = "启动PIN码或密码";
+"changeStatupPinPass" = "更改启动PIN码或密码";
+"spendUnconfirmedFund" = "发送未确认资金";
+"currencyConversion" = "货币转换";
 "connectIpDesc" = "连接到节点";
+"userAgent" = "User agent";
+"userAgentInfo" = "For exchange rate fetching";
+"setupUserAgent" = "Set up user agent";
 "syncOnWifiDesc" = "未连接WiFi时同步";
 "buildDate" = "Build Date";
 "walletLog" = "钱包日志";
@@ -438,10 +385,6 @@
 /* IP set */
 "connectToPeer" = "连接到节点";
 "peerAddressIsInvalid" = "节点地址不正确";
-"remoteAddressIsInvalid" = "远程节点地址无效";
-
-/* Certificate */
-"certificateInfo" = "为dcrd粘贴证书";
 
 /* License */
 "license" = "执照";
@@ -449,10 +392,6 @@
 /* Wallet Log */
 "copy" = "复制";
 "walletLogCopied" = "钱包日志复制成功";
-
-/* Delete Wallet */
-"confirmDeleteInfo" = "您确定删除钱包吗？请确保您已保存钱包种子或已在删除前转移您的币。此操作将恢复默认应用设置。";
-"confirmDeleteDesc" = "确认输入正确密码:";
 
 /* Transaction Notification */
 "newTransaction" = "新的交易";
@@ -477,14 +416,12 @@
 "ok" = "OK";
 "confirm" = "确认";
 "remove" = "Remove";
-"tryAgain" = "再试一次";
 "cancel" = "取消";
 "back" = "Back";
 "clearFields" =  "清除";
 "copiedSuccessfully" = "复制成功";
 "addrCopied" = "地址已复制到剪贴板";
 "previousOutpointCopied" = "Previous outpoint copied!";
-"info" = "信息";
 "delete" = "删除";
 "allowOnce" = "Allow once";
 "alwaysAllow" = "Always allow";
@@ -493,7 +430,6 @@
 /* Other Text */
 "send" = "send";
 "receive" = "receive";
-"history" = "history";
 "settings" = "Settings";
 "help" = "Help";
 "gotIt" = "Got it";
@@ -526,3 +462,15 @@
 "verifySeedPhrase" = "Verify seed phrase";
 "selectTheCorrectWordsToVerify" = "Select the correct words to verify.";
 "enterSeedOnNextScreen" = "You will be asked to enter the seed phrase on the next screen.";
+
+/* Statistics */
+"build" = "Build";
+"peersConnected" = "Peers connected";
+"uptime" = "Uptime";
+"network" = "Network";
+"bestBlock" = "Best block";
+"bestBlockTimestamp" = "Best block timestamp";
+"bestBlockAge" = "Best block age";
+"walletFile" = "Wallet file";
+"chainData" = "Chain data";
+"accounts" = "Accounts";
