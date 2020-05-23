@@ -79,6 +79,23 @@ class NavMenuFloatingButtons: UIView {
     }
     
     @objc func sendTapped(_ sender: UIButton) {
+        var errorValue: ObjCBool = false
+        
+       do {
+            try WalletLoader.shared.multiWallet.allWalletsAreWatchOnly(&errorValue)
+            if errorValue.boolValue {
+                if let navigationTabController = NavigationMenuTabBarController.instance?.view {
+                    Utils.showBanner(in: navigationTabController, type: .error, text: "Only wallet is watching only")
+                }
+                return
+            }
+        } catch {
+            if let navigationTabController = NavigationMenuTabBarController.instance?.view {
+                Utils.showBanner(in: navigationTabController, type: .error, text: error.localizedDescription)
+                return
+            }
+        }
+        
         if WalletLoader.shared.multiWallet.isSyncing() {
             if let navigationTabController = NavigationMenuTabBarController.instance?.view {
                 Utils.showBanner(in: navigationTabController, type: .error, text: LocalizedStrings.waitForSync)

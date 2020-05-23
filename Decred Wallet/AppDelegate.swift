@@ -71,7 +71,7 @@ class AppDelegate: UIResponder {
     @objc func networkChanged(_ notification: Notification) {
         let reachability = notification.object as! Reachability
         print("network changed to \(reachability.connection)")
-        self.lifeCycleDelegates.values.forEach({ $0.networkChanged(reachability.connection) })
+        SyncManager.shared.networkChanged(reachability.connection)
     }
     
     func updateLastActiveTime() {
@@ -81,8 +81,8 @@ class AppDelegate: UIResponder {
         
         if self.shouldTrackLastActiveTime {
             self.lastActiveTimestamp = Date().timeIntervalSince1970
-            // update last active time after 10 seconds
-            DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 10, execute: self.updateLastActiveTime)
+            // update last active time after 28 seconds
+            DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 28, execute: self.updateLastActiveTime)
         }
     }
     
@@ -114,10 +114,12 @@ class AppDelegate: UIResponder {
 
 extension AppDelegate: UIApplicationDelegate {
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        UIApplication.shared.setMinimumBackgroundFetchInterval(
+        UIApplication.backgroundFetchIntervalMinimum)
+        
         AppDelegate.appUpTime = Date().timeIntervalSince1970
         
         NotificationsManager.shared.requestAuthorization()
-
         self.listenForNetworkChanges()
         
         return true
@@ -132,7 +134,7 @@ extension AppDelegate: UIApplicationDelegate {
     }
     
     func applicationDidEnterBackground(_ application: UIApplication) {
-        lifeCycleDelegates.forEach {$0.value.applicationWillEnterBackground()}
+        SyncManager.shared.applicationWillEnterBackground()
         self.shouldTrackLastActiveTime = true
         self.updateLastActiveTime()
     }
@@ -148,13 +150,21 @@ extension AppDelegate: UIApplicationDelegate {
             
             // Notify life cycle delegates if app was last active (i.e. suspended) 10 or more seconds ago.
             if Date().timeIntervalSince(lastActiveTime) > 10 {
-                self.lifeCycleDelegates.values.forEach({ $0.applicationEnteredForegroundFromSuspendedState(lastActiveTime) })
+                SyncManager.shared.applicationEnteredForegroundFromSuspendedState(lastActiveTime)
             }
         }
     }
     
+    func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        if SyncManager.shared.isSyncing || SyncManager.shared.isSynced {
+            completionHandler(.newData)
+        } else {
+            completionHandler(.noData)
+        }
+    }
+    
     func applicationWillTerminate(_: UIApplication) {
-        lifeCycleDelegates.forEach {$0.value.applicationWillTerminate()}
+        SyncManager.shared.applicationWillTerminate()
         self.reachability.stopNotifier()
         WalletLoader.shared.multiWallet.shutdown()
     }

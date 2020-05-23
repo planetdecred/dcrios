@@ -32,6 +32,8 @@ import Dcrlibwallet
         }
     }
     
+    var showWatchOnlyWallet = true
+    
     var onAccountSelectionChanged: ((_ selectedWallet: DcrlibwalletWallet, _ selectedAccount: DcrlibwalletAccount) -> Void)?
     
     override init(frame: CGRect) {
@@ -75,7 +77,7 @@ import Dcrlibwallet
         AccountSelectorDialog.show(sender: topVC,
                                    title: accountSelectorDialogTitle,
                                    selectedWallet: self.selectedWallet,
-                                   selectedAccount: self.selectedAccount,
+                                   selectedAccount: self.selectedAccount, showWatchOnlyWallet: showWatchOnlyWallet,
                                    callback: self.updateSelectedAccount)
     }
 

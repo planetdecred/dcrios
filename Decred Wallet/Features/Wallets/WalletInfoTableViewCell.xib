@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -132,8 +132,8 @@
                                                     <constraint firstAttribute="height" constant="24" id="tjM-du-kJj"/>
                                                 </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Back up seed phrase" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fsB-2S-DmT">
-                                                <rect key="frame" x="56" y="16" width="137" height="16"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Back up seed phrase" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="fsB-2S-DmT">
+                                                <rect key="frame" x="56" y="16" width="342" height="16"/>
                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -174,6 +174,7 @@
                                             <constraint firstItem="fsB-2S-DmT" firstAttribute="top" secondItem="UZs-m8-ULO" secondAttribute="top" constant="16" id="VLt-6N-uzV"/>
                                             <constraint firstItem="jOL-TM-dfX" firstAttribute="centerY" secondItem="UZs-m8-ULO" secondAttribute="centerY" id="Yfh-6O-KLd"/>
                                             <constraint firstAttribute="bottom" secondItem="fsB-2S-DmT" secondAttribute="bottom" constant="60" id="h4o-9g-r2i"/>
+                                            <constraint firstAttribute="trailing" secondItem="fsB-2S-DmT" secondAttribute="trailing" constant="16" id="mep-Qe-2Kj"/>
                                             <constraint firstAttribute="bottom" secondItem="HP2-nC-wPM" secondAttribute="bottom" constant="16" id="nQo-D3-lda"/>
                                             <constraint firstItem="HP2-nC-wPM" firstAttribute="top" secondItem="UZs-m8-ULO" secondAttribute="top" constant="40" id="nZR-JN-JVt"/>
                                         </constraints>
@@ -227,7 +228,7 @@
                 <outlet property="walletNameLabel" destination="uPf-yg-DII" id="HoU-6Y-rM8"/>
                 <outlet property="walletNotBackedUpLabel" destination="QMr-qk-cAa" id="dBr-Tm-Gf5"/>
             </connections>
-            <point key="canvasLocation" x="134.78260869565219" y="203.23660714285714"/>
+            <point key="canvasLocation" x="135" y="-93"/>
         </tableViewCell>
     </objects>
     <resources>

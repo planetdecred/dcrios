@@ -22,6 +22,7 @@ class AccountSelectorDialog: UIViewController {
     var wallets = [Wallet]()
     var selectedWallet: DcrlibwalletWallet?
     var selectedAccount: DcrlibwalletAccount?
+    var showWatchOnly = true
 
     let accountCellRowHeight: CGFloat = 74
     let walletHeaderSectionHeight: CGFloat = 36
@@ -30,6 +31,7 @@ class AccountSelectorDialog: UIViewController {
                      title: String,
                      selectedWallet: DcrlibwalletWallet?,
                      selectedAccount: DcrlibwalletAccount?,
+                     showWatchOnlyWallet: Bool,
                      callback: @escaping AccountSelectorDialogCallback) {
 
         let dialog = AccountSelectorDialog.instantiate(from: .CustomDialogs)
@@ -37,6 +39,7 @@ class AccountSelectorDialog: UIViewController {
         dialog.callback = callback
         dialog.selectedWallet = selectedWallet
         dialog.selectedAccount = selectedAccount
+        dialog.showWatchOnly = showWatchOnlyWallet
         dialog.modalPresentationStyle = .pageSheet
         vc.present(dialog, animated: true, completion: nil)
     }
@@ -62,7 +65,12 @@ class AccountSelectorDialog: UIViewController {
             - (UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0)
         
         let accountsFilterFn: (DcrlibwalletAccount) -> Bool = { $0.totalBalance > 0 || $0.name != "imported" }
-        self.wallets = WalletLoader.shared.wallets.map({ Wallet.init($0, accountsFilterFn: accountsFilterFn) })
+        let fullCoinWallet = WalletLoader.shared.wallets.filter { !$0.isWatchingOnlyWallet()}
+        if showWatchOnly {
+            self.wallets = WalletLoader.shared.wallets.map({ Wallet.init($0, accountsFilterFn: accountsFilterFn) })
+        } else {
+            self.wallets = fullCoinWallet.map({ Wallet.init($0, accountsFilterFn: accountsFilterFn) })
+        }
         self.walletsTableView.reloadData()
         
         self.walletsTableView.reloadData()

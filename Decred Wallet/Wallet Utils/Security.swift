@@ -169,12 +169,12 @@ class Security: NSObject {
         vc.present(securityVC, animated: true, completion: nil)
     }
     
-    func requestCurrentCode(sender: UIViewController,
+    func requestCurrentCode(sender: UIViewController, dismissSenderOnCancel: Bool = false,
                              callback onSecurityCodeEntered: @escaping SecurityCodeRequestCallback) {
         
         self.callbacks.onSecurityCodeEntered = onSecurityCodeEntered
         self.callbacks.onCurrentAndNewCodesEntered = nil
-        self.presentSecurityRequestVC(sender: sender)
+        self.presentSecurityRequestVC(sender: sender, dismissSenderOnCancel: dismissSenderOnCancel)
     }
     
     func requestCurrentAndNewCode(sender: UIViewController,
@@ -185,12 +185,16 @@ class Security: NSObject {
         self.presentSecurityRequestVC(sender: sender)
     }
     
-    private func presentSecurityRequestVC(sender vc: UIViewController) {
+    private func presentSecurityRequestVC(sender vc: UIViewController, dismissSenderOnCancel: Bool = false) {
         var securityRequestVC: SecurityCodeRequestBaseViewController
         if self.currentSecurityType == .password {
-            securityRequestVC = RequestPasswordViewController.instantiate(from: .Security)
+            let requestPasswordVC = RequestPasswordViewController.instantiate(from: .Security)
+            requestPasswordVC.dissmisSenderOnCancel = dismissSenderOnCancel
+            securityRequestVC = requestPasswordVC
         } else {
-            securityRequestVC = RequestPinViewController.instantiate(from: .Security)
+            let requestPinVC = RequestPinViewController.instantiate(from: .Security)
+            requestPinVC.dissmisSenderOnCancel = dismissSenderOnCancel
+            securityRequestVC = requestPinVC
         }
         
         securityRequestVC.request = self.request
