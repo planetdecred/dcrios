@@ -89,6 +89,7 @@ class SendViewController: UIViewController {
         self.usdAmountSeparatorView.isHidden = currencyConversionDisabled
         self.usdAmountSection.isHidden = currencyConversionDisabled
         
+        self.refreshFields()
         self.fetchExchangeRate()
         self.showOrHidePasteAddressButton()
     }
@@ -146,6 +147,14 @@ class SendViewController: UIViewController {
         // Clearing the primary amount textfield should set the usd amount to 0,
         // hide the address error label, update the transaction fee details and sending summary fields.
         self.amountTextField.text = ""
+        self.dcrAmountTextFieldEditingEnded()
+    }
+    
+    func refreshFields() {
+        self.sourceAccountView.selectFirstWalletAccount()
+        self.dcrAmountTextFieldEditingBegan()
+        self.dcrAmountTextFieldChanged()
+        self.destinationAccountView.selectFirstWalletAccount()
         self.dcrAmountTextFieldEditingEnded()
     }
     
