@@ -23,6 +23,8 @@ class RequestPinViewController: SecurityCodeRequestBaseViewController {
     @IBOutlet weak var btnBack: UIButton?
     @IBOutlet weak var btnCancel: UIButton?
     @IBOutlet weak var btnSubmit: Button!
+    
+    var dissmisSenderOnCancel = false
 
     var pinToConfirm: String = ""
     let pinHiddenInput: UITextField = {
@@ -197,7 +199,12 @@ class RequestPinViewController: SecurityCodeRequestBaseViewController {
     }
 
     @IBAction func onCancelButtonTapped(_ sender: Any) {
-        self.dismissView()
+        if dissmisSenderOnCancel {
+            self.dismissView()
+            self.presentingViewController?.dismissView()
+        } else {
+            self.dismissView()
+        }
     }
 
     override func showError(text: String) {

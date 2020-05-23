@@ -64,21 +64,46 @@ class SeedBackupVerifyViewController: UIViewController {
 
     @IBAction func onConfirm(_ sender: Any) {
         if self.btnConfirm!.isLoading { return } // prevent multiple click/tap attempts.
-
-        self.groupedSeedWordsTableView?.isUserInteractionEnabled = false
-        self.btnConfirm?.startLoading()
-        let userEnteredSeed = selectedWords.joined(separator: " ")
-
-        do {
-            try WalletLoader.shared.multiWallet.verifySeed(forWallet: self.walletID,
-                                                           seedMnemonic: userEnteredSeed)
-            
-            self.seedBackupCompleted?()
-            self.performSegue(withIdentifier: "toSeedBackupSuccess", sender: nil)
-        } catch {
-            self.groupedSeedWordsTableView?.isUserInteractionEnabled = true
-            self.btnConfirm?.stopLoading()
-            Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.failedToVerify)
+        
+        let privatePassType = SpendingPinOrPassword.securityType(for: self.walletID)
+               Security.spending(initialSecurityType: privatePassType)
+               .with(prompt: LocalizedStrings.confirmToVerifySeed)
+               .with(submitBtnText: LocalizedStrings.confirm)
+               .should(showCancelButton: true)
+               .requestCurrentCode(sender: self) { privatePass, _, dialogDelegate in
+                self.groupedSeedWordsTableView?.isUserInteractionEnabled = false
+                let userEnteredSeed = self.selectedWords.joined(separator: " ")
+                var errorValue: ObjCBool = false
+                DispatchQueue.global(qos: .userInitiated).async {
+                    do {
+                        try WalletLoader.shared.multiWallet.verifySeed(forWallet: self.walletID, seedMnemonic: userEnteredSeed, privpass: privatePass.utf8Bits, ret0_: &errorValue)
+                        if errorValue.boolValue == true {
+                            DispatchQueue.main.async {
+                                self.seedBackupCompleted?()
+                                dialogDelegate?.dismissDialog()
+                                self.performSegue(withIdentifier: "toSeedBackupSuccess", sender: nil)
+                            }
+                        }
+                    } catch {
+                        DispatchQueue.main.async {
+                            if error.isInvalidPassphraseError {
+                                print(error.localizedDescription)
+                                let errorMessage = SpendingPinOrPassword.invalidSecurityCodeMessage(for: self.walletID)
+                                dialogDelegate?.displayError(errorMessage: errorMessage)
+                                self.groupedSeedWordsTableView?.isUserInteractionEnabled = true
+                            } else if error.localizedDescription == DcrlibwalletErrInvalid {
+                                self.groupedSeedWordsTableView?.isUserInteractionEnabled = true
+                                dialogDelegate?.dismissDialog()
+                                Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.failedToVerify)
+                            } else {
+                                self.groupedSeedWordsTableView?.isUserInteractionEnabled = true
+                                dialogDelegate?.dismissDialog()
+                                DcrlibwalletLogT("verify seed:", error.localizedDescription)
+                                Utils.showBanner(in: self.view, type: .error, text: error.localizedDescription)
+                            }
+                        }
+                    }
+                }
         }
     }
 

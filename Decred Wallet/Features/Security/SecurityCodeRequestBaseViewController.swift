@@ -31,6 +31,12 @@ class SecurityCodeRequestBaseViewController: UIViewController {
         super.viewDidLoad()
         self.listenForKeyboardVisibilityChanges(delegate: self)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // disable swipe down from dismissing dialog
+        self.presentationController?.presentedView?.gestureRecognizers?[0].isEnabled = false
+    }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()

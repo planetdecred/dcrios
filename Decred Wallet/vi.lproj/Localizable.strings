@@ -20,27 +20,19 @@
 "settingUpYourWallet" = "Thiết lập Ví Decred";
 
 /* Confirm NewWallet Seed */
-"seedDoesNotMatch" = "Bạn đã nhập một seed không chính xác. Vui lòng kiểm tra các từ của bạn.";
-"seedPhraseVerification" = "Xác minh cụm từ Seed...";
-"confirmSeedInfo" = "Mỗi dữ liệu chỉ chứa duy nhất một từ đúng. Hãy xác nhận seed của bạn bằng cách chọn những từ đúng.";
+"confirmToShowSeed" = "Confirm to show seed";
+"confirmToVerifySeed" = "Confirm to verify seed";
 
 /* Recover Existing Wallet */
 "wordNumber" = "%d";
 "notAllSeedsAreEntered" = "Không phải tất cả các seed được nhập vào. Vui lòng kiểm tra các dữ liệu đầu vào và nhập tất cả các seed.";
 "incorrectSeedEntered" = "Failed to restore. Please verify all words and try again.";
-"walletRecoveryError" = "Wallet recovery error.";
 "seedRestoreHeader" = "Restore from seed phrase";
 "seedRestoreInfo" = "Enter your seed phrase in the correct order.";
 "restore" = "Restore";
 "success" = "Success";
 "getStarted" = "Get started";
 "restoreSuccessTitle" = "Your wallet is successfully restored.";
-
-/* Drop Down Search Field */
-"tapToSelect" = "Nhấn để chọn từ";
-
-/* Wallet Setup Base */
-"settingUpWallet" ="Thiết lập Ví Decred...";
 
 /* Unlock Wallet Prompt */
 "unlockWithStartupCode" = "Unlock with startup %@";
@@ -49,19 +41,13 @@
 
 /* Password Setup */
 "emptyPasswordNotAllowed" = "Password cannot be empty";
-"passwordMatch" = "MẬT KHẨU HỢP LỆ";
 "passwordsDoNotMatch" = "MẬT KHẨU KHÔNG HỢP LỆ";
 "createPassword" = "Tạo mật khẩu %@";
-"passwordStrength" = "MẬT KHẨU MẠNH";
-"confirmPassword" = "XÁC NHẬN MẬT KHẨU";
 
 /* Request Password */
-"enterPassword" = "Nhập mật khẩu";
 "enterCurrentSpendingPassword" = "Nhập mật khẩu chi tiêu hiện tại";
-"promptSpendingPassword" = "Please enter spending password of your wallet.";
 "promptStartupPassword" = "Nhập mật khẩu khởi động hiện tại.";
 "password" = "MẬT KHẨU";
-"proceed" = "Proceed";
 "invalidInput" = "invalid input.";
 "passwordPlaceholder"="%@ password";
 "confirmPasswordPlaceholder"="Confirm %@ password";
@@ -74,7 +60,6 @@
 "confirmPIN" = "Xác nhận mã PIN %@" ;
 "pinsDidNotMatch" = "PIN không khớp. Thử lại";
 "pin" = "mã PIN";
-"pinStrength" = "PIN MẠNH";
 "next" = "Next";
 "create" = "Create";
 
@@ -91,16 +76,12 @@
 "unlockWalletForAccountDiscovery" = "The restoration process to discover your accounts was interrupted in the last sync.\n\nUnlock %@ to resume the process.";
 
 /* No Wifi Sync Connection */
-"notConnectedToWiFi" = "Không kết nối với WiFi.";
-"syncAnyways" = "Bạn có muốn đồng bộ hóa bằng mọi cách?";
 "no" = "Không";
 "yes" = "Có";
 "always" = "Luôn luôn";
 
 /* Sync progress view */
 "loading" = "Loading...";
-"numberOfConnectedPeers" = "%d peers";
-"numberOfConnectedPeer" = "%d peer";
 "waitingForOtherWallets" = "Waiting for other wallets";
 "fetchedHeaders" = "%d of %d";
 "headersFetchProgress" = "Fetching block headers · %d%%";
@@ -123,11 +104,7 @@
 "internetConnectionRequired" = "Internet connection required.";
 "restartingSync" = "Restarting sync...";
 "discoveringUsedAddresses" = "Discovering used addresses.";
-"generalSyncProgressCompletedleft" = "%d%% completed, %@ left.";
-"rescanProgress" = "%d%% completed, %@ left.";
-"syncCanceled" = "Sync canceled.";
 "syncError" = "Sync error.";
-"latestBlock" = "Latest Block: %d";
 "now" = "now";
 "secondsAgo" = "%ds ago";
 "minAgo" = "%dm ago";
@@ -198,23 +175,14 @@
 
 /* Transaction Details */
 "transactionDetails" = "Chi tiết giao dịch";
-"copyTransactionHash" = "Sao chép băm giao dịch";
-"copyRawTransaction" = "Sao chép số hex giao dịch thô";
 "viewOnDcrdata" = "xem trên dcrdata";
-"copied" = "đã sao chép";
 "sgCopied" = "%@ copied";
-"ticketPurchase" = "Mua vé";
-"date" = "Ngày";
-"status" = "Trạng thái";
 "amount" = "Số tiền";
 "fee" = "Phí";
 "type" = "Kiểu";
-"confirmation" = "Xác nhận";
 "lastBlockValid" = "Khối cuối cùng hợp lệ";
 "version" = "Phiên bản";
 "voteBits" =  "Bình chọn Bits";
-"inputs" = "Đầu vào";
-"outputs" = "Đầu ra";
 "external" = "Bên ngoài";
 "internal" = "Nội bộ";
 "imported" = "Đã nhập";
@@ -243,29 +211,14 @@
 "notEnoughFundsOrNotConnected" = "Không đủ tiền (hoặc không được kết nối).";
 "errorGettingMaxSpendable" = "Error getting maximum spendable amount.";
 "notConnected" = "Not connected to Decred network.";
-"amountCantBeZero" = "Số tiền không thể bằng không.";
-"unexpectedError" = "Unexpected error.";
-"sendingTransaction" = "Gửi giao dịch…";
-"failedTransaction" = "Không thể gửi giao dịch.";
 "invalidTesnetAddress" = "Đây không phải là địa chỉ testnet3 hợp lệ.";
 "invalidMainnetAddress" = "Đây không phải là địa chỉ mạng chính mainnet Decred hợp lệ.";
 "invalidDestAddr" = "Địa chỉ đích không hợp lệ.";
-"emptyDestAddr" = "Địa chỉ đích không thể để trống.";
-"sendingDecred" = "Đang gửi Decred";
 "from" = "Từ:";
 "sendHeaderInfo" = "Nhập hoặc quét địa chỉ ví đích\và số tiền trong DCR để gửi tiền.";
 "destAddr" = "Địa chỉ đích";
-"tapToPaste" = "Nhấn để dán";
-"sendInUSD" = "Gửi bằng USD:";
-"sendInDCR" = "Gửi bằng DCR:";
-"sendMax" = "GỬI TỐI ĐA";
-"feeDesc" = "Phí:";
-"estimateSize" = "Ước tính quy mô:";
-"balanceAfter" = "Số dư sau:";
-"exchangeRate" = "Tỷ giá:";
 "exchangeRateNotFetched" = "Exchange rate not fetched";
 "confirmToSend" = "Confirm to send";
-"addressFromQr" = "Address from QR code: %@";
 "sendDCR" = "Send DCR";
 "paste" = "Paste";
 "selectFromAccount" = "Select from account.";
@@ -283,23 +236,7 @@
 "toSelf" = "To self";
 "toDestinationAddress" = "To destination address";
 
-/* Confirm Send Fund */
-"sending" = "Đang gửi";
-"withFee" = "Với một khoản phí";
-"to" = "tới ";
-"toAccount" = "tới tài khoản ";
-"passwordHint" = "MẬT KHẨU";
-
-/* Send Complete */
-"hashCopied" = "Băm: (đã sao chép)";
-"hash" = "Băm";
-"view" = "LƯỢT XEM";
-"transactionSuccessful" = "Giao dịch thành công";
-
 /* Recieve */
-"receivingDecred" = "Nhận tiền";
-"receiveHeaderInfo" = "Mỗi khi bạn yêu cầu thanh toán, một địa chỉ mới sẽ được tạo để bảo vệ quyền riêng tư của bạn.";
-"accountDesc" = "Tài khoản:";
 "walletAddrCopied" = "Địa chỉ được sao chép vào clipboard.";
 "genNewAddr" = "Tạo địa chỉ mới";
 "receiveDCR" = "Receive DCR";
@@ -317,6 +254,7 @@
 "createOrImportWallet" = "Create or import a wallet";
 "confirmToCreateNewWallet" = "Confirm to create new wallet";
 "confirmToImportWallet" = "Confirm to import wallet";
+"walletsLimitError" = "Limit of 1 wallet per 1 gig of ram on the device";
 
 /* Wallets -> Sign message */
 "signMessage" = "Ký tin nhắn";
@@ -375,13 +313,7 @@
 
 /* Wallets -> Account -> Add new account */
 "addNewAccount" = "Thêm tài khoản";
-// todo edit below when implementing add new account feature
-"inputAccountName" = "Nhập một tên cho tài khoản của bạn.";
-"creatingAccount" = "Đang tạo tài khoản…";
-"addAccountInfo" = "Nhập tên tài khoản mới của bạn và nhập cụm mật khẩu riêng của bạn.";
 "accountName" = "Tên tài khoàn";
-"createAccount" = "Tạo tài khoản";
-"privatePassphrase" = "Cụm mật khẩu riêng";
 "createNewAccount" = "Create new account";
 "accountCreated" = "Account created";
 
@@ -407,22 +339,14 @@
 "signMsgHeaderInfo" = "Enter an address and message to sign:";
 "signMsgPageInfo" = "Signing a message with an address' private key allows you to prove that you are the owner of a given address to a possible counterparty.";
 "signMessage" = "Sign Message";
-"signingMessage" = "Signing Message...";
-"secureMenuSyncInfo" = "Please wait for your wallet to finish synchronizing.";
 "signSuccesMessage" = "Signed Message";
 "signFailedMessage" = "Failed to sign message. Please try again.";
 "sign" = "Sign";
 
-/* Help */
-"forMoreInformationPleaseVisit" = "Để biết thêm thông tin, vui lòng truy cập";
-
 /* Settings */
-"spendingPinPassInfo" = "Yêu cầu gửi tiền.";
 "startupPinPass" = "Mã PIN/Mật khẩu khởi động";
 "changeStatupPinPass" = "Thay đổi mã PIN khởi động /Mật khẩu";
-"startupPinPassInfo" = "Cần thiết để vào ứng dụng.";
 "spendUnconfirmedFund" = "Chi tiêu chưa được xác nhận";
-"incomingTxNotification" = "Thông báo giao dịch đến";
 "currencyConversion" = "Chuyển đổi ngoại tệ";
 "connectIpDesc" = "Kết nối tới Peer";
 "userAgent" = "User agent";
@@ -462,10 +386,6 @@
 /* IP set */
 "connectToPeer" = "Kết nối tới Peer";
 "peerAddressIsInvalid" = "Địa chỉ Peer không hợp lệ";
-"remoteAddressIsInvalid" = "Địa chỉ từ xa không hợp lệ";
-
-/* Certificate */
-"certificateInfo" = "Dán chứng chỉ cho dcrd.";
 
 /* License */
 "license" = "License";
@@ -473,10 +393,6 @@
 /* Wallet Log */
 "copy" = "Sao chép";
 "walletLogCopied" = "Nhật ký ví được sao chép thành công.";
-
-/* Delete Wallet */
-"confirmDeleteInfo" = "Bạn có chắc chắn muốn xóa ví của mình? Hãy chắc chắn rằng bạn đã lưu seed ví hoặc tiền của bạn được di chuyển trước khi xóa. Điều này cũng sẽ xóa tất cả các cài đặt ứng dụng về trạng thái mặc định.";
-"confirmDeleteDesc" = "Để xác nhận, nhập mật khẩu của bạn:";
 
 /* Transaction Notification */
 "newTransaction" = "Giao dịch mới";
@@ -501,14 +417,12 @@
 "ok" = "OK";
 "confirm" = "Xác nhận";
 "remove" = "Remove";
-"tryAgain" = "Thử lại";
 "cancel" = "Huỷ bỏ";
 "back" = "Back";
 "clearFields" =  "Xóa các dữ liệu";
 "copiedSuccessfully" = "Sao chép thành công.";
 "addrCopied" = "Địa chỉ được sao chép!";
 "previousOutpointCopied" = "Previous outpoint copied!";
-"info" = "thông tin";
 "delete" = "Xoá";
 "allowOnce" = "Allow once";
 "alwaysAllow" = "Always allow";
@@ -517,7 +431,6 @@
 /* Other Text */
 "send" = "send";
 "receive" = "receive";
-"history" = "history";
 "settings" = "Settings";
 "help" = "Help";
 "gotIt" = "Got it";

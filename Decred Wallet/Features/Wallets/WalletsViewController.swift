@@ -44,9 +44,8 @@ class WalletsViewController: UIViewController {
     }
     
     @IBAction func addNewWalletTapped(_ sender: UIView) {
-        print("number of wallets allowed \(numberOfwalletAllowed)")
         if WalletLoader.shared.multiWallet.openedWalletsCount() >= numberOfwalletAllowed {
-            SimpleAlertDialog.show(sender: self, message: "Limit of 1 wallet per 1 gig of ram on the device", okButtonText: LocalizedStrings.ok)
+            SimpleAlertDialog.show(sender: self, message: LocalizedStrings.walletsLimitError, okButtonText: LocalizedStrings.ok)
             return
         }
         
