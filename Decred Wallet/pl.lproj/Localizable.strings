@@ -1,0 +1,472 @@
+//
+//  Localizable.strings
+//  Decred Wallet
+//
+// Copyright (c) 2020 The Decred developers
+// Use of this source code is governed by an ISC
+// license that can be found in the LICENSE file.
+
+/* StartScreenViewController */
+"openingWallet" = "Otwieranie portfela...";
+
+/* Wallet Setup */
+"createNewWallet" = "Stwórz nowy portfel";
+"restoreExistingWallet" = "Przywróć istniejący portfel";
+"wallet" = "Portfel";
+"introMessage" = "Witaj w portfelu Decred,\n bezpiecznym oraz mobilnym portfelu typu open-source.";
+"myWallet" = "mójportfel";
+
+/* Create New Wallet(Seed display view) */
+"settingUpYourWallet" = "Setting Up Decred Wallet";
+
+/* Recover Existing Wallet */
+"wordNumber" = "%d";
+"notAllSeedsAreEntered" = "Not all seeds are entered. Please, check input fields and enter all seeds.";
+"incorrectSeedEntered" = "Odzyskiwanie nie powiodło się. Sprawdź dokładnie każde wprowadzone słowo i spróbuj ponownie.";
+"seedRestoreHeader" = "Odzyskaj z frazy bazowej";
+"seedRestoreInfo" = "Enter your seed phrase in the correct order.";
+"restore" = "Odzyskaj";
+"success" = "Operacja udana";
+"getStarted" = "Jak rozpocząć";
+"restoreSuccessTitle" = "Odzyskiwanie portfela powiodło się.";
+
+/* Unlock Wallet Prompt */
+"unlockWithStartupCode" = "Odblokuj %@ do uruchamiania";
+"unlock" = "Odblokuj";
+"wrongSecurityCode" = "Wrong %@ %@. Please try again.";
+
+/* Password Setup */
+"emptyPasswordNotAllowed" = "Password cannot be empty";
+"passwordsDoNotMatch" = "Passwords do not match";
+"createPassword" = "Utwórz hasło do %@";
+
+/* Request Password */
+"enterCurrentSpendingPassword" = "Wprowadź hasło do wydawania środków";
+"promptStartupPassword" = "Wprowadź hasło do uruchamiania";
+"password" = "Hasło";
+"invalidInput" = "invalid input.";
+"passwordPlaceholder"="%@ hasło";
+"confirmPasswordPlaceholder"="Potwierdź hasło do %@";
+
+/* Request PIN and PIN Setup */
+"enterPIN" = "Wprowadź PIN do %@";
+"enterCurrentSpendingPIN" = "Wprowadź PIN do wydawania środków";
+"promptStartupPIN" = "Wprowadź PIN do uruchamiania";
+"createPIN" = "Utwórz PIN do wydawania środków %@";
+"confirmPIN" = "Wprowadź PIN do %@ ponownie %@";
+"pinsDidNotMatch" = "Wprowadzone PINy są niezgodne.";
+"pin" = "PIN";
+"next" = "Dalej";
+"create" = "Utwórz";
+
+/* Request Biometric */
+"promptStartupPassOrPIN" = "Use Startup PIN/Password";
+"promptTouchIDUsageUsage" = "Touch ID is required to use Decred Wallet";
+"promptFaceIDUsageUsage" = "Face ID is required to use Decred Wallet";
+"useFaceID" = "Use Face ID";
+"useTouchId" = "Use Touch ID";
+"enableWithStartupCode" = "Enable with startup %@";
+
+/* Overview - unlock wallets for account discovery */
+"unlockToResumeRestoration" = "Odblokuj, aby wznowić przywracanie";
+"unlockWalletForAccountDiscovery" = "Proces przywracania celem odkrycia Twoich kont został przerwany podczas ostatniej synchronizacji.\n\nOdblokuj %@, aby wznowić proces.";
+
+/* No Wifi Sync Connection */
+"no" = "Nie";
+"yes" = "Tak";
+"always" = "Zawsze";
+
+/* Sync progress view */
+"loading" = "Wczytywanie...";
+"waitingForOtherWallets" = "Oczekiwanie na pozostałe portfele";
+"fetchedHeaders" = "%d z %d";
+"headersFetchProgress" = "Pobieranie nagłówków bloków · %d%%";
+"headersScannedProgress" = "Skanowanie nagłówków bloków · %d%%";
+"bestBlockAgebehind" = "%@ za łańcuchem";
+"blockHeaderScanned" = "Block header scanned";
+"addressDiscoveryProgressOver" = "~%d%% (over)";
+"addressDiscoveryProgressThrough" = "~%d%%";
+"scanningTotalHeaders" = "%d z %d";
+"synchronizing" = "Synchronizacja…";
+"syncTotalProgress" = "%d%% completed, %@ remaining.";
+"total"  = "całkowite:";
+"latestBlockAge" = "Ostatni blok %d% :- %@";
+"blockHeadersFetched" = "Pobrano nagłówek bloku";
+"syncProgressComplete" = "%d%%";
+"syncTimeLeft" = "pozostało %@";
+"syncSteps" = "Krok %d/3";
+"syncingProgress" = "Postęp synchronizacji";
+"cannotSyncWithoutNetworkConnection" = "Cannot sync without network connection.";
+"internetConnectionRequired" = "Internet connection required.";
+"restartingSync" = "Restarting sync...";
+"discoveringUsedAddresses" = "Odkrywanie wykorzystanych adresów.";
+"syncError" = "Sync error.";
+"now" = "teraz";
+"secondsAgo" = "%ds temu";
+"minAgo" = "%dm temu";
+"hrsAgo" = "%dh temu";
+"daysAgo" = "%dd temu";
+"weeksAgo" = "%dw temu";
+"monthsAgo" = "%dmo temu";
+"yearsAgo" =  "%dy temu";
+"totalBalance" = "Saldo całkowite";
+"reconnect" = "Połącz";
+"disconnect" = "Rozłącz";
+"waitForSync" = "Poczekaj, aż skończy się synchronizacja";
+"scannedBlocks" = "Przeskanowane bloki";
+"rescanningBlocks" = "Ponowne skanowanie bloków...";
+"blocksLeft" = "Pozostało %d";
+"errorSyncInProgress" = "Nie można rozpocząć ponownego skanowania podczas synchronizacji portfela";
+"errorRescanInProgress" = "Nie można rozpocząć ponownego skanowania, gdy skanowanie jest już w trakcie";
+"rescanProgressNotification" = "Sprawdź postęp w zakładce 'widok ogólny'!";
+
+/* Navigation Menu Items */
+"overview" = "Widok ogólny";
+"transactions" = "Transakcje";
+"wallets" = "Portfele";
+"more" = "Więcej";
+
+/* Overview */
+"oneWalletNeedBackup" = "Portfel potrzebuje utworzenia kopii zapasowej";
+"walletsNeedBackup" = "%d portfeli potrzebuje utworzenia kopii zapasowej";
+"seedBackupRecommendation" = "Zaleca się zapisanie frazy bazowej dla każdego portfela w ramach wykonywania kopii zapasowej, aby w razie potrzeby można było odzyskać środki.";
+"goToWallets" = "Idź do portfeli";
+"currentTotalBalance" = "Aktualne saldo całkowite";
+"recentTransactions" = "Ostatnie transakcje";
+"seeAll" = "See all";
+"walletStatus" = "Wallet Status";
+"walletSynced" = "Synced";
+"walletNotSynced" = "Not Synced";
+"connectedTo" = "Connected to %d peers";
+"online" = "Online";
+"offline" = "Offline";
+"showDetails" = "Show details";
+"hideDetails" = "Hide details";
+"connectedPeersCount" = "Connected peers count";
+"noConnectedPeer" = "No connected peers.";
+"peers" = "peers";
+"seeAll" = "See all";
+"walletCreated" = "Portfel utworzony";
+"backUpYourWalletsReminder" = "Pamiętaj, aby wykonać kopie zapasowe swoich portfeli jak najszybciej.";
+
+/* Transactions */
+"pending" = "Oczekujące";
+"confirmed" = "Potwierdzona";
+"voted" = "Głosy";
+"ticket" = "Ticket";
+"live" = "Live";
+"immature" = "Niedojrzałe";
+"noTransactions" = "Brak transakcji.";
+"sent" = "Wysłane";
+"received" = "Otrzymane";
+"yourself" = "Yourself";
+"staking" = "Ze stakingu";
+"coinbase" = "Coinbase";
+"all" = "All";
+"today" = "Today";
+"yesterday" = "Yesterday";
+"days" = "%d dni";
+"newest" = "Najnowsza";
+"oldest" = "Najstarsza";
+
+/* Transaction Details */
+"transactionDetails" = "Szczegóły transakcji";
+"viewOnDcrdata" = "zobacz w dcrdata";
+"sgCopied" = "%@ został skopiowany";
+"amount" = "Kwota";
+"fee" = "Opłata";
+"type" = "Typ";
+"lastBlockValid" = "Last Block Valid";
+"version" = "Wersja";
+"voteBits" = "Vote Bits";
+"external" = "Zewnętrzne";
+"internal" = "wewnętrznych";
+"imported" = "zaimportowanych";
+"nullData" = "null data";
+"script" = "script";
+"stakegen" = "stakegen";
+"inputsConsumed" = "Zużyto %d wejść transakcji";
+"outputsCreated" = "Stworzono %d wyjść transakcji";
+"confirmations" = "%d potwierdzeń";
+"transactionID" = "ID transakcji";
+"transferred" = "Przeniesione";
+"includedInBlock" = "Zawarto w bloku";
+"howToCopy" = "Jak kopiować";
+"tapOnBlueText" = "Kliknij na <blue>niebieski tekst</blue>, aby skopiować jego zawartość.";
+"gotIt" = "Rozumiem";
+"toAccountDetail" = "Na konto";
+"toDetail" = "Na";
+"fromAccountDetail" = "Z konta";
+"fromDetail" = "Z";
+
+/* Send view */
+"invalidAmount" = "Amount is not valid.";
+"amount8Decimal" = "Kwota ma więcej niż 8 miejsc po przecinku";
+"amountMaximumAllowed" = "Amount more than maximum allowed.";
+"notEnoughFunds" = "Brak wystarczających środków.";
+"notEnoughFundsOrNotConnected" = "Brak wystarczających środków (lub brak połączenia).";
+"errorGettingMaxSpendable" = "Error getting maximum spendable amount.";
+"notConnected" = "Brak połączenia z siecią Decred.";
+"invalidTesnetAddress" = "This is not a valid Decred testnet3 address.";
+"invalidMainnetAddress" = "This is not a valid Decred Mainnet address.";
+"invalidDestAddr" = "Destination address is not valid.";
+"from" = "Z:";
+"sendHeaderInfo" = "Wprowadź lub zeskanuj adres docelowego portfela oraz ilość DCR, żeby wysłać środki.";
+"destAddr" = "dres docelowy";
+"exchangeRateNotFetched" = "Nie pobrano kursu wymiany";
+"confirmToSend" = "Potwierdź, aby wysłać";
+"sendDCR" = "Wyślij DCR";
+"paste" = "Wklej";
+"selectFromAccount" = "Select from account.";
+"failedToSendTryAgain" = "Wysyłanie nie powiodło się. Spróbuj ponownie.";
+"sendToSelf" = "send to self";
+"sendToOthers" = "send to others";
+"transactionFee" = "Opłata transakcyjna";
+"processingTime" = "Czas przetwarzania";
+"feeRate" = "Wysokość opłaty";
+"transactionSize" = "Rozmiar transakcji";
+"totalCost" = "Całkowity koszt";
+"balanceAfterSend" = "Saldo po transakcji";
+"sendWarning" = "Twoje DCR zostaną wysłane; tej operacji NIE DA SIĘ cofnąć.";
+"sendingAccount" = "Konto wysyłające";
+"toSelf" = "Do siebie";
+"toDestinationAddress" = "Na adres docelowy";
+
+/* Recieve */
+"walletAddrCopied" = "Skopiowano adres do schowka";
+"genNewAddr" = "Wygeneruj nowy adres";
+"receiveDCR" = "Odbierz DCR";
+"tapToCopy" = "(kliknij, aby skopiować)";
+"share" = "Udostępnij";
+"receivingAccount" = "Konto odbierające";
+"receiveInfo" = "Za każdym razem, gdy prosisz o dokonanie wpłaty, tworzony jest nowy adres, aby chronić Twoją prywatność";
+
+/* Wallets -> Backup seed */
+"notBackedUp" = "Nie wykonano kopii zapasowej";
+"backupSeedPhrase" = "Zrób kopię zapasową frazy bazowej (seed phrase)";
+"backupWarningText" = "Sprawdź kopię zapasową swojej frazy bazowej, aby móc odzyskać środki w razie potrzeby.";
+
+/* Wallets -> Add new wallet */
+"createOrImportWallet" = "Create or import a wallet";
+"confirmToCreateNewWallet" = "Confirm to create new wallet";
+"confirmToImportWallet" = "Confirm to import wallet";
+
+/* Wallets -> Sign message */
+"signMessage" = "Podpisz wiadomość";
+
+/* Wallets -> Verify message */
+"verifyMessage" = "Zweryfikuj wiadomość";
+
+/* Wallets -> View property */
+"viewProperty" = "yświetl właściwość";
+
+/* Wallets -> Rename wallet */
+"rename" = "Zmień nazwę";
+"renameWallet" = "Zmień nazwę portfela";
+"walletName" = "Nazwa portfela";
+"walletRenamed" = "Nazwa portfela została zmieniona";
+
+/* Wallet Settings */
+"spendingPinPass" = "Zmieniono PIN/hasło do wydawania środków";
+"changeSpendingPinPass" = "Zmień PIN/hasło do uruchamiania";
+"notifications" = "Powiadomienia";
+"incomingTransactions" = "Transakcje nadchodzące";
+"removeWalletFromDevice" = "Usuń portfel z urządzenia";
+
+/* Wallet Settings -> Change Spending PIN/Password */
+"confirmToChange" = "Potwierdź, aby dokonać zmiany";
+"spendingPinPassChanged" = "Zmieniono PIN/hasło do wydawania środków";
+
+/* Wallet Settings -> Notifications */
+"silent" = "Tryb cichy";
+"vibrationOnly" = "Tylko wibracje";
+"soundOnly" = "Tylko dźwięk";
+"soundAndVibration" = "Dźwięk z wibracjami";
+
+/* Wallets -> Remove wallet */
+"removeWalletWarning" = "Upewnij się, że posiadasz kopię zapasową frazy bazowej (seed phrase) zanim usuniesz portfel.";
+"confirmToRemove" = "Potwierdź, aby usunąć";
+"walletRemoved" = "Portfel został usunięty";
+
+/* Wallets -> Account */
+"spendable" = "Dostępne do wydania";
+"immatureRewards" = "Niedojrzałe nagrody";
+"lockedByTickets" = "Zamknięte w biletach";
+"votingAuthority" = "Upoważnione do głosu";
+"immatureStakeGeneration" = "Niedojrzałe nagrody ze stakingu";
+"showProperties" = "Wyświetl właściwości";
+"properties" = "Właściwości";
+"accountNumber" = "Numer konta";
+"hDPath" = "Ścieżka HD";
+"keys" = "Klucze";
+"hideProperties" = "Hide properties";
+"renameAccount" = "Zmień nazwę konta";
+"accountRenamed" = "Nazwa konta została zmieniona";
+"noWalletSelected" = "No wallet selected";
+"tapToSelectAccount" = "Tap to select account";
+"selectAccount" = "Select account";
+
+/* Wallets -> Account -> Add new account */
+"addNewAccount" = "Dodaj nowe konto";
+"accountName" = "Nazwa konta";
+"createNewAccount" = "Stwórz nowe konto";
+"accountCreated" = "Konto zostało utworzone";
+
+/* Security Tools */
+"securityTools" = "Narzędzia bezpieczeństwa";
+"securityToolsInfo" = "Znajdą się tu różnorakie narzędzia mające na celu pomoc w kwestii bezpieczeństwa korzystania z kryptowalut.";
+"validateAddresses" = "Sprawdź poprawność adresów";
+"validAddress" = "Adres jest poprawny";
+"validOwnAddr" = "Posiadany przez ten portfel";
+"validNotOwnAddr" = "NIE JEST posiadany przez ten portfel";
+"invalidAddr" = "Nieprawidłowy adres";
+"validate" = "Sprawdź";
+"enterAnAddressToValidate" = "Wprowadź adres do sprawdzenia:";
+"address" = "Adres";
+"verifyMsgHeaderInfo" = "Wprowadź adres, podpis oraz wiadomość do zweryfikowania:";
+"verifyMessage" = "Zweryfikuj wiadomość";
+"verify" = "Zweryfikuj";
+"message" = "Wiadomość";
+"signature" = "Podpis";
+"invalidSignature" = "Invalid signature";
+"verifiedSignature" = "Valid signature";
+"verifyMessagepageInfo" = "Gdy Ty lub druga strona transakcji wygenerujecie podpis, możecie skorzystać z tego formularza, aby sprawdzić jego poprawność. Gdy wprowadzicie już adres, wiadomość, oraz odpowiadający im podpis, ujrzycie komunikat POPRAWNY, jeśli podpis pokrywa się z adresem i wiadomością. W przeciwnym wypadku komunikat ogłosi, że podpis jest NIEPOPRAWNY.";
+"signMsgHeaderInfo" = "Wprowadź adres oraz wiadomość do podpisania:";
+"signMsgPageInfo" = "Podpisanie wiadomości kluczem prywatnym adresu pozwala udowodnić drugiej stronie transakcji, że rzeczywiście jesteś posiadaczem danego adresu.";
+"signMessage" = "Podpisz wiadomość";
+"signSuccesMessage" = "Wiadomość została podpisana";
+"signFailedMessage" = "Failed to sign message. Please try again.";
+"sign" = "Podpisz";
+
+/* Settings */
+"startupPinPass" = "PIN/hasło do uruchamiania";
+"changeStatupPinPass" = "Zmień PIN/hasło do uruchamiania";
+"spendUnconfirmedFund" = "Wydaj niepotwierdzone środki";
+"currencyConversion" = "Konwersja walutowa";
+"connectIpDesc" = "Połącz się z konkretnym peerem";
+"userAgent" = "Aplikacja klienta";
+"userAgentInfo" = "Dla uzyskania kursu wymiany";
+"setupUserAgent" = "Skonfiguruj aplikację klienta";
+"syncOnWifiDesc" = "Synchronizuj bez połączenia z WiFi";
+"buildDate" = "Wersja";
+"walletLog" = "Log portfeli";
+"none" = "Brak";
+"rescanConfirm" = "Na pewno? To może trochę potrwać.";
+"rescanBlockchain" = "Skanuj blockchain ponownie";
+"general" = "Ogólne";
+"connection" = "Połączenie";
+"about" = "O portfelu";
+"debug" = "Debugowanie";
+"notifications" = "Powiadomienia";
+"checkWalletLog" = "Pokaż logi portfeli";
+"helpInfo" = "Aby uzyskać więcej informacji, odwiedź stronę dokumentacji Decred.";
+"seeDocumentations" = "Wyświetl dokumentacje";
+"beepForNewBlocks" = "Powiadamiaj dźwiękiem o nadejściu nowych bloków";
+"checkStatistics" = "Wyświetl statystyki";
+"statistics" = "Statystyki";
+"seconds" = "%d sekund(y)";
+"minutes" = "%d minut(y)";
+"hours" = "%d godzin(y)";
+"weeks" = "%d Weeks";
+"months" = "%d Months";
+"years" = "%d Years";
+
+/* Change startup/spending pin/pass */
+"newPasswordPlaceholder" = "Nowe hasło do %@";
+"newPINPlaceholder" = "Wprowadź nowy PIN do %@";
+"confirmNewPasswordPlaceholder" = "Potwierdź nowe hasło do %@";
+"confirmNewPINPlaceholder" = "Wprowadź nowy PIN do %@ ponownie";
+"change" = "Zmień";
+
+/* IP set */
+"connectToPeer" = "Połącz się z konkretnym peerem";
+"peerAddressIsInvalid" = "Wprowadź poprawny adres IP";
+
+/* License */
+"license" = "Licencja";
+
+/* Wallet Log */
+"copy" = "Kopiuj";
+"walletLogCopied" = "Kopiowanie loga portfela zakończone pomyślnie.";
+
+/* Transaction Notification */
+"newTransaction" = "Nowa transakcja";
+"youReceived" = "Otrzymane";
+
+/* View controller sender */
+"spending" = "wydawania środków";
+"startup" = "uruchamiania";
+"current" = "Aktualne";
+
+/* Dcrlibwallet extension */
+"lessThanOneday" = "<1 dzień";
+"oneDay" = "1 dzień";
+"mutlipleDays" = "%d dni";
+"minRemaining" = "%d min";
+"secRemaining" = "%d sek";
+
+/* Pop Ups */
+"clear" = "Wyczyść";
+"error" = "Błąd";
+"retry" = "ponownie";
+"ok" = "OK";
+"confirm" = "Potwierdź";
+"remove" = "Usuń";
+"cancel" = "Anuluj";
+"back" = "Wróć";
+"clearFields" =  "Wyczyść pola";
+"copiedSuccessfully" = "skopiowany pomyślnie.";
+"addrCopied" = "Skopiowano adres do schowka!";
+"previousOutpointCopied" = "Poprzedni outpoint został skopiowany!";
+"delete" = "Skasuj";
+"allowOnce" = "Allow once";
+"alwaysAllow" = "Always allow";
+"notNow" = "Nie teraz";
+
+/* Other Text */
+"send" = "Wyślij";
+"receive" = "Odbierz";
+"settings" = "Ustawienia";
+"help" = "Pomoc";
+"gotIt" = "Rozumiem";
+"security" = "zabezpieczenia";
+
+/* Seed Backup Reminder */
+"keepInMind" = "Miej na uwadze";
+"viewSeedPhrase" = "Wyświetl frazę bazową";
+"reminderLabel1" = "Składająca się z <bold>33 słów fraza bazowa</bold> jest NIEZWYKLE WAŻNA.";
+"reminderLabel2" = "Fraza bazowa jest <bold>jedyną metodą</bold> odzyskiwania portfela.";
+"reminderLabel3" = "Zaleca się przechowywanie swojej frazy bazowej w <green>fizycznej formie</green> (np. zapisanej na papierze).";
+"reminderLabel4" = "Przechowywanie frazy bazowej w jakimkolwiek <orange>cyfrowym formacie</orange> (np. zrzutu ekranu) jest wysoce niewskazane.";
+"reminderLabel5" = "Ktokolwiek będący w posiadaniu Twojej frazy bazowej <orange>est w stanie ukraść Twoje środki</orange>. NIE POKAZUJ jej nikomu.";
+
+/* Seed Words Display */
+"writeDownSeedPhrase" = "Zapisz frazę bazową";
+"writeDownStep1_2" = "Krok 1/2";
+"writeDownStep2_2" = "Krok 2/2";
+
+/* Seed Backup Verify */
+"writeDownAll33Words" = "Zapisz wszystkie 33 słowa w podanej kolejności.";
+"your33word" = "Twoja składająca się z 33 słów fraza bazowa";
+"iHaveWroteDown" = "Zapisałem/am wszystkie 33 słowa";
+"verify" = "Zweryfikuj";
+"backupSuccessTitle" = "Your seed phrase backup is verified";
+"backupSuccessDesc" = "Be sure to store your seed phrase backup in a secure location.";
+"backToWallets" = "Powrót do portfeli";
+"failedToVerify" = "Weryfikacja nie powiodła się. Sprawdź dokładnie każde wprowadzone słowo i spróbuj ponownie.";
+"verifying" = "Verifying...";
+"verifySeedPhrase" = "Zweryfikuj frazę bazową";
+"selectTheCorrectWordsToVerify" = "Select the correct words to verify.";
+"enterSeedOnNextScreen" = "Na następnym ekranie zostaniesz poproszony/a o wprowadzenie frazy bazowej.";
+
+/* Statistics */
+"build" = "Wersja";
+"peersConnected" = "Połączeni peerzy";
+"uptime" = "Czas działania";
+"network" = "Sieć";
+"bestBlock" = "Najnowszy blok";
+"bestBlockTimestamp" = "Znacznik czasu najnowszego bloku";
+"bestBlockAge" = "Czas od wydobycia najnowszego bloku";
+"walletFile" = "Folder danych portfela";
+"chainData" = "Dane portfela";
+"accounts" = "Accounts";
