@@ -332,7 +332,7 @@ class OverviewViewController: UIViewController {
     @IBAction func dismissSeedBackupPromptTapped(_ sender: Any) {
         self.hideSeedBackupPrompt = true
         self.seedBackupSectionView.isHidden = true
-        SimpleAlertDialog.show(sender: self, message: LocalizedStrings.backUpYourWalletsReminder)
+        SimpleAlertDialog.show(sender: self, message: LocalizedStrings.backUpYourWalletsReminder, okButtonText: LocalizedStrings.gotIt)
     }
     
     @IBAction func seedBackupTapped(_ sender: Any) {

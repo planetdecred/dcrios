@@ -15,6 +15,10 @@ class WalletsViewController: UIViewController {
     var wallets = [Wallet]()
     var watchOnly = [Wallet]()
     weak var customTabBar: CustomTabMenuView?
+    let ONE_GB_VALUE: UInt64 = 1073741824
+    var numberOfwalletAllowed: Int {
+        return Int(ProcessInfo.processInfo.physicalMemory/(ONE_GB_VALUE))
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +51,11 @@ class WalletsViewController: UIViewController {
     }
     
     @IBAction func addNewWalletTapped(_ sender: UIView) {
+        if WalletLoader.shared.multiWallet.openedWalletsCount() >= numberOfwalletAllowed {
+            SimpleAlertDialog.show(sender: self, message: LocalizedStrings.walletsLimitError, okButtonText: LocalizedStrings.ok)
+            return
+        }
+        
         let alertController = UIAlertController(title: nil,
                                                 message: LocalizedStrings.createOrImportWallet,
                                                 preferredStyle: .actionSheet)

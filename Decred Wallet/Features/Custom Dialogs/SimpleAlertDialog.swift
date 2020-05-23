@@ -10,17 +10,21 @@ import UIKit
 
 class SimpleAlertDialog: UIViewController {
     @IBOutlet weak var messageLabel: UILabel!
-
+    @IBOutlet weak var okBtn: UIButton!
+    
     private var message: String!
+    private var okButtonText: String!
     private var callback: (() -> Void)?
 
     static func show(sender vc: UIViewController,
                      message: String,
+                     okButtonText: String,
                      callback: (() -> Void)? = nil) {
 
         let dialog = SimpleAlertDialog.instantiate(from: .CustomDialogs)
         dialog.message = message
         dialog.callback = callback
+        dialog.okButtonText = okButtonText
 
         dialog.modalTransitionStyle = .crossDissolve
         dialog.modalPresentationStyle = .overCurrentContext
@@ -31,6 +35,7 @@ class SimpleAlertDialog: UIViewController {
         super.viewDidLoad()
 
         self.messageLabel.text = self.message
+        self.okBtn.setTitle(self.okButtonText, for: .normal)
     }
 
     @IBAction func gotItButtonTapped(_ sender: Any) {

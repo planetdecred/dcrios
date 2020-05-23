@@ -245,6 +245,7 @@ struct LocalizedStrings {
     static let createOrImportWallet = NSLocalizedString("createOrImportWallet", comment: "")
     static let confirmToCreateNewWallet = NSLocalizedString("confirmToCreateNewWallet", comment: "")
     static let confirmToImportWallet = NSLocalizedString("confirmToImportWallet", comment: "")
+    static let walletsLimitError = NSLocalizedString("walletsLimitError", comment: "")
     static let import_ = NSLocalizedString("import_", comment: "")
     static let keyIsInvalid = NSLocalizedString("keyIsInvalid", comment: "")
     static let extendedPublicKey = NSLocalizedString("extendedPublicKey", comment: "")
