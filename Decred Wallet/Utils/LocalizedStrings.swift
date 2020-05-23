@@ -227,6 +227,7 @@ struct LocalizedStrings {
     static let sendingAccount = NSLocalizedString("sendingAccount", comment: "")
     static let toDestinationAddress = NSLocalizedString("toDestinationAddress", comment: "")
     static let toSelf = NSLocalizedString("toSelf", comment: "")
+    static let transactionSent = NSLocalizedString("transactionSent", comment: "")
     
     /* Recieve */
     static let copyOnTap = NSLocalizedString("copyOnTap", comment: "")
@@ -240,6 +241,13 @@ struct LocalizedStrings {
     static let createOrImportWallet = NSLocalizedString("createOrImportWallet", comment: "")
     static let confirmToCreateNewWallet = NSLocalizedString("confirmToCreateNewWallet", comment: "")
     static let confirmToImportWallet = NSLocalizedString("confirmToImportWallet", comment: "")
+    static let import_ = NSLocalizedString("import_", comment: "")
+    static let keyIsInvalid = NSLocalizedString("keyIsInvalid", comment: "")
+    static let extendedPublicKey = NSLocalizedString("extendedPublicKey", comment: "")
+    static let createWatchOnlyWallet = NSLocalizedString("createWatchOnlyWallet", comment: "")
+    static let importAWatchOnlyWallet = NSLocalizedString("importAWatchOnlyWallet", comment: "")
+    static let walletNameExists = NSLocalizedString("walletNameExists", comment: "")
+    static let walletNameReserved = NSLocalizedString("walletNameReserved", comment: "")
     
     /* Wallets -> Sign message */
     static let signMessage = NSLocalizedString("signMessage", comment: "")

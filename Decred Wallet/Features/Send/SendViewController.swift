@@ -343,8 +343,7 @@ class SendViewController: UIViewController {
     }
     
     func sendCompleted() {
-        //to do localize
-        Utils.showBanner(in: NavigationMenuTabBarController.instance!.view, type: .success, text: "Transaction sent")
+        Utils.showBanner(in: NavigationMenuTabBarController.instance!.view, type: .success, text: LocalizedStrings.transactionSent)
         self.resetFields()
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.dismissView()

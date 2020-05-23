@@ -132,14 +132,14 @@ class WalletsViewController: UIViewController {
                     }
                 } else {
                     DispatchQueue.main.async {
-                        dialogDelegate?.displayError(errorMessage: "wallet name reserved")
+                        dialogDelegate?.displayError(errorMessage: LocalizedStrings.walletNameExists)
                     }
                 }
                 
             } catch {
                 DispatchQueue.main.async {
                     if error.localizedDescription == DcrlibwalletErrExist {
-                        dialogDelegate?.displayError(errorMessage: "wallet name reserved")
+                        dialogDelegate?.displayError(errorMessage: LocalizedStrings.walletNameExists)
                     } else {
                         
                     }
@@ -166,7 +166,7 @@ class WalletsViewController: UIViewController {
                     }
                     self.navigationController?.pushViewController(restoreWalletVC, animated: true)
                 } else {
-                    dialogDelegate?.displayError(errorMessage: "wallet name reserved")
+                    dialogDelegate?.displayError(errorMessage: LocalizedStrings.walletNameExists)
                 }
             } catch {
                 DispatchQueue.main.async {
@@ -178,10 +178,10 @@ class WalletsViewController: UIViewController {
     
     func createWatchOnlyWallet() {
         MultipleTextInputDialog.show(sender: self,
-        title: "Create watch-only",
+                                     title: LocalizedStrings.createWatchOnlyWallet,
         userNamePlaceholder: LocalizedStrings.walletName,
-        userPassPlaceholder: "Extended public key",
-        submitButtonText: "Import") { walletName, walletPubKey, dialogDelegate in
+        userPassPlaceholder: LocalizedStrings.extendedPublicKey,
+        submitButtonText: LocalizedStrings.import_) { walletName, walletPubKey, dialogDelegate in
             var errorValue: ObjCBool = false
             DispatchQueue.global(qos: .userInitiated).async {
                 do {
@@ -197,9 +197,9 @@ class WalletsViewController: UIViewController {
                 } catch {
                     DispatchQueue.main.async {
                         if error.localizedDescription == DcrlibwalletErrExist {
-                            dialogDelegate?.displayError(errorMessage: "wallet name reserved", firstTextField: true)
+                            dialogDelegate?.displayError(errorMessage: LocalizedStrings.walletNameExists, firstTextField: true)
                         } else if error.localizedDescription == DcrlibwalletErrInvalid {
-                            dialogDelegate?.displayError(errorMessage: "Key is invalid", firstTextField: false)
+                            dialogDelegate?.displayError(errorMessage: LocalizedStrings.keyIsInvalid, firstTextField: false)
                         } else {
                             Utils.showBanner(in: self.view, type: .error, text: error.localizedDescription)
                             dialogDelegate?.dismissDialog()
@@ -397,7 +397,7 @@ extension WalletsViewController {
                     self.refreshAccountDetails()
                     Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.walletRenamed)
                 } else {
-                    dialogDelegate?.displayError(errorMessage: "wallet name reserved")
+                    dialogDelegate?.displayError(errorMessage: LocalizedStrings.walletNameExists)
                 }
                 
             } catch let error {
