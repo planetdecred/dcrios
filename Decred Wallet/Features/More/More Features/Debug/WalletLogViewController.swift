@@ -69,6 +69,7 @@ class WalletLogViewController: UIViewController {
             }
         } catch (let error) {
             self.progressHud.dismiss()
+            Utils.showBanner(in: self.view, type: .error, text: error.localizedDescription)
             return "Error loading log: \(error.localizedDescription)"
         }
     }

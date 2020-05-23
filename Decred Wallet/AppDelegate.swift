@@ -63,6 +63,7 @@ class AppDelegate: UIResponder {
         do {
             try reachability.startNotifier()
         } catch {
+            DcrlibwalletLogT("network error:", "Unable to start network change notifier.")
             print("Unable to start network change notifier.")
         }
     }

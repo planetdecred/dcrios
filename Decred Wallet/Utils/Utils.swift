@@ -277,6 +277,7 @@ struct Utils {
         do {
             try WalletLoader.shared.multiWallet.rootDirFileSize(inBytes: intPointer)
         } catch let error {
+            DcrlibwalletLogT("dir error:", error.localizedDescription)
             print("dir error:", error.localizedDescription)
         }
         return intPointer.pointee
