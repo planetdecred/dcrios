@@ -20,7 +20,7 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
     @IBOutlet weak var testnetLabel: UILabel!
     @IBOutlet weak var imageViewContainer: UIView!
     
-    let initialAnimationToggleValue : CGFloat = 50
+    let initialAnimationToggleValue : CGFloat = 5
     let splashViewSlideUpValue : CGFloat = 80
     let walletSetupViewSlideUpValue : CGFloat = 100
     
@@ -65,7 +65,7 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
     }
     
     override func viewDidLayoutSubviews() {
-        if !startTimerWhenViewAppears{
+        if !startTimerWhenViewAppears && self.isAnimated == false {
             self.setStartupAnimationPosition()
         }
     }
@@ -102,9 +102,10 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
         if !self.isAnimated {
             DispatchQueue.main.async {
                 self.revertAnimationPosition()
-                self.view.layoutIfNeeded()
+                self.isAnimated = true
             }
         }
+        self.view.layoutIfNeeded()
     }
     
     @IBAction func animatedLogoTap(_ sender: Any) {
@@ -172,10 +173,7 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
     }
     
     @IBAction func importWatchOnlyWallet(_ sender: Any) {
-        SimpleTextInputDialog.show(sender: self,
-        title: "Create watch-only",
-        placeholder: "Extended public key",
-        submitButtonText: "Import") { walletPubKey, dialogDelegate in
+        SimpleTextInputDialog.show(sender: self, title: LocalizedStrings.createWatchOnlyWallet, placeholder: LocalizedStrings.extendedPublicKey, submitButtonText: LocalizedStrings.import_) { walletPubKey, dialogDelegate in
             DispatchQueue.global(qos: .userInitiated).async {
                 do {
                     try WalletLoader.shared.multiWallet.validateExtPubKey(walletPubKey)
@@ -187,7 +185,7 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
                 } catch {
                     DispatchQueue.main.async {
                         if error.localizedDescription == DcrlibwalletErrInvalid {
-                            dialogDelegate?.displayError(errorMessage: "Key is invalid")
+                            dialogDelegate?.displayError(errorMessage: LocalizedStrings.keyIsInvalid)
                         } else {
                             Utils.showBanner(in: self.view, type: .error, text: error.localizedDescription)
                             dialogDelegate?.displayError(errorMessage: error.localizedDescription)
