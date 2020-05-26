@@ -16,7 +16,6 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
     @IBOutlet weak var welcomeText: UILabel!
     @IBOutlet weak var createWalletBtn: Button!
     @IBOutlet weak var restoreWalletBtn: Button!
-    @IBOutlet weak var importWatchOnly: Button!
     @IBOutlet weak var testnetLabel: UILabel!
     @IBOutlet weak var imageViewContainer: UIView!
     
@@ -172,31 +171,6 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
         }
     }
     
-    @IBAction func importWatchOnlyWallet(_ sender: Any) {
-        SimpleTextInputDialog.show(sender: self, title: LocalizedStrings.createWatchOnlyWallet, placeholder: LocalizedStrings.extendedPublicKey, submitButtonText: LocalizedStrings.import_) { walletPubKey, dialogDelegate in
-            DispatchQueue.global(qos: .userInitiated).async {
-                do {
-                    try WalletLoader.shared.multiWallet.validateExtPubKey(walletPubKey)
-                    try WalletLoader.shared.multiWallet.createWatchOnlyWallet(LocalizedStrings.myWallet, extendedPublicKey: walletPubKey)
-                    DispatchQueue.main.async {
-                        dialogDelegate?.dismissDialog()
-                        NavigationMenuTabBarController.setupMenuAndLaunchApp(isNewWallet: true)
-                    }
-                } catch {
-                    DispatchQueue.main.async {
-                        if error.localizedDescription == DcrlibwalletErrInvalid {
-                            dialogDelegate?.displayError(errorMessage: LocalizedStrings.keyIsInvalid)
-                        } else {
-                            Utils.showBanner(in: self.view, type: .error, text: error.localizedDescription)
-                            dialogDelegate?.displayError(errorMessage: error.localizedDescription)
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-    
     func checkStartupSecurityAndStartApp() {
         if !StartupPinOrPassword.pinOrPasswordIsSet() {
             self.openWalletsAndStartApp(startupPinOrPassword: "", dialogDelegate: nil)
@@ -268,11 +242,9 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
                                         self.imageViewContainer.center.y -= self.splashViewSlideUpValue
                                         self.welcomeText.center.y -= self.walletSetupViewSlideUpValue
                                         self.restoreWalletBtn.center.y -= self.walletSetupViewSlideUpValue
-                                        self.importWatchOnly.center.y -= self.walletSetupViewSlideUpValue
                                         self.testnetLabel.center.y -= self.splashViewSlideUpValue
                                         self.createWalletBtn.isHidden = false
                                         self.restoreWalletBtn.isHidden = false
-                                        self.importWatchOnly.isHidden = false
                                         self.welcomeText.isHidden = false
                                         self.welcomeText.text = LocalizedStrings.introMessage
         })
