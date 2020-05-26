@@ -78,7 +78,7 @@ class WalletsViewController: UIViewController {
             }
         }))
         
-        alertController.addAction(UIAlertAction(title: "Import a watch-only wallet", style: .default, handler: { _ in
+        alertController.addAction(UIAlertAction(title: LocalizedStrings.importAWatchOnlyWallet, style: .default, handler: { _ in
                        self.createWatchOnlyWallet()
                }))
         
