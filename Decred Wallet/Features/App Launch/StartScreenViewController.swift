@@ -16,21 +16,17 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
     @IBOutlet weak var welcomeText: UILabel!
     @IBOutlet weak var createWalletBtn: Button!
     @IBOutlet weak var restoreWalletBtn: Button!
-    @IBOutlet weak var importWatchOnly: Button!
     @IBOutlet weak var testnetLabel: UILabel!
     @IBOutlet weak var imageViewContainer: UIView!
     
-    let initialAnimationToggleValue : CGFloat = 50
+    let initialAnimationToggleValue : CGFloat = 5
     let splashViewSlideUpValue : CGFloat = 80
     let walletSetupViewSlideUpValue : CGFloat = 100
     
     var isAnimated = false
     var timer: Timer?
     var startTimerWhenViewAppears = true
-    var animationDurationSeconds: Double = 7
-
-    // Create animation
-    let animation = CAKeyframeAnimation(keyPath: "contents")
+    var animationDurationSeconds: Double = 4.7
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,49 +45,51 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
         
         if WalletLoader.shared.oneOrMoreWalletsExist {
             self.loadingLabel.text = LocalizedStrings.openingWallet
-            self.animationDurationSeconds = 6
+            self.animationDurationSeconds = 5
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         if self.startTimerWhenViewAppears {
-            self.startAnimation()
+            self.slideInFromButtom()
+            self.logo.image = UIImage(named: "ic_decred_logo")
             self.timer = Timer.scheduledTimer(withTimeInterval: animationDurationSeconds, repeats: false) {_ in
-                self.loadMainScreen()
+                DispatchQueue.main.async {
+                    self.logo.layer.removeAllAnimations()
+                    self.loadMainScreen()
+                }
             }
             self.startTimerWhenViewAppears = false
         }
     }
     
     override func viewDidLayoutSubviews() {
-        if !startTimerWhenViewAppears{
+        if !startTimerWhenViewAppears && self.isAnimated == false {
             self.setStartupAnimationPosition()
         }
     }
     
-    func startAnimation(done: (() -> Void)? = nil) {
-        let splashLogo = UIImage.gif(name: "splashLogo")
-        
-        // CAKeyframeAnimation.values are expected to be CGImageRef,
-        // so we take the values from the UIImage images
-        var values = [CGImage]()
-        for image in splashLogo!.images! {
-            values.append(image.cgImage!)
+    func slideInFromButtom(duration: TimeInterval = 1.5, completionDelegate: AnyObject? = nil) {
+        self.logo.layer.removeAllAnimations()
+        // Create a CATransition animation
+        let slideInFromBottomTransition = CATransition()
+    
+        // Set its callback delegate to the completionDelegate that was provided (if any)
+        if let delegate: AnyObject = completionDelegate {
+            slideInFromBottomTransition.delegate = (delegate as! CAAnimationDelegate)
         }
-        
-        self.animation.calculationMode = CAAnimationCalculationMode.discrete
-        self.animation.duration = splashLogo!.duration
-        self.animation.values = values
-        // Set the repeat count
-        self.animation.repeatCount = 3
-        // Other stuff
-        self.animation.isRemovedOnCompletion = false
-        self.animation.fillMode = CAMediaTimingFillMode.forwards
-        // Set the delegate
-        self.animation.delegate = self
-        self.logo.contentMode = .scaleAspectFit
-        self.logo.layer.add(animation, forKey: "animation")
+
+        // Customize the animation's properties
+        slideInFromBottomTransition.type = CATransitionType.moveIn
+        slideInFromBottomTransition.subtype = CATransitionSubtype.fromTop
+        slideInFromBottomTransition.duration = duration
+        slideInFromBottomTransition.repeatCount = 3
+        slideInFromBottomTransition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        slideInFromBottomTransition.fillMode = CAMediaTimingFillMode.removed
+
+        // Add the animation to the View's layer
+        self.logo.layer.add(slideInFromBottomTransition, forKey: "slideInFromBottomTransition")
     }
     
      func animationDidStop(_ anim: CAAnimation, finished animated: Bool) {
@@ -102,9 +100,10 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
         if !self.isAnimated {
             DispatchQueue.main.async {
                 self.revertAnimationPosition()
-                self.view.layoutIfNeeded()
+                self.isAnimated = true
             }
         }
+        self.view.layoutIfNeeded()
     }
     
     @IBAction func animatedLogoTap(_ sender: Any) {
@@ -114,6 +113,7 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
         
         self.timer?.invalidate()
         self.startTimerWhenViewAppears = true
+        self.logo.image = nil
         self.logo.layer.removeAllAnimations()
         
         let settingsVC = SettingsController.instantiate(from: .Settings).wrapInNavigationcontroller()
@@ -170,34 +170,6 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
             self.displayWalletSetupScreen()
         }
     }
-    
-    @IBAction func importWatchOnlyWallet(_ sender: Any) {
-        SimpleTextInputDialog.show(sender: self,
-        title: "Create watch-only",
-        placeholder: "Extended public key",
-        submitButtonText: "Import") { walletPubKey, dialogDelegate in
-            DispatchQueue.global(qos: .userInitiated).async {
-                do {
-                    try WalletLoader.shared.multiWallet.validateExtPubKey(walletPubKey)
-                    try WalletLoader.shared.multiWallet.createWatchOnlyWallet(LocalizedStrings.myWallet, extendedPublicKey: walletPubKey)
-                    DispatchQueue.main.async {
-                        dialogDelegate?.dismissDialog()
-                        NavigationMenuTabBarController.setupMenuAndLaunchApp(isNewWallet: true)
-                    }
-                } catch {
-                    DispatchQueue.main.async {
-                        if error.localizedDescription == DcrlibwalletErrInvalid {
-                            dialogDelegate?.displayError(errorMessage: "Key is invalid")
-                        } else {
-                            Utils.showBanner(in: self.view, type: .error, text: error.localizedDescription)
-                            dialogDelegate?.displayError(errorMessage: error.localizedDescription)
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
     
     func checkStartupSecurityAndStartApp() {
         if !StartupPinOrPassword.pinOrPasswordIsSet() {
@@ -265,16 +237,13 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
                                      animations: { () -> Void in
                                         self.loadingLabel.isHidden = true
                                         self.createWalletBtn.center.y -= self.walletSetupViewSlideUpValue
-                                        self.logo.image = UIImage(named: "ic_decred_logo")
                                         self.loadingLabel.center.y -= self.splashViewSlideUpValue
                                         self.imageViewContainer.center.y -= self.splashViewSlideUpValue
                                         self.welcomeText.center.y -= self.walletSetupViewSlideUpValue
                                         self.restoreWalletBtn.center.y -= self.walletSetupViewSlideUpValue
-                                        self.importWatchOnly.center.y -= self.walletSetupViewSlideUpValue
                                         self.testnetLabel.center.y -= self.splashViewSlideUpValue
                                         self.createWalletBtn.isHidden = false
                                         self.restoreWalletBtn.isHidden = false
-                                        self.importWatchOnly.isHidden = false
                                         self.welcomeText.isHidden = false
                                         self.welcomeText.text = LocalizedStrings.introMessage
         })

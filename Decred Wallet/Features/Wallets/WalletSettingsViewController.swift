@@ -94,6 +94,10 @@ class WalletSettingsViewController: UIViewController {
     }
 
     @IBAction func removeWalletFromDevice(_ sender: Any) {
+        if WalletLoader.shared.multiWallet.isConnectedToDecredNetwork() {
+            Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.disconnectDeleteWallet)
+            return
+        }
         self.showRemoveWalletWarning() { ok in
             guard ok else { return }
             
