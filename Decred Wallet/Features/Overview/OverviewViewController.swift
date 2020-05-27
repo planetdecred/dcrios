@@ -350,14 +350,19 @@ class OverviewViewController: UIViewController {
     // Handle action of rescan, sync connect/reconnect/cancel button click based on sync/network status
     @IBAction func syncConnectionButtonTap(_ sender: Any) {
         if SyncManager.shared.isRescanning {
-            WalletLoader.shared.multiWallet.cancelRescan()
+            DispatchQueue.global(qos: .userInitiated).async {
+                WalletLoader.shared.multiWallet.cancelRescan()
+            }
         } else if SyncManager.shared.isSynced || SyncManager.shared.isSyncing {
-            WalletLoader.shared.multiWallet.cancelSync()
+             DispatchQueue.global(qos: .userInitiated).async {
+                WalletLoader.shared.multiWallet.cancelSync()
+            }
         } else {
             SyncManager.shared.startSync(allowSyncOnCellular: Settings.syncOnCellular)
         }
-        
-        self.updateSyncConnectionButtonTextAndIcon()
+        DispatchQueue.main.async {
+            self.updateSyncConnectionButtonTextAndIcon()
+        }
     }
         
     @IBAction func showOrHideSyncDetails(_ sender: Any) {

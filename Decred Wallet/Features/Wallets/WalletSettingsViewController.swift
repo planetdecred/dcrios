@@ -162,9 +162,13 @@ class WalletSettingsViewController: UIViewController {
         
         if WalletLoader.shared.multiWallet.openedWalletsCount() == 0 {
             Settings.clear()
-            WalletLoader.shared.multiWallet.shutdown()
-            let startScreen = Storyboard.Main.initialViewController()
-            AppDelegate.shared.setAndDisplayRootViewController(startScreen!)
+            DispatchQueue.global(qos: .userInitiated).async {
+                WalletLoader.shared.multiWallet.shutdown()
+                DispatchQueue.main.async {
+                    let startScreen = Storyboard.Main.initialViewController()
+                    AppDelegate.shared.setAndDisplayRootViewController(startScreen!)
+                }
+            }
         } else {
             self.dismissView()
         }
