@@ -52,6 +52,7 @@ protocol ConfirmedTransactionNotificationProtocol {
 class TransactionNotification: NSObject {
     static let shared = TransactionNotification()
     var player: AVAudioPlayer?
+    var lastBeepHeight: Int32 = -1
     
     var newTxHashes: [String] = [String]()
     
@@ -107,9 +108,12 @@ extension TransactionNotification: DcrlibwalletTxAndBlockNotificationListenerPro
     
     func onBlockAttached(_ walletID: Int, blockHeight: Int32) {
         // View Controllers requiring this update should call
-        // `try? AppDelegate.walletLoader.multiWallet.add(self, uniqueIdentifier: "\(self)")`
-        if Settings.beepNewBlocks && !WalletLoader.shared.multiWallet.isSyncing() {
-            self.playSound()
+        // `try? AppDelegate.walletLoader.multiWallet.add(self, uniqueIdentifier: "\(self)")
+        if (lastBeepHeight == -1 || blockHeight > lastBeepHeight) {
+            lastBeepHeight = blockHeight
+            if Settings.beepNewBlocks && !WalletLoader.shared.multiWallet.isSyncing() {
+                self.playSound()
+            }
         }
     }
     

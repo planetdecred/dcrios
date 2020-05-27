@@ -253,6 +253,7 @@ struct LocalizedStrings {
     static let importAWatchOnlyWallet = NSLocalizedString("importAWatchOnlyWallet", comment: "")
     static let walletNameExists = NSLocalizedString("walletNameExists", comment: "")
     static let walletNameReserved = NSLocalizedString("walletNameReserved", comment: "")
+    static let disconnectAddWallet = NSLocalizedString("disconnectAddWallet", comment: "")
     
     /* Wallets -> Sign message */
     static let signMessage = NSLocalizedString("signMessage", comment: "")
@@ -286,6 +287,7 @@ struct LocalizedStrings {
     static let removeWalletWarning = NSLocalizedString("removeWalletWarning", comment: "")
     static let confirmToRemove = NSLocalizedString("confirmToRemove", comment: "")
     static let walletRemoved = NSLocalizedString("walletRemoved", comment: "")
+    static let disconnectDeleteWallet = NSLocalizedString("disconnectDeleteWallet", comment: "")
     
      /* Wallets -> Account */
     static let spendable = NSLocalizedString("spendable", comment: "")
