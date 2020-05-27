@@ -24,20 +24,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CdX-sy-0x2">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CdX-sy-0x2">
                                 <rect key="frame" x="337" y="414" width="160" height="160"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ic_decred_logo" translatesAutoresizingMaskIntoConstraints="NO" id="cZc-WL-Sm8">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_decred_logo" translatesAutoresizingMaskIntoConstraints="NO" id="cZc-WL-Sm8">
                                         <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.95294117649999999" green="0.96078431369999995" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <gestureRecognizers/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="160" id="NrG-Yr-bam"/>
+                                            <constraint firstAttribute="height" constant="160" id="cwj-hE-8q2"/>
+                                        </constraints>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="0.99676262842465757" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.95294117647058818" green="0.96078431372549022" blue="0.96470588235294119" alpha="0.99676262842465757" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstItem="cZc-WL-Sm8" firstAttribute="centerX" secondItem="CdX-sy-0x2" secondAttribute="centerX" id="VYj-hB-L25"/>
                                     <constraint firstAttribute="width" constant="160" id="WXf-G9-aje"/>
                                     <constraint firstAttribute="height" constant="160" id="rrb-By-adz"/>
+                                    <constraint firstItem="cZc-WL-Sm8" firstAttribute="centerY" secondItem="CdX-sy-0x2" secondAttribute="centerY" id="v1j-RB-7im"/>
                                 </constraints>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="BZn-3a-5LH" appends="YES" id="iyQ-30-bJE"/>

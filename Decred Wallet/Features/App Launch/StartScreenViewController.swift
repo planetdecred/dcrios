@@ -26,10 +26,7 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
     var isAnimated = false
     var timer: Timer?
     var startTimerWhenViewAppears = true
-    var animationDurationSeconds: Double = 7
-
-    // Create animation
-    let animation = CAKeyframeAnimation(keyPath: "contents")
+    var animationDurationSeconds: Double = 4.7
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,16 +45,20 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
         
         if WalletLoader.shared.oneOrMoreWalletsExist {
             self.loadingLabel.text = LocalizedStrings.openingWallet
-            self.animationDurationSeconds = 6
+            self.animationDurationSeconds = 5
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         if self.startTimerWhenViewAppears {
-            self.startAnimation()
+            self.slideInFromButtom()
+            self.logo.image = UIImage(named: "ic_decred_logo")
             self.timer = Timer.scheduledTimer(withTimeInterval: animationDurationSeconds, repeats: false) {_ in
-                self.loadMainScreen()
+                DispatchQueue.main.async {
+                    self.logo.layer.removeAllAnimations()
+                    self.loadMainScreen()
+                }
             }
             self.startTimerWhenViewAppears = false
         }
@@ -69,28 +70,26 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
         }
     }
     
-    func startAnimation(done: (() -> Void)? = nil) {
-        let splashLogo = UIImage.gif(name: "splashLogo")
-        
-        // CAKeyframeAnimation.values are expected to be CGImageRef,
-        // so we take the values from the UIImage images
-        var values = [CGImage]()
-        for image in splashLogo!.images! {
-            values.append(image.cgImage!)
+    func slideInFromButtom(duration: TimeInterval = 1.5, completionDelegate: AnyObject? = nil) {
+        self.logo.layer.removeAllAnimations()
+        // Create a CATransition animation
+        let slideInFromBottomTransition = CATransition()
+    
+        // Set its callback delegate to the completionDelegate that was provided (if any)
+        if let delegate: AnyObject = completionDelegate {
+            slideInFromBottomTransition.delegate = (delegate as! CAAnimationDelegate)
         }
-        
-        self.animation.calculationMode = CAAnimationCalculationMode.discrete
-        self.animation.duration = splashLogo!.duration
-        self.animation.values = values
-        // Set the repeat count
-        self.animation.repeatCount = 3
-        // Other stuff
-        self.animation.isRemovedOnCompletion = false
-        self.animation.fillMode = CAMediaTimingFillMode.forwards
-        // Set the delegate
-        self.animation.delegate = self
-        self.logo.contentMode = .scaleAspectFit
-        self.logo.layer.add(animation, forKey: "animation")
+
+        // Customize the animation's properties
+        slideInFromBottomTransition.type = CATransitionType.moveIn
+        slideInFromBottomTransition.subtype = CATransitionSubtype.fromTop
+        slideInFromBottomTransition.duration = duration
+        slideInFromBottomTransition.repeatCount = 3
+        slideInFromBottomTransition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        slideInFromBottomTransition.fillMode = CAMediaTimingFillMode.removed
+
+        // Add the animation to the View's layer
+        self.logo.layer.add(slideInFromBottomTransition, forKey: "slideInFromBottomTransition")
     }
     
      func animationDidStop(_ anim: CAAnimation, finished animated: Bool) {
@@ -114,6 +113,7 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
         
         self.timer?.invalidate()
         self.startTimerWhenViewAppears = true
+        self.logo.image = nil
         self.logo.layer.removeAllAnimations()
         
         let settingsVC = SettingsController.instantiate(from: .Settings).wrapInNavigationcontroller()
@@ -237,7 +237,6 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
                                      animations: { () -> Void in
                                         self.loadingLabel.isHidden = true
                                         self.createWalletBtn.center.y -= self.walletSetupViewSlideUpValue
-                                        self.logo.image = UIImage(named: "ic_decred_logo")
                                         self.loadingLabel.center.y -= self.splashViewSlideUpValue
                                         self.imageViewContainer.center.y -= self.splashViewSlideUpValue
                                         self.welcomeText.center.y -= self.walletSetupViewSlideUpValue
