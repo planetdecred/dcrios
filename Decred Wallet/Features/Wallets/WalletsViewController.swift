@@ -127,13 +127,17 @@ class WalletsViewController: UIViewController {
                     dialogDelegate?.dismissDialog()
                     Security.spending(initialSecurityType: .password).requestNewCode(sender: self, isChangeAttempt: false) { pinOrPassword, type, completion in
                         WalletLoader.shared.createWallet(spendingPinOrPassword: pinOrPassword, securityType: type, walletName: walletName.lowercased()) { error in
+                            
                             if error == nil {
-                                DispatchQueue.main.async {
-                                    completion?.dismissDialog()
-                                    self.loadWallets()
-                                    self.refreshAccountDetails()
-                                    self.customTabBar?.hasUnBackedUpWallets(true)
-                                    Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.walletCreated)
+                                if let wallet = WalletLoader.shared.wallets.filter({ $0.name == walletName.lowercased()}).first {
+                                    Utils.renameDefaultAccountToLocalLanguage(wallet: wallet)
+                                    DispatchQueue.main.async {
+                                        completion?.dismissDialog()
+                                        self.loadWallets()
+                                        self.refreshAccountDetails()
+                                        self.customTabBar?.hasUnBackedUpWallets(true)
+                                        Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.walletCreated)
+                                    }
                                 }
                             } else {
                                 DispatchQueue.main.async {

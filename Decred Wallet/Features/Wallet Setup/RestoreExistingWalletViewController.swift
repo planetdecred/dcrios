@@ -124,6 +124,10 @@ class RestoreExistingWalletViewController: UIViewController {
                         completion?.displayError(errorMessage: restoreError!.localizedDescription)
                         return
                     }
+                    
+                    if let wallet = WalletLoader.shared.wallets.filter({ $0.name == self.walletName.lowercased()}).first {
+                        Utils.renameDefaultAccountToLocalLanguage(wallet: wallet)
+                    }
 
                     completion?.dismissDialog()
                     

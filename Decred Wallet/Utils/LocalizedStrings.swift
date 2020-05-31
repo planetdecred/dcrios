@@ -18,6 +18,8 @@ struct LocalizedStrings {
     static let wallet = NSLocalizedString("wallet", comment: "")
     static let introMessage = NSLocalizedString("introMessage", comment: "")
     static let myWallet = NSLocalizedString("myWallet", comment: "")
+    static let default_ = NSLocalizedString("default_", comment: "")
+    static let migratingWallet = NSLocalizedString("migratingWallet", comment: "")
     
     /* Create New Wallet(Seed display view) */
     static let settingUpYourWallet = NSLocalizedString("settingUpYourWallet", comment: "")
@@ -288,6 +290,7 @@ struct LocalizedStrings {
     static let confirmToRemove = NSLocalizedString("confirmToRemove", comment: "")
     static let walletRemoved = NSLocalizedString("walletRemoved", comment: "")
     static let disconnectDeleteWallet = NSLocalizedString("disconnectDeleteWallet", comment: "")
+    static let removeWatchWalletPrompt = NSLocalizedString("removeWatchWalletPrompt", comment: "")
     
      /* Wallets -> Account */
     static let spendable = NSLocalizedString("spendable", comment: "")

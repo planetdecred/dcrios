@@ -162,6 +162,16 @@ struct Utils {
         return NSMutableAttributedString(string: tmpString.appending(" DCR") as String)
     }
     
+    static func renameDefaultAccountToLocalLanguage(wallet: DcrlibwalletWallet) {
+        if LocalizedStrings.default_ != GlobalConstants.Strings.DEFAULT {
+            do {
+                try wallet.renameAccount(Int32(GlobalConstants.Wallet.DEFAULT_ACCOUNT_NUMBER), newName: LocalizedStrings.default_)
+            } catch {
+                DcrlibwalletLog(error.localizedDescription)
+            }
+        }
+    }
+    
     static func formatDateTime(timestamp: Int64) -> String {
         let formatter = DateFormatter()
         formatter.amSymbol = "am"

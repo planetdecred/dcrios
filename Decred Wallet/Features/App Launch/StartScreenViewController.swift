@@ -43,7 +43,11 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
             print("init multiwallet error: \(initError!.localizedDescription)")
         }
         
-        if WalletLoader.shared.oneOrMoreWalletsExist {
+        if SingleToMultiWalletMigration.migrationNeeded {
+            self.loadingLabel.text = LocalizedStrings.migratingWallet
+            self.animationDurationSeconds = 5
+            
+        } else if WalletLoader.shared.oneOrMoreWalletsExist {
             self.loadingLabel.text = LocalizedStrings.openingWallet
             self.animationDurationSeconds = 5
         }
@@ -143,6 +147,11 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
                     if createWalletError != nil {
                         completion?.displayError(errorMessage: createWalletError!.localizedDescription)
                     } else {
+                        
+                        if let wallet = WalletLoader.shared.wallets.filter({ $0.name == LocalizedStrings.myWallet}).first {
+                            Utils.renameDefaultAccountToLocalLanguage(wallet: wallet)
+                        }
+                        
                         completion?.dismissDialog()
                         NavigationMenuTabBarController.setupMenuAndLaunchApp(isNewWallet: true)
                     }
