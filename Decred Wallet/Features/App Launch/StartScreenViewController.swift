@@ -140,12 +140,13 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
     @IBAction func createNewwallet(_ sender: Any) {
         Security.spending(initialSecurityType: .password)
             .requestNewCode(sender: self, isChangeAttempt: false) { pinOrPassword, type, completion in
-                
-                //let wallet: DcrlibwalletWallet = WalletLoader.shared.createWallet(spendingPinOrPassword: pinOrPassword, securityType: type, walletName: LocalizedStrings.myWallet)
+            
                 DispatchQueue.global(qos: .userInitiated).async {
                     do {
                         let wallet = try WalletLoader.shared.multiWallet.createNewWallet(LocalizedStrings.myWallet, privatePassphrase: pinOrPassword, privatePassphraseType: type.type)
+                        
                         Utils.renameDefaultAccountToLocalLanguage(wallet: wallet)
+                        
                         DispatchQueue.main.async {
                            completion?.dismissDialog()
                            NavigationMenuTabBarController.setupMenuAndLaunchApp(isNewWallet: true)
