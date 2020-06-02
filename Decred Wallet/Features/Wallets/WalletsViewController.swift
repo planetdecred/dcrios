@@ -126,18 +126,20 @@ class WalletsViewController: UIViewController {
                 if !errorValue.boolValue {
                     dialogDelegate?.dismissDialog()
                     Security.spending(initialSecurityType: .password).requestNewCode(sender: self, isChangeAttempt: false) { pinOrPassword, type, completion in
-                        WalletLoader.shared.createWallet(spendingPinOrPassword: pinOrPassword, securityType: type, walletName: walletName.lowercased()) { error in
-                            if error == nil {
+                        DispatchQueue.global(qos: .userInitiated).async {
+                            do {
+                                let wallet = try WalletLoader.shared.multiWallet.createNewWallet(walletName.lowercased(), privatePassphrase: pinOrPassword, privatePassphraseType: type.type)
+                                Utils.renameDefaultAccountToLocalLanguage(wallet: wallet)
                                 DispatchQueue.main.async {
-                                    completion?.dismissDialog()
-                                    self.loadWallets()
-                                    self.refreshAccountDetails()
-                                    self.customTabBar?.hasUnBackedUpWallets(true)
-                                    Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.walletCreated)
+                                   completion?.dismissDialog()
+                                   self.loadWallets()
+                                   self.refreshAccountDetails()
+                                   self.customTabBar?.hasUnBackedUpWallets(true)
+                                   Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.walletCreated)
                                 }
-                            } else {
+                            } catch let error {
                                 DispatchQueue.main.async {
-                                    completion?.displayError(errorMessage: error!.localizedDescription)
+                                    completion?.displayError(errorMessage: error.localizedDescription)
                                 }
                             }
                         }

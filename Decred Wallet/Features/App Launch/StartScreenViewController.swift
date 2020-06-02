@@ -43,7 +43,11 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
             print("init multiwallet error: \(initError!.localizedDescription)")
         }
         
-        if WalletLoader.shared.oneOrMoreWalletsExist {
+        if SingleToMultiWalletMigration.migrationNeeded {
+            self.loadingLabel.text = LocalizedStrings.migratingWallet
+            self.animationDurationSeconds = 5
+            
+        } else if WalletLoader.shared.oneOrMoreWalletsExist {
             self.loadingLabel.text = LocalizedStrings.openingWallet
             self.animationDurationSeconds = 5
         }
@@ -136,15 +140,21 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
     @IBAction func createNewwallet(_ sender: Any) {
         Security.spending(initialSecurityType: .password)
             .requestNewCode(sender: self, isChangeAttempt: false) { pinOrPassword, type, completion in
-                
-                WalletLoader.shared.createWallet(spendingPinOrPassword: pinOrPassword, securityType: type, walletName: LocalizedStrings.myWallet) {
-                    createWalletError in
-                    
-                    if createWalletError != nil {
-                        completion?.displayError(errorMessage: createWalletError!.localizedDescription)
-                    } else {
-                        completion?.dismissDialog()
-                        NavigationMenuTabBarController.setupMenuAndLaunchApp(isNewWallet: true)
+            
+                DispatchQueue.global(qos: .userInitiated).async {
+                    do {
+                        let wallet = try WalletLoader.shared.multiWallet.createNewWallet(LocalizedStrings.myWallet, privatePassphrase: pinOrPassword, privatePassphraseType: type.type)
+                        
+                        Utils.renameDefaultAccountToLocalLanguage(wallet: wallet)
+                        
+                        DispatchQueue.main.async {
+                           completion?.dismissDialog()
+                           NavigationMenuTabBarController.setupMenuAndLaunchApp(isNewWallet: true)
+                        }
+                    } catch let error {
+                        DispatchQueue.main.async {
+                            completion?.displayError(errorMessage: error.localizedDescription)
+                        }
                     }
                 }
         }
