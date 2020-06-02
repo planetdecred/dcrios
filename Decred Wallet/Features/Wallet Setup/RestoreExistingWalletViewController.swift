@@ -116,26 +116,27 @@ class RestoreExistingWalletViewController: UIViewController {
     func requestSpendingSecurityCodeAndRestoreWallet(with seed: String) {
         Security.spending(initialSecurityType: .password)
             .requestNewCode(sender: self, isChangeAttempt: false) { pinOrPassword, type, completion in
-            
-                WalletLoader.shared.restoreWallet(seed: seed, spendingPinOrPassword: pinOrPassword, securityType: type, walletName: self.walletName) {
-                    restoreError in
-                    
-                    if restoreError != nil {
-                        completion?.displayError(errorMessage: restoreError!.localizedDescription)
-                        return
-                    }
-                    
-                    if let wallet = WalletLoader.shared.wallets.filter({ $0.name == self.walletName.lowercased()}).first {
+                
+                DispatchQueue.global(qos: .userInitiated).async {
+                    do {
+                        let wallet = try WalletLoader.shared.multiWallet.restore(self.walletName, seedMnemonic: seed, privatePassphrase: pinOrPassword, privatePassphraseType: type.type)
+                        
                         Utils.renameDefaultAccountToLocalLanguage(wallet: wallet)
-                    }
-
-                    completion?.dismissDialog()
-                    
-                    if self.onWalletRestored == nil {
-                        self.performSegue(withIdentifier: "recoverySuccess", sender: self)
-                    } else {
-                        self.onWalletRestored!()
-                        self.dismissView()
+                        
+                        DispatchQueue.main.async {
+                            completion?.dismissDialog()
+                            
+                            if self.onWalletRestored == nil {
+                                self.performSegue(withIdentifier: "recoverySuccess", sender: self)
+                            } else {
+                                self.onWalletRestored!()
+                                self.dismissView()
+                            }
+                        }
+                    } catch let error {
+                        DispatchQueue.main.async {
+                            completion?.displayError(errorMessage: error.localizedDescription)
+                        }
                     }
                 }
         }

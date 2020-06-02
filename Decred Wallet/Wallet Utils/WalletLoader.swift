@@ -47,36 +47,4 @@ class WalletLoader: NSObject {
         self.multiWallet = DcrlibwalletNewMultiWallet(WalletLoader.appDataDir, "bdb", BuildConfig.NetType, &error)
         return error
     }
-    
-    func createWallet(spendingPinOrPassword: String, securityType: SecurityType,walletName: String, completion: @escaping (Error?) -> Void) {
-        DispatchQueue.global(qos: .userInitiated).async {
-            do {
-                try self.multiWallet.createNewWallet(walletName, privatePassphrase: spendingPinOrPassword, privatePassphraseType: securityType.type)
-                
-                DispatchQueue.main.async {
-                    completion(nil)
-                }
-            } catch let error {
-                DispatchQueue.main.async {
-                    completion(error)
-                }
-            }
-        }
-    }
-    
-    func restoreWallet(seed: String, spendingPinOrPassword: String, securityType: SecurityType, walletName: String, completion: @escaping (Error?) -> Void) {
-        DispatchQueue.global(qos: .userInitiated).async {
-            do {
-                try self.multiWallet.restore(walletName, seedMnemonic: seed, privatePassphrase: spendingPinOrPassword, privatePassphraseType: securityType.type)
-                
-                DispatchQueue.main.async {
-                    completion(nil)
-                }
-            } catch let error {
-                DispatchQueue.main.async {
-                    completion(error)
-                }
-            }
-        }
-    }
 }

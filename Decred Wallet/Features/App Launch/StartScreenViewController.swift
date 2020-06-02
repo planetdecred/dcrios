@@ -141,19 +141,19 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
         Security.spending(initialSecurityType: .password)
             .requestNewCode(sender: self, isChangeAttempt: false) { pinOrPassword, type, completion in
                 
-                WalletLoader.shared.createWallet(spendingPinOrPassword: pinOrPassword, securityType: type, walletName: LocalizedStrings.myWallet) {
-                    createWalletError in
-                    
-                    if createWalletError != nil {
-                        completion?.displayError(errorMessage: createWalletError!.localizedDescription)
-                    } else {
-                        
-                        if let wallet = WalletLoader.shared.wallets.filter({ $0.name == LocalizedStrings.myWallet}).first {
-                            Utils.renameDefaultAccountToLocalLanguage(wallet: wallet)
+                //let wallet: DcrlibwalletWallet = WalletLoader.shared.createWallet(spendingPinOrPassword: pinOrPassword, securityType: type, walletName: LocalizedStrings.myWallet)
+                DispatchQueue.global(qos: .userInitiated).async {
+                    do {
+                        let wallet = try WalletLoader.shared.multiWallet.createNewWallet(LocalizedStrings.myWallet, privatePassphrase: pinOrPassword, privatePassphraseType: type.type)
+                        Utils.renameDefaultAccountToLocalLanguage(wallet: wallet)
+                        DispatchQueue.main.async {
+                           completion?.dismissDialog()
+                           NavigationMenuTabBarController.setupMenuAndLaunchApp(isNewWallet: true)
                         }
-                        
-                        completion?.dismissDialog()
-                        NavigationMenuTabBarController.setupMenuAndLaunchApp(isNewWallet: true)
+                    } catch let error {
+                        DispatchQueue.main.async {
+                            completion?.displayError(errorMessage: error.localizedDescription)
+                        }
                     }
                 }
         }
