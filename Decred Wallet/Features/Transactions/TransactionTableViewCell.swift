@@ -73,7 +73,7 @@ class TransactionTableViewCell: UITableViewCell {
         }
     }
     
-    func displayTicketPurchaseInfo(_ transaction: Transaction, ageInDays: Int) {
+    func displayVoteTxInfo(_ transaction: Transaction, ageInDays: Int) {
         self.txAmountOrTicketStatusLabel.text = "\(LocalizedStrings.voted)"
         self.txTypeIconImageView?.image = UIImage(named: "ic_ticketVoted")
 
@@ -81,7 +81,7 @@ class TransactionTableViewCell: UITableViewCell {
         self.daysCounterLabel.text = String(format: LocalizedStrings.days, -ageInDays)
     }
     
-    func displayVoteTxInfo(_ transaction: Transaction, ageInDays: Int) {
+    func displayTicketPurchaseInfo(_ transaction: Transaction, ageInDays: Int) {
         self.txAmountOrTicketStatusLabel.text = "\(LocalizedStrings.ticket)"
         self.txTypeIconImageView?.image = UIImage(named: "ic_ticketImmature")
         self.daysCounterLabel.text = String(format: LocalizedStrings.days, -ageInDays)
