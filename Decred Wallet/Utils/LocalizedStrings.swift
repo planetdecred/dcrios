@@ -232,6 +232,7 @@ struct LocalizedStrings {
     static let sendWarning = NSLocalizedString("sendWarning", comment: "")
     static let sendingAccount = NSLocalizedString("sendingAccount", comment: "")
     static let toDestinationAddress = NSLocalizedString("toDestinationAddress", comment: "")
+    static let destinationAddress = NSLocalizedString("destinationAddress", comment: "")
     static let toSelf = NSLocalizedString("toSelf", comment: "")
     static let transactionSent = NSLocalizedString("transactionSent", comment: "")
     
