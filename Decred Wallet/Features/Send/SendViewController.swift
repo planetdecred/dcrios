@@ -105,6 +105,8 @@ class SendViewController: UIViewController {
             }
         }
         
+        self.destinationAddressTextField.placeholder = LocalizedStrings.destinationAddress
+        
         self.destinationAddressTextField.add(button: self.scanQRCodeForAddressButton)
         self.destinationAddressTextField.add(button: self.pasteAddressFromClipboardButton)
         self.destinationAddressTextField.textViewDelegate = self
