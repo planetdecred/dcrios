@@ -13,7 +13,7 @@
 "createNewWallet" = "创建新钱包";
 "restoreExistingWallet" = "恢复现有钱包";
 "wallet" = "钱包";
-"introMessage" = "欢迎使用Decred钱包 \n 一个安全、开源的移动钱包";
+"introMessage" = "欢迎使用Decred钱包 \n 一个安全且开源的移动钱包";
 "myWallet" = "我的钱包";
 "default_" = "默认";
 "migratingWallet" = "转移钱包";
@@ -66,7 +66,7 @@
 "create" = "创建";
 
 /* Request Biometric */
-"promptStartupPassOrPIN" = "启用启动PIN码/密码";
+"promptStartupPassOrPIN" = "开启钱包启动PIN码";
 "promptTouchIDUsageUsage" = "要使用Decred钱包需要Touch ID";
 "promptFaceIDUsageUsage" = "要使用Decred钱包需要Face ID";
 "useFaceID" = "使用Face ID";
@@ -101,7 +101,7 @@
 "syncProgressComplete" = "%d%%";
 "syncTimeLeft" = "%@ 剩余";
 "syncSteps" = "步骤 %d/3";
-"syncingProgress" = "同步进度";
+"syncingProgress" = "当前同步进度";
 "cannotSyncWithoutNetworkConnection" = "没有网络连接，无法同步";
 "internetConnectionRequired" = "需要互联网连接";
 "restartingSync" = "正在重新启动同步...";
@@ -135,7 +135,7 @@
 /* Overview */
 "oneWalletNeedBackup" = "1个钱包需要备份";
 "walletsNeedBackup" = "%d个钱包需要备份";
-"seedBackupRecommendation" = "建议备份每一个钱包的助记词以便于需要的时候恢复钱包。";
+"seedBackupRecommendation" = "建议备份每一个钱包的助记词以便在需要的时候恢复钱包。";
 "goToWallets" = "进入钱包";
 "currentTotalBalance" = "总余额";
 "recentTransactions" = "最近的交易";
@@ -250,9 +250,9 @@
 "receiveInfo" = "每次请求收款都会创建一个新地址以保护你的隐私";
 
 /* Wallets -> Backup seed */
-"notBackedUp" = "不要备份";
+"notBackedUp" = "尚无备份";
 "backupSeedPhrase" = "备份助记词";
-"backupWarningText" = "验证你的助记词备份以便于在需要时恢复";
+"backupWarningText" = "备份并验证你的助记词以便在需要时恢复";
 
 /* Wallets -> Add new wallet */
 "createOrImportWallet" = "创建或导入钱包";
@@ -358,15 +358,15 @@
 "sign" = "签名";
 
 /* Settings */
-"startupPinPass" = "启动PIN码或密码";
-"changeStatupPinPass" = "更改启动PIN码或密码";
-"spendUnconfirmedFund" = "发送未确认资金";
+"startupPinPass" = "设置钱包开启PIN码";
+"changeStatupPinPass" = "更改启动PIN码";
+"spendUnconfirmedFund" = "发送0确认支付";
 "currencyConversion" = "货币转换";
 "connectIpDesc" = "连接到节点";
 "userAgent" = "用户代理";
 "userAgentInfo" = "获取交易费率";
 "setupUserAgent" = "设置用户代理";
-"syncOnWifiDesc" = "未连接WiFi时同步";
+"syncOnWifiDesc" = "启用非WiFi环境同步";
 "buildDate" = "构建日期";
 "walletLog" = "钱包日志";
 "none" = "None";
@@ -451,23 +451,23 @@
 "security" = "安全";
 
 /* Seed Backup Reminder */
-"keepInMind" = "牢记";
+"keepInMind" = "注意";
 "viewSeedPhrase" = "查看助记词";
 "reminderLabel1" = "这<bold>33个助记词</bold>非常重要。";
-"reminderLabel2" = "助记词是<bold>唯一的</bold>恢复钱包的方式。";
-"reminderLabel3" = "建议保存助记词在<green>物理介质</green>上 (例如：写在纸上)。";
-"reminderLabel4" = "非常反对保存助记词在<orange>数字媒介</orange>上 (例如：屏幕截图)。";
-"reminderLabel5" = "任何人使用助记词都<orange>可以盗取你的资金</orange>，不要给任何人看。";
+"reminderLabel2" = "助记词是<bold>唯一</bold>恢复钱包的方式。";
+"reminderLabel3" = "建议将助记词保存在<green>物理介质</green>上 (例如：写在纸上)。";
+"reminderLabel4" = "请不要将助记词保存在<orange>数字媒介</orange>上 (例如：屏幕截图)。";
+"reminderLabel5" = "请不要泄露助记词，防止被其他人<orange>窃取资金</orange>。";
 
 /* Seed Words Display */
-"writeDownSeedPhrase" = "写下助记词";
+"writeDownSeedPhrase" = "请保存助记词";
 "writeDownStep1_2" = "步骤 1/2";
 "writeDownStep2_2" = "步骤 2/2";
 
 /* Seed Backup Verify */
-"writeDownAll33Words" = "按照正确的顺序写下33个助记词。";
+"writeDownAll33Words" = "请按照正确顺序保存33个助记词。";
 "your33word" = "你的33个助记词";
-"iHaveWroteDown" = "我已经写下了33个助记词";
+"iHaveWroteDown" = "我已经保存好33个助记词";
 "verify" = "验证";
 "backupSuccessTitle" = "你的助记词备份是正确的";
 "backupSuccessDesc" = "请确保你在安全的地方保存好助记词";
@@ -476,7 +476,7 @@
 "verifying" = "验证中...";
 "verifySeedPhrase" = "验证助记词";
 "selectTheCorrectWordsToVerify" = "选择正确的单词去验证";
-"enterSeedOnNextScreen" = "下一步你将被要求输入助记词";
+"enterSeedOnNextScreen" = "下一步将验证你保存的助记词";
 
 /* Statistics */
 "build" = "构建";
