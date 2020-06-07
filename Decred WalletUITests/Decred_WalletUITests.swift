@@ -41,27 +41,18 @@ class Decred_WalletUITests: XCTestCase {
         
         sleep(1)
         
+        // switch to PIN setup
         app/*@START_MENU_TOKEN@*/.staticTexts["PIN"]/*[[".buttons[\"PIN\"].staticTexts[\"PIN\"]",".staticTexts[\"PIN\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
         
         sleep(1)
         
-        app.keys["1"].tap()
-        app.keys["2"].tap()
-        app.keys["3"].tap()
-        app.keys["4"].tap()
-        app.keys["5"].tap()
-        app.keys["6"].tap()
-        app.buttons["Next"].tap()
-        app.keys["1"].tap()
-        app.keys["2"].tap()
-        app.keys["3"].tap()
-        app.keys["4"].tap()
-        app.keys["5"].tap()
-        app.keys["6"].tap()
+        self.createPIN(app: app)
         
         let createBtn = app.buttons.element(matching: .button, identifier: "createPIN")
         createBtn.tap()
         
+        // If wifi is enabled, the app starts syncing else it will show a dialog, requesting
+        // for the user's permission to sync with mobile data
         let elementsQuery = app.scrollViews.otherElements
         let cancelStaticText = elementsQuery.buttons.element(matching: .button, identifier: "connectionButton")
         if cancelStaticText.waitForExistence(timeout: 5) {
@@ -70,13 +61,13 @@ class Decred_WalletUITests: XCTestCase {
         
         sleep(2)
         
+        //switch to wallet menu tab
         let wallets = app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element(boundBy: 2).children(matching: .other).element(boundBy: 2)
         wallets.tap()
         
         sleep(1)
         
         let walletMenu = app.tables/*@START_MENU_TOKEN@*/.buttons["ic more"]/*[[".cells.buttons[\"ic more\"]",".buttons[\"ic more\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
-        
         walletMenu.tap()
         
         sleep(1)
@@ -91,12 +82,8 @@ class Decred_WalletUITests: XCTestCase {
         sleep(3)
         
         app.staticTexts["OK"].tap()
-        app.keys["1"].tap()
-        app.keys["2"].tap()
-        app.keys["3"].tap()
-        app.keys["4"].tap()
-        app.keys["5"].tap()
-        app.keys["6"].tap()
+        
+        self.typePin(app: app)
         
         sleep(1)
         
@@ -128,25 +115,13 @@ class Decred_WalletUITests: XCTestCase {
         
         sleep(1)
         
-        app.keys["d"].tap()
-        app.keys["e"].tap()
-        app.keys["c"].tap()
-        app.keys["r"].tap()
-        app.keys["e"].tap()
-        app.keys["d"].tap()
-        
-        app.buttons["Return"].tap()
-        
-        app.keys["d"].tap()
-        app.keys["e"].tap()
-        app.keys["c"].tap()
-        app.keys["r"].tap()
-        app.keys["e"].tap()
-        app.keys["d"].tap()
+        self.createPassword(app: app)
         
         let createBtn = app.buttons.element(matching: .button, identifier: "createPassword")
         createBtn.tap()
         
+        // If wifi is enabled, the app starts syncing else it will show a dialog, requesting
+        // for the user's permission to sync with mobile data
         let elementsQuery = app.scrollViews.otherElements
         let cancelStaticText = elementsQuery.buttons.element(matching: .button, identifier: "connectionButton")
         
@@ -156,16 +131,19 @@ class Decred_WalletUITests: XCTestCase {
         
         sleep(2)
         
+        // switch to wallet menu tab
         let wallets = app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element(boundBy: 2).children(matching: .other).element(boundBy: 2)
         wallets.tap()
         
         sleep(1)
         
+        // display wallet menu
         let walletMenu = app.tables/*@START_MENU_TOKEN@*/.buttons["ic more"]/*[[".cells.buttons[\"ic more\"]",".buttons[\"ic more\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
         walletMenu.tap()
         
         sleep(1)
         
+        // select wallet settings
         let setting = app.sheets.scrollViews.otherElements.buttons["Settings"]
         setting.tap()
         
@@ -176,12 +154,8 @@ class Decred_WalletUITests: XCTestCase {
         sleep(3)
         
         app.staticTexts["OK"].tap()
-        app.keys["d"].tap()
-        app.keys["e"].tap()
-        app.keys["c"].tap()
-        app.keys["r"].tap()
-        app.keys["e"].tap()
-        app.keys["d"].tap()
+        
+        self.typePassword(app: app)
         
         sleep(1)
         
@@ -215,56 +189,45 @@ class Decred_WalletUITests: XCTestCase {
         
         sleep(3)
         
-        app.keys["d"].tap()
-        app.keys["e"].tap()
-        app.keys["c"].tap()
-        app.keys["r"].tap()
-        app.keys["e"].tap()
-        app.keys["d"].tap()
-        app/*@START_MENU_TOKEN@*/.buttons["Return"]/*[[".keyboards",".buttons[\"return\"]",".buttons[\"Return\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/.tap()
-        app.keys["d"].tap()
-        app.keys["e"].tap()
-        app.keys["c"].tap()
-        app.keys["r"].tap()
-        app.keys["e"].tap()
-        app.keys["d"].tap()
+        self.createPassword(app: app)
         
         let createBtn = app.buttons.element(matching: .button, identifier: "createPassword")
         createBtn.tap()
         
-        sleep(4)
-        
         let getStarted = app.buttons.element(matching: .button, identifier: "getStarted")
-        getStarted.tap()
         
-        app.keys["d"].tap()
-        app.keys["e"].tap()
-        app.keys["c"].tap()
-        app.keys["r"].tap()
-        app.keys["e"].tap()
-        app.keys["d"].tap()
+        if getStarted.waitForExistence(timeout: 5) {
+            getStarted.tap()
+        }
+        
+        self.typePassword(app: app)
         
         createBtn.tap()
         
+        // If wifi is enabled, the app starts syncing else it will show a dialog, requesting
+        // for the user's permission to sync with mobile data
         let elementsQuery = app.scrollViews.otherElements
         let cancelStaticText = elementsQuery.buttons.element(matching: .button, identifier: "connectionButton")
                
         if cancelStaticText.waitForExistence(timeout: 5) {
-                   cancelStaticText.tap()
+            cancelStaticText.tap()
         }
                
         sleep(2)
-               
+        
+        // switch to wallet menu tab
         let wallets = app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element(boundBy: 2).children(matching: .other).element(boundBy: 2)
         wallets.tap()
                
         sleep(1)
                
+        // display wallet menu
         let walletMenu = app.tables/*@START_MENU_TOKEN@*/.buttons["ic more"]/*[[".cells.buttons[\"ic more\"]",".buttons[\"ic more\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
         walletMenu.tap()
                
         sleep(1)
                
+        //select wallet settings
         let setting = app.sheets.scrollViews.otherElements.buttons["Settings"]
         setting.tap()
                
@@ -275,12 +238,8 @@ class Decred_WalletUITests: XCTestCase {
         sleep(3)
                
         app.staticTexts["OK"].tap()
-        app.keys["d"].tap()
-        app.keys["e"].tap()
-        app.keys["c"].tap()
-        app.keys["r"].tap()
-        app.keys["e"].tap()
-        app.keys["d"].tap()
+        
+        self.typePassword(app: app)
                
         sleep(1)
                
@@ -316,6 +275,84 @@ class Decred_WalletUITests: XCTestCase {
         sleep(3)
         app/*@START_MENU_TOKEN@*/.staticTexts["PIN"]/*[[".buttons[\"PIN\"].staticTexts[\"PIN\"]",".staticTexts[\"PIN\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
         
+        self.createPIN(app: app)
+        
+        let createBtn = app.buttons.element(matching: .button, identifier: "createPIN")
+        createBtn.tap()
+        
+        sleep(4)
+        
+        let getStarted = app.buttons.element(matching: .button, identifier: "getStarted")
+        
+        if getStarted.waitForExistence(timeout: 5) {
+            getStarted.tap()
+        }
+        
+        self.typePin(app: app)
+        
+        createBtn.tap()
+        
+        // If wifi is enabled, the app starts syncing else it will show a dialog, requesting
+        // for the user's permission to sync with mobile data
+        let elementsQuery = app.scrollViews.otherElements
+        let cancelStaticText = elementsQuery.buttons.element(matching: .button, identifier: "connectionButton")
+               
+        if cancelStaticText.waitForExistence(timeout: 5) {
+            cancelStaticText.tap()
+        }
+               
+        sleep(2)
+        
+        //switch to wallet menu tab
+        let wallets = app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element(boundBy: 2).children(matching: .other).element(boundBy: 2)
+        wallets.tap()
+               
+        sleep(1)
+        
+        // display wallet menu
+        let walletMenu = app.tables/*@START_MENU_TOKEN@*/.buttons["ic more"]/*[[".cells.buttons[\"ic more\"]",".buttons[\"ic more\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
+        walletMenu.tap()
+               
+        sleep(1)
+        
+        //select wallet settings
+        let setting = app.sheets.scrollViews.otherElements.buttons["Settings"]
+        setting.tap()
+               
+        sleep(1)
+               
+        app.buttons["Remove wallet from device"].tap()
+               
+        sleep(3)
+               
+        app.staticTexts["OK"].tap()
+        
+        self.typePin(app: app)
+               
+        sleep(1)
+               
+        app.staticTexts["Remove"].tap()
+               
+        sleep(6)
+    }
+    
+    func createPassword(app: XCUIApplication) {
+        app.keys["d"].tap()
+        app.keys["e"].tap()
+        app.keys["c"].tap()
+        app.keys["r"].tap()
+        app.keys["e"].tap()
+        app.keys["d"].tap()
+        app/*@START_MENU_TOKEN@*/.buttons["Return"]/*[[".keyboards",".buttons[\"return\"]",".buttons[\"Return\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/.tap()
+        app.keys["d"].tap()
+        app.keys["e"].tap()
+        app.keys["c"].tap()
+        app.keys["r"].tap()
+        app.keys["e"].tap()
+        app.keys["d"].tap()
+    }
+    
+    func createPIN(app: XCUIApplication) {
         app.keys["1"].tap()
         app.keys["2"].tap()
         app.keys["3"].tap()
@@ -329,65 +366,24 @@ class Decred_WalletUITests: XCTestCase {
         app.keys["4"].tap()
         app.keys["5"].tap()
         app.keys["6"].tap()
-        
-        let createBtn = app.buttons.element(matching: .button, identifier: "createPIN")
-        createBtn.tap()
-        
-        sleep(4)
-        
-        let getStarted = app.buttons.element(matching: .button, identifier: "getStarted")
-        getStarted.tap()
-        
+    }
+    
+    func typePassword(app: XCUIApplication) {
+        app.keys["d"].tap()
+        app.keys["e"].tap()
+        app.keys["c"].tap()
+        app.keys["r"].tap()
+        app.keys["e"].tap()
+        app.keys["d"].tap()
+    }
+    
+    func typePin(app: XCUIApplication) {
         app.keys["1"].tap()
         app.keys["2"].tap()
         app.keys["3"].tap()
         app.keys["4"].tap()
         app.keys["5"].tap()
         app.keys["6"].tap()
-        
-        createBtn.tap()
-        
-        let elementsQuery = app.scrollViews.otherElements
-        let cancelStaticText = elementsQuery.buttons.element(matching: .button, identifier: "connectionButton")
-               
-        if cancelStaticText.waitForExistence(timeout: 5) {
-                   cancelStaticText.tap()
-        }
-               
-        sleep(2)
-               
-        let wallets = app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element(boundBy: 2).children(matching: .other).element(boundBy: 2)
-        wallets.tap()
-               
-        sleep(1)
-               
-        let walletMenu = app.tables/*@START_MENU_TOKEN@*/.buttons["ic more"]/*[[".cells.buttons[\"ic more\"]",".buttons[\"ic more\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
-        walletMenu.tap()
-               
-        sleep(1)
-               
-        let setting = app.sheets.scrollViews.otherElements.buttons["Settings"]
-        setting.tap()
-               
-        sleep(1)
-               
-        app.buttons["Remove wallet from device"].tap()
-               
-        sleep(3)
-               
-        app.staticTexts["OK"].tap()
-        app.keys["1"].tap()
-        app.keys["2"].tap()
-        app.keys["3"].tap()
-        app.keys["4"].tap()
-        app.keys["5"].tap()
-        app.keys["6"].tap()
-               
-        sleep(1)
-               
-        app.staticTexts["Remove"].tap()
-               
-        sleep(6)
     }
     
     func seedUIInput(app: XCUIApplication) {
