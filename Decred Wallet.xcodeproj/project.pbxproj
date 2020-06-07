@@ -146,6 +146,7 @@
 		C8BBC3AE2450CE1E001A5A9E /* SuffixTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BBC3AD2450CE1E001A5A9E /* SuffixTextField.swift */; };
 		DD02AC6523969440004A73E3 /* MoreMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD02AC6423969440004A73E3 /* MoreMenuItem.swift */; };
 		DD17D9CC23CE243D0017E41D /* RestoreExistingWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD17D9CB23CE243D0017E41D /* RestoreExistingWalletViewController.swift */; };
+		DD2E176E24A95BAC001AF94D /* RestoreExistingWalletUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2E176D24A95BAC001AF94D /* RestoreExistingWalletUITest.swift */; };
 		DD36717723B44AB700D1ED67 /* More.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD36717623B44AB700D1ED67 /* More.storyboard */; };
 		DD3DF86622C3F0BD00E168AB /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3DF86522C3F0BD00E168AB /* UILabel.swift */; };
 		DD41737B22B1B31E00580935 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DD41737D22B1B31E00580935 /* Localizable.strings */; };
@@ -347,6 +348,7 @@
 		D59C7DB99807D17630259A55 /* Pods-Decred Wallet.testnet release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.testnet release.xcconfig"; path = "Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.testnet release.xcconfig"; sourceTree = "<group>"; };
 		DD02AC6423969440004A73E3 /* MoreMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreMenuItem.swift; sourceTree = "<group>"; };
 		DD17D9CB23CE243D0017E41D /* RestoreExistingWalletViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestoreExistingWalletViewController.swift; sourceTree = "<group>"; };
+		DD2E176D24A95BAC001AF94D /* RestoreExistingWalletUITest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreExistingWalletUITest.swift; sourceTree = "<group>"; };
 		DD36717623B44AB700D1ED67 /* More.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = More.storyboard; sourceTree = "<group>"; };
 		DD36EE33247020C30011C335 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DD3DF86522C3F0BD00E168AB /* UILabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
@@ -970,6 +972,7 @@
 			children = (
 				DDB660F42486BABB0060B0C5 /* Decred_WalletUITests.swift */,
 				DDB660F62486BABB0060B0C5 /* Info.plist */,
+				DD2E176D24A95BAC001AF94D /* RestoreExistingWalletUITest.swift */,
 			);
 			path = "Decred WalletUITests";
 			sourceTree = "<group>";
@@ -1326,6 +1329,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD2E176E24A95BAC001AF94D /* RestoreExistingWalletUITest.swift in Sources */,
 				DDB660F52486BABB0060B0C5 /* Decred_WalletUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
