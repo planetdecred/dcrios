@@ -209,205 +209,7 @@ class Decred_WalletUITests: XCTestCase {
         
         sleep(1)
         
-        let tablesQuery = app.tables
-        tablesQuery.cells.containing(.staticText, identifier:"1").children(matching: .textField).element.tap()
-        
-        app.keys["r"].tap()
-        app.keys["e"].tap()
-        app.keys["f"].tap()
-        app.keys["o"].tap()
-        tablesQuery.staticTexts["reform"].tap()
-        app.keys["a"].tap()
-        app.keys["f"].tap()
-        app.keys["t"].tap()
-        app.keys["e"].tap()
-        tablesQuery.staticTexts["aftermath"].tap()
-        
-        app.keys["p"].tap()
-        app.keys["r"].tap()
-        app.keys["i"].tap()
-        app.keys["n"].tap()
-        tablesQuery.staticTexts["printer"].tap()
-        
-        app.keys["w"].tap()
-        app.keys["a"].tap()
-        app.keys["r"].tap()
-        app.keys["r"].tap()
-        tablesQuery.staticTexts["warranty"].tap()
-        
-        app.keys["g"].tap()
-        app.keys["r"].tap()
-        app.keys["e"].tap()
-        app.keys["m"].tap()
-        tablesQuery.staticTexts["gremlin"].tap()
-        
-        app.keys["p"].tap()
-        app.keys["a"].tap()
-        app.keys["r"].tap()
-        app.keys["a"].tap()
-        tablesQuery.staticTexts["paragraph"].tap()
-        
-        app.keys["b"].tap()
-        app.keys["e"].tap()
-        app.keys["e"].tap()
-        app.keys["h"].tap()
-        tablesQuery.staticTexts["beehive"].tap()
-        
-        app.keys["s"].tap()
-        app.keys["t"].tap()
-        app.keys["e"].tap()
-        app.keys["t"].tap()
-        tablesQuery.staticTexts["stethoscope"].tap()
-        
-        app.keys["r"].tap()
-        app.keys["e"].tap()
-        app.keys["g"].tap()
-        app.keys["a"].tap()
-        tablesQuery.staticTexts["regain"].tap()
-        
-        app.keys["d"].tap()
-        app.keys["i"].tap()
-        app.keys["s"].tap()
-        app.keys["r"].tap()
-        tablesQuery.staticTexts["disruptive"].tap()
-        
-        app.keys["r"].tap()
-        app.keys["e"].tap()
-        app.keys["g"].tap()
-        app.keys["a"].tap()
-        tablesQuery.staticTexts["regain"].tap()
-        
-        app.keys["b"].tap()
-        app.keys["r"].tap()
-        app.keys["a"].tap()
-        app.keys["d"].tap()
-        tablesQuery.staticTexts["Bradbury"].tap()
-        
-        app.keys["c"].tap()
-        app.keys["h"].tap()
-        app.keys["i"].tap()
-        app.keys["s"].tap()
-        tablesQuery.staticTexts["chisel"].tap()
-        
-        app.keys["o"].tap()
-        app.keys["c"].tap()
-        app.keys["t"].tap()
-        app.keys["o"].tap()
-        tablesQuery.staticTexts["October"].tap()
-        
-        app.keys["t"].tap()
-        app.keys["r"].tap()
-        app.keys["o"].tap()
-        app.keys["u"].tap()
-        tablesQuery.staticTexts["trouble"].tap()
-        
-        app.keys["f"].tap()
-        app.keys["o"].tap()
-        app.keys["r"].tap()
-        app.keys["e"].tap()
-        tablesQuery.staticTexts["forever"].tap()
-        
-        app.keys["a"].tap()
-        app.keys["l"].tap()
-        app.keys["g"].tap()
-        app.keys["o"].tap()
-        tablesQuery.staticTexts["Algol"].tap()
-        
-        app.keys["a"].tap()
-        app.keys["p"].tap()
-        app.keys["p"].tap()
-        app.keys["l"].tap()
-        tablesQuery.staticTexts["applicant"].tap()
-        
-        app.keys["i"].tap()
-        app.keys["s"].tap()
-        app.keys["l"].tap()
-        app.keys["a"].tap()
-        tablesQuery.staticTexts["island"].tap()
-        
-        app.keys["i"].tap()
-        app.keys["n"].tap()
-        app.keys["f"].tap()
-        app.keys["a"].tap()
-        tablesQuery.staticTexts["infancy"].tap()
-        
-        app.keys["p"].tap()
-        app.keys["h"].tap()
-        app.keys["y"].tap()
-        app.keys["s"].tap()
-        tablesQuery.staticTexts["physique"].tap()
-        
-        app.keys["p"].tap()
-        app.keys["a"].tap()
-        app.keys["r"].tap()
-        app.keys["a"].tap()
-        tablesQuery.staticTexts["paragraph"].tap()
-        
-        app.keys["w"].tap()
-        app.keys["o"].tap()
-        app.keys["o"].tap()
-        app.keys["d"].tap()
-        tablesQuery.staticTexts["woodlark"].tap()
-        
-        app.keys["h"].tap()
-        app.keys["y"].tap()
-        app.keys["d"].tap()
-        app.keys["r"].tap()
-        tablesQuery.staticTexts["hydraulic"].tap()
-        
-        app.keys["s"].tap()
-        app.keys["n"].tap()
-        app.keys["a"].tap()
-        app.keys["p"].tap()
-        tablesQuery.staticTexts["snapshot"].tap()
-        
-        app.keys["b"].tap()
-        app.keys["a"].tap()
-        app.keys["c"].tap()
-        app.keys["k"].tap()
-        tablesQuery.staticTexts["backwater"].tap()
-        
-        app.keys["r"].tap()
-        app.keys["a"].tap()
-        app.keys["t"].tap()
-        app.keys["c"].tap()
-        tablesQuery.staticTexts["ratchet"].tap()
-        
-        app.keys["s"].tap()
-        app.keys["u"].tap()
-        app.keys["r"].tap()
-        app.keys["r"].tap()
-        tablesQuery.staticTexts["surrender"].tap()
-        
-        app.keys["r"].tap()
-        app.keys["e"].tap()
-        app.keys["v"].tap()
-        app.keys["e"].tap()
-        tablesQuery.staticTexts["revenge"].tap()
-        
-        app.keys["c"].tap()
-        app.keys["u"].tap()
-        app.keys["s"].tap()
-        app.keys["t"].tap()
-        tablesQuery.staticTexts["customer"].tap()
-        
-        app.keys["r"].tap()
-        app.keys["e"].tap()
-        app.keys["t"].tap()
-        app.keys["o"].tap()
-        tablesQuery.staticTexts["retouch"].tap()
-        
-        app.keys["i"].tap()
-        app.keys["n"].tap()
-        app.keys["t"].tap()
-        app.keys["e"].tap()
-        tablesQuery.staticTexts["intention"].tap()
-        
-        app.keys["m"].tap()
-        app.keys["i"].tap()
-        app.keys["n"].tap()
-        app.keys["n"].tap()
-        tablesQuery.staticTexts["minnow"].tap()
+        self.seedUIInput(app: app)
 
         app/*@START_MENU_TOKEN@*/.staticTexts["Restore"]/*[[".buttons[\"Restore\"].staticTexts[\"Restore\"]",".staticTexts[\"Restore\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
         
@@ -507,6 +309,88 @@ class Decred_WalletUITests: XCTestCase {
         
         sleep(1)
         
+        self.seedUIInput(app:app)
+        
+        app/*@START_MENU_TOKEN@*/.staticTexts["Restore"]/*[[".buttons[\"Restore\"].staticTexts[\"Restore\"]",".staticTexts[\"Restore\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        
+        sleep(3)
+        app/*@START_MENU_TOKEN@*/.staticTexts["PIN"]/*[[".buttons[\"PIN\"].staticTexts[\"PIN\"]",".staticTexts[\"PIN\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        
+        app.keys["1"].tap()
+        app.keys["2"].tap()
+        app.keys["3"].tap()
+        app.keys["4"].tap()
+        app.keys["5"].tap()
+        app.keys["6"].tap()
+        app.buttons["Next"].tap()
+        app.keys["1"].tap()
+        app.keys["2"].tap()
+        app.keys["3"].tap()
+        app.keys["4"].tap()
+        app.keys["5"].tap()
+        app.keys["6"].tap()
+        
+        let createBtn = app.buttons.element(matching: .button, identifier: "createPIN")
+        createBtn.tap()
+        
+        sleep(4)
+        
+        let getStarted = app.buttons.element(matching: .button, identifier: "getStarted")
+        getStarted.tap()
+        
+        app.keys["1"].tap()
+        app.keys["2"].tap()
+        app.keys["3"].tap()
+        app.keys["4"].tap()
+        app.keys["5"].tap()
+        app.keys["6"].tap()
+        
+        createBtn.tap()
+        
+        let elementsQuery = app.scrollViews.otherElements
+        let cancelStaticText = elementsQuery.buttons.element(matching: .button, identifier: "connectionButton")
+               
+        if cancelStaticText.waitForExistence(timeout: 5) {
+                   cancelStaticText.tap()
+        }
+               
+        sleep(2)
+               
+        let wallets = app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element(boundBy: 2).children(matching: .other).element(boundBy: 2)
+        wallets.tap()
+               
+        sleep(1)
+               
+        let walletMenu = app.tables/*@START_MENU_TOKEN@*/.buttons["ic more"]/*[[".cells.buttons[\"ic more\"]",".buttons[\"ic more\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
+        walletMenu.tap()
+               
+        sleep(1)
+               
+        let setting = app.sheets.scrollViews.otherElements.buttons["Settings"]
+        setting.tap()
+               
+        sleep(1)
+               
+        app.buttons["Remove wallet from device"].tap()
+               
+        sleep(3)
+               
+        app.staticTexts["OK"].tap()
+        app.keys["1"].tap()
+        app.keys["2"].tap()
+        app.keys["3"].tap()
+        app.keys["4"].tap()
+        app.keys["5"].tap()
+        app.keys["6"].tap()
+               
+        sleep(1)
+               
+        app.staticTexts["Remove"].tap()
+               
+        sleep(6)
+    }
+    
+    func seedUIInput(app: XCUIApplication) {
         let tablesQuery = app.tables
         tablesQuery.cells.containing(.staticText, identifier:"1").children(matching: .textField).element.tap()
         
@@ -706,87 +590,6 @@ class Decred_WalletUITests: XCTestCase {
         app.keys["n"].tap()
         app.keys["n"].tap()
         tablesQuery.staticTexts["minnow"].tap()
-
-        
-        
-        
-        app/*@START_MENU_TOKEN@*/.staticTexts["Restore"]/*[[".buttons[\"Restore\"].staticTexts[\"Restore\"]",".staticTexts[\"Restore\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-        
-        sleep(3)
-        app/*@START_MENU_TOKEN@*/.staticTexts["PIN"]/*[[".buttons[\"PIN\"].staticTexts[\"PIN\"]",".staticTexts[\"PIN\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-        
-        app.keys["1"].tap()
-        app.keys["2"].tap()
-        app.keys["3"].tap()
-        app.keys["4"].tap()
-        app.keys["5"].tap()
-        app.keys["6"].tap()
-        app.buttons["Next"].tap()
-        app.keys["1"].tap()
-        app.keys["2"].tap()
-        app.keys["3"].tap()
-        app.keys["4"].tap()
-        app.keys["5"].tap()
-        app.keys["6"].tap()
-        
-        let createBtn = app.buttons.element(matching: .button, identifier: "createPIN")
-        createBtn.tap()
-        
-        sleep(4)
-        
-        let getStarted = app.buttons.element(matching: .button, identifier: "getStarted")
-        getStarted.tap()
-        
-        app.keys["1"].tap()
-        app.keys["2"].tap()
-        app.keys["3"].tap()
-        app.keys["4"].tap()
-        app.keys["5"].tap()
-        app.keys["6"].tap()
-        
-        createBtn.tap()
-        
-        let elementsQuery = app.scrollViews.otherElements
-        let cancelStaticText = elementsQuery.buttons.element(matching: .button, identifier: "connectionButton")
-               
-        if cancelStaticText.waitForExistence(timeout: 5) {
-                   cancelStaticText.tap()
-        }
-               
-        sleep(2)
-               
-        let wallets = app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element(boundBy: 2).children(matching: .other).element(boundBy: 2)
-        wallets.tap()
-               
-        sleep(1)
-               
-        let walletMenu = app.tables/*@START_MENU_TOKEN@*/.buttons["ic more"]/*[[".cells.buttons[\"ic more\"]",".buttons[\"ic more\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
-        walletMenu.tap()
-               
-        sleep(1)
-               
-        let setting = app.sheets.scrollViews.otherElements.buttons["Settings"]
-        setting.tap()
-               
-        sleep(1)
-               
-        app.buttons["Remove wallet from device"].tap()
-               
-        sleep(3)
-               
-        app.staticTexts["OK"].tap()
-        app.keys["1"].tap()
-        app.keys["2"].tap()
-        app.keys["3"].tap()
-        app.keys["4"].tap()
-        app.keys["5"].tap()
-        app.keys["6"].tap()
-               
-        sleep(1)
-               
-        app.staticTexts["Remove"].tap()
-               
-        sleep(6)
     }
     
    /* func testLaunchPerformance() throws {
