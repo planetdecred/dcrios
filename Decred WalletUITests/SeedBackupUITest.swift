@@ -1,5 +1,5 @@
 //
-//  Decred_WalletUITests.swift
+//  SeedBackupUITest.swift
 //  Decred WalletUITests
 //
 // Copyright (c) 2020 The Decred developers
@@ -8,7 +8,7 @@
 
 import XCTest
 
-class Decred_WalletUITests: XCTestCase {
+class SeedBackupUITest: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -22,82 +22,10 @@ class Decred_WalletUITests: XCTestCase {
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
-    
-    func testCreateNewWalletWithPIN() throws {
-        let app = XCUIApplication()
-        app.launchArguments.append("--UITests")
-        app.launch()
-        
-        let permission = app.alerts["“Decred Wallet Testnet” Would Like to Send You Notifications"].scrollViews.otherElements.buttons["Allow"]
-        
-        if permission.exists {
-            permission.tap()
-        }
-        
-        let createNewWallet = app.buttons.element(matching: .button, identifier: "createNewWallet")
-        if createNewWallet.waitForExistence(timeout: 5) {
-            createNewWallet.tap()
-        }
-        
-        sleep(1)
-        
-        // switch to PIN setup
-        app/*@START_MENU_TOKEN@*/.staticTexts["PIN"]/*[[".buttons[\"PIN\"].staticTexts[\"PIN\"]",".staticTexts[\"PIN\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-        
-        sleep(1)
-        
-        self.createPIN(app: app)
-        
-        let createBtn = app.buttons.element(matching: .button, identifier: "createPIN")
-        createBtn.tap()
-        
-        // If wifi is enabled, the app starts syncing else it will show a dialog, requesting
-        // for the user's permission to sync with mobile data
-        let elementsQuery = app.scrollViews.otherElements
-        let cancelStaticText = elementsQuery.buttons.element(matching: .button, identifier: "connectionButton")
-        if cancelStaticText.waitForExistence(timeout: 5) {
-            cancelStaticText.tap()
-        }
-        
-        sleep(2)
-        
-        //switch to wallet menu tab
-        let wallets = app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element(boundBy: 2).children(matching: .other).element(boundBy: 2)
-        wallets.tap()
-        
-        sleep(1)
-        
-        let walletMenu = app.tables/*@START_MENU_TOKEN@*/.buttons["ic more"]/*[[".cells.buttons[\"ic more\"]",".buttons[\"ic more\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
-        walletMenu.tap()
-        
-        sleep(1)
-        
-        let setting = app.sheets.scrollViews.otherElements.buttons["Settings"]
-        setting.tap()
-        
-        sleep(1)
-        
-        app.buttons["Remove wallet from device"].tap()
-        
-        sleep(3)
-        
-        app.staticTexts["OK"].tap()
-        
-        self.typePin(app: app)
-        
-        sleep(1)
-        
-        app.staticTexts["Remove"].tap()
-        
-        sleep(6)
-    }
 
-    func testCreateNewWalletWithPassword() throws {
-
-        // UI tests must launch the application that they test.
-
+    func testSeedBackup() throws {
         // Use recording to get started writing UI tests.
-        
+        // Use XCTAssert and related functions to verify your tests produce the correct results.
         let app = XCUIApplication()
         app.launchArguments.append("--UITests")
         app.launch()
@@ -137,33 +65,96 @@ class Decred_WalletUITests: XCTestCase {
         
         sleep(1)
         
-        // display wallet menu
-        let walletMenu = app.tables/*@START_MENU_TOKEN@*/.buttons["ic more"]/*[[".cells.buttons[\"ic more\"]",".buttons[\"ic more\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
-        walletMenu.tap()
+        let tablesQuery = app.tables
+        tablesQuery/*@START_MENU_TOKEN@*/.staticTexts["Verify your seed phrase backup so you can recover your funds when needed."]/*[[".cells.staticTexts[\"Verify your seed phrase backup so you can recover your funds when needed.\"]",".staticTexts[\"Verify your seed phrase backup so you can recover your funds when needed.\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
         
-        sleep(1)
+        let element = app.scrollViews.children(matching: .other).element(boundBy: 0)
+        element.children(matching: .other).element(boundBy: 0).children(matching: .button).element.tap()
+        element.children(matching: .other).element(boundBy: 1).children(matching: .button).element.tap()
+        element.children(matching: .other).element(boundBy: 2).children(matching: .button).element.tap()
+        element.children(matching: .other).element(boundBy: 3).children(matching: .button).element.tap()
+        element.children(matching: .other).element(boundBy: 4).children(matching: .button).element.tap()
         
-        // select wallet settings
-        let setting = app.sheets.scrollViews.otherElements.buttons["Settings"]
-        setting.tap()
+        app.buttons["View seed phrase"].tap()
         
-        sleep(1)
-        
-        app.buttons["Remove wallet from device"].tap()
-        
-        sleep(3)
-        
-        app.staticTexts["OK"].tap()
+        sleep(2)
         
         self.typePassword(app: app)
         
+        let confirmStaticText = app/*@START_MENU_TOKEN@*/.staticTexts["Confirm"]/*[[".buttons[\"Confirm\"].staticTexts[\"Confirm\"]",".buttons[\"createPIN\"].staticTexts[\"Confirm\"]",".staticTexts[\"Confirm\"]"],[[[-1,2],[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
+        confirmStaticText.tap()
+        
         sleep(1)
         
+        var validSeedWords: [String] = []
+        for seed in 0...16 {
+            let seedWord = app.staticTexts.element(matching: .staticText, identifier: "seedword\(seed)")
+            validSeedWords.append(seedWord.label)
+        }
+        
+        for seed in 0...15 {
+            let seedWord = app.staticTexts.element(matching: .staticText, identifier: "secondSeedword\(seed)")
+            validSeedWords.append(seedWord.label)
+        }
+        
+        sleep(1)
+        
+        let iHaveWroteDown = app.buttons.element(matching: .button, identifier: "iHaveWroteDown")
+        iHaveWroteDown.tap()
+        
+        sleep(2)
+        
+        for i in 0...validSeedWords.count - 1 {
+            app.tables.staticTexts[validSeedWords[i]].tap()
+            sleep(1)
+        }
+        
+        let seedVerify = app.buttons.element(matching: .button, identifier: "seedVerify")
+        seedVerify.tap()
+        
+        sleep(1)
+        
+        self.typePassword(app: app)
+        
+        confirmStaticText.tap()
+        
+        sleep(1)
+        
+        let backToWallet = app.buttons.element(matching: .button, identifier: "backToWallet")
+        if backToWallet.waitForExistence(timeout: 5) {
+            backToWallet.tap()
+        }
+        
+        sleep(1)
+        
+        // display wallet menu
+        let walletMenu = app.tables/*@START_MENU_TOKEN@*/.buttons["ic more"]/*[[".cells.buttons[\"ic more\"]",".buttons[\"ic more\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
+        walletMenu.tap()
+               
+        sleep(1)
+               
+        //select wallet settings
+        let setting = app.sheets.scrollViews.otherElements.buttons["Settings"]
+        setting.tap()
+               
+        sleep(1)
+               
+        app.buttons["Remove wallet from device"].tap()
+               
+        sleep(3)
+               
+        app.staticTexts["OK"].tap()
+        
+        self.typePassword(app: app)
+               
+        sleep(1)
+               
         app.staticTexts["Remove"].tap()
-        
+               
         sleep(6)
-    }
         
+    }
+    
     func createPassword(app: XCUIApplication) {
         app.keys["d"].tap()
         app.keys["e"].tap()
@@ -213,14 +204,4 @@ class Decred_WalletUITests: XCTestCase {
         app.keys["5"].tap()
         app.keys["6"].tap()
     }
-    
-    
-   /* func testLaunchPerformance() throws {
-        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, *) {
-            // This measures how long it takes to launch your application.
-            measure(metrics: [XCTOSSignpostMetric.applicationLaunch]) {
-                XCUIApplication().launch()
-            }
-        }
-    }*/
 }
