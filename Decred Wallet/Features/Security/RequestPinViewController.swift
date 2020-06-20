@@ -31,6 +31,7 @@ class RequestPinViewController: SecurityCodeRequestBaseViewController {
         let textfield = UITextField()
         textfield.isHidden = true
         textfield.keyboardType = UIKeyboardType.decimalPad
+        textfield.textContentType = .password
         return textfield
     }()
 
@@ -146,6 +147,15 @@ class RequestPinViewController: SecurityCodeRequestBaseViewController {
         self.btnBack?.isHidden = true
         self.setInitialPromptAndButtonText()
     }
+    
+    @IBAction func switchKeyboardType(_ sender: Any) {
+        if !self.request.requestConfirmation {
+            let securityTypeCheck = self.pinHiddenInput.keyboardType == .decimalPad
+            self.pinHiddenInput.keyboardType = securityTypeCheck ? .default : .decimalPad
+            self.pinHiddenInput.reloadInputViews()
+        }
+    }
+    
 
     @IBAction func onSubmit(_ sender: UIButton) {
         guard let pinText = self.pinHiddenInput.text, !pinText.isEmpty else { return }
@@ -172,7 +182,9 @@ class RequestPinViewController: SecurityCodeRequestBaseViewController {
                 self.btnSubmit.isEnabled = false
                 self.btnSubmit.startLoading()
                 self.callbacks.onLoadingStatusChanged?(true)
-                self.callbacks.onSecurityCodeEntered?(pinText, .pin, self)
+                let securityTypeCheck = self.pinHiddenInput.keyboardType == .decimalPad
+                let securityType: SecurityType = securityTypeCheck ? .pin : .password
+                self.callbacks.onSecurityCodeEntered?(pinText, securityType, self)
                 return
             }
 
@@ -256,9 +268,13 @@ extension RequestPinViewController: UITextFieldDelegate {
                 textField.text = ""
                 self.onPinTextChanged()
         }
-        guard CharacterSet(charactersIn: "0123456789").isSuperset(of: CharacterSet(charactersIn: string)) else {
-            return false
+        
+        if textField.keyboardType == .decimalPad {
+            guard CharacterSet(charactersIn: "0123456789").isSuperset(of: CharacterSet(charactersIn: string)) else {
+                return false
+            }
         }
+        
         return true
     }
 }
