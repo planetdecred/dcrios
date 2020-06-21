@@ -65,7 +65,6 @@ class SyncManager: NSObject {
             // waitGroup ensures that wallets are unlocked one at a time,
             // by waiting for a wallet to be unlocked before requesting security code for another wallet.
             let waitGroup = DispatchGroup()
-
             for wallet in walletsToUnlock {
                 waitGroup.enter()
                 DispatchQueue.main.async {
@@ -89,11 +88,12 @@ class SyncManager: NSObject {
             .with(subtext: String(format: LocalizedStrings.unlockWalletForAccountDiscovery, wallet.name))
             .with(submitBtnText: LocalizedStrings.unlock)
             .should(showCancelButton: false)
-            .requestCurrentCode(sender: rootVC) { walletSpendingCode, _, dialogDelegate in
+            .requestCurrentCode(sender: rootVC) { walletSpendingCode, type, dialogDelegate in
 
                 DispatchQueue.global(qos: .userInitiated).async {
                     do {
                         try wallet.unlock(walletSpendingCode.utf8Bits)
+                        wallet.privatePassphraseType = type.type
                         
                         DispatchQueue.main.async {
                             dialogDelegate?.dismissDialog()

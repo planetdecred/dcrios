@@ -48,6 +48,10 @@ class WalletLogViewController: UIViewController {
         self.logTextView.text = readLog()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        self.dismissView()
+    }
+    
     @objc func copyLog() -> Void {
         DispatchQueue.main.async {
             UIPasteboard.general.string = self.logTextView.text

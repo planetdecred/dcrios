@@ -54,7 +54,7 @@ class SingleToMultiWalletMigration {
                                 dialogDelegate: InputDialogDelegate?) {
         
         var privatePassphraseType = DcrlibwalletPassphraseTypePass
-        if PreMultiWalletSettings.readValue(for: .SpendingPassphraseSecurityType) == SecurityType.password.rawValue {
+        if PreMultiWalletSettings.readValue(for: .SpendingPassphraseSecurityType) == SecurityType.pin.rawValue {
             privatePassphraseType = DcrlibwalletPassphraseTypePin
         }
         
