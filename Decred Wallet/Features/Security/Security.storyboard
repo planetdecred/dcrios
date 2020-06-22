@@ -329,6 +329,9 @@ Unlock the wallet to resume the process.</string>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
                                                         <state key="normal" title="Cancel"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="cancel"/>
+                                                        </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="cancelTapped:" destination="2lq-jW-9IA" eventType="touchUpInside" id="Vej-tw-TUU"/>
                                                         </connections>
@@ -558,6 +561,9 @@ Unlock the wallet to resume the process.</string>
                                                     <constraint firstAttribute="trailing" secondItem="TuL-zv-aYr" secondAttribute="trailing" id="mY1-8K-T3W"/>
                                                     <constraint firstItem="Cqy-a9-VLC" firstAttribute="centerY" secondItem="Csj-Rf-u1l" secondAttribute="centerY" id="xgd-ut-3IV"/>
                                                 </constraints>
+                                                <connections>
+                                                    <outletCollection property="gestureRecognizers" destination="tJC-21-jba" appends="YES" id="JcP-LW-V46"/>
+                                                </connections>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eKX-Vj-YCf">
                                                 <rect key="frame" x="0.0" y="253" width="366" height="32"/>
@@ -604,6 +610,9 @@ Unlock the wallet to resume the process.</string>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
                                                         <state key="normal" title="Cancel"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="cancel"/>
+                                                        </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="onCancelButtonTapped:" destination="SKa-iY-3vv" eventType="touchUpInside" id="Uoo-pY-Xi8"/>
                                                         </connections>
@@ -698,6 +707,11 @@ Unlock the wallet to resume the process.</string>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ubd-bg-fVZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer numberOfTapsRequired="2" id="tJC-21-jba">
+                    <connections>
+                        <action selector="switchKeyboardType:" destination="SKa-iY-3vv" id="wQW-2u-JSR"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="6267" y="-254"/>
         </scene>

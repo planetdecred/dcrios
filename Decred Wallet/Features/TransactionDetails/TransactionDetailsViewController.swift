@@ -196,7 +196,7 @@ class TransactionDetailsViewController: UIViewController {
         }
     }
 
-    private func prepareVoteTxOverview(_ transaction: Transaction) {
+    private func prepareTicketPurchaseTxOverview(_ transaction: Transaction) {
         self.txOverview.txIconImage =  UIImage(named: "ic_ticketImmature")
 
         let txConfirmations = transaction.confirmations
@@ -214,7 +214,7 @@ class TransactionDetailsViewController: UIViewController {
         }
     }
 
-    private func prepareTicketPurchaseTxOverview(_ transaction: Transaction) {
+    private func prepareVoteTxOverview(_ transaction: Transaction) {
         self.txOverview.txIconImage =  UIImage(named: "ic_ticketVoted")
     }
 

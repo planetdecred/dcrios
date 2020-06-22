@@ -150,7 +150,7 @@ class WalletSettingsViewController: UIViewController {
     }
     
     func showRemoveWalletWarning(callback: @escaping (Bool) -> Void) {
-        let message = self.wallet.isWatchingOnlyWallet() ? LocalizedStrings.removeWalletWarning : LocalizedStrings.removeWatchWalletPrompt
+        let message = self.wallet.isWatchingOnlyWallet() ? LocalizedStrings.removeWatchWalletPrompt : LocalizedStrings.removeWalletWarning
         SimpleOkCancelDialog.show(sender: self,
                                   title: LocalizedStrings.removeWalletFromDevice,
                                   message: message,
