@@ -105,7 +105,7 @@ class SeedBackupUITest: XCTestCase {
         sleep(2)
         
         for i in 0...validSeedWords.count - 1 {
-            app.tables.staticTexts[validSeedWords[i]].tap()
+            tablesQuery.cells.containing(.staticText, identifier:"\(i+1)").buttons[validSeedWords[i]].tap()
             sleep(1)
         }
         
