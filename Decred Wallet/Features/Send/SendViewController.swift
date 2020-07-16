@@ -79,6 +79,9 @@ class SendViewController: UIViewController {
         self.listenForKeyboardVisibilityChanges(delegate: self)
         self.setupViews()
         self.resetFields()
+        
+        // register for new transactions notifications
+        try? WalletLoader.shared.multiWallet.add(self, uniqueIdentifier: "\(self)")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -622,5 +625,20 @@ extension SendViewController: KeyboardVisibilityDelegate {
         UIView.animate(withDuration: duration, delay: 0.0, options: UIView.AnimationOptions(rawValue: curve), animations: {
             self.scrollViewBottomConstraint.constant = scrollViewBottomConstraintValue
         })
+    }
+}
+
+extension SendViewController: DcrlibwalletTxAndBlockNotificationListenerProtocol {
+    func onBlockAttached(_ walletID: Int, blockHeight: Int32) {
+    }
+    
+    func onTransaction(_ transaction: String?) {
+        DispatchQueue.main.async {
+            print("refereshing send page")
+            self.refreshFields()
+        }
+    }
+    
+    func onTransactionConfirmed(_ walletID: Int, hash: String?, blockHeight: Int32) {
     }
 }
