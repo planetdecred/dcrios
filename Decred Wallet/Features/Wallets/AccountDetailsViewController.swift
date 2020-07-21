@@ -83,6 +83,9 @@ class AccountDetailsViewController: UIViewController {
         self.populateOtherAccountProperties()
         
         self.dismissViewOnTapAround()
+        
+        // register for new transactions notifications
+        try? WalletLoader.shared.multiWallet.add(self, uniqueIdentifier: "\(self)")
     }
     
     func setupAccountProperties() {
@@ -179,5 +182,26 @@ class AccountDetailsViewController: UIViewController {
     
     @IBAction func closeButtonTapped(_ sender: Any) {
         self.dismissView()
+    }
+}
+
+extension AccountDetailsViewController: DcrlibwalletTxAndBlockNotificationListenerProtocol {
+    func onBlockAttached(_ walletID: Int, blockHeight: Int32) {
+    }
+    
+    func onTransaction(_ transaction: String?) {
+        let walletID = self.account.walletID
+        let accountNumber = self.account.number
+        do {
+            self.account = try WalletLoader.shared.multiWallet.wallet(withID: walletID)?.getAccount(accountNumber)
+            DispatchQueue.main.async {
+                self.displayAccountBalances()
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func onTransactionConfirmed(_ walletID: Int, hash: String?, blockHeight: Int32) {
     }
 }
