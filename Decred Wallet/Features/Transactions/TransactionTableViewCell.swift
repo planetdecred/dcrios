@@ -84,8 +84,8 @@ class TransactionTableViewCell: UITableViewCell {
         self.txTypeIconImageView?.image = UIImage(named: "ic_ticketVoted")
 
         self.stakingTxAmountLabel.attributedText = Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 11.0, TexthexColor: UIColor.appColors.lightBluishGray)
-        self.voteRewardLabel.text = "\(transaction.dcrVoteReward.round(8)) DCR"
-        self.daysCounterLabel.text = String(format: LocalizedStrings.days, ageInDays)
+        self.voteRewardLabel.attributedText = Utils.getAttributedString(str: transaction.dcrVoteReward.round(8).description, siz: 11.0, TexthexColor: UIColor.white)
+        self.daysCounterLabel.text = String(format: (ageInDays > 1 ? LocalizedStrings.days : LocalizedStrings.day), ageInDays)
     }
     
     func displayRevocationTxInfo(_ transaction: Transaction, ageInDays: Int) {
@@ -93,9 +93,9 @@ class TransactionTableViewCell: UITableViewCell {
         self.txTypeIconImageView?.image = UIImage(named: "ic_ticketRevoked")
 
         self.stakingTxAmountLabel.attributedText = Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 11.0, TexthexColor: UIColor.appColors.lightBluishGray)
-        self.voteRewardLabel.text = "\(transaction.dcrVoteReward.round(8)) DCR"
+        self.voteRewardLabel.attributedText = Utils.getAttributedString(str: transaction.dcrVoteReward.round(8).description, siz: 11.0, TexthexColor: UIColor.white)
         
-        self.daysCounterLabel.text = String(format: LocalizedStrings.days, ageInDays)
+        self.daysCounterLabel.text = String(format: (ageInDays > 1 ? LocalizedStrings.days : LocalizedStrings.day), ageInDays)
     }
     
     func displayTicketPurchaseInfo(_ transaction: Transaction) {

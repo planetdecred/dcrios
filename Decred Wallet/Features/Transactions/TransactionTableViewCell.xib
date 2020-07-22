@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -32,22 +32,25 @@
                         <rect key="frame" x="56" y="36" width="306" height="40.333333333333343"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="CLm-d4-NZG">
-                                <rect key="frame" x="0.0" y="0.0" width="199.66666666666666" height="40.333333333333336"/>
+                                <rect key="frame" x="0.0" y="0.0" width="188.33333333333334" height="40.333333333333336"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="uuE-xk-Fuj">
-                                        <rect key="frame" x="0.0" y="0.0" width="199.66666666666666" height="22.666666666666668"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="uuE-xk-Fuj">
+                                        <rect key="frame" x="0.0" y="0.0" width="188.33333333333334" height="22.666666666666668"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="751" verticalHuggingPriority="251" text="Vote" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="9cz-Uu-4tu">
-                                                <rect key="frame" x="0.0" y="0.0" width="44.666666666666664" height="22.666666666666668"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="33.333333333333336" height="22.666666666666668"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="20" id="U6i-Tm-Na7"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                                 <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="243" text="+1.04044861 DCR" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="LAe-dK-oRr" customClass="Label" customModule="Decred_Wallet" customModuleProvider="target">
-                                                <rect key="frame" x="44.666666666666671" y="0.0" width="111.00000000000001" height="22.666666666666668"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="243" text="+1.04044861 DCR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LAe-dK-oRr" customClass="Label" customModule="Decred_Wallet" customModuleProvider="target">
+                                                <rect key="frame" x="41.333333333333321" y="2.3333333333333357" width="108.66666666666669" height="17.666666666666668"/>
                                                 <color key="backgroundColor" red="0.1764705882" green="0.84705882349999995" blue="0.63921568630000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="111" id="Oxy-Hw-a7Q"/>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="94" id="Oxy-Hw-a7Q"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -70,8 +73,8 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="751" verticalHuggingPriority="251" text="  " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="S08-T6-OAS">
-                                                <rect key="frame" x="155.66666666666666" y="0.0" width="44" height="22.666666666666668"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="S08-T6-OAS">
+                                                <rect key="frame" x="158" y="0.0" width="30.333333333333343" height="22.666666666666668"/>
                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                                 <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -79,10 +82,10 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="5FY-3A-gAa">
-                                        <rect key="frame" x="0.0" y="22.666666666666664" width="199.66666666666666" height="17.666666666666664"/>
+                                        <rect key="frame" x="0.0" y="22.666666666666664" width="188.33333333333334" height="17.666666666666664"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="751" verticalHuggingPriority="251" text="116.51637184 DCR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="9zq-1l-9A2">
-                                                <rect key="frame" x="0.0" y="0.0" width="199.66666666666666" height="17.666666666666668"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="188.33333333333334" height="17.666666666666668"/>
                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                                 <color key="textColor" red="0.53725490200000003" green="0.59215686270000001" blue="0.64705882349999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -92,16 +95,16 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Krx-yJ-hxW">
-                                <rect key="frame" x="199.66666666666666" y="0.0" width="106.33333333333334" height="40.333333333333336"/>
+                                <rect key="frame" x="188.33333333333334" y="0.0" width="117.66666666666666" height="40.333333333333336"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="752" text="Oct 22, 2018" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="s9S-gM-kBM">
-                                        <rect key="frame" x="0.0" y="0.0" width="106.33333333333333" height="22.666666666666668"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="117.66666666666667" height="22.666666666666668"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                         <color key="textColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="142 days" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="VNM-Dh-lLd">
-                                        <rect key="frame" x="0.0" y="22.666666666666664" width="106.33333333333333" height="17.666666666666664"/>
+                                        <rect key="frame" x="0.0" y="22.666666666666664" width="117.66666666666667" height="17.666666666666664"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                         <color key="textColor" red="0.53725490200000003" green="0.59215686270000001" blue="0.64705882349999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -142,7 +145,7 @@
                 <outlet property="voteRewardLabel" destination="LAe-dK-oRr" id="8kU-QU-kud"/>
                 <outlet property="voteRewardLabelPadding" destination="S08-T6-OAS" id="PD1-Rh-Box"/>
             </connections>
-            <point key="canvasLocation" x="308" y="-81"/>
+            <point key="canvasLocation" x="-34" y="-149"/>
         </tableViewCell>
     </objects>
     <resources>
