@@ -200,6 +200,8 @@ struct LocalizedStrings {
     static let toDetail = NSLocalizedString("toDetail", comment: "")
     static let fromAccountDetail = NSLocalizedString("fromAccountDetail", comment: "")
     static let fromDetail = NSLocalizedString("fromDetail", comment: "")
+    static let rebroadcast = NSLocalizedString("rebroadcast", comment: "")
+    static let rebroadcastTxSuccess = NSLocalizedString("rebroadcastTxSuccess", comment: "")
 
     /* Send view */
     static let invalidAmount = NSLocalizedString("invalidAmount", comment: "")

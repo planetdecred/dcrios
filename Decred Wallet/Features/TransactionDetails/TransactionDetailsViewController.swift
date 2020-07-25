@@ -13,7 +13,8 @@ class TransactionDetailsViewController: UIViewController {
     @IBOutlet weak var txTypeLabel: UILabel!
     @IBOutlet weak var transactionDetailsTable: SelfSizedTableView!
     @IBOutlet weak var showOrHideDetailsBtn: UIButton!
-
+    @IBOutlet weak var rebroadcastBtn: Button!
+    
     var transactionHash: String?
     var transaction: Transaction!
 
@@ -22,12 +23,15 @@ class TransactionDetailsViewController: UIViewController {
     var isTxDetailsTableViewCollapsed: Bool = true
     var isTxInputsCollapsed: Bool = true
     var isTxOutputsCollapsed: Bool = true
-
+    var wallet: DcrlibwalletWallet?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.showOrHideDetailsBtn.addBorder(atPosition: .top, color: UIColor.appColors.gray, thickness: 1)
-
+        
+        self.wallet = WalletLoader.shared.multiWallet.wallet(withID: self.transaction.walletID)
+        
         if self.transaction == nil && self.transactionHash != nil {
             let txHash = Data(fromHexEncodedString: self.transactionHash!)!
             var getTxError: NSError?
@@ -175,6 +179,7 @@ class TransactionDetailsViewController: UIViewController {
             self.txOverview.status = LocalizedStrings.pending
             self.txOverview.statusLabelColor = UIColor.appColors.lightBluishGray
             self.txOverview.confirmations = ""
+            self.rebroadcastBtn.isHidden = false
         }
 
         if transaction.type == DcrlibwalletTxTypeRegular {
@@ -221,6 +226,11 @@ class TransactionDetailsViewController: UIViewController {
     @IBAction func onClose(_ sender: Any) {
         self.dismissView()
     }
+    
+    @IBAction func rebroadcast(_ sender: Any) {
+        self.rebroadcastTransaction()
+    }
+    
 
     @IBAction func showInfo(_ sender: Any) {
         DispatchQueue.main.async {
@@ -252,6 +262,20 @@ class TransactionDetailsViewController: UIViewController {
         self.isTxDetailsTableViewCollapsed = !self.isTxDetailsTableViewCollapsed
         self.transactionDetailsTable.reloadData()
         self.showOrHideDetailsBtn.setTitle(self.isTxDetailsTableViewCollapsed ? LocalizedStrings.showDetails : LocalizedStrings.hideDetails, for: .normal)
+    }
+    
+    private func rebroadcastTransaction() {
+        if (!WalletLoader.shared.multiWallet.isConnectedToDecredNetwork()) {
+            Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.notConnected)
+            return
+        }
+        do {
+            self.wallet.publishUnminedTransactions()
+            Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.rebroadcastTxSuccess)
+        } catch {
+            print(error.localizedDescription)
+            Utils.showBanner(in: self.view, type: .error, text: error.localizedDescription)
+        }
     }
 }
 
