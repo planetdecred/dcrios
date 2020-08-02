@@ -18,6 +18,7 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
     @IBOutlet weak var restoreWalletBtn: Button!
     @IBOutlet weak var testnetLabel: UILabel!
     @IBOutlet weak var imageViewContainer: UIView!
+    @IBOutlet weak var version: UILabel!
     
     let initialAnimationToggleValue : CGFloat = 5
     let splashViewSlideUpValue : CGFloat = 80
@@ -36,6 +37,10 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
 
         if BuildConfig.IsTestNet {
             testnetLabel.isHidden = false
+        }
+        
+        if let versionNumber = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String {
+            self.version?.text = "v\(versionNumber)"
         }
 
         let initError = WalletLoader.shared.initMultiWallet()
@@ -246,6 +251,7 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
                                      options: UIView.AnimationOptions.curveLinear,
                                      animations: { () -> Void in
                                         self.loadingLabel.isHidden = true
+                                        self.version.isHidden = true
                                         self.createWalletBtn.center.y -= self.walletSetupViewSlideUpValue
                                         self.loadingLabel.center.y -= self.splashViewSlideUpValue
                                         self.imageViewContainer.center.y -= self.splashViewSlideUpValue
