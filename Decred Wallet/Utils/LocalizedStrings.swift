@@ -156,6 +156,9 @@ struct LocalizedStrings {
     static let confirmed = NSLocalizedString("confirmed", comment: "")
     static let voted = NSLocalizedString("voted", comment: "")
     static let ticket = NSLocalizedString("ticket", comment: "")
+    static let revoked = NSLocalizedString("revoked", comment: "")
+    static let purchased = NSLocalizedString("purchased", comment: "")
+    static let tikectPurchase = NSLocalizedString("tikectPurchase", comment: "")
     static let live = NSLocalizedString("live", comment: "")
     static let immature = NSLocalizedString("immature", comment: "")
     static let noTransactions = NSLocalizedString("noTransactions", comment: "")
@@ -168,6 +171,7 @@ struct LocalizedStrings {
     static let today = NSLocalizedString("today", comment: "")
     static let yesterday = NSLocalizedString("yesterday", comment: "")
     static let days = NSLocalizedString("days", comment: "")
+    static let day = NSLocalizedString("day", comment: "")
     static let newest = NSLocalizedString("newest", comment: "")
     static let oldest = NSLocalizedString("oldest", comment: "")
     
