@@ -270,7 +270,7 @@ class TransactionDetailsViewController: UIViewController {
             return
         }
         do {
-            self.wallet.publishUnminedTransactions()
+            try self.wallet?.publishUnminedTransactions()
             Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.rebroadcastTxSuccess)
         } catch {
             print(error.localizedDescription)
