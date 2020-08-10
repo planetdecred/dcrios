@@ -511,6 +511,7 @@ extension SendViewController {
                                            atomAmount: DcrlibwalletAmountAtom(sendAmountDcr),
                                            sendMax: self.sendMax)
         } catch let error {
+            Utils.showBanner(in: self.view, type: .error, text: error.localizedDescription)
             print("get unsignedTx add send destination error: \(error.localizedDescription)")
             return nil
         }
