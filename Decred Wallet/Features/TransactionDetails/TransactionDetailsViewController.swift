@@ -422,6 +422,7 @@ extension TransactionDetailsViewController: DcrlibwalletTxAndBlockNotificationLi
         
         DispatchQueue.main.async {
             self.setConfirmationStatus()
+            self.prepareGeneralTxDetails()
         }
     }
     

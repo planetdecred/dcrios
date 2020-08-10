@@ -634,7 +634,6 @@ extension SendViewController: DcrlibwalletTxAndBlockNotificationListenerProtocol
     
     func onTransaction(_ transaction: String?) {
         DispatchQueue.main.async {
-            print("refereshing send page")
             self.refreshFields()
         }
     }
