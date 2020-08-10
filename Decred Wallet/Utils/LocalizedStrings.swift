@@ -190,6 +190,7 @@ struct LocalizedStrings {
     static let inputsConsumed = NSLocalizedString("inputsConsumed", comment: "")
     static let outputsCreated = NSLocalizedString("outputsCreated", comment: "")
     static let confirmations = NSLocalizedString("confirmations", comment: "")
+    static let confirmation = NSLocalizedString("confirmation", comment: "")
     static let transactionID = NSLocalizedString("transactionID", comment: "")
     static let transferred = NSLocalizedString("transferred", comment: "")
     static let includedInBlock = NSLocalizedString("includedInBlock", comment: "")

@@ -183,7 +183,8 @@ class TransactionDetailsViewController: UIViewController {
             self.txOverview.statusImage = UIImage(named: "ic_pending")
             self.txOverview.status = LocalizedStrings.pending
             self.txOverview.statusLabelColor = UIColor.appColors.lightBluishGray
-            self.txOverview.confirmations = ""
+            let confirmation = " · " + String(format: LocalizedStrings.confirmations, txConfirmations)
+            self.txOverview.confirmations = txConfirmations > 0 ? confirmation : ""
         }
 
         if transaction.type == DcrlibwalletTxTypeRegular {
