@@ -505,12 +505,14 @@ extension SendViewController {
         
         let unsignedTx = WalletLoader.shared.multiWallet.newUnsignedTx(sourceWallet,
                                                                        sourceAccountNumber: sourceAccount.number)
+        
         do {
             try unsignedTx?.addSendDestination(destinationAddress,
-            atomAmount: DcrlibwalletAmountAtom(sendAmountDcr),
-            sendMax: self.sendMax)
-        } catch {
+                                           atomAmount: DcrlibwalletAmountAtom(sendAmountDcr),
+                                           sendMax: self.sendMax)
+        } catch let error {
             Utils.showBanner(in: self.view, type: .error, text: error.localizedDescription)
+            print("get unsignedTx add send destination error: \(error.localizedDescription)")
             return nil
         }
         

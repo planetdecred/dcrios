@@ -73,8 +73,10 @@ class TransactionDetailsViewController: UIViewController {
             }
         } else if self.transaction.type == DcrlibwalletTxTypeVote {
             self.txTypeLabel.text = LocalizedStrings.voted
+        } else if self.transaction.type == DcrlibwalletTxTypeRevocation {
+            self.txTypeLabel.text = LocalizedStrings.revoked
         } else if self.transaction.type == DcrlibwalletTxTypeTicketPurchase {
-            self.txTypeLabel.text = LocalizedStrings.ticket
+            self.txTypeLabel.text = LocalizedStrings.tikectPurchase
         }
     }
 
@@ -90,7 +92,7 @@ class TransactionDetailsViewController: UIViewController {
                 if let sourceAccount = self.transaction.sourceAccount {
                     generalTxDetails.append(TransactionDetail(
                         title: LocalizedStrings.fromAccountDetail,
-                        value: "\(sourceAccount.capitalizingFirstLetter())",
+                        value: "\(sourceAccount)",
                         walletName: self.transaction.walletName,
                         isCopyEnabled: false
                     ))
@@ -142,7 +144,7 @@ class TransactionDetailsViewController: UIViewController {
                 isCopyEnabled: true
         ))
 
-        if self.transaction.type == DcrlibwalletTxTypeTicketPurchase {
+        if self.transaction.type == DcrlibwalletTxTypeVote {
             generalTxDetails.append(TransactionDetail(
                 title: LocalizedStrings.lastBlockValid,
                 value: String(describing: self.transaction.lastBlockValid),
@@ -191,6 +193,8 @@ class TransactionDetailsViewController: UIViewController {
             self.prepareRegularTxOverview(transaction)
         } else if transaction.type == DcrlibwalletTxTypeVote {
             self.prepareVoteTxOverview(transaction)
+        } else if transaction.type == DcrlibwalletTxTypeRevocation {
+            self.prepareRevocationTxOverview(transaction)
         } else if transaction.type == DcrlibwalletTxTypeTicketPurchase {
             self.prepareTicketPurchaseTxOverview(transaction)
         }
@@ -226,6 +230,10 @@ class TransactionDetailsViewController: UIViewController {
 
     private func prepareVoteTxOverview(_ transaction: Transaction) {
         self.txOverview.txIconImage =  UIImage(named: "ic_ticketVoted")
+    }
+    
+    private func prepareRevocationTxOverview(_ transaction: Transaction) {
+        self.txOverview.txIconImage =  UIImage(named: "ic_ticketRevoked")
     }
 
     @IBAction func onClose(_ sender: Any) {
