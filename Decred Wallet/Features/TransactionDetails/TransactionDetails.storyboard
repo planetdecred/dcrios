@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Gia-AO-cm1">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Gia-AO-cm1">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -59,6 +59,39 @@
                                                             <action selector="showInfo:" destination="Gia-AO-cm1" eventType="touchUpInside" id="E6H-jr-VZi"/>
                                                         </connections>
                                                     </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LPg-ze-JdB" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
+                                                        <rect key="frame" x="208" y="16" width="111" height="24"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="24" id="SBa-cN-sV0"/>
+                                                            <constraint firstAttribute="width" constant="111" id="Ygy-Ai-Vg5"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="8" maxY="0.0"/>
+                                                        <state key="normal" title="Rebroadcast" image="ic_rebroadcast">
+                                                            <color key="titleColor" red="0.050980392159999999" green="0.1019607843" blue="0.21176470589999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="12"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                <real key="value" value="1"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="enabledBackgroundColor">
+                                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="disabledBackgroundColor">
+                                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                <color key="value" red="0.76862745098039209" green="0.79607843137254897" blue="0.82352941176470584" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="rebroadcast"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="rebroadcast:" destination="Gia-AO-cm1" eventType="touchUpInside" id="QAe-DE-gTQ"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -67,6 +100,8 @@
                                                     <constraint firstItem="RP5-ti-8tE" firstAttribute="centerY" secondItem="05h-Dq-Mwi" secondAttribute="centerY" id="LvC-sP-Q8O"/>
                                                     <constraint firstAttribute="trailing" secondItem="RP5-ti-8tE" secondAttribute="trailing" constant="16" id="Qq2-9v-DsV"/>
                                                     <constraint firstAttribute="height" constant="56" id="QsS-4B-7uw"/>
+                                                    <constraint firstItem="LPg-ze-JdB" firstAttribute="centerY" secondItem="05h-Dq-Mwi" secondAttribute="centerY" id="XAf-OC-Axc"/>
+                                                    <constraint firstItem="RP5-ti-8tE" firstAttribute="leading" secondItem="LPg-ze-JdB" secondAttribute="trailing" constant="16" id="piQ-MZ-65m"/>
                                                     <constraint firstItem="k0k-hJ-him" firstAttribute="leading" secondItem="05h-Dq-Mwi" secondAttribute="leading" constant="16" id="rcZ-E0-HB3"/>
                                                     <constraint firstItem="k0k-hJ-him" firstAttribute="centerY" secondItem="05h-Dq-Mwi" secondAttribute="centerY" id="yKF-WT-pF4"/>
                                                 </constraints>
@@ -176,7 +211,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wallet name" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r1t-r5-YuY" customClass="Label" customModule="Decred_Wallet" customModuleProvider="target">
-                                                                    <rect key="frame" x="232.5" y="7.5" width="70.5" height="19.5"/>
+                                                                    <rect key="frame" x="240.5" y="9.5" width="62.5" height="15.5"/>
                                                                     <color key="backgroundColor" red="0.95294117649999999" green="0.96078431369999995" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="12"/>
                                                                     <color key="textColor" red="0.53725490200000003" green="0.59215686270000001" blue="0.64705882349999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -439,6 +474,7 @@
                     </view>
                     <connections>
                         <outlet property="headerView" destination="05h-Dq-Mwi" id="g7q-cR-Rlw"/>
+                        <outlet property="rebroadcastBtn" destination="LPg-ze-JdB" id="40f-rY-mup"/>
                         <outlet property="showOrHideDetailsBtn" destination="cts-cW-AeF" id="F5q-vg-mrh"/>
                         <outlet property="transactionDetailsTable" destination="dx6-nC-hdi" id="MxQ-eI-WIA"/>
                         <outlet property="txTypeLabel" destination="RWj-qr-xct" id="OII-uN-DTQ"/>
@@ -454,6 +490,7 @@
         <image name="ic_confirmed" width="12" height="12"/>
         <image name="ic_info" width="24" height="24"/>
         <image name="ic_openNew" width="18" height="18"/>
+        <image name="ic_rebroadcast" width="16" height="16"/>
         <image name="ic_receive" width="24" height="24"/>
     </resources>
 </document>

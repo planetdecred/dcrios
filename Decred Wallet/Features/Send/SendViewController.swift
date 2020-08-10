@@ -516,7 +516,6 @@ extension SendViewController {
             return nil
         }
         
-        
         return unsignedTx
     }
     

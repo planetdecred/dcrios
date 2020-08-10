@@ -194,6 +194,7 @@ struct LocalizedStrings {
     static let inputsConsumed = NSLocalizedString("inputsConsumed", comment: "")
     static let outputsCreated = NSLocalizedString("outputsCreated", comment: "")
     static let confirmations = NSLocalizedString("confirmations", comment: "")
+    static let confirmation = NSLocalizedString("confirmation", comment: "")
     static let transactionID = NSLocalizedString("transactionID", comment: "")
     static let transferred = NSLocalizedString("transferred", comment: "")
     static let includedInBlock = NSLocalizedString("includedInBlock", comment: "")
@@ -204,6 +205,8 @@ struct LocalizedStrings {
     static let toDetail = NSLocalizedString("toDetail", comment: "")
     static let fromAccountDetail = NSLocalizedString("fromAccountDetail", comment: "")
     static let fromDetail = NSLocalizedString("fromDetail", comment: "")
+    static let rebroadcast = NSLocalizedString("rebroadcast", comment: "")
+    static let rebroadcastTxSuccess = NSLocalizedString("rebroadcastTxSuccess", comment: "")
 
     /* Send view */
     static let invalidAmount = NSLocalizedString("invalidAmount", comment: "")
