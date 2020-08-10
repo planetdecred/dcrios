@@ -101,10 +101,10 @@ class AccountDetailsViewController: UIViewController {
     }
     
     func displayAccountBalances() {
-        self.totalBalanceLabel.attributedText = Utils.amountAsAttributedString(amount: self.account.dcrTotalBalance,
+        self.totalBalanceLabel.attributedText = Utils.amountAsAttributedString(amount: self.account.balance?.dcrTotal,
                                                                                smallerTextSize: 20)
         
-        self.spendableBalanceLabel.attributedText = Utils.amountAsAttributedString(amount: self.account.dcrTotalBalance,
+        self.spendableBalanceLabel.attributedText = Utils.amountAsAttributedString(amount: self.account.dcrSpendableBalance,
                                                                                    smallerTextSize: 15)
         
         if let immatureReward = self.account.balance?.dcrImmatureReward, immatureReward > 0 {

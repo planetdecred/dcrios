@@ -13,7 +13,8 @@ class TransactionDetailsViewController: UIViewController {
     @IBOutlet weak var txTypeLabel: UILabel!
     @IBOutlet weak var transactionDetailsTable: SelfSizedTableView!
     @IBOutlet weak var showOrHideDetailsBtn: UIButton!
-
+    @IBOutlet weak var rebroadcastBtn: Button!
+    
     var transactionHash: String?
     var transaction: Transaction!
 
@@ -22,11 +23,14 @@ class TransactionDetailsViewController: UIViewController {
     var isTxDetailsTableViewCollapsed: Bool = true
     var isTxInputsCollapsed: Bool = true
     var isTxOutputsCollapsed: Bool = true
-
+    var wallet: DcrlibwalletWallet?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.showOrHideDetailsBtn.addBorder(atPosition: .top, color: UIColor.appColors.gray, thickness: 1)
+        
+        self.wallet = WalletLoader.shared.multiWallet.wallet(withID: self.transaction.walletID)
         
         if self.transaction == nil && self.transactionHash != nil {
             self.loadTransaction()
@@ -76,8 +80,10 @@ class TransactionDetailsViewController: UIViewController {
             }
         } else if self.transaction.type == DcrlibwalletTxTypeVote {
             self.txTypeLabel.text = LocalizedStrings.voted
+        } else if self.transaction.type == DcrlibwalletTxTypeRevocation {
+            self.txTypeLabel.text = LocalizedStrings.revoked
         } else if self.transaction.type == DcrlibwalletTxTypeTicketPurchase {
-            self.txTypeLabel.text = LocalizedStrings.ticket
+            self.txTypeLabel.text = LocalizedStrings.tikectPurchase
         }
     }
 
@@ -93,7 +99,7 @@ class TransactionDetailsViewController: UIViewController {
                 if let sourceAccount = self.transaction.sourceAccount {
                     generalTxDetails.append(TransactionDetail(
                         title: LocalizedStrings.fromAccountDetail,
-                        value: "\(sourceAccount.capitalizingFirstLetter())",
+                        value: "\(sourceAccount)",
                         walletName: self.transaction.walletName,
                         isCopyEnabled: false
                     ))
@@ -145,7 +151,7 @@ class TransactionDetailsViewController: UIViewController {
                 isCopyEnabled: true
         ))
 
-        if self.transaction.type == DcrlibwalletTxTypeTicketPurchase {
+        if self.transaction.type == DcrlibwalletTxTypeVote {
             generalTxDetails.append(TransactionDetail(
                 title: LocalizedStrings.lastBlockValid,
                 value: String(describing: self.transaction.lastBlockValid),
@@ -166,7 +172,6 @@ class TransactionDetailsViewController: UIViewController {
     
     private func setConfirmationStatus() {
         let txConfirmations = self.transaction.confirmations
-
         if Settings.spendUnconfirmed || txConfirmations > 1 {
             self.txOverview.statusImage = UIImage(named: "ic_confirmed")
             self.txOverview.status = LocalizedStrings.confirmed
@@ -176,7 +181,8 @@ class TransactionDetailsViewController: UIViewController {
             self.txOverview.statusImage = UIImage(named: "ic_pending")
             self.txOverview.status = LocalizedStrings.pending
             self.txOverview.statusLabelColor = UIColor.appColors.lightBluishGray
-            self.txOverview.confirmations = ""
+            let confirmation = " · " + String(format: LocalizedStrings.confirmations, txConfirmations)
+            self.txOverview.confirmations = txConfirmations > 0 ? confirmation : ""
         }
     }
 
@@ -187,12 +193,20 @@ class TransactionDetailsViewController: UIViewController {
 
         self.txOverview.date = Utils.formatDateTime(timestamp: transaction.timestamp)
         
+        let txConfirmations = transaction.confirmations
+        
+        if txConfirmations > 0 {
+            self.rebroadcastBtn.isHidden = true
+        }
+        
         self.setConfirmationStatus()
 
         if transaction.type == DcrlibwalletTxTypeRegular {
             self.prepareRegularTxOverview(transaction)
         } else if transaction.type == DcrlibwalletTxTypeVote {
             self.prepareVoteTxOverview(transaction)
+        } else if transaction.type == DcrlibwalletTxTypeRevocation {
+            self.prepareRevocationTxOverview(transaction)
         } else if transaction.type == DcrlibwalletTxTypeTicketPurchase {
             self.prepareTicketPurchaseTxOverview(transaction)
         }
@@ -229,11 +243,19 @@ class TransactionDetailsViewController: UIViewController {
     private func prepareVoteTxOverview(_ transaction: Transaction) {
         self.txOverview.txIconImage =  UIImage(named: "ic_ticketVoted")
     }
+    
+    private func prepareRevocationTxOverview(_ transaction: Transaction) {
+        self.txOverview.txIconImage =  UIImage(named: "ic_ticketRevoked")
+    }
 
     @IBAction func onClose(_ sender: Any) {
         self.dismissView()
     }
-
+    
+    @IBAction func rebroadcast(_ sender: Any) {
+        self.rebroadcastTransaction()
+    }
+    
     @IBAction func showInfo(_ sender: Any) {
         DispatchQueue.main.async {
             let alertController = UIAlertController(title: LocalizedStrings.howToCopy,
@@ -264,6 +286,20 @@ class TransactionDetailsViewController: UIViewController {
         self.isTxDetailsTableViewCollapsed = !self.isTxDetailsTableViewCollapsed
         self.transactionDetailsTable.reloadData()
         self.showOrHideDetailsBtn.setTitle(self.isTxDetailsTableViewCollapsed ? LocalizedStrings.showDetails : LocalizedStrings.hideDetails, for: .normal)
+    }
+    
+    private func rebroadcastTransaction() {
+        if (!WalletLoader.shared.multiWallet.isConnectedToDecredNetwork()) {
+            Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.notConnected)
+            return
+        }
+        do {
+            try self.wallet?.publishUnminedTransactions()
+            Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.rebroadcastTxSuccess)
+        } catch {
+            print(error.localizedDescription)
+            Utils.showBanner(in: self.view, type: .error, text: error.localizedDescription)
+        }
     }
 }
 
