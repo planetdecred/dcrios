@@ -169,6 +169,11 @@ class TransactionDetailsViewController: UIViewController {
         self.txOverview.date = Utils.formatDateTime(timestamp: transaction.timestamp)
 
         let txConfirmations = transaction.confirmations
+        
+        if txConfirmations > 0 {
+            self.rebroadcastBtn.isHidden = true
+        }
+        
         if Settings.spendUnconfirmed || txConfirmations > 1 {
             self.txOverview.statusImage = UIImage(named: "ic_confirmed")
             self.txOverview.status = LocalizedStrings.confirmed
@@ -179,7 +184,6 @@ class TransactionDetailsViewController: UIViewController {
             self.txOverview.status = LocalizedStrings.pending
             self.txOverview.statusLabelColor = UIColor.appColors.lightBluishGray
             self.txOverview.confirmations = ""
-            self.rebroadcastBtn.isHidden = false
         }
 
         if transaction.type == DcrlibwalletTxTypeRegular {
