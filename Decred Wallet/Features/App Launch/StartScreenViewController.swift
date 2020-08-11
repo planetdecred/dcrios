@@ -183,6 +183,7 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
             SingleToMultiWalletMigration.migrateExistingWallet()
         } else {
             self.displayWalletSetupScreen()
+            self.imageViewContainer.isUserInteractionEnabled = false
         }
     }
     
