@@ -33,23 +33,15 @@ class TransactionDetailsViewController: UIViewController {
         self.wallet = WalletLoader.shared.multiWallet.wallet(withID: self.transaction.walletID)
         
         if self.transaction == nil && self.transactionHash != nil {
-            let txHash = Data(fromHexEncodedString: self.transactionHash!)!
-            var getTxError: NSError?
-            let txJsonString = WalletLoader.shared.firstWallet?.getTransaction(txHash, error: &getTxError)
-            if getTxError != nil {
-                print("wallet.getTransaction error", getTxError!.localizedDescription)
-            }
-
-            do {
-                self.transaction = try JSONDecoder().decode(Transaction.self, from: (txJsonString!.utf8Bits))
-            } catch let error {
-                print("decode transaction error:", error.localizedDescription)
-            }
+            self.loadTransaction()
         }
-
+        
         self.displayTitle()
         self.prepareGeneralTxDetails()
         self.prepareTxOverview()
+        
+        // register for new transactions notifications
+        try? WalletLoader.shared.multiWallet.add(self, uniqueIdentifier: "\(self)")
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -60,6 +52,21 @@ class TransactionDetailsViewController: UIViewController {
             - self.headerView.frame.size.height
             - self.showOrHideDetailsBtn.frame.size.height
             - (UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0)
+    }
+    
+    func loadTransaction() {
+        let txHash = Data(fromHexEncodedString: self.transactionHash!)!
+        var getTxError: NSError?
+        let txJsonString = WalletLoader.shared.firstWallet?.getTransaction(txHash, error: &getTxError)
+        if getTxError != nil {
+            print("wallet.getTransaction error", getTxError!.localizedDescription)
+        }
+
+        do {
+            self.transaction = try JSONDecoder().decode(Transaction.self, from: (txJsonString!.utf8Bits))
+        } catch let error {
+            print("decode transaction error:", error.localizedDescription)
+        }
     }
 
     private func displayTitle() {
@@ -162,20 +169,9 @@ class TransactionDetailsViewController: UIViewController {
             ))
         }
     }
-
-    private func prepareTxOverview() {
-        let attributedAmountString = NSMutableAttributedString(string: (transaction.type == DcrlibwalletTxTypeRegular && transaction.direction == DcrlibwalletTxDirectionSent) ? "-" : "")
-        attributedAmountString.append(Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 20.0, TexthexColor: UIColor.appColors.darkBlue))
-        self.txOverview.txAmount = attributedAmountString
-
-        self.txOverview.date = Utils.formatDateTime(timestamp: transaction.timestamp)
-
-        let txConfirmations = transaction.confirmations
-        
-        if txConfirmations > 0 {
-            self.rebroadcastBtn.isHidden = true
-        }
-        
+    
+    private func setConfirmationStatus() {
+        let txConfirmations = self.transaction.confirmations
         if Settings.spendUnconfirmed || txConfirmations > 1 {
             self.txOverview.statusImage = UIImage(named: "ic_confirmed")
             self.txOverview.status = LocalizedStrings.confirmed
@@ -188,6 +184,22 @@ class TransactionDetailsViewController: UIViewController {
             let confirmation = " · " + String(format: LocalizedStrings.confirmations, txConfirmations)
             self.txOverview.confirmations = txConfirmations > 0 ? confirmation : ""
         }
+    }
+
+    private func prepareTxOverview() {
+        let attributedAmountString = NSMutableAttributedString(string: (transaction.type == DcrlibwalletTxTypeRegular && transaction.direction == DcrlibwalletTxDirectionSent) ? "-" : "")
+        attributedAmountString.append(Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 20.0, TexthexColor: UIColor.appColors.darkBlue))
+        self.txOverview.txAmount = attributedAmountString
+
+        self.txOverview.date = Utils.formatDateTime(timestamp: transaction.timestamp)
+        
+        let txConfirmations = transaction.confirmations
+        
+        if txConfirmations > 0 {
+            self.rebroadcastBtn.isHidden = true
+        }
+        
+        self.setConfirmationStatus()
 
         if transaction.type == DcrlibwalletTxTypeRegular {
             self.prepareRegularTxOverview(transaction)
@@ -244,7 +256,6 @@ class TransactionDetailsViewController: UIViewController {
         self.rebroadcastTransaction()
     }
     
-
     @IBAction func showInfo(_ sender: Any) {
         DispatchQueue.main.async {
             let alertController = UIAlertController(title: LocalizedStrings.howToCopy,
@@ -427,7 +438,7 @@ extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDe
             if BuildConfig.IsTestNet {
                 self.openLink(urlString: "https://testnet.dcrdata.org/tx/\(self.transaction.hash)")
              } else {
-                self.openLink(urlString: "https://dcrdata.decred.org/tx/\(self.transaction.hash)")
+                self.openLink(urlString: "https://explorer.dcrdata.org/tx/\(self.transaction.hash)")
             }
         }
     }
@@ -436,5 +447,21 @@ extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDe
         if let url = URL(string: urlString) {
             UIApplication.shared.open(url)
         }
+    }
+}
+
+extension TransactionDetailsViewController: DcrlibwalletTxAndBlockNotificationListenerProtocol {
+    func onBlockAttached(_ walletID: Int, blockHeight: Int32) {
+    }
+    
+    func onTransaction(_ transaction: String?) {
+        
+        DispatchQueue.main.async {
+            self.setConfirmationStatus()
+            self.prepareGeneralTxDetails()
+        }
+    }
+    
+    func onTransactionConfirmed(_ walletID: Int, hash: String?, blockHeight: Int32) {
     }
 }
