@@ -14,6 +14,7 @@ import Dcrlibwallet
 class AboutTableViewController: UITableViewController {
     @IBOutlet weak var build: UILabel!
     @IBOutlet weak var version: UILabel!
+    @IBOutlet weak var net: UILabel!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -40,10 +41,14 @@ class AboutTableViewController: UITableViewController {
     }
     
     func loadAboutData() {
-        version?.text = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String
+        if let versionNumber = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String {
+            self.version?.text = "v\(versionNumber)"
+        }
         
         let dateformater = DateFormatter()
         dateformater.dateFormat = "yyyy-MM-dd"
-        build?.text = dateformater.string(from: AppDelegate.compileDate as Date)
+        self.build?.text = dateformater.string(from: AppDelegate.compileDate as Date)
+        
+        self.net.text = BuildConfig.NetType
     }
 }

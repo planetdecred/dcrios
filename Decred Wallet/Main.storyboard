@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3Xs-3X-Jiu">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3Xs-3X-Jiu">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -122,6 +122,12 @@
                                     <action selector="restoreExistingWallet:" destination="Kb1-lm-LZA" eventType="touchUpInside" id="8pe-Pe-wce"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="v1.5.1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9eM-8v-SKy">
+                                <rect key="frame" x="187.5" y="841.5" width="39.5" height="20.5"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                <color key="textColor" red="0.050980392159999999" green="0.1019607843" blue="0.21176470589999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.95294117649999999" green="0.96078431369999995" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -138,6 +144,8 @@
                             <constraint firstItem="zvk-KY-83T" firstAttribute="leading" secondItem="bve-SX-yvX" secondAttribute="leading" constant="24" id="YrY-ji-FQ3"/>
                             <constraint firstItem="w3H-Un-Z5W" firstAttribute="centerX" secondItem="JGZ-bG-2El" secondAttribute="centerX" id="aGc-37-0yJ"/>
                             <constraint firstItem="y4w-th-plZ" firstAttribute="top" secondItem="CdX-sy-0x2" secondAttribute="bottom" constant="23" id="bYP-YX-NVx"/>
+                            <constraint firstItem="9eM-8v-SKy" firstAttribute="bottom" secondItem="bve-SX-yvX" secondAttribute="bottom" id="dBJ-G4-Qud"/>
+                            <constraint firstItem="9eM-8v-SKy" firstAttribute="centerX" secondItem="JGZ-bG-2El" secondAttribute="centerX" id="fpB-jO-tvt"/>
                             <constraint firstItem="y4w-th-plZ" firstAttribute="centerX" secondItem="JGZ-bG-2El" secondAttribute="centerX" id="kEv-wn-87f"/>
                             <constraint firstItem="hRj-cn-ZPx" firstAttribute="top" secondItem="CdX-sy-0x2" secondAttribute="bottom" id="to3-I2-2Uv"/>
                             <constraint firstItem="y4w-th-plZ" firstAttribute="centerY" secondItem="JGZ-bG-2El" secondAttribute="centerY" constant="15.25" id="uza-bk-Gdi"/>
@@ -154,6 +162,7 @@
                         <outlet property="logo" destination="cZc-WL-Sm8" id="FVE-cJ-5cc"/>
                         <outlet property="restoreWalletBtn" destination="DGk-43-e2H" id="o68-5b-Ui7"/>
                         <outlet property="testnetLabel" destination="hRj-cn-ZPx" id="AjQ-T7-3ky"/>
+                        <outlet property="version" destination="9eM-8v-SKy" id="ojq-yD-Rma"/>
                         <outlet property="welcomeText" destination="y4w-th-plZ" id="LZU-Sj-ViW"/>
                     </connections>
                 </viewController>

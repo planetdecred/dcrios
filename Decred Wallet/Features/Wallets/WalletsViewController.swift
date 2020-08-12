@@ -28,12 +28,15 @@ class WalletsViewController: UIViewController {
         self.walletsTableView.registerCellNib(WalletInfoTableViewCell.self)
         self.walletsTableView.dataSource = self
         self.walletsTableView.delegate = self
+        
+        // register for new transactions notifications
+        try? WalletLoader.shared.multiWallet.add(self, uniqueIdentifier: "\(self)")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
-        refreshView()
+        self.refreshView()
     }
 
     @objc func refreshView() {
@@ -442,5 +445,19 @@ extension WalletsViewController {
     func gotToVerifyMessage(walletID: Int) {
         let verifyMessageVC = VerifyMessageViewController.instantiate(from: .VerifyMessage)
         self.navigationController?.pushViewController(verifyMessageVC, animated: true)
+    }
+}
+
+extension WalletsViewController: DcrlibwalletTxAndBlockNotificationListenerProtocol  {
+    func onBlockAttached(_ walletID: Int, blockHeight: Int32) {
+    }
+    
+    func onTransactionConfirmed(_ walletID: Int, hash: String?, blockHeight: Int32) {
+    }
+    
+    func onTransaction(_ transaction: String?) {
+        DispatchQueue.main.async {
+            self.refreshView()
+        }
     }
 }

@@ -38,6 +38,8 @@ class ReceiveViewController: UIViewController {
         
         self.selectedAccountView.onAccountSelectionChanged = self.updateSelectedAccount
         self.selectedAccountView.selectFirstWalletAccount()
+        // register for new transactions notifications
+        try? WalletLoader.shared.multiWallet.add(self, uniqueIdentifier: "\(self)")
     }
 
     @objc func copyAddress() {
@@ -85,6 +87,7 @@ class ReceiveViewController: UIViewController {
     }
 
     @IBAction func onClose(_ sender: Any) {
+        WalletLoader.shared.multiWallet.removeTxAndBlockNotificationListener("\(self)")
         self.dismissView()
     }
 
@@ -142,5 +145,19 @@ class ReceiveViewController: UIViewController {
         }
         
         self.present(activityController, animated: true, completion: nil)
+    }
+}
+
+extension ReceiveViewController: DcrlibwalletTxAndBlockNotificationListenerProtocol {
+    func onBlockAttached(_ walletID: Int, blockHeight: Int32) {
+    }
+    
+    func onTransaction(_ transaction: String?) {
+        DispatchQueue.main.async {
+            self.selectedAccountView.selectFirstWalletAccount()
+        }
+    }
+    
+    func onTransactionConfirmed(_ walletID: Int, hash: String?, blockHeight: Int32) {
     }
 }
