@@ -173,6 +173,34 @@ extension DcrlibwalletWallet {
     }
 }
 
+extension DcrlibwalletPoliteia {
+    func getPoliteia(category: PoliteiaCategory = PoliteiaCategory.all, offset: Int32 = 0, limit: Int32 = 20, newestFirst: Bool = true) -> Array<Politeia>? {
+        var error: NSError?
+//        let allPoliteias = self.getProposalsChunk("", error: &error)
+        let politeias = self.getProposals(1, offset: offset, limit: limit, newestFirst: newestFirst, error: &error)
+        if error != nil {
+            print("getProposals error: ", error!.localizedDescription)
+            return nil
+        }
+        
+        if politeias.isEmpty {
+            return []
+        }
+        
+        var politeia: [Politeia]
+        
+        do {
+            print("proposals all: ", politeias)
+            try politeia = JSONDecoder().decode(Array<Politeia>.self, from: politeias.data(using: .utf8)!)
+        } catch let error {
+            print("decode allPoliteia error:", error.localizedDescription)
+            return nil
+        }
+        
+        return politeia
+    }
+}
+
 extension DcrlibwalletMultiWallet {
     var totalBalance: Double {
         var totalBalance: Double = 0

@@ -437,6 +437,19 @@ struct LocalizedStrings {
     static let helpInfo = NSLocalizedString("helpInfo", comment: "")
     static let notifications = NSLocalizedString("notifications", comment: "")
     
+    /* Politeia proposals */
+    static let politeia = NSLocalizedString("politeia", comment: "")
+    static let poliAbandoned = NSLocalizedString("poliAbandoned", comment: "")
+    static let poliInvalid = NSLocalizedString("poliInvalid", comment: "")
+    static let poliNotAuthorized = NSLocalizedString("poliNotAuthorized", comment: "")
+    static let poliAuthorized = NSLocalizedString("poliAuthorized", comment: "")
+    static let poliVoteStarted = NSLocalizedString("poliVoteStarted", comment: "")
+    static let poliApproved = NSLocalizedString("poliApproved", comment: "")
+    static let poliRejected = NSLocalizedString("poliRejected", comment: "")
+    static let poliNonExistent = NSLocalizedString("poliNonExistent", comment: "")
+    static let commentCount = NSLocalizedString("commentCount", comment: "")
+    static let politeiaVersion = NSLocalizedString("politeiaVersion", comment: "")
+    
     /* Seed Backup */
     static let failedToVerify = NSLocalizedString("failedToVerify", comment: "")
     
