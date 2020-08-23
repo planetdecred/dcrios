@@ -379,11 +379,15 @@
                                                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="7p0-4V-893">
                                                                                 <rect key="frame" x="0.0" y="90" width="334" height="26"/>
                                                                                 <subviews>
-                                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="0 USD" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jQf-9s-ZHl">
+                                                                                    <label opaque="NO" contentMode="left" verticalHuggingPriority="251" text="0 USD" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jQf-9s-ZHl">
                                                                                         <rect key="frame" x="0.0" y="0.0" width="286" height="26"/>
+                                                                                        <gestureRecognizers/>
                                                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                                                                         <color key="textColor" red="0.76862745099999996" green="0.79607843140000001" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
                                                                                         <nil key="highlightedColor"/>
+                                                                                        <connections>
+                                                                                            <outletCollection property="gestureRecognizers" destination="uhi-1g-Spg" appends="YES" id="gwy-lp-3Vg"/>
+                                                                                        </connections>
                                                                                     </label>
                                                                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="znf-dC-sLH" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                                                                         <rect key="frame" x="289" y="0.0" width="45" height="26"/>
@@ -748,6 +752,11 @@
                 <tapGestureRecognizer id="ap5-Uf-sJE">
                     <connections>
                         <action selector="fetchExchangeRate:" destination="QI0-Sp-Mco" id="oi0-9G-ybD"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="uhi-1g-Spg">
+                    <connections>
+                        <action selector="swapButtonTapped:" destination="QI0-Sp-Mco" id="qtq-WP-Rm6"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
