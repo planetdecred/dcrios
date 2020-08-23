@@ -308,13 +308,13 @@ class SendViewController: UIViewController {
             let maxSendableAmount = try unsignedTx.estimateMaxSendAmount()
             let maxSendableAmountDecimal = NSDecimalNumber(value: maxSendableAmount.dcrValue)
             if self.dcrAmountUnit {
-                self.amountTextField.text = "\(maxSendableAmountDecimal.round(8))"
+                self.amountTextField.text = "\(maxSendableAmountDecimal.round(8)) DCR"
             } else {
                 guard let exchangeRate = self.exchangeRate else {
                     return
                 }
                 let maxUSD = NSDecimalNumber(value: maxSendableAmount.dcrValue).multiplying(by: exchangeRate)
-                self.amountTextField.text = "\(maxUSD.round(2))"
+                self.amountTextField.text = "\(maxUSD.round(2)) USD"
             }
             
             self.amountTextFieldEditingEnded()
@@ -331,17 +331,18 @@ class SendViewController: UIViewController {
     }
     
     func changeAmountInput() {
+        let secondValue = String(self.secondAmountLabel.text?.dropLast(4) ?? "")
         if dcrAmountUnit {
             self.dcrAmountUnit = false
             self.amountTextField.suffixText = " USD"
             self.amountTextField.placeholder = "0 USD"
-            self.amountTextField.text = validSendAmountString != "" ? "\(validSendAmountString ?? "") USD" : ""
+            self.amountTextField.text = secondValue != "0" ? "\(secondValue) USD" : ""
             
         } else {
             self.dcrAmountUnit = true
             self.amountTextField.suffixText = " DCR"
             self.amountTextField.placeholder = "0 DCR"
-            self.amountTextField.text = validSendAmountString != "" ? "\(validSendAmountString ?? "") DCR" : ""
+            self.amountTextField.text = secondValue != "0" ? "\( secondValue) DCR" : ""
         }
         self.caculateAndDisplayAmontAfterChangeInput()
         self.validateAmount()
@@ -557,10 +558,7 @@ extension SendViewController {
             
             let destinationAddress = self.destinationAddress, WalletLoader.shared.multiWallet.isAddressValid(destinationAddress)
             else { return nil }
-        
         var sendAmontInput = Double(validSendAmountString ?? "") ?? 0
-        
-        
         if !self.dcrAmountUnit {
             guard let exchangeRate = self.exchangeRate else {
                 return nil
@@ -636,6 +634,11 @@ extension SendViewController {
         let decimalPointIndex = amountString.firstIndex(of: ".")
         if decimalPointIndex != nil && amountString[decimalPointIndex!...].count > 9 {
             self.showAmountError(LocalizedStrings.amount8Decimal)
+            return
+        }
+        
+        if decimalPointIndex != nil && amountString[decimalPointIndex!...].count > 3 && !self.dcrAmountUnit {
+            self.showAmountError(LocalizedStrings.amount2Decimal)
             return
         }
         
