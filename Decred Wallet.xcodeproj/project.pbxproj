@@ -45,12 +45,15 @@
 		25751F532372C9460019F657 /* Dcrlibwallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25751F522372C9460019F657 /* Dcrlibwallet.framework */; };
 		25A4331C2373D0330018FFCF /* SyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A4331B2373D0330018FFCF /* SyncManager.swift */; };
 		25E63F4E23312B2C009CD53E /* NavMenuFloatingButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E63F4D23312B2B009CD53E /* NavMenuFloatingButtons.swift */; };
+		6007D38B24F406AA000EC5CB /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6007D38A24F406AA000EC5CB /* Response.swift */; };
+		6007D38D24F42089000EC5CB /* PoliteiaNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6007D38C24F42089000EC5CB /* PoliteiaNotification.swift */; };
 		60C7E54124ED8738009E4569 /* PlainHorizontalProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C7E54024ED8738009E4569 /* PlainHorizontalProgressBar.swift */; };
 		60C7E54624ED88B8009E4569 /* Politeia.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60C7E54324ED88B8009E4569 /* Politeia.storyboard */; };
 		60C7E54724ED88B8009E4569 /* PoliteiaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C7E54424ED88B8009E4569 /* PoliteiaTableViewCell.swift */; };
 		60C7E54824ED88B8009E4569 /* PoliteiaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C7E54524ED88B8009E4569 /* PoliteiaController.swift */; };
 		60C7E54B24ED88F0009E4569 /* PoliteiaStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C7E54924ED88F0009E4569 /* PoliteiaStatus.swift */; };
 		60C7E54C24ED88F0009E4569 /* Politeia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C7E54A24ED88F0009E4569 /* Politeia.swift */; };
+		60DFF5D124F75D4500624161 /* PoliteiaDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DFF5D024F75D4500624161 /* PoliteiaDetailController.swift */; };
 		AD24C23D2343E445009583C9 /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD24C23C2343E445009583C9 /* NotificationsManager.swift */; };
 		B164982429AEDD7AF8C8782C /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9714AB438E597D403032748 /* Pods_Decred_Wallet.framework */; };
 		B304B39423F202A400B81798 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B304B39323F202A400B81798 /* Settings.swift */; };
@@ -236,12 +239,15 @@
 		25751F522372C9460019F657 /* Dcrlibwallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Dcrlibwallet.framework; path = libs/Dcrlibwallet.framework; sourceTree = "<group>"; };
 		25A4331B2373D0330018FFCF /* SyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncManager.swift; sourceTree = "<group>"; };
 		25E63F4D23312B2B009CD53E /* NavMenuFloatingButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavMenuFloatingButtons.swift; sourceTree = "<group>"; };
+		6007D38A24F406AA000EC5CB /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
+		6007D38C24F42089000EC5CB /* PoliteiaNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoliteiaNotification.swift; sourceTree = "<group>"; };
 		60C7E54024ED8738009E4569 /* PlainHorizontalProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlainHorizontalProgressBar.swift; sourceTree = "<group>"; };
 		60C7E54324ED88B8009E4569 /* Politeia.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Politeia.storyboard; sourceTree = "<group>"; };
 		60C7E54424ED88B8009E4569 /* PoliteiaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PoliteiaTableViewCell.swift; sourceTree = "<group>"; };
 		60C7E54524ED88B8009E4569 /* PoliteiaController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PoliteiaController.swift; sourceTree = "<group>"; };
 		60C7E54924ED88F0009E4569 /* PoliteiaStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PoliteiaStatus.swift; sourceTree = "<group>"; };
 		60C7E54A24ED88F0009E4569 /* Politeia.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Politeia.swift; sourceTree = "<group>"; };
+		60DFF5D024F75D4500624161 /* PoliteiaDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoliteiaDetailController.swift; sourceTree = "<group>"; };
 		6A0625AB1C6ACD2EC77F544F /* Pods-Decred Wallet.mainnet debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.mainnet debug.xcconfig"; path = "Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.mainnet debug.xcconfig"; sourceTree = "<group>"; };
 		A9714AB438E597D403032748 /* Pods_Decred_Wallet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Decred_Wallet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD24C23C2343E445009583C9 /* NotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
@@ -483,6 +489,7 @@
 				60C7E54324ED88B8009E4569 /* Politeia.storyboard */,
 				60C7E54424ED88B8009E4569 /* PoliteiaTableViewCell.swift */,
 				60C7E54524ED88B8009E4569 /* PoliteiaController.swift */,
+				60DFF5D024F75D4500624161 /* PoliteiaDetailController.swift */,
 			);
 			path = Poloteia;
 			sourceTree = "<group>";
@@ -690,6 +697,7 @@
 				60C7E54A24ED88F0009E4569 /* Politeia.swift */,
 				60C7E54924ED88F0009E4569 /* PoliteiaStatus.swift */,
 				B3E727CD23DE0FCC003B06B4 /* Wallet.swift */,
+				6007D38A24F406AA000EC5CB /* Response.swift */,
 			);
 			path = DcrlibwalletTypes;
 			sourceTree = "<group>";
@@ -783,6 +791,7 @@
 		B3B469F3228F0F2600A68EDD /* Wallet Utils */ = {
 			isa = PBXGroup;
 			children = (
+				6007D38C24F42089000EC5CB /* PoliteiaNotification.swift */,
 				B3B469F6228F0F2600A68EDD /* WalletLoader.swift */,
 				25A4331B2373D0330018FFCF /* SyncManager.swift */,
 				B3B469F4228F0F2600A68EDD /* TransactionNotification.swift */,
@@ -1160,6 +1169,7 @@
 				B3B46A10228F0F2700A68EDD /* UIView.swift in Sources */,
 				100B122C23E9EEAC005636A7 /* TransactionsViewController.swift in Sources */,
 				B3B469FE228F0F2700A68EDD /* Button.swift in Sources */,
+				60DFF5D124F75D4500624161 /* PoliteiaDetailController.swift in Sources */,
 				1034D5CF24113BF10009576C /* SimpleAlertDialog.swift in Sources */,
 				B3B46A15228F0F2700A68EDD /* UIImageView.swift in Sources */,
 				B3B46A19228F0F2700A68EDD /* StartScreenViewController.swift in Sources */,
@@ -1249,6 +1259,7 @@
 				B3B46A87228F0F7D00A68EDD /* Data.swift in Sources */,
 				B3B46AB6228F0F7D00A68EDD /* Storyboard.swift in Sources */,
 				B3B46A37228F0F2700A68EDD /* SpendingPinOrPassword.swift in Sources */,
+				6007D38B24F406AA000EC5CB /* Response.swift in Sources */,
 				25A4331C2373D0330018FFCF /* SyncManager.swift in Sources */,
 				B3B46AAC228F0F7D00A68EDD /* RecoveryWalletSeedWordCell.swift in Sources */,
 				DDAE91022435092200FEC016 /* KeychainItemAccessibility.swift in Sources */,
@@ -1269,6 +1280,7 @@
 				B3B46AB1228F0F7D00A68EDD /* SeedCheckActiveCellView.swift in Sources */,
 				B3B46A32228F0F2700A68EDD /* OverviewViewController.swift in Sources */,
 				10341E0723CBBB700055DFDE /* SeedBackupSuccessViewController.swift in Sources */,
+				6007D38D24F42089000EC5CB /* PoliteiaNotification.swift in Sources */,
 				DD5AB15023D612C800863362 /* HelpTableViewController.swift in Sources */,
 				DD89A04523B08FDD00C1ECE9 /* SecurityToolsItem.swift in Sources */,
 				B35C55D8232FED610006A765 /* Transaction.swift in Sources */,

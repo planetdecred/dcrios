@@ -174,10 +174,9 @@ extension DcrlibwalletWallet {
 }
 
 extension DcrlibwalletPoliteia {
-    func getPoliteia(category: PoliteiaCategory = PoliteiaCategory.all, offset: Int32 = 0, limit: Int32 = 20, newestFirst: Bool = true) -> Array<Politeia>? {
+    func getPoliteias(category: PoliteiaCategory = PoliteiaCategory.all, offset: Int32 = 0, limit: Int32 = 20, newestFirst: Bool = true) -> Array<Politeia>? {
         var error: NSError?
-//        let allPoliteias = self.getProposalsChunk("", error: &error)
-        let politeias = self.getProposals(1, offset: offset, limit: limit, newestFirst: newestFirst, error: &error)
+        let politeias = self.getProposals(category.rawValue, offset: offset, limit: limit, newestFirst: newestFirst, error: &error)
         if error != nil {
             print("getProposals error: ", error!.localizedDescription)
             return nil
@@ -186,18 +185,38 @@ extension DcrlibwalletPoliteia {
         if politeias.isEmpty {
             return []
         }
-        
-        var politeia: [Politeia]
-        
+
         do {
-            print("proposals all: ", politeias)
-            try politeia = JSONDecoder().decode(Array<Politeia>.self, from: politeias.data(using: .utf8)!)
+            let response = try JSONDecoder().decode(Response<Array<Politeia>>.self, from: politeias.data(using: .utf8)!)
+            if let politeia = response.result {
+                return politeia
+            } else {
+                print("getPoliteias with null results" )
+                return []
+            }
         } catch let error {
             print("decode allPoliteia error:", error.localizedDescription)
             return nil
         }
+    }
+    
+    func categoryCount(category: PoliteiaCategory) -> String {
+        let int32Pointer = UnsafeMutablePointer<Int32>.allocate(capacity: 4)
+        defer {
+            int32Pointer.deallocate()
+        }
         
-        return politeia
+        do {
+            try self.count(category.rawValue, ret0_: int32Pointer)
+        } catch let error {
+            print("count tx error:", error.localizedDescription)
+        }
+        
+        if (category.rawValue == 1) {
+            return category.description
+        } else {
+            return "\(category.description) (\(int32Pointer.pointee))"
+        }
     }
 }
 
