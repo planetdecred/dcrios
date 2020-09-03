@@ -23,28 +23,68 @@ class PoliteiaDetailController: UIViewController {
     @IBOutlet weak var contentTextView: UITextView!
     
     var politeia: Politeia?
+    var isNotificationOpen: Bool = false
+    var censorshipToken: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setup()
-        self.displayData()
+        if self.isNotificationOpen {
+            self.getDetailPoliteia()
+        } else {
+            self.displayData()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.isHidden = false
         self.navigationController?.navigationBar.tintColor = UIColor.appColors.darkBlue
-        
+
         let icon = self.navigationController?.modalPresentationStyle == .fullScreen ?  UIImage(named: "ic_close") : UIImage(named: "left-arrow")
         let closeButton = UIBarButtonItem(image: icon,
                                           style: .done,
                                           target: self,
                                           action: #selector(self.dismissView))
-        
+
         let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.politeiaDetail, style: .plain, target: self, action: nil)
         barButtonTitle.tintColor = UIColor.appColors.darkBlue
-        
+
         self.navigationItem.leftBarButtonItems =  [closeButton, barButtonTitle]
+        
+        //setup rightBar button
+        let openBrowserButton = UIButton(type: .custom)
+        openBrowserButton.setImage(UIImage(named: "ic_open_browser"), for: .normal)
+        openBrowserButton.addTarget(self, action: #selector(openButtonTapped), for: .touchUpInside)
+        openBrowserButton.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
+        openBrowserButton.imageEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
+        
+        let shareButton = UIButton(type: .custom)
+        shareButton.setImage(UIImage(named: "ic_share_black"), for: .normal)
+        shareButton.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
+        shareButton.imageEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
+        shareButton.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
+        
+        let stackview = UIStackView.init(arrangedSubviews: [openBrowserButton, shareButton])
+        stackview.distribution = .equalSpacing
+        stackview.axis = .horizontal
+        stackview.alignment = .center
+        stackview.spacing = 12
+        
+        let stackButton:UIBarButtonItem = UIBarButtonItem(customView: stackview)
+        self.navigationItem.rightBarButtonItem = stackButton
+    }
+    
+    func getDetailPoliteia() {
+        guard let censorshipToken = self.censorshipToken else { return }
+        DispatchQueue.global(qos: .userInitiated).async {
+            let politeia = WalletLoader.shared.multiWallet.politeia?.detailPoliteia(censorshipToken: censorshipToken)
+            DispatchQueue.main.async {
+                if let poli = politeia {
+                    self.politeia = poli
+                    self.displayData()
+                }
+            }
+        }
     }
     
     func setup() {
@@ -52,6 +92,20 @@ class PoliteiaDetailController: UIViewController {
         self.statusLabel.clipsToBounds = true
         let bottomHeight = (self.tabBarController?.tabBar.frame.height ?? 0) + 10
         self.contentTextView.textContainerInset = UIEdgeInsets(top: 0, left: 16, bottom: bottomHeight, right: 16)
+    }
+    @objc func shareButtonTapped(_ sender: Any) {
+        guard let token = self.politeia?.censorshiprecord.token, let name = self.politeia?.name else {return}
+        guard let urlString = URL(string: "http://proposals.decred.org/proposals/\(token)") else {return}
+        let items: [Any] = [name, urlString]
+        let activity = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        present(activity, animated: true)
+    }
+    @objc func openButtonTapped(_ sender: Any) {
+        guard let token = self.politeia?.censorshiprecord.token else {return}
+        let urlString = "http://proposals.decred.org/proposals/\(token)"
+        if let url = URL(string: urlString) {
+            UIApplication.shared.open(url)
+        }
     }
     
     func displayData() {
@@ -63,7 +117,7 @@ class PoliteiaDetailController: UIViewController {
         self.sinceLabel.text = String(format: publishAgeAsTimeAgo)
         self.countCommentLabel.text = String(format: LocalizedStrings.commentCount, politeia.numcomments)
         self.versionLabel.text = String(format: LocalizedStrings.politeiaVersion, politeia.version)
-        if let voteStatus = politeia.votestatus {
+        if let voteStatus = politeia.votestatus, voteStatus.optionsresult != nil {
             self.statusLabel.text = voteStatus.status.description
             self.statusLabel.backgroundColor = Utils.politeiaColorBGStatus(voteStatus.status)
             self.percentView.setProgress(Float(voteStatus.yesPercent.round(decimals: 2)), animated: false)
@@ -73,6 +127,20 @@ class PoliteiaDetailController: UIViewController {
             if let voteResult = voteStatus.optionsresult, voteResult.count > 0 {
                 self.yesPercentLabel.text = "Yes: \(voteResult[1].votesreceived ?? 0) (\(voteStatus.yesPercent.round(decimals: 2))%)"
                 self.noPercentLabel.text = "No: \(voteResult[0].votesreceived ?? 0) (\((100 - voteStatus.yesPercent).round(decimals: 2))%)"
+            } else {
+                self.yesPercentLabel.text = "Yes: 0 (0%)"
+                self.noPercentLabel.text = "No: 0 (0%)"
+            }
+        } else {
+            self.statusLabel.text = politeia.votesummary.status.description
+            self.statusLabel.backgroundColor = Utils.politeiaColorBGStatus(politeia.votesummary.status)
+            self.percentView.setProgress(Float(politeia.votesummary.yesPercent ?? 0), animated: false)
+            self.percentLabel.text = "\((politeia.votesummary.yesPercent ?? 0).round(decimals: 2))%"
+            self.percentLabel.superview?.bringSubviewToFront(self.percentLabel)
+            
+            if let voteResult = politeia.votesummary.results, voteResult.count > 0, let yesPercent = politeia.votesummary.yesPercent {
+                self.yesPercentLabel.text = "Yes: \(voteResult[1].votesreceived ?? 0) (\(yesPercent.round(decimals: 2))%)"
+                self.noPercentLabel.text = "No: \(voteResult[0].votesreceived ?? 0) (\((100 - yesPercent).round(decimals: 2))%)"
             } else {
                 self.yesPercentLabel.text = "Yes: 0 (0%)"
                 self.noPercentLabel.text = "No: 0 (0%)"

@@ -18,7 +18,6 @@ enum PoliteiaVoteStatus: Int, Codable {
     case REJECT = 42
     case NON_EXISTENT = 5
     case ABANDONED = 6
-    
 }
 
 extension PoliteiaVoteStatus: CustomStringConvertible {

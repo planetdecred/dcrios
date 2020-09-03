@@ -218,6 +218,33 @@ extension DcrlibwalletPoliteia {
             return "\(category.description) (\(int32Pointer.pointee))"
         }
     }
+    
+    func detailPoliteia(censorshipToken: String) -> Politeia? {
+        var error: NSError?
+        let politeia = self.getProposal(censorshipToken, error: &error)
+        
+        if error != nil {
+            print("getProposals with censorshipToken error: ", error!.localizedDescription)
+            return nil
+        }
+        
+        if politeia.isEmpty {
+            return nil
+        }
+        
+        do {
+            let response = try JSONDecoder().decode(Response<Politeia>.self, from: politeia.data(using: .utf8)!)
+            if let politeia = response.result {
+                return politeia
+            } else {
+                print("getPoliteias with null results" )
+                return nil
+            }
+        } catch let error {
+            print("decode allPoliteia error:", error.localizedDescription)
+            return nil
+        }
+    }
 }
 
 extension DcrlibwalletMultiWallet {

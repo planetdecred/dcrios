@@ -121,6 +121,7 @@ extension AppDelegate: UIApplicationDelegate {
         
         NotificationsManager.shared.requestAuthorization()
         self.listenForNetworkChanges()
+        UNUserNotificationCenter.current().delegate = self
         
         return true
     }
@@ -167,5 +168,33 @@ extension AppDelegate: UIApplicationDelegate {
         SyncManager.shared.applicationWillTerminate()
         self.reachability.stopNotifier()
         WalletLoader.shared.multiWallet.shutdown()
+    }
+}
+
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    
+    func handlerNotification(response: UNNotificationResponse) {
+        guard let data = response.notification.request.content.userInfo as? [String: String] else { return }
+        print("Notification ========:", data)
+        if let controller = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController, controller.viewControllers.count > 0 {
+            print("Root viewcontroller:", controller)
+            let storyboard = UIStoryboard(name: "Politeia", bundle: nil)
+            if let politeiaVC = storyboard.instantiateViewController(withIdentifier: "PoliteiaDetailController") as? PoliteiaDetailController {
+                politeiaVC.isNotificationOpen = true
+                politeiaVC.censorshipToken = data["censorshipToken"]
+                controller.pushViewController(politeiaVC, animated: true)
+            }
+        } else {
+            print("Not found Root Viewcontroller")
+        }
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        self.handlerNotification(response: response)
+        completionHandler()
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert, .sound, .badge])
     }
 }

@@ -26,16 +26,22 @@ class PoliteiaNotification: NSObject {
 extension PoliteiaNotification: DcrlibwalletPoliteiaNotificationListenerProtocol {
     func onNewProposal(_ proposalID: Int, censorshipToken: String?) {
         print("onNewProposal:", proposalID)
-        NotificationsManager.shared.proposalNotification(category: .newProposal, message: "New proposal with token \(censorshipToken ?? "")")
+        if (WalletLoader.shared.multiWallet.isPoliteiaNotificationEnabled()) {
+            NotificationsManager.shared.proposalNotification(category: .newProposal, message: "There is a new proposal",censorshipToken: censorshipToken)
+        }
     }
     
     func onVoteFinished(_ proposalID: Int, censorshipToken: String?) {
         print("onVoteFinished:", proposalID)
-        NotificationsManager.shared.proposalNotification(category: .voteProposalFinish, message: "Vote finished for proposal with token \(censorshipToken ?? "")")
+        if (WalletLoader.shared.multiWallet.isPoliteiaNotificationEnabled()) {
+            NotificationsManager.shared.proposalNotification(category: .voteProposalFinish, message: "Vote for proposal has finished", censorshipToken: censorshipToken)
+        }
     }
     
     func onVoteStarted(_ proposalID: Int, censorshipToken: String?) {
         print("onVoteStarted:", proposalID)
-        NotificationsManager.shared.proposalNotification(category: .voteProposalStarted, message: "Vote started for proposal with token \(censorshipToken ?? "")")
+        if (WalletLoader.shared.multiWallet.isPoliteiaNotificationEnabled()) {
+            NotificationsManager.shared.proposalNotification(category: .voteProposalStarted, message: "Vote for a proposal has started", censorshipToken: censorshipToken)
+        }
     }
 }

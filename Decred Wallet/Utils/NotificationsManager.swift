@@ -74,12 +74,15 @@ class NotificationsManager: NSObject, UNUserNotificationCenterDelegate {
         }
     }
     
-    func proposalNotification(category: NotificationCategory, message: String) {
+    func proposalNotification(category: NotificationCategory, message: String, censorshipToken: String?) {
         let content = UNMutableNotificationContent()
         content.title = category.description
         content.body = message
         content.categoryIdentifier = category.rawValue
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+        if let censor = censorshipToken {
+            content.userInfo = ["censorshipToken": censor]
+        }
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
         let identifier = category.rawValue
         let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
         DispatchQueue.main.async {

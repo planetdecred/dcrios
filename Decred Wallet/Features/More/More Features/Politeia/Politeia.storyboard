@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -60,7 +60,7 @@
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="status" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uma-mL-v8d" customClass="PaddedLabel" customModule="Decred_Wallet" customModuleProvider="target">
                                                                                     <rect key="frame" x="334" y="5" width="50" height="20.5"/>
-                                                                                    <color key="backgroundColor" red="0.18039215689999999" green="0.81960784310000001" blue="0.56862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                    <color key="backgroundColor" red="0.23529411764705882" green="0.76470588235294112" blue="0.60392156862745094" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="width" constant="50" id="niy-0P-fD1"/>
                                                                                     </constraints>
@@ -165,7 +165,7 @@
                                                                                     <color key="value" red="0.90196078430000004" green="0.3411764706" blue="0.2156862745" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                 </userDefinedRuntimeAttribute>
                                                                                 <userDefinedRuntimeAttribute type="color" keyPath="trackColor">
-                                                                                    <color key="value" red="0.18039215689999999" green="0.81960784310000001" blue="0.56862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                    <color key="value" red="0.23529411764705882" green="0.76470588235294112" blue="0.60392156862745094" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                 </userDefinedRuntimeAttribute>
                                                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="isCornersRounded" value="YES"/>
                                                                                 <userDefinedRuntimeAttribute type="number" keyPath="maximumValue">
@@ -221,52 +221,11 @@
                                     <outlet property="delegate" destination="SDt-TC-pnE" id="YsD-wx-pDr"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jbm-bB-RPC">
-                                <rect key="frame" x="0.0" y="429" width="414" height="48.5"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OeC-tK-t0J" customClass="PlainHorizontalProgressBar" customModule="Decred_Wallet" customModuleProvider="target">
-                                        <rect key="frame" x="107" y="10" width="200" height="5"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="5" id="5a1-8T-7a3"/>
-                                            <constraint firstAttribute="width" constant="200" id="vuI-ji-yPF"/>
-                                        </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="color">
-                                                <color key="value" red="0.1803921568627451" green="0.81960784313725488" blue="0.56862745098039214" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="progress">
-                                                <real key="value" value="0.0"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="maximumValue">
-                                                <real key="value" value="100"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="minimumValue">
-                                                <real key="value" value="0.0"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading proposals" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p2j-lM-tnw">
-                                        <rect key="frame" x="159" y="25" width="96.5" height="13.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" red="0.95294117649999999" green="0.96078431369999995" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstItem="OeC-tK-t0J" firstAttribute="centerX" secondItem="jbm-bB-RPC" secondAttribute="centerX" id="4tx-iW-Pam"/>
-                                    <constraint firstAttribute="bottom" secondItem="p2j-lM-tnw" secondAttribute="bottom" constant="10" id="JKs-yJ-Fyn"/>
-                                    <constraint firstItem="OeC-tK-t0J" firstAttribute="top" secondItem="jbm-bB-RPC" secondAttribute="top" constant="10" id="iRd-Gp-hag"/>
-                                    <constraint firstItem="p2j-lM-tnw" firstAttribute="top" secondItem="OeC-tK-t0J" secondAttribute="bottom" constant="10" id="p7z-9q-eCW"/>
-                                    <constraint firstItem="p2j-lM-tnw" firstAttribute="centerX" secondItem="jbm-bB-RPC" secondAttribute="centerX" id="qy5-oy-LRa"/>
-                                </constraints>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ys1-RZ-NmK">
                                 <rect key="frame" x="0.0" y="44" width="414" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fwP-NO-OHp" customClass="DropMenuButton" customModule="Decred_Wallet" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="8" width="150" height="24"/>
+                                        <rect key="frame" x="120" y="8" width="150" height="24"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="150" id="ZrG-SQ-Ued"/>
                                         </constraints>
@@ -275,24 +234,36 @@
                                             <color key="titleColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WfB-Wx-013" customClass="DropMenuButton" customModule="Decred_Wallet" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="8" width="90" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="90" id="E3h-es-afh"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                        <state key="normal" title="Newest" image="ic_dropdown">
+                                            <color key="titleColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="newest"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.95294117649999999" green="0.96078431369999995" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="fwP-NO-OHp" firstAttribute="leading" secondItem="Ys1-RZ-NmK" secondAttribute="leading" constant="20" id="1CE-SC-XxS"/>
                                     <constraint firstAttribute="height" constant="40" id="CTj-eA-VcQ"/>
+                                    <constraint firstItem="WfB-Wx-013" firstAttribute="centerY" secondItem="fwP-NO-OHp" secondAttribute="centerY" id="Frc-UA-hWe"/>
+                                    <constraint firstItem="fwP-NO-OHp" firstAttribute="leading" secondItem="WfB-Wx-013" secondAttribute="trailing" constant="10" id="efd-Iv-mQC"/>
+                                    <constraint firstItem="WfB-Wx-013" firstAttribute="leading" secondItem="Ys1-RZ-NmK" secondAttribute="leading" constant="20" id="fBN-po-k9F"/>
                                     <constraint firstItem="fwP-NO-OHp" firstAttribute="centerY" secondItem="Ys1-RZ-NmK" secondAttribute="centerY" id="kj1-n2-V2q"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.95294117647058818" green="0.96078431372549022" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="jbm-bB-RPC" firstAttribute="leading" secondItem="wl3-uG-n0r" secondAttribute="leading" id="8zr-Ka-ntU"/>
-                            <constraint firstItem="wl3-uG-n0r" firstAttribute="trailing" secondItem="jbm-bB-RPC" secondAttribute="trailing" id="Cmp-VV-BuO"/>
                             <constraint firstItem="wl3-uG-n0r" firstAttribute="trailing" secondItem="Ys1-RZ-NmK" secondAttribute="trailing" id="Kzw-lV-cMt"/>
                             <constraint firstItem="a6Q-1F-mkA" firstAttribute="top" secondItem="Ys1-RZ-NmK" secondAttribute="bottom" constant="5" id="PQw-F9-8EF"/>
                             <constraint firstItem="wl3-uG-n0r" firstAttribute="bottom" secondItem="a6Q-1F-mkA" secondAttribute="bottom" id="R8V-yP-mRL"/>
                             <constraint firstItem="Ys1-RZ-NmK" firstAttribute="leading" secondItem="wl3-uG-n0r" secondAttribute="leading" id="UI7-Ea-Ti8"/>
-                            <constraint firstItem="jbm-bB-RPC" firstAttribute="centerY" secondItem="wl3-uG-n0r" secondAttribute="centerY" id="c53-QX-xdo"/>
                             <constraint firstItem="a6Q-1F-mkA" firstAttribute="leading" secondItem="wl3-uG-n0r" secondAttribute="leading" id="cBb-jU-42m"/>
                             <constraint firstItem="wl3-uG-n0r" firstAttribute="trailing" secondItem="a6Q-1F-mkA" secondAttribute="trailing" id="ijX-o8-H2W"/>
                             <constraint firstItem="Ys1-RZ-NmK" firstAttribute="top" secondItem="wl3-uG-n0r" secondAttribute="top" id="uOJ-U4-uBW"/>
@@ -302,9 +273,8 @@
                     <connections>
                         <outlet property="filterCategoryMenu" destination="fwP-NO-OHp" id="9t5-UV-khD"/>
                         <outlet property="footerView" destination="MKf-mY-5ej" id="h4a-P0-zEM"/>
-                        <outlet property="loadingView" destination="jbm-bB-RPC" id="AMH-jT-VVJ"/>
                         <outlet property="politeiaTableView" destination="a6Q-1F-mkA" id="Agw-bT-DFx"/>
-                        <outlet property="progressView" destination="OeC-tK-t0J" id="PSB-1a-MKB"/>
+                        <outlet property="sortOrderMenu" destination="WfB-Wx-013" id="6l8-xr-TdM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rfy-sb-us6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -339,7 +309,7 @@
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nSy-Sg-JoN" customClass="PaddedLabel" customModule="Decred_Wallet" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="35.5" width="55.5" height="18"/>
-                                                                <color key="backgroundColor" red="0.18039215689999999" green="0.81960784310000001" blue="0.56862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <color key="backgroundColor" red="0.23529411764705882" green="0.76470588235294112" blue="0.60392156862745094" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
@@ -392,7 +362,7 @@
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Yes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fz1-9Q-Sir">
                                                                         <rect key="frame" x="0.0" y="0.0" width="186" height="18"/>
                                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
-                                                                        <color key="textColor" red="0.18039215689999999" green="0.81960784310000001" blue="0.56862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <color key="textColor" red="0.23529411764705882" green="0.76470588235294112" blue="0.60392156862745094" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vlZ-Qe-GSR">
@@ -461,7 +431,7 @@
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="PiB-64-UOn">
                                                 <rect key="frame" x="0.0" y="200" width="414" height="1486.5"/>
                                                 <color key="backgroundColor" red="0.95294117647058818" green="0.96078431372549022" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.
+                                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.
 Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.
 Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.
 
@@ -476,7 +446,7 @@ Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed 
 
 Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.
 
-Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -499,7 +469,7 @@ Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed 
                                 <color key="backgroundColor" red="0.95294117649999999" green="0.96078431369999995" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="Kg1-Te-2Lj" secondAttribute="trailing" id="997-AN-2q3"/>
-                                    <constraint firstItem="Kg1-Te-2Lj" firstAttribute="top" secondItem="W2J-Mt-aRd" secondAttribute="top" id="AaV-dm-tgk"/>
+                                    <constraint firstItem="Kg1-Te-2Lj" firstAttribute="top" secondItem="W2J-Mt-aRd" secondAttribute="top" id="Zhm-JM-BOv"/>
                                     <constraint firstAttribute="bottom" secondItem="Kg1-Te-2Lj" secondAttribute="bottom" id="n5z-v5-MPT"/>
                                     <constraint firstItem="Kg1-Te-2Lj" firstAttribute="leading" secondItem="W2J-Mt-aRd" secondAttribute="leading" id="rhT-tF-JhC"/>
                                 </constraints>

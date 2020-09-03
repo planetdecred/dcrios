@@ -352,6 +352,7 @@ struct LocalizedStrings {
     static let spendUnconfirmedFund = NSLocalizedString("spendUnconfirmedFund", comment: "")
     static let currencyConversion = NSLocalizedString("currencyConversion", comment: "")
     static let beepForNewBlocks = NSLocalizedString("beepForNewBlocks", comment: "")
+    static let enablePoliteiaNotification = NSLocalizedString("enablePoliteiaNotification", comment: "")
     static let connectIpDesc = NSLocalizedString("connectIpDesc", comment: "")
     static let syncOnWifiDesc = NSLocalizedString("syncOnWifiDesc", comment: "")
     static let userAgent = NSLocalizedString("userAgent", comment: "")

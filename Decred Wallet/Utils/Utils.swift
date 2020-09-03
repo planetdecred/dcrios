@@ -352,7 +352,7 @@ struct Utils {
         case .VOTE_STARTED:
             return UIColor.appColors.lightBlue
         case .APPROVED:
-            return UIColor.appColors.turquoise
+            return UIColor.appColors.darkerGreen
         case .REJECT:
             return UIColor.appColors.orange
         case .NON_EXISTENT:
