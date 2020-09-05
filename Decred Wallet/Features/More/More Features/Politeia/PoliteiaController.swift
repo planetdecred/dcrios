@@ -62,7 +62,6 @@ class PoliteiaController: UIViewController {
         }
         var filterOptions: [String] = []
         DispatchQueue.global(qos: .userInitiated).async {
-            filterOptions.append(politeia.categoryCount(category: .all))
             filterOptions.append(politeia.categoryCount(category: .pre))
             filterOptions.append(politeia.categoryCount(category: .active))
             filterOptions.append(politeia.categoryCount(category: .approved))
@@ -72,6 +71,7 @@ class PoliteiaController: UIViewController {
                 self.filterCategoryMenu.initMenu(filterOptions) { [weak self] index, value in
                     self?.reloadPoliteiaWithFilter()
                 }
+                self.filterCategoryMenu.setSelectedItemIndex(-1)
             }
         }
     }
@@ -94,8 +94,7 @@ class PoliteiaController: UIViewController {
     }
     
     func getProposalsPoliteia() {
-        
-        let selectedCategory = self.filterCategoryMenu.selectedItemIndex + 1
+        let selectedCategory = self.filterCategoryMenu.selectedItemIndex + 2
         let category = PoliteiaCategory(rawValue: Int32(selectedCategory)) ?? .all
         let selectedSortIndex = self.sortOrderMenu.selectedItemIndex
         let sortOrder = self.sortOrder[safe: selectedSortIndex] ?? true
