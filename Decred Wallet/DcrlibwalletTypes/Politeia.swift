@@ -54,7 +54,6 @@ struct Politeia: Codable {
         self.votesummary = try! values.decode(PVotesummary.self, forKey: .votesummary)
         self.censorshiprecord = try! values.decode(PCensorShipRecord.self, forKey: .censorshiprecord)
     }
-    
 }
 
 struct PoliteiaMetadata: Codable {
