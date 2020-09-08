@@ -117,35 +117,14 @@ class PoliteiaDetailController: UIViewController {
         self.sinceLabel.text = String(format: publishAgeAsTimeAgo)
         self.countCommentLabel.text = String(format: LocalizedStrings.commentCount, politeia.numcomments)
         self.versionLabel.text = String(format: LocalizedStrings.politeiaVersion, politeia.version)
-        if let voteStatus = politeia.votestatus, voteStatus.optionsresult != nil {
-            self.statusLabel.text = voteStatus.status.description
-            self.statusLabel.backgroundColor = Utils.politeiaColorBGStatus(voteStatus.status)
-            self.percentView.setProgress(Float(voteStatus.yesPercent.round(decimals: 2)), animated: false)
-            self.percentLabel.text = "\(voteStatus.yesPercent.round(decimals: 2))%"
-            self.percentLabel.superview?.bringSubviewToFront(self.percentLabel)
-            
-            if let voteResult = voteStatus.optionsresult, voteResult.count > 0 {
-                self.yesPercentLabel.text = "Yes: \(voteResult[1].votesreceived ?? 0) (\(voteStatus.yesPercent.round(decimals: 2))%)"
-                self.noPercentLabel.text = "No: \(voteResult[0].votesreceived ?? 0) (\((100 - voteStatus.yesPercent).round(decimals: 2))%)"
-            } else {
-                self.yesPercentLabel.text = "Yes: 0 (0%)"
-                self.noPercentLabel.text = "No: 0 (0%)"
-            }
-        } else {
-            self.statusLabel.text = politeia.votesummary.status.description
-            self.statusLabel.backgroundColor = Utils.politeiaColorBGStatus(politeia.votesummary.status)
-            self.percentView.setProgress(Float(politeia.votesummary.yesPercent ?? 0), animated: false)
-            self.percentLabel.text = "\((politeia.votesummary.yesPercent ?? 0).round(decimals: 2))%"
-            self.percentLabel.superview?.bringSubviewToFront(self.percentLabel)
-            
-            if let voteResult = politeia.votesummary.results, voteResult.count > 0, let yesPercent = politeia.votesummary.yesPercent {
-                self.yesPercentLabel.text = "Yes: \(voteResult[1].votesreceived ?? 0) (\(yesPercent.round(decimals: 2))%)"
-                self.noPercentLabel.text = "No: \(voteResult[0].votesreceived ?? 0) (\((100 - yesPercent).round(decimals: 2))%)"
-            } else {
-                self.yesPercentLabel.text = "Yes: 0 (0%)"
-                self.noPercentLabel.text = "No: 0 (0%)"
-            }
-        }
+        self.statusLabel.text = politeia.votesummary.status.description
+        self.statusLabel.backgroundColor = Utils.politeiaColorBGStatus(politeia.votesummary.status)
+        self.percentView.setProgress(Float(politeia.votesummary.yesPercent), animated: false)
+        self.percentLabel.text = "\((politeia.votesummary.yesPercent).round(decimals: 2))%"
+        self.percentLabel.superview?.bringSubviewToFront(self.percentLabel)
+        let yesPercent = politeia.votesummary.yesPercent
+        self.yesPercentLabel.text = "Yes: \(politeia.votesummary.yesCount) (\(yesPercent.round(decimals: 2))%)"
+        self.noPercentLabel.text = "No: \(politeia.votesummary.noCount) (\((100 - yesPercent).round(decimals: 2))%)"
         if let files = self.politeia?.files, files.count > 0 {
             if let file = files.first(where: {$0.name == "index.md"}) {
                 let dataContent = Data(base64Encoded: file.payload)!

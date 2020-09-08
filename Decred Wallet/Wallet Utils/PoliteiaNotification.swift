@@ -23,25 +23,20 @@ class PoliteiaNotification: NSObject {
     }
 }
 
-extension PoliteiaNotification: DcrlibwalletPoliteiaNotificationListenerProtocol {
+extension PoliteiaNotification: DcrlibwalletProposalNotificationListenerProtocol {
+    
     func onNewProposal(_ proposalID: Int, censorshipToken: String?) {
         print("onNewProposal:", proposalID)
-        if (WalletLoader.shared.multiWallet.isPoliteiaNotificationEnabled()) {
-            NotificationsManager.shared.proposalNotification(category: .newProposal, message: "There is a new proposal",censorshipToken: censorshipToken)
-        }
+        NotificationsManager.shared.proposalNotification(category: .newProposal, message: "There is a new proposal",censorshipToken: censorshipToken)
     }
     
-    func onVoteFinished(_ proposalID: Int, censorshipToken: String?) {
-        print("onVoteFinished:", proposalID)
-        if (WalletLoader.shared.multiWallet.isPoliteiaNotificationEnabled()) {
-            NotificationsManager.shared.proposalNotification(category: .voteProposalFinish, message: "Vote for proposal has finished", censorshipToken: censorshipToken)
-        }
+    func onProposalVoteFinished(_ proposalID: Int, censorshipToken: String?) {
+        print("onProposalVoteFinished:", proposalID)
+        NotificationsManager.shared.proposalNotification(category: .voteProposalFinish, message: "Vote for proposal has finished", censorshipToken: censorshipToken)
     }
     
-    func onVoteStarted(_ proposalID: Int, censorshipToken: String?) {
-        print("onVoteStarted:", proposalID)
-        if (WalletLoader.shared.multiWallet.isPoliteiaNotificationEnabled()) {
-            NotificationsManager.shared.proposalNotification(category: .voteProposalStarted, message: "Vote for a proposal has started", censorshipToken: censorshipToken)
-        }
+    func onProposalVoteStarted(_ proposalID: Int, censorshipToken: String?) {
+        print("onProposalVoteStarted:", proposalID)
+        NotificationsManager.shared.proposalNotification(category: .voteProposalStarted, message: "Vote for a proposal has started", censorshipToken: censorshipToken)
     }
 }

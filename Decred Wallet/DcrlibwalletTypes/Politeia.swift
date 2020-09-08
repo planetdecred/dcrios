@@ -25,12 +25,11 @@ struct Politeia: Codable {
     var publishedat: Date
     var files: Array<PFile>
     var metadata: Array<PoliteiaMetadata>
-    var votestatus: PVotestatus?
     var votesummary: PVotesummary
     var censorshiprecord: PCensorShipRecord
     
     private enum CodingKeys : String, CodingKey {
-        case name, state, status, timestamp, userid, username, publickey, signature, numcomments, version, publishedat, files, metadata, censorshiprecord, ID, category, votestatus, votesummary
+        case name, state, status, timestamp, userid, username, publickey, signature, numcomments, version, publishedat, files, metadata, censorshiprecord, ID, category, votesummary
     }
     
     init(from decoder: Decoder) throws {
@@ -50,7 +49,6 @@ struct Politeia: Codable {
         self.publishedat = try! values.decode(Date.self, forKey: .publishedat)
         self.files = try! values.decode(Array<PFile>.self, forKey: .files)
         self.metadata = try! values.decode(Array<PoliteiaMetadata>.self, forKey: .metadata)
-        self.votestatus = try values.decode(PVotestatus.self, forKey: .votestatus)
         self.votesummary = try! values.decode(PVotesummary.self, forKey: .votesummary)
         self.censorshiprecord = try! values.decode(PCensorShipRecord.self, forKey: .censorshiprecord)
     }
@@ -91,51 +89,6 @@ struct PCensorShipRecord: Codable {
     }
 }
 
-struct PVotestatus: Codable {
-    var token: String
-    var status: PoliteiaVoteStatus
-    var totalvotes: Int
-    var optionsresult: Array<PVoteOptionResult>?
-    var endheight: String
-    var bestblock: String
-    var numofeligiblevotes: Int
-    var quorumpercentage: Int
-    var passpercentage: Int
-    var yesPercent: Float
-    
-    private enum CodingKeys: String, CodingKey {
-        case token, status, totalvotes, passpercentage, optionsresult, endheight, bestblock, numofeligiblevotes, quorumpercentage
-    }
-    
-    init(from decoder: Decoder) throws {
-        let values = try! decoder.container(keyedBy: CodingKeys.self)
-        self.token = try! values.decode(String.self, forKey: .token)
-        self.totalvotes = try! values.decode(Int.self, forKey: .totalvotes)
-        self.optionsresult = try values.decode(Array<PVoteOptionResult>?.self, forKey: .optionsresult)
-        self.endheight = try! values.decode(String.self, forKey: .endheight)
-        self.bestblock = try! values.decode(String.self, forKey: .bestblock)
-        self.numofeligiblevotes = try! values.decode(Int.self, forKey: .numofeligiblevotes)
-        self.quorumpercentage = try! values.decode(Int.self, forKey: .quorumpercentage)
-        self.passpercentage = try! values.decode(Int.self, forKey: .passpercentage)
-        
-        let status = try! values.decode(PoliteiaVoteStatus.self, forKey: .status)
-        if let voteResult = self.optionsresult, voteResult.count > 0 {
-            let totalYes = Float(voteResult[1].votesreceived ?? 0)
-            let totalNo = Float(voteResult[0].votesreceived ?? 0)
-            let yesPercent = totalYes / (totalYes + totalNo) * 100.0
-            if status == .FINISH {
-                self.status = yesPercent >= Float(self.passpercentage) ? .APPROVED : .REJECT
-            } else {
-                self.status = status
-            }
-            self.yesPercent = yesPercent
-        } else {
-            self.status = status
-            self.yesPercent = 0
-        }
-    }
-}
-
 struct PFile: Codable {
     var name: String
     var mime: String
@@ -165,10 +118,14 @@ struct PVotesummary: Codable {
     var passpercentage: Int?
     var results: Array<PVoteOptionResult>?
     var eligibletickets: Int
-    var yesPercent: Float?
+    var yesPercent: Float
+    var yesCount: Int32
+    var noCount: Int32
     
     private enum CodingKeys: String, CodingKey {
         case token, status, eligibletickets, duration, endheight, quorumpercentage, passpercentage, results, approved
+        case yesCount = "yes-count"
+        case noCount = "no-count"
     }
     
     init(from decoder: Decoder) throws {
@@ -181,21 +138,15 @@ struct PVotesummary: Codable {
         self.passpercentage = try? values.decode(Int?.self, forKey: .passpercentage)
         self.results = try? values.decode(Array<PVoteOptionResult>?.self, forKey: .results)
         self.eligibletickets = try! values.decode(Int.self, forKey: .eligibletickets)
+        self.yesCount = try! values.decode(Int32.self, forKey: .yesCount)
+        self.noCount = try! values.decode(Int32.self, forKey: .noCount)
         
         let status = try! values.decode(PoliteiaVoteStatus.self, forKey: .status)
-        if let voteResult = self.results, voteResult.count > 0, let passPercent = self.passpercentage {
-            let totalYes = Float(voteResult[1].votesreceived ?? 0)
-            let totalNo = Float(voteResult[0].votesreceived ?? 0)
-            let yesPercent = totalYes / (totalYes + totalNo) * 100.0
-            if status == .FINISH {
-                self.status = yesPercent >= Float(passPercent) ? .APPROVED : .REJECT
-            } else {
-                self.status = status
-            }
-            self.yesPercent = yesPercent
+        self.yesPercent = self.yesCount > 0 ? Float(self.yesCount / (self.yesCount + self.noCount)) * 100.0 : 0
+        if let passPercent = self.passpercentage, status == .FINISH {
+            self.status = self.yesPercent >= Float(passPercent) ? .APPROVED : .REJECT
         } else {
             self.status = status
-            self.yesPercent = 0
         }
     }
 }
