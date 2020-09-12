@@ -24,7 +24,7 @@ class WalletSyncDetailsTableViewCell: UITableViewCell {
         
         if wallet.isWaiting() {
             self.walletSyncStatusLabel.text = LocalizedStrings.waitingForOtherWallets
-            self.walletSyncStatusLabel.textColor = UIColor.appColors.darkGray
+            self.walletSyncStatusLabel.textColor = UIColor.appColors.paleGray
         } else {
             self.walletSyncStatusLabel.text = LocalizedStrings.synchronizing
             self.walletSyncStatusLabel.textColor = UIColor.appColors.green
@@ -71,7 +71,7 @@ class WalletSyncDetailsTableViewCell: UITableViewCell {
         
         if wallet.isWaiting() {
             self.walletSyncStatusLabel.text = LocalizedStrings.waitingForOtherWallets
-            self.walletSyncStatusLabel.textColor = UIColor.appColors.darkGray
+            self.walletSyncStatusLabel.textColor = UIColor.appColors.paleGray
         } else {
             self.walletSyncStatusLabel.text = LocalizedStrings.synchronizing
             self.walletSyncStatusLabel.textColor = UIColor.appColors.green
