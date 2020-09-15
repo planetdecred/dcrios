@@ -18,6 +18,11 @@ class PoliteiaNotification: NSObject {
                 try WalletLoader.shared.multiWallet.politeia?.sync(self)
             } catch let error {
                 print("PoliteiaNotification sync Error:", error.localizedDescription)
+                DispatchQueue.main.async {
+                    if let navigationTabController = NavigationMenuTabBarController.instance?.view {
+                        Utils.showBanner(in: navigationTabController, type: .error, text: "There was an error when sync politeia and politeia would be synced the next time")
+                    }
+                }
             }
         }
     }

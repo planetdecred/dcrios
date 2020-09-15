@@ -141,7 +141,10 @@ class NavigationMenuTabBarController: UITabBarController {
         TransactionNotification.shared.startListeningForNotifications()
         
         // start sync politeia
-        PoliteiaNotification.shared.syncPoliteia()
+        let walletIsOnline = SyncManager.shared.isSynced || SyncManager.shared.isSyncing
+        if walletIsOnline {
+            PoliteiaNotification.shared.syncPoliteia()
+        }
     }
 
     static var instance: NavigationMenuTabBarController? {
