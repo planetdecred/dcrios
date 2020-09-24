@@ -15,7 +15,7 @@ class PoliteiaNotification: NSObject {
     func syncPoliteia() {
         DispatchQueue.global(qos: .userInitiated).async {
             do {
-                try WalletLoader.shared.multiWallet.politeia?.sync(self)
+                try WalletLoader.shared.multiWallet.politeia?.sync()
             } catch let error {
                 print("PoliteiaNotification sync Error:", error.localizedDescription)
                 DispatchQueue.main.async {
@@ -25,6 +25,10 @@ class PoliteiaNotification: NSObject {
                 }
             }
         }
+    }
+    
+    func startListeningForNotifications() {
+        try? WalletLoader.shared.multiWallet.politeia?.add(self, uniqueIdentifier: "\(self)")
     }
 }
 

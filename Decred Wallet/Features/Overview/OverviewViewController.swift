@@ -342,10 +342,9 @@ class OverviewViewController: UIViewController {
     }
     
     @IBAction func showAllTransactionsTap(_ sender: Any) {
-        NotificationsManager.shared.proposalNotification(category: .newProposal, message: "hello 123", censorshipToken: "497c9d0dfc2f886b0d158468e8de5ccd0c7f9e62b7d099d9557802acdacc60a9")
-//        if let txHistoryTabIndex = NavigationMenuTabBarController.tabItems.firstIndex(of: .transactions) {
-//            NavigationMenuTabBarController.instance?.navigateToTab(index: txHistoryTabIndex)
-//        }
+        if let txHistoryTabIndex = NavigationMenuTabBarController.tabItems.firstIndex(of: .transactions) {
+            NavigationMenuTabBarController.instance?.navigateToTab(index: txHistoryTabIndex)
+        }
     }
 
     // Handle action of rescan, sync connect/reconnect/cancel button click based on sync/network status
