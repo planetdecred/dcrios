@@ -168,14 +168,14 @@ class VerifyMessageViewController: UIViewController, FloatingPlaceholderTextView
     func toggleValidateButtonState() {
         let textCheck =  self.addressText.text!.isEmpty || self.messageText.text!.isEmpty || self.signatureText.text!.isEmpty
         self.verifyBtn.isEnabled = textCheck ?  false : true
-        self.verifyBtn.backgroundColor = textCheck ?  UIColor.appColors.darkGray : UIColor.appColors.lightBlue
+        self.verifyBtn.backgroundColor = textCheck ?  UIColor.appColors.paleGray : UIColor.appColors.lightBlue
     }
     
     @IBAction func clearFields(_ sender: Any) {
         self.addressText.text = nil
         self.messageText.text = nil
         self.signatureText.text = nil
-        self.verifyBtn.backgroundColor = UIColor.appColors.darkGray
+        self.verifyBtn.backgroundColor = UIColor.appColors.paleGray
         self.verifyBtn.isEnabled = false
         self.addressText.textViewDidEndEditing(self.addressText)
         self.messageText.textViewDidEndEditing(self.messageText)
