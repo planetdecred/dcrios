@@ -122,7 +122,7 @@ class SecurityViewController: UIViewController {
             
             let activeTabButton = securityRequestVC is RequestPasswordViewController ? self.btnPassword : self.btnPin
             activeTabButton?.addBorder(atPosition: .bottom,
-                                      color: loading ? UIColor.appColors.darkGray: UIColor.appColors.lightBlue,
+                                      color: loading ? UIColor.appColors.paleGray: UIColor.appColors.lightBlue,
                                       thickness: 2)
         }
         

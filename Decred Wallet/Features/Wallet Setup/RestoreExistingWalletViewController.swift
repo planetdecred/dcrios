@@ -193,7 +193,7 @@ extension RestoreExistingWalletViewController: UITableViewDataSource, UITableVie
         self.userEnteredSeedWords[wordIndex] = seedWord
         
         let allSeedWordsEntered = !self.userEnteredSeedWords.contains("")
-        self.btnConfirm.backgroundColor = allSeedWordsEntered ? UIColor.appColors.lightBlue : UIColor.appColors.darkGray
+        self.btnConfirm.backgroundColor = allSeedWordsEntered ? UIColor.appColors.lightBlue : UIColor.appColors.paleGray
         
         if wordIndex < 32 && moveToNextField {
             let nextTableIndexPath = IndexPath(row: wordIndex + 1, section: 0)

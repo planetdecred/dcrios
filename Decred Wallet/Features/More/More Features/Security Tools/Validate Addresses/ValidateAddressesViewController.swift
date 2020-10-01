@@ -91,7 +91,7 @@ class ValidateAddressesViewController: UIViewController, UITextViewDelegate, Flo
     
     func toggleValidateButtonState(addressHasText: String) {
         self.validateBtn.isEnabled = addressHasText.isEmpty ?  false : true
-        self.validateBtn.backgroundColor = addressHasText.isEmpty ?  UIColor.appColors.darkGray : UIColor.appColors.lightBlue
+        self.validateBtn.backgroundColor = addressHasText.isEmpty ?  UIColor.appColors.paleGray : UIColor.appColors.lightBlue
     }
     
     @IBAction func validatAddress(_ sender: Any) {
@@ -132,7 +132,7 @@ class ValidateAddressesViewController: UIViewController, UITextViewDelegate, Flo
     
     @IBAction func clearAddress(_ sender: Any) {
         self.addressText.text = nil
-        self.validateBtn.backgroundColor = UIColor.appColors.darkGray
+        self.validateBtn.backgroundColor = UIColor.appColors.paleGray
         self.validateBtn.isEnabled = false
         self.viewContHeightContraint.constant = 144
         self.isValidMsgContainer.isHidden = true

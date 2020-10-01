@@ -201,7 +201,7 @@ class SendViewController: UIViewController {
         self.exchangeRate = newExchangeRate ?? self.exchangeRate // maintain current value if new value is nil
         
         self.retryFetchExchangeRateButton.isHidden = true
-        self.secondAmountLabel.textColor = UIColor.appColors.darkGray
+        self.secondAmountLabel.textColor = UIColor.appColors.paleGray
         if dcrAmountUnit {
             self.calculateAndDisplayUSDAmount()
         } else {
@@ -459,24 +459,28 @@ extension SendViewController {
         guard let dcrAmount = self.amountValue?.doubleValue, let exchangeRate = self.exchangeRate else {
             self.exchangeValue = nil
             self.secondAmountLabel.text = "0 USD"
+            self.secondAmountLabel.textColor = UIColor.appColors.paleGray
             return
         }
 
         let usdAmount = NSDecimalNumber(value: dcrAmount).multiplying(by: exchangeRate)
         self.exchangeValue = usdAmount
         self.secondAmountLabel.text = "\(usdAmount.round(2).formattedWithSeparator) USD"
+        self.secondAmountLabel.textColor = UIColor.appColors.bluishGray
     }
     
     func calculateAndDisplayDCRAmount() {
         guard let usdAmount = self.amountValue?.doubleValue, let exchangeRate = self.exchangeRate else {
             self.exchangeValue = nil
             self.secondAmountLabel.text = "0 DCR"
+            self.secondAmountLabel.textColor = UIColor.appColors.paleGray
             return
         }
         
         let drcAmount = NSDecimalNumber(value: usdAmount).dividing(by: exchangeRate)
         self.exchangeValue = drcAmount
         self.secondAmountLabel.text = "\(drcAmount.round(8).formattedWithSeparator) DCR"
+        self.secondAmountLabel.textColor = UIColor.appColors.bluishGray
     }
 
     func displayFeeDetailsAndTransactionSummary() {

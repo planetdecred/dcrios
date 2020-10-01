@@ -42,7 +42,7 @@ extension UIColor {
         static let lightBluishGray = UIColor.init(hex: "#8997A5")
         
         static let gray = UIColor.init(hex: "#E6EAED")
-        static let darkGray = UIColor.init(hex: "#C4CBD2")
+        static let paleGray = UIColor.init(hex: "#C4CBD2")
         static let lightGray = UIColor.init(hex: "#EDEFF1")
         static let deepGray = UIColor.init(hex:"#030303")
         
