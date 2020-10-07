@@ -171,6 +171,16 @@ extension DcrlibwalletWallet {
         
         return transactions
     }
+    
+    func findCSPPAccounts() {
+        
+       // _ = self.findLastUsedCSPPAccounts(<#T##error: NSErrorPointer##NSErrorPointer#>)
+    }
+    
+    func requirePrivacySetup() -> Bool {
+        
+        return true
+    }
 }
 
 extension DcrlibwalletMultiWallet {
@@ -218,5 +228,15 @@ extension DcrlibwalletMultiWallet {
         }
 
         return transactions
+    }
+    
+    func hasWalletsRequiringPrivacySetup() -> Bool {
+        let wallets = WalletLoader.shared.wallets
+        for wallet in wallets {
+            if wallet.isRestored && wallet.requirePrivacySetup(){
+                return true
+            }
+        }
+        return false
     }
 }

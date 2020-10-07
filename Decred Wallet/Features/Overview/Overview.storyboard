@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -49,7 +49,7 @@
                                 <rect key="frame" x="0.0" y="101.5" width="414" height="794.5"/>
                                 <subviews>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9pQ-ul-Ay3">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1347"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1525"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 DCR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GGm-T7-QFh">
                                                 <rect key="frame" x="24" y="0.0" width="366" height="40"/>
@@ -73,7 +73,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="DPB-YP-Vow">
-                                                <rect key="frame" x="8" y="74" width="398" height="1143"/>
+                                                <rect key="frame" x="8" y="74" width="398" height="1321"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fxu-UZ-rsI" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="398" height="170"/>
@@ -184,8 +184,117 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8t6-aj-Jtg" userLabel="Account Mixing section View" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="178" width="398" height="170"/>
+                                                        <subviews>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_wallet_alert" translatesAutoresizingMaskIntoConstraints="NO" id="TU6-bp-grd">
+                                                                <rect key="frame" x="16" y="10" width="24" height="24"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="24" id="wYU-Df-nbn"/>
+                                                                </constraints>
+                                                            </imageView>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" text="Setup mixing accounts" textAlignment="natural" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="Zed-6D-kPs">
+                                                                <rect key="frame" x="56" y="2" width="268" height="40"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="40" id="v5b-Ci-Fdl"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
+                                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <nil key="highlightedColor"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="setupMixingAccounts"/>
+                                                                </userDefinedRuntimeAttributes>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 accounts were found with coinjoin outputs." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BOo-or-o3n">
+                                                                <rect key="frame" x="56" y="50" width="326" height="55"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="55" id="t0B-gN-xpG"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AAC-Hu-fr2">
+                                                                <rect key="frame" x="0.0" y="121" width="398" height="1"/>
+                                                                <color key="backgroundColor" red="0.99607843139999996" green="0.72156862749999995" blue="0.64705882349999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="1" id="X13-b8-IHV"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BZI-2F-ZxA">
+                                                                <rect key="frame" x="0.0" y="122" width="398" height="48"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="48" id="ySd-dM-I7l"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                                                <state key="normal" title="Go to Wallets">
+                                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </state>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="goToWallets"/>
+                                                                </userDefinedRuntimeAttributes>
+                                                                <connections>
+                                                                    <action selector="seedBackupTapped:" destination="HDe-ha-1OS" eventType="touchUpInside" id="XkN-Ta-0tH"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BHi-hT-OJA">
+                                                                <rect key="frame" x="332" y="-3" width="50" height="50"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="50" id="0wJ-gm-2Qb"/>
+                                                                    <constraint firstAttribute="height" constant="50" id="gP0-Lg-cIP"/>
+                                                                </constraints>
+                                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <state key="normal" image="ic_close"/>
+                                                                <connections>
+                                                                    <action selector="dismissAccountMixingPromptTapped:" destination="HDe-ha-1OS" eventType="touchUpInside" id="Np5-Tm-65N"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" red="0.92941176469999998" green="0.42745098040000001" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <gestureRecognizers/>
+                                                        <constraints>
+                                                            <constraint firstItem="Zed-6D-kPs" firstAttribute="centerY" secondItem="TU6-bp-grd" secondAttribute="centerY" id="10P-r4-yFV"/>
+                                                            <constraint firstItem="BZI-2F-ZxA" firstAttribute="leading" secondItem="8t6-aj-Jtg" secondAttribute="leading" id="5ts-YL-Z0K"/>
+                                                            <constraint firstAttribute="bottom" secondItem="BZI-2F-ZxA" secondAttribute="bottom" id="7XB-oK-Jts"/>
+                                                            <constraint firstAttribute="trailing" secondItem="BZI-2F-ZxA" secondAttribute="trailing" id="Btt-TO-uCP"/>
+                                                            <constraint firstItem="Zed-6D-kPs" firstAttribute="centerY" secondItem="BHi-hT-OJA" secondAttribute="centerY" id="EVC-QI-bWg"/>
+                                                            <constraint firstItem="AAC-Hu-fr2" firstAttribute="leading" secondItem="8t6-aj-Jtg" secondAttribute="leading" id="FXU-t3-wuQ"/>
+                                                            <constraint firstAttribute="trailing" secondItem="BOo-or-o3n" secondAttribute="trailing" constant="16" id="Iqf-cC-FLM"/>
+                                                            <constraint firstAttribute="trailing" secondItem="AAC-Hu-fr2" secondAttribute="trailing" id="Lry-oq-TbG"/>
+                                                            <constraint firstItem="BZI-2F-ZxA" firstAttribute="top" secondItem="AAC-Hu-fr2" secondAttribute="bottom" id="OjO-Mu-B4f"/>
+                                                            <constraint firstItem="BZI-2F-ZxA" firstAttribute="centerX" secondItem="8t6-aj-Jtg" secondAttribute="centerX" id="SJ7-rT-H2e"/>
+                                                            <constraint firstItem="Zed-6D-kPs" firstAttribute="leading" secondItem="BOo-or-o3n" secondAttribute="leading" id="V6W-z7-7xr"/>
+                                                            <constraint firstItem="Zed-6D-kPs" firstAttribute="top" secondItem="8t6-aj-Jtg" secondAttribute="top" constant="2" id="Vgp-Y3-9CN"/>
+                                                            <constraint firstItem="BOo-or-o3n" firstAttribute="leading" secondItem="8t6-aj-Jtg" secondAttribute="leading" constant="56" id="VyJ-Vh-WHy"/>
+                                                            <constraint firstAttribute="trailing" secondItem="BHi-hT-OJA" secondAttribute="trailing" constant="16" id="faH-A2-BTX"/>
+                                                            <constraint firstItem="TU6-bp-grd" firstAttribute="leading" secondItem="8t6-aj-Jtg" secondAttribute="leading" constant="16" id="qx7-w8-tn7"/>
+                                                            <constraint firstItem="AAC-Hu-fr2" firstAttribute="top" secondItem="BOo-or-o3n" secondAttribute="bottom" constant="16" id="rNk-SW-PSf"/>
+                                                            <constraint firstItem="BOo-or-o3n" firstAttribute="top" secondItem="Zed-6D-kPs" secondAttribute="bottom" constant="8" id="xIh-Xx-3Sz"/>
+                                                            <constraint firstItem="BHi-hT-OJA" firstAttribute="leading" secondItem="Zed-6D-kPs" secondAttribute="trailing" constant="8" id="zWg-jS-ddG"/>
+                                                        </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderRadius">
+                                                                <real key="value" value="14"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                                                <color key="value" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                                                <real key="value" value="0.040000000000000001"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                                                <size key="value" width="0.0" height="8"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                                                <real key="value" value="16"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowSpread">
+                                                                <real key="value" value="0.0"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HAm-xE-ejA" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="178" width="398" height="164"/>
+                                                        <rect key="frame" x="0.0" y="356" width="398" height="164"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="pbi-z3-cy7">
                                                                 <rect key="frame" x="0.0" y="0.0" width="398" height="164"/>
@@ -302,7 +411,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CYq-6P-YB4" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="350" width="398" height="793"/>
+                                                        <rect key="frame" x="0.0" y="528" width="398" height="793"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="wYT-RR-tW7">
                                                                 <rect key="frame" x="0.0" y="0.0" width="398" height="793"/>
@@ -851,6 +960,8 @@
                         <viewLayoutGuide key="safeArea" id="qer-Ed-q0D"/>
                     </view>
                     <connections>
+                        <outlet property="accountMixingSectionView" destination="8t6-aj-Jtg" id="32L-Do-U7R"/>
+                        <outlet property="accountNeedMixingLabel" destination="BOo-or-o3n" id="Bpd-Bj-o7W"/>
                         <outlet property="balanceLabel" destination="GGm-T7-QFh" id="T9m-pz-bA0"/>
                         <outlet property="connectedPeersLabel" destination="buX-P1-OJJ" id="KFN-K9-uyO"/>
                         <outlet property="generalSyncProgressViews" destination="e2s-O8-Zbr" id="KwF-dA-5Wi"/>

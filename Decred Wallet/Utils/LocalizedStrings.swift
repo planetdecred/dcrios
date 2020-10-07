@@ -150,6 +150,7 @@ struct LocalizedStrings {
     static let headersScannedProgress = NSLocalizedString("headersScannedProgress", comment: "")
     static let walletCreated = NSLocalizedString("walletCreated", comment: "")
     static let backUpYourWalletsReminder = NSLocalizedString("backUpYourWalletsReminder", comment: "")
+    static let setupMixingAccounts = NSLocalizedString("backUpYourWalletsReminder", comment: "")
     
     /* Transactions */
     static let pending = NSLocalizedString("pending", comment: "")

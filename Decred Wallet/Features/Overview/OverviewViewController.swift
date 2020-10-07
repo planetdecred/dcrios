@@ -22,6 +22,10 @@ class OverviewViewController: UIViewController {
     @IBOutlet weak var seedBackupSectionView: UIView!
     @IBOutlet weak var walletsNeedBackupLabel: UILabel!
     
+    // MARK: Account mixer section (Top view)
+    @IBOutlet weak var accountNeedMixingLabel: UILabel!
+    @IBOutlet weak var accountMixingSectionView: UIView!
+    
     // MARK: Recent activity section
     @IBOutlet weak var noTransactionsLabelView: UILabel!
     @IBOutlet weak var recentTransactionsTableView: UITableView!
@@ -67,6 +71,7 @@ class OverviewViewController: UIViewController {
     @IBOutlet weak var multipleWalletsSyncDetailsTableViewHeightConstraint: NSLayoutConstraint!
 
     var hideSeedBackupPrompt: Bool = false
+    var hideAccountMixingPrompt: Bool = false
     var recentTransactions = [Transaction]()
     var refreshBestBlockAgeTimer: Timer?
     
@@ -329,11 +334,32 @@ class OverviewViewController: UIViewController {
         }
     }
     
+    func checkWhetherToPromptForAccountMixing() {
+        let numWalletsNeedingSeedBackup = WalletLoader.shared.multiWallet.numWalletsNeedingSeedBackup()
+        if self.hideAccountMixingPrompt || numWalletsNeedingSeedBackup == 0 {
+            self.accountMixingSectionView.isHidden = true
+            return
+        }
+        
+        self.accountMixingSectionView.isHidden = false
+        if numWalletsNeedingSeedBackup == 1 {
+            self.walletsNeedBackupLabel.text = LocalizedStrings.oneWalletNeedBackup
+        } else {
+            self.walletsNeedBackupLabel.text = String(format: LocalizedStrings.walletsNeedBackup,
+                                                      numWalletsNeedingSeedBackup)
+        }
+    }
+    
     @IBAction func dismissSeedBackupPromptTapped(_ sender: Any) {
         self.hideSeedBackupPrompt = true
         self.seedBackupSectionView.isHidden = true
         SimpleAlertDialog.show(sender: self, message: LocalizedStrings.backUpYourWalletsReminder, okButtonText: LocalizedStrings.gotIt)
     }
+    
+    @IBAction func dismissAccountMixingPromptTapped(_ sender: Any) {
+           self.hideAccountMixingPrompt = true
+           self.accountMixingSectionView.isHidden = true
+       }
     
     @IBAction func seedBackupTapped(_ sender: Any) {
         if let walletsTabIndex = NavigationMenuTabBarController.tabItems.firstIndex(of: .wallets) {
@@ -671,4 +697,15 @@ extension OverviewViewController: DcrlibwalletTxAndBlockNotificationListenerProt
             self.updateRecentActivity()
         }
     }
+}
+
+extension OverviewViewController: DcrlibwalletAccountMixerNotificationListenerProtocol {
+    func onAccountMixerEnded(_ walletID: Int) {
+        
+    }
+    
+    func onAccountMixerStarted(_ walletID: Int) {
+        
+    }
+    
 }
