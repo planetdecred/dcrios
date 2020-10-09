@@ -54,7 +54,6 @@ class PoliteiaController: UIViewController {
 
         self.politeiaTableView.addSubview(self.refreshControl)
         self.footerView.isHidden = true
-        self.syncButton.isHidden = !PoliteiaNotification.shared.syncPoliteiaStatus()
         self.syncButton.layer.cornerRadius = 15
         self.syncButton.layer.borderWidth = 0.5
         self.syncButton.layer.borderColor = UIColor.appColors.bluishGray.cgColor
@@ -83,7 +82,7 @@ class PoliteiaController: UIViewController {
     
     @IBAction func syncTapped(_ sender: Any) {
         PoliteiaNotification.shared.syncPoliteia()
-        self.syncButton.isHidden = true
+        self.reloadPoliteiaWithFilter()
     }
     
     func setupSortOrderDropDown() {

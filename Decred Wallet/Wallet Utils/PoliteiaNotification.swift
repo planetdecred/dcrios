@@ -18,10 +18,8 @@ class PoliteiaNotification: NSObject {
         DispatchQueue.global(qos: .userInitiated).async {
             do {
                 try WalletLoader.shared.multiWallet.politeia?.sync()
-                self.setSyncStatus(isSyncSuccess: true)
             } catch let error {
                 print("PoliteiaNotification sync Error:", error.localizedDescription)
-                self.setSyncStatus(isSyncSuccess: false)
                 DispatchQueue.main.async {
                     if let navigationTabController = NavigationMenuTabBarController.instance?.view {
                         Utils.showBanner(in: navigationTabController, type: .error, text: "There was an error when sync politeia, please try again in Politeia")
@@ -29,14 +27,6 @@ class PoliteiaNotification: NSObject {
                 }
             }
         }
-    }
-    
-    private func setSyncStatus(isSyncSuccess: Bool) {
-        UserDefaults.standard.setValue(isSyncSuccess, forKey: IS_SYNC_SUCCESS_KEY)
-    }
-    
-    func syncPoliteiaStatus() -> Bool {
-        return UserDefaults.standard.bool(forKey: IS_SYNC_SUCCESS_KEY)
     }
     
     func startListeningForNotifications() {
