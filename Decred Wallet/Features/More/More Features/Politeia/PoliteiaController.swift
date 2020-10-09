@@ -16,6 +16,7 @@ class PoliteiaController: UIViewController {
     @IBOutlet weak var filterCategoryMenu: DropMenuButton!
     @IBOutlet weak var politeiaTableView: UITableView!
     @IBOutlet weak var sortOrderMenu: DropMenuButton!
+    @IBOutlet weak var syncButton: UIButton!
     
     private var refreshControl: UIRefreshControl!
     var politeiasList = [Politeia]()
@@ -53,6 +54,10 @@ class PoliteiaController: UIViewController {
 
         self.politeiaTableView.addSubview(self.refreshControl)
         self.footerView.isHidden = true
+        self.syncButton.isHidden = !PoliteiaNotification.shared.syncPoliteiaStatus()
+        self.syncButton.layer.cornerRadius = 15
+        self.syncButton.layer.borderWidth = 0.5
+        self.syncButton.layer.borderColor = UIColor.appColors.bluishGray.cgColor
     }
     
     func setupArrayFilter() {
@@ -74,6 +79,11 @@ class PoliteiaController: UIViewController {
                 self.filterCategoryMenu.setSelectedItemIndex(-1)
             }
         }
+    }
+    
+    @IBAction func syncTapped(_ sender: Any) {
+        PoliteiaNotification.shared.syncPoliteia()
+        self.syncButton.isHidden = true
     }
     
     func setupSortOrderDropDown() {
