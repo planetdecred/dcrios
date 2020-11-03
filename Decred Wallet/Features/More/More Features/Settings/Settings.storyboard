@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="D9F-Sd-24p">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="D9F-Sd-24p">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -54,7 +54,7 @@
                                                 <constraint firstItem="F64-Lf-DD2" firstAttribute="centerY" secondItem="dNw-IV-me8" secondAttribute="centerY" id="qce-FO-6lP"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                                        <color key="backgroundColor" systemColor="tableCellGroupedBackgroundColor"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="k8K-gU-jrJ" detailTextLabel="GEO-eE-V3Q" style="IBUITableViewCellStyleValue1" id="Fxv-Qh-Wvz">
                                         <rect key="frame" x="0.0" y="99.5" width="375" height="44"/>
@@ -181,29 +181,25 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="3mx-5Q-Dts">
-                                                    <rect key="frame" x="16" y="0.0" width="343" height="43.5"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="740" text="Beep for new blocks" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="pzh-cn-Gfa">
-                                                            <rect key="frame" x="0.0" y="11.5" width="290" height="20.5"/>
-                                                            <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
-                                                            <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                            <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="beepForNewBlocks"/>
-                                                            </userDefinedRuntimeAttributes>
-                                                        </label>
-                                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rgi-fu-g0z">
-                                                            <rect key="frame" x="294" y="6.5" width="51" height="31"/>
-                                                        </switch>
-                                                    </subviews>
-                                                </stackView>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rgi-fu-g0z">
+                                                    <rect key="frame" x="310" y="6.5" width="51" height="31"/>
+                                                </switch>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Beep for new blocks" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pzh-cn-Gfa">
+                                                    <rect key="frame" x="16" y="12" width="286" height="20.5"/>
+                                                    <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                                    <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="beepForNewBlocks"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="3mx-5Q-Dts" firstAttribute="top" secondItem="HWR-Qa-RHq" secondAttribute="top" id="38F-fy-Ka0"/>
-                                                <constraint firstAttribute="trailing" secondItem="3mx-5Q-Dts" secondAttribute="trailing" constant="16" id="KgW-qw-lLl"/>
-                                                <constraint firstItem="3mx-5Q-Dts" firstAttribute="leading" secondItem="HWR-Qa-RHq" secondAttribute="leading" constant="16" id="ag1-fa-oTS"/>
-                                                <constraint firstAttribute="bottom" secondItem="3mx-5Q-Dts" secondAttribute="bottom" id="slO-g5-bbb"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="rgi-fu-g0z" secondAttribute="trailing" id="3Tk-tv-v8l"/>
+                                                <constraint firstItem="pzh-cn-Gfa" firstAttribute="centerY" secondItem="HWR-Qa-RHq" secondAttribute="centerY" id="GAF-p3-1rB"/>
+                                                <constraint firstItem="rgi-fu-g0z" firstAttribute="leading" secondItem="pzh-cn-Gfa" secondAttribute="trailing" constant="8" id="TCQ-Jq-yYm"/>
+                                                <constraint firstItem="pzh-cn-Gfa" firstAttribute="leading" secondItem="HWR-Qa-RHq" secondAttribute="leadingMargin" id="d5o-Lw-d62"/>
+                                                <constraint firstItem="rgi-fu-g0z" firstAttribute="centerY" secondItem="pzh-cn-Gfa" secondAttribute="centerY" id="gzt-4e-7Kx"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -235,7 +231,7 @@
                                                 <constraint firstItem="IT5-mf-NS0" firstAttribute="centerY" secondItem="IbO-3b-8m6" secondAttribute="centerY" id="0m5-fu-CXK"/>
                                                 <constraint firstItem="M8i-z0-RGC" firstAttribute="leading" secondItem="IT5-mf-NS0" secondAttribute="trailing" constant="8" id="1tE-1V-8bH"/>
                                                 <constraint firstItem="M8i-z0-RGC" firstAttribute="top" secondItem="IT5-mf-NS0" secondAttribute="top" id="CCJ-1o-pOn"/>
-                                                <constraint firstItem="IT5-mf-NS0" firstAttribute="leading" secondItem="IbO-3b-8m6" secondAttribute="leading" constant="16" id="N1O-EP-YBP"/>
+                                                <constraint firstItem="IT5-mf-NS0" firstAttribute="leading" secondItem="IbO-3b-8m6" secondAttribute="leadingMargin" id="N1O-EP-YBP"/>
                                                 <constraint firstItem="M8i-z0-RGC" firstAttribute="trailing" secondItem="IbO-3b-8m6" secondAttribute="trailingMargin" id="RFf-bi-Qpg"/>
                                                 <constraint firstItem="IT5-mf-NS0" firstAttribute="centerY" secondItem="M8i-z0-RGC" secondAttribute="centerY" id="zmO-Ei-Sr2"/>
                                             </constraints>
@@ -397,7 +393,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="flG-a2-h9J">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
                         <sections>
                             <tableViewSection headerTitle="Currency Conversion" id="jDR-6j-AQG">
                                 <cells>
@@ -455,4 +451,12 @@
             <point key="canvasLocation" x="1174" y="1718"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="groupTableViewBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="tableCellGroupedBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>
