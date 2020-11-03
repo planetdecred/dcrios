@@ -58,7 +58,7 @@ class WalletLogViewController: UIViewController {
     @objc func copyLog() -> Void {
         DispatchQueue.main.async {
             UIPasteboard.general.string = self.logTextView.text
-            Utils.showBanner(in: self.view.subviews.first!, type: .success, text: LocalizedStrings.walletLogCopied)
+            Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.walletLogCopied)
         }
     }
     
