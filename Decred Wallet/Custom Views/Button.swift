@@ -85,7 +85,7 @@ class Button: UIButton {
 		}
 	}
 
-	@IBInspectable var disabledBackgroundColor: UIColor = UIColor.appColors.darkGray {
+	@IBInspectable var disabledBackgroundColor: UIColor = UIColor.appColors.paleGray {
 		didSet {
 			setupView()
 		}

@@ -119,7 +119,7 @@ class SignMessageViewController: UIViewController, FloatingPlaceholderTextViewDe
     func toggleSignButtonState() {
         let textCheck =  self.addressText.text!.isEmpty || self.messageText.text!.isEmpty
         self.signBtn.isEnabled = textCheck ?  false : true
-        self.signBtn.backgroundColor = textCheck ?  UIColor.appColors.darkGray : UIColor.appColors.lightBlue
+        self.signBtn.backgroundColor = textCheck ?  UIColor.appColors.paleGray : UIColor.appColors.lightBlue
     }
     
     @IBAction func signMessage(_ sender: UIButton) {
@@ -134,7 +134,7 @@ class SignMessageViewController: UIViewController, FloatingPlaceholderTextViewDe
         self.addressText.text = nil
         self.messageText.text = nil
         self.signatureText.text = nil
-        self.signBtn.backgroundColor = UIColor.appColors.darkGray
+        self.signBtn.backgroundColor = UIColor.appColors.paleGray
         self.signBtn.isEnabled = false
         self.addressText.isUserInteractionEnabled = true
         self.messageText.isUserInteractionEnabled = true
@@ -173,7 +173,7 @@ class SignMessageViewController: UIViewController, FloatingPlaceholderTextViewDe
                             self.signatureText.textViewDidBeginEditing(self.signatureText)
                                                self.addressText.isUserInteractionEnabled = false
                                                self.messageText.isUserInteractionEnabled = false
-                                               self.signBtn.backgroundColor = UIColor.appColors.darkGray
+                                               self.signBtn.backgroundColor = UIColor.appColors.paleGray
                                                self.signBtn.isEnabled = false
                             self.signatureText.textViewDidEndEditing(self.signatureText)
                             Utils.showBanner(in: self.viewContainer.subviews.first!, type: .success, text: LocalizedStrings.signSuccesMessage)

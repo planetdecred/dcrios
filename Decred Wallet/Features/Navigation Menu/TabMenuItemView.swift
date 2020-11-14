@@ -74,7 +74,8 @@ class TabMenuItemView: UIView {
         NSLayoutConstraint.activate([
             itemTitleLabel.heightAnchor.constraint(equalToConstant: 13), // Fixed height for title label
             itemTitleLabel.widthAnchor.constraint(equalTo: self.widthAnchor),
-            itemTitleLabel.topAnchor.constraint(equalTo: self.iconView.bottomAnchor, constant: 4) // Position title label 4pts below icon
+            itemTitleLabel.topAnchor.constraint(equalTo: self.iconView.bottomAnchor, constant: 4), // Position title label 4pts below icon
+            itemTitleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor)
         ])
     }
     
