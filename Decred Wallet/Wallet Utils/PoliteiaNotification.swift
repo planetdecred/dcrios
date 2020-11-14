@@ -12,8 +12,6 @@ import Dcrlibwallet
 class PoliteiaNotification: NSObject {
     static let shared = PoliteiaNotification()
     
-    private let IS_SYNC_SUCCESS_KEY = "sync_politeia_success"
-    
     func syncPoliteia() {
         DispatchQueue.global(qos: .userInitiated).async {
             do {
@@ -22,7 +20,7 @@ class PoliteiaNotification: NSObject {
                 print("PoliteiaNotification sync Error:", error.localizedDescription)
                 DispatchQueue.main.async {
                     if let navigationTabController = NavigationMenuTabBarController.instance?.view {
-                        Utils.showBanner(in: navigationTabController, type: .error, text: "There was an error when sync politeia, please try again in Politeia")
+                        Utils.showBanner(in: navigationTabController, type: .error, text: LocalizedStrings.syncPoliteiaTryAgain)
                     }
                 }
             }

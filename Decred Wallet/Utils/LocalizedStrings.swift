@@ -452,6 +452,7 @@ struct LocalizedStrings {
     static let commentCount = NSLocalizedString("commentCount", comment: "")
     static let politeiaVersion = NSLocalizedString("politeiaVersion", comment: "")
     static let noPoliteia = NSLocalizedString("noPoliteia", comment: "")
+    static let syncPoliteiaTryAgain = NSLocalizedString("syncPoliteiaTryAgain", comment: "")
     
     /* Seed Backup */
     static let failedToVerify = NSLocalizedString("failedToVerify", comment: "")
