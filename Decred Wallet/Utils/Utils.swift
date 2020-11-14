@@ -360,7 +360,7 @@ struct Utils {
         case .ABANDONED:
             return UIColor.appColors.orange
         default:
-            return UIColor.appColors.darkGray
+            return UIColor.appColors.paleGray
         }
     }
 }
