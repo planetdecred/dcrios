@@ -16,6 +16,7 @@ struct Transaction: Codable {
     var hex: String
     var timestamp: Int64
     var blockHeight: Int32
+    var daysToVoteOrRevoke: Int
     
     var version: Int32
     var lockTime: Int32
@@ -31,12 +32,14 @@ struct Transaction: Codable {
     var voteVersion: Int32
     var lastBlockValid: Bool
     var voteBits: String
+    var voteReward: Int64
     
     @nonobjc var animate: Bool
     
     private enum CodingKeys : String, CodingKey {
         case walletID, hash, type, hex, timestamp
         case blockHeight = "block_height"
+        case daysToVoteOrRevoke = "days_to_vote_revoke"
         
         case version
         case lockTime = "lock_time"
@@ -47,6 +50,7 @@ struct Transaction: Codable {
         case voteVersion = "vote_version"
         case lastBlockValid = "last_block_valid"
         case voteBits = "vote_bits"
+        case voteReward = "vote_reward"
     }
     
     init(from decoder: Decoder) throws {
@@ -57,6 +61,7 @@ struct Transaction: Codable {
         self.hex = try! values.decode(String.self, forKey: .hex)
         self.timestamp = try! values.decode(Int64.self, forKey: .timestamp)
         self.blockHeight = try! values.decode(Int32.self, forKey: .blockHeight)
+        self.daysToVoteOrRevoke = try! values.decode(Int.self, forKey: .daysToVoteOrRevoke)
         
         self.version = try! values.decode(Int32.self, forKey: .version)
         self.lockTime = try! values.decode(Int32.self, forKey: .lockTime)
@@ -71,12 +76,17 @@ struct Transaction: Codable {
         self.voteVersion = try! values.decode(Int32.self, forKey: .voteVersion)
         self.lastBlockValid = try! values.decode(Bool.self, forKey: .lastBlockValid)
         self.voteBits = try! values.decode(String.self, forKey: .voteBits)
+        self.voteReward = try! values.decode(Int64.self, forKey: .voteReward)
         
         self.animate = false
     }
     
     var dcrAmount: NSDecimalNumber {
         return Decimal(DcrlibwalletAmountCoin(self.amount)) as NSDecimalNumber
+    }
+    
+    var dcrVoteReward: NSDecimalNumber {
+        return Decimal(DcrlibwalletAmountCoin(self.voteReward)) as NSDecimalNumber
     }
     
     var dcrFee: NSDecimalNumber {

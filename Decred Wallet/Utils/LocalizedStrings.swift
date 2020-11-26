@@ -156,6 +156,9 @@ struct LocalizedStrings {
     static let confirmed = NSLocalizedString("confirmed", comment: "")
     static let voted = NSLocalizedString("voted", comment: "")
     static let ticket = NSLocalizedString("ticket", comment: "")
+    static let revoked = NSLocalizedString("revoked", comment: "")
+    static let purchased = NSLocalizedString("purchased", comment: "")
+    static let tikectPurchase = NSLocalizedString("tikectPurchase", comment: "")
     static let live = NSLocalizedString("live", comment: "")
     static let immature = NSLocalizedString("immature", comment: "")
     static let noTransactions = NSLocalizedString("noTransactions", comment: "")
@@ -168,6 +171,7 @@ struct LocalizedStrings {
     static let today = NSLocalizedString("today", comment: "")
     static let yesterday = NSLocalizedString("yesterday", comment: "")
     static let days = NSLocalizedString("days", comment: "")
+    static let day = NSLocalizedString("day", comment: "")
     static let newest = NSLocalizedString("newest", comment: "")
     static let oldest = NSLocalizedString("oldest", comment: "")
     
@@ -190,6 +194,7 @@ struct LocalizedStrings {
     static let inputsConsumed = NSLocalizedString("inputsConsumed", comment: "")
     static let outputsCreated = NSLocalizedString("outputsCreated", comment: "")
     static let confirmations = NSLocalizedString("confirmations", comment: "")
+    static let confirmation = NSLocalizedString("confirmation", comment: "")
     static let transactionID = NSLocalizedString("transactionID", comment: "")
     static let transferred = NSLocalizedString("transferred", comment: "")
     static let includedInBlock = NSLocalizedString("includedInBlock", comment: "")
@@ -200,10 +205,13 @@ struct LocalizedStrings {
     static let toDetail = NSLocalizedString("toDetail", comment: "")
     static let fromAccountDetail = NSLocalizedString("fromAccountDetail", comment: "")
     static let fromDetail = NSLocalizedString("fromDetail", comment: "")
+    static let rebroadcast = NSLocalizedString("rebroadcast", comment: "")
+    static let rebroadcastTxSuccess = NSLocalizedString("rebroadcastTxSuccess", comment: "")
 
     /* Send view */
     static let invalidAmount = NSLocalizedString("invalidAmount", comment: "")
     static let amount8Decimal = NSLocalizedString("amount8Decimal", comment: "")
+    static let amount2Decimal = NSLocalizedString("amount2Decimal", comment: "")
     static let amountMaximumAllowed = NSLocalizedString("amountMaximumAllowed", comment: "")
     static let notEnoughFunds = NSLocalizedString("notEnoughFunds", comment: "")
     static let notEnoughFundsOrNotConnected = NSLocalizedString("notEnoughFundsOrNotConnected", comment: "")
@@ -367,6 +375,7 @@ struct LocalizedStrings {
     static let weeks = NSLocalizedString("weeks", comment: "")
     static let months = NSLocalizedString("months", comment: "")
     static let years = NSLocalizedString("years", comment: "")
+    static let net = NSLocalizedString("net", comment: "")
 
     /* Change startup/spending pin/pass */
     static let newPasswordPlaceholder = NSLocalizedString("newPasswordPlaceholder", comment: "")
