@@ -28,11 +28,15 @@ class Decred_WalletUITests: XCTestCase {
         app.launchArguments.append("--UITests")
         app.launch()
         
-        let permission = app.alerts["“Decred Wallet Testnet” Would Like to Send You Notifications"].scrollViews.otherElements.buttons["Allow"]
-        
-        if permission.exists {
-            permission.tap()
+        addUIInterruptionMonitor(withDescription: "Notification") { (alert) -> Bool in
+                           if alert.staticTexts["“Decred Wallet Testnet” Would Like to Send You Notifications"].exists {
+                            alert.buttons["Allow"].tap()
+                           } else {
+                            alert.buttons["Don’t Allow"].tap()
+                           }
+            return true
         }
+        app.tap()
         
         let createNewWallet = app.buttons.element(matching: .button, identifier: "createNewWallet")
         if createNewWallet.waitForExistence(timeout: 5) {
@@ -102,11 +106,15 @@ class Decred_WalletUITests: XCTestCase {
         app.launchArguments.append("--UITests")
         app.launch()
         
-        let permission = app.alerts["“Decred Wallet Testnet” Would Like to Send You Notifications"].scrollViews.otherElements.buttons["Allow"]
-        
-        if permission.exists {
-            permission.tap()
+        addUIInterruptionMonitor(withDescription: "Notification") { (alert) -> Bool in
+                           if alert.staticTexts["“Decred Wallet Testnet” Would Like to Send You Notifications"].exists {
+                            alert.buttons["Allow"].tap()
+                           } else {
+                            alert.buttons["Don’t Allow"].tap()
+                           }
+            return true
         }
+        app.tap()
         
         let createNewWallet = app.buttons.element(matching: .button, identifier: "createNewWallet")
         if createNewWallet.waitForExistence(timeout: 5) {
@@ -214,13 +222,4 @@ class Decred_WalletUITests: XCTestCase {
         app.keys["6"].tap()
     }
     
-    
-   /* func testLaunchPerformance() throws {
-        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, *) {
-            // This measures how long it takes to launch your application.
-            measure(metrics: [XCTOSSignpostMetric.applicationLaunch]) {
-                XCUIApplication().launch()
-            }
-        }
-    }*/
 }

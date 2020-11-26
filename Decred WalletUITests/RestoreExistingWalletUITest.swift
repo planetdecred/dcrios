@@ -29,11 +29,15 @@ class RestoreExistingWalletUITest: XCTestCase {
         app.launchArguments.append("--UITests")
         app.launch()
         
-        let permission = app.alerts["“Decred Wallet Testnet” Would Like to Send You Notifications"].scrollViews.otherElements.buttons["Allow"]
-        
-        if permission.exists {
-            permission.tap()
+        addUIInterruptionMonitor(withDescription: "Notification") { (alert) -> Bool in
+                           if alert.staticTexts["“Decred Wallet Testnet” Would Like to Send You Notifications"].exists {
+                            alert.buttons["Allow"].tap()
+                           } else {
+                            alert.buttons["Don’t Allow"].tap()
+                           }
+            return true
         }
+        app.tap()
         
         let restoreExistingWallet = app.buttons.element(matching: .button, identifier: "restoreExistingWallet")
         if restoreExistingWallet.waitForExistence(timeout: 5) {
@@ -116,11 +120,15 @@ class RestoreExistingWalletUITest: XCTestCase {
         app.launchArguments.append("--UITests")
         app.launch()
         
-        let permission = app.alerts["“Decred Wallet Testnet” Would Like to Send You Notifications"].scrollViews.otherElements.buttons["Allow"]
-        
-        if permission.exists {
-            permission.tap()
+        addUIInterruptionMonitor(withDescription: "Notification") { (alert) -> Bool in
+                           if alert.staticTexts["“Decred Wallet Testnet” Would Like to Send You Notifications"].exists {
+                            alert.buttons["Allow"].tap()
+                           } else {
+                            alert.buttons["Don’t Allow"].tap()
+                           }
+            return true
         }
+        app.tap()
         
         let restoreExistingWallet = app.buttons.element(matching: .button, identifier: "restoreExistingWallet")
         if restoreExistingWallet.waitForExistence(timeout: 5) {
