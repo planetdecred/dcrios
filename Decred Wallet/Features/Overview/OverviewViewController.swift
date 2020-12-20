@@ -433,6 +433,10 @@ extension OverviewViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension OverviewViewController: DcrlibwalletSyncProgressListenerProtocol {
+    func onCFiltersFetchProgress(_ cfiltersFetchProgress: DcrlibwalletCFiltersFetchProgressReport?) {
+        //Load CFiltersFetchProgress
+    }
+    
     func onSyncStarted(_ wasRestarted: Bool) {
         DispatchQueue.main.async {
             self.updateWalletStatusIndicatorAndLabel()
