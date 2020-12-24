@@ -408,53 +408,29 @@ class RestoreExistingWalletUITest: XCTestCase {
     }
     
     func createPassword(app: XCUIApplication) {
-        app.keys["d"].tap()
-        app.keys["e"].tap()
-        app.keys["c"].tap()
-        app.keys["r"].tap()
-        app.keys["e"].tap()
-        app.keys["d"].tap()
+        typePassword(app: app)
         app/*@START_MENU_TOKEN@*/.buttons["Return"]/*[[".keyboards",".buttons[\"return\"]",".buttons[\"Return\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/.tap()
-        app.keys["d"].tap()
-        app.keys["e"].tap()
-        app.keys["c"].tap()
-        app.keys["r"].tap()
-        app.keys["e"].tap()
-        app.keys["d"].tap()
+        typePassword(app: app)
     }
     
     func createPIN(app: XCUIApplication) {
-        app.keys["1"].tap()
-        app.keys["2"].tap()
-        app.keys["3"].tap()
-        app.keys["4"].tap()
-        app.keys["5"].tap()
-        app.keys["6"].tap()
+        typePin(app: app)
         app.buttons["Next"].tap()
-        app.keys["1"].tap()
-        app.keys["2"].tap()
-        app.keys["3"].tap()
-        app.keys["4"].tap()
-        app.keys["5"].tap()
-        app.keys["6"].tap()
+        typePin(app: app)
     }
     
     func typePassword(app: XCUIApplication) {
-        app.keys["d"].tap()
-        app.keys["e"].tap()
-        app.keys["c"].tap()
-        app.keys["r"].tap()
-        app.keys["e"].tap()
-        app.keys["d"].tap()
+        let password = ["d", "e", "c", "r", "e", "d"]
+        for i in password {
+            app.keys[i].tap()
+        }
     }
     
     func typePin(app: XCUIApplication) {
-        app.keys["1"].tap()
-        app.keys["2"].tap()
-        app.keys["3"].tap()
-        app.keys["4"].tap()
-        app.keys["5"].tap()
-        app.keys["6"].tap()
+        let pin = ["1", "2", "3", "4", "5", "6"]
+        for i in pin {
+            app.keys[i].tap()
+        }
     }
 
 }
