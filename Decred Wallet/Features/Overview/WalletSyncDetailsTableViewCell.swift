@@ -110,4 +110,10 @@ class WalletSyncDetailsTableViewCell: UITableViewCell {
         
         self.walletSyncCurrentStepProgressLabel.text = "\(report.rescanProgress)%"
     }
+    
+    func displayCFiltersFetchProgressReport(_ report: DcrlibwalletCFiltersFetchProgressReport) {
+        self.walletSyncCurrentStepTitleLabel.text = LocalizedStrings.stepCfilter
+        self.walletSyncCurrentStepReportLabel.text = String(format: LocalizedStrings.fetchingCfilter, report.currentCFilterHeight, report.totalCFiltersToFetch)
+        self.walletSyncCurrentStepProgressLabel.text = "\(report.cFiltersFetchProgress)%"
+    }
 }

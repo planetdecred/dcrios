@@ -121,6 +121,11 @@ struct LocalizedStrings {
     static let errorSyncInProgress = NSLocalizedString("errorSyncInProgress", comment: "")
     static let errorRescanInProgress = NSLocalizedString("errorRescanInProgress", comment: "")
     static let rescanProgressNotification = NSLocalizedString("rescanProgressNotification", comment: "")
+    static let stepCfilter = NSLocalizedString("stepcfilter", comment: "")
+    static let fetchingCfilter = NSLocalizedString("fetchingCFilter", comment: "")
+    static let cfilterFetched = NSLocalizedString("cfilterFetched", comment: "")
+    static let cfilterLeft = NSLocalizedString("cfiltersLeft", comment: "")
+    static let cfilterFetchedTotal = NSLocalizedString("cfilterFetchedTotal", comment: "")
     
     /* Navigation Menu Items */
     static let overview = NSLocalizedString("overview", comment: "")

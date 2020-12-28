@@ -434,7 +434,20 @@ extension OverviewViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension OverviewViewController: DcrlibwalletSyncProgressListenerProtocol {
     func onCFiltersFetchProgress(_ cfiltersFetchProgress: DcrlibwalletCFiltersFetchProgressReport?) {
-        //Load CFiltersFetchProgress
+        guard let report = cfiltersFetchProgress else { return }
+        DispatchQueue.main.async {
+            self.syncStatusLabel.text = LocalizedStrings.synchronizing
+            self.displayGeneralSyncProgress(report.generalSyncProgress)
+            
+            self.syncCurrentStepNumberLabel.text = LocalizedStrings.stepCfilter
+            self.syncCurrentStepSummaryLabel.text = String(format: LocalizedStrings.fetchingCfilter, report.cFiltersFetchProgress)
+            
+            self.syncCurrentStepTitleLabel.text = LocalizedStrings.cfilterFetched
+            self.syncCurrentStepReportLabel.text = String(format: LocalizedStrings.cfilterFetchedTotal, report.currentCFilterHeight, report.totalCFiltersToFetch)
+            
+            self.syncCurrentStepProgressLabel.text = String(format: LocalizedStrings.syncingProgress, report.blockRemaining)
+            
+        }
     }
     
     func onSyncStarted(_ wasRestarted: Bool) {
