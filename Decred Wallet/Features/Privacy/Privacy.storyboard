@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
@@ -14,38 +14,32 @@
         </array>
     </customFonts>
     <scenes>
-        <!--View Controller-->
+        <!--Privacy Setup View Controller-->
         <scene sceneID="kzr-4O-rtu">
             <objects>
-                <viewController storyboardIdentifier="SeedWordsDisplayViewController" automaticallyAdjustsScrollViewInsets="NO" id="wgY-rn-Il0" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PrivacySetupViewController" automaticallyAdjustsScrollViewInsets="NO" id="wgY-rn-Il0" customClass="PrivacySetupViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gG9-rO-dLJ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="juu-1Y-VBr">
-                                <rect key="frame" x="16" y="72" width="24" height="24"/>
+                                <rect key="frame" x="16" y="29" width="16.5" height="22"/>
                                 <state key="normal" image="left-arrow"/>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hR2-rF-Y9z">
-                                <rect key="frame" x="50" y="60" width="348" height="47.5"/>
+                                <rect key="frame" x="52.5" y="16" width="306.5" height="47.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Privacy" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X3w-9x-ZBp">
-                                        <rect key="frame" x="0.0" y="0.0" width="348" height="25.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="306.5" height="25.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
                                         <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="writeDownSeedPhrase"/>
-                                        </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Wallet 0" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WsD-vo-weA">
-                                        <rect key="frame" x="0.0" y="29.5" width="348" height="18"/>
+                                        <rect key="frame" x="0.0" y="29.5" width="306.5" height="18"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                         <color key="textColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="writeDownStep1_2"/>
-                                        </userDefinedRuntimeAttributes>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -60,10 +54,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tJ9-IZ-mUK">
-                                <rect key="frame" x="0.0" y="781" width="414" height="115"/>
+                                <rect key="frame" x="0.0" y="552" width="375" height="115"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ayu-ew-FJN" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
-                                        <rect key="frame" x="24" y="16" width="366" height="48"/>
+                                        <rect key="frame" x="24" y="16" width="327" height="48"/>
                                         <color key="backgroundColor" red="0.16078431369999999" green="0.43921568630000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="hRp-eG-NH3"/>
@@ -83,6 +77,9 @@
                                                 <color key="value" red="0.16078431369999999" green="0.43921568630000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="setupMixer:" destination="wgY-rn-Il0" eventType="touchUpInside" id="9rM-gL-ZU8"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -94,27 +91,28 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Using mixed DCRs protects you from exposing your financial activities to the public (e.g. how much you own, who pays you)." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r99-Th-V8r">
-                                <rect key="frame" x="24" y="406.5" width="366" height="60.5"/>
+                                <rect key="frame" x="24" y="362.5" width="327" height="60.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                 <color key="textColor" red="0.23921568630000001" green="0.34509803919999998" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CoinShuffle++ mixer can mix your DCRs through CoinJoin transactions." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VKM-Zr-NfH">
-                                <rect key="frame" x="24" y="350" width="366" height="40.5"/>
+                                <rect key="frame" x="24" y="306" width="327" height="40.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                 <color key="textColor" red="0.23921568630000001" green="0.34509803919999998" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How does CoinShuffle++ mixer enhance your privacy?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GdO-Vh-lbu">
-                                <rect key="frame" x="24" y="283.5" width="366" height="50.5"/>
+                                <rect key="frame" x="24" y="239.5" width="327" height="50.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
                                 <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9CY-qv-AB2">
-                                <rect key="frame" x="40" y="131.5" width="334" height="128"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_mixer_setup" translatesAutoresizingMaskIntoConstraints="NO" id="9CY-qv-AB2">
+                                <rect key="frame" x="40" y="87.5" width="295" height="128"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="128" id="beD-Pd-bZq"/>
+                                    <constraint firstAttribute="width" secondItem="9CY-qv-AB2" secondAttribute="height" multiplier="167:64" id="fTh-Rs-dU7"/>
                                 </constraints>
                             </imageView>
                         </subviews>
@@ -139,11 +137,14 @@
                             <constraint firstAttribute="bottom" secondItem="tJ9-IZ-mUK" secondAttribute="bottom" id="irm-kb-4Nj"/>
                             <constraint firstItem="tJ9-IZ-mUK" firstAttribute="leading" secondItem="lPT-OX-fUK" secondAttribute="leading" id="mzt-7C-FfK"/>
                             <constraint firstItem="juu-1Y-VBr" firstAttribute="centerY" secondItem="hR2-rF-Y9z" secondAttribute="centerY" id="nOg-eC-0sM"/>
-                            <constraint firstItem="hR2-rF-Y9z" firstAttribute="leading" secondItem="juu-1Y-VBr" secondAttribute="trailing" constant="10" id="tUN-jV-sVc"/>
+                            <constraint firstItem="hR2-rF-Y9z" firstAttribute="leading" secondItem="juu-1Y-VBr" secondAttribute="trailing" constant="20" id="tUN-jV-sVc"/>
                             <constraint firstItem="VKM-Zr-NfH" firstAttribute="leading" secondItem="lPT-OX-fUK" secondAttribute="leading" constant="24" id="vxT-qg-zhv"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="opI-9b-eEt"/>
+                    <connections>
+                        <outlet property="setupMixerBtn" destination="ayu-ew-FJN" id="qU9-h8-cZm"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WDf-8I-uXg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -156,7 +157,8 @@
         </designable>
     </designables>
     <resources>
-        <image name="left-arrow" width="24" height="24"/>
+        <image name="ic_mixer_setup" width="280" height="120"/>
+        <image name="left-arrow" width="17" height="16"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

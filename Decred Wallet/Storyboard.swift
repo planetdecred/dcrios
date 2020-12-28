@@ -32,6 +32,7 @@ enum Storyboard: String {
     case VerifyMessage = "VerifyMessage"
     case SignMessage = "SignMessage"
     case CustomDialogs = "CustomDialogs"
+    case Privacy = "Privacy"
     
     var instance: UIStoryboard {
         return UIStoryboard(name: self.rawValue, bundle: nil)

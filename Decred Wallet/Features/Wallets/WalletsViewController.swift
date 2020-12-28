@@ -299,6 +299,10 @@ extension WalletsViewController: WalletInfoTableViewCellDelegate {
             self.renameWallet(walletID: walletID)
         }))
         
+        walletMenu.addAction(UIAlertAction(title: "Privacy", style: .default, handler: { _ in
+            self.goToPrivacyPage(walletID: walletID)
+        }))
+        
         walletMenu.addAction(UIAlertAction(title: LocalizedStrings.settings, style: .default, handler: { _ in
             self.goToWalletSettingsPage(walletID: walletID)
         }))
@@ -445,6 +449,16 @@ extension WalletsViewController {
     func gotToVerifyMessage(walletID: Int) {
         let verifyMessageVC = VerifyMessageViewController.instantiate(from: .VerifyMessage)
         self.navigationController?.pushViewController(verifyMessageVC, animated: true)
+    }
+    
+    func goToPrivacyPage(walletID: Int) {
+        guard let wallet = WalletLoader.shared.multiWallet.wallet(withID: walletID) else {
+            return
+        }
+        
+        let PrivacySetupVC = PrivacySetupViewController.instantiate(from: .Privacy)
+        PrivacySetupVC.wallet = wallet
+        self.navigationController?.pushViewController(PrivacySetupVC, animated: true)
     }
 }
 

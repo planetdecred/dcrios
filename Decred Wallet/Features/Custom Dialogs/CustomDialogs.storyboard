@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -53,7 +54,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bIU-cW-IVU">
                                         <rect key="frame" x="24" y="149.5" width="366" height="40"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="As3-fJ-RPc">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="As3-fJ-RPc">
                                                 <rect key="frame" x="199" y="0.0" width="79" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="79" id="Bxs-ka-H7H"/>
@@ -66,7 +67,7 @@
                                                     <action selector="cancelButtonTapped:" destination="lI7-ED-syP" eventType="touchUpInside" id="BQQ-tS-nqJ"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RpI-Rx-7Vj" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RpI-Rx-7Vj" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                                 <rect key="frame" x="286" y="0.0" width="80" height="40"/>
                                                 <color key="backgroundColor" red="0.77000000000000002" green="0.80000000000000004" blue="0.81999999999999995" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
@@ -94,7 +95,7 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="As3-fJ-RPc" firstAttribute="centerY" secondItem="RpI-Rx-7Vj" secondAttribute="centerY" id="93X-Cp-2cz"/>
                                             <constraint firstAttribute="bottom" secondItem="RpI-Rx-7Vj" secondAttribute="bottom" id="K1q-2c-rOK"/>
@@ -132,13 +133,13 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="hSs-23-K6L"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="OTz-zL-ye2" secondAttribute="bottom" id="Hgc-kO-aIa"/>
                             <constraint firstItem="OTz-zL-ye2" firstAttribute="leading" secondItem="hSs-23-K6L" secondAttribute="leading" id="RAp-p4-imi"/>
                             <constraint firstItem="hSs-23-K6L" firstAttribute="trailing" secondItem="OTz-zL-ye2" secondAttribute="trailing" id="rTZ-kM-f5X"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="hSs-23-K6L"/>
                     </view>
                     <connections>
                         <outlet property="cancelButton" destination="As3-fJ-RPc" id="muX-zg-pCh"/>
@@ -162,7 +163,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PES-gD-iwp" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
-                                <rect key="frame" x="40" y="372" width="334" height="162"/>
+                                <rect key="frame" x="40" y="362" width="334" height="182.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remove wallet from device?" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="DmN-2k-s0e">
                                         <rect key="frame" x="24" y="20" width="286" height="25.5"/>
@@ -182,8 +183,8 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="enterPIN"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="awL-a2-8ba">
-                                        <rect key="frame" x="151" y="114" width="79" height="40"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="awL-a2-8ba">
+                                        <rect key="frame" x="151" y="134.5" width="79" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="79" id="d1a-d2-FwU"/>
                                         </constraints>
@@ -195,8 +196,8 @@
                                             <action selector="cancelButtonTapped:" destination="LZB-Of-VZX" eventType="touchUpInside" id="cG1-1T-Bf1"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bso-LG-2oW" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
-                                        <rect key="frame" x="238" y="114" width="88" height="40"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bso-LG-2oW" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
+                                        <rect key="frame" x="238" y="134.5" width="88" height="40"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="DY3-ip-ejk"/>
@@ -222,21 +223,34 @@
                                             <action selector="okButtonTapped:" destination="LZB-Of-VZX" eventType="touchUpInside" id="2tO-3B-Aqy"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This action cannot be undone." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1IQ-bS-Ofp">
+                                        <rect key="frame" x="24" y="106" width="286" height="20.5"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
+                                        <color key="textColor" red="0.035294117647058823" green="0.078431372549019607" blue="0.25098039215686274" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="enterPIN"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="1IQ-bS-Ofp" firstAttribute="leading" secondItem="PES-gD-iwp" secondAttribute="leading" constant="24" id="04U-U6-hUF"/>
                                     <constraint firstAttribute="trailing" secondItem="Bso-LG-2oW" secondAttribute="trailing" constant="8" id="3sd-OA-WX7"/>
                                     <constraint firstAttribute="trailing" secondItem="DmN-2k-s0e" secondAttribute="trailing" constant="24" id="5YU-1E-LYT"/>
                                     <constraint firstItem="DmN-2k-s0e" firstAttribute="top" secondItem="PES-gD-iwp" secondAttribute="top" constant="20" id="77V-Eh-VGc"/>
                                     <constraint firstItem="Bso-LG-2oW" firstAttribute="leading" secondItem="awL-a2-8ba" secondAttribute="trailing" constant="8" id="7ij-cl-HBP"/>
                                     <constraint firstItem="awL-a2-8ba" firstAttribute="height" secondItem="Bso-LG-2oW" secondAttribute="height" id="9xR-lt-spm"/>
                                     <constraint firstAttribute="trailing" secondItem="2vZ-fQ-jXH" secondAttribute="trailing" constant="24" id="FRo-Xd-EhD"/>
+                                    <constraint firstItem="Bso-LG-2oW" firstAttribute="top" secondItem="1IQ-bS-Ofp" secondAttribute="bottom" constant="8" id="Lzc-rv-PO1"/>
                                     <constraint firstItem="DmN-2k-s0e" firstAttribute="leading" secondItem="PES-gD-iwp" secondAttribute="leading" constant="24" id="RC1-hR-k39"/>
                                     <constraint firstItem="2vZ-fQ-jXH" firstAttribute="leading" secondItem="PES-gD-iwp" secondAttribute="leading" constant="24" id="foe-Es-VkV"/>
                                     <constraint firstItem="2vZ-fQ-jXH" firstAttribute="top" secondItem="DmN-2k-s0e" secondAttribute="bottom" constant="12" id="gt2-9n-6nJ"/>
+                                    <constraint firstAttribute="trailing" secondItem="1IQ-bS-Ofp" secondAttribute="trailing" constant="24" id="gxw-ek-bLe"/>
                                     <constraint firstAttribute="bottom" secondItem="Bso-LG-2oW" secondAttribute="bottom" constant="8" id="iRD-b2-12Y"/>
-                                    <constraint firstItem="Bso-LG-2oW" firstAttribute="top" secondItem="2vZ-fQ-jXH" secondAttribute="bottom" constant="16" id="l9i-nh-JBO"/>
+                                    <constraint firstItem="Bso-LG-2oW" firstAttribute="top" relation="greaterThanOrEqual" secondItem="2vZ-fQ-jXH" secondAttribute="bottom" constant="16" id="l9i-nh-JBO"/>
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="500" id="maJ-gs-bo2"/>
+                                    <constraint firstItem="1IQ-bS-Ofp" firstAttribute="top" secondItem="2vZ-fQ-jXH" secondAttribute="bottom" constant="8" id="p3I-5U-31Y"/>
                                     <constraint firstItem="awL-a2-8ba" firstAttribute="centerY" secondItem="Bso-LG-2oW" secondAttribute="centerY" id="qhN-30-04e"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -246,6 +260,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="C7k-Hm-fk1"/>
                         <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="PES-gD-iwp" firstAttribute="centerY" secondItem="C7k-Hm-fk1" secondAttribute="centerY" id="b8w-qv-Q2l"/>
@@ -253,18 +268,18 @@
                             <constraint firstItem="PES-gD-iwp" firstAttribute="leading" secondItem="C7k-Hm-fk1" secondAttribute="leading" constant="40" id="kEt-ir-Cu4"/>
                             <constraint firstItem="PES-gD-iwp" firstAttribute="centerX" secondItem="C7k-Hm-fk1" secondAttribute="centerX" id="nNO-aO-3Ij"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="C7k-Hm-fk1"/>
                     </view>
                     <connections>
                         <outlet property="cancelButton" destination="awL-a2-8ba" id="51u-xN-s9I"/>
                         <outlet property="messageLabel" destination="2vZ-fQ-jXH" id="tjb-1J-ayq"/>
                         <outlet property="okButton" destination="Bso-LG-2oW" id="Qwy-Nt-sgw"/>
                         <outlet property="titleLabel" destination="DmN-2k-s0e" id="Cjn-NY-EoA"/>
+                        <outlet property="warningTextLabel" destination="1IQ-bS-Ofp" id="mXO-YO-9sr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cwN-Fn-fif" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1043" y="-729"/>
+            <point key="canvasLocation" x="1042.0289855072465" y="-729.24107142857144"/>
         </scene>
         <!--Checkable List Dialog View Controller-->
         <scene sceneID="0eQ-Xh-X5G">
@@ -288,12 +303,12 @@
                                     </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tdL-B1-oIO">
                                         <rect key="frame" x="0.0" y="57.5" width="334" height="100"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="100" id="Mgh-sQ-tVk"/>
                                         </constraints>
                                     </tableView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N6d-DK-8BP">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N6d-DK-8BP">
                                         <rect key="frame" x="159" y="165.5" width="79" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="79" id="040-Mu-D1E"/>
@@ -306,7 +321,7 @@
                                             <action selector="cancelButtonTapped:" destination="1C2-Ut-oCm" eventType="touchUpInside" id="tAE-LB-RmH"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ycs-gD-CQg" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ycs-gD-CQg" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                         <rect key="frame" x="246" y="165.5" width="80" height="40"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -357,6 +372,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="lB8-Cb-IQc"/>
                         <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="JnU-Wj-3OK" firstAttribute="centerY" secondItem="lB8-Cb-IQc" secondAttribute="centerY" id="9bV-MT-Q3K"/>
@@ -364,7 +380,6 @@
                             <constraint firstItem="JnU-Wj-3OK" firstAttribute="centerX" secondItem="lB8-Cb-IQc" secondAttribute="centerX" id="Kae-G6-jaI"/>
                             <constraint firstItem="JnU-Wj-3OK" firstAttribute="leading" secondItem="lB8-Cb-IQc" secondAttribute="leading" constant="40" id="NHV-Ap-0vq"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="lB8-Cb-IQc"/>
                     </view>
                     <connections>
                         <outlet property="cancelButton" destination="N6d-DK-8BP" id="WId-3g-zM6"/>
@@ -411,7 +426,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="y0F-Ju-bFE" firstAttribute="top" secondItem="pAW-47-8yR" secondAttribute="top" constant="21" id="5lQ-ay-KBb"/>
                                             <constraint firstAttribute="trailing" secondItem="LVC-da-btr" secondAttribute="trailing" constant="20" id="ER9-8f-7Z6"/>
@@ -430,7 +445,7 @@
                                     </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="150" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="74" estimatedRowHeight="74" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="1tl-kt-hoo" customClass="SelfSizedTableView" customModule="Decred_Wallet" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="67" width="414" height="150"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -456,6 +471,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="2BP-9v-Ax9"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="2BP-9v-Ax9" firstAttribute="trailing" secondItem="STI-8m-ryV" secondAttribute="trailing" id="8q9-1S-V4e"/>
@@ -463,7 +479,6 @@
                             <constraint firstItem="STI-8m-ryV" firstAttribute="leading" secondItem="2BP-9v-Ax9" secondAttribute="leading" id="PCU-pe-bJy"/>
                             <constraint firstAttribute="bottom" secondItem="STI-8m-ryV" secondAttribute="bottom" id="vDG-OQ-sbj"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="2BP-9v-Ax9"/>
                     </view>
                     <connections>
                         <outlet property="headerContainerView" destination="pAW-47-8yR" id="aBM-it-AYQ"/>
@@ -495,7 +510,7 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="backUpYourWalletsReminder"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XPc-hQ-3RI">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XPc-hQ-3RI">
                                         <rect key="frame" x="247" y="80.5" width="79" height="33"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="79" id="PaO-bL-cec"/>
@@ -529,6 +544,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="ngy-YP-lVz"/>
                         <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="9mB-bz-qSS" firstAttribute="centerX" secondItem="ngy-YP-lVz" secondAttribute="centerX" id="6Mb-Y1-BXe"/>
@@ -536,7 +552,6 @@
                             <constraint firstItem="ngy-YP-lVz" firstAttribute="trailing" secondItem="9mB-bz-qSS" secondAttribute="trailing" constant="40" id="Piz-0s-oUT"/>
                             <constraint firstItem="9mB-bz-qSS" firstAttribute="centerY" secondItem="ngy-YP-lVz" secondAttribute="centerY" id="xtx-dE-SWY"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="ngy-YP-lVz"/>
                     </view>
                     <connections>
                         <outlet property="messageLabel" destination="rr3-ou-obW" id="VdF-Hc-143"/>
@@ -581,7 +596,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7xk-ob-U2x">
                                         <rect key="frame" x="24" y="222.5" width="366" height="40"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m9N-SL-zOt">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m9N-SL-zOt">
                                                 <rect key="frame" x="199" y="0.0" width="79" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="79" id="LCb-xO-O2J"/>
@@ -594,7 +609,7 @@
                                                     <action selector="cancelButtonTapped:" destination="Gv8-Qc-Xel" eventType="touchUpInside" id="YZV-a5-sU3"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="US8-5M-GYa" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="US8-5M-GYa" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                                 <rect key="frame" x="286" y="0.0" width="80" height="40"/>
                                                 <color key="backgroundColor" red="0.77000000000000002" green="0.80000000000000004" blue="0.81999999999999995" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
@@ -622,7 +637,7 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="m9N-SL-zOt" firstAttribute="height" secondItem="US8-5M-GYa" secondAttribute="height" id="TtM-dk-GOl"/>
                                             <constraint firstAttribute="bottom" secondItem="US8-5M-GYa" secondAttribute="bottom" id="j8H-6E-EFH"/>
@@ -680,13 +695,13 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="TB3-Sm-yNd"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Jix-Yz-rr0" firstAttribute="leading" secondItem="TB3-Sm-yNd" secondAttribute="leading" id="4tl-HE-3JW"/>
                             <constraint firstItem="TB3-Sm-yNd" firstAttribute="trailing" secondItem="Jix-Yz-rr0" secondAttribute="trailing" id="b8v-FN-AGc"/>
                             <constraint firstAttribute="bottom" secondItem="Jix-Yz-rr0" secondAttribute="bottom" id="cdk-sZ-Poj"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="TB3-Sm-yNd"/>
                     </view>
                     <connections>
                         <outlet property="cancelButton" destination="m9N-SL-zOt" id="M3C-wA-zHH"/>
@@ -704,7 +719,33 @@
             <point key="canvasLocation" x="40.579710144927539" y="27.455357142857142"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="Bso-LG-2oW">
+            <size key="intrinsicContentSize" width="88" height="21"/>
+        </designable>
+        <designable name="EGJ-n8-btt">
+            <size key="intrinsicContentSize" width="34" height="34"/>
+        </designable>
+        <designable name="GAs-jd-Gqe">
+            <size key="intrinsicContentSize" width="34" height="34"/>
+        </designable>
+        <designable name="RpI-Rx-7Vj">
+            <size key="intrinsicContentSize" width="77" height="21"/>
+        </designable>
+        <designable name="US8-5M-GYa">
+            <size key="intrinsicContentSize" width="77" height="21"/>
+        </designable>
+        <designable name="Ycs-gD-CQg">
+            <size key="intrinsicContentSize" width="52" height="21"/>
+        </designable>
+        <designable name="ylK-Qf-Xvq">
+            <size key="intrinsicContentSize" width="34" height="34"/>
+        </designable>
+    </designables>
     <resources>
         <image name="ic_close" width="24" height="24"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>
