@@ -90,19 +90,21 @@ extension SeedWordsDisplayViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        let cell = tableView.dequeueReusableCell(withIdentifier: "seedWordsDisplayTableViewCell") as! SeedWordsDisplayTableViewCell
 
-       if self.seedWords.indices.contains(indexPath.row) {
-           cell.serialNumberLbl1?.text = String(indexPath.row + 1)
-           cell.seedWordLbl1?.text = self.seedWords[indexPath.row]
-       }
+        if self.seedWords.indices.contains(indexPath.row) {
+            cell.serialNumberLbl1?.text = String(indexPath.row + 1)
+            cell.seedWordLbl1?.text = self.seedWords[indexPath.row]
+            cell.seedWordLbl1.accessibilityIdentifier = "seedword\(indexPath.row)"
+        }
 
-       let secoundColumnIndex = indexPath.row + Int(ceil(Double(seedWords.count) / 2))
+        let secoundColumnIndex = indexPath.row + Int(ceil(Double(seedWords.count) / 2))
 
-       if self.seedWords.indices.contains(secoundColumnIndex) {
-           cell.serialNumberLbl2?.text = String(secoundColumnIndex + 1)
-           cell.seedWordLbl2?.text = self.seedWords[secoundColumnIndex]
-           cell.serialNumberLbl2?.isHidden = false
-           cell.seedWordLbl2?.isHidden = false
-       } else {
+        if self.seedWords.indices.contains(secoundColumnIndex) {
+            cell.serialNumberLbl2?.text = String(secoundColumnIndex + 1)
+            cell.seedWordLbl2?.text = self.seedWords[secoundColumnIndex]
+            cell.seedWordLbl2.accessibilityIdentifier = "secondSeedword\(indexPath.row)"
+            cell.serialNumberLbl2?.isHidden = false
+            cell.seedWordLbl2?.isHidden = false
+        } else {
            cell.serialNumberLbl2?.isHidden = true
            cell.seedWordLbl2?.isHidden = true
        }
