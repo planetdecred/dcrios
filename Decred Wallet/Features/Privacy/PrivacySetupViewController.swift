@@ -2,9 +2,10 @@
 //  PrivacySetupViewController.swift
 //  Decred Wallet
 //
-//  Created by Suleiman Abubakar on 29/12/2020.
-//  Copyright © 2020 Decred. All rights reserved.
-//
+// Copyright (c) 2020 The Decred developers
+// Use of this source code is governed by an ISC
+// license that can be found in the LICENSE file.
+
 
 import UIKit
 import Dcrlibwallet

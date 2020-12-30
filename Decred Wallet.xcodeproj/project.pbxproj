@@ -156,6 +156,7 @@
 		DD493C06247654BC00C0D772 /* WatchOnlyWalletTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD493C05247654BC00C0D772 /* WatchOnlyWalletTableViewCell.xib */; };
 		DD4948EC22C0E400006A35F8 /* LocalizedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4948EB22C0E400006A35F8 /* LocalizedStrings.swift */; };
 		DD53FD772459F8B3003CA279 /* beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = DD53FD762459F8B3003CA279 /* beep.mp3 */; };
+		DD569298259B9E40004D4BE6 /* PrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD569297259B9E3F004D4BE6 /* PrivacyViewController.swift */; };
 		DD5AB14623BAE47A00863362 /* About.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD5AB14523BAE47A00863362 /* About.storyboard */; };
 		DD5AB14823BAE47A00863362 /* Debug.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD5AB14723BAE47A00863362 /* Debug.storyboard */; };
 		DD5AB14A23BAE47A00863362 /* Help.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD5AB14923BAE47A00863362 /* Help.storyboard */; };
@@ -353,6 +354,7 @@
 		DD493C05247654BC00C0D772 /* WatchOnlyWalletTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WatchOnlyWalletTableViewCell.xib; sourceTree = "<group>"; };
 		DD4948EB22C0E400006A35F8 /* LocalizedStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedStrings.swift; sourceTree = "<group>"; };
 		DD53FD762459F8B3003CA279 /* beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = beep.mp3; sourceTree = "<group>"; };
+		DD569297259B9E3F004D4BE6 /* PrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewController.swift; sourceTree = "<group>"; };
 		DD5AB14523BAE47A00863362 /* About.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = About.storyboard; sourceTree = "<group>"; };
 		DD5AB14723BAE47A00863362 /* Debug.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Debug.storyboard; sourceTree = "<group>"; };
 		DD5AB14923BAE47A00863362 /* Help.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Help.storyboard; sourceTree = "<group>"; };
@@ -952,6 +954,7 @@
 			children = (
 				DDD7D20825C1BCCB0013BF0A /* Privacy.storyboard */,
 				DDEEEE1725AB1B8E00794B67 /* PrivacySetupViewController.swift */,
+				DD569297259B9E3F004D4BE6 /* PrivacyViewController.swift */,
 			);
 			path = Privacy;
 			sourceTree = "<group>";
@@ -1250,6 +1253,7 @@
 				B3B46AA7228F0F7D00A68EDD /* CurrencyConversionOptionsViewController.swift in Sources */,
 				DD89A04723B091FF00C1ECE9 /* SecurityToolsItemCell.swift in Sources */,
 				25E63F4E23312B2C009CD53E /* NavMenuFloatingButtons.swift in Sources */,
+				DD569298259B9E40004D4BE6 /* PrivacyViewController.swift in Sources */,
 				B3B46AB1228F0F7D00A68EDD /* SeedCheckActiveCellView.swift in Sources */,
 				B3B46A32228F0F2700A68EDD /* OverviewViewController.swift in Sources */,
 				10341E0723CBBB700055DFDE /* SeedBackupSuccessViewController.swift in Sources */,

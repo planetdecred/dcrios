@@ -38,7 +38,7 @@
                                         <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Wallet 0" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WsD-vo-weA">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="mywallet" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WsD-vo-weA">
                                         <rect key="frame" x="0.0" y="29.5" width="345.5" height="18"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                         <color key="textColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
@@ -152,33 +152,52 @@
             </objects>
             <point key="canvasLocation" x="575" y="-381"/>
         </scene>
-        <!--View Controller-->
+        <!--Privacy View Controller-->
         <scene sceneID="RxM-UM-VIz">
             <objects>
-                <viewController storyboardIdentifier="OverviewViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="y16-2g-f1O" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PrivacyViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="y16-2g-f1O" customClass="PrivacyViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iEF-jc-dcn">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="IKe-Ji-zhC">
-                                <rect key="frame" x="24" y="16" width="366" height="25.5"/>
+                                <rect key="frame" x="24" y="16" width="366" height="43.5"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="300" verticalHuggingPriority="300" image="left-arrow" translatesAutoresizingMaskIntoConstraints="NO" id="YBc-Cl-xD8">
-                                        <rect key="frame" x="0.0" y="5" width="16.5" height="15.5"/>
+                                        <rect key="frame" x="0.0" y="14" width="16.5" height="15.5"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Privacy" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HEi-mE-cds">
-                                        <rect key="frame" x="32.5" y="0.0" width="293.5" height="25.5"/>
-                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
-                                        <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="300" verticalHuggingPriority="300" image="info" translatesAutoresizingMaskIntoConstraints="NO" id="6Kh-vg-rS4">
-                                        <rect key="frame" x="342" y="1" width="24" height="24"/>
-                                    </imageView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="C3h-pB-sWg">
+                                        <rect key="frame" x="32.5" y="0.0" width="287.5" height="43.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Privacy" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZgL-Gd-zyW">
+                                                <rect key="frame" x="0.0" y="0.0" width="287.5" height="25.5"/>
+                                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
+                                                <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="mywallet" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HEi-mE-cds">
+                                                <rect key="frame" x="0.0" y="25.5" width="287.5" height="18"/>
+                                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                                                <color key="textColor" red="0.34901960784313724" green="0.42745098039215684" blue="0.50588235294117645" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vl1-xB-GUb">
+                                        <rect key="frame" x="336" y="7" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="aSG-q6-0Lw"/>
+                                            <constraint firstAttribute="height" constant="30" id="tv2-d6-pt5"/>
+                                        </constraints>
+                                        <state key="normal" image="info"/>
+                                        <connections>
+                                            <action selector="privacyInfo:" destination="y16-2g-f1O" eventType="touchUpInside" id="x3j-tU-pKL"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                             </stackView>
                             <scrollView clipsSubviews="YES" contentMode="scaleToFill" directionalLockEnabled="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" contentInsetAdjustmentBehavior="always" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="cps-S7-OnL">
-                                <rect key="frame" x="0.0" y="57.5" width="414" height="784.5"/>
+                                <rect key="frame" x="0.0" y="75.5" width="414" height="766.5"/>
                                 <subviews>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="byB-XZ-r7u">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="651"/>
@@ -203,20 +222,32 @@
                                                                                 </constraints>
                                                                             </imageView>
                                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="TWX-kd-Q96">
-                                                                                <rect key="frame" x="56" y="0.5" width="75" height="42"/>
+                                                                                <rect key="frame" x="56" y="0.5" width="95" height="42"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mixer" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8dv-TH-uiv">
-                                                                                        <rect key="frame" x="0.0" y="0.0" width="75" height="21"/>
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="95" height="21"/>
                                                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                                                                         <color key="textColor" red="0.035294117647058823" green="0.078431372549019607" blue="0.25098039215686274" alpha="1" colorSpace="calibratedRGB"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
-                                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ready to mix" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jqn-P3-Y9X">
-                                                                                        <rect key="frame" x="0.0" y="21" width="75" height="21"/>
-                                                                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
-                                                                                        <color key="textColor" red="0.34901960784313724" green="0.42745098039215684" blue="0.50588235294117645" alpha="1" colorSpace="calibratedRGB"/>
-                                                                                        <nil key="highlightedColor"/>
-                                                                                    </label>
+                                                                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="aSn-zl-5vC">
+                                                                                        <rect key="frame" x="0.0" y="21" width="95" height="21"/>
+                                                                                        <subviews>
+                                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_alert" translatesAutoresizingMaskIntoConstraints="NO" id="7nI-di-gG5">
+                                                                                                <rect key="frame" x="0.0" y="2.5" width="16" height="16"/>
+                                                                                                <constraints>
+                                                                                                    <constraint firstAttribute="width" constant="16" id="XRx-8E-bl0"/>
+                                                                                                    <constraint firstAttribute="height" constant="16" id="qeS-pb-ji7"/>
+                                                                                                </constraints>
+                                                                                            </imageView>
+                                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ready to mix" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jqn-P3-Y9X">
+                                                                                                <rect key="frame" x="20" y="1.5" width="75" height="18"/>
+                                                                                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                                                                                                <color key="textColor" red="0.34901960784313724" green="0.42745098039215684" blue="0.50588235294117645" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                                <nil key="highlightedColor"/>
+                                                                                            </label>
+                                                                                        </subviews>
+                                                                                    </stackView>
                                                                                 </subviews>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="42" id="RZf-Wg-URf"/>
@@ -225,6 +256,9 @@
                                                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="5ap-ty-ttF">
                                                                                 <rect key="frame" x="333" y="6" width="51" height="31"/>
                                                                                 <color key="onTintColor" red="0.16078431372549018" green="0.4392156862745098" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                <connections>
+                                                                                    <action selector="mixAccount:" destination="y16-2g-f1O" eventType="valueChanged" id="MoB-dv-F7x"/>
+                                                                                </connections>
                                                                             </switch>
                                                                         </subviews>
                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -247,14 +281,21 @@
                                                                                 <color key="textColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
-                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="107.74431858 DCR" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="AXV-IJ-5qC">
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.74431858 DCR" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="AXV-IJ-5qC">
                                                                                 <rect key="frame" x="216" y="16" width="134" height="20.5"/>
                                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                                                                 <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
+                                                                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_downArrow" translatesAutoresizingMaskIntoConstraints="NO" id="qDX-Ib-0qo">
+                                                                                <rect key="frame" x="171" y="24" width="24" height="24"/>
+                                                                                <constraints>
+                                                                                    <constraint firstAttribute="height" constant="24" id="PF1-yd-P3I"/>
+                                                                                    <constraint firstAttribute="width" constant="24" id="o7o-LF-lt9"/>
+                                                                                </constraints>
+                                                                            </imageView>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mixed balance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8e0-09-jpF">
-                                                                                <rect key="frame" x="16" y="44.5" width="83.5" height="18"/>
+                                                                                <rect key="frame" x="16" y="45" width="83.5" height="18"/>
                                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                                                                 <color key="textColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
                                                                                 <nil key="highlightedColor"/>
@@ -272,13 +313,16 @@
                                                                             <constraint firstItem="AXV-IJ-5qC" firstAttribute="width" secondItem="Nw7-9G-ofI" secondAttribute="width" multiplier="0.365809" id="28E-bs-DJP"/>
                                                                             <constraint firstItem="2X5-xl-U8x" firstAttribute="leading" secondItem="Nw7-9G-ofI" secondAttribute="leading" constant="16" id="4IP-KG-seR"/>
                                                                             <constraint firstItem="AXV-IJ-5qC" firstAttribute="top" secondItem="Nw7-9G-ofI" secondAttribute="top" constant="16" id="6ST-Lc-ZrG"/>
+                                                                            <constraint firstItem="qDX-Ib-0qo" firstAttribute="centerY" secondItem="Nw7-9G-ofI" secondAttribute="centerY" id="G7O-0o-46m"/>
                                                                             <constraint firstItem="2X5-xl-U8x" firstAttribute="centerY" secondItem="AXV-IJ-5qC" secondAttribute="centerY" id="RtL-0V-qGL"/>
                                                                             <constraint firstItem="2X5-xl-U8x" firstAttribute="width" secondItem="Nw7-9G-ofI" secondAttribute="width" multiplier="0.54" id="U24-Bj-yIv"/>
                                                                             <constraint firstItem="8e0-09-jpF" firstAttribute="centerY" secondItem="qNx-so-qhl" secondAttribute="centerY" id="X8L-qG-zj9"/>
                                                                             <constraint firstAttribute="trailing" secondItem="AXV-IJ-5qC" secondAttribute="trailing" constant="16" id="YH1-Le-ynb"/>
-                                                                            <constraint firstItem="qNx-so-qhl" firstAttribute="top" secondItem="2X5-xl-U8x" secondAttribute="bottom" constant="8" id="cGD-xO-2YX"/>
+                                                                            <constraint firstItem="qDX-Ib-0qo" firstAttribute="centerX" secondItem="Nw7-9G-ofI" secondAttribute="centerX" id="ZpK-Xs-658"/>
+                                                                            <constraint firstItem="qNx-so-qhl" firstAttribute="top" relation="greaterThanOrEqual" secondItem="2X5-xl-U8x" secondAttribute="bottom" constant="8" id="cGD-xO-2YX"/>
                                                                             <constraint firstAttribute="trailing" secondItem="qNx-so-qhl" secondAttribute="trailing" constant="16" id="dAs-dK-lh1"/>
                                                                             <constraint firstAttribute="height" constant="72" id="kne-Tk-bv9"/>
+                                                                            <constraint firstAttribute="bottom" secondItem="qNx-so-qhl" secondAttribute="bottom" constant="8" id="rLZ-FH-2mk"/>
                                                                             <constraint firstItem="qNx-so-qhl" firstAttribute="width" secondItem="Nw7-9G-ofI" secondAttribute="width" multiplier="0.4" id="yEP-03-HEw"/>
                                                                         </constraints>
                                                                         <userDefinedRuntimeAttributes>
@@ -287,10 +331,18 @@
                                                                             </userDefinedRuntimeAttribute>
                                                                         </userDefinedRuntimeAttributes>
                                                                     </view>
+                                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mixer will automatically stop when unmixed balance are fully mixed." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vBM-NH-GCu">
+                                                                        <rect key="frame" x="16" y="139" width="366" height="0.0"/>
+                                                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                                                                        <color key="textColor" red="0.34901960784313724" green="0.42745098039215684" blue="0.50588235294117645" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
                                                                 </subviews>
                                                                 <constraints>
                                                                     <constraint firstItem="qWu-tc-hle" firstAttribute="width" secondItem="s8T-d8-0GV" secondAttribute="width" id="2M1-1a-MvR"/>
+                                                                    <constraint firstItem="vBM-NH-GCu" firstAttribute="leading" secondItem="s8T-d8-0GV" secondAttribute="leading" constant="16" id="83b-dm-TkA"/>
                                                                     <constraint firstAttribute="trailing" secondItem="Nw7-9G-ofI" secondAttribute="trailing" constant="16" id="IV0-J5-46T"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="vBM-NH-GCu" secondAttribute="trailing" constant="16" id="IZf-Tr-vjl"/>
                                                                     <constraint firstItem="Nw7-9G-ofI" firstAttribute="leading" secondItem="s8T-d8-0GV" secondAttribute="leading" constant="16" id="u0z-uP-W8A"/>
                                                                 </constraints>
                                                                 <edgeInsets key="layoutMargins" top="8" left="0.0" bottom="8" right="0.0"/>
@@ -740,10 +792,27 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="c78-Xc-PQ5"/>
+                    <connections>
+                        <outlet property="MixedAccount" destination="YPA-lh-ntY" id="tbN-Hz-MHR"/>
+                        <outlet property="accountBranch" destination="4UL-Ur-qDb" id="lbe-g7-TdV"/>
+                        <outlet property="changeAccount" destination="dzW-0z-f9y" id="7nW-pC-lNB"/>
+                        <outlet property="mixedBalance" destination="qNx-so-qhl" id="ux6-bK-ddg"/>
+                        <outlet property="mixerDetailViewConst" destination="kne-Tk-bv9" id="Got-y8-xxW"/>
+                        <outlet property="mixerDropdownArrow" destination="qDX-Ib-0qo" id="3AT-Rx-FnW"/>
+                        <outlet property="mixerStatusIcon" destination="7nI-di-gG5" id="3WF-Z8-N7x"/>
+                        <outlet property="mixerStatusInfo" destination="Jqn-P3-Y9X" id="9Rx-Mr-enh"/>
+                        <outlet property="mixerSwitch" destination="5ap-ty-ttF" id="ePI-lT-wad"/>
+                        <outlet property="mixingInfo" destination="vBM-NH-GCu" id="dVc-w7-Iw5"/>
+                        <outlet property="shufflePort" destination="HYB-Jv-1h0" id="h9s-Je-hm0"/>
+                        <outlet property="shuffleServer" destination="iO4-dT-fWB" id="VPB-PD-IVJ"/>
+                        <outlet property="spendUnmixedSwitch" destination="oHF-JR-j3o" id="phD-lb-N8N"/>
+                        <outlet property="unmixedBalance" destination="AXV-IJ-5qC" id="aSk-ay-JCE"/>
+                        <outlet property="walletName" destination="HEi-mE-cds" id="axM-Bf-jR2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gyp-Ol-Ksl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1001" y="-375"/>
+            <point key="canvasLocation" x="-1128" y="-137"/>
         </scene>
     </scenes>
     <designables>
@@ -752,7 +821,9 @@
         </designable>
     </designables>
     <resources>
+        <image name="ic_alert" width="16" height="16"/>
         <image name="ic_collapseNew" width="12" height="8"/>
+        <image name="ic_downArrow" width="24" height="24"/>
         <image name="ic_mixer" width="24" height="24"/>
         <image name="ic_mixer_setup" width="280" height="120"/>
         <image name="info" width="24" height="24"/>
