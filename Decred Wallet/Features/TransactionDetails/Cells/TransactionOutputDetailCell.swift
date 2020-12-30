@@ -7,17 +7,24 @@
 // license that can be found in the LICENSE file.
 
 import UIKit
+import Dcrlibwallet
 
 class TransactionOutputDetailCell: UITableViewCell {
     @IBOutlet weak var txAmountLabel: UILabel!
     @IBOutlet weak var txHashButton: UIButton!
     var onTxHashCopied: (() -> ())?
 
-    func display(_ output: TxOutput) {
+    func display(_ output: TxOutput, wallet: DcrlibwalletWallet) {
         var amount = Utils.getAttributedString(str: "\(output.dcrAmount.round(8))", siz: 13, TexthexColor: UIColor.appColors.darkBlue)
         var address = output.address
+        var error: NSError?
+        let accountName = wallet.accountName(output.accountNumber, error: &error)
+        
+        if error != nil {
+            Utils.showBanner(in: contentView, type: .error, text: error!.localizedDescription)
+        }
 
-        var account = output.accountNumber >= 0 ? output.accountName: LocalizedStrings.external.lowercased()
+        var account = output.accountNumber >= 0 ? accountName: LocalizedStrings.external.lowercased()
         account = " (\(account))"
 
         switch output.scriptType {
