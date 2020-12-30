@@ -6,6 +6,7 @@
 // license that can be found in the LICENSE file.
 
 import UIKit
+import Dcrlibwallet
 
 class TransactionInputDetailCell: UITableViewCell {
     @IBOutlet weak var txAmountLabel: UILabel!
@@ -13,9 +14,15 @@ class TransactionInputDetailCell: UITableViewCell {
     
     var onTxHashCopied: (() -> ())?
     
-    func display(_ input: TxInput) {
+    func display(_ input: TxInput, wallet: DcrlibwalletWallet) {
+        var error: NSError?
+        let accountName = wallet.accountName(input.accountNumber, error: &error)
+        
+        if error != nil {
+            Utils.showBanner(in: contentView, type: .error, text: error!.localizedDescription)
+        }
         self.txAmountLabel.text = Utils.getAttributedString(str: "\(input.dcrAmount.round(8))", siz: 16, TexthexColor: UIColor.appColors.darkBlue).string
-            + " (\(input.accountNumber))"
+            + " (\(accountName))"
 
         var hash = input.previousTransactionHash
         if hash == "0000000000000000000000000000000000000000000000000000000000000000" {
