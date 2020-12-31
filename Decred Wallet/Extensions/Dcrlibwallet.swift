@@ -224,7 +224,6 @@ extension DcrlibwalletMultiWallet {
 extension DcrlibwalletCFiltersFetchProgressReport {
     var blockRemaining: String {
         let blRemaining = self.totalCFiltersToFetch - self.currentCFilterHeight
-        print(self.totalCFiltersToFetch,"-----", self.currentCFilterHeight)
         return String(format: LocalizedStrings.cfiltersLeft, blRemaining)
     }
 }
