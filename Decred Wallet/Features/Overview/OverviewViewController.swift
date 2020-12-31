@@ -445,7 +445,7 @@ extension OverviewViewController: DcrlibwalletSyncProgressListenerProtocol {
             self.syncCurrentStepTitleLabel.text = LocalizedStrings.cfilterFetched
             self.syncCurrentStepReportLabel.text = String(format: LocalizedStrings.cfilterFetchedTotal, report.currentCFilterHeight, report.totalCFiltersToFetch)
             
-            self.syncCurrentStepProgressLabel.text = String(format: LocalizedStrings.syncingProgress, report.blockRemaining)
+            self.syncCurrentStepProgressLabel.text = report.blockRemaining
             
         }
     }
