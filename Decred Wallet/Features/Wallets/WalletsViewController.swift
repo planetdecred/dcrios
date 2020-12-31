@@ -243,17 +243,17 @@ extension WalletsViewController: UITableViewDataSource, UITableViewDelegate {
             let wallet = self.wallets[indexPath.row]
             if !wallet.isSeedBackedUp {
                 cellHeight += WalletInfoTableViewCell.walletNotBackedUpLabelHeight
-                    + WalletInfoTableViewCell.seedBackupPromptHeight
+                    + WalletInfoTableViewCell.seedBackupPromptHeight + WalletInfoTableViewCell.checkMixerStatusHeight
             }
             
             if wallet.displayAccounts {
                 cellHeight += (WalletInfoTableViewCell.accountCellHeight * CGFloat(wallet.accounts.count))
-                    + WalletInfoTableViewCell.addNewAccountButtonHeight
+                    + WalletInfoTableViewCell.addNewAccountButtonHeight + WalletInfoTableViewCell.checkMixerStatusHeight
             }
         } else {
             cellHeight += (WalletInfoTableViewCell.accountCellHeight * CGFloat(watchOnly.count))
         }
-        return cellHeight
+        return cellHeight + WalletInfoTableViewCell.checkMixerStatusHeight
         
     }
     
@@ -300,7 +300,7 @@ extension WalletsViewController: WalletInfoTableViewCellDelegate {
         }))
         
         walletMenu.addAction(UIAlertAction(title: "Privacy", style: .default, handler: { _ in
-            self.goToPrivacyPage(walletID: walletID)
+            self.goToPrivacySetupPage(walletID: walletID)
         }))
         
         walletMenu.addAction(UIAlertAction(title: LocalizedStrings.settings, style: .default, handler: { _ in
@@ -372,6 +372,10 @@ extension WalletsViewController: WalletInfoTableViewCellDelegate {
         if numberOfNotBackedupWallets < 1 {
             customTabBar?.hasUnBackedUpWallets(false)
         }
+    }
+    
+    func gotoPrivacy(_ wallet: Wallet) {
+        self.gotoPrivacyPage(walletID: wallet.id)
     }
 }
 
@@ -451,12 +455,22 @@ extension WalletsViewController {
         self.navigationController?.pushViewController(verifyMessageVC, animated: true)
     }
     
-    func goToPrivacyPage(walletID: Int) {
+    func goToPrivacySetupPage(walletID: Int) {
         guard let wallet = WalletLoader.shared.multiWallet.wallet(withID: walletID) else {
             return
         }
         
         let PrivacySetupVC = PrivacySetupViewController.instantiate(from: .Privacy)
+        PrivacySetupVC.wallet = wallet
+        self.navigationController?.pushViewController(PrivacySetupVC, animated: true)
+    }
+    
+    func gotoPrivacyPage(walletID: Int) {
+        guard let wallet = WalletLoader.shared.multiWallet.wallet(withID: walletID) else {
+            return
+        }
+        
+        let PrivacySetupVC = PrivacyViewController.instantiate(from: .Privacy)
         PrivacySetupVC.wallet = wallet
         self.navigationController?.pushViewController(PrivacySetupVC, animated: true)
     }

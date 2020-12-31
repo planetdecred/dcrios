@@ -14,6 +14,7 @@ protocol WalletInfoTableViewCellDelegate {
     func showWalletMenu(walletName: String, walletID: Int, _ sender: UIView)
     func addNewAccount(_ wallet: Wallet)
     func showAccountDetailsDialog(_ account: DcrlibwalletAccount)
+    func gotoPrivacy(_ wallet: Wallet)
 }
 
 class WalletInfoTableViewCell: UITableViewCell {
@@ -41,6 +42,7 @@ class WalletInfoTableViewCell: UITableViewCell {
     static let accountCellHeight: CGFloat = 74.0
     static let addNewAccountButtonHeight: CGFloat = 56
     static let seedBackupPromptHeight: CGFloat = 92.0
+    static let checkMixerStatusHeight:CGFloat = 34.0
     
     var wallet: Wallet! {
         didSet {
@@ -87,6 +89,11 @@ class WalletInfoTableViewCell: UITableViewCell {
         modalVC.modalPresentationStyle = .overFullScreen
         AppDelegate.shared.window?.rootViewController?.present(modalVC, animated: true)
     }
+    
+    @IBAction func checkMixerStatus(_ sender: Any) {
+        self.delegate?.gotoPrivacy(self.wallet)
+    }
+    
     
     @IBAction func walletMenuButtonTapped(_ sender: UIView) {
         self.delegate?.showWalletMenu(walletName: self.wallet.name, walletID: self.wallet.id, sender)
