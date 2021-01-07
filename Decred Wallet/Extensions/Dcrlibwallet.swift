@@ -220,3 +220,10 @@ extension DcrlibwalletMultiWallet {
         return transactions
     }
 }
+
+extension DcrlibwalletCFiltersFetchProgressReport {
+    var blockRemaining: String {
+        let blRemaining = self.totalCFiltersToFetch - self.currentCFilterHeight
+        return String(format: LocalizedStrings.cfiltersLeft, blRemaining)
+    }
+}
