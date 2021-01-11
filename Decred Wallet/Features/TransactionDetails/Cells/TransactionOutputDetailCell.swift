@@ -17,7 +17,7 @@ class TransactionOutputDetailCell: UITableViewCell {
         var amount = Utils.getAttributedString(str: "\(output.dcrAmount.round(8))", siz: 13, TexthexColor: UIColor.appColors.darkBlue)
         var address = output.address
 
-        var account = output.accountNumber >= 0 ? output.accountName: LocalizedStrings.external.lowercased()
+        var account = LocalizedStrings.external.lowercased()// output.accountNumber >= 0 ? output.accountName: LocalizedStrings.external.lowercased()
         account = " (\(account))"
 
         switch output.scriptType {

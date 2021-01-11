@@ -15,7 +15,7 @@ class TransactionInputDetailCell: UITableViewCell {
     
     func display(_ input: TxInput) {
         self.txAmountLabel.text = Utils.getAttributedString(str: "\(input.dcrAmount.round(8))", siz: 16, TexthexColor: UIColor.appColors.darkBlue).string
-            + " (\(input.accountName))"
+//            + " (\(input.accountName))"
 
         var hash = input.previousTransactionHash
         if hash == "0000000000000000000000000000000000000000000000000000000000000000" {
