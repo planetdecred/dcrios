@@ -24,7 +24,7 @@ class PrivacySetupViewController: UIViewController {
             guard ok else { return }
             
             Security.spending(initialSecurityType: SpendingPinOrPassword.securityType(for: self.wallet.id_))
-                .with(prompt: "Confirm to create needed accounts")
+                .with(prompt: LocalizedStrings.confirmToCreateMixer)
                 .with(submitBtnText: LocalizedStrings.remove)
                 .requestCurrentCode(sender: self) { spendingCode, _, dialogDelegate in
                 
@@ -51,12 +51,12 @@ class PrivacySetupViewController: UIViewController {
     }
     
     func showReminder(callback: @escaping (Bool) -> Void) {
-        let message = "Two dedicated accounts (“mixed” & “unmixed”) will be created in order to use the mixer."
+        let message = LocalizedStrings.setupMixerInfo
         SimpleOkCancelDialog.show(sender: self,
-                                  title: "Set up mixer by creating two needed accounts",
+                                  title: LocalizedStrings.setupMixerWithTwoAccounts,
                                   message: message,
-                                  warningText: "Set up mixer by creating two needed accounts",
-                                  okButtonText: "Begin setup",
+                                  warningText: LocalizedStrings.setupMixerWithTwoAccounts,
+                                  okButtonText: LocalizedStrings.beginSetup,
                                   callback: callback)
     }
 
