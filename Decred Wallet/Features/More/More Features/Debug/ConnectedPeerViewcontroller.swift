@@ -22,6 +22,7 @@ class ConnectedPeerViewController: UIViewController {
     }
     
     func setupUI() {
+        self.title = "Connected peers"
         self.tableView.delegate = self
         self.tableView.dataSource = self
     }
