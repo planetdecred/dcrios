@@ -45,6 +45,9 @@
 		25751F532372C9460019F657 /* Dcrlibwallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25751F522372C9460019F657 /* Dcrlibwallet.framework */; };
 		25A4331C2373D0330018FFCF /* SyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A4331B2373D0330018FFCF /* SyncManager.swift */; };
 		25E63F4E23312B2C009CD53E /* NavMenuFloatingButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E63F4D23312B2B009CD53E /* NavMenuFloatingButtons.swift */; };
+		60E853A025B324C800E4CFDD /* ConnectedPeerViewcontroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E8539F25B324C800E4CFDD /* ConnectedPeerViewcontroller.swift */; };
+		60E853A425B4805200E4CFDD /* PeerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E853A325B4805200E4CFDD /* PeerInfo.swift */; };
+		60E853A825B48F9800E4CFDD /* ConnectedPeerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E853A725B48F9800E4CFDD /* ConnectedPeerTableViewCell.swift */; };
 		AD24C23D2343E445009583C9 /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD24C23C2343E445009583C9 /* NotificationsManager.swift */; };
 		B164982429AEDD7AF8C8782C /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9714AB438E597D403032748 /* Pods_Decred_Wallet.framework */; };
 		B304B39423F202A400B81798 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B304B39323F202A400B81798 /* Settings.swift */; };
@@ -244,6 +247,9 @@
 		25A4331B2373D0330018FFCF /* SyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncManager.swift; sourceTree = "<group>"; };
 		25E63F4D23312B2B009CD53E /* NavMenuFloatingButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavMenuFloatingButtons.swift; sourceTree = "<group>"; };
 		6091E9A8255000CE0028E67F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		60E8539F25B324C800E4CFDD /* ConnectedPeerViewcontroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectedPeerViewcontroller.swift; sourceTree = "<group>"; };
+		60E853A325B4805200E4CFDD /* PeerInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeerInfo.swift; sourceTree = "<group>"; };
+		60E853A725B48F9800E4CFDD /* ConnectedPeerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectedPeerTableViewCell.swift; sourceTree = "<group>"; };
 		6A0625AB1C6ACD2EC77F544F /* Pods-Decred Wallet.mainnet debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.mainnet debug.xcconfig"; path = "Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.mainnet debug.xcconfig"; sourceTree = "<group>"; };
 		A9714AB438E597D403032748 /* Pods_Decred_Wallet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Decred_Wallet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD24C23C2343E445009583C9 /* NotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
@@ -693,6 +699,7 @@
 			children = (
 				B35C55D7232FED610006A765 /* Transaction.swift */,
 				B3E727CD23DE0FCC003B06B4 /* Wallet.swift */,
+				60E853A325B4805200E4CFDD /* PeerInfo.swift */,
 			);
 			path = DcrlibwalletTypes;
 			sourceTree = "<group>";
@@ -937,6 +944,8 @@
 				B3B46A66228F0F7B00A68EDD /* WalletLogViewController.swift */,
 				DD5AB14D23D4C12C00863362 /* DebugTableViewController.swift */,
 				DDA2F7CD24375FEF00A3DC7C /* StatisticsViewController.swift */,
+				60E8539F25B324C800E4CFDD /* ConnectedPeerViewcontroller.swift */,
+				60E853A725B48F9800E4CFDD /* ConnectedPeerTableViewCell.swift */,
 			);
 			path = Debug;
 			sourceTree = "<group>";
@@ -1248,6 +1257,7 @@
 				10341E0923CBBB700055DFDE /* SeedBackupVerifyViewController.swift in Sources */,
 				B3E727CC23DD506E003B06B4 /* WalletsViewController.swift in Sources */,
 				B3B46A9B228F0F7D00A68EDD /* PeerSetTableViewController.swift in Sources */,
+				60E853A825B48F9800E4CFDD /* ConnectedPeerTableViewCell.swift in Sources */,
 				B3B46A89228F0F7D00A68EDD /* keyPadButton.swift in Sources */,
 				B3D474E223E56CFD00B6E305 /* CheckableListDialogViewController.swift in Sources */,
 				10BA77992390059F00B67446 /* TabMenuItemView.swift in Sources */,
@@ -1256,6 +1266,7 @@
 				DDDF95D723C20AA70057AA7F /* SignMessageViewController.swift in Sources */,
 				DD81CBC523B39E6A009D3833 /* PaddedLabel.swift in Sources */,
 				B3B46A88228F0F7D00A68EDD /* UIIMage.swift in Sources */,
+				60E853A025B324C800E4CFDD /* ConnectedPeerViewcontroller.swift in Sources */,
 				B3B46A11228F0F2700A68EDD /* UITableViewExtension.swift in Sources */,
 				B379BA6523E2A2F1002CA92E /* SingleToMultiWalletMigration.swift in Sources */,
 				B3635B82229FE5870052EB4D /* QRImageScanner.swift in Sources */,
@@ -1293,6 +1304,7 @@
 				DDAE91022435092200FEC016 /* KeychainItemAccessibility.swift in Sources */,
 				B3B46A39228F0F2700A68EDD /* StartupPinOrPassword.swift in Sources */,
 				B3B46A8F228F0F7D00A68EDD /* ConfirmToSendFundViewController.swift in Sources */,
+				60E853A425B4805200E4CFDD /* PeerInfo.swift in Sources */,
 				B3B46A38228F0F2700A68EDD /* Dcrlibwallet.swift in Sources */,
 				100B122E23E9EECB005636A7 /* RestoreExistingWalletSuccessViewController.swift in Sources */,
 				B3B46A36228F0F2700A68EDD /* WalletLoader.swift in Sources */,
