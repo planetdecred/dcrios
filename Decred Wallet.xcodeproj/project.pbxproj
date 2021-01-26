@@ -147,6 +147,7 @@
 		DD02AC6523969440004A73E3 /* MoreMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD02AC6423969440004A73E3 /* MoreMenuItem.swift */; };
 		DD17D9CC23CE243D0017E41D /* RestoreExistingWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD17D9CB23CE243D0017E41D /* RestoreExistingWalletViewController.swift */; };
 		DD36717723B44AB700D1ED67 /* More.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD36717623B44AB700D1ED67 /* More.storyboard */; };
+		DD398AB825C35B03003BC77D /* PrivacySetupTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD398AB725C35B03003BC77D /* PrivacySetupTypeViewController.swift */; };
 		DD3DF86622C3F0BD00E168AB /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3DF86522C3F0BD00E168AB /* UILabel.swift */; };
 		DD41737B22B1B31E00580935 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DD41737D22B1B31E00580935 /* Localizable.strings */; };
 		DD493BF8247327E800C0D772 /* MultipleTextInputDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD493BF7247327E800C0D772 /* MultipleTextInputDialog.swift */; };
@@ -341,6 +342,7 @@
 		DD17D9CB23CE243D0017E41D /* RestoreExistingWalletViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestoreExistingWalletViewController.swift; sourceTree = "<group>"; };
 		DD36717623B44AB700D1ED67 /* More.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = More.storyboard; sourceTree = "<group>"; };
 		DD36EE33247020C30011C335 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DD398AB725C35B03003BC77D /* PrivacySetupTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacySetupTypeViewController.swift; sourceTree = "<group>"; };
 		DD3DF86522C3F0BD00E168AB /* UILabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
 		DD3DF86722C42B3E00E168AB /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		DD41737C22B1B31E00580935 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -953,6 +955,7 @@
 			isa = PBXGroup;
 			children = (
 				DDD7D20825C1BCCB0013BF0A /* Privacy.storyboard */,
+				DD398AB725C35B03003BC77D /* PrivacySetupTypeViewController.swift */,
 				DDEEEE1725AB1B8E00794B67 /* PrivacySetupViewController.swift */,
 				DD569297259B9E3F004D4BE6 /* PrivacyViewController.swift */,
 			);
@@ -1277,6 +1280,7 @@
 				B3B46A17228F0F2700A68EDD /* ContouredButton.swift in Sources */,
 				B3B46A18228F0F2700A68EDD /* DropDownSearchField.swift in Sources */,
 				B3B46A97228F0F7D00A68EDD /* TransactionDetailsViewController.swift in Sources */,
+				DD398AB825C35B03003BC77D /* PrivacySetupTypeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
