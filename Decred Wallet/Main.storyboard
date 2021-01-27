@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3Xs-3X-Jiu">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3Xs-3X-Jiu">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -73,7 +73,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zvk-KY-83T" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
-                                <rect key="frame" x="24" y="710" width="366" height="56"/>
+                                <rect key="frame" x="24" y="638" width="366" height="56"/>
                                 <color key="backgroundColor" red="0.16" green="0.44" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <accessibility key="accessibilityConfiguration" identifier="createNewWallet"/>
                                 <constraints>
@@ -97,7 +97,7 @@
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DGk-43-e2H" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
-                                <rect key="frame" x="24" y="782" width="366" height="56"/>
+                                <rect key="frame" x="24" y="710" width="366" height="56"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <accessibility key="accessibilityConfiguration" identifier="restoreExistingWallet"/>
                                 <constraints>
@@ -124,6 +124,35 @@
                                     <action selector="restoreExistingWallet:" destination="Kb1-lm-LZA" eventType="touchUpInside" id="8pe-Pe-wce"/>
                                 </connections>
                             </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="REa-RA-Srn" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
+                                <rect key="frame" x="24" y="782" width="366" height="56"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <accessibility key="accessibilityConfiguration" identifier="restoreExistingWallet"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="56" id="HXv-On-Fiz"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="contentEdgeInsets" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <inset key="titleEdgeInsets" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="16" maxY="0.0"/>
+                                <state key="normal" image="ic_watch_only_wallet">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="7"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="importAWatchOnlyWallet"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="enabledBackgroundColor">
+                                        <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="importWatchWallet:" destination="Kb1-lm-LZA" eventType="touchUpInside" id="9wS-bS-RS8"/>
+                                    <action selector="restoreExistingWallet:" destination="Kb1-lm-LZA" eventType="touchUpInside" id="0fl-VI-1wX"/>
+                                </connections>
+                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="v1.5.1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9eM-8v-SKy">
                                 <rect key="frame" x="187.5" y="841.5" width="39.5" height="20.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
@@ -131,6 +160,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="bve-SX-yvX"/>
                         <color key="backgroundColor" red="0.95294117649999999" green="0.96078431369999995" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="zvk-KY-83T" firstAttribute="leading" secondItem="bve-SX-yvX" secondAttribute="leading" constant="24" id="4YG-aE-m3N"/>
@@ -140,8 +170,10 @@
                             <constraint firstItem="DGk-43-e2H" firstAttribute="leading" secondItem="bve-SX-yvX" secondAttribute="leading" constant="24" id="IOS-QN-0zu"/>
                             <constraint firstItem="DGk-43-e2H" firstAttribute="top" secondItem="zvk-KY-83T" secondAttribute="bottom" constant="16" id="Ip4-fg-5pa"/>
                             <constraint firstItem="bve-SX-yvX" firstAttribute="trailing" secondItem="zvk-KY-83T" secondAttribute="trailing" constant="24" id="L5L-Oc-HMk"/>
-                            <constraint firstItem="bve-SX-yvX" firstAttribute="bottom" secondItem="DGk-43-e2H" secondAttribute="bottom" constant="24" id="PjD-DY-5uk"/>
                             <constraint firstItem="bve-SX-yvX" firstAttribute="trailing" secondItem="y4w-th-plZ" secondAttribute="trailing" constant="24" id="SBt-Oa-LvS"/>
+                            <constraint firstItem="REa-RA-Srn" firstAttribute="top" secondItem="DGk-43-e2H" secondAttribute="bottom" constant="16" id="SV9-5l-P0t"/>
+                            <constraint firstItem="REa-RA-Srn" firstAttribute="leading" secondItem="DGk-43-e2H" secondAttribute="leading" id="Uk0-HG-rst"/>
+                            <constraint firstItem="bve-SX-yvX" firstAttribute="bottom" secondItem="REa-RA-Srn" secondAttribute="bottom" constant="24" id="VLp-SW-EoT"/>
                             <constraint firstItem="y4w-th-plZ" firstAttribute="leading" secondItem="bve-SX-yvX" secondAttribute="leading" constant="24" id="Wmx-yR-xPC"/>
                             <constraint firstItem="zvk-KY-83T" firstAttribute="leading" secondItem="bve-SX-yvX" secondAttribute="leading" constant="24" id="YrY-ji-FQ3"/>
                             <constraint firstItem="w3H-Un-Z5W" firstAttribute="centerX" secondItem="JGZ-bG-2El" secondAttribute="centerX" id="aGc-37-0yJ"/>
@@ -149,11 +181,11 @@
                             <constraint firstItem="9eM-8v-SKy" firstAttribute="bottom" secondItem="bve-SX-yvX" secondAttribute="bottom" id="dBJ-G4-Qud"/>
                             <constraint firstItem="9eM-8v-SKy" firstAttribute="centerX" secondItem="JGZ-bG-2El" secondAttribute="centerX" id="fpB-jO-tvt"/>
                             <constraint firstItem="y4w-th-plZ" firstAttribute="centerX" secondItem="JGZ-bG-2El" secondAttribute="centerX" id="kEv-wn-87f"/>
+                            <constraint firstItem="REa-RA-Srn" firstAttribute="trailing" secondItem="DGk-43-e2H" secondAttribute="trailing" id="tFb-3e-jfR"/>
                             <constraint firstItem="hRj-cn-ZPx" firstAttribute="top" secondItem="CdX-sy-0x2" secondAttribute="bottom" id="to3-I2-2Uv"/>
                             <constraint firstItem="y4w-th-plZ" firstAttribute="centerY" secondItem="JGZ-bG-2El" secondAttribute="centerY" constant="15.25" id="uza-bk-Gdi"/>
                             <constraint firstItem="hRj-cn-ZPx" firstAttribute="centerX" secondItem="JGZ-bG-2El" secondAttribute="centerX" id="w8t-9D-jbx"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="bve-SX-yvX"/>
                     </view>
                     <navigationItem key="navigationItem" id="Jpv-ob-gVe"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -196,9 +228,21 @@
             <point key="canvasLocation" x="-200.00000000000003" y="-1433.0357142857142"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="DGk-43-e2H">
+            <size key="intrinsicContentSize" width="198" height="24"/>
+        </designable>
+        <designable name="REa-RA-Srn">
+            <size key="intrinsicContentSize" width="230" height="24"/>
+        </designable>
+        <designable name="zvk-KY-83T">
+            <size key="intrinsicContentSize" width="168" height="24"/>
+        </designable>
+    </designables>
     <resources>
         <image name="ic-add" width="24" height="24"/>
         <image name="ic_decred_logo" width="160" height="160"/>
         <image name="ic_restore" width="24" height="24"/>
+        <image name="ic_watch_only_wallet" width="24" height="24"/>
     </resources>
 </document>

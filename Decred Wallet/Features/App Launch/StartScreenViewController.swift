@@ -171,6 +171,11 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
         self.navigationController?.pushViewController(restoreWalletVC, animated: true)
     }
     
+    @IBAction func importWatchWallet(_ sender: Any) {
+        
+    }
+    
+    
     func loadMainScreen() {
         if !WalletLoader.shared.isInitialized {
             print("there was an error initializing multiwallet")
