@@ -921,6 +921,9 @@
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="setUpMixerForWallet"/>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <segue destination="ZTY-JF-4EY" kind="show" id="xVj-U1-Idf"/>
+                                        </connections>
                                     </button>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_edit" translatesAutoresizingMaskIntoConstraints="NO" id="Uen-Mh-e2A">
                                         <rect key="frame" x="8" y="36" width="24" height="24"/>
@@ -1008,6 +1011,9 @@
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="setUpMixerForWallet"/>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="setupAutoMixer:" destination="YFH-6t-Z4b" eventType="touchUpInside" id="Ap4-wW-s3f"/>
+                                        </connections>
                                     </button>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_checkmark_round" translatesAutoresizingMaskIntoConstraints="NO" id="0v9-h7-iK9">
                                         <rect key="frame" x="8" y="36" width="24" height="24"/>
@@ -1123,12 +1129,289 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3th-XY-wnt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53.623188405797109" y="229.6875"/>
+            <point key="canvasLocation" x="-272" y="-33"/>
+        </scene>
+        <!--Privacy Manual Setup View Controller-->
+        <scene sceneID="cSs-Bj-kCo">
+            <objects>
+                <viewController storyboardIdentifier="PrivacyManualSetupViewController" automaticallyAdjustsScrollViewInsets="NO" id="ZTY-JF-4EY" customClass="PrivacyManualSetupViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="02w-ud-9hs">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jh9-Wu-Jnh">
+                                <rect key="frame" x="16" y="37.5" width="16.5" height="21.5"/>
+                                <state key="normal" image="left-arrow"/>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pfm-FT-pyp">
+                                <rect key="frame" x="52.5" y="16" width="345.5" height="64.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Privacy" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hKI-Bx-Sh1">
+                                        <rect key="frame" x="0.0" y="0.0" width="345.5" height="23.5"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
+                                        <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="mywallet" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wov-X4-mJT">
+                                        <rect key="frame" x="0.0" y="27.5" width="55.5" height="16.5"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                                        <color key="textColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="Wov-X4-mJT" firstAttribute="top" secondItem="hKI-Bx-Sh1" secondAttribute="bottom" constant="4" id="LcL-sA-ogz"/>
+                                    <constraint firstItem="hKI-Bx-Sh1" firstAttribute="top" secondItem="Pfm-FT-pyp" secondAttribute="top" id="lLY-ul-k3v"/>
+                                    <constraint firstItem="hKI-Bx-Sh1" firstAttribute="leading" secondItem="Pfm-FT-pyp" secondAttribute="leading" id="t5e-RB-Rgn"/>
+                                    <constraint firstItem="Wov-X4-mJT" firstAttribute="leading" secondItem="Pfm-FT-pyp" secondAttribute="leading" id="vab-CV-jiA"/>
+                                    <constraint firstAttribute="trailing" secondItem="hKI-Bx-Sh1" secondAttribute="trailing" id="xRQ-0R-Bcv"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e3e-Zj-wSm">
+                                <rect key="frame" x="0.0" y="727" width="414" height="115"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zrj-Lb-M0h" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
+                                        <rect key="frame" x="24" y="16" width="366" height="48"/>
+                                        <color key="backgroundColor" red="0.76862745098039209" green="0.79607843137254897" blue="0.82352941176470584" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="bkJ-LF-OHc"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
+                                        <state key="normal" title="Set up">
+                                            <color key="titleColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="7"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="disabledBackgroundColor">
+                                                <color key="value" red="0.76862745099999996" green="0.79607843140000001" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="enabledBackgroundColor">
+                                                <color key="value" red="0.76862745098039209" green="0.79607843137254897" blue="0.82352941176470584" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="setupManualMixer:" destination="ZTY-JF-4EY" eventType="touchUpInside" id="xQm-ts-opM"/>
+                                            <action selector="setupMixer:" destination="ZTY-JF-4EY" eventType="touchUpInside" id="F9D-oj-gg4"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="Zrj-Lb-M0h" firstAttribute="top" secondItem="e3e-Zj-wSm" secondAttribute="top" constant="16" id="0FW-Hk-ruG"/>
+                                    <constraint firstAttribute="height" constant="115" id="XwP-TO-8Gy"/>
+                                    <constraint firstItem="Zrj-Lb-M0h" firstAttribute="leading" secondItem="e3e-Zj-wSm" secondAttribute="leading" constant="24" id="hqo-td-Okd"/>
+                                    <constraint firstAttribute="trailing" secondItem="Zrj-Lb-M0h" secondAttribute="trailing" constant="24" id="z3l-Za-GaI"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="op5-gv-ZUw" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
+                                <rect key="frame" x="8" y="192.5" width="398" height="96"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RuH-us-AAx">
+                                        <rect key="frame" x="366" y="36" width="24" height="24"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="24" id="M2X-Qr-oS7"/>
+                                        </constraints>
+                                        <color key="tintColor" red="0.23921568630000001" green="0.34509803919999998" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="Set up mixer for this wallet" image="ic_dropdown">
+                                            <color key="titleColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="7"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="disabledBackgroundColor">
+                                                <color key="value" red="0.76862745099999996" green="0.79607843140000001" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="enabledBackgroundColor">
+                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="setUpMixerForWallet"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_account" translatesAutoresizingMaskIntoConstraints="NO" id="ajt-Wg-f0Q">
+                                        <rect key="frame" x="8" y="36" width="24" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="24" id="Gn9-R3-q11"/>
+                                            <constraint firstAttribute="height" constant="24" id="Xfr-vt-ngn"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unmixed Account" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dVH-3N-XcA">
+                                        <rect key="frame" x="16" y="8" width="112.5" height="16.5"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                                        <color key="textColor" red="0.34901960784313724" green="0.42745098039215684" blue="0.50588235294117645" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select acount" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="16x-U5-mMf">
+                                        <rect key="frame" x="48" y="35.5" width="111" height="21"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
+                                        <color key="textColor" red="0.23921568630000001" green="0.34509803919999998" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="16x-U5-mMf" firstAttribute="top" secondItem="dVH-3N-XcA" secondAttribute="bottom" constant="11" id="5xD-DI-lMw"/>
+                                    <constraint firstAttribute="trailing" secondItem="RuH-us-AAx" secondAttribute="trailing" constant="8" id="964-3j-TCX"/>
+                                    <constraint firstItem="dVH-3N-XcA" firstAttribute="top" secondItem="op5-gv-ZUw" secondAttribute="top" constant="8" id="FL2-YG-PV4"/>
+                                    <constraint firstItem="ajt-Wg-f0Q" firstAttribute="leading" secondItem="op5-gv-ZUw" secondAttribute="leading" constant="8" id="Imx-mU-Q4f"/>
+                                    <constraint firstAttribute="height" constant="96" id="ROe-t5-cQd"/>
+                                    <constraint firstItem="16x-U5-mMf" firstAttribute="leading" secondItem="ajt-Wg-f0Q" secondAttribute="trailing" constant="16" id="aw3-rr-EbV"/>
+                                    <constraint firstItem="RuH-us-AAx" firstAttribute="centerY" secondItem="op5-gv-ZUw" secondAttribute="centerY" id="eSU-jC-CSx"/>
+                                    <constraint firstItem="ajt-Wg-f0Q" firstAttribute="centerY" secondItem="op5-gv-ZUw" secondAttribute="centerY" id="raM-LY-rxW"/>
+                                    <constraint firstItem="dVH-3N-XcA" firstAttribute="leading" secondItem="op5-gv-ZUw" secondAttribute="leading" constant="16" id="z2I-eU-tuJ"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderRadius">
+                                        <real key="value" value="14"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                        <real key="value" value="0.040000000000000001"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                        <real key="value" value="16"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                        <size key="value" width="0.0" height="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="23O-YZ-Qfw" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
+                                <rect key="frame" x="8" y="88.5" width="398" height="96"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JJI-ld-6mF">
+                                        <rect key="frame" x="366" y="36" width="24" height="24"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="24" id="c0s-dK-rFV"/>
+                                        </constraints>
+                                        <color key="tintColor" red="0.23921568630000001" green="0.34509803919999998" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="Set up mixer for this wallet" image="ic_dropdown">
+                                            <color key="titleColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="7"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="disabledBackgroundColor">
+                                                <color key="value" red="0.76862745099999996" green="0.79607843140000001" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="enabledBackgroundColor">
+                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_account" translatesAutoresizingMaskIntoConstraints="NO" id="ant-zG-05f">
+                                        <rect key="frame" x="8" y="36" width="24" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="24" id="Cwz-8O-UoF"/>
+                                            <constraint firstAttribute="width" constant="24" id="kLI-0r-kpU"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mixed Account" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fcF-k0-bQh">
+                                        <rect key="frame" x="16" y="8" width="94.5" height="16.5"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                                        <color key="textColor" red="0.34901960784313724" green="0.42745098039215684" blue="0.50588235294117645" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select acount" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hh1-Ex-d3j">
+                                        <rect key="frame" x="48" y="34.5" width="111" height="21"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
+                                        <color key="textColor" red="0.23921568630000001" green="0.34509803919999998" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="fcF-k0-bQh" firstAttribute="leading" secondItem="23O-YZ-Qfw" secondAttribute="leading" constant="16" id="Bgp-Vr-8qd"/>
+                                    <constraint firstAttribute="height" constant="96" id="F0l-3R-Rss"/>
+                                    <constraint firstItem="ant-zG-05f" firstAttribute="centerY" secondItem="23O-YZ-Qfw" secondAttribute="centerY" id="OaB-GY-Zhg"/>
+                                    <constraint firstItem="Hh1-Ex-d3j" firstAttribute="leading" secondItem="ant-zG-05f" secondAttribute="trailing" constant="16" id="TwP-vy-LUO"/>
+                                    <constraint firstItem="JJI-ld-6mF" firstAttribute="centerY" secondItem="23O-YZ-Qfw" secondAttribute="centerY" id="YGx-GS-8GY"/>
+                                    <constraint firstItem="fcF-k0-bQh" firstAttribute="top" secondItem="23O-YZ-Qfw" secondAttribute="top" constant="8" id="aAx-BI-dVl"/>
+                                    <constraint firstAttribute="trailing" secondItem="JJI-ld-6mF" secondAttribute="trailing" constant="8" id="c55-WD-e2K"/>
+                                    <constraint firstItem="ant-zG-05f" firstAttribute="leading" secondItem="23O-YZ-Qfw" secondAttribute="leading" constant="8" id="i69-ge-88F"/>
+                                    <constraint firstItem="Hh1-Ex-d3j" firstAttribute="top" secondItem="fcF-k0-bQh" secondAttribute="bottom" constant="10" id="t5X-ig-ubc"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderRadius">
+                                        <real key="value" value="14"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                        <real key="value" value="0.040000000000000001"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                        <real key="value" value="16"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowSpread">
+                                        <real key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                        <size key="value" width="0.0" height="7"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Make sure to select the corresponding accounts to the previous setup. Failing to do so could damage wallet privacy." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="THn-oT-tEQ">
+                                <rect key="frame" x="36" y="304.5" width="370" height="56"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                <color key="textColor" red="0.23921568630000001" green="0.34509803919999998" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_alert" translatesAutoresizingMaskIntoConstraints="NO" id="0ch-hB-0Bs">
+                                <rect key="frame" x="12" y="304.5" width="16" height="16"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="16" id="TEG-fe-QC2"/>
+                                    <constraint firstAttribute="height" constant="16" id="nMR-bg-deI"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="XhA-VK-j3u"/>
+                        <color key="backgroundColor" red="0.95294117649999999" green="0.96078431369999995" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="Pfm-FT-pyp" firstAttribute="top" secondItem="XhA-VK-j3u" secondAttribute="top" constant="16" id="0VN-6L-pao"/>
+                            <constraint firstItem="ajt-Wg-f0Q" firstAttribute="centerY" secondItem="02w-ud-9hs" secondAttribute="centerY" constant="-180.5" id="1AD-9K-RCw"/>
+                            <constraint firstItem="Pfm-FT-pyp" firstAttribute="leading" secondItem="jh9-Wu-Jnh" secondAttribute="trailing" constant="20" id="325-LM-VQe"/>
+                            <constraint firstItem="THn-oT-tEQ" firstAttribute="centerX" secondItem="02w-ud-9hs" secondAttribute="centerX" constant="14" id="69a-Bl-Lga"/>
+                            <constraint firstItem="XhA-VK-j3u" firstAttribute="trailing" secondItem="Pfm-FT-pyp" secondAttribute="trailing" constant="16" id="7WB-nc-gPe"/>
+                            <constraint firstItem="op5-gv-ZUw" firstAttribute="leading" secondItem="XhA-VK-j3u" secondAttribute="leading" constant="8" id="8Fs-VF-pl4"/>
+                            <constraint firstItem="0ch-hB-0Bs" firstAttribute="leading" secondItem="XhA-VK-j3u" secondAttribute="leading" constant="12" id="8nl-nS-gs9"/>
+                            <constraint firstAttribute="bottom" secondItem="e3e-Zj-wSm" secondAttribute="bottom" id="95j-R5-xnP"/>
+                            <constraint firstItem="23O-YZ-Qfw" firstAttribute="leading" secondItem="XhA-VK-j3u" secondAttribute="leading" constant="8" id="9MM-YC-c7z"/>
+                            <constraint firstItem="THn-oT-tEQ" firstAttribute="top" secondItem="op5-gv-ZUw" secondAttribute="bottom" constant="16" id="C7s-dl-r6z"/>
+                            <constraint firstItem="23O-YZ-Qfw" firstAttribute="top" secondItem="Pfm-FT-pyp" secondAttribute="bottom" constant="8" id="FHi-SI-4Vh"/>
+                            <constraint firstItem="jh9-Wu-Jnh" firstAttribute="centerY" secondItem="Pfm-FT-pyp" secondAttribute="centerY" id="Muj-KI-g7N"/>
+                            <constraint firstItem="ajt-Wg-f0Q" firstAttribute="leading" secondItem="02w-ud-9hs" secondAttribute="leading" constant="16" id="NJ6-cS-Cfp"/>
+                            <constraint firstItem="jh9-Wu-Jnh" firstAttribute="top" secondItem="XhA-VK-j3u" secondAttribute="top" constant="37.5" id="UiC-mO-7e1"/>
+                            <constraint firstItem="op5-gv-ZUw" firstAttribute="top" secondItem="23O-YZ-Qfw" secondAttribute="bottom" constant="8" symbolic="YES" id="Y2k-xI-Ul6"/>
+                            <constraint firstItem="THn-oT-tEQ" firstAttribute="leading" secondItem="0ch-hB-0Bs" secondAttribute="trailing" constant="8" id="YiJ-MD-DBO"/>
+                            <constraint firstItem="e3e-Zj-wSm" firstAttribute="leading" secondItem="XhA-VK-j3u" secondAttribute="leading" id="c7n-Rq-nBK"/>
+                            <constraint firstItem="0ch-hB-0Bs" firstAttribute="top" secondItem="THn-oT-tEQ" secondAttribute="top" id="eQS-wr-H1o"/>
+                            <constraint firstItem="op5-gv-ZUw" firstAttribute="top" secondItem="23O-YZ-Qfw" secondAttribute="bottom" constant="8" id="kWl-uy-Qhi"/>
+                            <constraint firstItem="e3e-Zj-wSm" firstAttribute="trailing" secondItem="XhA-VK-j3u" secondAttribute="trailing" id="lsJ-oZ-B68"/>
+                            <constraint firstItem="jh9-Wu-Jnh" firstAttribute="leading" secondItem="XhA-VK-j3u" secondAttribute="leading" constant="16" id="o3s-4q-dTZ"/>
+                            <constraint firstItem="XhA-VK-j3u" firstAttribute="trailing" secondItem="23O-YZ-Qfw" secondAttribute="trailing" constant="8" id="uJp-GU-wrd"/>
+                            <constraint firstItem="XhA-VK-j3u" firstAttribute="trailing" secondItem="op5-gv-ZUw" secondAttribute="trailing" constant="8" id="vYd-ez-yOC"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="RtK-7c-96m"/>
+                    <connections>
+                        <outlet property="setupMixerBtn" destination="Zrj-Lb-M0h" id="eNc-7S-e7X"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WOV-Dh-Q8c" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="216" y="668"/>
         </scene>
     </scenes>
     <designables>
         <designable name="ROd-rd-67z">
             <size key="intrinsicContentSize" width="192" height="24"/>
+        </designable>
+        <designable name="Zrj-Lb-M0h">
+            <size key="intrinsicContentSize" width="53" height="33"/>
         </designable>
         <designable name="ayu-ew-FJN">
             <size key="intrinsicContentSize" width="169" height="33"/>
@@ -1138,11 +1421,13 @@
         </designable>
     </designables>
     <resources>
+        <image name="ic_account" width="24" height="24"/>
         <image name="ic_alert" width="16" height="16"/>
         <image name="ic_arrow_next" width="24" height="24"/>
         <image name="ic_checkmark_round" width="64" height="64"/>
         <image name="ic_collapseNew" width="12" height="8"/>
         <image name="ic_downArrow" width="24" height="24"/>
+        <image name="ic_dropdown" width="24" height="24"/>
         <image name="ic_edit" width="24" height="24"/>
         <image name="ic_mixer" width="24" height="24"/>
         <image name="ic_mixer_setup" width="280" height="120"/>

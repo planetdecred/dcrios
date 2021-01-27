@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -101,7 +102,7 @@
                                                             </label>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9AC-cy-rNT" customClass="WalletAccountView" customModule="Decred_Wallet" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="34" width="398" height="88"/>
-                                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="localizeAccountSelectorPrompt" value="YES"/>
                                                                     <userDefinedRuntimeAttribute type="string" keyPath="accountSelectorPrompt" value="sendingAccount"/>
@@ -150,7 +151,7 @@
                                                                     <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="to"/>
                                                                 </userDefinedRuntimeAttributes>
                                                             </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1cr-hs-gI2">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1cr-hs-gI2">
                                                                 <rect key="frame" x="313" y="16" width="69" height="30"/>
                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                                                 <state key="normal" title="Send to self">
@@ -168,8 +169,8 @@
                                                                 <subviews>
                                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="JDR-oq-YJC" customClass="FloatingPlaceholderTextView" customModule="Decred_Wallet" customModuleProvider="target">
                                                                         <rect key="frame" x="0.0" y="0.0" width="366" height="60.5"/>
-                                                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                                                        <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                        <color key="textColor" systemColor="labelColor"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                                         <userDefinedRuntimeAttributes>
@@ -244,7 +245,7 @@
                                                                     <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="to"/>
                                                                 </userDefinedRuntimeAttributes>
                                                             </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Buz-3W-EyU">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Buz-3W-EyU">
                                                                 <rect key="frame" x="297" y="16" width="85" height="30"/>
                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                                                 <state key="normal" title="Send to others">
@@ -259,7 +260,7 @@
                                                             </button>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vka-UC-gd6" customClass="WalletAccountView" customModule="Decred_Wallet" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="34" width="398" height="88"/>
-                                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="localizeAccountSelectorPrompt" value="YES"/>
                                                                     <userDefinedRuntimeAttribute type="string" keyPath="accountSelectorPrompt" value="receivingAccount"/>
@@ -339,7 +340,7 @@
                                                                                             <userDefinedRuntimeAttribute type="string" keyPath="suffixText" value=" DCR"/>
                                                                                         </userDefinedRuntimeAttributes>
                                                                                     </textField>
-                                                                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bPH-60-lge">
+                                                                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bPH-60-lge">
                                                                                         <rect key="frame" x="298" y="8.5" width="36" height="25"/>
                                                                                         <color key="backgroundColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="15"/>
@@ -377,7 +378,7 @@
                                                                                         <color key="textColor" red="0.76862745099999996" green="0.79607843140000001" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
-                                                                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="znf-dC-sLH" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
+                                                                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="znf-dC-sLH" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                                                                         <rect key="frame" x="289" y="0.0" width="45" height="26"/>
                                                                                         <color key="backgroundColor" red="0.92941176469999998" green="0.93725490199999995" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
                                                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
@@ -646,7 +647,7 @@
                                         <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uE2-R8-tCb" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uE2-R8-tCb" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                         <rect key="frame" x="16" y="89" width="382" height="48"/>
                                         <color key="backgroundColor" red="0.15686274510000001" green="0.43921568630000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <inset key="contentEdgeInsets" minX="15" minY="15" maxX="15" maxY="15"/>
@@ -690,6 +691,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="xFE-MF-1f4"/>
                         <color key="backgroundColor" red="0.95294117647058818" green="0.96078431372549022" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="T9I-3F-cJf" firstAttribute="leading" secondItem="xFE-MF-1f4" secondAttribute="leading" id="4Kb-5r-Kg1"/>
@@ -704,7 +706,6 @@
                             <constraint firstItem="1VY-fw-ObN" firstAttribute="top" secondItem="gte-p8-Uf9" secondAttribute="bottom" id="rrS-ne-L90"/>
                             <constraint firstItem="gte-p8-Uf9" firstAttribute="trailing" secondItem="xFE-MF-1f4" secondAttribute="trailing" id="ycf-WX-ipc"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="xFE-MF-1f4"/>
                     </view>
                     <connections>
                         <outlet property="amountContainerView" destination="2rv-Cb-tiy" id="xY6-11-LXi"/>
@@ -780,7 +781,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="CZ8-dG-xU6" firstAttribute="top" secondItem="z8Z-VR-xRg" secondAttribute="top" constant="21" id="JNA-nR-iUb"/>
                                             <constraint firstAttribute="trailing" secondItem="xZE-vD-HWT" secondAttribute="trailing" constant="20" id="Qs5-W4-eLB"/>
@@ -943,7 +944,7 @@
                                                     <constraint firstItem="GEH-md-JV4" firstAttribute="width" relation="lessThanOrEqual" secondItem="EwD-qd-034" secondAttribute="width" id="cJD-nS-sB5"/>
                                                 </constraints>
                                             </stackView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zuF-dd-eap" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zuF-dd-eap" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="385.5" width="382" height="48"/>
                                                 <color key="backgroundColor" red="0.15686274510000001" green="0.43921568630000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <inset key="contentEdgeInsets" minX="15" minY="15" maxX="15" maxY="15"/>
@@ -996,13 +997,13 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="Ef3-Pn-uRF"/>
                         <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="nDs-qx-dNF" firstAttribute="leading" secondItem="Ef3-Pn-uRF" secondAttribute="leading" id="jHJ-BU-FEv"/>
                             <constraint firstItem="nDs-qx-dNF" firstAttribute="trailing" secondItem="Ef3-Pn-uRF" secondAttribute="trailing" id="rGa-fM-Lz5"/>
                             <constraint firstItem="Ef3-Pn-uRF" firstAttribute="bottom" secondItem="nDs-qx-dNF" secondAttribute="bottom" id="tTA-d4-kr7"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="Ef3-Pn-uRF"/>
                     </view>
                     <connections>
                         <outlet property="balanceAfterSendLabel" destination="lPq-24-2mO" id="awH-8n-fH4"/>
@@ -1020,6 +1021,26 @@
             <point key="canvasLocation" x="196" y="-252"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="19H-1W-F1v">
+            <size key="intrinsicContentSize" width="108" height="15.5"/>
+        </designable>
+        <designable name="JDR-oq-YJC">
+            <size key="intrinsicContentSize" width="366" height="51.5"/>
+        </designable>
+        <designable name="uE2-R8-tCb">
+            <size key="intrinsicContentSize" width="62" height="48"/>
+        </designable>
+        <designable name="vKM-60-zWN">
+            <size key="intrinsicContentSize" width="121.5" height="15.5"/>
+        </designable>
+        <designable name="znf-dC-sLH">
+            <size key="intrinsicContentSize" width="45" height="26"/>
+        </designable>
+        <designable name="zuF-dd-eap">
+            <size key="intrinsicContentSize" width="185" height="48"/>
+        </designable>
+    </designables>
     <resources>
         <image name="ic_close" width="24" height="24"/>
         <image name="ic_downArrow" width="24" height="24"/>
@@ -1027,5 +1048,11 @@
         <image name="ic_info" width="24" height="24"/>
         <image name="ic_more" width="24" height="24"/>
         <image name="ic_swap" width="24" height="24"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>
