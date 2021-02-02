@@ -22,9 +22,15 @@ class OverviewViewController: UIViewController {
     @IBOutlet weak var seedBackupSectionView: UIView!
     @IBOutlet weak var walletsNeedBackupLabel: UILabel!
     
-    // MARK: Account mixer section (Top view)
+    // MARK: Account mixer prompt section (Top view)
     @IBOutlet weak var accountNeedMixingLabel: UILabel!
     @IBOutlet weak var accountMixingSectionView: UIView!
+    
+    // MARK: Account mixer section (Top view)
+    @IBOutlet weak var mixerRunnungLabel: UILabel!
+    @IBOutlet weak var mixerRunningInfoLabel: UILabel!
+    @IBOutlet weak var mixerStatusWalletNameLabel: UILabel!
+    @IBOutlet weak var mixerStatusUnmixedBalanceLabel: UILabel!
     
     // MARK: Recent activity section
     @IBOutlet weak var noTransactionsLabelView: UILabel!
@@ -105,6 +111,8 @@ class OverviewViewController: UIViewController {
             self.displayLatestBlockHeightAndAge()
             self.displayConnectedPeersCount()
         }
+        
+        self.checkWhetherToPromptForAccountMixing()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -335,18 +343,38 @@ class OverviewViewController: UIViewController {
     }
     
     func checkWhetherToPromptForAccountMixing() {
-        let numWalletsNeedingSeedBackup = WalletLoader.shared.multiWallet.numWalletsNeedingSeedBackup()
-        if self.hideAccountMixingPrompt || numWalletsNeedingSeedBackup == 0 {
-            self.accountMixingSectionView.isHidden = true
-            return
+        if !WalletLoader.shared.multiWallet.readBoolConfigValue(forKey: "has_setup_privacy", defaultValue: false) && !self.hideAccountMixingPrompt {
+            self.accountMixingSectionView.isHidden = false
+        }
+    }
+    
+    func setMixerStatus() {
+        var activeMixers = 0
+        var WalletID = 0
+        for wallet in WalletLoader.shared.wallets {
+            if wallet.isAccountMixerActive() {
+                activeMixers+=1
+                WalletID = wallet.id_
+            }
         }
         
-        self.accountMixingSectionView.isHidden = false
-        if numWalletsNeedingSeedBackup == 1 {
-            self.walletsNeedBackupLabel.text = LocalizedStrings.oneWalletNeedBackup
+        if (activeMixers > 0) {
+            self.mixerRunnungLabel.text = "Mixer is running."
+            self.accountMixingSectionView.isHidden = false
+            let wallet  = WalletLoader.shared.multiWallet.wallet(withID: WalletID)
+            if let unmixedAccountNumber = wallet?.readInt32ConfigValue(forKey: Dcrlibwallet.DcrlibwalletAccountMixerMixedAccount, defaultValue: -1) {
+                do {
+                    let balance  =  try wallet?.getAccountBalance(unmixedAccountNumber)
+                    self.mixerStatusUnmixedBalanceLabel.text = "\(balance?.dcrTotal ?? 0.00)"
+                } catch {
+                    DispatchQueue.main.async {
+                        Utils.showBanner(in: self.view, type: .error, text: error.localizedDescription)
+                    }
+                }
+            }
+            
         } else {
-            self.walletsNeedBackupLabel.text = String(format: LocalizedStrings.walletsNeedBackup,
-                                                      numWalletsNeedingSeedBackup)
+            self.accountMixingSectionView.isHidden = true
         }
     }
     
@@ -354,6 +382,12 @@ class OverviewViewController: UIViewController {
         self.hideSeedBackupPrompt = true
         self.seedBackupSectionView.isHidden = true
         SimpleAlertDialog.show(sender: self, message: LocalizedStrings.backUpYourWalletsReminder, okButtonText: LocalizedStrings.gotIt)
+    }
+    
+    @IBAction func setupAccountMixingTapped(_ sender: Any) {
+        if let walletsTabIndex = NavigationMenuTabBarController.tabItems.firstIndex(of: .wallets) {
+            NavigationMenuTabBarController.instance?.navigateToTab(index: walletsTabIndex)
+        }
     }
     
     @IBAction func dismissAccountMixingPromptTapped(_ sender: Any) {
@@ -459,6 +493,10 @@ extension OverviewViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension OverviewViewController: DcrlibwalletSyncProgressListenerProtocol {
+    func onCFiltersFetchProgress(_ cfiltersFetchProgress: DcrlibwalletCFiltersFetchProgressReport?) {
+        
+    }
+    
     func onSyncStarted(_ wasRestarted: Bool) {
         DispatchQueue.main.async {
             self.updateWalletStatusIndicatorAndLabel()
@@ -582,6 +620,7 @@ extension OverviewViewController: DcrlibwalletSyncProgressListenerProtocol {
         self.updateWalletStatusIndicatorAndLabel()
         self.updateSyncStatusIndicatorAndLabel()
         self.updateSyncConnectionButtonTextAndIcon()
+        self.setMixerStatus()
         self.toggleSyncProgressViews(isSyncing: false)
         self.displayLatestBlockHeightAndAge()
         self.refreshLatestBlockInfoPeriodically()
@@ -701,11 +740,14 @@ extension OverviewViewController: DcrlibwalletTxAndBlockNotificationListenerProt
 
 extension OverviewViewController: DcrlibwalletAccountMixerNotificationListenerProtocol {
     func onAccountMixerEnded(_ walletID: Int) {
-        
+        DispatchQueue.main.async {
+            self.setMixerStatus()
+        }
     }
     
     func onAccountMixerStarted(_ walletID: Int) {
-        
+        DispatchQueue.main.async {
+            self.setMixerStatus()
+        }
     }
-    
 }

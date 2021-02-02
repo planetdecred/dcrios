@@ -154,7 +154,7 @@ struct TxInput: Codable {
         self.previousTransactionHash = try! values.decode(String.self, forKey: .previousTransactionHash)
         self.previousTransactionIndex = try! values.decode(Int32.self, forKey: .previousTransactionIndex)
         self.amount = try! values.decode(Int64.self, forKey: .amount)
-        self.accountName = try! values.decode(String.self, forKey: .accountName)
+        self.accountName = "mywallet"
     }
     
     var dcrAmount: NSDecimalNumber {
@@ -188,7 +188,7 @@ struct TxOutput: Codable {
         self.scriptType = try! values.decode(String.self, forKey: .scriptType)
         self.address = try! values.decode(String.self, forKey: .address)
         self.internal = try! values.decode(Bool.self, forKey: .internal)
-        self.accountName = try! values.decode(String.self, forKey: .accountName)
+        self.accountName = "mywallet"
         self.accountNumber = try! values.decode(Int32.self, forKey: .accountNumber)
     }
     
