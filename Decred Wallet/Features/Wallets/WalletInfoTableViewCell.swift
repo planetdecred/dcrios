@@ -35,6 +35,9 @@ class WalletInfoTableViewCell: UITableViewCell {
         }
     }
     
+    @IBOutlet weak var checkMixerStatusView: UIView!
+    @IBOutlet weak var checkMixerStatusDivider: UIView!
+    
     var delegate: WalletInfoTableViewCellDelegate?
     
     static let walletInfoSectionHeight: CGFloat = 65.0
@@ -60,14 +63,40 @@ class WalletInfoTableViewCell: UITableViewCell {
                 self.accountsTableView.reloadData()
             }
             
-            self.walletNotBackedUpLabel.isHidden = wallet.isSeedBackedUp
-            self.seedBackupPrompt.isHidden = wallet.isSeedBackedUp
+            if wallet.isSeedBackedUp {
+                self.walletNotBackedUpLabel.isHidden = true
+                self.seedBackupPrompt.isHidden = true
+            } else {
+                self.walletNotBackedUpLabel.isHidden = false
+                self.walletNotBackedUpLabel.text = LocalizedStrings.notBackedUp
+                self.walletNotBackedUpLabel.textColor = UIColor.appColors.orange
+                self.seedBackupPrompt.isHidden = false
+            }
+            
+            if wallet.isAccountMixerActive {
+                self.walletNotBackedUpLabel.isHidden = false
+                self.walletNotBackedUpLabel.textColor = UIColor.appColors.bluishGray
+                self.walletNotBackedUpLabel.text = LocalizedStrings.mixing
+                self.showCheckMixerStatusView()
+            } else {
+                self.hideCheckMixerStatusView()
+            }
 
             UIView.animate(withDuration: 0.1) {
                 let rotationAngle = self.wallet.displayAccounts ? CGFloat(Double.pi/2) : 0.0
                 self.expandCollapseToggleImageView.transform = CGAffineTransform(rotationAngle: rotationAngle)
             }
         }
+    }
+    
+    func hideCheckMixerStatusView() {
+        self.checkMixerStatusView.isHidden = true
+        self.checkMixerStatusDivider.isHidden = wallet.displayAccounts ? true : false
+    }
+    
+    func showCheckMixerStatusView() {
+        self.checkMixerStatusView.isHidden = false
+        self.checkMixerStatusDivider.isHidden = wallet.displayAccounts ? true : false
     }
     
     var numberOfAccountsToDisplay: Int {

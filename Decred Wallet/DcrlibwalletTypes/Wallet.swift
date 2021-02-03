@@ -16,6 +16,7 @@ class Wallet: NSObject {
     private(set) var accounts = [DcrlibwalletAccount]()
     private(set) var isSeedBackedUp: Bool = false
     private(set) var displayAccounts: Bool = false
+    private(set) var isAccountMixerActive: Bool = false
     
     private var accountsFilterFn: ((DcrlibwalletAccount) -> Bool)?
     
@@ -26,6 +27,7 @@ class Wallet: NSObject {
         self.accounts = wallet.accounts
         self.isSeedBackedUp = wallet.encryptedSeed == nil
         self.displayAccounts = false
+        self.isAccountMixerActive = wallet.isAccountMixerActive()
 
         self.accountsFilterFn = accountsFilterFn
         if accountsFilterFn != nil {

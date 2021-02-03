@@ -440,6 +440,7 @@ struct LocalizedStrings {
     
     /* Seed Backup */
     static let failedToVerify = NSLocalizedString("failedToVerify", comment: "")
+    static let notBackedUp = NSLocalizedString("notBackedUp", comment: "")
     
     /* Statistics */
     static let accounts = NSLocalizedString("accounts", comment: "")
