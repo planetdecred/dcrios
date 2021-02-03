@@ -9,6 +9,7 @@
 import UIKit
 import Dcrlibwallet
 import LocalAuthentication
+import JGProgressHUD
 
 class StartScreenViewController: UIViewController, CAAnimationDelegate {
     @IBOutlet weak var loadingLabel: UILabel!
@@ -16,6 +17,7 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
     @IBOutlet weak var welcomeText: UILabel!
     @IBOutlet weak var createWalletBtn: Button!
     @IBOutlet weak var restoreWalletBtn: Button!
+    @IBOutlet weak var importWatchWalletBtn: Button!
     @IBOutlet weak var testnetLabel: UILabel!
     @IBOutlet weak var imageViewContainer: UIView!
     @IBOutlet weak var version: UILabel!
@@ -28,6 +30,8 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
     var timer: Timer?
     var startTimerWhenViewAppears = true
     var animationDurationSeconds: Double = 4.7
+    
+    var progressHud = JGProgressHUD(style: .light)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -172,7 +176,30 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
     }
     
     @IBAction func importWatchWallet(_ sender: Any) {
-        
+        ImportWatchWalletInput.show(sender: self) { publicKey, dialogDelegate in
+            self.progressHud = Utils.showProgressHud(withText: LocalizedStrings.loading)
+            DispatchQueue.global(qos: .userInitiated).async {
+                do {
+                    let wallet = try WalletLoader.shared.multiWallet.createWatchOnlyWallet(LocalizedStrings.myWallet, extendedPublicKey: publicKey)
+                    
+                    Utils.renameDefaultAccountToLocalLanguage(wallet: wallet)
+                    
+                    DispatchQueue.main.async {
+                        dialogDelegate?.dismissDialog()
+                        self.progressHud.dismiss()
+                        Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.watchWalletImported)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                            NavigationMenuTabBarController.setupMenuAndLaunchApp(isNewWallet: false)
+                        }
+                    }
+                    
+                } catch {
+                    DispatchQueue.main.async {
+                        dialogDelegate?.displayError(errorMessage: LocalizedStrings.keyIsInvalid)
+                    }
+                }
+            }
+        }
     }
     
     
@@ -263,9 +290,11 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
                                         self.imageViewContainer.center.y -= self.splashViewSlideUpValue
                                         self.welcomeText.center.y -= self.walletSetupViewSlideUpValue
                                         self.restoreWalletBtn.center.y -= self.walletSetupViewSlideUpValue
+                                        self.importWatchWalletBtn.center.y -= self.walletSetupViewSlideUpValue
                                         self.testnetLabel.center.y -= self.splashViewSlideUpValue
                                         self.createWalletBtn.isHidden = false
                                         self.restoreWalletBtn.isHidden = false
+                                        self.importWatchWalletBtn.isHidden = false
                                         self.welcomeText.isHidden = false
                                         self.welcomeText.text = LocalizedStrings.introMessage
         })

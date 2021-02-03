@@ -45,6 +45,7 @@
 		25751F532372C9460019F657 /* Dcrlibwallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25751F522372C9460019F657 /* Dcrlibwallet.framework */; };
 		25A4331C2373D0330018FFCF /* SyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A4331B2373D0330018FFCF /* SyncManager.swift */; };
 		25E63F4E23312B2C009CD53E /* NavMenuFloatingButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E63F4D23312B2B009CD53E /* NavMenuFloatingButtons.swift */; };
+		6027144425C2C2AB000AD64C /* ImportWatchWalletInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6027144325C2C2AB000AD64C /* ImportWatchWalletInput.swift */; };
 		AD24C23D2343E445009583C9 /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD24C23C2343E445009583C9 /* NotificationsManager.swift */; };
 		B164982429AEDD7AF8C8782C /* Pods_Decred_Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9714AB438E597D403032748 /* Pods_Decred_Wallet.framework */; };
 		B304B39423F202A400B81798 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B304B39323F202A400B81798 /* Settings.swift */; };
@@ -243,6 +244,7 @@
 		25751F522372C9460019F657 /* Dcrlibwallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Dcrlibwallet.framework; path = libs/Dcrlibwallet.framework; sourceTree = "<group>"; };
 		25A4331B2373D0330018FFCF /* SyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncManager.swift; sourceTree = "<group>"; };
 		25E63F4D23312B2B009CD53E /* NavMenuFloatingButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavMenuFloatingButtons.swift; sourceTree = "<group>"; };
+		6027144325C2C2AB000AD64C /* ImportWatchWalletInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportWatchWalletInput.swift; sourceTree = "<group>"; };
 		6091E9A8255000CE0028E67F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6A0625AB1C6ACD2EC77F544F /* Pods-Decred Wallet.mainnet debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.mainnet debug.xcconfig"; path = "Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.mainnet debug.xcconfig"; sourceTree = "<group>"; };
 		A9714AB438E597D403032748 /* Pods_Decred_Wallet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Decred_Wallet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -882,6 +884,7 @@
 				10C6610A23EC587B00754DED /* AccountSelectorDialog */,
 				B3D474E023E56CD900B6E305 /* CheckableListDialog */,
 				DD493BF7247327E800C0D772 /* MultipleTextInputDialog.swift */,
+				6027144325C2C2AB000AD64C /* ImportWatchWalletInput.swift */,
 			);
 			path = "Custom Dialogs";
 			sourceTree = "<group>";
@@ -1206,6 +1209,7 @@
 				1034D5CF24113BF10009576C /* SimpleAlertDialog.swift in Sources */,
 				B3B46A15228F0F2700A68EDD /* UIImageView.swift in Sources */,
 				B3B46A19228F0F2700A68EDD /* StartScreenViewController.swift in Sources */,
+				6027144425C2C2AB000AD64C /* ImportWatchWalletInput.swift in Sources */,
 				B3B46A20228F0F2700A68EDD /* PinPasswordStrength.swift in Sources */,
 				2557E18B2355C9F000B6A1B7 /* CustomTabMenuView.swift in Sources */,
 				B3D474E423E57DA200B6E305 /* CheckableListOptionTableViewCell.swift in Sources */,

@@ -150,7 +150,6 @@
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="importWatchWallet:" destination="Kb1-lm-LZA" eventType="touchUpInside" id="9wS-bS-RS8"/>
-                                    <action selector="restoreExistingWallet:" destination="Kb1-lm-LZA" eventType="touchUpInside" id="0fl-VI-1wX"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="v1.5.1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9eM-8v-SKy">
@@ -192,6 +191,7 @@
                     <connections>
                         <outlet property="createWalletBtn" destination="zvk-KY-83T" id="uR6-ai-Bku"/>
                         <outlet property="imageViewContainer" destination="CdX-sy-0x2" id="O6s-Vp-M6h"/>
+                        <outlet property="importWatchWalletBtn" destination="REa-RA-Srn" id="Pdf-e5-FGB"/>
                         <outlet property="loadingLabel" destination="w3H-Un-Z5W" id="ckh-oL-vZe"/>
                         <outlet property="logo" destination="cZc-WL-Sm8" id="FVE-cJ-5cc"/>
                         <outlet property="restoreWalletBtn" destination="DGk-43-e2H" id="o68-5b-Ui7"/>

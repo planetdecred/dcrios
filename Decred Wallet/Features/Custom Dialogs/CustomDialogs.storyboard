@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -53,7 +54,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bIU-cW-IVU">
                                         <rect key="frame" x="24" y="149.5" width="366" height="40"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="As3-fJ-RPc">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="As3-fJ-RPc">
                                                 <rect key="frame" x="199" y="0.0" width="79" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="79" id="Bxs-ka-H7H"/>
@@ -66,7 +67,7 @@
                                                     <action selector="cancelButtonTapped:" destination="lI7-ED-syP" eventType="touchUpInside" id="BQQ-tS-nqJ"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RpI-Rx-7Vj" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RpI-Rx-7Vj" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                                 <rect key="frame" x="286" y="0.0" width="80" height="40"/>
                                                 <color key="backgroundColor" red="0.77000000000000002" green="0.80000000000000004" blue="0.81999999999999995" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
@@ -94,7 +95,7 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="As3-fJ-RPc" firstAttribute="centerY" secondItem="RpI-Rx-7Vj" secondAttribute="centerY" id="93X-Cp-2cz"/>
                                             <constraint firstAttribute="bottom" secondItem="RpI-Rx-7Vj" secondAttribute="bottom" id="K1q-2c-rOK"/>
@@ -132,13 +133,13 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="hSs-23-K6L"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="OTz-zL-ye2" secondAttribute="bottom" id="Hgc-kO-aIa"/>
                             <constraint firstItem="OTz-zL-ye2" firstAttribute="leading" secondItem="hSs-23-K6L" secondAttribute="leading" id="RAp-p4-imi"/>
                             <constraint firstItem="hSs-23-K6L" firstAttribute="trailing" secondItem="OTz-zL-ye2" secondAttribute="trailing" id="rTZ-kM-f5X"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="hSs-23-K6L"/>
                     </view>
                     <connections>
                         <outlet property="cancelButton" destination="As3-fJ-RPc" id="muX-zg-pCh"/>
@@ -182,7 +183,7 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="enterPIN"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="awL-a2-8ba">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="awL-a2-8ba">
                                         <rect key="frame" x="151" y="114" width="79" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="79" id="d1a-d2-FwU"/>
@@ -195,7 +196,7 @@
                                             <action selector="cancelButtonTapped:" destination="LZB-Of-VZX" eventType="touchUpInside" id="cG1-1T-Bf1"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bso-LG-2oW" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bso-LG-2oW" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                         <rect key="frame" x="238" y="114" width="88" height="40"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -246,6 +247,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="C7k-Hm-fk1"/>
                         <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="PES-gD-iwp" firstAttribute="centerY" secondItem="C7k-Hm-fk1" secondAttribute="centerY" id="b8w-qv-Q2l"/>
@@ -253,7 +255,6 @@
                             <constraint firstItem="PES-gD-iwp" firstAttribute="leading" secondItem="C7k-Hm-fk1" secondAttribute="leading" constant="40" id="kEt-ir-Cu4"/>
                             <constraint firstItem="PES-gD-iwp" firstAttribute="centerX" secondItem="C7k-Hm-fk1" secondAttribute="centerX" id="nNO-aO-3Ij"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="C7k-Hm-fk1"/>
                     </view>
                     <connections>
                         <outlet property="cancelButton" destination="awL-a2-8ba" id="51u-xN-s9I"/>
@@ -288,12 +289,12 @@
                                     </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tdL-B1-oIO">
                                         <rect key="frame" x="0.0" y="57.5" width="334" height="100"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="100" id="Mgh-sQ-tVk"/>
                                         </constraints>
                                     </tableView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N6d-DK-8BP">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N6d-DK-8BP">
                                         <rect key="frame" x="159" y="165.5" width="79" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="79" id="040-Mu-D1E"/>
@@ -306,7 +307,7 @@
                                             <action selector="cancelButtonTapped:" destination="1C2-Ut-oCm" eventType="touchUpInside" id="tAE-LB-RmH"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ycs-gD-CQg" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ycs-gD-CQg" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                         <rect key="frame" x="246" y="165.5" width="80" height="40"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -357,6 +358,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="lB8-Cb-IQc"/>
                         <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="JnU-Wj-3OK" firstAttribute="centerY" secondItem="lB8-Cb-IQc" secondAttribute="centerY" id="9bV-MT-Q3K"/>
@@ -364,7 +366,6 @@
                             <constraint firstItem="JnU-Wj-3OK" firstAttribute="centerX" secondItem="lB8-Cb-IQc" secondAttribute="centerX" id="Kae-G6-jaI"/>
                             <constraint firstItem="JnU-Wj-3OK" firstAttribute="leading" secondItem="lB8-Cb-IQc" secondAttribute="leading" constant="40" id="NHV-Ap-0vq"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="lB8-Cb-IQc"/>
                     </view>
                     <connections>
                         <outlet property="cancelButton" destination="N6d-DK-8BP" id="WId-3g-zM6"/>
@@ -411,7 +412,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="y0F-Ju-bFE" firstAttribute="top" secondItem="pAW-47-8yR" secondAttribute="top" constant="21" id="5lQ-ay-KBb"/>
                                             <constraint firstAttribute="trailing" secondItem="LVC-da-btr" secondAttribute="trailing" constant="20" id="ER9-8f-7Z6"/>
@@ -430,7 +431,7 @@
                                     </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="150" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="74" estimatedRowHeight="74" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="1tl-kt-hoo" customClass="SelfSizedTableView" customModule="Decred_Wallet" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="67" width="414" height="150"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -456,6 +457,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="2BP-9v-Ax9"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="2BP-9v-Ax9" firstAttribute="trailing" secondItem="STI-8m-ryV" secondAttribute="trailing" id="8q9-1S-V4e"/>
@@ -463,7 +465,6 @@
                             <constraint firstItem="STI-8m-ryV" firstAttribute="leading" secondItem="2BP-9v-Ax9" secondAttribute="leading" id="PCU-pe-bJy"/>
                             <constraint firstAttribute="bottom" secondItem="STI-8m-ryV" secondAttribute="bottom" id="vDG-OQ-sbj"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="2BP-9v-Ax9"/>
                     </view>
                     <connections>
                         <outlet property="headerContainerView" destination="pAW-47-8yR" id="aBM-it-AYQ"/>
@@ -495,7 +496,7 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="backUpYourWalletsReminder"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XPc-hQ-3RI">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XPc-hQ-3RI">
                                         <rect key="frame" x="247" y="80.5" width="79" height="33"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="79" id="PaO-bL-cec"/>
@@ -529,6 +530,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="ngy-YP-lVz"/>
                         <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="9mB-bz-qSS" firstAttribute="centerX" secondItem="ngy-YP-lVz" secondAttribute="centerX" id="6Mb-Y1-BXe"/>
@@ -536,7 +538,6 @@
                             <constraint firstItem="ngy-YP-lVz" firstAttribute="trailing" secondItem="9mB-bz-qSS" secondAttribute="trailing" constant="40" id="Piz-0s-oUT"/>
                             <constraint firstItem="9mB-bz-qSS" firstAttribute="centerY" secondItem="ngy-YP-lVz" secondAttribute="centerY" id="xtx-dE-SWY"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="ngy-YP-lVz"/>
                     </view>
                     <connections>
                         <outlet property="messageLabel" destination="rr3-ou-obW" id="VdF-Hc-143"/>
@@ -581,7 +582,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7xk-ob-U2x">
                                         <rect key="frame" x="24" y="222.5" width="366" height="40"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m9N-SL-zOt">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m9N-SL-zOt">
                                                 <rect key="frame" x="199" y="0.0" width="79" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="79" id="LCb-xO-O2J"/>
@@ -594,9 +595,9 @@
                                                     <action selector="cancelButtonTapped:" destination="Gv8-Qc-Xel" eventType="touchUpInside" id="YZV-a5-sU3"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="US8-5M-GYa" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="US8-5M-GYa" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                                 <rect key="frame" x="286" y="0.0" width="80" height="40"/>
-                                                <color key="backgroundColor" red="0.77000000000000002" green="0.80000000000000004" blue="0.81999999999999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" red="0.76862745098039209" green="0.80000000000000004" blue="0.81960784313725488" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="5yr-xc-NfZ"/>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="9NZ-2d-V4B"/>
@@ -622,7 +623,7 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="m9N-SL-zOt" firstAttribute="height" secondItem="US8-5M-GYa" secondAttribute="height" id="TtM-dk-GOl"/>
                                             <constraint firstAttribute="bottom" secondItem="US8-5M-GYa" secondAttribute="bottom" id="j8H-6E-EFH"/>
@@ -680,13 +681,13 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="TB3-Sm-yNd"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Jix-Yz-rr0" firstAttribute="leading" secondItem="TB3-Sm-yNd" secondAttribute="leading" id="4tl-HE-3JW"/>
                             <constraint firstItem="TB3-Sm-yNd" firstAttribute="trailing" secondItem="Jix-Yz-rr0" secondAttribute="trailing" id="b8v-FN-AGc"/>
                             <constraint firstAttribute="bottom" secondItem="Jix-Yz-rr0" secondAttribute="bottom" id="cdk-sZ-Poj"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="TB3-Sm-yNd"/>
                     </view>
                     <connections>
                         <outlet property="cancelButton" destination="m9N-SL-zOt" id="M3C-wA-zHH"/>
@@ -703,8 +704,170 @@
             </objects>
             <point key="canvasLocation" x="40.579710144927539" y="27.455357142857142"/>
         </scene>
+        <!--Import Watch Wallet Input-->
+        <scene sceneID="4Nw-j3-oen">
+            <objects>
+                <viewController storyboardIdentifier="ImportWatchWalletInput" id="bVo-6k-Q8p" customClass="ImportWatchWalletInput" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="S2G-ZG-zUi">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gKX-1s-x5t">
+                                <rect key="frame" x="0.0" y="682.5" width="414" height="213.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create watch only wallet" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dhG-ou-Rcr">
+                                        <rect key="frame" x="24" y="24" width="219" height="23.5"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="20"/>
+                                        <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="J6e-0J-szb" customClass="FloatingPlaceholderTextField" customModule="Decred_Wallet" customModuleProvider="target">
+                                        <rect key="frame" x="24" y="71.5" width="366" height="48"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="ELh-Gi-tfY"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XKa-6L-d1I">
+                                        <rect key="frame" x="222" y="145.5" width="80" height="34"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="c5G-pv-5Fi"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="17"/>
+                                        <state key="normal" title="Cancel"/>
+                                        <connections>
+                                            <action selector="cancelButtonTap:" destination="bVo-6k-Q8p" eventType="touchUpInside" id="aTC-Pi-6Bn"/>
+                                        </connections>
+                                    </button>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Key is reserved" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lsH-f5-BMc">
+                                        <rect key="frame" x="40" y="123.5" width="334" height="14"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="12"/>
+                                        <color key="textColor" red="0.92941176469999998" green="0.42745098040000001" blue="0.2784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GdT-kA-Mh5">
+                                        <rect key="frame" x="350" y="16" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="90b-tb-Sq4"/>
+                                            <constraint firstAttribute="width" secondItem="GdT-kA-Mh5" secondAttribute="height" multiplier="1:1" id="Pe2-H7-DvV"/>
+                                        </constraints>
+                                        <state key="normal" image="ic_info"/>
+                                        <connections>
+                                            <action selector="infoButtonTap:" destination="bVo-6k-Q8p" eventType="touchUpInside" id="9LU-8f-Bfw"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tjx-TL-sAp" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
+                                        <rect key="frame" x="310" y="142.5" width="80" height="40"/>
+                                        <color key="backgroundColor" red="0.76862745099999996" green="0.80000000000000004" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="D2k-RX-1mS"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="EsZ-VM-zGC"/>
+                                            <constraint firstAttribute="height" constant="40" id="e4t-DN-6zu"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="17"/>
+                                        <state key="normal" title="Import">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="7"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="enabledBackgroundColor">
+                                                <color key="value" red="0.20000000000000001" green="0.53725490196078429" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="disabledBackgroundColor">
+                                                <color key="value" red="0.76862745099999996" green="0.80000000000000004" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="importButtonTap:" destination="bVo-6k-Q8p" eventType="touchUpInside" id="PxV-vJ-FO4"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="dhG-ou-Rcr" firstAttribute="leading" secondItem="gKX-1s-x5t" secondAttribute="leading" constant="24" id="2uC-dg-WvD"/>
+                                    <constraint firstItem="dhG-ou-Rcr" firstAttribute="top" secondItem="gKX-1s-x5t" secondAttribute="top" constant="24" id="39x-2z-VM8"/>
+                                    <constraint firstItem="Tjx-TL-sAp" firstAttribute="leading" secondItem="XKa-6L-d1I" secondAttribute="trailing" constant="8" id="3v8-FR-Fdi"/>
+                                    <constraint firstItem="J6e-0J-szb" firstAttribute="top" secondItem="dhG-ou-Rcr" secondAttribute="bottom" constant="24" id="HJM-IR-GTN"/>
+                                    <constraint firstItem="lsH-f5-BMc" firstAttribute="trailing" secondItem="J6e-0J-szb" secondAttribute="trailing" constant="-16" id="Iyv-5q-Cj3"/>
+                                    <constraint firstItem="XKa-6L-d1I" firstAttribute="height" secondItem="Tjx-TL-sAp" secondAttribute="height" multiplier="0.85" id="MIj-IM-EmI"/>
+                                    <constraint firstAttribute="bottom" secondItem="XKa-6L-d1I" secondAttribute="bottom" constant="34" id="ZqO-aC-y4s"/>
+                                    <constraint firstItem="GdT-kA-Mh5" firstAttribute="centerY" secondItem="dhG-ou-Rcr" secondAttribute="centerY" id="bbN-Tb-4Jp"/>
+                                    <constraint firstAttribute="trailing" secondItem="GdT-kA-Mh5" secondAttribute="trailing" constant="24" id="liR-dt-Cb2"/>
+                                    <constraint firstAttribute="trailing" secondItem="Tjx-TL-sAp" secondAttribute="trailing" constant="24" id="mfH-Ip-rEl"/>
+                                    <constraint firstItem="Tjx-TL-sAp" firstAttribute="centerY" secondItem="XKa-6L-d1I" secondAttribute="centerY" id="ogI-gg-vrc"/>
+                                    <constraint firstItem="lsH-f5-BMc" firstAttribute="top" secondItem="J6e-0J-szb" secondAttribute="bottom" constant="4" id="qnX-XM-23t"/>
+                                    <constraint firstItem="J6e-0J-szb" firstAttribute="leading" secondItem="dhG-ou-Rcr" secondAttribute="leading" id="sMH-ne-JGB"/>
+                                    <constraint firstAttribute="trailing" secondItem="J6e-0J-szb" secondAttribute="trailing" constant="24" id="tb0-Zf-Xsf"/>
+                                    <constraint firstItem="lsH-f5-BMc" firstAttribute="leading" secondItem="J6e-0J-szb" secondAttribute="leading" constant="16" id="w3x-zf-Ijx"/>
+                                    <constraint firstItem="XKa-6L-d1I" firstAttribute="top" secondItem="lsH-f5-BMc" secondAttribute="bottom" constant="8" id="yUS-u5-sQS"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="14"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.maskedCorners">
+                                        <integer key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="7rP-RZ-8hk"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="gKX-1s-x5t" secondAttribute="bottom" id="PIb-FU-1RS"/>
+                            <constraint firstItem="gKX-1s-x5t" firstAttribute="leading" secondItem="7rP-RZ-8hk" secondAttribute="leading" id="eK0-4E-GQy"/>
+                            <constraint firstItem="7rP-RZ-8hk" firstAttribute="trailing" secondItem="gKX-1s-x5t" secondAttribute="trailing" id="k5r-yO-fwi"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="importButton" destination="Tjx-TL-sAp" id="G5j-A4-j8l"/>
+                        <outlet property="inputKeyTextField" destination="J6e-0J-szb" id="30f-OQ-Aza"/>
+                        <outlet property="warningLabel" destination="lsH-f5-BMc" id="Lco-Qc-sKq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7cr-oj-LPR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1089.8550724637682" y="26.785714285714285"/>
+        </scene>
     </scenes>
+    <designables>
+        <designable name="Bso-LG-2oW">
+            <size key="intrinsicContentSize" width="88" height="21"/>
+        </designable>
+        <designable name="EGJ-n8-btt">
+            <size key="intrinsicContentSize" width="34" height="34"/>
+        </designable>
+        <designable name="GAs-jd-Gqe">
+            <size key="intrinsicContentSize" width="34" height="34"/>
+        </designable>
+        <designable name="J6e-0J-szb">
+            <size key="intrinsicContentSize" width="32" height="34"/>
+        </designable>
+        <designable name="RpI-Rx-7Vj">
+            <size key="intrinsicContentSize" width="77" height="21"/>
+        </designable>
+        <designable name="Tjx-TL-sAp">
+            <size key="intrinsicContentSize" width="50" height="32"/>
+        </designable>
+        <designable name="US8-5M-GYa">
+            <size key="intrinsicContentSize" width="77" height="21"/>
+        </designable>
+        <designable name="Ycs-gD-CQg">
+            <size key="intrinsicContentSize" width="52" height="21"/>
+        </designable>
+        <designable name="ylK-Qf-Xvq">
+            <size key="intrinsicContentSize" width="34" height="34"/>
+        </designable>
+    </designables>
     <resources>
         <image name="ic_close" width="24" height="24"/>
+        <image name="ic_info" width="24" height="24"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>
