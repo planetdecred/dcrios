@@ -165,6 +165,7 @@
 		DD5AB14C23D36F7E00863362 /* AboutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5AB14B23D36F7E00863362 /* AboutTableViewController.swift */; };
 		DD5AB14E23D4C12C00863362 /* DebugTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5AB14D23D4C12C00863362 /* DebugTableViewController.swift */; };
 		DD5AB15023D612C800863362 /* HelpTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5AB14F23D612C800863362 /* HelpTableViewController.swift */; };
+		DD67443825CA321C001AD0B5 /* ToolTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD67443725CA321C001AD0B5 /* ToolTipView.swift */; };
 		DD81CBC323B39DF1009D3833 /* FloatingLabelTextInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD81CBC223B39DF1009D3833 /* FloatingLabelTextInput.swift */; };
 		DD81CBC523B39E6A009D3833 /* PaddedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD81CBC423B39E6A009D3833 /* PaddedLabel.swift */; };
 		DD81CBC823B3A219009D3833 /* ValidateAddresses.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD81CBC723B3A219009D3833 /* ValidateAddresses.storyboard */; };
@@ -365,6 +366,7 @@
 		DD5AB14B23D36F7E00863362 /* AboutTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutTableViewController.swift; sourceTree = "<group>"; };
 		DD5AB14D23D4C12C00863362 /* DebugTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugTableViewController.swift; sourceTree = "<group>"; };
 		DD5AB14F23D612C800863362 /* HelpTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpTableViewController.swift; sourceTree = "<group>"; };
+		DD67443725CA321C001AD0B5 /* ToolTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolTipView.swift; sourceTree = "<group>"; };
 		DD81CBC223B39DF1009D3833 /* FloatingLabelTextInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingLabelTextInput.swift; sourceTree = "<group>"; };
 		DD81CBC423B39E6A009D3833 /* PaddedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedLabel.swift; sourceTree = "<group>"; };
 		DD81CBC723B3A219009D3833 /* ValidateAddresses.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ValidateAddresses.storyboard; sourceTree = "<group>"; };
@@ -621,6 +623,7 @@
 				DD81CBC223B39DF1009D3833 /* FloatingLabelTextInput.swift */,
 				DD81CBC423B39E6A009D3833 /* PaddedLabel.swift */,
 				C8BBC3AD2450CE1E001A5A9E /* SuffixTextField.swift */,
+				DD67443725CA321C001AD0B5 /* ToolTipView.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -1152,6 +1155,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD67443825CA321C001AD0B5 /* ToolTipView.swift in Sources */,
 				B3C0D4B423E0DBF6002D984F /* SimpleTextInputDialog.swift in Sources */,
 				DDE2374823BA386C00C2A94F /* MoreMenuItemCell.swift in Sources */,
 				B3B46A10228F0F2700A68EDD /* UIView.swift in Sources */,

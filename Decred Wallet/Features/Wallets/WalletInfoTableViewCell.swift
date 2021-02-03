@@ -27,6 +27,7 @@ class WalletInfoTableViewCell: UITableViewCell {
     @IBOutlet weak var accountsTableView: UITableView!
     @IBOutlet weak var accountsTableViewHeightConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var tooltipVIew: TooltipView!
     @IBOutlet weak var seedBackupPrompt: UIView! {
         didSet {
             self.seedBackupPrompt.addGestureRecognizer(
@@ -34,11 +35,14 @@ class WalletInfoTableViewCell: UITableViewCell {
             )
         }
     }
+    @IBOutlet weak var walletMenuButton: UIButton!
     
     @IBOutlet weak var checkMixerStatusView: UIView!
     @IBOutlet weak var checkMixerStatusDivider: UIView!
     
     var delegate: WalletInfoTableViewCellDelegate?
+    
+    var displayedToolTips = false
     
     static let walletInfoSectionHeight: CGFloat = 65.0
     static let walletNotBackedUpLabelHeight: CGFloat = 14.0
@@ -81,6 +85,12 @@ class WalletInfoTableViewCell: UITableViewCell {
             } else {
                 self.hideCheckMixerStatusView()
             }
+            
+            self.showToolTip()
+            /*if !displayedToolTips {
+                self.showToolTip()
+                self.displayedToolTips = true
+            }*/
 
             UIView.animate(withDuration: 0.1) {
                 let rotationAngle = self.wallet.displayAccounts ? CGFloat(Double.pi/2) : 0.0
@@ -130,6 +140,10 @@ class WalletInfoTableViewCell: UITableViewCell {
     
     @IBAction func addNewAccountTapped(_ sender: Any) {
         self.delegate?.addNewAccount(self.wallet)
+    }
+    
+    func showToolTip() {
+    
     }
 }
 
