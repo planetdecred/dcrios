@@ -243,17 +243,22 @@ extension WalletsViewController: UITableViewDataSource, UITableViewDelegate {
             let wallet = self.wallets[indexPath.row]
             if !wallet.isSeedBackedUp {
                 cellHeight += WalletInfoTableViewCell.walletNotBackedUpLabelHeight
-                    + WalletInfoTableViewCell.seedBackupPromptHeight + WalletInfoTableViewCell.checkMixerStatusHeight
+                    + WalletInfoTableViewCell.seedBackupPromptHeight
             }
             
             if wallet.displayAccounts {
                 cellHeight += (WalletInfoTableViewCell.accountCellHeight * CGFloat(wallet.accounts.count))
-                    + WalletInfoTableViewCell.addNewAccountButtonHeight + WalletInfoTableViewCell.checkMixerStatusHeight
+                    + WalletInfoTableViewCell.addNewAccountButtonHeight
             }
+            
+            if wallet.isAccountMixerActive {
+                cellHeight += WalletInfoTableViewCell.checkMixerStatusHeight
+            }
+            
         } else {
             cellHeight += (WalletInfoTableViewCell.accountCellHeight * CGFloat(watchOnly.count))
         }
-        return cellHeight + WalletInfoTableViewCell.checkMixerStatusHeight
+        return cellHeight
         
     }
     

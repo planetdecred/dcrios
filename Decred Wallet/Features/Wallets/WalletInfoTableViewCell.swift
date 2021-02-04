@@ -86,11 +86,10 @@ class WalletInfoTableViewCell: UITableViewCell {
                 self.hideCheckMixerStatusView()
             }
             
-            self.showToolTip()
-            /*if !displayedToolTips {
+            if !displayedToolTips {
                 self.showToolTip()
                 self.displayedToolTips = true
-            }*/
+            }
 
             UIView.animate(withDuration: 0.1) {
                 let rotationAngle = self.wallet.displayAccounts ? CGFloat(Double.pi/2) : 0.0
@@ -143,7 +142,10 @@ class WalletInfoTableViewCell: UITableViewCell {
     }
     
     func showToolTip() {
-    
+        self.tooltipVIew.isHidden = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+            self.tooltipVIew.isHidden = true
+        }
     }
 }
 
