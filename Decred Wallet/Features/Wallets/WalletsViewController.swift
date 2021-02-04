@@ -57,9 +57,6 @@ class WalletsViewController: UIViewController {
         if WalletLoader.shared.multiWallet.openedWalletsCount() >= numberOfwalletAllowed {
             SimpleAlertDialog.show(sender: self, message: LocalizedStrings.walletsLimitError, okButtonText: LocalizedStrings.ok)
             return
-        } else if WalletLoader.shared.multiWallet.isConnectedToDecredNetwork() {
-            Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.disconnectAddWallet)
-            return
         }
         
         let alertController = UIAlertController(title: nil,
