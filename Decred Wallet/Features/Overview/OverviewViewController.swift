@@ -24,9 +24,10 @@ class OverviewViewController: UIViewController {
     
     // MARK: Account mixer prompt section (Top view)
     @IBOutlet weak var accountNeedMixingLabel: UILabel!
-    @IBOutlet weak var accountMixingSectionView: UIView!
+    @IBOutlet weak var accountMixingPromptSectionView: UIView!
     
     // MARK: Account mixer section (Top view)
+    @IBOutlet weak var accountMixerSectionView: RoundedView!
     @IBOutlet weak var mixerRunnungLabel: UILabel!
     @IBOutlet weak var mixerRunningInfoLabel: UILabel!
     @IBOutlet weak var mixerStatusWalletNameLabel: UILabel!
@@ -344,7 +345,7 @@ class OverviewViewController: UIViewController {
     
     func checkWhetherToPromptForAccountMixing() {
         if !WalletLoader.shared.multiWallet.readBoolConfigValue(forKey: "has_setup_privacy", defaultValue: false) && !self.hideAccountMixingPrompt {
-            self.accountMixingSectionView.isHidden = false
+            self.accountMixingPromptSectionView.isHidden = false
         }
     }
     
@@ -360,7 +361,7 @@ class OverviewViewController: UIViewController {
         
         if (activeMixers > 0) {
             self.mixerRunnungLabel.text = "Mixer is running."
-            self.accountMixingSectionView.isHidden = false
+            self.accountMixerSectionView.isHidden = false
             let wallet  = WalletLoader.shared.multiWallet.wallet(withID: WalletID)
             if let unmixedAccountNumber = wallet?.readInt32ConfigValue(forKey: Dcrlibwallet.DcrlibwalletAccountMixerMixedAccount, defaultValue: -1) {
                 do {
@@ -374,7 +375,7 @@ class OverviewViewController: UIViewController {
             }
             
         } else {
-            self.accountMixingSectionView.isHidden = true
+            self.accountMixerSectionView.isHidden = true
         }
     }
     
@@ -392,7 +393,7 @@ class OverviewViewController: UIViewController {
     
     @IBAction func dismissAccountMixingPromptTapped(_ sender: Any) {
            self.hideAccountMixingPrompt = true
-           self.accountMixingSectionView.isHidden = true
+           self.accountMixingPromptSectionView.isHidden = true
        }
     
     @IBAction func seedBackupTapped(_ sender: Any) {

@@ -488,5 +488,6 @@ struct LocalizedStrings {
     static let privacySetupCompleted = NSLocalizedString("privacySetupCompleted", comment: "")
     static let checkMixerStatus = NSLocalizedString("checkMixerStatus", comment: "")
     static let mixing = NSLocalizedString("mixing", comment: "")
-
+    static let dismiss = NSLocalizedString("dismiss", comment: "")
+    static let setupPrivacyInfo1 = NSLocalizedString("setupPrivacyInfo1", comment: "")
 }
