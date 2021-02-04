@@ -114,6 +114,9 @@ class AppDelegate: UIResponder {
 
 extension AppDelegate: UIApplicationDelegate {
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        if CommandLine.arguments.contains("--UITests") {
+            UIView.setAnimationsEnabled(false)
+        }
         UIApplication.shared.setMinimumBackgroundFetchInterval(
         UIApplication.backgroundFetchIntervalMinimum)
         
