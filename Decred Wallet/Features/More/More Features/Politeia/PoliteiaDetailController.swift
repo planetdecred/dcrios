@@ -24,7 +24,7 @@ class PoliteiaDetailController: UIViewController {
     
     var politeia: Politeia?
     var isNotificationOpen: Bool = false
-    var censorshipToken: String?
+    var proposalId: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +38,7 @@ class PoliteiaDetailController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = false
         self.navigationController?.navigationBar.tintColor = UIColor.appColors.darkBlue
 
         let icon = self.navigationController?.modalPresentationStyle == .fullScreen ?  UIImage(named: "ic_close") : UIImage(named: "left-arrow")
@@ -75,9 +76,9 @@ class PoliteiaDetailController: UIViewController {
     }
     
     func getDetailPoliteia() {
-        guard let censorshipToken = self.censorshipToken else { return }
+        guard let idstr = self.proposalId, let id = Int(idstr) else { return }
         DispatchQueue.global(qos: .userInitiated).async {
-            let politeia = WalletLoader.shared.multiWallet.politeia?.detailPoliteia(censorshipToken: censorshipToken)
+            let politeia = WalletLoader.shared.multiWallet.politeia?.detailPoliteia(id)
             DispatchQueue.main.async {
                 if let poli = politeia {
                     self.politeia = poli
@@ -94,14 +95,14 @@ class PoliteiaDetailController: UIViewController {
         self.contentTextView.textContainerInset = UIEdgeInsets(top: 0, left: 16, bottom: bottomHeight, right: 16)
     }
     @objc func shareButtonTapped(_ sender: Any) {
-        guard let token = self.politeia?.censorshiprecord.token, let name = self.politeia?.name else {return}
+        guard let token = self.politeia?.token, let name = self.politeia?.name else {return}
         guard let urlString = URL(string: "http://proposals.decred.org/proposals/\(token)") else {return}
         let items: [Any] = [name, urlString]
         let activity = UIActivityViewController(activityItems: items, applicationActivities: nil)
         present(activity, animated: true)
     }
     @objc func openButtonTapped(_ sender: Any) {
-        guard let token = self.politeia?.censorshiprecord.token else {return}
+        guard let token = self.politeia?.token else {return}
         let urlString = "http://proposals.decred.org/proposals/\(token)"
         if let url = URL(string: urlString) {
             UIApplication.shared.open(url)
@@ -117,20 +118,18 @@ class PoliteiaDetailController: UIViewController {
         self.sinceLabel.text = String(format: publishAgeAsTimeAgo)
         self.countCommentLabel.text = String(format: LocalizedStrings.commentCount, politeia.numcomments)
         self.versionLabel.text = String(format: LocalizedStrings.politeiaVersion, politeia.version)
-        self.statusLabel.text = politeia.votesummary.status.description
-        self.statusLabel.backgroundColor = Utils.politeiaColorBGStatus(politeia.votesummary.status)
-        self.percentView.setProgress(Float(politeia.votesummary.yesPercent), animated: false)
-        self.percentLabel.text = "\((politeia.votesummary.yesPercent).round(decimals: 2))%"
+        self.statusLabel.text = politeia.status.description
+        self.statusLabel.backgroundColor = Utils.politeiaColorBGStatus(politeia.status)
+        self.percentView.setProgress(Float(politeia.yesPercent), animated: false)
+        self.percentLabel.text = "\((politeia.yesPercent).round(decimals: 2))%"
         self.percentLabel.superview?.bringSubviewToFront(self.percentLabel)
-        let yesPercent = politeia.votesummary.yesPercent
-        self.yesPercentLabel.text = "Yes: \(politeia.votesummary.yesCount) (\(yesPercent.round(decimals: 2))%)"
-        self.noPercentLabel.text = "No: \(politeia.votesummary.noCount) (\((100 - yesPercent).round(decimals: 2))%)"
-        if let files = self.politeia?.files, files.count > 0 {
-            if let file = files.first(where: {$0.name == "index.md"}) {
-                let dataContent = Data(base64Encoded: file.payload)!
-                let content = String(data: dataContent, encoding: .utf8)
-                self.contentTextView.text = content
-            }
+        let yesPercent = politeia.yesPercent
+        self.yesPercentLabel.text = "Yes: \(politeia.yesvotes) (\(yesPercent.round(decimals: 2))%)"
+        self.noPercentLabel.text = "No: \(politeia.novotes) (\((100 - yesPercent).round(decimals: 2))%)"
+        if let data = self.politeia?.indexfile {
+            let dataContent = Data(base64Encoded: data)!
+            let content = String(data: dataContent, encoding: .utf8)
+            self.contentTextView.text = content
         }
     }
 }

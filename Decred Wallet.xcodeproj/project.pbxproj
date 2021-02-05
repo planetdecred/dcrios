@@ -45,6 +45,7 @@
 		25751F532372C9460019F657 /* Dcrlibwallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25751F522372C9460019F657 /* Dcrlibwallet.framework */; };
 		25A4331C2373D0330018FFCF /* SyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A4331B2373D0330018FFCF /* SyncManager.swift */; };
 		25E63F4E23312B2C009CD53E /* NavMenuFloatingButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E63F4D23312B2B009CD53E /* NavMenuFloatingButtons.swift */; };
+		6004FFB825CC5D0100D5A25C /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6004FFB725CC5D0100D5A25C /* LoadingView.swift */; };
 		6007D38B24F406AA000EC5CB /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6007D38A24F406AA000EC5CB /* Response.swift */; };
 		6007D38D24F42089000EC5CB /* PoliteiaNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6007D38C24F42089000EC5CB /* PoliteiaNotification.swift */; };
 		60C7E54124ED8738009E4569 /* PlainHorizontalProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C7E54024ED8738009E4569 /* PlainHorizontalProgressBar.swift */; };
@@ -252,8 +253,10 @@
 		25751F522372C9460019F657 /* Dcrlibwallet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Dcrlibwallet.framework; path = libs/Dcrlibwallet.framework; sourceTree = "<group>"; };
 		25A4331B2373D0330018FFCF /* SyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncManager.swift; sourceTree = "<group>"; };
 		25E63F4D23312B2B009CD53E /* NavMenuFloatingButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavMenuFloatingButtons.swift; sourceTree = "<group>"; };
+		6004FFB725CC5D0100D5A25C /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		6007D38A24F406AA000EC5CB /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		6007D38C24F42089000EC5CB /* PoliteiaNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoliteiaNotification.swift; sourceTree = "<group>"; };
+		6091E9A8255000CE0028E67F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		60C7E54024ED8738009E4569 /* PlainHorizontalProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlainHorizontalProgressBar.swift; sourceTree = "<group>"; };
 		60C7E54324ED88B8009E4569 /* Politeia.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Politeia.storyboard; sourceTree = "<group>"; };
 		60C7E54424ED88B8009E4569 /* PoliteiaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PoliteiaTableViewCell.swift; sourceTree = "<group>"; };
@@ -261,7 +264,6 @@
 		60C7E54924ED88F0009E4569 /* PoliteiaStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PoliteiaStatus.swift; sourceTree = "<group>"; };
 		60C7E54A24ED88F0009E4569 /* Politeia.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Politeia.swift; sourceTree = "<group>"; };
 		60DFF5D024F75D4500624161 /* PoliteiaDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoliteiaDetailController.swift; sourceTree = "<group>"; };
-		6091E9A8255000CE0028E67F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6A0625AB1C6ACD2EC77F544F /* Pods-Decred Wallet.mainnet debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decred Wallet.mainnet debug.xcconfig"; path = "Target Support Files/Pods-Decred Wallet/Pods-Decred Wallet.mainnet debug.xcconfig"; sourceTree = "<group>"; };
 		A9714AB438E597D403032748 /* Pods_Decred_Wallet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Decred_Wallet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD24C23C2343E445009583C9 /* NotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
@@ -669,6 +671,7 @@
 				DD81CBC223B39DF1009D3833 /* FloatingLabelTextInput.swift */,
 				DD81CBC423B39E6A009D3833 /* PaddedLabel.swift */,
 				C8BBC3AD2450CE1E001A5A9E /* SuffixTextField.swift */,
+				6004FFB725CC5D0100D5A25C /* LoadingView.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -1371,6 +1374,7 @@
 				B3B46A17228F0F2700A68EDD /* ContouredButton.swift in Sources */,
 				B3B46A18228F0F2700A68EDD /* DropDownSearchField.swift in Sources */,
 				B3B46A97228F0F7D00A68EDD /* TransactionDetailsViewController.swift in Sources */,
+				6004FFB825CC5D0100D5A25C /* LoadingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

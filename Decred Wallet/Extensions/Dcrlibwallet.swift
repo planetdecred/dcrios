@@ -174,7 +174,7 @@ extension DcrlibwalletWallet {
 }
 
 extension DcrlibwalletPoliteia {
-    func getPoliteias(category: PoliteiaCategory = PoliteiaCategory.all, offset: Int32 = 0, limit: Int32 = 20, newestFirst: Bool = true) -> Array<Politeia>? {
+    func getPoliteias(category: PoliteiaCategory = PoliteiaCategory.pre, offset: Int32 = 0, limit: Int32 = 20, newestFirst: Bool = true) -> Array<Politeia>? {
         var error: NSError?
         let politeias = self.getProposals(category.rawValue, offset: offset, limit: limit, newestFirst: newestFirst, error: &error)
         if error != nil {
@@ -187,13 +187,8 @@ extension DcrlibwalletPoliteia {
         }
 
         do {
-            let response = try JSONDecoder().decode(Response<Array<Politeia>>.self, from: politeias.data(using: .utf8)!)
-            if let politeia = response.result {
-                return politeia
-            } else {
-                print("getPoliteias with null results" )
-                return []
-            }
+            let response = try JSONDecoder().decode(Array<Politeia>.self, from: politeias.data(using: .utf8)!)
+            return response
         } catch let error {
             print("decode allPoliteia error:", error.localizedDescription)
             return nil
@@ -211,35 +206,15 @@ extension DcrlibwalletPoliteia {
         } catch let error {
             print("count tx error:", error.localizedDescription)
         }
-        
-        if (category.rawValue == 1) {
-            return category.description
-        } else {
-            return "\(category.description) (\(int32Pointer.pointee))"
-        }
+        print("---------------->category: \(category.description) raw: \(category.rawValue) count: \(int32Pointer.pointee)")
+        return "\(category.description) (\(int32Pointer.pointee))"
     }
     
-    func detailPoliteia(censorshipToken: String) -> Politeia? {
-        var error: NSError?
-        let politeia = self.getProposal(censorshipToken, error: &error)
-        
-        if error != nil {
-            print("getProposals with censorshipToken error: ", error!.localizedDescription)
-            return nil
-        }
-        
-        if politeia.isEmpty {
-            return nil
-        }
-        
+    func detailPoliteia(_ id: Int) -> Politeia? {
         do {
-            let response = try JSONDecoder().decode(Response<Politeia>.self, from: politeia.data(using: .utf8)!)
-            if let politeia = response.result {
-                return politeia
-            } else {
-                print("getPoliteias with null results" )
-                return nil
-            }
+            let politeia = try self.getProposalByIDRaw(id)
+            
+            return Politeia(politeia)
         } catch let error {
             print("decode allPoliteia error:", error.localizedDescription)
             return nil

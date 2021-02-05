@@ -328,7 +328,7 @@ extension WalletsViewController: WalletInfoTableViewCellDelegate {
                                                 intPointer.deallocate()
                                             }
                                             do {
-                                                try WalletLoader.shared.multiWallet.wallet(withID: wallet.id)?.nextAccount(accountName, privPass: pinOrPassword.utf8Bits, ret0_: intPointer)
+                                                try WalletLoader.shared.multiWallet.wallet(withID: wallet.id)?.createNewAccount(accountName, privPass: pinOrPassword.utf8Bits, ret0_: intPointer)
                                                 DispatchQueue.main.async {
                                                     dialogDelegate?.dismissDialog()
                                                     completion?.dismissDialog()

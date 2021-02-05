@@ -34,18 +34,21 @@ class PoliteiaNotification: NSObject {
 
 extension PoliteiaNotification: DcrlibwalletProposalNotificationListenerProtocol {
     
-    func onNewProposal(_ proposalID: Int, censorshipToken: String?) {
-        print("onNewProposal:", proposalID)
-        NotificationsManager.shared.proposalNotification(category: .newProposal, message: "There is a new proposal",censorshipToken: censorshipToken)
+    func onNewProposal(_ proposal: DcrlibwalletProposal?) {
+        let message = "\(proposal?.name ?? "") by \(proposal?.username ?? "")"
+        NotificationsManager.shared.proposalNotification(category: .newProposal, message: message, proposalId: proposal?.id_)
     }
     
-    func onProposalVoteFinished(_ proposalID: Int, censorshipToken: String?) {
-        print("onProposalVoteFinished:", proposalID)
-        NotificationsManager.shared.proposalNotification(category: .voteProposalFinish, message: "Vote for proposal has finished", censorshipToken: censorshipToken)
+    func onProposalVoteFinished(_ proposal: DcrlibwalletProposal?) {
+        let message = "\(proposal?.name ?? "") by \(proposal?.username ?? "")"
+        NotificationsManager.shared.proposalNotification(category: .newProposal, message: message, proposalId: proposal?.id_)
     }
     
-    func onProposalVoteStarted(_ proposalID: Int, censorshipToken: String?) {
-        print("onProposalVoteStarted:", proposalID)
-        NotificationsManager.shared.proposalNotification(category: .voteProposalStarted, message: "Vote for a proposal has started", censorshipToken: censorshipToken)
+    func onProposalVoteStarted(_ proposal: DcrlibwalletProposal?) {
+        let message = "\(proposal?.name ?? "") by \(proposal?.username ?? "")"
+        NotificationsManager.shared.proposalNotification(category: .newProposal, message: message, proposalId: proposal?.id_)
+    }
+    
+    func onProposalsSynced() {
     }
 }

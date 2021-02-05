@@ -16,7 +16,7 @@ class PoliteiaController: UIViewController {
     @IBOutlet weak var filterCategoryMenu: DropMenuButton!
     @IBOutlet weak var politeiaTableView: UITableView!
     @IBOutlet weak var sortOrderMenu: DropMenuButton!
-    @IBOutlet weak var syncButton: UIButton!
+    @IBOutlet weak var syncingView: LoadingView!
     
     private var refreshControl: UIRefreshControl!
     var politeiasList = [Politeia]()
@@ -25,6 +25,7 @@ class PoliteiaController: UIViewController {
     var isLoading: Bool = false
     var isMore: Bool = true
     let sortOrder: [Bool] = [true, false]
+    private var politeisWallet: DcrlibwalletPoliteia? = WalletLoader.shared.multiWallet.politeia
     
     var noTxsLabel: UILabel {
         let noTxsLabel = UILabel(frame: self.politeiaTableView.frame)
@@ -54,9 +55,11 @@ class PoliteiaController: UIViewController {
 
         self.politeiaTableView.addSubview(self.refreshControl)
         self.footerView.isHidden = true
-        self.syncButton.layer.cornerRadius = 15
-        self.syncButton.layer.borderWidth = 0.5
-        self.syncButton.layer.borderColor = UIColor.appColors.bluishGray.cgColor
+        self.startListeningForNotifications()
+    }
+    
+    func startListeningForNotifications() {
+        try? WalletLoader.shared.multiWallet.politeia?.add(self, uniqueIdentifier: "\(self)")
     }
     
     func setupArrayFilter() {
@@ -75,14 +78,14 @@ class PoliteiaController: UIViewController {
                 self.filterCategoryMenu.initMenu(filterOptions) { [weak self] index, value in
                     self?.reloadPoliteiaWithFilter()
                 }
-                self.filterCategoryMenu.setSelectedItemIndex(-1)
             }
         }
     }
     
-    @IBAction func syncTapped(_ sender: Any) {
-        PoliteiaNotification.shared.syncPoliteia()
-        self.reloadPoliteiaWithFilter()
+    func updateSyncingStatus() {
+        DispatchQueue.main.async {
+            self.syncingView.isHidden = !self.politeisWallet!.isSyncing()
+        }
     }
     
     func setupSortOrderDropDown() {
@@ -104,7 +107,7 @@ class PoliteiaController: UIViewController {
     
     func getProposalsPoliteia() {
         let selectedCategory = self.filterCategoryMenu.selectedItemIndex + 2
-        let category = PoliteiaCategory(rawValue: Int32(selectedCategory)) ?? .all
+        let category = PoliteiaCategory(rawValue: Int32(selectedCategory)) ?? .pre
         let selectedSortIndex = self.sortOrderMenu.selectedItemIndex
         let sortOrder = self.sortOrder[safe: selectedSortIndex] ?? true
         
@@ -182,3 +185,21 @@ extension PoliteiaController: UITableViewDelegate, UITableViewDataSource {
     }
     
 }
+
+extension PoliteiaController: DcrlibwalletProposalNotificationListenerProtocol {
+    
+    func onNewProposal(_ proposal: DcrlibwalletProposal?) {
+    }
+    
+    func onProposalVoteFinished(_ proposal: DcrlibwalletProposal?) {
+    }
+    
+    func onProposalVoteStarted(_ proposal: DcrlibwalletProposal?) {
+    }
+    
+    func onProposalsSynced() {
+        self.updateSyncingStatus()
+        self.reloadPoliteiaWithFilter()
+    }
+}
+

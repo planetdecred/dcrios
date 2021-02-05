@@ -40,11 +40,11 @@ class PoliteiaTableViewCell: UITableViewCell {
         let publishAgeAsTimeAgo = Utils.timeAgo(timeInterval: publishAge)
         self.timeSinceLabel.text = String(format: publishAgeAsTimeAgo)
         self.versionLabel.text = String(format: LocalizedStrings.politeiaVersion, politeia.version)
-        self.statusWidthConstraint.constant = politeia.votesummary.status.description.width(withConstrainedHeight: 14, font: UIFont(name: "SourceSansPro-Regular", size: 16) ?? UIFont.systemFont(ofSize: 16)) + 20
-        self.statusLabel.text = politeia.votesummary.status.description
-        self.statusLabel.backgroundColor = Utils.politeiaColorBGStatus(politeia.votesummary.status)
-        self.percentView.setProgress(Float(politeia.votesummary.yesPercent), animated: false)
-        self.percentLabel.text = "\((politeia.votesummary.yesPercent).round(decimals: 2))%"
+        self.statusWidthConstraint.constant = politeia.status.description.width(withConstrainedHeight: 14, font: UIFont(name: "SourceSansPro-Regular", size: 16) ?? UIFont.systemFont(ofSize: 16)) + 20
+        self.statusLabel.text = politeia.status.description
+        self.statusLabel.backgroundColor = Utils.politeiaColorBGStatus(politeia.status)
+        self.percentView.setProgress(Float(politeia.yesPercent), animated: false)
+        self.percentLabel.text = "\((politeia.yesPercent).round(decimals: 2))%"
         self.percentLabel.superview?.bringSubviewToFront(self.percentLabel)
     }
 }
