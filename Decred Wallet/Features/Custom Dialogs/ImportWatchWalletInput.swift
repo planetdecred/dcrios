@@ -2,9 +2,9 @@
 //  ImportWatchWalletInput.swift
 //  Decred Wallet
 //
-//  Created by JustinDo on 1/28/21.
-//  Copyright © 2021 Decred. All rights reserved.
-//
+// Copyright (c) 2018-2020 The Decred developers
+// Use of this source code is governed by an ISC
+// license that can be found in the LICENSE file.
 
 import Foundation
 import UIKit
@@ -50,7 +50,7 @@ class ImportWatchWalletInput: UIViewController {
     }
     
     @IBAction func infoButtonTap(_ sender: Any) {
-        
+        SimpleAlertDialog.show(sender: self, message: LocalizedStrings.extendPublicKeyInfo, okButtonText: LocalizedStrings.gotIt)
     }
     
     @IBAction func importButtonTap(_ sender: Any) {

@@ -41,6 +41,7 @@ struct LocalizedStrings {
     
     /* Import Watch-only Wallet*/
     static let watchWalletImported = NSLocalizedString("watchWalletImported", comment: "")
+    static let extendPublicKeyInfo = NSLocalizedString("extendPublicKeyInfo", comment: "")
     
     /* Unlock Wallet Prompt */
     static let unlockWithStartupCode = NSLocalizedString("unlockWithStartupCode", comment: "")
