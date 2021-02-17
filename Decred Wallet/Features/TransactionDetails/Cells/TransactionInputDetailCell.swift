@@ -18,11 +18,9 @@ class TransactionInputDetailCell: UITableViewCell {
         var error: NSError?
         let accountName = wallet.accountName(input.accountNumber, error: &error)
         
-        if error != nil {
-            Utils.showBanner(in: contentView, type: .error, text: error!.localizedDescription)
-        }
+        let inputAccount = input.accountNumber >= 0 ? accountName: LocalizedStrings.external.lowercased()
         self.txAmountLabel.text = Utils.getAttributedString(str: "\(input.dcrAmount.round(8))", siz: 16, TexthexColor: UIColor.appColors.darkBlue).string
-            + " (\(accountName))"
+            + " (\(inputAccount))"
 
         var hash = input.previousTransactionHash
         if hash == "0000000000000000000000000000000000000000000000000000000000000000" {

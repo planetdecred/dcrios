@@ -411,7 +411,7 @@ extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDe
 
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TransactionInputDetailCell") as! TransactionInputDetailCell
-            cell.display(transaction.inputs[indexPath.row], wallet: self.wallet!)
+            cell.display(self.transaction.inputs[indexPath.row], wallet: self.wallet!)
             cell.onTxHashCopied = {
                 Utils.showBanner(in: self.view.subviews.first!, type: .success, text: LocalizedStrings.previousOutpointCopied)
             }
@@ -419,7 +419,7 @@ extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDe
 
         case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TransactionOutputDetailCell") as! TransactionOutputDetailCell
-            cell.display(transaction.outputs[indexPath.row], wallet: self.wallet!)
+            cell.display(self.transaction.outputs[indexPath.row], wallet: self.wallet!)
             cell.onTxHashCopied = {
                 Utils.showBanner(in: self.view.subviews.first!, type: .success, text: LocalizedStrings.addrCopied)
             }

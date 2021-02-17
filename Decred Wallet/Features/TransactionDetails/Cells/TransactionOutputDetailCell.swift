@@ -20,25 +20,21 @@ class TransactionOutputDetailCell: UITableViewCell {
         var error: NSError?
         let accountName = wallet.accountName(output.accountNumber, error: &error)
         
-        if error != nil {
-            Utils.showBanner(in: contentView, type: .error, text: error!.localizedDescription)
-        }
-
-        var account = output.accountNumber >= 0 ? accountName: LocalizedStrings.external.lowercased()
-        account = " (\(account))"
+        var outputAccount = output.accountNumber >= 0 ? accountName: LocalizedStrings.external.lowercased()
+        outputAccount = " (\(outputAccount))"
 
         switch output.scriptType {
         case "nulldata":
             amount = NSMutableAttributedString(string: "[\(LocalizedStrings.nullData)]")
             address = "[\(LocalizedStrings.script)]"
-            account = ""
+            outputAccount = ""
         case "stakegen":
             address = "[\(LocalizedStrings.stakegen)]"
         default:
         break
         }
 
-        self.txAmountLabel.text = amount.string + account
+        self.txAmountLabel.text = amount.string + outputAccount
         self.txHashButton.setTitle(address, for: .normal)
     }
 
