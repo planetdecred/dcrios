@@ -25,7 +25,6 @@ class PoliteiaController: UIViewController {
     var isLoading: Bool = false
     var isMore: Bool = true
     let sortOrder: [Bool] = [true, false]
-    private var politeisWallet: DcrlibwalletPoliteia? = WalletLoader.shared.multiWallet.politeia
     
     var noTxsLabel: UILabel {
         let noTxsLabel = UILabel(frame: self.politeiaTableView.frame)
@@ -56,6 +55,7 @@ class PoliteiaController: UIViewController {
         self.politeiaTableView.addSubview(self.refreshControl)
         self.footerView.isHidden = true
         self.startListeningForNotifications()
+        self.updateSyncingStatus()
     }
     
     func startListeningForNotifications() {
@@ -84,7 +84,8 @@ class PoliteiaController: UIViewController {
     
     func updateSyncingStatus() {
         DispatchQueue.main.async {
-            self.syncingView.isHidden = !self.politeisWallet!.isSyncing()
+            let isSync = WalletLoader.shared.multiWallet.politeia!.isSyncing()
+            self.syncingView.isHidden = !isSync
         }
     }
     
@@ -153,6 +154,12 @@ class PoliteiaController: UIViewController {
         barButtonTitle.tintColor = UIColor.appColors.darkBlue
         
         self.navigationItem.leftBarButtonItems =  [closeButton, barButtonTitle]
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        WalletLoader.shared.multiWallet.politeia?.removeNotificationListener("\(self)")
+        
     }
 }
 

@@ -15,7 +15,7 @@ struct Politeia: Codable {
     var category: Int32
     var name: String
     var state: Int32
-    var status: PoliteiaVoteStatus
+    var status: Int32
     var timestamp: Int64
     var userid: String
     var username: String
@@ -23,7 +23,7 @@ struct Politeia: Codable {
     var version: String
     var publishedat: Date
     var indexfile: String
-    var votestatus: Int32
+    var votestatus: PoliteiaVoteStatus
     var voteapproved: Bool
     var yesvotes: Int32
     var novotes: Int32
@@ -50,19 +50,24 @@ struct Politeia: Codable {
         self.version = try! values.decode(String.self, forKey: .version)
         self.publishedat = try! values.decode(Date.self, forKey: .publishedat)
         self.indexfile = try! values.decode(String.self, forKey: .indexfile)
-        self.votestatus = try! values.decode(Int32.self, forKey: .votestatus)
+        self.status = try! values.decode(Int32.self, forKey: .status)
         self.voteapproved = try! values.decode(Bool.self, forKey: .voteapproved)
         self.yesvotes = try! values.decode(Int32.self, forKey: .yesvotes)
         self.novotes = try! values.decode(Int32.self, forKey: .novotes)
         self.eligibletickets = try! values.decode(Int32.self, forKey: .eligibletickets)
         self.quorumpercentage = try! values.decode(Int32.self, forKey: .quorumpercentage)
         self.passpercentage = try? values.decode(Int32.self, forKey: .passpercentage)
-        let status = try! values.decode(PoliteiaVoteStatus.self, forKey: .status)
-        self.yesPercent = self.yesvotes > 0 ? Float(self.yesvotes) / Float(self.yesvotes + self.novotes) * 100.0 : 0
-        if let passPercent = self.passpercentage, status == .FINISH {
-            self.status = self.yesPercent >= Float(passPercent) ? .APPROVED : .REJECT
+        let voteStatus = try! values.decode(PoliteiaVoteStatus.self, forKey: .votestatus)
+        let yesPercent = self.yesvotes > 0 ? Float(self.yesvotes) / Float(self.yesvotes + self.novotes) * 100.0 : 0
+        self.yesPercent = yesPercent
+        if let passPercent = self.passpercentage, voteStatus == .FINISH {
+            let quorum = Float(self.eligibletickets) * (Float(self.quorumpercentage) / 100)
+            let approved = self.yesvotes >= Int32(quorum * (Float(passPercent) / 100)) && yesPercent >= Float(passPercent)
+            self.votestatus = approved ? .APPROVED : .REJECT
+        } else if status == 6 {
+            self.votestatus = .ABANDONED
         } else {
-            self.status = status
+            self.votestatus = voteStatus
         }
     }
     
@@ -79,19 +84,24 @@ struct Politeia: Codable {
         self.version = proposal.version
         self.publishedat = Date(milliseconds: Int(proposal.publishedAt))
         self.indexfile = proposal.indexFile
-        self.votestatus = proposal.voteStatus
+        self.status = proposal.status
         self.voteapproved = proposal.voteApproved
         self.yesvotes = proposal.yesVotes
         self.novotes = proposal.noVotes
         self.eligibletickets = proposal.eligibleTickets
         self.quorumpercentage = proposal.quorumPercentage
         self.passpercentage = proposal.passPercentage
-        let status = PoliteiaVoteStatus(rawValue: Int(proposal.status))!
-        self.yesPercent = self.yesvotes > 0 ? Float(self.yesvotes) / Float(self.yesvotes + self.novotes) * 100.0 : 0
-        if let passPercent = self.passpercentage, status == .FINISH {
-            self.status = self.yesPercent >= Float(passPercent) ? .APPROVED : .REJECT
+        let voteStatus = PoliteiaVoteStatus(rawValue: Int(proposal.voteStatus))!
+        let yesPercent = self.yesvotes > 0 ? Float(self.yesvotes) / Float(self.yesvotes + self.novotes) * 100.0 : 0
+        self.yesPercent = yesPercent
+        if let passPercent = self.passpercentage, voteStatus == .FINISH {
+            let quorum = Float(self.eligibletickets) * (Float(self.quorumpercentage) / 100)
+            let approved = self.yesvotes >= Int32(quorum * (Float(passPercent) / 100)) && yesPercent >= Float(passPercent)
+            self.votestatus = approved ? .APPROVED : .REJECT
+        } else if status == 6 {
+            self.votestatus = .ABANDONED
         } else {
-            self.status = status
+            self.votestatus = voteStatus
         }
     }
 }

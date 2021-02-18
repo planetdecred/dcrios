@@ -206,7 +206,6 @@ extension DcrlibwalletPoliteia {
         } catch let error {
             print("count tx error:", error.localizedDescription)
         }
-        print("---------------->category: \(category.description) raw: \(category.rawValue) count: \(int32Pointer.pointee)")
         return "\(category.description) (\(int32Pointer.pointee))"
     }
     

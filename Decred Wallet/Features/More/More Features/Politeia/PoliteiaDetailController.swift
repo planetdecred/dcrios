@@ -118,8 +118,8 @@ class PoliteiaDetailController: UIViewController {
         self.sinceLabel.text = String(format: publishAgeAsTimeAgo)
         self.countCommentLabel.text = String(format: LocalizedStrings.commentCount, politeia.numcomments)
         self.versionLabel.text = String(format: LocalizedStrings.politeiaVersion, politeia.version)
-        self.statusLabel.text = politeia.status.description
-        self.statusLabel.backgroundColor = Utils.politeiaColorBGStatus(politeia.status)
+        self.statusLabel.text = politeia.votestatus.description
+        self.statusLabel.backgroundColor = Utils.politeiaColorBGStatus(politeia.votestatus)
         self.percentView.setProgress(Float(politeia.yesPercent), animated: false)
         self.percentLabel.text = "\((politeia.yesPercent).round(decimals: 2))%"
         self.percentLabel.superview?.bringSubviewToFront(self.percentLabel)
