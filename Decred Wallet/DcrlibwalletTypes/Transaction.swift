@@ -34,6 +34,8 @@ struct Transaction: Codable {
     var voteBits: String
     var voteReward: Int64
     
+    var wallet: DcrlibwalletWallet
+    
     @nonobjc var animate: Bool
     
     private enum CodingKeys : String, CodingKey {
@@ -79,6 +81,7 @@ struct Transaction: Codable {
         self.voteReward = try! values.decode(Int64.self, forKey: .voteReward)
         
         self.animate = false
+        self.wallet = WalletLoader.shared.multiWallet.wallet(withID: self.walletID)!
     }
     
     var dcrAmount: NSDecimalNumber {
@@ -101,29 +104,37 @@ struct Transaction: Codable {
     }
     
     var receiveAccount: String? {
-        for output in self.outputs where output.accountName != "external" {
-            return output.accountName
+        var error: NSError?
+        for output in self.outputs where output.accountNumber != -1 {
+            if error != nil {
+                return nil
+            }
+            return wallet.accountName(output.accountNumber, error: &error)
         }
         return nil
     }
 
     var receiveAddress: String? {
-        for output in self.outputs where output.accountName == "external" {
+        for output in self.outputs where output.accountNumber != -1 {
             return output.address
         }
         return nil
     }
 
     var sourceAddress: String? {
-        for input in self.inputs where input.accountName == "external" {
+        for input in self.inputs where input.accountNumber != -1 {
             return input.previousTransactionHash
         }
         return nil
     }
 
     var sourceAccount: String? {
-        for input in self.inputs where input.accountName != "external" {
-            return input.accountName
+        var error: NSError?
+        for input in self.inputs where input.accountNumber != -1 {
+            if error != nil {
+                return nil
+            }
+            return wallet.accountName(input.accountNumber, error: &error)
         }
         return nil
     }
@@ -140,13 +151,13 @@ struct TxInput: Codable {
     var previousTransactionHash: String
     var previousTransactionIndex: Int32
     var amount: Int64
-    var accountName: String
+    var accountNumber: Int32
     
     private enum CodingKeys : String, CodingKey {
         case previousTransactionHash = "previous_transaction_hash"
         case previousTransactionIndex = "previous_transaction_index"
         case amount
-        case accountName = "account_name"
+        case accountNumber = "account_number"
     }
     
     init(from decoder: Decoder) throws {
@@ -154,7 +165,7 @@ struct TxInput: Codable {
         self.previousTransactionHash = try! values.decode(String.self, forKey: .previousTransactionHash)
         self.previousTransactionIndex = try! values.decode(Int32.self, forKey: .previousTransactionIndex)
         self.amount = try! values.decode(Int64.self, forKey: .amount)
-        self.accountName = "xxxxx"//try! values.decode(String.self, forKey: .accountName)
+        self.accountNumber = try! values.decode(Int32.self, forKey: .accountNumber)
     }
     
     var dcrAmount: NSDecimalNumber {
@@ -169,14 +180,12 @@ struct TxOutput: Codable {
     var scriptType: String
     var address: String
     var `internal`: Bool
-    var accountName: String
     var accountNumber: Int32
     
     private enum CodingKeys : String, CodingKey {
         case index, amount, version
         case scriptType = "script_type"
         case address, `internal`
-        case accountName = "account_name"
         case accountNumber = "account_number"
     }
     
@@ -188,7 +197,6 @@ struct TxOutput: Codable {
         self.scriptType = try! values.decode(String.self, forKey: .scriptType)
         self.address = try! values.decode(String.self, forKey: .address)
         self.internal = try! values.decode(Bool.self, forKey: .internal)
-        self.accountName = ""//try! values.decode(String.self, forKey: .accountName)
         self.accountNumber = try! values.decode(Int32.self, forKey: .accountNumber)
     }
     
