@@ -176,14 +176,11 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
     }
     
     @IBAction func importWatchWallet(_ sender: Any) {
-        ImportWatchWalletInput.show(sender: self) { publicKey, dialogDelegate in
-            self.progressHud = Utils.showProgressHud(withText: LocalizedStrings.loading)
+        SimpleTextInputDialog.show(sender: self, title: LocalizedStrings.watchWalletTitle, placeholder: LocalizedStrings.extendedPublicKey, cancelButtonText: LocalizedStrings.cancel, submitButtonText: LocalizedStrings.import_, showInfoButton: true, infoText: LocalizedStrings.extendPublicKeyInfo) { publicKey, dialogDelegate in
             DispatchQueue.global(qos: .userInitiated).async {
                 do {
                     let wallet = try WalletLoader.shared.multiWallet.createWatchOnlyWallet(LocalizedStrings.myWallet, extendedPublicKey: publicKey)
-                    
                     Utils.renameDefaultAccountToLocalLanguage(wallet: wallet)
-                    
                     DispatchQueue.main.async {
                         dialogDelegate?.dismissDialog()
                         self.progressHud.dismiss()
@@ -192,7 +189,6 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
                             NavigationMenuTabBarController.setupMenuAndLaunchApp(isNewWallet: false)
                         }
                     }
-                    
                 } catch {
                     DispatchQueue.main.async {
                         dialogDelegate?.displayError(errorMessage: LocalizedStrings.keyIsInvalid)
