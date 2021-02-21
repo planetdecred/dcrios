@@ -39,6 +39,11 @@ struct LocalizedStrings {
     static let getStarted = NSLocalizedString("getStarted", comment: "")
     static let restoreSuccessTitle = NSLocalizedString("restoreSuccessTitle", comment: "")
     
+    /* Import Watch-only Wallet*/
+    static let watchWalletImported = NSLocalizedString("watchWalletImported", comment: "")
+    static let extendPublicKeyInfo = NSLocalizedString("extendPublicKeyInfo", comment: "")
+    static let watchWalletTitle = NSLocalizedString("watchWalletTitle", comment: "")
+    
     /* Unlock Wallet Prompt */
     static let unlockWithStartupCode = NSLocalizedString("unlockWithStartupCode", comment: "")
     static let unlock = NSLocalizedString("unlock", comment: "")

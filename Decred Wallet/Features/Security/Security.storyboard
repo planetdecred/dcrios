@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -87,7 +88,7 @@
                                         </connections>
                                     </containerView>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="AyE-8L-BDu" firstAttribute="top" secondItem="qDX-id-rLK" secondAttribute="top" constant="24" id="65V-k6-Kte"/>
                                     <constraint firstAttribute="trailing" secondItem="pw2-ld-DVo" secondAttribute="trailing" id="6P6-wg-h0H"/>
@@ -111,13 +112,13 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="dho-lD-rH7"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="qDX-id-rLK" firstAttribute="leading" secondItem="tpH-7I-N4D" secondAttribute="leading" id="4Nr-CV-AzR"/>
                             <constraint firstAttribute="trailing" secondItem="qDX-id-rLK" secondAttribute="trailing" id="I8S-TY-oca"/>
                             <constraint firstAttribute="bottom" secondItem="qDX-id-rLK" secondAttribute="bottom" id="mfq-1P-bwU"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="dho-lD-rH7"/>
                     </view>
                     <connections>
                         <outlet property="btnPassword" destination="FZP-4b-65P" id="k70-GQ-K7X"/>
@@ -176,7 +177,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstItem="NoT-EV-WHd" firstAttribute="top" secondItem="0Ms-qN-4pQ" secondAttribute="top" constant="24" id="0pC-FP-PaV"/>
                                                     <constraint firstItem="NoT-EV-WHd" firstAttribute="leading" secondItem="0Ms-qN-4pQ" secondAttribute="leading" id="4MW-pb-fPp"/>
@@ -186,7 +187,7 @@
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RfS-CR-s9a">
                                                 <rect key="frame" x="0.0" y="73.5" width="366" height="10"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="10" id="KKK-Nz-HcY"/>
                                                 </constraints>
@@ -206,7 +207,7 @@ Unlock the wallet to resume the process.</string>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstItem="zvo-QN-AT7" firstAttribute="top" secondItem="nLe-fV-hfu" secondAttribute="top" id="BnY-39-CGy"/>
                                                     <constraint firstAttribute="trailing" secondItem="zvo-QN-AT7" secondAttribute="trailing" id="IVV-wm-Q0p"/>
@@ -244,7 +245,7 @@ Unlock the wallet to resume the process.</string>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstItem="afa-Zo-Kic" firstAttribute="top" secondItem="ewR-2e-MEM" secondAttribute="top" constant="4" id="03n-OZ-yIm"/>
                                                     <constraint firstAttribute="bottom" secondItem="afa-Zo-Kic" secondAttribute="bottom" id="56t-bt-NZp"/>
@@ -267,7 +268,7 @@ Unlock the wallet to resume the process.</string>
                                                         <color key="trackTintColor" red="0.95294117649999999" green="0.96078431369999995" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </progressView>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstItem="f8A-co-8Dp" firstAttribute="leading" secondItem="vmK-ZW-8U3" secondAttribute="leading" id="UsQ-FF-lXt"/>
                                                     <constraint firstAttribute="trailing" secondItem="f8A-co-8Dp" secondAttribute="trailing" id="WYl-wR-bfp"/>
@@ -308,7 +309,7 @@ Unlock the wallet to resume the process.</string>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstItem="Zxu-b3-Pxp" firstAttribute="top" secondItem="aZX-ec-zBK" secondAttribute="top" constant="4" id="BUy-6v-l4f"/>
                                                     <constraint firstItem="Zxu-b3-Pxp" firstAttribute="leading" secondItem="aZX-ec-zBK" secondAttribute="leading" constant="16" id="eCV-fG-eWK"/>
@@ -322,7 +323,7 @@ Unlock the wallet to resume the process.</string>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EdM-JP-adU">
                                                 <rect key="frame" x="0.0" y="356" width="366" height="72"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v6t-Bu-n8H">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v6t-Bu-n8H">
                                                         <rect key="frame" x="199" y="8" width="79" height="40"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="79" id="b1J-Cl-bBx"/>
@@ -336,7 +337,7 @@ Unlock the wallet to resume the process.</string>
                                                             <action selector="cancelTapped:" destination="2lq-jW-9IA" eventType="touchUpInside" id="Vej-tw-TUU"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PwE-hW-lVm" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
+                                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PwE-hW-lVm" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                                         <rect key="frame" x="286" y="8" width="80" height="40"/>
                                                         <color key="backgroundColor" red="0.77000000000000002" green="0.80000000000000004" blue="0.81999999999999995" alpha="1" colorSpace="calibratedRGB"/>
                                                         <accessibility key="accessibilityConfiguration" identifier="createPassword"/>
@@ -365,7 +366,7 @@ Unlock the wallet to resume the process.</string>
                                                         </connections>
                                                     </button>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstItem="PwE-hW-lVm" firstAttribute="top" secondItem="EdM-JP-adU" secondAttribute="top" constant="8" id="a3d-dx-5EF"/>
                                                     <constraint firstAttribute="trailing" secondItem="PwE-hW-lVm" secondAttribute="trailing" id="obr-C3-S5x"/>
@@ -378,7 +379,7 @@ Unlock the wallet to resume the process.</string>
                                         </subviews>
                                     </stackView>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="oLB-RB-SsP" firstAttribute="top" secondItem="VIK-gW-7wr" secondAttribute="top" id="76A-G8-wTO"/>
                                     <constraint firstAttribute="bottom" secondItem="oLB-RB-SsP" secondAttribute="bottom" id="OEj-Ag-TFl"/>
@@ -396,13 +397,13 @@ Unlock the wallet to resume the process.</string>
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="YVH-T5-DVQ"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="YVH-T5-DVQ" firstAttribute="trailing" secondItem="VIK-gW-7wr" secondAttribute="trailing" id="Dih-iX-9gB"/>
                             <constraint firstItem="VIK-gW-7wr" firstAttribute="leading" secondItem="YVH-T5-DVQ" secondAttribute="leading" id="Xxd-Ge-aZV"/>
                             <constraint firstAttribute="bottom" secondItem="VIK-gW-7wr" secondAttribute="bottom" id="gVi-Bh-esE"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="YVH-T5-DVQ"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 1" id="rzl-Y4-kRX"/>
                     <nil key="simulatedBottomBarMetrics"/>
@@ -453,7 +454,7 @@ Unlock the wallet to resume the process.</string>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="LFW-Ta-LtS" secondAttribute="bottom" constant="24" id="4bg-Xq-KSc"/>
                                                     <constraint firstItem="LFW-Ta-LtS" firstAttribute="leading" secondItem="xsl-Yq-viG" secondAttribute="leading" id="PXx-Bw-Ndj"/>
@@ -476,7 +477,7 @@ Unlock the wallet to resume the process.</string>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstItem="jtg-VU-DAK" firstAttribute="top" secondItem="Rm1-kf-9c0" secondAttribute="top" id="77u-RW-Nnk"/>
                                                     <constraint firstAttribute="bottom" secondItem="jtg-VU-DAK" secondAttribute="bottom" constant="24" id="BfQ-yr-KbU"/>
@@ -489,7 +490,7 @@ Unlock the wallet to resume the process.</string>
                                                 <subviews>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Z10-H9-p32">
                                                         <rect key="frame" x="48" y="24" width="282" height="16"/>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="16" id="voX-Vs-U5n"/>
                                                         </constraints>
@@ -548,7 +549,7 @@ Unlock the wallet to resume the process.</string>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="Z10-H9-p32" secondAttribute="bottom" constant="32" id="3Gz-yl-ZPD"/>
                                                     <constraint firstItem="Cqy-a9-VLC" firstAttribute="centerX" secondItem="Csj-Rf-u1l" secondAttribute="centerX" id="Du2-iZ-UhQ"/>
@@ -577,7 +578,7 @@ Unlock the wallet to resume the process.</string>
                                                         <color key="trackTintColor" red="0.95294117647058818" green="0.96078431372549022" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </progressView>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="aau-sy-kMa" secondAttribute="bottom" constant="24" id="IbV-tW-vNU"/>
                                                     <constraint firstItem="aau-sy-kMa" firstAttribute="leading" secondItem="eKX-Vj-YCf" secondAttribute="leading" id="ZAj-YJ-cop"/>
@@ -588,7 +589,7 @@ Unlock the wallet to resume the process.</string>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4NJ-Il-VAc">
                                                 <rect key="frame" x="0.0" y="286" width="366" height="64"/>
                                                 <subviews>
-                                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="05g-JX-ZBu">
+                                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="05g-JX-ZBu">
                                                         <rect key="frame" x="-8" y="0.0" width="79" height="40"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="79" id="L6K-9T-VMW"/>
@@ -603,7 +604,7 @@ Unlock the wallet to resume the process.</string>
                                                             <action selector="onBack:" destination="SKa-iY-3vv" eventType="touchUpInside" id="dqh-Pu-H7D"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hE5-Xg-wZu">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hE5-Xg-wZu">
                                                         <rect key="frame" x="199" y="0.0" width="79" height="40"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="79" id="vgu-tU-bpZ"/>
@@ -617,7 +618,7 @@ Unlock the wallet to resume the process.</string>
                                                             <action selector="onCancelButtonTapped:" destination="SKa-iY-3vv" eventType="touchUpInside" id="Uoo-pY-Xi8"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Irb-id-mc4" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
+                                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Irb-id-mc4" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                                         <rect key="frame" x="286" y="0.0" width="80" height="40"/>
                                                         <color key="backgroundColor" red="0.77000000000000002" green="0.80000000000000004" blue="0.81999999999999995" alpha="1" colorSpace="calibratedRGB"/>
                                                         <accessibility key="accessibilityConfiguration" identifier="createPIN"/>
@@ -647,7 +648,7 @@ Unlock the wallet to resume the process.</string>
                                                         </connections>
                                                     </button>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstItem="05g-JX-ZBu" firstAttribute="leading" secondItem="4NJ-Il-VAc" secondAttribute="leading" constant="-8" id="2xA-d2-WBh"/>
                                                     <constraint firstItem="05g-JX-ZBu" firstAttribute="centerY" secondItem="Irb-id-mc4" secondAttribute="centerY" id="CYQ-cc-mpf"/>
@@ -662,7 +663,7 @@ Unlock the wallet to resume the process.</string>
                                         </subviews>
                                     </stackView>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="lgN-j6-puv" firstAttribute="leading" secondItem="fa7-1r-DRV" secondAttribute="leading" constant="24" id="2aY-xf-w1y"/>
                                     <constraint firstAttribute="trailing" secondItem="lgN-j6-puv" secondAttribute="trailing" constant="24" id="Y8I-fP-8o2"/>
@@ -680,13 +681,13 @@ Unlock the wallet to resume the process.</string>
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="hEG-La-4vV"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="fa7-1r-DRV" firstAttribute="leading" secondItem="hEG-La-4vV" secondAttribute="leading" id="1z7-8U-09p"/>
                             <constraint firstAttribute="bottom" secondItem="fa7-1r-DRV" secondAttribute="bottom" id="LS3-bj-E5a"/>
                             <constraint firstItem="hEG-La-4vV" firstAttribute="trailing" secondItem="fa7-1r-DRV" secondAttribute="trailing" id="Owe-V2-FTF"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="hEG-La-4vV"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 2" id="2n3-H2-ODn"/>
                     <nil key="simulatedBottomBarMetrics"/>
@@ -716,4 +717,23 @@ Unlock the wallet to resume the process.</string>
             <point key="canvasLocation" x="6267" y="-254"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="Fj4-AU-s5Z">
+            <size key="intrinsicContentSize" width="34" height="34"/>
+        </designable>
+        <designable name="Irb-id-mc4">
+            <size key="intrinsicContentSize" width="75" height="21"/>
+        </designable>
+        <designable name="NMs-Wa-sVv">
+            <size key="intrinsicContentSize" width="34" height="34"/>
+        </designable>
+        <designable name="PwE-hW-lVm">
+            <size key="intrinsicContentSize" width="77" height="21"/>
+        </designable>
+    </designables>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>
