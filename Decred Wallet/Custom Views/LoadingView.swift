@@ -2,8 +2,9 @@
 //  LoadingView.swift
 //  Decred Wallet
 //
-//  Created by JustinDo on 2/4/21.
-//  Copyright © 2021 Decred. All rights reserved.
+// Copyright (c) 2020 The Decred developers
+// Use of this source code is governed by an ISC
+// license that can be found in the LICENSE file.
 //
 
 import Foundation
@@ -11,9 +12,7 @@ import UIKit
 
 @IBDesignable
 class LoadingView: UIView {
-    
     private var image: UIImage?
-    
     @IBInspectable var icon: UIImage = UIImage(named: "btn_spinner")! {
         didSet {
             self.image = icon

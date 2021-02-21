@@ -118,7 +118,9 @@ class PoliteiaController: UIViewController {
             self.footerView.isHidden = false
         }
         DispatchQueue.global(qos: .userInitiated).async {
-            if let politeias = WalletLoader.shared.multiWallet.politeia?.getPoliteias(category: category, offset: self.offset, newestFirst: sortOrder) {
+            let results = WalletLoader.shared.multiWallet.politeia?.getPoliteias(category: category, offset: self.offset, newestFirst: sortOrder)
+            self.isLoading = false
+            if let politeias = results?.0 {
                 self.isMore = politeias.count >= 20
                 if self.offset > 0 {
                     self.politeiasList.append(contentsOf: politeias)
@@ -127,13 +129,17 @@ class PoliteiaController: UIViewController {
                     self.politeiasList = politeias
                 }
                 self.offset += 20
-            }
-            self.isLoading = false
-            DispatchQueue.main.async {
-                self.politeiaTableView.backgroundView = self.politeiasList.count == 0 ? self.noTxsLabel : nil
-                self.refreshControl.endRefreshing()
-                self.politeiaTableView.reloadData()
-                self.footerView.isHidden = true
+                DispatchQueue.main.async {
+                    self.politeiaTableView.backgroundView = self.politeiasList.count == 0 ? self.noTxsLabel : nil
+                    self.refreshControl.endRefreshing()
+                    self.politeiaTableView.reloadData()
+                    self.footerView.isHidden = true
+                }
+            } else {
+                DispatchQueue.main.async {
+                    Utils.showBanner(in: self.view, type: .error, text: results!.1!.localizedDescription)
+                }
+                return
             }
         }
     }
@@ -159,7 +165,6 @@ class PoliteiaController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         WalletLoader.shared.multiWallet.politeia?.removeNotificationListener("\(self)")
-        
     }
 }
 

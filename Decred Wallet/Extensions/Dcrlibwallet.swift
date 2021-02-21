@@ -174,24 +174,24 @@ extension DcrlibwalletWallet {
 }
 
 extension DcrlibwalletPoliteia {
-    func getPoliteias(category: PoliteiaCategory = PoliteiaCategory.pre, offset: Int32 = 0, limit: Int32 = 20, newestFirst: Bool = true) -> Array<Politeia>? {
+    func getPoliteias(category: PoliteiaCategory = PoliteiaCategory.pre, offset: Int32 = 0, limit: Int32 = 20, newestFirst: Bool = true) -> (Array<Politeia>?, NSError?) {
         var error: NSError?
         let politeias = self.getProposals(category.rawValue, offset: offset, limit: limit, newestFirst: newestFirst, error: &error)
         if error != nil {
             print("getProposals error: ", error!.localizedDescription)
-            return nil
+            return (nil, error)
         }
         
         if politeias.isEmpty {
-            return []
+            return ([], nil)
         }
 
         do {
             let response = try JSONDecoder().decode(Array<Politeia>.self, from: politeias.data(using: .utf8)!)
-            return response
-        } catch let error {
+            return (response, nil)
+        } catch let error as NSError {
             print("decode allPoliteia error:", error.localizedDescription)
-            return nil
+            return (nil, error)
         }
     }
     
@@ -209,14 +209,13 @@ extension DcrlibwalletPoliteia {
         return "\(category.description) (\(int32Pointer.pointee))"
     }
     
-    func detailPoliteia(_ id: Int) -> Politeia? {
+    func detailPoliteia(_ id: Int) -> (Politeia?, NSError?) {
         do {
             let politeia = try self.getProposalByIDRaw(id)
-            
-            return Politeia(politeia)
-        } catch let error {
+            return (Politeia(politeia), nil)
+        } catch let error as NSError {
             print("decode allPoliteia error:", error.localizedDescription)
-            return nil
+            return (nil, error)
         }
     }
 }
