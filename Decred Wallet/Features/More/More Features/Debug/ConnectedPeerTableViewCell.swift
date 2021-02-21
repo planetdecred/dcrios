@@ -2,8 +2,9 @@
 //  ConnectedPeerTableViewCell.swift
 //  Decred Wallet
 //
-//  Created by JustinDo on 1/17/21.
-//  Copyright © 2021 Decred. All rights reserved.
+// Copyright (c) 2018-2020 The Decred developers
+// Use of this source code is governed by an ISC
+// license that can be found in the LICENSE file.
 //
 
 import Foundation
@@ -18,10 +19,6 @@ class ConnectedPeerTableViewCell: UITableViewCell {
     @IBOutlet weak var subVerLabel: UILabel!
     @IBOutlet weak var startingHeightLabel: UILabel!
     @IBOutlet weak var banScoreLabel: UILabel!
-    
-    override class func awakeFromNib() {
-        
-    }
     
     class var peerCellIdentifier: String {
         return "\(self)"

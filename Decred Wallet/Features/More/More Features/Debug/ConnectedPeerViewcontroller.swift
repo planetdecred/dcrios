@@ -22,14 +22,21 @@ class ConnectedPeerViewController: UIViewController {
     }
     
     func setupUI() {
-        self.title = "Connected peers"
+        self.addNavigationBackButton()
+        let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.connectPeer, style: .plain, target: self, action: nil)
+        barButtonTitle.tintColor = UIColor.appColors.darkBlue
+        self.navigationItem.leftBarButtonItems =  [(self.navigationItem.leftBarButtonItem)!, barButtonTitle]
         self.tableView.delegate = self
         self.tableView.dataSource = self
     }
     
     func getPeers() {
-        guard let peers = WalletLoader.shared.multiWallet.getPeersInfo() else { return }
-        self.peers = peers
+        let (peers, err) = WalletLoader.shared.multiWallet.getPeersInfo()
+        if let error = err {
+            Utils.showBanner(in: self.view, type: .error, text: error.localizedDescription)
+            return
+        }
+        self.peers = peers!
         self.tableView.reloadData()
     }
     
@@ -39,12 +46,9 @@ class ConnectedPeerViewController: UIViewController {
         
         func indexPathsForSection() -> [IndexPath] {
             var indexPaths = [IndexPath]()
-            
             indexPaths.append(IndexPath(row: 0, section: section))
-            
             return indexPaths
         }
-        
         if self.showSections.contains(section) {
             self.showSections.remove(section)
             self.tableView.deleteRows(at: indexPathsForSection(), with: .fade)
@@ -68,51 +72,38 @@ extension ConnectedPeerViewController: UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 60))
-        
         let idLabel = UILabel()
         let addrLabel = UILabel()
         let sectionButton = UIButton()
-
         idLabel.translatesAutoresizingMaskIntoConstraints = false
         addrLabel.translatesAutoresizingMaskIntoConstraints = false
         sectionButton.translatesAutoresizingMaskIntoConstraints = false
-        
         headerView.addSubview(idLabel)
         headerView.addSubview(addrLabel)
         headerView.addSubview(sectionButton)
-        
         idLabel.text = "\(self.peers[section].id)"
         idLabel.font = UIFont(name: "SourceSansPro-Regular", size: 16)
         idLabel.textColor = UIColor.appColors.darkBlue
-        
         addrLabel.text = "\(self.peers[section].addr)"
         addrLabel.font = UIFont(name: "SourceSansPro-Regular", size: 16)
         addrLabel.textColor = UIColor.appColors.darkBluishGray
-
         sectionButton.addTarget(self, action: #selector(self.hideSection(sender:)), for: .touchUpInside)
         sectionButton.tag = section
         sectionButton.leftImage(image: UIImage(named: "ic_expand")!, renderMode: .alwaysOriginal)
-        
         NSLayoutConstraint.activate([
-            
             idLabel.heightAnchor.constraint(equalToConstant: 21),
             idLabel.leadingAnchor.constraint(equalTo: headerView.layoutMarginsGuide.leadingAnchor, constant: 30),
             idLabel.trailingAnchor.constraint(equalTo: headerView.layoutMarginsGuide.trailingAnchor),
             idLabel.topAnchor.constraint(equalTo: headerView.layoutMarginsGuide.topAnchor),
-            
-            
             addrLabel.heightAnchor.constraint(equalToConstant: 21),
             addrLabel.leadingAnchor.constraint(equalTo: headerView.layoutMarginsGuide.leadingAnchor, constant: 30),
             addrLabel.trailingAnchor.constraint(equalTo: headerView.layoutMarginsGuide.trailingAnchor),
             addrLabel.topAnchor.constraint(equalTo: idLabel.bottomAnchor),
-            
             sectionButton.leadingAnchor.constraint(equalTo: headerView.layoutMarginsGuide.leadingAnchor),
             sectionButton.trailingAnchor.constraint(equalTo: headerView.layoutMarginsGuide.trailingAnchor),
             sectionButton.topAnchor.constraint(equalTo: headerView.layoutMarginsGuide.topAnchor),
-            sectionButton.bottomAnchor.constraint(equalTo: headerView.layoutMarginsGuide.bottomAnchor),
-        ])
+            sectionButton.bottomAnchor.constraint(equalTo: headerView.layoutMarginsGuide.bottomAnchor)])
         
         return headerView
     }
@@ -133,6 +124,4 @@ extension ConnectedPeerViewController: UITableViewDelegate, UITableViewDataSourc
         cell.render(self.peers[indexPath.row])
         return cell
     }
-    
-    
 }

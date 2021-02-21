@@ -381,6 +381,7 @@ struct LocalizedStrings {
     static let months = NSLocalizedString("months", comment: "")
     static let years = NSLocalizedString("years", comment: "")
     static let net = NSLocalizedString("net", comment: "")
+    static let connectPeer = NSLocalizedString("connectPeer", comment: "")
 
     /* Change startup/spending pin/pass */
     static let newPasswordPlaceholder = NSLocalizedString("newPasswordPlaceholder", comment: "")

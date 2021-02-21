@@ -220,27 +220,28 @@ extension DcrlibwalletMultiWallet {
         return transactions
     }
     
-    func getPeersInfo() -> [PeerInfo]? {
+    func getPeersInfo() -> ([PeerInfo]?, NSError?) {
         var error: NSError?
         let peers = self.peerInfo(&error)
         print(peers)
         if error != nil {
             print("multiwallet.getPeerInfo error:", error!.localizedDescription)
-            return nil
+            return (nil, error)
         }
         
         if peers.isEmpty {
-            return []
+            return ([], nil)
         }
         
         var listPeers: [PeerInfo]?
         
         do {
             listPeers = try JSONDecoder().decode([PeerInfo].self, from: peers.data(using: .utf8)!)
-        } catch let error {
+        } catch let error as NSError {
             print("decode multiwallet peer json error:", error.localizedDescription)
+            return (nil, error)
         }
-        return listPeers
+        return (listPeers, nil)
     }
 }
 
