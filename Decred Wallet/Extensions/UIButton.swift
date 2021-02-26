@@ -83,4 +83,11 @@ extension UIButton {
             titleLabel.font = UIFont(name: name, size: fontSize)
         }
     }
+    
+    func leftImage(image: UIImage, renderMode: UIImage.RenderingMode) {
+        self.setImage(image.withRenderingMode(renderMode), for: .normal)
+        self.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: image.size.width / 2)
+        self.contentHorizontalAlignment = .left
+        self.imageView?.contentMode = .scaleAspectFit
+    }
 }
