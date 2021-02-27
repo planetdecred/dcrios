@@ -10,21 +10,33 @@ import UIKit
 import Dcrlibwallet
 
 class PrivacySetupTypeViewController: UIViewController {
+    @IBOutlet weak var autoSetupView: RoundedView!
+    @IBOutlet weak var manualSetupView: RoundedView!
     
+    @IBOutlet weak var walletName: UILabel!
     var wallet: DcrlibwalletWallet!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    @IBAction func setupAutoMixer(_ sender: Any) {
-        self.AuthMixerAccount()
-    }
-    
-    @IBAction func setupManuelMixer(_ sender: Any) {
+        self.autoSetupView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(AuthMixerAccount)))
+        self.manualSetupView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(setupManuelMixer)))
         
+        self.walletName.text = wallet.name
     }
     
+    @objc func setupManuelMixer() {
+        guard let wallet = WalletLoader.shared.multiWallet.wallet(withID: wallet.id_) else {
+            return
+        }
+        
+        let PrivacyManualSetupVC = PrivacyManualSetupViewController.instantiate(from: .Privacy)
+        PrivacyManualSetupVC.wallet = wallet
+        self.navigationController?.pushViewController(PrivacyManualSetupVC, animated: true)
+    }
+    
+    @IBAction func dismissView(_ sender: Any) {
+        self.dismissView()
+    }
     
     func showReminder(callback: @escaping (Bool) -> Void) {
         let message = LocalizedStrings.setupMixerInfo
@@ -36,7 +48,7 @@ class PrivacySetupTypeViewController: UIViewController {
                                   callback: callback)
     }
     
-    func AuthMixerAccount() {
+    @objc func AuthMixerAccount() {
         self.showReminder { ok in
             guard ok else { return }
             Security.spending(initialSecurityType: SpendingPinOrPassword.securityType(for: self.wallet.id_))
@@ -46,7 +58,7 @@ class PrivacySetupTypeViewController: UIViewController {
                 
                     DispatchQueue.global(qos: .userInitiated).async {
                         do {
-                          //  try WalletLoader.shared.multiWallet.startAccountMixer(self.wallet.id_, walletPassphrase: spendingCode)
+                            try WalletLoader.shared.multiWallet.startAccountMixer(self.wallet.id_, walletPassphrase: spendingCode)
                             DispatchQueue.main.async {
                                 dialogDelegate?.dismissDialog()
                                 
@@ -65,6 +77,5 @@ class PrivacySetupTypeViewController: UIViewController {
             
         }
     }
-
 
 }

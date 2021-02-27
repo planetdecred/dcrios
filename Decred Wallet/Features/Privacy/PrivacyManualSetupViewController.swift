@@ -17,10 +17,14 @@ class PrivacyManualSetupViewController: UIViewController {
         super.viewDidLoad()
 
     }
+    
     @IBAction func setupManualMixer(_ sender: Any) {
         
     }
     
+    @IBAction func dismissView(_ sender: Any) {
+        self.dismissView()
+    }
     func showReminder(callback: @escaping (Bool) -> Void) {
         let message = LocalizedStrings.setupMixerInfo
         SimpleOkCancelDialog.show(sender: self,
@@ -41,7 +45,7 @@ class PrivacyManualSetupViewController: UIViewController {
                 
                     DispatchQueue.global(qos: .userInitiated).async {
                         do {
-                          //  try WalletLoader.shared.multiWallet.startAccountMixer(self.wallet.id_, walletPassphrase: spendingCode)
+                            try WalletLoader.shared.multiWallet.startAccountMixer(self.wallet.id_, walletPassphrase: spendingCode)
                             DispatchQueue.main.async {
                                 dialogDelegate?.dismissDialog()
                                 

@@ -26,7 +26,7 @@
                                 <rect key="frame" x="16" y="29" width="16.5" height="20"/>
                                 <state key="normal" image="left-arrow"/>
                                 <connections>
-                                    <segue destination="y16-2g-f1O" kind="show" id="UNe-LU-eeY"/>
+                                    <action selector="dismissView:" destination="wgY-rn-Il0" eventType="touchUpInside" id="60h-Wq-yoe"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hR2-rF-Y9z">
@@ -156,6 +156,7 @@
                     <navigationItem key="navigationItem" id="opI-9b-eEt"/>
                     <connections>
                         <outlet property="setupMixerBtn" destination="ayu-ew-FJN" id="qU9-h8-cZm"/>
+                        <outlet property="walletName" destination="WsD-vo-weA" id="FzH-W3-e5D"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WDf-8I-uXg" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -167,11 +168,11 @@
             <objects>
                 <viewController storyboardIdentifier="PrivacyViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="y16-2g-f1O" customClass="PrivacyViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iEF-jc-dcn">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="IKe-Ji-zhC">
-                                <rect key="frame" x="24" y="16" width="366" height="43.5"/>
+                                <rect key="frame" x="24" y="60" width="366" height="43.5"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="300" verticalHuggingPriority="300" image="left-arrow" translatesAutoresizingMaskIntoConstraints="NO" id="YBc-Cl-xD8">
                                         <rect key="frame" x="0.0" y="14" width="16.5" height="15.5"/>
@@ -207,7 +208,7 @@
                                 </subviews>
                             </stackView>
                             <scrollView clipsSubviews="YES" contentMode="scaleToFill" directionalLockEnabled="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" contentInsetAdjustmentBehavior="always" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="cps-S7-OnL">
-                                <rect key="frame" x="0.0" y="75.5" width="414" height="766.5"/>
+                                <rect key="frame" x="0.0" y="119.5" width="414" height="776.5"/>
                                 <subviews>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="byB-XZ-r7u">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="651"/>
@@ -868,6 +869,9 @@
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mq9-YB-HNE">
                                 <rect key="frame" x="16" y="29" width="16.5" height="22"/>
                                 <state key="normal" image="left-arrow"/>
+                                <connections>
+                                    <action selector="dismissView:" destination="YFH-6t-Z4b" eventType="touchUpInside" id="cVz-iP-MUD"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VQL-7L-a2b">
                                 <rect key="frame" x="52.5" y="16" width="345.5" height="47.5"/>
@@ -1011,9 +1015,6 @@
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="setUpMixerForWallet"/>
                                         </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="setupAutoMixer:" destination="YFH-6t-Z4b" eventType="touchUpInside" id="Ap4-wW-s3f"/>
-                                        </connections>
                                     </button>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_checkmark_round" translatesAutoresizingMaskIntoConstraints="NO" id="0v9-h7-iK9">
                                         <rect key="frame" x="8" y="36" width="24" height="24"/>
@@ -1126,6 +1127,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="in3-gJ-hbA"/>
+                    <connections>
+                        <outlet property="autoSetupView" destination="GKO-QV-wpO" id="K0l-tF-kLG"/>
+                        <outlet property="manualSetupView" destination="OBF-P0-DtZ" id="3fo-Xz-hSs"/>
+                        <outlet property="walletName" destination="LxI-iH-E0M" id="p09-8q-Ie3"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3th-XY-wnt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1142,6 +1148,9 @@
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jh9-Wu-Jnh">
                                 <rect key="frame" x="16" y="37.5" width="16.5" height="22"/>
                                 <state key="normal" image="left-arrow"/>
+                                <connections>
+                                    <action selector="dismissView:" destination="ZTY-JF-4EY" eventType="touchUpInside" id="Y9x-Eo-t7o"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pfm-FT-pyp">
                                 <rect key="frame" x="52.5" y="16" width="345.5" height="65"/>

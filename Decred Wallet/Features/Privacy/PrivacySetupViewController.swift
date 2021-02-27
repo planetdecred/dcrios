@@ -13,51 +13,23 @@ import Dcrlibwallet
 class PrivacySetupViewController: UIViewController {
     @IBOutlet weak var setupMixerBtn: Button!
     var wallet: DcrlibwalletWallet!
+    @IBOutlet weak var walletName: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.walletName.text = self.wallet.name
+    }
+    @IBAction func dismissView(_ sender: Any) {
+        self.dismissView()
     }
     
     @IBAction func setupMixer(_ sender: Any) {
-        self.showReminder { ok in
-            guard ok else { return }
-            
-            Security.spending(initialSecurityType: SpendingPinOrPassword.securityType(for: self.wallet.id_))
-                .with(prompt: LocalizedStrings.confirmToCreateMixer)
-                .with(submitBtnText: LocalizedStrings.remove)
-                .requestCurrentCode(sender: self) { spendingCode, _, dialogDelegate in
-                
-                    DispatchQueue.global(qos: .userInitiated).async {
-                        do {
-                          //  try WalletLoader.shared.multiWallet.startAccountMixer(self.wallet.id_, walletPassphrase: spendingCode)
-                            DispatchQueue.main.async {
-                                dialogDelegate?.dismissDialog()
-                                
-                            }
-                        } catch let error {
-                            DispatchQueue.main.async {
-                                var errorMessage = error.localizedDescription
-                                if error.isInvalidPassphraseError {
-                                    errorMessage = SpendingPinOrPassword.invalidSecurityCodeMessage(for: self.wallet.id_)
-                                }
-                                dialogDelegate?.displayError(errorMessage: errorMessage)
-                            }
-                        }
-                    }
-            }
-            
+        guard let wallet = WalletLoader.shared.multiWallet.wallet(withID: wallet.id_) else {
+            return
         }
+        
+        let PrivacySetupTypeVC = PrivacySetupTypeViewController.instantiate(from: .Privacy)
+        PrivacySetupTypeVC.wallet = wallet
+        self.navigationController?.pushViewController(PrivacySetupTypeVC, animated: true)
     }
-    
-    func showReminder(callback: @escaping (Bool) -> Void) {
-        let message = LocalizedStrings.setupMixerInfo
-        SimpleOkCancelDialog.show(sender: self,
-                                  title: LocalizedStrings.setupMixerWithTwoAccounts,
-                                  message: message,
-                                  warningText: LocalizedStrings.setupMixerWithTwoAccounts,
-                                  okButtonText: LocalizedStrings.beginSetup,
-                                  callback: callback)
-    }
-
 }
