@@ -13,11 +13,16 @@ import UIKit
 class PlainHorizontalProgressBar: UIView {
     private let trackView = UIView()
     private lazy var trackViewWidthConstraint: NSLayoutConstraint =  { NSLayoutConstraint(item: self.trackView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 0) }()
+    
+    
+    private var barBGColor: UIColor = .gray
+    var isDefaultColor: Bool = false
 
     @IBInspectable
     open var barColor: UIColor = .gray {
         didSet {
-            self.layer.backgroundColor = barColor.cgColor
+//            self.layer.backgroundColor = barColor.cgColor
+            self.barBGColor = barColor
         }
     }
     
@@ -98,8 +103,9 @@ class PlainHorizontalProgressBar: UIView {
         self.layoutMargins = .zero
     }
     
-    open func setProgress(_ value: Float, animated: Bool) {
+    open func setProgress(_ value: Float, animated: Bool, isDefaultColor: Bool = false) {
         self.progress = value
+        self.isDefaultColor = isDefaultColor
         
         if animated {
             UIView.animate(withDuration: animationDuration, animations: {
@@ -117,6 +123,11 @@ class PlainHorizontalProgressBar: UIView {
         if isCornersRounded {
             self.layer.cornerRadius = self.frame.height / 2
             trackView.layer.cornerRadius = 0
+        }
+        if progress == 0 && isDefaultColor {
+            self.layer.backgroundColor = UIColor.appColors.paleGray.cgColor
+        } else {
+            self.layer.backgroundColor = barBGColor.cgColor
         }
         
         self.layoutMargins = UIEdgeInsets(top: barInset, left: barInset, bottom: barInset, right: barInset)

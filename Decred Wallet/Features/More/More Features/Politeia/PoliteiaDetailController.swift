@@ -19,7 +19,6 @@ class PoliteiaDetailController: UIViewController {
     @IBOutlet weak var yesPercentLabel: UILabel!
     @IBOutlet weak var noPercentLabel: UILabel!
     @IBOutlet weak var percentView: PlainHorizontalProgressBar!
-    @IBOutlet weak var percentLabel: UILabel!
     @IBOutlet weak var contentTextView: UITextView!
     
     var politeia: Politeia?
@@ -93,6 +92,9 @@ class PoliteiaDetailController: UIViewController {
         self.statusLabel.clipsToBounds = true
         let bottomHeight = (self.tabBarController?.tabBar.frame.height ?? 0) + 10
         self.contentTextView.textContainerInset = UIEdgeInsets(top: 0, left: 16, bottom: bottomHeight, right: 16)
+        self.percentView.isHidden = true
+        self.yesPercentLabel.isHidden = true
+        self.noPercentLabel.isHidden = true
     }
     @objc func shareButtonTapped(_ sender: Any) {
         guard let token = self.politeia?.token, let name = self.politeia?.name else {return}
@@ -120,12 +122,15 @@ class PoliteiaDetailController: UIViewController {
         self.versionLabel.text = String(format: LocalizedStrings.politeiaVersion, politeia.version)
         self.statusLabel.text = politeia.votestatus.description
         self.statusLabel.backgroundColor = Utils.politeiaColorBGStatus(politeia.votestatus)
-        self.percentView.setProgress(Float(politeia.yesPercent), animated: false)
-        self.percentLabel.text = "\((politeia.yesPercent).round(decimals: 2))%"
-        self.percentLabel.superview?.bringSubviewToFront(self.percentLabel)
-        let yesPercent = politeia.yesPercent
-        self.yesPercentLabel.text = "Yes: \(politeia.yesvotes) (\(yesPercent.round(decimals: 2))%)"
-        self.noPercentLabel.text = "No: \(politeia.novotes) (\((100 - yesPercent).round(decimals: 2))%)"
+        if politeia.votestatus == .APPROVED || politeia.votestatus == .REJECT {
+            self.percentView.isHidden = false
+            self.yesPercentLabel.isHidden = false
+            self.noPercentLabel.isHidden = false
+            self.percentView.setProgress(Float(politeia.yesPercent), animated: false, isDefaultColor: politeia.novotes == 0)
+            let yesPercent = politeia.yesPercent
+            self.yesPercentLabel.text = "Yes: \(politeia.yesvotes) (\(yesPercent.round(decimals: 2))%)"
+            self.noPercentLabel.text = "No: \(politeia.novotes) (\(politeia.novotes > 0 ? (100 - yesPercent).round(decimals: 2) : 0)%)"
+        }
         if let data = self.politeia?.indexfile {
             let dataContent = Data(base64Encoded: data)!
             let content = String(data: dataContent, encoding: .utf8)

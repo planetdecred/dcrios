@@ -26,6 +26,7 @@ class PoliteiaTableViewCell: UITableViewCell {
         self.politeiaBackgroundView.layer.cornerRadius = 5
         self.statusLabel.layer.cornerRadius = 5
         self.statusLabel.clipsToBounds = true
+        self.percentView.isHidden = true
     }
     
     class var politeiaIdentifier: String {
@@ -43,8 +44,13 @@ class PoliteiaTableViewCell: UITableViewCell {
         self.statusWidthConstraint.constant = politeia.votestatus.description.width(withConstrainedHeight: 14, font: UIFont(name: "SourceSansPro-Regular", size: 16) ?? UIFont.systemFont(ofSize: 16)) + 20
         self.statusLabel.text = politeia.votestatus.description
         self.statusLabel.backgroundColor = Utils.politeiaColorBGStatus(politeia.votestatus)
-        self.percentView.setProgress(Float(politeia.yesPercent), animated: false)
-        self.percentLabel.text = "\((politeia.yesPercent).round(decimals: 2))%"
+        if politeia.votestatus == .APPROVED || politeia.votestatus == .REJECT {
+            self.percentView.isHidden = false
+            self.percentView.setProgress(Float(politeia.yesPercent), animated: false, isDefaultColor: politeia.novotes == 0)
+            let yesPercentRound = (politeia.yesPercent).round(decimals: 2)
+            let noPercentRound = politeia.novotes > 0 ? (100.0 - yesPercentRound).round(decimals: 2) : 0
+            self.percentLabel.text = "Yes: \(politeia.yesvotes) (\(yesPercentRound)%) No: \(politeia.novotes) (\(noPercentRound)%)"
+        }
         self.percentLabel.superview?.bringSubviewToFront(self.percentLabel)
     }
 }

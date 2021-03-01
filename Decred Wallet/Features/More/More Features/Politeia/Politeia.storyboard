@@ -226,9 +226,10 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fwP-NO-OHp" customClass="DropMenuButton" customModule="Decred_Wallet" customModuleProvider="target">
-                                        <rect key="frame" x="118" y="8" width="150" height="24"/>
+                                        <rect key="frame" x="118" y="0.0" width="150" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="150" id="ZrG-SQ-Ued"/>
+                                            <constraint firstAttribute="height" constant="40" id="tn8-un-tXd"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                         <state key="normal" image="ic_dropdown">
@@ -236,9 +237,10 @@
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WfB-Wx-013" customClass="DropMenuButton" customModule="Decred_Wallet" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="8" width="90" height="24"/>
+                                        <rect key="frame" x="20" y="0.0" width="90" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="90" id="E3h-es-afh"/>
+                                            <constraint firstAttribute="height" constant="40" id="adL-9e-Udq"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                         <state key="normal" title="Newest" image="ic_dropdown">
@@ -390,19 +392,9 @@
                                                             </stackView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ft5-Le-8fm" customClass="PlainHorizontalProgressBar" customModule="Decred_Wallet" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="150" width="382" height="20"/>
-                                                                <subviews>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="425-Yf-d21">
-                                                                        <rect key="frame" x="182" y="1" width="18.5" height="18"/>
-                                                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
-                                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                        <nil key="highlightedColor"/>
-                                                                    </label>
-                                                                </subviews>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
-                                                                    <constraint firstItem="425-Yf-d21" firstAttribute="centerY" secondItem="ft5-Le-8fm" secondAttribute="centerY" id="TPE-d9-oya"/>
                                                                     <constraint firstAttribute="height" constant="20" id="k8q-tq-0SX"/>
-                                                                    <constraint firstItem="425-Yf-d21" firstAttribute="centerX" secondItem="ft5-Le-8fm" secondAttribute="centerX" id="rBs-Sl-JOM"/>
                                                                 </constraints>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="color" keyPath="barColor">
@@ -489,7 +481,6 @@
                         <outlet property="countCommentLabel" destination="MTD-9X-JzK" id="1j8-wb-6hp"/>
                         <outlet property="nameLabel" destination="LKv-X6-yO6" id="M3Y-sR-f6E"/>
                         <outlet property="noPercentLabel" destination="vlZ-Qe-GSR" id="V49-hA-OTD"/>
-                        <outlet property="percentLabel" destination="425-Yf-d21" id="dKC-4Z-dCl"/>
                         <outlet property="percentView" destination="ft5-Le-8fm" id="gmx-xe-zsO"/>
                         <outlet property="sinceLabel" destination="oZ9-FC-D07" id="24k-tx-onl"/>
                         <outlet property="statusLabel" destination="nSy-Sg-JoN" id="AH4-5W-R1B"/>
