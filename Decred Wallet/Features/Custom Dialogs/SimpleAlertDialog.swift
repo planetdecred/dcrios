@@ -9,37 +9,53 @@
 import UIKit
 
 class SimpleAlertDialog: UIViewController {
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var messageLabel: UILabel!
-    @IBOutlet weak var okBtn: UIButton!
+    @IBOutlet weak var okBtn: Button!
+    @IBOutlet weak var warningTextLabel: UILabel!
+    @IBOutlet weak var alertIcon: UIImageView!
     
+    private var dialogTitle: String!
     private var message: String!
-    private var okButtonText: String!
-    private var callback: (() -> Void)?
-
+    private var warningText:String!
+    private var okButtonText: String?
+    private var hideAlertIcon: Bool!
+    private var callback: ((_ ok: Bool) -> Void)?
+    
     static func show(sender vc: UIViewController,
+                     title: String? = nil,
                      message: String,
-                     okButtonText: String,
-                     callback: (() -> Void)? = nil) {
-
+                     warningText: String? = nil,
+                     cancelButtonText: String? = nil,
+                     okButtonText: String? = nil,
+                     hideAlertIcon: Bool? = true,
+                     callback: ((_ ok: Bool) -> Void)?) {
+        
         let dialog = SimpleAlertDialog.instantiate(from: .CustomDialogs)
+        dialog.dialogTitle = title
         dialog.message = message
-        dialog.callback = callback
+        dialog.warningText = warningText
         dialog.okButtonText = okButtonText
-
+        dialog.hideAlertIcon = hideAlertIcon
+        dialog.callback = callback
+        
         dialog.modalTransitionStyle = .crossDissolve
         dialog.modalPresentationStyle = .overCurrentContext
         vc.present(dialog, animated: true, completion: nil)
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        self.titleLabel.text = self.dialogTitle
         self.messageLabel.text = self.message
-        self.okBtn.setTitle(self.okButtonText, for: .normal)
+        self.warningTextLabel.text = self.warningText
+        self.okBtn.setTitle(self.okButtonText ?? LocalizedStrings.ok, for: .normal)
+        self.alertIcon.isHidden = self.hideAlertIcon
     }
-
-    @IBAction func gotItButtonTapped(_ sender: Any) {
+    
+    @IBAction func okButtonTapped(_ sender: Any) {
         self.dismissView()
-        self.callback?()
+        self.callback?(true)
     }
 }
