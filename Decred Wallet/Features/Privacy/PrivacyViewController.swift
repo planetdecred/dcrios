@@ -48,7 +48,7 @@ class PrivacyViewController: UIViewController {
     
     @IBAction func mixAccount(_ sender: Any) {
         do {
-           // try WalletLoader.shared.multiWallet.startAccountMixer(self.wallet.id_, walletPassphrase: "spendingCode")
+            try WalletLoader.shared.multiWallet.startAccountMixer(self.wallet.id_, walletPassphrase: "spendingCode")
             DispatchQueue.main.async {
                 self.mixerSwitch.isOn = true
             }
@@ -65,7 +65,7 @@ extension PrivacyViewController: DcrlibwalletAccountMixerNotificationListenerPro
     func onAccountMixerEnded(_ walletID: Int) {
     
         self.mixerStatusInfo.text = LocalizedStrings.allBalanceMixed
-      //  self.mixerStatusIcon.image = UIImageView.init(image: UIImage(named: "ic_confirmedNew"))
+       // self.mixerStatusIcon.image = UIImageView.init(image: UIImage(named: "ic_confirmedNew"))
         self.mixerDetailViewConst.constant = 72
         self.mixerDropdownArrow.isHidden = true
         self.mixingInfo.isHidden = true

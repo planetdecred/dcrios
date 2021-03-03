@@ -18,7 +18,7 @@ class PrivacySetupTypeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.autoSetupView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(AuthMixerAccount)))
+        self.autoSetupView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(checkAccountNameConflict)))
         self.manualSetupView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(setupManuelMixer)))
         
         self.walletName.text = wallet.name
@@ -48,7 +48,19 @@ class PrivacySetupTypeViewController: UIViewController {
                                   callback: callback)
     }
     
-    @objc func AuthMixerAccount() {
+    @objc func checkAccountNameConflict() {
+        if wallet.hasAccount(GlobalConstants.Strings.MIXED) || wallet.hasAccount(GlobalConstants.Strings.UNMIXED) {
+            SimpleAlertDialog.show(sender: self, title: LocalizedStrings.accountNameTaken, message: LocalizedStrings.accountNameTakenMsg, okButtonText: LocalizedStrings.goBackAndRename, hideAlertIcon: false) { ok in
+                if let walletsTabIndex = NavigationMenuTabBarController.tabItems.firstIndex(of: .wallets) {
+                    NavigationMenuTabBarController.instance?.navigateToTab(index: walletsTabIndex)
+                }
+            }
+            return
+        }
+        self.AuthMixerAccount()
+    }
+    
+    func AuthMixerAccount() {
         self.showReminder { ok in
             guard ok else { return }
             Security.spending(initialSecurityType: SpendingPinOrPassword.securityType(for: self.wallet.id_))
@@ -58,10 +70,12 @@ class PrivacySetupTypeViewController: UIViewController {
                 
                     DispatchQueue.global(qos: .userInitiated).async {
                         do {
-                            try WalletLoader.shared.multiWallet.startAccountMixer(self.wallet.id_, walletPassphrase: spendingCode)
+                            try self.wallet.createMixerAccounts(GlobalConstants.Strings.MIXED, unmixedAccount: GlobalConstants.Strings.UNMIXED, privPass: spendingCode)
+                            WalletLoader.shared.multiWallet.setBoolConfigValueForKey("has_setup_privacy", value: true)
+                            
                             DispatchQueue.main.async {
                                 dialogDelegate?.dismissDialog()
-                                
+                                Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.privacySetupCompleted)
                             }
                         } catch let error {
                             DispatchQueue.main.async {
@@ -69,6 +83,7 @@ class PrivacySetupTypeViewController: UIViewController {
                                 if error.isInvalidPassphraseError {
                                     errorMessage = SpendingPinOrPassword.invalidSecurityCodeMessage(for: self.wallet.id_)
                                 }
+                                Utils.showBanner(in: self.view, type: .error, text: errorMessage)
                                 dialogDelegate?.displayError(errorMessage: errorMessage)
                             }
                         }
