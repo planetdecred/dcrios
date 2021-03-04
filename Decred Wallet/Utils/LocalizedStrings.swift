@@ -493,4 +493,7 @@ struct LocalizedStrings {
     static let accountNameTaken = NSLocalizedString("accountNameTaken", comment: "")
     static let accountNameTakenMsg = NSLocalizedString("accountNameTakenMsg", comment: "")
     static let goBackAndRename = NSLocalizedString("setupPrivacyInfo1", comment: "")
+    static let manualSetupWarning = NSLocalizedString("manualSetupWarning", comment: "")
+    static let mixedAccount = NSLocalizedString("mixedAccount", comment: "")
+    static let unMixedAccount = NSLocalizedString("unMixedAccount", comment: "")
 }

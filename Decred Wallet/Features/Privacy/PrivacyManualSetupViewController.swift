@@ -12,11 +12,68 @@ import Dcrlibwallet
 class PrivacyManualSetupViewController: UIViewController {
     
     var wallet: DcrlibwalletWallet!
-
+    @IBOutlet weak var mixedAccountView: WalletAccountView!
+    
+    @IBOutlet weak var unMixedAccountView: WalletAccountView!
+    @IBOutlet weak var unmixedAccountViewCont: RoundedView!
+    
+    @IBOutlet weak var mixedAccountViewCont: RoundedView!
+    
+    @IBOutlet weak var unMixedHeight: NSLayoutConstraint!
+    @IBOutlet weak var mixedHeight: NSLayoutConstraint!
+    
+    @IBOutlet weak var manualSetupWaningLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        self.mixedAccountView.accountBalanceLabel.isHidden = true
+        self.unMixedAccountView.accountBalanceLabel.isHidden = true
+        
+        self.mixedAccountView.showWatchOnlyWallet = false
+        self.unMixedAccountView.showWatchOnlyWallet = false
+        
+        self.unMixedAccountView.walletNameLabel.isHidden = true
+        self.mixedAccountView.walletNameLabel.isHidden = true
+        
+        self.mixedAccountView.accountNameLabel.textColor = UIColor.appColors.lightBluishGray
+        
+        self.unMixedAccountView.accountNameLabel.textColor = UIColor.appColors.lightBluishGray
+        
+        self.mixedAccountView.accountNameLabel.font = UIFont(name: "SourceSansPro", size: 18)
+        
+        NSLayoutConstraint.activate([
+            self.mixedAccountView.heightAnchor.constraint(equalToConstant: 58),
+            self.unMixedAccountView.heightAnchor.constraint(equalToConstant: 58)
+        ])
+        
+        
+        
+        let attributedStringStyles = [AttributedStringStyle(tag: "bold",
+                                                             fontFamily: "SourceSansPro-bold",
+                                                             fontSize: 16,
+                                                             color: UIColor.appColors.darkBluishGray)]
+        self.manualSetupWaningLabel.attributedText = Utils.styleAttributedString(LocalizedStrings.manualSetupWarning, styles: attributedStringStyles)
+        
+        self.mixedAccountView.accountSelectorPrompt = LocalizedStrings.mixedAccount
+        self.unMixedAccountView.accountSelectorPrompt = LocalizedStrings.unMixedAccount
+        
+        self.unMixedHeight.constant = 90
+        self.mixedHeight.constant = 90
+        self.mixedAccountView.layoutSubviews()
+        
+        self.mixedAccountView.selectFirstWalletAccount()
+        self.unMixedAccountView.selectFirstWalletAccount()
+        
+        self.mixedAccountView.onAccountSelectionChanged = { _, newSourceAccount in
+        
+        }
+        
+        self.unMixedAccountView.onAccountSelectionChanged = { _, newSourceAccount in
+        
+        }
     }
+    
     
     @IBAction func setupManualMixer(_ sender: Any) {
         
@@ -25,6 +82,7 @@ class PrivacyManualSetupViewController: UIViewController {
     @IBAction func dismissView(_ sender: Any) {
         self.dismissView()
     }
+    
     func showReminder(callback: @escaping (Bool) -> Void) {
         let message = LocalizedStrings.setupMixerInfo
         SimpleOkCancelDialog.show(sender: self,
