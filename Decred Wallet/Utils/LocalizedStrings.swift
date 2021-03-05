@@ -496,4 +496,8 @@ struct LocalizedStrings {
     static let manualSetupWarning = NSLocalizedString("manualSetupWarning", comment: "")
     static let mixedAccount = NSLocalizedString("mixedAccount", comment: "")
     static let unMixedAccount = NSLocalizedString("unMixedAccount", comment: "")
+    static let sameAcountCannotBeUsedForMixedAndUnmixed = NSLocalizedString("sameAcountCannotBeUsedForMixedAndUnmixed", comment: "")
+    static let mixerSetupCompleted = NSLocalizedString("mixerSetupCompleted", comment: "")
+    static let setUp = NSLocalizedString("setUp", comment: "")
+    static let manualSetup = NSLocalizedString("manualSetup", comment: "")
 }

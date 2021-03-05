@@ -65,7 +65,7 @@ extension PrivacyViewController: DcrlibwalletAccountMixerNotificationListenerPro
     func onAccountMixerEnded(_ walletID: Int) {
     
         self.mixerStatusInfo.text = LocalizedStrings.allBalanceMixed
-       // self.mixerStatusIcon.image = UIImageView.init(image: UIImage(named: "ic_confirmedNew"))
+        self.mixerStatusIcon.image = UIImage(named: "ic_confirmedNew")
         self.mixerDetailViewConst.constant = 72
         self.mixerDropdownArrow.isHidden = true
         self.mixingInfo.isHidden = true
@@ -73,7 +73,7 @@ extension PrivacyViewController: DcrlibwalletAccountMixerNotificationListenerPro
     
     func onAccountMixerStarted(_ walletID: Int) {
         self.mixerStatusInfo.text = LocalizedStrings.keepThisAppOpened
-       // self.mixerStatusIcon.image = UIImageView.init(image: UIImage(named: "ic_confirmedNew"))
+        self.mixerStatusIcon.image = UIImage(named: "ic_confirmedNew")
         self.mixerDetailViewConst.constant = 104
         self.mixerDropdownArrow.isHidden = false
         self.mixingInfo.isHidden = false

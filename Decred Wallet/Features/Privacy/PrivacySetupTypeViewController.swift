@@ -75,7 +75,13 @@ class PrivacySetupTypeViewController: UIViewController {
                             
                             DispatchQueue.main.async {
                                 dialogDelegate?.dismissDialog()
-                                Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.privacySetupCompleted)
+                                
+                                Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.mixerSetupCompleted)
+                                
+                                let PrivacyViewVC = PrivacyViewController.instantiate(from: .Privacy)
+                                PrivacyViewVC.wallet = self.wallet
+                                self.navigationController?.pushViewController(PrivacyViewVC, animated: true)
+                                
                             }
                         } catch let error {
                             DispatchQueue.main.async {

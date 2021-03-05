@@ -86,7 +86,7 @@ class WalletInfoTableViewCell: UITableViewCell {
                 self.hideCheckMixerStatusView()
             }
             
-            if !displayedToolTips {
+            if WalletLoader.shared.wallets.first?.id_ == wallet.id && !displayedToolTips {
                 self.showToolTip()
                 self.displayedToolTips = true
             }
