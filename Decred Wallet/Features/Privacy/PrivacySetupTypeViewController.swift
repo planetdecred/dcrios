@@ -65,7 +65,7 @@ class PrivacySetupTypeViewController: UIViewController {
             guard ok else { return }
             Security.spending(initialSecurityType: SpendingPinOrPassword.securityType(for: self.wallet.id_))
                 .with(prompt: LocalizedStrings.confirmToCreateMixer)
-                .with(submitBtnText: LocalizedStrings.remove)
+                .with(submitBtnText: LocalizedStrings.confirm)
                 .requestCurrentCode(sender: self) { spendingCode, _, dialogDelegate in
                 
                     DispatchQueue.global(qos: .userInitiated).async {

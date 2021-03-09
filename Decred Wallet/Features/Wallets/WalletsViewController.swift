@@ -465,7 +465,7 @@ extension WalletsViewController {
             return
         }
         
-        if WalletLoader.shared.multiWallet.readBoolConfigValue(forKey: "checked_privacy_page", defaultValue: false) {
+        if WalletLoader.shared.multiWallet.readBoolConfigValue(forKey: "has_setup_privacy", defaultValue: false) {
             let PrivacyVC = PrivacyViewController.instantiate(from: .Privacy)
             PrivacyVC.wallet = wallet
             self.navigationController?.pushViewController(PrivacyVC, animated: true)

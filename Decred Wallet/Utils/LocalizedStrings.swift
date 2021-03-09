@@ -500,4 +500,13 @@ struct LocalizedStrings {
     static let mixerSetupCompleted = NSLocalizedString("mixerSetupCompleted", comment: "")
     static let setUp = NSLocalizedString("setUp", comment: "")
     static let manualSetup = NSLocalizedString("manualSetup", comment: "")
+    static let readyToMix = NSLocalizedString("readyToMix", comment: "")
+    static let noMixableOutput = NSLocalizedString("noMixableOutput", comment: "")
+    static let mixerHasStoppedRunning = NSLocalizedString("mixerHasStoppedRunning", comment: "")
+    static let mixerIsRuning = NSLocalizedString("mixerIsRuning", comment: "")
+    static let mixerHelperTitle = NSLocalizedString("mixerHelperTitle", comment: "")
+    static let mixerHelperDsc = NSLocalizedString("mixerHelperDsc", comment: "")
+    static let startMixerWarning = NSLocalizedString("startMixerWarning", comment: "")
+    static let continueText = NSLocalizedString("continueText", comment: "")
+    static let unlockToStartMixing = NSLocalizedString("unlockToStartMixing", comment: "")
 }

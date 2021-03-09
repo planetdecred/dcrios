@@ -737,9 +737,6 @@
                                                                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="oHF-JR-j3o">
                                                                                                 <rect key="frame" x="317" y="0.0" width="51" height="31"/>
                                                                                                 <color key="onTintColor" red="0.16078431369999999" green="0.43921568630000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                                                                <connections>
-                                                                                                    <segue destination="YFH-6t-Z4b" kind="show" id="JsY-tl-k7Q"/>
-                                                                                                </connections>
                                                                                             </switch>
                                                                                         </subviews>
                                                                                     </stackView>
@@ -863,18 +860,18 @@
             <objects>
                 <viewController storyboardIdentifier="PrivacySetupTypeViewController" automaticallyAdjustsScrollViewInsets="NO" id="YFH-6t-Z4b" customClass="PrivacySetupTypeViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="BYv-ow-PPX">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mq9-YB-HNE">
-                                <rect key="frame" x="16" y="29" width="16.5" height="22"/>
+                                <rect key="frame" x="16" y="73" width="16.5" height="22"/>
                                 <state key="normal" image="left-arrow"/>
                                 <connections>
                                     <action selector="dismissView:" destination="YFH-6t-Z4b" eventType="touchUpInside" id="cVz-iP-MUD"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VQL-7L-a2b">
-                                <rect key="frame" x="52.5" y="16" width="345.5" height="47.5"/>
+                                <rect key="frame" x="52.5" y="60" width="345.5" height="47.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Set up needed accounts" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YNe-QC-nYM">
                                         <rect key="frame" x="0.0" y="0.0" width="345.5" height="25.5"/>
@@ -901,7 +898,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OBF-P0-DtZ" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
-                                <rect key="frame" x="8" y="730" width="398" height="96"/>
+                                <rect key="frame" x="8" y="784" width="398" height="96"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qjM-R7-UvV" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                         <rect key="frame" x="366" y="36" width="24" height="24"/>
@@ -991,7 +988,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GKO-QV-wpO" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
-                                <rect key="frame" x="8" y="626" width="398" height="96"/>
+                                <rect key="frame" x="8" y="680" width="398" height="96"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ROd-rd-67z" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                         <rect key="frame" x="366" y="36" width="24" height="24"/>
@@ -1078,7 +1075,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unmixed account will be the change handling account." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L4s-cH-Uzh">
-                                <rect key="frame" x="38" y="175.5" width="352" height="40.5"/>
+                                <rect key="frame" x="38" y="219.5" width="352" height="40.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                 <color key="textColor" red="0.23921568630000001" green="0.34509803919999998" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -1087,13 +1084,13 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mixed account will be the outbound spending account." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2dY-XK-tSL">
-                                <rect key="frame" x="38" y="119" width="352" height="40.5"/>
+                                <rect key="frame" x="38" y="163" width="352" height="40.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                 <color key="textColor" red="0.23921568630000001" green="0.34509803919999998" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Two dedicated accounts will be set up to use the mixer:" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C9a-y6-x8Q">
-                                <rect key="frame" x="24" y="82.5" width="366" height="20.5"/>
+                                <rect key="frame" x="24" y="126.5" width="366" height="20.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                 <color key="textColor" red="0.23921568627450979" green="0.34509803921568627" blue="0.45098039215686275" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>

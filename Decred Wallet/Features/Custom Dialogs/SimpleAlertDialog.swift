@@ -17,6 +17,7 @@ class SimpleAlertDialog: UIViewController {
     
     private var dialogTitle: String!
     private var message: String!
+    private var attribMessage: NSAttributedString!
     private var warningText:String!
     private var okButtonText: String?
     private var hideAlertIcon: Bool!
@@ -24,7 +25,7 @@ class SimpleAlertDialog: UIViewController {
     
     static func show(sender vc: UIViewController,
                      title: String? = nil,
-                     message: String,
+                     message: String? = nil,
                      warningText: String? = nil,
                      cancelButtonText: String? = nil,
                      okButtonText: String? = nil,
@@ -44,11 +45,39 @@ class SimpleAlertDialog: UIViewController {
         vc.present(dialog, animated: true, completion: nil)
     }
     
+    static func show(sender vc: UIViewController,
+                     title: String? = nil,
+                     attribMessage: NSAttributedString? = nil,
+                     warningText: String? = nil,
+                     cancelButtonText: String? = nil,
+                     okButtonText: String? = nil,
+                     hideAlertIcon: Bool? = true,
+                     callback: ((_ ok: Bool) -> Void)?) {
+        
+        let dialog = SimpleAlertDialog.instantiate(from: .CustomDialogs)
+        dialog.dialogTitle = title
+        dialog.attribMessage = attribMessage
+        dialog.warningText = warningText
+        dialog.okButtonText = okButtonText
+        dialog.hideAlertIcon = hideAlertIcon
+        dialog.callback = callback
+        
+        dialog.modalTransitionStyle = .crossDissolve
+        dialog.modalPresentationStyle = .overCurrentContext
+        vc.present(dialog, animated: true, completion: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.titleLabel.text = self.dialogTitle
-        self.messageLabel.text = self.message
+        if self.message != nil {
+            self.messageLabel.text = message
+        }
+        
+        if self.attribMessage != nil {
+            self.messageLabel.attributedText = self.attribMessage
+        }
         self.warningTextLabel.text = self.warningText
         self.okBtn.setTitle(self.okButtonText ?? LocalizedStrings.ok, for: .normal)
         self.alertIcon.isHidden = self.hideAlertIcon
