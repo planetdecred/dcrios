@@ -360,7 +360,7 @@ class OverviewViewController: UIViewController {
         }
         
         if (activeMixers > 0) {
-            self.mixerRunnungLabel.text = "Mixer is running."
+            self.mixerRunnungLabel.text = LocalizedStrings.mixerIsRuning
             self.accountMixerSectionView.isHidden = false
             let wallet  = WalletLoader.shared.multiWallet.wallet(withID: WalletID)
             if let unmixedAccountNumber = wallet?.readInt32ConfigValue(forKey: Dcrlibwallet.DcrlibwalletAccountMixerMixedAccount, defaultValue: -1) {

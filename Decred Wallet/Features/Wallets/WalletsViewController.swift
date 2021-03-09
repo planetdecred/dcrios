@@ -465,7 +465,9 @@ extension WalletsViewController {
             return
         }
         
-        if WalletLoader.shared.multiWallet.readBoolConfigValue(forKey: "has_setup_privacy", defaultValue: false) {
+        let isMixerConfigSet = wallet.readBoolConfigValue(forKey: DcrlibwalletAccountMixerConfigSet, defaultValue: false)
+        
+        if isMixerConfigSet {
             let PrivacyVC = PrivacyViewController.instantiate(from: .Privacy)
             PrivacyVC.wallet = wallet
             self.navigationController?.pushViewController(PrivacyVC, animated: true)
