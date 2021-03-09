@@ -67,6 +67,9 @@ class PrivacyViewController: UIViewController {
                                   okButtonText: LocalizedStrings.gotIt,
                                   callback: nil)
     }
+    @IBAction func dismissView(_ sender: Any) {
+        self.navigationController?.popToRootViewController(animated: true)
+    }
     
     func showReminder(callback: @escaping (Bool) -> Void) {
     }

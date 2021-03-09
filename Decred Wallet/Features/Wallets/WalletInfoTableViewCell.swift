@@ -42,8 +42,6 @@ class WalletInfoTableViewCell: UITableViewCell {
     
     var delegate: WalletInfoTableViewCellDelegate?
     
-    var displayedToolTips = false
-    
     static let walletInfoSectionHeight: CGFloat = 65.0
     static let walletNotBackedUpLabelHeight: CGFloat = 14.0
     static let accountCellHeight: CGFloat = 74.0
@@ -86,9 +84,8 @@ class WalletInfoTableViewCell: UITableViewCell {
                 self.hideCheckMixerStatusView()
             }
             
-            if WalletLoader.shared.wallets.first?.id_ == wallet.id && !displayedToolTips {
+            if WalletLoader.shared.wallets.first?.id_ == wallet.id && !WalletLoader.shared.multiWallet.readBoolConfigValue(forKey: "checked_privacy_page", defaultValue: false) {
                 self.showToolTip()
-                self.displayedToolTips = true
             }
 
             UIView.animate(withDuration: 0.1) {
