@@ -99,6 +99,7 @@ class SendViewController: UIViewController {
     
     func setupViews() {
         self.sourceAccountView.showWatchOnlyWallet = false
+        self.sourceAccountView.showMixedAccount = false
         self.sourceAccountView.onAccountSelectionChanged = { _, newSourceAccount in
             let spendableAmount = (Decimal(newSourceAccount.balance!.dcrSpendable) as NSDecimalNumber).round(8).formattedWithSeparator
             self.sourceAccountSpendableBalanceLabel.text = "\(LocalizedStrings.spendable): \(spendableAmount) DCR"
@@ -116,6 +117,7 @@ class SendViewController: UIViewController {
         
         self.toSelfAccountSection.isHidden = true
         self.destinationAccountView.showWatchOnlyWallet = true
+        self.sourceAccountView.showUnMixedAccount = false
         self.destinationAccountView.onAccountSelectionChanged = { _, _ in
             self.displayFeeDetailsAndTransactionSummary() // re-calculate fee with updated destination info
         }

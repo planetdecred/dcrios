@@ -36,6 +36,7 @@ class ReceiveViewController: UIViewController {
         self.addressQRCodeImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.copyAddress)))
         self.walletAddressLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.copyAddress)))
         
+        self.selectedAccountView.showMixedAccount = false
         self.selectedAccountView.onAccountSelectionChanged = self.updateSelectedAccount
         self.selectedAccountView.selectFirstWalletAccount()
         // register for new transactions notifications
