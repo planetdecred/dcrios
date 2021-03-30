@@ -122,6 +122,8 @@ class RestoreExistingWalletViewController: UIViewController {
                         let wallet = try WalletLoader.shared.multiWallet.restore(self.walletName, seedMnemonic: seed, privatePassphrase: pinOrPassword, privatePassphraseType: type.type)
                         
                         Utils.renameDefaultAccountToLocalLanguage(wallet: wallet)
+                        UserDefaults.standard.set(true, forKey: "V1.5.3_DB")
+                        UserDefaults.standard.synchronize()
                         
                         DispatchQueue.main.async {
                             completion?.dismissDialog()
