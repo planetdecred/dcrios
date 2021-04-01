@@ -215,6 +215,7 @@ struct LocalizedStrings {
     /* Send view */
     static let invalidAmount = NSLocalizedString("invalidAmount", comment: "")
     static let amount8Decimal = NSLocalizedString("amount8Decimal", comment: "")
+    static let amount2Decimal = NSLocalizedString("amount2Decimal", comment: "")
     static let amountMaximumAllowed = NSLocalizedString("amountMaximumAllowed", comment: "")
     static let notEnoughFunds = NSLocalizedString("notEnoughFunds", comment: "")
     static let notEnoughFundsOrNotConnected = NSLocalizedString("notEnoughFundsOrNotConnected", comment: "")
