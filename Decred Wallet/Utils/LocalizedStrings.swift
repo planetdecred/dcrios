@@ -20,6 +20,10 @@ struct LocalizedStrings {
     static let myWallet = NSLocalizedString("myWallet", comment: "")
     static let default_ = NSLocalizedString("default_", comment: "")
     static let migratingWallet = NSLocalizedString("migratingWallet", comment: "")
+    static let dataFileErrorMsg = NSLocalizedString("dataFileErrorMsg", comment: "")
+    static let yes = NSLocalizedString("yes", comment: "")
+    static let no = NSLocalizedString("no", comment: "")
+    static let dataFileErrorTitle = NSLocalizedString("dataFileErrorTitle", comment: "")
     
     /* Create New Wallet(Seed display view) */
     static let settingUpYourWallet = NSLocalizedString("settingUpYourWallet", comment: "")
