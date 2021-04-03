@@ -269,7 +269,7 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
     
     func checkDBfile() {
         let isNewDB = UserDefaults.standard.bool(forKey: "V1.5.3_DB")
-        if numberOfRam < 4 && !isNewDB {
+        if numberOfRam < 3 && !isNewDB {
             self.showRemoveWalletWarning { (ok) in
                 guard ok else {
                     self.loadingLabel.text = LocalizedStrings.dataFileErrorTitle
