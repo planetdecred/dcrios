@@ -53,7 +53,9 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
 
         let initError = WalletLoader.shared.initMultiWallet()
         if initError != nil {
-            print("init multiwallet error: \(initError!.localizedDescription)")
+            DispatchQueue.main.async {
+                Utils.showBanner(in: self.view, type: .error, text: "init multiwallet error: \(initError!.localizedDescription)")
+            }
         }
         
         if SingleToMultiWalletMigration.migrationNeeded {
@@ -246,15 +248,23 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
     }
     
     func clearAppDir() {
-            do {
-                let filemgr = FileManager.default
-                try filemgr.removeItem(atPath: appDataDir)
-                self.displayWalletSetupScreen()
-                self.imageViewContainer.isUserInteractionEnabled = false
-            } catch let error {
-                Utils.showBanner(in: self.view, type: .error, text: error.localizedDescription)
-                print("Error: \(error.localizedDescription)")
+        do {
+            let filemgr = FileManager.default
+            try filemgr.removeItem(atPath: appDataDir)
+            WalletLoader.shared.multiWallet.shutdown()
+            let initError = WalletLoader.shared.initMultiWallet()
+            if initError != nil {
+                DispatchQueue.main.async {
+                    Utils.showBanner(in: self.view, type: .error, text: "init multiwallet error: \(initError!.localizedDescription)")
+                }
             }
+            self.displayWalletSetupScreen()
+            self.imageViewContainer.isUserInteractionEnabled = false
+        } catch let error {
+            DispatchQueue.main.async {
+                Utils.showBanner(in: self.view, type: .error, text: error.localizedDescription)
+            }
+        }
     }
     
     func checkDBfile() {
@@ -262,10 +272,16 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
         if numberOfRam < 4 && !isNewDB {
             self.showRemoveWalletWarning { (ok) in
                 guard ok else {
-                    self.checkStartupSecurityAndStartApp()
+                    self.loadingLabel.text = LocalizedStrings.dataFileErrorTitle
                     return
                 }
-                self.clearAppDir()
+                self.showRemoveWalletWarningConfrimation { (ok) in
+                    guard ok else {
+                        self.loadingLabel.text = LocalizedStrings.dataFileErrorTitle
+                        return
+                    }
+                    self.clearAppDir()
+                }
             }
             return
         } else {
@@ -277,6 +293,16 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
         let message = LocalizedStrings.dataFileErrorMsg
         SimpleOkCancelDialog.show(sender: self,
                                   title: LocalizedStrings.dataFileErrorTitle,
+                                  message: message,
+                                  cancelButtonText: LocalizedStrings.no,
+                                  okButtonText: LocalizedStrings.yes,
+                                  callback: callback)
+    }
+    
+    func showRemoveWalletWarningConfrimation(callback: @escaping (Bool) -> Void) {
+        let message = LocalizedStrings.clearDataConfirmation
+        SimpleOkCancelDialog.show(sender: self,
+                                  title: LocalizedStrings.clearWalletData,
                                   message: message,
                                   cancelButtonText: LocalizedStrings.no,
                                   okButtonText: LocalizedStrings.yes,

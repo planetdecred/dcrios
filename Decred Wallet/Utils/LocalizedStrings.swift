@@ -24,6 +24,8 @@ struct LocalizedStrings {
     static let yes = NSLocalizedString("yes", comment: "")
     static let no = NSLocalizedString("no", comment: "")
     static let dataFileErrorTitle = NSLocalizedString("dataFileErrorTitle", comment: "")
+    static let clearDataConfirmation = NSLocalizedString("clearDataConfirmation", comment: "")
+    static let clearWalletData = NSLocalizedString("clearWalletData", comment: "")
     
     /* Create New Wallet(Seed display view) */
     static let settingUpYourWallet = NSLocalizedString("settingUpYourWallet", comment: "")
