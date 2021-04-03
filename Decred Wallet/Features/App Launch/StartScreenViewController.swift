@@ -249,9 +249,9 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
     
     func clearAppDir() {
         do {
+            WalletLoader.shared.multiWallet.shutdown()
             let filemgr = FileManager.default
             try filemgr.removeItem(atPath: appDataDir)
-            WalletLoader.shared.multiWallet.shutdown()
             let initError = WalletLoader.shared.initMultiWallet()
             if initError != nil {
                 DispatchQueue.main.async {
