@@ -270,18 +270,8 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
     func checkDBfile() {
         let isNewDB = UserDefaults.standard.bool(forKey: "V1.5.3_DB")
         if numberOfRam < 3 && !isNewDB {
-            self.showRemoveWalletWarning { (ok) in
-                guard ok else {
-                    self.loadingLabel.text = LocalizedStrings.dataFileErrorTitle
-                    return
-                }
-                self.showRemoveWalletWarningConfrimation { (ok) in
-                    guard ok else {
-                        self.loadingLabel.text = LocalizedStrings.dataFileErrorTitle
-                        return
-                    }
-                    self.clearAppDir()
-                }
+            self.showRemoveWalletWarning { () in
+                self.clearAppDir()
             }
             return
         } else {
@@ -289,22 +279,10 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
         }
     }
     
-    func showRemoveWalletWarning(callback: @escaping (Bool) -> Void) {
+    func showRemoveWalletWarning(callback: @escaping () -> Void) {
         let message = LocalizedStrings.dataFileErrorMsg
-        SimpleOkCancelDialog.show(sender: self,
-                                  title: LocalizedStrings.dataFileErrorTitle,
+        SimpleAlertDialog.show(sender: self,
                                   message: message,
-                                  cancelButtonText: LocalizedStrings.no,
-                                  okButtonText: LocalizedStrings.yes,
-                                  callback: callback)
-    }
-    
-    func showRemoveWalletWarningConfrimation(callback: @escaping (Bool) -> Void) {
-        let message = LocalizedStrings.clearDataConfirmation
-        SimpleOkCancelDialog.show(sender: self,
-                                  title: LocalizedStrings.clearWalletData,
-                                  message: message,
-                                  cancelButtonText: LocalizedStrings.no,
                                   okButtonText: LocalizedStrings.yes,
                                   callback: callback)
     }
