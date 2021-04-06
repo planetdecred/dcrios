@@ -23,7 +23,6 @@ struct LocalizedStrings {
     static let dataFileErrorMsg = NSLocalizedString("dataFileErrorMsg", comment: "")
     static let yes = NSLocalizedString("yes", comment: "")
     static let no = NSLocalizedString("no", comment: "")
-    static let dataFileErrorTitle = NSLocalizedString("dataFileErrorTitle", comment: "")
     
     /* Create New Wallet(Seed display view) */
     static let settingUpYourWallet = NSLocalizedString("settingUpYourWallet", comment: "")

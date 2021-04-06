@@ -15,6 +15,7 @@ class WalletSettingsViewController: UIViewController {
     @IBOutlet weak var incomingTxAlertButton: UIButton!
     @IBOutlet weak var securityHeader: UIView!
     @IBOutlet weak var changePassOrPIN: UIView!
+    @IBOutlet weak var databaseType: UILabel!
     
     var wallet: DcrlibwalletWallet!
     var walletSettings: WalletSettings!
@@ -30,6 +31,7 @@ class WalletSettingsViewController: UIViewController {
     override func viewDidLoad() {
         self.securityHeader.isHidden = self.wallet.isWatchingOnlyWallet()
         self.changePassOrPIN.isHidden = self.wallet.isWatchingOnlyWallet()
+        self.databaseType.text = self.wallet.dbDriver
     }
     
     @IBAction func backButtonTapped(_ sender: Any) {
