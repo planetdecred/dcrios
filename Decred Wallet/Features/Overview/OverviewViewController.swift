@@ -130,7 +130,6 @@ class OverviewViewController: UIViewController {
         }
         
         currencyConversionDisabled = Settings.currencyConversionOption == .None
-        self.dcrAmountUnit = currencyConversionDisabled! ? true : self.dcrAmountUnit
         if !currencyConversionDisabled! {
             self.fetchExchangeRate()
         } else {
@@ -163,17 +162,11 @@ class OverviewViewController: UIViewController {
         
         self.exchangeRate = newExchangeRate ?? self.exchangeRate // maintain current value if new value is nil
 
-//        self.secondAmountLabel.textColor = UIColor.appColors.paleGray
-
         let dcrAmount = WalletLoader.shared.multiWallet.totalBalance
-        print("[][][] dcramount \(dcrAmount)")
-        print("[][][] exchangerate \(exchangeRate!)")
         let usdAmount = NSDecimalNumber(value: dcrAmount).multiplying(by: exchangeRate!)
-        print("[][][] usdamount \(usdAmount)")
         self.exchangeValue = usdAmount
-//        let totalAmountRoundedOff = (Decimal(totalWalletAmount) as NSDecimalNumber).round(8)
         self.usdBalanceLabel.isHidden = false
-        self.usdBalanceLabel.text = "$\(usdAmount.formattedWithSeparator)"
+        self.usdBalanceLabel.text = "$\(usdAmount.round(2).formattedWithSeparator)"
        
     }
     
