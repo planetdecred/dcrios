@@ -13,10 +13,12 @@ class OverviewViewController: UIViewController {
     // Custom navigation bar
     @IBOutlet weak var pageTitleLabel: UILabel!
     @IBOutlet weak var pageTitleSeparator: UIView!
+    @IBOutlet weak var pageSubtitleLabel: UILabel!
     
     var refreshControl: UIRefreshControl!
     @IBOutlet weak var parentScrollView: UIScrollView!
     @IBOutlet weak var balanceLabel: UILabel!
+    @IBOutlet weak var usdBalanceLabel: UILabel!
     
     // MARK: Backup phrase section (Top view)
     @IBOutlet weak var seedBackupSectionView: UIView!
@@ -70,6 +72,11 @@ class OverviewViewController: UIViewController {
     var recentTransactions = [Transaction]()
     var refreshBestBlockAgeTimer: Timer?
     
+    var exchangeRate: NSDecimalNumber?
+    var dcrAmountUnit: Bool = true
+    var exchangeValue: NSDecimalNumber?
+    var currencyConversionDisabled: Bool?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -100,6 +107,16 @@ class OverviewViewController: UIViewController {
             self.displayLatestBlockHeightAndAge()
             self.displayConnectedPeersCount()
         }
+        
+        pageSubtitleLabel.layer.borderColor = UIColor.appColors.paleGray.cgColor
+        pageSubtitleLabel.layer.borderWidth = 1.0
+        pageSubtitleLabel.layer.cornerRadius = 8
+        pageSubtitleLabel.isHidden = true
+        
+        usdBalanceLabel.layer.borderColor = UIColor.appColors.paleGray.cgColor
+        usdBalanceLabel.layer.borderWidth = 1.0
+        usdBalanceLabel.layer.cornerRadius = 8
+        usdBalanceLabel.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -111,11 +128,53 @@ class OverviewViewController: UIViewController {
         if !WalletLoader.shared.multiWallet.isSyncing() {
             self.refreshLatestBlockInfoPeriodically()
         }
+        
+        currencyConversionDisabled = Settings.currencyConversionOption == .None
+        self.dcrAmountUnit = currencyConversionDisabled! ? true : self.dcrAmountUnit
+        if !currencyConversionDisabled! {
+            self.fetchExchangeRate()
+        } else {
+            usdBalanceLabel.isHidden = true
+        }
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         // stop refreshing best block age when view becomes invisible
         self.refreshBestBlockAgeTimer?.invalidate()
+    }
+    
+    private func fetchExchangeRate() {
+        switch Settings.currencyConversionOption {
+        case .None:
+            self.exchangeRate = nil
+            break
+            
+        case .Bittrex:
+            ExchangeRates.Bittrex.fetch(callback: self.displayExchangeRate)
+        }
+    }
+    
+    func displayExchangeRate(_ newExchangeRate: NSDecimalNumber?) {
+        // only show error if an exchange rate has never been fetched previously
+        if newExchangeRate == nil && self.exchangeRate == nil {
+            return
+        }
+        
+        self.exchangeRate = newExchangeRate ?? self.exchangeRate // maintain current value if new value is nil
+
+//        self.secondAmountLabel.textColor = UIColor.appColors.paleGray
+
+        let dcrAmount = WalletLoader.shared.multiWallet.totalBalance
+        print("[][][] dcramount \(dcrAmount)")
+        print("[][][] exchangerate \(exchangeRate!)")
+        let usdAmount = NSDecimalNumber(value: dcrAmount).multiplying(by: exchangeRate!)
+        print("[][][] usdamount \(usdAmount)")
+        self.exchangeValue = usdAmount
+//        let totalAmountRoundedOff = (Decimal(totalWalletAmount) as NSDecimalNumber).round(8)
+        self.usdBalanceLabel.isHidden = false
+        self.usdBalanceLabel.text = "$\(usdAmount.formattedWithSeparator)"
+       
     }
     
     func initializeViews() {
@@ -380,10 +439,12 @@ class OverviewViewController: UIViewController {
 extension OverviewViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.updatePageTitleTextOnScroll(using: scrollView)
+        self.updatePageSubtitleTextOnScroll(using: scrollView)
     }
 
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         self.updatePageTitleTextOnScroll(using: scrollView)
+        self.updatePageSubtitleTextOnScroll(using: scrollView)
     }
 
     func updatePageTitleTextOnScroll(using scrollView: UIScrollView) {
@@ -397,6 +458,21 @@ extension OverviewViewController: UIScrollViewDelegate {
         } else {
             self.pageTitleLabel.attributedText = self.balanceLabel.attributedText!
             self.pageTitleSeparator.isHidden = false
+        }
+    }
+    
+    func updatePageSubtitleTextOnScroll(using scrollView: UIScrollView) {
+        // We are targeting only the parent scroll view because this VC also holds a tableview that can be scrolled
+        // and we do not want to react to that.
+        guard scrollView == self.parentScrollView else { return }
+
+        if scrollView.contentOffset.y < self.balanceLabel.frame.height / 2 {
+            self.pageSubtitleLabel.isHidden = true
+        } else {
+            if !currencyConversionDisabled! {
+                self.pageSubtitleLabel.attributedText = self.usdBalanceLabel.attributedText!
+                self.pageSubtitleLabel.isHidden = false
+            }
         }
     }
 }
