@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -51,7 +52,7 @@
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9pQ-ul-Ay3">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="1347"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 DCR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GGm-T7-QFh">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-- DCR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GGm-T7-QFh">
                                                 <rect key="frame" x="24" y="0.0" width="366" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="EGZ-r7-5US"/>
@@ -112,7 +113,7 @@
                                                                     <constraint firstAttribute="height" constant="1" id="wQ0-a4-XHt"/>
                                                                 </constraints>
                                                             </view>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4j8-vw-52r">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4j8-vw-52r">
                                                                 <rect key="frame" x="0.0" y="122" width="398" height="48"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="48" id="L8i-ek-zkr"/>
@@ -249,7 +250,7 @@
                                                                             <constraint firstAttribute="height" constant="50" id="tYk-3v-cH1"/>
                                                                         </constraints>
                                                                     </tableView>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bAu-iE-Jfc">
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bAu-iE-Jfc">
                                                                         <rect key="frame" x="0.0" y="104" width="398" height="52"/>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <constraints>
@@ -333,7 +334,7 @@
                                                                             </label>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DPr-59-QRc" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
                                                                                 <rect key="frame" x="334.5" y="18" width="10" height="10"/>
-                                                                                <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                <color key="backgroundColor" systemColor="systemRedColor"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="width" constant="10" id="iTK-Bd-zf3"/>
                                                                                     <constraint firstAttribute="height" constant="10" id="jMv-GI-Nr9"/>
@@ -510,7 +511,7 @@
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
                                                                                 </subviews>
-                                                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="bottom" secondItem="GNq-Av-T55" secondAttribute="bottom" constant="11" id="CrH-Vo-F1J"/>
                                                                                     <constraint firstItem="HcB-Iy-8uQ" firstAttribute="centerY" secondItem="GNq-Av-T55" secondAttribute="centerY" id="O1e-4G-NEd"/>
@@ -541,7 +542,7 @@
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
                                                                                 </subviews>
-                                                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                                 <constraints>
                                                                                     <constraint firstItem="iX2-ep-ebP" firstAttribute="centerY" secondItem="yQS-td-Pqs" secondAttribute="centerY" id="68U-Wr-t6K"/>
                                                                                     <constraint firstItem="yQS-td-Pqs" firstAttribute="top" secondItem="erO-DP-QaB" secondAttribute="top" constant="8" id="6gH-WA-aY4"/>
@@ -643,7 +644,7 @@
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
                                                                                 </subviews>
-                                                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                                 <constraints>
                                                                                     <constraint firstItem="QqT-Uc-hW8" firstAttribute="leading" secondItem="nwL-fV-Hfl" secondAttribute="leading" id="23W-Jf-kpm"/>
                                                                                     <constraint firstItem="QqT-Uc-hW8" firstAttribute="centerY" secondItem="8LS-tR-Cw9" secondAttribute="centerY" id="ceD-pv-tRL"/>
@@ -654,7 +655,7 @@
                                                                             </view>
                                                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="132" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ekD-uE-0yl">
                                                                                 <rect key="frame" x="16" y="207" width="366" height="300"/>
-                                                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="300" id="uJ4-Sf-hOu"/>
                                                                                 </constraints>
@@ -754,7 +755,7 @@
                                                                         </subviews>
                                                                         <edgeInsets key="layoutMargins" top="0.0" left="16" bottom="8" right="16"/>
                                                                     </stackView>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GOT-0K-9Uk">
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GOT-0K-9Uk">
                                                                         <rect key="frame" x="0.0" y="737" width="398" height="48"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="48" id="XEf-4h-fEc"/>
@@ -836,6 +837,7 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="qer-Ed-q0D"/>
                         <color key="backgroundColor" red="0.95294117647058818" green="0.96078431372549022" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Zw5-BT-lXr" firstAttribute="top" secondItem="3co-lt-hDe" secondAttribute="bottom" constant="16" id="Esc-nd-A7m"/>
@@ -849,7 +851,6 @@
                             <constraint firstItem="IK4-Pz-8cc" firstAttribute="top" secondItem="3co-lt-hDe" secondAttribute="bottom" constant="16" id="qCv-4d-YJc"/>
                             <constraint firstItem="qer-Ed-q0D" firstAttribute="trailing" secondItem="IK4-Pz-8cc" secondAttribute="trailing" id="swY-ML-9Ui"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="qer-Ed-q0D"/>
                     </view>
                     <connections>
                         <outlet property="balanceLabel" destination="GGm-T7-QFh" id="T9m-pz-bA0"/>
@@ -896,11 +897,22 @@
             <point key="canvasLocation" x="-3943.4782608695655" y="-1779.2410714285713"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="GcG-b3-nUG">
+            <size key="intrinsicContentSize" width="94" height="34"/>
+        </designable>
+    </designables>
     <resources>
         <image name="ic_close" width="24" height="24"/>
         <image name="ic_crossmark" width="24" height="24"/>
         <image name="ic_decred" width="24" height="24"/>
         <image name="ic_rescan" width="16" height="16"/>
         <image name="ic_wallet_alert" width="24" height="24"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

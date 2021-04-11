@@ -12,6 +12,24 @@ import UserNotifications
 
 enum NotificationCategory: String, CaseIterable {
     case syncInProgressNotification
+    case newProposal
+    case voteProposalFinish
+    case voteProposalStarted
+}
+
+extension NotificationCategory: CustomStringConvertible {
+    var description: String {
+        switch self {
+        case .syncInProgressNotification:
+            return "Sync in Progress...."
+        case .newProposal:
+            return "New Proposal"
+        case .voteProposalStarted:
+            return "Vote Started"
+        case .voteProposalFinish:
+            return "Vote Finished"
+        }
+    }
 }
 
 class NotificationsManager: NSObject, UNUserNotificationCenterDelegate {
@@ -52,6 +70,26 @@ class NotificationsManager: NSObject, UNUserNotificationCenterDelegate {
             DispatchQueue.main.async {
                 guard UIApplication.shared.isProtectedDataAvailable == false else {return}
                 self.postBackgroundSyncNotificationRequest(message: message)
+            }
+        }
+    }
+    
+    func proposalNotification(category: NotificationCategory, message: String, proposalId: Int?) {
+        let content = UNMutableNotificationContent()
+        content.title = category.description
+        content.body = message
+        content.categoryIdentifier = category.rawValue
+        if let idProposal = proposalId {
+            content.userInfo = ["proposalId": "\(idProposal)"]
+        }
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
+        let identifier = category.rawValue
+        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+        DispatchQueue.main.async {
+            self.notificationCenter.add( request) { (error) in
+                if let error = error {
+                    print("Error \(error.localizedDescription)")
+                }
             }
         }
     }

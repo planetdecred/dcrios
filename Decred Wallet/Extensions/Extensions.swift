@@ -95,3 +95,9 @@ extension URL {
     }
 
 }
+
+extension Float {
+    func round(decimals: Int) -> Float {
+        return NSDecimalNumber(value: self).round(decimals).floatValue
+    }
+}

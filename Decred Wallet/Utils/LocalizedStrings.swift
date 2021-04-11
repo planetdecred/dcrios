@@ -363,6 +363,7 @@ struct LocalizedStrings {
     static let spendUnconfirmedFund = NSLocalizedString("spendUnconfirmedFund", comment: "")
     static let currencyConversion = NSLocalizedString("currencyConversion", comment: "")
     static let beepForNewBlocks = NSLocalizedString("beepForNewBlocks", comment: "")
+    static let enablePoliteiaNotification = NSLocalizedString("enablePoliteiaNotification", comment: "")
     static let connectIpDesc = NSLocalizedString("connectIpDesc", comment: "")
     static let syncOnWifiDesc = NSLocalizedString("syncOnWifiDesc", comment: "")
     static let userAgent = NSLocalizedString("userAgent", comment: "")
@@ -448,6 +449,22 @@ struct LocalizedStrings {
     static let help = NSLocalizedString("help", comment: "")
     static let helpInfo = NSLocalizedString("helpInfo", comment: "")
     static let notifications = NSLocalizedString("notifications", comment: "")
+    
+    /* Politeia proposals */
+    static let politeia = NSLocalizedString("politeia", comment: "")
+    static let politeiaDetail = NSLocalizedString("politeiaDetail", comment: "")
+    static let poliAbandoned = NSLocalizedString("poliAbandoned", comment: "")
+    static let poliInvalid = NSLocalizedString("poliInvalid", comment: "")
+    static let poliNotAuthorized = NSLocalizedString("poliNotAuthorized", comment: "")
+    static let poliAuthorized = NSLocalizedString("poliAuthorized", comment: "")
+    static let poliVoteStarted = NSLocalizedString("poliVoteStarted", comment: "")
+    static let poliApproved = NSLocalizedString("poliApproved", comment: "")
+    static let poliRejected = NSLocalizedString("poliRejected", comment: "")
+    static let poliNonExistent = NSLocalizedString("poliNonExistent", comment: "")
+    static let commentCount = NSLocalizedString("commentCount", comment: "")
+    static let politeiaVersion = NSLocalizedString("politeiaVersion", comment: "")
+    static let noPoliteia = NSLocalizedString("noPoliteia", comment: "")
+    static let syncPoliteiaTryAgain = NSLocalizedString("syncPoliteiaTryAgain", comment: "")
     
     /* Seed Backup */
     static let failedToVerify = NSLocalizedString("failedToVerify", comment: "")
