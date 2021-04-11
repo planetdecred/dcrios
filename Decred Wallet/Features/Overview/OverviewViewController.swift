@@ -107,16 +107,6 @@ class OverviewViewController: UIViewController {
             self.displayLatestBlockHeightAndAge()
             self.displayConnectedPeersCount()
         }
-        
-        pageSubtitleLabel.layer.borderColor = UIColor.appColors.paleGray.cgColor
-        pageSubtitleLabel.layer.borderWidth = 1.0
-        pageSubtitleLabel.layer.cornerRadius = 8
-        pageSubtitleLabel.isHidden = true
-        
-        usdBalanceLabel.layer.borderColor = UIColor.appColors.paleGray.cgColor
-        usdBalanceLabel.layer.borderWidth = 1.0
-        usdBalanceLabel.layer.cornerRadius = 8
-        usdBalanceLabel.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -186,6 +176,16 @@ class OverviewViewController: UIViewController {
         self.totalSyncProgressView.layer.cornerRadius = 8
         self.showSyncDetailsButton.addBorder(atPosition: .top, color: UIColor.appColors.gray, thickness: 0.62)
         self.syncDetailsSection.horizontalBorder(borderColor: UIColor.appColors.gray, yPosition: 0, borderHeight: 0.62)
+        
+        pageSubtitleLabel.layer.borderColor = UIColor.appColors.paleGray.cgColor
+        pageSubtitleLabel.layer.borderWidth = 1.0
+        pageSubtitleLabel.layer.cornerRadius = 8
+        pageSubtitleLabel.isHidden = true
+        
+        usdBalanceLabel.layer.borderColor = UIColor.appColors.paleGray.cgColor
+        usdBalanceLabel.layer.borderWidth = 1.0
+        usdBalanceLabel.layer.cornerRadius = 8
+        usdBalanceLabel.isHidden = true
     }
     
     @objc func refreshRecentActivityAndUpdateBalance() {
