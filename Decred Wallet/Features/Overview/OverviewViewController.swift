@@ -168,9 +168,9 @@ class OverviewViewController: UIViewController {
         }
         
         self.recentTransactions = transactions
-        self.recentTransactionsTableView.reloadData()
         
         self.recentTransactionsTableViewHeightContraint.constant = TransactionTableViewCell.height() * CGFloat(self.recentTransactions.count)
+        self.recentTransactionsTableView.reloadData()
 
         self.recentTransactionsTableView.isHidden = false
         self.showAllTransactionsButton.isHidden = false
@@ -671,12 +671,12 @@ extension OverviewViewController: DcrlibwalletTxAndBlockNotificationListenerProt
         
         tx.animate = true
         self.recentTransactions.insert(tx, at: 0)
-        
         if self.recentTransactions.count > 3 {
             _ = self.recentTransactions.popLast()
         }
         
         DispatchQueue.main.async {
+            self.recentTransactionsTableViewHeightContraint.constant = TransactionTableViewCell.height() * CGFloat(self.recentTransactions.count)
             self.updateMultiWalletBalance()
             self.recentTransactionsTableView.reloadData()
         }
