@@ -30,8 +30,11 @@ class OverviewViewController: UIViewController {
     @IBOutlet weak var accountMixerSectionView: RoundedView!
     @IBOutlet weak var mixerRunnungLabel: UILabel!
     @IBOutlet weak var mixerRunningInfoLabel: UILabel!
-    @IBOutlet weak var mixerStatusWalletNameLabel: UILabel!
-    @IBOutlet weak var mixerStatusUnmixedBalanceLabel: UILabel!
+    //TODO remove me if not use
+//    @IBOutlet weak var mixerStatusWalletNameLabel: UILabel!
+//    @IBOutlet weak var mixerStatusUnmixedBalanceLabel: UILabel!
+    @IBOutlet weak var mixerTableView: UITableView!
+    @IBOutlet weak var mixersTableViewHeightContraint: NSLayoutConstraint!
     
     // MARK: Recent activity section
     @IBOutlet weak var noTransactionsLabelView: UILabel!
@@ -148,6 +151,12 @@ class OverviewViewController: UIViewController {
         self.totalSyncProgressView.layer.cornerRadius = 8
         self.showSyncDetailsButton.addBorder(atPosition: .top, color: UIColor.appColors.gray, thickness: 0.62)
         self.syncDetailsSection.horizontalBorder(borderColor: UIColor.appColors.gray, yPosition: 0, borderHeight: 0.62)
+        
+        //mixers tableview
+        self.mixerTableView.delegate = self
+        self.mixerTableView.dataSource = self
+        //TODO change me
+        self.mixersTableViewHeightContraint.constant = WalletMixerCell.height * 2
     }
     
     @objc func refreshRecentActivityAndUpdateBalance() {
@@ -348,35 +357,35 @@ class OverviewViewController: UIViewController {
             self.accountMixingPromptSectionView.isHidden = false
         }
     }
-    
+    //TODO fix me when get mixer Wallet
     func setMixerStatus() {
-        var activeMixers = 0
-        var WalletID = 0
-        for wallet in WalletLoader.shared.wallets {
-            if wallet.isAccountMixerActive() {
-                activeMixers+=1
-                WalletID = wallet.id_
-            }
-        }
+//        var activeMixers = 0
+//        var WalletID = 0
+//        for wallet in WalletLoader.shared.wallets {
+//            if wallet.isAccountMixerActive() {
+//                activeMixers+=1
+//                WalletID = wallet.id_
+//            }
+//        }
         
-        if (activeMixers > 0) {
-            self.mixerRunnungLabel.text = LocalizedStrings.mixerIsRuning
-            self.accountMixerSectionView.isHidden = false
-            let wallet  = WalletLoader.shared.multiWallet.wallet(withID: WalletID)
-            if let unmixedAccountNumber = wallet?.readInt32ConfigValue(forKey: Dcrlibwallet.DcrlibwalletAccountMixerMixedAccount, defaultValue: -1) {
-                do {
-                    let balance  =  try wallet?.getAccountBalance(unmixedAccountNumber)
-                    self.mixerStatusUnmixedBalanceLabel.text = "\(balance?.dcrTotal ?? 0.00)"
-                } catch {
-                    DispatchQueue.main.async {
-                        Utils.showBanner(in: self.view, type: .error, text: error.localizedDescription)
-                    }
-                }
-            }
-            
-        } else {
-            self.accountMixerSectionView.isHidden = true
-        }
+//        if (activeMixers > 0) {
+//            self.mixerRunnungLabel.text = LocalizedStrings.mixerIsRuning
+//            self.accountMixerSectionView.isHidden = false
+//            let wallet  = WalletLoader.shared.multiWallet.wallet(withID: WalletID)
+//            if let unmixedAccountNumber = wallet?.readInt32ConfigValue(forKey: Dcrlibwallet.DcrlibwalletAccountMixerMixedAccount, defaultValue: -1) {
+//                do {
+//                    let balance  =  try wallet?.getAccountBalance(unmixedAccountNumber)
+////                    self.mixerStatusUnmixedBalanceLabel.text = "\(balance?.dcrTotal ?? 0.00)"
+//                } catch {
+//                    DispatchQueue.main.async {
+//                        Utils.showBanner(in: self.view, type: .error, text: error.localizedDescription)
+//                    }
+//                }
+//            }
+//
+//        } else {
+//            self.accountMixerSectionView.isHidden = true
+//        }
     }
     
     @IBAction func dismissSeedBackupPromptTapped(_ sender: Any) {
@@ -465,14 +474,27 @@ extension OverviewViewController: UIScrollViewDelegate {
 // extension methods for recent activity tableview delegate and datasource.
 extension OverviewViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if tableView == self.mixerTableView {
+            return WalletMixerCell.height
+        }
         return TransactionTableViewCell.height()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if tableView == self.mixerTableView {
+            //TODO Change me
+            return 2
+        }
         return self.recentTransactions.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        //TODO fill data for me
+        if tableView == self.mixerTableView {
+            let cell = self.mixerTableView.dequeueReusableCell(withIdentifier: WalletMixerCell.walletMixerIdentifier) as! WalletMixerCell
+            return cell
+        }
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: TransactionTableViewCell.identifier) as! TransactionTableViewCell
         let tx = self.recentTransactions[indexPath.row]
         cell.displayInfo(for: tx)
@@ -480,6 +502,10 @@ extension OverviewViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if tableView == self.mixerTableView {
+            return
+        }
+        
         if self.recentTransactions[indexPath.row].animate {
             cell.blink()
         }
@@ -487,6 +513,9 @@ extension OverviewViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView == self.mixerTableView {
+            return
+        }
         let txDetailsVC = TransactionDetailsViewController.instantiate(from: .TransactionDetails)
         txDetailsVC.transaction = self.recentTransactions[indexPath.row]
         self.present(txDetailsVC, animated: true)
