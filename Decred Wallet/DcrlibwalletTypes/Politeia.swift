@@ -23,6 +23,7 @@ struct Politeia: Codable {
     var version: String
     var publishedat: Date
     var indexfile: String
+    var fileversion: String
     var votestatus: PoliteiaVoteStatus
     var voteapproved: Bool
     var yesvotes: Int32
@@ -33,7 +34,7 @@ struct Politeia: Codable {
     var yesPercent: Float
     
     private enum CodingKeys : String, CodingKey {
-        case ID, token, category, name, state, status, timestamp, userid, username, numcomments, version, publishedat, indexfile, votestatus, voteapproved, yesvotes, novotes, eligibletickets, quorumpercentage, passpercentage
+        case ID, token, category, name, state, status, timestamp, userid, username, numcomments, version, publishedat, indexfile, fileversion, votestatus, voteapproved, yesvotes, novotes, eligibletickets, quorumpercentage, passpercentage
     }
     
     init(from decoder: Decoder) throws {
@@ -50,6 +51,7 @@ struct Politeia: Codable {
         self.version = try! values.decode(String.self, forKey: .version)
         self.publishedat = try! values.decode(Date.self, forKey: .publishedat)
         self.indexfile = try! values.decode(String.self, forKey: .indexfile)
+        self.fileversion = try! values.decode(String.self, forKey: .fileversion)
         self.status = try! values.decode(Int32.self, forKey: .status)
         self.voteapproved = try! values.decode(Bool.self, forKey: .voteapproved)
         self.yesvotes = try! values.decode(Int32.self, forKey: .yesvotes)
@@ -84,6 +86,7 @@ struct Politeia: Codable {
         self.version = proposal.version
         self.publishedat = Date(milliseconds: Int(proposal.publishedAt))
         self.indexfile = proposal.indexFile
+        self.fileversion = proposal.indexFileVersion
         self.status = proposal.status
         self.voteapproved = proposal.voteApproved
         self.yesvotes = proposal.yesVotes

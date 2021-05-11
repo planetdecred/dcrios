@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -312,6 +312,16 @@
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kg1-Te-2Lj">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="818"/>
                                         <subviews>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="PiB-64-UOn">
+                                                <rect key="frame" x="0.0" y="200" width="414" height="33"/>
+                                                <color key="backgroundColor" red="0.95294117647058818" green="0.96078431372549022" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="textColor" systemColor="labelColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="Rjd-zF-bsX">
+                                                <rect key="frame" x="0.0" y="200" width="414" height="20"/>
+                                            </activityIndicatorView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RRO-l4-9Lf">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
                                                 <subviews>
@@ -435,23 +445,19 @@
                                                     <constraint firstAttribute="bottom" secondItem="Llm-YX-JMb" secondAttribute="bottom" constant="10" id="bYv-u1-wQ4"/>
                                                 </constraints>
                                             </view>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="PiB-64-UOn">
-                                                <rect key="frame" x="0.0" y="200" width="414" height="33"/>
-                                                <color key="backgroundColor" red="0.95294117647058818" green="0.96078431372549022" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="textColor" systemColor="labelColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                            </textView>
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="iLT-bZ-oPF" firstAttribute="trailing" secondItem="RRO-l4-9Lf" secondAttribute="trailing" id="01n-43-t8X"/>
                                             <constraint firstAttribute="bottom" secondItem="PiB-64-UOn" secondAttribute="bottom" id="AEZ-Ae-hMh"/>
                                             <constraint firstItem="RRO-l4-9Lf" firstAttribute="leading" secondItem="iLT-bZ-oPF" secondAttribute="leading" id="ATY-o7-SbS"/>
                                             <constraint firstItem="RRO-l4-9Lf" firstAttribute="top" secondItem="Kg1-Te-2Lj" secondAttribute="top" id="PkE-Dc-Bal"/>
+                                            <constraint firstItem="Rjd-zF-bsX" firstAttribute="top" secondItem="RRO-l4-9Lf" secondAttribute="bottom" id="Poy-wx-ijd"/>
                                             <constraint firstItem="PiB-64-UOn" firstAttribute="leading" secondItem="Kg1-Te-2Lj" secondAttribute="leading" id="SC0-RP-CBm"/>
                                             <constraint firstAttribute="trailing" secondItem="PiB-64-UOn" secondAttribute="trailing" id="T4E-ly-ksK"/>
                                             <constraint firstItem="PiB-64-UOn" firstAttribute="top" secondItem="RRO-l4-9Lf" secondAttribute="bottom" id="VlK-c4-rVy"/>
+                                            <constraint firstAttribute="trailing" secondItem="Rjd-zF-bsX" secondAttribute="trailing" id="ZLl-Xg-hJ7"/>
                                             <constraint firstItem="PiB-64-UOn" firstAttribute="width" secondItem="Kg1-Te-2Lj" secondAttribute="width" id="nbS-NE-Q5W"/>
+                                            <constraint firstItem="Rjd-zF-bsX" firstAttribute="leading" secondItem="Kg1-Te-2Lj" secondAttribute="leading" id="yIY-Fw-yqQ"/>
                                         </constraints>
                                         <viewLayoutGuide key="contentLayoutGuide" id="2vf-Nx-SHg"/>
                                         <viewLayoutGuide key="frameLayoutGuide" id="iLT-bZ-oPF"/>
@@ -477,6 +483,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="biV-4F-fBD"/>
                     <connections>
+                        <outlet property="contentLoadingIndicator" destination="Rjd-zF-bsX" id="dVn-Cy-xaL"/>
                         <outlet property="contentTextView" destination="PiB-64-UOn" id="fv8-PP-uGp"/>
                         <outlet property="countCommentLabel" destination="MTD-9X-JzK" id="1j8-wb-6hp"/>
                         <outlet property="nameLabel" destination="LKv-X6-yO6" id="M3Y-sR-f6E"/>
