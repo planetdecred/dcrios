@@ -20,10 +20,13 @@ class PoliteiaDetailController: UIViewController {
     @IBOutlet weak var noPercentLabel: UILabel!
     @IBOutlet weak var percentView: PlainHorizontalProgressBar!
     @IBOutlet weak var contentTextView: UITextView!
+    @IBOutlet weak var contentLoadingIndicator: UIActivityIndicatorView!
     
     var politeia: Politeia?
     var isNotificationOpen: Bool = false
     var proposalId: String?
+    
+    private var multiWallet = WalletLoader.shared.multiWallet!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,7 +80,7 @@ class PoliteiaDetailController: UIViewController {
     func getDetailPoliteia() {
         guard let idstr = self.proposalId, let id = Int(idstr) else { return }
         DispatchQueue.global(qos: .userInitiated).async {
-            let result = WalletLoader.shared.multiWallet.politeia?.detailPoliteia(id)
+            let result = self.multiWallet.politeia?.detailPoliteia(id)
             DispatchQueue.main.async {
                 if let poli = result!.0 {
                     self.politeia = poli
@@ -96,16 +99,18 @@ class PoliteiaDetailController: UIViewController {
         self.yesPercentLabel.isHidden = true
         self.noPercentLabel.isHidden = true
     }
+    
     @objc func shareButtonTapped(_ sender: Any) {
         guard let token = self.politeia?.token, let name = self.politeia?.name else {return}
-        guard let urlString = URL(string: "http://proposals.decred.org/proposals/\(token)") else {return}
+        guard let urlString = URL(string: "http://proposals.decred.org/record/\(token)") else {return}
         let items: [Any] = [name, urlString]
         let activity = UIActivityViewController(activityItems: items, applicationActivities: nil)
         present(activity, animated: true)
     }
+    
     @objc func openButtonTapped(_ sender: Any) {
         guard let token = self.politeia?.token else {return}
-        let urlString = "http://proposals.decred.org/proposals/\(token)"
+        let urlString = "http://proposals.decred.org/record/\(token)"
         if let url = URL(string: urlString) {
             UIApplication.shared.open(url)
         }
@@ -113,6 +118,7 @@ class PoliteiaDetailController: UIViewController {
     
     func displayData() {
         guard let politeia = self.politeia else {return}
+        
         self.titleLabel.text = politeia.name
         self.nameLabel.text = politeia.username
         let publishAge = Int64(Date().timeIntervalSince1970) - politeia.timestamp
@@ -122,6 +128,7 @@ class PoliteiaDetailController: UIViewController {
         self.versionLabel.text = String(format: LocalizedStrings.politeiaVersion, politeia.version)
         self.statusLabel.text = politeia.votestatus.description
         self.statusLabel.backgroundColor = Utils.politeiaColorBGStatus(politeia.votestatus)
+        
         if politeia.votestatus == .APPROVED || politeia.votestatus == .REJECT {
             self.percentView.isHidden = false
             self.yesPercentLabel.isHidden = false
@@ -131,10 +138,23 @@ class PoliteiaDetailController: UIViewController {
             self.yesPercentLabel.text = "Yes: \(politeia.yesvotes) (\(yesPercent.round(decimals: 2))%)"
             self.noPercentLabel.text = "No: \(politeia.novotes) (\(politeia.novotes > 0 ? (100 - yesPercent).round(decimals: 2) : 0)%)"
         }
-        if let data = self.politeia?.indexfile {
-            let dataContent = Data(base64Encoded: data)!
-            let content = String(data: dataContent, encoding: .utf8)
-            self.contentTextView.text = content
+        
+        if politeia.indexfile != "" && politeia.fileversion == politeia.version {
+            self.contentTextView.text = politeia.indexfile
+        } else {
+            self.contentLoadingIndicator.isHidden = false
+            DispatchQueue.global(qos: .userInitiated).async {
+                var error: NSError?
+                let description = self.multiWallet.politeia?.fetchProposalDescription(politeia.token, error: &error)
+                DispatchQueue.main.async {
+                    self.contentLoadingIndicator.isHidden = true
+                    if error != nil {
+                        self.contentTextView.text = error?.localizedDescription
+                    } else {
+                        self.contentTextView.text = description
+                    }
+                }
+            }
         }
     }
 }
