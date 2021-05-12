@@ -16,6 +16,12 @@ protocol InputDialogDelegate {
     func displayPassphraseError(errorMessage: String)
 }
 
+extension InputDialogDelegate {
+    func displayPassphraseError(errorMessage: String) {
+        
+    }
+}
+
 class SimpleTextInputDialog: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var textField: FloatingPlaceholderTextField! // rename!
@@ -138,10 +144,6 @@ extension SimpleTextInputDialog: InputDialogDelegate {
         self.cancelButton?.isEnabled = true
         self.submitButton.isEnabled = true
         self.submitButton.stopLoading()
-    }
-    
-    func displayPassphraseError(errorMessage: String) {
-        
     }
 }
 
