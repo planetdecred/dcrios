@@ -30,9 +30,6 @@ class OverviewViewController: UIViewController {
     @IBOutlet weak var accountMixerSectionView: RoundedView!
     @IBOutlet weak var mixerRunnungLabel: UILabel!
     @IBOutlet weak var mixerRunningInfoLabel: UILabel!
-    //TODO remove me if not use
-//    @IBOutlet weak var mixerStatusWalletNameLabel: UILabel!
-//    @IBOutlet weak var mixerStatusUnmixedBalanceLabel: UILabel!
     @IBOutlet weak var mixerTableView: UITableView!
     @IBOutlet weak var mixersTableViewHeightContraint: NSLayoutConstraint!
     
@@ -83,6 +80,7 @@ class OverviewViewController: UIViewController {
     var hideSeedBackupPrompt: Bool = false
     var hideAccountMixingPrompt: Bool = false
     var recentTransactions = [Transaction]()
+    var mixingAccounts = [MixerAcount]()
     var refreshBestBlockAgeTimer: Timer?
     
     override func viewDidLoad() {
@@ -109,6 +107,8 @@ class OverviewViewController: UIViewController {
         try? WalletLoader.shared.multiWallet.add(txNotificationListener, uniqueIdentifier: "\(self)")
         
         WalletLoader.shared.multiWallet.setBlocksRescanProgressListener(self)
+        
+        WalletLoader.shared.multiWallet.setAccountMixerNotification(self)
 
         // Display latest block and connected peer count if there's no ongoing sync.
         if !SyncManager.shared.isSyncing {
@@ -124,6 +124,7 @@ class OverviewViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = true
         self.refreshRecentActivityAndUpdateBalance()
         self.checkWhetherToPromptForSeedBackup()
+        self.checkWhetherToPromptForAccountMixing()
         
         if !WalletLoader.shared.multiWallet.isSyncing() {
             self.refreshLatestBlockInfoPeriodically()
@@ -155,8 +156,9 @@ class OverviewViewController: UIViewController {
         //mixers tableview
         self.mixerTableView.delegate = self
         self.mixerTableView.dataSource = self
+        
         //TODO change me
-        self.mixersTableViewHeightContraint.constant = WalletMixerCell.height * 2
+        self.mixersTableViewHeightContraint.constant = WalletMixerCell.height
     }
     
     @objc func refreshRecentActivityAndUpdateBalance() {
@@ -170,6 +172,7 @@ class OverviewViewController: UIViewController {
         let totalWalletAmount = WalletLoader.shared.multiWallet.totalBalance
         let totalAmountRoundedOff = (Decimal(totalWalletAmount) as NSDecimalNumber).round(8)
         self.balanceLabel.attributedText = Utils.getAttributedString(str: "\(totalAmountRoundedOff)", siz: 17.0, TexthexColor: UIColor.appColors.darkBlue)
+        self.setMixerStatus()
     }
     
     func updateRecentActivity() {
@@ -198,6 +201,7 @@ class OverviewViewController: UIViewController {
         self.recentTransactionsTableView.isHidden = false
         self.showAllTransactionsButton.isHidden = false
         self.noTransactionsLabelView.superview?.isHidden = true
+        self.setMixerStatus()
     }
     
     func updateWalletStatusIndicatorAndLabel() {
@@ -359,33 +363,42 @@ class OverviewViewController: UIViewController {
     }
     //TODO fix me when get mixer Wallet
     func setMixerStatus() {
-//        var activeMixers = 0
-//        var WalletID = 0
-//        for wallet in WalletLoader.shared.wallets {
-//            if wallet.isAccountMixerActive() {
-//                activeMixers+=1
-//                WalletID = wallet.id_
-//            }
-//        }
+        var activeMixers = 0
+        var WalletID = 0
+        self.mixingAccounts.removeAll()
+        for wallet in WalletLoader.shared.wallets {
+            if wallet.isAccountMixerActive() {
+                activeMixers += 1
+                WalletID = wallet.id_
+                 let wallet  = WalletLoader.shared.multiWallet.wallet(withID: WalletID)
+                 if let unmixedAccountNumber = wallet?.readInt32ConfigValue(forKey: Dcrlibwallet.DcrlibwalletAccountMixerMixedAccount, defaultValue: -1) {
+                     do {
+                        if let balance  =  try wallet?.getAccountBalance(unmixedAccountNumber) {
+                            let mxAccount = MixerAcount(name: wallet?.name, balance: "\(balance.dcrTotal)")
+                            self.mixingAccounts.append(mxAccount)
+                        }
+                        
+                     } catch {
+                         DispatchQueue.main.async {
+                             Utils.showBanner(in: self.view, type: .error, text: error.localizedDescription)
+                         }
+                     }
+                 }
+            }
+        }
         
-//        if (activeMixers > 0) {
-//            self.mixerRunnungLabel.text = LocalizedStrings.mixerIsRuning
-//            self.accountMixerSectionView.isHidden = false
-//            let wallet  = WalletLoader.shared.multiWallet.wallet(withID: WalletID)
-//            if let unmixedAccountNumber = wallet?.readInt32ConfigValue(forKey: Dcrlibwallet.DcrlibwalletAccountMixerMixedAccount, defaultValue: -1) {
-//                do {
-//                    let balance  =  try wallet?.getAccountBalance(unmixedAccountNumber)
-////                    self.mixerStatusUnmixedBalanceLabel.text = "\(balance?.dcrTotal ?? 0.00)"
-//                } catch {
-//                    DispatchQueue.main.async {
-//                        Utils.showBanner(in: self.view, type: .error, text: error.localizedDescription)
-//                    }
-//                }
-//            }
-//
-//        } else {
-//            self.accountMixerSectionView.isHidden = true
-//        }
+        if (activeMixers > 0) {
+            DispatchQueue.main.async {
+                self.mixerRunnungLabel.text = LocalizedStrings.mixerIsRuning
+                self.accountMixerSectionView.isHidden = false
+                self.mixersTableViewHeightContraint.constant = WalletMixerCell.height * CGFloat(activeMixers)
+                self.mixerTableView.reloadData()
+            }
+        } else {
+            DispatchQueue.main.async {
+                self.accountMixerSectionView.isHidden = true
+            }
+        }
     }
     
     @IBAction func dismissSeedBackupPromptTapped(_ sender: Any) {
@@ -401,7 +414,7 @@ class OverviewViewController: UIViewController {
     }
     
     @IBAction func dismissAccountMixingPromptTapped(_ sender: Any) {
-           self.hideAccountMixingPrompt = true
+           //self.hideAccountMixingPrompt = true
            self.accountMixingPromptSectionView.isHidden = true
        }
     
@@ -482,16 +495,16 @@ extension OverviewViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == self.mixerTableView {
-            //TODO Change me
-            return 2
+            return self.mixingAccounts.count
         }
         return self.recentTransactions.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //TODO fill data for me
         if tableView == self.mixerTableView {
             let cell = self.mixerTableView.dequeueReusableCell(withIdentifier: WalletMixerCell.walletMixerIdentifier) as! WalletMixerCell
+            let mx = self.mixingAccounts[indexPath.row]
+            cell.render(mx.name!, balance: mx.balance!)
             return cell
         }
         
@@ -617,6 +630,7 @@ extension OverviewViewController: DcrlibwalletSyncProgressListenerProtocol {
     func onSyncCompleted() {
         DispatchQueue.main.async {
             self.updateUI(syncCompletedSuccessfully: true)
+            self.setMixerStatus()
         }
     }
     
@@ -650,6 +664,7 @@ extension OverviewViewController: DcrlibwalletSyncProgressListenerProtocol {
         self.updateWalletStatusIndicatorAndLabel()
         self.updateSyncStatusIndicatorAndLabel()
         self.updateSyncConnectionButtonTextAndIcon()
+        print("update UI set meixer status")
         self.setMixerStatus()
         self.toggleSyncProgressViews(isSyncing: false)
         self.displayLatestBlockHeightAndAge()
@@ -757,6 +772,7 @@ extension OverviewViewController: DcrlibwalletTxAndBlockNotificationListenerProt
         DispatchQueue.main.async {
             self.updateMultiWalletBalance()
             self.recentTransactionsTableView.reloadData()
+            self.setMixerStatus()
         }
     }
     
@@ -770,12 +786,15 @@ extension OverviewViewController: DcrlibwalletTxAndBlockNotificationListenerProt
 
 extension OverviewViewController: DcrlibwalletAccountMixerNotificationListenerProtocol {
     func onAccountMixerEnded(_ walletID: Int) {
+        print("mixer ended")
         DispatchQueue.main.async {
             self.setMixerStatus()
+            Utils.showBanner(in: self.view, type: .error, text: "mixer has stopped running")
         }
     }
     
     func onAccountMixerStarted(_ walletID: Int) {
+        print("mixer started")
         DispatchQueue.main.async {
             self.setMixerStatus()
         }

@@ -118,6 +118,7 @@ class SendViewController: UIViewController {
         self.toSelfAccountSection.isHidden = true
         self.destinationAccountView.showWatchOnlyWallet = true
         self.sourceAccountView.showUnMixedAccount = false
+        self.destinationAccountView.showUnMixedAccount = false 
         self.destinationAccountView.onAccountSelectionChanged = { _, _ in
             self.displayFeeDetailsAndTransactionSummary() // re-calculate fee with updated destination info
         }

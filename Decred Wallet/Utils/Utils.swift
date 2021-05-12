@@ -359,4 +359,10 @@ struct Utils {
         let output = formatter.string(from: TimeInterval(seconds))!
         return output
     }
+    
+}
+
+struct MixerAcount {
+    var name: String?
+    var balance: String?
 }

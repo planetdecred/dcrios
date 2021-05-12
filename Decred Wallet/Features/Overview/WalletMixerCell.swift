@@ -14,7 +14,7 @@ open class WalletMixerCell: UITableViewCell {
     @IBOutlet weak var balenceTitleLabel: UILabel!
     @IBOutlet weak var balanceValueLabel: UILabel!
     
-    static let height: CGFloat = 68
+    static let height: CGFloat = 80
     
     class var walletMixerIdentifier: String {
         return "\(self)"

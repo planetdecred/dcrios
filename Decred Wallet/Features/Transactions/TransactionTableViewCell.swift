@@ -64,19 +64,25 @@ class TransactionTableViewCell: UITableViewCell {
     
     func displayRegularTxInfo(_ transaction: Transaction) {
         let amountString = Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 13.0, TexthexColor: UIColor.appColors.darkBlue)
-
-        if transaction.direction == DcrlibwalletTxDirectionSent {
-            let attributedString = NSMutableAttributedString(string:"-")
-            attributedString.append(amountString)
+        /*if transaction.isMixed() {
+            let attributedString = NSMutableAttributedString(string:"Mixed")
             self.txAmountOrTicketStatusLabel.attributedText = attributedString
             self.txTypeIconImageView?.image = UIImage(named: "ic_send")
-        } else if transaction.direction == DcrlibwalletTxDirectionReceived {
-            self.txAmountOrTicketStatusLabel.attributedText = amountString
-            self.txTypeIconImageView?.image = UIImage(named: "ic_receive")
-        } else if transaction.direction == DcrlibwalletTxDirectionTransferred {
-            self.txAmountOrTicketStatusLabel.attributedText = amountString
-            self.txTypeIconImageView?.image = UIImage(named: "ic_fee")
-        }
+        //} else {*/
+            if transaction.direction == DcrlibwalletTxDirectionSent {
+                let attributedString = NSMutableAttributedString(string:"-")
+                attributedString.append(amountString)
+                self.txAmountOrTicketStatusLabel.attributedText = attributedString
+                self.txTypeIconImageView?.image = UIImage(named: "ic_send")
+            } else if transaction.direction == DcrlibwalletTxDirectionReceived {
+                self.txAmountOrTicketStatusLabel.attributedText = amountString
+                self.txTypeIconImageView?.image = UIImage(named: "ic_receive")
+            } else if transaction.direction == DcrlibwalletTxDirectionTransferred {
+                self.txAmountOrTicketStatusLabel.attributedText = amountString
+                self.txTypeIconImageView?.image = UIImage(named: "ic_fee")
+            }
+        //}
+
     }
     
     func displayVoteTxInfo(_ transaction: Transaction, ageInDays: Int) {
@@ -122,7 +128,6 @@ class TransactionTableViewCell: UITableViewCell {
             } catch {
                 Utils.showBanner(in: self, type: .error, text: error.localizedDescription)
             }
-            
             
             self.txTypeIconImageView?.image = UIImage(named: "ic_ticketLive")
         } else {
