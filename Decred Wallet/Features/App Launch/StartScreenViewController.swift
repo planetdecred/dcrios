@@ -255,7 +255,7 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
             } catch let error {
                 DispatchQueue.main.async {
                     if error.isInvalidPassphraseError {
-                        dialogDelegate?.displayError(errorMessage: StartupPinOrPassword.invalidSecurityCodeMessage())
+                        dialogDelegate?.displayPassphraseError(errorMessage: StartupPinOrPassword.invalidSecurityCodeMessage())
                     } else {
                         dialogDelegate?.displayError(errorMessage: error.localizedDescription)
                     }

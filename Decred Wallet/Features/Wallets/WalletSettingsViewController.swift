@@ -108,11 +108,13 @@ class WalletSettingsViewController: UIViewController {
                             }
                         } catch let error {
                             DispatchQueue.main.async {
-                                var errorMessage = error.localizedDescription
                                 if error.isInvalidPassphraseError {
-                                    errorMessage = SpendingPinOrPassword.invalidSecurityCodeMessage(for: self.wallet.id_)
+                                    let errorMessage = SpendingPinOrPassword.invalidSecurityCodeMessage(for: self.wallet.id_)
+                                    dialogDelegate?.displayPassphraseError(errorMessage: errorMessage)
+                                } else {
+                                    dialogDelegate?.displayError(errorMessage: error.localizedDescription)
                                 }
-                                dialogDelegate?.displayError(errorMessage: errorMessage)
+                                
                             }
                         }
                     }
@@ -132,11 +134,13 @@ class WalletSettingsViewController: UIViewController {
                                 }
                             } catch let error {
                                 DispatchQueue.main.async {
-                                    var errorMessage = error.localizedDescription
                                     if error.isInvalidPassphraseError {
-                                        errorMessage = SpendingPinOrPassword.invalidSecurityCodeMessage(for: self.wallet.id_)
+                                        let errorMessage = SpendingPinOrPassword.invalidSecurityCodeMessage(for: self.wallet.id_)
+                                        dialogDelegate?.displayPassphraseError(errorMessage: errorMessage)
+                                    } else {
+                                        dialogDelegate?.displayError(errorMessage: error.localizedDescription)
                                     }
-                                    dialogDelegate?.displayError(errorMessage: errorMessage)
+                                    
                                 }
                             }
                         }

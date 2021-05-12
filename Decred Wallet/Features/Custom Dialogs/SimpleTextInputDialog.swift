@@ -13,6 +13,7 @@ typealias SimpleTextInputDialogCallback = (_ userInput: String, _ dialogDelegate
 protocol InputDialogDelegate {
     func dismissDialog()
     func displayError(errorMessage: String)
+    func displayPassphraseError(errorMessage: String)
 }
 
 class SimpleTextInputDialog: UIViewController {
@@ -137,6 +138,10 @@ extension SimpleTextInputDialog: InputDialogDelegate {
         self.cancelButton?.isEnabled = true
         self.submitButton.isEnabled = true
         self.submitButton.stopLoading()
+    }
+    
+    func displayPassphraseError(errorMessage: String) {
+        
     }
 }
 

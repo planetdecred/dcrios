@@ -98,7 +98,7 @@ struct StartupPinOrPassword {
                 DispatchQueue.main.async {
                     if error.isInvalidPassphraseError {
                         newCodeRequestDelegate?.dismissDialog()
-                        currentCodeRequestDelegate?.displayError(errorMessage: self.invalidSecurityCodeMessage())
+                        currentCodeRequestDelegate?.displayPassphraseError(errorMessage: self.invalidSecurityCodeMessage())
                     } else {
                         newCodeRequestDelegate?.displayError(errorMessage: error.localizedDescription)
                     }

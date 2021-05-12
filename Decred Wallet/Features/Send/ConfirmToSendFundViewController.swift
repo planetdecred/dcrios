@@ -140,7 +140,7 @@ class ConfirmToSendFundViewController: UIViewController, UITextFieldDelegate {
                         self.onSendCompleted?()
                     } else if error!.isInvalidPassphraseError {
                         let errorMessage = SpendingPinOrPassword.invalidSecurityCodeMessage(for: self.sourceWalletID)
-                        dialogDelegate?.displayError(errorMessage: errorMessage)
+                        dialogDelegate?.displayPassphraseError(errorMessage: errorMessage)
                     } else {
                         print("send error:", error!.localizedDescription)
                         dialogDelegate?.dismissDialog()

@@ -66,15 +66,20 @@ class SeedWordsDisplayViewController: UIViewController {
         .with(submitBtnText: LocalizedStrings.confirm)
         .should(showCancelButton: true)
             .requestCurrentCode(sender: self, dismissSenderOnCancel: true) { privatePass, _, dialogDelegate in
-                var errorOrNil: NSError? = nil
-                if let decryptedSeed = WalletLoader.shared.multiWallet.wallet(withID: self.walletID)?.decryptSeed(privatePass.utf8Bits, error: &errorOrNil) {
-                    if errorOrNil == nil {
+                var error: NSError? = nil
+                if let decryptedSeed = WalletLoader.shared.multiWallet.wallet(withID: self.walletID)?.decryptSeed(privatePass.utf8Bits, error: &error) {
+                    if error == nil {
                         self.seed = decryptedSeed
                         dialogDelegate?.dismissDialog()
                         self.displaySeed()
                     } else {
-                        let errorMessage = SpendingPinOrPassword.invalidSecurityCodeMessage(for: self.walletID)
-                        dialogDelegate?.displayError(errorMessage: errorMessage)
+                        if error!.isInvalidPassphraseError {
+                            let errorMessage = SpendingPinOrPassword.invalidSecurityCodeMessage(for: self.walletID)
+                            dialogDelegate?.displayPassphraseError(errorMessage: errorMessage)
+                        }else {
+                            dialogDelegate?.displayError(errorMessage: error!.localizedDescription)
+                        }
+                        
                     }
                 }
         }

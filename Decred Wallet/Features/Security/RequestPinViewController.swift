@@ -34,6 +34,8 @@ class RequestPinViewController: SecurityCodeRequestBaseViewController {
         textfield.textContentType = .password
         return textfield
     }()
+    
+    var pinTrials = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -218,10 +220,38 @@ class RequestPinViewController: SecurityCodeRequestBaseViewController {
             self.dismissView()
         }
     }
+    
+    override func showPassphraseError(text: String) {
+        pinTrials = pinTrials + 1
+        
+        _showError(text: text)
+        self.pinHiddenInput.isEnabled = false
+        self.btnSubmit.isEnabled = false
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+           
+            var delay = 2.0
+            if (self.pinTrials % 2 == 0) {
+                delay = 5.0
+            }
+            
+            let delayTime = DispatchTime.now() + delay
+            DispatchQueue.main.asyncAfter(deadline: delayTime) {
+                self.pinHiddenInput.text = ""
+                self.hideError()
+                self.pinHiddenInput.isEnabled = true
+                self.pinHiddenInput.becomeFirstResponder()
+            }
+        }
+    }
 
     override func showError(text: String) {
         super.showError(text: text)
         
+        _showError(text: text)
+    }
+    
+    private func _showError(text: String){
         self.errorLabel.text = text
         self.errorLabel.isHidden = false
         

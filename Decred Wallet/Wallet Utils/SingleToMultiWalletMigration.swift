@@ -85,7 +85,7 @@ class SingleToMultiWalletMigration {
                 
                 DispatchQueue.main.async {
                     if error.isInvalidPassphraseError {
-                        dialogDelegate?.displayError(errorMessage: StartupPinOrPassword.invalidSecurityCodeMessage())
+                        dialogDelegate?.displayPassphraseError(errorMessage: StartupPinOrPassword.invalidSecurityCodeMessage())
                     } else {
                         dialogDelegate?.displayError(errorMessage: error.localizedDescription)
                     }

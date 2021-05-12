@@ -87,9 +87,8 @@ class SeedBackupVerifyViewController: UIViewController {
                     } catch {
                         DispatchQueue.main.async {
                             if error.isInvalidPassphraseError {
-                                print(error.localizedDescription)
                                 let errorMessage = SpendingPinOrPassword.invalidSecurityCodeMessage(for: self.walletID)
-                                dialogDelegate?.displayError(errorMessage: errorMessage)
+                                dialogDelegate?.displayPassphraseError(errorMessage: errorMessage)
                                 self.groupedSeedWordsTableView?.isUserInteractionEnabled = true
                             } else if error.localizedDescription == DcrlibwalletErrInvalid {
                                 self.groupedSeedWordsTableView?.isUserInteractionEnabled = true
