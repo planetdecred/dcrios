@@ -23,6 +23,7 @@ enum Storyboard: String {
     case SeedBackup = "SeedBackup"
     case Settings = "Settings"
     case SecurityMenu = "SecurityMenu"
+    case Politeia = "Politeia"
     case More = "More"
     case About = "About"
     case Debug = "Debug"

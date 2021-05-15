@@ -26,36 +26,80 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="3co-lt-hDe">
-                                <rect key="frame" x="24" y="60" width="366" height="24"/>
+                                <rect key="frame" x="24" y="60" width="366" height="50"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="300" verticalHuggingPriority="300" image="ic_decred" translatesAutoresizingMaskIntoConstraints="NO" id="e6W-R2-mxo">
-                                        <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
+                                        <rect key="frame" x="0.0" y="13" width="24" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="24" id="w9F-jW-h6y"/>
+                                        </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Overview" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3OP-M8-itB">
-                                        <rect key="frame" x="40" y="0.5" width="326" height="23.5"/>
-                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
-                                        <color key="textColor" red="0.035294117647058823" green="0.078431372549019607" blue="0.25098039215686274" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="overview"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="MfK-mH-Spn">
+                                        <rect key="frame" x="40" y="0.0" width="326" height="50"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Overview" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3OP-M8-itB">
+                                                <rect key="frame" x="0.0" y="12.5" width="63" height="25.5"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="9lv-ev-DSY"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
+                                                <color key="textColor" red="0.035294117647058823" green="0.078431372549019607" blue="0.25098039215686274" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="overview"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4If-VY-GlA">
+                                                <rect key="frame" x="71" y="0.0" width="255" height="50"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="d" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gMi-Pi-sSE" customClass="PaddedLabel" customModule="Decred_Wallet" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="16" width="8" height="18"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="5" id="bzf-E6-tXt"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                                                        <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="topPadding">
+                                                                <real key="value" value="4"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="bottomPadding">
+                                                                <real key="value" value="4"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="leftPadding">
+                                                                <real key="value" value="8"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="rightPadding">
+                                                                <real key="value" value="8"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="gMi-Pi-sSE" firstAttribute="leading" secondItem="4If-VY-GlA" secondAttribute="leading" id="be3-gi-Wbf"/>
+                                                    <constraint firstItem="gMi-Pi-sSE" firstAttribute="centerY" secondItem="4If-VY-GlA" secondAttribute="centerY" id="sTY-hI-0U9"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                             </stackView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IK4-Pz-8cc">
-                                <rect key="frame" x="0.0" y="100" width="414" height="1"/>
+                                <rect key="frame" x="0.0" y="126" width="414" height="1"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.080000000000000002" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="AWr-R5-zwt"/>
                                 </constraints>
                             </view>
                             <scrollView clipsSubviews="YES" contentMode="scaleToFill" directionalLockEnabled="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" contentInsetAdjustmentBehavior="always" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="Zw5-BT-lXr">
-                                <rect key="frame" x="0.0" y="100" width="414" height="796"/>
+                                <rect key="frame" x="0.0" y="126" width="414" height="770"/>
                                 <subviews>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9pQ-ul-Ay3">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1697.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1333"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 DCR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GGm-T7-QFh">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-- DCR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GGm-T7-QFh">
                                                 <rect key="frame" x="24" y="0.0" width="366" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="EGZ-r7-5US"/>
@@ -64,20 +108,31 @@
                                                 <color key="textColor" red="0.035294117647058823" green="0.078431372549019607" blue="0.25098039215686274" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Total Balance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hkg-8t-e9s">
-                                                <rect key="frame" x="24" y="44" width="366" height="14"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hkg-8t-e9s" customClass="PaddedLabel" customModule="Decred_Wallet" customModuleProvider="target">
+                                                <rect key="frame" x="24" y="44" width="5" height="0.0"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="14" id="263-Nd-jph"/>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="5" id="cXf-FU-Wtm"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
-                                                <color key="textColor" red="0.34901960784313724" green="0.42745098039215684" blue="0.50588235294117645" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                                <color key="textColor" red="0.23921568627450979" green="0.34509803921568627" blue="0.45098039215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="currentTotalBalance"/>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="topPadding">
+                                                        <real key="value" value="4"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="bottomPadding">
+                                                        <real key="value" value="4"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="leftPadding">
+                                                        <real key="value" value="8"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="rightPadding">
+                                                        <real key="value" value="8"/>
+                                                    </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="DPB-YP-Vow">
-                                                <rect key="frame" x="8" y="74" width="398" height="1493.5"/>
+                                                <rect key="frame" x="8" y="60" width="398" height="1143"/>
                                                 <subviews>
                                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8t6-aj-Jtg" userLabel="Account Mixing section View" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="-168" width="398" height="168"/>
@@ -507,7 +562,7 @@
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recent Transactions" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zCR-ch-23q">
                                                                                 <rect key="frame" x="16" y="15" width="366" height="16.5"/>
                                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
-                                                                                <color key="textColor" red="0.23921568630000001" green="0.34509803919999998" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                <color key="textColor" red="0.23921568627450979" green="0.34509803921568627" blue="0.45098039215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                 <nil key="highlightedColor"/>
                                                                                 <userDefinedRuntimeAttributes>
                                                                                     <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="recentTransactions"/>
@@ -698,6 +753,7 @@
                                                                             </label>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GcG-b3-nUG" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                                                                 <rect key="frame" x="282" y="16" width="100" height="24"/>
+                                                                                <accessibility key="accessibilityConfiguration" identifier="connectionButton"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="24" id="8DA-8A-P7D"/>
                                                                                 </constraints>
@@ -1127,7 +1183,6 @@
                                             <constraint firstItem="GGm-T7-QFh" firstAttribute="top" secondItem="9pQ-ul-Ay3" secondAttribute="top" id="96H-iU-Lf0"/>
                                             <constraint firstAttribute="trailing" secondItem="DPB-YP-Vow" secondAttribute="trailing" constant="8" id="BYe-o6-hzU"/>
                                             <constraint firstAttribute="trailing" secondItem="GGm-T7-QFh" secondAttribute="trailing" constant="24" id="FL0-7s-adU"/>
-                                            <constraint firstAttribute="trailing" secondItem="hkg-8t-e9s" secondAttribute="trailing" constant="24" id="dJC-G7-nyB"/>
                                             <constraint firstItem="hkg-8t-e9s" firstAttribute="leading" secondItem="9pQ-ul-Ay3" secondAttribute="leading" constant="24" id="k7U-z1-rrx"/>
                                             <constraint firstItem="DPB-YP-Vow" firstAttribute="leading" secondItem="9pQ-ul-Ay3" secondAttribute="leading" constant="8" id="kU9-tI-L9U"/>
                                             <constraint firstItem="hkg-8t-e9s" firstAttribute="top" secondItem="GGm-T7-QFh" secondAttribute="bottom" constant="4" id="owM-0Y-Gdt"/>
@@ -1180,6 +1235,7 @@
                         <outlet property="noTransactionsLabelView" destination="rMH-UY-qvt" id="jU5-Tm-W1x"/>
                         <outlet property="onlineStatusIndicator" destination="DPr-59-QRc" id="OzA-q2-pDF"/>
                         <outlet property="onlineStatusLabel" destination="uE8-QO-nVX" id="yFJ-a2-V5l"/>
+                        <outlet property="pageSubtitleLabel" destination="gMi-Pi-sSE" id="uvK-Jn-40W"/>
                         <outlet property="pageTitleLabel" destination="3OP-M8-itB" id="GY4-rw-XuZ"/>
                         <outlet property="pageTitleSeparator" destination="IK4-Pz-8cc" id="q3U-sM-1FX"/>
                         <outlet property="parentScrollView" destination="Zw5-BT-lXr" id="ieg-Zd-hb3"/>
@@ -1205,6 +1261,7 @@
                         <outlet property="totalSyncETALabel" destination="zPw-bn-xfO" id="CnF-bN-fbs"/>
                         <outlet property="totalSyncProgressPercentageLabel" destination="MMS-7F-caT" id="OMT-K1-dvJ"/>
                         <outlet property="totalSyncProgressView" destination="4ot-bj-xT3" id="0Yv-6w-2tV"/>
+                        <outlet property="usdBalanceLabel" destination="hkg-8t-e9s" id="GhG-UG-DBT"/>
                         <outlet property="walletsNeedBackupLabel" destination="bke-5i-43H" id="bzB-Y7-0Cy"/>
                     </connections>
                 </viewController>
@@ -1215,8 +1272,12 @@
     </scenes>
     <designables>
         <designable name="GcG-b3-nUG">
-            <size key="intrinsicContentSize" width="100" height="33"/>
+            <size key="intrinsicContentSize" width="94" height="34"/>
         </designable>
+        <designable name="gMi-Pi-sSE">
+            <size key="intrinsicContentSize" width="8" height="18"/>
+        </designable>
+        <designable name="hkg-8t-e9s"/>
     </designables>
     <resources>
         <image name="ic_alert" width="16" height="16"/>

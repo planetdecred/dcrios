@@ -20,6 +20,7 @@ class SettingsController: UITableViewController  {
     @IBOutlet weak var connectPeerIpLabel: UILabel!
     @IBOutlet weak var spendUnconfirmedFundSwitch: UISwitch!
     @IBOutlet weak var beepForNewBlockSwitch: UISwitch!
+    @IBOutlet weak var politeiaNotificationSwitch: UISwitch!
     @IBOutlet weak var startupPinOrPasswordSwitch: UISwitch!
     @IBOutlet weak var useBiometricSwitch: UISwitch!
     @IBOutlet weak var currencySubtitleLabel: UILabel!
@@ -30,6 +31,7 @@ class SettingsController: UITableViewController  {
         super.viewDidLoad()
         self.spendUnconfirmedFundSwitch.addTarget(self, action: #selector(switchChanged), for: UIControl.Event.valueChanged)
         self.beepForNewBlockSwitch.addTarget(self, action: #selector(switchChanged), for: UIControl.Event.valueChanged)
+        self.politeiaNotificationSwitch.addTarget(self, action: #selector(switchChanged), for: UIControl.Event.valueChanged)
         self.cellularSyncSwitch.addTarget(self, action: #selector(switchChanged), for: UIControl.Event.valueChanged)
         self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 56, right: 0)
     }
@@ -46,6 +48,9 @@ class SettingsController: UITableViewController  {
             
         case self.cellularSyncSwitch:
             fieldToUpdate = DcrlibwalletSyncOnCellularConfigKey
+            
+        case self.politeiaNotificationSwitch:
+            fieldToUpdate = DcrlibwalletPoliteiaNotificationConfigKey
             
         default:
             return
@@ -83,6 +88,7 @@ class SettingsController: UITableViewController  {
         self.spendUnconfirmedFundSwitch?.isOn = Settings.readBoolValue(for: DcrlibwalletSpendUnconfirmedConfigKey)
         self.connectPeerIpLabel?.text = Settings.readStringValue(for: DcrlibwalletSpvPersistentPeerAddressesConfigKey)
         self.beepForNewBlockSwitch?.isOn = Settings.readBoolValue(for: DcrlibwalletBeepNewBlocksConfigKey)
+        self.politeiaNotificationSwitch?.isOn = Settings.readBoolValue(for: DcrlibwalletPoliteiaNotificationConfigKey)
         
         self.cellularSyncSwitch.isOn = Settings.readBoolValue(for: DcrlibwalletSyncOnCellularConfigKey)
         

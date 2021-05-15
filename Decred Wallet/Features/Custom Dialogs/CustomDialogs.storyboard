@@ -26,10 +26,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OTz-zL-ye2">
-                                <rect key="frame" x="0.0" y="682.5" width="414" height="213.5"/>
+                                <rect key="frame" x="0.0" y="684.5" width="414" height="211.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rename wallet" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sjt-85-hFY">
-                                        <rect key="frame" x="24" y="24" width="366" height="25.5"/>
+                                        <rect key="frame" x="24" y="24" width="131.5" height="23.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="20"/>
                                         <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -38,7 +38,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ylK-Qf-Xvq" customClass="FloatingPlaceholderTextField" customModule="Decred_Wallet" customModuleProvider="target">
-                                        <rect key="frame" x="24" y="73.5" width="366" height="48"/>
+                                        <rect key="frame" x="24" y="71.5" width="366" height="48"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="dXt-3n-nbc"/>
                                         </constraints>
@@ -46,13 +46,13 @@
                                         <textInputTraits key="textInputTraits" textContentType="password"/>
                                     </textField>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name is reserved." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jtQ-yz-NH0">
-                                        <rect key="frame" x="40" y="125.5" width="334" height="15.5"/>
+                                        <rect key="frame" x="40" y="123.5" width="334" height="14"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="12"/>
                                         <color key="textColor" red="0.92941176469999998" green="0.42745098040000001" blue="0.2784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bIU-cW-IVU">
-                                        <rect key="frame" x="24" y="149.5" width="366" height="40"/>
+                                        <rect key="frame" x="24" y="147.5" width="366" height="40"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="As3-fJ-RPc">
                                                 <rect key="frame" x="199" y="0.0" width="79" height="40"/>
@@ -105,19 +105,31 @@
                                             <constraint firstItem="RpI-Rx-7Vj" firstAttribute="leading" secondItem="As3-fJ-RPc" secondAttribute="trailing" constant="8" id="gJr-RX-8SH"/>
                                         </constraints>
                                     </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G04-cX-21S">
+                                        <rect key="frame" x="350" y="16" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="xdp-64-69i"/>
+                                        </constraints>
+                                        <state key="normal" image="ic_info"/>
+                                        <connections>
+                                            <action selector="infoButtonTapped:" destination="lI7-ED-syP" eventType="touchUpInside" id="2ZG-0Z-09S"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="jtQ-yz-NH0" firstAttribute="top" secondItem="ylK-Qf-Xvq" secondAttribute="bottom" constant="4" id="4bf-cr-Vw4"/>
+                                    <constraint firstItem="G04-cX-21S" firstAttribute="centerY" secondItem="sjt-85-hFY" secondAttribute="centerY" id="6AE-2W-A0r"/>
                                     <constraint firstItem="ylK-Qf-Xvq" firstAttribute="top" secondItem="sjt-85-hFY" secondAttribute="bottom" constant="24" id="8bH-lP-u9W"/>
                                     <constraint firstItem="bIU-cW-IVU" firstAttribute="top" secondItem="jtQ-yz-NH0" secondAttribute="top" constant="24" id="BvS-lm-PjM"/>
+                                    <constraint firstItem="G04-cX-21S" firstAttribute="width" secondItem="G04-cX-21S" secondAttribute="height" multiplier="1:1" id="EAd-HW-cMj"/>
                                     <constraint firstItem="sjt-85-hFY" firstAttribute="top" secondItem="OTz-zL-ye2" secondAttribute="top" constant="24" id="FTB-Jm-Lk6"/>
+                                    <constraint firstAttribute="trailing" secondItem="G04-cX-21S" secondAttribute="trailing" constant="24" id="Gn0-hv-3ZT"/>
                                     <constraint firstAttribute="bottom" secondItem="bIU-cW-IVU" secondAttribute="bottom" constant="24" id="O9m-03-Ie3"/>
                                     <constraint firstItem="ylK-Qf-Xvq" firstAttribute="trailing" secondItem="jtQ-yz-NH0" secondAttribute="trailing" constant="16" id="OGC-Gq-Qwf"/>
                                     <constraint firstItem="ylK-Qf-Xvq" firstAttribute="leading" secondItem="OTz-zL-ye2" secondAttribute="leading" constant="24" id="OTY-4A-S6v"/>
                                     <constraint firstItem="jtQ-yz-NH0" firstAttribute="leading" secondItem="ylK-Qf-Xvq" secondAttribute="leading" constant="16" id="YnD-3I-afz"/>
                                     <constraint firstAttribute="trailing" secondItem="ylK-Qf-Xvq" secondAttribute="trailing" constant="24" id="edT-s1-OCX"/>
-                                    <constraint firstAttribute="trailing" secondItem="sjt-85-hFY" secondAttribute="trailing" constant="24" id="fuX-5O-O8G"/>
                                     <constraint firstItem="bIU-cW-IVU" firstAttribute="leading" secondItem="OTz-zL-ye2" secondAttribute="leading" constant="24" id="u7Z-z3-GMf"/>
                                     <constraint firstItem="sjt-85-hFY" firstAttribute="leading" secondItem="OTz-zL-ye2" secondAttribute="leading" constant="24" id="xaD-m6-hBB"/>
                                     <constraint firstAttribute="trailing" secondItem="bIU-cW-IVU" secondAttribute="trailing" constant="24" id="yqO-Zd-SjU"/>
@@ -144,6 +156,7 @@
                     <connections>
                         <outlet property="cancelButton" destination="As3-fJ-RPc" id="muX-zg-pCh"/>
                         <outlet property="dialogViewBottomConstraint" destination="Hgc-kO-aIa" id="sgE-sX-dmu"/>
+                        <outlet property="infoButton" destination="G04-cX-21S" id="pTd-8K-vEi"/>
                         <outlet property="inputErrorLabel" destination="jtQ-yz-NH0" id="DEk-KL-G8f"/>
                         <outlet property="submitButton" destination="RpI-Rx-7Vj" id="o8Z-EF-tBM"/>
                         <outlet property="textField" destination="ylK-Qf-Xvq" id="RAe-XW-oRK"/>
@@ -166,7 +179,7 @@
                                 <rect key="frame" x="40" y="362" width="334" height="182.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remove wallet from device?" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="DmN-2k-s0e">
-                                        <rect key="frame" x="24" y="20" width="286" height="25.5"/>
+                                        <rect key="frame" x="24" y="20" width="286" height="23.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="20"/>
                                         <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -175,7 +188,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Make sure to have the seed phrase backed up before removing the wallet." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2vZ-fQ-jXH">
-                                        <rect key="frame" x="24" y="57.5" width="286" height="40.5"/>
+                                        <rect key="frame" x="24" y="55.5" width="286" height="37.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                         <color key="textColor" red="0.23921568627450979" green="0.34509803921568627" blue="0.45098039215686275" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -290,10 +303,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JnU-Wj-3OK" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
-                                <rect key="frame" x="40" y="346.5" width="334" height="213.5"/>
+                                <rect key="frame" x="40" y="347.5" width="334" height="211.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Incoming transactions" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Lw-6t-u7h">
-                                        <rect key="frame" x="24" y="20" width="286" height="25.5"/>
+                                        <rect key="frame" x="24" y="20" width="286" height="23.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="20"/>
                                         <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -490,6 +503,79 @@
             </objects>
             <point key="canvasLocation" x="2812" y="-729"/>
         </scene>
+
+        <!--Simple Alert Dialog-->
+        <scene sceneID="a0v-Zb-PMW">
+            <objects>
+                <viewController storyboardIdentifier="SimpleAlertDialog" id="7tf-oj-rM0" customClass="SimpleAlertDialog" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9WJ-x4-JTq">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9mB-bz-qSS" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
+                                <rect key="frame" x="40" y="392.5" width="334" height="121.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remember to back up your wallets as soon as possible." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rr3-ou-obW">
+                                        <rect key="frame" x="24" y="24" width="286" height="40.5"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                        <color key="textColor" red="0.23921568630000001" green="0.34509803919999998" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="backUpYourWalletsReminder"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XPc-hQ-3RI">
+                                        <rect key="frame" x="247" y="80.5" width="79" height="33"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="79" id="PaO-bL-cec"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
+                                        <state key="normal" title="Got it">
+                                            <color key="titleColor" red="0.16078431369999999" green="0.43921568630000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="gotIt"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="gotItButtonTapped:" destination="7tf-oj-rM0" eventType="touchUpInside" id="4da-24-EDU"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="XPc-hQ-3RI" secondAttribute="trailing" constant="8" id="41g-VO-uRA"/>
+                                    <constraint firstAttribute="bottom" secondItem="XPc-hQ-3RI" secondAttribute="bottom" constant="8" id="5Sa-yX-5uh"/>
+                                    <constraint firstItem="rr3-ou-obW" firstAttribute="top" secondItem="9mB-bz-qSS" secondAttribute="top" constant="24" id="NUw-wc-IU3"/>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="500" id="TWR-wl-auk"/>
+                                    <constraint firstItem="XPc-hQ-3RI" firstAttribute="top" secondItem="rr3-ou-obW" secondAttribute="bottom" constant="16" id="cAx-pf-bWD"/>
+                                    <constraint firstItem="rr3-ou-obW" firstAttribute="leading" secondItem="9mB-bz-qSS" secondAttribute="leading" constant="24" id="heM-Li-5lK"/>
+                                    <constraint firstAttribute="trailing" secondItem="rr3-ou-obW" secondAttribute="trailing" constant="24" id="s26-eU-1DT"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderRadius">
+                                        <real key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ngy-YP-lVz"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="9mB-bz-qSS" firstAttribute="centerX" secondItem="ngy-YP-lVz" secondAttribute="centerX" id="6Mb-Y1-BXe"/>
+                            <constraint firstItem="9mB-bz-qSS" firstAttribute="leading" secondItem="ngy-YP-lVz" secondAttribute="leading" constant="40" id="KmF-ti-Uz1"/>
+                            <constraint firstItem="ngy-YP-lVz" firstAttribute="trailing" secondItem="9mB-bz-qSS" secondAttribute="trailing" constant="40" id="Piz-0s-oUT"/>
+                            <constraint firstItem="9mB-bz-qSS" firstAttribute="centerY" secondItem="ngy-YP-lVz" secondAttribute="centerY" id="xtx-dE-SWY"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="messageLabel" destination="rr3-ou-obW" id="VdF-Hc-143"/>
+                        <outlet property="okBtn" destination="XPc-hQ-3RI" id="hUo-me-cxb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ile-Wm-at2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3692.753623188406" y="-729.24107142857144"/>
+        </scene>
         <!--Multiple Text Input Dialog-->
         <scene sceneID="Kvz-VT-OHi">
             <objects>
@@ -499,16 +585,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jix-Yz-rr0">
-                                <rect key="frame" x="0.0" y="606" width="414" height="290"/>
+                                <rect key="frame" x="0.0" y="611" width="414" height="285"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create watch only wallet" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="CPF-2i-5k9">
-                                        <rect key="frame" x="24" y="24" width="366" height="25.5"/>
+                                        <rect key="frame" x="24" y="24" width="366" height="23.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="20"/>
                                         <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GAs-jd-Gqe" customClass="FloatingPlaceholderTextField" customModule="Decred_Wallet" customModuleProvider="target">
-                                        <rect key="frame" x="24" y="73.5" width="366" height="48"/>
+                                        <rect key="frame" x="24" y="71.5" width="366" height="48"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="kXE-rI-pu8"/>
                                         </constraints>
@@ -516,13 +602,13 @@
                                         <textInputTraits key="textInputTraits" textContentType="password"/>
                                     </textField>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name is reserved." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YmK-hg-wIe">
-                                        <rect key="frame" x="40" y="125.5" width="334" height="15.5"/>
+                                        <rect key="frame" x="40" y="123.5" width="334" height="14"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="12"/>
                                         <color key="textColor" red="0.92941176469999998" green="0.42745098040000001" blue="0.2784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7xk-ob-U2x">
-                                        <rect key="frame" x="24" y="222.5" width="366" height="40"/>
+                                        <rect key="frame" x="24" y="217.5" width="366" height="40"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m9N-SL-zOt">
                                                 <rect key="frame" x="199" y="0.0" width="79" height="40"/>
@@ -539,7 +625,7 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="US8-5M-GYa" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                                 <rect key="frame" x="286" y="0.0" width="80" height="40"/>
-                                                <color key="backgroundColor" red="0.77000000000000002" green="0.80000000000000004" blue="0.81999999999999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" red="0.76862745098039209" green="0.80000000000000004" blue="0.81960784313725488" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="5yr-xc-NfZ"/>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="9NZ-2d-V4B"/>
@@ -576,7 +662,7 @@
                                         </constraints>
                                     </view>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EGJ-n8-btt" customClass="FloatingPlaceholderTextField" customModule="Decred_Wallet" customModuleProvider="target">
-                                        <rect key="frame" x="24" y="149" width="366" height="48"/>
+                                        <rect key="frame" x="24" y="145.5" width="366" height="48"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="7Qz-7x-2Mm"/>
                                         </constraints>
@@ -584,7 +670,7 @@
                                         <textInputTraits key="textInputTraits" textContentType="password"/>
                                     </textField>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name is reserved." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BsG-gz-XtA">
-                                        <rect key="frame" x="40" y="201" width="366" height="15.5"/>
+                                        <rect key="frame" x="40" y="197.5" width="366" height="14"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="12"/>
                                         <color key="textColor" red="0.92941176469999998" green="0.42745098040000001" blue="0.2784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -772,33 +858,31 @@
     </scenes>
     <designables>
         <designable name="Bso-LG-2oW">
-            <size key="intrinsicContentSize" width="88" height="21"/>
+            <size key="intrinsicContentSize" width="91" height="19"/>
         </designable>
         <designable name="EGJ-n8-btt">
-            <size key="intrinsicContentSize" width="34" height="34"/>
+            <size key="intrinsicContentSize" width="35" height="34"/>
         </designable>
         <designable name="GAs-jd-Gqe">
-            <size key="intrinsicContentSize" width="34" height="34"/>
+            <size key="intrinsicContentSize" width="35" height="34"/>
         </designable>
         <designable name="RpI-Rx-7Vj">
-            <size key="intrinsicContentSize" width="77" height="21"/>
+            <size key="intrinsicContentSize" width="80" height="19"/>
         </designable>
         <designable name="US8-5M-GYa">
-            <size key="intrinsicContentSize" width="77" height="21"/>
-        </designable>
-        <designable name="XI0-Td-fU0">
-            <size key="intrinsicContentSize" width="157" height="21"/>
+            <size key="intrinsicContentSize" width="80" height="19"/>
         </designable>
         <designable name="Ycs-gD-CQg">
-            <size key="intrinsicContentSize" width="52" height="21"/>
+            <size key="intrinsicContentSize" width="53" height="19"/>
         </designable>
         <designable name="ylK-Qf-Xvq">
-            <size key="intrinsicContentSize" width="34" height="34"/>
+            <size key="intrinsicContentSize" width="35" height="34"/>
         </designable>
     </designables>
     <resources>
         <image name="ic_alert" width="16" height="16"/>
         <image name="ic_close" width="24" height="24"/>
+        <image name="ic_info" width="24" height="24"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

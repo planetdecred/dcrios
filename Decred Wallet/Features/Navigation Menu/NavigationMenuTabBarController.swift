@@ -139,6 +139,13 @@ class NavigationMenuTabBarController: UITabBarController {
         // start sync and new tx listener
         SyncManager.shared.startSync(allowSyncOnCellular: Settings.syncOnCellular)
         TransactionNotification.shared.startListeningForNotifications()
+        PoliteiaNotification.shared.startListeningForNotifications()
+        
+        // start sync politeia
+        let walletIsOnline = SyncManager.shared.isSynced || SyncManager.shared.isSyncing
+        if walletIsOnline {
+            PoliteiaNotification.shared.syncPoliteia()
+        }
     }
 
     static var instance: NavigationMenuTabBarController? {

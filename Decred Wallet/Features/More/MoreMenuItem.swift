@@ -11,6 +11,7 @@ import UIKit
 enum MoreMenuItem: String, CaseIterable {
     case settings = "settings"
     case securityTools = "securityTools"
+    case politeia = "politeia"
     case help = "help"
     case about = "about"
     case debug = "debug"
@@ -24,6 +25,9 @@ enum MoreMenuItem: String, CaseIterable {
             
         case .securityTools:
             return SecurityToolsViewController.instantiate(from: .SecurityTools)
+            
+        case .politeia:
+            return PoliteiaController.instantiate(from: .Politeia)
             
         case .help:
             return HelpTableViewController.instantiate(from: .Help)
@@ -43,6 +47,9 @@ enum MoreMenuItem: String, CaseIterable {
             
         case .securityTools:
             return UIImage(named: "security_tools")
+            
+        case .politeia:
+            return UIImage(named: "ic_politeia")
             
         case .help:
             return UIImage(named: "help")

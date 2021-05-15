@@ -13,10 +13,12 @@ class OverviewViewController: UIViewController {
     // Custom navigation bar
     @IBOutlet weak var pageTitleLabel: UILabel!
     @IBOutlet weak var pageTitleSeparator: UIView!
+    @IBOutlet weak var pageSubtitleLabel: UILabel!
     
     var refreshControl: UIRefreshControl!
     @IBOutlet weak var parentScrollView: UIScrollView!
     @IBOutlet weak var balanceLabel: UILabel!
+    @IBOutlet weak var usdBalanceLabel: UILabel!
     
     // MARK: Backup phrase section (Top view)
     @IBOutlet weak var seedBackupSectionView: UIView!
@@ -83,6 +85,11 @@ class OverviewViewController: UIViewController {
     var mixingAccounts = [MixerAcount]()
     var refreshBestBlockAgeTimer: Timer?
     
+    var exchangeRate: NSDecimalNumber?
+    var dcrAmountUnit: Bool = true
+    var exchangeValue: NSDecimalNumber?
+    var currencyConversionDisabled: Bool?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -129,11 +136,46 @@ class OverviewViewController: UIViewController {
         if !WalletLoader.shared.multiWallet.isSyncing() {
             self.refreshLatestBlockInfoPeriodically()
         }
+        
+        currencyConversionDisabled = Settings.currencyConversionOption == .None
+        if !currencyConversionDisabled! {
+            self.fetchExchangeRate()
+        } else {
+            usdBalanceLabel.isHidden = true
+        }
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         // stop refreshing best block age when view becomes invisible
         self.refreshBestBlockAgeTimer?.invalidate()
+    }
+    
+    private func fetchExchangeRate() {
+        switch Settings.currencyConversionOption {
+        case .None:
+            self.exchangeRate = nil
+            break
+            
+        case .Bittrex:
+            ExchangeRates.Bittrex.fetch(callback: self.displayExchangeRate)
+        }
+    }
+    
+    func displayExchangeRate(_ newExchangeRate: NSDecimalNumber?) {
+        // only show error if an exchange rate has never been fetched previously
+        if newExchangeRate == nil && self.exchangeRate == nil {
+            return
+        }
+        
+        self.exchangeRate = newExchangeRate ?? self.exchangeRate // maintain current value if new value is nil
+
+        let dcrAmount = WalletLoader.shared.multiWallet.totalBalance
+        let usdAmount = NSDecimalNumber(value: dcrAmount).multiplying(by: exchangeRate!)
+        self.exchangeValue = usdAmount
+        self.usdBalanceLabel.isHidden = false
+        self.usdBalanceLabel.text = "$\(usdAmount.round(2).formattedWithSeparator)"
+       
     }
     
     func initializeViews() {
@@ -159,6 +201,16 @@ class OverviewViewController: UIViewController {
         
         //TODO change me
         self.mixersTableViewHeightContraint.constant = WalletMixerCell.height
+        
+        pageSubtitleLabel.layer.borderColor = UIColor.appColors.paleGray.cgColor
+        pageSubtitleLabel.layer.borderWidth = 1.0
+        pageSubtitleLabel.layer.cornerRadius = 8
+        pageSubtitleLabel.isHidden = true
+        
+        usdBalanceLabel.layer.borderColor = UIColor.appColors.paleGray.cgColor
+        usdBalanceLabel.layer.borderWidth = 1.0
+        usdBalanceLabel.layer.cornerRadius = 8
+        usdBalanceLabel.isHidden = true
     }
     
     @objc func refreshRecentActivityAndUpdateBalance() {
@@ -194,9 +246,9 @@ class OverviewViewController: UIViewController {
         }
         
         self.recentTransactions = transactions
-        self.recentTransactionsTableView.reloadData()
         
         self.recentTransactionsTableViewHeightContraint.constant = TransactionTableViewCell.height() * CGFloat(self.recentTransactions.count)
+        self.recentTransactionsTableView.reloadData()
 
         self.recentTransactionsTableView.isHidden = false
         self.showAllTransactionsButton.isHidden = false
@@ -463,10 +515,12 @@ class OverviewViewController: UIViewController {
 extension OverviewViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.updatePageTitleTextOnScroll(using: scrollView)
+        self.updatePageSubtitleTextOnScroll(using: scrollView)
     }
 
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         self.updatePageTitleTextOnScroll(using: scrollView)
+        self.updatePageSubtitleTextOnScroll(using: scrollView)
     }
 
     func updatePageTitleTextOnScroll(using scrollView: UIScrollView) {
@@ -480,6 +534,21 @@ extension OverviewViewController: UIScrollViewDelegate {
         } else {
             self.pageTitleLabel.attributedText = self.balanceLabel.attributedText!
             self.pageTitleSeparator.isHidden = false
+        }
+    }
+    
+    func updatePageSubtitleTextOnScroll(using scrollView: UIScrollView) {
+        // We are targeting only the parent scroll view because this VC also holds a tableview that can be scrolled
+        // and we do not want to react to that.
+        guard scrollView == self.parentScrollView else { return }
+
+        if scrollView.contentOffset.y < self.balanceLabel.frame.height / 2 {
+            self.pageSubtitleLabel.isHidden = true
+        } else {
+            if !currencyConversionDisabled! {
+                self.pageSubtitleLabel.attributedText = self.usdBalanceLabel.attributedText!
+                self.pageSubtitleLabel.isHidden = false
+            }
         }
     }
 }
@@ -537,7 +606,20 @@ extension OverviewViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension OverviewViewController: DcrlibwalletSyncProgressListenerProtocol {
     func onCFiltersFetchProgress(_ cfiltersFetchProgress: DcrlibwalletCFiltersFetchProgressReport?) {
-        
+        guard let report = cfiltersFetchProgress else { return }
+        DispatchQueue.main.async {
+            self.syncStatusLabel.text = LocalizedStrings.synchronizing
+            self.displayGeneralSyncProgress(report.generalSyncProgress)
+            
+            self.syncCurrentStepNumberLabel.text = LocalizedStrings.stepCfilter
+            self.syncCurrentStepSummaryLabel.text = String(format: LocalizedStrings.fetchingCfilter, report.cFiltersFetchProgress)
+            
+            self.syncCurrentStepTitleLabel.text = LocalizedStrings.cfilterFetched
+            self.syncCurrentStepReportLabel.text = String(format: LocalizedStrings.cfilterFetchedTotal, report.currentCFilterHeight, report.totalCFiltersToFetch)
+            
+            self.syncCurrentStepProgressLabel.text = report.blockRemaining
+            
+        }
     }
     
     func onSyncStarted(_ wasRestarted: Bool) {
@@ -764,12 +846,12 @@ extension OverviewViewController: DcrlibwalletTxAndBlockNotificationListenerProt
         
         tx.animate = true
         self.recentTransactions.insert(tx, at: 0)
-        
         if self.recentTransactions.count > 3 {
             _ = self.recentTransactions.popLast()
         }
         
         DispatchQueue.main.async {
+            self.recentTransactionsTableViewHeightContraint.constant = TransactionTableViewCell.height() * CGFloat(self.recentTransactions.count)
             self.updateMultiWalletBalance()
             self.recentTransactionsTableView.reloadData()
             self.setMixerStatus()

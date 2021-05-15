@@ -359,7 +359,27 @@ struct Utils {
         let output = formatter.string(from: TimeInterval(seconds))!
         return output
     }
-    
+
+    static func politeiaColorBGStatus(_ politeiaStatus: PoliteiaVoteStatus) -> UIColor {
+        switch politeiaStatus {
+        case .NOT_AUTHORIZED:
+            return UIColor.appColors.orange
+        case .AUTHORIZED:
+            return UIColor.appColors.lightBlue
+        case .VOTE_STARTED:
+            return UIColor.appColors.lightBlue
+        case .APPROVED:
+            return UIColor.appColors.darkerGreen
+        case .REJECT:
+            return UIColor.appColors.orange
+        case .NON_EXISTENT:
+            return UIColor.appColors.orange
+        case .ABANDONED:
+            return UIColor.appColors.orange
+        default:
+            return UIColor.appColors.paleGray
+        }
+    }
 }
 
 struct MixerAcount {

@@ -39,6 +39,11 @@ struct LocalizedStrings {
     static let getStarted = NSLocalizedString("getStarted", comment: "")
     static let restoreSuccessTitle = NSLocalizedString("restoreSuccessTitle", comment: "")
     
+    /* Import Watch-only Wallet*/
+    static let watchWalletImported = NSLocalizedString("watchWalletImported", comment: "")
+    static let extendPublicKeyInfo = NSLocalizedString("extendPublicKeyInfo", comment: "")
+    static let watchWalletTitle = NSLocalizedString("watchWalletTitle", comment: "")
+    
     /* Unlock Wallet Prompt */
     static let unlockWithStartupCode = NSLocalizedString("unlockWithStartupCode", comment: "")
     static let unlock = NSLocalizedString("unlock", comment: "")
@@ -121,6 +126,11 @@ struct LocalizedStrings {
     static let errorSyncInProgress = NSLocalizedString("errorSyncInProgress", comment: "")
     static let errorRescanInProgress = NSLocalizedString("errorRescanInProgress", comment: "")
     static let rescanProgressNotification = NSLocalizedString("rescanProgressNotification", comment: "")
+    static let stepCfilter = NSLocalizedString("stepCfilter", comment: "")
+    static let fetchingCfilter = NSLocalizedString("fetchingCFilter", comment: "")
+    static let cfilterFetched = NSLocalizedString("cfilterFetched", comment: "")
+    static let cfiltersLeft = NSLocalizedString("cfiltersLeft", comment: "")
+    static let cfilterFetchedTotal = NSLocalizedString("cfilterFetchedTotal", comment: "")
     
     /* Navigation Menu Items */
     static let overview = NSLocalizedString("overview", comment: "")
@@ -212,6 +222,7 @@ struct LocalizedStrings {
     /* Send view */
     static let invalidAmount = NSLocalizedString("invalidAmount", comment: "")
     static let amount8Decimal = NSLocalizedString("amount8Decimal", comment: "")
+    static let amount2Decimal = NSLocalizedString("amount2Decimal", comment: "")
     static let amountMaximumAllowed = NSLocalizedString("amountMaximumAllowed", comment: "")
     static let notEnoughFunds = NSLocalizedString("notEnoughFunds", comment: "")
     static let notEnoughFundsOrNotConnected = NSLocalizedString("notEnoughFundsOrNotConnected", comment: "")
@@ -353,6 +364,7 @@ struct LocalizedStrings {
     static let spendUnconfirmedFund = NSLocalizedString("spendUnconfirmedFund", comment: "")
     static let currencyConversion = NSLocalizedString("currencyConversion", comment: "")
     static let beepForNewBlocks = NSLocalizedString("beepForNewBlocks", comment: "")
+    static let enablePoliteiaNotification = NSLocalizedString("enablePoliteiaNotification", comment: "")
     static let connectIpDesc = NSLocalizedString("connectIpDesc", comment: "")
     static let syncOnWifiDesc = NSLocalizedString("syncOnWifiDesc", comment: "")
     static let userAgent = NSLocalizedString("userAgent", comment: "")
@@ -376,6 +388,7 @@ struct LocalizedStrings {
     static let months = NSLocalizedString("months", comment: "")
     static let years = NSLocalizedString("years", comment: "")
     static let net = NSLocalizedString("net", comment: "")
+    static let connectPeer = NSLocalizedString("connectPeer", comment: "")
 
     /* Change startup/spending pin/pass */
     static let newPasswordPlaceholder = NSLocalizedString("newPasswordPlaceholder", comment: "")
@@ -437,6 +450,22 @@ struct LocalizedStrings {
     static let help = NSLocalizedString("help", comment: "")
     static let helpInfo = NSLocalizedString("helpInfo", comment: "")
     static let notifications = NSLocalizedString("notifications", comment: "")
+    
+    /* Politeia proposals */
+    static let politeia = NSLocalizedString("politeia", comment: "")
+    static let politeiaDetail = NSLocalizedString("politeiaDetail", comment: "")
+    static let poliAbandoned = NSLocalizedString("poliAbandoned", comment: "")
+    static let poliInvalid = NSLocalizedString("poliInvalid", comment: "")
+    static let poliNotAuthorized = NSLocalizedString("poliNotAuthorized", comment: "")
+    static let poliAuthorized = NSLocalizedString("poliAuthorized", comment: "")
+    static let poliVoteStarted = NSLocalizedString("poliVoteStarted", comment: "")
+    static let poliApproved = NSLocalizedString("poliApproved", comment: "")
+    static let poliRejected = NSLocalizedString("poliRejected", comment: "")
+    static let poliNonExistent = NSLocalizedString("poliNonExistent", comment: "")
+    static let commentCount = NSLocalizedString("commentCount", comment: "")
+    static let politeiaVersion = NSLocalizedString("politeiaVersion", comment: "")
+    static let noPoliteia = NSLocalizedString("noPoliteia", comment: "")
+    static let syncPoliteiaTryAgain = NSLocalizedString("syncPoliteiaTryAgain", comment: "")
     
     /* Seed Backup */
     static let failedToVerify = NSLocalizedString("failedToVerify", comment: "")

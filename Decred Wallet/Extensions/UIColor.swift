@@ -29,6 +29,7 @@ extension UIColor {
         static let green = UIColor.init(hex: "#41BE53")
         static let lightGreen = UIColor.init(hex: "#C4ECCA")
         static let turquoise = UIColor.init(hex: "#2DD8A3")
+        static let darkerGreen = UIColor.init(hex: "#3CC39A")
         static let darkTurquoise = UIColor.init(hex: "#14A078")
         
         static let orange = UIColor.init(hex: "#ED6D47")
@@ -42,7 +43,7 @@ extension UIColor {
         static let lightBluishGray = UIColor.init(hex: "#8997A5")
         
         static let gray = UIColor.init(hex: "#E6EAED")
-        static let darkGray = UIColor.init(hex: "#C4CBD2")
+        static let paleGray = UIColor.init(hex: "#C4CBD2")
         static let lightGray = UIColor.init(hex: "#EDEFF1")
         static let deepGray = UIColor.init(hex:"#030303")
         

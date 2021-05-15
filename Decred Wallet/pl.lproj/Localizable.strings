@@ -18,6 +18,11 @@
 "default_" = "default";
 "migratingWallet" = "Migrating wallet";
 
+/*Import Watch-only wallet*/
+"watchWalletImported" = "Watch-only wallet imported";
+"extendPublicKeyInfo" = "In Decrediton, under the Accounts section, expand the account you want to watch, and tap on Reveal Pubkey";
+"watchWalletTitle" = "Create watch only wallet";
+
 /* Create New Wallet(Seed display view) */
 "settingUpYourWallet" = "Setting Up Decred Wallet";
 
@@ -125,6 +130,11 @@
 "errorSyncInProgress" = "Nie można rozpocząć ponownego skanowania podczas synchronizacji portfela";
 "errorRescanInProgress" = "Nie można rozpocząć ponownego skanowania, gdy skanowanie jest już w trakcie";
 "rescanProgressNotification" = "Sprawdź postęp w zakładce 'widok ogólny'!";
+"stepCfilter" = "Refetching cfilters for upgrade";
+"fetchingCFilter" = "Fetching cfilters · %d%%";
+"cfilterFetched" = "CFilters fetched";
+"cfiltersLeft" = "%d CFilters left";
+"cfilterFetchedTotal" = "%d of %d";
 
 /* Navigation Menu Items */
 "overview" = "Widok ogólny";
@@ -216,6 +226,7 @@
 /* Send view */
 "invalidAmount" = "Amount is not valid.";
 "amount8Decimal" = "Kwota ma więcej niż 8 miejsc po przecinku";
+"amount2Decimal" = "Kwota ma więcej niż 2 miejsc po przecinku";
 "amountMaximumAllowed" = "Amount more than maximum allowed.";
 "notEnoughFunds" = "Brak wystarczających środków.";
 "notEnoughFundsOrNotConnected" = "Brak wystarczających środków (lub brak połączenia).";
@@ -365,6 +376,22 @@
 "signFailedMessage" = "Failed to sign message. Please try again.";
 "sign" = "Podpisz";
 
+/* Politeia */
+"politeia" = "Politeia";
+"politeiaDetail" = "Proposal Details";
+"poliAbandoned" = "Abandoned";
+"poliInvalid" = "Invalid";
+"poliNotAuthorized" = "Not authorized by author";
+"poliAuthorized" = "Authorized by author";
+"poliVoteStarted" = "Vote started";
+"poliApproved" = "Approved";
+"poliRejected" = "Rejected";
+"poliNonExistent" = "Does not exist";
+"commentCount" = "%d Comments";
+"politeiaVersion" = "version %@";
+"noPoliteia" = "Brak propozycji";
+"syncPoliteiaTryAgain" = "There was an error when sync politeia, please try again in Politeia";
+
 /* Settings */
 "startupPinPass" = "PIN/hasło do uruchamiania";
 "changeStatupPinPass" = "Zmień PIN/hasło do uruchamiania";
@@ -389,6 +416,7 @@
 "helpInfo" = "Aby uzyskać więcej informacji, odwiedź stronę dokumentacji Decred.";
 "seeDocumentations" = "Wyświetl dokumentacje";
 "beepForNewBlocks" = "Powiadamiaj dźwiękiem o nadejściu nowych bloków";
+"enablePoliteiaNotification" = "Enable politeia notifications";
 "checkStatistics" = "Wyświetl statystyki";
 "statistics" = "Statystyki";
 "seconds" = "%d sekund(y)";
@@ -398,6 +426,7 @@
 "months" = "%d Months";
 "years" = "%d Years";
 "net" = "Net";
+"connectPeer" = "Connected peers";
 
 /* Change startup/spending pin/pass */
 "newPasswordPlaceholder" = "Nowe hasło do %@";

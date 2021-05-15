@@ -57,6 +57,18 @@ extension MultiWalletSyncDetailsLoader: DcrlibwalletSyncProgressListenerProtocol
         }
     }
     
+    func onCFiltersFetchProgress(_ cfiltersFetchProgress: DcrlibwalletCFiltersFetchProgressReport?) {
+        guard let report = cfiltersFetchProgress else { return }
+        
+        DispatchQueue.main.async {
+            for i in 0..<self.wallets.count {
+                if let syncDetailsView = self.multipleWalletsSyncDetailsTableView.cellForRow(at: IndexPath(row: i, section: 0)) as? WalletSyncDetailsTableViewCell {
+                    syncDetailsView.displayCFiltersFetchProgressReport(report)
+                }
+            }
+        }
+    }
+    
     func onPeerConnectedOrDisconnected(_ numberOfConnectedPeers: Int32) {
     }
     

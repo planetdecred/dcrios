@@ -42,6 +42,9 @@ class WalletLogViewController: UIViewController {
             
             self.navigationItem.rightBarButtonItem = infoBtnBtnItem
         
+        let bottomHeight = (self.tabBarController?.tabBar.frame.height ?? 0) + 10
+        self.logTextView.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: bottomHeight, right: 0)
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -55,7 +58,7 @@ class WalletLogViewController: UIViewController {
     @objc func copyLog() -> Void {
         DispatchQueue.main.async {
             UIPasteboard.general.string = self.logTextView.text
-            Utils.showBanner(in: self.view.subviews.first!, type: .success, text: LocalizedStrings.walletLogCopied)
+            Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.walletLogCopied)
         }
     }
     

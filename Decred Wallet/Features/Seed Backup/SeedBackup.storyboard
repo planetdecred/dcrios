@@ -69,7 +69,7 @@
                                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                <color key="value" red="0.90196078430000004" green="0.91764705879999997" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="value" red="0.34901960784313724" green="0.42745098039215684" blue="0.50588235294117645" alpha="1" colorSpace="calibratedRGB"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                                 <real key="value" value="2"/>
@@ -116,7 +116,7 @@
                                                         </constraints>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                <color key="value" red="0.90196078430000004" green="0.91764705879999997" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="value" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                                 <real key="value" value="2"/>
@@ -163,7 +163,7 @@
                                                         </constraints>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                <color key="value" red="0.90196078430000004" green="0.91764705879999997" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="value" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                                 <real key="value" value="2"/>
@@ -210,7 +210,7 @@
                                                         </constraints>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                <color key="value" red="0.90196078430000004" green="0.91764705879999997" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="value" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                                 <real key="value" value="2"/>
@@ -257,7 +257,7 @@
                                                         </constraints>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                <color key="value" red="0.90196078430000004" green="0.91764705879999997" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="value" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                                 <real key="value" value="2"/>
@@ -620,6 +620,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3w0-bl-p5t" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                         <rect key="frame" x="24" y="63.5" width="327" height="42"/>
                                         <color key="backgroundColor" red="0.16078431372549018" green="0.4392156862745098" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="iHaveWroteDown"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="42" id="6Oj-pS-1NC"/>
                                         </constraints>
@@ -967,6 +968,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="miY-8h-rc7" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
                                         <rect key="frame" x="24" y="16" width="327" height="42"/>
                                         <color key="backgroundColor" red="0.16078431369999999" green="0.43921568630000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="seedVerify"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="42" id="uLm-lD-L1q"/>
                                         </constraints>
@@ -1038,7 +1040,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Your seed phrase backup is verified" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CJe-yu-JPp">
-                                <rect key="frame" x="24" y="252" width="327" height="60.5"/>
+                                <rect key="frame" x="24" y="252" width="327" height="56"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="24"/>
                                 <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -1054,7 +1056,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Be sure to store your seed phrase backup in a secure location." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4vy-UB-jfM">
-                                <rect key="frame" x="24" y="328.5" width="327" height="40.5"/>
+                                <rect key="frame" x="24" y="324" width="327" height="37.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                 <color key="textColor" red="0.23921568627450979" green="0.34509803921568627" blue="0.45098039215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -1064,6 +1066,7 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VcD-Al-wic">
                                 <rect key="frame" x="24" y="588" width="327" height="35"/>
+                                <accessibility key="accessibilityConfiguration" identifier="backToWallet"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                 <state key="normal" title="Back to Wallets">
                                     <color key="titleColor" red="0.16078431372549018" green="0.4392156862745098" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

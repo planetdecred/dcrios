@@ -22,6 +22,7 @@ class SimpleTextInputDialog: UIViewController {
 
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var submitButton: Button!
+    @IBOutlet weak var infoButton: UIButton!
     
     @IBOutlet weak var dialogViewBottomConstraint: NSLayoutConstraint!
 
@@ -31,6 +32,8 @@ class SimpleTextInputDialog: UIViewController {
     private var cancelButtonText: String?
     private var submitButtonText: String?
     private var verifyInput: Bool!
+    private var showInfoButton: Bool!
+    private var infoText: String!
     private var callback: SimpleTextInputDialogCallback!
     
     static func show(sender vc: UIViewController,
@@ -40,6 +43,8 @@ class SimpleTextInputDialog: UIViewController {
                      cancelButtonText: String? = nil,
                      submitButtonText: String? = nil,
                      verifyInput: Bool = false,
+                     showInfoButton: Bool = false,
+                     infoText: String = "",
                      callback: @escaping SimpleTextInputDialogCallback) {
         
         let dialog = SimpleTextInputDialog.instantiate(from: .CustomDialogs)
@@ -50,6 +55,8 @@ class SimpleTextInputDialog: UIViewController {
         dialog.submitButtonText = submitButtonText
         dialog.verifyInput = verifyInput
         dialog.callback = callback
+        dialog.showInfoButton = showInfoButton
+        dialog.infoText = infoText
         
         dialog.modalPresentationStyle = .pageSheet
         vc.present(dialog, animated: true, completion: nil)
@@ -66,6 +73,7 @@ class SimpleTextInputDialog: UIViewController {
         self.textField.addTarget(self, action: #selector(self.textFieldEditingChanged), for: .editingChanged)
         self.textField.delegate = self
         self.textField.becomeFirstResponder()
+        self.infoButton.isHidden = !self.showInfoButton
         
         self.listenForKeyboardVisibilityChanges(delegate: self)
     }
@@ -101,6 +109,9 @@ class SimpleTextInputDialog: UIViewController {
         }
         
         self.callback(userInput, self)
+    }
+    @IBAction func infoButtonTapped(_ sender: Any) {
+        SimpleAlertDialog.show(sender: self, message: infoText, okButtonText: LocalizedStrings.gotIt)
     }
 }
 

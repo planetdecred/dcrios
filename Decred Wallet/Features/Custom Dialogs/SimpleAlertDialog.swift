@@ -63,7 +63,7 @@ class SimpleAlertDialog: UIViewController {
         dialog.callback = callback
         
         dialog.modalTransitionStyle = .crossDissolve
-        dialog.modalPresentationStyle = .overCurrentContext
+        dialog.modalPresentationStyle = .overFullScreen
         vc.present(dialog, animated: true, completion: nil)
     }
     

@@ -36,6 +36,11 @@
 "getStarted" = "Get started";
 "restoreSuccessTitle" = "Your wallet is successfully restored.";
 
+/*Import Watch-only wallet*/
+"watchWalletImported" = "Watch-only wallet imported";
+"extendPublicKeyInfo" = "In Decrediton, under the Accounts section, expand the account you want to watch, and tap on Reveal Pubkey";
+"watchWalletTitle" = "Create watch only wallet";
+
 /* Unlock Wallet Prompt */
 "unlockWithStartupCode" = "Unlock with startup %@";
 "unlock" = "Unlock";
@@ -125,6 +130,11 @@
 "errorSyncInProgress" = "Unable to start rescan while sync is in progress";
 "errorRescanInProgress" = "Unable to start rescan while another rescan is already running";
 "rescanProgressNotification" = "Check progress in Overview!";
+"stepCfilter" = "Refetching cfilters for upgrade";
+"fetchingCFilter" = "Fetching cfilters · %d%%";
+"cfilterFetched" = "CFilters fetched";
+"cfiltersLeft" = "%d CFilters left";
+"cfilterFetchedTotal" = "%d of %d";
 
 /* Navigation Menu Items */
 "overview" = "Overview";
@@ -216,6 +226,7 @@
 /* Send view */
 "invalidAmount" = "Сумма недействительна";
 "amount8Decimal" = "Сумма содержит более восьми десятичных знаков";
+"amount2Decimal" = "Сумма содержит более 2два десятичных знаков";
 "amountMaximumAllowed" = "Amount more than maximum allowed.";
 "notEnoughFunds" = "Недостаточно средств.";
 "notEnoughFundsOrNotConnected" = "Not enough funds (or not connected).";
@@ -365,6 +376,22 @@
 "signFailedMessage" = "Failed to sign message. Please try again.";
 "sign" = "Sign";
 
+/* Politeia */
+"politeia" = "Politeia";
+"politeiaDetail" = "Proposal Details";
+"poliAbandoned" = "Abandoned";
+"poliInvalid" = "Invalid";
+"poliNotAuthorized" = "Not authorized by author";
+"poliAuthorized" = "Authorized by author";
+"poliVoteStarted" = "Vote started";
+"poliApproved" = "Approved";
+"poliRejected" = "Rejected";
+"poliNonExistent" = "Does not exist";
+"commentCount" = "%d Comments";
+"politeiaVersion" = "version %@";
+"noPoliteia" = "нет предложения";
+"syncPoliteiaTryAgain" = "There was an error when sync politeia, please try again in Politeia";
+
 /* Settings */
 "startupPinPass" = "PIN/пароль для шифрования";
 "changeStatupPinPass" = "Изменить PIN/пароль для шифрования";
@@ -389,6 +416,7 @@
 "helpInfo" = "For more information, please visit the Decred documentation.";
 "seeDocumentations" = "See Documentations";
 "beepForNewBlocks" = "Beep for new blocks";
+"enablePoliteiaNotification" = "Enable politeia notifications";
 "checkStatistics" = "Check statistics";
 "statistics" = "Statistics";
 "seconds" = "%d Seconds";
@@ -398,6 +426,7 @@
 "months" = "%d Months";
 "years" = "%d Years";
 "net" = "Net";
+"connectPeer" = "Connected peers";
 
 /* Change startup/spending pin/pass */
 "newPasswordPlaceholder" = "New %@ password";
