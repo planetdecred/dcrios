@@ -538,4 +538,5 @@ struct LocalizedStrings {
     static let startMixerWarning = NSLocalizedString("startMixerWarning", comment: "")
     static let continueText = NSLocalizedString("continueText", comment: "")
     static let unlockToStartMixing = NSLocalizedString("unlockToStartMixing", comment: "")
+    static let mixed = NSLocalizedString("mixed", comment: "")
 }

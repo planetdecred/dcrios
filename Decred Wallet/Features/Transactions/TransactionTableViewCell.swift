@@ -64,11 +64,11 @@ class TransactionTableViewCell: UITableViewCell {
     
     func displayRegularTxInfo(_ transaction: Transaction) {
         let amountString = Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 13.0, TexthexColor: UIColor.appColors.darkBlue)
-        /*if transaction.isMixed() {
-            let attributedString = NSMutableAttributedString(string:"Mixed")
+        if transaction.isMixed {
+            let attributedString = NSMutableAttributedString(string: LocalizedStrings.mixed)
             self.txAmountOrTicketStatusLabel.attributedText = attributedString
             self.txTypeIconImageView?.image = UIImage(named: "ic_send")
-        //} else {*/
+        } else {
             if transaction.direction == DcrlibwalletTxDirectionSent {
                 let attributedString = NSMutableAttributedString(string:"-")
                 attributedString.append(amountString)
@@ -81,7 +81,7 @@ class TransactionTableViewCell: UITableViewCell {
                 self.txAmountOrTicketStatusLabel.attributedText = amountString
                 self.txTypeIconImageView?.image = UIImage(named: "nav_menu/ic_wallet")
             }
-        //}
+        }
 
     }
     
