@@ -422,7 +422,7 @@ class OverviewViewController: UIViewController {
                 activeMixers += 1
                 WalletID = wallet.id_
                  let wallet  = WalletLoader.shared.multiWallet.wallet(withID: WalletID)
-                 if let unmixedAccountNumber = wallet?.readInt32ConfigValue(forKey: Dcrlibwallet.DcrlibwalletAccountMixerMixedAccount, defaultValue: -1) {
+                 if let unmixedAccountNumber = wallet?.readInt32ConfigValue(forKey: Dcrlibwallet.DcrlibwalletAccountMixerUnmixedAccount, defaultValue: -1) {
                      do {
                         if let balance  =  try wallet?.getAccountBalance(unmixedAccountNumber) {
                             let mxAccount = MixerAcount(name: wallet?.name, balance: "\(balance.dcrTotal)")
@@ -470,6 +470,14 @@ class OverviewViewController: UIViewController {
        }
     
     @IBAction func seedBackupTapped(_ sender: Any) {
+        self.goToWalletPage()
+    }
+    
+    @IBAction func mixerArrowTapped(_ sender: Any) {
+        self.goToWalletPage()
+    }
+    
+    func goToWalletPage() {
         if let walletsTabIndex = NavigationMenuTabBarController.tabItems.firstIndex(of: .wallets) {
             NavigationMenuTabBarController.instance?.navigateToTab(index: walletsTabIndex)
         }
