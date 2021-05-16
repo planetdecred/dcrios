@@ -533,6 +533,7 @@ struct LocalizedStrings {
     static let noMixableOutput = NSLocalizedString("noMixableOutput", comment: "")
     static let mixerHasStoppedRunning = NSLocalizedString("mixerHasStoppedRunning", comment: "")
     static let mixerIsRuning = NSLocalizedString("mixerIsRuning", comment: "")
+    static let mixersAreRuning = NSLocalizedString("mixersAreRuning", comment: "")
     static let mixerHelperTitle = NSLocalizedString("mixerHelperTitle", comment: "")
     static let mixerHelperDsc = NSLocalizedString("mixerHelperDsc", comment: "")
     static let startMixerWarning = NSLocalizedString("startMixerWarning", comment: "")

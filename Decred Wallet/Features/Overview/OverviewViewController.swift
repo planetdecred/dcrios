@@ -440,7 +440,7 @@ class OverviewViewController: UIViewController {
         
         if (activeMixers > 0) {
             DispatchQueue.main.async {
-                self.mixerRunnungLabel.text = LocalizedStrings.mixerIsRuning
+                self.mixerRunnungLabel.text = activeMixers > 1 ? "\(activeMixers) \(LocalizedStrings.mixersAreRuning)" : LocalizedStrings.mixerIsRuning
                 self.accountMixerSectionView.isHidden = false
                 self.mixersTableViewHeightContraint.constant = WalletMixerCell.height * CGFloat(activeMixers)
                 self.mixerTableView.reloadData()

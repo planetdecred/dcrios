@@ -18,6 +18,11 @@
 "default_" = "défaut";
 "migratingWallet" = "Migration du porte-monnaie";
 
+/*Import Watch-only wallet*/
+"watchWalletImported" = "Watch-only wallet imported";
+"extendPublicKeyInfo" = "In Decrediton, under the Accounts section, expand the account you want to watch, and tap on Reveal Pubkey";
+"watchWalletTitle" = "Create watch only wallet";
+
 /* Create New Wallet(Seed display view) */
 "settingUpYourWallet" = "Créer un nouveau porte-monnaie";
 
@@ -35,11 +40,6 @@
 "success" = "Succès";
 "getStarted" = "Débuter";
 "restoreSuccessTitle" = "Votre porte-monnaie est correctement restauré.";
-
-/*Import Watch-only wallet*/
-"watchWalletImported" = "Watch-only wallet imported";
-"extendPublicKeyInfo" = "In Decrediton, under the Accounts section, expand the account you want to watch, and tap on Reveal Pubkey";
-"watchWalletTitle" = "Create watch only wallet";
 
 /* Unlock Wallet Prompt */
 "unlockWithStartupCode" = "Déverrouiller avec un %@ de démarrage ";
@@ -161,8 +161,10 @@
 "connectedPeersCount" = "Compteur de pairs connectés";
 "noConnectedPeer" = "Pas de pairs connectés.";
 "peers" = "peers";
+"seeAll" = "See all";
 "walletCreated" = "Porte-monnaie créé";
 "backUpYourWalletsReminder" = "Rappelez-vous de sauvegarder vos porte-monnaies dès que possible.";
+"setupMixingAccounts" = "Setup mixing accounts";
 
 /* Transactions */
 "pending" = "En attente";
@@ -374,6 +376,22 @@
 "signFailedMessage" = "Failed to sign message. Please try again.";
 "sign" = "Sign";
 
+/* Politeia */
+"politeia" = "Politeia";
+"politeiaDetail" = "Proposal Details";
+"poliAbandoned" = "Abandoned";
+"poliInvalid" = "Invalid";
+"poliNotAuthorized" = "Not authorized by author";
+"poliAuthorized" = "Authorized by author";
+"poliVoteStarted" = "Vote started";
+"poliApproved" = "Approved";
+"poliRejected" = "Rejected";
+"poliNonExistent" = "Does not exist";
+"commentCount" = "%d Comments";
+"politeiaVersion" = "version %@";
+"noPoliteia" = "Brak propozycji";
+"syncPoliteiaTryAgain" = "There was an error when sync politeia, please try again in Politeia";
+
 /* Settings */
 "startupPinPass" = "PIN/mot de passe de démarrage";
 "changeStatupPinPass" = "Changer PIN/password de démarrage";
@@ -398,6 +416,7 @@
 "helpInfo" = "Pour plus d\'information, merci de visiter la documentation de Decred.";
 "seeDocumentations" = "Voir documentations";
 "beepForNewBlocks" = "Beep pour les nouveaux blocs";
+"enablePoliteiaNotification" = "Enable politeia notifications";
 "checkStatistics" = "Voir les statisques";
 "statistics" = "Statistiques";
 "seconds" = "%d Secondes";
@@ -508,3 +527,59 @@
 "walletFile" = "Dossier de données du porte-monnaie";
 "chainData" = "Données du porte-monnaie";
 "accounts" = "Accounts";
+
+/* Privacy */
+"setupMixerWithTwoAccounts" = "Set up mixer by creating two needed accounts";
+"setupMixer" = "Set up mixer";
+"beginSetup" = "Begin setup";
+"setupMixerInfo" = "Two dedicated accounts (“mixed” & “unmixed”) will be created in order to use the mixer.";
+"confirmToCreateMixer" = "Confirm to create needed accounts";
+"keepThisAppOpened" = "Keep this app opened";
+"overviewMixerInfo" = "Mixer will automatically stop when unmixed balance are fully mixed.";
+"mixedBalance" = "Mixed balance";
+"noUnmixedBalance" = "No unmixed balance";
+"mixer" = "Mixer";
+"privacyIsHere" = "Privacy is here";
+"privacyIsHereInfo" = "You can now use CoinShuffle++ mixer to mix your DCRs, right in the app.";
+"unmixedBalance" = "Unmixed balance";
+"mixerSettings" = "mixer settings";
+"changedAccount" = "Changed account";
+"accountBranch" = "Account Branch";
+"shuffleSever" = "Shuffle server";
+"shufflePort" = "Shuffle port";
+"dangerZone" = "Danger Zone";
+"allowUnmixedSpending" = "Allow spending from unmixed accounts";
+"allBalanceMixed" = "All balance mixed";
+"howCoinShuffleEnhancePrivacy" = "How does CoinShuffle++ mixer enhance your privacy?";
+"coinShuffleInfo" = "CoinShuffle++ mixer can mix your DCRs through CoinJoin transactions.";
+"mixedDCRInfo" = "Using mixed DCRs protects you from exposing your financial activities to the public (e.g. how much you own, who pays you).";
+"setUpMixerForWallet" = "Set up mixer for this wallet";
+"howToUseMixer" = "How to use the mixer?";
+"howToUseMixerInfo" = "When you turn on the mixer, your unmixed DCRs in this wallet (unmixed balance) will be gradually mixed.";
+"importantKeepThisAppRunning" = "Important: keep this app opened while mixer is running.";
+"importantKeepThisAppRunningInfo" = "Mixer will automatically stop when unmixed balance are fully mixed.";
+"setupPrivacyHere" = "Set up privacy here";
+"checkMixerStatus" = "Check mixer status";
+"mixing" = "Mixing...";
+"setupPrivacyInfo1" = "<black>Mixed</black> account will be the outbound spending account.";
+"dismiss" = "Dismiss";
+"accountNameTaken" = "Account name is taken";
+"accountNameTakenMsg" = "There are existing account named mixed and unmixed. Please change the name to something else for now. You can change them after the setup.";
+"goBackAndRename" = "Go back & rename";
+"manualSetupWarning" = "<bold>Make sure to select the corresponding accounts to the previous setup</bold>. Failing to do so could damage wallet privacy.";
+"mixedAccount" = "Mixed account";
+"unMixedAccount" = "Unmixed account";
+"sameAcountCannotBeUsedForMixedAndUnmixed" = "cannot use same account for mixed and unmixed";
+"mixerSetupCompleted" = "Mixer setup completed";
+"setUp" = "Set up";
+"manualSetup" = "Manual setup";
+"readyToMix" = "Ready to mix";
+"noMixableOutput" = "Unmixed account has no mixable output";
+"mixerHasStoppedRunning" = "mixer has stopped running";
+"mixerIsRuning" = "mixer is running";
+"mixersAreRuning" = "mixers are runing";
+"mixerHelperTitle" = "How to use the mixer?";
+"mixerHelperDsc" = "When you turn on the mixer, your unmixed DCRs in this wallet (unmixed balance) will be gradually mixed.<br/><br/><b><font color=\"#091440\">Important: keep this app opened while mixer is running.</font></b><br/><br/>Mixer will automatically stop when unmixed balance are fully mixed.";
+"startMixerWarning" = "Your wallet will be unlocked until mixing completes.";
+"continueText" = "Continue";
+"unlockToStartMixing" = "Unlock your wallet to start mixing";
