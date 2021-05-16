@@ -56,7 +56,8 @@ class TransactionsViewController: UIViewController {
         self.txTableView.registerCellNib(TransactionTableViewCell.self)
 
         // register for new transactions notifications
-        try? WalletLoader.shared.multiWallet.add(self, uniqueIdentifier: "\(self)")
+        let txNotificationListener = self as DcrlibwalletTxAndBlockNotificationListenerProtocol
+        try? WalletLoader.shared.multiWallet.add(txNotificationListener, uniqueIdentifier: "\(self)")
 
         self.setupWalletSelector()
     }
@@ -125,26 +126,28 @@ class TransactionsViewController: UIViewController {
     }
 
     func loadAllTransactions() {
-        self.allTransactions.removeAll()
-        self.refreshControl.showLoader(in: self.txTableView)
-
-        defer {
-            self.refreshControl.endRefreshing()
+        if SyncManager.shared.isSyncing {
+            self.allTransactions.removeAll()
+            self.refreshControl.showLoader(in: self.txTableView)
+            
+            defer {
+                self.refreshControl.endRefreshing()
+            }
+            
+            if let txs = WalletLoader.shared.wallets[self.currentWalletSelectorIndex].transactionHistory(offset: 0), !txs.isEmpty {
+                self.allTransactions = txs
+                self.txTableView.backgroundView = nil
+                self.txTableView.separatorStyle = .singleLine
+            } else {
+                self.txTableView.backgroundView = self.noTxsLabel
+                self.txTableView.separatorStyle = .none
+            }
+            
+            self.setupTxSortOrderDropDown()
+            self.setupTxFilterDropDown()
+            
+            self.txTableView.reloadData()
         }
-
-        if let txs = WalletLoader.shared.wallets[self.currentWalletSelectorIndex].transactionHistory(offset: 0), !txs.isEmpty {
-            self.allTransactions = txs
-            self.txTableView.backgroundView = nil
-            self.txTableView.separatorStyle = .singleLine
-        } else {
-            self.txTableView.backgroundView = self.noTxsLabel
-            self.txTableView.separatorStyle = .none
-        }
-
-        self.setupTxSortOrderDropDown()
-        self.setupTxFilterDropDown()
-
-        self.txTableView.reloadData()
     }
 
     func setupTxSortOrderDropDown() {
@@ -246,6 +249,50 @@ extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate
         let transactionDetailVC = TransactionDetailsViewController.instantiate(from: .TransactionDetails)
         transactionDetailVC.transaction = self.allTransactions[indexPath.row]
         self.present(transactionDetailVC, animated: true)
+    }
+}
+
+extension TransactionsViewController: DcrlibwalletSyncProgressListenerProtocol {
+    func debug(_ debugInfo: DcrlibwalletDebugInfo?) {
+        
+    }
+    
+    func onAddressDiscoveryProgress(_ addressDiscoveryProgress: DcrlibwalletAddressDiscoveryProgressReport?) {
+        
+    }
+    
+    func onCFiltersFetchProgress(_ cfiltersFetchProgress: DcrlibwalletCFiltersFetchProgressReport?) {
+        
+    }
+    
+    func onHeadersFetchProgress(_ headersFetchProgress: DcrlibwalletHeadersFetchProgressReport?) {
+        
+    }
+    
+    func onHeadersRescanProgress(_ headersRescanProgress: DcrlibwalletHeadersRescanProgressReport?) {
+        
+    }
+    
+    func onPeerConnectedOrDisconnected(_ numberOfConnectedPeers: Int32) {
+        
+    }
+    
+    func onSyncCanceled(_ willRestart: Bool) {
+        
+    }
+    
+    func onSyncCompleted() {
+        DispatchQueue.main.async {
+            self.loadAllTransactions()
+        }
+    }
+    
+    func onSyncEndedWithError(_ err: Error?) {
+        
+    }
+    
+    func onSyncStarted(_ wasRestarted: Bool) {
+        
     }
 }
 

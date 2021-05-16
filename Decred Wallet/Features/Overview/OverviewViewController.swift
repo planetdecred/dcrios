@@ -202,31 +202,33 @@ class OverviewViewController: UIViewController {
     }
     
     func updateRecentActivity() {
-        // Fetch 3 most recent transactions
-        guard let transactions = WalletLoader.shared.multiWallet.transactionHistory(offset: 0, count: 3),
-            !transactions.isEmpty
+        if SyncManager.shared.isSyncing {
+            // Fetch 3 most recent transactions
+            guard let transactions = WalletLoader.shared.multiWallet.transactionHistory(offset: 0, count: 3),
+                  !transactions.isEmpty
             else {
                 self.recentTransactionsTableView.isHidden = true
                 self.showAllTransactionsButton.isHidden = true
                 self.noTransactionsLabelView.superview?.isHidden = false
                 return
+            }
+            
+            if transactions.count == 0 {
+                self.recentTransactionsTableView.isHidden = true
+                self.showAllTransactionsButton.isHidden = true
+                self.noTransactionsLabelView.superview?.isHidden = false
+                return
+            }
+            
+            self.recentTransactions = transactions
+            
+            self.recentTransactionsTableViewHeightContraint.constant = TransactionTableViewCell.height() * CGFloat(self.recentTransactions.count)
+            self.recentTransactionsTableView.reloadData()
+            
+            self.recentTransactionsTableView.isHidden = false
+            self.showAllTransactionsButton.isHidden = false
+            self.noTransactionsLabelView.superview?.isHidden = true
         }
-        
-        if transactions.count == 0 {
-            self.recentTransactionsTableView.isHidden = true
-            self.showAllTransactionsButton.isHidden = true
-            self.noTransactionsLabelView.superview?.isHidden = false
-            return
-        }
-        
-        self.recentTransactions = transactions
-        
-        self.recentTransactionsTableViewHeightContraint.constant = TransactionTableViewCell.height() * CGFloat(self.recentTransactions.count)
-        self.recentTransactionsTableView.reloadData()
-
-        self.recentTransactionsTableView.isHidden = false
-        self.showAllTransactionsButton.isHidden = false
-        self.noTransactionsLabelView.superview?.isHidden = true
     }
     
     func updateWalletStatusIndicatorAndLabel() {
@@ -609,6 +611,7 @@ extension OverviewViewController: DcrlibwalletSyncProgressListenerProtocol {
     func onSyncCompleted() {
         DispatchQueue.main.async {
             self.updateUI(syncCompletedSuccessfully: true)
+            self.updateRecentActivity()
         }
     }
     
