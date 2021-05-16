@@ -30,16 +30,16 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hR2-rF-Y9z">
-                                <rect key="frame" x="52.5" y="60" width="345.5" height="44"/>
+                                <rect key="frame" x="52.5" y="60" width="345.5" height="47.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Privacy" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X3w-9x-ZBp">
-                                        <rect key="frame" x="0.0" y="0.0" width="345.5" height="23.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="345.5" height="25.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
                                         <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="mywallet" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WsD-vo-weA">
-                                        <rect key="frame" x="0.0" y="27.5" width="345.5" height="16.5"/>
+                                        <rect key="frame" x="0.0" y="29.5" width="345.5" height="18"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                         <color key="textColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -95,7 +95,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Using mixed DCRs protects you from exposing your financial activities to the public (e.g. how much you own, who pays you)." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r99-Th-V8r">
-                                <rect key="frame" x="24" y="396.5" width="366" height="56"/>
+                                <rect key="frame" x="24" y="406.5" width="366" height="60.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                 <color key="textColor" red="0.23921568630000001" green="0.34509803919999998" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -104,7 +104,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CoinShuffle++ mixer can mix your DCRs through CoinJoin transactions." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VKM-Zr-NfH">
-                                <rect key="frame" x="24" y="343" width="366" height="37.5"/>
+                                <rect key="frame" x="24" y="350" width="366" height="40.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                 <color key="textColor" red="0.23921568630000001" green="0.34509803919999998" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -113,7 +113,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How does CoinShuffle++ mixer enhance your privacy?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GdO-Vh-lbu">
-                                <rect key="frame" x="24" y="280" width="366" height="47"/>
+                                <rect key="frame" x="24" y="283.5" width="366" height="50.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
                                 <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -122,7 +122,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_mixer_setup" translatesAutoresizingMaskIntoConstraints="NO" id="9CY-qv-AB2">
-                                <rect key="frame" x="40" y="128" width="334" height="128"/>
+                                <rect key="frame" x="40" y="131.5" width="334" height="128"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="128" id="beD-Pd-bZq"/>
                                 </constraints>
@@ -695,124 +695,13 @@
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="dOL-yO-6ZC">
-                                                <rect key="frame" x="8" y="537" width="398" height="106"/>
-                                                <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wBJ-Cm-ulc" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="398" height="106"/>
-                                                        <subviews>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="eid-u1-BIl">
-                                                                <rect key="frame" x="0.0" y="0.0" width="398" height="106"/>
-                                                                <subviews>
-                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Es5-O4-Qmh">
-                                                                        <rect key="frame" x="0.0" y="8" width="398" height="90"/>
-                                                                        <subviews>
-                                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="gBO-Lp-0EY">
-                                                                                <rect key="frame" x="16" y="13.5" width="366" height="63"/>
-                                                                                <subviews>
-                                                                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vYB-b9-HaF">
-                                                                                        <rect key="frame" x="0.0" y="0.0" width="352" height="24"/>
-                                                                                        <subviews>
-                                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Danger Zone" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UwM-a9-0jd">
-                                                                                                <rect key="frame" x="0.0" y="0.0" width="340" height="24"/>
-                                                                                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
-                                                                                                <color key="textColor" red="0.23921568627450979" green="0.34509803921568627" blue="0.45098039215686275" alpha="1" colorSpace="calibratedRGB"/>
-                                                                                                <nil key="highlightedColor"/>
-                                                                                                <userDefinedRuntimeAttributes>
-                                                                                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="dangerZone"/>
-                                                                                                </userDefinedRuntimeAttributes>
-                                                                                            </label>
-                                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="300" verticalHuggingPriority="300" image="ic_collapseNew" translatesAutoresizingMaskIntoConstraints="NO" id="gm7-iC-oBe">
-                                                                                                <rect key="frame" x="340" y="0.0" width="12" height="24"/>
-                                                                                                <constraints>
-                                                                                                    <constraint firstAttribute="height" constant="24" id="Uij-aL-Uge"/>
-                                                                                                    <constraint firstAttribute="width" constant="12" id="iSe-3f-aL2"/>
-                                                                                                </constraints>
-                                                                                            </imageView>
-                                                                                        </subviews>
-                                                                                    </stackView>
-                                                                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="JOs-I1-olK">
-                                                                                        <rect key="frame" x="0.0" y="32" width="366" height="31"/>
-                                                                                        <subviews>
-                                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Allow spending from unmixed accounts" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rce-Nl-MXJ">
-                                                                                                <rect key="frame" x="0.0" y="5.5" width="301" height="20.5"/>
-                                                                                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
-                                                                                                <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                                                                <nil key="highlightedColor"/>
-                                                                                                <userDefinedRuntimeAttributes>
-                                                                                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="allowUnmixedSpending"/>
-                                                                                                </userDefinedRuntimeAttributes>
-                                                                                            </label>
-                                                                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="oHF-JR-j3o">
-                                                                                                <rect key="frame" x="317" y="0.0" width="51" height="31"/>
-                                                                                                <color key="onTintColor" red="0.16078431369999999" green="0.43921568630000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                                                            </switch>
-                                                                                        </subviews>
-                                                                                    </stackView>
-                                                                                </subviews>
-                                                                                <constraints>
-                                                                                    <constraint firstAttribute="trailing" secondItem="JOs-I1-olK" secondAttribute="trailing" id="UjO-Gg-g5B"/>
-                                                                                    <constraint firstAttribute="trailing" secondItem="vYB-b9-HaF" secondAttribute="trailing" constant="14" id="fTv-a9-XLF"/>
-                                                                                </constraints>
-                                                                            </stackView>
-                                                                        </subviews>
-                                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                                        <constraints>
-                                                                            <constraint firstAttribute="trailing" secondItem="gBO-Lp-0EY" secondAttribute="trailing" constant="16" id="0ot-vf-ifg"/>
-                                                                            <constraint firstAttribute="height" constant="90" id="C4K-2h-n6y"/>
-                                                                            <constraint firstItem="gBO-Lp-0EY" firstAttribute="leading" secondItem="Es5-O4-Qmh" secondAttribute="leading" constant="16" id="aYD-v8-k40"/>
-                                                                            <constraint firstItem="gBO-Lp-0EY" firstAttribute="centerY" secondItem="Es5-O4-Qmh" secondAttribute="centerY" id="cy0-39-82E"/>
-                                                                            <constraint firstItem="gBO-Lp-0EY" firstAttribute="leading" secondItem="Es5-O4-Qmh" secondAttribute="leading" constant="16" id="kge-OI-Vig"/>
-                                                                        </constraints>
-                                                                    </view>
-                                                                </subviews>
-                                                                <constraints>
-                                                                    <constraint firstItem="Es5-O4-Qmh" firstAttribute="width" secondItem="eid-u1-BIl" secondAttribute="width" id="fJN-sK-Iz1"/>
-                                                                </constraints>
-                                                                <edgeInsets key="layoutMargins" top="8" left="0.0" bottom="8" right="0.0"/>
-                                                            </stackView>
-                                                        </subviews>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <constraints>
-                                                            <constraint firstItem="eid-u1-BIl" firstAttribute="leading" secondItem="wBJ-Cm-ulc" secondAttribute="leading" id="5Ph-Bs-GlE"/>
-                                                            <constraint firstAttribute="height" secondItem="eid-u1-BIl" secondAttribute="height" id="9yN-bv-nt8"/>
-                                                            <constraint firstAttribute="trailing" secondItem="eid-u1-BIl" secondAttribute="trailing" id="L2P-ep-ma0"/>
-                                                            <constraint firstItem="eid-u1-BIl" firstAttribute="top" secondItem="wBJ-Cm-ulc" secondAttribute="top" id="w4i-Of-sjT"/>
-                                                        </constraints>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderRadius">
-                                                                <real key="value" value="14"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
-                                                                <color key="value" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
-                                                                <real key="value" value="0.040000000000000001"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
-                                                                <size key="value" width="0.0" height="8"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
-                                                                <real key="value" value="16"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowSpread">
-                                                                <real key="value" value="0.0"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
-                                                    </view>
-                                                </subviews>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </stackView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="dOL-yO-6ZC" secondAttribute="bottom" constant="8" id="32w-Um-yXe"/>
                                             <constraint firstAttribute="trailing" secondItem="Idp-TG-tQE" secondAttribute="trailing" constant="8" id="4NU-wY-oVH"/>
+                                            <constraint firstAttribute="height" constant="651" id="5WT-xR-b74"/>
                                             <constraint firstAttribute="trailing" secondItem="ePs-DK-No0" secondAttribute="trailing" constant="8" id="7Kj-Oh-xRL"/>
-                                            <constraint firstAttribute="trailing" secondItem="dOL-yO-6ZC" secondAttribute="trailing" constant="8" id="7Mo-3Y-rPQ"/>
                                             <constraint firstItem="Idp-TG-tQE" firstAttribute="leading" secondItem="byB-XZ-r7u" secondAttribute="leading" constant="8" id="7c7-Iv-5kJ"/>
-                                            <constraint firstItem="dOL-yO-6ZC" firstAttribute="leading" secondItem="byB-XZ-r7u" secondAttribute="leading" constant="8" id="DW0-gu-hYY"/>
-                                            <constraint firstItem="dOL-yO-6ZC" firstAttribute="top" secondItem="ePs-DK-No0" secondAttribute="bottom" constant="8" id="VD2-sA-fCq"/>
                                             <constraint firstItem="ePs-DK-No0" firstAttribute="top" secondItem="Idp-TG-tQE" secondAttribute="bottom" constant="8" id="cRe-WK-ZoJ"/>
                                             <constraint firstItem="ePs-DK-No0" firstAttribute="leading" secondItem="byB-XZ-r7u" secondAttribute="leading" constant="8" id="quL-8J-RDb"/>
                                             <constraint firstItem="Idp-TG-tQE" firstAttribute="top" secondItem="byB-XZ-r7u" secondAttribute="top" constant="8" id="r4i-h5-BVN"/>
@@ -855,7 +744,6 @@
                         <outlet property="mixingInfo" destination="vBM-NH-GCu" id="dVc-w7-Iw5"/>
                         <outlet property="shufflePort" destination="HYB-Jv-1h0" id="h9s-Je-hm0"/>
                         <outlet property="shuffleServer" destination="iO4-dT-fWB" id="VPB-PD-IVJ"/>
-                        <outlet property="spendUnmixedSwitch" destination="oHF-JR-j3o" id="phD-lb-N8N"/>
                         <outlet property="unmixedBalance" destination="AXV-IJ-5qC" id="aSk-ay-JCE"/>
                         <outlet property="walletName" destination="HEi-mE-cds" id="axM-Bf-jR2"/>
                     </connections>
@@ -1162,7 +1050,7 @@
                                 <rect key="frame" x="52.5" y="16" width="345.5" height="65"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Manual Setup" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hKI-Bx-Sh1">
-                                        <rect key="frame" x="0.0" y="0.0" width="345.5" height="23.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="345.5" height="25.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
                                         <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -1171,7 +1059,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="mywallet" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wov-X4-mJT">
-                                        <rect key="frame" x="0.0" y="27.5" width="55.5" height="16.5"/>
+                                        <rect key="frame" x="0.0" y="29.5" width="54" height="18"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                         <color key="textColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -1193,13 +1081,13 @@
                                         <rect key="frame" x="4" y="3" width="390" height="106"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mixed Account" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9mm-Tf-WOO">
-                                                <rect key="frame" x="16" y="0.0" width="358" height="16.5"/>
+                                                <rect key="frame" x="16" y="0.0" width="358" height="18"/>
                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                                 <color key="textColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dtn-pa-8MK" customClass="WalletAccountView" customModule="Decred_Wallet" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="16.5" width="390" height="89.5"/>
+                                                <rect key="frame" x="0.0" y="18" width="390" height="88"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             </view>
                                         </subviews>
@@ -1246,13 +1134,13 @@
                                         <rect key="frame" x="4" y="3" width="390" height="106"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unmixed Account" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hbn-sk-Y37">
-                                                <rect key="frame" x="16" y="0.0" width="358" height="16.5"/>
+                                                <rect key="frame" x="16" y="0.0" width="358" height="18"/>
                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                                 <color key="textColor" red="0.34901960784313724" green="0.42745098039215684" blue="0.50588235294117645" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="piF-wJ-hQd" customClass="WalletAccountView" customModule="Decred_Wallet" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="16.5" width="390" height="89.5"/>
+                                                <rect key="frame" x="0.0" y="18" width="390" height="88"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             </view>
                                         </subviews>
@@ -1293,7 +1181,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Make sure to select the corresponding accounts to the previous setup. Failing to do so could damage wallet privacy." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="THn-oT-tEQ">
-                                <rect key="frame" x="52" y="337" width="346" height="56"/>
+                                <rect key="frame" x="52" y="337" width="346" height="60.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                 <color key="textColor" red="0.23921568630000001" green="0.34509803919999998" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -1390,23 +1278,22 @@
     </scenes>
     <designables>
         <designable name="ROd-rd-67z">
-            <size key="intrinsicContentSize" width="236" height="24"/>
+            <size key="intrinsicContentSize" width="192" height="24"/>
         </designable>
         <designable name="Zrj-Lb-M0h">
-            <size key="intrinsicContentSize" width="53" height="33"/>
+            <size key="intrinsicContentSize" width="44" height="35"/>
         </designable>
         <designable name="ayu-ew-FJN">
-            <size key="intrinsicContentSize" width="215" height="33"/>
+            <size key="intrinsicContentSize" width="156" height="35"/>
         </designable>
         <designable name="qjM-R7-UvV">
-            <size key="intrinsicContentSize" width="236" height="24"/>
+            <size key="intrinsicContentSize" width="192" height="24"/>
         </designable>
     </designables>
     <resources>
         <image name="ic_alert" width="16" height="16"/>
         <image name="ic_arrow_next" width="24" height="24"/>
         <image name="ic_checkmark_round" width="64" height="64"/>
-        <image name="ic_collapseNew" width="12" height="8"/>
         <image name="ic_downArrow" width="24" height="24"/>
         <image name="ic_edit" width="24" height="24"/>
         <image name="ic_mixer" width="24" height="24"/>
