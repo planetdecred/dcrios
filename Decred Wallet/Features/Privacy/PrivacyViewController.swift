@@ -44,7 +44,7 @@ class PrivacyViewController: UIViewController {
         
         self.accountBranch.text = "\(DcrlibwalletMixedAccountBranch)"
         self.shuffleServer.text = "\(DcrlibwalletShuffleServer)"
-        self.shufflePort.text = "\(DcrlibwalletShufflePort)"
+        self.shufflePort.text = "\(DcrlibwalletMainnetShufflePort)"
         
         self.mixedAccountNumber = wallet.readIntConfigValue(forKey: DcrlibwalletAccountMixerMixedAccount, defaultValue: -1)
         self.unmixedAccountNumber = wallet.readIntConfigValue(forKey: DcrlibwalletAccountMixerUnmixedAccount, defaultValue: -1)

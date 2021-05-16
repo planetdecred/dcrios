@@ -123,7 +123,6 @@ class OverviewViewController: UIViewController {
             self.displayConnectedPeersCount()
         }
         
-        self.checkWhetherToPromptForAccountMixing()
     }
     
     override func viewWillAppear(_ animated: Bool) {

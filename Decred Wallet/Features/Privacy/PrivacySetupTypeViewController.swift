@@ -51,9 +51,7 @@ class PrivacySetupTypeViewController: UIViewController {
     @objc func checkAccountNameConflict() {
         if wallet.hasAccount(GlobalConstants.Strings.MIXED) || wallet.hasAccount(GlobalConstants.Strings.UNMIXED) {
             SimpleAlertDialog.show(sender: self, title: LocalizedStrings.accountNameTaken, message: LocalizedStrings.accountNameTakenMsg, okButtonText: LocalizedStrings.goBackAndRename, hideAlertIcon: false) { ok in
-                if let walletsTabIndex = NavigationMenuTabBarController.tabItems.firstIndex(of: .wallets) {
-                    NavigationMenuTabBarController.instance?.navigateToTab(index: walletsTabIndex)
-                }
+                    self.navigationController?.popToRootViewController(animated: true)
             }
             return
         }
