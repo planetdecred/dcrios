@@ -51,7 +51,7 @@ struct SpendingPinOrPassword {
                 DispatchQueue.main.async {
                     if error.isInvalidPassphraseError {
                         newCodeRequestDelegate?.dismissDialog()
-                        currentCodeRequestDelegate?.displayError(errorMessage: self.invalidSecurityCodeMessage(for: walletID))
+                        currentCodeRequestDelegate?.displayPassphraseError(errorMessage: self.invalidSecurityCodeMessage(for: walletID))
                     } else {
                         newCodeRequestDelegate?.displayError(errorMessage: error.localizedDescription)
                     }

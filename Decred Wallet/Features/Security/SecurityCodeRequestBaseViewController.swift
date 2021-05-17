@@ -50,6 +50,9 @@ class SecurityCodeRequestBaseViewController: UIViewController {
     func hideError() {
         self.isInErrorState = false
     }
+    
+    func showPassphraseError(text: String) {
+    }
 }
 
 extension SecurityCodeRequestBaseViewController: InputDialogDelegate {
@@ -59,6 +62,10 @@ extension SecurityCodeRequestBaseViewController: InputDialogDelegate {
     
     func displayError(errorMessage: String) {
         self.showError(text: errorMessage)
+    }
+    
+    func displayPassphraseError(errorMessage: String) {
+        self.showPassphraseError(text: errorMessage)
     }
 }
 

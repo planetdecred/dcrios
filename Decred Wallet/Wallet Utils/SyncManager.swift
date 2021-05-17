@@ -100,13 +100,14 @@ class SyncManager: NSObject {
                             waitGroup.leave()
                         }
                     } catch let error {
-                        var errorMessage = error.localizedDescription
-                        if error.isInvalidPassphraseError {
-                            errorMessage = SpendingPinOrPassword.invalidSecurityCodeMessage(for: wallet)
-                        }
                         
                         DispatchQueue.main.async {
-                            dialogDelegate?.displayError(errorMessage: errorMessage)
+                            if error.isInvalidPassphraseError {
+                                let errorMessage = SpendingPinOrPassword.invalidSecurityCodeMessage(for: wallet)
+                                dialogDelegate?.displayPassphraseError(errorMessage: errorMessage)
+                            } else {
+                                dialogDelegate?.displayError(errorMessage: error.localizedDescription)
+                            }
                         }
                     }
                 }

@@ -24,6 +24,8 @@ class RequestPasswordViewController: SecurityCodeRequestBaseViewController, UITe
     @IBOutlet weak var btnSubmit: Button!
     
     var dissmisSenderOnCancel = false
+    
+    var passwordTrials = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -200,9 +202,37 @@ class RequestPasswordViewController: SecurityCodeRequestBaseViewController, UITe
         return true
     }
     
+    override func showPassphraseError(text: String) {
+        passwordTrials = passwordTrials + 1
+        
+        _showError(text: text)
+        self.passwordInput.isEnabled = false
+        self.btnSubmit.isEnabled = false
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            var delay = 2.0
+            if (self.passwordTrials % 2 == 0) {
+                delay = 5.0
+            }
+            
+            let delayTime = DispatchTime.now() + delay
+            DispatchQueue.main.asyncAfter(deadline: delayTime) {
+                self.passwordInput.text = ""
+                self.hideError()
+                self.passwordInput.isEnabled = true
+                self.passwordInput.becomeFirstResponder()
+            }
+
+        }
+    }
+    
     override func showError(text: String) {
         super.showError(text: text)
         
+        _showError(text: text)
+    }
+    
+    func _showError(text: String) {
         self.passwordErrorLabel.text = text
         self.passwordErrorLabel.isHidden = false
         

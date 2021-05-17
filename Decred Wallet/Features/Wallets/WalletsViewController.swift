@@ -107,7 +107,7 @@ class WalletsViewController: UIViewController {
                     onVerifiedSuccess()
                 } catch let error {
                     if error.isInvalidPassphraseError {
-                        completion?.displayError(errorMessage: StartupPinOrPassword.invalidSecurityCodeMessage())
+                        completion?.displayPassphraseError(errorMessage: StartupPinOrPassword.invalidSecurityCodeMessage())
                     } else {
                         completion?.displayError(errorMessage: error.localizedDescription)
                     }
@@ -335,7 +335,12 @@ extension WalletsViewController: WalletInfoTableViewCellDelegate {
                                                 }
                                             } catch {
                                                 DispatchQueue.main.async {
-                                                    completion?.displayError(errorMessage: error.localizedDescription)
+                                                    if error.isInvalidPassphraseError {
+                                                        let errorMessage = SpendingPinOrPassword.invalidSecurityCodeMessage(for: wallet.id)
+                                                        completion?.displayPassphraseError(errorMessage: errorMessage)
+                                                    } else {
+                                                        completion?.displayError(errorMessage: error.localizedDescription)
+                                                    }
                                                 }
                                             }
                                         }

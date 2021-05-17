@@ -13,6 +13,13 @@ typealias SimpleTextInputDialogCallback = (_ userInput: String, _ dialogDelegate
 protocol InputDialogDelegate {
     func dismissDialog()
     func displayError(errorMessage: String)
+    func displayPassphraseError(errorMessage: String)
+}
+
+extension InputDialogDelegate {
+    func displayPassphraseError(errorMessage: String) {
+        
+    }
 }
 
 class SimpleTextInputDialog: UIViewController {

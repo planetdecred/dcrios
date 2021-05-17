@@ -180,7 +180,7 @@ class SignMessageViewController: UIViewController, FloatingPlaceholderTextViewDe
                             
                            } else if error!.isInvalidPassphraseError {
                             let errorMessage = SpendingPinOrPassword.invalidSecurityCodeMessage(for: self.wallet.id_)
-                            dialogDelegate?.displayError(errorMessage: errorMessage)
+                            dialogDelegate?.displayPassphraseError(errorMessage: errorMessage)
                            } else {
                             print("sign error:", error!.localizedDescription)
                             dialogDelegate?.dismissDialog()
