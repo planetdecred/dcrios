@@ -47,6 +47,7 @@ class MultiWalletSyncDetailsLoader: NSObject, UITableViewDataSource, UITableView
 }
 
 extension MultiWalletSyncDetailsLoader: DcrlibwalletSyncProgressListenerProtocol {
+    
     func onSyncStarted(_ wasRestarted: Bool) {
         DispatchQueue.main.async {
             self.reloadProgressViews()

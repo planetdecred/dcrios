@@ -14,6 +14,7 @@ protocol WalletInfoTableViewCellDelegate {
     func showWalletMenu(walletName: String, walletID: Int, _ sender: UIView)
     func addNewAccount(_ wallet: Wallet)
     func showAccountDetailsDialog(_ account: DcrlibwalletAccount)
+    func gotoPrivacy(_ wallet: Wallet)
 }
 
 class WalletInfoTableViewCell: UITableViewCell {
@@ -26,6 +27,7 @@ class WalletInfoTableViewCell: UITableViewCell {
     @IBOutlet weak var accountsTableView: UITableView!
     @IBOutlet weak var accountsTableViewHeightConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var tooltipVIew: TooltipView!
     @IBOutlet weak var seedBackupPrompt: UIView! {
         didSet {
             self.seedBackupPrompt.addGestureRecognizer(
@@ -33,6 +35,10 @@ class WalletInfoTableViewCell: UITableViewCell {
             )
         }
     }
+    @IBOutlet weak var walletMenuButton: UIButton!
+    
+    @IBOutlet weak var checkMixerStatusView: UIView!
+    @IBOutlet weak var checkMixerStatusDivider: UIView!
     
     var delegate: WalletInfoTableViewCellDelegate?
     
@@ -41,6 +47,7 @@ class WalletInfoTableViewCell: UITableViewCell {
     static let accountCellHeight: CGFloat = 74.0
     static let addNewAccountButtonHeight: CGFloat = 56
     static let seedBackupPromptHeight: CGFloat = 92.0
+    static let checkMixerStatusHeight:CGFloat = 34.0
     
     var wallet: Wallet! {
         didSet {
@@ -58,14 +65,44 @@ class WalletInfoTableViewCell: UITableViewCell {
                 self.accountsTableView.reloadData()
             }
             
-            self.walletNotBackedUpLabel.isHidden = wallet.isSeedBackedUp
-            self.seedBackupPrompt.isHidden = wallet.isSeedBackedUp
+            if wallet.isSeedBackedUp {
+                self.walletNotBackedUpLabel.isHidden = true
+                self.seedBackupPrompt.isHidden = true
+            } else {
+                self.walletNotBackedUpLabel.isHidden = false
+                self.walletNotBackedUpLabel.text = LocalizedStrings.notBackedUp
+                self.walletNotBackedUpLabel.textColor = UIColor.appColors.orange
+                self.seedBackupPrompt.isHidden = false
+            }
+            
+            if wallet.isAccountMixerActive {
+                self.walletNotBackedUpLabel.isHidden = false
+                self.walletNotBackedUpLabel.textColor = UIColor.appColors.bluishGray
+                self.walletNotBackedUpLabel.text = LocalizedStrings.mixing
+                self.showCheckMixerStatusView()
+            } else {
+                self.hideCheckMixerStatusView()
+            }
+            
+            if WalletLoader.shared.wallets.first?.id_ == wallet.id && !WalletLoader.shared.multiWallet.readBoolConfigValue(forKey: "checked_privacy_page", defaultValue: false) {
+                self.showToolTip()
+            }
 
             UIView.animate(withDuration: 0.1) {
                 let rotationAngle = self.wallet.displayAccounts ? CGFloat(Double.pi/2) : 0.0
                 self.expandCollapseToggleImageView.transform = CGAffineTransform(rotationAngle: rotationAngle)
             }
         }
+    }
+    
+    func hideCheckMixerStatusView() {
+        self.checkMixerStatusView.isHidden = true
+        self.checkMixerStatusDivider.isHidden = wallet.displayAccounts ? true : false
+    }
+    
+    func showCheckMixerStatusView() {
+        self.checkMixerStatusView.isHidden = false
+        self.checkMixerStatusDivider.isHidden = wallet.displayAccounts ? true : false
     }
     
     var numberOfAccountsToDisplay: Int {
@@ -88,12 +125,24 @@ class WalletInfoTableViewCell: UITableViewCell {
         AppDelegate.shared.window?.rootViewController?.present(modalVC, animated: true)
     }
     
+    @IBAction func checkMixerStatus(_ sender: Any) {
+        self.delegate?.gotoPrivacy(self.wallet)
+    }
+    
+    
     @IBAction func walletMenuButtonTapped(_ sender: UIView) {
         self.delegate?.showWalletMenu(walletName: self.wallet.name, walletID: self.wallet.id, sender)
     }
     
     @IBAction func addNewAccountTapped(_ sender: Any) {
         self.delegate?.addNewAccount(self.wallet)
+    }
+    
+    func showToolTip() {
+        self.tooltipVIew.isHidden = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+            self.tooltipVIew.isHidden = true
+        }
     }
 }
 

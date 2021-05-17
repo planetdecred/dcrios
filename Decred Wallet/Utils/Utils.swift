@@ -260,6 +260,23 @@ struct Utils {
         return attrString
     }
     
+   /* static func htmlToAttributedStrings(string : String) -> NSAttributedString {
+            var attribStr = NSMutableAttributedString()
+            
+            do {//, allowLossyConversion: true
+               var attribStr = try NSAttributedString(data: string.data(using: String.Encoding.unicode)!, options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding:String.Encoding.utf8.rawValue], documentAttributes: nil)
+                
+                let textRangeForFont : NSRange = NSMakeRange(0, attribStr.length)
+                attribStr.addAttributes([NSAttributedString.Key.font : UIFont(name: "SourceSansPro", size:16)!], range: textRangeForFont)
+                return
+                
+            } catch {
+                print(error)
+            }
+            
+            return attribStr
+    }*/
+    
     static func format(bytes: Double) -> String {
         guard bytes > 0 else {
             return "0 bytes"
@@ -342,7 +359,7 @@ struct Utils {
         let output = formatter.string(from: TimeInterval(seconds))!
         return output
     }
-    
+
     static func politeiaColorBGStatus(_ politeiaStatus: PoliteiaVoteStatus) -> UIColor {
         switch politeiaStatus {
         case .NOT_AUTHORIZED:
@@ -363,4 +380,9 @@ struct Utils {
             return UIColor.appColors.paleGray
         }
     }
+}
+
+struct MixerAcount {
+    var name: String?
+    var balance: String?
 }

@@ -118,7 +118,7 @@ class SimpleTextInputDialog: UIViewController {
         self.callback(userInput, self)
     }
     @IBAction func infoButtonTapped(_ sender: Any) {
-        SimpleAlertDialog.show(sender: self, message: infoText, okButtonText: LocalizedStrings.gotIt)
+        SimpleAlertDialog.show(sender: self, message: infoText, okButtonText: LocalizedStrings.gotIt, callback: nil)
     }
 }
 

@@ -33,6 +33,8 @@ import Dcrlibwallet
     }
     
     var showWatchOnlyWallet = true
+    var showMixedAccount = true
+    var showUnMixedAccount = true
     
     var onAccountSelectionChanged: ((_ selectedWallet: DcrlibwalletWallet, _ selectedAccount: DcrlibwalletAccount) -> Void)?
     
@@ -78,6 +80,8 @@ import Dcrlibwallet
                                    title: accountSelectorDialogTitle,
                                    selectedWallet: self.selectedWallet,
                                    selectedAccount: self.selectedAccount, showWatchOnlyWallet: showWatchOnlyWallet,
+                                   showUnMixedAccount: showUnMixedAccount,
+                                   showMixedAccount: showMixedAccount,
                                    callback: self.updateSelectedAccount)
     }
 

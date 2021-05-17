@@ -13,9 +13,11 @@ class SimpleOkCancelDialog: UIViewController {
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var okButton: Button!
+    @IBOutlet weak var warningTextLabel: UILabel!
     
     private var dialogTitle: String!
     private var message: String!
+    private var warningText:String!
     private var cancelButtonText: String?
     private var okButtonText: String?
     private var callback: ((_ ok: Bool) -> Void)?
@@ -23,6 +25,7 @@ class SimpleOkCancelDialog: UIViewController {
     static func show(sender vc: UIViewController,
                      title: String,
                      message: String,
+                     warningText: String? = nil,
                      cancelButtonText: String? = nil,
                      okButtonText: String? = nil,
                      callback: ((_ ok: Bool) -> Void)?) {
@@ -30,6 +33,7 @@ class SimpleOkCancelDialog: UIViewController {
         let dialog = SimpleOkCancelDialog.instantiate(from: .CustomDialogs)
         dialog.dialogTitle = title
         dialog.message = message
+        dialog.warningText = warningText
         dialog.cancelButtonText = cancelButtonText
         dialog.okButtonText = okButtonText
         dialog.callback = callback
@@ -44,6 +48,7 @@ class SimpleOkCancelDialog: UIViewController {
 
         self.titleLabel.text = self.dialogTitle
         self.messageLabel.text = self.message
+        self.warningTextLabel.text = self.warningText
         self.cancelButton.setTitle(self.cancelButtonText ?? LocalizedStrings.cancel, for: .normal)
         self.okButton.setTitle(self.okButtonText ?? LocalizedStrings.ok, for: .normal)
     }

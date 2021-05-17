@@ -28,6 +28,8 @@ struct Transaction: Codable {
     var inputs: [TxInput]
     var outputs: [TxOutput]
     
+    var isMixed: Bool
+    
     // Vote Info
     var voteVersion: Int32
     var lastBlockValid: Bool
@@ -46,6 +48,8 @@ struct Transaction: Codable {
         case version
         case lockTime = "lock_time"
         case expiry, fee
+        
+        case isMixed = "is_mixed"
         
         case direction, amount, inputs, outputs
         
@@ -69,6 +73,8 @@ struct Transaction: Codable {
         self.lockTime = try! values.decode(Int32.self, forKey: .lockTime)
         self.expiry = try! values.decode(Int32.self, forKey: .expiry)
         self.fee = try! values.decode(Int64.self, forKey: .fee)
+        
+        self.isMixed = try! values.decode(Bool.self, forKey: .isMixed)
         
         self.direction = try! values.decode(Int32.self, forKey: .direction)
         self.amount = try! values.decode(Int64.self, forKey: .amount)

@@ -55,7 +55,7 @@ class WalletsViewController: UIViewController {
     
     @IBAction func addNewWalletTapped(_ sender: UIView) {
         if WalletLoader.shared.multiWallet.openedWalletsCount() >= numberOfwalletAllowed {
-            SimpleAlertDialog.show(sender: self, message: LocalizedStrings.walletsLimitError, okButtonText: LocalizedStrings.ok)
+            SimpleAlertDialog.show(sender: self, message: LocalizedStrings.walletsLimitError, okButtonText: LocalizedStrings.ok, callback: nil)
             return
         }
         
@@ -247,6 +247,11 @@ extension WalletsViewController: UITableViewDataSource, UITableViewDelegate {
                 cellHeight += (WalletInfoTableViewCell.accountCellHeight * CGFloat(wallet.accounts.count))
                     + WalletInfoTableViewCell.addNewAccountButtonHeight
             }
+            
+            if wallet.isAccountMixerActive {
+                cellHeight += WalletInfoTableViewCell.checkMixerStatusHeight
+            }
+            
         } else {
             cellHeight += (WalletInfoTableViewCell.accountCellHeight * CGFloat(watchOnly.count))
         }
@@ -294,6 +299,10 @@ extension WalletsViewController: WalletInfoTableViewCellDelegate {
         
         walletMenu.addAction(UIAlertAction(title: LocalizedStrings.rename, style: .default, handler: { _ in
             self.renameWallet(walletID: walletID)
+        }))
+        
+        walletMenu.addAction(UIAlertAction(title: "Privacy", style: .default, handler: { _ in
+            self.goToPrivacySetupPage(walletID: walletID)
         }))
         
         walletMenu.addAction(UIAlertAction(title: LocalizedStrings.settings, style: .default, handler: { _ in
@@ -371,6 +380,10 @@ extension WalletsViewController: WalletInfoTableViewCellDelegate {
             customTabBar?.hasUnBackedUpWallets(false)
         }
     }
+    
+    func gotoPrivacy(_ wallet: Wallet) {
+        self.gotoPrivacyPage(walletID: wallet.id)
+    }
 }
 
 extension WalletsViewController: WatchOnlyWalletInfoTableViewCellDelegate {
@@ -447,6 +460,35 @@ extension WalletsViewController {
     func gotToVerifyMessage(walletID: Int) {
         let verifyMessageVC = VerifyMessageViewController.instantiate(from: .VerifyMessage)
         self.navigationController?.pushViewController(verifyMessageVC, animated: true)
+    }
+    
+    func goToPrivacySetupPage(walletID: Int) {
+        guard let wallet = WalletLoader.shared.multiWallet.wallet(withID: walletID) else {
+            return
+        }
+        
+        let isMixerConfigSet = wallet.readBoolConfigValue(forKey: DcrlibwalletAccountMixerConfigSet, defaultValue: false)
+        
+        if isMixerConfigSet {
+            let PrivacyVC = PrivacyViewController.instantiate(from: .Privacy)
+            PrivacyVC.wallet = wallet
+            self.navigationController?.pushViewController(PrivacyVC, animated: true)
+        } else {
+            let PrivacySetupVC = PrivacySetupViewController.instantiate(from: .Privacy)
+            PrivacySetupVC.wallet = wallet
+            self.navigationController?.pushViewController(PrivacySetupVC, animated: true)
+        }
+        
+    }
+    
+    func gotoPrivacyPage(walletID: Int) {
+        guard let wallet = WalletLoader.shared.multiWallet.wallet(withID: walletID) else {
+            return
+        }
+        
+        let PrivacySetupVC = PrivacyViewController.instantiate(from: .Privacy)
+        PrivacySetupVC.wallet = wallet
+        self.navigationController?.pushViewController(PrivacySetupVC, animated: true)
     }
 }
 
