@@ -187,8 +187,14 @@ class TransactionDetailsViewController: UIViewController {
     }
 
     private func prepareTxOverview() {
-        let attributedAmountString = NSMutableAttributedString(string: (transaction.type == DcrlibwalletTxTypeRegular && transaction.direction == DcrlibwalletTxDirectionSent) ? "-" : "")
-        attributedAmountString.append(Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 20.0, TexthexColor: UIColor.appColors.darkBlue))
+        let attributedAmountString: NSMutableAttributedString
+        if transaction.isMixed {
+            attributedAmountString = Utils.getAttributedString(str: transaction.dcrMixDenom.round(8).description, siz: 20.0, TexthexColor: UIColor.appColors.darkBlue)
+        } else {
+            attributedAmountString = NSMutableAttributedString(string: (transaction.type == DcrlibwalletTxTypeRegular && transaction.direction == DcrlibwalletTxDirectionSent) ? "-" : "")
+            attributedAmountString.append(Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 20.0, TexthexColor: UIColor.appColors.darkBlue))
+        }
+        
         self.txOverview.txAmount = attributedAmountString
 
         self.txOverview.date = Utils.formatDateTime(timestamp: transaction.timestamp)

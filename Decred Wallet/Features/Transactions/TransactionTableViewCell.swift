@@ -65,7 +65,7 @@ class TransactionTableViewCell: UITableViewCell {
     func displayRegularTxInfo(_ transaction: Transaction) {
         let amountString = Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 13.0, TexthexColor: UIColor.appColors.darkBlue)
         if transaction.isMixed {
-            let attributedString = NSMutableAttributedString(string: LocalizedStrings.mixed)
+            let attributedString = NSMutableAttributedString(string: LocalizedStrings.mix)
             self.txAmountOrTicketStatusLabel.attributedText = attributedString
             self.txTypeIconImageView?.image = UIImage(named: "ic_send")
         } else {

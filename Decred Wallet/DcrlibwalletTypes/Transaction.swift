@@ -25,6 +25,7 @@ struct Transaction: Codable {
     
     var direction: Int32
     var amount: Int64
+    var mixDenom: Int64
     var inputs: [TxInput]
     var outputs: [TxOutput]
     
@@ -53,6 +54,8 @@ struct Transaction: Codable {
         
         case direction, amount, inputs, outputs
         
+        case mixDenom = "mix_denom"
+        
         case voteVersion = "vote_version"
         case lastBlockValid = "last_block_valid"
         case voteBits = "vote_bits"
@@ -78,6 +81,7 @@ struct Transaction: Codable {
         
         self.direction = try! values.decode(Int32.self, forKey: .direction)
         self.amount = try! values.decode(Int64.self, forKey: .amount)
+        self.mixDenom = try! values.decode(Int64.self, forKey: .mixDenom)
         self.inputs = try! values.decode([TxInput].self, forKey: .inputs)
         self.outputs = try! values.decode([TxOutput].self, forKey: .outputs)
         
@@ -92,6 +96,10 @@ struct Transaction: Codable {
     
     var dcrAmount: NSDecimalNumber {
         return Decimal(DcrlibwalletAmountCoin(self.amount)) as NSDecimalNumber
+    }
+    
+    var dcrMixDenom: NSDecimalNumber {
+        return Decimal(DcrlibwalletAmountCoin(self.mixDenom)) as NSDecimalNumber
     }
     
     var dcrVoteReward: NSDecimalNumber {

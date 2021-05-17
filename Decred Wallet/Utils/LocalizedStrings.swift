@@ -539,4 +539,5 @@ struct LocalizedStrings {
     static let continueText = NSLocalizedString("continueText", comment: "")
     static let unlockToStartMixing = NSLocalizedString("unlockToStartMixing", comment: "")
     static let mixed = NSLocalizedString("mixed", comment: "")
+    static let mix = NSLocalizedString("mix", comment: "")
 }
