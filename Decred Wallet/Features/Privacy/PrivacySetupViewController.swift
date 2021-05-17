@@ -18,8 +18,8 @@ class PrivacySetupViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.walletName.text = self.wallet.name
-        WalletLoader.shared.multiWallet.setBoolConfigValueForKey("checked_privacy_page", value: true)
     }
+    
     @IBAction func dismissView(_ sender: Any) {
         self.dismissView()
     }

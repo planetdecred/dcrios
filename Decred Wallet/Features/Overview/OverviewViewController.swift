@@ -460,14 +460,15 @@ class OverviewViewController: UIViewController {
     
     @IBAction func setupAccountMixingTapped(_ sender: Any) {
         if let walletsTabIndex = NavigationMenuTabBarController.tabItems.firstIndex(of: .wallets) {
+            WalletLoader.shared.multiWallet.setBoolConfigValueForKey(GlobalConstants.Strings.SHOWN_PRIVACY_TOOLTIP, value: false)
             NavigationMenuTabBarController.instance?.navigateToTab(index: walletsTabIndex)
         }
     }
     
     @IBAction func dismissAccountMixingPromptTapped(_ sender: Any) {
-           //self.hideAccountMixingPrompt = true
-           self.accountMixingPromptSectionView.isHidden = true
-       }
+        self.hideAccountMixingPrompt = true
+        self.accountMixingPromptSectionView.isHidden = true
+    }
     
     @IBAction func seedBackupTapped(_ sender: Any) {
         self.goToWalletPage()
