@@ -37,6 +37,8 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
     var act: CallBack?
     var listener: TapListener?
     private var widthCell: CGFloat = 300
+    private var widthContainerView: CGFloat = 300
+    private var marginRight: CGFloat = 0
     private var widthText: CGFloat = 0
     private var labelBGColor: UIColor = UIColor.appColors.lightBlue
     private var labelColor: UIColor = UIColor.white
@@ -44,6 +46,7 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
     
     var superSuperView = UIView()
     var containerView = UIView()
+    var viewGesture = UIView()
     var minTableWidth: CGFloat = 0 {
         didSet {
             self.layoutIfNeeded()
@@ -80,11 +83,13 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
     
     func initMenu(_ items: [String], actions: CallBack? = nil) {
         let _items = items.map{DropMenuButtonItem($0)}
-        self.initMenu(_items, actions: actions)
+        self.initMenu(_items, marginRight: 0, superView: nil, actions: actions)
     }
     
-    func initMenu(_ items: [DropMenuButtonItem], actions: CallBack? = nil)
+    func initMenu(_ items: [DropMenuButtonItem], marginRight: CGFloat, superView: UIView?, actions: CallBack? = nil)
     {
+        self.widthContainerView = (superView != nil) ? superView!.frame.width : 0
+        self.marginRight = marginRight
         self.items = items
         act = actions
         self.caculateWidthCell()
@@ -96,7 +101,6 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
             {
                 resp = resp.next!
             }
-            // backgroundColor = UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
 
             if let vc = resp as? UIViewController
             {
@@ -106,6 +110,9 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
             {
                 superSuperView = vc
             }
+            if let supView = superView {
+                superSuperView = supView
+            }
 
             table = UITableView()
 
@@ -114,6 +121,8 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
             table.dataSource = self
             table.isUserInteractionEnabled = true
             table.bounces = false
+            table.layer.cornerRadius = 5
+            table.clipsToBounds = true
             containerView.alpha = 0
             table.separatorColor = UIColor.clear
 
@@ -121,12 +130,18 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
             superSuperView.addSubview(containerView)
 
             containerView.clipsToBounds = false
+            containerView.layer.cornerRadius = 5
             containerView.layer.shadowOffset = CGSize(width: -2, height: 5)
             containerView.layer.shadowRadius = 6
             containerView.layer.shadowOpacity = 0.8
             containerView.layer.shadowColor = UIColor.lightGray.cgColor
 
             addTarget(self, action: #selector(DropMenuButton.showItems), for: .touchUpInside)
+            containerView.addSubview(self.viewGesture)
+            let containerGes = UITapGestureRecognizer(target: self, action: #selector(DropMenuButton.showItems))
+            self.viewGesture.addGestureRecognizer(containerGes)
+            self.containerView.bringSubviewToFront(table)
+            
         }
 
         // set automatically the selected item index to 0
@@ -142,13 +157,13 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
     func caculateWidthCell() {
         self.items.forEach { (item) in
             let widthText = item.text.width(withConstrainedHeight: 20, font: UIFont(name: "SourceSansPro-Regular", size: 17) ?? UIFont.systemFont(ofSize: 17))
-            let widthtextLabel = item.textLabel.width(withConstrainedHeight: 20, font: UIFont(name: "SourceSansPro-Bold", size: 13) ?? UIFont.systemFont(ofSize: 13)) + 10
-            if ((widthText + widthtextLabel + 30) > self.minTableWidth) {
-                self.minTableWidth = max(self.minTableWidth, (widthText + widthtextLabel + 30))
-                self.widthCell = (widthText + widthtextLabel + 30)
-            }
+            let widthtextLabel = item.textLabel.width(withConstrainedHeight: 20, font: UIFont(name: "SourceSansPro-Regular", size: 13) ?? UIFont.systemFont(ofSize: 13)) + 10
             if (widthText > self.widthText) {
                 self.widthText = widthText
+            }
+            if ((self.widthText + widthtextLabel + 30) > self.minTableWidth) {
+                self.minTableWidth = max(self.minTableWidth, (self.widthText + widthtextLabel + 30))
+                self.widthCell = (widthText + widthtextLabel + 30)
             }
         }
     }
@@ -158,10 +173,12 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
         let auxPoint2 = superSuperView.convert(frame.origin, from: superview)
         
         var tableFrameHeight = CGFloat()
-        
+        let containerWith = self.widthContainerView == 0 ? max(minTableWidth, frame.width) : self.widthContainerView
+        let marginRightTable = self.widthContainerView == 0 ? 0.0 : 16.0
         tableFrameHeight = frame.height * CGFloat(items.count)
-        containerView.frame = CGRect(x: auxPoint2.x, y: auxPoint2.y, width: 300, height: tableFrameHeight)
-        table.frame = CGRect(x: 0, y: 0, width: max(minTableWidth, frame.width), height: tableFrameHeight)
+        self.viewGesture.frame = CGRect(x: 0, y: 0, width: containerWith, height: tableFrameHeight)
+        containerView.frame = CGRect(x: self.widthContainerView == 0 ? auxPoint2.x : 0, y: auxPoint2.y, width: containerWith, height: tableFrameHeight)
+        table.frame = CGRect(x: containerWith - max(minTableWidth, frame.width) - CGFloat(marginRightTable), y: 0, width: max(minTableWidth, frame.width), height: tableFrameHeight)
         table.rowHeight = frame.height
         table.separatorColor = UIColor.clear
         

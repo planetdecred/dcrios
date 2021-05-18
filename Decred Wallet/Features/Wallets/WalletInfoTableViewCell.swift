@@ -11,7 +11,7 @@ import Dcrlibwallet
 
 protocol WalletInfoTableViewCellDelegate {
     func walletSeedBackedUp()
-    func showWalletMenu(walletName: String, walletID: Int, _ sender: UIView)
+    func showWalletMenu(walletName: String, walletID: Int, type: DropDowMenuEnum?)
     func addNewAccount(_ wallet: Wallet)
     func showAccountDetailsDialog(_ account: DcrlibwalletAccount)
     func gotoPrivacy(_ wallet: Wallet)
@@ -35,7 +35,7 @@ class WalletInfoTableViewCell: UITableViewCell {
             )
         }
     }
-    @IBOutlet weak var walletMenuButton: UIButton!
+    @IBOutlet weak var walletMenuButton: DropMenuButton!
     
     @IBOutlet weak var checkMixerStatusView: UIView!
     @IBOutlet weak var checkMixerStatusDivider: UIView!
@@ -48,6 +48,11 @@ class WalletInfoTableViewCell: UITableViewCell {
     static let addNewAccountButtonHeight: CGFloat = 56
     static let seedBackupPromptHeight: CGFloat = 92.0
     static let checkMixerStatusHeight:CGFloat = 34.0
+
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        self.setupMenuDropDown()
+    }
     
     var wallet: Wallet! {
         didSet {
@@ -97,6 +102,20 @@ class WalletInfoTableViewCell: UITableViewCell {
         }
     }
     
+    func setupMenuDropDown() {
+        let menuOption = [
+            DropMenuButtonItem(LocalizedStrings.signMessage, isSeparate: false, textLabel: ""),
+            DropMenuButtonItem(LocalizedStrings.verifyMessage, isSeparate: false, textLabel: ""),
+            DropMenuButtonItem(LocalizedStrings.privacy, isSeparate: true, textLabel: ""),
+            DropMenuButtonItem(LocalizedStrings.rename, isSeparate: true, textLabel: ""),
+            DropMenuButtonItem(LocalizedStrings.settings, isSeparate: false, textLabel: ""),
+        ]
+        self.walletMenuButton.initMenu(menuOption, marginRight: 24, superView: self.superview?.superview) { [weak self] index, value in
+            guard let `self` = self else {return}
+            self.delegate?.showWalletMenu(walletName: self.wallet.name, walletID: self.wallet.id, type: DropDowMenuEnum(rawValue: index))
+        }
+    }
+    
     func hideCheckMixerStatusView() {
         self.checkMixerStatusView.isHidden = true
         self.checkMixerStatusDivider.isHidden = wallet.displayAccounts ? true : false
@@ -129,11 +148,6 @@ class WalletInfoTableViewCell: UITableViewCell {
     
     @IBAction func checkMixerStatus(_ sender: Any) {
         self.delegate?.gotoPrivacy(self.wallet)
-    }
-    
-    
-    @IBAction func walletMenuButtonTapped(_ sender: UIView) {
-        self.delegate?.showWalletMenu(walletName: self.wallet.name, walletID: self.wallet.id, sender)
     }
     
     @IBAction func addNewAccountTapped(_ sender: Any) {

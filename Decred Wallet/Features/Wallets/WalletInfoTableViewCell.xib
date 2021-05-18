@@ -63,12 +63,12 @@
                                                 <color key="textColor" red="0.34901960784313724" green="0.42745098039215684" blue="0.50588235294117645" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dha-hr-I4A">
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dha-hr-I4A" customClass="DropMenuButton" customModule="Decred_Wallet" customModuleProvider="target">
                                                 <rect key="frame" x="386" y="16" width="24" height="38.5"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="24" id="5FV-Ek-O4f"/>
+                                                </constraints>
                                                 <state key="normal" image="ic_more"/>
-                                                <connections>
-                                                    <action selector="walletMenuButtonTapped:" destination="d8O-gb-pZU" eventType="touchUpInside" id="Lvp-AP-VSi"/>
-                                                </connections>
                                             </button>
                                         </subviews>
                                         <edgeInsets key="layoutMargins" top="16" left="16" bottom="16" right="16"/>

@@ -9,6 +9,14 @@
 import UIKit
 import Dcrlibwallet
 
+enum DropDowMenuEnum: Int {
+    case signMessage = 0
+    case verifyMessage = 1
+    case stakeShuffle = 2
+    case rename = 3
+    case setting = 4
+}
+
 class WalletsViewController: UIViewController {
     @IBOutlet weak var walletsTableView: UITableView!
     
@@ -289,34 +297,26 @@ extension WalletsViewController: WalletInfoTableViewCellDelegate {
         self.refreshView()
     }
     
-    func showWalletMenu(walletName: String, walletID: Int, _ sender: UIView) {
-        let prompt = String(format: "%@ (%@)", LocalizedStrings.wallet, walletName)
-        let walletMenu = UIAlertController(title: nil, message: prompt, preferredStyle: .actionSheet)
-        
-        walletMenu.addAction(UIAlertAction(title: LocalizedStrings.signMessage, style: .default, handler: { _ in
-            self.gotToSignMessage(walletID: walletID)
-        }))
-        
-        walletMenu.addAction(UIAlertAction(title: LocalizedStrings.rename, style: .default, handler: { _ in
-            self.renameWallet(walletID: walletID)
-        }))
-        
-        walletMenu.addAction(UIAlertAction(title: "Privacy", style: .default, handler: { _ in
+    func showWalletMenu(walletName: String, walletID: Int, type: DropDowMenuEnum?) {
+        switch type {
+        case .verifyMessage:
+            self.gotToVerifyMessage(walletID: walletID)
+            break
+        case .stakeShuffle:
             self.goToPrivacySetupPage(walletID: walletID)
-        }))
-        
-        walletMenu.addAction(UIAlertAction(title: LocalizedStrings.settings, style: .default, handler: { _ in
+            break
+        case .signMessage:
+            self.goToSignMessage(walletID: walletID)
+            break
+        case .rename:
+            self.renameWallet(walletID: walletID)
+            break
+        case .setting:
             self.goToWalletSettingsPage(walletID: walletID)
-        }))
-        
-        walletMenu.addAction(UIAlertAction(title: LocalizedStrings.cancel, style: .cancel, handler: nil))
-        
-        if let popoverPresentationController = walletMenu.popoverPresentationController {
-            popoverPresentationController.sourceView = sender
-            popoverPresentationController.sourceRect = sender.bounds
+            break
+        case .none:
+            break
         }
-        
-        self.present(walletMenu, animated: true, completion: nil)
     }
     
     func addNewAccount(_ wallet: Wallet) {
@@ -448,7 +448,7 @@ extension WalletsViewController {
         self.navigationController?.pushViewController(walletSettingsVC, animated: true)
     }
     
-    func gotToSignMessage(walletID: Int) {
+    func goToSignMessage(walletID: Int) {
         guard let wallet = WalletLoader.shared.multiWallet.wallet(withID: walletID) else {
             return
         }
