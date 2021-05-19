@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -48,12 +48,12 @@
                             <constraint firstAttribute="height" constant="1" id="Bjk-ON-bDA"/>
                         </constraints>
                     </view>
-                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TME-PG-gZE">
+                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TME-PG-gZE" customClass="DropMenuButton" customModule="Decred_Wallet" customModuleProvider="target">
                         <rect key="frame" x="374" y="16" width="24" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="24" id="mvX-YY-deZ"/>
+                        </constraints>
                         <state key="normal" image="ic_more"/>
-                        <connections>
-                            <action selector="walletMenuButtonTapped:" destination="lxt-ND-6q1" eventType="touchUpInside" id="0oY-1y-dbQ"/>
-                        </connections>
                     </button>
                 </subviews>
                 <constraints>
@@ -72,6 +72,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="totalAccountBalanceLabel" destination="9Xm-3f-sHC" id="4ub-l4-iUS"/>
+                <outlet property="walletMenuButton" destination="TME-PG-gZE" id="tdR-hf-N8c"/>
                 <outlet property="walletNameLabel" destination="oT3-ly-hYC" id="4ab-Me-LDz"/>
             </connections>
             <point key="canvasLocation" x="19" y="-21"/>

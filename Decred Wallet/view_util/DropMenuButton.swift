@@ -37,8 +37,10 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
     var act: CallBack?
     var listener: TapListener?
     private var widthCell: CGFloat = 300
-    private var widthContainerView: CGFloat = 300
-    private var marginRight: CGFloat = 0
+    private var widthSuperView: CGFloat = 300
+    private var heightSuperView: CGFloat = 300
+    private var marginRightTable: CGFloat = 0
+    private var isDissmissOutside: Bool = false
     private var widthText: CGFloat = 0
     private var labelBGColor: UIColor = UIColor.appColors.lightBlue
     private var labelColor: UIColor = UIColor.white
@@ -83,13 +85,13 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
     
     func initMenu(_ items: [String], actions: CallBack? = nil) {
         let _items = items.map{DropMenuButtonItem($0)}
-        self.initMenu(_items, marginRight: 0, superView: nil, actions: actions)
+        self.initMenu(_items, marginRight: 0, isDissmissOutside: false , superView: nil, actions: actions)
     }
     
-    func initMenu(_ items: [DropMenuButtonItem], marginRight: CGFloat, superView: UIView?, actions: CallBack? = nil)
+    func initMenu(_ items: [DropMenuButtonItem], marginRight: CGFloat, isDissmissOutside: Bool, superView: UIView?, actions: CallBack? = nil)
     {
-        self.widthContainerView = (superView != nil) ? superView!.frame.width : 0
-        self.marginRight = marginRight
+        self.marginRightTable = marginRight
+        self.isDissmissOutside = isDissmissOutside
         self.items = items
         act = actions
         self.caculateWidthCell()
@@ -104,14 +106,14 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
 
             if let vc = resp as? UIViewController
             {
-                superSuperView = vc.view
+                self.superSuperView = vc.view
             }
             else if let vc = resp as? UITableViewCell
             {
-                superSuperView = vc
+                self.superSuperView = vc
             }
             if let supView = superView {
-                superSuperView = supView
+                self.superSuperView = supView
             }
 
             table = UITableView()
@@ -143,7 +145,9 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
             self.containerView.bringSubviewToFront(table)
             
         }
-
+        self.widthSuperView = self.superSuperView.frame.width
+        self.heightSuperView = self.superSuperView.frame.height
+        
         // set automatically the selected item index to 0
         self.selectedItemIndex = 0
         self.selectedItem = self.items[self.selectedItemIndex].text
@@ -172,13 +176,13 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
     {
         let auxPoint2 = superSuperView.convert(frame.origin, from: superview)
         
-        var tableFrameHeight = CGFloat()
-        let containerWith = self.widthContainerView == 0 ? max(minTableWidth, frame.width) : self.widthContainerView
-        let marginRightTable = self.widthContainerView == 0 ? 0.0 : 16.0
-        tableFrameHeight = frame.height * CGFloat(items.count)
-        self.viewGesture.frame = CGRect(x: 0, y: 0, width: containerWith, height: tableFrameHeight)
-        containerView.frame = CGRect(x: self.widthContainerView == 0 ? auxPoint2.x : 0, y: auxPoint2.y, width: containerWith, height: tableFrameHeight)
-        table.frame = CGRect(x: containerWith - max(minTableWidth, frame.width) - CGFloat(marginRightTable), y: 0, width: max(minTableWidth, frame.width), height: tableFrameHeight)
+//        let tableFrameHeight = frame.height * CGFloat(items.count)
+        let tableFrameHeight = 40 * CGFloat(items.count)
+        let containerWith = self.isDissmissOutside ? self.widthSuperView : max(minTableWidth, frame.width)
+        let containerHeight = self.isDissmissOutside ? self.heightSuperView : max(tableFrameHeight, frame.height)
+        self.viewGesture.frame = CGRect(x: 0, y: 0, width: containerWith, height: containerHeight)
+        containerView.frame = CGRect(x: self.isDissmissOutside ? 0 : auxPoint2.x, y: self.isDissmissOutside ? 0 : auxPoint2.y, width: containerWith, height: containerHeight)
+        table.frame = CGRect(x: containerWith - max(minTableWidth, frame.width) - self.marginRightTable, y: self.isDissmissOutside ? auxPoint2.y : 0, width: max(minTableWidth, frame.width), height: tableFrameHeight)
         table.rowHeight = frame.height
         table.separatorColor = UIColor.clear
         
@@ -210,6 +214,10 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         return items.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 40
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)

@@ -392,26 +392,17 @@ extension WalletsViewController: WatchOnlyWalletInfoTableViewCellDelegate {
         AccountDetailsViewController.showWatchOnlyWalletDetails(for: wallet, onAccountDetailsUpdated: self.refreshAccountDetails, sender: self)
     }
     
-    func showWatchOnlyWalletMenu(walletName: String, walletID: Int, _ sender: UIView) {
-        let prompt = String(format: "%@ (%@)", LocalizedStrings.wallet, walletName)
-        let walletMenu = UIAlertController(title: nil, message: prompt, preferredStyle: .actionSheet)
-               
-        walletMenu.addAction(UIAlertAction(title: LocalizedStrings.rename, style: .default, handler: { _ in
-                   self.renameWallet(walletID: walletID)
-               }))
-               
-        walletMenu.addAction(UIAlertAction(title: LocalizedStrings.settings, style: .default, handler: { _ in
-                   self.goToWalletSettingsPage(walletID: walletID)
-               }))
-               
-        walletMenu.addAction(UIAlertAction(title: LocalizedStrings.cancel, style: .cancel, handler: nil))
-               
-        if let popoverPresentationController = walletMenu.popoverPresentationController {
-            popoverPresentationController.sourceView = sender
-            popoverPresentationController.sourceRect = sender.bounds
+    func showWatchOnlyWalletMenu(walletName: String, walletID: Int , type: DropDowMenuEnum) {
+        switch type {
+        case .rename:
+            self.renameWallet(walletID: walletID)
+            break
+        case .setting:
+            self.goToWalletSettingsPage(walletID: walletID)
+            break
+        default:
+            break
         }
-        
-        self.present(walletMenu, animated: true, completion: nil)
     }
 }
 

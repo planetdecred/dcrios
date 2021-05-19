@@ -48,6 +48,7 @@ class WalletInfoTableViewCell: UITableViewCell {
     static let addNewAccountButtonHeight: CGFloat = 56
     static let seedBackupPromptHeight: CGFloat = 92.0
     static let checkMixerStatusHeight:CGFloat = 34.0
+    private var menuOption: [DropMenuButtonItem] = []
 
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
@@ -102,17 +103,26 @@ class WalletInfoTableViewCell: UITableViewCell {
         }
     }
     
+    func checkMixerSetup(){
+        if WalletLoader.shared.multiWallet.readBoolConfigValue(forKey: "has_setup_privacy", defaultValue: false) {
+            self.menuOption[3] = DropMenuButtonItem(LocalizedStrings.privacy, isSeparate: true, textLabel: "")
+        }
+    }
+    
     func setupMenuDropDown() {
-        let menuOption = [
+        self.menuOption = [
             DropMenuButtonItem(LocalizedStrings.signMessage, isSeparate: false, textLabel: ""),
             DropMenuButtonItem(LocalizedStrings.verifyMessage, isSeparate: false, textLabel: ""),
-            DropMenuButtonItem(LocalizedStrings.privacy, isSeparate: true, textLabel: ""),
+            DropMenuButtonItem(LocalizedStrings.privacy, isSeparate: true, textLabel: "New"),
             DropMenuButtonItem(LocalizedStrings.rename, isSeparate: true, textLabel: ""),
             DropMenuButtonItem(LocalizedStrings.settings, isSeparate: false, textLabel: ""),
         ]
-        self.walletMenuButton.initMenu(menuOption, marginRight: 24, superView: self.superview?.superview) { [weak self] index, value in
+        self.walletMenuButton.initMenu(self.menuOption, marginRight: 16, isDissmissOutside: true, superView: self.superview?.superview) { [weak self] index, value in
             guard let `self` = self else {return}
             self.delegate?.showWalletMenu(walletName: self.wallet.name, walletID: self.wallet.id, type: DropDowMenuEnum(rawValue: index))
+            if (self.menuOption[3].textLabel != "") {
+                self.checkMixerSetup()
+            }
         }
     }
     

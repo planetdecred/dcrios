@@ -11,7 +11,7 @@ import Dcrlibwallet
 
 protocol WatchOnlyWalletInfoTableViewCellDelegate {
     func showWatchOnlyWalletDetailsDialog(_ wallet: Wallet)
-    func showWatchOnlyWalletMenu(walletName: String, walletID: Int, _ sender: UIView)
+    func showWatchOnlyWalletMenu(walletName: String, walletID: Int, type: DropDowMenuEnum)
 }
 
 class WatchOnlyWalletInfoTableViewCell: UITableViewCell {
@@ -70,7 +70,7 @@ extension WatchOnlyWalletInfoTableViewCell: UITableViewDataSource, UITableViewDe
 }
 
 extension WatchOnlyWalletInfoTableViewCell: WatchOnlyWalletTableViewCellDelegate {
-    func showWatchOnlyWalletMenu(walletName: String, walletID: Int, _ sender: UIView) {
-        self.delegate?.showWatchOnlyWalletMenu(walletName: walletName, walletID: walletID, sender)
+    func showWatchOnlyWalletMenu(walletName: String, walletID: Int, type: DropDowMenuEnum) {
+        self.delegate?.showWatchOnlyWalletMenu(walletName: walletName, walletID: walletID, type: type)
     }
 }
