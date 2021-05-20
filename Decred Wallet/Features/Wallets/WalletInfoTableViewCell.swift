@@ -27,7 +27,7 @@ class WalletInfoTableViewCell: UITableViewCell {
     @IBOutlet weak var accountsTableView: UITableView!
     @IBOutlet weak var accountsTableViewHeightConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var tooltipVIew: TooltipView!
+    @IBOutlet weak var privacyTootipView: TooltipView!
     @IBOutlet weak var seedBackupPrompt: UIView! {
         didSet {
             self.seedBackupPrompt.addGestureRecognizer(
@@ -84,7 +84,9 @@ class WalletInfoTableViewCell: UITableViewCell {
                 self.hideCheckMixerStatusView()
             }
             
-            if WalletLoader.shared.wallets.first?.id_ == wallet.id && !WalletLoader.shared.multiWallet.readBoolConfigValue(forKey: "checked_privacy_page", defaultValue: false) {
+            let multiWallet = WalletLoader.shared.multiWallet!
+            if !multiWallet.readBoolConfigValue(forKey: GlobalConstants.Strings.SHOWN_PRIVACY_TOOLTIP, defaultValue: false) {
+                multiWallet.setBoolConfigValueForKey(GlobalConstants.Strings.SHOWN_PRIVACY_TOOLTIP, value: true)
                 self.showToolTip()
             }
 
@@ -139,9 +141,9 @@ class WalletInfoTableViewCell: UITableViewCell {
     }
     
     func showToolTip() {
-        self.tooltipVIew.isHidden = false
+        self.privacyTootipView.isHidden = false
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-            self.tooltipVIew.isHidden = true
+            self.privacyTootipView.isHidden = true
         }
     }
 }
