@@ -35,6 +35,7 @@ import Dcrlibwallet
     var showWatchOnlyWallet = true
     var showMixedAccount = true
     var showUnMixedAccount = true
+    var showMixedOnly = true
     
     var onAccountSelectionChanged: ((_ selectedWallet: DcrlibwalletWallet, _ selectedAccount: DcrlibwalletAccount) -> Void)?
     
@@ -81,7 +82,7 @@ import Dcrlibwallet
                                    selectedWallet: self.selectedWallet,
                                    selectedAccount: self.selectedAccount, showWatchOnlyWallet: showWatchOnlyWallet,
                                    showUnMixedAccount: showUnMixedAccount,
-                                   showMixedAccount: showMixedAccount,
+                                   showMixedAccount: showMixedAccount, showMixedOnly: showMixedOnly,
                                    callback: self.updateSelectedAccount)
     }
 
@@ -103,5 +104,38 @@ import Dcrlibwallet
         self.selectedAccount = firstWalletAccount
         
         self.onAccountSelectionChanged?(firstWallet, firstWalletAccount)
+    }
+    
+    func selectFirstFilterWalletAccount() {
+        guard let firstWallet = WalletLoader.shared.wallets.first,
+            let firstWalletAccount = firstWallet.accounts.filter({ $0.totalBalance > 0 || $0.name != "imported" }).first,
+            let firstWalletUnMixedAccount = firstWallet.accounts.filter({ $0.totalBalance > 0 || $0.name != "imported" && $0.number != firstWallet.readInt32ConfigValue(forKey: DcrlibwalletAccountMixerUnmixedAccount, defaultValue: -1)}).first,
+            let firstWalletMixedOnlyAccount = firstWallet.accounts.filter({$0.number == firstWallet.readInt32ConfigValue(forKey: DcrlibwalletAccountMixerMixedAccount, defaultValue: -1)}).first,
+            let firstWalletMixedAccount = firstWallet.accounts.filter({ $0.totalBalance > 0 || $0.name != "imported" && $0.number != firstWallet.readInt32ConfigValue(forKey: DcrlibwalletAccountMixerMixedAccount, defaultValue: -1)}).first
+        else { return }
+        self.selectedWallet = firstWallet
+        if !showUnMixedAccount {
+            self.selectedAccount = firstWalletUnMixedAccount
+            self.onAccountSelectionChanged?(firstWallet, firstWalletUnMixedAccount)
+            return
+        }
+        
+        if !showMixedOnly {
+            self.selectedAccount = firstWalletMixedOnlyAccount
+            self.onAccountSelectionChanged?(firstWallet, firstWalletMixedOnlyAccount)
+            return
+        }
+        
+        if !showMixedAccount {
+            self.selectedAccount = firstWalletMixedAccount
+            self.onAccountSelectionChanged?(firstWallet, firstWalletMixedAccount)
+            return
+        }
+        
+        self.selectedAccount = firstWalletAccount
+        
+        
+        self.onAccountSelectionChanged?(firstWallet, firstWalletAccount)
+        
     }
 }

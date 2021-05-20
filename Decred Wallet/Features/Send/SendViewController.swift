@@ -105,15 +105,19 @@ class SendViewController: UIViewController {
     
     func setupViews() {
         self.sourceAccountView.showWatchOnlyWallet = false
-        self.sourceAccountView.showMixedAccount = false
-        self.sourceAccountView.onAccountSelectionChanged = { _, newSourceAccount in
-            let spendableAmount = (Decimal(newSourceAccount.balance!.dcrSpendable) as NSDecimalNumber).round(8).formattedWithSeparator
-            self.sourceAccountSpendableBalanceLabel.text = "\(LocalizedStrings.spendable): \(spendableAmount) DCR"
+    
+        self.sourceAccountView.selectFirstFilterWalletAccount()
+        
+        if let setup = self.sourceAccountView?.selectedWallet?.readBoolConfigValue(forKey: DcrlibwalletAccountMixerConfigSet, defaultValue: false) {
             
-            if self.sendMax {
-                self.calculateAndSetMaxSendableAmount()
+            if setup {
+                self.sourceAccountView.showMixedOnly = false
+            } else {
+                self.sourceAccountView.showUnMixedAccount = false
             }
         }
+        
+        self.sourceAccountView.onAccountSelectionChanged = self.updateSelectedAccount
         
         self.destinationAddressTextField.placeholder = LocalizedStrings.destinationAddress
         
@@ -123,8 +127,7 @@ class SendViewController: UIViewController {
         
         self.toSelfAccountSection.isHidden = true
         self.destinationAccountView.showWatchOnlyWallet = true
-        self.sourceAccountView.showUnMixedAccount = false
-        self.destinationAccountView.showUnMixedAccount = false 
+        self.destinationAccountView.showMixedAccount = false 
         self.destinationAccountView.onAccountSelectionChanged = { _, _ in
             self.displayFeeDetailsAndTransactionSummary() // re-calculate fee with updated destination info
         }
@@ -139,6 +142,18 @@ class SendViewController: UIViewController {
         )
         self.transactionFeeDetailsSection.isHidden = true
     }
+    
+    func updateSelectedAccount(_ selectedWallet: DcrlibwalletWallet, _ selectedAccount: DcrlibwalletAccount) {
+        self.sourceAccountView.selectedWallet = selectedWallet
+        self.sourceAccountView.selectedAccount = selectedAccount
+        
+        let spendableAmount = (Decimal(selectedAccount.balance!.dcrSpendable) as NSDecimalNumber).round(8).formattedWithSeparator
+        self.sourceAccountSpendableBalanceLabel.text = "\(LocalizedStrings.spendable): \(spendableAmount) DCR"
+        
+        if self.sendMax {
+            self.calculateAndSetMaxSendableAmount()
+        }
+    }
 
     @objc func toggleTransactionFeeDetailsVisibility() {
         UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseInOut, animations: {
@@ -150,7 +165,7 @@ class SendViewController: UIViewController {
     }
     
     @objc func resetFields() {
-        self.sourceAccountView.selectFirstWalletAccount()
+        self.sourceAccountView.selectFirstFilterWalletAccount()
         
         // Clearing the destination address textfield will trigger the set textview delegate
         // which will hide the error label and show the paste button if a valid address is in clipboard.
@@ -160,7 +175,7 @@ class SendViewController: UIViewController {
         self.amountValue = nil
         self.exchangeValue = nil
         
-        self.destinationAccountView.selectFirstWalletAccount()
+        self.destinationAccountView.selectFirstFilterWalletAccount()
         
         // Clearing the primary amount textfield should set the usd amount to 0,
         // hide the address error label, update the transaction fee details and sending summary fields.
@@ -169,10 +184,10 @@ class SendViewController: UIViewController {
     }
     
     func refreshFields() {
-        self.sourceAccountView.selectFirstWalletAccount()
+        self.sourceAccountView.selectFirstFilterWalletAccount()
         self.amountTextFieldEditingBegan()
         self.amountTextFieldChanged()
-        self.destinationAccountView.selectFirstWalletAccount()
+        self.destinationAccountView.selectFirstFilterWalletAccount()
         self.amountTextFieldEditingEnded()
     }
     
@@ -255,7 +270,10 @@ class SendViewController: UIViewController {
         UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseIn, animations: {
             self.toAddressSection.isHidden = true
             self.toSelfAccountSection.isHidden = false
-            
+            self.sourceAccountView.showMixedAccount = self.toAddressSection.isHidden
+            self.sourceAccountView.showUnMixedAccount = self.toAddressSection.isHidden
+            self.sourceAccountView.showMixedOnly = true
+            self.sourceAccountView.selectFirstFilterWalletAccount()
             self.displayFeeDetailsAndTransactionSummary() // re-calculate fee with updated destination info
         })
     }
@@ -264,6 +282,13 @@ class SendViewController: UIViewController {
         UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseIn, animations: {
             self.toSelfAccountSection.isHidden = true
             self.toAddressSection.isHidden = false
+            
+            if ((self.sourceAccountView?.selectedWallet?.readBoolConfigValue(forKey: DcrlibwalletAccountMixerConfigSet, defaultValue: false)) != nil) {
+                self.sourceAccountView.showMixedOnly = false
+                self.sourceAccountView.selectFirstFilterWalletAccount()
+            } else {
+                self.sourceAccountView.showUnMixedAccount = false
+            }
             
             self.displayFeeDetailsAndTransactionSummary() // re-calculate fee with updated destination info
         })

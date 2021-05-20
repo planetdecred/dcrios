@@ -25,6 +25,7 @@ class AccountSelectorDialog: UIViewController {
     var showWatchOnly = true
     var showUnMixedAccount = true
     var showMixedAccount = true
+    var showMixedOnly = true
 
     let accountCellRowHeight: CGFloat = 74
     let walletHeaderSectionHeight: CGFloat = 36
@@ -36,6 +37,7 @@ class AccountSelectorDialog: UIViewController {
                      showWatchOnlyWallet: Bool,
                      showUnMixedAccount: Bool,
                      showMixedAccount: Bool,
+                     showMixedOnly: Bool,
                      callback: @escaping AccountSelectorDialogCallback) {
 
         let dialog = AccountSelectorDialog.instantiate(from: .CustomDialogs)
@@ -45,6 +47,7 @@ class AccountSelectorDialog: UIViewController {
         dialog.selectedAccount = selectedAccount
         dialog.showWatchOnly = showWatchOnlyWallet
         dialog.showUnMixedAccount = showUnMixedAccount
+        dialog.showMixedOnly = showMixedOnly
         dialog.showMixedAccount = showMixedAccount
         dialog.modalPresentationStyle = .pageSheet
         vc.present(dialog, animated: true, completion: nil)
@@ -73,6 +76,10 @@ class AccountSelectorDialog: UIViewController {
         var accountsFilterFn: (DcrlibwalletAccount) -> Bool = { $0.totalBalance > 0 || $0.name != "imported" }
         if !showUnMixedAccount {
             accountsFilterFn = { $0.totalBalance > 0 || $0.name != "imported" && $0.number != self.selectedWallet?.readInt32ConfigValue(forKey: DcrlibwalletAccountMixerUnmixedAccount, defaultValue: -1)}
+        }
+        
+        if !showMixedOnly {
+            accountsFilterFn = {$0.number == self.selectedWallet?.readInt32ConfigValue(forKey: DcrlibwalletAccountMixerMixedAccount, defaultValue: -1)}
         }
         
         if !showMixedAccount {
