@@ -273,6 +273,7 @@ class SendViewController: UIViewController {
             self.sourceAccountView.showMixedAccount = self.toAddressSection.isHidden
             self.sourceAccountView.showUnMixedAccount = self.toAddressSection.isHidden
             self.sourceAccountView.showMixedOnly = true
+            self.destinationAccountView.showMixedAccount = false
             self.sourceAccountView.selectFirstFilterWalletAccount()
             self.displayFeeDetailsAndTransactionSummary() // re-calculate fee with updated destination info
         })

@@ -224,7 +224,7 @@ class TransactionDetailsViewController: UIViewController {
         } else if transaction.direction == DcrlibwalletTxDirectionReceived {
             self.txOverview.txIconImage = UIImage(named: "ic_receive")
         } else if transaction.direction == DcrlibwalletTxDirectionTransferred {
-            self.txOverview.txIconImage = UIImage(named: "ic_fee")
+            self.txOverview.txIconImage = UIImage(named: "nav_menu/ic_wallet")
         }
     }
 
