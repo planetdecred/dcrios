@@ -83,7 +83,7 @@ class AccountSelectorDialog: UIViewController {
         }
         
         if !showMixedAccount {
-            accountsFilterFn = { $0.totalBalance > 0 || $0.name != "imported" && $0.number != self.selectedWallet?.readInt32ConfigValue(forKey: DcrlibwalletAccountMixerMixedAccount, defaultValue: -1)}
+            accountsFilterFn = { $0.name != "imported" && $0.number != self.selectedWallet?.readInt32ConfigValue(forKey: DcrlibwalletAccountMixerMixedAccount, defaultValue: -1)}
         }
 
         let fullCoinWallet = WalletLoader.shared.wallets.filter { !$0.isWatchingOnlyWallet()}
