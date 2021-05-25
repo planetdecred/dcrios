@@ -41,7 +41,7 @@ class WalletSettingsViewController: UIViewController {
     }
     
     @IBAction func changeSpendingPINPassword(_ sender: Any) {
-        SpendingPinOrPassword.change(sender: self, walletID: self.wallet.id_) {
+        SpendingPinOrPassword.begin(sender: self, walletID: self.wallet.id_) {
             Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.spendingPinPassChanged)
         }
     }
