@@ -45,6 +45,7 @@ class WalletsViewController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
         self.refreshView()
+        self.walletsTableView.reloadData()
     }
 
     @objc func refreshView() {
@@ -273,6 +274,7 @@ extension WalletsViewController: UITableViewDataSource, UITableViewDelegate {
         if  indexPath.row < self.wallets.count {
             let walletViewCell = tableView.dequeueReusableCell(withIdentifier: cellName, for: indexPath) as! WalletInfoTableViewCell
             walletViewCell.wallet = self.wallets[indexPath.row]
+            walletViewCell.setupMenuDropDown()
             walletViewCell.delegate = self
             return walletViewCell
         } else {

@@ -49,10 +49,15 @@ class WalletInfoTableViewCell: UITableViewCell {
     static let seedBackupPromptHeight: CGFloat = 92.0
     static let checkMixerStatusHeight:CGFloat = 34.0
     private var menuOption: [DropMenuButtonItem] = []
+    
+    override class func awakeFromNib() {
+        super.awakeFromNib()
+//        self.setupMenuDropDown()
+    }
 
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
-        self.setupMenuDropDown()
+//        self.setupMenuDropDown()
     }
     
     var wallet: Wallet! {
@@ -103,12 +108,6 @@ class WalletInfoTableViewCell: UITableViewCell {
         }
     }
     
-    func checkMixerSetup(){
-        if WalletLoader.shared.multiWallet.readBoolConfigValue(forKey: "has_setup_privacy", defaultValue: false) {
-            self.menuOption[3] = DropMenuButtonItem(LocalizedStrings.privacy, isSeparate: true, textLabel: "")
-        }
-    }
-    
     func setupMenuDropDown() {
         self.menuOption = [
             DropMenuButtonItem(LocalizedStrings.signMessage, isSeparate: false, textLabel: ""),
@@ -117,12 +116,12 @@ class WalletInfoTableViewCell: UITableViewCell {
             DropMenuButtonItem(LocalizedStrings.rename, isSeparate: true, textLabel: ""),
             DropMenuButtonItem(LocalizedStrings.settings, isSeparate: false, textLabel: ""),
         ]
+        if WalletLoader.shared.multiWallet.readBoolConfigValue(forKey: "has_setup_privacy", defaultValue: false) {
+            self.menuOption[2] = DropMenuButtonItem(LocalizedStrings.privacy, isSeparate: true, textLabel: "")
+        }
         self.walletMenuButton.initMenu(self.menuOption, marginRight: 16, isDissmissOutside: true, superView: self.superview?.superview) { [weak self] index, value in
             guard let `self` = self else {return}
             self.delegate?.showWalletMenu(walletName: self.wallet.name, walletID: self.wallet.id, type: DropDowMenuEnum(rawValue: index))
-            if (self.menuOption[3].textLabel != "") {
-                self.checkMixerSetup()
-            }
         }
     }
     
