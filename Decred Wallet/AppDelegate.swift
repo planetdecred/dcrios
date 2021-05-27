@@ -160,8 +160,12 @@ extension AppDelegate: UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        if SyncManager.shared.isSyncing || SyncManager.shared.isSynced {
-            completionHandler(.newData)
+        if WalletLoader.shared.isInitialized {
+            if SyncManager.shared.isSyncing || SyncManager.shared.isSynced {
+                completionHandler(.newData)
+            } else {
+                completionHandler(.noData)
+            }
         } else {
             completionHandler(.noData)
         }
