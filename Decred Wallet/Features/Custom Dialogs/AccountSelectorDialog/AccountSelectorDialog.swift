@@ -72,29 +72,56 @@ class AccountSelectorDialog: UIViewController {
         self.walletsTableView.maxHeight = self.view.frame.size.height
             - self.headerContainerView.frame.size.height
             - (UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0)
+        self.setupWalletDisplay(selectedWallet: self.selectedWallet)
         
-        var accountsFilterFn: (DcrlibwalletAccount) -> Bool = { $0.totalBalance > 0 || $0.name != "imported" }
-        if !showUnMixedAccount {
-            accountsFilterFn = { $0.totalBalance > 0 || $0.name != "imported" && $0.number != self.selectedWallet?.readInt32ConfigValue(forKey: DcrlibwalletAccountMixerUnmixedAccount, defaultValue: -1)}
-        }
         
-        if !showMixedOnly {
-            accountsFilterFn = {$0.number == self.selectedWallet?.readInt32ConfigValue(forKey: DcrlibwalletAccountMixerMixedAccount, defaultValue: -1)}
-        }
-        
-        if !showMixedAccount {
-            accountsFilterFn = { $0.name != "imported" && $0.number != self.selectedWallet?.readInt32ConfigValue(forKey: DcrlibwalletAccountMixerMixedAccount, defaultValue: -1)}
-        }
-
+        self.walletsTableView.reloadData()
+    }
+    
+    func setupWalletDisplay(selectedWallet: DcrlibwalletWallet?) {
+        self.wallets.removeAll()
         let fullCoinWallet = WalletLoader.shared.wallets.filter { !$0.isWatchingOnlyWallet()}
-        if showWatchOnly {
-            self.wallets = WalletLoader.shared.wallets.map({ Wallet.init($0, accountsFilterFn: accountsFilterFn) })
-        } else {
-            self.wallets = fullCoinWallet.map({ Wallet.init($0, accountsFilterFn: accountsFilterFn) })
+        var accountsFilterFn: (DcrlibwalletAccount) -> Bool = { $0.totalBalance > 0 || $0.name != "imported" }
+        for wallet in fullCoinWallet {
+            
+            if !showUnMixedAccount {
+                accountsFilterFn = { $0.totalBalance > 0 || $0.name != "imported" && $0.number != wallet.readInt32ConfigValue(forKey: DcrlibwalletAccountMixerUnmixedAccount, defaultValue: -1) && $0.walletID == wallet.id_}
+            }
+            
+            if !showMixedOnly {
+            accountsFilterFn = {$0.number == wallet.readInt32ConfigValue(forKey: DcrlibwalletAccountMixerMixedAccount, defaultValue: -1) && $0.walletID == wallet.id_}
+            }
+            
+            if !showMixedAccount {
+                accountsFilterFn = { $0.name != "imported" && $0.number != wallet.readInt32ConfigValue(forKey: DcrlibwalletAccountMixerMixedAccount, defaultValue: -1) && $0.walletID == wallet.id_}
+            }
+            
+            if showWatchOnly {
+                self.wallets += WalletLoader.shared.wallets.map({ Wallet.init($0, accountsFilterFn: accountsFilterFn) })
+            } else {
+                self.wallets += fullCoinWallet.map({ Wallet.init($0, accountsFilterFn: accountsFilterFn) })
+            }
         }
-        self.walletsTableView.reloadData()
-        
-        self.walletsTableView.reloadData()
+//        var accountsFilterFn: (DcrlibwalletAccount) -> Bool = { $0.totalBalance > 0 || $0.name != "imported" }
+//        if !showUnMixedAccount {
+//            accountsFilterFn = { $0.totalBalance > 0 || $0.name != "imported" && $0.number != selectedWallet?.readInt32ConfigValue(forKey: DcrlibwalletAccountMixerUnmixedAccount, defaultValue: -1)}
+//        }
+//
+//        if !showMixedOnly {
+//            accountsFilterFn = {$0.number == selectedWallet?.readInt32ConfigValue(forKey: DcrlibwalletAccountMixerMixedAccount, defaultValue: -1) && $0.walletID == selectedWallet?.id_}
+//        }
+//
+//        if !showMixedAccount {
+//            accountsFilterFn = { $0.name != "imported" && $0.number != selectedWallet?.readInt32ConfigValue(forKey: DcrlibwalletAccountMixerMixedAccount, defaultValue: -1)}
+//        }
+//
+//        let fullCoinWallet = WalletLoader.shared.wallets.filter { !$0.isWatchingOnlyWallet()}
+//        if showWatchOnly {
+//            self.wallets = WalletLoader.shared.wallets.map({ Wallet.init($0, accountsFilterFn: accountsFilterFn) })
+//        } else {
+//            self.wallets = fullCoinWallet.map({ Wallet.init($0, accountsFilterFn: accountsFilterFn) })
+//        }
+        //self.walletsTableView.reloadData()
     }
 
     @IBAction func closeButtonTapped(_ sender: Any) {
@@ -146,7 +173,6 @@ extension AccountSelectorDialog: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedWallet = self.wallets[indexPath.section]
         let selectedAccount = selectedWallet.accounts[indexPath.row]
-        
         // invoke callback asynchronously to avoid delaying modal view dismissal.
         DispatchQueue.main.async {
             self.callback(selectedWallet.id, selectedAccount)
