@@ -84,6 +84,16 @@ extension DcrlibwalletAccount {
         return false
     }
     
+    var isMixerMixedAccount: Bool {
+        let wallet = WalletLoader.shared.multiWallet!.wallet(withID: self.walletID)!
+        return wallet.readInt32ConfigValue(forKey: DcrlibwalletAccountMixerMixedAccount, defaultValue: -1) == number
+    }
+    
+    var isMixerUnmixedAccount: Bool {
+        let wallet = WalletLoader.shared.multiWallet!.wallet(withID: self.walletID)!
+        return wallet.readInt32ConfigValue(forKey: DcrlibwalletAccountMixerUnmixedAccount, defaultValue: -1) == number
+    }
+    
     var dcrTotalBalance: Double {
         return DcrlibwalletAmountCoin(self.totalBalance)
     }

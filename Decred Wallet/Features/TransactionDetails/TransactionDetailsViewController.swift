@@ -71,12 +71,16 @@ class TransactionDetailsViewController: UIViewController {
 
     private func displayTitle() {
         if self.transaction.type == DcrlibwalletTxTypeRegular {
-            if self.transaction.direction == DcrlibwalletTxDirectionSent {
-                self.txTypeLabel.text = LocalizedStrings.sent
-            } else if self.transaction.direction == DcrlibwalletTxDirectionReceived {
-                self.txTypeLabel.text = LocalizedStrings.received
-            } else if self.transaction.direction == DcrlibwalletTxDirectionTransferred {
-                self.txTypeLabel.text = LocalizedStrings.transferred
+            if transaction.isMixed {
+                self.txTypeLabel.text = LocalizedStrings.mixed
+            } else {
+                if self.transaction.direction == DcrlibwalletTxDirectionSent {
+                    self.txTypeLabel.text = LocalizedStrings.sent
+                } else if self.transaction.direction == DcrlibwalletTxDirectionReceived {
+                    self.txTypeLabel.text = LocalizedStrings.received
+                } else if self.transaction.direction == DcrlibwalletTxDirectionTransferred {
+                    self.txTypeLabel.text = LocalizedStrings.transferred
+                }
             }
         } else if self.transaction.type == DcrlibwalletTxTypeVote {
             self.txTypeLabel.text = LocalizedStrings.voted
@@ -224,7 +228,7 @@ class TransactionDetailsViewController: UIViewController {
         } else if transaction.direction == DcrlibwalletTxDirectionReceived {
             self.txOverview.txIconImage = UIImage(named: "ic_receive")
         } else if transaction.direction == DcrlibwalletTxDirectionTransferred {
-            self.txOverview.txIconImage = UIImage(named: "ic_fee")
+            self.txOverview.txIconImage = UIImage(named: "nav_menu/ic_wallet")
         }
     }
 

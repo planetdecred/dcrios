@@ -11,7 +11,7 @@ import Dcrlibwallet
 
 class PrivacyManualSetupViewController: UIViewController {
     
-    var wallet: DcrlibwalletWallet!
+    @IBOutlet weak var walletNameLabel: UILabel!
     @IBOutlet weak var mixedAccountView: WalletAccountView!
     @IBOutlet weak var unMixedAccountView: WalletAccountView!
     @IBOutlet weak var unmixedAccountViewCont: RoundedView!
@@ -21,6 +21,8 @@ class PrivacyManualSetupViewController: UIViewController {
     @IBOutlet weak var mixedHeight: NSLayoutConstraint!
     
     @IBOutlet weak var manualSetupWaningLabel: UILabel!
+    
+    var wallet: DcrlibwalletWallet!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,12 +52,12 @@ class PrivacyManualSetupViewController: UIViewController {
     }
     
     func setupViews() {
+        
+        self.walletNameLabel.text = wallet.name
+        
         self.mixedAccountView.accountBalanceLabel.isHidden = true
         self.unMixedAccountView.accountBalanceLabel.isHidden = true
-        
-        self.mixedAccountView.showWatchOnlyWallet = false
-        self.unMixedAccountView.showWatchOnlyWallet = false
-        
+
         self.unMixedAccountView.walletNameLabel.isHidden = true
         self.mixedAccountView.walletNameLabel.isHidden = true
         
@@ -82,11 +84,22 @@ class PrivacyManualSetupViewController: UIViewController {
         self.mixedHeight.constant = 90
         self.mixedAccountView.layoutSubviews()
         
-        self.mixedAccountView.selectFirstWalletAccount()
-        self.unMixedAccountView.selectFirstWalletAccount()
+        let accountFilterFn: Wallet.AccountFilter = {account in
+            // remove other wallet accounts and imported account
+            if account.walletID != self.wallet.id_ || account.number == Int32.max {
+                return false
+            }
+            return true
+        }
         
-        self.mixedAccountView.onAccountSelectionChanged = { _, newSourceAccount in}
-        self.unMixedAccountView.onAccountSelectionChanged = { _, newSourceAccount in}
+        self.mixedAccountView.accountFilterFn = accountFilterFn
+        self.unMixedAccountView.accountFilterFn = accountFilterFn
+        
+        self.mixedAccountView.selectFirstValidWalletAccount()
+        self.unMixedAccountView.selectFirstValidWalletAccount()
+        
+        self.mixedAccountView.onAccountSelectionChanged = { newSourceAccount in}
+        self.unMixedAccountView.onAccountSelectionChanged = { newSourceAccount in}
     }
     
     func AuthMixerAccount() {
