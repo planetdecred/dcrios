@@ -16,12 +16,12 @@ struct StartupPinOrPassword {
             return
         }
         
-        Security.startup().requestNewCode(sender: sender, isChangeAttempt: false) { code, type, dialogDelegate in
+        Security.startup().requestNewCode(sender: sender, isChangeAttempt: false) { code, type, newCodeRequestDelegate in
             
             self.changeWalletPublicPassphrase(currentCode: "",
                                               currentCodeRequestDelegate: nil,
                                               newCode: code,
-                                              newCodeRequestDelegate: dialogDelegate,
+                                              newCodeRequestDelegate: newCodeRequestDelegate,
                                               newCodeType: type,
                                               done: done)
         }
@@ -36,14 +36,13 @@ struct StartupPinOrPassword {
         Security.startup()
             .with(prompt: LocalizedStrings.confirmToChange)
             .with(submitBtnText: LocalizedStrings.confirm)
-            .requestCurrentAndNewCode(sender: sender) {
-                currentCode, currentCodeRequestDelegate, newCode, newCodeRequestDelegate, newCodeType in
+            .requestCurrentCode(sender: sender) {
+                currentCode, securityType, currentCodeRequestDelegate in
                 
-                self.changeWalletPublicPassphrase(currentCode: currentCode,
+                self.verifyWalletPublicPassphrase(currentCode: currentCode,
                                                   currentCodeRequestDelegate: currentCodeRequestDelegate,
-                                                  newCode: newCode,
-                                                  newCodeRequestDelegate: newCodeRequestDelegate,
-                                                  newCodeType: newCodeType,
+                                                  securityType: securityType,
+                                                  sender: sender,
                                                   done: done)
         }
     }
@@ -70,6 +69,37 @@ struct StartupPinOrPassword {
                    KeychainWrapper.standard.removeObject(forKey: "StartupPinOrPassword")
                     Settings.clearValue(for: DcrlibwalletUseBiometricConfigKey)
                 }
+        }
+    }
+    
+    private static func verifyWalletPublicPassphrase(currentCode: String,
+                                                       currentCodeRequestDelegate: InputDialogDelegate?,
+                                                       securityType: SecurityType,
+                                                       sender: UIViewController,
+                                                       done: (() -> ())?) {
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            do {
+                try WalletLoader.shared.multiWallet.verifyStartupPassphrase(currentCode.utf8Bits)
+                DispatchQueue.main.async {
+                    currentCodeRequestDelegate?.dismissDialog()
+                    Security.startup().requestNewCode(sender: sender, isChangeAttempt: false) { code, type, newCodeRequestDelegate in
+                        
+                        self.changeWalletPublicPassphrase(currentCode: currentCode,
+                                                          currentCodeRequestDelegate: nil,
+                                                          newCode: code,
+                                                          newCodeRequestDelegate: newCodeRequestDelegate,
+                                                          newCodeType: type,
+                                                          done: done)
+                    }
+                }
+            } catch let error {
+                DispatchQueue.main.async {
+                    if error.isInvalidPassphraseError {
+                        currentCodeRequestDelegate?.displayPassphraseError(errorMessage: self.invalidSecurityCodeMessage())
+                    }
+                }
+            }
         }
     }
 
