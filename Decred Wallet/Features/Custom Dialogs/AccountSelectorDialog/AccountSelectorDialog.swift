@@ -9,7 +9,7 @@
 import UIKit
 import Dcrlibwallet
 
-typealias AccountSelectorDialogCallback = (_ selectedWalletId: Int, _ selectedAccount: DcrlibwalletAccount) -> Void
+typealias AccountSelectorDialogCallback = (_ selectedAccount: DcrlibwalletAccount) -> Void
 
 class AccountSelectorDialog: UIViewController {
     @IBOutlet weak var headerContainerView: UIView!
@@ -20,35 +20,23 @@ class AccountSelectorDialog: UIViewController {
     private var callback: AccountSelectorDialogCallback!
 
     var wallets = [Wallet]()
-    var selectedWallet: DcrlibwalletWallet?
     var selectedAccount: DcrlibwalletAccount?
-    var showWatchOnly = true
-    var showUnMixedAccount = true
-    var showMixedAccount = true
-    var showMixedOnly = true
+    private var accountFilterFn: Wallet.AccountFilter?
 
     let accountCellRowHeight: CGFloat = 74
     let walletHeaderSectionHeight: CGFloat = 36
     
     static func show(sender vc: UIViewController,
                      title: String,
-                     selectedWallet: DcrlibwalletWallet?,
                      selectedAccount: DcrlibwalletAccount?,
-                     showWatchOnlyWallet: Bool,
-                     showUnMixedAccount: Bool,
-                     showMixedAccount: Bool,
-                     showMixedOnly: Bool,
+                     accountFilterFn: Wallet.AccountFilter?,
                      callback: @escaping AccountSelectorDialogCallback) {
 
         let dialog = AccountSelectorDialog.instantiate(from: .CustomDialogs)
         dialog.dialogTitle = title
         dialog.callback = callback
-        dialog.selectedWallet = selectedWallet
         dialog.selectedAccount = selectedAccount
-        dialog.showWatchOnly = showWatchOnlyWallet
-        dialog.showUnMixedAccount = showUnMixedAccount
-        dialog.showMixedOnly = showMixedOnly
-        dialog.showMixedAccount = showMixedAccount
+        dialog.accountFilterFn = accountFilterFn
         dialog.modalPresentationStyle = .pageSheet
         vc.present(dialog, animated: true, completion: nil)
     }
@@ -72,56 +60,22 @@ class AccountSelectorDialog: UIViewController {
         self.walletsTableView.maxHeight = self.view.frame.size.height
             - self.headerContainerView.frame.size.height
             - (UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0)
-        self.setupWalletDisplay(selectedWallet: self.selectedWallet)
         
-        
-        self.walletsTableView.reloadData()
+        self.setupWalletDisplay()
     }
     
-    func setupWalletDisplay(selectedWallet: DcrlibwalletWallet?) {
+    func setupWalletDisplay() {
         self.wallets.removeAll()
-        let fullCoinWallet = WalletLoader.shared.wallets.filter { !$0.isWatchingOnlyWallet()}
-        var accountsFilterFn: (DcrlibwalletAccount) -> Bool = { $0.totalBalance > 0 || $0.name != "imported" }
+        let fullCoinWallet = WalletLoader.shared.wallets
+        // filter out wallets & accounts
         for wallet in fullCoinWallet {
-            
-            if !showUnMixedAccount {
-                accountsFilterFn = { $0.totalBalance > 0 || $0.name != "imported" && $0.number != wallet.readInt32ConfigValue(forKey: DcrlibwalletAccountMixerUnmixedAccount, defaultValue: -1) && $0.walletID == wallet.id_}
-            }
-            
-            if !showMixedOnly {
-            accountsFilterFn = {$0.number == wallet.readInt32ConfigValue(forKey: DcrlibwalletAccountMixerMixedAccount, defaultValue: -1) && $0.walletID == wallet.id_}
-            }
-            
-            if !showMixedAccount {
-                accountsFilterFn = { $0.name != "imported" && $0.number != wallet.readInt32ConfigValue(forKey: DcrlibwalletAccountMixerMixedAccount, defaultValue: -1) && $0.walletID == wallet.id_}
-            }
-            
-            if showWatchOnly {
-                self.wallets += WalletLoader.shared.wallets.map({ Wallet.init($0, accountsFilterFn: accountsFilterFn) })
-            } else {
-                self.wallets += fullCoinWallet.map({ Wallet.init($0, accountsFilterFn: accountsFilterFn) })
+            let wal = Wallet.init(wallet, accountsFilterFn: self.accountFilterFn)
+            if wal.accounts.count > 0 {
+                self.wallets.append(wal)
             }
         }
-//        var accountsFilterFn: (DcrlibwalletAccount) -> Bool = { $0.totalBalance > 0 || $0.name != "imported" }
-//        if !showUnMixedAccount {
-//            accountsFilterFn = { $0.totalBalance > 0 || $0.name != "imported" && $0.number != selectedWallet?.readInt32ConfigValue(forKey: DcrlibwalletAccountMixerUnmixedAccount, defaultValue: -1)}
-//        }
-//
-//        if !showMixedOnly {
-//            accountsFilterFn = {$0.number == selectedWallet?.readInt32ConfigValue(forKey: DcrlibwalletAccountMixerMixedAccount, defaultValue: -1) && $0.walletID == selectedWallet?.id_}
-//        }
-//
-//        if !showMixedAccount {
-//            accountsFilterFn = { $0.name != "imported" && $0.number != selectedWallet?.readInt32ConfigValue(forKey: DcrlibwalletAccountMixerMixedAccount, defaultValue: -1)}
-//        }
-//
-//        let fullCoinWallet = WalletLoader.shared.wallets.filter { !$0.isWatchingOnlyWallet()}
-//        if showWatchOnly {
-//            self.wallets = WalletLoader.shared.wallets.map({ Wallet.init($0, accountsFilterFn: accountsFilterFn) })
-//        } else {
-//            self.wallets = fullCoinWallet.map({ Wallet.init($0, accountsFilterFn: accountsFilterFn) })
-//        }
-        //self.walletsTableView.reloadData()
+        
+        self.walletsTableView.reloadData()
     }
 
     @IBAction func closeButtonTapped(_ sender: Any) {
@@ -166,7 +120,7 @@ extension AccountSelectorDialog: UITableViewDataSource, UITableViewDelegate {
         let wallet = self.wallets[indexPath.section]
         let account = wallet.accounts[indexPath.row]
         accountViewCell.account = account
-        accountViewCell.checkmarkImageView.isHidden = wallet.name != self.selectedWallet?.name || account.name != self.selectedAccount?.name
+        accountViewCell.checkmarkImageView.isHidden = account.walletID != self.selectedAccount!.walletID || account.number != self.selectedAccount!.number
         return accountViewCell
     }
 
@@ -175,7 +129,7 @@ extension AccountSelectorDialog: UITableViewDataSource, UITableViewDelegate {
         let selectedAccount = selectedWallet.accounts[indexPath.row]
         // invoke callback asynchronously to avoid delaying modal view dismissal.
         DispatchQueue.main.async {
-            self.callback(selectedWallet.id, selectedAccount)
+            self.callback(selectedAccount)
         }
         
         self.dismissView()

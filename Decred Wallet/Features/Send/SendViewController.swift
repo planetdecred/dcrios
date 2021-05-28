@@ -104,33 +104,47 @@ class SendViewController: UIViewController {
     }
     
     func setupViews() {
-        self.sourceAccountView.showWatchOnlyWallet = false
-    
-        self.sourceAccountView.selectFirstFilterWalletAccount()
-        
-        if let setup = self.sourceAccountView?.selectedWallet?.readBoolConfigValue(forKey: DcrlibwalletAccountMixerConfigSet, defaultValue: false) {
-            
-            if setup {
-                self.sourceAccountView.showMixedOnly = false
-            } else {
-                self.sourceAccountView.showUnMixedAccount = false
-            }
-        }
-        
-        self.sourceAccountView.onAccountSelectionChanged = self.updateSelectedAccount
+        self.toSelfAccountSection.isHidden = true
         
         self.destinationAddressTextField.placeholder = LocalizedStrings.destinationAddress
-        
         self.destinationAddressTextField.add(button: self.scanQRCodeForAddressButton)
         self.destinationAddressTextField.add(button: self.pasteAddressFromClipboardButton)
         self.destinationAddressTextField.textViewDelegate = self
         
-        self.toSelfAccountSection.isHidden = true
-        self.destinationAccountView.showWatchOnlyWallet = true
-        self.destinationAccountView.showMixedAccount = false 
-        self.destinationAccountView.onAccountSelectionChanged = { _, _ in
-            self.displayFeeDetailsAndTransactionSummary() // re-calculate fee with updated destination info
+        self.destinationAccountView.accountFilterFn =  {account in
+            if account.number == Int32.max || account.isMixerMixedAccount {
+                return false
+            }
+            return true
         }
+        self.destinationAccountView.onAccountSelectionChanged = { _ in
+            self.displayFeeDetailsAndTransactionSummary() // re-calculate fee with updated destination info
+            self.sourceAccountView.selectFirstValidWalletAccount()
+        }
+        
+        self.sourceAccountView.accountFilterFn = {account in
+            let wallet = WalletLoader.shared.multiWallet!.wallet(withID: account.walletID)!
+            if wallet.isWatchingOnlyWallet() || account.number == Int32.max {
+                return false
+            }
+            
+            if wallet.readBoolConfigValue(forKey: DcrlibwalletAccountMixerConfigSet, defaultValue: false) {
+                if !self.toSelfAccountSection.isHidden { // send to account is enabled
+                    let selectedDestAcct = self.destinationAccountView.selectedAccount!
+                    if selectedDestAcct.walletID != account.walletID {
+                        // allow only mixed account, sending to another wallet's account
+                        return account.isMixerMixedAccount
+                    }
+                }else {
+                    // send to address, only mixed is allowed
+                    return account.isMixerMixedAccount
+                }
+            }
+            return true
+        }
+        
+        self.sourceAccountView.onAccountSelectionChanged = self.updateSelectedSourceAccount
+        self.sourceAccountView.selectFirstValidWalletAccount()
         
         self.amountTextField.addTarget(self, action: #selector(self.amountTextFieldEditingBegan), for: .editingDidBegin)
         self.amountTextField.addTarget(self, action: #selector(self.amountTextFieldChanged), for: .editingChanged)
@@ -143,9 +157,7 @@ class SendViewController: UIViewController {
         self.transactionFeeDetailsSection.isHidden = true
     }
     
-    func updateSelectedAccount(_ selectedWallet: DcrlibwalletWallet, _ selectedAccount: DcrlibwalletAccount) {
-        self.sourceAccountView.selectedWallet = selectedWallet
-        self.sourceAccountView.selectedAccount = selectedAccount
+    func updateSelectedSourceAccount(_ selectedAccount: DcrlibwalletAccount) {
         
         let spendableAmount = (Decimal(selectedAccount.balance!.dcrSpendable) as NSDecimalNumber).round(8).formattedWithSeparator
         self.sourceAccountSpendableBalanceLabel.text = "\(LocalizedStrings.spendable): \(spendableAmount) DCR"
@@ -165,7 +177,7 @@ class SendViewController: UIViewController {
     }
     
     @objc func resetFields() {
-        self.sourceAccountView.selectFirstFilterWalletAccount()
+        self.sourceAccountView.selectFirstValidWalletAccount()
         
         // Clearing the destination address textfield will trigger the set textview delegate
         // which will hide the error label and show the paste button if a valid address is in clipboard.
@@ -175,7 +187,7 @@ class SendViewController: UIViewController {
         self.amountValue = nil
         self.exchangeValue = nil
         
-        self.destinationAccountView.selectFirstFilterWalletAccount()
+        self.destinationAccountView.selectFirstValidWalletAccount()
         
         // Clearing the primary amount textfield should set the usd amount to 0,
         // hide the address error label, update the transaction fee details and sending summary fields.
@@ -184,10 +196,10 @@ class SendViewController: UIViewController {
     }
     
     func refreshFields() {
-        self.sourceAccountView.selectFirstFilterWalletAccount()
+        self.sourceAccountView.selectFirstValidWalletAccount()
         self.amountTextFieldEditingBegan()
         self.amountTextFieldChanged()
-        self.destinationAccountView.selectFirstFilterWalletAccount()
+        self.destinationAccountView.selectFirstValidWalletAccount()
         self.amountTextFieldEditingEnded()
     }
     
@@ -270,11 +282,7 @@ class SendViewController: UIViewController {
         UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseIn, animations: {
             self.toAddressSection.isHidden = true
             self.toSelfAccountSection.isHidden = false
-            self.sourceAccountView.showMixedAccount = self.toAddressSection.isHidden
-            self.sourceAccountView.showUnMixedAccount = self.toAddressSection.isHidden
-            self.sourceAccountView.showMixedOnly = true
-            self.destinationAccountView.showMixedAccount = false
-            self.sourceAccountView.selectFirstFilterWalletAccount()
+            self.sourceAccountView.selectFirstValidWalletAccount()
             self.displayFeeDetailsAndTransactionSummary() // re-calculate fee with updated destination info
         })
     }
@@ -283,14 +291,7 @@ class SendViewController: UIViewController {
         UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseIn, animations: {
             self.toSelfAccountSection.isHidden = true
             self.toAddressSection.isHidden = false
-            
-            if ((self.sourceAccountView?.selectedWallet?.readBoolConfigValue(forKey: DcrlibwalletAccountMixerConfigSet, defaultValue: false)) != nil) {
-                self.sourceAccountView.showMixedOnly = false
-                self.sourceAccountView.selectFirstFilterWalletAccount()
-            } else {
-                self.sourceAccountView.showUnMixedAccount = false
-            }
-            
+            self.sourceAccountView.selectFirstValidWalletAccount()
             self.displayFeeDetailsAndTransactionSummary() // re-calculate fee with updated destination info
         })
     }
@@ -411,9 +412,9 @@ class SendViewController: UIViewController {
         guard self.isFormValid,
             let unsignedTx = self.currentUnsignedTx,
             let txFeeAndSize = self.currentUnsignedTxFeeAndSize else { return }
-        
-        let sourceWallet = self.sourceAccountView.selectedWallet!
+       
         let sourceAccount = self.sourceAccountView.selectedAccount!
+        let sourceWallet = WalletLoader.shared.multiWallet.wallet(withID: sourceAccount.walletID)!
         
         let sourceAccountInfo = "\(sourceAccount.name) (\(sourceWallet.name))"
         let dcrAmount = NSDecimalNumber(value: unsignedTx.totalSendAmount()!.dcrValue)
@@ -429,8 +430,8 @@ class SendViewController: UIViewController {
                                                   dcrBalanceAfterSending: dcrBalanceAfterSending)
         
         if !self.toSelfAccountSection.isHidden,
-            let destinationWallet = self.destinationAccountView.selectedWallet,
             let destinationAccount = self.destinationAccountView.selectedAccount {
+            let destinationWallet = WalletLoader.shared.multiWallet.wallet(withID: destinationAccount.walletID)!
             unsignedTxSummary.destinationAccountInfo = "\(destinationAccount.name) (\(destinationWallet.name))"
         }
         
@@ -565,15 +566,13 @@ extension SendViewController {
         }
 
         // Sending to account, generate an address to use.
-        guard let destinationWallet = self.destinationAccountView.selectedWallet,
-            let destinationAccount = self.destinationAccountView.selectedAccount else { return nil }
-        
+        guard let destinationAccount = self.destinationAccountView.selectedAccount else { return nil }
+        let destinationWallet = WalletLoader.shared.multiWallet.wallet(withID: destinationAccount.walletID)!
         return destinationWallet.currentRecieveAddress(for: destinationAccount.number)
     }
     
     var isFormValid: Bool {
-        guard let _ = self.sourceAccountView.selectedWallet,
-            let sourceAccount = self.sourceAccountView.selectedAccount else {
+        guard let sourceAccount = self.sourceAccountView.selectedAccount else {
             
                 Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.selectFromAccount)
                 return false
@@ -602,8 +601,7 @@ extension SendViewController {
     }
     
     var currentUnsignedTx: DcrlibwalletTxAuthor? {
-        guard let sourceWallet = self.sourceAccountView.selectedWallet,
-            let sourceAccount = self.sourceAccountView.selectedAccount,
+        guard let sourceAccount = self.sourceAccountView.selectedAccount,
             let sourceAccountBalance = sourceAccount.balance, sourceAccountBalance.spendable > 0,
             
             let destinationAddress = self.destinationAddress, WalletLoader.shared.multiWallet.isAddressValid(destinationAddress)
@@ -624,6 +622,7 @@ extension SendViewController {
             }
         }
         
+        let sourceWallet = WalletLoader.shared.multiWallet.wallet(withID: sourceAccount.walletID)!
         let unsignedTx = WalletLoader.shared.multiWallet.newUnsignedTx(sourceWallet,
                                                                        sourceAccountNumber: sourceAccount.number)
         

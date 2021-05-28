@@ -18,9 +18,12 @@ class Wallet: NSObject {
     private(set) var displayAccounts: Bool = false
     private(set) var isAccountMixerActive: Bool = false
     
-    private var accountsFilterFn: ((DcrlibwalletAccount) -> Bool)?
+    typealias AccountFilter = (DcrlibwalletAccount)  -> Bool
+    private var accountsFilterFn: AccountFilter = {_ in
+        return true //all accounts are shown by default
+    }
     
-    init(_ wallet: DcrlibwalletWallet, accountsFilterFn: ((DcrlibwalletAccount) -> Bool)? = nil) {
+    init(_ wallet: DcrlibwalletWallet, accountsFilterFn: AccountFilter? = nil) {
         self.id = wallet.id_
         self.name = wallet.name
         self.balance = "\((Decimal(wallet.totalWalletBalance) as NSDecimalNumber).round(8)) DCR"
@@ -29,9 +32,9 @@ class Wallet: NSObject {
         self.displayAccounts = false
         self.isAccountMixerActive = wallet.isAccountMixerActive()
 
-        self.accountsFilterFn = accountsFilterFn
         if accountsFilterFn != nil {
-            self.accounts = self.accounts.filter(accountsFilterFn!)
+            self.accountsFilterFn = accountsFilterFn!
+            self.accounts = self.accounts.filter(self.accountsFilterFn)
         }
     }
     
@@ -43,10 +46,7 @@ class Wallet: NSObject {
         guard let wallet = WalletLoader.shared.multiWallet.wallet(withID: self.id) else {
             return
         }
-        
-        self.accounts = wallet.accounts
-        if self.accountsFilterFn != nil {
-            self.accounts = self.accounts.filter(self.accountsFilterFn!)
-        }
+
+        self.accounts = wallet.accounts.filter(self.accountsFilterFn)
     }
 }

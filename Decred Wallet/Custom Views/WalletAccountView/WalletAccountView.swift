@@ -17,11 +17,7 @@ import Dcrlibwallet
     @IBInspectable var accountSelectorPrompt: String?
     @IBInspectable var localizeAccountSelectorPrompt: Bool = true
     
-    var selectedWallet: DcrlibwalletWallet? {
-        didSet {
-            self.walletNameLabel.text = self.selectedWallet?.name ?? LocalizedStrings.noWalletSelected
-        }
-    }
+    var accountFilterFn: Wallet.AccountFilter?
     
     var selectedAccount: DcrlibwalletAccount? {
         didSet {
@@ -32,12 +28,7 @@ import Dcrlibwallet
         }
     }
     
-    var showWatchOnlyWallet = true
-    var showMixedAccount = true
-    var showUnMixedAccount = true
-    var showMixedOnly = true
-    
-    var onAccountSelectionChanged: ((_ selectedWallet: DcrlibwalletWallet, _ selectedAccount: DcrlibwalletAccount) -> Void)?
+    var onAccountSelectionChanged: ((_ selectedAccount: DcrlibwalletAccount) -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -79,63 +70,43 @@ import Dcrlibwallet
         
         AccountSelectorDialog.show(sender: topVC,
                                    title: accountSelectorDialogTitle,
-                                   selectedWallet: self.selectedWallet,
-                                   selectedAccount: self.selectedAccount, showWatchOnlyWallet: showWatchOnlyWallet,
-                                   showUnMixedAccount: showUnMixedAccount,
-                                   showMixedAccount: showMixedAccount, showMixedOnly: showMixedOnly,
+                                   selectedAccount: self.selectedAccount,
+                                   accountFilterFn: self.accountFilterFn,
                                    callback: self.updateSelectedAccount)
     }
 
-    func updateSelectedAccount(_ selectedWalletId: Int, _ selectedAccount: DcrlibwalletAccount) {
-        guard let selectedWallet = WalletLoader.shared.multiWallet.wallet(withID: selectedWalletId) else { return }
+    func updateSelectedAccount(_ selectedAccount: DcrlibwalletAccount) {
+        guard let selectedWallet = WalletLoader.shared.multiWallet.wallet(withID: selectedAccount.walletID) else { return }
 
-        self.selectedWallet = selectedWallet
         self.selectedAccount = selectedAccount
+        self.walletNameLabel.text = selectedWallet.name
         
-        self.onAccountSelectionChanged?(selectedWallet, selectedAccount)
+        self.onAccountSelectionChanged?(selectedAccount)
     }
     
-    func selectFirstWalletAccount() {
-        guard let firstWallet = WalletLoader.shared.wallets.first,
-            let firstWalletAccount = firstWallet.accounts.filter({ $0.totalBalance > 0 || $0.name != "imported" }).first
-            else { return }
+    func selectFirstValidWalletAccount() {
         
-        self.selectedWallet = firstWallet
-        self.selectedAccount = firstWalletAccount
-        
-        self.onAccountSelectionChanged?(firstWallet, firstWalletAccount)
-    }
-    
-    func selectFirstFilterWalletAccount() {
-        guard let firstWallet = WalletLoader.shared.wallets.first,
-            let firstWalletAccount = firstWallet.accounts.filter({ $0.totalBalance > 0 || $0.name != "imported" }).first,
-            let firstWalletUnMixedAccount = firstWallet.accounts.filter({ $0.totalBalance > 0 || $0.name != "imported" && $0.number != firstWallet.readInt32ConfigValue(forKey: DcrlibwalletAccountMixerUnmixedAccount, defaultValue: -1)}).first,
-            let firstWalletMixedOnlyAccount = firstWallet.accounts.filter({$0.number == firstWallet.readInt32ConfigValue(forKey: DcrlibwalletAccountMixerMixedAccount, defaultValue: -1)}).first,
-            let firstWalletMixedAccount = firstWallet.accounts.filter({ $0.totalBalance > 0 || $0.name != "imported" && $0.number != firstWallet.readInt32ConfigValue(forKey: DcrlibwalletAccountMixerMixedAccount, defaultValue: -1)}).first
-        else { return }
-        self.selectedWallet = firstWallet
-        if !showUnMixedAccount {
-            self.selectedAccount = firstWalletUnMixedAccount
-            self.onAccountSelectionChanged?(firstWallet, firstWalletUnMixedAccount)
+        if self.selectedAccount != nil &&
+            self.accountFilterFn != nil &&
+            self.accountFilterFn!(self.selectedAccount!) {
+            // already selected account is valid
             return
         }
         
-        if !showMixedOnly {
-            self.selectedAccount = firstWalletMixedOnlyAccount
-            self.onAccountSelectionChanged?(firstWallet, firstWalletMixedOnlyAccount)
-            return
+        let fullCoinWallet = WalletLoader.shared.wallets
+        for wallet in fullCoinWallet {
+            let wal = Wallet.init(wallet, accountsFilterFn: self.accountFilterFn)
+            
+            // watch only wallets will have all accounts filtered out.
+            if wal.accounts.count > 0 {
+                self.selectedAccount = wal.accounts[0]
+                self.walletNameLabel.text = wal.name
+                self.onAccountSelectionChanged?(self.selectedAccount!)
+                return
+            }
         }
         
-        if !showMixedAccount {
-            self.selectedAccount = firstWalletMixedAccount
-            self.onAccountSelectionChanged?(firstWallet, firstWalletMixedAccount)
-            return
-        }
         
-        self.selectedAccount = firstWalletAccount
-        
-        
-        self.onAccountSelectionChanged?(firstWallet, firstWalletAccount)
         
     }
 }
