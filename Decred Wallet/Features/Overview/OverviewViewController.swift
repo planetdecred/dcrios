@@ -78,6 +78,8 @@ class OverviewViewController: UIViewController {
     @IBOutlet weak var multipleWalletsPeerCountTitleLabel: UILabel!
     @IBOutlet weak var multipleWalletsSyncDetailsTableView: UITableView!
     @IBOutlet weak var multipleWalletsSyncDetailsTableViewHeightConstraint: NSLayoutConstraint!
+    
+    private var multiWallet = WalletLoader.shared.multiWallet!
 
     var hideSeedBackupPrompt: Bool = false
     var hideAccountMixingPrompt: Bool = false
@@ -587,7 +589,7 @@ extension OverviewViewController: UITableViewDelegate, UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: TransactionTableViewCell.identifier) as! TransactionTableViewCell
         let tx = self.recentTransactions[indexPath.row]
-        cell.displayInfo(for: tx)
+        cell.displayInfo(for: tx, hideWalletLabel: multiWallet.loadedWalletsCount() == 1)
         return cell
     }
     
