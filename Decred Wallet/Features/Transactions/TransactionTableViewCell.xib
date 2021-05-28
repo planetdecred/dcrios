@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -80,6 +80,10 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstItem="9cz-Uu-4tu" firstAttribute="leading" secondItem="uuE-xk-Fuj" secondAttribute="leading" id="apC-iF-A3d"/>
+                                            <constraint firstItem="LAe-dK-oRr" firstAttribute="leading" secondItem="9cz-Uu-4tu" secondAttribute="trailing" constant="8" id="eMV-Rg-wSn"/>
+                                        </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="5FY-3A-gAa">
                                         <rect key="frame" x="0.0" y="22.666666666666664" width="188.33333333333334" height="17.666666666666664"/>
@@ -93,6 +97,9 @@
                                         </subviews>
                                     </stackView>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="uuE-xk-Fuj" firstAttribute="leading" secondItem="CLm-d4-NZG" secondAttribute="leading" id="8pE-vy-Hc2"/>
+                                </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Krx-yJ-hxW">
                                 <rect key="frame" x="188.33333333333334" y="0.0" width="117.66666666666666" height="40.333333333333336"/>
@@ -112,6 +119,9 @@
                                 </subviews>
                             </stackView>
                         </subviews>
+                        <constraints>
+                            <constraint firstItem="CLm-d4-NZG" firstAttribute="leading" secondItem="evP-hU-bDb" secondAttribute="leading" id="GTN-q2-gEo"/>
+                        </constraints>
                     </stackView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_confirmed" translatesAutoresizingMaskIntoConstraints="NO" id="Lx9-wb-9kJ">
                         <rect key="frame" x="370" y="50" width="12" height="12"/>
@@ -148,6 +158,11 @@
             <point key="canvasLocation" x="-34" y="-149"/>
         </tableViewCell>
     </objects>
+    <designables>
+        <designable name="LAe-dK-oRr">
+            <size key="intrinsicContentSize" width="108.66666666666667" height="17.666666666666668"/>
+        </designable>
+    </designables>
     <resources>
         <image name="ic_confirmed" width="12" height="12"/>
         <image name="ic_ticketVoted" width="24" height="24"/>
