@@ -18,12 +18,13 @@ class TransactionTableViewCell: UITableViewCell {
     @IBOutlet weak var txDateLabel: UILabel!
     @IBOutlet weak var daysCounterLabel: UILabel! // voted, revoked and expired tickets only
     @IBOutlet weak var txStatusIconImageView: UIImageView!
-
+    @IBOutlet weak var walletNameLabel: Label!
+    
     override class func height() -> CGFloat {
         return 56
     }
 
-    func displayInfo(for transaction: Transaction) {
+    func displayInfo(for transaction: Transaction, hideWalletLabel: Bool = true) {
         let txConfirmations = transaction.confirmations
         let isConfirmed = Settings.spendUnconfirmed || txConfirmations > 1
 
@@ -47,7 +48,13 @@ class TransactionTableViewCell: UITableViewCell {
         self.stakingTxAmountLabel.isHidden = transaction.type == DcrlibwalletTxTypeRegular
         self.daysCounterLabel.isHidden = !(transaction.type == DcrlibwalletTxTypeVote || transaction.type == DcrlibwalletTxTypeRevocation)
         self.voteRewardLabel.isHidden = !(transaction.type == DcrlibwalletTxTypeVote || transaction.type == DcrlibwalletTxTypeRevocation)
-        self.voteRewardLabelPadding.isHidden = !(transaction.type == DcrlibwalletTxTypeVote || transaction.type == DcrlibwalletTxTypeRevocation)
+        
+        self.walletNameLabel.isHidden = hideWalletLabel
+        
+        let wallet = WalletLoader.shared.multiWallet.wallet(withID: transaction.walletID)!
+        if !hideWalletLabel {
+            self.walletNameLabel.text = wallet.name
+        }
 
         if transaction.type == DcrlibwalletTxTypeRegular {
             self.displayRegularTxInfo(transaction)
@@ -58,7 +65,7 @@ class TransactionTableViewCell: UITableViewCell {
             self.displayRevocationTxInfo(transaction, ageInDays: transaction.daysToVoteOrRevoke)
             
         } else if transaction.type == DcrlibwalletTxTypeTicketPurchase {
-            self.displayTicketPurchaseInfo(transaction)
+            self.displayTicketPurchaseInfo(transaction, wallet: wallet)
         }
     }
     
@@ -104,7 +111,7 @@ class TransactionTableViewCell: UITableViewCell {
         self.daysCounterLabel.text = String(format: (ageInDays > 1 ? LocalizedStrings.days : LocalizedStrings.day), ageInDays)
     }
     
-    func displayTicketPurchaseInfo(_ transaction: Transaction) {
+    func displayTicketPurchaseInfo(_ transaction: Transaction, wallet: DcrlibwalletWallet) {
         self.txAmountOrTicketStatusLabel.text = "\(LocalizedStrings.ticket)"
         self.txTypeIconImageView?.image = UIImage(named: "ic_ticketImmature")
         self.stakingTxAmountLabel.attributedText = Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 11.0, TexthexColor: UIColor.appColors.lightBluishGray)
@@ -116,10 +123,9 @@ class TransactionTableViewCell: UITableViewCell {
             self.txDateLabel.textColor = UIColor.appColors.lightBluishGray
             self.txDateLabel.text = LocalizedStrings.pending
         } else if txConfirmations > BuildConfig.TicketMaturity {
-           let wallet = WalletLoader.shared.multiWallet.wallet(withID: transaction.walletID)
             var errorValue: ObjCBool = false
             do {
-                try wallet?.ticketHasVotedOrRevoked(transaction.hash, ret0_: &errorValue)
+                try wallet.ticketHasVotedOrRevoked(transaction.hash, ret0_: &errorValue)
                 if errorValue.boolValue {
                     self.txAmountOrTicketStatusLabel.text = LocalizedStrings.purchased
                 } else {

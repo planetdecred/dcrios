@@ -78,6 +78,8 @@ class OverviewViewController: UIViewController {
     @IBOutlet weak var multipleWalletsPeerCountTitleLabel: UILabel!
     @IBOutlet weak var multipleWalletsSyncDetailsTableView: UITableView!
     @IBOutlet weak var multipleWalletsSyncDetailsTableViewHeightConstraint: NSLayoutConstraint!
+    
+    private var multiWallet = WalletLoader.shared.multiWallet!
 
     var hideSeedBackupPrompt: Bool = false
     var hideAccountMixingPrompt: Bool = false
@@ -107,15 +109,15 @@ class OverviewViewController: UIViewController {
         // If sync is not ongoing, registering this listener enables us to get notified when a peer
         // is connected or disconnected, so we can update the peer count label appropriately.
         let syncProgressListener = self as DcrlibwalletSyncProgressListenerProtocol
-        try? WalletLoader.shared.multiWallet.add(syncProgressListener, uniqueIdentifier: "\(self)")
+        try? multiWallet.add(syncProgressListener, uniqueIdentifier: "\(self)")
         
         // Register tx notification listener to update recent activity table for new txs.
         let txNotificationListener = self as DcrlibwalletTxAndBlockNotificationListenerProtocol
-        try? WalletLoader.shared.multiWallet.add(txNotificationListener, uniqueIdentifier: "\(self)")
+        try? multiWallet.add(txNotificationListener, uniqueIdentifier: "\(self)")
         
-        WalletLoader.shared.multiWallet.setBlocksRescanProgressListener(self)
+        multiWallet.setBlocksRescanProgressListener(self)
         
-        WalletLoader.shared.multiWallet.setAccountMixerNotification(self)
+        multiWallet.setAccountMixerNotification(self)
 
         // Display latest block and connected peer count if there's no ongoing sync.
         if !SyncManager.shared.isSyncing {
@@ -132,7 +134,7 @@ class OverviewViewController: UIViewController {
         self.checkWhetherToPromptForSeedBackup()
         self.checkWhetherToPromptForAccountMixing()
         
-        if !WalletLoader.shared.multiWallet.isSyncing() {
+        if !multiWallet.isSyncing() {
             self.refreshLatestBlockInfoPeriodically()
         }
         
@@ -169,7 +171,7 @@ class OverviewViewController: UIViewController {
         
         self.exchangeRate = newExchangeRate ?? self.exchangeRate // maintain current value if new value is nil
 
-        let dcrAmount = WalletLoader.shared.multiWallet.totalBalance
+        let dcrAmount = multiWallet.totalBalance
         let usdAmount = NSDecimalNumber(value: dcrAmount).multiplying(by: exchangeRate!)
         self.exchangeValue = usdAmount
         self.usdBalanceLabel.isHidden = false
@@ -220,7 +222,7 @@ class OverviewViewController: UIViewController {
     }
     
     func updateMultiWalletBalance() {
-        let totalWalletAmount = WalletLoader.shared.multiWallet.totalBalance
+        let totalWalletAmount = multiWallet.totalBalance
         let totalAmountRoundedOff = (Decimal(totalWalletAmount) as NSDecimalNumber).round(8)
         self.balanceLabel.attributedText = Utils.getAttributedString(str: "\(totalAmountRoundedOff)", siz: 17.0, TexthexColor: UIColor.appColors.darkBlue)
         self.setMixerStatus()
@@ -228,7 +230,7 @@ class OverviewViewController: UIViewController {
     
     func updateRecentActivity() {
         // Fetch 3 most recent transactions
-        guard let transactions = WalletLoader.shared.multiWallet.transactionHistory(offset: 0, count: 3),
+        guard let transactions = multiWallet.transactionHistory(offset: 0, count: 3),
             !transactions.isEmpty
             else {
                 self.recentTransactionsTableView.isHidden = true
@@ -284,7 +286,7 @@ class OverviewViewController: UIViewController {
 
         // show appropriate view section depending on how many wallets are being synced
         if isSyncing {
-            let nOpenedWallets = WalletLoader.shared.multiWallet.openedWalletsCount()
+            let nOpenedWallets = multiWallet.openedWalletsCount()
             let isMultipleWalletsSync = nOpenedWallets > 1
             
             if isMultipleWalletsSync {
@@ -344,14 +346,14 @@ class OverviewViewController: UIViewController {
         self.syncCurrentStepTitleLabel.text = ""
         self.syncCurrentStepReportLabel.text = ""
         self.syncCurrentStepProgressLabel.text = ""
-        self.peerCountLabel.text = "\(WalletLoader.shared.multiWallet.connectedPeers())"
+        self.peerCountLabel.text = "\(multiWallet.connectedPeers())"
 
-        self.multipleWalletsPeerCountLabel.text = "\(WalletLoader.shared.multiWallet.connectedPeers())"
+        self.multipleWalletsPeerCountLabel.text = "\(multiWallet.connectedPeers())"
         MultiWalletSyncDetailsLoader.setup(for: self.multipleWalletsSyncDetailsTableView)
     }
     
     private func displayLatestBlockHeightAndAge() {
-        guard let bestBlockInfo = WalletLoader.shared.multiWallet.getBestBlock() else { return }
+        guard let bestBlockInfo = multiWallet.getBestBlock() else { return }
         
         let bestBlockHeight = bestBlockInfo.height
         let bestBlockAge = Int64(Date().timeIntervalSince1970) - bestBlockInfo.timestamp
@@ -374,7 +376,7 @@ class OverviewViewController: UIViewController {
     }
     
     private func displayConnectedPeersCount() {
-        let peerCount = WalletLoader.shared.multiWallet.connectedPeers()
+        let peerCount = multiWallet.connectedPeers()
         if peerCount == 0 {
             self.connectedPeersLabel.attributedText = NSMutableAttributedString(string: LocalizedStrings.noConnectedPeer)
             return
@@ -392,7 +394,7 @@ class OverviewViewController: UIViewController {
     }
     
     func checkWhetherToPromptForSeedBackup() {
-        let numWalletsNeedingSeedBackup = WalletLoader.shared.multiWallet.numWalletsNeedingSeedBackup()
+        let numWalletsNeedingSeedBackup = multiWallet.numWalletsNeedingSeedBackup()
         if self.hideSeedBackupPrompt || numWalletsNeedingSeedBackup == 0 {
             self.seedBackupSectionView.isHidden = true
             return
@@ -408,7 +410,7 @@ class OverviewViewController: UIViewController {
     }
     
     func checkWhetherToPromptForAccountMixing() {
-        if !WalletLoader.shared.multiWallet.readBoolConfigValue(forKey: "has_setup_privacy", defaultValue: false) && !self.hideAccountMixingPrompt {
+        if !multiWallet.readBoolConfigValue(forKey: "has_setup_privacy", defaultValue: false) && !self.hideAccountMixingPrompt {
             self.accountMixingPromptSectionView.isHidden = false
         }
     }
@@ -421,7 +423,7 @@ class OverviewViewController: UIViewController {
             if wallet.isAccountMixerActive() {
                 activeMixers += 1
                 WalletID = wallet.id_
-                 let wallet  = WalletLoader.shared.multiWallet.wallet(withID: WalletID)
+                 let wallet  = multiWallet.wallet(withID: WalletID)
                  if let unmixedAccountNumber = wallet?.readInt32ConfigValue(forKey: Dcrlibwallet.DcrlibwalletAccountMixerUnmixedAccount, defaultValue: -1) {
                      do {
                         if let balance  =  try wallet?.getAccountBalance(unmixedAccountNumber) {
@@ -460,7 +462,7 @@ class OverviewViewController: UIViewController {
     
     @IBAction func setupAccountMixingTapped(_ sender: Any) {
         if let walletsTabIndex = NavigationMenuTabBarController.tabItems.firstIndex(of: .wallets) {
-            WalletLoader.shared.multiWallet.setBoolConfigValueForKey(GlobalConstants.Strings.SHOWN_PRIVACY_TOOLTIP, value: false)
+            multiWallet.setBoolConfigValueForKey(GlobalConstants.Strings.SHOWN_PRIVACY_TOOLTIP, value: false)
             NavigationMenuTabBarController.instance?.navigateToTab(index: walletsTabIndex)
         }
     }
@@ -494,11 +496,11 @@ class OverviewViewController: UIViewController {
     @IBAction func syncConnectionButtonTap(_ sender: Any) {
         if SyncManager.shared.isRescanning {
             DispatchQueue.global(qos: .userInitiated).async {
-                WalletLoader.shared.multiWallet.cancelRescan()
+                self.multiWallet.cancelRescan()
             }
         } else if SyncManager.shared.isSynced || SyncManager.shared.isSyncing {
              DispatchQueue.global(qos: .userInitiated).async {
-                WalletLoader.shared.multiWallet.cancelSync()
+                self.multiWallet.cancelSync()
             }
         } else {
             SyncManager.shared.startSync(allowSyncOnCellular: Settings.syncOnCellular)
@@ -587,7 +589,7 @@ extension OverviewViewController: UITableViewDelegate, UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: TransactionTableViewCell.identifier) as! TransactionTableViewCell
         let tx = self.recentTransactions[indexPath.row]
-        cell.displayInfo(for: tx)
+        cell.displayInfo(for: tx, hideWalletLabel: multiWallet.loadedWalletsCount() == 1)
         return cell
     }
     
@@ -646,7 +648,7 @@ extension OverviewViewController: DcrlibwalletSyncProgressListenerProtocol {
     
     func onPeerConnectedOrDisconnected(_ numberOfConnectedPeers: Int32) {
         DispatchQueue.main.async {
-            if WalletLoader.shared.multiWallet.isSyncing() {
+            if self.multiWallet.isSyncing() {
                 self.peerCountLabel.text = "\(numberOfConnectedPeers)"
                 self.multipleWalletsPeerCountLabel.text = "\(numberOfConnectedPeers)"
             } else {
@@ -789,9 +791,9 @@ extension OverviewViewController: DcrlibwalletBlocksRescanProgressListenerProtoc
             self.toggleSingleWalletSyncDetailsViewHeight(isRescanning: true)
             self.multipleWalletsPeerCountLabel.superview?.isHidden = true
             
-            let nOpenedWallets = WalletLoader.shared.multiWallet.openedWalletsCount()
+            let nOpenedWallets = self.multiWallet.openedWalletsCount()
             if nOpenedWallets > 1 {
-                let wallet = WalletLoader.shared.multiWallet.wallet(withID: walletID)
+                let wallet = self.multiWallet.wallet(withID: walletID)
                 self.rescanWalletNameLabel.superview?.isHidden = false
                 self.rescanWalletNameLabel.text = wallet?.name
             } else {
@@ -808,7 +810,7 @@ extension OverviewViewController: DcrlibwalletBlocksRescanProgressListenerProtoc
             self.displayGeneralSyncProgress(report.generalSyncProgress)
             
             self.syncCurrentStepNumberLabel.text = LocalizedStrings.connectedPeersCount
-            self.syncCurrentStepSummaryLabel.text = "\(WalletLoader.shared.multiWallet.connectedPeers())"
+            self.syncCurrentStepSummaryLabel.text = "\(self.multiWallet.connectedPeers())"
             
             self.syncCurrentStepTitleLabel.text = LocalizedStrings.scannedBlocks
             self.syncCurrentStepReportLabel.text = "\(report.currentRescanHeight)"
