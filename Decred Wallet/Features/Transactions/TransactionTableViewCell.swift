@@ -47,7 +47,6 @@ class TransactionTableViewCell: UITableViewCell {
         self.stakingTxAmountLabel.isHidden = transaction.type == DcrlibwalletTxTypeRegular
         self.daysCounterLabel.isHidden = !(transaction.type == DcrlibwalletTxTypeVote || transaction.type == DcrlibwalletTxTypeRevocation)
         self.voteRewardLabel.isHidden = !(transaction.type == DcrlibwalletTxTypeVote || transaction.type == DcrlibwalletTxTypeRevocation)
-        self.voteRewardLabelPadding.isHidden = !(transaction.type == DcrlibwalletTxTypeVote || transaction.type == DcrlibwalletTxTypeRevocation)
 
         if transaction.type == DcrlibwalletTxTypeRegular {
             self.displayRegularTxInfo(transaction)
