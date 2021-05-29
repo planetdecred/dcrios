@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -24,23 +24,6 @@
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_watch_only_wallet" translatesAutoresizingMaskIntoConstraints="NO" id="9xY-cz-E5K">
                         <rect key="frame" x="16" y="16" width="24" height="24"/>
                     </imageView>
-                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="dyi-zE-t6L">
-                        <rect key="frame" x="56" y="18" width="307" height="20.5"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="wallet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oT3-ly-hYC">
-                                <rect key="frame" x="0.0" y="0.0" width="153.5" height="20.5"/>
-                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
-                                <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="0.00 DCR" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Xm-3f-sHC">
-                                <rect key="frame" x="153.5" y="0.0" width="153.5" height="20.5"/>
-                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
-                                <color key="textColor" red="0.34901960784313724" green="0.42745098039215684" blue="0.50588235294117645" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                    </stackView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XqC-s5-1va">
                         <rect key="frame" x="56" y="55" width="342" height="1"/>
                         <color key="backgroundColor" red="0.90196078430000004" green="0.91764705879999997" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -55,6 +38,33 @@
                             <action selector="walletMenuButtonTapped:" destination="lxt-ND-6q1" eventType="touchUpInside" id="0oY-1y-dbQ"/>
                         </connections>
                     </button>
+                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" id="k1V-TO-aLV">
+                        <rect key="frame" x="56" y="0.0" width="310" height="56"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" text="wallet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oT3-ly-hYC">
+                                <rect key="frame" x="0.0" y="0.0" width="41" height="56"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="999" verticalCompressionResistancePriority="999" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Jgx-Sc-oa4">
+                                <rect key="frame" x="49" y="0.0" width="261" height="56"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="0.00 DCR" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Xm-3f-sHC">
+                                        <rect key="frame" x="0.0" y="0.0" width="261" height="56"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                        <color key="textColor" red="0.34901960784313724" green="0.42745098039215684" blue="0.50588235294117645" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="oT3-ly-hYC" firstAttribute="centerY" secondItem="k1V-TO-aLV" secondAttribute="centerY" id="4iR-35-X9K"/>
+                            <constraint firstItem="oT3-ly-hYC" firstAttribute="leading" secondItem="k1V-TO-aLV" secondAttribute="leading" id="8kW-EK-ZKv"/>
+                        </constraints>
+                    </stackView>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="XqC-s5-1va" secondAttribute="trailing" constant="16" id="8Fs-n8-BG1"/>
@@ -63,10 +73,7 @@
                     <constraint firstItem="9xY-cz-E5K" firstAttribute="centerY" secondItem="miY-Nl-5Xy" secondAttribute="centerY" id="GxL-c8-WGh"/>
                     <constraint firstItem="9xY-cz-E5K" firstAttribute="leading" secondItem="miY-Nl-5Xy" secondAttribute="leading" constant="16" id="Iqw-sT-q30"/>
                     <constraint firstAttribute="trailing" secondItem="TME-PG-gZE" secondAttribute="trailing" constant="16" id="PMq-df-CFu"/>
-                    <constraint firstItem="dyi-zE-t6L" firstAttribute="leading" secondItem="9xY-cz-E5K" secondAttribute="trailing" constant="16" id="WIJ-QP-sg4"/>
                     <constraint firstItem="XqC-s5-1va" firstAttribute="leading" secondItem="miY-Nl-5Xy" secondAttribute="leading" constant="56" id="XCY-4i-Gu2"/>
-                    <constraint firstItem="dyi-zE-t6L" firstAttribute="centerY" secondItem="miY-Nl-5Xy" secondAttribute="centerY" id="eSo-gI-hpR"/>
-                    <constraint firstItem="TME-PG-gZE" firstAttribute="leading" secondItem="dyi-zE-t6L" secondAttribute="trailing" constant="11" id="lqL-bx-QVh"/>
                     <constraint firstAttribute="bottom" secondItem="XqC-s5-1va" secondAttribute="bottom" id="ojz-JN-Nmu"/>
                 </constraints>
             </tableViewCellContentView>
@@ -74,7 +81,7 @@
                 <outlet property="totalAccountBalanceLabel" destination="9Xm-3f-sHC" id="4ub-l4-iUS"/>
                 <outlet property="walletNameLabel" destination="oT3-ly-hYC" id="4ab-Me-LDz"/>
             </connections>
-            <point key="canvasLocation" x="19" y="-21"/>
+            <point key="canvasLocation" x="18.840579710144929" y="-21.428571428571427"/>
         </tableViewCell>
     </objects>
     <resources>
