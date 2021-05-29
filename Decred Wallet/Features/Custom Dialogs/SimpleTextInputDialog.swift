@@ -93,7 +93,7 @@ class SimpleTextInputDialog: UIViewController {
     }
     
     @objc func textFieldEditingChanged() {
-        self.submitButton.isEnabled = self.verifyInput ? self.currentValue == self.textField.text : (self.textField.text ?? "").count > 0
+        self.submitButton.isEnabled = self.verifyInput ? self.currentValue == self.textField.text : (self.textField.text?.trimmingCharacters(in: .whitespaces) ?? "").count > 0
         
         if !self.inputErrorLabel.isHidden {
             self.textField.hideError()
