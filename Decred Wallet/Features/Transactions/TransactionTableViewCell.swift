@@ -86,7 +86,7 @@ class TransactionTableViewCell: UITableViewCell {
                 self.txTypeIconImageView?.image = UIImage(named: "ic_receive")
             } else if transaction.direction == DcrlibwalletTxDirectionTransferred {
                 self.txAmountOrTicketStatusLabel.attributedText = amountString
-                self.txTypeIconImageView?.image = UIImage(named: "nav_menu/ic_wallet")
+                self.txTypeIconImageView?.image = UIImage(named: "ic_fee")
             }
         }
 
