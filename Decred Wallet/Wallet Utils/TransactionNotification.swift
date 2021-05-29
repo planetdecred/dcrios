@@ -73,8 +73,41 @@ class TransactionNotification: NSObject {
         
         if tx!.direction == DcrlibwalletTxDirectionReceived && WalletSettings(for: affectedWallet).txNotificationAlert != .none {
             let notification = UNMutableNotificationContent()
-            notification.title = LocalizedStrings.newTransaction
-            notification.body = "\(LocalizedStrings.youReceived) \(tx!.dcrAmount.round(8).description) DCR"
+            var title: String {
+                switch tx!.type {
+                case DcrlibwalletTxTypeVote:
+                    if WalletLoader.shared.multiWallet.openedWalletsCount() > 1 {
+                        return String(format: LocalizedStrings.walletTicketVoted, affectedWallet.name)
+                    } else {
+                        return LocalizedStrings.ticketVoted
+                    }
+                case DcrlibwalletTxTypeRevocation:
+                    if WalletLoader.shared.multiWallet.openedWalletsCount() > 1 {
+                        return String(format: LocalizedStrings.walletTicketRevoked, affectedWallet.name)
+                    } else {
+                        return LocalizedStrings.ticketRevoked
+                    }
+                default:
+                    if WalletLoader.shared.multiWallet.openedWalletsCount() > 1 {
+                        return String(format: LocalizedStrings.walletNewTransaction, affectedWallet.name)
+                    } else {
+                        return LocalizedStrings.newTransaction
+                    }
+                }
+            }
+            notification.title = title
+            
+            var amount: String {
+                switch tx!.type {
+                case DcrlibwalletTxTypeVote:
+                    return String(format: LocalizedStrings.voteReward, tx!.dcrVoteReward.round(8).description)
+                case DcrlibwalletTxTypeRevocation:
+                    return ""
+                default:
+                    return String(format: LocalizedStrings.youReceived, tx!.dcrAmount.round(8).description)
+                }
+            }
+            notification.body = amount
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
             let request = UNNotificationRequest(identifier: "TxnIdentifier", content: notification, trigger: trigger)
             UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
