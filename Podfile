@@ -7,5 +7,6 @@ target 'Decred Wallet' do
 
   pod 'JGProgressHUD'
   pod 'QRCodeReader.swift'
+  pod 'Down'
 
 end
