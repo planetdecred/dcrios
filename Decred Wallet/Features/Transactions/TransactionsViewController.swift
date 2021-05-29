@@ -54,6 +54,7 @@ class TransactionsViewController: UIViewController {
         self.txTableView.addSubview(self.refreshControl)
         self.txTableView.hideEmptyAndExtraRows()
         self.txTableView.registerCellNib(TransactionTableViewCell.self)
+        self.txTableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 72, right: 0)
 
         // register for new transactions notifications
         try? WalletLoader.shared.multiWallet.add(self, uniqueIdentifier: "\(self)")
