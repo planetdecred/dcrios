@@ -9,12 +9,6 @@
 import UIKit
 import Dcrlibwallet
 
-extension Int64 {
-    var toDecimal: NSDecimalNumber {
-        return NSDecimalNumber(value: self)
-    }
-}
-
 extension NSDecimalNumber {
     public func round(_ decimals:Int) -> NSDecimalNumber {
         return self.rounding(accordingToBehavior:

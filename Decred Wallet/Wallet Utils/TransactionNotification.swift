@@ -100,7 +100,7 @@ class TransactionNotification: NSObject {
             var amount: String {
                 switch tx!.type {
                 case DcrlibwalletTxTypeVote:
-                    return String(format: LocalizedStrings.voteReward, tx!.voteReward.toDecimal)
+                    return String(format: LocalizedStrings.voteReward, tx!.dcrVoteReward.round(8).description)
                 case DcrlibwalletTxTypeRevocation:
                     return ""
                 default:
