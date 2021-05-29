@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -24,55 +24,67 @@
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_account" translatesAutoresizingMaskIntoConstraints="NO" id="TNG-Lq-r6K">
                         <rect key="frame" x="0.0" y="25" width="24" height="24"/>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Default" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2s2-FE-DaI">
-                        <rect key="frame" x="40" y="14" width="54.5" height="23"/>
-                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
-                        <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="0.00 DCR" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="umF-wo-77k">
-                        <rect key="frame" x="324" y="13" width="74" height="25.5"/>
-                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
-                        <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="0.00 DCR" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cU2-tf-Rgi">
-                        <rect key="frame" x="346" y="40.5" width="52" height="18"/>
-                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
-                        <color key="textColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ecb-qP-RHx">
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" id="uHr-Rw-7to">
+                        <rect key="frame" x="40" y="13" width="354" height="50"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="tNm-Nv-bSL">
+                                <rect key="frame" x="0.0" y="0.0" width="354" height="24"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" text="Default" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2s2-FE-DaI">
+                                        <rect key="frame" x="0.0" y="0.0" width="54.5" height="24"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
+                                        <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="999" verticalCompressionResistancePriority="999" text="0.00 DCR" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="umF-wo-77k">
+                                        <rect key="frame" x="62.5" y="0.0" width="291.5" height="24"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
+                                        <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Tf9-K9-C5I">
+                                <rect key="frame" x="0.0" y="32" width="354" height="18"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" text="Spendable" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mck-hs-G7D">
+                                        <rect key="frame" x="0.0" y="0.0" width="63" height="18"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                                        <color key="textColor" red="0.34901960784313724" green="0.42745098039215684" blue="0.50588235294117645" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="spendable"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="999" verticalCompressionResistancePriority="999" text="0.00 DCR" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cU2-tf-Rgi">
+                                        <rect key="frame" x="71" y="0.0" width="283" height="18"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                                        <color key="textColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="Tf9-K9-C5I" firstAttribute="top" secondItem="tNm-Nv-bSL" secondAttribute="bottom" constant="8" id="0xK-V0-1Hs"/>
+                            <constraint firstItem="tNm-Nv-bSL" firstAttribute="leading" secondItem="uHr-Rw-7to" secondAttribute="leading" id="Kg4-Go-ILy"/>
+                        </constraints>
+                    </stackView>
+                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ecb-qP-RHx">
                         <rect key="frame" x="40" y="72.5" width="358" height="1"/>
                         <color key="backgroundColor" red="0.90196078430000004" green="0.91764705879999997" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="dni-IQ-9pN"/>
                         </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Spendable" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mck-hs-G7D">
-                        <rect key="frame" x="40" y="40.5" width="63" height="18"/>
-                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
-                        <color key="textColor" red="0.34901960784313724" green="0.42745098039215684" blue="0.50588235294117645" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizedStringKey" value="spendable"/>
-                        </userDefinedRuntimeAttributes>
-                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="TNG-Lq-r6K" firstAttribute="centerY" secondItem="qBW-T7-fbl" secondAttribute="centerY" id="4Gu-Oo-BDy"/>
-                    <constraint firstItem="2s2-FE-DaI" firstAttribute="top" secondItem="qBW-T7-fbl" secondAttribute="top" constant="14" id="90O-J0-Yos"/>
-                    <constraint firstItem="cU2-tf-Rgi" firstAttribute="centerY" secondItem="mck-hs-G7D" secondAttribute="centerY" id="AKe-09-VyA"/>
                     <constraint firstItem="Ecb-qP-RHx" firstAttribute="leading" secondItem="qBW-T7-fbl" secondAttribute="leading" constant="40" id="CzM-QV-fOp"/>
-                    <constraint firstItem="umF-wo-77k" firstAttribute="centerY" secondItem="2s2-FE-DaI" secondAttribute="centerY" id="VdZ-O0-NKq"/>
+                    <constraint firstItem="uHr-Rw-7to" firstAttribute="leading" secondItem="TNG-Lq-r6K" secondAttribute="trailing" constant="16" id="FdK-nf-nmp"/>
                     <constraint firstItem="TNG-Lq-r6K" firstAttribute="leading" secondItem="qBW-T7-fbl" secondAttribute="leading" id="bQq-rc-bwH"/>
-                    <constraint firstItem="mck-hs-G7D" firstAttribute="top" secondItem="umF-wo-77k" secondAttribute="bottom" constant="2" id="bWE-oQ-voh"/>
-                    <constraint firstItem="mck-hs-G7D" firstAttribute="leading" secondItem="2s2-FE-DaI" secondAttribute="leading" id="dlO-x1-EDa"/>
-                    <constraint firstAttribute="trailing" secondItem="cU2-tf-Rgi" secondAttribute="trailing" constant="16" id="eQA-lJ-uJG"/>
                     <constraint firstAttribute="trailing" secondItem="Ecb-qP-RHx" secondAttribute="trailing" constant="16" id="nwK-Ip-g4Y"/>
-                    <constraint firstAttribute="trailing" secondItem="umF-wo-77k" secondAttribute="trailing" constant="16" id="pVg-Tv-7wx"/>
-                    <constraint firstItem="2s2-FE-DaI" firstAttribute="leading" secondItem="TNG-Lq-r6K" secondAttribute="trailing" constant="16" id="tpw-Og-ADG"/>
-                    <constraint firstItem="Ecb-qP-RHx" firstAttribute="top" secondItem="cU2-tf-Rgi" secondAttribute="bottom" constant="14" id="vkP-gK-6Fj"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
@@ -80,7 +92,7 @@
                 <outlet property="spendableAccountBalanceLabel" destination="cU2-tf-Rgi" id="TMP-CJ-5G7"/>
                 <outlet property="totalAccountBalanceLabel" destination="umF-wo-77k" id="uoS-pH-acw"/>
             </connections>
-            <point key="canvasLocation" x="138" y="-29"/>
+            <point key="canvasLocation" x="137.68115942028987" y="-29.464285714285712"/>
         </tableViewCell>
     </objects>
     <resources>
