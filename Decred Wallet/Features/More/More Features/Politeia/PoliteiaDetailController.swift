@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Down
 
 class PoliteiaDetailController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
@@ -140,7 +141,9 @@ class PoliteiaDetailController: UIViewController {
         }
         
         if politeia.indexfile != "" && politeia.fileversion == politeia.version {
-            self.contentTextView.text = politeia.indexfile
+            let down = Down(markdownString: politeia.indexfile)
+            let attributedString = try? down.toAttributedString()
+            self.contentTextView.attributedText = attributedString
         } else {
             self.contentLoadingIndicator.isHidden = false
             DispatchQueue.global(qos: .userInitiated).async {
@@ -151,7 +154,9 @@ class PoliteiaDetailController: UIViewController {
                     if error != nil {
                         self.contentTextView.text = error?.localizedDescription
                     } else {
-                        self.contentTextView.text = description
+                        let down = Down(markdownString: description!)
+                        let attributedString = try? down.toAttributedString()
+                        self.contentTextView.attributedText = attributedString
                     }
                 }
             }
