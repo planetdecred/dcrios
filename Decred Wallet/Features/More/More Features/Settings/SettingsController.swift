@@ -33,7 +33,7 @@ class SettingsController: UITableViewController  {
         self.beepForNewBlockSwitch.addTarget(self, action: #selector(switchChanged), for: UIControl.Event.valueChanged)
         self.politeiaNotificationSwitch.addTarget(self, action: #selector(switchChanged), for: UIControl.Event.valueChanged)
         self.cellularSyncSwitch.addTarget(self, action: #selector(switchChanged), for: UIControl.Event.valueChanged)
-        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 56, right: 0)
+        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
     }
     
     @objc func switchChanged(switchView: UISwitch) {

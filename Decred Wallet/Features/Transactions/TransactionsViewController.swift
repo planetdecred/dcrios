@@ -54,6 +54,7 @@ class TransactionsViewController: UIViewController {
         self.txTableView.addSubview(self.refreshControl)
         self.txTableView.hideEmptyAndExtraRows()
         self.txTableView.registerCellNib(TransactionTableViewCell.self)
+        self.txTableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 72, right: 0)
 
         // register for new transactions notifications
         try? WalletLoader.shared.multiWallet.add(self, uniqueIdentifier: "\(self)")
@@ -63,14 +64,30 @@ class TransactionsViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.walletSelectorCollectionView.reloadData()
+        self.updateWalletSelectorTab()
         self.navigationController?.navigationBar.isHidden = true
-        self.selectWallet(selectedIndex: self.currentWalletSelectorIndex)
     }
 
     override public func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.updateWalletSelectorSteppingButtonsAndGradientColors()
         self.updateWalletSelectorGradientFrame()
+    }
+    
+    private func updateWalletSelectorTab() {
+        DispatchQueue.main.async {
+            self.setupWalletSelector()
+            self.updateWalletSelectorSteppingButtonsAndGradientColors()
+            if self.currentWalletSelectorIndex >= WalletLoader.shared.wallets.count {
+                self.currentWalletSelectorIndex = WalletLoader.shared.wallets.count - 1
+                // Previously selected wallet has been deleted, so select the first wallet
+                self.selectWallet(selectedIndex: 0)
+            } else {
+                // Select the previously selected wallet
+                self.selectWallet(selectedIndex: self.currentWalletSelectorIndex)
+            }
+        }
     }
 
     private func setupWalletSelector() {
@@ -86,6 +103,7 @@ class TransactionsViewController: UIViewController {
 
             self.walletSelectorPrevButton.setImage(UIImage(cgImage: UIImage(named: "ic_collapse")!.cgImage!, scale: CGFloat(1.0), orientation: .leftMirrored), for: .normal)
             self.walletSelectorNextButton.setImage(UIImage(cgImage: UIImage(named: "ic_collapse")!.cgImage!, scale: CGFloat(1.0), orientation: .rightMirrored), for: .normal)
+            self.walletSelectorContainerView.isHidden = false
         } else {
             self.walletSelectorContainerView.isHidden = true
         }

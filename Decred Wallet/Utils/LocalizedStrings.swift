@@ -409,8 +409,14 @@ struct LocalizedStrings {
     static let walletLogCopied = NSLocalizedString("walletLogCopied", comment: "")
     
     /* Transaction Notification */
+    static let walletNewTransaction = NSLocalizedString("walletNewTransaction", comment: "")
     static let newTransaction = NSLocalizedString("newTransaction", comment: "")
     static let youReceived = NSLocalizedString("youReceived", comment: "")
+    static let walletTicketVoted = NSLocalizedString("walletTicketVoted", comment: "")
+    static let ticketVoted = NSLocalizedString("ticketVoted", comment: "")
+    static let walletTicketRevoked = NSLocalizedString("walletTicketRevoked", comment: "")
+    static let ticketRevoked = NSLocalizedString("ticketRevoked", comment: "")
+    static let voteReward = NSLocalizedString("voteReward", comment: "")
     
     /* View controller sender */
     static let spending = NSLocalizedString("spending", comment: "")

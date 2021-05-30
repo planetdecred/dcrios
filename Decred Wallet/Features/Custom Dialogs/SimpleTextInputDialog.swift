@@ -88,12 +88,12 @@ class SimpleTextInputDialog: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if !self.verifyInput {
-           self.textField.text = self.currentValue
+            self.textField.text = self.currentValue.trimmingCharacters(in: .whitespaces)
         }
     }
     
     @objc func textFieldEditingChanged() {
-        self.submitButton.isEnabled = self.verifyInput ? self.currentValue == self.textField.text : (self.textField.text ?? "").count > 0
+        self.submitButton.isEnabled = self.verifyInput ? self.currentValue.trimmingCharacters(in: .whitespaces) == self.textField.text?.trimmingCharacters(in: .whitespaces)  : (self.textField.text?.trimmingCharacters(in: .whitespaces) ?? "").count > 0
         
         if !self.inputErrorLabel.isHidden {
             self.textField.hideError()
@@ -111,7 +111,7 @@ class SimpleTextInputDialog: UIViewController {
     }
     
     func submitUserInput() {
-        guard let userInput = self.textField.text, !userInput.isEmpty else {
+        guard let userInput = self.textField.text?.trimmingCharacters(in: .whitespaces), !userInput.trimmingCharacters(in: .whitespaces).isEmpty else {
             return
         }
         

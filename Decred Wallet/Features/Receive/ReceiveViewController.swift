@@ -36,9 +36,15 @@ class ReceiveViewController: UIViewController {
         self.addressQRCodeImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.copyAddress)))
         self.walletAddressLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.copyAddress)))
         
-        self.selectedAccountView.showMixedAccount = false
+        self.selectedAccountView.accountFilterFn = {account in
+            if account.number == Int32.max || account.isMixerMixedAccount {
+                return false
+            }
+            
+            return true
+        }
         self.selectedAccountView.onAccountSelectionChanged = self.updateSelectedAccount
-        self.selectedAccountView.selectFirstWalletAccount()
+        self.selectedAccountView.selectFirstValidWalletAccount()
         // register for new transactions notifications
         try? WalletLoader.shared.multiWallet.add(self, uniqueIdentifier: "\(self)")
     }
@@ -50,10 +56,9 @@ class ReceiveViewController: UIViewController {
         }
     }
 
-    func updateSelectedAccount(_ selectedWallet: DcrlibwalletWallet, _ selectedAccount: DcrlibwalletAccount) {
-        self.selectedWallet = selectedWallet
+    func updateSelectedAccount(_ selectedAccount: DcrlibwalletAccount) {
+        self.selectedWallet = WalletLoader.shared.multiWallet.wallet(withID: selectedAccount.walletID)!
         self.selectedAccount = selectedAccount
-
         self.shareButtonContainerView.isHidden = false
         self.addressQRCodeContainerView.isHidden = false
         self.moreMenuButton.isEnabled = true
@@ -61,7 +66,7 @@ class ReceiveViewController: UIViewController {
         self.walletAddressLabel.isHidden = false
         self.separatorView.isHidden = false
 
-        self.displayAddressAndQRCode(receiveAddress: selectedWallet.currentRecieveAddress(for: selectedAccount.number))
+        self.displayAddressAndQRCode(receiveAddress: selectedWallet!.currentRecieveAddress(for: selectedAccount.number))
     }
 
     private func displayAddressAndQRCode(receiveAddress: String) {
@@ -155,7 +160,7 @@ extension ReceiveViewController: DcrlibwalletTxAndBlockNotificationListenerProto
     
     func onTransaction(_ transaction: String?) {
         DispatchQueue.main.async {
-            self.selectedAccountView.selectFirstWalletAccount()
+            self.selectedAccountView.selectFirstValidWalletAccount()
         }
     }
     
