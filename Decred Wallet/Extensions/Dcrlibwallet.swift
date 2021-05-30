@@ -166,7 +166,7 @@ extension DcrlibwalletWallet {
         
         if transactions != nil {
             // Check if there are new transactions since last time wallet history was displayed.
-            let lastTxHash = Settings.readStringValue(for: DcrlibwalletLastTxHashConfigKey)
+            let lastTxHash = self.readStringConfigValue(forKey: DcrlibwalletLastTxHashConfigKey, defaultValue: "")
             for i in 0..<transactions!.count {
                 if transactions![i].hash == lastTxHash {
                     // We've hit the last viewed tx. No need to animate this tx or futher txs.
@@ -176,7 +176,7 @@ extension DcrlibwalletWallet {
             }
             
             // Save hash for tx index 0 as last viewed tx hash.
-            Settings.setStringValue(transactions![0].hash, for: DcrlibwalletLastTxHashConfigKey)
+            self.setStringConfigValueForKey(DcrlibwalletLastTxHashConfigKey, value: transactions![0].hash)
         }
         
         return transactions
@@ -261,7 +261,7 @@ extension DcrlibwalletMultiWallet {
 
         if transactions != nil && transactions!.count > 0 {
             // Check if there are new transactions since last time wallet history was displayed.
-            let lastTxHash = Settings.readStringValue(for: DcrlibwalletLastTxHashConfigKey)
+            let lastTxHash = self.readStringConfigValue(forKey: DcrlibwalletLastTxHashConfigKey)
             for i in 0..<transactions!.count {
                 if transactions![i].hash == lastTxHash {
                     // We've hit the last viewed tx. No need to animate this tx or futher txs.
@@ -271,7 +271,7 @@ extension DcrlibwalletMultiWallet {
             }
             
             // Save hash for tx index 0 as last viewed tx hash.
-            Settings.setStringValue(transactions![0].hash, for: DcrlibwalletLastTxHashConfigKey)
+            self.setStringConfigValueForKey(DcrlibwalletLastTxHashConfigKey, value: transactions![0].hash)
         }
 
         return transactions

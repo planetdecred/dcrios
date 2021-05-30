@@ -855,6 +855,10 @@ extension OverviewViewController: DcrlibwalletTxAndBlockNotificationListenerProt
         }
         
         tx.animate = true
+        
+        multiWallet.setStringConfigValueForKey(DcrlibwalletLastTxHashConfigKey, value: tx.hash)
+        multiWallet.wallet(withID: tx.walletID)?.setStringConfigValueForKey(DcrlibwalletLastTxHashConfigKey, value: tx.hash)
+        
         self.recentTransactions.insert(tx, at: 0)
         if self.recentTransactions.count > 3 {
             _ = self.recentTransactions.popLast()

@@ -292,8 +292,9 @@ extension TransactionsViewController: DcrlibwalletTxAndBlockNotificationListener
         self.newTxHashes.append(tx.hash)
         self.allTransactions.insert(tx, at: 0)
 
-        // Save hash for this tx as last viewed tx hash.
-        Settings.setStringValue(tx.hash, for: DcrlibwalletLastTxHashConfigKey)
+        let multiWallet = WalletLoader.shared.multiWallet!
+        multiWallet.setStringConfigValueForKey(DcrlibwalletLastTxHashConfigKey, value: tx.hash)
+        multiWallet.wallet(withID: tx.walletID)?.setStringConfigValueForKey(DcrlibwalletLastTxHashConfigKey, value: tx.hash)
 
         DispatchQueue.main.async {
             self.reloadTxsForCurrentFilter()
