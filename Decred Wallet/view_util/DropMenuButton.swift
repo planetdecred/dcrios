@@ -11,6 +11,10 @@ import UIKit
 typealias CallBack = ((Int, String) -> Void) // callback function
 typealias TapListener = ()->()
 
+protocol DropMenuButtonDelegate {
+    func onOpenDrop()
+}
+
 struct DropMenuButtonItem {
     var text: String
     var isSeparate: Bool = false
@@ -32,6 +36,7 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
     var items = [DropMenuButtonItem]()
     var selectedItemIndex: Int = -1
     var selectedItem: String?
+    var delegate: DropMenuButtonDelegate?
     
     var table = UITableView()
     var act: CallBack?
@@ -45,6 +50,7 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
     private var labelBGColor: UIColor = UIColor.appColors.lightBlue
     private var labelColor: UIColor = UIColor.white
     private var separateColor: UIColor = UIColor.appColors.gray
+    private var isShowCurrentValue: Bool = false
     
     var superSuperView = UIView()
     var containerView = UIView()
@@ -72,24 +78,30 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
     }
     
     func showDropDown() {
-        self.alpha = 0
+        if !self.isShowCurrentValue {
+            self.alpha = 0
+        }
         layer.zPosition = 1
         containerView.alpha = 1
+        self.delegate?.onOpenDrop()
     }
     
     func hideDropDown() {
-        self.alpha = 1
+        if !self.isShowCurrentValue {
+            self.alpha = 1
+        }
         containerView.alpha = 0
         layer.zPosition = 0
     }
     
     func initMenu(_ items: [String], actions: CallBack? = nil) {
         let _items = items.map{DropMenuButtonItem($0)}
-        self.initMenu(_items, marginRight: 0, isDissmissOutside: false , superView: nil, actions: actions)
+        self.initMenu(_items, marginRight: 0, isDissmissOutside: false , superView: nil, isShowCurrentValue: false, actions: actions)
     }
     
-    func initMenu(_ items: [DropMenuButtonItem], marginRight: CGFloat, isDissmissOutside: Bool, superView: UIView?, actions: CallBack? = nil)
+    func initMenu(_ items: [DropMenuButtonItem], marginRight: CGFloat, isDissmissOutside: Bool, superView: UIView?, isShowCurrentValue: Bool, actions: CallBack? = nil)
     {
+        self.isShowCurrentValue = isShowCurrentValue
         self.marginRightTable = marginRight
         self.isDissmissOutside = isDissmissOutside
         self.items = items
@@ -176,13 +188,12 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
     {
         let auxPoint2 = superSuperView.convert(frame.origin, from: superview)
         
-//        let tableFrameHeight = frame.height * CGFloat(items.count)
         let tableFrameHeight = 40 * CGFloat(items.count)
         let containerWith = self.isDissmissOutside ? self.widthSuperView : max(minTableWidth, frame.width)
         let containerHeight = self.isDissmissOutside ? self.heightSuperView : max(tableFrameHeight, frame.height)
         self.viewGesture.frame = CGRect(x: 0, y: 0, width: containerWith, height: containerHeight)
         containerView.frame = CGRect(x: self.isDissmissOutside ? 0 : auxPoint2.x, y: self.isDissmissOutside ? 0 : auxPoint2.y, width: containerWith, height: containerHeight)
-        table.frame = CGRect(x: containerWith - max(minTableWidth, frame.width) - self.marginRightTable, y: self.isDissmissOutside ? auxPoint2.y : 0, width: max(minTableWidth, frame.width), height: tableFrameHeight)
+        table.frame = CGRect(x: containerWith - max(minTableWidth, frame.width) - self.marginRightTable, y: self.isDissmissOutside ? (auxPoint2.y + 30): 0, width: max(minTableWidth, frame.width), height: tableFrameHeight)
         table.rowHeight = frame.height
         table.separatorColor = UIColor.clear
         
@@ -259,7 +270,7 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
         label.translatesAutoresizingMaskIntoConstraints = false
 
         let bgColorView = UIView()
-        bgColorView.backgroundColor = UIColor.lightGray
+        bgColorView.backgroundColor = UIColor.appColors.paleGray
         
         cell.backgroundColor = UIColor.white
         cell.selectedBackgroundView = bgColorView

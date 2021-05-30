@@ -28,6 +28,8 @@ class WalletsViewController: UIViewController {
         return Int(ProcessInfo.processInfo.physicalMemory/(ONE_GB_VALUE))
     }
     
+    var indexDropDownShow: IndexPath?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -47,6 +49,12 @@ class WalletsViewController: UIViewController {
         self.refreshView()
         self.walletsTableView.reloadData()
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        print("view will viewWillDisappear")
+        self.closeDropdown()
+    }
 
     @objc func refreshView() {
         self.loadWallets()
@@ -60,6 +68,18 @@ class WalletsViewController: UIViewController {
         
         self.watchOnly = watchOnly.map({ Wallet.init($0, accountsFilterFn: accountsFilterFn) })
         self.wallets = fullCoinWallet.map({ Wallet.init($0, accountsFilterFn: accountsFilterFn) })
+    }
+    
+    func closeDropdown() {
+        guard let index = self.indexDropDownShow else {return}
+        let cell = self.walletsTableView.cellForRow(at: index)
+        if let walletInfoCell = cell as? WalletInfoTableViewCell {
+            walletInfoCell.closeDropDown()
+        }
+        
+        if let watchWalletCell = cell as? WatchOnlyWalletInfoTableViewCell {
+            watchWalletCell.closeDropdown()
+        }
     }
     
     @IBAction func addNewWalletTapped(_ sender: UIView) {
@@ -274,12 +294,13 @@ extension WalletsViewController: UITableViewDataSource, UITableViewDelegate {
         if  indexPath.row < self.wallets.count {
             let walletViewCell = tableView.dequeueReusableCell(withIdentifier: cellName, for: indexPath) as! WalletInfoTableViewCell
             walletViewCell.wallet = self.wallets[indexPath.row]
-            walletViewCell.setupMenuDropDown()
+            walletViewCell.setupMenuDropDown(indexPath: indexPath)
             walletViewCell.delegate = self
             return walletViewCell
         } else {
             let watchOnlyWalletViewCell = tableView.dequeueReusableCell(withIdentifier: cellName, for: indexPath) as! WatchOnlyWalletInfoTableViewCell
             watchOnlyWalletViewCell.watchOnlywallet = self.watchOnly
+            watchOnlyWalletViewCell.indexPath = indexPath
             watchOnlyWalletViewCell.delegate = self
             return watchOnlyWalletViewCell
         }
@@ -294,6 +315,10 @@ extension WalletsViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension WalletsViewController: WalletInfoTableViewCellDelegate {
+    func indexDropdownOpen(index: IndexPath) {
+        self.indexDropDownShow = index
+    }
+    
     
     func walletSeedBackedUp() {
         self.refreshView()

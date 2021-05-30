@@ -15,9 +15,11 @@ protocol WalletInfoTableViewCellDelegate {
     func addNewAccount(_ wallet: Wallet)
     func showAccountDetailsDialog(_ account: DcrlibwalletAccount)
     func gotoPrivacy(_ wallet: Wallet)
+    func indexDropdownOpen(index: IndexPath)
 }
 
-class WalletInfoTableViewCell: UITableViewCell {
+class WalletInfoTableViewCell: UITableViewCell, DropMenuButtonDelegate {
+    
     @IBOutlet weak var expandCollapseToggleImageView: UIImageView!
     @IBOutlet weak var walletNameLabel: UILabel!
     @IBOutlet weak var walletNotBackedUpLabel: UILabel!
@@ -41,6 +43,7 @@ class WalletInfoTableViewCell: UITableViewCell {
     @IBOutlet weak var checkMixerStatusDivider: UIView!
     
     var delegate: WalletInfoTableViewCellDelegate?
+    var indexPath: IndexPath!
     
     static let walletInfoSectionHeight: CGFloat = 65.0
     static let walletNotBackedUpLabelHeight: CGFloat = 14.0
@@ -49,16 +52,6 @@ class WalletInfoTableViewCell: UITableViewCell {
     static let seedBackupPromptHeight: CGFloat = 92.0
     static let checkMixerStatusHeight:CGFloat = 34.0
     private var menuOption: [DropMenuButtonItem] = []
-    
-    override class func awakeFromNib() {
-        super.awakeFromNib()
-//        self.setupMenuDropDown()
-    }
-
-    override func didMoveToSuperview() {
-        super.didMoveToSuperview()
-//        self.setupMenuDropDown()
-    }
     
     var wallet: Wallet! {
         didSet {
@@ -108,7 +101,8 @@ class WalletInfoTableViewCell: UITableViewCell {
         }
     }
     
-    func setupMenuDropDown() {
+    func setupMenuDropDown(indexPath: IndexPath) {
+        self.indexPath = indexPath
         self.menuOption = [
             DropMenuButtonItem(LocalizedStrings.signMessage, isSeparate: false, textLabel: ""),
             DropMenuButtonItem(LocalizedStrings.verifyMessage, isSeparate: false, textLabel: ""),
@@ -119,7 +113,10 @@ class WalletInfoTableViewCell: UITableViewCell {
         if WalletLoader.shared.multiWallet.readBoolConfigValue(forKey: "has_setup_privacy", defaultValue: false) {
             self.menuOption[2] = DropMenuButtonItem(LocalizedStrings.privacy, isSeparate: true, textLabel: "")
         }
-        self.walletMenuButton.initMenu(self.menuOption, marginRight: 16, isDissmissOutside: true, superView: self.superview?.superview) { [weak self] index, value in
+        
+        self.walletMenuButton.delegate = self
+        
+        self.walletMenuButton.initMenu(self.menuOption, marginRight: 16, isDissmissOutside: true, superView: self.superview?.superview, isShowCurrentValue: true) { [weak self] index, value in
             guard let `self` = self else {return}
             self.delegate?.showWalletMenu(walletName: self.wallet.name, walletID: self.wallet.id, type: DropDowMenuEnum(rawValue: index))
         }
@@ -168,6 +165,14 @@ class WalletInfoTableViewCell: UITableViewCell {
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
             self.privacyTootipView.isHidden = true
         }
+    }
+    
+    func closeDropDown() {
+        self.walletMenuButton.hideDropDown()
+    }
+    
+    func onOpenDrop() {
+        self.delegate?.indexDropdownOpen(index: self.indexPath)
     }
 }
 
