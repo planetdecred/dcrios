@@ -14,7 +14,7 @@ open class MoreMenuItemCell: UITableViewCell {
     @IBOutlet weak var moreMenuTitleLabel: UILabel!
     @IBOutlet weak var moreMenuBackground: UIView!
     
-    static let height: CGFloat = 68
+    static let height: CGFloat = 65
     
     class var morMenuIdentifier: String {
         return "\(self)"
