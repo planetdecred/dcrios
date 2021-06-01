@@ -138,9 +138,11 @@ extension AppDelegate: UIApplicationDelegate {
     }
     
     func applicationDidEnterBackground(_ application: UIApplication) {
-        SyncManager.shared.applicationWillEnterBackground()
-        self.shouldTrackLastActiveTime = true
-        self.updateLastActiveTime()
+        if WalletLoader.shared.isInitialized {
+            SyncManager.shared.applicationWillEnterBackground()
+            self.shouldTrackLastActiveTime = true
+            self.updateLastActiveTime()
+        }
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -154,7 +156,9 @@ extension AppDelegate: UIApplicationDelegate {
             
             // Notify life cycle delegates if app was last active (i.e. suspended) 10 or more seconds ago.
             if Date().timeIntervalSince(lastActiveTime) > 10 {
-                SyncManager.shared.applicationEnteredForegroundFromSuspendedState(lastActiveTime)
+                if WalletLoader.shared.isInitialized {
+                    SyncManager.shared.applicationEnteredForegroundFromSuspendedState(lastActiveTime)
+                }
             }
         }
     }
@@ -172,9 +176,11 @@ extension AppDelegate: UIApplicationDelegate {
     }
     
     func applicationWillTerminate(_: UIApplication) {
-        SyncManager.shared.applicationWillTerminate()
         self.reachability.stopNotifier()
-        WalletLoader.shared.multiWallet.shutdown()
+        if WalletLoader.shared.isInitialized {
+            SyncManager.shared.applicationWillTerminate()
+            WalletLoader.shared.multiWallet.shutdown()
+        }
     }
 }
 

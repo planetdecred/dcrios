@@ -889,7 +889,7 @@ extension OverviewViewController: DcrlibwalletAccountMixerNotificationListenerPr
         print("mixer ended")
         DispatchQueue.main.async {
             self.setMixerStatus()
-            Utils.showBanner(in: self.view, type: .error, text: "mixer has stopped running")
+            Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.mixerHasStoppedRunning)
         }
     }
     
