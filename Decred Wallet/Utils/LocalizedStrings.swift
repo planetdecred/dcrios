@@ -547,4 +547,5 @@ struct LocalizedStrings {
     static let mixed = NSLocalizedString("mixed", comment: "")
     static let mix = NSLocalizedString("mix", comment: "")
     static let privacy = NSLocalizedString("privacy", comment: "")
+    static let newLabel = NSLocalizedString("newLabel", comment: "")
 }
