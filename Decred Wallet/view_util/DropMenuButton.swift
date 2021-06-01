@@ -55,7 +55,7 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
     var superSuperView = UIView()
     var containerView = UIView()
     var viewGesture = UIView()
-    var minTableWidth: CGFloat = 0 {
+    var minTableWidth: CGFloat = 130 {
         didSet {
             self.layoutIfNeeded()
         }
