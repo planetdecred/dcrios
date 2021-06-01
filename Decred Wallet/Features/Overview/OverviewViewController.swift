@@ -639,6 +639,7 @@ extension OverviewViewController: DcrlibwalletSyncProgressListenerProtocol {
             self.updateSyncConnectionButtonTextAndIcon()
             self.toggleSyncProgressViews(isSyncing: true)
             self.clearAndHideSyncDetails()
+            UIApplication.shared.isIdleTimerDisabled = true
             
             if wasRestarted {
                 self.syncStatusLabel.text = LocalizedStrings.restartingSync
@@ -716,6 +717,7 @@ extension OverviewViewController: DcrlibwalletSyncProgressListenerProtocol {
     func onSyncCanceled(_ willRestart: Bool) {
         DispatchQueue.main.async {
             self.updateUI(syncCompletedSuccessfully: false)
+            UIApplication.shared.isIdleTimerDisabled = false
         }
     }
     
@@ -723,12 +725,14 @@ extension OverviewViewController: DcrlibwalletSyncProgressListenerProtocol {
         DispatchQueue.main.async {
             self.updateUI(syncCompletedSuccessfully: true)
             self.setMixerStatus()
+            UIApplication.shared.isIdleTimerDisabled = false
         }
     }
     
     func onSyncEndedWithError(_ err: Error?) {
         DispatchQueue.main.async {
             self.updateUI(syncCompletedSuccessfully: false)
+            UIApplication.shared.isIdleTimerDisabled = false
         }
     }
     
