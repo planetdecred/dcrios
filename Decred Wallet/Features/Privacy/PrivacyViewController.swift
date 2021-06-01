@@ -169,6 +169,7 @@ class PrivacyViewController: UIViewController {
                 self.mixerStatusIcon.image = UIImage(named: "ic_alert")
                 self.mixerDropdownArrow.isHidden = false
                 self.mixingInfo.isHidden = false
+                UIApplication.shared.isIdleTimerDisabled = true
             }
         } else {
             let retV = UnsafeMutablePointer<ObjCBool>.allocate(capacity: 1)
@@ -226,6 +227,8 @@ extension PrivacyViewController: DcrlibwalletAccountMixerNotificationListenerPro
                 self.setMixerStatus()
                 self.mixerSwitch.isOn = false
                 Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.mixerHasStoppedRunning)
+                 UIApplication.shared.isIdleTimerDisabled = false
+                
             }
         }
     }
