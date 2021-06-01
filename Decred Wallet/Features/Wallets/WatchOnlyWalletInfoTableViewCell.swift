@@ -11,7 +11,8 @@ import Dcrlibwallet
 
 protocol WatchOnlyWalletInfoTableViewCellDelegate {
     func showWatchOnlyWalletDetailsDialog(_ wallet: Wallet)
-    func showWatchOnlyWalletMenu(walletName: String, walletID: Int, _ sender: UIView)
+    func showWatchOnlyWalletMenu(walletName: String, walletID: Int, type: DropDowMenuEnum)
+    func indexDropdownOpen(index: IndexPath)
 }
 
 class WatchOnlyWalletInfoTableViewCell: UITableViewCell {
@@ -24,6 +25,9 @@ class WatchOnlyWalletInfoTableViewCell: UITableViewCell {
     
     static let walletInfoSectionHeight: CGFloat = 65.0
     static let walletCellHeight: CGFloat = 56.0
+    
+    var indexDropDownShow: IndexPath?
+    var indexPath: IndexPath!
     
     var watchOnlywallet = [Wallet]() {
         didSet {
@@ -46,6 +50,13 @@ class WatchOnlyWalletInfoTableViewCell: UITableViewCell {
     var accountsTableViewHeight: CGFloat {
         return CGFloat(self.numberOfWalletsToDisplay) * WatchOnlyWalletInfoTableViewCell.walletCellHeight
     }
+    
+    func closeDropdown() {
+        guard let index = self.indexDropDownShow else {return}
+        if let cell = self.walletsTableView.cellForRow(at: index) as? WatchOnlyWalletTableViewCell {
+            cell.closeDropDown()
+        }
+    }
 }
 
 extension WatchOnlyWalletInfoTableViewCell: UITableViewDataSource, UITableViewDelegate {
@@ -61,6 +72,7 @@ extension WatchOnlyWalletInfoTableViewCell: UITableViewDataSource, UITableViewDe
         let accountViewCell = tableView.dequeueReusableCell(withIdentifier: "WatchOnlyWalletTableViewCell") as! WatchOnlyWalletTableViewCell
         accountViewCell.wallet = self.watchOnlywallet[indexPath.row]
         accountViewCell.delegate = self
+        accountViewCell.indexPath = indexPath
         return accountViewCell
     }
     
@@ -70,7 +82,12 @@ extension WatchOnlyWalletInfoTableViewCell: UITableViewDataSource, UITableViewDe
 }
 
 extension WatchOnlyWalletInfoTableViewCell: WatchOnlyWalletTableViewCellDelegate {
-    func showWatchOnlyWalletMenu(walletName: String, walletID: Int, _ sender: UIView) {
-        self.delegate?.showWatchOnlyWalletMenu(walletName: walletName, walletID: walletID, sender)
+    func indexDropdownOpen(index: IndexPath) {
+        self.indexDropDownShow = index
+        self.delegate?.indexDropdownOpen(index: self.indexPath)
+    }
+    
+    func showWatchOnlyWalletMenu(walletName: String, walletID: Int, type: DropDowMenuEnum) {
+        self.delegate?.showWatchOnlyWalletMenu(walletName: walletName, walletID: walletID, type: type)
     }
 }

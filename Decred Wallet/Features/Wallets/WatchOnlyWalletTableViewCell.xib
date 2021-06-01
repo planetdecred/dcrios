@@ -31,12 +31,12 @@
                             <constraint firstAttribute="height" constant="1" id="Bjk-ON-bDA"/>
                         </constraints>
                     </view>
-                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TME-PG-gZE">
+                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TME-PG-gZE" customClass="DropMenuButton" customModule="Decred_Wallet" customModuleProvider="target">
                         <rect key="frame" x="374" y="16" width="24" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="24" id="mvX-YY-deZ"/>
+                        </constraints>
                         <state key="normal" image="ic_more"/>
-                        <connections>
-                            <action selector="walletMenuButtonTapped:" destination="lxt-ND-6q1" eventType="touchUpInside" id="0oY-1y-dbQ"/>
-                        </connections>
                     </button>
                     <stackView opaque="NO" contentMode="scaleToFill" spacing="8" id="k1V-TO-aLV">
                         <rect key="frame" x="56" y="0.0" width="310" height="56"/>
@@ -79,6 +79,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="totalAccountBalanceLabel" destination="9Xm-3f-sHC" id="4ub-l4-iUS"/>
+                <outlet property="walletMenuButton" destination="TME-PG-gZE" id="tdR-hf-N8c"/>
                 <outlet property="walletNameLabel" destination="oT3-ly-hYC" id="4ab-Me-LDz"/>
             </connections>
             <point key="canvasLocation" x="18.840579710144929" y="-21.428571428571427"/>

@@ -9,6 +9,14 @@
 import UIKit
 import Dcrlibwallet
 
+enum DropDowMenuEnum: Int {
+    case signMessage = 0
+    case verifyMessage = 1
+    case stakeShuffle = 2
+    case rename = 3
+    case setting = 4
+}
+
 class WalletsViewController: UIViewController {
     @IBOutlet weak var walletsTableView: UITableView!
     
@@ -19,6 +27,8 @@ class WalletsViewController: UIViewController {
     var numberOfwalletAllowed: Int {
         return Int(ProcessInfo.processInfo.physicalMemory/(ONE_GB_VALUE))
     }
+    
+    var indexDropDownShow: IndexPath?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +47,13 @@ class WalletsViewController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
         self.refreshView()
+        self.walletsTableView.reloadData()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        print("view will viewWillDisappear")
+        self.closeDropdown()
     }
 
     @objc func refreshView() {
@@ -51,6 +68,18 @@ class WalletsViewController: UIViewController {
         
         self.watchOnly = watchOnly.map({ Wallet.init($0, accountsFilterFn: accountsFilterFn) })
         self.wallets = fullCoinWallet.map({ Wallet.init($0, accountsFilterFn: accountsFilterFn) })
+    }
+    
+    func closeDropdown() {
+        guard let index = self.indexDropDownShow else {return}
+        let cell = self.walletsTableView.cellForRow(at: index)
+        if let walletInfoCell = cell as? WalletInfoTableViewCell {
+            walletInfoCell.closeDropDown()
+        }
+        
+        if let watchWalletCell = cell as? WatchOnlyWalletInfoTableViewCell {
+            watchWalletCell.closeDropdown()
+        }
     }
     
     @IBAction func addNewWalletTapped(_ sender: UIView) {
@@ -265,11 +294,13 @@ extension WalletsViewController: UITableViewDataSource, UITableViewDelegate {
         if  indexPath.row < self.wallets.count {
             let walletViewCell = tableView.dequeueReusableCell(withIdentifier: cellName, for: indexPath) as! WalletInfoTableViewCell
             walletViewCell.wallet = self.wallets[indexPath.row]
+            walletViewCell.setupMenuDropDown(indexPath: indexPath)
             walletViewCell.delegate = self
             return walletViewCell
         } else {
             let watchOnlyWalletViewCell = tableView.dequeueReusableCell(withIdentifier: cellName, for: indexPath) as! WatchOnlyWalletInfoTableViewCell
             watchOnlyWalletViewCell.watchOnlywallet = self.watchOnly
+            watchOnlyWalletViewCell.indexPath = indexPath
             watchOnlyWalletViewCell.delegate = self
             return watchOnlyWalletViewCell
         }
@@ -284,39 +315,35 @@ extension WalletsViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension WalletsViewController: WalletInfoTableViewCellDelegate {
+    func indexDropdownOpen(index: IndexPath) {
+        self.indexDropDownShow = index
+    }
+    
     
     func walletSeedBackedUp() {
         self.refreshView()
     }
     
-    func showWalletMenu(walletName: String, walletID: Int, _ sender: UIView) {
-        let prompt = String(format: "%@ (%@)", LocalizedStrings.wallet, walletName)
-        let walletMenu = UIAlertController(title: nil, message: prompt, preferredStyle: .actionSheet)
-        
-        walletMenu.addAction(UIAlertAction(title: LocalizedStrings.signMessage, style: .default, handler: { _ in
-            self.gotToSignMessage(walletID: walletID)
-        }))
-        
-        walletMenu.addAction(UIAlertAction(title: LocalizedStrings.rename, style: .default, handler: { _ in
-            self.renameWallet(walletID: walletID)
-        }))
-        
-        walletMenu.addAction(UIAlertAction(title: "Privacy", style: .default, handler: { _ in
+    func showWalletMenu(walletName: String, walletID: Int, type: DropDowMenuEnum?) {
+        switch type {
+        case .verifyMessage:
+            self.gotToVerifyMessage(walletID: walletID)
+            break
+        case .stakeShuffle:
             self.goToPrivacySetupPage(walletID: walletID)
-        }))
-        
-        walletMenu.addAction(UIAlertAction(title: LocalizedStrings.settings, style: .default, handler: { _ in
+            break
+        case .signMessage:
+            self.goToSignMessage(walletID: walletID)
+            break
+        case .rename:
+            self.renameWallet(walletID: walletID)
+            break
+        case .setting:
             self.goToWalletSettingsPage(walletID: walletID)
-        }))
-        
-        walletMenu.addAction(UIAlertAction(title: LocalizedStrings.cancel, style: .cancel, handler: nil))
-        
-        if let popoverPresentationController = walletMenu.popoverPresentationController {
-            popoverPresentationController.sourceView = sender
-            popoverPresentationController.sourceRect = sender.bounds
+            break
+        case .none:
+            break
         }
-        
-        self.present(walletMenu, animated: true, completion: nil)
     }
     
     func addNewAccount(_ wallet: Wallet) {
@@ -392,26 +419,17 @@ extension WalletsViewController: WatchOnlyWalletInfoTableViewCellDelegate {
         AccountDetailsViewController.showWatchOnlyWalletDetails(for: wallet, onAccountDetailsUpdated: self.refreshAccountDetails, sender: self)
     }
     
-    func showWatchOnlyWalletMenu(walletName: String, walletID: Int, _ sender: UIView) {
-        let prompt = String(format: "%@ (%@)", LocalizedStrings.wallet, walletName)
-        let walletMenu = UIAlertController(title: nil, message: prompt, preferredStyle: .actionSheet)
-               
-        walletMenu.addAction(UIAlertAction(title: LocalizedStrings.rename, style: .default, handler: { _ in
-                   self.renameWallet(walletID: walletID)
-               }))
-               
-        walletMenu.addAction(UIAlertAction(title: LocalizedStrings.settings, style: .default, handler: { _ in
-                   self.goToWalletSettingsPage(walletID: walletID)
-               }))
-               
-        walletMenu.addAction(UIAlertAction(title: LocalizedStrings.cancel, style: .cancel, handler: nil))
-               
-        if let popoverPresentationController = walletMenu.popoverPresentationController {
-            popoverPresentationController.sourceView = sender
-            popoverPresentationController.sourceRect = sender.bounds
+    func showWatchOnlyWalletMenu(walletName: String, walletID: Int , type: DropDowMenuEnum) {
+        switch type {
+        case .rename:
+            self.renameWallet(walletID: walletID)
+            break
+        case .setting:
+            self.goToWalletSettingsPage(walletID: walletID)
+            break
+        default:
+            break
         }
-        
-        self.present(walletMenu, animated: true, completion: nil)
     }
 }
 
@@ -448,7 +466,7 @@ extension WalletsViewController {
         self.navigationController?.pushViewController(walletSettingsVC, animated: true)
     }
     
-    func gotToSignMessage(walletID: Int) {
+    func goToSignMessage(walletID: Int) {
         guard let wallet = WalletLoader.shared.multiWallet.wallet(withID: walletID) else {
             return
         }
