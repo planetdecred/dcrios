@@ -787,6 +787,7 @@ extension OverviewViewController: DcrlibwalletSyncProgressListenerProtocol {
 extension OverviewViewController: DcrlibwalletBlocksRescanProgressListenerProtocol {
     func onBlocksRescanStarted(_ walletID: Int) {
         DispatchQueue.main.async {
+            UIApplication.shared.isIdleTimerDisabled = true
             self.updateWalletStatusIndicatorAndLabel()
             self.updateSyncStatusIndicatorAndLabel()
             self.updateSyncConnectionButtonTextAndIcon()
@@ -825,6 +826,7 @@ extension OverviewViewController: DcrlibwalletBlocksRescanProgressListenerProtoc
     
     func onBlocksRescanEnded(_ walletID: Int, err: Error?) {
         DispatchQueue.main.async {
+            UIApplication.shared.isIdleTimerDisabled = true
             self.toggleSingleWalletSyncDetailsViewHeight(isRescanning: false)
             self.rescanWalletNameLabel.superview?.isHidden = true
             self.multipleWalletsPeerCountLabel.superview?.isHidden = false
