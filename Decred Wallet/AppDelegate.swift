@@ -176,6 +176,9 @@ extension AppDelegate: UIApplicationDelegate {
     }
     
     func applicationWillTerminate(_: UIApplication) {
+        if self.reachability != nil {
+            self.reachability.stopNotifier()
+        }
         if WalletLoader.shared.isInitialized {
             SyncManager.shared.applicationWillTerminate()
             WalletLoader.shared.multiWallet.shutdown()
