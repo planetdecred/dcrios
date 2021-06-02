@@ -182,15 +182,16 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     
     func handlerNotification(response: UNNotificationResponse) {
         guard let data = response.notification.request.content.userInfo as? [String: String] else { return }
-        if let navigation = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController, navigation.viewControllers.count > 0 {
-            let storyboard = UIStoryboard(name: "Politeia", bundle: nil)
-            if let politeiaVC = storyboard.instantiateViewController(withIdentifier: "PoliteiaDetailController") as? PoliteiaDetailController {
-                politeiaVC.isNotificationOpen = true
-                politeiaVC.proposalId = data["proposalId"]
-                navigation.pushViewController(politeiaVC, animated: true)
+        if (data["proposalId"] != nil) {
+            if let navigation = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController, navigation.viewControllers.count > 0 {
+                let storyboard = UIStoryboard(name: "Politeia", bundle: nil)
+                if let politeiaVC = storyboard.instantiateViewController(withIdentifier: "PoliteiaDetailController") as? PoliteiaDetailController {
+                    politeiaVC.isNotificationOpen = true
+                    politeiaVC.proposalId = data["proposalId"]
+                    navigation.pushViewController(politeiaVC, animated: true)
+                }
+                
             }
-        } else {
-            print("Not found Root Viewcontroller")
         }
     }
     
