@@ -80,7 +80,7 @@ class NotificationsManager: NSObject, UNUserNotificationCenterDelegate {
         content.body = message
         content.categoryIdentifier = category.rawValue
         if let idProposal = proposalId {
-            content.userInfo = ["proposalId": "\(idProposal)"]
+            content.userInfo = [GlobalConstants.Strings.PROPOSAL_ID: "\(idProposal)"]
         }
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
         let identifier = category.rawValue
