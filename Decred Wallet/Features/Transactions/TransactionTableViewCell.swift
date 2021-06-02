@@ -90,7 +90,7 @@ class TransactionTableViewCell: UITableViewCell {
     
     func displayMixedTxInfo(_ transaction: Transaction) {
         self.txTypeIconImageView?.image = UIImage(named: "mixed_tx")
-        self.txAmountOrTicketStatusLabel.attributedText = NSMutableAttributedString(string: LocalizedStrings.mix)
+        self.txAmountOrTicketStatusLabel.attributedText = NSMutableAttributedString(string: LocalizedStrings.mixed)
         
         let mixAmount = Utils.getAttributedString(str: transaction.dcrMixDenom.description, siz: 11.0, TexthexColor: UIColor.appColors.darkBlue)
         if transaction.mixCount > 1 {
