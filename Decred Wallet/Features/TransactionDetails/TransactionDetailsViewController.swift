@@ -71,17 +71,15 @@ class TransactionDetailsViewController: UIViewController {
 
     private func displayTitle() {
         if self.transaction.type == DcrlibwalletTxTypeRegular {
-            if transaction.isMixed {
-                self.txTypeLabel.text = LocalizedStrings.mixed
-            } else {
-                if self.transaction.direction == DcrlibwalletTxDirectionSent {
-                    self.txTypeLabel.text = LocalizedStrings.sent
-                } else if self.transaction.direction == DcrlibwalletTxDirectionReceived {
-                    self.txTypeLabel.text = LocalizedStrings.received
-                } else if self.transaction.direction == DcrlibwalletTxDirectionTransferred {
-                    self.txTypeLabel.text = LocalizedStrings.transferred
-                }
+            if self.transaction.direction == DcrlibwalletTxDirectionSent {
+                self.txTypeLabel.text = LocalizedStrings.sent
+            } else if self.transaction.direction == DcrlibwalletTxDirectionReceived {
+                self.txTypeLabel.text = LocalizedStrings.received
+            } else if self.transaction.direction == DcrlibwalletTxDirectionTransferred {
+                self.txTypeLabel.text = LocalizedStrings.transferred
             }
+        } else if self.transaction.type == DcrlibwalletTxTypeMixed {
+            self.txTypeLabel.text = LocalizedStrings.mixed
         } else if self.transaction.type == DcrlibwalletTxTypeVote {
             self.txTypeLabel.text = LocalizedStrings.voted
         } else if self.transaction.type == DcrlibwalletTxTypeRevocation {
@@ -192,8 +190,13 @@ class TransactionDetailsViewController: UIViewController {
 
     private func prepareTxOverview() {
         let attributedAmountString: NSMutableAttributedString
-        if transaction.isMixed {
+        if transaction.type == DcrlibwalletTxTypeMixed {
             attributedAmountString = Utils.getAttributedString(str: transaction.dcrMixDenom.round(8).description, siz: 20.0, TexthexColor: UIColor.appColors.darkBlue)
+            if transaction.mixCount > 1 {
+                let mixCount = NSMutableAttributedString(string: "\t x\(transaction.mixCount)")
+                mixCount.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.appColors.paleGray, range: NSRange(location: 0, length: mixCount.length))
+                attributedAmountString.append(mixCount)
+            }
         } else {
             attributedAmountString = NSMutableAttributedString(string: (transaction.type == DcrlibwalletTxTypeRegular && transaction.direction == DcrlibwalletTxDirectionSent) ? "-" : "")
             attributedAmountString.append(Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 20.0, TexthexColor: UIColor.appColors.darkBlue))
@@ -219,6 +222,8 @@ class TransactionDetailsViewController: UIViewController {
             self.prepareRevocationTxOverview(transaction)
         } else if transaction.type == DcrlibwalletTxTypeTicketPurchase {
             self.prepareTicketPurchaseTxOverview(transaction)
+        } else if transaction.type == DcrlibwalletTxTypeMixed {
+            self.txOverview.txIconImage = UIImage(named: "mixed_tx")
         }
     }
 

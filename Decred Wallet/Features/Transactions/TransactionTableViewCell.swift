@@ -58,6 +58,8 @@ class TransactionTableViewCell: UITableViewCell {
 
         if transaction.type == DcrlibwalletTxTypeRegular {
             self.displayRegularTxInfo(transaction)
+        } else if transaction.type == DcrlibwalletTxTypeMixed {
+            self.displayMixedTxInfo(transaction)
         } else if transaction.type == DcrlibwalletTxTypeVote {
             self.displayVoteTxInfo(transaction, ageInDays: transaction.daysToVoteOrRevoke)
             
@@ -71,25 +73,31 @@ class TransactionTableViewCell: UITableViewCell {
     
     func displayRegularTxInfo(_ transaction: Transaction) {
         let amountString = Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 13.0, TexthexColor: UIColor.appColors.darkBlue)
-        if transaction.isMixed {
-            let attributedString = NSMutableAttributedString(string: LocalizedStrings.mix)
+        if transaction.direction == DcrlibwalletTxDirectionSent {
+            let attributedString = NSMutableAttributedString(string:"-")
+            attributedString.append(amountString)
             self.txAmountOrTicketStatusLabel.attributedText = attributedString
             self.txTypeIconImageView?.image = UIImage(named: "ic_send")
-        } else {
-            if transaction.direction == DcrlibwalletTxDirectionSent {
-                let attributedString = NSMutableAttributedString(string:"-")
-                attributedString.append(amountString)
-                self.txAmountOrTicketStatusLabel.attributedText = attributedString
-                self.txTypeIconImageView?.image = UIImage(named: "ic_send")
-            } else if transaction.direction == DcrlibwalletTxDirectionReceived {
-                self.txAmountOrTicketStatusLabel.attributedText = amountString
-                self.txTypeIconImageView?.image = UIImage(named: "ic_receive")
-            } else if transaction.direction == DcrlibwalletTxDirectionTransferred {
-                self.txAmountOrTicketStatusLabel.attributedText = amountString
-                self.txTypeIconImageView?.image = UIImage(named: "ic_fee")
-            }
+        } else if transaction.direction == DcrlibwalletTxDirectionReceived {
+            self.txAmountOrTicketStatusLabel.attributedText = amountString
+            self.txTypeIconImageView?.image = UIImage(named: "ic_receive")
+        } else if transaction.direction == DcrlibwalletTxDirectionTransferred {
+            self.txAmountOrTicketStatusLabel.attributedText = amountString
+            self.txTypeIconImageView?.image = UIImage(named: "ic_fee")
         }
 
+    }
+    
+    func displayMixedTxInfo(_ transaction: Transaction) {
+        self.txTypeIconImageView?.image = UIImage(named: "mixed_tx")
+        self.txAmountOrTicketStatusLabel.attributedText = NSMutableAttributedString(string: LocalizedStrings.mixed)
+        
+        let mixAmount = Utils.getAttributedString(str: transaction.dcrMixDenom.description, siz: 11.0, TexthexColor: UIColor.appColors.darkBlue)
+        if transaction.mixCount > 1 {
+            let mixCount = NSMutableAttributedString(string: "\t x\(transaction.mixCount)")
+            mixAmount.append(mixCount)
+        }
+        self.stakingTxAmountLabel.attributedText = mixAmount
     }
     
     func displayVoteTxInfo(_ transaction: Transaction, ageInDays: Int) {

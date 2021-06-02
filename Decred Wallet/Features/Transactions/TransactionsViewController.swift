@@ -191,6 +191,11 @@ class TransactionsViewController: UIViewController {
             filterOptions.append(LocalizedStrings.yourself)
             self.txFilters.append(DcrlibwalletTxFilterTransferred)
         }
+        
+        if wallet.transactionsCount(forTxFilter: DcrlibwalletTxFilterMixed) > 0 {
+            filterOptions.append(LocalizedStrings.mixed)
+            self.txFilters.append(DcrlibwalletTxFilterMixed)
+        }
 
         if wallet.transactionsCount(forTxFilter: DcrlibwalletTxFilterStaking) > 0 {
             filterOptions.append(LocalizedStrings.staking)
