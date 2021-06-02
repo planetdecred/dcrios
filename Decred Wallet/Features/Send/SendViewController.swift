@@ -600,6 +600,8 @@ extension SendViewController {
         return true
     }
     
+    // TODO: this variable is redundant because it'll be calling wallet functions every time
+    // it's accessed. Should be in a function instead and that value should be store in a var.
     var currentUnsignedTx: DcrlibwalletTxAuthor? {
         guard let sourceAccount = self.sourceAccountView.selectedAccount,
             let sourceAccountBalance = sourceAccount.balance, sourceAccountBalance.spendable > 0,
@@ -622,20 +624,19 @@ extension SendViewController {
             }
         }
         
-        let sourceWallet = WalletLoader.shared.multiWallet.wallet(withID: sourceAccount.walletID)!
-        let unsignedTx = WalletLoader.shared.multiWallet.newUnsignedTx(sourceWallet,
-                                                                       sourceAccountNumber: sourceAccount.number)
-        
         do {
-            try unsignedTx?.addSendDestination(destinationAddress,
+            
+            let unsignedTx = try WalletLoader.shared.multiWallet.newUnsignedTx(sourceAccount.walletID,
+                                                                           sourceAccountNumber: sourceAccount.number)
+            try unsignedTx.addSendDestination(destinationAddress,
                                                atomAmount: DcrlibwalletAmountAtom(sendAmountDcr),
                                                sendMax: self.sendMax)
+            return unsignedTx
         } catch let error {
             print("get unsignedTx add send destination error: \(error.localizedDescription)")
-            return nil
         }
         
-        return unsignedTx
+        return nil
     }
     
     var currentUnsignedTxFeeAndSize: DcrlibwalletTxFeeAndSize? {
