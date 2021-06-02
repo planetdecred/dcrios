@@ -24,6 +24,7 @@ struct GlobalConstants {
         static let MIXED = "mixed"
         static let UNMIXED = "unmixed"
         static let SHOWN_PRIVACY_TOOLTIP = "shown_privacy_tooltip"
+        static let PROPOSAL_ID = "proposalId"
         static let HAS_SETUP_PRIVACY = "has_setup_privacy"
     }
     
