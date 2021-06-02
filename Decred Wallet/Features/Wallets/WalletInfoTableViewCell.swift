@@ -90,8 +90,8 @@ class WalletInfoTableViewCell: UITableViewCell, DropMenuButtonDelegate {
             
             let multiWallet = WalletLoader.shared.multiWallet!
             if !multiWallet.readBoolConfigValue(forKey: GlobalConstants.Strings.SHOWN_PRIVACY_TOOLTIP, defaultValue: false) {
-                multiWallet.setBoolConfigValueForKey(GlobalConstants.Strings.SHOWN_PRIVACY_TOOLTIP, value: true)
                 self.showToolTip()
+                multiWallet.setBoolConfigValueForKey(GlobalConstants.Strings.SHOWN_PRIVACY_TOOLTIP, value: true)
             }
 
             UIView.animate(withDuration: 0.1) {
@@ -110,7 +110,7 @@ class WalletInfoTableViewCell: UITableViewCell, DropMenuButtonDelegate {
             DropMenuButtonItem(LocalizedStrings.rename, isSeparate: true, textLabel: ""),
             DropMenuButtonItem(LocalizedStrings.settings, isSeparate: false, textLabel: ""),
         ]
-        if WalletLoader.shared.multiWallet.readBoolConfigValue(forKey: "has_setup_privacy", defaultValue: false) {
+        if WalletLoader.shared.multiWallet.readBoolConfigValue(forKey: GlobalConstants.Strings.HAS_SETUP_PRIVACY, defaultValue: false) {
             self.menuOption[2] = DropMenuButtonItem(LocalizedStrings.privacy, isSeparate: true, textLabel: "")
         }
         
