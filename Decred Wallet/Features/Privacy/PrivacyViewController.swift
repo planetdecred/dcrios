@@ -15,9 +15,9 @@ class PrivacyViewController: UIViewController {
     @IBOutlet weak var mixerStatusInfo: UILabel!
     @IBOutlet weak var unmixedBalance: UILabel!
     @IBOutlet weak var mixedBalance: UILabel!
-    @IBOutlet weak var MixedAccount: UILabel!
-    @IBOutlet weak var changeAccount: UILabel!
-    @IBOutlet weak var accountBranch: UILabel!
+    @IBOutlet weak var mixedAccountLabel: UILabel!
+    @IBOutlet weak var unmixedAccountLabel: UILabel!
+    @IBOutlet weak var mixedAccountBranch: UILabel!
     @IBOutlet weak var shuffleServer: UILabel!
     @IBOutlet weak var shufflePort: UILabel!
     @IBOutlet weak var mixerSwitch: UISwitch!
@@ -42,12 +42,10 @@ class PrivacyViewController: UIViewController {
         
         WalletLoader.shared.multiWallet.setAccountMixerNotification(self)
         
-        self.accountBranch.text = "\(DcrlibwalletMixedAccountBranch)"
-        self.shuffleServer.text = "\(DcrlibwalletShuffleServer)"
-        self.shufflePort.text = "\(DcrlibwalletMainnetShufflePort)"
-        
         self.mixedAccountNumber = wallet.readIntConfigValue(forKey: DcrlibwalletAccountMixerMixedAccount, defaultValue: -1)
         self.unmixedAccountNumber = wallet.readIntConfigValue(forKey: DcrlibwalletAccountMixerUnmixedAccount, defaultValue: -1)
+        
+        self.updateMixerSettingsInfo()
         
         if wallet.isAccountMixerActive() {
             mixerSwitch.isOn = true
@@ -58,6 +56,22 @@ class PrivacyViewController: UIViewController {
         notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
         
         self.setMixerStatus()
+    }
+    
+    func updateMixerSettingsInfo() {
+        var error: NSError?
+        self.mixedAccountLabel.text =  wallet.accountName(Int32(mixedAccountNumber), error: &error)
+        self.unmixedAccountLabel.text =  wallet.accountName(Int32(unmixedAccountNumber), error: &error)
+        self.mixedAccountBranch.text = DcrlibwalletMixedAccountBranch.description
+        self.shuffleServer.text = DcrlibwalletShuffleServer.description
+        var shufflePort: String {
+            if BuildConfig.IsTestNet {
+                return DcrlibwalletTestnetShufflePort.description
+            } else {
+                return DcrlibwalletMainnetShufflePort.description
+            }
+        }
+        self.shufflePort.text = shufflePort
     }
     
     @IBAction func privacyInfo(_ sender: Any) {

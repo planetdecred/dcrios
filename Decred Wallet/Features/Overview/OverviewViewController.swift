@@ -82,7 +82,7 @@ class OverviewViewController: UIViewController {
     private var multiWallet = WalletLoader.shared.multiWallet!
 
     var hideSeedBackupPrompt: Bool = false
-    var hideAccountMixingPrompt: Bool = false
+    var tempHideAccountMixingPrompt: Bool = false
     var recentTransactions = [Transaction]()
     var mixingAccounts = [MixerAcount]()
     var refreshBestBlockAgeTimer: Timer?
@@ -408,13 +408,14 @@ class OverviewViewController: UIViewController {
                                                       numWalletsNeedingSeedBackup)
         }
     }
-    
+
     func checkWhetherToPromptForAccountMixing() {
-        if !multiWallet.readBoolConfigValue(forKey: "has_setup_privacy", defaultValue: false) && !self.hideAccountMixingPrompt {
-            self.accountMixingPromptSectionView.isHidden = false
+            let hasSetupPrivacy = multiWallet.readBoolConfigValue(forKey: GlobalConstants.Strings.HAS_SETUP_PRIVACY, defaultValue: false)
+            if !self.tempHideAccountMixingPrompt {
+                self.accountMixingPromptSectionView.isHidden = hasSetupPrivacy
+            }
         }
-    }
- 
+    
     func setMixerStatus() {
         var activeMixers = 0
         var WalletID = 0
@@ -468,7 +469,7 @@ class OverviewViewController: UIViewController {
     }
     
     @IBAction func dismissAccountMixingPromptTapped(_ sender: Any) {
-        self.hideAccountMixingPrompt = true
+        self.tempHideAccountMixingPrompt = true
         self.accountMixingPromptSectionView.isHidden = true
     }
     
