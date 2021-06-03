@@ -33,6 +33,14 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
     
     var progressHud = JGProgressHUD(style: .light)
     
+    let ONE_GB_VALUE: UInt64 = 1073741824
+    var numberOfRam: Int {
+        return Int(ProcessInfo.processInfo.physicalMemory/(ONE_GB_VALUE))
+    }
+    let appDataDir = NSHomeDirectory() + "/Documents/dcrlibwallet"
+    
+    var upgradedDB = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -49,7 +57,9 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
 
         let initError = WalletLoader.shared.initMultiWallet()
         if initError != nil {
-            print("init multiwallet error: \(initError!.localizedDescription)")
+            DispatchQueue.main.async {
+                Utils.showBanner(in: self.view, type: .error, text: "init multiwallet error: \(initError!.localizedDescription)")
+            }
         }
         
         if SingleToMultiWalletMigration.migrationNeeded {
@@ -155,7 +165,8 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
                         let wallet = try WalletLoader.shared.multiWallet.createNewWallet(LocalizedStrings.myWallet, privatePassphrase: pinOrPassword, privatePassphraseType: type.type)
                         
                         Utils.renameDefaultAccountToLocalLanguage(wallet: wallet)
-                        
+                        UserDefaults.standard.set(true, forKey: "V1.5.3_DB")
+                        UserDefaults.standard.synchronize()
                         DispatchQueue.main.async {
                            completion?.dismissDialog()
                            NavigationMenuTabBarController.setupMenuAndLaunchApp(isNewWallet: true)
@@ -181,6 +192,8 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
                 do {
                     let wallet = try WalletLoader.shared.multiWallet.createWatchOnlyWallet(LocalizedStrings.myWallet, extendedPublicKey: publicKey)
                     Utils.renameDefaultAccountToLocalLanguage(wallet: wallet)
+                    UserDefaults.standard.set(true, forKey: "V1.5.3_DB")
+                    UserDefaults.standard.synchronize()
                     DispatchQueue.main.async {
                         dialogDelegate?.dismissDialog()
                         self.progressHud.dismiss()
@@ -206,7 +219,7 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
         }
         
         if WalletLoader.shared.oneOrMoreWalletsExist {
-            self.checkStartupSecurityAndStartApp()
+            self.checkDBfile()
         } else if SingleToMultiWalletMigration.migrationNeeded {
             SingleToMultiWalletMigration.migrateExistingWallet()
         } else {
@@ -262,6 +275,46 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
                 }
             }
         }
+    }
+    
+    func clearAppDir() {
+        do {
+            WalletLoader.shared.multiWallet.shutdown()
+            let filemgr = FileManager.default
+            try filemgr.removeItem(atPath: appDataDir)
+            let initError = WalletLoader.shared.initMultiWallet()
+            if initError != nil {
+                DispatchQueue.main.async {
+                    Utils.showBanner(in: self.view, type: .error, text: "init multiwallet error: \(initError!.localizedDescription)")
+                }
+            }
+            self.displayWalletSetupScreen()
+            self.imageViewContainer.isUserInteractionEnabled = false
+        } catch let error {
+            DispatchQueue.main.async {
+                Utils.showBanner(in: self.view, type: .error, text: error.localizedDescription)
+            }
+        }
+    }
+    
+    func checkDBfile() {
+        let isNewDB = UserDefaults.standard.bool(forKey: "V1.5.3_DB")
+        if numberOfRam < 3 && !isNewDB {
+            self.showRemoveWalletWarning { _ in
+                self.clearAppDir()
+            }
+            return
+        } else {
+            self.checkStartupSecurityAndStartApp()
+        }
+    }
+    
+    func showRemoveWalletWarning(callback: @escaping (Bool) -> Void) {
+        let message = LocalizedStrings.dataFileErrorMsg
+        SimpleAlertDialog.show(sender: self,
+                                  message: message,
+                                  okButtonText: LocalizedStrings.yes,
+                                  callback: callback)
     }
     
     func displayWalletSetupScreen() {

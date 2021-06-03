@@ -44,7 +44,7 @@ class WalletLoader: NSObject {
     
     func initMultiWallet() -> NSError? {
         var error: NSError?
-        self.multiWallet = DcrlibwalletNewMultiWallet(WalletLoader.appDataDir, "bdb", BuildConfig.NetType, &error)
+        self.multiWallet = DcrlibwalletNewMultiWallet(WalletLoader.appDataDir, "badgerdb", BuildConfig.NetType, &error)
         return error
     }
 }
