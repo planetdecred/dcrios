@@ -225,7 +225,6 @@ extension PrivacyViewController: DcrlibwalletAccountMixerNotificationListenerPro
             DispatchQueue.main.async {
                 self.setMixerStatus()
                 self.mixerSwitch.isOn = false
-                UIApplication.shared.isIdleTimerDisabled = false
                 Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.mixerHasStoppedRunning)
             }
         }
@@ -237,7 +236,6 @@ extension PrivacyViewController: DcrlibwalletAccountMixerNotificationListenerPro
             DispatchQueue.main.async {
                 self.setMixerStatus()
                 self.mixerSwitch.isOn = true
-                UIApplication.shared.isIdleTimerDisabled = true
                 Utils.showBanner(in: self.view, type: .success, text: LocalizedStrings.mixerIsRuning)
             }
         }

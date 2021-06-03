@@ -414,7 +414,7 @@ class OverviewViewController: UIViewController {
             self.accountMixingPromptSectionView.isHidden = false
         }
     }
-    //TODO fix me when get mixer Wallet
+ 
     func setMixerStatus() {
         var activeMixers = 0
         var WalletID = 0
@@ -517,6 +517,16 @@ class OverviewViewController: UIViewController {
         } else {
             self.showSyncDetailsButton.setTitle(LocalizedStrings.hideDetails, for: .normal)
         }
+    }
+    
+    func isMixerActive() -> Bool {
+        var numberOfMixers = 0
+        for wallet in WalletLoader.shared.wallets {
+            if wallet.isAccountMixerActive() {
+                numberOfMixers += 1
+            }
+        }
+        return  numberOfMixers > 0
     }
 }
 
@@ -825,8 +835,11 @@ extension OverviewViewController: DcrlibwalletBlocksRescanProgressListenerProtoc
     }
     
     func onBlocksRescanEnded(_ walletID: Int, err: Error?) {
-        DispatchQueue.main.async {
+        if !self.isMixerActive() {
             UIApplication.shared.isIdleTimerDisabled = false
+        }
+        
+        DispatchQueue.main.async {
             self.toggleSingleWalletSyncDetailsViewHeight(isRescanning: false)
             self.rescanWalletNameLabel.superview?.isHidden = true
             self.multipleWalletsPeerCountLabel.superview?.isHidden = false
@@ -888,7 +901,10 @@ extension OverviewViewController: DcrlibwalletTxAndBlockNotificationListenerProt
 
 extension OverviewViewController: DcrlibwalletAccountMixerNotificationListenerProtocol {
     func onAccountMixerEnded(_ walletID: Int) {
-        print("mixer ended")
+        let isRescanning = WalletLoader.shared.multiWallet.isRescanning()
+        if !isRescanning && !self.isMixerActive() {
+            UIApplication.shared.isIdleTimerDisabled = false
+        }
         DispatchQueue.main.async {
             self.setMixerStatus()
             Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.mixerHasStoppedRunning)
@@ -896,7 +912,7 @@ extension OverviewViewController: DcrlibwalletAccountMixerNotificationListenerPr
     }
     
     func onAccountMixerStarted(_ walletID: Int) {
-        print("mixer started")
+        UIApplication.shared.isIdleTimerDisabled = true
         DispatchQueue.main.async {
             self.setMixerStatus()
         }
