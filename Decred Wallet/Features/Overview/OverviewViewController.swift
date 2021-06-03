@@ -837,7 +837,9 @@ extension OverviewViewController: DcrlibwalletBlocksRescanProgressListenerProtoc
     
     func onBlocksRescanEnded(_ walletID: Int, err: Error?) {
         if !self.isMixerActive() {
-            UIApplication.shared.isIdleTimerDisabled = false
+            DispatchQueue.main.async {
+                UIApplication.shared.isIdleTimerDisabled = false
+            }
         }
         
         DispatchQueue.main.async {
@@ -904,7 +906,9 @@ extension OverviewViewController: DcrlibwalletAccountMixerNotificationListenerPr
     func onAccountMixerEnded(_ walletID: Int) {
         let isRescanning = WalletLoader.shared.multiWallet.isRescanning()
         if !isRescanning && !self.isMixerActive() {
-            UIApplication.shared.isIdleTimerDisabled = false
+            DispatchQueue.main.async {
+                UIApplication.shared.isIdleTimerDisabled = false
+            }
         }
         DispatchQueue.main.async {
             self.setMixerStatus()
@@ -913,8 +917,8 @@ extension OverviewViewController: DcrlibwalletAccountMixerNotificationListenerPr
     }
     
     func onAccountMixerStarted(_ walletID: Int) {
-        UIApplication.shared.isIdleTimerDisabled = true
         DispatchQueue.main.async {
+            UIApplication.shared.isIdleTimerDisabled = true
             self.setMixerStatus()
         }
     }
