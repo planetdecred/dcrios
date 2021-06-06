@@ -415,7 +415,7 @@ class OverviewViewController: UIViewController {
                 self.accountMixingPromptSectionView.isHidden = hasSetupPrivacy
             }
         }
-    //TODO fix me when get mixer Wallet
+    
     func setMixerStatus() {
         var activeMixers = 0
         var WalletID = 0
@@ -518,6 +518,16 @@ class OverviewViewController: UIViewController {
         } else {
             self.showSyncDetailsButton.setTitle(LocalizedStrings.hideDetails, for: .normal)
         }
+    }
+    
+    func isMixerActive() -> Bool {
+        var numberOfMixers = 0
+        for wallet in WalletLoader.shared.wallets {
+            if wallet.isAccountMixerActive() {
+                numberOfMixers += 1
+            }
+        }
+        return  numberOfMixers > 0
     }
 }
 
@@ -640,6 +650,7 @@ extension OverviewViewController: DcrlibwalletSyncProgressListenerProtocol {
             self.updateSyncConnectionButtonTextAndIcon()
             self.toggleSyncProgressViews(isSyncing: true)
             self.clearAndHideSyncDetails()
+            UIApplication.shared.isIdleTimerDisabled = true
             
             if wasRestarted {
                 self.syncStatusLabel.text = LocalizedStrings.restartingSync
@@ -717,6 +728,7 @@ extension OverviewViewController: DcrlibwalletSyncProgressListenerProtocol {
     func onSyncCanceled(_ willRestart: Bool) {
         DispatchQueue.main.async {
             self.updateUI(syncCompletedSuccessfully: false)
+            UIApplication.shared.isIdleTimerDisabled = false
         }
     }
     
@@ -724,12 +736,14 @@ extension OverviewViewController: DcrlibwalletSyncProgressListenerProtocol {
         DispatchQueue.main.async {
             self.updateUI(syncCompletedSuccessfully: true)
             self.setMixerStatus()
+            UIApplication.shared.isIdleTimerDisabled = false
         }
     }
     
     func onSyncEndedWithError(_ err: Error?) {
         DispatchQueue.main.async {
             self.updateUI(syncCompletedSuccessfully: false)
+            UIApplication.shared.isIdleTimerDisabled = false
         }
     }
     
@@ -784,6 +798,7 @@ extension OverviewViewController: DcrlibwalletSyncProgressListenerProtocol {
 extension OverviewViewController: DcrlibwalletBlocksRescanProgressListenerProtocol {
     func onBlocksRescanStarted(_ walletID: Int) {
         DispatchQueue.main.async {
+            UIApplication.shared.isIdleTimerDisabled = true
             self.updateWalletStatusIndicatorAndLabel()
             self.updateSyncStatusIndicatorAndLabel()
             self.updateSyncConnectionButtonTextAndIcon()
@@ -821,6 +836,12 @@ extension OverviewViewController: DcrlibwalletBlocksRescanProgressListenerProtoc
     }
     
     func onBlocksRescanEnded(_ walletID: Int, err: Error?) {
+        if !self.isMixerActive() {
+            DispatchQueue.main.async {
+                UIApplication.shared.isIdleTimerDisabled = false
+            }
+        }
+        
         DispatchQueue.main.async {
             self.toggleSingleWalletSyncDetailsViewHeight(isRescanning: false)
             self.rescanWalletNameLabel.superview?.isHidden = true
@@ -883,16 +904,21 @@ extension OverviewViewController: DcrlibwalletTxAndBlockNotificationListenerProt
 
 extension OverviewViewController: DcrlibwalletAccountMixerNotificationListenerProtocol {
     func onAccountMixerEnded(_ walletID: Int) {
-        print("mixer ended")
+        let isRescanning = WalletLoader.shared.multiWallet.isRescanning()
+        if !isRescanning && !self.isMixerActive() {
+            DispatchQueue.main.async {
+                UIApplication.shared.isIdleTimerDisabled = false
+            }
+        }
         DispatchQueue.main.async {
             self.setMixerStatus()
-            Utils.showBanner(in: self.view, type: .error, text: "mixer has stopped running")
+            Utils.showBanner(in: self.view, type: .error, text: LocalizedStrings.mixerHasStoppedRunning)
         }
     }
     
     func onAccountMixerStarted(_ walletID: Int) {
-        print("mixer started")
         DispatchQueue.main.async {
+            UIApplication.shared.isIdleTimerDisabled = true
             self.setMixerStatus()
         }
     }
