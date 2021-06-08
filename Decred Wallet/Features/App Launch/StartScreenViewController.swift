@@ -165,8 +165,7 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
                         let wallet = try WalletLoader.shared.multiWallet.createNewWallet(LocalizedStrings.myWallet, privatePassphrase: pinOrPassword, privatePassphraseType: type.type)
                         
                         Utils.renameDefaultAccountToLocalLanguage(wallet: wallet)
-                        UserDefaults.standard.set(true, forKey: "V1.5.3_DB")
-                        UserDefaults.standard.synchronize()
+                        
                         DispatchQueue.main.async {
                            completion?.dismissDialog()
                            NavigationMenuTabBarController.setupMenuAndLaunchApp(isNewWallet: true)
@@ -192,8 +191,7 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
                 do {
                     let wallet = try WalletLoader.shared.multiWallet.createWatchOnlyWallet(LocalizedStrings.myWallet, extendedPublicKey: publicKey)
                     Utils.renameDefaultAccountToLocalLanguage(wallet: wallet)
-                    UserDefaults.standard.set(true, forKey: "V1.5.3_DB")
-                    UserDefaults.standard.synchronize()
+                    
                     DispatchQueue.main.async {
                         dialogDelegate?.dismissDialog()
                         self.progressHud.dismiss()
@@ -298,8 +296,8 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
     }
     
     func checkDBfile() {
-        let isNewDB = UserDefaults.standard.bool(forKey: "V1.5.3_DB")
-        if numberOfRam < 3 && !isNewDB {
+        let walletDB = WalletLoader.shared.wallets.first?.dbDriver
+        if numberOfRam < 3 && walletDB != GlobalConstants.Strings.BADGER {
             self.showRemoveWalletWarning { _ in
                 self.clearAppDir()
             }
