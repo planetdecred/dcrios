@@ -11,11 +11,10 @@ import JGProgressHUD
 
 class WalletLogViewController: UIViewController {
     @IBOutlet weak var logTextView: UITextView!
-    var progressHud = JGProgressHUD(style: .light)
+    @IBOutlet weak var loadingView: RoundedView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -30,8 +29,6 @@ class WalletLogViewController: UIViewController {
             barButtonTitle.tintColor = UIColor.appColors.darkBlue
             
             self.navigationItem.leftBarButtonItems =  [ (self.navigationItem.leftBarButtonItem)!, barButtonTitle]
-            
-            self.progressHud = Utils.showProgressHud(withText: LocalizedStrings.loading)
             
             //setup rightBar button
             let infoBtn = UIButton(type: .custom)
@@ -68,14 +65,14 @@ class WalletLogViewController: UIViewController {
             let logContent = try String(contentsOf: URL(fileURLWithPath: logPath))
             let logEntries = logContent.split(separator: "\n")
             if logEntries.count > 500 {
-                self.progressHud.dismiss()
+                loadingView.isHidden = true
                 return logEntries.suffix(from: logEntries.count - 500).joined(separator: ";\n")
             } else {
-                self.progressHud.dismiss()
+                loadingView.isHidden = true
                 return logEntries.suffix(from: 0).joined(separator: ";\n")
             }
         } catch (let error) {
-            self.progressHud.dismiss()
+            loadingView.isHidden = true
             Utils.showBanner(in: self.view, type: .error, text: error.localizedDescription)
             return "Error loading log: \(error.localizedDescription)"
         }
