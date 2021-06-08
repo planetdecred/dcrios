@@ -29,15 +29,6 @@ class WalletLogViewController: UIViewController {
             barButtonTitle.tintColor = UIColor.appColors.darkBlue
             
             self.navigationItem.leftBarButtonItems =  [ (self.navigationItem.leftBarButtonItem)!, barButtonTitle]
-            
-            //setup rightBar button
-            let infoBtn = UIButton(type: .custom)
-            infoBtn.setImage(UIImage(named: "ic_paste"), for: .normal)
-            infoBtn.addTarget(self, action: #selector(copyLog), for: .touchUpInside)
-            infoBtn.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
-            let infoBtnBtnItem:UIBarButtonItem = UIBarButtonItem(customView: infoBtn)
-            
-            self.navigationItem.rightBarButtonItem = infoBtnBtnItem
         
         let bottomHeight = (self.tabBarController?.tabBar.frame.height ?? 0) + 10
         self.logTextView.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: bottomHeight, right: 0)
@@ -59,11 +50,23 @@ class WalletLogViewController: UIViewController {
         }
     }
     
+    private func showCopyButton() {
+        //setup rightBar button
+        let infoBtn = UIButton(type: .custom)
+        infoBtn.setImage(UIImage(named: "ic_paste"), for: .normal)
+        infoBtn.addTarget(self, action: #selector(copyLog), for: .touchUpInside)
+        infoBtn.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
+        let infoBtnBtnItem:UIBarButtonItem = UIBarButtonItem(customView: infoBtn)
+
+        self.navigationItem.rightBarButtonItem = infoBtnBtnItem
+    }
+
     private func readLog() -> String {
         do {
             let logPath = "\(WalletLoader.appDataDir)/\(BuildConfig.NetType)/dcrlibwallet.log"
             let logContent = try String(contentsOf: URL(fileURLWithPath: logPath))
             let logEntries = logContent.split(separator: "\n")
+            showCopyButton()
             if logEntries.count > 500 {
                 loadingView.isHidden = true
                 return logEntries.suffix(from: logEntries.count - 500).joined(separator: ";\n")
