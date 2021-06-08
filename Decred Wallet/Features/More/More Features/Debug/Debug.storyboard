@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -31,11 +31,11 @@
                                         <rect key="frame" x="0.0" y="18" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gPG-cZ-5Ww" id="bi2-yJ-3ag">
-                                            <rect key="frame" x="0.0" y="0.0" width="348" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="349.5" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Check wallet log" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OC2-pO-Ojn">
-                                                    <rect key="frame" x="16" y="0.0" width="324" height="44"/>
+                                                    <rect key="frame" x="16" y="0.0" width="325.5" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                                     <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -54,11 +54,11 @@
                                         <rect key="frame" x="0.0" y="62" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Mvc-RY-oKN" id="CRw-pA-6dx">
-                                            <rect key="frame" x="0.0" y="0.0" width="348" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="349.5" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Check statistics" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="idu-YM-Zhf">
-                                                    <rect key="frame" x="16" y="0.0" width="324" height="44"/>
+                                                    <rect key="frame" x="16" y="0.0" width="325.5" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                                     <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -77,11 +77,11 @@
                                         <rect key="frame" x="0.0" y="106" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TRg-zo-9g9" id="L6A-HA-0Qe">
-                                            <rect key="frame" x="0.0" y="0.0" width="348" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="349.5" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="View connected peers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yh7-MB-dEm">
-                                                    <rect key="frame" x="16" y="0.0" width="324" height="44"/>
+                                                    <rect key="frame" x="16" y="0.0" width="325.5" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                                     <color key="textColor" red="0.035294117649999998" green="0.078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -124,12 +124,54 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ujD-Ri-zbG" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
+                                <rect key="frame" x="152.5" y="298.5" width="70" height="70"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="Sov-vT-3eh">
+                                        <rect key="frame" x="15" y="15" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="7Lc-Se-dUE"/>
+                                            <constraint firstAttribute="width" constant="40" id="MiG-t8-a0Z"/>
+                                        </constraints>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="70" id="7gR-CM-4em"/>
+                                    <constraint firstAttribute="height" constant="70" id="fzU-MJ-mGu"/>
+                                    <constraint firstItem="Sov-vT-3eh" firstAttribute="centerY" secondItem="ujD-Ri-zbG" secondAttribute="centerY" id="uV0-mH-KLe"/>
+                                    <constraint firstItem="Sov-vT-3eh" firstAttribute="centerX" secondItem="ujD-Ri-zbG" secondAttribute="centerX" id="xIh-Rk-n9A"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                        <color key="value" systemColor="labelColor"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                        <size key="value" width="1" height="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderRadius">
+                                        <real key="value" value="14"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="roundTopLeftCorner" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="roundTopRightCorner" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="roundBottomLeftCorner" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="roundBottomRightCorner" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="tlJ-9x-7bY"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="tlJ-9x-7bY" firstAttribute="trailing" secondItem="DDj-Zg-n1b" secondAttribute="trailing" constant="8" id="3LT-tp-z9e"/>
                             <constraint firstItem="tlJ-9x-7bY" firstAttribute="bottom" secondItem="DDj-Zg-n1b" secondAttribute="bottom" constant="8" id="6qD-pr-Qzf"/>
+                            <constraint firstItem="ujD-Ri-zbG" firstAttribute="centerX" secondItem="gCg-sB-NIN" secondAttribute="centerX" id="NSC-wV-Y30"/>
+                            <constraint firstItem="ujD-Ri-zbG" firstAttribute="centerY" secondItem="gCg-sB-NIN" secondAttribute="centerY" id="QYu-Ck-xAL"/>
                             <constraint firstItem="DDj-Zg-n1b" firstAttribute="top" secondItem="tlJ-9x-7bY" secondAttribute="top" constant="8" id="kDy-9x-Ps7"/>
                             <constraint firstItem="DDj-Zg-n1b" firstAttribute="leading" secondItem="tlJ-9x-7bY" secondAttribute="leading" constant="8" id="ptg-ki-8Mo"/>
                         </constraints>
@@ -137,12 +179,13 @@
                     <navigationItem key="navigationItem" id="b8a-tl-zVw"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
+                        <outlet property="loadingView" destination="ujD-Ri-zbG" id="Rxs-5l-84B"/>
                         <outlet property="logTextView" destination="DDj-Zg-n1b" id="WPq-lr-kHa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GAo-5d-y9o" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-788" y="1742"/>
+            <point key="canvasLocation" x="-788" y="1741.9790104947529"/>
         </scene>
         <!--Connected Peer View Controller-->
         <scene sceneID="GBY-sX-XPL">
@@ -157,7 +200,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="ConnectedPeerTableViewCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ConnectedPeerTableViewCell" rowHeight="187" id="bWm-Nv-3wr" customClass="ConnectedPeerTableViewCell" customModule="Decred_Wallet" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.5" width="375" height="187"/>
+                                        <rect key="frame" x="0.0" y="49.5" width="375" height="187"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bWm-Nv-3wr" id="EgD-ec-YJK">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="187"/>
@@ -606,8 +649,25 @@
             </objects>
             <point key="canvasLocation" x="-1593" y="1742"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="z56-w0-2dE">
+            <objects>
+                <viewController id="wTV-O7-O5b" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vRN-ja-Wz6">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qqK-qy-EB1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1016" y="1287"/>
+        </scene>
     </scenes>
     <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="opaqueSeparatorColor">
             <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
