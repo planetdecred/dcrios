@@ -26,6 +26,8 @@ struct GlobalConstants {
         static let SHOWN_PRIVACY_TOOLTIP = "shown_privacy_tooltip"
         static let PROPOSAL_ID = "proposalId"
         static let HAS_SETUP_PRIVACY = "has_setup_privacy"
+        static let BADGER = "badgerdb"
+        static let BDB = "bdb"
     }
     
     struct Wallet {
