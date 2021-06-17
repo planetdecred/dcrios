@@ -569,7 +569,8 @@ extension SendViewController {
                     self.nextBtnToChangeTop.constant = 0
                     Utils.showBanner(in: self.view, type: .error, text: actualError.localizedDescription)
                 } else {
-                    self.changeSummary.text = "change of \(txFeeAndSize.change!.dcrValue) will be sent to \(changeAccountName)"
+                    //self.changeSummary.text = "change of \(txFeeAndSize.change!.dcrValue) will be sent to \(changeAccountName)"
+                    self.changeSummary.attributedText = String(format: LocalizedStrings.changeSummary, txFeeAndSize.change!.dcrValue.description, changeAccountName).htmlToAttributedString
                     self.nextBtnToChangeTop.constant = 16
                 }
             } else {

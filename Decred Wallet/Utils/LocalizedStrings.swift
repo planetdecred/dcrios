@@ -554,4 +554,5 @@ struct LocalizedStrings {
     static let mixTxChangeSummaryEnabled = NSLocalizedString("mixTxChangeSummaryEnabled", comment: "")
     static let mixTxChangeSummaryDisabled = NSLocalizedString("mixTxChangeSummaryDisabled", comment: "")
     static let mixTxChange = NSLocalizedString("mixTxChange", comment: "")
+    static let changeSummary = NSLocalizedString("changeSummary", comment: "")
 }

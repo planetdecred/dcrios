@@ -87,12 +87,10 @@ class PrivacyViewController: UIViewController {
         }
     }
     
-    
     @IBAction func mixChangeSwitch(_ sender: Any) {
         wallet.setBoolConfigValueForKey(DcrlibwalletAccountMixerMixTxChange, value: self.mixTxChangeSwitch.isOn)
         self.setMixTxChangeSummary()
     }
-    
     
     @IBAction func privacyInfo(_ sender: Any) {
         SimpleAlertDialog.show(sender: self,
@@ -101,6 +99,7 @@ class PrivacyViewController: UIViewController {
                                   okButtonText: LocalizedStrings.gotIt,
                                   callback: nil)
     }
+    
     @IBAction func dismissView(_ sender: Any) {
         self.navigationController?.popToRootViewController(animated: true)
     }
@@ -126,8 +125,6 @@ class PrivacyViewController: UIViewController {
             self.showWarningAndStartMixer()
         }
     }
-    
-    
     
     func stopAccountMixer() {
          do {
