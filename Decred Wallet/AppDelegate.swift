@@ -71,7 +71,9 @@ class AppDelegate: UIResponder {
     @objc func networkChanged(_ notification: Notification) {
         let reachability = notification.object as! Reachability
         print("network changed to \(reachability.connection)")
-        SyncManager.shared.networkChanged(reachability.connection)
+        if WalletLoader.shared.isInitialized {
+            SyncManager.shared.networkChanged(reachability.connection)
+        }
     }
     
     func updateLastActiveTime() {
