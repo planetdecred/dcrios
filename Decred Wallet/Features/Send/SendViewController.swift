@@ -172,6 +172,8 @@ class SendViewController: UIViewController {
         
         if self.sendMax {
             self.calculateAndSetMaxSendableAmount()
+        } else {
+            self.amountTextFieldEditingEnded()
         }
     }
 
@@ -557,10 +559,12 @@ extension SendViewController {
         self.totalCostLabel.text = self.parseDCRAmount(totalCost.doubleValue, usdDecimalPlaces: 2)
         
         let selectedAccount = sourceAccountView.selectedAccount
+        let destinationAccount = destinationAccountView.selectedAccount
         
         if let wallet = WalletLoader.shared.multiWallet.wallet(withID: selectedAccount!.walletID) {
             let sourceAccountNumber = selectedAccount?.number
-            if (!self.sendMax && (wallet.accountMixerMixChange() || wallet.mixedAccountNumber() == sourceAccountNumber) && wallet.unmixedAccountNumber() != sourceAccountNumber && change ?? 0 > 0) {
+            let destinationAccountNumber = destinationAccount?.number
+            if (!self.sendMax && (wallet.accountMixerMixChange() || wallet.mixedAccountNumber() == sourceAccountNumber) && wallet.unmixedAccountNumber() != sourceAccountNumber && wallet.unmixedAccountNumber() != destinationAccountNumber && change ?? 0 > 0) {
                 balanceAfterSending = NSDecimalNumber(value: sourceAccountBalance).subtracting(totalCost).subtracting(NSDecimalNumber(value: txFeeAndSize.change!.dcrValue))
                 var error: NSError?
                 let changeAccountName = wallet.accountName(wallet.unmixedAccountNumber(), error: &error)

@@ -118,7 +118,7 @@ class OverviewViewController: UIViewController {
         multiWallet.setBlocksRescanProgressListener(self)
         
         let accountMixerNotification = self as DcrlibwalletAccountMixerNotificationListenerProtocol
-        try? WalletLoader.shared.multiWallet.add(accountMixerNotification, uniqueIdentifier: "\(self)")
+        try? multiWallet.add(accountMixerNotification, uniqueIdentifier: "\(self)")
 
         // Display latest block and connected peer count if there's no ongoing sync.
         if !SyncManager.shared.isSyncing {
