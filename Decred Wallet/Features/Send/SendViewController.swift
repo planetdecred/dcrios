@@ -61,13 +61,15 @@ class SendViewController: UIViewController {
     @IBOutlet var balanceAfterSendingLabel: UILabel!
     @IBOutlet var nextButton: UIButton!
     @IBOutlet weak var swapButton: UIButton!
+    @IBOutlet weak var maxBtn: UIButton!
     
     @IBOutlet weak var scrollViewBottomConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var changeSummary: UILabel!
+    @IBOutlet weak var nextBtnToChangeTop: NSLayoutConstraint!
     private lazy var qrImageScanner = QRImageScanner()
     
     var exchangeRate: NSDecimalNumber?
-    var sendMax: Bool = false
     var dcrAmountUnit: Bool = true
     var exchangeValue: NSDecimalNumber?
     var amountValue: NSDecimalNumber?
@@ -76,6 +78,12 @@ class SendViewController: UIViewController {
         let amountCrudeText = self.amountTextField.text
         let validTextAmountString = amountCrudeText?.dropLast(4) ?? ""
         return String(validTextAmountString)
+    }
+    
+    var sendMax: Bool = false {
+        didSet {
+            maxBtn.backgroundColor = sendMax ? UIColor.appColors.lightBlue : UIColor.appColors.bluishGray
+        }
     }
     
     override func viewDidLoad() {
@@ -164,6 +172,8 @@ class SendViewController: UIViewController {
         
         if self.sendMax {
             self.calculateAndSetMaxSendableAmount()
+        } else {
+            self.amountTextFieldEditingEnded()
         }
     }
 
@@ -523,6 +533,8 @@ extension SendViewController {
             
             self.totalCostLabel.text = self.parseDCRAmount(0, usdDecimalPlaces: 2)
             self.balanceAfterSendingLabel.text = "0 DCR"
+            self.changeSummary.text = ""
+            self.nextBtnToChangeTop.constant = 0
             
             self.nextButton.isEnabled = false
             return
@@ -541,10 +553,37 @@ extension SendViewController {
         let sourceAccountBalance = self.sourceAccountView.selectedAccount?.balance!.dcrSpendable ?? 0
         
         let totalCost = NSDecimalNumber(value: sendAmountDcr + txFeeAndSize.fee!.dcrValue)
-        let balanceAfterSending = NSDecimalNumber(value: sourceAccountBalance).subtracting(totalCost)
+        let change = txFeeAndSize.change?.dcrValue
+        var balanceAfterSending = NSDecimalNumber(value: sourceAccountBalance).subtracting(totalCost)
         
         self.totalCostLabel.text = self.parseDCRAmount(totalCost.doubleValue, usdDecimalPlaces: 2)
-        self.balanceAfterSendingLabel.text = "\(balanceAfterSending.round(8).formattedWithSeparator) DCR"
+        
+        let selectedAccount = sourceAccountView.selectedAccount
+        let destinationAccount = destinationAccountView.selectedAccount
+        
+        if let wallet = WalletLoader.shared.multiWallet.wallet(withID: selectedAccount!.walletID) {
+            let sourceAccountNumber = selectedAccount?.number
+            let destinationAccountNumber = destinationAccount?.number
+            if (!self.sendMax && (wallet.accountMixerMixChange() || wallet.mixedAccountNumber() == sourceAccountNumber) && wallet.unmixedAccountNumber() != sourceAccountNumber && wallet.unmixedAccountNumber() != destinationAccountNumber && change ?? 0 > 0) {
+                balanceAfterSending = NSDecimalNumber(value: sourceAccountBalance).subtracting(totalCost).subtracting(NSDecimalNumber(value: txFeeAndSize.change!.dcrValue))
+                var error: NSError?
+                let changeAccountName = wallet.accountName(wallet.unmixedAccountNumber(), error: &error)
+                if let actualError = error {
+                    self.changeSummary.text = ""
+                    self.nextBtnToChangeTop.constant = 0
+                    Utils.showBanner(in: self.view, type: .error, text: actualError.localizedDescription)
+                } else {
+                    //self.changeSummary.text = "change of \(txFeeAndSize.change!.dcrValue) will be sent to \(changeAccountName)"
+                    self.changeSummary.attributedText = String(format: LocalizedStrings.changeSummary, txFeeAndSize.change!.dcrValue.description, changeAccountName).htmlToAttributedString
+                    self.nextBtnToChangeTop.constant = 16
+                }
+            } else {
+                balanceAfterSending = NSDecimalNumber(value: sourceAccountBalance).subtracting(totalCost)
+                self.changeSummary.text = ""
+                self.nextBtnToChangeTop.constant = 0
+            }
+            self.balanceAfterSendingLabel.text = "\(balanceAfterSending.round(8).formattedWithSeparator) DCR"
+        }
         
         self.nextButton.isEnabled = true
     }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -83,7 +83,7 @@
                                 </constraints>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1VY-fw-ObN">
-                                <rect key="frame" x="0.0" y="100" width="414" height="601"/>
+                                <rect key="frame" x="0.0" y="100" width="414" height="568.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H3C-42-Oka">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="877.5"/>
@@ -628,10 +628,10 @@
                                 </constraints>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T9I-3F-cJf">
-                                <rect key="frame" x="0.0" y="709" width="414" height="153"/>
+                                <rect key="frame" x="0.0" y="676.5" width="414" height="185.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total cost" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eB8-kv-pro">
-                                        <rect key="frame" x="16" y="17.5" width="56" height="18"/>
+                                        <rect key="frame" x="16" y="17" width="56" height="18"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                         <color key="textColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -646,7 +646,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Balance after send" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uwo-dA-rVW">
-                                        <rect key="frame" x="16" y="54" width="107.5" height="18"/>
+                                        <rect key="frame" x="16" y="53.5" width="107.5" height="18"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                         <color key="textColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -661,7 +661,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uE2-R8-tCb" customClass="Button" customModule="Decred_Wallet" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="89" width="382" height="48"/>
+                                        <rect key="frame" x="16" y="121.5" width="382" height="48"/>
                                         <color key="backgroundColor" red="0.15686274510000001" green="0.43921568630000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <inset key="contentEdgeInsets" minX="15" minY="15" maxX="15" maxY="15"/>
                                         <state key="normal" title="Next">
@@ -686,18 +686,27 @@
                                             <action selector="nextButtonTapped:" destination="QI0-Sp-Mco" eventType="touchUpInside" id="UFJ-iU-InN"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change of 1.64344 DCR will return to 'default'" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oQI-LG-nQW">
+                                        <rect key="frame" x="16" y="87.5" width="262.5" height="18"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                                        <color key="textColor" red="0.34901960780000002" green="0.42745098040000001" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="uE2-R8-tCb" firstAttribute="leading" secondItem="T9I-3F-cJf" secondAttribute="leading" constant="16" id="BtD-eD-Ofq"/>
                                     <constraint firstItem="0VB-8U-kh0" firstAttribute="top" secondItem="NX9-am-HqU" secondAttribute="bottom" constant="16" id="CQ6-R7-tgs"/>
-                                    <constraint firstItem="uE2-R8-tCb" firstAttribute="top" secondItem="0VB-8U-kh0" secondAttribute="bottom" constant="16" id="FXJ-YO-HwQ"/>
                                     <constraint firstAttribute="trailing" secondItem="0VB-8U-kh0" secondAttribute="trailing" constant="16" id="JX1-PN-tRp"/>
                                     <constraint firstItem="Uwo-dA-rVW" firstAttribute="leading" secondItem="T9I-3F-cJf" secondAttribute="leading" constant="16" id="NFo-jf-4FZ"/>
                                     <constraint firstAttribute="trailing" secondItem="NX9-am-HqU" secondAttribute="trailing" constant="16" id="Oe5-Y0-gxW"/>
+                                    <constraint firstItem="uE2-R8-tCb" firstAttribute="top" secondItem="oQI-LG-nQW" secondAttribute="bottom" constant="16" id="PTS-SX-Vzs"/>
                                     <constraint firstAttribute="bottom" secondItem="uE2-R8-tCb" secondAttribute="bottom" constant="16" id="UyP-A5-Q87"/>
                                     <constraint firstItem="NX9-am-HqU" firstAttribute="top" secondItem="T9I-3F-cJf" secondAttribute="top" constant="16" id="aeh-wA-uJH"/>
                                     <constraint firstItem="eB8-kv-pro" firstAttribute="leading" secondItem="T9I-3F-cJf" secondAttribute="leading" constant="16" id="eq3-Xa-WzD"/>
+                                    <constraint firstItem="oQI-LG-nQW" firstAttribute="top" secondItem="Uwo-dA-rVW" secondAttribute="bottom" constant="16" id="gYy-WI-aAf"/>
+                                    <constraint firstItem="oQI-LG-nQW" firstAttribute="leading" secondItem="T9I-3F-cJf" secondAttribute="leading" constant="16" id="leW-gq-zca"/>
+                                    <constraint firstItem="uE2-R8-tCb" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Uwo-dA-rVW" secondAttribute="bottom" constant="16" id="nna-On-4wC"/>
                                     <constraint firstAttribute="trailing" secondItem="uE2-R8-tCb" secondAttribute="trailing" constant="16" id="tRW-2u-JlM"/>
                                     <constraint firstItem="eB8-kv-pro" firstAttribute="centerY" secondItem="NX9-am-HqU" secondAttribute="centerY" id="vBB-fD-Oo5"/>
                                     <constraint firstItem="Uwo-dA-rVW" firstAttribute="centerY" secondItem="0VB-8U-kh0" secondAttribute="centerY" id="vmw-DI-KVv"/>
@@ -724,10 +733,13 @@
                         <outlet property="amountContainerView" destination="2rv-Cb-tiy" id="xY6-11-LXi"/>
                         <outlet property="amountTextField" destination="R2D-m0-pos" id="WIP-La-gkI"/>
                         <outlet property="balanceAfterSendingLabel" destination="0VB-8U-kh0" id="Aad-RH-1oj"/>
+                        <outlet property="changeSummary" destination="oQI-LG-nQW" id="mof-M5-Uvb"/>
                         <outlet property="destinationAccountView" destination="vka-UC-gd6" id="tEl-9a-cFf"/>
                         <outlet property="destinationAddressTextField" destination="JDR-oq-YJC" id="vQR-vl-vqZ"/>
                         <outlet property="feeRateLabel" destination="BHd-xR-fIs" id="zg1-3p-ugd"/>
                         <outlet property="invalidDestinationAddressLabel" destination="19H-1W-F1v" id="cB8-xu-yfn"/>
+                        <outlet property="maxBtn" destination="bPH-60-lge" id="m2X-n9-haX"/>
+                        <outlet property="nextBtnToChangeTop" destination="PTS-SX-Vzs" id="eoD-H1-8qA"/>
                         <outlet property="nextButton" destination="uE2-R8-tCb" id="5Ah-aS-Waq"/>
                         <outlet property="notEnoughFundsLabel" destination="vKM-60-zWN" id="gHv-kh-bXz"/>
                         <outlet property="processingTimeLabel" destination="O4X-9A-RKk" id="g8Y-IC-HhG"/>
@@ -762,7 +774,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-614" y="-252"/>
+            <point key="canvasLocation" x="-614.49275362318849" y="-252.45535714285714"/>
         </scene>
         <!--Confirm To Send Fund View Controller-->
         <scene sceneID="ztT-Wn-CO5">

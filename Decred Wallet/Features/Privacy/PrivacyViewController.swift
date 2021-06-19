@@ -21,9 +21,10 @@ class PrivacyViewController: UIViewController {
     @IBOutlet weak var shuffleServer: UILabel!
     @IBOutlet weak var shufflePort: UILabel!
     @IBOutlet weak var mixerSwitch: UISwitch!
-    @IBOutlet weak var spendUnmixedSwitch: UISwitch!
+    @IBOutlet weak var mixTxChangeSwitch: UISwitch!
     @IBOutlet weak var mixerStatusIcon: UIImageView!
     @IBOutlet weak var mixingInfo: UILabel!
+    @IBOutlet weak var mixTxChangeSummary: UILabel!
     
     @IBOutlet weak var mixerDetailViewConst: NSLayoutConstraint!
     @IBOutlet weak var mixerDropdownArrow: UIImageView!
@@ -40,10 +41,14 @@ class PrivacyViewController: UIViewController {
         let txNotificationListener = self as DcrlibwalletTxAndBlockNotificationListenerProtocol
         try? WalletLoader.shared.multiWallet.add(txNotificationListener, uniqueIdentifier: "\(self)")
         
-        WalletLoader.shared.multiWallet.setAccountMixerNotification(self)
+        let accountMixerNotification = self as DcrlibwalletAccountMixerNotificationListenerProtocol
+        try? WalletLoader.shared.multiWallet.add(accountMixerNotification, uniqueIdentifier: "\(self)")
         
         self.mixedAccountNumber = wallet.readIntConfigValue(forKey: DcrlibwalletAccountMixerMixedAccount, defaultValue: -1)
         self.unmixedAccountNumber = wallet.readIntConfigValue(forKey: DcrlibwalletAccountMixerUnmixedAccount, defaultValue: -1)
+        
+        self.mixTxChangeSwitch.isOn = wallet.readBoolConfigValue(forKey: DcrlibwalletAccountMixerMixTxChange, defaultValue: false)
+        self.setMixTxChangeSummary()
         
         self.updateMixerSettingsInfo()
         
@@ -74,6 +79,19 @@ class PrivacyViewController: UIViewController {
         self.shufflePort.text = shufflePort
     }
     
+    func setMixTxChangeSummary() {
+        if (self.mixTxChangeSwitch.isOn) {
+            self.mixTxChangeSummary.text = LocalizedStrings.mixTxChangeSummaryEnabled
+        } else {
+            self.mixTxChangeSummary.text = LocalizedStrings.mixTxChangeSummaryDisabled
+        }
+    }
+    
+    @IBAction func mixChangeSwitch(_ sender: Any) {
+        wallet.setBoolConfigValueForKey(DcrlibwalletAccountMixerMixTxChange, value: self.mixTxChangeSwitch.isOn)
+        self.setMixTxChangeSummary()
+    }
+    
     @IBAction func privacyInfo(_ sender: Any) {
         SimpleAlertDialog.show(sender: self,
                                title: LocalizedStrings.mixerHelperTitle,
@@ -81,6 +99,7 @@ class PrivacyViewController: UIViewController {
                                   okButtonText: LocalizedStrings.gotIt,
                                   callback: nil)
     }
+    
     @IBAction func dismissView(_ sender: Any) {
         self.navigationController?.popToRootViewController(animated: true)
     }
