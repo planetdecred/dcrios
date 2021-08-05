@@ -47,9 +47,9 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
     private var marginRightTable: CGFloat = 0
     private var isDissmissOutside: Bool = false
     private var widthText: CGFloat = 0
-    private var labelBGColor: UIColor = UIColor.appColors.lightBlue
+    private var labelBGColor: UIColor = UIColor.appColors.primary
     private var labelColor: UIColor = UIColor.white
-    private var separateColor: UIColor = UIColor.appColors.gray
+    private var separateColor: UIColor = UIColor.appColors.surfaceRipple
     private var isShowCurrentValue: Bool = false
     
     var superSuperView = UIView()
@@ -270,7 +270,7 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
         label.translatesAutoresizingMaskIntoConstraints = false
 
         let bgColorView = UIView()
-        bgColorView.backgroundColor = UIColor.appColors.paleGray
+        bgColorView.backgroundColor = UIColor.appColors.text5
         
         cell.backgroundColor = UIColor.white
         cell.selectedBackgroundView = bgColorView

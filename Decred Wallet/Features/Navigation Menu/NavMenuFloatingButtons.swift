@@ -23,7 +23,7 @@ class NavMenuFloatingButtons: UIView {
     
     convenience init() {
         self.init(frame: CGRect.zero)
-        self.layer.backgroundColor = UIColor.appColors.lightBlue.cgColor
+        self.layer.backgroundColor = UIColor.appColors.primary.cgColor
         self.layer.cornerRadius = 24
         
         self.createButtons()

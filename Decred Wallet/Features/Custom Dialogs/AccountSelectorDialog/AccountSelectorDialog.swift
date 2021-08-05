@@ -98,7 +98,7 @@ extension AccountSelectorDialog: UITableViewDataSource, UITableViewDelegate {
         label.topPadding = 16
         label.borderWidth = 0
         label.text = self.wallets[section].name
-        label.textColor = UIColor.appColors.darkBluishGray
+        label.textColor = UIColor.appColors.text2
         label.backgroundColor = UIColor.white
         label.adjustsFontSizeToFitWidth = false
         label.lineBreakMode = .byTruncatingTail

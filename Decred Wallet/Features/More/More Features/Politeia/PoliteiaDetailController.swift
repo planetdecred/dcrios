@@ -43,7 +43,7 @@ class PoliteiaDetailController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = false
-        self.navigationController?.navigationBar.tintColor = UIColor.appColors.darkBlue
+        self.navigationController?.navigationBar.tintColor = UIColor.appColors.text1
 
         let icon = self.navigationController?.modalPresentationStyle == .fullScreen ?  UIImage(named: "ic_close") : UIImage(named: "left-arrow")
         let closeButton = UIBarButtonItem(image: icon,
@@ -52,7 +52,7 @@ class PoliteiaDetailController: UIViewController {
                                           action: #selector(self.dismissView))
 
         let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.politeiaDetail, style: .plain, target: self, action: nil)
-        barButtonTitle.tintColor = UIColor.appColors.darkBlue
+        barButtonTitle.tintColor = UIColor.appColors.text1
 
         self.navigationItem.leftBarButtonItems =  [closeButton, barButtonTitle]
         

@@ -15,7 +15,7 @@ class TransactionOutputDetailCell: UITableViewCell {
     var onTxHashCopied: (() -> ())?
 
     func display(_ output: TxOutput, wallet: DcrlibwalletWallet) {
-        var amount = Utils.getAttributedString(str: "\(output.dcrAmount.round(8))", siz: 13, TexthexColor: UIColor.appColors.darkBlue)
+        var amount = Utils.getAttributedString(str: "\(output.dcrAmount.round(8))", siz: 13, TexthexColor: UIColor.appColors.text1)
         var address = output.address
         var error: NSError?
         let accountName = wallet.accountName(output.accountNumber, error: &error)

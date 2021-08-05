@@ -22,7 +22,7 @@ class AccountSelectorTableViewCell: UITableViewCell {
 
             let totalBalance = account?.dcrTotalBalance ?? 0
             let totalBalanceRoundedOff = (Decimal(totalBalance) as NSDecimalNumber).round(8)
-            self.totalAccountBalanceLabel.attributedText = Utils.getAttributedString(str: "\(totalBalanceRoundedOff)", siz: 15.0, TexthexColor: UIColor.appColors.darkBlue)
+            self.totalAccountBalanceLabel.attributedText = Utils.getAttributedString(str: "\(totalBalanceRoundedOff)", siz: 15.0, TexthexColor: UIColor.appColors.text1)
         }
     }
 }

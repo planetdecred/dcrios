@@ -31,7 +31,7 @@ class SeedBackupReminderViewController: UIViewController {
         let attributedStringStyles = [ AttributedStringStyle(tag: "bold",
                                                              fontFamily: "SourceSansPro-bold",
                                                              fontSize: 16,
-                                                             color: UIColor.appColors.darkBluishGray),
+                                                             color: UIColor.appColors.text2),
                                       AttributedStringStyle(tag: "orange",
                                                             fontFamily: "SourceSansPro-bold",
                                                             fontSize: 16,

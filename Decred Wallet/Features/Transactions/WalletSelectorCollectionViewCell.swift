@@ -14,7 +14,7 @@ class WalletSelectorCollectionViewCell: UICollectionViewCell {
     
     override var isSelected: Bool {
         didSet {
-            self.walletNameLabel.textColor = isSelected ? UIColor.appColors.lightBlue : UIColor.appColors.bluishGray
+            self.walletNameLabel.textColor = isSelected ? UIColor.appColors.primary : UIColor.appColors.text4
             self.indicatorView.isHidden = !isSelected
         }
     }

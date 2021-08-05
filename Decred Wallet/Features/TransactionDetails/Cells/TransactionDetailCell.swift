@@ -31,7 +31,7 @@ class TransactionDetailCell: UITableViewCell {
 
         self.titleLabel.text = tx.title
         self.valueButton.setTitle(tx.value, for: .normal)
-        self.valueButton.setTitleColor(tx.isCopyEnabled ? UIColor.appColors.lightBlue : UIColor.appColors.darkBlue, for: .normal)
+        self.valueButton.setTitleColor(tx.isCopyEnabled ? UIColor.appColors.primary : UIColor.appColors.text1, for: .normal)
         if let walletName = tx.walletName {
             self.walletNameLabel.text = walletName
             self.walletNameLabel.isHidden = false

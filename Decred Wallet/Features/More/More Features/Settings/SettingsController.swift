@@ -65,9 +65,9 @@ class SettingsController: UITableViewController  {
         super.viewWillAppear(animated)
         
         self.navigationController?.navigationBar.isHidden = false
-        self.navigationController?.navigationBar.tintColor = UIColor.appColors.darkBlue
+        self.navigationController?.navigationBar.tintColor = UIColor.appColors.text1
         self.navigationController?.navigationBar.topItem?.rightBarButtonItem = nil
-        self.navigationController?.navigationBar.barTintColor = UIColor.appColors.offWhite
+        self.navigationController?.navigationBar.barTintColor = UIColor.appColors.background
         
         let icon = self.navigationController?.modalPresentationStyle == .fullScreen ?  UIImage(named: "ic_close") : UIImage(named: "left-arrow")
         let closeButton = UIBarButtonItem(image: icon,
@@ -76,7 +76,7 @@ class SettingsController: UITableViewController  {
                                           action: #selector(self.dismissView))
         
         let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.settings, style: .plain, target: self, action: nil)
-        barButtonTitle.tintColor = UIColor.appColors.darkBlue
+        barButtonTitle.tintColor = UIColor.appColors.text1
         
         self.navigationItem.leftBarButtonItems =  [closeButton, barButtonTitle]
         
@@ -145,13 +145,13 @@ class SettingsController: UITableViewController  {
     
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int){
         let header = view as! UITableViewHeaderFooterView
-        header.textLabel?.textColor = UIColor.appColors.darkBluishGray
+        header.textLabel?.textColor = UIColor.appColors.text2
         header.textLabel?.font = UIFont(name: "SourceSansPro-Regular", size: 14)
     }
     
     override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
         let footer = view as! UITableViewHeaderFooterView
-        footer.textLabel?.textColor = UIColor.appColors.bluishGray
+        footer.textLabel?.textColor = UIColor.appColors.text4
         footer.textLabel?.font = UIFont(name: "SourceSansPro-Regular", size: 14)
     }
     

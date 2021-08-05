@@ -197,7 +197,7 @@ class PrivacyViewController: UIViewController {
         if self.wallet.isAccountMixerActive() {
             DispatchQueue.main.async {
                 self.mixerStatusInfo.text = LocalizedStrings.keepThisAppOpened
-                self.mixerStatusInfo.textColor = UIColor.appColors.darkBluishGray
+                self.mixerStatusInfo.textColor = UIColor.appColors.text2
                 self.mixerDetailViewConst.constant = 104
                 self.mixerStatusIcon.image = UIImage(named: "ic_alert")
                 self.mixerDropdownArrow.isHidden = false
@@ -211,7 +211,7 @@ class PrivacyViewController: UIViewController {
                 DispatchQueue.main.async {
                     if (retV[0]).boolValue {
                         self.mixerStatusInfo.text = LocalizedStrings.readyToMix
-                        self.mixerStatusInfo.textColor = UIColor.appColors.darkBluishGray
+                        self.mixerStatusInfo.textColor = UIColor.appColors.text2
                         return
                     } else {
                         self.mixerStatusInfo.text = LocalizedStrings.noMixableOutput

@@ -81,7 +81,7 @@ class WalletInfoTableViewCell: UITableViewCell, DropMenuButtonDelegate {
             
             if wallet.isAccountMixerActive {
                 self.walletNotBackedUpLabel.isHidden = false
-                self.walletNotBackedUpLabel.textColor = UIColor.appColors.bluishGray
+                self.walletNotBackedUpLabel.textColor = UIColor.appColors.text4
                 self.walletNotBackedUpLabel.text = LocalizedStrings.mixing
                 self.showCheckMixerStatusView()
             } else {

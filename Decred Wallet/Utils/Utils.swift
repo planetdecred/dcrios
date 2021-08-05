@@ -114,7 +114,7 @@ struct Utils {
         }
     }
     
-    static func amountAsAttributedString(amount: Double?, smallerTextSize: CGFloat, textColor: UIColor = UIColor.appColors.darkBlue) -> NSMutableAttributedString {
+    static func amountAsAttributedString(amount: Double?, smallerTextSize: CGFloat, textColor: UIColor = UIColor.appColors.text1) -> NSMutableAttributedString {
         let amountRoundedOff = (Decimal(amount ?? 0) as NSDecimalNumber).round(8)
         return Utils.getAttributedString(str: "\(amountRoundedOff)", siz: smallerTextSize, TexthexColor: textColor)
     }
@@ -197,7 +197,7 @@ struct Utils {
 
         banner.backgroundColor = (type == .error) ? UIColor.appColors.orange : UIColor.appColors.green
         banner.layer.cornerRadius = 7
-        banner.layer.shadowColor = UIColor.appColors.darkBlue.cgColor
+        banner.layer.shadowColor = UIColor.appColors.text1.cgColor
         banner.layer.shadowRadius = 4
         banner.layer.shadowOpacity = 0.24
         banner.layer.shadowOffset = CGSize(width: 0, height: 1)
@@ -365,9 +365,9 @@ struct Utils {
         case .NOT_AUTHORIZED:
             return UIColor.appColors.orange
         case .AUTHORIZED:
-            return UIColor.appColors.lightBlue
+            return UIColor.appColors.primary
         case .VOTE_STARTED:
-            return UIColor.appColors.lightBlue
+            return UIColor.appColors.primary
         case .APPROVED:
             return UIColor.appColors.darkerGreen
         case .REJECT:
@@ -377,7 +377,7 @@ struct Utils {
         case .ABANDONED:
             return UIColor.appColors.orange
         default:
-            return UIColor.appColors.paleGray
+            return UIColor.appColors.text5
         }
     }
 }

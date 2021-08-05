@@ -65,8 +65,8 @@ class SignMessageViewController: UIViewController, FloatingPlaceholderTextViewDe
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = false
-        self.navigationController?.navigationBar.tintColor = UIColor.appColors.darkBlue
-        self.navigationController?.navigationBar.barTintColor = UIColor.appColors.offWhite
+        self.navigationController?.navigationBar.tintColor = UIColor.appColors.text1
+        self.navigationController?.navigationBar.barTintColor = UIColor.appColors.background
         //Remove shadow from navigation bar
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
@@ -74,7 +74,7 @@ class SignMessageViewController: UIViewController, FloatingPlaceholderTextViewDe
         //setup leftBar button
         self.addNavigationBackButton()
         let barButtonTitle = UIBarButtonItem(title: LocalizedStrings.signMessage, style: .plain, target: self, action: nil)
-        barButtonTitle.tintColor = UIColor.appColors.darkBlue
+        barButtonTitle.tintColor = UIColor.appColors.text1
         
         self.navigationItem.leftBarButtonItems =  [ (self.navigationItem.leftBarButtonItem)!, barButtonTitle]
         
@@ -119,7 +119,7 @@ class SignMessageViewController: UIViewController, FloatingPlaceholderTextViewDe
     func toggleSignButtonState() {
         let textCheck =  self.addressText.text!.isEmpty || self.messageText.text!.isEmpty
         self.signBtn.isEnabled = textCheck ?  false : true
-        self.signBtn.backgroundColor = textCheck ?  UIColor.appColors.paleGray : UIColor.appColors.lightBlue
+        self.signBtn.backgroundColor = textCheck ?  UIColor.appColors.text5 : UIColor.appColors.primary
     }
     
     @IBAction func signMessage(_ sender: UIButton) {
@@ -134,7 +134,7 @@ class SignMessageViewController: UIViewController, FloatingPlaceholderTextViewDe
         self.addressText.text = nil
         self.messageText.text = nil
         self.signatureText.text = nil
-        self.signBtn.backgroundColor = UIColor.appColors.paleGray
+        self.signBtn.backgroundColor = UIColor.appColors.text5
         self.signBtn.isEnabled = false
         self.addressText.isUserInteractionEnabled = true
         self.messageText.isUserInteractionEnabled = true
@@ -173,7 +173,7 @@ class SignMessageViewController: UIViewController, FloatingPlaceholderTextViewDe
                             self.signatureText.textViewDidBeginEditing(self.signatureText)
                                                self.addressText.isUserInteractionEnabled = false
                                                self.messageText.isUserInteractionEnabled = false
-                                               self.signBtn.backgroundColor = UIColor.appColors.paleGray
+                                               self.signBtn.backgroundColor = UIColor.appColors.text5
                                                self.signBtn.isEnabled = false
                             self.signatureText.textViewDidEndEditing(self.signatureText)
                             Utils.showBanner(in: self.viewContainer.subviews.first!, type: .success, text: LocalizedStrings.signSuccesMessage)

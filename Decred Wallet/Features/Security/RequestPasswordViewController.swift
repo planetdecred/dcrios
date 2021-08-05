@@ -125,7 +125,7 @@ class RequestPasswordViewController: SecurityCodeRequestBaseViewController, UITe
 
         if self.passwordInput.text == confirmPassword || self.isInErrorState {
             self.confirmErrorLabel?.text = ""
-            self.confirmCountLabel?.textColor = UIColor.appColors.darkBluishGray
+            self.confirmCountLabel?.textColor = UIColor.appColors.text2
             self.confirmPasswordInput?.hideError()
             self.confirmErrorLabel?.isHidden = true
             self.isInErrorState = false

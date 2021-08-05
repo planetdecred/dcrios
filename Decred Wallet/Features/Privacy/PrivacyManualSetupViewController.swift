@@ -61,8 +61,8 @@ class PrivacyManualSetupViewController: UIViewController {
         self.unMixedAccountView.walletNameLabel.isHidden = true
         self.mixedAccountView.walletNameLabel.isHidden = true
         
-        self.mixedAccountView.accountNameLabel.textColor = UIColor.appColors.lightBluishGray
-        self.unMixedAccountView.accountNameLabel.textColor = UIColor.appColors.lightBluishGray
+        self.mixedAccountView.accountNameLabel.textColor = UIColor.appColors.text3
+        self.unMixedAccountView.accountNameLabel.textColor = UIColor.appColors.text3
         self.mixedAccountView.accountNameLabel.font = UIFont(name: "SourceSansPro", size: 18)
         
         NSLayoutConstraint.activate([
@@ -74,7 +74,7 @@ class PrivacyManualSetupViewController: UIViewController {
         let attributedStringStyles = [AttributedStringStyle(tag: "bold",
                                                              fontFamily: "SourceSansPro-bold",
                                                              fontSize: 16,
-                                                             color: UIColor.appColors.darkBluishGray)]
+                                                             color: UIColor.appColors.text2)]
         self.manualSetupWaningLabel.attributedText = Utils.styleAttributedString(LocalizedStrings.manualSetupWarning, styles: attributedStringStyles)
         
         self.mixedAccountView.accountSelectorPrompt = LocalizedStrings.mixedAccount

@@ -34,7 +34,7 @@ class Label: UILabel {
         }
     }
 
-    @IBInspectable var borderColor: UIColor = UIColor.appColors.lightBlue {
+    @IBInspectable var borderColor: UIColor = UIColor.appColors.primary {
         didSet {
             setupView()
         }

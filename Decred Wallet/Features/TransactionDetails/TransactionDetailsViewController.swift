@@ -28,7 +28,7 @@ class TransactionDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.showOrHideDetailsBtn.addBorder(atPosition: .top, color: UIColor.appColors.gray, thickness: 1)
+        self.showOrHideDetailsBtn.addBorder(atPosition: .top, color: UIColor.appColors.surfaceRipple, thickness: 1)
         
         self.wallet = WalletLoader.shared.multiWallet.wallet(withID: self.transaction.walletID)
         
@@ -93,7 +93,7 @@ class TransactionDetailsViewController: UIViewController {
         let txFee = Utils.getAttributedString(
             str: "\(self.transaction.dcrFee.round(8))",
             siz: 16,
-            TexthexColor: UIColor.appColors.darkBlue
+            TexthexColor: UIColor.appColors.text1
         )
 
         if transaction.type == DcrlibwalletTxTypeRegular {
@@ -182,7 +182,7 @@ class TransactionDetailsViewController: UIViewController {
         } else {
             self.txOverview.statusImage = UIImage(named: "ic_pending")
             self.txOverview.status = LocalizedStrings.pending
-            self.txOverview.statusLabelColor = UIColor.appColors.lightBluishGray
+            self.txOverview.statusLabelColor = UIColor.appColors.text3
             let confirmation = " · " + String(format: LocalizedStrings.confirmations, txConfirmations)
             self.txOverview.confirmations = txConfirmations > 0 ? confirmation : ""
         }
@@ -191,15 +191,15 @@ class TransactionDetailsViewController: UIViewController {
     private func prepareTxOverview() {
         let attributedAmountString: NSMutableAttributedString
         if transaction.type == DcrlibwalletTxTypeMixed {
-            attributedAmountString = Utils.getAttributedString(str: transaction.dcrMixDenom.round(8).description, siz: 20.0, TexthexColor: UIColor.appColors.darkBlue)
+            attributedAmountString = Utils.getAttributedString(str: transaction.dcrMixDenom.round(8).description, siz: 20.0, TexthexColor: UIColor.appColors.text1)
             if transaction.mixCount > 1 {
                 let mixCount = NSMutableAttributedString(string: "\t x\(transaction.mixCount)")
-                mixCount.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.appColors.paleGray, range: NSRange(location: 0, length: mixCount.length))
+                mixCount.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.appColors.text5, range: NSRange(location: 0, length: mixCount.length))
                 attributedAmountString.append(mixCount)
             }
         } else {
             attributedAmountString = NSMutableAttributedString(string: (transaction.type == DcrlibwalletTxTypeRegular && transaction.direction == DcrlibwalletTxDirectionSent) ? "-" : "")
-            attributedAmountString.append(Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 20.0, TexthexColor: UIColor.appColors.darkBlue))
+            attributedAmountString.append(Utils.getAttributedString(str: transaction.dcrAmount.round(8).description, siz: 20.0, TexthexColor: UIColor.appColors.text1))
         }
         
         self.txOverview.txAmount = attributedAmountString
@@ -246,7 +246,7 @@ class TransactionDetailsViewController: UIViewController {
         if txConfirmations < requiredConfirmations {
             self.txOverview.statusImage = UIImage(named: "ic_pending")
             self.txOverview.status = LocalizedStrings.pending
-            self.txOverview.statusLabelColor = UIColor.appColors.lightBluishGray
+            self.txOverview.statusLabelColor = UIColor.appColors.text3
             self.txOverview.confirmations = ""
         } else if txConfirmations > BuildConfig.TicketMaturity {
             self.txOverview.txIconImage = UIImage(named: "ic_ticketLive")
@@ -279,7 +279,7 @@ class TransactionDetailsViewController: UIViewController {
 
             let blueTextColorStyle = AttributedStringStyle(tag: "blue",
                                                            font: UIFont.systemFont(ofSize: 14),
-                                                           color: UIColor.appColors.lightBlue)
+                                                           color: UIColor.appColors.primary)
 
             let defaultTextStyle = AttributedStringStyle(font: UIFont.systemFont(ofSize: 14),
                                                          color: UIColor.appColors.deepGray)
@@ -356,7 +356,7 @@ extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDe
                                                         isCollapsed: self.isTxOutputsCollapsed)
         } else {
             let headerView = UIView.init(frame: CGRect.zero)
-            headerView.backgroundColor = UIColor.appColors.gray
+            headerView.backgroundColor = UIColor.appColors.surfaceRipple
             headerView.frame.size.height = 1
             return headerView
         }
@@ -369,10 +369,10 @@ extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDe
 
         let headerView = UIView.init(frame: CGRect(x: 0, y: 0, width: transactionDetailsTableWidth, height: 48))
         headerView.backgroundColor = UIColor.white
-        headerView.horizontalBorder(borderColor: UIColor.appColors.gray, yPosition: 0, borderHeight: 1)
+        headerView.horizontalBorder(borderColor: UIColor.appColors.surfaceRipple, yPosition: 0, borderHeight: 1)
 
         let headerLabel = UILabel.init(frame: CGRect(x: 16, y: 1, width: transactionDetailsTableWidth - 56, height: 47))
-        headerLabel.textColor = UIColor.appColors.bluishGray
+        headerLabel.textColor = UIColor.appColors.text4
         headerLabel.font = UIFont(name: "SourceSansPro-Regular", size: 14)
         headerLabel.numberOfLines = 1
         headerLabel.text = title
