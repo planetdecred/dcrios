@@ -21,14 +21,14 @@ extension UIColor {
         // ultimately other color constants should end up being obsolete once
         // the implementation of the new mockup is completed
         static let blue = UIColor.init(hex: "#1B41B3")
-        static let primary = UIColor.init(hex: "#2970FF")
-        static let text1 = UIColor.init(hex: "#091440")
+        static let primary = UIColor.init(named: "primary")!
+        static let text1 = UIColor.init(named: "text1")!
         static let skyBlue = UIColor.init(hex: "#70CBFF")
         static let lightSkyBlue = UIColor.init(hex: "#E9F8FE")
         
         static let green = UIColor.init(hex: "#41BE53")
         static let lightGreen = UIColor.init(hex: "#C4ECCA")
-        static let secondary = UIColor.init(hex: "#2DD8A3")
+        static let secondary = UIColor.init(named: "secondary")!
         static let darkerGreen = UIColor.init(hex: "#3CC39A")
         static let darkTurquoise = UIColor.init(hex: "#14A078")
         
@@ -38,18 +38,20 @@ extension UIColor {
         static let yellow = UIColor.init(hex: "#FFC84E")
         static let lightYellow = UIColor.init(hex: "#FFE4A7")
         
-        static let text4 = UIColor.init(hex: "#596D81")
-        static let text2 = UIColor.init(hex: "#3D5873")
-        static let text3 = UIColor.init(hex: "#8997A5")
+        static let text = UIColor.init(named: "text")!
+        static let text4 = UIColor.init(named: "text4")!
+        static let text2 = UIColor.init(named: "text2")!
+        static let text3 = UIColor.init(named: "text3")!
         
-        static let surfaceRipple = UIColor.init(hex: "#E6EAED")
-        static let colorDivider = UIColor.init(hex: "#E6EAED")
-        static let text5 = UIColor.init(hex: "#C4CBD2")
-        static let border = UIColor.init(hex: "#C4CBD2")
+        static let surface = UIColor.init(named: "surface")!
+        static let surfaceRipple = UIColor.init(named: "surfaceRipple")!
+        static let colorDivider = UIColor.init(named: "colorDivider")!
+        static let text5 = UIColor(named: "text5")!
+        static let border = UIColor(named: "border")!
         static let lightGray = UIColor.init(hex: "#EDEFF1")
         static let deepGray = UIColor.init(hex:"#030303")
         
-        static let background = UIColor(hex:"#F3F5F6")
+        static let background = UIColor(named: "background")!
         static let lightOffWhite = UIColor(hex: "#F9FAFA")
     }
     

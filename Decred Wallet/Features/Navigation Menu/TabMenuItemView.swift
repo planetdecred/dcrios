@@ -34,7 +34,7 @@ class TabMenuItemView: UIView {
     convenience init(for menuItem: MenuItem) {
         self.init(frame: CGRect.zero)
         
-        self.backgroundColor = UIColor.white
+        self.backgroundColor = UIColor.appColors.surface
         self.translatesAutoresizingMaskIntoConstraints = false
         self.clipsToBounds = true
         
