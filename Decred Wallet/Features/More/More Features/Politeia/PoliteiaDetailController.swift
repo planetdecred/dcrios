@@ -82,11 +82,13 @@ class PoliteiaDetailController: UIViewController {
     func getDetailPoliteia() {
         guard let idstr = self.proposalId, let id = Int(idstr) else { return }
         DispatchQueue.global(qos: .userInitiated).async {
-            let result = self.multiWallet.politeia?.detailPoliteia(id)
-            DispatchQueue.main.async {
-                if let poli = result!.0 {
-                    self.politeia = poli
-                    self.displayData()
+            if WalletLoader.shared.isInitialized {
+                let result = self.multiWallet.politeia?.detailPoliteia(id)
+                DispatchQueue.main.async {
+                    if let poli = result!.0 {
+                        self.politeia = poli
+                        self.displayData()
+                    }
                 }
             }
         }
