@@ -27,7 +27,7 @@
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XqC-s5-1va">
                         <rect key="frame" x="56" y="55" width="342" height="1"/>
-                        <color key="backgroundColor" red="0.90196078430000004" green="0.91764705879999997" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" name="colorDivider"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="Bjk-ON-bDA"/>
                         </constraints>
@@ -44,16 +44,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" text="wallet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oT3-ly-hYC">
-                                <rect key="frame" x="0.0" y="0.0" width="41.5" height="56"/>
+                                <rect key="frame" x="0.0" y="0.0" width="41" height="56"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                 <color key="textColor" name="text1"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="999" verticalCompressionResistancePriority="999" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Jgx-Sc-oa4">
-                                <rect key="frame" x="49.5" y="0.0" width="260.5" height="56"/>
+                                <rect key="frame" x="49" y="0.0" width="261" height="56"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="0.00 DCR" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Xm-3f-sHC">
-                                        <rect key="frame" x="0.0" y="0.0" width="260.5" height="56"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="261" height="56"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                         <color key="textColor" name="text4"/>
                                         <nil key="highlightedColor"/>
@@ -90,6 +90,9 @@
     <resources>
         <image name="ic_more" width="24" height="24"/>
         <image name="ic_watch_only_wallet" width="24" height="24"/>
+        <namedColor name="colorDivider">
+            <color red="0.90196078431372551" green="0.91764705882352937" blue="0.92941176470588238" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="surface">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

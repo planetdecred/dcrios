@@ -74,7 +74,7 @@
                     </stackView>
                     <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ecb-qP-RHx">
                         <rect key="frame" x="40" y="72.5" width="358" height="1"/>
-                        <color key="backgroundColor" red="0.90196078430000004" green="0.91764705879999997" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" name="colorDivider"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="dni-IQ-9pN"/>
                         </constraints>
@@ -91,6 +91,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="accountNameLabel" destination="2s2-FE-DaI" id="eoI-DS-CWu"/>
+                <outlet property="separator" destination="Ecb-qP-RHx" id="iT2-OZ-wzT"/>
                 <outlet property="spendableAccountBalanceLabel" destination="cU2-tf-Rgi" id="TMP-CJ-5G7"/>
                 <outlet property="totalAccountBalanceLabel" destination="umF-wo-77k" id="uoS-pH-acw"/>
             </connections>
@@ -99,6 +100,9 @@
     </objects>
     <resources>
         <image name="ic_account" width="24" height="24"/>
+        <namedColor name="colorDivider">
+            <color red="0.90196078431372551" green="0.91764705882352937" blue="0.92941176470588238" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="surface">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

@@ -254,7 +254,7 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
         itemLabel.textAlignment = NSTextAlignment.left
         itemLabel.text = items[(indexPath as NSIndexPath).row].text
         itemLabel.font = UIFont(name: "SourceSansPro-Regular", size: 17)
-        itemLabel.textColor = UIColor.black
+        itemLabel.textColor = UIColor.appColors.text1
         cell.addSubview(itemLabel)
         
         itemLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -272,7 +272,7 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
         let bgColorView = UIView()
         bgColorView.backgroundColor = UIColor.appColors.text5
         
-        cell.backgroundColor = UIColor.white
+        cell.backgroundColor = UIColor.appColors.surface
         cell.selectedBackgroundView = bgColorView
         cell.separatorInset = UIEdgeInsets(top: 0, left: frame.width, bottom: 0, right: frame.width)
         

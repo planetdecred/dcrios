@@ -41,7 +41,7 @@ class FloatingPlaceholderLabel: UILabel {
     }
 
     public func initView() {
-        self.backgroundColor = UIColor.white
+        self.backgroundColor = UIColor.appColors.surface
         self.clipsToBounds = true
         self.translatesAutoresizingMaskIntoConstraints = false
         self.textColor = self.normalColor

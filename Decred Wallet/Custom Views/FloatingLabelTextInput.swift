@@ -63,7 +63,7 @@ class FloatingLabelTextInput: UITextField {
     }
 
     private func initFloatingPlaceholderLabel() {
-        self.floatingPlaceholderLabel.backgroundColor = UIColor.white
+        self.floatingPlaceholderLabel.backgroundColor = UIColor.appColors.surface
         self.floatingPlaceholderLabel.textColor = self.placeholderColorNormal
         self.floatingPlaceholderLabel.font = self.floatingPlaceholderLabel.font.withSize(self.floatingPlaceholderLabelNormalSize)
         self.floatingPlaceholderLabel.clipsToBounds = true
