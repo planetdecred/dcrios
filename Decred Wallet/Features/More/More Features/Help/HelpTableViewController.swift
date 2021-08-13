@@ -48,7 +48,7 @@ class HelpTableViewController: UITableViewController {
         if let url = URL(string: urlString) {
             let viewController = SFSafariViewController(url: url)
             viewController.delegate = self as? SFSafariViewControllerDelegate
-            
+            viewController.view.backgroundColor = UIColor.appColors.background
             self.present(viewController, animated: true)
         }
     }

@@ -164,5 +164,6 @@ class PoliteiaDetailController: UIViewController {
                 }
             }
         }
+        self.contentTextView.textColor = UIColor.appColors.text1
     }
 }
