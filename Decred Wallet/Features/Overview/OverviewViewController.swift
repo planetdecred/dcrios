@@ -426,7 +426,7 @@ class OverviewViewController: UIViewController {
                 activeMixers += 1
                 WalletID = wallet.id_
                  let wallet  = multiWallet.wallet(withID: WalletID)
-                 if let unmixedAccountNumber = wallet?.readInt32ConfigValue(forKey: Dcrlibwallet.DcrlibwalletAccountMixerUnmixedAccount, defaultValue: -1) {
+                if let unmixedAccountNumber = wallet?.readInt32ConfigValue(forKey: DcrlibwalletAccountMixerUnmixedAccount, defaultValue: -1) {
                      do {
                         if let balance  =  try wallet?.getAccountBalance(unmixedAccountNumber) {
                             let mxAccount = MixerAcount(name: wallet?.name, balance: "\(balance.dcrTotal) DCR")

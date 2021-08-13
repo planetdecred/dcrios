@@ -22,6 +22,7 @@ struct Transaction: Codable {
     var lockTime: Int32
     var expiry: Int32
     var fee: Int64
+    var ticketSpender: String
     
     var direction: Int32
     var amount: Int64
@@ -48,6 +49,7 @@ struct Transaction: Codable {
         case version
         case lockTime = "lock_time"
         case expiry, fee
+        case ticketSpender = "ticket_spender"
 
         case direction, amount, inputs, outputs
         
@@ -74,6 +76,7 @@ struct Transaction: Codable {
         self.lockTime = try! values.decode(Int32.self, forKey: .lockTime)
         self.expiry = try! values.decode(Int32.self, forKey: .expiry)
         self.fee = try! values.decode(Int64.self, forKey: .fee)
+        self.ticketSpender = try! values.decode(String.self, forKey: .ticketSpender)
         
         self.direction = try! values.decode(Int32.self, forKey: .direction)
         self.amount = try! values.decode(Int64.self, forKey: .amount)
@@ -109,7 +112,7 @@ struct Transaction: Codable {
 
     var confirmations: Int32 {
         if self.blockHeight != -1 {
-            return WalletLoader.shared.multiWallet.getBestBlock()!.height - self.blockHeight + 1
+            return (self.wallet.getBestBlock() - self.blockHeight) + 1
         }
         return 0
     }
@@ -151,10 +154,11 @@ struct Transaction: Codable {
     }
     
     var walletName: String? {
-        for wallet in WalletLoader.shared.wallets where wallet.id_ == self.walletID {
-            return wallet.name
-        }
-        return nil
+        return wallet.name
+    }
+    
+    func matchesFilter(txFilter: Int32) -> Bool {
+        return wallet.txMatchesFilter2(direction, blockHeight: blockHeight, expiry: expiry, txType: type, ticketSpender: ticketSpender, txFilter: txFilter)
     }
 }
 
