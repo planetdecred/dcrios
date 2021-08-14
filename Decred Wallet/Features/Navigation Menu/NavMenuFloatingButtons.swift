@@ -99,17 +99,17 @@ class NavMenuFloatingButtons: UIView {
             }
         }
         
-        if WalletLoader.shared.multiWallet.isSyncing() {
-            if let navigationTabController = NavigationMenuTabBarController.instance?.view {
-                Utils.showBanner(in: navigationTabController, type: .error, text: LocalizedStrings.waitForSync)
-            }
-            return
-        } else if !WalletLoader.shared.multiWallet.isConnectedToDecredNetwork() {
-            if let navigationTabController = NavigationMenuTabBarController.instance?.view {
-                Utils.showBanner(in: navigationTabController, type: .error, text: LocalizedStrings.notConnected)
-            }
-            return
-        }
+//        if WalletLoader.shared.multiWallet.isSyncing() {
+//            if let navigationTabController = NavigationMenuTabBarController.instance?.view {
+//                Utils.showBanner(in: navigationTabController, type: .error, text: LocalizedStrings.waitForSync)
+//            }
+//            return
+//        } else if !WalletLoader.shared.multiWallet.isConnectedToDecredNetwork() {
+//            if let navigationTabController = NavigationMenuTabBarController.instance?.view {
+//                Utils.showBanner(in: navigationTabController, type: .error, text: LocalizedStrings.notConnected)
+//            }
+//            return
+//        }
         
         DispatchQueue.main.async {
             let sendVC = SendViewController.instance

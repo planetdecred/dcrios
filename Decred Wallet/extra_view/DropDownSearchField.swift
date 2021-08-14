@@ -50,6 +50,8 @@ class DropDownSearchField: UITextField, UITextFieldDelegate {
         self.dropDownTable?.dataSource = self.dropDownTableDataSource
         self.dropDownTable?.delegate = self.dropDownTableDataSource
         self.dropDownTable?.separatorStyle = .none
+        self.dropDownTable?.backgroundColor = UIColor.appColors.surface
+        self.dropDownTable?.layer.borderColor = UIColor.appColors.border.cgColor
         
         // listen for text editing event and filter words
         self.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
@@ -135,6 +137,7 @@ class DropDownTableDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
         cell.contentView.layoutMargins.left = 54
         cell.textLabel?.text = self.filteredWords[indexPath.row]
         cell.textLabel?.textColor = UIColor.appColors.text1
+        cell.backgroundColor = UIColor.appColors.surface
         cell.textLabel?.font = UIFont(name: "SourceSansPro-Regular", size: 16)
         return cell
     }

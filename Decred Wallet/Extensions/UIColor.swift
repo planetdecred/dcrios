@@ -39,6 +39,7 @@ extension UIColor {
         static let lightYellow = UIColor.init(hex: "#FFE4A7")
         
         static let text = UIColor.init(named: "text")!
+        static let text_ = UIColor.init(named: "text_")!
         static let text4 = UIColor.init(named: "text4")!
         static let text2 = UIColor.init(named: "text2")!
         static let text3 = UIColor.init(named: "text3")!

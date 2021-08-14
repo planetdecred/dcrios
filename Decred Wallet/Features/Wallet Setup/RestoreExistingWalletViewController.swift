@@ -158,7 +158,7 @@ extension RestoreExistingWalletViewController: UITableViewDataSource, UITableVie
         seedWordCell.lbSeedWordNum.text = String(format: LocalizedStrings.wordNumber, indexPath.row + 1)
         seedWordCell.lbSeedWordNum.layer.borderColor = UIColor.appColors.text2.cgColor
         seedWordCell.seedWordAutoComplete.text = self.userEnteredSeedWords[indexPath.row]
-        seedWordCell.cellBorder.layer.borderColor = UIColor.appColors.surfaceRipple.cgColor
+        seedWordCell.cellBorder.layer.borderColor = UIColor.appColors.border.cgColor
         seedWordCell.seedWordAutoComplete.resignFirstResponder()
         
         seedWordCell.setupAutoComplete(for: indexPath.row,
