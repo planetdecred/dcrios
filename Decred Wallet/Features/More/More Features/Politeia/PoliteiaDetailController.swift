@@ -151,7 +151,7 @@ class PoliteiaDetailController: UIViewController {
             self.contentLoadingIndicator.isHidden = false
             DispatchQueue.global(qos: .userInitiated).async {
                 var error: NSError?
-                let description = self.multiWallet.politeia?.fetchProposalDescription(DcrlibwalletPoliteiaMainnetHost, token: politeia.token, error: &error)
+                let description = self.multiWallet.politeia?.fetchProposalDescription(politeia.token, error: &error)
                 DispatchQueue.main.async {
                     self.contentLoadingIndicator.isHidden = true
                     if error != nil {

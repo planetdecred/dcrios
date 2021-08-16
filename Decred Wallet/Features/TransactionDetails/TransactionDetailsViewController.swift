@@ -55,9 +55,8 @@ class TransactionDetailsViewController: UIViewController {
     }
     
     func loadTransaction() {
-        let txHash = Data(fromHexEncodedString: self.transactionHash!)!
         var getTxError: NSError?
-        let txJsonString = WalletLoader.shared.firstWallet?.getTransaction(txHash, error: &getTxError)
+        let txJsonString = WalletLoader.shared.firstWallet?.getTransaction(self.transactionHash, error: &getTxError)
         if getTxError != nil {
             print("wallet.getTransaction error", getTxError!.localizedDescription)
         }
