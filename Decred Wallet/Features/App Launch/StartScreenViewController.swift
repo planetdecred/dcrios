@@ -10,6 +10,7 @@ import UIKit
 import Dcrlibwallet
 import LocalAuthentication
 import JGProgressHUD
+import SwiftKeychainWrapper
 
 class StartScreenViewController: UIViewController, CAAnimationDelegate {
     @IBOutlet weak var loadingLabel: UILabel!
