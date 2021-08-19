@@ -8,6 +8,7 @@
 
 import UIKit
 import Dcrlibwallet
+import SwiftKeychainWrapper
 
 struct StartupPinOrPassword {
     static func set(sender: UIViewController, done: (() -> Void)? = nil) {

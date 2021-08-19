@@ -194,8 +194,6 @@
 		DDA2F7CE24375FEF00A3DC7C /* StatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA2F7CD24375FEF00A3DC7C /* StatisticsViewController.swift */; };
 		DDA8154B243E56750011333F /* WalletSetup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDA8154A243E56740011333F /* WalletSetup.storyboard */; };
 		DDA8734E245F69C00029A13D /* CIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA8734D245F69C00029A13D /* CIImage.swift */; };
-		DDAE91002435086B00FEC016 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAE90FF2435086B00FEC016 /* KeychainWrapper.swift */; };
-		DDAE91022435092200FEC016 /* KeychainItemAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAE91012435092200FEC016 /* KeychainItemAccessibility.swift */; };
 		DDAE91042435092200FEC016 /* ErrorMessageForLA.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAE91032435092200FEC016 /* ErrorMessageForLA.swift */; };
 		DDB660F52486BABB0060B0C5 /* Decred_WalletUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB660F42486BABB0060B0C5 /* Decred_WalletUITests.swift */; };
 		DDCF259A22B8A347005FCBB9 /* Overview.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDCF259922B8A346005FCBB9 /* Overview.storyboard */; };
@@ -423,8 +421,6 @@
 		DDA2F7CD24375FEF00A3DC7C /* StatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewController.swift; sourceTree = "<group>"; };
 		DDA8154A243E56740011333F /* WalletSetup.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = WalletSetup.storyboard; sourceTree = "<group>"; };
 		DDA8734D245F69C00029A13D /* CIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIImage.swift; sourceTree = "<group>"; };
-		DDAE90FF2435086B00FEC016 /* KeychainWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
-		DDAE91012435092200FEC016 /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainItemAccessibility.swift; sourceTree = "<group>"; };
 		DDAE91032435092200FEC016 /* ErrorMessageForLA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessageForLA.swift; sourceTree = "<group>"; };
 		DDB660F22486BABB0060B0C5 /* Decred WalletUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Decred WalletUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDB660F42486BABB0060B0C5 /* Decred_WalletUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decred_WalletUITests.swift; sourceTree = "<group>"; };
@@ -592,8 +588,6 @@
 				B3B46A4F228F0F7B00A68EDD /* Utils.swift */,
 				DD4948EB22C0E400006A35F8 /* LocalizedStrings.swift */,
 				AD24C23C2343E445009583C9 /* NotificationsManager.swift */,
-				DDAE90FF2435086B00FEC016 /* KeychainWrapper.swift */,
-				DDAE91012435092200FEC016 /* KeychainItemAccessibility.swift */,
 				DDAE91032435092200FEC016 /* ErrorMessageForLA.swift */,
 			);
 			path = Utils;
@@ -1325,7 +1319,6 @@
 				DDE2374623BA386C00C2A94F /* MoreMenuViewController.swift in Sources */,
 				B3B469FD228F0F2700A68EDD /* UIViewController.swift in Sources */,
 				DD4948EC22C0E400006A35F8 /* LocalizedStrings.swift in Sources */,
-				DDAE91002435086B00FEC016 /* KeychainWrapper.swift in Sources */,
 				10D9FB9323C3956300CBF216 /* FloatingPlaceholderTextField.swift in Sources */,
 				10341E0923CBBB700055DFDE /* SeedBackupVerifyViewController.swift in Sources */,
 				B3E727CC23DD506E003B06B4 /* WalletsViewController.swift in Sources */,
@@ -1379,7 +1372,6 @@
 				6007D38B24F406AA000EC5CB /* Response.swift in Sources */,
 				25A4331C2373D0330018FFCF /* SyncManager.swift in Sources */,
 				B3B46AAC228F0F7D00A68EDD /* RecoveryWalletSeedWordCell.swift in Sources */,
-				DDAE91022435092200FEC016 /* KeychainItemAccessibility.swift in Sources */,
 				B3B46A39228F0F2700A68EDD /* StartupPinOrPassword.swift in Sources */,
 				B3B46A8F228F0F7D00A68EDD /* ConfirmToSendFundViewController.swift in Sources */,
 				60E853A425B4805200E4CFDD /* PeerInfo.swift in Sources */,
@@ -1526,7 +1518,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1612,7 +1604,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				OTHER_SWIFT_FLAGS = "-DIsTestnet";
@@ -1704,7 +1696,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1761,7 +1753,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

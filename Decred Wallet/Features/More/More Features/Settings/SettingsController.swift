@@ -11,6 +11,7 @@ import UIKit
 import JGProgressHUD
 import Dcrlibwallet
 import LocalAuthentication
+import SwiftKeychainWrapper
 
 class SettingsController: UITableViewController  {
     @IBOutlet weak var changeStartPINCell: UITableViewCell!
