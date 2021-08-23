@@ -226,6 +226,9 @@ class OverviewViewController: UIViewController {
         let totalWalletAmount = multiWallet.totalBalance
         let totalAmountRoundedOff = (Decimal(totalWalletAmount) as NSDecimalNumber).round(8)
         self.balanceLabel.attributedText = Utils.getAttributedString(str: "\(totalAmountRoundedOff)", siz: 17.0, TexthexColor: UIColor.appColors.darkBlue)
+        if Settings.currencyConversionOption != .None {
+            displayExchangeRate(self.exchangeRate)
+        }
         self.setMixerStatus()
     }
     
