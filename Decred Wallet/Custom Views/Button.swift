@@ -23,11 +23,13 @@ class Button: UIButton {
 		let loaderIcon = UIImageView()
 		loaderIcon.translatesAutoresizingMaskIntoConstraints = false
 		loaderIcon.image = UIImage(named: "btn_spinner")
+        loaderIcon.tintColor = UIColor.appColors.text2
 		return loaderIcon
 	}()
 	lazy private var loaderView: UIView = {
 		let loaderView = UIView()
 		loaderView.isHidden = true
+        loaderView.backgroundColor = .clear
 		self.addSubview(loaderView)
 
 		loaderView.translatesAutoresizingMaskIntoConstraints = false

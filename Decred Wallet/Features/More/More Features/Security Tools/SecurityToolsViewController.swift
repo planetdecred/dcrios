@@ -31,7 +31,7 @@ class SecurityToolsViewController: UIViewController, UITableViewDataSource, UITa
         
         //setup rightBar button
         let infoBtn = UIButton(type: .custom)
-        infoBtn.setImage(UIImage(named: "info"), for: .normal)
+        infoBtn.setImage(UIImage(named: "ic_info"), for: .normal)
         infoBtn.addTarget(self, action: #selector(pageInfo), for: .touchUpInside)
         infoBtn.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
         let infoBtnBtnItem:UIBarButtonItem = UIBarButtonItem(customView: infoBtn)

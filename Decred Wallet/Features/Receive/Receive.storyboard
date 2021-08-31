@@ -17,7 +17,7 @@
         <!--Receive View Controller-->
         <scene sceneID="adq-KJ-u5Z">
             <objects>
-                <viewController storyboardIdentifier="ReceiveViewController" id="pwN-Wv-Ioh" customClass="ReceiveViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ReceiveViewController" interfaceStyle="dark" id="pwN-Wv-Ioh" customClass="ReceiveViewController" customModule="Decred_Wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IWZ-ke-U66">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -49,6 +49,7 @@
                                     <constraint firstAttribute="width" constant="24" id="VSA-V5-Rzn"/>
                                     <constraint firstAttribute="height" constant="24" id="ph5-tv-eXR"/>
                                 </constraints>
+                                <color key="tintColor" name="text2"/>
                                 <state key="normal" image="ic_more"/>
                                 <connections>
                                     <action selector="moreMenuButtonTapped:" destination="pwN-Wv-Ioh" eventType="touchUpInside" id="J0Q-ux-7Ib"/>
@@ -60,6 +61,7 @@
                                     <constraint firstAttribute="width" constant="24" id="C2F-PE-Gfy"/>
                                     <constraint firstAttribute="height" constant="24" id="bOY-a6-1IC"/>
                                 </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" image="ic_info"/>
                                 <connections>
                                     <action selector="infoMenuButtonTapped:" destination="pwN-Wv-Ioh" eventType="touchUpInside" id="MVv-9M-4VQ"/>

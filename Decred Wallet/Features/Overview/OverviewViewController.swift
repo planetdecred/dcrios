@@ -335,6 +335,7 @@ class OverviewViewController: UIViewController {
             self.syncConnectionButton.setImage(UIImage(named: "ic_rescan"), for: .normal)
             self.syncConnectionButton.imageView?.contentMode = .scaleAspectFit
         }
+        self.syncConnectionButton.layer.borderColor = UIColor.appColors.border.cgColor
     }
     
     private func clearAndHideSyncDetails() {
