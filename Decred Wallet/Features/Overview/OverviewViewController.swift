@@ -405,12 +405,7 @@ class OverviewViewController: UIViewController {
         }
         
         self.seedBackupSectionView.isHidden = false
-        if numWalletsNeedingSeedBackup == 1 {
-            self.walletsNeedBackupLabel.text = LocalizedStrings.oneWalletNeedBackup
-        } else {
-            self.walletsNeedBackupLabel.text = String(format: LocalizedStrings.walletsNeedBackup,
-                                                      numWalletsNeedingSeedBackup)
-        }
+        self.walletsNeedBackupLabel.text = LocalizedStrings.walletsNeedBackup
     }
 
     func checkWhetherToPromptForAccountMixing() {
