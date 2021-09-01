@@ -148,7 +148,7 @@ class DropMenuButton: UIButton, UITableViewDelegate, UITableViewDataSource
             containerView.layer.shadowOffset = CGSize(width: -2, height: 5)
             containerView.layer.shadowRadius = 6
             containerView.layer.shadowOpacity = 0.8
-            containerView.layer.shadowColor = UIColor.lightGray.cgColor
+            containerView.layer.shadowColor = UIColor.appColors.shadowColor2.cgColor
 
             addTarget(self, action: #selector(DropMenuButton.showItems), for: .touchUpInside)
             containerView.addSubview(self.viewGesture)

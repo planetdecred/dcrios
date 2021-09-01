@@ -43,6 +43,7 @@ extension UIColor {
         static let text4 = UIColor.init(named: "text4")!
         static let text2 = UIColor.init(named: "text2")!
         static let text3 = UIColor.init(named: "text3")!
+        static let shadowColor2 = UIColor.init(named: "shadowColor2")!
         
         static let surface = UIColor.init(named: "surface")!
         static let surfaceRipple = UIColor.init(named: "surfaceRipple")!

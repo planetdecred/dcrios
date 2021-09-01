@@ -23,31 +23,31 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YI3-dZ-TVN" customClass="RoundedView" customModule="Decred_Wallet" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="426" height="354.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="426" height="351.5"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="p4H-85-xXK">
-                                <rect key="frame" x="0.0" y="0.0" width="426" height="354.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="426" height="351.5"/>
                                 <subviews>
                                     <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="4OU-1s-YCs">
-                                        <rect key="frame" x="0.0" y="0.0" width="426" height="70.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="426" height="67.5"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_expand_fill" translatesAutoresizingMaskIntoConstraints="NO" id="dbg-cF-htv">
-                                                <rect key="frame" x="16" y="16" width="6" height="38.5"/>
+                                                <rect key="frame" x="16" y="16" width="6" height="35.5"/>
                                             </imageView>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nav_menu/ic_wallet" translatesAutoresizingMaskIntoConstraints="NO" id="Y78-w0-8zd">
-                                                <rect key="frame" x="30" y="16" width="24" height="38.5"/>
+                                                <rect key="frame" x="30" y="16" width="24" height="35.5"/>
                                             </imageView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="BOt-b0-4q7">
-                                                <rect key="frame" x="62" y="16" width="85" height="38.5"/>
+                                                <rect key="frame" x="62" y="16" width="93" height="35.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wallet 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uPf-yg-DII">
-                                                        <rect key="frame" x="0.0" y="0.0" width="85" height="20.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="93" height="19"/>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                                         <color key="textColor" name="text1"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Not backed up" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="QMr-qk-cAa">
-                                                        <rect key="frame" x="0.0" y="20.5" width="85" height="18"/>
+                                                        <rect key="frame" x="0.0" y="19" width="93" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                                         <color key="textColor" red="0.92941176469999998" green="0.42745098040000001" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -58,13 +58,13 @@
                                                 </subviews>
                                             </stackView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="0.00 DCR" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tdl-Ng-y9r">
-                                                <rect key="frame" x="155" y="16" width="223" height="38.5"/>
+                                                <rect key="frame" x="163" y="16" width="215" height="35.5"/>
                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                                 <color key="textColor" name="text4"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dha-hr-I4A" customClass="DropMenuButton" customModule="Decred_Wallet" customModuleProvider="target">
-                                                <rect key="frame" x="386" y="16" width="24" height="38.5"/>
+                                                <rect key="frame" x="386" y="16" width="24" height="35.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="24" id="5FV-Ek-O4f"/>
                                                 </constraints>
@@ -74,14 +74,14 @@
                                         <edgeInsets key="layoutMargins" top="16" left="16" bottom="16" right="16"/>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cTJ-ay-uAp">
-                                        <rect key="frame" x="16" y="70.5" width="410" height="1"/>
+                                        <rect key="frame" x="16" y="67.5" width="410" height="1"/>
                                         <color key="backgroundColor" name="colorDivider"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="kUw-qM-YjG"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OnS-85-hCg">
-                                        <rect key="frame" x="0.0" y="71.5" width="426" height="157"/>
+                                        <rect key="frame" x="0.0" y="68.5" width="426" height="157"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AO5-VU-vlo">
                                                 <rect key="frame" x="44" y="0.0" width="366" height="1"/>
@@ -131,7 +131,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hvj-xX-0DC">
-                                        <rect key="frame" x="0.0" y="228.5" width="426" height="34"/>
+                                        <rect key="frame" x="0.0" y="225.5" width="426" height="34"/>
                                         <subviews>
                                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qBN-LL-oGQ">
                                                 <rect key="frame" x="0.0" y="0.0" width="410" height="34"/>
@@ -157,7 +157,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UZs-m8-ULO">
-                                        <rect key="frame" x="0.0" y="262.5" width="426" height="92"/>
+                                        <rect key="frame" x="0.0" y="259.5" width="426" height="92"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_wallet_alert" translatesAutoresizingMaskIntoConstraints="NO" id="fn0-3O-GPl">
                                                 <rect key="frame" x="16" y="16" width="24" height="24"/>
@@ -257,10 +257,10 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                     <view hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NhB-6H-COO" customClass="TooltipView" customModule="Decred_Wallet" customModuleProvider="target">
-                        <rect key="frame" x="274" y="50" width="133" height="38"/>
+                        <rect key="frame" x="265.5" y="47" width="141.5" height="38"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Setup privacy here" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G1H-kV-fMf">
-                                <rect key="frame" x="12" y="12" width="109" height="14"/>
+                                <rect key="frame" x="12" y="12" width="117.5" height="14"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="14" id="Q2h-dV-5VH"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="uCn-K6-Bgt"/>
