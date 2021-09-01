@@ -226,6 +226,9 @@ class OverviewViewController: UIViewController {
         let totalWalletAmount = multiWallet.totalBalance
         let totalAmountRoundedOff = (Decimal(totalWalletAmount) as NSDecimalNumber).round(8)
         self.balanceLabel.attributedText = Utils.getAttributedString(str: "\(totalAmountRoundedOff)", siz: 17.0, TexthexColor: UIColor.appColors.text1)
+        if Settings.currencyConversionOption != .None {
+            displayExchangeRate(self.exchangeRate)
+        }
         self.setMixerStatus()
     }
     
@@ -403,12 +406,7 @@ class OverviewViewController: UIViewController {
         }
         
         self.seedBackupSectionView.isHidden = false
-        if numWalletsNeedingSeedBackup == 1 {
-            self.walletsNeedBackupLabel.text = LocalizedStrings.oneWalletNeedBackup
-        } else {
-            self.walletsNeedBackupLabel.text = String(format: LocalizedStrings.walletsNeedBackup,
-                                                      numWalletsNeedingSeedBackup)
-        }
+        self.walletsNeedBackupLabel.text = LocalizedStrings.walletsNeedBackup
     }
 
     func checkWhetherToPromptForAccountMixing() {
@@ -427,7 +425,7 @@ class OverviewViewController: UIViewController {
                 activeMixers += 1
                 WalletID = wallet.id_
                  let wallet  = multiWallet.wallet(withID: WalletID)
-                 if let unmixedAccountNumber = wallet?.readInt32ConfigValue(forKey: Dcrlibwallet.DcrlibwalletAccountMixerUnmixedAccount, defaultValue: -1) {
+                if let unmixedAccountNumber = wallet?.readInt32ConfigValue(forKey: DcrlibwalletAccountMixerUnmixedAccount, defaultValue: -1) {
                      do {
                         if let balance  =  try wallet?.getAccountBalance(unmixedAccountNumber) {
                             let mxAccount = MixerAcount(name: wallet?.name, balance: "\(balance.dcrTotal) DCR")
