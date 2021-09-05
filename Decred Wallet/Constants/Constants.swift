@@ -28,6 +28,7 @@ struct GlobalConstants {
         static let HAS_SETUP_PRIVACY = "has_setup_privacy"
         static let BADGER = "badgerdb"
         static let BDB = "bdb"
+        static let COLORTHEME = "color_theme"
     }
     
     struct Wallet {

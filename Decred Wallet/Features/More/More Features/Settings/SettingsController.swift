@@ -27,6 +27,8 @@ class SettingsController: UITableViewController  {
     @IBOutlet weak var currencySubtitleLabel: UILabel!
     @IBOutlet weak var connectIpLabel: UILabel!
     @IBOutlet weak var biometricTypeLabel: UILabel!
+    @IBOutlet weak var colorThemeCell: UITableViewCell!
+    @IBOutlet weak var colorThemeSubtitleLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,6 +102,15 @@ class SettingsController: UITableViewController  {
             self.currencySubtitleLabel?.text = LocalizedStrings.none
         case .Bittrex:
             self.currencySubtitleLabel?.text = "USD (bittrex)"
+        }
+        
+        switch Settings.colorThemeOption {
+        case .deviceDefault:
+            self.colorThemeSubtitleLabel.text = LocalizedStrings.deviceDefault
+        case .light:
+            self.colorThemeSubtitleLabel?.text = LocalizedStrings.light
+        case .dark:
+            self.colorThemeSubtitleLabel?.text = LocalizedStrings.dark
         }
     }
     
@@ -189,6 +200,19 @@ class SettingsController: UITableViewController  {
                 }
             } else {
                 isBiometricSupported = false
+            }
+        }
+        if indexPath.section == 0 {
+            switch indexPath.row {
+            case 0:
+                if #available(iOS 13.0, *) {
+                    return 44
+                } else {
+                    return 0
+                }
+                
+            default:
+                return 44
             }
         }
         
