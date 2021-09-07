@@ -45,7 +45,6 @@ class TabMenuItemView: UIView {
     
     func display(menuItemIcon: UIImage) {
         self.iconView.image = menuItemIcon.withRenderingMode(.automatic)
-        //self.iconView.alpha = 0.5
         self.iconView.translatesAutoresizingMaskIntoConstraints = false
         self.iconView.clipsToBounds = true
         
@@ -86,7 +85,6 @@ class TabMenuItemView: UIView {
     
     // Sets this menu item icon alpha to 1 and adds a top border to this view.
     func activate() {
-       // self.iconView.alpha = 1.0
         
         let borderLayer = CALayer()
         borderLayer.backgroundColor = UIColor.appColors.green.cgColor
@@ -101,7 +99,6 @@ class TabMenuItemView: UIView {
     
     // Sets this menu item icon alpha to 0.5 and removes the top border previously added to this view.
     func deactivate() {
-        //self.iconView.alpha = 0.5
         
         let borderLayers = self.layer.sublayers!.filter({ $0.name == "active border" })
         UIView.animate(withDuration: 0.4, delay: 0.0, options: [.curveEaseIn, .allowUserInteraction], animations: {

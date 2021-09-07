@@ -61,12 +61,10 @@ class PoliteiaDetailController: UIViewController {
         openBrowserButton.setImage(UIImage(named: "ic_open_browser"), for: .normal)
         openBrowserButton.addTarget(self, action: #selector(openButtonTapped), for: .touchUpInside)
         openBrowserButton.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
-        openBrowserButton.imageEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
         
         let shareButton = UIButton(type: .custom)
         shareButton.setImage(UIImage(named: "ic_share_black"), for: .normal)
         shareButton.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
-        shareButton.imageEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
         shareButton.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
         
         let stackview = UIStackView.init(arrangedSubviews: [openBrowserButton, shareButton])
@@ -88,6 +86,7 @@ class PoliteiaDetailController: UIViewController {
                     if let poli = result!.0 {
                         self.politeia = poli
                         self.displayData()
+                        self.contentTextView.textColor = UIColor.appColors.text1
                     }
                 }
             }
