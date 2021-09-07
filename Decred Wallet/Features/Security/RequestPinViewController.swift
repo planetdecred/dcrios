@@ -96,6 +96,7 @@ class RequestPinViewController: SecurityCodeRequestBaseViewController {
         } else {
             self.enterPinLabel.text = String(format: LocalizedStrings.enterPIN,
                                              self.request.for.localizedString.lowercased())
+            self.btnSubmit.isEnabled = true
         }
     }
     
@@ -181,7 +182,7 @@ class RequestPinViewController: SecurityCodeRequestBaseViewController {
             guard let currentAndNewCodesEnteredCallback = self.callbacks.onCurrentAndNewCodesEntered else {
                 self.btnBack?.isEnabled = false
                 self.btnCancel?.isEnabled = false
-                self.btnSubmit.isEnabled = false
+                self.btnSubmit.isEnabled = !self.request.isChangeAttempt
                 self.btnSubmit.startLoading()
                 self.callbacks.onLoadingStatusChanged?(true)
                 let securityTypeCheck = self.pinHiddenInput.keyboardType == .decimalPad
@@ -241,6 +242,9 @@ class RequestPinViewController: SecurityCodeRequestBaseViewController {
                 self.hideError()
                 self.pinHiddenInput.isEnabled = true
                 self.pinHiddenInput.becomeFirstResponder()
+                if !self.request.isChangeAttempt {
+                    self.btnSubmit.isEnabled = true
+                }
             }
         }
     }

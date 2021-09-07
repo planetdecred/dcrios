@@ -63,6 +63,7 @@ class RequestPasswordViewController: SecurityCodeRequestBaseViewController, UITe
                                                     self.request.for.localizedString)
 
             self.btnSubmit.setTitle(self.request.submitBtnText ?? LocalizedStrings.create, for: .normal)
+            self.btnSubmit.isEnabled = true
         }
         
         self.passwordInput.isSecureTextEntry = true
@@ -110,7 +111,7 @@ class RequestPasswordViewController: SecurityCodeRequestBaseViewController, UITe
         if self.request.requestConfirmation {
             self.checkPasswordMatch()
         } else {
-            self.btnSubmit.isEnabled = password != ""
+            self.btnSubmit.isEnabled = self.request.isChangeAttempt ? password != "" : !self.request.isChangeAttempt
         }
     }
 
@@ -163,7 +164,7 @@ class RequestPasswordViewController: SecurityCodeRequestBaseViewController, UITe
 
         if password.length == 0 {
             self.showMessageDialog(title: LocalizedStrings.error, message: LocalizedStrings.emptyPasswordNotAllowed)
-            btnSubmit.isEnabled = false
+            btnSubmit.isEnabled = !self.request.isChangeAttempt
             return false
         }
 
@@ -187,7 +188,7 @@ class RequestPasswordViewController: SecurityCodeRequestBaseViewController, UITe
         // Disable buttons and return password if `onCurrentAndNewCodesEntered` callback is NOT set.
         guard let currentAndNewCodesEnteredCallback = self.callbacks.onCurrentAndNewCodesEntered else {
             self.btnCancel?.isEnabled = false
-            self.btnSubmit.isEnabled = false
+            self.btnSubmit.isEnabled = !self.request.isChangeAttempt
             self.btnSubmit.startLoading()
             self.callbacks.onLoadingStatusChanged?(true)
             self.callbacks.onSecurityCodeEntered?(password, .password, self)
@@ -221,6 +222,9 @@ class RequestPasswordViewController: SecurityCodeRequestBaseViewController, UITe
                 self.passwordInput.text = ""
                 self.hideError()
                 self.passwordInput.isEnabled = true
+                if !self.request.isChangeAttempt {
+                    self.btnSubmit.isEnabled = true
+                }
                 self.passwordInput.becomeFirstResponder()
             }
 
