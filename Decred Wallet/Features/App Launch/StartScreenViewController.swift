@@ -62,6 +62,11 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
                 Utils.showBanner(in: self.view, type: .error, text: "init multiwallet error: \(initError!.localizedDescription)")
             }
         }
+       
+        
+        if #available(iOS 13.0, *) {
+            self.setTheme()
+        }
         
         if SingleToMultiWalletMigration.migrationNeeded {
             self.loadingLabel.text = LocalizedStrings.migratingWallet
@@ -85,6 +90,21 @@ class StartScreenViewController: UIViewController, CAAnimationDelegate {
                 }
             }
             self.startTimerWhenViewAppears = false
+        }
+    }
+    
+    @available(iOS 13.0, *)
+    func setTheme() {
+        guard let window = AppDelegate.shared.window else {
+            return
+        }
+        switch Settings.colorThemeOption {
+        case .deviceDefault:
+            window.overrideUserInterfaceStyle = .unspecified
+        case .light:
+            window.overrideUserInterfaceStyle = .light
+        case .dark:
+            window.overrideUserInterfaceStyle = .dark
         }
     }
     
