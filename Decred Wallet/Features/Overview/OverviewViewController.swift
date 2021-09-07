@@ -194,7 +194,7 @@ class OverviewViewController: UIViewController {
         self.recentTransactionsTableView.dataSource = self
 
         self.totalSyncProgressView.layer.cornerRadius = 8
-        self.showSyncDetailsButton.addBorder(atPosition: .top, color: UIColor.appColors.surfaceRipple, thickness: 0.62)
+        self.showSyncDetailsButton.horizontalBorder(borderColor: UIColor.appColors.surfaceRipple, yPosition: 0, borderHeight: 0.62)
         self.syncDetailsSection.horizontalBorder(borderColor: UIColor.appColors.surfaceRipple, yPosition: 0, borderHeight: 0.62)
         
         //mixers tableview
