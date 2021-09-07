@@ -161,7 +161,10 @@ class RequestPinViewController: SecurityCodeRequestBaseViewController {
     
 
     @IBAction func onSubmit(_ sender: UIButton) {
-        guard let pinText = self.pinHiddenInput.text, !pinText.isEmpty else { return }
+        let pinText = self.pinHiddenInput.text ?? ""
+        if self.request.isChangeAttempt {
+            if (pinText.isEmpty) { return }
+        }
 
         if self.request.requestConfirmation && self.pinToConfirm.isEmpty {
             self.pinToConfirm = pinText
